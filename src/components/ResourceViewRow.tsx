@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 
 export interface Props {
@@ -5,8 +6,7 @@ export interface Props {
   amount?: number;
 }
 
-function ResourceViewRow({ name, amount = 1 }: Props) {
-  
+function ResourceViewRow({ name, amount = 1 }: Props) {  
     const display = name + ":" + amount
     return ( 
         <div>

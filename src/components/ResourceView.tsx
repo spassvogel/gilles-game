@@ -1,15 +1,15 @@
 import * as React from 'react';
-import ResourceViewRow from './ResourceViewRow';
+import ResourceViewRow from '../containers/ResourceViewRow';
 
 
 function ResourceView() {
 
     return (
         <div>
-            <ResourceViewRow name="crossbow" amount={3} />
-            <ResourceViewRow name="longbow" amount={4} /> 
-            <ResourceViewRow name="sword" amount={5} /> 
-            <ResourceViewRow name="dagger" amount={6} /> 
+            <ResourceViewRow name="crossbows"/>
+            <ResourceViewRow name="longbows" /> 
+            <ResourceViewRow name="swords" /> 
+            <ResourceViewRow name="daggers"/> 
         </div>
     );
 }
