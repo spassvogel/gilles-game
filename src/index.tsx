@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
-import Hello from './components/Hello';
+import ResourceView from './components/ResourceView';
 
 ReactDOM.render(
-    <Hello name="gilles" enthusiasmLevel={10} />,
+    <ResourceView />,
     document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();
