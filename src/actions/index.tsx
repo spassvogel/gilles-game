@@ -1,5 +1,5 @@
 import * as constants from '../constants';
-import { Resources } from '../types';
+import { Weapons } from '../types';
 
 export interface IncrementResource {
     type: constants.INCREMENT_RESOURCE;
@@ -12,12 +12,12 @@ export interface IncrementResource {
 export function incrementCrossbows(): IncrementResource {
     return {
         type: constants.INCREMENT_RESOURCE,
-        resource: Resources.CROSSBOWS
+        resource: Weapons.CROSSBOWS
     }
 }
 export function incrementLongbows(): IncrementResource {
     return {
         type: constants.INCREMENT_RESOURCE,
-        resource: Resources.LONGBOWS
+        resource: Weapons.LONGBOWS
     }
 }

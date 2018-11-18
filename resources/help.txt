@@ -1,1 +1,2 @@
 https://github.com/Microsoft/TypeScript-React-Starter
+https://github.com/markerikson/redux/blob/structuring-reducers-page/docs/recipes/StructuringReducers.md

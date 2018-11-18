@@ -1,8 +1,11 @@
 import { IncrementResource } from '../actions';
 import { StoreState } from '../types/index';
 import { INCREMENT_RESOURCE } from '../constants/index';
+import { combineReducers } from 'redux';
+import { weapons } from './weapons';
+//import { Reducer } from 'redux';
 
-// todo: should be 'weapons' instead?
+
 export function resources(state: StoreState, action: IncrementResource): StoreState {
     console.log(action.type);
     switch (action.type) {
@@ -16,3 +19,7 @@ export function resources(state: StoreState, action: IncrementResource): StoreSt
     } 
   return state;
 }
+
+export default combineReducers<StoreState>({
+    weapons: weapons
+}); 

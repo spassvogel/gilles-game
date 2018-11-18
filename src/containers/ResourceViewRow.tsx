@@ -7,8 +7,13 @@ import { connect } from 'react-redux';
 //import { Dispatch } from 'redux';
 
 export function mapStateToProps(store:StoreState, ownProps:Props) {
+    if(store.weapons){
+        return {
+            amount: store.weapons[ownProps.name]
+        }
+    }
     return {
-        amount: store[ownProps.name]
+        
     }
 }
 
