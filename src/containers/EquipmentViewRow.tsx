@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 export function mapStateToProps(store:StoreState, ownProps:Props) {
     if(store.equipment){
         return {
-            amount: store.resources[ownProps.name]
+            amount: store.equipment[ownProps.name]
         }
     }
     return {

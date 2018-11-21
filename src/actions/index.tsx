@@ -1,23 +1,37 @@
 import * as constants from '../constants';
-import { Weapons } from '../types';
+import { Weapons } from '../stores'; // todo: refactor
 
 export interface IncrementResource {
     type: constants.INCREMENT_RESOURCE;
     resource: string
 }
 
+export interface SetStructureAmount {
+    type: constants.SET_STRUCTURE_AMOUNT;
+    structure: string,
+    amount: number
+}
 
-//export type IncrementResource = IncrementResource // | others
+//export type IncrementSomething = IncrementStructure | IncrementResource; // UNUSED?
+export type StructureAction = SetStructureAmount; // UNUSED?
 
-export function incrementCrossbows(): IncrementResource {
+export function setStructureAmount(structure:string, amount:number): SetStructureAmount {
     return {
-        type: constants.INCREMENT_RESOURCE,
-        resource: Weapons.CROSSBOWS
+        type: constants.SET_STRUCTURE_AMOUNT,
+        structure,
+        amount
     }
 }
-export function incrementLongbows(): IncrementResource {
-    return {
-        type: constants.INCREMENT_RESOURCE,
-        resource: Weapons.LONGBOWS
-    }
-}
+
+// export function incrementCrossbows(): IncrementResource {
+//     return {
+//         type: constants.INCREMENT_RESOURCE,
+//         resource: Weapons.CROSSBOWS
+//     }
+// }
+// export function incrementLongbows(): IncrementResource {
+//     return {
+//         type: constants.INCREMENT_RESOURCE,
+//         resource: Weapons.LONGBOWS
+//     }
+// }

@@ -2,21 +2,17 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
-import ResourceView from './components/ResourceView';
+import ResourceView from './components/TempView';
 import { createStore } from 'redux';
 import  rootReducer from './reducers/index';
-import { StoreState } from './types/index';
+import { StoreState } from './stores';
 import { Provider } from 'react-redux';
-import * as actions from './actions/';
+//import * as actions from './actions/';
+import * as gameTickActions from './actions/game';
 //import { Weapons } from './types';
 
 rootReducer
-const store = createStore<StoreState, any, any, any>(rootReducer, {
-    // [Weapons.CROSSBOWS]: 3,
-    // [Weapons.LONGBOWS]: 2,
-    // [Weapons.SWORDS]: 4,
-    // [Weapons.DAGGERS]: 2
-});
+const store = createStore<StoreState, any, any, any>(rootReducer, {});
 
 ReactDOM.render(
     <Provider store={store}>
@@ -26,9 +22,22 @@ ReactDOM.render(
 );
 registerServiceWorker();
 
+
 setInterval(() => {
+//    console.log();
+    var state:StoreState = store.getState();
+//    state.
+    //updateStructures();
+//    store.dispatch(gameTickActions.gameTick())
+}, 500);
+
+/*setInterval(() => {
     store.dispatch(actions.incrementCrossbows())
 }, 500)
 setInterval(() => {
     store.dispatch(actions.incrementLongbows())
-}, 700)
+}, 700)*/
+/*
+updateStructures() {
+    
+}*/

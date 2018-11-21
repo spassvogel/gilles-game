@@ -1,21 +1,15 @@
 import { Reducer } from 'redux';
-import { WeaponsStoreState } from '../types/index';
+import { EquipmentStoreState, initialState } from '../stores/equipment';
 import { INCREMENT_RESOURCE } from '../constants/index';
 import { IncrementResource } from '../actions';
 
 
-let initialWeaponsState:WeaponsStoreState = {
-    crossbows: 0,
-    daggers: 0,
-    longbows: 0,
-    swords: 0
-}
 /**
  * Weapons reducer
  * @param state 
  * @param action 
  */
-export const weapons : Reducer<WeaponsStoreState> = (state:WeaponsStoreState = initialWeaponsState, action: IncrementResource) => {
+export const equipment : Reducer<EquipmentStoreState> = (state:EquipmentStoreState = initialState, action: IncrementResource) => {
     switch (action.type) {
         case INCREMENT_RESOURCE:
             if(state[action.resource] === undefined) return state;
