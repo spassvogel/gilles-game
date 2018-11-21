@@ -8,6 +8,10 @@ export interface Props {
   requirements: ResourceStoreState
 }
 
+/**
+ * Formats the requirements for this equipment in a nice string
+ * @param requirements 
+ */
 const makeRequirementString = (requirements: ResourceStoreState) : string => {
     return Object.keys(requirements).reduce((accumulator:Array<string>, value) => {
         if(requirements[value]) accumulator.push(`${value}: ${requirements[value]}`);

@@ -9,8 +9,8 @@ export interface StructuresStoreState {
     alchemists: number,
 }
 export const initialState:StructuresStoreState = {
-    lumberMills: 0,
-    ironMines: 0,
+    lumberMills: 2,
+    ironMines: 1,
     forges: 0,
     blacksmiths: 0,
     stables: 0,
