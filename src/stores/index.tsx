@@ -7,11 +7,3 @@ export interface StoreState {
     equipment: EquipmentStoreState,
     structures: StructuresStoreState
 }
-
-
-export const Weapons = {
-    CROSSBOWS: 'crossbows',
-    LONGBOWS: 'longbows',
-    SWORDS: 'swords',
-    DAGGERS: 'daggers',
-};

@@ -1,9 +1,9 @@
 import * as constants from '../constants';
-import { Weapons } from '../stores'; // todo: refactor
 
-export interface IncrementResource {
-    type: constants.INCREMENT_RESOURCE;
-    resource: string
+export interface AddResource {
+    type: constants.ADD_RESOURCE;
+    resource: string,
+    value: number
 }
 
 export interface SetStructureAmount {
@@ -22,6 +22,15 @@ export function setStructureAmount(structure:string, amount:number): SetStructur
         amount
     }
 }
+
+export function addResource(resource:string, value:number): AddResource {
+    return {
+        type: constants.ADD_RESOURCE,
+        resource,
+        value
+    }
+}
+
 
 // export function incrementCrossbows(): IncrementResource {
 //     return {

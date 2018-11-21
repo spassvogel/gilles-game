@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
 import { StructuresStoreState, initialState } from '../stores/structures';
-import { INCREMENT_RESOURCE, SET_STRUCTURE_AMOUNT } from '../constants/index';
-import { SetStructureAmount, StructureAction } from '../actions';
+import { SET_STRUCTURE_AMOUNT } from '../constants/index';
+import { StructureAction } from '../actions';
 
 
 /**

@@ -7,7 +7,7 @@ import { createStore } from 'redux';
 import  rootReducer from './reducers/index';
 import { StoreState } from './stores';
 import { Provider } from 'react-redux';
-//import * as actions from './actions/';
+import * as actions from './actions/';
 import * as gameTickActions from './actions/game';
 //import { Weapons } from './types';
 
@@ -22,22 +22,31 @@ ReactDOM.render(
 );
 registerServiceWorker();
 
+// Will generate resources based on the structures built
+const updateStructures = () => {
+    // Very temporary
+    var state:StoreState = store.getState();
+    //console.log(state.structures);
+    for(let i = 0; i < state.structures.lumberMills; i++){
+        store.dispatch(actions.addResource('wood', 3));
+    }
+    for(let i = 0; i < state.structures.ironMines; i++){
+        store.dispatch(actions.addResource('iron', 2));
+    }
+    for(let i = 0; i < state.structures.farms; i++){
+        store.dispatch(actions.addResource('pigs', 1));
+    }
+    for(let i = 0; i < state.structures.alchemists; i++){
+        store.dispatch(actions.addResource('gunpowder', 3));
+    }
+}
+
 
 setInterval(() => {
-//    console.log();
-    var state:StoreState = store.getState();
+    
 //    state.
-    //updateStructures();
+    updateStructures();
 //    store.dispatch(gameTickActions.gameTick())
 }, 500);
 
-/*setInterval(() => {
-    store.dispatch(actions.incrementCrossbows())
-}, 500)
-setInterval(() => {
-    store.dispatch(actions.incrementLongbows())
-}, 700)*/
-/*
-updateStructures() {
-    
-}*/
+

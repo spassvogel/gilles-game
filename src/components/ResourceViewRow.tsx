@@ -7,10 +7,10 @@ export interface Props {
 }
 
 export default function({ name, amount = 1 }: Props) {  
-    const display = name + ":" + amount
     return ( 
         <div>
-            { display}
+            <label> { name }</label>
+            { amount }
         </div>
     );
 }

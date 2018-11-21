@@ -1,5 +1,5 @@
 
-import ResourceViewRow,  { Props }  from '../components/ResourceViewRow';
+import EquipmentViewRow,  { Props }  from '../components/EquipmentViewRow';
 import { StoreState } from '../stores';
 import { connect } from 'react-redux';
 
@@ -21,4 +21,4 @@ export function mapStateToProps(store:StoreState, ownProps:Props) {
 //   }
 // }
 
-export default connect(mapStateToProps)(ResourceViewRow);
+export default connect(mapStateToProps)(EquipmentViewRow);

@@ -1,3 +1,12 @@
 .temp-view {
     width: 300px;
 }
+
+.temp-view label {
+    width: 207px;
+    display: inline-block;
+}
+
+.temp-view input[type=number] {
+    width: 50px;
+}

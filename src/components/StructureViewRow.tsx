@@ -21,7 +21,12 @@ export default function(props: Props) {
     return ( 
         <div className="structure-view-row">
             <label>{ props.name } </label>
-            <input type="number" value={ props.amount} onChange={handleChange}></input>
+            <input type="number" 
+                value={props.amount} 
+                onChange={handleChange}
+                min={0}
+                max={100}
+            ></input>
         </div>
     );
 }

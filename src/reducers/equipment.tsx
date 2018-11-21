@@ -1,6 +1,5 @@
 import { Reducer } from 'redux';
 import { EquipmentStoreState, initialState } from '../stores/equipment';
-import { INCREMENT_RESOURCE } from '../constants/index';
 import { StructureAction } from 'src/actions';
 
 
