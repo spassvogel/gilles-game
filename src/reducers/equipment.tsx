@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
 import { EquipmentStoreState, initialState } from '../stores/equipment';
 import { INCREMENT_RESOURCE } from '../constants/index';
-import { IncrementResource } from '../actions';
+import { IncrementStructure } from '../actions';
 
 
 /**
@@ -9,7 +9,7 @@ import { IncrementResource } from '../actions';
  * @param state 
  * @param action 
  */
-export const equipment : Reducer<EquipmentStoreState> = (state:EquipmentStoreState = initialState, action: IncrementResource) => {
+export const equipment : Reducer<EquipmentStoreState> = (state:EquipmentStoreState = initialState, action: IncrementStructure) => {
     switch (action.type) {
         case INCREMENT_RESOURCE:
             if(state[action.resource] === undefined) return state;

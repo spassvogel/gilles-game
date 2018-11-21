@@ -1,4 +1,4 @@
-import { IncrementResource } from '../actions';
+import { IncrementStructure } from '../actions';
 import { StoreState } from '../stores';
 import { INCREMENT_RESOURCE } from '../constants/index';
 import { combineReducers } from 'redux';
