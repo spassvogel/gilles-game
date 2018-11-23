@@ -1,8 +1,10 @@
 
 import * as React from 'react';
+import { ResourceType } from 'src/definitions/resources';
 
 export interface Props {
-  name: string;
+  type: ResourceType;
+  name?: string,
   amount?: number;
 }
 

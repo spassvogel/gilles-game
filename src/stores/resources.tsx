@@ -4,14 +4,14 @@ export interface ResourceStoreState {
     steel?: number,
     leather?: number,
     gunpowder?: number,
-    pigs?: number
+    food?: number
 }
 
 export const initialState:ResourceStoreState = {
-    wood: 0,
-    iron: 0,
+    wood: 3,
+    iron: 4,
     steel: 0,
     leather: 0,
     gunpowder: 0,
-    pigs: 0
+    food: 0
 }

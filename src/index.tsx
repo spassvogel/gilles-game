@@ -9,6 +9,7 @@ import { StoreState } from './stores';
 import { Provider } from 'react-redux';
 import * as actions from './actions/';
 import * as gameTickActions from './actions/game';
+import Topbar from './containers/Topbar';
 //import { Weapons } from './types';
 
 rootReducer
@@ -16,7 +17,10 @@ const store = createStore<StoreState, any, any, any>(rootReducer, {});
 
 ReactDOM.render(
     <Provider store={store}>
-     <ResourceView />
+        <div>
+            <Topbar/>
+            <ResourceView />
+        </div>
     </Provider>,
     document.getElementById('root') as HTMLElement
 );
@@ -27,7 +31,8 @@ const updateStructures = () => {
     // Very temporary
     var state:StoreState = store.getState();
     //console.log(state.structures);
-    for(let i = 0; i < state.structures.lumberMills; i++){
+    
+    /*for(let i = 0; i < state.structures.lumberMills; i++){
         store.dispatch(actions.addResource('wood', 3));
     }
     for(let i = 0; i < state.structures.ironMines; i++){
@@ -38,7 +43,7 @@ const updateStructures = () => {
     }
     for(let i = 0; i < state.structures.alchemists; i++){
         store.dispatch(actions.addResource('gunpowder', 3));
-    }
+    }*/
 }
 
 

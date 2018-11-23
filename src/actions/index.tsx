@@ -1,4 +1,5 @@
 import * as constants from '../constants';
+import { StructureType } from 'src/definitions/structures';
 
 export interface AddResource {
     type: constants.ADD_RESOURCE;
@@ -6,22 +7,7 @@ export interface AddResource {
     value: number
 }
 
-export interface SetStructureAmount {
-    type: constants.SET_STRUCTURE_AMOUNT;
-    structure: string,
-    amount: number
-}
 
-//export type IncrementSomething = IncrementStructure | IncrementResource; // UNUSED?
-export type StructureAction = SetStructureAmount; // UNUSED?
-
-export function setStructureAmount(structure:string, amount:number): SetStructureAmount {
-    return {
-        type: constants.SET_STRUCTURE_AMOUNT,
-        structure,
-        amount
-    }
-}
 
 export function addResource(resource:string, value:number): AddResource {
     return {

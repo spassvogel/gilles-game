@@ -1,4 +1,4 @@
-
+// OBSOLETE
 import * as React from 'react';
 import './css/structureviewrow.css';
 

@@ -1,20 +1,22 @@
+import { StructureStoreState } from './structure';
+
 export interface StructuresStoreState {
-    lumberMills: number,
-    ironMines: number,
-    forges: number,
-    blacksmiths: number,
-    stables: number,
-    tanneries: number,
-    farms: number,
-    alchemists: number,
+    lumberMill: StructureStoreState,
+    // ironMine: StructureStoreState,
+    // forge: StructureStoreState,
+    // blacksmith: StructureStoreState,
+    // stables: StructureStoreState,
+    // tannery: StructureStoreState,
+    farm: StructureStoreState,
+    // alchemist: StructureStoreState,
 }
 export const initialState:StructuresStoreState = {
-    lumberMills: 2,
-    ironMines: 1,
-    forges: 0,
-    blacksmiths: 0,
-    stables: 0,
-    tanneries: 0,
-    farms: 0,
-    alchemists: 0
+    lumberMill: { 
+        level: 0,
+        workers: 2
+    },
+    farm: { 
+        level: 0,
+        workers: 2
+    }
 }
