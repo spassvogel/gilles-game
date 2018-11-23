@@ -46,7 +46,7 @@ const updateStructures = () => {
     }*/
 }
 
-
+store.dispatch(actions.addGold(120)); 
 setInterval(() => {
     
 //    state.
