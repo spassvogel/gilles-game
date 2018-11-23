@@ -1,10 +1,10 @@
 export interface ResourceStoreState {
-    wood: number,
-    iron: number,
-    steel: number,
-    leather: number,
-    gunpowder: number,
-    pigs: number
+    wood?: number,
+    iron?: number,
+    steel?: number,
+    leather?: number,
+    gunpowder?: number,
+    pigs?: number
 }
 
 export const initialState:ResourceStoreState = {
