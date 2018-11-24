@@ -1,13 +1,14 @@
 import ResourceStructureView,  { Props, DispatchProps }  from '../components/ResourceStructureView';
 
 import * as actions from '../actions';
-import * as structureActions from '../actions/structures';
 import { StoreState } from '../stores';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { StructureStoreState } from '../stores/structure';
+import { subtractGold } from 'src/actions/gold';
+import { upgradeStructure, increaseWorkers, decreaseWorkers } from 'src/actions/structures';
 
-export function mapStateToProps(store:StoreState, ownProps:Props) {
+function mapStateToProps(store:StoreState, ownProps:Props) {
     const structureStore:StructureStoreState = store.structures[ownProps.type];
     return { 
         gold: store.gold,
@@ -16,17 +17,17 @@ export function mapStateToProps(store:StoreState, ownProps:Props) {
     }
 }
 
-export function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps:Props) : DispatchProps {
+function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps:Props) : DispatchProps {
     return {
         onUpgrade: (cost:number) => {
-            dispatch(actions.subtractGold(cost));
-            dispatch(structureActions.upgradeStructure(ownProps.type)); // Todo: time??
+            dispatch(subtractGold(cost));
+            dispatch(upgradeStructure(ownProps.type)); // Todo: time??
         },
         onWorkersUp: () => {
-            dispatch(structureActions.increaseWorkers(ownProps.type));  // Todo: decrease free??
+            dispatch(increaseWorkers(ownProps.type));  
         },
         onWorkersDown: () => {
-            dispatch(structureActions.decreaseWorkers(ownProps.type));  // Todo: decrease free??
+            dispatch(decreaseWorkers(ownProps.type)); 
         }
     }
 }

@@ -2,7 +2,6 @@ import * as constants from '../constants';
 import { StructureType } from 'src/definitions/structures';
 
 export enum ActionType {
-    addGold = "addGold",
     addWorkers = "addWorkers"
 }
 
@@ -26,25 +25,11 @@ export function addResource(resource:string, value:number): AddResource {
     }
 }
 
-export interface ModifyGoldAction extends Action {
-    value:number
-}
+
 export interface ModifyWorkersAction extends Action {
     value:number
 }
 
-export function addGold(value:number): ModifyGoldAction {
-    return {
-        type: ActionType.addGold,
-        value
-    }
-}
-export function subtractGold(value:number): ModifyGoldAction {
-    return {
-        type: ActionType.addGold,
-        value: -value
-    }
-}
 export function addWorkers(value:number): ModifyWorkersAction {
     return {
         type: ActionType.addWorkers,

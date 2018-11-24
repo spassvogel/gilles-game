@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
-import ResourceView from './components/TempView';
 import { createStore } from 'redux';
 import  rootReducer from './reducers/index';
 import { StoreState } from './stores';
@@ -10,6 +9,8 @@ import { Provider } from 'react-redux';
 import * as actions from './actions/';
 import * as gameTickActions from './actions/game';
 import Topbar from './containers/Topbar';
+import { addGold } from './actions/gold';
+import TempView from './containers/TempView';
 //import { Weapons } from './types';
 
 rootReducer
@@ -19,7 +20,7 @@ ReactDOM.render(
     <Provider store={store}>
         <div>
             <Topbar/>
-            <ResourceView />
+            <TempView />
         </div>
     </Provider>,
     document.getElementById('root') as HTMLElement
@@ -46,7 +47,7 @@ const updateStructures = () => {
     }*/
 }
 
-store.dispatch(actions.addGold(120)); 
+store.dispatch(addGold(40)); 
 setInterval(() => {
     
 //    state.

@@ -4,7 +4,7 @@ import { StoreState } from '../stores';
 import { connect } from 'react-redux';
 import { ResourceType } from 'src/definitions/resources';
 
-export function mapStateToProps(store:StoreState, ownProps:Props) {
+function mapStateToProps(store:StoreState, ownProps:Props) {
     if(store.resources){
         const name:string = ResourceType[ownProps.type]
         return {

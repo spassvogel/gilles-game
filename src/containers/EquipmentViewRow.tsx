@@ -3,7 +3,7 @@ import EquipmentViewRow,  { Props }  from '../components/EquipmentViewRow';
 import { StoreState } from '../stores';
 import { connect } from 'react-redux';
 
-export function mapStateToProps(store:StoreState, ownProps:Props) {
+function mapStateToProps(store:StoreState, ownProps:Props) {
     if(store.equipment){
         return {
             amount: store.equipment[ownProps.name]

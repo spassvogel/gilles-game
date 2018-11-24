@@ -5,9 +5,20 @@ import EquipmentViewRow from '../containers/EquipmentViewRow';
 import { ResourceType } from 'src/definitions/resources';
 import ResourceStructureView from 'src/containers/ResourceStructureView';
 import { StructureType } from 'src/definitions/structures';
+import { addGold } from 'src/actions/gold';
 
+export interface DispatchProps {
+    onCheatGold?: (amount:number) => void
+}
 
-function ResourceView() {
+export interface Props extends DispatchProps {
+}  
+
+export default function(props:Props) {
+    const handleCheatGold = (amount:number) => {
+        console.log(props.onCheatGold)
+        if(props.onCheatGold) props.onCheatGold(amount);
+    }
     return (
         <div className="temp-view">
             <ResourceStructureView type={ StructureType.lumberMill }/>
@@ -21,7 +32,7 @@ function ResourceView() {
                 <StructureViewRow name="tanneries"/> */}
                 {/* <StructureViewRow name="farms"/> */}
                 {/* <StructureViewRow name="alchemists"/> */}
-            
+{/*             
             <fieldset>
                 <legend>Resources</legend>
                 <ResourceViewRow type={ResourceType.wood}/>
@@ -29,7 +40,9 @@ function ResourceView() {
                 <ResourceViewRow type={ResourceType.food}/>
                 <ResourceViewRow type={ResourceType.gunpowder}/>
                 <ResourceViewRow type={ResourceType.leather}/>
-            </fieldset>
+            </fieldset> */}
+
+
             {/* <fieldset>
                 <legend>Equipment</legend>
                 <EquipmentViewRow name="crossbows" requirements={ { wood: 2, steel: 1, food: 0, gunpowder: 0, iron: 0, leather: 0} }/>
@@ -38,9 +51,11 @@ function ResourceView() {
                 <EquipmentViewRow name="daggers"   requirements={ { wood: 1, steel: 1, food: 0, gunpowder: 0, iron: 0, leather: 0} }/> 
                 <EquipmentViewRow name="warPigs"   requirements={ { wood: 0, steel: 1, food: 1, gunpowder: 0, iron: 0, leather: 1} }/>
             </fieldset> */}
+            <fieldset>
+                <legend>Cheats</legend>
+                <button onClick={ () => handleCheatGold(20)}> Geiv 20 gold</button>
+            </fieldset> 
         </div>
     );
 }
-
-export default ResourceView;
 

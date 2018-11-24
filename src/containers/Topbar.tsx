@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { selectFreeWorkers } from 'src/selectors/workers';
 
 
-export function mapStateToProps(store:StoreState) {
+function mapStateToProps(store:StoreState) {
     return { 
         gold: store.gold,
         workers: store.workers,
