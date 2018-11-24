@@ -9,8 +9,7 @@ export interface DispatchProps {
 export interface Props extends DispatchProps {
     name: string;
     amount?: number;
-}
-  
+}  
 
 export default function(props: Props) {  
     

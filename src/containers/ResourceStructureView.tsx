@@ -21,6 +21,12 @@ export function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps:Props
         onUpgrade: (cost:number) => {
             dispatch(actions.subtractGold(cost));
             dispatch(structureActions.upgradeStructure(ownProps.type)); // Todo: time??
+        },
+        onWorkersUp: () => {
+            dispatch(structureActions.increaseWorkers(ownProps.type));  // Todo: decrease free??
+        },
+        onWorkersDown: () => {
+            dispatch(structureActions.decreaseWorkers(ownProps.type));  // Todo: decrease free??
         }
     }
 }

@@ -4,6 +4,8 @@ import './css/topbar.css';
 
 export interface Props  {
     gold: number;
+    workers: number;    // total
+    workersFree: number;
 }
   
 
@@ -11,7 +13,12 @@ export default function(props: Props) {
     
     return ( 
         <div className="topbar">
-            gold: <b>{ props.gold }</b>
+            <span>
+                workers: <b>{ props.workers + ' / ' + props.workers }</b>
+            </span>
+            <span>
+                gold: <b>{ props.gold }</b>
+            </span>
         </div>
     );
 }

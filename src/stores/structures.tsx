@@ -13,10 +13,10 @@ export interface StructuresStoreState {
 export const initialState:StructuresStoreState = {
     lumberMill: { 
         level: 0,
-        workers: 2
+        workers: 0
     },
     farm: { 
         level: 0,
-        workers: 2
+        workers: 0
     }
 }

@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 
 
 export function mapStateToProps(store:StoreState) {
-    return { gold: store.gold };
+    return { 
+        gold: store.gold,
+        workers: store.workers,
+        workersFree: 0  // todo: memoize
+    };
 }
 
 

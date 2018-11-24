@@ -18,7 +18,7 @@ export const structures : Reducer<StructuresStoreState> = (state:StructuresStore
         //         ...state,                    
         //         [action.structure]: action.amount
         //     };                
-        case ActionType.upgradeStructure:
+        case ActionType.upgradeStructure: {
             if(state[action.structure] === undefined) return state;
 
             const level = (state[action.structure].level || 0) + 1;
@@ -26,11 +26,37 @@ export const structures : Reducer<StructuresStoreState> = (state:StructuresStore
                 ...state[action.structure], 
                 level
             }
-console.log(state);
             return { 
                 ...state,                    
                 [action.structure]: structureStore
             };       
+        }
+        case ActionType.increaseWorkers: {
+            if(state[action.structure] === undefined) return state;
+
+            const workers = (state[action.structure].workers || 0) + 1;
+            const structureStore:StructureStoreState = {
+                ...state[action.structure], 
+                workers
+            }
+            return { 
+                ...state,                    
+                [action.structure]: structureStore
+            };       
+        }
+        case ActionType.decreaseWorkers: {
+            if(state[action.structure] === undefined) return state;
+
+            const workers = (state[action.structure].workers || 0) - 1;
+            const structureStore:StructureStoreState = {
+                ...state[action.structure], 
+                workers
+            }
+            return { 
+                ...state,                    
+                [action.structure]: structureStore
+            };       
+        }
     } 
     return state;
 }

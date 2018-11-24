@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { ResourceType } from 'src/definitions/resources';
 
+
 export interface Props {
   type: ResourceType;
   name?: string,
