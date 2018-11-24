@@ -6,7 +6,7 @@ import { Action, ActionType, ModifyWorkersAction } from 'src/actions';
  * @param state 
  * @param action 
  */
-export const workers : Reducer<number> = (state:number = 200, action:Action) => {
+export const workers : Reducer<number> = (state:number = 20, action:Action) => {
     switch (action.type) {
         case ActionType.addWorkers:
             // Adds (or subtract, if negative) from the players workers
@@ -14,3 +14,4 @@ export const workers : Reducer<number> = (state:number = 200, action:Action) => 
     } 
     return state;
 }
+

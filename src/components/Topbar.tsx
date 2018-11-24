@@ -14,7 +14,7 @@ export default function(props: Props) {
     return ( 
         <div className="topbar">
             <span>
-                workers: <b>{ props.workers + ' / ' + props.workers }</b>
+                workers: <b>{ props.workersFree + ' / ' + props.workers }</b>
             </span>
             <span>
                 gold: <b>{ props.gold }</b>
