@@ -1,11 +1,9 @@
 import * as React from 'react';
 import './css/tempview.css';
 import ResourceViewRow from '../containers/ResourceViewRow';
-import EquipmentViewRow from '../containers/EquipmentViewRow';
 import { ResourceType } from 'src/definitions/resources';
 import ResourceStructureView from 'src/containers/ResourceStructureView';
 import { StructureType } from 'src/definitions/structures';
-import { addGold } from 'src/actions/gold';
 
 export interface DispatchProps {
     onCheatGold?: (amount:number) => void

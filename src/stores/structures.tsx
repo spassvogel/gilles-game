@@ -17,7 +17,7 @@ export const initialState:StructuresStoreState = {
     },
     farm: { 
         level: 0,
-        workers: 3
+        workers: 1
     },
     tannery: { 
         level: 0,

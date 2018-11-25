@@ -12,7 +12,6 @@ import Topbar from './containers/Topbar';
 import { addGold } from './actions/gold';
 import TempView from './containers/TempView';
 import structureDefinitions, { ResourceStructureDefinition, ResourceStructureLevelDefinition } from './definitions/structures';
-//import { Weapons } from './types';
 
 rootReducer
 const store = createStore<StoreState, any, any, any>(rootReducer, {});
