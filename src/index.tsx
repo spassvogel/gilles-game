@@ -14,7 +14,13 @@ import TempView from './containers/TempView';
 import structureDefinitions, { ResourceStructureDefinition, ResourceStructureLevelDefinition } from './definitions/structures';
 
 rootReducer
-const store = createStore<StoreState, any, any, any>(rootReducer, {});
+/* eslint-disable no-underscore-dangle */
+const store = createStore<StoreState, any, any, any>(
+    rootReducer, 
+    {}, 
+    (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+);
+/* eslint-enable */
 
 ReactDOM.render(
     <Provider store={store}>
