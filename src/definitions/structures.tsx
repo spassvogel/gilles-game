@@ -2,7 +2,8 @@ import { ResourceStoreState } from 'src/stores/resources';
 
 export enum StructureType {
     lumberMill = "lumberMill",
-    farm = "farm"
+    farm = "farm",
+    tannery = "tannery"
 }
 
 interface StructureDefinition {
@@ -25,7 +26,7 @@ export interface ResourceStructureLevelDefinition extends StructureLevelDefiniti
 
 
 const lumberMill:ResourceStructureDefinition = {
-    displayName: "Johns lumber mill",
+    displayName: "The lumber mill",
     levels: [{
         // level 0:
         workerCapacity: 2,
@@ -34,17 +35,17 @@ const lumberMill:ResourceStructureDefinition = {
         // level 1:
         workerCapacity: 5,
         cost: 30,
-        generates: { wood: 5 }
+        generates: { wood: 2 }
     }, {
         // level 2:
         workerCapacity: 10,
         cost: 50,
-        generates: { wood: 7 }
+        generates: { wood: 2 }
     }]
 }
 
 const farm:ResourceStructureDefinition = {
-    displayName: "Marvins farm",
+    displayName: "The farm",
     levels: [{
         // level 1:
         workerCapacity: 2,
@@ -53,18 +54,38 @@ const farm:ResourceStructureDefinition = {
         // level 2:
         workerCapacity: 5,
         cost: 30,
-        generates: { food: 5 }
+        generates: { food: 2 }
     }, {
         // level 3:
         workerCapacity: 10,
         cost: 50,
-        generates: { food: 7 }
+        generates: { food: 2 }
+    }]
+}
+
+const tannery:ResourceStructureDefinition = {
+    displayName: "The tannery",
+    levels: [{
+        // level 1:
+        workerCapacity: 2,
+        generates: { leather: 2 }
+    }, {
+        // level 2:
+        workerCapacity: 5,
+        cost: 30,
+        generates: { leather: 5 }
+    }, {
+        // level 3:
+        workerCapacity: 10,
+        cost: 50,
+        generates: { leather: 7 }
     }]
 }
 
 export default {
     lumberMill,
-    farm
+    farm,
+    tannery
 }
 
 // export const ironMine:ResourceStructureDefinition = {

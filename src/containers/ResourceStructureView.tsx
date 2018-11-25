@@ -7,13 +7,15 @@ import { Dispatch, AnyAction } from 'redux';
 import { StructureStoreState } from '../stores/structure';
 import { subtractGold } from 'src/actions/gold';
 import { upgradeStructure, increaseWorkers, decreaseWorkers } from 'src/actions/structures';
+import { selectFreeWorkers } from 'src/selectors/workers';
 
 function mapStateToProps(store:StoreState, ownProps:Props) {
     const structureStore:StructureStoreState = store.structures[ownProps.type];
     return { 
         gold: store.gold,
         level: structureStore.level,
-        workers: structureStore.workers
+        workers: structureStore.workers,
+        workersFree: selectFreeWorkers(store)
     }
 }
 

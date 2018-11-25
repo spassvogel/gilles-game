@@ -17,6 +17,7 @@ export interface Props extends DispatchProps {
     type:StructureType,
     level?:number,
     workers?:number
+    workersFree?:number
     gold?:number
 } 
 
@@ -48,12 +49,14 @@ export default function(props: Props) {
             if(props.onWorkersDown) props.onWorkersDown();            
         }
 
+        const upDisabled = props.workers == levelDefinition.workerCapacity || (props.workersFree || 0) < 1;
+        const downDisabled = props.workers == 0;
         return <UpDownValue 
             label="workers:" 
             value = { props.workers } 
             max = { levelDefinition.workerCapacity }
-            upDisabled = { props.workers == levelDefinition.workerCapacity } // todo: or no more free workers
-            downDisabled = { props.workers == 0 }
+            upDisabled = { upDisabled } 
+            downDisabled = { downDisabled }
             onDown = { handleDown }
             onUp = { handleUp }
         />;

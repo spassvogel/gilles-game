@@ -6,17 +6,21 @@ export interface StructuresStoreState {
     // forge: StructureStoreState,
     // blacksmith: StructureStoreState,
     // stables: StructureStoreState,
-    // tannery: StructureStoreState,
+    tannery: StructureStoreState,
     farm: StructureStoreState,
     // alchemist: StructureStoreState,
 }
 export const initialState:StructuresStoreState = {
     lumberMill: { 
         level: 0,
-        workers: 0
+        workers: 2
     },
     farm: { 
         level: 0,
-        workers: 0
+        workers: 3
+    },
+    tannery: { 
+        level: 0,
+        workers: 1
     }
 }

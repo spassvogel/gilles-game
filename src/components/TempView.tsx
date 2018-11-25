@@ -16,13 +16,13 @@ export interface Props extends DispatchProps {
 
 export default function(props:Props) {
     const handleCheatGold = (amount:number) => {
-        console.log(props.onCheatGold)
         if(props.onCheatGold) props.onCheatGold(amount);
     }
     return (
         <div className="temp-view">
             <ResourceStructureView type={ StructureType.lumberMill }/>
             <ResourceStructureView type={ StructureType.farm }/>
+            <ResourceStructureView type={ StructureType.tannery }/>
 
 
             {/* <StructureViewRow name="ironMines"/> */}
