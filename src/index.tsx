@@ -11,6 +11,7 @@ import * as gameTickActions from './actions/game';
 import Topbar from './containers/Topbar';
 import { addGold } from './actions/gold';
 import TempView from './containers/TempView';
+import structureDefinitions, { ResourceStructureDefinition, ResourceStructureLevelDefinition } from './definitions/structures';
 //import { Weapons } from './types';
 
 rootReducer
@@ -31,20 +32,18 @@ registerServiceWorker();
 const updateStructures = () => {
     // Very temporary
     var state:StoreState = store.getState();
-    //console.log(state.structures);
-    
-    /*for(let i = 0; i < state.structures.lumberMills; i++){
-        store.dispatch(actions.addResource('wood', 3));
-    }
-    for(let i = 0; i < state.structures.ironMines; i++){
-        store.dispatch(actions.addResource('iron', 2));
-    }
-    for(let i = 0; i < state.structures.farms; i++){
-        store.dispatch(actions.addResource('pigs', 1));
-    }
-    for(let i = 0; i < state.structures.alchemists; i++){
-        store.dispatch(actions.addResource('gunpowder', 3));
-    }*/
+    Object.keys(state.structures).forEach(structure => {
+        const structureDefinition:ResourceStructureDefinition = structureDefinitions[structure];
+        const level:number = state.structures[structure].level || 0;
+        const levelDefinition:ResourceStructureLevelDefinition = structureDefinition.levels[level];
+
+        Object.keys(levelDefinition.generates).forEach(resource => {
+            const amount:number = levelDefinition.generates[resource] * state.structures[structure].workers;
+            //console.log(`${resource}: ${amount}`)
+            store.dispatch(actions.addResource(resource, amount));
+        });
+    });
+
 }
 
 store.dispatch(addGold(40)); 
@@ -53,6 +52,6 @@ setInterval(() => {
 //    state.
     updateStructures();
 //    store.dispatch(gameTickActions.gameTick())
-}, 500);
+}, 2500);
 
 

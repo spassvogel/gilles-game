@@ -32,7 +32,7 @@ export default function(props:Props) {
                 <StructureViewRow name="tanneries"/> */}
                 {/* <StructureViewRow name="farms"/> */}
                 {/* <StructureViewRow name="alchemists"/> */}
-{/*             
+             
             <fieldset>
                 <legend>Resources</legend>
                 <ResourceViewRow type={ResourceType.wood}/>
@@ -40,7 +40,7 @@ export default function(props:Props) {
                 <ResourceViewRow type={ResourceType.food}/>
                 <ResourceViewRow type={ResourceType.gunpowder}/>
                 <ResourceViewRow type={ResourceType.leather}/>
-            </fieldset> */}
+            </fieldset>
 
 
             {/* <fieldset>

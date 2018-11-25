@@ -32,7 +32,6 @@ export default function(props: Props) {
     const canUpgrade = nextLevel != null && gold >= nextLevelCost;
     const upgradeText = `Upgrade! (${nextLevelCost < 0 ? 'max' : nextLevelCost + ' gold'})`;
 
-
     const generates = levelDefinition.generates;
     const generatesText = Object.keys(generates).reduce((accumulator:Array<string>, value:string) => {
         // For values that are not 0 
@@ -77,7 +76,7 @@ export default function(props: Props) {
         // Todo: abstract some stuff to generic StructureView
         <fieldset>
             <legend>{structureDefinition.displayName}</legend>
-            <label>level:</label> { (level + 1) + "/" + structureDefinition.levels.length }
+            <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }
             { createWorkersRow() }
             { createUpgradeRow() }
             <div>

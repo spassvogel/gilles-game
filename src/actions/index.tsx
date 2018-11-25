@@ -2,7 +2,8 @@ import * as constants from '../constants';
 import { StructureType } from 'src/definitions/structures';
 
 export enum ActionType {
-    addWorkers = "addWorkers"
+    addWorkers = "addWorkers",
+    addResource = "addResource"
 }
 
 export interface Action {
@@ -10,7 +11,7 @@ export interface Action {
 }
 
 export interface AddResource {
-    type: constants.ADD_RESOURCE;
+    type: ActionType;
     resource: string,
     value: number
 }
@@ -19,7 +20,7 @@ export interface AddResource {
 
 export function addResource(resource:string, value:number): AddResource {
     return {
-        type: constants.ADD_RESOURCE,
+        type: ActionType.addResource,
         resource,
         value
     }
