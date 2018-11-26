@@ -4,3 +4,5 @@ https://github.com/markerikson/redux/blob/structuring-reducers-page/docs/recipes
 
 structures generate resources
 resources are used to craft equipment
+
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
