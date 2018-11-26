@@ -105,14 +105,16 @@ export default function(props: Props) {
 
     return ( 
         // Todo: abstract some stuff to generic StructureView
-        <fieldset>
-            <legend>{structureDefinition.displayName}</legend>
-            <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }
-            { createWorkersRow() }
-            { createUpgradeRow() }
-            <div>craft:</div>
-            { createCraftRows() }
-        </fieldset>
+        <details open = { true } className = "structureview">
+            <summary>{structureDefinition.displayName}</summary>
+            <section>
+                <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }
+                { createWorkersRow() }
+                { createUpgradeRow() }
+                <div>craft:</div>
+                { createCraftRows() }
+            </section>
+        </details>
     );
 }
 

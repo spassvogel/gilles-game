@@ -20,12 +20,26 @@ export default function(props:Props) {
     }
     return (
         <div className = "temp-view">
-            <ResourceStructureView type={ Structure.lumberMill  }/>
-            <ResourceStructureView type={ Structure.ironMine  }/>
-            <ResourceStructureView type={ Structure.farm  }/>
-            <ResourceStructureView type={ Structure.tannery  }/>
-            
-            <ProductionStructureView type={ Structure.blacksmith  }/>
+            <fieldset>
+                <legend>Town</legend>
+                <ResourceStructureView type={ Structure.lumberMill  }/>
+                <ResourceStructureView type={ Structure.ironMine  }/>
+                <ResourceStructureView type={ Structure.farm  }/>
+                <ResourceStructureView type={ Structure.tannery  }/>
+                
+                <ProductionStructureView type={ Structure.blacksmith  }/>
+
+                <details className = "structureview">
+                    <summary>The storehouse</summary>
+                    <section>
+                        <EquipmentViewRow name = "crossbow"/>
+                        <EquipmentViewRow name = "longbow"/>
+                        <EquipmentViewRow name = "sword"/> 
+                        <EquipmentViewRow name = "dagger"/> 
+                        <EquipmentViewRow name = "warPig"/>
+                    </section>
+                </details>
+            </fieldset>
 
 
             {/* <StructureViewRow name = "ironMines"/> */}
@@ -37,12 +51,7 @@ export default function(props:Props) {
                 {/* <StructureViewRow name = "alchemists"/> */}
 
             <fieldset>
-                <legend>The storehouse</legend>
-                <EquipmentViewRow name = "crossbow"/>
-                <EquipmentViewRow name = "longbow"/>
-                <EquipmentViewRow name = "sword"/> 
-                <EquipmentViewRow name = "dagger"/> 
-                <EquipmentViewRow name = "warPig"/>
+
             </fieldset> 
              
             <fieldset>
