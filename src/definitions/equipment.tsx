@@ -1,6 +1,6 @@
 import { ResourceStoreState } from 'src/stores/resources';
 
-export enum StructureType {
+export enum EquipmentType {
     lumberMill = "lumberMill",
     farm = "farm",
     tannery = "tannery"

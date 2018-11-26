@@ -1,16 +1,16 @@
 export interface EquipmentStoreState {
-    crossbows: number,
-    longbows: number,
-    swords: number,
-    daggers: number,
-    warPigs: number,
-    torches: number
+    crossbow: number,
+    longbow: number,
+    sword: number,
+    dagger: number,
+    warPig: number,
+    torch: number
 }
 export const initialState:EquipmentStoreState = {
-    crossbows: 0,
-    daggers: 0,
-    longbows: 0,
-    swords: 0,
-    warPigs: 0,
-    torches: 0
+    crossbow: 0,
+    dagger: 0,
+    longbow: 0,
+    sword: 0,
+    warPig: 0,
+    torch: 0
 }

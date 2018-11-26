@@ -11,7 +11,12 @@ import * as gameTickActions from './actions/game';
 import Topbar from './containers/Topbar';
 import { addGold } from './actions/gold';
 import TempView from './containers/TempView';
-import structureDefinitions, { ResourceStructureDefinition, ResourceStructureLevelDefinition } from './definitions/structures';
+import structureDefinitions, {
+    ResourceStructureDefinition, 
+    ResourceStructureLevelDefinition, 
+    StructureDefinition,
+    StructureType
+} from './definitions/structures';
 
 const store = createStore<StoreState, any, any, any>(
     rootReducer, 
@@ -34,16 +39,22 @@ registerServiceWorker();
 const updateStructures = () => {
     // Very temporary
     var state:StoreState = store.getState();
-    Object.keys(state.structures).forEach(structure => {
-        const structureDefinition:ResourceStructureDefinition = structureDefinitions[structure];
-        const level:number = state.structures[structure].level || 0;
-        const levelDefinition:ResourceStructureLevelDefinition = structureDefinition.levels[level];
-
-        Object.keys(levelDefinition.generates).forEach(resource => {
-            const amount:number = levelDefinition.generates[resource] * state.structures[structure].workers;
-            //console.log(`${resource}: ${amount}`)
-            store.dispatch(actions.addResource(resource, amount));
-        });
+    Object.keys(state.structures).forEach(structure => {     
+        const structureDefinition:StructureDefinition = structureDefinitions[structure];
+        
+        switch(structureDefinition.type) {
+            case StructureType.resource:
+                const resourceStructureDefinition = structureDefinition as ResourceStructureDefinition;
+                const level:number = state.structures[structure].level || 0;
+                const levelDefinition:ResourceStructureLevelDefinition = resourceStructureDefinition.levels[level];
+        
+                Object.keys(levelDefinition.generates).forEach(resource => {
+                    const amount:number = levelDefinition.generates[resource] * state.structures[structure].workers;
+                    //console.log(`${resource}: ${amount}`)
+                    store.dispatch(actions.addResource(resource, amount));
+                });
+            break;
+        }
     });
 
 }

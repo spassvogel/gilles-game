@@ -1,4 +1,4 @@
-import { StructureType } from 'src/definitions/structures';
+import { Structure } from 'src/definitions/structures';
 
 export interface StructureStoreState {
     level?: number,

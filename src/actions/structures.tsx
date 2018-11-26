@@ -1,4 +1,4 @@
-import { StructureType } from 'src/definitions/structures';
+import { Structure } from 'src/definitions/structures';
 
 export enum ActionType {
     upgradeStructure = "upgradeStructure",
@@ -8,7 +8,7 @@ export enum ActionType {
 
 export interface Action {
     type:ActionType,
-    structure:StructureType
+    structure:Structure
 }
 
 // export interface SetStructureAmount {
@@ -32,7 +32,7 @@ export interface Action {
 //     }
 // }
 
-export function upgradeStructure(structure:StructureType): Action {
+export function upgradeStructure(structure:Structure): Action {
     console.log("Upgrading " + structure + " now!");
     return {
         type: ActionType.upgradeStructure,
@@ -41,7 +41,7 @@ export function upgradeStructure(structure:StructureType): Action {
 }
 
 // Increases workers by one
-export function increaseWorkers(structure:StructureType): Action {
+export function increaseWorkers(structure:Structure): Action {
     return {
         type: ActionType.increaseWorkers,
         structure
@@ -49,7 +49,7 @@ export function increaseWorkers(structure:StructureType): Action {
 }
 
 // Decreases workers by one
-export function decreaseWorkers(structure:StructureType): Action {
+export function decreaseWorkers(structure:Structure): Action {
     return {
         type: ActionType.decreaseWorkers,
         structure

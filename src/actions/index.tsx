@@ -1,5 +1,5 @@
 import * as constants from '../constants';
-import { StructureType } from 'src/definitions/structures';
+import { Structure } from 'src/definitions/structures';
 
 export enum ActionType {
     addWorkers = "addWorkers",

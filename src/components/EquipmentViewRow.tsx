@@ -1,31 +1,16 @@
 
 import * as React from 'react';
-import { ResourceStoreState } from 'src/stores/resources';
 
 export interface Props {
   name: string;
   amount?: number;
-  requirements: ResourceStoreState
 }
 
-/**
- * Formats the requirements for this equipment in a nice string
- * @param requirements 
- */
-const makeRequirementString = (requirements: ResourceStoreState) : string => {
-    return Object.keys(requirements).reduce((accumulator:Array<string>, value) => {
-        if(requirements[value]) accumulator.push(`${value}: ${requirements[value]}`);
-        return accumulator;
-    }, []).join(', ');
-} 
-
 export default function(props: Props) {  
-    const title = "Requires: " + makeRequirementString(props.requirements);
     return ( 
         <div>
-            <label>{ props.name } </label>
-            { props.amount }
-            <button title={ title}>craft</button>
+            <label>{ props.name }: </label>
+            { props.amount || 0}
         </div>
     );
 }
