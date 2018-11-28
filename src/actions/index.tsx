@@ -1,31 +1,35 @@
 import * as constants from '../constants';
 import { Structure } from 'src/definitions/structures';
+import { ResourceStoreState } from 'src/stores/resources';
 
 export enum ActionType {
     addWorkers = "addWorkers",
-    addResource = "addResource"
+    addResources = "addResources"
 }
 
 export interface Action {
     type:ActionType
 }
 
-export interface AddResource {
-    type: ActionType;
-    resource: string,
-    value: number
+export interface AddResources {
+    type:ActionType;
+    resources:ResourceStoreState
 }
 
 
 
-export function addResource(resource:string, value:number): AddResource {
+export function addResource(resource:string, value:number): AddResources {
+    return addResources({
+        [resource]: value
+    });
+}
+
+export function addResources(resources:ResourceStoreState): AddResources {
     return {
-        type: ActionType.addResource,
-        resource,
-        value
+        type: ActionType.addResources,
+        resources,
     }
 }
-
 
 export interface ModifyWorkersAction extends Action {
     value:number

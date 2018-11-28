@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { EquipmentStoreState, initialState } from '../stores/equipment';
-import { ActionType, Action } from 'src/actions/equipment';
+import { ActionType, Action, AddAction } from 'src/actions/equipment';
 
 
 /**
@@ -10,8 +10,8 @@ import { ActionType, Action } from 'src/actions/equipment';
  */
 export const equipment : Reducer<EquipmentStoreState> = (state:EquipmentStoreState = initialState, action:Action) => {
     switch (action.type) {
-        case ActionType.craft:
-            const equipment = action.productionDefinition.equipment;
+        case ActionType.addEquipment:
+            const equipment = (action as AddAction).equipment;
             return { 
                 ...state,                    
                 [equipment]: state[equipment] + 1

@@ -40,8 +40,8 @@ export interface ProductionStructureLevelDefinition extends StructureLevelDefini
 }
 
 export interface ProductionDefinition {
-    equipment: string,
-    cost: ResourceStoreState
+    equipment:string,
+    cost:ResourceStoreState
 }
 
 

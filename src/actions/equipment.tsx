@@ -2,19 +2,34 @@ import { Structure, ProductionDefinition } from 'src/definitions/structures';
 
 export enum ActionType {
     craft = "craft",
-    increaseWorkers = "increaseWorkers",
-    decreaseWorkers = "decreaseWorkers"
+    addEquipment = "addEquipment"
 }
 
 export interface Action {
-    type:ActionType,
+    type:ActionType
+}
+
+export interface CraftAction extends Action{
     productionDefinition:ProductionDefinition
 }
 
-export function craft(productionDefinition:ProductionDefinition): Action {
+export interface AddAction extends Action {
+    equipment:string
+}
+
+// Starts crafting (todo: maybe may not be necesary)
+export function craft(productionDefinition:ProductionDefinition): CraftAction {
     console.log("Crafting " + productionDefinition.equipment + " now!");
     return {
         type: ActionType.craft,
         productionDefinition
+    }
+}
+
+// Adds one equipment to the storehouse
+export function addEquipment(equipment:string): AddAction {
+    return {
+        type: ActionType.addEquipment,
+        equipment
     }
 }

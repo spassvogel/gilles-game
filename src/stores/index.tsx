@@ -1,7 +1,7 @@
 import { StructuresStoreState } from './structures';
 import { ResourceStoreState } from './resources';
 import { EquipmentStoreState } from './equipment';
-import { TaskStoreState } from './taskStoreState';
+import { TasksStoreState } from './tasks';
 
 export interface StoreState {
     randomseed: string,
@@ -10,5 +10,5 @@ export interface StoreState {
     resources: ResourceStoreState,
     equipment: EquipmentStoreState,
     structures: StructuresStoreState,
-    scheduledTasks: TaskStoreState[]
+    tasks: TasksStoreState
 }

@@ -18,7 +18,8 @@ import structureDefinitions, {
     StructureType
 } from './definitions/structures';
 import { startTask, updateTasks } from './actions/tasks';
-import { TaskType, TaskStoreState } from './stores/taskStoreState';
+import { TaskType, TaskStoreState } from './stores/task';
+import { TasksStoreState } from './stores/tasks';
 import { StructuresStoreState } from './stores/structures';
 import { gameTick } from './actions/game';
 
@@ -65,14 +66,14 @@ const processStructures = (structures:StructuresStoreState) => {
     Object.keys(structures).forEach(structure => handleStructure(structure));    
 }
 
-const processTasks = (scheduledTasks:TaskStoreState[]) => {
+const processTasks = (tasks:TasksStoreState) => {
     const handleTask = (task:TaskStoreState) => {
         //console.log(task);
 
     } 
     store.dispatch(updateTasks()); 
 
-    scheduledTasks.forEach(task => handleTask(task));
+    //scheduledTasks.forEach(task => handleTask(task));
 }
 
 store.dispatch(addGold(40)); 
@@ -80,8 +81,8 @@ setInterval(() => {
     var state:StoreState = store.getState();
 
 //    state.
-    processStructures(state.structures);
-    processTasks(state.scheduledTasks);
+   // processStructures(state.structures);
+    processTasks(state.tasks);
     //store.dispatch(gameTick())
 
 }, 2500);

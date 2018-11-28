@@ -1,4 +1,5 @@
-import { TaskType } from 'src/stores/taskStoreState';
+import { TaskType } from 'src/stores/task';
+import { AnyAction } from 'redux';
 
 export enum ActionType {
     start = "startTask",
@@ -13,17 +14,19 @@ export interface AddAction extends Action {
     taskType:TaskType,
     name:string,
     origin:string,
-    time:number
+    time:number,
+	callback:AnyAction
 }
 
-export function startTask(taskType:TaskType, name:string, origin: string, time:number): AddAction {
+export function startTask(taskType:TaskType, name:string, origin: string, time:number, callback:AnyAction):AddAction {
     console.log(`Scheduling a new task ${name} (${origin}) now! `);
     return {
         type: ActionType.start,
         taskType,
         name,
         origin,
-        time
+        time,
+		callback
     }
 }
 
