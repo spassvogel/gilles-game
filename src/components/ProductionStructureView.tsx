@@ -9,6 +9,7 @@ import structureDefinitions, {
 import UpDownValue from './ui/UpDownValue';
 import equipment from 'src/definitions/equipment';
 import { ResourceStoreState } from 'src/stores/resources';
+import Progressbar from './ui/Progressbar';
 
 export interface DispatchProps {
     onUpgrade?: (cost:number) => void
@@ -24,6 +25,7 @@ export interface Props extends DispatchProps {
     workers?:number,
     workersFree?:number,
     gold?:number
+    TEMP_PROGRESS?:number
 } 
 
 export default function(props: Props) {  
@@ -113,6 +115,7 @@ export default function(props: Props) {
                 { createUpgradeRow() }
                 <div>craft:</div>
                 { createCraftRows() }
+                <Progressbar progress={ props.TEMP_PROGRESS || 0 }/>
             </section>
         </details>
     );

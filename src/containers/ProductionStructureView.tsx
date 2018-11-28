@@ -9,15 +9,21 @@ import { upgradeStructure, increaseWorkers, decreaseWorkers } from 'src/actions/
 import { selectFreeWorkers } from 'src/selectors/workers';
 import { craft } from 'src/actions/equipment';
 import { ProductionDefinition } from 'src/definitions/structures';
+import { startTask } from 'src/actions/tasks';
+import { TaskType } from 'src/stores/taskStoreState';
+import * as time from 'src/utils/time';
 
 function mapStateToProps(store:StoreState, ownProps:Props) {
     const structureStore:StructureStoreState = store.structures[ownProps.type];
+
+    const TEMP_PROGRESS = (store.scheduledTasks[0]) ? store.scheduledTasks[0].progress : 0;
     return { 
         gold: store.gold,
         level: structureStore.level,
         workers: structureStore.workers,
         workersFree: selectFreeWorkers(store),
-        resources: store.resources
+        resources: store.resources,
+        TEMP_PROGRESS
     }
 }
 
@@ -34,6 +40,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps:Props) : Dis
             dispatch(decreaseWorkers(ownProps.type)); 
         },
         onCraft: (productionDefinition:ProductionDefinition) => {
+            dispatch(startTask(TaskType.constructEquipment, 'crossbow', 'blacksmith', time.ONE_MINUTE))
             dispatch(craft(productionDefinition));
         }
     }

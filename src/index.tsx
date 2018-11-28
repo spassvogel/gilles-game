@@ -17,6 +17,10 @@ import structureDefinitions, {
     StructureDefinition,
     StructureType
 } from './definitions/structures';
+import { startTask, updateTasks } from './actions/tasks';
+import { TaskType, TaskStoreState } from './stores/taskStoreState';
+import { StructuresStoreState } from './stores/structures';
+import { gameTick } from './actions/game';
 
 const store = createStore<StoreState, any, any, any>(
     rootReducer, 
@@ -36,35 +40,50 @@ ReactDOM.render(
 registerServiceWorker();
 
 // Will generate resources based on the structures built
-const updateStructures = () => {
+const processStructures = (structures:StructuresStoreState) => {
     // Very temporary
-    var state:StoreState = store.getState();
-    Object.keys(state.structures).forEach(structure => {     
+
+    const handleStructure = (structure:string) => {     
         const structureDefinition:StructureDefinition = structureDefinitions[structure];
         
         switch(structureDefinition.type) {
             case StructureType.resource:
                 const resourceStructureDefinition = structureDefinition as ResourceStructureDefinition;
-                const level:number = state.structures[structure].level || 0;
+                const level:number = structures[structure].level || 0;
                 const levelDefinition:ResourceStructureLevelDefinition = resourceStructureDefinition.levels[level];
         
                 Object.keys(levelDefinition.generates).forEach(resource => {
-                    const amount:number = levelDefinition.generates[resource] * state.structures[structure].workers;
+                    const amount:number = levelDefinition.generates[resource] * structures[structure].workers;
                     //console.log(`${resource}: ${amount}`)
+                    // todo: bundle this and send as one!
                     store.dispatch(actions.addResource(resource, amount));
                 });
             break;
         }
-    });
+    };
 
+    Object.keys(structures).forEach(structure => handleStructure(structure));    
+}
+
+const processTasks = (scheduledTasks:TaskStoreState[]) => {
+    const handleTask = (task:TaskStoreState) => {
+        //console.log(task);
+
+    } 
+    store.dispatch(updateTasks()); 
+
+    scheduledTasks.forEach(task => handleTask(task));
 }
 
 store.dispatch(addGold(40)); 
 setInterval(() => {
-    
+    var state:StoreState = store.getState();
+
 //    state.
-    updateStructures();
-//    store.dispatch(gameTickActions.gameTick())
+    processStructures(state.structures);
+    processTasks(state.scheduledTasks);
+    //store.dispatch(gameTick())
+
 }, 2500);
 
 
