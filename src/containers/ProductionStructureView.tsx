@@ -42,7 +42,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps:Props) : Dis
         onCraft: (productionDefinition:ProductionDefinition) => {
             const callback = addEquipment(productionDefinition.equipment);
             dispatch(craft(productionDefinition));
-            dispatch(startTask(TaskType.constructEquipment, 'crossbow', 'blacksmith', time.ONE_MINUTE, callback));
+            dispatch(startTask(TaskType.constructEquipment, 'crossbow', 'blacksmith', time.TEN_SECONDS, callback));
         }
     }
 }

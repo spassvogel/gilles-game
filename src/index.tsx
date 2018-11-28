@@ -40,6 +40,8 @@ ReactDOM.render(
 );
 registerServiceWorker();
 
+// TODO: place these 'controllers' somewhere else
+
 // Will generate resources based on the structures built
 const processStructures = (structures:StructuresStoreState) => {
     // Very temporary
@@ -67,13 +69,12 @@ const processStructures = (structures:StructuresStoreState) => {
 }
 
 const processTasks = (tasks:TasksStoreState) => {
-    const handleTask = (task:TaskStoreState) => {
-        //console.log(task);
-
+    const handleCompletedTask = (task:TaskStoreState) => {
+        store.dispatch(task.callback);
     } 
     store.dispatch(updateTasks()); 
 
-    //scheduledTasks.forEach(task => handleTask(task));
+    tasks.completed.forEach(task => handleCompletedTask(task));
 }
 
 store.dispatch(addGold(40)); 

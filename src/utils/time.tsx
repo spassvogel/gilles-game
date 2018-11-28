@@ -3,7 +3,8 @@ export const TWO_SECONDS = 2000;
 export const THREE_SECONDS = 3000;
 export const FOUR_SECONDS = 4000;
 //...
-
+export const TEN_SECONDS = 10000;
+export const TWENTY_SECONDS = 20000;
 export const THIRTY_SECONDS = 30000;
 
 

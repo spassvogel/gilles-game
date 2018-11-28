@@ -21,21 +21,33 @@ export const tasks:Reducer<TasksStoreState> = (state:TasksStoreState = initialSt
             };
         }
         case ActionType.update: {
+            // Will update all tasks in `running`. If a running task expires it is placed in `complete`
+            // Note that completed tasks must be handled BEFORE the next call to ActionType.update, because
+            // this list is recreated every time
             const now:number = Date.now();
-            const running = state.running.map((t) => {
+            const running:TaskStoreState[] = [];
+            const completed:TaskStoreState[] = [];
+            state.running.forEach((t) => {
                 const end = now + t.timeRemaining;
                 const progress = (now - t.startTime) / (end - t.startTime);
-;                return { ...t,
-                    timeRemaining: t.timeRemaining - (now - t.lastTick),
+                const timeRemaining = t.timeRemaining - (now - t.lastTick); 
+                const task = { 
+                    ...t,
+                    timeRemaining,
                     progress,
                     lastTick: now
                 };
+                if(timeRemaining < 0){
+                    completed.push(task);
+                } 
+                else {
+                    running.push(task);
+                }
             });
-            //console.log(result[0])
 
             return { 
                 running,
-                completed: []
+                completed
             };
         }
     } 
