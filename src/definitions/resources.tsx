@@ -1,4 +1,4 @@
-export enum ResourceType {
+export enum Resource {
     wood = "wood",
     iron = "iron",
     steel = "steel",

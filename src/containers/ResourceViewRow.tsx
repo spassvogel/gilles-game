@@ -2,11 +2,11 @@
 import ResourceViewRow,  { Props }  from '../components/ResourceViewRow';
 import { StoreState } from '../stores';
 import { connect } from 'react-redux';
-import { ResourceType } from 'src/definitions/resources';
+import { Resource } from 'src/definitions/resources';
 
 function mapStateToProps(store:StoreState, ownProps:Props) {
     if(store.resources){
-        const name:string = ResourceType[ownProps.type]
+        const name:string = Resource[ownProps.type]
         return {
             type: ownProps.type,
             name,
