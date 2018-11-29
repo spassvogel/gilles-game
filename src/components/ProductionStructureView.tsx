@@ -10,6 +10,7 @@ import UpDownValue from './ui/UpDownValue';
 import equipment from 'src/definitions/equipment';
 import { ResourceStoreState } from 'src/stores/resources';
 import Progressbar from './ui/Progressbar';
+import { TaskStoreState } from 'src/stores/task';
 
 export interface DispatchProps {
     onUpgrade?: (cost:number) => void
@@ -25,6 +26,7 @@ export interface Props extends DispatchProps {
     workers?:number,
     workersFree?:number,
     gold?:number
+    tasks?:TaskStoreState[],
     TEMP_PROGRESS?:number
 } 
 
@@ -105,6 +107,15 @@ export default function(props: Props) {
         });
     }
 
+    const createProgressbars = () => {
+        const tasks = props.tasks || [];
+        return tasks.map(t => <Progressbar 
+            key = { `${t.name}${t.startTime}` } 
+            label = { t.name } 
+            progress = { t.progress }/>
+        );
+    }
+
     return ( 
         // Todo: abstract some stuff to generic StructureView
         <details open = { true } className = "structureview">
@@ -115,7 +126,7 @@ export default function(props: Props) {
                 { createUpgradeRow() }
                 <div>craft:</div>
                 { createCraftRows() }
-                <Progressbar progress={ props.TEMP_PROGRESS || 0 }/>
+                { createProgressbars() }
             </section>
         </details>
     );

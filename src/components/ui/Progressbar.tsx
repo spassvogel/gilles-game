@@ -4,6 +4,7 @@ import './css/progressbar.css';
 export interface DispatchProps { }
 export interface Props extends DispatchProps {
     progress?:number     // between 0 and 1
+    label?:string
 }
 
 export default function(props: Props) {
@@ -11,7 +12,8 @@ export default function(props: Props) {
 
     return ( 
         <div className="progressbar">
-            <div className="progressbar-info" style= {{ width: `${progress * 100}%`}} />
+            <div className="progressbar-label">{ props.label }</div>
+            <div className="progressbar-info" style= {{ width: `${progress * 100}%`}}>  </div>
         </div>
     );
 }

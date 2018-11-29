@@ -5,5 +5,6 @@ https://github.com/markerikson/redux/blob/structuring-reducers-page/docs/recipes
 structures generate resources
 resources are used to craft equipment
 
-https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
 https://react-spring.surge.sh/
+
+https://www.npmjs.com/package/seedrandom#saving-and-restoring-prng-state

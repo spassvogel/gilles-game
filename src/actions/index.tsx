@@ -4,7 +4,8 @@ import { ResourceStoreState } from 'src/stores/resources';
 
 export enum ActionType {
     addWorkers = "addWorkers",
-    addResources = "addResources"
+    addResources = "addResources",
+    removeResources = "removeResources"
 }
 
 export interface Action {
@@ -27,6 +28,13 @@ export function addResource(resource:string, value:number): AddResources {
 export function addResources(resources:ResourceStoreState): AddResources {
     return {
         type: ActionType.addResources,
+        resources,
+    }
+}
+
+export function removeResources(resources:ResourceStoreState): AddResources {
+    return {
+        type: ActionType.removeResources,
         resources,
     }
 }

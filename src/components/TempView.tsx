@@ -55,9 +55,6 @@ export default function(props:Props) {
                 {/* <StructureViewRow name = "farms"/> */}
                 {/* <StructureViewRow name = "alchemists"/> */}
 
-            <fieldset>
-
-            </fieldset> 
              
             <fieldset>
                 <legend>Resources</legend>
@@ -71,7 +68,7 @@ export default function(props:Props) {
 
             <fieldset>
                 <legend>Cheats</legend>
-                <button onClick={ () => handleCheatGold(20)}> Geiv 20 gold</button>
+                <button onClick={ () => handleCheatGold(20)}> Geiv 20 gold</button><br/>
                 <button onClick={ () => handleCheatResources({
                     food: 100,
                     gunpowder: 100,

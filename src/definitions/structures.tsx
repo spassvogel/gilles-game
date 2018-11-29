@@ -1,4 +1,5 @@
 import { ResourceStoreState } from 'src/stores/resources';
+import * as time from 'src/utils/time';
 
 export enum Structure {
     lumberMill = "lumberMill",
@@ -42,6 +43,7 @@ export interface ProductionStructureLevelDefinition extends StructureLevelDefini
 export interface ProductionDefinition {
     equipment:string,
     cost:ResourceStoreState
+    time:number
 }
 
 
@@ -127,12 +129,25 @@ const tannery:ResourceStructureDefinition = {
 
 const crossbow: ProductionDefinition = {
     equipment: "crossbow",
-    cost: { wood: 20, iron: 5}
+    cost: { wood: 20, iron: 5 },
+    time: time.ONE_MINUTE
 }
 const longbow: ProductionDefinition = {
     equipment: "longbow",
-    cost: { wood: 40, iron: 5}
+    cost: { wood: 40, iron: 5},
+    time: time.TWO_MINUTES
 }
+const dagger: ProductionDefinition = {
+    equipment: "dagger",
+    cost: { wood: 10, iron: 10},
+    time: time.ONE_MINUTE
+}
+const sword: ProductionDefinition = {
+    equipment: "sword",
+    cost: { wood: 10, iron: 30},
+    time: time.TWO_MINUTES
+}
+
 
 const blacksmith:ProductionStructureDefinition = {
     type: StructureType.production,
@@ -140,17 +155,17 @@ const blacksmith:ProductionStructureDefinition = {
     levels: [{
         // level 1:
         workerCapacity: 2,
-        produces: [crossbow]
+        produces: [crossbow, dagger]
     }, {
         // level 2:
         workerCapacity: 5,
         cost: 30,
-        produces: [crossbow, longbow]
+        produces: [crossbow, dagger, longbow]
     }, {
         // level 3:
         workerCapacity: 10,
         cost: 50,
-        produces: [crossbow, longbow]
+        produces: [crossbow, dagger, longbow, sword]
     }]
 }
 export default {

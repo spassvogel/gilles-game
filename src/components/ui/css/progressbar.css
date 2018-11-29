@@ -6,9 +6,16 @@
     height: 20px;
     margin-bottom: 20px;
     overflow: hidden;
+    position: relative;
 }
 
 .progressbar-info {
     background-color: #5bc0de;
     height: 100%;
+}
+
+.progressbar-label {
+    position: absolute;
+    width: 100%;
+    text-align: center;
 }
