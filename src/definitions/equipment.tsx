@@ -1,9 +1,11 @@
 import { ResourceStoreState } from 'src/stores/resources';
 
-export enum EquipmentType {
-    lumberMill = "lumberMill",
-    farm = "farm",
-    tannery = "tannery"
+export enum Equipment {
+    crossbow = "crossbow",
+    longbow = "longbow",
+    dagger = "dagger",
+    sword = "sword",
+    torch = "torch"
 }
 
 interface StructureDefinition {

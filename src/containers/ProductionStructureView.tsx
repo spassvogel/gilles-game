@@ -17,9 +17,8 @@ import { removeResources } from 'src/actions/resources';
 function mapStateToProps(store:StoreState, ownProps:Props) {
     const structureStore:StructureStoreState = store.structures[ownProps.type];
 
-    const TEMP_PROGRESS = (store.tasks.running[0]) ? store.tasks.running[0].progress : 0;
     const tasks = store.tasks.running.filter((val) => val.origin === ownProps.type)
-console.log(`mstp`);
+    console.log(`mstp`);
     return { 
         gold: store.gold,
         level: structureStore.level,

@@ -15,11 +15,11 @@ export enum StructureType {
 }
 
 export interface StructureDefinition {
-    displayName: string
     type: StructureType
 }
 
 interface StructureLevelDefinition {
+    displayName: string
     cost?: number                // in gold
     workerCapacity: number       // number of workers that can work at this structure at this level
 }
@@ -49,18 +49,20 @@ export interface ProductionDefinition {
 
 const lumberMill:ResourceStructureDefinition = {
     type: StructureType.resource,
-    displayName: "The lumber mill",
     levels: [{
         // level 0:
+        displayName: "Ye olde lumber mill",
         workerCapacity: 2,
         generates: { wood: 2 }
     }, {
         // level 1:
+        displayName: "Slightly less olde lumber mill",
         workerCapacity: 5,
         cost: 30,
         generates: { wood: 2 }
     }, {
         // level 2:
+        displayName: "State of the art wood processing plant",
         workerCapacity: 10,
         cost: 50,
         generates: { wood: 2 }
@@ -69,17 +71,19 @@ const lumberMill:ResourceStructureDefinition = {
 
 const ironMine:ResourceStructureDefinition = {
     type: StructureType.resource,
-    displayName: "The iron mine",
     levels: [{
+        displayName: "Hole in the rocky ground",
         // level 0:
         workerCapacity: 2,
         generates: { iron: 2 }
     }, {
+        displayName: "A small mine",
         // level 1:
         workerCapacity: 5,
         cost: 30,
         generates: { iron: 2 }
     }, {
+        displayName: "A large mine",
         // level 2:
         workerCapacity: 10,
         cost: 50,
@@ -89,18 +93,20 @@ const ironMine:ResourceStructureDefinition = {
 
 const farm:ResourceStructureDefinition = {
     type: StructureType.resource,
-    displayName: "The farm",
     levels: [{
+        displayName: "A small farm",
         // level 1:
         workerCapacity: 2,
         generates: { food: 2 }
     }, {
+        displayName: "Mid-sized farm",
         // level 2:
         workerCapacity: 5,
         cost: 30,
         generates: { food: 2 }
     }, {
         // level 3:
+        displayName: "Global agricultural conglomeration",
         workerCapacity: 10,
         cost: 50,
         generates: { food: 2 }
@@ -109,18 +115,20 @@ const farm:ResourceStructureDefinition = {
 
 const tannery:ResourceStructureDefinition = {
     type: StructureType.resource,
-    displayName: "The tannery",
     levels: [{
+        displayName: "Small tannery",
         // level 1:
         workerCapacity: 2,
         generates: { leather: 2 }
     }, {
         // level 2:
+        displayName: "Bigger tannery",
         workerCapacity: 5,
         cost: 30,
         generates: { leather: 5 }
     }, {
         // level 3:
+        displayName: "Huge tannery",
         workerCapacity: 10,
         cost: 50,
         generates: { leather: 7 }

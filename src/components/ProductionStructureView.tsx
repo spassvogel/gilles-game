@@ -119,7 +119,7 @@ export default function(props: Props) {
     return ( 
         // Todo: abstract some stuff to generic StructureView
         <details open = { true } className = "structureview">
-            <summary>{structureDefinition.displayName}</summary>
+            <summary>{levelDefinition.displayName}</summary>
             <section>
                 <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }
                 { createWorkersRow() }

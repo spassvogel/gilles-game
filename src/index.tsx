@@ -53,6 +53,7 @@ const processStructures = (structures:StructuresStoreState) => {
     // Very temporary
 
     const resourcesToAdd:ResourceStoreState = {};
+    
     const handleStructure = (structure:string) => {     
         const structureDefinition:StructureDefinition = structureDefinitions[structure];
         
@@ -82,7 +83,9 @@ setInterval(() => {
 //    state.
     processStructures(state.structures);
     processTasks(state.tasks);
-    //store.dispatch(gameTick())
+
+
+    //store.dispatch(gameTick()) todo: combine `updateTasks` and `addResources` into one gametick action
 
 }, 2500);
 

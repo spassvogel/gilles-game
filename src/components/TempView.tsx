@@ -1,9 +1,10 @@
 import * as React from 'react';
 import './css/tempview.css';
 import ResourceViewRow from '../containers/ResourceViewRow';
-import { ResourceType } from 'src/definitions/resources';
+import { Resource } from 'src/definitions/resources';
 import ResourceStructureView from 'src/containers/ResourceStructureView';
 import { Structure } from 'src/definitions/structures';
+import { Equipment } from 'src/definitions/equipment';
 import ProductionStructureView from 'src/containers//ProductionStructureView';
 import EquipmentViewRow from 'src/containers/EquipmentViewRow';
 import { ResourceStoreState } from 'src/stores/resources';
@@ -37,33 +38,33 @@ export default function(props:Props) {
                 <details className = "structureview">
                     <summary>The storehouse</summary>
                     <section>
-                        <EquipmentViewRow name = "crossbow"/>
-                        <EquipmentViewRow name = "longbow"/>
-                        <EquipmentViewRow name = "sword"/> 
-                        <EquipmentViewRow name = "dagger"/> 
-                        <EquipmentViewRow name = "warPig"/>
+                        <EquipmentViewRow type = { Equipment.crossbow }/>
+                        <EquipmentViewRow type = { Equipment.longbow }/>
+                        <EquipmentViewRow type = { Equipment.sword }/> 
+                        <EquipmentViewRow type = { Equipment.dagger }/> 
+                        <EquipmentViewRow type = { Equipment.torch }/>
                     </section>
                 </details>
             </fieldset>
 
 
-            {/* <StructureViewRow name = "ironMines"/> */}
-                {/* <StructureViewRow name = "forges"/>
-                <StructureViewRow name = "blacksmiths"/>
-                <StructureViewRow name = "stables"/>
-                <StructureViewRow name = "tanneries"/> */}
-                {/* <StructureViewRow name = "farms"/> */}
-                {/* <StructureViewRow name = "alchemists"/> */}
+            {/* <StructureViewRow type = { Equipment.ironMines"/> */}
+                {/* <StructureViewRow type = { Equipment.forges"/>
+                <StructureViewRow type = { Equipment.blacksmiths"/>
+                <StructureViewRow type = { Equipment.stables"/>
+                <StructureViewRow type = { Equipment.tanneries"/> */}
+                {/* <StructureViewRow type = { Equipment.farms"/> */}
+                {/* <StructureViewRow type = { Equipment.alchemists"/> */}
 
              
             <fieldset>
                 <legend>Resources</legend>
-                <ResourceViewRow type = { ResourceType.wood }/>
-                <ResourceViewRow type = { ResourceType.iron }/>
-                <ResourceViewRow type = { ResourceType.steel }/>
-                <ResourceViewRow type = { ResourceType.food }/>
-                <ResourceViewRow type = { ResourceType.gunpowder }/>
-                <ResourceViewRow type = { ResourceType.leather }/>
+                <ResourceViewRow type = { Resource.wood }/>
+                <ResourceViewRow type = { Resource.iron }/>
+                <ResourceViewRow type = { Resource.steel }/>
+                <ResourceViewRow type = { Resource.food }/>
+                <ResourceViewRow type = { Resource.gunpowder }/>
+                <ResourceViewRow type = { Resource.leather }/>
             </fieldset>
 
             <fieldset>

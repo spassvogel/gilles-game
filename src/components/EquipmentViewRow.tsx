@@ -1,15 +1,16 @@
 
 import * as React from 'react';
+import { Equipment } from 'src/definitions/equipment';
 
 export interface Props {
-  name: string;
-  amount?: number;
+    type:Equipment
+    amount?:number;
 }
 
 export default function(props: Props) {  
     return ( 
         <div>
-            <label>{ props.name }: </label>
+            <label>{ props.type }: </label>
             { props.amount || 0}
         </div>
     );
