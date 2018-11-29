@@ -7,12 +7,12 @@ import { StructureStoreState } from '../stores/structure';
 import { subtractGold } from 'src/actions/gold';
 import { upgradeStructure, increaseWorkers, decreaseWorkers } from 'src/actions/structures';
 import { selectFreeWorkers } from 'src/selectors/workers';
-import { craft, addEquipment } from 'src/actions/equipment';
+import { addEquipment } from 'src/actions/equipment';
 import { ProductionDefinition } from 'src/definitions/structures';
 import { startTask } from 'src/actions/tasks';
 import { TaskType } from 'src/stores/task';
 import * as time from 'src/utils/time';
-import { removeResources } from 'src/actions';
+import { removeResources } from 'src/actions/resources';
 
 function mapStateToProps(store:StoreState, ownProps:Props) {
     const structureStore:StructureStoreState = store.structures[ownProps.type];

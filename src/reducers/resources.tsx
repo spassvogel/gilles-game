@@ -1,7 +1,6 @@
 import { Reducer, AnyAction } from 'redux';
 import { ResourceStoreState, initialState } from '../stores/resources';
-import { ActionType, AddResources } from '../actions';
-import { ActionType as EquipmentActionType, Action as EquipmentAction, CraftAction } from '../actions/equipment';
+import { ActionType, AddResources } from '../actions/resources';
 
 /**
  * reducer
@@ -31,7 +30,6 @@ export const resources: Reducer<ResourceStoreState> = (state:ResourceStoreState 
 }
 
 const addOrRemoveResources = (resources:ResourceStoreState, state:ResourceStoreState, operator:string):ResourceStoreState => {
-    console.log(operator)
     return Object.keys(state).reduce((accumulator:object, current:string) => {
         if(operator == "-"){
 			accumulator[current] = state[current] - (resources[current] || 0);

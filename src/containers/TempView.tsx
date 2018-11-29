@@ -5,7 +5,7 @@ import { Dispatch } from 'react';
 import { AnyAction } from 'redux';
 import { addGold } from 'src/actions/gold';
 import { ResourceStoreState } from 'src/stores/resources';
-import { addResources } from 'src/actions';
+import { addResources } from 'src/actions/resources';
 
 // Temporary gui
 function mapStateToProps(store:StoreState) {
