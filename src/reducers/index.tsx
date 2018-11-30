@@ -7,6 +7,7 @@ import { workers } from './workers';
 import { resources } from './resources';
 import { equipment } from './equipment';
 import { tasks } from './tasks';
+import { adventurers } from './adventurers';    // tmp
 
 export default combineReducers<StoreState>({
     randomseed,
@@ -15,5 +16,6 @@ export default combineReducers<StoreState>({
     structures,
     resources,
     equipment,
-    tasks
+    tasks,
+    adventurers
 }); 

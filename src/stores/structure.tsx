@@ -1,5 +1,3 @@
-import { Structure } from 'src/definitions/structures';
-
 export interface StructureStoreState {
     level?: number,
     workers?: number

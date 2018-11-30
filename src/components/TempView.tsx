@@ -8,6 +8,7 @@ import { Equipment } from 'src/definitions/equipment';
 import ProductionStructureView from 'src/containers//ProductionStructureView';
 import EquipmentViewRow from 'src/containers/EquipmentViewRow';
 import { ResourceStoreState } from 'src/stores/resources';
+import PartyScreen from 'src/containers/PartyScreen';
 
 export interface DispatchProps {
     onCheatGold?: (amount:number) => void
@@ -79,6 +80,8 @@ export default function(props:Props) {
                     wood: 100
                 })}> Geiv 100 all resources</button>
             </fieldset> 
+
+            <PartyScreen questName="Very interesting quest"></PartyScreen>
         </div>
     );
 }

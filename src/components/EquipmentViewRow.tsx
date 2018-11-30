@@ -2,16 +2,19 @@
 import * as React from 'react';
 import { Equipment } from 'src/definitions/equipment';
 
-export interface Props {
-    type:Equipment
-    amount?:number;
+export interface StateProps {
+    amount:number;
 }
 
-export default function(props: Props) {  
+export interface Props {
+    type:Equipment
+}
+
+export default function(props: Props & StateProps) {  
     return ( 
         <div>
             <label>{ props.type }: </label>
-            { props.amount || 0}
+            { props.amount }
         </div>
     );
 }

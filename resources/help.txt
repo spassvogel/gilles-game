@@ -8,3 +8,4 @@ resources are used to craft equipment
 https://react-spring.surge.sh/
 
 https://www.npmjs.com/package/seedrandom#saving-and-restoring-prng-state
+https://andy_victorovych.artstation.com/projects/1yKBo

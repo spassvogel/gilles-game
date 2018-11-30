@@ -159,18 +159,20 @@ const sword: ProductionDefinition = {
 
 const blacksmith:ProductionStructureDefinition = {
     type: StructureType.production,
-    displayName: "The blacksmith",
     levels: [{
         // level 1:
+        displayName: "A forge and an anvil",
         workerCapacity: 2,
         produces: [crossbow, dagger]
     }, {
         // level 2:
+        displayName: "A blacksmith",
         workerCapacity: 5,
         cost: 30,
         produces: [crossbow, dagger, longbow]
     }, {
         // level 3:
+        displayName: "Worldwide steel syndicate",
         workerCapacity: 10,
         cost: 50,
         produces: [crossbow, dagger, longbow, sword]

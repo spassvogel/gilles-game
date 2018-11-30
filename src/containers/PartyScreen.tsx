@@ -1,11 +1,12 @@
 
-import EquipmentViewRow,  { Props, StateProps }  from '../components/EquipmentViewRow';
 import { StoreState } from '../stores';
 import { connect } from 'react-redux';
+import PartyScreen, { Props, StateProps } from 'src/components/PartyScreen';
+import { any } from 'prop-types';
 
-function mapStateToProps(store:StoreState, ownProps:Props):StateProps {
+function mapStateToProps(store:StoreState, ownProps:Props):StateProps{
     return {
-        amount: store.equipment[ownProps.type]
+        adventurers: store.adventurers
     }
 }
 
@@ -16,4 +17,4 @@ function mapStateToProps(store:StoreState, ownProps:Props):StateProps {
 //   }
 // }
 
-export default connect<StateProps, any, Props, StoreState>(mapStateToProps)(EquipmentViewRow);
+export default connect<StateProps, any, Props, StoreState>(mapStateToProps)(PartyScreen);
