@@ -9,3 +9,8 @@ https://react-spring.surge.sh/
 
 https://www.npmjs.com/package/seedrandom#saving-and-restoring-prng-state
 https://andy_victorovych.artstation.com/projects/1yKBo
+
+
+
+> compile different .scss file to one big css
+https://stackoverflow.com/questions/39879674/watch-all-sub-directories-with-node-sass

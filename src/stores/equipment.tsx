@@ -4,6 +4,7 @@ export interface EquipmentStoreState {
     sword: number,
     dagger: number,
     warPig: number,
+    khopesh: number,
     torch: number
 }
 export const initialState:EquipmentStoreState = {
@@ -12,5 +13,6 @@ export const initialState:EquipmentStoreState = {
     longbow: 0,
     sword: 0,
     warPig: 0,
-    torch: 0
+    torch: 0,
+    khopesh: 0
 }

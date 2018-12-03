@@ -1,0 +1,41 @@
+.partyscreen {
+  position: absolute;
+  left: 320px;
+  top: 60px;
+  border: 1px solid #6b6f64;
+  width: 700px;
+  height: 2032px; }
+
+.partyscreen .header {
+  height: 50px;
+  line-height: 30px;
+  padding: 10px;
+  box-sizing: border-box;
+  background: #e5e5e5;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #e5e5e5 0%, white 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #e5e5e5 0%, white 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #e5e5e5 0%, white 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#ffffff',GradientType=0 );
+  /* IE6-9 */ }
+
+.partyscreen .avatars {
+  display: flex; }
+
+.partyscreen .avatars .avatar {
+  flex: 1;
+  text-align: center;
+  background-size: contain;
+  position: relative; }
+
+.partyscreen .avatars .avatar img {
+  width: 100%; }
+
+.partyscreen .avatars .avatar .name {
+  position: absolute;
+  color: white;
+  transform: translateY(-30px);
+  width: 100%; }
