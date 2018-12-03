@@ -25,7 +25,15 @@ const quest1:QuestDefinition = {
     nodes: [{
         x: 0,
         y: 1,
+        type: QuestNodeType.nothing
+    }, {
+        x: 0,
+        y: 2,
         type: QuestNodeType.encounter
+    }, {
+        x: 1,
+        y: 2,
+        type: QuestNodeType.boss
     }]
 }
 

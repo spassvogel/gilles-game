@@ -1,34 +1,39 @@
 .partyscreen {
-  position: absolute;
-  left: 320px;
-  top: 60px;
-  border: 1px solid #6b6f64;
-  width: 700px;
+    position: absolute;
+    left: 320px;
+    top: 60px;
+    border: 1px solid #6b6f64;
+    width: 700px;
 }
 
 .partyscreen .header {
-  height: 50px;
-  line-height: 30px;    
-  padding: 10px;    
-  box-sizing: border-box;
+    height: 50px;
+    line-height: 30px;
+    padding: 10px;
+    box-sizing: border-box;
 
-  background: rgb(229,229,229); /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(229,229,229,1) 0%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(229,229,229,1) 0%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(229,229,229,1) 0%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */ 
+    background: rgb(229, 229, 229);
+    /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(229, 229, 229, 1) 0%, rgba(255, 255, 255, 1) 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(229, 229, 229, 1) 0%, rgba(255, 255, 255, 1) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(229, 229, 229, 1) 0%, rgba(255, 255, 255, 1) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e5e5e5', endColorstr='#ffffff', GradientType=0);
+    /* IE6-9 */
 
 }
 
 .partyscreen .avatars {
-  display: flex;
+    display: flex;
 }
 
 .partyscreen .avatars .avatar {
-  flex: 1;
-  text-align: center;
-  background-size: contain;
-  position: relative;
+    flex: 1;
+    text-align: center;
+    background-size: contain;
+    position: relative;
 }
 
 .partyscreen .avatars .avatar img {
@@ -37,20 +42,47 @@
 }
 
 .partyscreen .avatars .avatar .name {
-  position: absolute;
-  color: white;
-  transform: translateY(-30px);
-  width: 100%;
+    position: absolute;
+    color: white;
+    transform: translateY(-30px);
+    width: 100%;
 }
 
-.partyscreen .avatars .avatar.selected{
-  border: green 4px solid;
+.partyscreen .avatars .avatar.selected {
+    border: green 4px solid;
 }
 
 .partyscreen .questlog {
-  height: 200px;
+    height: 200px;
 }
 
 .partyscreen .action {
-  height: 200px;
+    height: 200px;
+}
+
+.partyscreen .adventurer-container {
+    display: flex;
+}
+
+.partyscreen .adventurer-container .left, .partyscreen .adventurer-container .right {
+    flex: 0.5
+}
+
+.partyscreen .adventurer-container .left {
+    border-right: 1px solid grey;
+}
+
+.partyscreen .adventurer-container .left .name {
+    padding: 15px;
+}
+
+.partyscreen .adventurer-container .left .attributes {
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    padding: 15px;
+}
+
+
+.partyscreen .adventurer-container .left .gear {
+    padding: 15px;
 }

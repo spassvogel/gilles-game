@@ -16,6 +16,7 @@ interface LocalState {
 }
 
 export default class PartyScreen extends React.Component<Props & StateProps, LocalState> {
+    
     constructor(props: Props & StateProps) {
         super(props);
 
@@ -58,7 +59,7 @@ export default class PartyScreen extends React.Component<Props & StateProps, Loc
     private getBottomPart = () => {
         if(this.state.selectedAdventurer) {
             const adventurer:AdventurerStoreState = this.props.adventurers.find(a => a.id == this.state.selectedAdventurer)!;
-            return <div>  { adventurer.name }</div>
+            return this.getAdventurerInfo(adventurer);
         }
         else {
             return [
@@ -68,6 +69,35 @@ export default class PartyScreen extends React.Component<Props & StateProps, Loc
             </div>
             </div>];
         }        
+    }
+
+    getAdventurerInfo(adventurer: AdventurerStoreState): any {
+        const attributes = Object.keys(adventurer.stats).map(stat => {
+            const value:number = adventurer.stats[stat];
+            return <div> <b>{ stat }</b>: { value.toFixed(1) } </div>    
+        });
+        const gearList = Object.keys(adventurer.gear).map(gear => {
+            return <div><b>{ gear }</b>: { adventurer.gear[gear] }  </div>    
+        });
+
+        return (
+        <div className="adventurer-container">  
+            <div className="left">
+                <div className="name">
+                    <b>{ adventurer.name }</b>
+                </div>
+                <div className="attributes">
+                    { attributes }
+                </div>
+                <div className="gear">
+                    { gearList }
+                </div>
+            </div>
+            <div className="right">
+
+            </div>
+        </div>
+        );
     }
 
     handleAvatarClick(adventurerId:string | null): void {
