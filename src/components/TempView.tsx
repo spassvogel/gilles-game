@@ -3,12 +3,12 @@ import './css/tempview.css';
 import ResourceViewRow from '../containers/ResourceViewRow';
 import { Resource } from 'src/definitions/resources';
 import ResourceStructureView from 'src/containers/ResourceStructureView';
-import { Structure } from 'src/definitions/structures';
 import { Equipment } from 'src/definitions/equipment';
 import ProductionStructureView from 'src/containers//ProductionStructureView';
 import EquipmentViewRow from 'src/containers/EquipmentViewRow';
 import { ResourceStoreState } from 'src/stores/resources';
 import PartyScreen from 'src/containers/PartyScreen';
+import { Structure } from 'src/definitions/structures';
 
 export interface DispatchProps {
     onCheatGold?: (amount:number) => void
@@ -34,7 +34,8 @@ export default function(props:Props) {
                 <ResourceStructureView type={ Structure.farm  }/>
                 <ResourceStructureView type={ Structure.tannery  }/>
                 
-                <ProductionStructureView type={ Structure.blacksmith  }/>
+                <ProductionStructureView type={ Structure.weaponsmith  }/>
+                <ProductionStructureView type={ Structure.armoursmith  }/>
 
                 <details className = "structureview">
                     <summary>The storehouse</summary>

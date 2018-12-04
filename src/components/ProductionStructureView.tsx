@@ -1,16 +1,13 @@
 // OBSOLETE
 import * as React from 'react';
 import './css/structureviewrow.css';
-import structureDefinitions, { 
-    Structure, 
-    ProductionStructureDefinition,
-    ProductionStructureLevelDefinition,
-    ProductionDefinition} from 'src/definitions/structures';
+import structureDefinitions, {     Structure } from 'src/definitions/structures';
 import UpDownValue from './ui/UpDownValue';
-import equipment from 'src/definitions/equipment';
 import { ResourceStoreState } from 'src/stores/resources';
 import Progressbar from './ui/Progressbar';
 import { TaskStoreState } from 'src/stores/task';
+import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from 'src/definitions/structures/types';
+import { ProductionDefinition } from 'src/definitions/production/types';
 
 export interface DispatchProps {
     onUpgrade?: (cost:number) => void

@@ -13,10 +13,10 @@ import { updateTasks } from './actions/tasks';
 import { TaskStoreState } from './stores/task';
 import { TasksStoreState } from './stores/tasks';
 import { StructuresStoreState } from './stores/structures';
-import { StructureDefinition, StructureType, ResourceStructureLevelDefinition, ResourceStructureDefinition } from './definitions/structures';
-import { addResource, addResources } from './actions/resources';
+import { addResources } from './actions/resources';
 import structureDefinitions from './definitions/structures';
 import { ResourceStoreState } from './stores/resources';
+import { StructureType, StructureDefinition, ResourceStructureDefinition, ResourceStructureLevelDefinition } from './definitions/structures/types';
 
 const store = createStore<StoreState, any, any, any>(
     rootReducer, 

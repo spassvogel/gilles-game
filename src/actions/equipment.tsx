@@ -1,4 +1,4 @@
-import { Structure, ProductionDefinition } from 'src/definitions/structures';
+import { ProductionDefinition } from 'src/definitions/production/types';
 
 export enum ActionType {
     craft = "craft",
