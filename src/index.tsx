@@ -18,6 +18,9 @@ import { ResourceStoreState } from "./stores/resources";
 import { StructuresStoreState } from "./stores/structures";
 import { TaskStoreState } from "./stores/task";
 import { TasksStoreState } from "./stores/tasks";
+import * as random from "./utils/random";
+import { seedrandomStateType } from 'seedrandom';
+import { gameTick } from './actions/game';
 
 const store = createStore<StoreState, any, any, any>(
     rootReducer,
@@ -75,13 +78,27 @@ const processStructures = (structures: StructuresStoreState) => {
     store.dispatch(addResources(resourcesToAdd));
 };
 
+random.init("GILLESROX2");
+console.log(random.random());
+console.log(random.random());
+
 store.dispatch(addGold(40));
+
+const getRngState = (): seedrandomStateType => {
+    return random.state();
+}
+
 setInterval(() => {
     const state: StoreState = store.getState();
+
+
 
 //    state.
     processStructures(state.structures);
     processTasks(state.tasks);
+
+    const rngState = getRngState();
+    store.dispatch(gameTick(rngState));
 
     // store.dispatch(gameTick()) todo: combine `updateTasks` and `addResources` into one gametick action
 
