@@ -1,6 +1,6 @@
 
 import * as React from "react";
-import { Equipment } from "src/definitions/equipment";
+import { Equipment } from "src/definitions/equipment/types";
 
 export interface StateProps {
     amount: number;

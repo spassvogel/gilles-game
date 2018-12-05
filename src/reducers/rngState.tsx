@@ -11,7 +11,7 @@ const initialState = false;
 export const rngState: Reducer<seedrandomStateType> = (state: seedrandomStateType = initialState,
                                                        action: GameTick) => {
         if (action.type === ActionType.gameTick) {
-            state =  Object.assign({}, action.rngState)
+            state =  Object.assign({}, action.rngState);
         }
         return state;
 };

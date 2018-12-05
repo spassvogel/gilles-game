@@ -2,6 +2,8 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
+import { seedrandomStateType } from "seedrandom";
+import { gameTick } from "./actions/game";
 import { addGold } from "./actions/gold";
 import { addResources } from "./actions/resources";
 import { updateTasks } from "./actions/tasks";
@@ -19,8 +21,6 @@ import { StructuresStoreState } from "./stores/structures";
 import { TaskStoreState } from "./stores/task";
 import { TasksStoreState } from "./stores/tasks";
 import * as random from "./utils/random";
-import { seedrandomStateType } from 'seedrandom';
-import { gameTick } from './actions/game';
 
 const store = createStore<StoreState, any, any, any>(
     rootReducer,

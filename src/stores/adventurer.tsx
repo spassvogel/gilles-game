@@ -1,4 +1,4 @@
-import { Equipment } from "src/definitions/equipment";
+import { Equipment } from "src/definitions/equipment/types";
 
 export interface AdventurerStoreState {
     id: string;

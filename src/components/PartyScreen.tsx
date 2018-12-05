@@ -48,6 +48,12 @@ export default class PartyScreen extends React.Component<Props & StateProps, Loc
             return <div key= { `${adventurer.id}-${gear}`} ><b>{ gear }</b>: { adventurer.gear[gear] }  </div>;
         });
 
+        const inventory = [];
+        for (let i = 0; i < 21; i++) {
+            const item = <div className="inventory-item"></div>;
+            inventory.push(item);
+        }
+
         return (
         <div className="adventurer-container">
             <div className="left">
@@ -61,8 +67,8 @@ export default class PartyScreen extends React.Component<Props & StateProps, Loc
                     { gearList }
                 </div>
             </div>
-            <div className="right">
-
+            <div className="right inventory">
+                { inventory }
             </div>
         </div>
         );
@@ -94,7 +100,7 @@ export default class PartyScreen extends React.Component<Props & StateProps, Loc
         });
     }
 
-    private getBottomPart =     () => {
+    private getBottomPart = () => {
         if (this.state.selectedAdventurer) {
             const adventurer: AdventurerStoreState = this.props.adventurers
                 .find((a) => a.id === this.state.selectedAdventurer)!;

@@ -1,4 +1,3 @@
-
 export enum Equipment {
     crossbow = "crossbow",
     longbow = "longbow",
@@ -6,4 +5,10 @@ export enum Equipment {
     sword = "sword",
     khopesh = "khopesh",
     torch = "torch",
+}
+
+export interface EquipmentDefinition {
+    equipment: Equipment;
+    name: string;
+    iconImg: string;
 }

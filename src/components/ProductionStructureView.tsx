@@ -1,5 +1,7 @@
 // OBSOLETE
 import * as React from "react";
+import equipmentDefinitions from "src/definitions/equipment";
+import { EquipmentDefinition } from "src/definitions/equipment/types";
 import { ProductionDefinition } from "src/definitions/production/types";
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from "src/definitions/structures/types";
@@ -96,11 +98,13 @@ export default function(props: Props) {
             const playerResources = props.resources || {};
             const disabled = Object.keys(produces.cost)
                 .some((resource) => produces.cost[resource] > playerResources[resource]);
+            const equipmentDefinition: EquipmentDefinition = equipmentDefinitions[produces.equipment];
+
             return <div key = { "craft" + produces.equipment } >
                 <button
                     disabled = {disabled}
                     onClick = { () => handleClick(produces) }>
-                    { produces.equipment }
+                    { equipmentDefinition.name }
                 </button>
                 { makeCostsString(produces.cost) }
             </div>;

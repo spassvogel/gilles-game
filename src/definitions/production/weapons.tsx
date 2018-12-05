@@ -1,7 +1,7 @@
 // tslint:disable:object-literal-sort-keys
 
 import * as time from "src/utils/time";
-import { Equipment } from "../equipment";
+import { Equipment } from "../equipment/types";
 import { ProductionDefinition } from "./types";
 
 export const crossbow: ProductionDefinition = {

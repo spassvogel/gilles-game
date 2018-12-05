@@ -86,3 +86,27 @@
 .partyscreen .adventurer-container .left .gear {
     padding: 15px;
 }
+
+.partyscreen .adventurer-container .inventory {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.partyscreen .adventurer-container .inventory > .inventory-item {
+	flex-grow: 1;
+    flex: 1 1 20%;
+}
+
+.partyscreen .adventurer-container .inventory .inventory-item {
+    display: inline-block;
+    border: 1px solid green;
+    /* box-sizing: border-box; */
+}
+
+.partyscreen .adventurer-container .inventory .inventory-item:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+  }

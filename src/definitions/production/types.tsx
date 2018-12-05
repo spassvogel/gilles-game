@@ -1,5 +1,5 @@
 import { ResourceStoreState } from "src/stores/resources";
-import { Equipment } from "../equipment";
+import { Equipment } from "../equipment/types";
 
 export interface ProductionDefinition {
     equipment: Equipment;
