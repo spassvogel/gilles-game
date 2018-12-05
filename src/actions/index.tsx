@@ -4,24 +4,22 @@ export enum ActionType {
 }
 
 export interface Action {
-    type:ActionType
+    type: ActionType;
 }
 
 export interface ModifyWorkersAction extends Action {
-    value:number
+    value: number;
 }
 
-export function addWorkers(value:number): ModifyWorkersAction {
+export function addWorkers(value: number): ModifyWorkersAction {
     return {
         type: ActionType.addWorkers,
-        value
-    }
+        value,
+    };
 }
-export function subtractWorkers(value:number): ModifyWorkersAction {
+export function subtractWorkers(value: number): ModifyWorkersAction {
     return {
         type: ActionType.addWorkers,
-        value: -value
-    }
+        value: -value,
+    };
 }
-
-

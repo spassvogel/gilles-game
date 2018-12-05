@@ -1,8 +1,8 @@
 export interface StructureStoreState {
-    level?: number,
-    workers?: number
+    level?: number;
+    workers?: number;
 }
-export const initialState:StructureStoreState = {
+export const initialState: StructureStoreState = {
     level: 0,
-    workers: 0
-}
+    workers: 0,
+};

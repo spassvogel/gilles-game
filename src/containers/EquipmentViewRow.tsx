@@ -1,12 +1,12 @@
 
-import EquipmentViewRow,  { Props, StateProps }  from '../components/EquipmentViewRow';
-import { StoreState } from '../stores';
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
+import EquipmentViewRow,  { Props, StateProps } from "../components/EquipmentViewRow";
+import { StoreState } from "../stores";
 
-function mapStateToProps(store:StoreState, ownProps:Props):StateProps {
+function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     return {
-        amount: store.equipment[ownProps.type]
-    }
+        amount: store.equipment[ownProps.type],
+    };
 }
 
 // export function mapDispatchToProps(dispatch: Dispatch<actions.EnthusiasmAction>) {

@@ -1,14 +1,16 @@
-import { Structure } from 'src/definitions/structures';
+// tslint:disable:object-literal-sort-keys
+
+import { Structure } from "src/definitions/structures";
 
 export enum ActionType {
     upgradeStructure = "upgradeStructure",
     increaseWorkers = "increaseWorkers",
-    decreaseWorkers = "decreaseWorkers"
+    decreaseWorkers = "decreaseWorkers",
 }
 
 export interface Action {
-    type:ActionType,
-    structure:Structure
+    type: ActionType;
+    structure: Structure;
 }
 
 // export interface SetStructureAmount {
@@ -21,8 +23,8 @@ export interface Action {
 //     structure: StructureType
 // }
 
-//export type IncrementSomething = IncrementStructure | IncrementResource; // UNUSED?
-//export type StructureAction = SetStructureAmount | UpgradeStructure; 
+// export type IncrementSomething = IncrementStructure | IncrementResource; // UNUSED?
+// export type StructureAction = SetStructureAmount | UpgradeStructure;
 
 // export function setStructureAmount(structure:string, amount:number): SetStructureAmount {
 //     return {
@@ -32,26 +34,25 @@ export interface Action {
 //     }
 // }
 
-export function upgradeStructure(structure:Structure): Action {
-    console.log("Upgrading " + structure + " now!");
+export function upgradeStructure(structure: Structure): Action {
     return {
         type: ActionType.upgradeStructure,
-        structure
-    }
+        structure,
+    };
 }
 
 // Increases workers by one
-export function increaseWorkers(structure:Structure): Action {
+export function increaseWorkers(structure: Structure): Action {
     return {
         type: ActionType.increaseWorkers,
-        structure
-    }
+        structure,
+    };
 }
 
 // Decreases workers by one
-export function decreaseWorkers(structure:Structure): Action {
+export function decreaseWorkers(structure: Structure): Action {
     return {
         type: ActionType.decreaseWorkers,
-        structure
-    }
+        structure,
+    };
 }

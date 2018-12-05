@@ -1,13 +1,13 @@
 
-import { StoreState } from '../stores';
-import { connect } from 'react-redux';
-import PartyScreen, { Props, StateProps } from 'src/components/PartyScreen';
-import { any } from 'prop-types';
+import { any } from "prop-types";
+import { connect } from "react-redux";
+import PartyScreen, { Props, StateProps } from "src/components/PartyScreen";
+import { StoreState } from "../stores";
 
-function mapStateToProps(store:StoreState, ownProps:Props):StateProps{
+function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     return {
-        adventurers: store.adventurers
-    }
+        adventurers: store.adventurers,
+    };
 }
 
 // export function mapDispatchToProps(dispatch: Dispatch<actions.EnthusiasmAction>) {

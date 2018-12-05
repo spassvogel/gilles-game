@@ -1,51 +1,55 @@
-import ProductionStructureView,  { Props, DispatchProps }  from '../components/ProductionStructureView';
+import ProductionStructureView,  { DispatchProps, Props } from "../components/ProductionStructureView";
 
-import { StoreState } from '../stores';
-import { connect } from 'react-redux';
-import { Dispatch, AnyAction } from 'redux';
-import { StructureStoreState } from '../stores/structure';
-import { subtractGold } from 'src/actions/gold';
-import { upgradeStructure, increaseWorkers, decreaseWorkers } from 'src/actions/structures';
-import { selectFreeWorkers } from 'src/selectors/workers';
-import { addEquipment } from 'src/actions/equipment';
-import { startTask } from 'src/actions/tasks';
-import { TaskType } from 'src/stores/task';
-import * as time from 'src/utils/time';
-import { removeResources } from 'src/actions/resources';
-import { ProductionDefinition } from 'src/definitions/production/types';
+import { connect } from "react-redux";
+import { AnyAction, Dispatch } from "redux";
+import { addEquipment } from "src/actions/equipment";
+import { subtractGold } from "src/actions/gold";
+import { removeResources } from "src/actions/resources";
+import { decreaseWorkers, increaseWorkers, upgradeStructure } from "src/actions/structures";
+import { startTask } from "src/actions/tasks";
+import { ProductionDefinition } from "src/definitions/production/types";
+import { selectFreeWorkers } from "src/selectors/workers";
+import { TaskType } from "src/stores/task";
+import { StoreState } from "../stores";
+import { StructureStoreState } from "../stores/structure";
 
-function mapStateToProps(store:StoreState, ownProps:Props) {
-    const structureStore:StructureStoreState = store.structures[ownProps.type];
+function mapStateToProps(store: StoreState, ownProps: Props) {
+    const structureStore: StructureStoreState = store.structures[ownProps.type];
 
-    const tasks = store.tasks.running.filter((val) => val.origin === ownProps.type)
-    return { 
+    const tasks = store.tasks.running.filter((val) => val.origin === ownProps.type);
+    return {
         gold: store.gold,
         level: structureStore.level,
+        resources: store.resources,
+        tasks,
         workers: structureStore.workers,
         workersFree: selectFreeWorkers(store),
-        resources: store.resources,
-        tasks
-    }
+    };
 }
 
-function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps:Props) : DispatchProps {
+function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps {
     return {
-        onUpgrade: (cost:number) => {
+        onCraft: (productionDefinition: ProductionDefinition) => {
+            const callback = addEquipment(productionDefinition.equipment);
+            dispatch(removeResources(productionDefinition.cost));
+            const start = startTask(TaskType.constructEquipment,
+                productionDefinition.equipment,
+                ownProps.type,
+                productionDefinition.time,
+                callback);
+            dispatch(start);
+        },
+        onUpgrade: (cost: number) => {
             dispatch(subtractGold(cost));
             dispatch(upgradeStructure(ownProps.type)); // Todo: time??
         },
-        onWorkersUp: () => {
-            dispatch(increaseWorkers(ownProps.type));  
-        },
         onWorkersDown: () => {
-            dispatch(decreaseWorkers(ownProps.type)); 
+            dispatch(decreaseWorkers(ownProps.type));
         },
-        onCraft: (productionDefinition:ProductionDefinition) => {
-            const callback = addEquipment(productionDefinition.equipment);
-            dispatch(removeResources(productionDefinition.cost));
-            dispatch(startTask(TaskType.constructEquipment, productionDefinition.equipment, ownProps.type, time.TEN_SECONDS, callback));
-        }
-    }
+        onWorkersUp: () => {
+            dispatch(increaseWorkers(ownProps.type));
+        },
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductionStructureView);

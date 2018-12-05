@@ -1,21 +1,21 @@
-import { StoreState } from '../stores';
-import { combineReducers } from 'redux';
-import { structures } from './structures';
-import { randomseed } from './randomseed';
-import { gold } from './gold';
-import { workers } from './workers';
-import { resources } from './resources';
-import { equipment } from './equipment';
-import { tasks } from './tasks';
-import { adventurers } from './adventurers';    // tmp
+import { combineReducers } from "redux";
+import { StoreState } from "../stores";
+import { adventurers } from "./adventurers";    // tmp
+import { equipment } from "./equipment";
+import { gold } from "./gold";
+import { randomseed } from "./randomseed";
+import { resources } from "./resources";
+import { structures } from "./structures";
+import { tasks } from "./tasks";
+import { workers } from "./workers";
 
 export default combineReducers<StoreState>({
-    randomseed,
-    gold,
-    workers,
-    structures,
-    resources,
+    adventurers,
     equipment,
+    gold,
+    randomseed,
+    resources,
+    structures,
     tasks,
-    adventurers
-}); 
+    workers,
+});

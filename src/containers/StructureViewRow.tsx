@@ -17,7 +17,7 @@
 
 // export function mapDispatchToProps(dispatch: Dispatch<actions.StructureAction>, ownProps:Props) : DispatchProps {
 //     return {
-//         onChange: (amount:number) => { 
+//         onChange: (amount:number) => {
 //             dispatch(actions.setStructureAmount(ownProps.name, amount))
 //         }
 //     }

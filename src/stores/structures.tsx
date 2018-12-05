@@ -1,41 +1,41 @@
-import { StructureStoreState } from './structure';
-import weaponsmith from 'src/definitions/structures/weaponsmith';
-import armoursmith from 'src/definitions/structures/armoursmith';
+import weaponsmith from "src/definitions/structures/weaponsmith";
+import { StructureStoreState } from "./structure";
 
 export interface StructuresStoreState {
-    lumberMill: StructureStoreState,
-    ironMine: StructureStoreState,
+    lumberMill: StructureStoreState;
+    ironMine: StructureStoreState;
     // forge: StructureStoreState,
-    weaponsmith: StructureStoreState,
-    armoursmith: StructureStoreState,
+    weaponsmith: StructureStoreState;
+    armoursmith: StructureStoreState;
     // stables: StructureStoreState,
-    tannery: StructureStoreState,
-    farm: StructureStoreState,
+    tannery: StructureStoreState;
+    farm: StructureStoreState;
     // alchemist: StructureStoreState,
 }
-export const initialState:StructuresStoreState = {
-    lumberMill: { 
+
+export const initialState: StructuresStoreState = {
+    armoursmith: {
         level: 0,
-        workers: 2
+        workers: 1,
     },
-    ironMine: { 
+    farm: {
         level: 0,
-        workers: 0
+        workers: 1,
     },
-    farm: { 
+    ironMine: {
         level: 0,
-        workers: 1
+        workers: 0,
     },
-    tannery: { 
+    lumberMill: {
         level: 0,
-        workers: 1
+        workers: 2,
     },
-    weaponsmith: { 
+    tannery: {
         level: 0,
-        workers: 1
+        workers: 1,
     },
-    armoursmith: { 
+    weaponsmith: {
         level: 0,
-        workers: 1
-    }
-}
+        workers: 1,
+    },
+};

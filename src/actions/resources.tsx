@@ -1,37 +1,36 @@
-import { ResourceStoreState } from 'src/stores/resources';
+// tslint:disable:object-literal-sort-keys
+import { ResourceStoreState } from "src/stores/resources";
 
 export enum ActionType {
     addResources = "addResources",
-    removeResources = "removeResources"
+    removeResources = "removeResources",
 }
 
 export interface Action {
-    type:ActionType
+    type: ActionType;
 }
 
 export interface AddResources {
-    type:ActionType;
-    resources:ResourceStoreState
+    type: ActionType;
+    resources: ResourceStoreState;
 }
 
-
-
-export function addResource(resource:string, value:number): AddResources {
+export function addResource(resource: string, value: number): AddResources {
     return addResources({
-        [resource]: value
+        [resource]: value,
     });
 }
 
-export function addResources(resources:ResourceStoreState): AddResources {
+export function addResources(resources: ResourceStoreState): AddResources {
     return {
         type: ActionType.addResources,
         resources,
-    }
+    };
 }
 
-export function removeResources(resources:ResourceStoreState): AddResources {
+export function removeResources(resources: ResourceStoreState): AddResources {
     return {
         type: ActionType.removeResources,
         resources,
-    }
+    };
 }

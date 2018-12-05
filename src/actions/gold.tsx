@@ -1,24 +1,24 @@
 export enum ActionType {
-    addGold = "addGold"
+    addGold = "addGold",
 }
 
 export interface Action {
-    type:ActionType
+    type: ActionType;
 }
 
 export interface ModifyGoldAction extends Action {
-    value:number
+    value: number;
 }
 
-export function addGold(value:number): ModifyGoldAction {
+export function addGold(value: number): ModifyGoldAction {
     return {
         type: ActionType.addGold,
-        value
-    }
+        value,
+    };
 }
-export function subtractGold(value:number): ModifyGoldAction {
+export function subtractGold(value: number): ModifyGoldAction {
     return {
         type: ActionType.addGold,
-        value: -value
-    }
+        value: -value,
+    };
 }

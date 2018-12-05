@@ -4,5 +4,5 @@ export enum Resource {
     steel = "steel",
     leather = "leather",
     gunpowder = "gunpowder",
-    food = "food"
+    food = "food",
 }

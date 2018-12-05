@@ -1,60 +1,60 @@
-import { Reducer } from 'redux';
-import { TaskStoreState } from 'src/stores/task';
-import { TasksStoreState, initialState } from 'src/stores/tasks';
-import { ActionType, Action as AnyTaskAction, AddAction} from 'src/actions/tasks';
+// tslint:disable:object-literal-sort-keys
 
+import { Reducer } from "redux";
+import { Action as AnyTaskAction, ActionType, AddAction} from "src/actions/tasks";
+import { TaskStoreState } from "src/stores/task";
+import { initialState, TasksStoreState } from "src/stores/tasks";
 
 /**
  * Tasks reducer
- * @param state 
- * @param action 
+ * @param state
+ * @param action
  */
-export const tasks:Reducer<TasksStoreState> = (state:TasksStoreState = initialState, action:AnyTaskAction) => {
+export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initialState, action: AnyTaskAction) => {
     switch (action.type) {
         case ActionType.start: {
         // Adds a new task to the running tasks
-            const task:TaskStoreState = createTask(action as AddAction);
-            const running = state.running.concat(task);            
-            return { 
+            const task: TaskStoreState = createTask(action as AddAction);
+            const running = state.running.concat(task);
+            return {
                 ...state,
-                running 
+                running,
             };
         }
         case ActionType.update: {
             // Will update all tasks in `running`. If a running task expires it is placed in `complete`
             // Note that completed tasks must be handled BEFORE the next call to ActionType.update, because
             // this list is recreated every time
-            const now:number = Date.now();
-            const running:TaskStoreState[] = [];
-            const completed:TaskStoreState[] = [];
+            const now: number = Date.now();
+            const running: TaskStoreState[] = [];
+            const completed: TaskStoreState[] = [];
             state.running.forEach((t) => {
                 const end = now + t.timeRemaining;
                 const progress = (now - t.startTime) / (end - t.startTime);
-                const timeRemaining = t.timeRemaining - (now - t.lastTick); 
-                const task = { 
+                const timeRemaining = t.timeRemaining - (now - t.lastTick);
+                const task = {
                     ...t,
-                    timeRemaining,
                     progress,
-                    lastTick: now
+                    lastTick: now,
+                    timeRemaining,
                 };
-                if(timeRemaining < 0){
+                if (timeRemaining < 0) {
                     completed.push(task);
-                } 
-                else {
+                } else {
                     running.push(task);
                 }
             });
 
-            return { 
+            return {
                 running,
-                completed
+                completed,
             };
         }
-    } 
+    }
     return state;
-}
+};
 
-const createTask = (action:AddAction) => {
+const createTask = (action: AddAction) => {
     return {
         name: action.name,
         origin: action.origin,
@@ -63,6 +63,6 @@ const createTask = (action:AddAction) => {
         timeRemaining: action.time,
         startTime: Date.now(),
         lastTick: Date.now(),
-        progress: 0
-    }
-}
+        progress: 0,
+    };
+};

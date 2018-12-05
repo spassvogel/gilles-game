@@ -1,21 +1,20 @@
 
-import * as React from 'react';
-import { Equipment } from 'src/definitions/equipment';
+import * as React from "react";
+import { Equipment } from "src/definitions/equipment";
 
 export interface StateProps {
-    amount:number;
+    amount: number;
 }
 
 export interface Props {
-    type:Equipment
+    type: Equipment;
 }
 
-export default function(props: Props & StateProps) {  
-    return ( 
+export default function(props: Props & StateProps) {
+    return (
         <div>
             <label>{ props.type }: </label>
             { props.amount }
         </div>
     );
 }
-

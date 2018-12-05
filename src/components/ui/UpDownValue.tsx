@@ -1,13 +1,13 @@
 // Todo: come up with a less retarded name
-import * as React from 'react';
-import './css/updownvalue.css';
+import * as React from "react";
+import "./css/updownvalue.css";
 
 export interface DispatchProps {
-    onUp?: () => void
-    onDown?: () => void
+    onUp?: () => void;
+    onDown?: () => void;
 }
 export interface Props extends DispatchProps {
-    label?: string,
+    label?: string;
     value?: number;
     max?: number;
     upDisabled?: boolean;
@@ -16,23 +16,22 @@ export interface Props extends DispatchProps {
 
 export default function(props: Props) {
     const handleUp = () => {
-        if(props.onUp && !props.upDisabled) props.onUp();
-    }
+        if (props.onUp && !props.upDisabled) { props.onUp(); }
+    };
 
-    const handleDown= () => {
-        if(props.onDown && !props.downDisabled) props.onDown();
-    }
+    const handleDown = () => {
+        if (props.onDown && !props.downDisabled) { props.onDown(); }
+    };
 
     let displayValue;
-    if(props.max == null) {
+    if (props.max == null) {
         displayValue = props.value;
-    } 
-    else {
-        displayValue = <span> 
-            	{ props.value } / <span className='max'>{ props.max }</span>
+    } else {
+        displayValue = <span>
+                { props.value } / <span className="max">{ props.max }</span>
             </span>;
     }
-    return ( 
+    return (
         <div className="updownvalue">
             <label> { props.label }</label>
             { displayValue }
@@ -45,4 +44,3 @@ export default function(props: Props) {
         </div>
     );
 }
-
