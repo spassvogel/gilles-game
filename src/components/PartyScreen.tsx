@@ -42,10 +42,10 @@ export default class PartyScreen extends React.Component<Props & StateProps, Loc
     public getAdventurerInfo(adventurer: AdventurerStoreState): any {
         const attributes = Object.keys(adventurer.stats).map((stat) => {
             const value: number = adventurer.stats[stat];
-            return <div> <b>{ stat }</b>: { value.toFixed(1) } </div>;
+            return <div key= { `${adventurer.id}-${stat}`} > <b>{ stat }</b>: { value.toFixed(1) } </div>;
         });
         const gearList = Object.keys(adventurer.gear).map((gear) => {
-            return <div><b>{ gear }</b>: { adventurer.gear[gear] }  </div>;
+            return <div key= { `${adventurer.id}-${gear}`} ><b>{ gear }</b>: { adventurer.gear[gear] }  </div>;
         });
 
         return (
@@ -81,7 +81,7 @@ export default class PartyScreen extends React.Component<Props & StateProps, Loc
         return this.props.adventurers.map((adventurer: AdventurerStoreState) => {
             const selected = this.state.selectedAdventurer === adventurer.id;
             return <div
-                key = { adventurer.id }
+                key = { `${adventurer.id}-avatar` }
                 className = { "avatar" + (selected ? " selected" : "")}
                 onClick = { () => this.handleAvatarClick(adventurer.id) }
                 // style = {{ backgroundImage: `url(${adventurer.avatarImg})` }}
@@ -94,18 +94,18 @@ export default class PartyScreen extends React.Component<Props & StateProps, Loc
         });
     }
 
-    private getBottomPart = () => {
+    private getBottomPart =     () => {
         if (this.state.selectedAdventurer) {
             const adventurer: AdventurerStoreState = this.props.adventurers
                 .find((a) => a.id === this.state.selectedAdventurer)!;
             return this.getAdventurerInfo(adventurer);
         } else {
-            return [
+            return (
             <div className="questlog">
                 The quest log
             <div className="actions">
             </div>
-            </div>];
+            </div>);
         }
     }
 
