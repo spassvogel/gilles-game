@@ -17,3 +17,67 @@ https://stackoverflow.com/questions/39879674/watch-all-sub-directories-with-node
 
 > drag drop
 https://github.com/react-dnd/react-dnd
+
+Quest def:
+
+{
+    name: "A quest called tribe",
+    startState: {
+        bigTreeState: "onTheGround"
+    }
+    questNodes: [{
+        x: 0, y: 1
+    }, {
+        x: 0, y: 2,
+        encounters: [{
+            chance: .5,
+            getTitle: (questState, store) => "The big tree",
+            getDescription: (questState, store) => {
+                const pyrommancer = store.adventurers.find(a => a.type == "pyromancer")
+                if(pyromander){
+                    return "A huge tree blocks the way. {pyromancer.name} offers to burn it".
+                }
+                return "A huge tree blocks the way";
+            }
+            getOptions(questState, store): => {
+                const strongest = store.adventurers.sort(a => a.stats.strength)[0];
+                const options = {
+                    "walkAround": "Walk around the tree",
+                    "lift": "Lift the tree (${strongest.name})"
+                }
+                const pyrommancer = store.adventurers.find(a => a.type == "pyromancer")
+                if(pyromancer){
+                    options.burn = "Burn it down (${pyromancer.name}";
+                }
+                return options;
+            }
+            answer(option:string, questState, store) => {
+                switch(option){
+                    case "walkAround":
+                        return "Your party walks around the tree";
+
+                    case "lift":
+                        const strongest = store.adventurers.sort(a => a.stats.strength)[0];
+                        if(random() < strongest.stats.strenth) {
+                            questState.bigTreeState = "lifted";
+                            giveGold(3);
+                            return "${strongest.name} heaves and lifts the heavy tree, moving it aside. Underneath your party finds 3 gold coins";
+                        }
+                        else {
+                            strongest.loseHealth(20);
+                            if(strongest.isDead){
+                                return "${strongest.name} attempted to lift the tree but it is too heavy, causing him to die".
+                            }
+                            return "%{strongest.name} attempted to lift the tree but it is too heavy, losing 20 hp";
+                        }
+                    case "burn":
+                        const pyrommancer = store.adventurers.find(a => a.type == "pyromancer")
+                        questState.bigTreeState = "burned";
+                        return "${pyromancer.name} cackles as you sets the tree ablaze. The party steps over the smouldering ashes and continues"
+
+                }
+
+            }
+        }]
+    }]
+}
