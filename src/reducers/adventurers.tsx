@@ -57,7 +57,7 @@ const testState: AdventurerStoreState[] = [{
     stats: generateRandomStats(),
     name: "Donte Houston",
     avatarImg: `/img/avatars/andy-victorovych-a${ Math.floor(Math.random() * 14) + 1}.jpg`,
-    inventory: [],
+    inventory: [ Equipment.crossbow, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined,  undefined,  undefined,  undefined,  undefined,  undefined,  undefined,  undefined,  undefined, ],
 }, {
     id: uuid(),
     gear: generateRandomGear(),
