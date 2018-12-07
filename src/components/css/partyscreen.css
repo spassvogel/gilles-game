@@ -90,7 +90,7 @@
 .partyscreen .adventurer-container .inventory {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
 }
 
@@ -102,7 +102,15 @@
 .partyscreen .adventurer-container .inventory .inventory-item {
     display: inline-block;
     border: 1px solid green;
+    position: relative;
     /* box-sizing: border-box; */
+}
+
+.partyscreen .adventurer-container .inventory .inventory-item div {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    position: absolute;
 }
 
 .partyscreen .adventurer-container .inventory .inventory-item:after {

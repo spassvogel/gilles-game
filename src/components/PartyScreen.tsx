@@ -1,7 +1,12 @@
 
 import * as React from "react";
+import equipmentDefinitions from "src/definitions/equipment";
 import { AdventurerStoreState } from "src/stores/adventurer";
 import "./css/partyscreen.css";
+import { EquipmentDefinition, Equipment } from "src/definitions/equipment/types";
+import EquipmentIcon, { InventoryItemDragInfo } from "./ui/EquipmentIcon";
+import InventorySlot from "./ui/InventorySlot";
+import { moveEquipmentInInventory } from "src/actions/adventurers";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
@@ -11,11 +16,15 @@ export interface Props {
     questName: string;
 }
 
+export interface DispatchProps {
+    onMoveEquipmentInInventory?: (adventurerId: string, fromSlot: number, toSlot: number) => void;
+}
+
 interface LocalState {
     selectedAdventurer: string | null;
 }
 
-export default class PartyScreen extends React.Component<Props & StateProps, LocalState> {
+export default class PartyScreen extends React.Component<Props & StateProps & DispatchProps, LocalState> {
 
     constructor(props: Props & StateProps) {
         super(props);
@@ -49,8 +58,38 @@ export default class PartyScreen extends React.Component<Props & StateProps, Loc
         });
 
         const inventory = [];
-        for (let i = 0; i < 21; i++) {
-            const item = <div className="inventory-item"></div>;
+
+
+        for (let i = 0; i < adventurer.inventory.length; i++) {
+            let contents;
+            const equipment = adventurer.inventory[i];
+            if (equipment) {
+                // tslint:disable-next-line:max-line-length
+                contents = <EquipmentIcon 
+                    index={i} key={ `inventory-slot-${i}`} 
+                    equipment = { equipment }>
+                </EquipmentIcon>;
+            }
+            const handleDrop = (dragInfo: InventoryItemDragInfo) => {
+                if(dragInfo.inventorySlot === i) {
+                    return;
+                }
+
+                if(this.props.onMoveEquipmentInInventory) {
+                    const { inventorySlot: fromSlot} = dragInfo;
+                    this.props.onMoveEquipmentInInventory(adventurer.id, fromSlot!, i);
+                }
+            }
+
+            //const item = <div className="inventory-item" key={ `inventory-slot-${i}`} >  { contents } </div>;
+            // tslint:disable-next-line:max-line-length
+            const item = <InventorySlot 
+                key= { `inventory-slot-${i}`}
+                empty = { contents === undefined }
+                onDrop= { handleDrop }>
+                 { contents } 
+            </InventorySlot>;
+            // const item = <EquipmentIcon index={i} }>{ contents }</EquipmentIcon>;
             inventory.push(item);
         }
 

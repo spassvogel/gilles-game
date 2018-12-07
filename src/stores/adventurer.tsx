@@ -6,7 +6,8 @@ export interface AdventurerStoreState {
     avatarImg: string;
 
     gear: GearStoreState;     // equipment
-    inventory: Array<Equipment | Equipment[]>;   // todo: put other stuff in inventory besides equipment?
+    // tslint:disable-next-line:max-line-length
+    inventory: Array<undefined | Equipment /*| Equipment[]*/>;   // todo: put other stuff in inventory besides equipment?
     stats: StatsStoreState;
 }
 

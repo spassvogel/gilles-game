@@ -1,4 +1,6 @@
 import * as React from "react";
+import { DragDropContextProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend"
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
@@ -30,11 +32,11 @@ const store = createStore<StoreState, any, any, any>(
 
 ReactDOM.render(
     <Provider store={store}>
-        <div>
+        <DragDropContextProvider backend={HTML5Backend}>>
             <Topbar/>
             <TempView />
-        </div>
-    </Provider>,
+        </DragDropContextProvider>
+     </Provider>,
     document.getElementById("root") as HTMLElement,
 );
 registerServiceWorker();

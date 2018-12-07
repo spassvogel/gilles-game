@@ -10,7 +10,7 @@ export interface DispatchProps {
     onWorkersDown?: () => void;
 }
 
-export interface Props extends DispatchProps {
+export interface Props  {
     type: Structure;
     level?: number;
     workers?: number;
@@ -18,7 +18,7 @@ export interface Props extends DispatchProps {
     gold?: number;
 }
 
-export default function(props: Props) {
+export default function(props: Props & DispatchProps) {
 
     const structureDefinition = structureDefinitions[props.type] as ResourceStructureDefinition;
     if (!structureDefinition) {

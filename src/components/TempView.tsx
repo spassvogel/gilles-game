@@ -81,7 +81,7 @@ export default function(props: Props) {
                 })}> Geiv 100 all resources</button>
             </fieldset>
 
-            <PartyScreen questName="Very interesting quest"></PartyScreen>
+            <PartyScreen questName="A quest called tribe"></PartyScreen>
         </div>
     );
 }
