@@ -1,6 +1,7 @@
 // tslint:disable:object-literal-sort-keys
 
 import { Reducer } from "redux";
+import { ActionType as GameActionType, GameTickAction } from "src/actions/game";
 import { Action as AnyTaskAction, ActionType, AddAction} from "src/actions/tasks";
 import { TaskStoreState } from "src/stores/task";
 import { initialState, TasksStoreState } from "src/stores/tasks";
@@ -10,7 +11,8 @@ import { initialState, TasksStoreState } from "src/stores/tasks";
  * @param state
  * @param action
  */
-export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initialState, action: AnyTaskAction) => {
+export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initialState, 
+                                                action: AnyTaskAction | GameTickAction ) => {
     switch (action.type) {
         case ActionType.start: {
         // Adds a new task to the running tasks
@@ -21,7 +23,7 @@ export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initial
                 running,
             };
         }
-        case ActionType.update: {
+        case GameActionType.gameTick: {
             // Will update all tasks in `running`. If a running task expires it is placed in `complete`
             // Note that completed tasks must be handled BEFORE the next call to ActionType.update, because
             // this list is recreated every time

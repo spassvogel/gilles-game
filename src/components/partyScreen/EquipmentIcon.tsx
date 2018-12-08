@@ -1,14 +1,8 @@
 import * as React from "react";
 import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from "react-dnd";
+import { DragType } from "src/constants";
 import equipmentDefinitions from "src/definitions/equipment";
 import { Equipment as Item, EquipmentDefinition } from "src/definitions/equipment/types";
-import { DragType } from "src/constants";
-
-// Drag sources and drop targets only interact
-// if they have the same string type.
-// You want to keep types in a separate file with
-// the rest of your app's constants.
-
 
 export interface Props {
     index: number;

@@ -41,11 +41,19 @@ ReactDOM.render(
 );
 registerServiceWorker();
 
-const processTasks = (tasks: TasksStoreState) => {
+// const processTasks = (tasks: TasksStoreState) => {
+//     const handleCompletedTask = (task: TaskStoreState) => {
+//         store.dispatch(task.callback);
+//     };
+//     store.dispatch(updateTasks());
+
+//     //tasks.completed.forEach((task) => handleCompletedTask(task));
+// };
+
+const processCompletedTasks = (tasks: TasksStoreState) => {
     const handleCompletedTask = (task: TaskStoreState) => {
         store.dispatch(task.callback);
     };
-    store.dispatch(updateTasks());
 
     tasks.completed.forEach((task) => handleCompletedTask(task));
 };
@@ -81,9 +89,6 @@ const processStructures = (structures: StructuresStoreState) => {
 };
 
 random.init("GILLESROX2");
-console.log(random.random());
-console.log(random.random());
-
 store.dispatch(addGold(40));
 
 const getRngState = (): seedrandomStateType => {
@@ -97,11 +102,13 @@ setInterval(() => {
 
 //    state.
     processStructures(state.structures);
-    processTasks(state.tasks);
 
     const rngState = getRngState();
     store.dispatch(gameTick(rngState));
 
+    processCompletedTasks(state.tasks);
+
+    
     // store.dispatch(gameTick()) todo: combine `updateTasks` and `addResources` into one gametick action
 
 }, 2500);
