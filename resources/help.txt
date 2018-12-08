@@ -17,7 +17,7 @@ https://andy_victorovych.artstation.com/projects/1yKBo
 https://github.com/react-dnd/react-dnd
 
 Quest def:
-
+z
 {
     name: "A quest called tribe",
     startState: {

@@ -88,15 +88,12 @@
 }
 
 .partyscreen .adventurer-container .inventory {
-    display: flex;
-    flex-wrap: wrap;
-    /* align-items: center; */
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
 }
 
+
 .partyscreen .adventurer-container .inventory > .inventory-item {
-	flex-grow: 1;
-    flex: 1 1 20%;
 }
 
 .partyscreen .adventurer-container .inventory .inventory-item {
@@ -115,6 +112,8 @@
 
 .partyscreen .adventurer-container .inventory .inventory-item:after {
     content: "";
-    display: block;
+    display: inline-block;
+    width: 1px;
+    height: 0;
     padding-bottom: 100%;
   }

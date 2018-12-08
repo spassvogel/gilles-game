@@ -1,6 +1,6 @@
 import * as React from "react";
-import { ConnectDropTarget, DropTarget, DropTargetMonitor, DropTargetSpec } from "react-dnd";
-import { Types } from "./EquipmentIcon";
+import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
+import { DragType } from "src/constants";
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {
@@ -12,7 +12,6 @@ const dropTarget: DropTargetSpec<Props> = {
 };
 
 export interface Props {
-    lastDroppedItem?: any;
     empty: boolean;
     onDrop: (item: any) => void;
 }
@@ -23,25 +22,33 @@ export interface DropSourceProps {
     connectDropTarget: ConnectDropTarget;
 }
 
+const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
+    canDrop: monitor.canDrop(),
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+});
+
+/**
+ * The InventorySlot displays a slot in which equipment can be placed.
+ */
 class InventorySlot extends React.Component<Props & DropSourceProps> {
     public render() {
         const {
             isOver,
             canDrop,
             connectDropTarget,
-            lastDroppedItem,
         } = this.props;
         const isActive = isOver && canDrop;
 
-        let backgroundColor = "#222";
+        let borderColor = "#1b8417";
         if (isActive) {
-            backgroundColor = "darkgreen";
+            borderColor = "#e2bc23";
         } else if (canDrop) {
-            backgroundColor = "darkkhaki";
+            borderColor = "#7ea752";
         }
 
         return connectDropTarget(
-            <div style={{ backgroundColor }} className="inventory-item">
+            <div style={{ borderColor }} className="inventory-item">
                 { this.props.children }
             </div>,
         );
@@ -49,11 +56,7 @@ class InventorySlot extends React.Component<Props & DropSourceProps> {
 }
 
 export default DropTarget<Props, DropSourceProps>(
-    Types.EQUIPMENT,
+    DragType.EQUIPMENT,
     dropTarget,
-    (connect, monitor) => ({
-        connectDropTarget: connect.dropTarget(),
-        isOver: monitor.isOver(),
-        canDrop: monitor.canDrop(),
-    }),
+    collect,
 )(InventorySlot);

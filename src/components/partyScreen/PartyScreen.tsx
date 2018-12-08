@@ -1,12 +1,10 @@
 
 import * as React from "react";
-import equipmentDefinitions from "src/definitions/equipment";
 import { AdventurerStoreState } from "src/stores/adventurer";
+import AdventurerAvatar from "./AdventurerAvatar";
 import "./css/partyscreen.css";
-import { EquipmentDefinition, Equipment } from "src/definitions/equipment/types";
-import EquipmentIcon, { InventoryItemDragInfo } from "./ui/EquipmentIcon";
-import InventorySlot from "./ui/InventorySlot";
-import { moveEquipmentInInventory } from "src/actions/adventurers";
+import EquipmentIcon, { InventoryItemDragInfo } from "./EquipmentIcon";
+import InventorySlot from "./InventorySlot";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
@@ -17,7 +15,8 @@ export interface Props {
 }
 
 export interface DispatchProps {
-    onMoveEquipmentInInventory?: (adventurerId: string, fromSlot: number, toSlot: number) => void;
+    onMoveItemInInventory?: (adventurerId: string, fromSlot: number, toSlot: number) => void;
+    onMoveItemToOtherAdventurer?: (fromAdventurerId: string, fromSlot: number, toAdventurerId: string) => void;
 }
 
 interface LocalState {
@@ -25,7 +24,7 @@ interface LocalState {
 }
 
 export default class PartyScreen extends React.Component<Props & StateProps & DispatchProps, LocalState> {
-
+    // This Component has local state, so it's a class
     constructor(props: Props & StateProps) {
         super(props);
 
@@ -59,37 +58,34 @@ export default class PartyScreen extends React.Component<Props & StateProps & Di
 
         const inventory = [];
 
-
         for (let i = 0; i < adventurer.inventory.length; i++) {
             let contents;
             const equipment = adventurer.inventory[i];
             if (equipment) {
-                // tslint:disable-next-line:max-line-length
-                contents = <EquipmentIcon 
-                    index={i} key={ `inventory-slot-${i}`} 
+                contents = <EquipmentIcon
+                    index={i} key={ `inventory-slot-${i}`}
                     equipment = { equipment }>
                 </EquipmentIcon>;
             }
             const handleDrop = (dragInfo: InventoryItemDragInfo) => {
-                if(dragInfo.inventorySlot === i) {
+                if (dragInfo.inventorySlot === i) {
                     return;
                 }
 
-                if(this.props.onMoveEquipmentInInventory) {
+                if (this.props.onMoveItemInInventory) {
                     const { inventorySlot: fromSlot} = dragInfo;
-                    this.props.onMoveEquipmentInInventory(adventurer.id, fromSlot!, i);
+                    this.props.onMoveItemInInventory(adventurer.id, fromSlot!, i);
                 }
-            }
+            };
 
-            //const item = <div className="inventory-item" key={ `inventory-slot-${i}`} >  { contents } </div>;
+            // const item = <div className="inventory-item" key={ `inventory-slot-${i}`} >  { contents } </div>;
             // tslint:disable-next-line:max-line-length
-            const item = <InventorySlot 
+            const item = <InventorySlot
                 key= { `inventory-slot-${i}`}
                 empty = { contents === undefined }
                 onDrop= { handleDrop }>
-                 { contents } 
+                 { contents }
             </InventorySlot>;
-            // const item = <EquipmentIcon index={i} }>{ contents }</EquipmentIcon>;
             inventory.push(item);
         }
 
@@ -106,8 +102,10 @@ export default class PartyScreen extends React.Component<Props & StateProps & Di
                     { gearList }
                 </div>
             </div>
-            <div className="right inventory">
-                { inventory }
+            <div className="right">
+                <div className="inventory">
+                    { inventory }
+                </div>
             </div>
         </div>
         );
@@ -124,18 +122,27 @@ export default class PartyScreen extends React.Component<Props & StateProps & Di
 
     private getAvatars = () => {
         return this.props.adventurers.map((adventurer: AdventurerStoreState) => {
-            const selected = this.state.selectedAdventurer === adventurer.id;
-            return <div
+            const handleDrop = (dragInfo: InventoryItemDragInfo) => {
+                const fromAdventurer = this.state.selectedAdventurer!; // The adventurer that has the item
+                if (adventurer.id === fromAdventurer) {
+                    // Dropping on yourself.. nothing happens
+                    return;
+                }
+
+                if (this.props.onMoveItemToOtherAdventurer) {
+                    const { inventorySlot: fromSlot} = dragInfo;
+                    this.props.onMoveItemToOtherAdventurer(fromAdventurer, fromSlot!, adventurer.id);
+                }
+            };
+
+            const active = this.state.selectedAdventurer === adventurer.id;
+            return <AdventurerAvatar
                 key = { `${adventurer.id}-avatar` }
-                className = { "avatar" + (selected ? " selected" : "")}
+                active = { active }
+                adventurer = { adventurer }
                 onClick = { () => this.handleAvatarClick(adventurer.id) }
-                // style = {{ backgroundImage: `url(${adventurer.avatarImg})` }}
-            >
-                <img src={ adventurer.avatarImg} />
-                <div className="name">
-                    { adventurer.name }
-                </div>
-            </div>;
+                onDrop = { handleDrop }
+            />;
         });
     }
 

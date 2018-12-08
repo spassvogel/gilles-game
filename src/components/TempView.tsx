@@ -1,7 +1,7 @@
 import * as React from "react";
 import ProductionStructureView from "src/containers//ProductionStructureView";
 import EquipmentViewRow from "src/containers/EquipmentViewRow";
-import PartyScreen from "src/containers/PartyScreen";
+import PartyScreen from "src/containers/partyScreen/PartyScreen";
 import ResourceStructureView from "src/containers/ResourceStructureView";
 import { Equipment } from "src/definitions/equipment/types";
 import { Resource } from "src/definitions/resources";

@@ -1,15 +1,14 @@
 import * as React from "react";
-import { DragSource, DragSourceCollector, ConnectDragSource, ConnectDropTarget, DragSourceMonitor, DragSourceConnector, DragSourceSpec } from "react-dnd";
-import { Equipment, EquipmentDefinition } from "src/definitions/equipment/types";
+import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from "react-dnd";
 import equipmentDefinitions from "src/definitions/equipment";
+import { Equipment, EquipmentDefinition } from "src/definitions/equipment/types";
+import { DragType } from "src/constants";
 
 // Drag sources and drop targets only interact
 // if they have the same string type.
 // You want to keep types in a separate file with
 // the rest of your app's constants.
-export const Types = {
-    EQUIPMENT: "equipment",
-};
+
 
 export interface Props {
     index: number;
@@ -23,7 +22,7 @@ interface CollectedProps {
 
 export interface InventoryItemDragInfo {
     equipment: Equipment;
-    inventorySlot?: number
+    inventorySlot?: number;
 }
 
 /**
@@ -35,31 +34,14 @@ const source: DragSourceSpec<Props, InventoryItemDragInfo> = {
     // Return the data describing the dragged item
     return {
         equipment: props.equipment,
-        inventorySlot: props.index
+        inventorySlot: props.index,
     };
   },
-  
-  endDrag(props: Props, monitor: DragSourceMonitor, component: any) {
-    // console.log(monitor.didDrop())    
-  }
-
-//   endDrag(monitor: DragSourceMonitor) {
-//     debugger;
-//     if (!monitor.didDrop()) {
-//       return;
-//     }
-
-//     // When dropped on a compatible target, do something
-//     const item = monitor.getItem();
-//     const dropResult = monitor.getDropResult();
-//     //CardActions.moveCardToList(item.id, dropResult.listId);
-//   },
 };
 
 /**
  * Specifies which props to inject into your component.
  */
-// tslint:disable-next-line:max-line-length
 function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
   return {
     // Call this function inside render()
@@ -70,9 +52,8 @@ function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
   };
 }
 
-class EquipmentIcon extends React.Component<Props & CollectedProps > { 
+class EquipmentIcon extends React.Component<Props & CollectedProps > {
     public render() {
-        // Your component receives its own props as usual
         const { index, equipment } = this.props;
 
         // These two props are injected by React DnD,
@@ -80,7 +61,7 @@ class EquipmentIcon extends React.Component<Props & CollectedProps > {
         const { isDragging, connectDragSource } = this.props;
         const equipmentDefinition: EquipmentDefinition = equipmentDefinitions[equipment];
 
-        if(isDragging) {
+        if (isDragging) {
             // todo: can show some sort of empty state?
             return null;
         }
@@ -92,9 +73,8 @@ class EquipmentIcon extends React.Component<Props & CollectedProps > {
                 {index}
                 {isDragging && "!"}
             </div>,
-        );  
+        );
     }
 }
 
-// Export the wrapped version
-export default DragSource<Props, CollectedProps>(Types.EQUIPMENT, source, collect)(EquipmentIcon);
+export default DragSource<Props, CollectedProps>(DragType.EQUIPMENT, source, collect)(EquipmentIcon);
