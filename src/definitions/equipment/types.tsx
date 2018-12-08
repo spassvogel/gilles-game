@@ -7,6 +7,12 @@ export enum Equipment {
     torch = "torch",
 }
 
+export enum QuestItems {
+    jewel = "jewel",
+}
+
+export type Item = Equipment | QuestItems;
+
 export interface EquipmentDefinition {
     equipment: Equipment;
     name: string;

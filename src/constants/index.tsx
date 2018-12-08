@@ -1,5 +1,5 @@
 
 // Things that can be dragged
 export const DragType = {
-    EQUIPMENT: "equipment",
+    ITEM: "item",   // A game 'item' (equipment..?)
 };

@@ -60,11 +60,11 @@ export default class PartyScreen extends React.Component<Props & StateProps & Di
 
         for (let i = 0; i < adventurer.inventory.length; i++) {
             let contents;
-            const equipment = adventurer.inventory[i];
-            if (equipment) {
+            const item = adventurer.inventory[i];
+            if (item) {
                 contents = <EquipmentIcon
                     index={i} key={ `inventory-slot-${i}`}
-                    equipment = { equipment }>
+                    item = { item }>
                 </EquipmentIcon>;
             }
             const handleDrop = (dragInfo: InventoryItemDragInfo) => {
@@ -78,15 +78,14 @@ export default class PartyScreen extends React.Component<Props & StateProps & Di
                 }
             };
 
-            // const item = <div className="inventory-item" key={ `inventory-slot-${i}`} >  { contents } </div>;
             // tslint:disable-next-line:max-line-length
-            const item = <InventorySlot
+            const slot = <InventorySlot
                 key= { `inventory-slot-${i}`}
                 empty = { contents === undefined }
                 onDrop= { handleDrop }>
                  { contents }
             </InventorySlot>;
-            inventory.push(item);
+            inventory.push(slot);
         }
 
         return (

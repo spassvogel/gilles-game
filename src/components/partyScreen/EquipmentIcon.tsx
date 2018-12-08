@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from "react-dnd";
 import equipmentDefinitions from "src/definitions/equipment";
-import { Equipment, EquipmentDefinition } from "src/definitions/equipment/types";
+import { Equipment as Item, EquipmentDefinition } from "src/definitions/equipment/types";
 import { DragType } from "src/constants";
 
 // Drag sources and drop targets only interact
@@ -12,7 +12,7 @@ import { DragType } from "src/constants";
 
 export interface Props {
     index: number;
-    equipment: Equipment;
+    item: Item;
 }
 
 interface CollectedProps {
@@ -21,7 +21,7 @@ interface CollectedProps {
 }
 
 export interface InventoryItemDragInfo {
-    equipment: Equipment;
+    item: Item;
     inventorySlot?: number;
 }
 
@@ -33,8 +33,8 @@ const source: DragSourceSpec<Props, InventoryItemDragInfo> = {
   beginDrag(props: Props) {
     // Return the data describing the dragged item
     return {
-        equipment: props.equipment,
         inventorySlot: props.index,
+        item: props.item,
     };
   },
 };
@@ -54,7 +54,7 @@ function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
 
 class EquipmentIcon extends React.Component<Props & CollectedProps > {
     public render() {
-        const { index, equipment } = this.props;
+        const { index, item: equipment } = this.props;
 
         // These two props are injected by React DnD,
         // as defined by your `collect` function above:
@@ -77,4 +77,4 @@ class EquipmentIcon extends React.Component<Props & CollectedProps > {
     }
 }
 
-export default DragSource<Props, CollectedProps>(DragType.EQUIPMENT, source, collect)(EquipmentIcon);
+export default DragSource<Props, CollectedProps>(DragType.ITEM, source, collect)(EquipmentIcon);

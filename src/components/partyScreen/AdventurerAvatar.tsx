@@ -64,7 +64,7 @@ class AdventurerAvatar extends React.Component<Props & DropSourceProps> {
 }
 
 export default DropTarget<Props, DropSourceProps>(
-    DragType.EQUIPMENT,
+    DragType.ITEM,
     dropTarget,
     collect,
 )(AdventurerAvatar);

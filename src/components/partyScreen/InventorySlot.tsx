@@ -29,7 +29,7 @@ const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
 });
 
 /**
- * The InventorySlot displays a slot in which equipment can be placed.
+ * The InventorySlot displays a slot in which an item can be placed.
  */
 class InventorySlot extends React.Component<Props & DropSourceProps> {
     public render() {
@@ -56,7 +56,7 @@ class InventorySlot extends React.Component<Props & DropSourceProps> {
 }
 
 export default DropTarget<Props, DropSourceProps>(
-    DragType.EQUIPMENT,
+    DragType.ITEM,
     dropTarget,
     collect,
 )(InventorySlot);

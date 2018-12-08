@@ -104,6 +104,7 @@ export const adventurers: Reducer<AdventurerStoreState[]> = (
         }
 
         case ActionType.moveItemToOtherAdventurer: {
+            // Moves an item from one adventurer to another
             const {
                 adventurerId: fromAdventurerId,
                 fromSlot,
