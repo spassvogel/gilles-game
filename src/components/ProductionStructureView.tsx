@@ -72,11 +72,15 @@ export default function(props: Props & StateProps) {
         const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
             if (props.onUpgrade) { props.onUpgrade(nextLevelCost); }
         };
-        return <button
-            onClick = { handleClick }
-            disabled= { !canUpgrade } >
-                { upgradeText }
-        </button>;
+        return <div>
+            <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }
+            <button
+                style={{float: "right"}}
+                onClick = { handleClick }
+                disabled= { !canUpgrade } >
+                    { upgradeText }
+            </button>
+        </div>;
     };
 
     const createCraftRows = () => {
@@ -127,7 +131,6 @@ export default function(props: Props & StateProps) {
         <details open = { true } className = "structureview">
             <summary>{levelDefinition.displayName}</summary>
             <section>
-                <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }
                 { createWorkersRow() }
                 { createUpgradeRow() }
                 <div>craft:</div>

@@ -56,14 +56,18 @@ export default function(props: Props & DispatchProps) {
         const canUpgrade = nextLevel != null && gold >= nextLevelCost;
         const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 
-        const handleUpgrade = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
             if (props.onUpgrade) { props.onUpgrade(nextLevelCost); }
         };
-        return <button
-            onClick = { handleUpgrade }
-            disabled= { !canUpgrade } >
-                { upgradeText }
-        </button>;
+        return <div>
+            <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }
+            <button
+                style={{float: "right"}}
+                onClick = { handleClick }
+                disabled= { !canUpgrade } >
+                    { upgradeText }
+            </button>
+        </div>;
     };
 
     const createGeneratesRow = () => {
@@ -77,7 +81,7 @@ export default function(props: Props & DispatchProps) {
             return accumulator;
         }, []).join(",");
         return <div>
-            { "This building generates (every tick): " }
+            { "Generates (every tick): " }
             <br/>
             { generatesText }
         </div>;
@@ -88,7 +92,6 @@ export default function(props: Props & DispatchProps) {
         <details open = { true } className = "structureview">
             <summary>{ levelDefinition.displayName }</summary>
             <section>
-                <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }
                 { createWorkersRow() }
                 { createUpgradeRow() }
                 { createGeneratesRow() }

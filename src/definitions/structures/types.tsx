@@ -35,5 +35,6 @@ export interface ProductionStructureLevelDefinition extends StructureLevelDefini
     produces: ProductionDefinition[];
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface WarehousetructureDefinition extends StructureDefinition {
 }

@@ -7,6 +7,7 @@ import "./css/warehousestructureview.css";
 import EquipmentIcon, { InventoryItemDragInfo } from "./partyScreen/EquipmentIcon";
 import InventorySlot from "./partyScreen/InventorySlot";
 
+// tslint:disable-next-line:no-empty-interface
 export interface DispatchProps {
 
 }
