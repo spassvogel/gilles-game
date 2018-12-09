@@ -29,6 +29,7 @@ export default function(props: Props & DispatchProps & StateProps) {
         Structure.tannery,
         Structure.weaponsmith,
         Structure.armoursmith,
+        Structure.warehouse,
     ];
 
     const list = structures.map((s) => {

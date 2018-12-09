@@ -63,7 +63,9 @@ export default class PartyScreen extends React.Component<Props & StateProps & Di
             const item = adventurer.inventory[i];
             if (item) {
                 contents = <EquipmentIcon
-                    index={i} key={ `inventory-slot-${i}`}
+                    index = {i}
+                    source = "adventurer"
+                    key={ `inventory-slot-${i}`}
                     item = { item }>
                 </EquipmentIcon>;
             }

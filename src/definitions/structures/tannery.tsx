@@ -8,6 +8,7 @@ const tannery: ResourceStructureDefinition = {
         displayName: "Small tannery",
         // level 1:
         workerCapacity: 2,
+        cost: 0,
         generates: { leather: 2 },
     }, {
         // level 2:

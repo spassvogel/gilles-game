@@ -7,6 +7,7 @@ import { Equipment as Item, EquipmentDefinition } from "src/definitions/equipmen
 export interface Props {
     index: number;
     item: Item;
+    source: string;
 }
 
 interface CollectedProps {
@@ -17,6 +18,7 @@ interface CollectedProps {
 export interface InventoryItemDragInfo {
     item: Item;
     inventorySlot?: number;
+    source: string;
 }
 
 /**
@@ -29,6 +31,7 @@ const source: DragSourceSpec<Props, InventoryItemDragInfo> = {
     return {
         inventorySlot: props.index,
         item: props.item,
+        source: props.source,
     };
   },
 };

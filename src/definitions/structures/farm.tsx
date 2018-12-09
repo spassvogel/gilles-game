@@ -7,6 +7,7 @@ const farm: ResourceStructureDefinition = {
         displayName: "Dirt Farm",
         // level 1:
         workerCapacity: 2,
+        cost: 0,
         generates: { food: 2 },
     }, {
         displayName: "Farm",

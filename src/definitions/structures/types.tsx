@@ -13,9 +13,9 @@ export interface StructureDefinition {
     levels: StructureLevelDefinition[];
 }
 
-interface StructureLevelDefinition {
+export interface StructureLevelDefinition {
     displayName: string;
-    cost?: number;                // in gold
+    cost: number;                // in gold
     workerCapacity: number;       // number of workers that can work at this structure at this level
 }
 
@@ -33,4 +33,7 @@ export interface ProductionStructureDefinition extends StructureDefinition {
 
 export interface ProductionStructureLevelDefinition extends StructureLevelDefinition {
     produces: ProductionDefinition[];
+}
+
+export interface WarehousetructureDefinition extends StructureDefinition {
 }

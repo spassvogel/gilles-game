@@ -8,6 +8,7 @@ const tavern: StructureDefinition = {
         displayName: "Way Station",
         // level 1:
         workerCapacity: 2,
+        cost: 0,
     }, {
         // level 2:
         displayName: "Tavern",

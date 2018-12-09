@@ -11,6 +11,7 @@ export interface StructuresStoreState {
     tannery: StructureStoreState;
     farm: StructureStoreState;
     // alchemist: StructureStoreState,
+    warehouse: StructureStoreState;
 }
 
 export const initialState: StructuresStoreState = {
@@ -32,6 +33,10 @@ export const initialState: StructuresStoreState = {
     },
     tannery: {
         level: 0,
+        workers: 1,
+    },
+    warehouse: {
+        level: 1,
         workers: 1,
     },
     weaponsmith: {

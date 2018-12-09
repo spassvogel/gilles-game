@@ -8,6 +8,7 @@ const armoursmith: ProductionStructureDefinition = {
         // level 1:
         displayName: "Armoursmith",
         workerCapacity: 2,
+        cost: 0,
         produces: [],
     }, {
         // level 2:

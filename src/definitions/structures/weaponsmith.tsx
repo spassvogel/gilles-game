@@ -9,6 +9,7 @@ const weaponsmith: ProductionStructureDefinition = {
         // level 1:
         displayName: "Weaponsmith",
         workerCapacity: 2,
+        cost: 0,
         produces: [crossbow, dagger],
     }, {
         // level 2:

@@ -1,4 +1,4 @@
-import ProductionStructureView,  { DispatchProps, Props } from "../components/ProductionStructureView";
+import ProductionStructureView,  { DispatchProps, Props, StateProps } from "../components/ProductionStructureView";
 
 import { connect } from "react-redux";
 import { AnyAction, Dispatch } from "redux";
@@ -13,7 +13,7 @@ import { TaskType } from "src/stores/task";
 import { StoreState } from "../stores";
 import { StructureStoreState } from "../stores/structure";
 
-function mapStateToProps(store: StoreState, ownProps: Props) {
+function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const structureStore: StructureStoreState = store.structures[ownProps.type];
 
     const tasks = store.tasks.running.filter((val) => val.origin === ownProps.type);

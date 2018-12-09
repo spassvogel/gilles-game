@@ -18,17 +18,20 @@ export interface DispatchProps {
     onCraft?: (productionDefinition: ProductionDefinition) => void;
 }
 
-export interface Props extends DispatchProps {
-    type: Structure;
-    resources?: ResourceStoreState;
-    level?: number;
-    workers?: number;
-    workersFree?: number;
-    gold?: number;
-    tasks?: TaskStoreState[];
+export interface StateProps {
+    resources: ResourceStoreState;
+    level: number;
+    workers: number;
+    workersFree: number;
+    gold: number;
+    tasks: TaskStoreState[];
 }
 
-export default function(props: Props) {
+export interface Props extends DispatchProps {
+    type: Structure;
+}
+
+export default function(props: Props & StateProps) {
 
     const structureDefinition  = structureDefinitions[props.type] as ProductionStructureDefinition;
     if (!structureDefinition) {
@@ -60,9 +63,9 @@ export default function(props: Props) {
     };
 
     const createUpgradeRow = () => {
-        const gold = props.gold || 0;
+        const gold = props.gold;
         const nextLevel = structureDefinition.levels[level + 1];
-        const nextLevelCost = (nextLevel != null ? nextLevel.cost || 0 : -1);
+        const nextLevelCost = (nextLevel != null ? nextLevel.cost : -1);
         const canUpgrade = nextLevel != null && gold >= nextLevelCost;
         const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 

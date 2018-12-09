@@ -8,6 +8,7 @@ const lumberMill: ResourceStructureDefinition = {
         // level 0:
         displayName: "Woodcutter",
         workerCapacity: 2,
+        cost: 0,
         generates: { wood: 2 },
     }, {
         // level 1:

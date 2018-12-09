@@ -8,7 +8,7 @@ export interface EquipmentStoreState {
     torch: number;
 }
 export const initialState: EquipmentStoreState = {
-    crossbow: 0,
+    crossbow: 1,
     dagger: 0,
     khopesh: 0,
     longbow: 0,

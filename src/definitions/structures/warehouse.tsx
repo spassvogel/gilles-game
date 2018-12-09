@@ -1,13 +1,14 @@
 // tslint:disable:object-literal-sort-keys
 
-import { StructureDefinition, StructureType } from "./types";
+import {  StructureType, WarehousetructureDefinition } from "./types";
 
-const warehouse: StructureDefinition = {
+const warehouse: WarehousetructureDefinition = {
     type: StructureType.warehouse,
     levels: [{
         displayName: "Shed",
         // level 1:
         workerCapacity: 2,
+        cost: 0,
     }, {
         // level 2:
         displayName: "Warehouse",

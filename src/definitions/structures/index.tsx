@@ -4,7 +4,8 @@ import armoursmith from "./armoursmith";
 import farm from "./farm";
 import lumberMill from "./lumberMill";
 import tannery from "./tannery";
-import { ProductionStructureDefinition, ResourceStructureDefinition, StructureType } from "./types";
+import { ProductionStructureDefinition, ResourceStructureDefinition, StructureType, WarehousetructureDefinition } from "./types";
+import warehouse from "./warehouse";
 import weaponsmith from "./weaponsmith";
 
 export enum Structure {
@@ -14,6 +15,7 @@ export enum Structure {
     tannery = "tannery",
     armoursmith = "armoursmith",
     weaponsmith = "weaponsmith",
+    warehouse = "warehouse",
 }
 
 const ironMine: ResourceStructureDefinition = {
@@ -22,6 +24,7 @@ const ironMine: ResourceStructureDefinition = {
         displayName: "Hole in the rocky ground",
         // level 0:
         workerCapacity: 2,
+        cost: 0,
         generates: { iron: 2 },
     }, {
         displayName: "A small mine",
@@ -38,7 +41,8 @@ const ironMine: ResourceStructureDefinition = {
     }],
 };
 
-export type StructureDefinition = ResourceStructureDefinition | ProductionStructureDefinition;
+export type StructureDefinition = WarehousetructureDefinition |
+ResourceStructureDefinition | ProductionStructureDefinition;
 
 export default {
     lumberMill,
@@ -47,4 +51,5 @@ export default {
     tannery,
     weaponsmith,
     armoursmith,
+    warehouse,
 };

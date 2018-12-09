@@ -12,9 +12,9 @@ https://andy_victorovych.artstation.com/projects/1yKBo
 
 
 
+> Todo: refactor the whole Equipment thing to be Items.
+  treat like an inventory
 
-> drag drop
-https://github.com/react-dnd/react-dnd
 
 Quest def:
 z
