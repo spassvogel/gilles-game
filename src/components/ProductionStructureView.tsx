@@ -26,7 +26,6 @@ export interface Props extends DispatchProps {
     workersFree?: number;
     gold?: number;
     tasks?: TaskStoreState[];
-    TEMP_PROGRESS?: number;
 }
 
 export default function(props: Props) {

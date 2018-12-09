@@ -4,7 +4,7 @@ import armoursmith from "./armoursmith";
 import farm from "./farm";
 import lumberMill from "./lumberMill";
 import tannery from "./tannery";
-import { ResourceStructureDefinition, StructureType } from "./types";
+import { ProductionStructureDefinition, ResourceStructureDefinition, StructureType } from "./types";
 import weaponsmith from "./weaponsmith";
 
 export enum Structure {
@@ -37,6 +37,8 @@ const ironMine: ResourceStructureDefinition = {
         generates: { iron: 2 },
     }],
 };
+
+export type StructureDefinition = ResourceStructureDefinition | ProductionStructureDefinition;
 
 export default {
     lumberMill,

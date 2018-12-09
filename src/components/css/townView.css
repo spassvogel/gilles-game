@@ -1,0 +1,11 @@
+/* .town-view {
+} */
+
+.town-view li {
+    cursor: pointer;
+    color: blue
+}
+
+.town-view input[type=number] {
+    width: 50px;
+}   

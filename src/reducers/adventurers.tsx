@@ -1,7 +1,8 @@
 // tslint:disable:object-literal-sort-keys
 
 import { Reducer } from "redux";
-import { Action, ActionType, MoveItemInInventoryAction, MoveItemInToOtherAdventurerAction } from "src/actions/adventurers";
+import { Action, ActionType,
+    MoveItemInInventoryAction, MoveItemInToOtherAdventurerAction } from "src/actions/adventurers";
 import { Equipment } from "src/definitions/equipment/types";
 import { AdventurerStoreState, GearStoreState, StatsStoreState } from "src/stores/adventurer";
 import * as uuid from "uuid/v1";
@@ -50,14 +51,15 @@ const testState: AdventurerStoreState[] = [{
     name: "Ximena Maddox",
     avatarImg: `/img/avatars/andy-victorovych-a${ Math.floor(Math.random() * 14) + 1}.jpg`,
     // tslint:disable-next-line:max-line-length
-    inventory: [ null, null, Equipment.crossbow, Equipment.dagger, Equipment.khopesh, null, Equipment.sword, null,  null,  null,  null,  null,  null,  null,  null,  null, ],
+    inventory: [ null, null, Equipment.crossbow, Equipment.dagger, Equipment.khopesh, null, Equipment.sword, null,  null,  null,  null,  null,  null,  null,  null,  null],
 }, {
     id: uuid(),
     gear: generateRandomGear(),
     stats: generateRandomStats(),
     name: "Donte Houston",
     avatarImg: `/img/avatars/andy-victorovych-a${ Math.floor(Math.random() * 14) + 1}.jpg`,
-    inventory: [ Equipment.crossbow, null, null, null, null, null, null, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, ],
+    // tslint:disable-next-line:max-line-length
+    inventory: [ Equipment.crossbow, null, null, null, null, null, null, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null],
 }, {
     id: uuid(),
     gear: generateRandomGear(),

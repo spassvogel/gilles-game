@@ -92,10 +92,6 @@
     grid-template-columns: 25% 25% 25% 25%;
 }
 
-
-.partyscreen .adventurer-container .inventory > .inventory-item {
-}
-
 .partyscreen .adventurer-container .inventory .inventory-item {
     display: inline-block;
     border: 1px solid green;

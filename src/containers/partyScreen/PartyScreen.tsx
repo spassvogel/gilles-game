@@ -1,5 +1,4 @@
 
-import { any } from "prop-types";
 import { connect } from "react-redux";
 import { AnyAction, Dispatch } from "redux";
 import { moveItemInInventory, moveItemToOtherAdventurer } from "src/actions/adventurers";
@@ -21,8 +20,8 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
         onMoveItemToOtherAdventurer: (fromAdventurerId: string, fromSlot: number, toAdventurerId: string) => {
             const action = moveItemToOtherAdventurer(fromAdventurerId, fromSlot, toAdventurerId);
             dispatch(action);
-        }
-    }
+        },
+    };
 }
 
 export default connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps)(PartyScreen);

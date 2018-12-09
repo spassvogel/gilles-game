@@ -1,0 +1,19 @@
+.app-left {
+    width: 300px;
+}
+
+.app-right {
+    width: 300px;
+    position: absolute;
+    right: 0;
+    top: 42px;
+}
+
+.resources label {
+    width: 180px;
+    display: inline-block;
+}
+
+.resources input[type=number] {
+    width: 50px;
+}

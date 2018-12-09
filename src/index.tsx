@@ -8,9 +8,7 @@ import { seedrandomStateType } from "seedrandom";
 import { gameTick } from "./actions/game";
 import { addGold } from "./actions/gold";
 import { addResources } from "./actions/resources";
-import { updateTasks } from "./actions/tasks";
-import TempView from "./containers/TempView";
-import Topbar from "./containers/Topbar";
+import App from "./containers/App";
 import structureDefinitions from "./definitions/structures";
 import { ResourceStructureDefinition,
     ResourceStructureLevelDefinition, StructureDefinition, StructureType } from "./definitions/structures/types";
@@ -32,9 +30,8 @@ const store = createStore<StoreState, any, any, any>(
 
 ReactDOM.render(
     <Provider store={store}>
-        <DragDropContextProvider backend={HTML5Backend}>>
-            <Topbar/>
-            <TempView />
+        <DragDropContextProvider backend={HTML5Backend}>
+            <App/>
         </DragDropContextProvider>
      </Provider>,
     document.getElementById("root") as HTMLElement,

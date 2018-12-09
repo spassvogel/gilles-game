@@ -11,7 +11,7 @@ import { initialState, TasksStoreState } from "src/stores/tasks";
  * @param state
  * @param action
  */
-export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initialState, 
+export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initialState,
                                                 action: AnyTaskAction | GameTickAction ) => {
     switch (action.type) {
         case ActionType.start: {
