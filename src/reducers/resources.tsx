@@ -1,5 +1,6 @@
 
 import { AnyAction, Reducer } from "redux";
+import { ActionType as GameActionType, GameTickAction } from "src/actions/game";
 import { ActionType, AddResources } from "../actions/resources";
 import { initialState, ResourceStoreState } from "../stores/resources";
 
@@ -8,21 +9,33 @@ import { initialState, ResourceStoreState } from "../stores/resources";
  * @param state
  * @param action
  */
-export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState = initialState, action: AnyAction) => {
-    switch (action.type) {
-        case ActionType.addResources:
-            const resourcesToAdd = (action as AddResources).resources;
-            return Object.keys(state).reduce((accumulator: object, current: string) => {
-                accumulator[current] = state[current] + (resourcesToAdd[current] || 0);
-                return accumulator;
-            }, {});
+export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState = initialState,
+                                                       action: AnyAction| GameTickAction) => {
 
-        case ActionType.removeResources:
+    const addResources = (resourcesToAdd: ResourceStoreState) => {
+        return Object.keys(state).reduce((accumulator: object, current: string) => {
+            accumulator[current] = state[current] + (resourcesToAdd[current] || 0);
+            return accumulator;
+        }, {});
+    }
+
+    switch (action.type) {
+        case ActionType.addResources: {
+            const resourcesToAdd = (action as AddResources).resources;
+            return addResources(resourcesToAdd);
+        }
+        case ActionType.removeResources: {
             const resourcesToRemove = (action as AddResources).resources;
             return Object.keys(state).reduce((accumulator: object, current: string) => {
                 accumulator[current] = state[current] - (resourcesToRemove[current] || 0);
                 return accumulator;
             }, {});
+        }
+
+        case GameActionType.gameTick: {
+            const resourcesToAdd = (action as GameTickAction).resources;
+            return addResources(resourcesToAdd);
+        }
 
         // case EquipmentActionType.craft:
         //     // todo: Maybe this can just be ActionType.removeResources?

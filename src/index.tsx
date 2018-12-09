@@ -57,19 +57,16 @@ const processCompletedTasks = (tasks: TasksStoreState) => {
 
 // TODO: place these 'controllers' somewhere else
 
-// Will generate resources based on the structures built
-const processStructures = (structures: StructuresStoreState) => {
-    // Very temporary
-
+// Will generate resources based on the structures in the town
+const getProducedResources = (structures: StructuresStoreState) => {
     const resourcesToAdd: ResourceStoreState = {};
-
     const handleStructure = (structure: string) => {
         const structureDefinition: StructureDefinition = structureDefinitions[structure];
 
         switch (structureDefinition.type) {
             case StructureType.resource:
                 const resourceStructureDefinition = structureDefinition as ResourceStructureDefinition;
-                const level: number = structures[structure].level || 0;
+                const level: number = structures[structure].level;
                 const levelDefinition: ResourceStructureLevelDefinition = resourceStructureDefinition.levels[level];
 
                 Object.keys(levelDefinition.generates).reduce((accumulator: ResourceStoreState, resource: string) => {
@@ -82,7 +79,7 @@ const processStructures = (structures: StructuresStoreState) => {
     };
 
     Object.keys(structures).forEach((structure) => handleStructure(structure));
-    store.dispatch(addResources(resourcesToAdd));
+    return resourcesToAdd;
 };
 
 random.init("GILLESROX2");
@@ -98,14 +95,9 @@ setInterval(() => {
 
 
 //    state.
-    processStructures(state.structures);
-
+    const resources = getProducedResources(state.structures);
     const rngState = getRngState();
-    store.dispatch(gameTick(rngState));
+    store.dispatch(gameTick(rngState, resources));
 
     processCompletedTasks(state.tasks);
-
-    
-    // store.dispatch(gameTick()) todo: combine `updateTasks` and `addResources` into one gametick action
-
 }, 2500);
