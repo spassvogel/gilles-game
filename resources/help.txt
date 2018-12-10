@@ -16,7 +16,8 @@ https://react-spring.surge.sh/
 
 > todo: find todo-plugin for vscode
 
-> todo: check createjs react plugin...
+> todo: check createjs react plugin... 
+> https://github.com/Flipboard/react-canvas
 
 Quest def:
 z
