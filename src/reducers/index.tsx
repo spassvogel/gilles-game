@@ -3,6 +3,7 @@ import { StoreState } from "../stores";
 import { adventurers } from "./adventurers";    // tmp
 import { equipment } from "./equipment";
 import { gold } from "./gold";
+import { quests } from "./quests";
 import { resources } from "./resources";
 import { rngState } from "./rngState";
 import { structures } from "./structures";
@@ -13,6 +14,7 @@ export default combineReducers<StoreState>({
     adventurers,
     equipment,
     gold,
+    quests,
     resources,
     rngState,
     structures,
