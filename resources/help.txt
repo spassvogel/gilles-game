@@ -19,6 +19,10 @@ https://react-spring.surge.sh/
 > todo: check createjs react plugin... 
 > https://github.com/Flipboard/react-canvas
 
+> http://blog.oaxoa.com/2009/07/27/actionscript-3-as3-lightning-thunderbolt-electric-discharge-class/
+> http://haptic-data.com/toxiclibsjs/examples/perlin-noise-canvas
+
+
 Quest def:
 z
 {
