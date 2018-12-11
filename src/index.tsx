@@ -1,13 +1,12 @@
 import * as React from "react";
 import { DragDropContextProvider } from "react-dnd";
-import HTML5Backend from "react-dnd-html5-backend"
+import HTML5Backend from "react-dnd-html5-backend";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { seedrandomStateType } from "seedrandom";
 import { gameTick } from "./actions/game";
 import { addGold } from "./actions/gold";
-import { addResources } from "./actions/resources";
 import App from "./containers/App";
 import structureDefinitions from "./definitions/structures";
 import { ResourceStructureDefinition,

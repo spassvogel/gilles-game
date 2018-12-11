@@ -8,6 +8,7 @@ import Topbar from "../containers/Topbar";
 import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import StructureDetailsView from "./StructureDetailsView";
+import RealTownView from "./RealTownView";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -57,6 +58,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                         wood: 100,
                     })}> Geiv 100 all resources</button>
                 </fieldset>
+                <RealTownView/>
             </div>
             <PartyScreen questName="A quest called tribe"></PartyScreen>
             <div className="app-right">
