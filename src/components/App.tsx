@@ -19,11 +19,17 @@ export interface DispatchProps {
     onCheatResources?: (amount: ResourceStoreState) => void;
 }
 
+enum View {
+    Town,
+    World,
+}
+
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
 }
 
 interface LocalState {
+    view: View
     selectedStructure: Structure | null;
 }
 
@@ -33,6 +39,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         super(props);
 
         this.state = {
+            view:  View.Town,
             selectedStructure: null,
         };
     }
@@ -41,12 +48,16 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         const selectedStructureView = this.state.selectedStructure ?
             <StructureDetailsView structure = { this.state.selectedStructure }/> : null;
 
+        const mainView = this.state.view === View.Town ? <RealTownView onStructureClick= { this.selectStructure }/>
+            : <PartyScreen questName="A quest called tribe"></PartyScreen>;
+
+
         return <div>
             <Topbar/>
-            <div className="app-left">
-                <TownView onStructureClick= { this.selectStructure }/>
+            {/* <div className="app-left"> */}
+                {/* <TownView onStructureClick= { this.selectStructure }/> */}
                 { selectedStructureView }
-                <fieldset>
+                {/* <fieldset>
                     <legend>Cheats</legend>
                     <button onClick={ () => this.handleCheatGold(20)}> Geiv 20 gold</button><br/>
                     <button onClick={ () => this.handleCheatResources({
@@ -57,10 +68,9 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                         steel: 100,
                         wood: 100,
                     })}> Geiv 100 all resources</button>
-                </fieldset>
-                <RealTownView/>
-            </div>
-            <PartyScreen questName="A quest called tribe"></PartyScreen>
+                </fieldset> */}
+                { mainView }
+            {/* </div> */}
             <div className="app-right">
                 <fieldset className="resources">
                     <legend>Resources</legend>

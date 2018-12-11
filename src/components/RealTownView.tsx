@@ -26,12 +26,14 @@ interface ImageElementsLocalState {
     background?: HTMLImageElement;
     lighthouse?: HTMLImageElement;
     tavern?: HTMLImageElement;
+    lumberMill?: HTMLImageElement;
 }
 
 interface KonvaImages {
     background?: Konva.Image;
     lighthouse?: Konva.Image;
     tavern?: Konva.Image;
+    lumberMill?: Konva.Image;
 }
 
 // export default function(props: Props & DispatchProps & StateProps) {
@@ -51,6 +53,7 @@ class RealTownView extends React.Component<Props & DispatchProps & StateProps, L
         this.loadImage("background", "img/town/sky.jpg");
         this.loadImage("lighthouse", "img/town/lighthouse.png");
         this.loadImage("tavern", "img/town/tavern.png");
+        this.loadImage("lumberMill", "img/town/lumberMill.png");
     }
 
     // Loads image, stores in state after done loading
@@ -65,7 +68,7 @@ class RealTownView extends React.Component<Props & DispatchProps & StateProps, L
                     convaImage.cache();
                     convaImage.drawHitFromCache(0.5);
                 
-                    this.changeSize(convaImage);
+                    //this.changeSize(convaImage);
                 }
             };
             this.setState((prev) => ({
@@ -98,13 +101,13 @@ class RealTownView extends React.Component<Props & DispatchProps & StateProps, L
         ];
 
         return (
-            <Stage width={800} height={600} scale= { {x: 0.4, y: 0.4} }>
+            <Stage width={1024} height={768} scale= { {x: 0.4, y: 0.4} }>
             <Layer name="background"  >
                 { this.state.images.background && <Image image={ this.state.images.background! } />}
             </Layer>
             <Layer name="town">
 
-                <Rect
+                {/* <Rect
                     x={20}
                     y={20}
                     width={50}
@@ -113,32 +116,54 @@ class RealTownView extends React.Component<Props & DispatchProps & StateProps, L
 
 
                     // onClick={this.handleClick}
-                />
+                /> */}
                     { this.state.images.tavern && <Image 
-                        name = "tavern"
+                        name = "warehouse"
                         image= { this.state.images.tavern! }
                         x = { 15 }
                         y = { 1057 }
-                        stroke = "blue"
+                        // stroke = "blue"
                         shadowBlur={15}
                         shadowColor = "red"
                         shadowEnabled = { true }
                         strokeWidth = { 30 }
                         onClick = { this.handleClick }
                         // draggable
-                        onDragEnd= { this.handleDragEnd } 
+                        onDragEnd= { this.handleDragEnd }
                         ref={ (node) => { this.convaImages.tavern = node!; }}
                     />}
 
 
-                    { this.state.images.lighthouse && <Image image={ this.state.images.lighthouse! }
-                     ref={ (node) => { this.convaImages.lighthouse = node!; }} />}
+                    { this.state.images.lighthouse && <Image 
+                        name = { "weaponsmith" }
+                        image={ this.state.images.lighthouse! }
+                        onClick = { this.handleClick }
+
+                        ref={ (node) => { this.convaImages.lighthouse = node!; }} />}
+
+                    { this.state.images.lumberMill && <Image 
+                        name = "lumberMill"
+                        image= { this.state.images.lumberMill! }
+                        x = { 947 }
+                        y = { 1384 }
+                        // stroke = "blue"
+                        shadowBlur={15}
+                        // shadowColor = "red"
+                        // shadowEnabled = { true }
+                        // strokeWidth = { 30 }
+                        onClick = { this.handleClick }
+                        //draggable
+                        onDragEnd= { this.handleDragEnd }
+                        ref={ (node) => { this.convaImages.lumberMill = node!; }}
+                    />}
+
                     </Layer>
             </Stage>
         );
     }
 
-    public handleClick(evt: Konva.KonvaEventObject<PointerEvent>) {
+    public handleClick = (evt: Konva.KonvaEventObject<PointerEvent>) => {
+        if(this.props.onStructureClick) { this.props.onStructureClick( Structure[evt.target.name()]); }
         console.log(evt.target.name());
     }
 
