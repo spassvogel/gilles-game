@@ -2,7 +2,6 @@
     /* background-color: cornflowerblue; */
     border-bottom: 1px solid #e0e0e2;
     height: 30px;
-    text-align: right;
     line-height: 30px;
     padding-right: 30px;
 
@@ -14,6 +13,18 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */ 
 }
 
+.topbar .topbar-left {
+    display: inline-block;
+    width: 50%;
+}
+
+.topbar .topbar-right {
+    display: inline-block;
+    width: 50%;
+    text-align: right;
+}
+
 .topbar span {
     padding: 0 20px 0 20px;
 }
+

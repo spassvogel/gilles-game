@@ -19,7 +19,7 @@ export interface DispatchProps {
     onCheatResources?: (amount: ResourceStoreState) => void;
 }
 
-enum View {
+export enum View {
     Town,
     World,
 }
@@ -53,7 +53,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
 
 
         return <div>
-            <Topbar/>
+            <Topbar appView = { this.state.view } onViewButtonClick= { () => this.changeView() }/>
             {/* <div className="app-left"> */}
                 {/* <TownView onStructureClick= { this.selectStructure }/> */}
                 { selectedStructureView }
@@ -83,6 +83,13 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                 </fieldset>
             </div>
         </div>;
+    }
+    private changeView = () => {
+        if (this.state.view === View.Town) {
+            this.setState({ view: View.World });
+        } else {
+            this.setState({ view: View.Town });
+        }
     }
 
     private selectStructure = (structure: Structure) => {
