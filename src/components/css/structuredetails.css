@@ -6,3 +6,7 @@
     width: 800px;
     background: white;
 } 
+
+.structure-details legend {
+    padding-top: 30px;
+}

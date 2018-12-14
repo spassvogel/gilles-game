@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
-import { AnyAction, Dispatch } from "redux";
+import { AnyAction, compose, Dispatch } from "redux";
 import WarehouseStructureView, { DispatchProps, Props, StateProps } from "src/components/WarehouseStructureView";
+import { withAppContext } from "src/hoc/withAppContext";
 import { selectFreeWorkers } from "src/selectors/workers";
 import { StoreState } from "../stores";
 import { StructureStoreState } from "../stores/structure";
@@ -21,5 +22,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
     return { };
 }
 
-// tslint:disable-next-line:max-line-length
-export default connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps)(WarehouseStructureView);
+export default compose(
+    connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
+    withAppContext,
+)(WarehouseStructureView);

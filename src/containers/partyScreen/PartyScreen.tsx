@@ -1,8 +1,9 @@
 
 import { connect } from "react-redux";
-import { AnyAction, Dispatch } from "redux";
+import { AnyAction, compose, Dispatch } from "redux";
 import { moveItemInInventory, moveItemToOtherAdventurer } from "src/actions/adventurers";
 import PartyScreen, { DispatchProps, Props, StateProps } from "src/components/partyScreen/PartyScreen";
+import { withAppContext } from "src/hoc/withAppContext";
 import { StoreState } from "../../stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
@@ -24,4 +25,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
     };
 }
 
-export default connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps)(PartyScreen);
+export default compose(
+    connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
+    withAppContext,
+)(PartyScreen);

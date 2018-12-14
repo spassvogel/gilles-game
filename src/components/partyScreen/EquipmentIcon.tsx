@@ -8,6 +8,7 @@ export interface Props {
     index: number;
     item: Item;
     source: string;
+    onClick?: () => void;
 }
 
 interface CollectedProps {
@@ -22,40 +23,37 @@ export interface InventoryItemDragInfo {
 }
 
 /**
- * Specifies the drag source contract.
- * Only `beginDrag` function is required.
- */
+* Specifies the drag source contract.
+* Only `beginDrag` function is required.
+*/
 const source: DragSourceSpec<Props, InventoryItemDragInfo> = {
-  beginDrag(props: Props) {
-    // Return the data describing the dragged item
-    return {
-        inventorySlot: props.index,
-        item: props.item,
-        source: props.source,
-    };
-  },
+    beginDrag(props: Props) {
+        // Return the data describing the dragged item
+        return {
+            inventorySlot: props.index,
+            item: props.item,
+            source: props.source,
+        };
+    },
 };
 
 /**
  * Specifies which props to inject into your component.
  */
 function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
-  return {
-    // Call this function inside render()
-    // to let React DnD handle the drag events:
-    connectDragSource: connect.dragSource(),
-    // You can ask the monitor about the current drag state:
-    isDragging: monitor.isDragging(),
-  };
+    return {
+        // Call this function inside render()
+        // to let React DnD handle the drag events:
+        connectDragSource: connect.dragSource(),
+        // You can ask the monitor about the current drag state:
+        isDragging: monitor.isDragging(),
+    };
 }
 
 class EquipmentIcon extends React.Component<Props & CollectedProps > {
-    public render() {
-        const { index, item: equipment } = this.props;
 
-        // These two props are injected by React DnD,
-        // as defined by your `collect` function above:
-        const { isDragging, connectDragSource } = this.props;
+    public render() {
+        const { index, item: equipment, isDragging, connectDragSource } = this.props;
         const equipmentDefinition: EquipmentDefinition = equipmentDefinitions[equipment];
 
         if (isDragging) {
@@ -64,11 +62,10 @@ class EquipmentIcon extends React.Component<Props & CollectedProps > {
         }
         return connectDragSource(
             <div className="equipment-icon"
+                onClick = { this.props.onClick }
                 style = {{
-                backgroundImage: `url(${equipmentDefinition.iconImg})`,
+                    backgroundImage: `url(${equipmentDefinition.iconImg})`,
             }}>
-                {index}
-                {isDragging && "!"}
             </div>,
         );
     }

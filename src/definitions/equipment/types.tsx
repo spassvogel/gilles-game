@@ -15,6 +15,7 @@ export type Item = Equipment | QuestItems;
 
 export interface EquipmentDefinition {
     equipment: Equipment;
+    subText: string;
     name: string;
     iconImg: string;
 }

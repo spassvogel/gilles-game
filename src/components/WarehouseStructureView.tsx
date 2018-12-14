@@ -1,8 +1,11 @@
 import * as React from "react";
+import { ContextType } from "src/constants";
+import equipmentDefinitions from "src/definitions/equipment";
 import { Equipment } from "src/definitions/equipment/types";
 import structureDefinitions, {  Structure  } from "src/definitions/structures";
 import { StructureDefinition, StructureLevelDefinition } from "src/definitions/structures/types";
 import { EquipmentStoreState } from "src/stores/equipment";
+import { AppContextProps } from "./App";
 import "./css/warehousestructureview.css";
 import EquipmentIcon, { InventoryItemDragInfo } from "./partyScreen/EquipmentIcon";
 import InventorySlot from "./partyScreen/InventorySlot";
@@ -24,7 +27,9 @@ export interface StateProps  {
     equipment: EquipmentStoreState;
 }
 
-export default function(props: Props & DispatchProps & StateProps ) {
+type AllProps = Props & StateProps & DispatchProps & AppContextProps;
+
+export default function(props: AllProps) {
 
     const structureDefinition = structureDefinitions[props.type] as StructureDefinition;
     if (!structureDefinition) {
@@ -48,6 +53,12 @@ export default function(props: Props & DispatchProps & StateProps ) {
                 //     this.props.onMoveItemInInventory(adventurer.id, fromSlot!, i);
                 // }
             };
+            const handleClick = () => {
+                props.onContextualObjectActivated(
+                    ContextType.item,
+                    equipmentDefinitions[equipment],
+                );
+            };
             const slot = <InventorySlot
                 key= { `inventory-slot-${i}`}
                 empty = { false }
@@ -56,6 +67,7 @@ export default function(props: Props & DispatchProps & StateProps ) {
                         index = {i}
                         key = { `inventory-slot-${i}`}
                         source = "warehouse"
+                        onClick = { handleClick }
                         item = { equipment as Equipment}>
                     </EquipmentIcon>;
                 </InventorySlot>;
@@ -80,8 +92,8 @@ export default function(props: Props & DispatchProps & StateProps ) {
         const slot = <InventorySlot
             key= { `inventory-slot-${i}`}
             empty = { true }
-            onDrop= { handleDrop }>
-        </InventorySlot>;
+            onDrop= { handleDrop }
+        ></InventorySlot>;
         inventory.push(slot);
         i++;
     }

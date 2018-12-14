@@ -1,7 +1,7 @@
 
 .warehouse-structureview .inventory {
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
 }
 
 .warehouse-structureview .inventory .inventory-item {

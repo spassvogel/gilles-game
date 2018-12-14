@@ -10,6 +10,7 @@ export interface DispatchProps {
     onViewButtonClick: () => void;
 }
 
+// These are injected by mapStateToProps on the Container
 export interface StateProps  {
     gold: number;
     workers: number;    // total

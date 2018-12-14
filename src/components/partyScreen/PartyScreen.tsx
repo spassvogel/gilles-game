@@ -1,6 +1,10 @@
 
 import * as React from "react";
+import { ContextType } from "src/constants";
+import equipmentDefinitions from "src/definitions/equipment";
+import { withAppContext } from "src/hoc/withAppContext";
 import { AdventurerStoreState } from "src/stores/adventurer";
+import { AppContext, AppContextConsumer, AppContextProps } from "../App";
 import AdventurerAvatar from "./AdventurerAvatar";
 import "./css/partyscreen.css";
 import EquipmentIcon, { InventoryItemDragInfo } from "./EquipmentIcon";
@@ -23,11 +27,13 @@ interface LocalState {
     selectedAdventurer: string | null;
 }
 
-export default class PartyScreen extends React.Component<Props & StateProps & DispatchProps, LocalState> {
-    // This Component has local state, so it's a class
-    constructor(props: Props & StateProps) {
-        super(props);
+type AllProps = Props & StateProps & DispatchProps & AppContextProps;
 
+// export default
+class PartyScreen extends React.Component<AllProps, LocalState> {
+    // This Component has local state, so it's a class
+    constructor(props: AllProps) {
+        super(props);
         this.state = {
             selectedAdventurer: null,
         };
@@ -35,16 +41,16 @@ export default class PartyScreen extends React.Component<Props & StateProps & Di
 
     public render() {
         return (
-            <div className="partyscreen">
-                <div className="header">
-                    { this.props.questName }
-                </div>
-                <div className="avatars">
-                    { this.getAvatars() }
-                </div>
-                { this.getBottomPart() }
+        <div className="partyscreen">
+            <div className="header">
+                { this.props.questName }
             </div>
-        );
+            <div className="avatars">
+                { this.getAvatars() }
+            </div>
+            { this.getBottomPart() }
+         </div>
+     );
     }
 
     public getAdventurerInfo(adventurer: AdventurerStoreState): any {
@@ -61,14 +67,6 @@ export default class PartyScreen extends React.Component<Props & StateProps & Di
         for (let i = 0; i < adventurer.inventory.length; i++) {
             let contents;
             const item = adventurer.inventory[i];
-            if (item) {
-                contents = <EquipmentIcon
-                    index = {i}
-                    source = "adventurer"
-                    key={ `inventory-slot-${i}`}
-                    item = { item }>
-                </EquipmentIcon>;
-            }
             const handleDrop = (dragInfo: InventoryItemDragInfo) => {
                 if (dragInfo.inventorySlot === i) {
                     return;
@@ -79,6 +77,24 @@ export default class PartyScreen extends React.Component<Props & StateProps & Di
                     this.props.onMoveItemInInventory(adventurer.id, fromSlot!, i);
                 }
             };
+
+            if (item) {
+
+                const handleClick = () => {
+                    this.props.onContextualObjectActivated(
+                        ContextType.item,
+                        equipmentDefinitions[item],
+                    );
+                };
+
+                contents = <EquipmentIcon
+                    index = {i}
+                    source = "adventurer"
+                    item = { item }
+                    onClick = { () => handleClick() }
+                >
+                </EquipmentIcon>;
+            }
 
             // tslint:disable-next-line:max-line-length
             const slot = <InventorySlot
@@ -161,5 +177,6 @@ export default class PartyScreen extends React.Component<Props & StateProps & Di
             </div>);
         }
     }
-
 }
+
+export default (PartyScreen);

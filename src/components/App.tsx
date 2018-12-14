@@ -1,14 +1,15 @@
 import * as React from "react";
-import TownView from "src/containers/TownView";
+import { ContextInfo, ContextType } from "src/constants";
 import { Resource } from "src/definitions/resources";
 import { ResourceStoreState } from "src/stores/resources";
 import PartyScreen from "../containers/partyScreen/PartyScreen";
 import ResourceViewRow from "../containers/ResourceViewRow";
 import Topbar from "../containers/Topbar";
 import { Structure } from "../definitions/structures";
+import ContextView from "./ContextView";
 import "./css/app.css";
-import StructureDetailsView from "./StructureDetailsView";
 import RealTownView from "./RealTownView";
+import StructureDetailsView from "./StructureDetailsView";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -29,9 +30,20 @@ export interface Props {
 }
 
 interface LocalState {
-    view: View
+    view: View;
     selectedStructure: Structure | null;
+    contextType: ContextType | null;
+    contextInfo: ContextInfo | null;
 }
+
+// Sharing context within the entire App
+export interface AppContextProps {
+    onContextualObjectActivated: (type: ContextType, info: ContextInfo) => void;
+}
+export const AppContext = React.createContext<AppContextProps>({
+    onContextualObjectActivated: () => {},
+});
+export const AppContextConsumer = AppContext.Consumer;
 
 export default class App extends React.Component<Props & StateProps & DispatchProps, LocalState> {
     // This Component has local state, so it's a class
@@ -39,8 +51,10 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         super(props);
 
         this.state = {
-            view:  View.Town,
+            contextInfo: null,
+            contextType: null,
             selectedStructure: null,
+            view:  View.Town,
         };
     }
 
@@ -51,8 +65,12 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         const mainView = this.state.view === View.Town ? <RealTownView onStructureClick= { this.selectStructure }/>
             : <PartyScreen questName="A quest called tribe"></PartyScreen>;
 
+        const contextView = this.state.contextType == null || this.state.contextInfo == null ? null :
+            <ContextView type = { this.state.contextType }  info = { this.state.contextInfo }/>;
 
-        return <div>
+        return <AppContext.Provider value = {{
+            onContextualObjectActivated: this.handleContextualObjectActivated,
+        }}>
             <Topbar appView = { this.state.view } onViewButtonClick= { () => this.changeView() }/>
             {/* <div className="app-left"> */}
                 {/* <TownView onStructureClick= { this.selectStructure }/> */}
@@ -81,12 +99,18 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     <ResourceViewRow type = { Resource.gunpowder }/>
                     <ResourceViewRow type = { Resource.leather }/>
                 </fieldset>
+                {
+                    contextView
+                }
             </div>
-        </div>;
+        </AppContext.Provider>;
     }
     private changeView = () => {
         if (this.state.view === View.Town) {
-            this.setState({ view: View.World });
+            this.setState({
+                selectedStructure: null,
+                view: View.World,
+            });
         } else {
             this.setState({ view: View.Town });
         }
@@ -95,6 +119,13 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
     private selectStructure = (structure: Structure) => {
         this.setState({
             selectedStructure: structure,
+        });
+    }
+
+    private handleContextualObjectActivated = (type: ContextType, info: ContextInfo) => {
+        this.setState({
+            contextInfo: info,
+            contextType: type,
         });
     }
 
