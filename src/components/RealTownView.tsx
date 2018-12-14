@@ -4,6 +4,7 @@ import { Image, Layer, Rect, Stage } from "react-konva";
 import {  Structure  } from "src/definitions/structures";
 import { AppContextProps } from "./App";
 import "./css/townView.css";
+import SmokeEmitter from "./effects/SmokeEmitter";
 
 // It's actually not the *real* town view hihi
 export interface DispatchProps {
@@ -63,6 +64,8 @@ class RealTownView extends React.Component<AllProps, LocalState> {
         return (
             <Stage width={1024} height={768} scale= { {x: 0.4, y: 0.4} }>
             <Layer name="background" onClick = { this.handleBackgroundClick } >
+            </Layer>
+            <Layer name="background" onClick = { this.handleBackgroundClick } >
                 <Image image={ this.imgSrc("img/town/sky.jpg") }></Image>
             </Layer>
             <Layer name="town">
@@ -111,7 +114,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                     />
                     <Image
                         name = "lumberMill"
-                        image={ this.imgSrc("img/town/lumberMill.png") }
+                        image = { this.imgSrc("img/town/lumberMill.png") }
                         x = { 947 }
                         y = { 1384 }
                         // stroke = "blue"
@@ -126,6 +129,8 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                     />
 
                     </Layer>
+                    <SmokeEmitter emitterX = { 190 } emitterY = { 510 }
+                        smokeImg = { this.imgSrc("img/town/effects/smoke.png") }/>
             </Stage>
         );
     }

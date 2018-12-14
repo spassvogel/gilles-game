@@ -113,15 +113,15 @@ export default class Preloader extends React.Component<Props, State> {
             case MediaType.image: {
                 // try {
                     const value = await loadImage(url);
-                    this.setState({
-                        itemsLoaded: this.state.itemsLoaded + 1,
-                    });
                     const item = {
                         element: value,
                         mediaType,
                         url,
                     };
                     media.push(item);
+                    this.setState({
+                        itemsLoaded: this.state.itemsLoaded + 1,
+                    });
                     return item;
                 // } catch (e) {
                 //     throw Error(`Could not load image with url '${url}'`);
