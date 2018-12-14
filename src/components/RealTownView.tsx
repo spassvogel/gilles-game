@@ -7,7 +7,7 @@ import "./css/townView.css";
 
 // It's actually not the *real* town view hihi
 export interface DispatchProps {
-    onStructureClick?: (structure: Structure) => void;
+    onStructureClick?: (structure: Structure | null) => void;
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -62,7 +62,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
     public render() {
         return (
             <Stage width={1024} height={768} scale= { {x: 0.4, y: 0.4} }>
-            <Layer name="background"  >
+            <Layer name="background" onClick = { this.handleBackgroundClick } >
                 <Image image={ this.imgSrc("img/town/sky.jpg") }></Image>
             </Layer>
             <Layer name="town">
@@ -95,7 +95,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                         shadowColor = "red"
                         shadowEnabled = { true }
                         strokeWidth = { 30 }
-                        onClick = { this.handleClick }
+                        onClick = { this.handleStructureClick }
                         // draggable
                         // onDragEnd= { this.handleDragEnd }
                         // ref={ (node) => { this.convaImages.tavern = node!; }}
@@ -105,7 +105,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                     <Image
                         name = { "weaponsmith" }
                         image={ this.imgSrc("img/town/lighthouse.png") }
-                        onClick = { this.handleClick }
+                        onClick = { this.handleStructureClick }
 
                         ref={ (node: Konva.Image) => { drawHitFromCache(node); }}
                     />
@@ -119,7 +119,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                         // shadowColor = "red"
                         // shadowEnabled = { true }
                         // strokeWidth = { 30 }
-                        onClick = { this.handleClick }
+                        onClick = { this.handleStructureClick }
                         // draggable
                         // onDragEnd= { this.handleDragEnd }
                         ref={ (node: Konva.Image) => { drawHitFromCache(node); }}
@@ -130,8 +130,12 @@ class RealTownView extends React.Component<AllProps, LocalState> {
         );
     }
 
-    public handleClick = (evt: Konva.KonvaEventObject<PointerEvent>) => {
+    public handleStructureClick = (evt: Konva.KonvaEventObject<PointerEvent>) => {
         if (this.props.onStructureClick) { this.props.onStructureClick( Structure[evt.target.name()]); }
+    }
+
+    public handleBackgroundClick = (evt: Konva.KonvaEventObject<PointerEvent>) => {
+        if (this.props.onStructureClick) { this.props.onStructureClick(null); }
     }
 
     private imgSrc(url: string): HTMLImageElement {
