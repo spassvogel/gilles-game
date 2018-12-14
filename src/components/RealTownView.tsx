@@ -53,7 +53,7 @@ class RealTownView extends React.Component<Props & DispatchProps & StateProps, L
         this.loadImage("background", "img/town/sky.jpg");
         this.loadImage("lighthouse", "img/town/lighthouse.png");
         this.loadImage("tavern", "img/town/tavern.png");
-        this.loadImage("lumberMill", "img/town/lumberMill.png");
+        this.loadImage("lumberMill", "img/town/lumbermill.png");
     }
 
     // Loads image, stores in state after done loading
