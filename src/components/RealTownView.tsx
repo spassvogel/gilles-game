@@ -114,7 +114,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                     />
                     <Image
                         name = "lumberMill"
-                        image = { this.imgSrc("img/town/lumberMill.png") }
+                        image = { this.imgSrc("img/town/mill.png") }
                         x = { 947 }
                         y = { 1384 }
                         // stroke = "blue"
