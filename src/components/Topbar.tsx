@@ -1,7 +1,7 @@
 
 import * as React from "react";
-import "./css/topbar.css";
 import { View } from "./App";
+import "./css/topbar.css";
 
 export interface Props {
     appView: View;
@@ -20,7 +20,7 @@ export interface StateProps  {
 export default function(props: Props & StateProps & DispatchProps) {
     const handleClick = () => {
         props.onViewButtonClick();
-    }
+    };
     return (
         <div className="topbar">
             <div className="topbar-left">

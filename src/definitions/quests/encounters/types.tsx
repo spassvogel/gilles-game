@@ -5,5 +5,5 @@ export interface EncounterDefinition<TQuestState> {
     getTitle: (questState: TQuestState, store: StoreState) => string;
     getDescription: (questState: TQuestState, store: StoreState) => string;
     getOptions(questState: TQuestState, store: StoreState): Record<string, string>;
-    //answer(option: string, questState, store); => {
+    // answer(option: string, questState, store); => {
 }

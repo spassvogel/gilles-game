@@ -23,9 +23,9 @@ export interface InventoryItemDragInfo {
 }
 
 /**
-* Specifies the drag source contract.
-* Only `beginDrag` function is required.
-*/
+ * Specifies the drag source contract.
+ * Only `beginDrag` function is required.
+ */
 const source: DragSourceSpec<Props, InventoryItemDragInfo> = {
     beginDrag(props: Props) {
         // Return the data describing the dragged item

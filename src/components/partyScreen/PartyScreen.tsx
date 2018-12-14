@@ -2,9 +2,8 @@
 import * as React from "react";
 import { ContextType } from "src/constants";
 import equipmentDefinitions from "src/definitions/equipment";
-import { withAppContext } from "src/hoc/withAppContext";
 import { AdventurerStoreState } from "src/stores/adventurer";
-import { AppContext, AppContextConsumer, AppContextProps } from "../App";
+import { AppContextProps } from "../App";
 import AdventurerAvatar from "./AdventurerAvatar";
 import "./css/partyscreen.css";
 import EquipmentIcon, { InventoryItemDragInfo } from "./EquipmentIcon";

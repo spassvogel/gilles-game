@@ -11,4 +11,3 @@ class WithContext extends React.PureComponent<P & AppContextProps> {
         );
     }
 };
-    
