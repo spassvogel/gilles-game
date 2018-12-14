@@ -27,6 +27,8 @@ type AllProps = Props & DispatchProps & StateProps & AppContextProps;
 class RealTownView extends React.Component<AllProps, LocalState> {
 
     private rect: Konva.Rect;
+    private anim: Konva.Animation;
+
     constructor(props: AllProps) {
         super(props);
         console.log(`LOADING RTV ${props}`);
@@ -39,11 +41,16 @@ class RealTownView extends React.Component<AllProps, LocalState> {
         var amplitude = 1;
         var period = 500;
 
-        let anim = new Konva.Animation((frame: any) => {
+        this.anim = new Konva.Animation((frame: any) => {
           this.rect.opacity((Math.sin(frame.time / period) + 1) / 2);
         }, this.rect.getLayer());
 
-        anim.start();
+        this.anim.start();
+    }
+
+    public componentWillUnmount() {
+        this.anim.stop();
+        delete this.anim;
     }
 
     public changeSize(node: Konva.Node) {
