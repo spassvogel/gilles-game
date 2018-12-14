@@ -66,12 +66,12 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
 
         const getMainView = () => {
             if (this.state.view === View.Town) {
-                console.log(`returning realtownview ${this.state.media.length}`);
+
                 return <RealTownView
-                onStructureClick = { this.selectStructure }
-                onContextualObjectActivated = { this.handleContextualObjectActivated }
-                media = { this.state.media }
-            />;
+                    onStructureClick = { this.selectStructure }
+                    onContextualObjectActivated = { this.handleContextualObjectActivated }
+                    media = { this.state.media }
+                />;
             } else {
                 return <PartyScreen questName="A quest called tribe"></PartyScreen>;
             }

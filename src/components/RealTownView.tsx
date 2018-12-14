@@ -1,6 +1,6 @@
 import * as Konva from "konva";
 import * as React from "react";
-import { Image, Layer, Stage, Rect } from "react-konva";
+import { Image, Layer, Rect, Stage } from "react-konva";
 import {  Structure  } from "src/definitions/structures";
 import { AppContextProps } from "./App";
 import "./css/townView.css";
@@ -31,15 +31,13 @@ class RealTownView extends React.Component<AllProps, LocalState> {
 
     constructor(props: AllProps) {
         super(props);
-        console.log(`LOADING RTV ${props}`);
         this.state = {
             images: {},
         };
     }
 
     public componentDidMount() {
-        var amplitude = 1;
-        var period = 500;
+        const period = 500;
 
         this.anim = new Konva.Animation((frame: any) => {
           this.rect.opacity((Math.sin(frame.time / period) + 1) / 2);
@@ -53,16 +51,15 @@ class RealTownView extends React.Component<AllProps, LocalState> {
         delete this.anim;
     }
 
-    public changeSize(node: Konva.Node) {
-        node.to({
-            scaleX: Math.random() + 2.8,
-            scaleY: Math.random() + 2.8,
-            duration: 10,
-        });
-    }
+    // public changeSize(node: Konva.Node) {
+    //     node.to({
+    //         scaleX: Math.random() + 2.8,
+    //         scaleY: Math.random() + 2.8,
+    //         duration: 10,
+    //     });
+    // }
 
     public render() {
-        console.log(`RENDERING RTV: loaded media: ${this.props.media}`);
         return (
             <Stage width={1024} height={768} scale= { {x: 0.4, y: 0.4} }>
             <Layer name="background"  >
@@ -113,8 +110,8 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                         ref={ (node: Konva.Image) => { drawHitFromCache(node); }}
                     />
                     <Image
-                        name = "lumbermill"
-                        image={ this.imgSrc("img/town/lumbermill.png") }
+                        name = "lumberMill"
+                        image={ this.imgSrc("img/town/lumberMill.png") }
                         x = { 947 }
                         y = { 1384 }
                         // stroke = "blue"
