@@ -40,15 +40,21 @@ class RealTownView extends React.Component<AllProps, LocalState> {
     public componentDidMount() {
         const period = 500;
 
+        this.rect.filters([Konva.Filters.Brighten]);
+        this.rect.cache();
         this.anim = new Konva.Animation((frame: any) => {
-          this.rect.opacity((Math.sin(frame.time / period) + 1) / 2);
+            const freq = 2; // speed
+            const brightness = (Math.sin((frame.time / period) * freq) + 1) / 2;   // fluctuate between 0 and 1
+            this.rect.brightness(brightness);
+            this.rect.cache();
+            this.rect.fillPatternOffsetX(this.rect.fillPatternOffsetX() - 150);
         }, this.rect.getLayer());
 
         this.anim.start();
     }
 
     public componentWillUnmount() {
-        this.anim.stop();
+        if(this.anim) { this.anim.stop(); }
         delete this.anim;
     }
 
@@ -82,11 +88,13 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                 <Rect
                     x={20}
                     y={20}
-                    width={50}
-                    height={50}
-                    fill="green"
+                    width={1500}
+                    height={256}
+                    fillPatternImage = { this.imgSrc("img/town/effects/plasma_beam_heavy_green.png") }
+                    fillPatternOffset = { { x: 20, y: 0 }}
+                    globalCompositeOperation = 'lighter'
                     shadowBlur={5}
-                    ref={(node: Konva.Rect) => { this.rect = node;  }}
+                    ref = { (node: Konva.Rect) => this.rect = node }
                 />
                    <Image
                         name = "warehouse"

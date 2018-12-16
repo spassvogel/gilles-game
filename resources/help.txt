@@ -14,15 +14,14 @@ https://react-spring.surge.sh/
   treat like an inventory? Are there items that are not equipment?
 
 
-> todo: find todo-plugin for vscode
-
-> todo: check createjs react plugin... 
-> https://github.com/Flipboard/react-canvas
-> https://konvajs.github.io/docs/events/Image_Events.html
 
 > http://blog.oaxoa.com/2009/07/27/actionscript-3-as3-lightning-thunderbolt-electric-discharge-class/
 > http://haptic-data.com/toxiclibsjs/examples/perlin-noise-canvas
 
+
+
+https://stackoverflow.com/questions/7698949/moving-the-start-position-of-canvas-pattern
+http://codetheory.in/basics-of-implementing-gravity-with-html5-canvas/
 
 Quest def:
 z

@@ -12,6 +12,7 @@ import ContextView from "./ContextView";
 import "./css/app.css";
 import Preloader, { MediaItem } from "./preloading/Preloader";
 import StructureDetailsView from "./StructureDetailsView";
+import { Rect } from "react-konva";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {

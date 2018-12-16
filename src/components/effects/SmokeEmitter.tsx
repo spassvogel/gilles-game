@@ -117,7 +117,7 @@ class Particle {
 
         this.velocity = {
             x: 0,                                   // todo: props
-            y: -1 - (Math.random()*0.5)    // todo: props
+            y: -3 - (Math.random()*0.5)    // todo: props
         }
     }
 
