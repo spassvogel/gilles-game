@@ -11,7 +11,8 @@ export interface StoreState {
     workers: number;
     resources: ResourceStoreState;
     equipment: EquipmentStoreState;
-    quests: QuestStoreState[];
+    activeQuests: QuestStoreState[];
+    availableQuests: QuestStoreState[];
     rngState: seedrandomStateType;
     structures: StructuresStoreState;
     tasks: TasksStoreState;

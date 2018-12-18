@@ -4,12 +4,12 @@ export interface QuestStoreState {
     questDefinition: string;
     party: string[];        // List of adventurer ids
     progress: number;       // Which questnode the party is at currently
-    questVars: object;
+    questState: object;
 }
 
 export const initialState: QuestStoreState = {
     questDefinition: "",
     party: [],
     progress: 0,
-    questVars: {}
+    questState: {}
 };

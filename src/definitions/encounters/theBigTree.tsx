@@ -2,11 +2,11 @@
 import { StoreState } from "src/stores";
 import { EncounterDefinition } from "./types";
 
-interface QuestState {
+export interface QuestState {
     treeState: string;
 }
 
-const theBigTree: EncounterDefinition<QuestState> = {
+export const theBigTree: EncounterDefinition<QuestState> = {
     getTitle: (questState: QuestState, store: StoreState) => "The big tree",
     getDescription: (questState: QuestState, store: StoreState) => {
         const pyromancer = store.adventurers.find((a) => a.name === "pyromancer");
@@ -19,7 +19,7 @@ const theBigTree: EncounterDefinition<QuestState> = {
         const strongest = store.adventurers.sort((a) => a.stats.strength)[0];
         const options: Record<string, string> = {
             walkAround: "Walk around the tree",
-            lift: "Lift the tree (${strongest.name})",
+            lift: `Lift the tree (${strongest.name})`,
         };
         // todo: should be 'type' or 'class'
         const pyromancer = store.adventurers.find((a) => a.name === "pyromancer");

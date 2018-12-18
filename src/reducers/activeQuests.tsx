@@ -7,7 +7,7 @@ import { QuestStoreState } from "src/stores/quest";
  * @param state
  * @param action
  */
-export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = [], action: Action) => {
+export const activeQuests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = [], action: Action) => {
     // switch (action.type) {
     // }
     return state;

@@ -1,3 +1,6 @@
+import encounters from "../encounters";
+import { EncounterDefinition } from "../encounters/types";
+
 // tslint:disable:object-literal-sort-keys
 
 export enum QuestNodeType {
@@ -17,7 +20,7 @@ interface QuestNode {
     x: number;
     y: number;
     type: QuestNodeType;
-    encounter?: any;
+    encounter?: EncounterDefinition<any>; //todo: or array of encounters
 }
 
 const kill10boars: QuestDefinition = {
@@ -30,6 +33,7 @@ const kill10boars: QuestDefinition = {
         x: 0,
         y: 2,
         type: QuestNodeType.encounter,
+        encounter: encounters.theBigTree,
     }, {
         x: 0,
         y: 3,
@@ -59,6 +63,7 @@ const retrieveMagicAmulet: QuestDefinition = {
         x: 2,
         y: 1,
         type: QuestNodeType.encounter,
+        encounter: encounters.backstabbed,
     }, {
         x: 3,
         y: 1,

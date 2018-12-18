@@ -53,7 +53,7 @@ function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
 class EquipmentIcon extends React.Component<Props & CollectedProps > {
 
     public render() {
-        const { index, item: equipment, isDragging, connectDragSource } = this.props;
+        const { item: equipment, isDragging, connectDragSource } = this.props;
         const equipmentDefinition: EquipmentDefinition = equipmentDefinitions[equipment];
 
         if (isDragging) {
