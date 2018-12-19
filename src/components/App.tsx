@@ -13,6 +13,7 @@ import "./css/app.css";
 import Preloader, { MediaItem } from "./preloading/Preloader";
 import StructureDetailsView from "./StructureDetailsView";
 import { Rect } from "react-konva";
+import TempPartyScreenWrapper from "src/containers/partyScreen/TempPartyScreenWrapper";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -74,7 +75,8 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     media = { this.state.media }
                 />;
             } else {
-                return <PartyScreen questName="A quest called tribe"></PartyScreen>;
+                return <TempPartyScreenWrapper/>
+                // <PartyScreen questName="A quest called tribe"></PartyScreen>;
             }
 
         };

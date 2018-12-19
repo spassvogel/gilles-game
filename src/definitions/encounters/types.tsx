@@ -1,9 +1,11 @@
 import { StoreState } from "src/stores";
 
-export interface EncounterDefinition<TQuestState> {
+export interface EncounterDefinition<TQuestVars> {
     chance?: number;    // number from 0 to 1, undefined means: 1
-    getTitle: (questState: TQuestState, store: StoreState) => string;
-    getDescription: (questState: TQuestState, store: StoreState) => string;
-    getOptions(questState: TQuestState, store: StoreState): Record<string, string>;
+    getTitle: (questVars?: TQuestVars, store?: StoreState) => string;
+    getDescription: (questVars?: TQuestVars, store?: StoreState) => string;
+    getOptions(questVars?: TQuestVars, store?: StoreState): Record<string, string>;
     // answer(option: string, questState, store); => {
 }
+
+// todo: no longer nullable questvars and store

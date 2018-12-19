@@ -80,8 +80,6 @@ export default function(props: Props) {
                     wood: 100,
                 })}> Geiv 100 all resources</button>
             </fieldset>
-
-            <PartyScreen questName="A quest called tribe"></PartyScreen>
         </div>
     );
 }

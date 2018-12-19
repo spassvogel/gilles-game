@@ -1,0 +1,16 @@
+.temppartyscreenwrapper .progress .questnodes {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: larger;
+}
+.temppartyscreenwrapper .progress .questnodes .active {
+    font-weight: bold;
+}
+
+.temppartyscreenwrapper .progress .questnodes .next {
+    float: right;
+}
+
+
+.temppartyscreenwrapper .progress {
+    width: 280px;
+}

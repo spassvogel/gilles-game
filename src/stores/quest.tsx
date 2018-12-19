@@ -1,15 +1,15 @@
     // tslint:disable:object-literal-sort-keys
 
 export interface QuestStoreState {
-    questDefinition: string;
+    name: string;
     party: string[];        // List of adventurer ids
     progress: number;       // Which questnode the party is at currently
-    questState: object;
+    questVars: object;
 }
 
 export const initialState: QuestStoreState = {
-    questDefinition: "",
+    name: "",
     party: [],
     progress: 0,
-    questState: {}
+    questVars: {}
 };

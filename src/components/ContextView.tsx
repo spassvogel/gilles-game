@@ -12,6 +12,10 @@ export interface Props {
 export interface DispatchProps {
 }
 
+/**
+ * The ContextView shows the player contextual information about the item she clicked
+ * @param props 
+ */
 export default function(props: Props & DispatchProps) {
     switch (props.type) {
         case ContextType.item:

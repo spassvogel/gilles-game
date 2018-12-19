@@ -2,7 +2,9 @@
 import * as React from "react";
 import { ContextType } from "src/constants";
 import equipmentDefinitions from "src/definitions/equipment";
+import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "src/definitions/quests";
 import { AdventurerStoreState } from "src/stores/adventurer";
+import { QuestStoreState } from "src/stores/quest";
 import { AppContextProps } from "../App";
 import AdventurerAvatar from "./AdventurerAvatar";
 import "./css/partyscreen.css";
@@ -14,7 +16,7 @@ export interface StateProps {
 }
 
 export interface Props {
-    questName: string;
+    quest: QuestStoreState;
 }
 
 export interface DispatchProps {
@@ -39,10 +41,12 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
     }
 
     public render() {
+        const questDefinition: QuestDefinition = questDefinitions[this.props.quest.name];
+
         return (
         <div className="partyscreen">
             <div className="header">
-                { this.props.questName }
+                { questDefinition.displayName }
             </div>
             <div className="avatars">
                 { this.getAvatars() }
@@ -168,11 +172,46 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                 .find((a) => a.id === this.state.selectedAdventurer)!;
             return this.getAdventurerInfo(adventurer);
         } else {
+            const quest = this.props.quest;
+            const questDefinition: QuestDefinition = questDefinitions[quest.name];
+            const questNode: QuestNode = questDefinition.nodes[quest.progress];
+
+            let message = <p></p>;
+            let actions = <p></p>;
+
+            switch (questNode.type) {
+                case QuestNodeType.nothing: {
+                    if (quest.progress === 0) {
+                        message = <p> { "The party has embarked on a new quest" } </p>;
+                    } else {
+                        message = <p> { "The party trudges on" } </p>;
+                    }
+                    break;
+                }
+                case QuestNodeType.encounter: {
+                    const encounter = questNode.encounter!;
+                    message = <div><p> {encounter.getTitle()} </p><p> {encounter.getDescription()}</p></div>;
+
+                    const options = encounter.getOptions();
+
+                    actions = <ul>
+                        { Object.keys(options).map(o => <li> <button> { o } </button>{ options[o]} </li>)}
+                    </ul>;
+
+                    break;
+                }
+                case QuestNodeType.boss: {
+                    message = <p> { "Boss fight!" } </p>;
+                    break;
+                }
+            }
+
             return (
             <div className="questlog">
-                The quest log
-            <div className="actions">
-            </div>
+                { message }
+                <div className="actions">
+                    { actions}
+                </div>
             </div>);
         }
     }

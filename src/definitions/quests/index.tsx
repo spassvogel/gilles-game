@@ -10,13 +10,13 @@ export enum QuestNodeType {
     boss = 3,
 }
 
-interface QuestDefinition {
+export interface QuestDefinition {
     displayName: string;
     nodes: QuestNode[];
     // type: StructureType
 }
 
-interface QuestNode {
+export interface QuestNode {
     x: number;
     y: number;
     type: QuestNodeType;
@@ -31,6 +31,14 @@ const kill10boars: QuestDefinition = {
         type: QuestNodeType.nothing,
     }, {
         x: 0,
+        y: 3,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 0,
+        y: 3,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 0,
         y: 2,
         type: QuestNodeType.encounter,
         encounter: encounters.theBigTree,
@@ -38,6 +46,19 @@ const kill10boars: QuestDefinition = {
         x: 0,
         y: 3,
         type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 3,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 3,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 2,
+        y: 1,
+        type: QuestNodeType.encounter,
+        encounter: encounters.backstabbed,
     }, {
         x: 1,
         y: 3,
