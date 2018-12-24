@@ -54,7 +54,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
     }
 
     public componentWillUnmount() {
-        if(this.anim) { this.anim.stop(); }
+        if (this.anim) { this.anim.stop(); }
         delete this.anim;
     }
 
@@ -92,7 +92,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                     height={256}
                     fillPatternImage = { this.imgSrc("img/town/effects/plasma_beam_heavy_green.png") }
                     fillPatternOffset = { { x: 20, y: 0 }}
-                    globalCompositeOperation = 'lighter'
+                    globalCompositeOperation = "lighter"
                     shadowBlur={5}
                     ref = { (node: Konva.Rect) => this.rect = node }
                 />

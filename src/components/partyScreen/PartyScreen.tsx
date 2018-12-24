@@ -1,8 +1,11 @@
 
+import { cloneDeep, isEqual } from "lodash";
 import * as React from "react";
 import { ContextType } from "src/constants";
+import { EncounterDefinition } from "src/definitions/encounters/types";
 import equipmentDefinitions from "src/definitions/equipment";
 import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "src/definitions/quests";
+import { StoreState } from "src/stores";
 import { AdventurerStoreState } from "src/stores/adventurer";
 import { QuestStoreState } from "src/stores/quest";
 import { AppContextProps } from "../App";
@@ -13,6 +16,7 @@ import InventorySlot from "./InventorySlot";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
+    store: StoreState;
 }
 
 export interface Props {
@@ -20,6 +24,8 @@ export interface Props {
 }
 
 export interface DispatchProps {
+    onUpdateQuestVars: (vars: any) => void;
+    onUpdateEncounterResult: (nodeIndex: number, result: string) => void;
     onMoveItemInInventory?: (adventurerId: string, fromSlot: number, toSlot: number) => void;
     onMoveItemToOtherAdventurer?: (fromAdventurerId: string, fromSlot: number, toAdventurerId: string) => void;
 }
@@ -32,6 +38,7 @@ type AllProps = Props & StateProps & DispatchProps & AppContextProps;
 
 // export default
 class PartyScreen extends React.Component<AllProps, LocalState> {
+
     // This Component has local state, so it's a class
     constructor(props: AllProps) {
         super(props);
@@ -131,13 +138,22 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
         );
     }
 
-    public handleAvatarClick(adventurerId: string | null): void {
+    private handleAvatarClick(adventurerId: string | null): void {
         if (this.state.selectedAdventurer === adventurerId) {
             adventurerId = null;
         }
         this.setState({
             selectedAdventurer: adventurerId,
         });
+    }
+
+    private handleEncounterOptionClick(encounter: EncounterDefinition<any>, option: string, questVars: any): any {
+        const result = encounter.answer(option, questVars, this.props.store);
+
+        if (!isEqual(questVars, this.props.quest.questVars)){
+            this.props.onUpdateQuestVars(questVars);
+        }
+        this.props.onUpdateEncounterResult(this.props.quest.progress, result);
     }
 
     private getAvatars = () => {
@@ -167,6 +183,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
     }
 
     private getBottomPart = () => {
+
         if (this.state.selectedAdventurer) {
             const adventurer: AdventurerStoreState = this.props.adventurers
                 .find((a) => a.id === this.state.selectedAdventurer)!;
@@ -189,13 +206,25 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                     break;
                 }
                 case QuestNodeType.encounter: {
-                    const encounter = questNode.encounter!;
-                    message = <div><p> {encounter.getTitle()} </p><p> {encounter.getDescription()}</p></div>;
+                    if (quest.encounterResults[quest.progress]) {
+                        message = <p> { quest.encounterResults[quest.progress] } </p>;
+                        break;
+                    }
+                    const questVars = cloneDeep(this.props.quest.questVars);
+                    const store = this.props.store;
 
-                    const options = encounter.getOptions();
+                    const encounter = questNode.encounter!;
+                    message = <div><p> {encounter.getTitle(questVars, store)} </p>
+                        <p> {encounter.getDescription(questVars, store)}</p></div>;
+
+                    const options = encounter.getOptions(questVars, store);
 
                     actions = <ul>
-                        { Object.keys(options).map(o => <li> <button> { o } </button>{ options[o]} </li>)}
+                        { Object.keys(options).map((o) => <li key={ o }>
+                            <button onClick= { () => this.handleEncounterOptionClick(encounter, o, questVars) }> 
+                                { o } 
+                            </button>{ options[o]}
+                        </li>)}
                     </ul>;
 
                     break;

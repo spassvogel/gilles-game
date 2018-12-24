@@ -17,4 +17,7 @@ export const backstabbed: EncounterDefinition<QuestVars> = {
         };
         return options;
     },
+    answer: (option: string, questVars: QuestVars, store: StoreState) => {
+        return "NOT IMPLEMENTED";
+    }
 };

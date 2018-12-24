@@ -5,8 +5,12 @@ export interface Props {
     itemsTotal?: number;
 }
 
+/**
+ * Loading indicator
+ */
 export default class Indicator extends React.Component<Props> {
     public render() {
-        return <div> { `Loading (${((this.props.itemsLoaded || 0) / (this.props.itemsTotal || 0 )) * 100})%`} </div>;
+        const { itemsLoaded, itemsTotal } = this.props;
+        return <div> { `Loading (${Math.floor((itemsLoaded || 0) / (itemsTotal || 0 ) * 100)})%`} </div>;
     }
 }

@@ -2,24 +2,27 @@
 import * as React from "react";
 import PartyScreen from "src/containers/partyScreen/PartyScreen";
 import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "src/definitions/quests";
+import { StoreState } from "src/stores";
 import { QuestStoreState } from "src/stores/quest";
 import "./css/temppartyscreenwrapper.css";
 
+// tslint:disable-next-line:no-empty-interface
 export interface Props {
 }
 
 export interface DispatchProps {
-    onAdvanceQuest: (questName: string) => void
+    onAdvanceQuest: (questName: string) => void;
 }
 
 export interface StateProps {
-    quest: QuestStoreState
+    quest: QuestStoreState;
+    store: StoreState;
 }
 
 type AllProps = Props & StateProps & DispatchProps;
 /**
  * Temporary wrapper around PartyScreen. Shows quest line
- * @param props 
+ * @param props
  */
 export default function(props: AllProps) {
     const { quest } = props;
@@ -31,7 +34,7 @@ export default function(props: AllProps) {
             className,
             key: `node_${index}`,
         };
-        switch(node.type) {
+        switch (node.type) {
             case QuestNodeType.encounter:
                 return <span title="encounter" { ...spanProps }>*</span>;
             case QuestNodeType.boss:
@@ -40,15 +43,14 @@ export default function(props: AllProps) {
             default:
                 return <span { ...spanProps }>-</span>;
             }
-    }
+    };
 
     const questNodes = questDefinition.nodes.map((n, i) => createNodeVisualization(n, i));
-
 
     return <div className="temppartyscreenwrapper">
         <fieldset className="progress">
             <legend>Quest progress</legend>
-            <div className="questnodes"> { questNodes } 
+            <div className="questnodes"> { questNodes }
                 <button className="next" onClick={ () => props.onAdvanceQuest(props.quest.name)}>>></button>
             </div>
         </fieldset>

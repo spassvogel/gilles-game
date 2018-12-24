@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ContextInfo, ContextType } from "src/constants";
+import TempPartyScreenWrapper from "src/containers/partyScreen/TempPartyScreenWrapper";
 import RealTownView from "src/containers/RealTownView";
 import { Resource } from "src/definitions/resources";
 import { manifest } from "src/manifest/app";
@@ -12,8 +13,6 @@ import ContextView from "./ContextView";
 import "./css/app.css";
 import Preloader, { MediaItem } from "./preloading/Preloader";
 import StructureDetailsView from "./StructureDetailsView";
-import { Rect } from "react-konva";
-import TempPartyScreenWrapper from "src/containers/partyScreen/TempPartyScreenWrapper";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -75,7 +74,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     media = { this.state.media }
                 />;
             } else {
-                return <TempPartyScreenWrapper/>
+                return <TempPartyScreenWrapper/>;
                 // <PartyScreen questName="A quest called tribe"></PartyScreen>;
             }
 

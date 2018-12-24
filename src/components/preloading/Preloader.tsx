@@ -29,12 +29,9 @@ export default class Preloader extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            itemsLoaded: 0,
             completed: false,
+            itemsLoaded: 0,
         };
-    }
-
-    public componentWillMount() {
     }
 
     public componentDidMount() {
@@ -69,7 +66,7 @@ export default class Preloader extends React.Component<Props, State> {
     }
 
     public render() {
-        console.log(`loaded: ${this.state.itemsLoaded} `);
+//        console.log(`loaded: ${this.state.itemsLoaded} `);
         const { children, manifest } = this.props;
         const complete = this.state.completed;
 
@@ -99,7 +96,7 @@ export default class Preloader extends React.Component<Props, State> {
             }
             this.setState({
                 completed: true,
-            })
+            });
         });
     }
 

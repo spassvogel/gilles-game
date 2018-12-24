@@ -4,6 +4,8 @@ import { ProductionDefinition } from "src/definitions/production/types";
 
 export enum ActionType {
     advanceQuest = "advanceQuest",
+    updateQuestVars = "updateQuestVars",
+    updateEncounterResult = "updateEncounterResult",
 }
 
 export interface Action {
@@ -14,6 +16,13 @@ export interface QuestAction extends Action {
     questName: string;
 }
 
+export interface QuestVarsAction extends QuestAction {
+    vars: any;
+}
+export interface UpdateEncounterResultAction extends QuestAction {
+    nodeIndex: number;
+    result: string;
+}
 
 export function advanceQuest(quest: string): QuestAction {
     return {
@@ -22,3 +31,19 @@ export function advanceQuest(quest: string): QuestAction {
     };
 }
 
+export function updateQuestVars(quest: string, vars: any): QuestVarsAction {
+    return {
+        type: ActionType.updateQuestVars,
+        questName: quest,
+        vars,
+    };
+}
+
+export function updateEncounterResult(quest: string, nodeIndex: number, result: string): UpdateEncounterResultAction {
+    return {
+        type: ActionType.updateEncounterResult,
+        questName: quest,
+        nodeIndex,
+        result,
+    };
+}

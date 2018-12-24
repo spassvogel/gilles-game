@@ -9,12 +9,13 @@ export interface Props {
     info: ContextInfo;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface DispatchProps {
 }
 
 /**
  * The ContextView shows the player contextual information about the item she clicked
- * @param props 
+ * @param props
  */
 export default function(props: Props & DispatchProps) {
     switch (props.type) {

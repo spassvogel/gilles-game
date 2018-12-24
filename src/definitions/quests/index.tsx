@@ -20,7 +20,7 @@ export interface QuestNode {
     x: number;
     y: number;
     type: QuestNodeType;
-    encounter?: EncounterDefinition<any>; //todo: or array of encounters
+    encounter?: EncounterDefinition<any>; // todo: or array of encounters
 }
 
 const kill10boars: QuestDefinition = {
