@@ -221,8 +221,8 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
 
                     actions = <ul>
                         { Object.keys(options).map((o) => <li key={ o }>
-                            <button onClick= { () => this.handleEncounterOptionClick(encounter, o, questVars) }> 
-                                { o } 
+                            <button onClick= { () => this.handleEncounterOptionClick(encounter, o, questVars) }>
+                                { o }
                             </button>{ options[o]}
                         </li>)}
                     </ul>;

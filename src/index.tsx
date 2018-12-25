@@ -84,8 +84,11 @@ const getProducedResources = (structures: StructuresStoreState) => {
 random.init("GILLESROX2");
 store.dispatch(addGold(40));
 
-const getRngState = (): seedrandomStateType => {
-    return random.state();
+const getRngState = (): seedrandomStateType | null => {
+    if (random.dirty) {
+        return random.state();
+    }
+    return null;
 }
 
 setInterval(() => {
@@ -100,3 +103,10 @@ setInterval(() => {
 
     processCompletedTasks(state.tasks);
 }, 2500);
+
+/*
+Var basespeed = 3; // ticks per sec
+Update(){
+Var delta = lastTick - now()
+Var ticks
+For(var I = 0; I < delta / (1000 / basespeed); I++)*/

@@ -1,4 +1,4 @@
-import { AnyAction, Reducer } from "redux";
+import { Reducer } from "redux";
 import { seedrandomStateType } from "seedrandom";
 import { ActionType, GameTickAction } from "src/actions/game";
 
@@ -10,8 +10,8 @@ const initialState = false;
  */
 export const rngState: Reducer<seedrandomStateType> = (state: seedrandomStateType = initialState,
                                                        action: GameTickAction) => {
-        if (action.type === ActionType.gameTick) {
-            state =  Object.assign({}, action.rngState);
-        }
-        return state;
+    if (action.type === ActionType.gameTick && action.rngState != null) {
+        state = Object.assign({}, action.rngState);
+    }
+    return state;
 };
