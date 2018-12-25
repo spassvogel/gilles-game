@@ -13,6 +13,7 @@ import AdventurerAvatar from "./AdventurerAvatar";
 import "./css/partyscreen.css";
 import EquipmentIcon, { InventoryItemDragInfo } from "./EquipmentIcon";
 import InventorySlot from "./InventorySlot";
+import { Oracle } from "src/oracle";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
@@ -147,12 +148,12 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
         });
     }
 
-    private handleEncounterOptionClick(encounter: EncounterDefinition<any>, option: string, questVars: any): any {
-        const result = encounter.answer(option, questVars, this.props.store);
+    private handleEncounterOptionClick(encounter: EncounterDefinition<any>, option: string, oracle: any): any {
+        const result = encounter.answer(option, oracle);
 
-        if (!isEqual(questVars, this.props.quest.questVars)){
+        /*if (!isEqual(questVars, this.props.quest.questVars)){
             this.props.onUpdateQuestVars(questVars);
-        }
+        }*/
         this.props.onUpdateEncounterResult(this.props.quest.progress, result);
     }
 
@@ -212,16 +213,17 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                     }
                     const questVars = cloneDeep(this.props.quest.questVars);
                     const store = this.props.store;
-
                     const encounter = questNode.encounter!;
-                    message = <div><p> {encounter.getTitle(questVars, store)} </p>
-                        <p> {encounter.getDescription(questVars, store)}</p></div>;
+                    const oracle = encounter.getOracle(quest.name, store);
 
-                    const options = encounter.getOptions(questVars, store);
+                    message = <div><p> {encounter.getTitle(oracle)} </p>
+                        <p> {encounter.getDescription(oracle)}</p></div>;
+
+                    const options = encounter.getOptions(oracle);
 
                     actions = <ul>
                         { Object.keys(options).map((o) => <li key={ o }>
-                            <button onClick= { () => this.handleEncounterOptionClick(encounter, o, questVars) }>
+                            <button onClick= { () => this.handleEncounterOptionClick(encounter, o, oracle) }>
                                 { o }
                             </button>{ options[o]}
                         </li>)}
