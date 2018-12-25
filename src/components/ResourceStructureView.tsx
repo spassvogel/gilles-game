@@ -81,7 +81,7 @@ export default function(props: Props & DispatchProps) {
             return accumulator;
         }, []).join(",");
         return <div>
-            { "Generates (every tick): " }
+            { "Generates (every minute): " }
             <br/>
             { generatesText }
         </div>;

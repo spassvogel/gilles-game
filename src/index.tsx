@@ -57,8 +57,18 @@ const processCompletedTasks = (tasks: TasksStoreState) => {
 // TODO: place these 'controllers' somewhere else
 
 // Will generate resources based on the structures in the town
+let lastTick = performance.now();   // todo: when loading game, this gets set to last tick recorded
+
 const getProducedResources = (structures: StructuresStoreState) => {
+    const resourceInterval = 60000; // every minute constitutes a resource tick. todo: move to some other shared place
+    const delta = performance.now() - lastTick;
+    const factor = delta / resourceInterval;
+    // this function can run at different intervals
+    // faster or slower than once a minute
+    // we will multiply the resource amount by the factor to normalize
+
     const resourcesToAdd: ResourceStoreState = {};
+
     const handleStructure = (structure: string) => {
         const structureDefinition: StructureDefinition = structureDefinitions[structure];
 
@@ -69,7 +79,7 @@ const getProducedResources = (structures: StructuresStoreState) => {
                 const levelDefinition: ResourceStructureLevelDefinition = resourceStructureDefinition.levels[level];
 
                 Object.keys(levelDefinition.generates).reduce((accumulator: ResourceStoreState, resource: string) => {
-                    const amount: number = levelDefinition.generates[resource] * structures[structure].workers;
+                    const amount: number = levelDefinition.generates[resource] * structures[structure].workers * factor;
                     accumulator[resource] = (accumulator[resource] || 0) + amount;
                     return accumulator;
                 }, resourcesToAdd);
@@ -78,6 +88,7 @@ const getProducedResources = (structures: StructuresStoreState) => {
     };
 
     Object.keys(structures).forEach((structure) => handleStructure(structure));
+    lastTick = performance.now();
     return resourcesToAdd;
 };
 
@@ -90,6 +101,7 @@ const getRngState = (): seedrandomStateType | null => {
     }
     return null;
 }
+
 
 setInterval(() => {
     const state: StoreState = store.getState();

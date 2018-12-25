@@ -12,7 +12,7 @@ export default function({ name, amount = 1 }: Props) {
     return (
         <div>
             <label> { name }</label>
-            { amount }
+            { amount.toFixed() }
         </div>
     );
 }
