@@ -1,6 +1,7 @@
 
 import { cloneDeep, isEqual } from "lodash";
 import * as React from "react";
+import { AnyAction, Dispatch } from "redux";
 import { ContextType } from "src/constants";
 import { EncounterDefinition } from "src/definitions/encounters/types";
 import equipmentDefinitions from "src/definitions/equipment";
@@ -13,7 +14,6 @@ import AdventurerAvatar from "./AdventurerAvatar";
 import "./css/partyscreen.css";
 import EquipmentIcon, { InventoryItemDragInfo } from "./EquipmentIcon";
 import InventorySlot from "./InventorySlot";
-import { Oracle } from "src/oracle";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
@@ -25,7 +25,7 @@ export interface Props {
 }
 
 export interface DispatchProps {
-    onUpdateQuestVars: (vars: any) => void;
+    onDispatch: Dispatch<AnyAction>;
     onUpdateEncounterResult: (nodeIndex: number, result: string) => void;
     onMoveItemInInventory?: (adventurerId: string, fromSlot: number, toSlot: number) => void;
     onMoveItemToOtherAdventurer?: (fromAdventurerId: string, fromSlot: number, toAdventurerId: string) => void;
@@ -149,7 +149,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
     }
 
     private handleEncounterOptionClick(encounter: EncounterDefinition<any>, option: string, oracle: any): any {
-        const result = encounter.answer(option, oracle);
+        const result = encounter.answer(option, oracle, this.props.onDispatch);
 
         /*if (!isEqual(questVars, this.props.quest.questVars)){
             this.props.onUpdateQuestVars(questVars);

@@ -25,7 +25,7 @@ export default function(props: Props & DispatchProps & StateProps) {
     const structures: Structure[] = [
         Structure.lumberMill,
         Structure.ironMine,
-        Structure.farm,
+        Structure.garden,
         Structure.tannery,
         Structure.weaponsmith,
         Structure.armoursmith,

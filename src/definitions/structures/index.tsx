@@ -1,7 +1,7 @@
 // tslint:disable:object-literal-sort-keys
 
 import armoursmith from "./armoursmith";
-import farm from "./farm";
+import garden from "./garden";
 import lumberMill from "./lumberMill";
 import tannery from "./tannery";
 import { ProductionStructureDefinition, ResourceStructureDefinition,
@@ -12,7 +12,7 @@ import weaponsmith from "./weaponsmith";
 export enum Structure {
     lumberMill = "lumberMill",
     ironMine = "ironMine",
-    farm = "farm",
+    garden = "garden",
     tannery = "tannery",
     armoursmith = "armoursmith",
     weaponsmith = "weaponsmith",
@@ -48,7 +48,7 @@ ResourceStructureDefinition | ProductionStructureDefinition;
 export default {
     lumberMill,
     ironMine,
-    farm,
+    garden: garden,
     tannery,
     weaponsmith,
     armoursmith,

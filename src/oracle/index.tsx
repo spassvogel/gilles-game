@@ -1,3 +1,4 @@
+import { AnyAction } from "redux";
 import { StoreState } from "src/stores";
 import { AdventurerStoreState } from "src/stores/adventurer";
 import { QuestStoreState } from "src/stores/quest";

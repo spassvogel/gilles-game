@@ -1,6 +1,10 @@
 // tslint:disable:object-literal-sort-keys
+import { AnyAction, Dispatch } from "redux";
+import { addGold } from "src/actions/gold";
+import { updateQuestVars } from "src/actions/quests";
 import { Oracle } from "src/oracle";
 import { StoreState } from "src/stores";
+import { randomInt } from "src/utils/random";
 import { EncounterDefinition } from "./types";
 
 export interface QuestVars {
@@ -34,8 +38,8 @@ export const theBigTree: EncounterDefinition<QuestVars> = {
         // }
         return options;
     },
-    answer: (option: string, oracle: Oracle<QuestVars>) => {
-        const { store, questVars } = oracle;
+    answer: (option: string, oracle: Oracle<QuestVars>, dispatch: Dispatch<AnyAction>) => {
+        const { store, questVars, quest } = oracle;
         switch (option) {
             case "walkAround":
                 return "Your party walks around the tree";
@@ -43,8 +47,16 @@ export const theBigTree: EncounterDefinition<QuestVars> = {
             case "lift":
                 const strongest = oracle.getAdventurerWithHighest("strength");
                 questVars.treeState = "lifted";
+
+                const action = updateQuestVars(quest.name, questVars);
+                dispatch(action);
+
+                const goldAmount = randomInt(2, 5);
+                const goldAction = addGold(goldAmount);
+                dispatch(goldAction);
+
                 // tslint:disable-next-line:max-line-length
-                return `${strongest.name} heaves and lifts the heavy tree, moving it aside. Underneath your party finds 3 gold coins`;
+                return `${strongest.name} heaves and lifts the heavy tree, moving it aside. Underneath your party finds ${goldAmount} gold coins`;
 
                 // if(random() < strongest.stats.strenth) {
                 //     questState.bigTreeState = "lifted";

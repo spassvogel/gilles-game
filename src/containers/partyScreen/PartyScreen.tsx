@@ -16,6 +16,7 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps {
     return {
+        onDispatch: dispatch,
         onMoveItemInInventory: (adventurerId: string, fromSlot: number, toSlot: number) => {
             const action = moveItemInInventory(adventurerId, fromSlot, toSlot);
             dispatch(action);
@@ -26,10 +27,6 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
         },
         onUpdateEncounterResult: (nodeIndex: number, result: string) => {
             const action = updateEncounterResult(ownProps.quest.name, nodeIndex, result);
-            dispatch(action);
-        },
-        onUpdateQuestVars: (vars: any) => {
-            const action = updateQuestVars(ownProps.quest.name, vars);
             dispatch(action);
         },
     };

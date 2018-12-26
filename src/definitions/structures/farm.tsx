@@ -1,16 +1,16 @@
 // tslint:disable:object-literal-sort-keys
 import { ResourceStructureDefinition, StructureType } from "./types";
 
-const farm: ResourceStructureDefinition = {
+const garden: ResourceStructureDefinition = {
     type: StructureType.resource,
     levels: [{
-        displayName: "Dirt Farm",
+        displayName: "Garden",
         // level 1:
         workerCapacity: 2,
         cost: 0,
         generates: { food: 2 },
     }, {
-        displayName: "Farm",
+        displayName: "Hanging gardens",
         // level 2:
         workerCapacity: 5,
         cost: 30,
@@ -24,4 +24,4 @@ const farm: ResourceStructureDefinition = {
     }],
 };
 
-export default farm;
+export default garden;

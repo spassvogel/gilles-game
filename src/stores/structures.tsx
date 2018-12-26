@@ -9,7 +9,7 @@ export interface StructuresStoreState {
     armoursmith: StructureStoreState;
     // stables: StructureStoreState,
     tannery: StructureStoreState;
-    farm: StructureStoreState;
+    garden: StructureStoreState;
     // alchemist: StructureStoreState,
     warehouse: StructureStoreState;
 }
@@ -19,7 +19,7 @@ export const initialState: StructuresStoreState = {
         level: 0,
         workers: 1,
     },
-    farm: {
+    garden: {
         level: 0,
         workers: 1,
     },

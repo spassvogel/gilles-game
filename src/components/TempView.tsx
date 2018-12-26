@@ -32,7 +32,7 @@ export default function(props: Props) {
                 <legend>Town</legend>
                 <ResourceStructureView type={ Structure.lumberMill  }/>
                 <ResourceStructureView type={ Structure.ironMine  }/>
-                <ResourceStructureView type={ Structure.farm  }/>
+                <ResourceStructureView type={ Structure.garden  }/>
                 <ResourceStructureView type={ Structure.tannery  }/>
 
                 <ProductionStructureView type={ Structure.weaponsmith  }/>
@@ -55,7 +55,7 @@ export default function(props: Props) {
                 <StructureViewRow type = { Equipment.blacksmiths"/>
                 <StructureViewRow type = { Equipment.stables"/>
                 <StructureViewRow type = { Equipment.tanneries"/> */}
-                {/* <StructureViewRow type = { Equipment.farms"/> */}
+                {/* <StructureViewRow type = { Equipment.gardens"/> */}
                 {/* <StructureViewRow type = { Equipment.alchemists"/> */}
 
             <fieldset>

@@ -1,3 +1,4 @@
+// tslint:disable:object-literal-sort-keys
 export enum ActionType {
     addGold = "addGold",
 }
@@ -7,18 +8,18 @@ export interface Action {
 }
 
 export interface ModifyGoldAction extends Action {
-    value: number;
+    amount: number;
 }
 
-export function addGold(value: number): ModifyGoldAction {
+export function addGold(amount: number): ModifyGoldAction {
     return {
         type: ActionType.addGold,
-        value,
+        amount,
     };
 }
-export function subtractGold(value: number): ModifyGoldAction {
+export function subtractGold(amount: number): ModifyGoldAction {
     return {
         type: ActionType.addGold,
-        value: -value,
+        amount: -amount,
     };
 }

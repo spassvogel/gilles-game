@@ -1,3 +1,4 @@
+import { AnyAction, Dispatch } from "redux";
 import { Oracle } from "src/oracle";
 import { StoreState } from "src/stores";
 
@@ -7,5 +8,5 @@ export interface EncounterDefinition<TQuestVars> {
     getTitle: (oracle: Oracle<TQuestVars>) => string;
     getDescription: (oracle: Oracle<TQuestVars>) => string;
     getOptions: (oracle: Oracle<TQuestVars>) => Record<string, string>;
-    answer: (option: string, oracle: Oracle<TQuestVars>) => string;
+    answer: (option: string, oracle: Oracle<TQuestVars>, dispatch: Dispatch<AnyAction>) => string;
 }
