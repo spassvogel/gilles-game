@@ -1,56 +1,47 @@
 // tslint:disable:object-literal-sort-keys
 
+import alchemist from "./alchemist";
 import armoursmith from "./armoursmith";
 import garden from "./garden";
 import lumberMill from "./lumberMill";
+import mine from "./mine";
+import quarry from "./quarry";
 import tannery from "./tannery";
-import { ProductionStructureDefinition, ResourceStructureDefinition,
-    StructureType, WarehousetructureDefinition } from "./types";
+import tavern from "./tavern";
+import { ProductionStructureDefinition, 
+    ResourceStructureDefinition,
+    WarehousetructureDefinition } from "./types";
 import warehouse from "./warehouse";
 import weaponsmith from "./weaponsmith";
+import { weaver } from "./weaver";
 
 export enum Structure {
-    lumberMill = "lumberMill",
-    ironMine = "ironMine",
-    garden = "garden",
-    tannery = "tannery",
+    alchemist = "alchemist",
     armoursmith = "armoursmith",
-    weaponsmith = "weaponsmith",
+    garden = "garden",
+    lumberMill = "lumberMill",
+    mine = "mine",
+    quarry = "quarry",
+    tavern = "tavern",
+    tannery = "tannery",
     warehouse = "warehouse",
+    weaponsmith = "weaponsmith",
+    weaver = "weaver",
 }
-
-const ironMine: ResourceStructureDefinition = {
-    type: StructureType.resource,
-    levels: [{
-        displayName: "Hole in the rocky ground",
-        // level 0:
-        workerCapacity: 2,
-        cost: 0,
-        generates: { iron: 2 },
-    }, {
-        displayName: "A small mine",
-        // level 1:
-        workerCapacity: 5,
-        cost: 30,
-        generates: { iron: 2 },
-    }, {
-        displayName: "A large mine",
-        // level 2:
-        workerCapacity: 10,
-        cost: 50,
-        generates: { iron: 2 },
-    }],
-};
 
 export type StructureDefinition = WarehousetructureDefinition |
 ResourceStructureDefinition | ProductionStructureDefinition;
 
 export default {
-    lumberMill,
-    ironMine,
-    garden: garden,
-    tannery,
-    weaponsmith,
+    alchemist,
     armoursmith,
+    garden,
+    lumberMill,
+    mine,
+    quarry,
+    tavern,
+    tannery,
     warehouse,
+    weaponsmith,
+    weaver,
 };
