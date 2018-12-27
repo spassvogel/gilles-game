@@ -1,7 +1,6 @@
 // OBSOLETE
 import * as React from "react";
-import equipmentDefinitions from "src/definitions/equipment";
-import { EquipmentDefinition } from "src/definitions/equipment/types";
+import itemDefinitions from "src/definitions/items";
 import { ProductionDefinition } from "src/definitions/production/types";
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from "src/definitions/structures/types";
@@ -10,6 +9,7 @@ import { TaskStoreState } from "src/stores/task";
 import "./css/structureviewrow.css";
 import Progressbar from "./ui/Progressbar";
 import UpDownValue from "./ui/UpDownValue";
+import { ItemDefinition } from "src/definitions/items/types";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;
@@ -104,7 +104,7 @@ export default function(props: Props & StateProps) {
             const playerResources = props.resources || {};
             const disabled = Object.keys(produces.cost)
                 .some((resource) => produces.cost[resource] > playerResources[resource]);
-            const equipmentDefinition: EquipmentDefinition = equipmentDefinitions[produces.equipment];
+            const equipmentDefinition: ItemDefinition = itemDefinitions[produces.equipment];
 
             return <div key = { "craft" + produces.equipment } >
                 <button

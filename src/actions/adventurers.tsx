@@ -1,4 +1,4 @@
-import { Equipment } from "src/definitions/equipment/types";
+import { Item } from "src/definitions/items/types";
 
 // tslint:disable:object-literal-sort-keys
 export enum ActionType {
@@ -12,7 +12,7 @@ export interface Action {
 }
 
 export interface InventoryAction extends Action {
-    equipment: Equipment;
+    item: Item;
 }
 export interface MoveItemInInventoryAction extends Action {
     fromSlot: number;

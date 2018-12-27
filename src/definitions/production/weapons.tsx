@@ -1,31 +1,31 @@
 // tslint:disable:object-literal-sort-keys
 
 import * as time from "src/utils/time";
-import { Equipment } from "../equipment/types";
+import { Item } from "../items/types";
 import { ProductionDefinition } from "./types";
 
 export const crossbow: ProductionDefinition = {
-    equipment: Equipment.crossbow,
+    equipment: Item.crossbow,
     cost: { wood: 20, iron: 5 },
     time: time.ONE_MINUTE,
 };
 export const longbow: ProductionDefinition = {
-    equipment: Equipment.longbow,
+    equipment: Item.longbow,
     cost: { wood: 40, iron: 5},
     time: time.TWO_MINUTES,
 };
 export const dagger: ProductionDefinition = {
-    equipment: Equipment.dagger,
+    equipment: Item.dagger,
     cost: { wood: 10, iron: 10},
     time: time.ONE_MINUTE,
 };
 export const sword: ProductionDefinition = {
-    equipment: Equipment.sword,
+    equipment: Item.sword,
     cost: { wood: 10, iron: 30},
     time:  time.TWO_MINUTES,
 };
 export const khopesh: ProductionDefinition = {
-    equipment: Equipment.khopesh,
+    equipment: Item.khopesh,
     cost: { wood: 15, iron: 40},
     time:  time.TWO_MINUTES,
 };

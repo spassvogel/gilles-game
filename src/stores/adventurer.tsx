@@ -1,4 +1,4 @@
-import { Equipment } from "src/definitions/equipment/types";
+import { Item } from "src/definitions/items/types";
 
 export interface AdventurerStoreState {
     id: string;
@@ -7,7 +7,7 @@ export interface AdventurerStoreState {
 
     gear: GearStoreState;     // equipment
     // tslint:disable-next-line:max-line-length
-    inventory: Array<null | Equipment /*| Equipment[]*/>;   // todo: put other stuff in inventory besides equipment?
+    inventory: Array<null | Item /*| Equipment[]*/>;   // todo: put other stuff in inventory besides equipment?
     stats: StatsStoreState;
 }
 

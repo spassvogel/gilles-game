@@ -1,13 +1,13 @@
 
 import * as React from "react";
-import { Equipment } from "src/definitions/equipment/types";
+import { Item } from "src/definitions/items/types";
 
 export interface StateProps {
     amount: number;
 }
 
 export interface Props {
-    type: Equipment;
+    type: Item;
 }
 
 export default function(props: Props & StateProps) {

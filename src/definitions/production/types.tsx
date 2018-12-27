@@ -1,8 +1,8 @@
 import { ResourceStoreState } from "src/stores/resources";
-import { Equipment } from "../equipment/types";
+import { Item } from "../items/types";
 
 export interface ProductionDefinition {
-    equipment: Equipment;
+    equipment: Item;
     cost: ResourceStoreState;
     time: number;
 }

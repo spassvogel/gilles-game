@@ -1,14 +1,14 @@
 import * as React from "react";
 import { ContextType } from "src/constants";
-import equipmentDefinitions from "src/definitions/equipment";
-import { Equipment } from "src/definitions/equipment/types";
+import itemDefinitions from "src/definitions/items";
 import structureDefinitions, {  Structure  } from "src/definitions/structures";
 import { StructureDefinition, StructureLevelDefinition } from "src/definitions/structures/types";
 import { EquipmentStoreState } from "src/stores/equipment";
 import { AppContextProps } from "./App";
 import "./css/warehousestructureview.css";
-import EquipmentIcon, { InventoryItemDragInfo } from "./partyScreen/EquipmentIcon";
 import InventorySlot from "./partyScreen/InventorySlot";
+import ItemIcon, { InventoryItemDragInfo } from "./partyScreen/ItemIcon";
+import { Item } from "src/definitions/items/types";
 
 // tslint:disable-next-line:no-empty-interface
 export interface DispatchProps {
@@ -56,20 +56,20 @@ export default function(props: AllProps) {
             const handleClick = () => {
                 props.onContextualObjectActivated(
                     ContextType.item,
-                    equipmentDefinitions[equipment],
+                    itemDefinitions[equipment],
                 );
             };
             const slot = <InventorySlot
                 key= { `inventory-slot-${i}`}
                 empty = { false }
                 onDrop= { handleDrop }>
-                    <EquipmentIcon
+                    <ItemIcon
                         index = {i}
                         key = { `inventory-slot-${i}`}
                         source = "warehouse"
                         onClick = { handleClick }
-                        item = { equipment as Equipment}>
-                    </EquipmentIcon>;
+                        item = { equipment as Item}>
+                    </ItemIcon>;
                 </InventorySlot>;
             inventory.push(slot);
             i++;

@@ -4,7 +4,7 @@ import * as React from "react";
 import { AnyAction, Dispatch } from "redux";
 import { ContextType } from "src/constants";
 import { EncounterDefinition } from "src/definitions/encounters/types";
-import equipmentDefinitions from "src/definitions/equipment";
+import itemDefinitions from "src/definitions/items";
 import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "src/definitions/quests";
 import { StoreState } from "src/stores";
 import { AdventurerStoreState } from "src/stores/adventurer";
@@ -12,8 +12,8 @@ import { QuestStoreState } from "src/stores/quest";
 import { AppContextProps } from "../App";
 import AdventurerAvatar from "./AdventurerAvatar";
 import "./css/partyscreen.css";
-import EquipmentIcon, { InventoryItemDragInfo } from "./EquipmentIcon";
 import InventorySlot from "./InventorySlot";
+import ItemIcon, { InventoryItemDragInfo } from "./ItemIcon";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
@@ -92,19 +92,20 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
             if (item) {
 
                 const handleClick = () => {
+                    console.log(item);
                     this.props.onContextualObjectActivated(
                         ContextType.item,
-                        equipmentDefinitions[item],
+                        itemDefinitions[item],
                     );
                 };
 
-                contents = <EquipmentIcon
+                contents = <ItemIcon
                     index = {i}
                     source = "adventurer"
                     item = { item }
                     onClick = { () => handleClick() }
                 >
-                </EquipmentIcon>;
+                </ItemIcon>;
             }
 
             // tslint:disable-next-line:max-line-length

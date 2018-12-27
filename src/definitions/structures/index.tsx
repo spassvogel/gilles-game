@@ -8,7 +8,7 @@ import mine from "./mine";
 import quarry from "./quarry";
 import tannery from "./tannery";
 import tavern from "./tavern";
-import { ProductionStructureDefinition, 
+import { ProductionStructureDefinition,
     ResourceStructureDefinition,
     WarehousetructureDefinition } from "./types";
 import warehouse from "./warehouse";

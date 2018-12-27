@@ -1,8 +1,8 @@
 import * as React from "react";
 import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from "react-dnd";
 import { DragType } from "src/constants";
-import equipmentDefinitions from "src/definitions/equipment";
-import { Equipment as Item, EquipmentDefinition } from "src/definitions/equipment/types";
+import itemDefinitions from "src/definitions/items";
+import { Item, ItemDefinition } from "src/definitions/items/types";
 
 export interface Props {
     index: number;
@@ -50,11 +50,11 @@ function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
     };
 }
 
-class EquipmentIcon extends React.Component<Props & CollectedProps > {
+class ItemIcon extends React.Component<Props & CollectedProps > {
 
     public render() {
         const { item: equipment, isDragging, connectDragSource } = this.props;
-        const equipmentDefinition: EquipmentDefinition = equipmentDefinitions[equipment];
+        const itemDefinition: ItemDefinition = itemDefinitions[equipment];
 
         if (isDragging) {
             // todo: can show some sort of empty state?
@@ -64,11 +64,11 @@ class EquipmentIcon extends React.Component<Props & CollectedProps > {
             <div className="equipment-icon"
                 onClick = { this.props.onClick }
                 style = {{
-                    backgroundImage: `url(${equipmentDefinition.iconImg})`,
+                    backgroundImage: `url(${itemDefinition.iconImg})`,
             }}>
             </div>,
         );
     }
 }
 
-export default DragSource<Props, CollectedProps>(DragType.ITEM, source, collect)(EquipmentIcon);
+export default DragSource<Props, CollectedProps>(DragType.ITEM, source, collect)(ItemIcon);
