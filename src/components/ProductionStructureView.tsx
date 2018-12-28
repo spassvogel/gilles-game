@@ -1,6 +1,7 @@
 // OBSOLETE
 import * as React from "react";
 import itemDefinitions from "src/definitions/items";
+import { ItemDefinition } from "src/definitions/items/types";
 import { ProductionDefinition } from "src/definitions/production/types";
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from "src/definitions/structures/types";
@@ -9,7 +10,6 @@ import { TaskStoreState } from "src/stores/task";
 import "./css/structureviewrow.css";
 import Progressbar from "./ui/Progressbar";
 import UpDownValue from "./ui/UpDownValue";
-import { ItemDefinition } from "src/definitions/items/types";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;

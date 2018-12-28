@@ -2,7 +2,7 @@
 import * as React from "react";
 import { ContextInfo, ContextType } from "src/constants";
 import { DeedDefinition } from "src/definitions/items/deeds";
-import { ItemDefinition } from "src/definitions/items/types";
+import { ItemDefinition, ItemType } from "src/definitions/items/types";
 import "./css/topbar.css";
 
 export interface Props {
@@ -20,28 +20,31 @@ export interface DispatchProps {
  */
 export default function(props: Props & DispatchProps) {
     switch (props.type) {
-        case ContextType.item_deed:
-            return showDeed(props.info as DeedDefinition);
         case ContextType.item:
         default:
-            return showInfo(props.info as ItemDefinition);
+            return showItemInfo(props.info as ItemDefinition);
     }
 }
 
-function showDeed(info: DeedDefinition) {
-    return (
-        <fieldset>
-            <legend> { info.name } DEED </legend>
-            " { info.subText } "
-        </fieldset>
-    );
-}
-
-function showInfo(info: ItemDefinition) {
-    return (
-        <fieldset>
-            <legend> { info.name } </legend>
-            " { info.subText } "
-        </fieldset>
-    );
+function showItemInfo(info: ItemDefinition) {
+    switch (info.itemType) {
+        case ItemType.deed:
+            const deedInfo = info as DeedDefinition;
+            //const structureInfo = structureDefinitions[deedInfo.structure]
+            
+            return (
+                <fieldset>
+                    <legend> { info.name } </legend>
+                    " { info.subText } "
+                    <button> Start construction </button>
+                </fieldset>
+            );
+        default:
+            return (
+                <fieldset>
+                    <legend> { info.name } </legend>
+                    " { info.subText } "
+                </fieldset>
+            );
+    }
 }

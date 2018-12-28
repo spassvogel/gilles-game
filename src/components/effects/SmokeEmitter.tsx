@@ -1,7 +1,7 @@
 
 import * as Konva from "konva";
 import * as React from "react";
-import { FastLayer, Rect } from "react-konva";
+import { FastLayer } from "react-konva";
 
 interface Props {
     emitterX: number;

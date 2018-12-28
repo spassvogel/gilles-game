@@ -8,7 +8,6 @@ export const DragType = {
 // Things that can be shown on the ContextView
 export enum ContextType {
     item,
-    item_deed,
 }
 
 export type ContextInfo = ItemDefinition;

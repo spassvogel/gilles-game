@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ContextType } from "src/constants";
 import itemDefinitions from "src/definitions/items";
+import { Item } from "src/definitions/items/types";
 import structureDefinitions, {  Structure  } from "src/definitions/structures";
 import { StructureDefinition, StructureLevelDefinition } from "src/definitions/structures/types";
 import { EquipmentStoreState } from "src/stores/equipment";
@@ -8,7 +9,6 @@ import { AppContextProps } from "./App";
 import "./css/warehousestructureview.css";
 import InventorySlot from "./partyScreen/InventorySlot";
 import ItemIcon, { InventoryItemDragInfo } from "./partyScreen/ItemIcon";
-import { Item } from "src/definitions/items/types";
 
 // tslint:disable-next-line:no-empty-interface
 export interface DispatchProps {
