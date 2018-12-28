@@ -18,11 +18,11 @@ export default function(props: Props & DispatchProps) {
             const deedInfo = info as DeedDefinition;
             // const structureInfo = structureDefinitions[deedInfo.structure]
 
-            return (
+            return <div>
                 <p> " { info.subText } "
-                    <button> Start construction </button>
                 </p>
-            );
+                <button> Start construction </button>
+            </div>;
         default:
             return (
                 <p> " { info.subText } "

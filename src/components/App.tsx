@@ -8,10 +8,10 @@ import { ResourceStoreState } from "src/stores/resources";
 import ResourceViewRow from "../containers/ResourceViewRow";
 import Topbar from "../containers/Topbar";
 import { Structure } from "../definitions/structures";
-import ContextView from "./context/ContextView";
 import "./css/app.css";
 import Preloader, { MediaItem } from "./preloading/Preloader";
 import StructureDetailsView from "./StructureDetailsView";
+import ContextView from "./ui/context/ContextView";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
