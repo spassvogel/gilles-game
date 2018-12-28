@@ -2,6 +2,8 @@
 import { ResourceStructureDefinition, StructureType } from "./types";
 
 export const weaver: ResourceStructureDefinition = {
+    goldCost: 40,
+    buildTime: 4000,
     type: StructureType.resource,
     levels: [{
         displayName: "Weaver",

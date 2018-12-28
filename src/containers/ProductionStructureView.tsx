@@ -16,7 +16,7 @@ import { StructureStoreState } from "../stores/structure";
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const structureStore: StructureStoreState = store.structures[ownProps.type];
 
-    const tasks = store.tasks.running.filter((val) => val.origin === ownProps.type);
+    const tasks = store.tasks.running.filter((val) => val.origin === `${ownProps.type}.craft`);
     return {
         gold: store.gold,
         level: structureStore.level,
@@ -32,9 +32,9 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
         onCraft: (productionDefinition: ProductionDefinition) => {
             const callback = addEquipment(productionDefinition.equipment);
             dispatch(removeResources(productionDefinition.cost));
-            const start = startTask(TaskType.constructEquipment,
+            const start = startTask(TaskType.craftEquipment,
                 productionDefinition.equipment,
-                ownProps.type,
+                `${ownProps.type}.craft`,
                 productionDefinition.time,
                 callback);
             dispatch(start);

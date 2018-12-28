@@ -1,7 +1,7 @@
 
 import * as React from "react";
 import { ContextInfo, ContextType } from "src/constants";
-import ItemContext from "./ItemContext";
+import ItemContext from "src/containers/ui/context/ItemContext";
 
 export interface Props {
     type: ContextType;

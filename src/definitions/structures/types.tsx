@@ -10,12 +10,14 @@ export enum StructureType {
 
 export interface StructureDefinition {
     type: StructureType;
+    goldCost: number;
+    buildTime: number;
     levels: StructureLevelDefinition[];
 }
 
 export interface StructureLevelDefinition {
     displayName: string;
-    cost: number;                // in gold
+    cost: number;                 // in gold
     workerCapacity: number;       // number of workers that can work at this structure at this level
 }
 

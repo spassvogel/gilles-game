@@ -2,6 +2,8 @@
 import { ResourceStructureDefinition, StructureType } from "./types";
 
 const mine: ResourceStructureDefinition = {
+    goldCost: 40,
+    buildTime: 4000,
     type: StructureType.resource,
     levels: [{
         displayName: "Hole in the rocky ground",

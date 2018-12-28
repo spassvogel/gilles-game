@@ -27,7 +27,7 @@ type AllProps = Props & DispatchProps & StateProps & AppContextProps;
 
 class RealTownView extends React.Component<AllProps, LocalState> {
 
-    private rect: Konva.Rect;
+    private plasmaBeam: Konva.Rect;
     private anim: Konva.Animation;
 
     constructor(props: AllProps) {
@@ -40,17 +40,19 @@ class RealTownView extends React.Component<AllProps, LocalState> {
     public componentDidMount() {
         const period = 500;
 
-        this.rect.filters([Konva.Filters.Brighten]);
-        this.rect.cache();
-        this.anim = new Konva.Animation((frame: any) => {
-            const freq = 2; // speed
-            const brightness = (Math.sin((frame.time / period) * freq) + 1) / 2;   // fluctuate between 0 and 1
-            this.rect.brightness(brightness);
-            this.rect.cache();
-            this.rect.fillPatternOffsetX(this.rect.fillPatternOffsetX() - 150);
-        }, this.rect.getLayer());
+        if(this.plasmaBeam) {
+            this.plasmaBeam.filters([Konva.Filters.Brighten]);
+            this.plasmaBeam.cache();
+            this.anim = new Konva.Animation((frame: any) => {
+                const freq = 2; // speed
+                const brightness = (Math.sin((frame.time / period) * freq) + 1) / 2;   // fluctuate between 0 and 1
+                this.plasmaBeam.brightness(brightness);
+                this.plasmaBeam.cache();
+                this.plasmaBeam.fillPatternOffsetX(this.plasmaBeam.fillPatternOffsetX() - 150);
+            }, this.plasmaBeam.getLayer());
 
-        this.anim.start();
+            this.anim.start();
+        }
     }
 
     public componentWillUnmount() {
@@ -85,7 +87,8 @@ class RealTownView extends React.Component<AllProps, LocalState> {
 
                     // onClick={this.handleClick}
                 /> */}
-                <Rect
+                {/* <Rect
+                     PLASMA BEAM
                     x={20}
                     y={20}
                     width={1500}
@@ -94,8 +97,8 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                     fillPatternOffset = { { x: 20, y: 0 }}
                     globalCompositeOperation = "lighter"
                     shadowBlur={5}
-                    ref = { (node: Konva.Rect) => this.rect = node }
-                />
+                    ref = { (node: Konva.Rect) => this.plasmaBeam = node }
+                /> */}
                    <Image
                         name = "warehouse"
                         image={ this.imgSrc("img/town/tavern.png") }

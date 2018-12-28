@@ -3,6 +3,8 @@
 import { StructureDefinition, StructureType } from "./types";
 
 const tavern: StructureDefinition = {
+    goldCost: 40,
+    buildTime: 4000,
     type: StructureType.tavern,
     levels: [{
         displayName: "Way Station",
