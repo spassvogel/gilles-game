@@ -1,16 +1,21 @@
 // tslint:disable:object-literal-sort-keys
 
 import { Structure } from "src/definitions/structures";
+import { StructureState } from "src/stores/structure";
 
 export enum ActionType {
     upgradeStructure = "upgradeStructure",
     increaseWorkers = "increaseWorkers",
     decreaseWorkers = "decreaseWorkers",
+    setStructureState = "setStructureState",
 }
 
 export interface Action {
     type: ActionType;
     structure: Structure;
+}
+export interface StructureStateAction extends Action {
+    state: StructureState;
 }
 
 // export interface SetStructureAmount {
@@ -33,6 +38,14 @@ export interface Action {
 //         amount
 //     }
 // }
+
+export function setStructureState(structure: Structure, state: StructureState): StructureStateAction {
+    return {
+        type: ActionType.setStructureState,
+        structure,
+        state,
+    };
+}
 
 export function upgradeStructure(structure: Structure): Action {
     return {

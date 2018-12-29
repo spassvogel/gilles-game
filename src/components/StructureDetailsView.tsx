@@ -5,14 +5,25 @@ import ResourceStructureView from "src/containers/ResourceStructureView";
 import WarehouseStructureView from "src/containers/WarehouseStructureView";
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { StructureDefinition, StructureType } from "src/definitions/structures/types";
+import { StructuresStoreState } from "src/stores/structures";
 import "./css/structuredetails.css";
+// tslint:disable-next-line:ordered-imports
+import { StructureStoreState, StructureState } from "src/stores/structure";
+import Progressbar from "./ui/Progressbar";
 
-// tslint:disable-next-line:no-empty-interface
-export interface DispatchProps {}
-
-export interface Props extends DispatchProps {
+export interface Props {
     structure: Structure;
 }
+
+export interface StateProps  {
+    structures: StructuresStoreState;
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface DispatchProps {
+}
+
+type AllProps = Props & StateProps & DispatchProps;
 
 const getStructureView = (structure: Structure) => {
     const structureDefinition: StructureDefinition = structureDefinitions[structure];
@@ -32,9 +43,20 @@ const getStructureView = (structure: Structure) => {
     }
 };
 
-export default function(props: Props) {
+export default function(props: AllProps) {
+    let view;
+    const structureState: StructureStoreState = props.structures[props.structure];
+    if (structureState.state === StructureState.Building) {
+        // todo: update progress
+        view = <div>
+            <Progressbar label = "Building..."/>
+        </div>;
+    } else {
+        view = getStructureView(props.structure) ;
+    }
+
     return <fieldset className="structure-details">
-        <legend>Selected structure</legend>
-        { getStructureView(props.structure) }
+        <legend>Structure</legend>
+        { view }
     </fieldset>;
 }

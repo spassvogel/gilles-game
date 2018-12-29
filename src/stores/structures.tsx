@@ -1,5 +1,5 @@
 import { Structure } from "src/definitions/structures";
-import { StructureStoreState } from "./structure";
+import { StructureStoreState, StructureState } from "./structure";
 
 export interface StructuresStoreState {
     [Structure.alchemist]: StructureStoreState,
@@ -16,15 +16,15 @@ export interface StructuresStoreState {
 }
 
 export const initialState: StructuresStoreState = {
-    [Structure.alchemist]: { level: 0, workers: 1 },
-    [Structure.armoursmith]: { level: 0, workers: 0 },
-    [Structure.garden]: { level: 0, workers: 0 },
-    [Structure.lumberMill]: { level: 0, workers: 0 },
-    [Structure.mine]: { level: 0, workers: 0 },
-    [Structure.quarry]: { level: 0, workers: 0 },
-    [Structure.tavern]: { level: 0, workers: 0 },
-    [Structure.tannery]: { level: 0, workers: 0 },
-    [Structure.warehouse]: { level: 0, workers: 0 },
-    [Structure.weaponsmith]: { level: 0, workers: 0 },
-    [Structure.weaver]: { level: 0, workers: 0 },
+    [Structure.alchemist]: { level: 0, workers: 1, state: StructureState.NotBuilt  },
+    [Structure.armoursmith]: { level: 0, workers: 0 , state: StructureState.NotBuilt },
+    [Structure.garden]: { level: 0, workers: 0, state: StructureState.NotBuilt  },
+    [Structure.lumberMill]: { level: 0, workers: 0 , state: StructureState.NotBuilt },
+    [Structure.mine]: { level: 0, workers: 0, state: StructureState.NotBuilt  },
+    [Structure.quarry]: { level: 0, workers: 0 , state: StructureState.NotBuilt },
+    [Structure.tavern]: { level: 0, workers: 0, state: StructureState.Built },
+    [Structure.tannery]: { level: 0, workers: 0 , state: StructureState.NotBuilt },
+    [Structure.warehouse]: { level: 0, workers: 0, state: StructureState.Built},
+    [Structure.weaponsmith]: { level: 0, workers: 0, state: StructureState.NotBuilt },
+    [Structure.weaver]: { level: 0, workers: 0, state: StructureState.NotBuilt },
 };

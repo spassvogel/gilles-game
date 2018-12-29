@@ -2,6 +2,7 @@ import * as React from "react";
 import { ContextInfo, ContextType } from "src/constants";
 import TempPartyScreenWrapper from "src/containers/partyScreen/TempPartyScreenWrapper";
 import RealTownView from "src/containers/RealTownView";
+import StructureDetailsView from "src/containers/StructureDetailsView";
 import { Resource } from "src/definitions/resources";
 import { manifest } from "src/manifest/app";
 import { ResourceStoreState } from "src/stores/resources";
@@ -10,7 +11,6 @@ import Topbar from "../containers/Topbar";
 import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem } from "./preloading/Preloader";
-import StructureDetailsView from "./StructureDetailsView";
 import ContextView from "./ui/context/ContextView";
 
 // tslint:disable-next-line:no-empty-interface
@@ -69,12 +69,11 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
 
                 return <RealTownView
                     onStructureClick = { this.selectStructure }
-                    onContextualObjectActivated = { this.handleContextualObjectActivated }
-                    media = { this.state.media }
+                    // onContextualObjectActivated = { this.handleContextualObjectActivated }
+                    // media = { this.state.media }
                 />;
             } else {
                 return <TempPartyScreenWrapper/>;
-                // <PartyScreen questName="A quest called tribe"></PartyScreen>;
             }
 
         };

@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import { Action, ActionType } from "src/actions/structures";
+import { Action, ActionType, StructureStateAction } from "src/actions/structures";
 import { StructureStoreState } from "src/stores/structure";
 import { initialState, StructuresStoreState } from "../stores/structures";
 
@@ -11,17 +11,11 @@ import { initialState, StructuresStoreState } from "../stores/structures";
 export const structures: Reducer<StructuresStoreState> = (state: StructuresStoreState = initialState,
                                                           action: Action) => {
     switch (action.type) {
-        // case SET_STRUCTURE_AMOUNT:
-        //     if(state[action.structure] === undefined) return state;
-
-        //     return {
-        //         ...state,
-        //         [action.structure]: action.amount
-        //     };
+        case ActionType.setStructureState: {
+            return updateStructureState(state, action as StructureStateAction);
+        }
         case ActionType.upgradeStructure: {
-            if (state[action.structure] === undefined) { return state; }
-
-            const level = (state[action.structure].level || 0) + 1;
+            const level = state[action.structure].level + 1;
             const structureStore: StructureStoreState = {
                 ...state[action.structure],
                 level,
@@ -32,9 +26,7 @@ export const structures: Reducer<StructuresStoreState> = (state: StructuresStore
             };
         }
         case ActionType.increaseWorkers: {
-            if (state[action.structure] === undefined) { return state; }
-
-            const workers = (state[action.structure].workers || 0) + 1;
+            const workers = state[action.structure].workers + 1;
             const structureStore: StructureStoreState = {
                 ...state[action.structure],
                 workers,
@@ -45,9 +37,7 @@ export const structures: Reducer<StructuresStoreState> = (state: StructuresStore
             };
         }
         case ActionType.decreaseWorkers: {
-            if (state[action.structure] === undefined) { return state; }
-
-            const workers = (state[action.structure].workers || 0) - 1;
+            const workers = state[action.structure].workers - 1;
             const structureStore: StructureStoreState = {
                 ...state[action.structure],
                 workers,
@@ -60,3 +50,14 @@ export const structures: Reducer<StructuresStoreState> = (state: StructuresStore
     }
     return state;
 };
+
+const updateStructureState = (state: StructuresStoreState, action: StructureStateAction) => {
+    const structureStore: StructureStoreState = {
+        ...state[action.structure],
+        state: action.state,
+    };
+    return {
+        ...state,
+        [action.structure]: structureStore,
+    };
+}

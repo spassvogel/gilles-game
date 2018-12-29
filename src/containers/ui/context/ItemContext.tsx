@@ -1,15 +1,17 @@
 
 import { connect } from "react-redux";
 import { AnyAction, Dispatch } from "redux";
+import { setStructureState } from "src/actions/structures";
 import { startTask } from "src/actions/tasks";
 import ItemContext, { DispatchProps, Props, StateProps } from "src/components/ui/context/ItemContext";
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { StoreState } from "src/stores";
+import { StructureState } from "src/stores/structure";
 import { TaskType } from "src/stores/task";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     return {
-        gold: store.gold
+        gold: store.gold,
     };
 }
 
@@ -17,7 +19,9 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
     return {
 
         handleStartConstruction: (structure: Structure) => {
-            const callback = { type: "TEMP"};//addEquipment(productionDefinition.equipment);
+            dispatch(setStructureState(structure, StructureState.Building));
+
+            const callback = setStructureState(structure, StructureState.Built);
             const structureDefinition = structureDefinitions[structure];
             const time = structureDefinition.buildTime;
             const start = startTask(TaskType.buildStructure,
@@ -26,7 +30,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
                 time,
                 callback);
             dispatch(start);
-        }
+        },
     };
 }
 

@@ -7,7 +7,7 @@ const quarry: ProductionStructureDefinition = {
     buildTime: 4000,
     type: StructureType.production,
     levels: [{
-        displayName: "Hole in the rocky ground",
+        displayName: "Hole",
         // level 1:
         workerCapacity: 2,
         cost: 0,
