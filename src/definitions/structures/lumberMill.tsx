@@ -5,7 +5,7 @@ import { ResourceStructureDefinition, StructureType } from "./types";
 const lumberMill: ResourceStructureDefinition = {
     type: StructureType.resource,
     goldCost: 31,
-    buildTime: 5000,
+    buildTime: 50000,
     levels: [{
         // level 0:
         displayName: "Woodcutter",

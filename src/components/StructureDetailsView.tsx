@@ -5,10 +5,10 @@ import ResourceStructureView from "src/containers/ResourceStructureView";
 import WarehouseStructureView from "src/containers/WarehouseStructureView";
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { StructureDefinition, StructureType } from "src/definitions/structures/types";
+import { StructureState, StructureStoreState } from "src/stores/structure";
 import { StructuresStoreState } from "src/stores/structures";
+import { TaskStoreState } from "src/stores/task";
 import "./css/structuredetails.css";
-// tslint:disable-next-line:ordered-imports
-import { StructureStoreState, StructureState } from "src/stores/structure";
 import Progressbar from "./ui/Progressbar";
 
 export interface Props {
@@ -17,6 +17,7 @@ export interface Props {
 
 export interface StateProps  {
     structures: StructuresStoreState;
+    buildTask: TaskStoreState;
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -47,9 +48,9 @@ export default function(props: AllProps) {
     let view;
     const structureState: StructureStoreState = props.structures[props.structure];
     if (structureState.state === StructureState.Building) {
-        // todo: update progress
+        const progress = props.buildTask ? props.buildTask.progress : 1 ;
         view = <div>
-            <Progressbar label = "Building..."/>
+            <Progressbar label = "Building..." progress= { progress } />
         </div>;
     } else {
         view = getStructureView(props.structure) ;

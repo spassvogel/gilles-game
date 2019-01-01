@@ -4,6 +4,7 @@ import { Image, Layer, Rect, Stage, Text } from "react-konva";
 import structureDefinitions, { Structure  } from "src/definitions/structures";
 import { StructureState, StructureStoreState } from "src/stores/structure";
 import { StructuresStoreState } from "src/stores/structures";
+import { TaskStoreState } from "src/stores/task";
 import { AppContextProps } from "./App";
 import "./css/townView.css";
 import SmokeEmitter from "./effects/SmokeEmitter";
@@ -14,14 +15,13 @@ export interface DispatchProps {
 
 }
 
-// tslint:disable-next-line:no-empty-interface
 export interface Props {
     onStructureClick?: (structure: Structure | null) => void;
 }
 
-// tslint:disable-next-line:no-empty-interface
 export interface StateProps {
     structures: StructuresStoreState;
+    //tasks: TaskStoreState[];
 }
 
 // tslint:disable-next-line:no-empty-interface

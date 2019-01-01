@@ -6,8 +6,10 @@ import { withAppContext } from "src/hoc/withAppContext";
 import { StoreState } from "src/stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
+    const tasks = store.tasks.running.filter((val) => val.origin === `town`);
     return {
         structures: store.structures,
+        //tasks,
     };
 }
 

@@ -7,8 +7,12 @@ import StructureDetailsView, { DispatchProps, Props, StateProps } from "src/comp
 import { ResourceStoreState } from "src/stores/resources";
 import { StoreState } from "../stores";
 
-function mapStateToProps(store: StoreState): StateProps {
+function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
+    const buildTask = store.tasks.running.filter((val) => 
+        val.origin === `town` && val.name === `${ownProps.structure}.build`)[0];
+
     return {
+        buildTask,
         structures: store.structures,
     };
 }
