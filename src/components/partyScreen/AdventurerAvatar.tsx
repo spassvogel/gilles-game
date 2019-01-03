@@ -47,8 +47,10 @@ class AdventurerAvatar extends React.Component<Props & DropSourceProps> {
 
         return connectDropTarget(
             <div className = { "avatar" + (active ? " selected" : "")}
-                onClick = { () => this.handleClick()  }>
-                <img src= { adventurer.avatarImg } />
+                style={{ backgroundImage: `url(${adventurer.avatarImg})` }}
+                onClick={ () => this.handleClick() }>
+                <div className="sizer"/>
+                {/* <img src= { adventurer.avatarImg } /> */}
                 <div className="name">
                     { adventurer.name }
                 </div>

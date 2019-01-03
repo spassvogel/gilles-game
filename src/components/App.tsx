@@ -14,8 +14,8 @@ import Preloader, { MediaItem } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
 
 export interface StateProps {
-   // tasks: TaskStoreState[];
 }
+
 
 export interface DispatchProps {
     onCheatGold?: (amount: number) => void;
