@@ -21,10 +21,11 @@ export default function(props: Props & StateProps & DispatchProps) {
     const handleClick = () => {
         props.onViewButtonClick();
     };
+    const viewButtonText = props.appView == View.Town ? "World" : "Town";
     return (
         <div className="topbar">
             <div className="topbar-left">
-                <button onClick= { () => handleClick() }> { View[props.appView] } </button>
+                <button onClick= { () => handleClick() }> { viewButtonText } </button>
             </div>
             <div className="topbar-right">
                 <span>

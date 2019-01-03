@@ -1,7 +1,8 @@
 import { Reducer } from "redux";
 import { Action, ActionType, StructureStateAction } from "src/actions/structures";
-import { StructureStoreState } from "src/stores/structure";
+import { StructureStoreState, StructureState } from "src/stores/structure";
 import { initialState, StructuresStoreState } from "../stores/structures";
+import { Structure } from "src/definitions/structures";
 
 /**
  * reducer
@@ -11,8 +12,11 @@ import { initialState, StructuresStoreState } from "../stores/structures";
 export const structures: Reducer<StructuresStoreState> = (state: StructuresStoreState = initialState,
                                                           action: Action) => {
     switch (action.type) {
-        case ActionType.setStructureState: {
-            return updateStructureState(state, action as StructureStateAction);
+        case ActionType.startBuildingStructure: {
+            return updateStructureState(state, action.structure, StructureState.Building);
+        }
+        case ActionType.finishBuildingStructure: {
+            return updateStructureState(state, action.structure, StructureState.Built);
         }
         case ActionType.upgradeStructure: {
             const level = state[action.structure].level + 1;
@@ -51,13 +55,13 @@ export const structures: Reducer<StructuresStoreState> = (state: StructuresStore
     return state;
 };
 
-const updateStructureState = (state: StructuresStoreState, action: StructureStateAction) => {
+const updateStructureState = (state: StructuresStoreState, structure: Structure, structureState: StructureState) => {
     const structureStore: StructureStoreState = {
-        ...state[action.structure],
-        state: action.state,
+        ...state[structure],
+        state: structureState,
     };
     return {
         ...state,
-        [action.structure]: structureStore,
+        [structure]: structureStore,
     };
 }

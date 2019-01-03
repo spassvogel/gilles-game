@@ -2,7 +2,7 @@
 
 import { Reducer } from "redux";
 import { Action, ActionType,
-    MoveItemInInventoryAction, MoveItemInToOtherAdventurerAction } from "src/actions/adventurers";
+    MoveItemInInventoryAction, MoveItemInToOtherAdventurerAction, InventoryAction } from "src/actions/adventurers";
 import { Item } from "src/definitions/items/types";
 import { AdventurerStoreState, GearStoreState, StatsStoreState } from "src/stores/adventurer";
 import * as uuid from "uuid/v1";
@@ -139,6 +139,26 @@ export const adventurers: Reducer<AdventurerStoreState[]> = (
                 return element;
             });
         }
+
+        case ActionType.adventurerPicksUpItem:
+        case ActionType.moveItemFromWarehouseToAdventurer:
+            return receiveItem(state, action as InventoryAction);
     }
     return state;
 };
+
+function receiveItem(state: AdventurerStoreState[], action: InventoryAction): AdventurerStoreState[] {
+    return state.map((element: AdventurerStoreState) => {
+        if (element.id === action.adventurerId) {
+            const inventory = element.inventory.concat();
+            const emptyIndex = inventory.findIndex((val) => val === null || val === undefined);
+            inventory[emptyIndex] = action.item;
+            // todo: check if no space
+            return {
+                ...element,
+                inventory,
+            };
+        }
+        return element;
+    });
+}

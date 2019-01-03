@@ -7,7 +7,8 @@ export enum ActionType {
     upgradeStructure = "upgradeStructure",
     increaseWorkers = "increaseWorkers",
     decreaseWorkers = "decreaseWorkers",
-    setStructureState = "setStructureState",
+    startBuildingStructure = "startBuildingStructure",
+    finishBuildingStructure = "finishBuildingStructure",
 }
 
 export interface Action {
@@ -39,11 +40,17 @@ export interface StructureStateAction extends Action {
 //     }
 // }
 
-export function setStructureState(structure: Structure, state: StructureState): StructureStateAction {
+export function startBuildingStructure(structure: Structure): Action {
     return {
-        type: ActionType.setStructureState,
+        type: ActionType.startBuildingStructure,
         structure,
-        state,
+    };
+}
+
+export function finishBuildingStructure(structure: Structure): Action {
+    return {
+        type: ActionType.finishBuildingStructure,
+        structure,
     };
 }
 

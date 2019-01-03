@@ -9,6 +9,7 @@ export enum Item {
     longbow = "longbow",
     dagger = "dagger",
     deedForLumbermill = "deedForLumbermill",
+    deedForWeaponsmith = "deedForWeaponsmith",
     sword = "sword",
     jewel = "jewel",
     khopesh = "khopesh",

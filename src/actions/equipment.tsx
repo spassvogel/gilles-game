@@ -1,5 +1,6 @@
 // tslint:disable:object-literal-sort-keys
 
+import { Item } from "src/definitions/items/types";
 import { ProductionDefinition } from "src/definitions/production/types";
 
 export enum ActionType {
@@ -16,7 +17,7 @@ export interface CraftAction extends Action {
 }
 
 export interface AddAction extends Action {
-    equipment: string;
+    equipment: Item;
 }
 
 // Starts crafting (todo: maybe may not be necesary)
@@ -28,7 +29,7 @@ export function craft(productionDefinition: ProductionDefinition): CraftAction {
 }
 
 // Adds one equipment to the storehouse
-export function addEquipment(equipment: string): AddAction {
+export function addEquipment(equipment: Item): AddAction {
     return {
         type: ActionType.addEquipment,
         equipment,

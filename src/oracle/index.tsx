@@ -1,7 +1,7 @@
-import { AnyAction } from "redux";
 import { StoreState } from "src/stores";
 import { AdventurerStoreState } from "src/stores/adventurer";
 import { QuestStoreState } from "src/stores/quest";
+import { randomInt } from "src/utils/random";
 
 /**
  * The Oracle is a helper class for retrieving relevant data during encounters
@@ -45,5 +45,12 @@ export class Oracle<TQuestVars> {
     public getAdventurerWithLowest(stat: string): AdventurerStoreState { // todo: refactor 'stat' into enum
         // todo: take from quest adventurers instead!
         return this.store.adventurers.concat().sort((a, b) => (a.stats[stat] - b.stats[stat]))[0];
+    }
+
+    /**
+     * Returns a random adventurer in the party
+     */
+    public getRandomAdventurer(): AdventurerStoreState {
+        return this.store.adventurers[randomInt(0, this.store.adventurers.length)];
     }
 }

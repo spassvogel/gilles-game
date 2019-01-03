@@ -93,7 +93,7 @@ const getProducedResources = (structures: StructuresStoreState) => {
 };
 
 random.init("GILLESROX2");
-store.dispatch(addGold(40));
+store.dispatch(addGold(400));
 
 const getRngState = (): seedrandomStateType | null => {
     if (random.dirty) {

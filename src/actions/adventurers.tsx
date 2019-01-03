@@ -4,6 +4,8 @@ import { Item } from "src/definitions/items/types";
 export enum ActionType {
     moveItemInInventory = "moveItemInInventory",
     moveItemToOtherAdventurer = "moveItemToOtherAdventurer",
+    moveItemFromWarehouseToAdventurer = "moveItemFromWarehouseToAdventurer",
+    adventurerPicksUpItem = "adventurerPicksUpItem",
 }
 
 export interface Action {
@@ -35,7 +37,7 @@ export function moveItemInInventory(adventurerId: string, fromSlot: number, toSl
 
 /**
  * Moves the an item from one adventurers' inventory to another
- * @param fromAdventurerId player whose inventory to take the item from
+ * @param fromAdventurerId adventurer whose inventory to take the item from
  * @param fromSlot index of the inventory item
  * @param toAdventurerId player who to give the item to
  */
@@ -46,5 +48,23 @@ export function moveItemToOtherAdventurer(fromAdventurerId: string, fromSlot: nu
         adventurerId: fromAdventurerId,
         fromSlot,
         toAdventurerId,
+    };
+}
+
+/**
+ * Moves item from warehouse to adventurer
+ */
+export function moveItemFromWarehouseToAdventurer(adventurerId: string, item: Item): InventoryAction {
+    return {
+        type: ActionType.moveItemFromWarehouseToAdventurer,
+        adventurerId,
+        item,
+    };
+}
+export function adventurerPicksUpItem(adventurerId: string, item: Item): InventoryAction {
+    return {
+        type: ActionType.adventurerPicksUpItem,
+        adventurerId,
+        item,
     };
 }

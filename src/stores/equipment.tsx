@@ -1,3 +1,4 @@
+// todo: refactor to items
 export interface EquipmentStoreState {
     crossbow: number;
     longbow: number;
@@ -6,6 +7,7 @@ export interface EquipmentStoreState {
     warPig: number;
     khopesh: number;
     torch: number;
+    deedForWeaponsmith: number;
 }
 export const initialState: EquipmentStoreState = {
     crossbow: 1,
@@ -15,4 +17,5 @@ export const initialState: EquipmentStoreState = {
     sword: 4,
     torch: 0,
     warPig: 0,
+    deedForWeaponsmith: 0,
 };
