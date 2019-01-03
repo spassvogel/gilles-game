@@ -42,3 +42,11 @@ export const khopesh: EquipmentDefinition = {
     subText: "Dafuq is this. Can I get garlic sauce with that?",
     iconImg: "/img/equipment/khopesh.png",
 };
+
+export const greatswordOfGwai: EquipmentDefinition = {
+    item: Item.greatswordOfGwai,
+    itemType,
+    name: "Greatsword of G'wai",
+    subText: "Finer steel was seldom forged",
+    iconImg: "/img/equipment/sword.png",
+}

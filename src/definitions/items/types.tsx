@@ -10,6 +10,7 @@ export enum Item {
     dagger = "dagger",
     deedForLumbermill = "deedForLumbermill",
     deedForWeaponsmith = "deedForWeaponsmith",
+    greatswordOfGwai = "greatswordOfGwai",
     sword = "sword",
     jewel = "jewel",
     khopesh = "khopesh",

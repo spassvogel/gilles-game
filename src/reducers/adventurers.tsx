@@ -66,7 +66,7 @@ const testState: AdventurerStoreState[] = [{
     stats: generateRandomStats(),
     name: "Zackary Morris",
     avatarImg: `/img/avatars/andy-victorovych-a${ Math.floor(Math.random() * 14) + 1}.jpg`,
-    inventory: [ null, null, null, null ],
+    inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
     id: uuid(),
     stats: generateRandomStats(),
