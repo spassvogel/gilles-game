@@ -25,3 +25,8 @@ export const deedForWeaponsmith: DeedDefinition = {
     subText: "It allows for the construction of a weaponsmith",
     iconImg: "/img/items/deed.png",
 };
+
+export default {
+    deedForLumbermill,
+    deedForWeaponsmith,
+}

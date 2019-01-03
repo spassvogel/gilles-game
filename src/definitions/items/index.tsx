@@ -1,12 +1,7 @@
-import { deedForLumbermill, deedForWeaponsmith } from "./deeds";
-import { crossbow, dagger, khopesh, longbow, sword } from "./weapons";
+import deeds from "./deeds";
+import weapons from "./weapons";
 
 export default {
-    crossbow,
-    dagger,
-    deedForLumbermill,
-    deedForWeaponsmith,
-    khopesh,
-    longbow,
-    sword,
+    ...weapons,
+    ...deeds,
 };

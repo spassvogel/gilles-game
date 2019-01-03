@@ -1,4 +1,3 @@
-// tslint:disable:object-literal-sort-keys
 
 import { Item, ItemDefinition, ItemType } from "./types";
 const itemType = ItemType.equipment;
@@ -49,4 +48,13 @@ export const greatswordOfGwai: EquipmentDefinition = {
     name: "Greatsword of G'wai",
     subText: "Finer steel was seldom forged",
     iconImg: "/img/equipment/sword.png",
+}
+
+export default {
+    crossbow,
+    dagger,
+    greatswordOfGwai,
+    khopesh,
+    longbow,
+    sword,
 }
