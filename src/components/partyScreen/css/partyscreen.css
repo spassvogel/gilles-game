@@ -23,6 +23,7 @@
 
 .partyscreen .avatars {
     display: flex;
+    overflow: hidden;   /** if this is not set, the avatar portraits overlap the content below */
 }
 
 .partyscreen .avatars .avatar {

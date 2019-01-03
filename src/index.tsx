@@ -12,20 +12,16 @@ import structureDefinitions from "./definitions/structures";
 import { ResourceStructureDefinition,
     ResourceStructureLevelDefinition, StructureDefinition, StructureType } from "./definitions/structures/types";
 import "./index.css";
-import rootReducer from "./reducers/index";
 import registerServiceWorker from "./registerServiceWorker";
 import { StoreState } from "./stores";
 import { ResourceStoreState } from "./stores/resources";
 import { StructuresStoreState } from "./stores/structures";
 import { TaskStoreState } from "./stores/task";
 import { TasksStoreState } from "./stores/tasks";
+import configureStore from "./utils/configureStore";
 import * as random from "./utils/random";
 
-const store = createStore<StoreState, any, any, any>(
-    rootReducer,
-    {},
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
-);
+const { store, persistor } = configureStore();
 
 ReactDOM.render(
     <Provider store={store}>
