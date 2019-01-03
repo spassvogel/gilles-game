@@ -25,8 +25,8 @@ const { store, persistor } = configureStore();
 
 ReactDOM.render(
     <Provider store={store}>
-        <DragDropContextProvider backend={HTML5Backend}>
-            <App/>
+        <DragDropContextProvider backend={ HTML5Backend }>
+            <App persistor={ persistor }/>
         </DragDropContextProvider>
      </Provider>,
     document.getElementById("root") as HTMLElement,

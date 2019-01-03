@@ -1,10 +1,12 @@
 
 import * as React from "react";
+import { Persistor } from "redux-persist";
 import { View } from "./App";
 import "./css/topbar.css";
 
 export interface Props {
     appView: View;
+    persistor: Persistor;
 }
 export interface DispatchProps {
     onViewButtonClick: () => void;
@@ -18,14 +20,20 @@ export interface StateProps  {
 }
 
 export default function(props: Props & StateProps & DispatchProps) {
-    const handleClick = () => {
+    const handleViewClick = () => {
         props.onViewButtonClick();
     };
-    const viewButtonText = props.appView == View.Town ? "World" : "Town";
+    const handleResetClick = () => {
+        props.persistor.purge();
+        location.reload();
+    };
+    const viewButtonText = props.appView === View.Town ? "World" : "Town";
     return (
         <div className="topbar">
             <div className="topbar-left">
-                <button onClick= { () => handleClick() }> { viewButtonText } </button>
+                <button onClick= { () => handleViewClick() }> { viewButtonText } </button>
+                { ` | `}
+                <button onClick= { () => handleResetClick() } style={ { color: "red" } }> Restart! </button>
             </div>
             <div className="topbar-right">
                 <span>

@@ -12,6 +12,7 @@ import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
+import { Persistor } from "redux-persist";
 
 export interface StateProps {
 }
@@ -27,8 +28,8 @@ export enum View {
     World,
 }
 
-// tslint:disable-next-line:no-empty-interface
 export interface Props {
+    persistor: Persistor;
 }
 
 interface LocalState {
@@ -89,7 +90,11 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                 manifest = { manifest }
                 onLoadComplete = { this.handleMediaLoadComplete }
             >
-                <Topbar appView = { this.state.view } onViewButtonClick= { () => this.changeView() }/>
+                <Topbar
+                    appView={ this.state.view }
+                    onViewButtonClick={ () => this.changeView() }
+                    persistor={ this.props.persistor }
+                />
                 {/* <div className="app-left"> */}
                     {/* <TownView onStructureClick= { this.selectStructure }/> */}
                     { selectedStructureView }
