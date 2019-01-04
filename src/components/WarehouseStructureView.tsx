@@ -70,7 +70,7 @@ export default function(props: AllProps) {
                         onClick = { handleClick }
                         item = { equipment as Item}>
                     </ItemIcon>;
-                </InventorySlot>;
+                </InventorySlot>
             inventory.push(slot);
             i++;
         }
