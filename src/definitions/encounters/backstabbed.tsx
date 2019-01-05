@@ -1,11 +1,10 @@
 // tslint:disable:object-literal-sort-keys
+import { AnyAction, Dispatch } from "redux";
+import { adventurerPicksUpItem } from "src/actions/adventurers";
 import { Oracle } from "src/oracle";
 import { StoreState } from "src/stores";
-import { EncounterDefinition } from "./types";
-import { AnyAction, Dispatch } from "redux";
-import { addEquipment } from "src/actions/equipment";
 import { Item } from "../items/types";
-import { adventurerPicksUpItem } from "src/actions/adventurers";
+import { EncounterDefinition } from "./types";
 
 // tslint:disable-next-line:no-empty-interface
 export interface QuestVars {

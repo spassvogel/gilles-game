@@ -24,7 +24,7 @@ export default function(props: Props & DispatchProps & StateProps) {
         case ItemType.deed:
             const gold = props.store.gold;
             const deedInfo = info as DeedDefinition;
-            const structureDefinition = structureDefinitions[deedInfo.structure]
+            const structureDefinition = structureDefinitions[deedInfo.structure];
             const enoughGold = structureDefinition.goldCost <= gold;
             const structureStoreState = props.store.structures[deedInfo.structure];
             const canBeBuilt = structureStoreState.state === StructureState.NotBuilt;

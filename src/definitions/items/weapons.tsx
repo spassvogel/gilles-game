@@ -1,3 +1,4 @@
+// tslint:disable:object-literal-sort-keys
 
 import { Item, ItemDefinition, ItemType } from "./types";
 const itemType = ItemType.equipment;

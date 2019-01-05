@@ -69,8 +69,8 @@ export default function(props: AllProps) {
                         source = "warehouse"
                         onClick = { handleClick }
                         item = { equipment as Item}>
-                    </ItemIcon>;
-                </InventorySlot>
+                    </ItemIcon>
+                </InventorySlot>;
             inventory.push(slot);
             i++;
         }

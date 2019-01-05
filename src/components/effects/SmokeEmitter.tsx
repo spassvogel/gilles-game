@@ -13,18 +13,18 @@ class SmokeEmitter extends React.Component<Props> {
     private layer: Konva.FastLayer | any;
     private animationFrame: number;
 
-    public componentDidMount () {
+    public componentDidMount() {
         this.initSmoke();
-        //this.startSmoke(); // auto starts
+        // this.startSmoke(); // auto starts
     }
 
-    public componentWillUnmount () {
+    public componentWillUnmount() {
         this.stopSmoke();
     }
 
     public render() {
         return (
-            <FastLayer 
+            <FastLayer
                 ref = { (node) => this.layer = node! }
             >
             </FastLayer>
@@ -47,7 +47,7 @@ class SmokeEmitter extends React.Component<Props> {
                 lastEmission = performance.now();
                 particles.push(new Particle(emitterX, emitterY, maxLifeTime));
             }
-        }
+        };
 
         const render = () => {
             let len = particles.length;
@@ -71,7 +71,7 @@ class SmokeEmitter extends React.Component<Props> {
             }
             spawnParticle();
             this.animationFrame = requestAnimationFrame(render);
-        }
+        };
         render();
     }
 
@@ -117,26 +117,24 @@ class Particle {
 
         this.velocity = {
             x: 0,                                   // todo: props
-            y: -3 - (Math.random()*0.5)    // todo: props
-        }
+            y: -3 - (Math.random() * 0.5),    // todo: props
+        };
     }
 
-    update() {
+    public update() {
         this.lifeTime = performance.now() - this.startLife;
         this.angle += 0.2;
-        
-        var lifePerc = ((this.lifeTime / this.maxLifeTime) * 100);
-    
-        this.size = this.startSize + ((this.endSize - this.startSize) * lifePerc * .1); //todo: huh?
-    
+
+        const lifePerc = ((this.lifeTime / this.maxLifeTime) * 100);
+
+        this.size = this.startSize + ((this.endSize - this.startSize) * lifePerc * .1); // todo: huh?
+
         this.alpha = 1 - (lifePerc * .01);
-        this.alpha = Math.max(this.alpha,0);
-        
+        this.alpha = Math.max(this.alpha, 0);
+
         this.position = {
             x: this.position.x + this.velocity.x,
             y: this.position.y + this.velocity.y,
-        }    
+        };
     }
 }
-
-

@@ -53,11 +53,10 @@ const processCompletedTasks = (tasks: TasksStoreState) => {
 // TODO: place these 'controllers' somewhere else
 
 // Will generate resources based on the structures in the town
-let lastTick = performance.now();   // todo: when loading game, this gets set to last tick recorded
 
-const getProducedResources = (structures: StructuresStoreState) => {
+const getProducedResources = (structures: StructuresStoreState, lastTick: number) => {
     const resourceInterval = 60000; // every minute constitutes a resource tick. todo: move to some other shared place
-    const delta = performance.now() - lastTick;
+    const delta = Date.now() - lastTick;
     const factor = delta / resourceInterval;
     // this function can run at different intervals
     // faster or slower than once a minute
@@ -84,7 +83,6 @@ const getProducedResources = (structures: StructuresStoreState) => {
     };
 
     Object.keys(structures).forEach((structure) => handleStructure(structure));
-    lastTick = performance.now();
     return resourcesToAdd;
 };
 
@@ -96,16 +94,13 @@ const getRngState = (): seedrandomStateType | null => {
         return random.state();
     }
     return null;
-}
-
+};
 
 setInterval(() => {
     const state: StoreState = store.getState();
 
-
-
 //    state.
-    const resources = getProducedResources(state.structures);
+    const resources = getProducedResources(state.structures, state.engine.lastTick);
     const rngState = getRngState();
     store.dispatch(gameTick(rngState, resources));
 

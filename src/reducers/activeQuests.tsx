@@ -2,6 +2,7 @@ import { Reducer } from "redux";
 import { ActionType, QuestAction, QuestVarsAction, UpdateEncounterResultAction } from "src/actions/quests";
 import { QuestStoreState } from "src/stores/quest";
 
+// tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
     name: "kill10boars",
     party: [],

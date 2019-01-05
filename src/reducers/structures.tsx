@@ -1,8 +1,8 @@
 import { Reducer } from "redux";
-import { Action, ActionType, StructureStateAction } from "src/actions/structures";
-import { StructureStoreState, StructureState } from "src/stores/structure";
-import { initialState, StructuresStoreState } from "../stores/structures";
+import { Action, ActionType } from "src/actions/structures";
 import { Structure } from "src/definitions/structures";
+import { StructureState, StructureStoreState } from "src/stores/structure";
+import { initialState, StructuresStoreState } from "../stores/structures";
 
 /**
  * reducer
@@ -64,4 +64,4 @@ const updateStructureState = (state: StructuresStoreState, structure: Structure,
         ...state,
         [structure]: structureStore,
     };
-}
+};
