@@ -8,8 +8,10 @@ import { withAppContext } from "src/hoc/withAppContext";
 import { StoreState } from "../../stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
+    const adventurers = ownProps.quest.party.map((id) => findAdventurerById(store, id)!);
+
     return {
-        adventurers: store.adventurers,
+        adventurers,
         store,
     };
 }
@@ -36,3 +38,7 @@ export default compose(
     connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
     withAppContext,
 )(PartyScreen);
+
+function findAdventurerById(store: StoreState, id: string) {
+    return store.adventurers.find((a) => a.id === id);
+}

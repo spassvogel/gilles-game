@@ -45,34 +45,62 @@ const generateRandomGear = (): GearStoreState => {
 };
 
 const testState: AdventurerStoreState[] = [{
-    id: uuid(),
+    id: "c4a5d270-11e7-11e9-b7ad-4134e879f440",
     gear: generateRandomGear(),
     stats: generateRandomStats(),
     name: "Ximena Maddox",
-    avatarImg: `/img/avatars/andy-victorovych-a${ Math.floor(Math.random() * 14) + 1}.jpg`,
+    avatarImg: `/img/avatars/andy-victorovych-a1.jpg`,
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.deedForLumbermill, null, Item.crossbow, Item.dagger, Item.khopesh, null, Item.sword, null,  null,  null,  null,  null,  null,  null,  null,  null],
 }, {
-    id: uuid(),
+    id: "2e655832-65c9-484d-81d7-07938253cf4d",
     gear: generateRandomGear(),
     stats: generateRandomStats(),
     name: "Donte Houston",
-    avatarImg: `/img/avatars/andy-victorovych-a${ Math.floor(Math.random() * 14) + 1}.jpg`,
+    avatarImg: `/img/avatars/andy-victorovych-a2.jpg`,
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.crossbow, null, null, null, null, null, null, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null],
 }, {
-    id: uuid(),
+    id: "ec6f1050-11e7-11e9-b13b-654a21c6ca63",
     gear: generateRandomGear(),
     stats: generateRandomStats(),
     name: "Zackary Morris",
-    avatarImg: `/img/avatars/andy-victorovych-a${ Math.floor(Math.random() * 14) + 1}.jpg`,
+    avatarImg: `/img/avatars/andy-victorovych-a3.jpg`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
-    id: uuid(),
+    id: "d299f98a-8f30-4684-b4b5-81baadb388b2",
     stats: generateRandomStats(),
     gear: generateRandomGear(),
     name: "Mike Keith",
-    avatarImg: `/img/avatars/andy-victorovych-a${ Math.floor(Math.random() * 14) + 1}.jpg`,
+    avatarImg: `/img/avatars/andy-victorovych-a4.jpg`,
+    inventory: [ null, null, null, null, null ],
+}, {
+    id: "96c686c3-2756-4cf7-9301-92f5ab857b8a",
+    gear: generateRandomGear(),
+    stats: generateRandomStats(),
+    name: "Wayne Monroe",
+    avatarImg: `/img/avatars/andy-victorovych-a5.jpg`,
+    inventory: [ null, null, null ],
+}, {
+    id: "250d1a9d-a421-4841-9a89-ee6d6d691339",
+    stats: generateRandomStats(),
+    gear: generateRandomGear(),
+    name: "Mike Keith",
+    avatarImg: `/img/avatars/andy-victorovych-a6.jpg`,
+    inventory: [ null, null, null, null, null ],
+}, {
+    id: "169384ef-f036-4392-a3ca-8eb8e08e3eb8",
+    gear: generateRandomGear(),
+    stats: generateRandomStats(),
+    name: "Karlee Nolan",
+    avatarImg: `/img/avatars/andy-victorovych-a7.jpg`,
+    inventory: [ Item.greatswordOfGwai, null, null, null ],
+}, {
+    id: "f22d66cb-43e0-46ab-93c1-d9ed3800bde0",
+    stats: generateRandomStats(),
+    gear: generateRandomGear(),
+    name: "Keyon Hickman",
+    avatarImg: `/img/avatars/andy-victorovych-a8.jpg`,
     inventory: [ null, null, null, null, null ],
 }];
 
