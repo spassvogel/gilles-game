@@ -2,13 +2,14 @@
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
 import { moveItemInInventory, moveItemToOtherAdventurer } from "src/actions/adventurers";
-import { updateEncounterResult, updateQuestVars } from "src/actions/quests";
+import { updateEncounterResult } from "src/actions/quests";
 import PartyScreen, { DispatchProps, Props, StateProps } from "src/components/partyScreen/PartyScreen";
 import { withAppContext } from "src/hoc/withAppContext";
+import { adventurersOnQuest } from "src/storeHelpers";
 import { StoreState } from "../../stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
-    const adventurers = ownProps.quest.party.map((id) => findAdventurerById(store, id)!);
+    const adventurers = adventurersOnQuest(store, ownProps.quest);
 
     return {
         adventurers,
@@ -38,7 +39,3 @@ export default compose(
     connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
     withAppContext,
 )(PartyScreen);
-
-function findAdventurerById(store: StoreState, id: string) {
-    return store.adventurers.find((a) => a.id === id);
-}
