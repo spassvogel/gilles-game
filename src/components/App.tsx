@@ -1,6 +1,7 @@
 import * as React from "react";
+import { Persistor } from "redux-persist";
 import { ContextInfo, ContextType } from "src/constants";
-import TempPartyScreenWrapper from "src/containers/partyScreen/TempPartyScreenWrapper";
+import RealWorldView from "src/containers/partyScreen/RealWorldView";
 import RealTownView from "src/containers/RealTownView";
 import StructureDetailsView from "src/containers/StructureDetailsView";
 import { Resource } from "src/definitions/resources";
@@ -12,11 +13,9 @@ import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
-import { Persistor } from "redux-persist";
 
 export interface StateProps {
 }
-
 
 export interface DispatchProps {
     onCheatGold?: (amount: number) => void;
@@ -74,7 +73,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     // media = { this.state.media }
                 />;
             } else {
-                return <TempPartyScreenWrapper/>;
+                return <RealWorldView/>;
             }
 
         };

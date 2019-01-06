@@ -1,0 +1,17 @@
+.questlinevisualization {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: larger;
+}
+.questlinevisualization .active {
+    font-weight: bold;
+}
+
+.questlinevisualization .next {
+    float: right;
+}
+
+.questlinevisualization .selected {
+    float: right;
+    font-family: initial;
+    font-size: initial;
+}

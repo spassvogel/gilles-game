@@ -81,6 +81,62 @@ const retrieveMagicAmulet: QuestDefinition = {
         y: 1,
         type: QuestNodeType.nothing,
     }, {
+        x: 1,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 1,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
         x: 2,
         y: 1,
         type: QuestNodeType.encounter,

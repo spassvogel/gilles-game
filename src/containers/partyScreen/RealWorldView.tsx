@@ -2,14 +2,13 @@
 import { connect } from "react-redux";
 import { AnyAction, Dispatch } from "redux";
 import { advanceQuest } from "src/actions/quests";
-import TempPartyScreenWrapper,
-    { DispatchProps, Props, StateProps } from "src/components/partyScreen/TempPartyScreenWrapper";
+import RealWorldView,
+    { DispatchProps, Props, StateProps } from "src/components/partyScreen/RealWorldView";
 import { StoreState } from "../../stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     return {
-        quest: store.activeQuests[0],
-        store,
+        quests: store.activeQuests,
     };
 }
 
@@ -22,4 +21,4 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
 }
 
 export default connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps)
-    (TempPartyScreenWrapper);
+    (RealWorldView);
