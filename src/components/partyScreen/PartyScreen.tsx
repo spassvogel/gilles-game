@@ -64,7 +64,19 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
      );
     }
 
-    public getAdventurerInfo(adventurer: AdventurerStoreState): any {
+    public componentDidUpdate(prevProps: Props) {
+        if(prevProps.quest !== this.props.quest){
+            // The active quest has changed, so it doesn't make sense to keep any adventurer selected
+            this.setState({
+                selectedAdventurer: null,
+            });
+        }
+    }
+
+    private getAdventurerInfo(adventurer: AdventurerStoreState): any {
+        if(!adventurer) {
+            return null;
+        }
         const attributes = Object.keys(adventurer.stats).map((stat) => {
             const value: number = adventurer.stats[stat];
             return <div key= { `${adventurer.id}-${stat}`} > <b>{ stat }</b>: { value.toFixed(1) } </div>;
