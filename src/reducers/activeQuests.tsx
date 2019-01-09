@@ -69,12 +69,21 @@ const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {
 };
 
 const advanceQuests = (state: QuestStoreState[], action: GameTickAction) => {
+    // Moves the quest line progress. Only if currently at a 'nothing' node
+
     const speed = 4;    // nodes per minute
     const MS_PER_MINUTE = 60000;
+
     return state.map((qss) => {
         const questDefinition: QuestDefinition = questDefinitions[qss.name];
-        let progress = qss.progress + ((action.delta / MS_PER_MINUTE) * speed);
-        progress = Math.min(progress, questDefinition.nodes.length);
+        let progress = qss.progress;
+        const node = questDefinition.nodes[Math.floor(progress)];
+
+        if (node.type === QuestNodeType.nothing) {
+            const progressIncrease = ((action.delta / MS_PER_MINUTE) * speed);
+            progress = Math.min(progress + progressIncrease, questDefinition.nodes.length - 1);
+        }
+
         return {
             ...qss,
             progress,

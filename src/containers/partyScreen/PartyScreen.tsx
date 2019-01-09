@@ -7,6 +7,7 @@ import PartyScreen, { DispatchProps, Props, StateProps } from "src/components/pa
 import { withAppContext } from "src/hoc/withAppContext";
 import { adventurersOnQuest } from "src/storeHelpers";
 import { StoreState } from "../../stores";
+import { advanceQuest } from "src/actions/quests";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const adventurers = adventurersOnQuest(store, ownProps.quest);
@@ -19,6 +20,9 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps {
     return {
+        onAdvanceQuest: (quest: string) => {
+            dispatch(advanceQuest(quest));
+        },
         onDispatch: dispatch,
         onMoveItemInInventory: (adventurerId: string, fromSlot: number, toSlot: number) => {
             const action = moveItemInInventory(adventurerId, fromSlot, toSlot);

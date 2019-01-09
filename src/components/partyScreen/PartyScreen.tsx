@@ -26,6 +26,7 @@ export interface Props {
 
 export interface DispatchProps {
     onDispatch: Dispatch<AnyAction>;
+    onAdvanceQuest: (quest: string) => void;
     onUpdateEncounterResult: (nodeIndex: number, result: string) => void;
     onMoveItemInInventory?: (adventurerId: string, fromSlot: number, toSlot: number) => void;
     onMoveItemToOtherAdventurer?: (fromAdventurerId: string, fromSlot: number, toAdventurerId: string) => void;
@@ -168,6 +169,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
             this.props.onUpdateQuestVars(questVars);
         }*/
         this.props.onUpdateEncounterResult(this.props.quest.progress, result);
+        this.props.onAdvanceQuest(this.props.quest.name);
     }
 
     private getAvatars = () => {
