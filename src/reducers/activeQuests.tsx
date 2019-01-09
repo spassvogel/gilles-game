@@ -1,6 +1,9 @@
-import { Reducer } from "redux";
+import { Reducer, AnyAction } from "redux";
 import { ActionType, QuestAction, QuestVarsAction, UpdateEncounterResultAction } from "src/actions/quests";
 import { QuestStoreState } from "src/stores/quest";
+import { ActionType as GameActionType, GameTickAction } from "src/actions/game";
+import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "src/definitions/quests";
+
 
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
@@ -33,10 +36,10 @@ const initialState: QuestStoreState[] = [{
  * @param action
  */
 export const activeQuests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialState,
-                                                         action: QuestAction) => {
+                                                         action: AnyAction| GameTickAction) => {
     switch (action.type) {
         case ActionType.advanceQuest:
-            return advanceQuest(state, action);
+            return advanceQuest(state, action as QuestAction);
 
         case ActionType.updateQuestVars:
             // Updates the questvars
@@ -45,6 +48,9 @@ export const activeQuests: Reducer<QuestStoreState[]> = (state: QuestStoreState[
         case ActionType.updateEncounterResult:
             return updateEncounterResult(state, action as UpdateEncounterResultAction);
 
+        case GameActionType.gameTick: {
+            return advanceQuests(state, action as GameTickAction);
+        }
     }
     return state;
 };
@@ -61,6 +67,21 @@ const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {
         return qss;
     });
 };
+
+const advanceQuests = (state: QuestStoreState[], action: GameTickAction) => {
+    const speed = 4;    // nodes per minute
+    const MS_PER_MINUTE = 60000;
+    return state.map((qss) => {
+        const questDefinition: QuestDefinition = questDefinitions[qss.name];
+        let progress = qss.progress + ((action.delta / MS_PER_MINUTE) * speed);
+        progress = Math.min(progress, questDefinition.nodes.length);
+        return {
+            ...qss,
+            progress,
+        };
+    });
+};
+
 
 const updateQuestVars = (state: QuestStoreState[], action: QuestVarsAction)  => {
     return state.map((qss) => {

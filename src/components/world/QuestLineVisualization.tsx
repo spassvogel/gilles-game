@@ -28,7 +28,8 @@ export default function(props: AllProps) {
     const questDefinition: QuestDefinition = questDefinitions[quest.name];
 
     const createNodeVisualization = (node: QuestNode, index: number) => {
-        const className = quest.progress === index ? "active" : "";
+        const progress: number = Math.floor(quest.progress);
+        const className = progress === index ? "active" : "";
         const spanProps = {
             className,
             key: `node_${index}`,

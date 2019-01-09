@@ -205,7 +205,8 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
         } else {
             const quest = this.props.quest;
             const questDefinition: QuestDefinition = questDefinitions[quest.name];
-            const questNode: QuestNode = questDefinition.nodes[quest.progress];
+            const progress: number = Math.floor(quest.progress);
+            const questNode: QuestNode = questDefinition.nodes[progress];
 
             let message = <p></p>;
             let actions = <p></p>;

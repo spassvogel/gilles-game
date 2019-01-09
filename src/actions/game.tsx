@@ -7,15 +7,19 @@ export enum ActionType {
 }
 export interface GameTickAction {
     type: ActionType;
+    delta: number;
     rngState: seedrandomStateType | null;
     resources: ResourceStoreState;
 }
 
 // export type IncrementResource = IncrementResource // | others
 
-export function gameTick(rngState: seedrandomStateType | null, resources: ResourceStoreState): GameTickAction {
+export function gameTick(delta: number,
+                         rngState: seedrandomStateType | null,
+                         resources: ResourceStoreState): GameTickAction {
     return {
         type: ActionType.gameTick,
+        delta,
         rngState,
         resources,
     };

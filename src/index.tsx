@@ -54,9 +54,8 @@ const processCompletedTasks = (tasks: TasksStoreState) => {
 
 // Will generate resources based on the structures in the town
 
-const getProducedResources = (structures: StructuresStoreState, lastTick: number) => {
+const getProducedResources = (delta: number, structures: StructuresStoreState) => {
     const resourceInterval = 60000; // every minute constitutes a resource tick. todo: move to some other shared place
-    const delta = Date.now() - lastTick;
     const factor = delta / resourceInterval;
     // this function can run at different intervals
     // faster or slower than once a minute
@@ -98,11 +97,12 @@ const getRngState = (): seedrandomStateType | null => {
 
 setInterval(() => {
     const state: StoreState = store.getState();
+    const delta = Date.now() - state.engine.lastTick;
 
 //    state.
-    const resources = getProducedResources(state.structures, state.engine.lastTick);
+    const resources = getProducedResources(delta, state.structures);
     const rngState = getRngState();
-    store.dispatch(gameTick(rngState, resources));
+    store.dispatch(gameTick(delta, rngState, resources));
 
     processCompletedTasks(state.tasks);
 }, 2500);
