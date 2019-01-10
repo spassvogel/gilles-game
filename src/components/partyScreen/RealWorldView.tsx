@@ -37,9 +37,9 @@ export default class RealWorldView extends React.Component<AllProps, LocalState>
     }
 
     public render() {
-            const selectedQuest = this.props.quests.find(q => q.name === this.state.selectedQuest);
+            const selectedQuest = this.props.quests.find((q) => q.name === this.state.selectedQuest);
 
-            const questLines = this.props.quests.map(q => {
+            const questLines = this.props.quests.map((q) => {
                 return <QuestLineVisualization key={ q.name }
                     selected = { q === selectedQuest }
                     quest={ q }

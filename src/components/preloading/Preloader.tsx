@@ -110,7 +110,7 @@ export default class Preloader extends React.Component<Props, State> {
             case MediaType.image: {
                 // try {
                     const value = await loadImage(url);
-                    console.log(`loaded ${url}`); // tODO: remove
+                    // console.log(`loaded ${url}`); // tODO: remove
                     const item = {
                         element: value,
                         mediaType,

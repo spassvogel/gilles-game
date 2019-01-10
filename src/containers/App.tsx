@@ -9,10 +9,7 @@ import { StoreState } from "src/stores";
 import { ResourceStoreState } from "src/stores/resources";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
-
-    return {
-        
-    };
+    return { };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps {

@@ -1,8 +1,8 @@
 
-import "./css/questlinevisualization.css";
 import * as React from "react";
 import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "src/definitions/quests";
 import { QuestStoreState } from "src/stores/quest";
+import "./css/questlinevisualization.css";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -11,10 +11,12 @@ export interface Props {
     onSelectQuest: (questName: string) => void;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface DispatchProps {
     // onAdvanceQuest: (questName: string) => void;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface StateProps {
 }
 

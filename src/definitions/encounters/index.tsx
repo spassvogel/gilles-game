@@ -10,5 +10,6 @@ export interface Encounters {
 const encounters: Encounters = {
     backstabbed,
     theBigTree,
-}
+};
+
 export default encounters;

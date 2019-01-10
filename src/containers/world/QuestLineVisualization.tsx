@@ -6,7 +6,6 @@ import { StoreState } from "../../stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     return {
-        
     };
 }
 

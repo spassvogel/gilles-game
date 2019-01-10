@@ -17,7 +17,7 @@ export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState
             accumulator[current] = state[current] + (resourcesToAdd[current] || 0);
             return accumulator;
         }, {});
-    }
+    };
 
     switch (action.type) {
         case ActionType.addResources: {

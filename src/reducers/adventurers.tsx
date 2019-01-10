@@ -2,10 +2,9 @@
 
 import { Reducer } from "redux";
 import { Action, ActionType,
-    MoveItemInInventoryAction, MoveItemInToOtherAdventurerAction, InventoryAction } from "src/actions/adventurers";
+    InventoryAction, MoveItemInInventoryAction, MoveItemInToOtherAdventurerAction } from "src/actions/adventurers";
 import { Item } from "src/definitions/items/types";
 import { AdventurerStoreState, GearStoreState, StatsStoreState } from "src/stores/adventurer";
-import * as uuid from "uuid/v1";
 
 /**
  * reducer

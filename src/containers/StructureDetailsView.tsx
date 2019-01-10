@@ -8,7 +8,7 @@ import { ResourceStoreState } from "src/stores/resources";
 import { StoreState } from "../stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
-    const buildTask = store.tasks.running.filter((val) => 
+    const buildTask = store.tasks.running.filter((val) =>
         val.origin === `town` && val.name === `${ownProps.structure}.build`)[0];
 
     return {

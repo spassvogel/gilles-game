@@ -21,7 +21,7 @@ export interface Props {
 
 export interface StateProps {
     structures: StructuresStoreState;
-    //tasks: TaskStoreState[];
+    // tasks: TaskStoreState[];
 }
 
 // tslint:disable-next-line:no-empty-interface

@@ -1,8 +1,8 @@
+import { adventurersOnQuest } from "src/storeHelpers";
 import { StoreState } from "src/stores";
 import { AdventurerStoreState } from "src/stores/adventurer";
 import { QuestStoreState } from "src/stores/quest";
 import { randomInt } from "src/utils/random";
-import { adventurersOnQuest } from "src/storeHelpers";
 
 /**
  * The Oracle is a helper class for retrieving relevant data during encounters
@@ -42,8 +42,8 @@ export class Oracle<TQuestVars> {
      * @param stat
      */
     public getAdventurerWithHighest(stat: string): AdventurerStoreState { // todo: refactor 'stat' into enum
-        // todo: take from quest adventurers instead!
-        return this.adventurers.concat().sort((a, b) => (b.stats[stat] - a.stats[stat]))[0];
+        return adventurersOnQuest(this.store, this.quest)
+            .concat().sort((a, b) => (b.stats[stat] - a.stats[stat]))[0];
     }
 
     /**
@@ -51,8 +51,8 @@ export class Oracle<TQuestVars> {
      * @param stat
      */
     public getAdventurerWithLowest(stat: string): AdventurerStoreState { // todo: refactor 'stat' into enum
-        // todo: take from quest adventurers instead!
-        return this.adventurers.concat().sort((a, b) => (a.stats[stat] - b.stats[stat]))[0];
+        return adventurersOnQuest(this.store, this.quest)
+            .concat().sort((a, b) => (a.stats[stat] - b.stats[stat]))[0];
     }
 
     /**
@@ -62,3 +62,7 @@ export class Oracle<TQuestVars> {
         return this.adventurers[randomInt(0, this.store.adventurers.length)];
     }
 }
+
+export const oracles: any = {
+    // This will be the global store to hold all oracles, keyed by quest
+};

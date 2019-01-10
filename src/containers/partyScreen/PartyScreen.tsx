@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
 import { moveItemInInventory, moveItemToOtherAdventurer } from "src/actions/adventurers";
 import { updateEncounterResult } from "src/actions/quests";
+import { advanceQuest } from "src/actions/quests";
 import PartyScreen, { DispatchProps, Props, StateProps } from "src/components/partyScreen/PartyScreen";
 import { withAppContext } from "src/hoc/withAppContext";
 import { adventurersOnQuest } from "src/storeHelpers";
 import { StoreState } from "../../stores";
-import { advanceQuest } from "src/actions/quests";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const adventurers = adventurersOnQuest(store, ownProps.quest);

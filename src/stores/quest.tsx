@@ -6,6 +6,7 @@ export interface QuestStoreState {
     progress: number;       // Which questnode the party is at currently
     questVars: object;
     encounterResults: string[];   // Store what option the place chose during an encounter
+    log: string[];          // Quest log as strings
 }
 
 export const initialState: QuestStoreState = {
@@ -14,4 +15,5 @@ export const initialState: QuestStoreState = {
     progress: 0,
     questVars: {},
     encounterResults: [],
+    log: [],
 };

@@ -21,6 +21,7 @@ export interface QuestNode {
     y: number;
     type: QuestNodeType;
     encounter?: EncounterDefinition<any>; // todo: or array of encounters
+    log?: string;      // this text will appear in the log upon entering the node. only at 'nothing' nodes
 }
 
 const kill10boars: QuestDefinition = {
@@ -29,14 +30,17 @@ const kill10boars: QuestDefinition = {
         x: 0,
         y: 1,
         type: QuestNodeType.nothing,
+        log: "The party sets out to vanquish 10 terrible pigs",
     }, {
         x: 0,
         y: 3,
         type: QuestNodeType.nothing,
+        log: "The party sets out to vanquish 10 terrible pigs",
     }, {
         x: 0,
         y: 3,
         type: QuestNodeType.nothing,
+        log: "In the distance, a forest looms",
     }, {
         x: 0,
         y: 2,
@@ -46,6 +50,7 @@ const kill10boars: QuestDefinition = {
         x: 0,
         y: 3,
         type: QuestNodeType.nothing,
+        log: "The party leaves the forest",
     }, {
         x: 1,
         y: 3,
@@ -63,6 +68,7 @@ const kill10boars: QuestDefinition = {
         x: 1,
         y: 3,
         type: QuestNodeType.nothing,
+        log: "The party spots a boss",
     }, {
         x: 2,
         y: 3,

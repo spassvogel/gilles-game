@@ -14,6 +14,7 @@ import "./css/app.css";
 import Preloader, { MediaItem } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
 
+// tslint:disable-next-line:no-empty-interface
 export interface StateProps {
 }
 

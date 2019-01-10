@@ -8,10 +8,13 @@ import { seedrandomStateType } from "seedrandom";
 import { gameTick } from "./actions/game";
 import { addGold } from "./actions/gold";
 import App from "./containers/App";
+import { backstabbed } from "./definitions/encounters/backstabbed";
+import { theBigTree } from "./definitions/encounters/theBigTree";
 import structureDefinitions from "./definitions/structures";
 import { ResourceStructureDefinition,
     ResourceStructureLevelDefinition, StructureDefinition, StructureType } from "./definitions/structures/types";
 import "./index.css";
+import { oracles } from "./oracle";
 import registerServiceWorker from "./registerServiceWorker";
 import { StoreState } from "./stores";
 import { ResourceStoreState } from "./stores/resources";
@@ -87,6 +90,10 @@ const getProducedResources = (delta: number, structures: StructuresStoreState) =
 
 random.init("GILLESROX2");
 store.dispatch(addGold(400));
+
+// Todo: find something less ugly and hacky than this
+oracles.kill10boars = theBigTree.getOracle("kill10boars", store);
+oracles.retrieveMagicAmulet = backstabbed.getOracle("retrieveMagicAmulet", store);
 
 const getRngState = (): seedrandomStateType | null => {
     if (random.dirty) {

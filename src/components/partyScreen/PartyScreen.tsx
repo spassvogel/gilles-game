@@ -66,7 +66,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
     }
 
     public componentDidUpdate(prevProps: Props) {
-        if(prevProps.quest !== this.props.quest){
+        if (prevProps.quest !== this.props.quest) {
             // The active quest has changed, so it doesn't make sense to keep any adventurer selected
             this.setState({
                 selectedAdventurer: null,
@@ -75,7 +75,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
     }
 
     private getAdventurerInfo(adventurer: AdventurerStoreState): any {
-        if(!adventurer) {
+        if (!adventurer) {
             return null;
         }
         const attributes = Object.keys(adventurer.stats).map((stat) => {
@@ -105,7 +105,6 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
             if (item) {
 
                 const handleClick = () => {
-                    console.log(item);
                     this.props.onContextualObjectActivated(
                         ContextType.item,
                         itemDefinitions[item],
@@ -215,11 +214,17 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
 
             switch (questNode.type) {
                 case QuestNodeType.nothing: {
-                    if (quest.progress === 0) {
-                        message = <p> { "The party has embarked on a new quest" } </p>;
-                    } else {
-                        message = <p> { "The party trudges on" } </p>;
-                    }
+                    const log = [ ...quest.log].reverse();
+                    message = <div> {
+                        log.map((entry) => {
+                            return <p> { entry } </p>;
+                        })
+                    } </div>;
+                    // if (quest.progress === 0) {
+                    //     message = <p> { "The party has embarked on a new quest" } </p>;
+                    // } else {
+                    //     message = <p> { "The party trudges on" } </p>;
+                    // }
                     break;
                 }
                 case QuestNodeType.encounter: {
@@ -227,7 +232,6 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                         message = <p> { quest.encounterResults[quest.progress] } </p>;
                         break;
                     }
-                    const questVars = cloneDeep(this.props.quest.questVars);
                     const store = this.props.store;
                     const encounter = questNode.encounter!;
                     const oracle = encounter.getOracle(quest.name, store);

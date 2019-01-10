@@ -1,9 +1,9 @@
-import { Reducer, AnyAction } from "redux";
-import { ActionType, QuestAction, QuestVarsAction, UpdateEncounterResultAction } from "src/actions/quests";
-import { QuestStoreState } from "src/stores/quest";
+import { AnyAction, Reducer } from "redux";
 import { ActionType as GameActionType, GameTickAction } from "src/actions/game";
+import { ActionType, QuestAction, QuestVarsAction, UpdateEncounterResultAction } from "src/actions/quests";
 import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "src/definitions/quests";
-
+import { oracles } from "src/oracle";
+import { QuestStoreState } from "src/stores/quest";
 
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
@@ -17,6 +17,7 @@ const initialState: QuestStoreState[] = [{
     progress: 0,
     questVars: {},
     encounterResults: [],
+    log: [],
 }, {
     name: "retrieveMagicAmulet",
     party: [
@@ -28,6 +29,7 @@ const initialState: QuestStoreState[] = [{
     progress: 0,
     questVars: {},
     encounterResults: [],
+    log: [],
 }];
 
 /**
@@ -59,9 +61,23 @@ const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {
     return state.map((qss) => {
         if (qss.name === action.questName) {
             const progress = qss.progress + 1;
+            const questDefinition: QuestDefinition = questDefinitions[qss.name];
+            const nextNode = questDefinition.nodes[Math.floor(progress)];
+            let log = qss.log;
+
+            if (nextNode.type === QuestNodeType.nothing) {
+                if (nextNode.log) {
+                    log = [
+                        ...log,
+                        nextNode.log,
+                    ];
+                }
+            }
+
             return {
                 ...qss,
                 progress,
+                log,
             };
         }
         return qss;
@@ -71,26 +87,53 @@ const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {
 const advanceQuests = (state: QuestStoreState[], action: GameTickAction) => {
     // Moves the quest line progress. Only if currently at a 'nothing' node
 
-    const speed = 4;    // nodes per minute
+    const speed = 8;    // nodes per minute
     const MS_PER_MINUTE = 60000;
 
     return state.map((qss) => {
         const questDefinition: QuestDefinition = questDefinitions[qss.name];
-        let progress = qss.progress;
-        const node = questDefinition.nodes[Math.floor(progress)];
+        const currentProgress = qss.progress;
 
-        if (node.type === QuestNodeType.nothing) {
+        const currentNode = questDefinition.nodes[Math.floor(currentProgress)];
+
+        if (currentNode.type === QuestNodeType.nothing) {
+            // Currently at a 'nothing ' node
             const progressIncrease = ((action.delta / MS_PER_MINUTE) * speed);
-            progress = Math.min(progress + progressIncrease, questDefinition.nodes.length - 1);
-        }
+            const nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
+            // todo: we can progress more than one node in a frame!!
+            let log = qss.log;
 
-        return {
-            ...qss,
-            progress,
-        };
+            if (Math.floor(nextProgress) > Math.floor(currentProgress)) {
+                // we've reached a new node
+                const nextNode = questDefinition.nodes[Math.floor(nextProgress)];
+
+                if (nextNode.type === QuestNodeType.encounter) {
+                    const encounter = nextNode.encounter!;
+                    const oracle = oracles[qss.name];
+                    log = [
+                        ...log,
+                        encounter.getDescription(oracle),
+                    ];
+                } else if (nextNode.type === QuestNodeType.nothing) {
+                    if (nextNode.log) {
+                        log = [
+                            ...log,
+                            nextNode.log,
+                        ];
+                    }
+                }
+            }
+
+            return {
+                ...qss,
+                progress: nextProgress,
+                log,
+            };
+        }
+//        console.log(`${qss.progress}  | ${}`);
+        return qss;
     });
 };
-
 
 const updateQuestVars = (state: QuestStoreState[], action: QuestVarsAction)  => {
     return state.map((qss) => {
@@ -118,3 +161,32 @@ const updateEncounterResult = (state: QuestStoreState[], action: UpdateEncounter
         return qss;
     });
 };
+
+// // Call this when the quest has progressed a node. Will return either `log` or a new array
+// // with all values of `log` and a new value appended
+// const addLogMessage = (log: string[],
+//                        currentNode: QuestNode, nextNode: QuestNode, quest: QuestStoreState): string[] => {
+//     if (currentNode.type === QuestNodeType.nothing && nextNode.type === QuestNodeType.nothing) {
+//         // Moved from a 'nothing' node to a 'nothing' node
+//         // There is no need to flood the log with unimportant messages
+//         return log;
+//     }
+//     switch (nextNode.type) {
+//         case QuestNodeType.nothing:
+//             return [
+//                 ...log,
+//                 "The party trrrudges on",
+//             ];
+//         case QuestNodeType.encounter:
+//             const encounter = nextNode.encounter!;
+//             const oracle = oracles[quest.name];
+//             console.log(encounter.getDescription(oracle))
+//             //return log;
+//             return [
+//                 ...log,
+//                 encounter.getDescription(oracle),
+//             ]
+//         default:
+//             return log;
+//     }
+// }
