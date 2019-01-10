@@ -25,8 +25,7 @@ export interface StateProps {
 }
 
 // tslint:disable-next-line:no-empty-interface
-interface LocalState {
-}
+interface LocalState {}
 
 type AllProps = Props & DispatchProps & StateProps & AppContextProps;
 
