@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
+import { moveItemInWarehouse } from "src/actions/items";
 import WarehouseStructureView,
     { DispatchProps, Props, StateProps } from "src/components/structures/WarehouseStructureView";
 import { withAppContext } from "src/hoc/withAppContext";
@@ -21,7 +22,11 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
 }
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps {
-    return { };
+    return {
+        onMoveItemInWarehouse(fromSlot: number, toSlot: number) {
+            dispatch(moveItemInWarehouse(fromSlot, toSlot));
+        },
+    };
 }
 
 export default compose(

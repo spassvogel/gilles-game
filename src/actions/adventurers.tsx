@@ -49,6 +49,7 @@ export function moveItemToOtherAdventurer(fromAdventurerId: string, fromSlot: nu
         fromSlot,
         toAdventurerId,
     };
+    // todo remove Item from items store
 }
 
 /**

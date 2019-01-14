@@ -7,9 +7,8 @@ import { AppContextProps } from "../App";
 import Inventory from "../ui/inventory/Inventory";
 import "./css/warehousestructureview.css";
 
-// tslint:disable-next-line:no-empty-interface
 export interface DispatchProps {
-
+    onMoveItemInWarehouse: (fromSlot: number, toSlot: number) => void;
 }
 
 export interface Props  {
@@ -97,11 +96,10 @@ const WarehouseStructureView = (props: AllProps) => {
     }*/
 
     const handleMoveItem = (fromSlot: number, toSlot: number): void => {
-        /*if (this.props.onMoveItemInInventory) {
-            this.props.onMoveItemInInventory(adventurer.id, fromSlot, toSlot);
-        }*/
+        if (props.onMoveItemInWarehouse) {
+            props.onMoveItemInWarehouse(fromSlot, toSlot);
+        }
     };
-
     return (
         <details open = { true } className = "warehouse-structureview">
             <summary>{ levelDefinition.displayName }</summary>

@@ -105,6 +105,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
             <div className="right">
                 <Inventory source="adventurer"
                     items={ adventurer.inventory }
+
                     onMoveItem = { handleMoveItem }
                 />
             </div>
