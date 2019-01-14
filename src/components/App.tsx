@@ -113,18 +113,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     { getMainView()  }
                 {/* </div> */}
                 <div className="app-right">
-                    <fieldset className="resources">
-                        <legend>Resources</legend>
-                        <ResourceViewRow type = { Resource.wood }/>
-                        <ResourceViewRow type = { Resource.iron }/>
-                        <ResourceViewRow type = { Resource.steel }/>
-                        <ResourceViewRow type = { Resource.food }/>
-                        <ResourceViewRow type = { Resource.gunpowder }/>
-                        <ResourceViewRow type = { Resource.leather }/>
-                    </fieldset>
-                    {
-                        contextView
-                    }
+                    { contextView }
                 </div>
             </Preloader>
         </AppContext.Provider>;

@@ -1,5 +1,7 @@
 import * as React from "react";
+import ResourceViewRow from "src/containers/ResourceViewRow";
 import { Item } from "src/definitions/items/types";
+import { Resource } from "src/definitions/resources";
 import structureDefinitions, {  Structure  } from "src/definitions/structures";
 import { StructureDefinition, StructureLevelDefinition } from "src/definitions/structures/types";
 import { AppContextProps } from "../App";
@@ -40,6 +42,15 @@ const WarehouseStructureView = (props: AllProps) => {
     return (
         <details open = { true } className = "warehouse-structureview">
             <summary>{ levelDefinition.displayName }</summary>
+            <fieldset className="resources">
+                <legend>Resources</legend>
+                <ResourceViewRow type = { Resource.wood }/>
+                <ResourceViewRow type = { Resource.iron }/>
+                <ResourceViewRow type = { Resource.food }/>
+                <ResourceViewRow type = { Resource.gunpowder }/>
+                <ResourceViewRow type = { Resource.leather }/>
+            </fieldset>
+
             <Inventory
                 source="warehouse"
                 items={ props.items }
