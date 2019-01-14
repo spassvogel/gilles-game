@@ -23,7 +23,6 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
         level: structureStore.level,
         resources: store.resources,
         tasks,
-        workers: structureStore.workers,
         workersFree: selectFreeWorkers(store),
     };
 }
@@ -42,13 +41,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
         },
         onUpgrade: (cost: number) => {
             dispatch(subtractGold(cost));
-            dispatch(upgradeStructure(ownProps.type)); // Todo: time??
-        },
-        onWorkersDown: () => {
-            dispatch(decreaseWorkers(ownProps.type));
-        },
-        onWorkersUp: () => {
-            dispatch(increaseWorkers(ownProps.type));
+            dispatch(upgradeStructure(ownProps.type)); // TODO: time to upgarde??
         },
     };
 }

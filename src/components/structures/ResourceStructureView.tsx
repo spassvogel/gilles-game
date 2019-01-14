@@ -88,7 +88,7 @@ export default function(props: Props & DispatchProps) {
     };
 
     return (
-        // Todo: abstract some stuff to generic StructureView
+        // TODO: abstract some stuff to generic StructureView
         <details open = { true } className = "structureview">
             <summary>{ levelDefinition.displayName }</summary>
             <section>

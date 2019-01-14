@@ -87,8 +87,8 @@ interface Vector2 {
     y: number;
 }
 
-// Todo: put all these parameters in Props
-// todo: see https://jsfiddle.net/DaanDeSmedt/Lyhcdmjh/ for more inspiration
+// TODO: put all these parameters in Props
+// TODO: see https://jsfiddle.net/DaanDeSmedt/Lyhcdmjh/ for more inspiration
 class Particle {
     public position: Vector2;
     public size: number;

@@ -13,15 +13,12 @@ import "./css/structureviewrow.css";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;
-    onWorkersUp?: () => void;
-    onWorkersDown?: () => void;
     onCraft?: (productionDefinition: ProductionDefinition) => void;
 }
 
 export interface StateProps {
     resources: ResourceStoreState;
     level: number;
-    workers: number;
     workersFree: number;
     gold: number;
     tasks: TaskStoreState[];
@@ -31,7 +28,7 @@ export interface Props extends DispatchProps {
     type: Structure;
 }
 
-export default function(props: Props & StateProps) {
+const ProductionStructureView = (props: Props & StateProps) => {
 
     const structureDefinition  = structureDefinitions[props.type] as ProductionStructureDefinition;
     if (!structureDefinition) {
@@ -39,28 +36,6 @@ export default function(props: Props & StateProps) {
     }
     const level: number = props.level || 0;
     const levelDefinition: ProductionStructureLevelDefinition = structureDefinition.levels[level];
-
-    const createWorkersRow = () => {
-
-        const handleUp = () => {
-            if (props.onWorkersUp) { props.onWorkersUp(); }
-        };
-        const handleDown = () => {
-            if (props.onWorkersDown) { props.onWorkersDown(); }
-        };
-
-        const upDisabled = props.workers === levelDefinition.workerCapacity || (props.workersFree || 0) < 1;
-        const downDisabled = props.workers === 0;
-        return <UpDownValue
-            label="workers:"
-            value = { props.workers }
-            max = { levelDefinition.workerCapacity }
-            upDisabled = { upDisabled }
-            downDisabled = { downDisabled }
-            onDown = { handleDown }
-            onUp = { handleUp }
-        />;
-    };
 
     const createUpgradeRow = () => {
         const gold = props.gold;
@@ -131,7 +106,6 @@ export default function(props: Props & StateProps) {
         <details open = { true } className = "structureview">
             <summary>{levelDefinition.displayName}</summary>
             <section>
-                { createWorkersRow() }
                 { createUpgradeRow() }
                 <div>craft:</div>
                 { createCraftRows() }
@@ -140,3 +114,5 @@ export default function(props: Props & StateProps) {
         </details>
     );
 }
+
+export default ProductionStructureView;

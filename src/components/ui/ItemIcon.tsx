@@ -57,7 +57,7 @@ class ItemIcon extends React.Component<Props & CollectedProps > {
         const itemDefinition: ItemDefinition = itemDefinitions[item];
 
         if (isDragging) {
-            // todo: can show some sort of empty state?
+            // TODO: can show some sort of empty state?
             return null;
         }
         return connectDragSource(

@@ -90,8 +90,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
             />;
         });
         // tslint:disable-next-line:no-console
-        console.log(`rendered the town`);
-// TODO: remove
+        console.log(`rendered the town`); // TODO: remove
 
         return (
             <Stage width={1024} height={768} scale= { {x: 0.4, y: 0.4} }>

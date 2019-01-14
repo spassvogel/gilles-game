@@ -28,8 +28,8 @@ export default function(props: Props) {
         displayValue = props.value;
     } else {
         displayValue = <span>
-                { props.value } / <span className="max">{ props.max }</span>
-            </span>;
+            { props.value } / <span className="max">{ props.max }</span>
+        </span>;
     }
     return (
         <div className="updownvalue">

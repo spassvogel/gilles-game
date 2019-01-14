@@ -18,7 +18,7 @@ export interface StructuresStoreState {
 export const initialState: StructuresStoreState = {
     [Structure.alchemist]: { level: 0, workers: 1, state: StructureState.NotBuilt  },
     [Structure.armoursmith]: { level: 0, workers: 0 , state: StructureState.NotBuilt },
-    [Structure.garden]: { level: 0, workers: 0, state: StructureState.Built  }, // todo: change back to NotBuilt
+    [Structure.garden]: { level: 0, workers: 0, state: StructureState.Built  }, // TODO: change back to NotBuilt
     [Structure.lumberMill]: { level: 0, workers: 0 , state: StructureState.NotBuilt },
     [Structure.mine]: { level: 0, workers: 0, state: StructureState.NotBuilt  },
     [Structure.quarry]: { level: 0, workers: 0 , state: StructureState.NotBuilt },
