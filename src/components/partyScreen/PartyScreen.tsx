@@ -1,19 +1,16 @@
 
-import { cloneDeep, isEqual } from "lodash";
 import * as React from "react";
 import { AnyAction, Dispatch } from "redux";
-import { ContextType } from "src/constants";
 import { EncounterDefinition } from "src/definitions/encounters/types";
-import itemDefinitions from "src/definitions/items";
 import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "src/definitions/quests";
 import { StoreState } from "src/stores";
 import { AdventurerStoreState } from "src/stores/adventurer";
 import { QuestStoreState } from "src/stores/quest";
 import { AppContextProps } from "../App";
+import { InventoryItemDragInfo } from "../ui/ItemIcon";
 import AdventurerAvatar from "./AdventurerAvatar";
 import "./css/partyscreen.css";
-import InventorySlot from "./InventorySlot";
-import ItemIcon, { InventoryItemDragInfo } from "./ItemIcon";
+import Inventory from "../ui/inventory/Inventory";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
@@ -86,49 +83,11 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
             return <div key= { `${adventurer.id}-${gear}`} ><b>{ gear }</b>: { adventurer.gear[gear] }  </div>;
         });
 
-        const inventory = [];
-
-        for (let i = 0; i < adventurer.inventory.length; i++) {
-            let contents;
-            const item = adventurer.inventory[i];
-            const handleDrop = (dragInfo: InventoryItemDragInfo) => {
-                if (dragInfo.inventorySlot === i) {
-                    return;
-                }
-
-                if (this.props.onMoveItemInInventory) {
-                    const { inventorySlot: fromSlot} = dragInfo;
-                    this.props.onMoveItemInInventory(adventurer.id, fromSlot!, i);
-                }
-            };
-
-            if (item) {
-
-                const handleClick = () => {
-                    this.props.onContextualObjectActivated(
-                        ContextType.item,
-                        itemDefinitions[item],
-                    );
-                };
-
-                contents = <ItemIcon
-                    index = {i}
-                    source = "adventurer"
-                    item = { item }
-                    onClick = { () => handleClick() }
-                >
-                </ItemIcon>;
+        const handleMoveItem = (fromSlot: number, toSlot: number): void => {
+            if (this.props.onMoveItemInInventory) {
+                this.props.onMoveItemInInventory(adventurer.id, fromSlot, toSlot);
             }
-
-            // tslint:disable-next-line:max-line-length
-            const slot = <InventorySlot
-                key= { `inventory-slot-${i}`}
-                empty = { contents === undefined }
-                onDrop= { handleDrop }>
-                 { contents }
-            </InventorySlot>;
-            inventory.push(slot);
-        }
+        };
 
         return (
         <div className="adventurer-container">
@@ -144,9 +103,10 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                 </div>
             </div>
             <div className="right">
-                <div className="inventory">
-                    { inventory }
-                </div>
+                <Inventory source="adventurer"
+                    items={ adventurer.inventory }
+                    onMoveItem = { handleMoveItem }
+                />
             </div>
         </div>
         );

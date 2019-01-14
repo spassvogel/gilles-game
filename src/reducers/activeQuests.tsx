@@ -51,7 +51,7 @@ export const activeQuests: Reducer<QuestStoreState[]> = (state: QuestStoreState[
             return updateEncounterResult(state, action as UpdateEncounterResultAction);
 
         case GameActionType.gameTick: {
-            return advanceQuests(state, action as GameTickAction);
+            return gameTick(state, action as GameTickAction);
         }
     }
     return state;
@@ -84,10 +84,10 @@ const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {
     });
 };
 
-const advanceQuests = (state: QuestStoreState[], action: GameTickAction) => {
+const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
     // Moves the quest line progress. Only if currently at a 'nothing' node
 
-    const speed = 8;    // nodes per minute
+    const speed = 100;    // nodes per minute
     const MS_PER_MINUTE = 60000;
 
     return state.map((qss) => {
@@ -98,22 +98,25 @@ const advanceQuests = (state: QuestStoreState[], action: GameTickAction) => {
 
         if (currentNode.type === QuestNodeType.nothing) {
             // Currently at a 'nothing ' node
-            const progressIncrease = ((action.delta / MS_PER_MINUTE) * speed);
-            const nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
-            // todo: we can progress more than one node in a frame!!
+            const progressIncrease = (action.delta / MS_PER_MINUTE) * speed;
+            const currentNodeIndex =  Math.floor(currentProgress);
+            let nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
+            const hops = Math.floor(nextProgress) - currentNodeIndex;
+
             let log = qss.log;
-
-            if (Math.floor(nextProgress) > Math.floor(currentProgress)) {
-                // we've reached a new node
-                const nextNode = questDefinition.nodes[Math.floor(nextProgress)];
-
+            for (let i = 0; i < hops; i++) {
+                // Loop through all the nodes we've passed since last tick
+                const nextNode = questDefinition.nodes[currentNodeIndex + i];
                 if (nextNode.type === QuestNodeType.encounter) {
+                    // We've hit an encounter node. set the progress to here and stop looking at other nodes
                     const encounter = nextNode.encounter!;
                     const oracle = oracles[qss.name];
+                    nextProgress = currentNodeIndex + i;
                     log = [
                         ...log,
                         encounter.getDescription(oracle),
                     ];
+                    break;
                 } else if (nextNode.type === QuestNodeType.nothing) {
                     if (nextNode.log) {
                         log = [
@@ -130,7 +133,6 @@ const advanceQuests = (state: QuestStoreState[], action: GameTickAction) => {
                 log,
             };
         }
-//        console.log(`${qss.progress}  | ${}`);
         return qss;
     });
 };

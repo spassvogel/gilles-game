@@ -91,7 +91,7 @@ const getProducedResources = (delta: number, structures: StructuresStoreState) =
 random.init("GILLESROX2");
 store.dispatch(addGold(400));
 
-// Todo: find something less ugly and hacky than this
+// TODO: find something less ugly and hacky than this
 oracles.kill10boars = theBigTree.getOracle("kill10boars", store);
 oracles.retrieveMagicAmulet = backstabbed.getOracle("retrieveMagicAmulet", store);
 

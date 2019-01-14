@@ -1,4 +1,4 @@
-// todo: refactor to items
+// TODO: refactor to items
 export interface EquipmentStoreState {
     crossbow: number;
     longbow: number;

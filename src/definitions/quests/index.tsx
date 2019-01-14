@@ -20,7 +20,7 @@ export interface QuestNode {
     x: number;
     y: number;
     type: QuestNodeType;
-    encounter?: EncounterDefinition<any>; // todo: or array of encounters
+    encounter?: EncounterDefinition<any>; // TODO: or array of encounters
     log?: string;      // this text will appear in the log upon entering the node. only at 'nothing' nodes
 }
 
@@ -86,18 +86,22 @@ const retrieveMagicAmulet: QuestDefinition = {
         x: 1,
         y: 1,
         type: QuestNodeType.nothing,
+        log: "Papa loves mambo",
     }, {
         x: 1,
         y: 1,
         type: QuestNodeType.nothing,
+        log: "Mama loves mambo",
     }, {
         x: 1,
         y: 1,
         type: QuestNodeType.nothing,
+        log: "Look at 'em sway with it",
     }, {
         x: 1,
         y: 1,
         type: QuestNodeType.nothing,
+        log: "gettin' so gay with it",
     }, {
         x: 1,
         y: 1,

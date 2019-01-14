@@ -7,8 +7,8 @@ import { StructureDefinition, StructureLevelDefinition } from "src/definitions/s
 import { EquipmentStoreState } from "src/stores/equipment";
 import { AppContextProps } from "./App";
 import "./css/warehousestructureview.css";
-import InventorySlot from "./partyScreen/InventorySlot";
-import ItemIcon, { InventoryItemDragInfo } from "./partyScreen/ItemIcon";
+import InventorySlot from "./ui/inventory/InventorySlot";
+import ItemIcon, { InventoryItemDragInfo } from "./ui/ItemIcon";
 
 // tslint:disable-next-line:no-empty-interface
 export interface DispatchProps {
@@ -29,7 +29,7 @@ export interface StateProps  {
 
 type AllProps = Props & StateProps & DispatchProps & AppContextProps;
 
-export default function(props: AllProps) {
+const WarehouseStructureView = (props: AllProps) => {
 
     const structureDefinition = structureDefinitions[props.type] as StructureDefinition;
     if (!structureDefinition) {
@@ -105,4 +105,5 @@ export default function(props: AllProps) {
             </section>
         </details>
     );
-}
+};
+export default WarehouseStructureView;

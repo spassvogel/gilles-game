@@ -7,7 +7,7 @@ export interface AdventurerStoreState {
 
     gear: GearStoreState;     // equipment
     // tslint:disable-next-line:max-line-length
-    inventory: Array<null | Item /*| Equipment[]*/>;   // todo: put other stuff in inventory besides equipment?
+    inventory: Array<null | Item>;
     stats: StatsStoreState;
 }
 
