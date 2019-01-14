@@ -4,3 +4,16 @@ details.structureview {
 details.structureview  section {
     margin-left: 15px;
 }
+
+.structureview .crafting-row {
+    display: flex;
+}
+
+.structureview .crafting-row .updownvalue {
+    padding: 0 32px;
+}
+
+.crafting-row .item-icon {
+    width: 32px;
+    height: 32px; 
+}

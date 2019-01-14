@@ -1,6 +1,6 @@
 import * as Konva from "konva";
 import * as React from "react";
-import { Image, Layer, Rect, Stage, Text } from "react-konva";
+import { Image, Layer, Stage, Text } from "react-konva";
 import structureDefinitions, { Structure  } from "src/definitions/structures";
 import { StructureState, StructureStoreState } from "src/stores/structure";
 import { StructuresStoreState } from "src/stores/structures";

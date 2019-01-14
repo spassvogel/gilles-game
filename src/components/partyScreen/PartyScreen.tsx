@@ -7,10 +7,10 @@ import { StoreState } from "src/stores";
 import { AdventurerStoreState } from "src/stores/adventurer";
 import { QuestStoreState } from "src/stores/quest";
 import { AppContextProps } from "../App";
-import { InventoryItemDragInfo } from "../ui/ItemIcon";
+import { InventoryItemDragInfo } from "../ui/DraggableItemIcon";
+import Inventory from "../ui/inventory/Inventory";
 import AdventurerAvatar from "./AdventurerAvatar";
 import "./css/partyscreen.css";
-import Inventory from "../ui/inventory/Inventory";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];

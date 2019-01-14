@@ -14,7 +14,7 @@ export interface Props extends DispatchProps {
     downDisabled?: boolean;
 }
 
-export default function(props: Props) {
+const UpDownValue = (props: Props) => {
     const handleUp = () => {
         if (props.onUp && !props.upDisabled) { props.onUp(); }
     };
@@ -43,4 +43,6 @@ export default function(props: Props) {
             ></i>
         </div>
     );
-}
+};
+
+export default UpDownValue;

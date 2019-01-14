@@ -1,6 +1,6 @@
 import * as React from "react";
 import { AppContextProps } from "src/components/App";
-import ItemIcon, { InventoryItemDragInfo } from "src/components/ui/ItemIcon";
+import DraggableItemIcon, { InventoryItemDragInfo } from "src/components/ui/DraggableItemIcon";
 import { ContextType } from "src/constants";
 import itemDefinitions from "src/definitions/items";
 import { Item } from "src/definitions/items/types";
@@ -42,13 +42,13 @@ const Inventory = (props: Props & AppContextProps) => {
                 );
             };
 
-            contents = <ItemIcon
+            contents = <DraggableItemIcon
                 index = {i}
                 source = { props.source }
                 item = { item }
                 onClick = { () => handleClick() }
             >
-            </ItemIcon>;
+            </DraggableItemIcon>;
         }
 
         const slot = <InventorySlot

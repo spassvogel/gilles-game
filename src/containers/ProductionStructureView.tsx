@@ -6,7 +6,7 @@ import { AnyAction, Dispatch } from "redux";
 import { subtractGold } from "src/actions/gold";
 import { addItem } from "src/actions/items";
 import { removeResources } from "src/actions/resources";
-import { decreaseWorkers, increaseWorkers, upgradeStructure } from "src/actions/structures";
+import { upgradeStructure } from "src/actions/structures";
 import { startTask } from "src/actions/tasks";
 import { ProductionDefinition } from "src/definitions/production/types";
 import { selectFreeWorkers } from "src/selectors/workers";
