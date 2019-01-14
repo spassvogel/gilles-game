@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { AnyAction, Dispatch } from "redux";
 import { addEquipment } from "src/actions/equipment";
 import { subtractGold } from "src/actions/gold";
+import { addItem } from "src/actions/items";
 import { removeResources } from "src/actions/resources";
 import { decreaseWorkers, increaseWorkers, upgradeStructure } from "src/actions/structures";
 import { startTask } from "src/actions/tasks";
@@ -31,10 +32,10 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps {
     return {
         onCraft: (productionDefinition: ProductionDefinition) => {
-            const callback = addEquipment(productionDefinition.equipment);
+            const callback = addItem(productionDefinition.item);
             dispatch(removeResources(productionDefinition.cost));
             const start = startTask(TaskType.craftEquipment,
-                productionDefinition.equipment,
+                productionDefinition.item,
                 `${ownProps.type}.craft`,
                 productionDefinition.time,
                 callback);

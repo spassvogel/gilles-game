@@ -104,9 +104,9 @@ export default function(props: Props & StateProps) {
             const playerResources = props.resources || {};
             const disabled = Object.keys(produces.cost)
                 .some((resource) => produces.cost[resource] > playerResources[resource]);
-            const equipmentDefinition: ItemDefinition = itemDefinitions[produces.equipment];
+            const equipmentDefinition: ItemDefinition = itemDefinitions[produces.item];
 
-            return <div key = { "craft" + produces.equipment } >
+            return <div key = { "craft" + produces.item } >
                 <button
                     disabled = {disabled}
                     onClick = { () => handleClick(produces) }>

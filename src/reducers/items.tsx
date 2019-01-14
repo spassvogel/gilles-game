@@ -1,7 +1,7 @@
 
 import { Reducer } from "redux";
 import { GameTickAction } from "src/actions/game";
-import { Action, ActionType, MoveItemInWarehouseAction } from "src/actions/items";
+import { Action, ActionType, AddAction, MoveItemInWarehouseAction } from "src/actions/items";
 import { Item } from "src/definitions/items/types";
 
 const testState = [
@@ -9,6 +9,7 @@ const testState = [
     null,
     null,
     Item.dagger,
+    Item.deedForWeaponsmith,
 ];
 
 /**
@@ -19,6 +20,13 @@ const testState = [
 export const items: Reducer<Array<Item|null>> = (state: Array<Item|null> = testState,
                                                  action: Action| GameTickAction) => {
     switch (action.type) {
+        case ActionType.addItem:
+            const { item } = (action as AddAction);
+            return [
+                ...state,
+                item,
+            ];
+
         case ActionType.moveItemInWarehouse:
             const {
                 fromSlot,
@@ -31,6 +39,7 @@ export const items: Reducer<Array<Item|null>> = (state: Array<Item|null> = testS
                 if (index === toSlot) { return state[fromSlot]; }
                 return element;
             });
-        }
+    }
+
     return state;
 };

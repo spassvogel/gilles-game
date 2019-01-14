@@ -1,5 +1,5 @@
 // tslint:disable:object-literal-sort-keys
-
+// OBSOLETE
 import { Item } from "src/definitions/items/types";
 import { ProductionDefinition } from "src/definitions/production/types";
 
