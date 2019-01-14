@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
-import WarehouseStructureView, { DispatchProps, Props, StateProps } from "src/components/WarehouseStructureView";
+import WarehouseStructureView,
+    { DispatchProps, Props, StateProps } from "src/components/structures/WarehouseStructureView";
 import { withAppContext } from "src/hoc/withAppContext";
 import { selectFreeWorkers } from "src/selectors/workers";
 import { StoreState } from "../stores";
@@ -12,6 +13,7 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     return {
         equipment: store.equipment,
         gold: store.gold,
+        items: store.items,
         level: structureStore.level,
         workers: structureStore.workers,
         workersFree: selectFreeWorkers(store),

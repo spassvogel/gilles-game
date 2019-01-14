@@ -1,4 +1,5 @@
-import ProductionStructureView,  { DispatchProps, Props, StateProps } from "../components/ProductionStructureView";
+import ProductionStructureView,
+    { DispatchProps, Props, StateProps } from "../components/structures/ProductionStructureView";
 
 import { connect } from "react-redux";
 import { AnyAction, Dispatch } from "redux";

@@ -3,7 +3,7 @@ import { AnyAction, Dispatch } from "redux";
 import { subtractGold } from "src/actions/gold";
 import { decreaseWorkers, increaseWorkers, upgradeStructure } from "src/actions/structures";
 import { selectFreeWorkers } from "src/selectors/workers";
-import ResourceStructureView,  { DispatchProps, Props } from "../components/ResourceStructureView";
+import ResourceStructureView,  { DispatchProps, Props } from "../components/structures/ResourceStructureView";
 import { StoreState } from "../stores";
 import { StructureStoreState } from "../stores/structure";
 

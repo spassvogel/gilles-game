@@ -1,14 +1,11 @@
 import * as React from "react";
-import { ContextType } from "src/constants";
-import itemDefinitions from "src/definitions/items";
 import { Item } from "src/definitions/items/types";
 import structureDefinitions, {  Structure  } from "src/definitions/structures";
 import { StructureDefinition, StructureLevelDefinition } from "src/definitions/structures/types";
 import { EquipmentStoreState } from "src/stores/equipment";
-import { AppContextProps } from "./App";
+import { AppContextProps } from "../App";
+import Inventory from "../ui/inventory/Inventory";
 import "./css/warehousestructureview.css";
-import InventorySlot from "./ui/inventory/InventorySlot";
-import ItemIcon, { InventoryItemDragInfo } from "./ui/ItemIcon";
 
 // tslint:disable-next-line:no-empty-interface
 export interface DispatchProps {
@@ -25,6 +22,7 @@ export interface StateProps  {
     workersFree: number;
     gold: number;
     equipment: EquipmentStoreState;
+    items: Array<Item|null>;
 }
 
 type AllProps = Props & StateProps & DispatchProps & AppContextProps;
@@ -37,7 +35,7 @@ const WarehouseStructureView = (props: AllProps) => {
     }
     const level: number = props.level;
     const levelDefinition: StructureLevelDefinition = structureDefinition.levels[level];
-
+    /*
     // Todo REFACTOR to Items
     const inventory: Array<React.ReactElement<any>> = [];
     let i = 0;
@@ -96,13 +94,22 @@ const WarehouseStructureView = (props: AllProps) => {
         ></InventorySlot>;
         inventory.push(slot);
         i++;
-    }
+    }*/
+
+    const handleMoveItem = (fromSlot: number, toSlot: number): void => {
+        /*if (this.props.onMoveItemInInventory) {
+            this.props.onMoveItemInInventory(adventurer.id, fromSlot, toSlot);
+        }*/
+    };
+
     return (
         <details open = { true } className = "warehouse-structureview">
             <summary>{ levelDefinition.displayName }</summary>
-            <section className = "inventory">
-                { inventory }
-            </section>
+            <Inventory
+                source="warehouse"
+                items={ props.items }
+                onMoveItem={ handleMoveItem }
+            />
         </details>
     );
 };

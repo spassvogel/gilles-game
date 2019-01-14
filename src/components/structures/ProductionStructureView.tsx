@@ -7,9 +7,9 @@ import structureDefinitions, { Structure } from "src/definitions/structures";
 import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from "src/definitions/structures/types";
 import { ResourceStoreState } from "src/stores/resources";
 import { TaskStoreState } from "src/stores/task";
+import Progressbar from "../ui/Progressbar";
+import UpDownValue from "../ui/UpDownValue";
 import "./css/structureviewrow.css";
-import Progressbar from "./ui/Progressbar";
-import UpDownValue from "./ui/UpDownValue";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;

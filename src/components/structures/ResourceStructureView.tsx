@@ -1,8 +1,8 @@
 import * as React from "react";
 import structureDefinitions, {  Structure  } from "src/definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition } from "src/definitions/structures/types";
+import UpDownValue from "../ui/UpDownValue";
 import "./css/structureviewrow.css";
-import UpDownValue from "./ui/UpDownValue";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;
