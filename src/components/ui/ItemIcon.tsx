@@ -53,8 +53,8 @@ function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
 class ItemIcon extends React.Component<Props & CollectedProps > {
 
     public render() {
-        const { item: equipment, isDragging, connectDragSource } = this.props;
-        const itemDefinition: ItemDefinition = itemDefinitions[equipment];
+        const { item, isDragging, connectDragSource } = this.props;
+        const itemDefinition: ItemDefinition = itemDefinitions[item];
 
         if (isDragging) {
             // todo: can show some sort of empty state?

@@ -39,11 +39,7 @@
 //                 <details className = "structureview">
 //                     <summary>The storehouse</summary>
 //                     <section>
-//                         <EquipmentViewRow type = { Item.crossbow }/>
-//                         <EquipmentViewRow type = { Item.longbow }/>
-//                         <EquipmentViewRow type = { Item.sword }/>
-//                         <EquipmentViewRow type = { Item.dagger }/>
-//                         <EquipmentViewRow type = { Item.torch }/>
+
 //                     </section>
 //                 </details>
 //             </fieldset>

@@ -2,7 +2,7 @@ import { AnyAction } from "redux";
 
 export enum TaskType {
     buildStructure,
-    craftEquipment,
+    craftItem,
 }
 
 export interface TaskStoreState {

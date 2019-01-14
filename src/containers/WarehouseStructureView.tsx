@@ -12,7 +12,6 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const structureStore: StructureStoreState = store.structures[ownProps.type];
     if (!structureStore) { throw new Error(`No structure '${ownProps.type}' found in the store!`); }
     return {
-        equipment: store.equipment,
         gold: store.gold,
         items: store.items,
         level: structureStore.level,

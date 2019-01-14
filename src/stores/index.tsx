@@ -2,7 +2,6 @@ import { seedrandomStateType } from "seedrandom";
 import { Item } from "src/definitions/items/types";
 import { AdventurerStoreState } from "./adventurer";
 import { EngineStoreState } from "./engine";
-import { EquipmentStoreState } from "./equipment";
 import { QuestStoreState } from "./quest";
 import { ResourceStoreState } from "./resources";
 import { StructuresStoreState } from "./structures";
@@ -13,7 +12,6 @@ export interface StoreState {
     workers: number;
     resources: ResourceStoreState;
     engine: EngineStoreState;
-    equipment: EquipmentStoreState;
     activeQuests: QuestStoreState[];
     availableQuests: QuestStoreState[];
     rngState: seedrandomStateType;

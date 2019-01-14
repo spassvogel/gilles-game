@@ -3,7 +3,6 @@ import ProductionStructureView,
 
 import { connect } from "react-redux";
 import { AnyAction, Dispatch } from "redux";
-import { addEquipment } from "src/actions/equipment";
 import { subtractGold } from "src/actions/gold";
 import { addItem } from "src/actions/items";
 import { removeResources } from "src/actions/resources";
@@ -34,7 +33,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
         onCraft: (productionDefinition: ProductionDefinition) => {
             const callback = addItem(productionDefinition.item);
             dispatch(removeResources(productionDefinition.cost));
-            const start = startTask(TaskType.craftEquipment,
+            const start = startTask(TaskType.craftItem,
                 productionDefinition.item,
                 `${ownProps.type}.craft`,
                 productionDefinition.time,

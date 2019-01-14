@@ -10,9 +10,6 @@ https://react-spring.surge.sh/
 
 > https://www.npmjs.com/package/redux-persist#state-reconciler
 
-> Todo: refactor the whole Equipment thing to be Items.
-  treat like an inventory? Are there items that are not equipment?
-
 
 
 > http://blog.oaxoa.com/2009/07/27/actionscript-3-as3-lightning-thunderbolt-electric-discharge-class/

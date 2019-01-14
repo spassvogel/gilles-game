@@ -107,7 +107,7 @@ export const adventurers: Reducer<AdventurerStoreState[]> = (
     state: AdventurerStoreState[] = testState, action: Action) => {
 
     switch (action.type) {
-        // Moves an  equipment item from one inventory slot to another
+        // Moves an  item from one inventory slot to another
         case ActionType.moveItemInInventory: {
             const {
                 adventurerId,

@@ -36,15 +36,6 @@ export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState
             const resourcesToAdd = (action as GameTickAction).resources;
             return addResources(resourcesToAdd);
         }
-
-        // case EquipmentActionType.craft:
-        //     // todo: Maybe this can just be ActionType.removeResources?
-
-        //     const cost = (action as CraftAction).productionDefinition.cost;
-        //     const copy = { ...state };
-        //     // Subtract the cost of the crafted equipment from resources
-        //     Object.keys(cost).forEach(resource => copy[resource] -= cost[resource]);
-        //     return copy;
     }
     return state;
 };
