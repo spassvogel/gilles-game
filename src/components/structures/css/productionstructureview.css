@@ -1,0 +1,52 @@
+details.structureview {
+    margin-bottom: 10px;
+}
+details.structureview  section {
+    margin-left: 15px;
+}
+
+.structureview .crafting-row {
+    display: flex;
+}
+
+.structureview .crafting-row .updownvalue {
+    padding: 0 32px;
+}
+
+.productionstructureview .crafting-area {
+    display: flex;
+}
+
+
+.productionstructureview .crafting-area .vertical-tab-bar {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+}
+
+.productionstructureview .crafting-area .vertical-tab-bar li {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    line-height: 32px;
+    cursor: pointer;
+}
+
+.productionstructureview .crafting-area .vertical-tab-bar li.selected {
+    background: #165fcb;
+    color: white;
+}
+
+.productionstructureview .crafting-area .vertical-tab-bar li .item-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.productionstructureview .crafting-area .crafting-details {
+    flex: 1;
+    border: 3px solid #165fcb;
+    padding: 10px;
+}
+

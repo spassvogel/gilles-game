@@ -1,6 +1,7 @@
 import * as React from "react";
 import itemDefinitions from "src/definitions/items";
 import { Item, ItemDefinition } from "src/definitions/items/types";
+import "./css/itemicon.css";
 
 export interface Props  {
     item: Item;

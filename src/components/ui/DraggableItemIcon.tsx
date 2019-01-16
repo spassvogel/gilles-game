@@ -57,10 +57,12 @@ class DraggableItemIcon extends React.Component<Props & CollectedProps > {
             return null;
         }
         return connectDragSource(
-            <ItemIcon
+            <div>
+                <ItemIcon
                 item={ item }
                 onClick= { onClick }
-            />,
+            />
+            </div>,
         );
     }
 }

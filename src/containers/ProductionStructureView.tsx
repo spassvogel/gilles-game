@@ -29,13 +29,14 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps {
     return {
-        onCraft: (productionDefinition: ProductionDefinition) => {
+        onCraft: (productionDefinition: ProductionDefinition, workers: number) => {
+            const craftingTime = productionDefinition.time / workers;
             const callback = addItem(productionDefinition.item);
             dispatch(removeResources(productionDefinition.cost));
             const start = startTask(TaskType.craftItem,
                 productionDefinition.item,
                 `${ownProps.type}.craft`,
-                productionDefinition.time,
+                craftingTime,
                 callback);
             dispatch(start);
         },

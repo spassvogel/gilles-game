@@ -1,21 +1,19 @@
-// OBSOLETE
 import * as React from "react";
 import itemDefinitions from "src/definitions/items";
-import { ItemDefinition, Item } from "src/definitions/items/types";
+import { Item, ItemDefinition } from "src/definitions/items/types";
 import { ProductionDefinition } from "src/definitions/production/types";
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from "src/definitions/structures/types";
 import { ResourceStoreState } from "src/stores/resources";
 import { TaskStoreState } from "src/stores/task";
+import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
-import "./css/structureviewrow.css";
-import DraggableItemIcon from "../ui/DraggableItemIcon";
-import ItemIcon from "../ui/ItemIcon";
+import "./css/productionstructureview.css";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;
-    onCraft?: (productionDefinition: ProductionDefinition) => void;
+    onCraft?: (productionDefinition: ProductionDefinition, workers: number) => void;
 }
 
 export interface StateProps {
@@ -33,11 +31,28 @@ export interface Props {
 type AllProps = Props & StateProps & DispatchProps;
 
 interface LocalState {
-    selectedItem: Item;
+    selectedItem: Item|null;
     workersAssigned: number;
 }
 
 export default class ProductionStructureView extends React.Component<AllProps, LocalState> {
+
+    constructor(props: AllProps) {
+        super(props);
+
+        this.state = {
+            selectedItem: null,
+            workersAssigned: 0,
+        };
+    }
+
+    public componentDidUpdate(prevProps: AllProps, prevState: LocalState) {
+        console.log('cdu' + prevProps.workersFree)
+    }
+
+    public componentWillUnmount() {
+        console.log('component will unmount')
+    }
 
     public render() {
         const structureDefinition  = structureDefinitions[this.props.type] as ProductionStructureDefinition;
@@ -69,15 +84,96 @@ export default class ProductionStructureView extends React.Component<AllProps, L
             </div>;
         };
 
-        const createCraftRows = () => {
-            const handleClick = (productionDefinition: ProductionDefinition) => {
-                if (this.props.onCraft) { this.props.onCraft(productionDefinition); }
-            };
+        // const createCraftRows = () => {
+        //     const handleClick = (productionDefinition: ProductionDefinition) => {
+        //         if (this.props.onCraft) { this.props.onCraft(productionDefinition); }
+        //     };
 
-            /**
-             * Formats the requirements for this equipment in a nice string
-             * @param costs
-             */
+        //     /**
+        //      * Formats the requirements for this equipment in a nice string
+        //      * @param costs
+        //      */
+        //     const makeCostsString = (costs: ResourceStoreState): string => {
+        //         return Object.keys(costs).reduce((accumulator: string[], value) => {
+        //             if (costs[value]) { accumulator.push(`${value}: ${costs[value]}`); }
+        //             return accumulator;
+        //         }, []).join(", ") + ". ";
+        //     };
+
+        //     const makeTimeString = (time: number): string => {
+        //         return "Time: " + time + "ms";
+        //     };
+
+        //     return levelDefinition.produces.map((produces) => {
+        //         // Check if we have enough resources
+        //         const playerResources = this.props.resources || {};
+        //         const disabled = Object.keys(produces.cost)
+        //             .some((resource) => produces.cost[resource] > playerResources[resource]);
+        //         const itemDefinition: ItemDefinition = itemDefinitions[produces.item];
+
+        //         const handleUp = () => {
+        //             this.setState({
+        //                 workersAssigned: this.state.workersAssigned + 1,
+        //             });
+        //         };
+
+        //         const handleDown = () => {
+        //             this.setState({
+        //                 workersAssigned: this.state.workersAssigned - 1,
+        //             });
+        //         };
+
+        //         return <div key = { "craft" + produces.item } className="crafting-row">
+        //             <ItemIcon item= { produces.item } />
+
+        //             { itemDefinition.name }
+        //             <UpDownValue
+        //                 value={ 0 }
+        //                 label={ "Workers: " }
+        //                 onUp={ handleUp }
+        //                 onDown={ handleDown }
+        //             />
+        //             <button
+        //                 disabled={ disabled }
+        //                 onClick={ () => handleClick(produces) }>
+        //                 Craft
+        //             </button>
+        //             { makeCostsString(produces.cost) }
+        //             { makeTimeString(produces.time) }
+        //         </div>;
+        //     });
+        // };
+
+        const createCraftTabs = () => {
+            const selectedItem = this.state.selectedItem;
+
+            return levelDefinition.produces.map((produces) => {
+                const itemDefinition: ItemDefinition = itemDefinitions[produces.item];
+                return <li 
+                    key={ `craft${produces.item}`}
+                    onClick={ () => handleSelectCraftingItem(produces.item) }
+                    className={ selectedItem === produces.item ? "selected" : "" }
+                >
+                    <ItemIcon item= { produces.item } />
+                    { itemDefinition.name }
+                </li>;
+            });
+        };
+
+        const createCraftingDetails =   () => {
+            const item = this.state.selectedItem;
+            if (!item) { return null; }
+
+            const produces = levelDefinition.produces.find((p) => p.item === item)!;
+            const playerResources = this.props.resources || {};
+            const missingAtLeastOneResource = Object.keys(produces.cost)
+                .some((resource) => produces.cost[resource] > playerResources[resource]);
+            const disabled = missingAtLeastOneResource || this.state.workersAssigned < 1;
+            // TODO: Perhaps each item can have a number of minimum workers?
+            // TODO: We could explain what is the reason we can't craft the item
+
+            const itemDefinition: ItemDefinition = itemDefinitions[item];
+
             const makeCostsString = (costs: ResourceStoreState): string => {
                 return Object.keys(costs).reduce((accumulator: string[], value) => {
                     if (costs[value]) { accumulator.push(`${value}: ${costs[value]}`); }
@@ -86,44 +182,66 @@ export default class ProductionStructureView extends React.Component<AllProps, L
             };
 
             const makeTimeString = (time: number): string => {
-                return "Time: " + time + "ms";
+                if (this.state.workersAssigned === 0) {
+                    return "";
+                }
+                const craftingTime = time / this.state.workersAssigned;
+// TODO: http://momentjs.com/docs/#/displaying/tonow/
+                return "Time: " + craftingTime + "ms";
             };
 
-            return levelDefinition.produces.map((produces) => {
-                // Check if we have enough resources
-                const playerResources = this.props.resources || {};
-                const disabled = Object.keys(produces.cost)
-                    .some((resource) => produces.cost[resource] > playerResources[resource]);
-                const itemDefinition: ItemDefinition = itemDefinitions[produces.item];
+            const handleClick = (productionDefinition: ProductionDefinition) => {
+                if (this.props.onCraft) { 
+                    this.props.onCraft(productionDefinition, this.state.workersAssigned); 
+                }
+            };
 
-                const handleUp = () => {
+            const handleUp = () => {
+                this.setState({
+                    workersAssigned: this.state.workersAssigned + 1,
+                });
+            };
 
-                };
+            const handleDown = () => {
+                this.setState({
+                    workersAssigned: this.state.workersAssigned - 1,
+                });
+            };
 
-                const handleDown = () => {
+            return (
+                <div className="crafting-details">
+                    Craft a { itemDefinition.name }
+                    <div>
+                        { makeCostsString(produces.cost) }
+                    </div>
+                    <div style={ { display: "flex "}}>
+                        <UpDownValue
+                            value={ this.state.workersAssigned }
+                            label={ "Workers: " }
+                            onUp={ handleUp }
+                            onDown={ handleDown }
+                            upDisabled={ this.state.workersAssigned >= this.props.workersFree }
+                            downDisabled={ this.state.workersAssigned < 1 }
+                        />
+                        &nbsp;
+                        { makeTimeString(produces.time) }
+                    </div>
+                    <div>
+                        <button
+                            disabled={ disabled }
+                            onClick={ () => handleClick(produces) }>
+                            Craft
+                        </button>
+                    </div>
+                </div>
+            )
+        }
 
-                };
-
-                return <div key = { "craft" + produces.item } className="crafting-row">
-                    <ItemIcon item= { produces.item } />
-
-                    { itemDefinition.name }
-                    <UpDownValue
-                        value={ 0 }
-                        label={ "Workers: " }
-                        onUp={ handleUp }
-                        onDown={ handleDown }
-                    />
-                    <button
-                        disabled={ disabled }
-                        onClick={ () => handleClick(produces) }>
-                        Craft
-                    </button>
-                    { makeCostsString(produces.cost) }
-                    { makeTimeString(produces.time) }
-                </div>;
+        const handleSelectCraftingItem = (item: Item) => {
+            this.setState({
+                selectedItem: item,
             });
-        };
+        }
 
         const createProgressbars = () => {
             const tasks = this.props.tasks || [];
@@ -135,13 +253,19 @@ export default class ProductionStructureView extends React.Component<AllProps, L
         };
 
         return (
-            // Todo: abstract some stuff to generic StructureView
-            <details open = { true } className = "structureview">
+            // TODO: abstract some stuff to generic StructureView
+            <details open = { true } className = "productionstructureview">
                 <summary>{levelDefinition.displayName}</summary>
                 <section>
                     { createUpgradeRow() }
                     <div>craft:</div>
-                    { createCraftRows() }
+                    {/* { createCraftRows() } */}
+                    <div className="crafting-area">
+                        <ul className="vertical-tab-bar">
+                            { createCraftTabs() }
+                        </ul>
+                        { createCraftingDetails() }
+                    </div>
                     { createProgressbars() }
                 </section>
             </details>

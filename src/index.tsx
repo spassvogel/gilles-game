@@ -36,6 +36,9 @@ ReactDOM.render(
 );
 registerServiceWorker();
 
+
+// TODO: Check HMR: https://github.com/wmonk/create-react-app-typescript/pull/312#issuecomment-385617913
+
 // const processTasks = (tasks: TasksStoreState) => {
 //     const handleCompletedTask = (task: TaskStoreState) => {
 //         store.dispatch(task.callback);
