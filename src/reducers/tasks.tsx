@@ -56,12 +56,12 @@ export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initial
     return state;
 };
 
-const createTask = (action: AddAction) => {
+const createTask = (action: AddAction): TaskStoreState => {
     return {
         name: action.name,
         origin: action.origin,
         type: action.taskType,
-        callback: action.callback,
+        callbacks: action.callbacks,
         timeRemaining: action.time,
         startTime: Date.now(),
         lastTick: Date.now(),

@@ -6,6 +6,7 @@ import structureDefinitions, { Structure } from "src/definitions/structures";
 import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from "src/definitions/structures/types";
 import { ResourceStoreState } from "src/stores/resources";
 import { TaskStoreState } from "src/stores/task";
+import { formatDuration } from "src/utils/time";
 import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
@@ -47,11 +48,11 @@ export default class ProductionStructureView extends React.Component<AllProps, L
     }
 
     public componentDidUpdate(prevProps: AllProps, prevState: LocalState) {
-        console.log('cdu' + prevProps.workersFree)
+        console.log("cdu" + prevProps.workersFree);
     }
 
     public componentWillUnmount() {
-        console.log('component will unmount')
+        console.log("component will unmount");
     }
 
     public render() {
@@ -149,7 +150,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
 
             return levelDefinition.produces.map((produces) => {
                 const itemDefinition: ItemDefinition = itemDefinitions[produces.item];
-                return <li 
+                return <li
                     key={ `craft${produces.item}`}
                     onClick={ () => handleSelectCraftingItem(produces.item) }
                     className={ selectedItem === produces.item ? "selected" : "" }
@@ -186,13 +187,16 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                     return "";
                 }
                 const craftingTime = time / this.state.workersAssigned;
-// TODO: http://momentjs.com/docs/#/displaying/tonow/
-                return "Time: " + craftingTime + "ms";
+                const formatted = formatDuration(craftingTime);
+                return ` Crafting time: ${formatted}`;
             };
 
             const handleClick = (productionDefinition: ProductionDefinition) => {
-                if (this.props.onCraft) { 
-                    this.props.onCraft(productionDefinition, this.state.workersAssigned); 
+                if (this.props.onCraft) {
+                    this.props.onCraft(productionDefinition, this.state.workersAssigned);
+                    this.setState({
+                        workersAssigned: 0,
+                    });
                 }
             };
 
@@ -234,20 +238,20 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                         </button>
                     </div>
                 </div>
-            )
-        }
+            );
+        };
 
         const handleSelectCraftingItem = (item: Item) => {
             this.setState({
                 selectedItem: item,
             });
-        }
+        };
 
         const createProgressbars = () => {
             const tasks = this.props.tasks || [];
             return tasks.map((t) => <Progressbar
                 key = { `${t.name}${t.startTime}` }
-                label = { t.name }
+                label = { `${t.name} (${formatDuration(t.timeRemaining)})` }
                 progress = { t.progress }/>,
             );
         };
@@ -266,7 +270,10 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                         </ul>
                         { createCraftingDetails() }
                     </div>
-                    { createProgressbars() }
+                    <fieldset>
+                        <legend>Currently crafting:</legend>
+                        { createProgressbars() }
+                    </fieldset>
                 </section>
             </details>
         );

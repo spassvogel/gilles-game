@@ -5,7 +5,7 @@ import { addGold } from "src/actions/gold";
 import { addResources } from "src/actions/resources";
 import StructureDetailsView, { DispatchProps, Props, StateProps } from "src/components/StructureDetailsView";
 import { ResourceStoreState } from "src/stores/resources";
-import { StoreState } from "../stores";
+import { StoreState } from "../../stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const buildTask = store.tasks.running.filter((val) =>

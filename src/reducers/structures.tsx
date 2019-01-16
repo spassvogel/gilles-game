@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import { Action, ActionType } from "src/actions/structures";
+import { Action, ActionType, WorkerCountAction } from "src/actions/structures";
 import { Structure } from "src/definitions/structures";
 import { StructureState, StructureStoreState } from "src/stores/structure";
 import { initialState, StructuresStoreState } from "../stores/structures";
@@ -30,7 +30,8 @@ export const structures: Reducer<StructuresStoreState> = (state: StructuresStore
             };
         }
         case ActionType.increaseWorkers: {
-            const workers = state[action.structure].workers + 1;
+            const { workers: workersToAdd } = action as WorkerCountAction;
+            const workers = state[action.structure].workers + workersToAdd;
             const structureStore: StructureStoreState = {
                 ...state[action.structure],
                 workers,
@@ -41,7 +42,8 @@ export const structures: Reducer<StructuresStoreState> = (state: StructuresStore
             };
         }
         case ActionType.decreaseWorkers: {
-            const workers = state[action.structure].workers - 1;
+            const { workers: workersToRemove } = action as WorkerCountAction;
+            const workers = state[action.structure].workers - workersToRemove;
             const structureStore: StructureStoreState = {
                 ...state[action.structure],
                 workers,

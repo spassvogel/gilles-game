@@ -7,8 +7,9 @@ const getStructures = (state: StoreState) => state.structures;
 const getWorkers = (state: StoreState) => state.workers;
 
 const calculateFreeWorkers = (structures: StructuresStoreState, workers: number) => {
+    // Add up all the workers used by all structures in town
     const workersUsed = Object.keys(structures).map((name) => structures[name])
-        .reduce((acc: number, value: StructureStoreState) => acc += value.workers || 0, 0);
+        .reduce((acc: number, value: StructureStoreState) => acc += value.workers, 0);
 
     return workers - workersUsed;
 };

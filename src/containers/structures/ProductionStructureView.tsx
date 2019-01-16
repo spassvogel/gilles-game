@@ -1,18 +1,19 @@
 import ProductionStructureView,
-    { DispatchProps, Props, StateProps } from "../components/structures/ProductionStructureView";
+    { DispatchProps, Props, StateProps } from "../../components/structures/ProductionStructureView";
 
 import { connect } from "react-redux";
 import { AnyAction, Dispatch } from "redux";
+import { addWorkers } from "src/actions";
 import { subtractGold } from "src/actions/gold";
 import { addItem } from "src/actions/items";
 import { removeResources } from "src/actions/resources";
-import { upgradeStructure } from "src/actions/structures";
+import { increaseWorkers, upgradeStructure, decreaseWorkers } from "src/actions/structures";
 import { startTask } from "src/actions/tasks";
 import { ProductionDefinition } from "src/definitions/production/types";
 import { selectFreeWorkers } from "src/selectors/workers";
 import { TaskType } from "src/stores/task";
-import { StoreState } from "../stores";
-import { StructureStoreState } from "../stores/structure";
+import { StoreState } from "../../stores";
+import { StructureStoreState } from "../../stores/structure";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const structureStore: StructureStoreState = store.structures[ownProps.type];
@@ -31,13 +32,18 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
     return {
         onCraft: (productionDefinition: ProductionDefinition, workers: number) => {
             const craftingTime = productionDefinition.time / workers;
-            const callback = addItem(productionDefinition.item);
             dispatch(removeResources(productionDefinition.cost));
+            dispatch(increaseWorkers(ownProps.type, workers));
+
+            const callbacks = [
+                addItem(productionDefinition.item),
+                decreaseWorkers(ownProps.type, workers)
+            ];
             const start = startTask(TaskType.craftItem,
                 productionDefinition.item,
                 `${ownProps.type}.craft`,
                 craftingTime,
-                callback);
+                callbacks);
             dispatch(start);
         },
         onUpgrade: (cost: number) => {

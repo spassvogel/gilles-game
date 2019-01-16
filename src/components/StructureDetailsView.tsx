@@ -1,7 +1,7 @@
 
 import * as React from "react";
-import ProductionStructureView from "src/containers/ProductionStructureView";
-import ResourceStructureView from "src/containers/ResourceStructureView";
+import ProductionStructureView from "src/containers/structures/ProductionStructureView";
+import ResourceStructureView from "src/containers/structures/ResourceStructureView";
 import WarehouseStructureView from "src/containers/WarehouseStructureView";
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { StructureDefinition, StructureType } from "src/definitions/structures/types";

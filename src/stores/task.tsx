@@ -13,5 +13,5 @@ export interface TaskStoreState {
     lastTick: number;         // time of last tick
     timeRemaining: number;
     progress: number;         // value between 0 and 1 indicating progress
-    callback: AnyAction;		// action to dispatch on complete
+    callbacks: AnyAction[];	  // actions to dispatch on complete
 }

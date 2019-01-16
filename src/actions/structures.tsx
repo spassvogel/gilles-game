@@ -19,6 +19,9 @@ export interface StructureStateAction extends Action {
     state: StructureState;
 }
 
+export interface WorkerCountAction extends Action {
+    workers: number;
+}
 // export interface SetStructureAmount {
 //     type: constants.SET_STRUCTURE_AMOUNT;
 //     structure: string,
@@ -61,18 +64,20 @@ export function upgradeStructure(structure: Structure): Action {
     };
 }
 
-// Increases workers by one
-export function increaseWorkers(structure: Structure): Action {
+// Increases workers used by given structure by given amount
+export function increaseWorkers(structure: Structure, workers: number = 1): WorkerCountAction {
     return {
         type: ActionType.increaseWorkers,
         structure,
+        workers,
     };
 }
 
-// Decreases workers by one
-export function decreaseWorkers(structure: Structure): Action {
+// Decreases workers used by given structure by given amount
+export function decreaseWorkers(structure: Structure, workers: number = 1): WorkerCountAction {
     return {
         type: ActionType.decreaseWorkers,
         structure,
+        workers,
     };
 }

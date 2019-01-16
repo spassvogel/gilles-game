@@ -16,23 +16,17 @@ export interface AddAction extends Action {
     name: string;
     origin: string;
     time: number;
-    callback: AnyAction;
+    callbacks: AnyAction[];
 }
 
 export function startTask(taskType: TaskType,
-                          name: string, origin: string, time: number, callback: AnyAction): AddAction {
+                          name: string, origin: string, time: number, callbacks: AnyAction[]): AddAction {
     return {
         type: ActionType.start,
         taskType,
         name,
         origin,
         time,
-        callback,
-    };
-}
-
-export function updateTasks(): Action {
-    return {
-        type: ActionType.update,
+        callbacks,
     };
 }
