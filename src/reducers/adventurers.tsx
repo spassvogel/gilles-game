@@ -44,7 +44,7 @@ const generateRandomGear = (): GearStoreState => {
 };
 
 const testState: AdventurerStoreState[] = [{
-    id: "c4a5d270-11e7-11e9-b7ad-4134e879f440",
+    id: "c4a5d270",
     gear: generateRandomGear(),
     stats: generateRandomStats(),
     name: "Ximena Maddox",
@@ -74,34 +74,50 @@ const testState: AdventurerStoreState[] = [{
     avatarImg: `/img/avatars/andy-victorovych-a4.jpg`,
     inventory: [ null, null, null, null, null ],
 }, {
-    id: "96c686c3-2756-4cf7-9301-92f5ab857b8a",
+    id: "96c686c3",
     gear: generateRandomGear(),
     stats: generateRandomStats(),
     name: "Wayne Monroe",
     avatarImg: `/img/avatars/andy-victorovych-a5.jpg`,
     inventory: [ null, null, null ],
 }, {
-    id: "250d1a9d-a421-4841-9a89-ee6d6d691339",
+    id: "250d1a9d",
     stats: generateRandomStats(),
     gear: generateRandomGear(),
     name: "Mike Keith",
     avatarImg: `/img/avatars/andy-victorovych-a6.jpg`,
     inventory: [ null, null, null, null, null ],
 }, {
-    id: "169384ef-f036-4392-a3ca-8eb8e08e3eb8",
+    id: "169384ef",
     gear: generateRandomGear(),
     stats: generateRandomStats(),
     name: "Karlee Nolan",
     avatarImg: `/img/avatars/andy-victorovych-a7.jpg`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
-    id: "f22d66cb-43e0-46ab-93c1-d9ed3800bde0",
+    id: "f22d66cb",
     stats: generateRandomStats(),
     gear: generateRandomGear(),
     name: "Keyon Hickman",
     avatarImg: `/img/avatars/andy-victorovych-a8.jpg`,
     inventory: [ null, null, null, null, null ],
+}, {
+    id: "36c686c1",
+    gear: generateRandomGear(),
+    stats: generateRandomStats(),
+    name: "",
+    avatarImg: `/img/avatars/andy-victorovych-a9.jpg`,
+    inventory: [ Item.greatswordOfGwai, null, null, null ],
+}, {
+    id: "12c613d4",
+    gear: generateRandomGear(),
+    stats: generateRandomStats(),
+    name: "",
+    avatarImg: `/img/avatars/andy-victorovych-a10.jpg`,
+    inventory: [ Item.greatswordOfGwai, null, null, null ],
 }];
+
+// TODO: To generate a random 11 digit number, use: Math.random().toString(36).substring(2)
 
 export const adventurers: Reducer<AdventurerStoreState[]> = (
     state: AdventurerStoreState[] = testState, action: Action) => {
