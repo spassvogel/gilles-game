@@ -2,18 +2,19 @@ import ProductionStructureView,
     { DispatchProps, Props, StateProps } from "../../components/structures/ProductionStructureView";
 
 import { connect } from "react-redux";
-import { AnyAction, Dispatch } from "redux";
+import { AnyAction, compose, Dispatch } from "redux";
 import { subtractGold } from "src/actions/gold";
 import { addItem } from "src/actions/items";
 import { removeResources } from "src/actions/resources";
 import { decreaseWorkers, increaseWorkers, upgradeStructure } from "src/actions/structures";
 import { startTask } from "src/actions/tasks";
 import { ProductionDefinition } from "src/definitions/production/types";
+import { withAppContext } from "src/hoc/withAppContext";
+import { calculateProductionTime } from "src/mechanics/crafting";
 import { selectFreeWorkers } from "src/selectors/workers";
 import { TaskType } from "src/stores/task";
 import { StoreState } from "../../stores";
 import { StructureStoreState } from "../../stores/structure";
-import { calculateProductionTime } from "src/mechanics/crafting";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const structureStore: StructureStoreState = store.structures[ownProps.type];
@@ -53,4 +54,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductionStructureView);
+export default compose(
+    connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
+    withAppContext,
+)(ProductionStructureView);

@@ -4,6 +4,7 @@ import { Item, ItemDefinition } from "src/definitions/items/types";
 import { ProductionDefinition } from "src/definitions/production/types";
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from "src/definitions/structures/types";
+import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "src/mechanics/crafting";
 import { ResourceStoreState } from "src/stores/resources";
 import { TaskStoreState } from "src/stores/task";
 import { formatDuration } from "src/utils/time";
@@ -11,7 +12,8 @@ import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
 import "./css/productionstructureview.css";
-import { calculateProductionTime } from "src/mechanics/crafting";
+import { AppContextProps } from "../App";
+import { ContextType } from "src/constants";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;
@@ -30,7 +32,7 @@ export interface Props {
     type: Structure;
 }
 
-type AllProps = Props & StateProps & DispatchProps;
+type AllProps = Props & StateProps & DispatchProps & AppContextProps;
 
 interface LocalState {
     selectedItem: Item|null;
@@ -225,7 +227,10 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                             label={ "Workers: " }
                             onUp={ handleUp }
                             onDown={ handleDown }
-                            upDisabled={ this.state.workersAssigned >= this.props.workersFree }
+                            upDisabled={
+                                this.state.workersAssigned >= this.props.workersFree ||
+                                this.state.workersAssigned >= MAX_WORKERS_CRAFTING
+                            }
                             downDisabled={ this.state.workersAssigned < 1 }
                         />
                         &nbsp;
@@ -243,6 +248,11 @@ export default class ProductionStructureView extends React.Component<AllProps, L
         };
 
         const handleSelectCraftingItem = (item: Item) => {
+            this.props.onContextualObjectActivated(
+                ContextType.item,
+                itemDefinitions[item],
+            );
+
             this.setState({
                 selectedItem: item,
             });
