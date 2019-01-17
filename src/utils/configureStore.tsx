@@ -1,14 +1,18 @@
 import { createStore, DeepPartial } from "redux";
 import { Persistor, persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { asInt } from "src/constants/version";
 import rootReducer from "src/reducers/index";
 import { StoreState } from "src/stores";
+import { convertIntToSemVer } from "./version";
 
 const persistConfig = {
     key: "root",
     storage,
+    version: asInt,
 };
 
+console.log(convertIntToSemVer(asInt));
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 interface StoreAndPersistor {

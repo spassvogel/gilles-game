@@ -9,6 +9,7 @@ import { resources } from "./resources";
 import { rngState } from "./rngState";
 import { structures } from "./structures";
 import { tasks } from "./tasks";
+//import { version } from "./version";
 import { workers } from "./workers";
 
 export default combineReducers<StoreState>({
@@ -22,5 +23,6 @@ export default combineReducers<StoreState>({
     rngState,
     structures,
     tasks,
+    //version,
     workers,
 });

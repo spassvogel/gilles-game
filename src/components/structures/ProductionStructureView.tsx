@@ -11,6 +11,7 @@ import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
 import "./css/productionstructureview.css";
+import { calculateProductionTime } from "src/mechanics/crafting";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;
@@ -186,7 +187,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                 if (this.state.workersAssigned === 0) {
                     return "";
                 }
-                const craftingTime = time / this.state.workersAssigned;
+                const craftingTime = calculateProductionTime(time, this.state.workersAssigned);
                 const formatted = formatDuration(craftingTime);
                 return ` Crafting time: ${formatted}`;
             };
