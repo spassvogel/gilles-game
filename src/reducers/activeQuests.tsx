@@ -8,24 +8,14 @@ import { QuestStoreState } from "src/stores/quest";
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
     name: "kill10boars",
-    party: [
-        "c4a5d270",
-        "2e655832-65c9-484d-81d7-07938253cf4d",
-        "ec6f1050-11e7-11e9-b13b-654a21c6ca63",
-        "d299f98a-8f30-4684-b4b5-81baadb388b2",
-    ],
+    party: "3tf8h79boh6",
     progress: 0,
     questVars: {},
     encounterResults: [],
     log: [],
 }, {
     name: "retrieveMagicAmulet",
-    party: [
-        "96c686c3",
-        "250d1a9d",
-        "169384ef",
-        "f22d66cb",
-    ],
+    party: "rx2nv4rqwn",
     progress: 0,
     questVars: {},
     encounterResults: [],

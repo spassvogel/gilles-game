@@ -80,6 +80,10 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         const contextView = this.state.contextType == null || this.state.contextInfo == null ? null :
             <ContextView type = { this.state.contextType }  info = { this.state.contextInfo }/>;
 
+        const getAdventurersBox = () => {
+
+        }
+
         return <AppContext.Provider value = {{
             media: this.state.media,
             onContextualObjectActivated: this.handleContextualObjectActivated,
@@ -112,6 +116,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                 {/* </div> */}
                 <div className="app-right">
                     { contextView }
+                    { getAdventurersBox() }
                 </div>
             </Preloader>
         </AppContext.Provider>;

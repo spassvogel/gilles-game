@@ -2,7 +2,7 @@
 
 export interface QuestStoreState {
     name: string;
-    party: string[];        // List of adventurer ids
+    party: string;          // Reference to PartyStoreState.id
     progress: number;       // Which questnode the party is at currently
     questVars: object;
     encounterResults: string[];   // Store what option the place chose during an encounter
@@ -11,7 +11,7 @@ export interface QuestStoreState {
 
 export const initialState: QuestStoreState = {
     name: "",
-    party: [],
+    party: "",
     progress: 0,
     questVars: {},
     encounterResults: [],

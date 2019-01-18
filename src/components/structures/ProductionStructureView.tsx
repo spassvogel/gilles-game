@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ContextType } from "src/constants";
 import itemDefinitions from "src/definitions/items";
 import { Item, ItemDefinition } from "src/definitions/items/types";
 import { ProductionDefinition } from "src/definitions/production/types";
@@ -8,12 +9,11 @@ import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "src/mechanics/cra
 import { ResourceStoreState } from "src/stores/resources";
 import { TaskStoreState } from "src/stores/task";
 import { formatDuration } from "src/utils/time";
+import { AppContextProps } from "../App";
 import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
 import "./css/productionstructureview.css";
-import { AppContextProps } from "../App";
-import { ContextType } from "src/constants";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;

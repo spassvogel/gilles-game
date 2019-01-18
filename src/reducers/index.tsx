@@ -5,11 +5,12 @@ import { adventurers } from "./adventurers";    // tmp
 import { engine } from "./engine";
 import { gold } from "./gold";
 import { items } from "./items";
+import { parties } from "./parties";
 import { resources } from "./resources";
 import { rngState } from "./rngState";
 import { structures } from "./structures";
 import { tasks } from "./tasks";
-//import { version } from "./version";
+// import { version } from "./version";
 import { workers } from "./workers";
 
 export default combineReducers<StoreState>({
@@ -19,10 +20,11 @@ export default combineReducers<StoreState>({
     engine,
     gold,
     items,
+    parties,
     resources,
     rngState,
     structures,
     tasks,
-    //version,
+    // version,
     workers,
 });
