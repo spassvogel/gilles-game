@@ -2,5 +2,5 @@
 
 export interface PartyStoreState {
     adventurers: string[];        // List of adventurer ids
-    banner: string;
+    sigil: string;
 }
