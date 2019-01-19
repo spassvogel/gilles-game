@@ -1,11 +1,12 @@
 import * as React from "react";
-import { AppContextProps } from "src/components/App";
-import DraggableItemIcon, { InventoryItemDragInfo } from "src/components/ui/DraggableItemIcon";
-import { ContextType } from "src/constants";
+import {AppContextProps} from "src/components/App";
+import DraggableItemIcon, {InventoryItemDragInfo} from "src/components/ui/DraggableItemIcon";
+import {ContextType} from "src/constants";
 import itemDefinitions from "src/definitions/items";
-import { Item } from "src/definitions/items/types";
-import { withAppContext } from "src/hoc/withAppContext";
+import {Item} from "src/definitions/items/types";
+import {withAppContext} from "src/hoc/withAppContext";
 import InventorySlot from "./InventorySlot";
+import "./css/inventory.css"; 
 
 export interface Props {
     items: Array<Item|null>;
@@ -27,11 +28,18 @@ const Inventory = (props: Props & AppContextProps) => {
                 return;
             }
 
-            if (props.onMoveItem) {
-                const { inventorySlot: fromSlot} = dragInfo;
-                props.onMoveItem(fromSlot!, i);
+            if (dragInfo.source !== props.source) {
+                console.log("found different sources!");
+                return;
             }
-        };
+
+            // TODO: pass along the dragInfo source to onMoveItem, handle accordingly
+
+            if (props.onMoveItem) {
+                const {inventorySlot: fromSlot} = dragInfo;
+                props.onMoveItem(fromSlot!, i);
+           }
+       };
 
         if (item) {
 
@@ -40,27 +48,27 @@ const Inventory = (props: Props & AppContextProps) => {
                     ContextType.item,
                     itemDefinitions[item],
                 );
-            };
+           };
 
             contents = <DraggableItemIcon
-                index = {i}
-                source = { props.source }
-                item = { item }
-                onClick = { () => handleClick() }
+                index={i}
+                source={props.source}
+                item={item}
+                onClick={() => handleClick()}
             >
             </DraggableItemIcon>;
-        }
+       }
 
         const slot = <InventorySlot
-            key= { `inventory-slot-${i}`}
-            empty = { contents === undefined }
-            onDrop= { handleDrop }>
-                { contents }
+            key= {`inventory-slot-${i}`}
+            empty={contents === undefined}
+            onDrop={handleDrop}>
+                {contents}
         </InventorySlot>;
         slots.push(slot);
-    }
+   }
     return <div className="inventory">
-        { slots }
+        {slots}
     </div>;
 };
 // TODO: read https://stackoverflow.com/questions/51083920/how-to-handle-props-injected-by-hoc-in-react-with-typescript

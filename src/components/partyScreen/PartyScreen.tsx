@@ -9,8 +9,8 @@ import { QuestStoreState } from "src/stores/quest";
 import { AppContextProps } from "../App";
 import { InventoryItemDragInfo } from "../ui/DraggableItemIcon";
 import Inventory from "../ui/inventory/Inventory";
-import AdventurerAvatar from "./AdventurerAvatar";
 import "./css/partyscreen.css";
+import DroppableAdventurerAvatar from "./DroppableAdventurerAvatar";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
@@ -147,10 +147,10 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                 }
             };
 
-            const active = this.state.selectedAdventurer === adventurer.id;
-            return <AdventurerAvatar
+            const selected = this.state.selectedAdventurer === adventurer.id;
+            return <DroppableAdventurerAvatar
                 key = { `${adventurer.id}-avatar` }
-                active = { active }
+                className = { (selected ? " selected" : "") }
                 adventurer = { adventurer }
                 onClick = { () => this.handleAvatarClick(adventurer.id) }
                 onDrop = { handleDrop }

@@ -29,8 +29,7 @@ const testState: Record<string, PartyStoreState> = {
  * @param state
  * @param action
  */
-export const parties: Reducer<Record<string, PartyStoreState>> = 
-    (state: Record<string, PartyStoreState> = testState) =>
-{
+export const parties: Reducer<Record<string, PartyStoreState>> =
+    (state: Record<string, PartyStoreState> = testState) => {
     return state;
 };

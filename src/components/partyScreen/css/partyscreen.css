@@ -28,9 +28,6 @@
 
 .partyscreen .avatars .avatar {
     flex: 1;
-    text-align: center;
-    background-size: cover;
-    position: relative;
     height: 120px;
     box-sizing: border-box;
     background-position: 0 25%;
@@ -53,19 +50,6 @@
 }
 */
 
-
-.partyscreen .avatars .avatar .sizer {
-    width: 100%;
-    padding-bottom: 100%;
-}
-
-.partyscreen .avatars .avatar .name {
-    position: absolute;
-    color: white;
-    /* transform: translateY(-30px); */
-    width: 100%;
-    bottom: 3px;
-}
 
 .partyscreen .avatars .avatar.selected {
     border: purple 4px solid;
@@ -143,25 +127,3 @@
     }
 }
 
-
-.partyscreen .adventurer-container .inventory .inventory-item {
-    display: inline-block;
-    border: 1px solid green;
-    position: relative;
-    /* box-sizing: border-box; */
-}
-
-.partyscreen .adventurer-container .inventory .inventory-item div {
-    width: 100%;
-    height: 100%;
-    background-size: contain;
-    position: absolute;
-}
-
-.partyscreen .adventurer-container .inventory .inventory-item:after {
-    content: "";
-    display: inline-block;
-    width: 1px;
-    height: 0;
-    padding-bottom: 100%;
-  }

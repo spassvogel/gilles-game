@@ -11,6 +11,7 @@ import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
+import AdventurersBox from "src/containers/AdventurersBox";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -81,7 +82,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             <ContextView type = { this.state.contextType }  info = { this.state.contextInfo }/>;
 
         const getAdventurersBox = () => {
-
+            return <AdventurersBox />
         }
 
         return <AppContext.Provider value = {{

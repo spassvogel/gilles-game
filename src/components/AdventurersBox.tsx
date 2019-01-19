@@ -3,37 +3,100 @@
 import * as React from "react";
 import { AdventurerStoreState } from "src/stores/adventurer";
 import { PartyStoreState } from "src/stores/party";
-//import "./css/adventurersbox.css";
+import "./css/adventurersbox.css";
+import AdventurerAvatar from "./partyScreen/AdventurerAvatar";
+import Inventory from "./ui/inventory/Inventory";
 
 export interface DispatchProps {
-    //onChange?: (amount: number) => void;
+    onMoveItemInInventory?: (adventurerId: string, fromSlot: number, toSlot: number) => void;
 }
 
 export interface StateProps {
-    parties: PartyStoreState[];
-    adventurers: AdventurerStoreState[];
+    parties: Record<string, PartyStoreState>;
+    groupedAdventurers: Record<string, AdventurerStoreState[]>; // keyed by party
 }
 
 export interface Props {
-    name: string;
-    amount?: number;
 }
 
-type AllProps = Props & StateProps;
+interface LocalState {
+    selectedAdventurer: string|null;
+}
 
-const AdventurersBox = (props: Props) => {
+type AllProps = Props & StateProps & DispatchProps;
+class AdventurersBox extends React.Component<AllProps, LocalState> {
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    };
+    /**
+     *
+     */
+    constructor(props: AllProps) {
+        super(props);
 
-    const generateRow = (adventurers: Array<AdventurerStoreState>): JSX.Element => {
-        return <li></li>;
+        this.state = {
+            selectedAdventurer: null,
+        };
     }
 
+    public render() {
 
-    return (
-        <ul className="adventurers-box">
-        </ul>
-    );
+        const generateRow = (group: string, adventurers: AdventurerStoreState[]): JSX.Element => {
+            const selectedAdventurer = adventurers.find((adventurer) => adventurer.id === this.state.selectedAdventurer)
+            let adventurerInfo = null;
+            if (selectedAdventurer) {
+                const handleMoveItem = (fromSlot: number, toSlot: number): void => {
+                    if (this.props.onMoveItemInInventory) {
+                        this.props.onMoveItemInInventory(selectedAdventurer.id, fromSlot, toSlot);
+                    }
+                };
+                adventurerInfo = <div className="adventurer-info">
+                    <div>{ selectedAdventurer.name } </div>
+                    <div className="adventurer-info-container">
+                        <div className="gear">
+                            <br />
+                            [ TODO: GEAR ]
+                        </div>
+                        <Inventory
+                            items={ selectedAdventurer.inventory }
+                            source="adventurer"
+                            onMoveItem={ handleMoveItem }
+                        />
+                    </div>
+                </div>;
+            }
+            return <li key={ group } className={ "group" }>
+                <div className="sigil"></div>
+                <ul className="adventurer-portraits">
+                { adventurers.map((adventurer) => generatePortrait(adventurer)) }
+                </ul>
+                { adventurerInfo }
+            </li>;
+        };
+
+        const generatePortrait = (adventurer: AdventurerStoreState) => {
+            const handleClick = () => {
+                const selectedAdventurer = this.state.selectedAdventurer === adventurer.id ? null : adventurer.id;
+                this.setState({
+                    selectedAdventurer,
+                });
+            }
+            const className = adventurer.id === this.state.selectedAdventurer ? "selected" : undefined;
+            return <li key={ adventurer.id } className={ className } >
+                <AdventurerAvatar adventurer= { adventurer } onClick={ handleClick } />
+            </li>;
+        };
+
+        const generateRows = () => {
+            const rows = Object.keys(this.props.groupedAdventurers)
+                .map((partyId) => generateRow(partyId, this.props.groupedAdventurers[partyId]));
+            return rows;
+        };
+
+        return (
+            <ul className="adventurers-box">
+                { generateRows() }
+            </ul>
+        );
+    }
 }
+
 export default AdventurersBox;

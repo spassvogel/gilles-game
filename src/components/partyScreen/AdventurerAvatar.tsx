@@ -1,72 +1,41 @@
 import * as React from "react";
-import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
-import { DragType } from "src/constants";
 import { AdventurerStoreState } from "src/stores/adventurer";
-
-const dropTarget: DropTargetSpec<Props> = {
-    drop(props: Props, monitor: DropTargetMonitor) {
-        props.onDrop(monitor.getItem());
-    },
-    canDrop(props: Props, monitor: DropTargetMonitor)  {
-        return true; // todo: can't drop on yourself
-    },
-};
+import "./css/adventureravatar.css";
 
 export interface Props {
-    active: boolean;
     adventurer: AdventurerStoreState;
-    onDrop: (item: any) => void;
-    onClick: (adventurerId: string) => void;
+    className?: string;
+    displayName?: boolean;
+    onClick?: (adventurerId: string) => void;
 }
-
-export interface DropSourceProps {
-    canDrop: boolean;
-    isOver: boolean;
-    connectDropTarget: ConnectDropTarget;
-}
-
-const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
-    canDrop: monitor.canDrop(),
-    connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver(),
-});
 
 /**
  * The AdventurerAvatar displays the avatar of an adventurer in the party screen
  */
-class AdventurerAvatar extends React.Component<Props & DropSourceProps> {
-    public render() {
-        const {
-            active,
-            adventurer,
-            isOver,
-            canDrop,
-            connectDropTarget,
-        } = this.props;
-        const isActive = isOver && canDrop;
+const AdventurerAvatar = (props: Props) => {
+    const {
+        adventurer,
+    } = props;
 
-        return connectDropTarget(
-            <div className = { "avatar" + (active ? " selected" : "")}
-                style={{ backgroundImage: `url(${adventurer.avatarImg})` }}
-                onClick={ () => this.handleClick() }>
-                <div className="sizer"/>
-                {/* <img src= { adventurer.avatarImg } /> */}
-                <div className="name">
+    const className = (props.className || "") + " avatar";
+
+    const handleClick = () => {
+        if (props.onClick) {
+            props.onClick(props.adventurer.id);
+        }
+    };
+    return (
+        <div className = { className }
+            style={{ backgroundImage: `url(${adventurer.avatarImg})` }}
+            onClick={ () => handleClick() }>
+            <div className="sizer"/>
+            {
+                props.displayName && <div className="name">
                     { adventurer.name }
                 </div>
-            </div>,
-        );
-    }
-
-    private handleClick() {
-        if (this.props.onClick) {
-            this.props.onClick(this.props.adventurer.id);
-        }
-    }
+            }
+        </div>
+    );
 }
 
-export default DropTarget<Props, DropSourceProps>(
-    DragType.ITEM,
-    dropTarget,
-    collect,
-)(AdventurerAvatar);
+export default AdventurerAvatar;
