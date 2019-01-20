@@ -7,6 +7,7 @@ import { StructureDefinition, StructureLevelDefinition } from "src/definitions/s
 import { AppContextProps } from "../App";
 import Inventory from "../ui/inventory/Inventory";
 import "./css/warehousestructureview.css";
+import { DragSourceType } from "src/constants";
 
 export interface DispatchProps {
     onMoveItemInWarehouse: (fromSlot: number, toSlot: number) => void;
@@ -26,6 +27,7 @@ export interface StateProps  {
 
 type AllProps = Props & StateProps & DispatchProps & AppContextProps;
 
+const warehouse = DragSourceType.warehouse;
 const WarehouseStructureView = (props: AllProps) => {
 
     const structureDefinition = structureDefinitions[props.type] as StructureDefinition;
@@ -34,9 +36,13 @@ const WarehouseStructureView = (props: AllProps) => {
     }
     const level: number = props.level;
     const levelDefinition: StructureLevelDefinition = structureDefinition.levels[level];
-    const handleMoveItem = (fromSlot: number, toSlot: number): void => {
-        if (props.onMoveItemInWarehouse) {
-            props.onMoveItemInWarehouse(fromSlot, toSlot);
+    const handleMoveItem = (fromSlot: number, toSlot: number, source: DragSourceType): void => {
+        switch(source){
+            case warehouse:
+                if (props.onMoveItemInWarehouse) {
+                    props.onMoveItemInWarehouse(fromSlot, toSlot);
+                }
+        
         }
     };
     return (
@@ -52,9 +58,9 @@ const WarehouseStructureView = (props: AllProps) => {
             </fieldset>
 
             <Inventory
-                source="warehouse"
-                items={ props.items }
-                onMoveItem={ handleMoveItem }
+                source={warehouse}
+                items={props.items}
+                onMoveItem={handleMoveItem}
             />
         </details>
     );

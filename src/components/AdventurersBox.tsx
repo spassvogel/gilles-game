@@ -6,6 +6,7 @@ import { PartyStoreState } from "src/stores/party";
 import "./css/adventurersbox.css";
 import AdventurerAvatar from "./partyScreen/AdventurerAvatar";
 import Inventory from "./ui/inventory/Inventory";
+import { DragSourceType } from "src/constants";
 
 export interface DispatchProps {
     onMoveItemInInventory?: (adventurerId: string, fromSlot: number, toSlot: number) => void;
@@ -40,6 +41,8 @@ class AdventurersBox extends React.Component<AllProps, LocalState> {
     public render() {
 
         const generateRow = (group: string, adventurers: AdventurerStoreState[]): JSX.Element => {
+            // group is either the string "solo" or a partyId
+            console.log(adventurers)
             const selectedAdventurer = adventurers.find((adventurer) => adventurer.id === this.state.selectedAdventurer)
             let adventurerInfo = null;
             if (selectedAdventurer) {
@@ -56,9 +59,9 @@ class AdventurersBox extends React.Component<AllProps, LocalState> {
                             [ TODO: GEAR ]
                         </div>
                         <Inventory
-                            items={ selectedAdventurer.inventory }
-                            source="adventurer"
-                            onMoveItem={ handleMoveItem }
+                            items={selectedAdventurer.inventory}
+                            source={DragSourceType.adventurer}
+                            onMoveItem={handleMoveItem}
                         />
                     </div>
                 </div>;
@@ -87,7 +90,7 @@ class AdventurersBox extends React.Component<AllProps, LocalState> {
 
         const generateRows = () => {
             const rows = Object.keys(this.props.groupedAdventurers)
-                .map((partyId) => generateRow(partyId, this.props.groupedAdventurers[partyId]));
+                .map((group) => generateRow(group, this.props.groupedAdventurers[group]));
             return rows;
         };
 

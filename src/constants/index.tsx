@@ -5,6 +5,11 @@ export const DragType = {
     ITEM: "item",               // A game 'item' (equipment..?)
 };
 
+export enum DragSourceType {
+    adventurer,
+    warehouse,
+}
+
 // Things that can be shown on the ContextView
 export enum ContextType {
     item,

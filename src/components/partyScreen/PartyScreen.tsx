@@ -11,6 +11,7 @@ import { InventoryItemDragInfo } from "../ui/DraggableItemIcon";
 import Inventory from "../ui/inventory/Inventory";
 import "./css/partyscreen.css";
 import DroppableAdventurerAvatar from "./DroppableAdventurerAvatar";
+import { DragSourceType } from "src/constants";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
@@ -103,7 +104,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                 </div>
             </div>
             <div className="right">
-                <Inventory source="adventurer"
+                <Inventory source={DragSourceType.adventurer}
                     items={ adventurer.inventory }
 
                     onMoveItem = { handleMoveItem }

@@ -1,17 +1,17 @@
 import * as React from "react";
 import {AppContextProps} from "src/components/App";
 import DraggableItemIcon, {InventoryItemDragInfo} from "src/components/ui/DraggableItemIcon";
-import {ContextType} from "src/constants";
+import {ContextType, DragSourceType} from "src/constants";
 import itemDefinitions from "src/definitions/items";
 import {Item} from "src/definitions/items/types";
 import {withAppContext} from "src/hoc/withAppContext";
+import "./css/inventory.css";
 import InventorySlot from "./InventorySlot";
-import "./css/inventory.css"; 
 
 export interface Props {
     items: Array<Item|null>;
-    source: string;
-    onMoveItem: (fromSlot: number, toSlot: number) => void;
+    source: DragSourceType;
+    onMoveItem: (fromSlot: number, toSlot: number, source: DragSourceType) => void;
 }
 
 /**
@@ -37,7 +37,7 @@ const Inventory = (props: Props & AppContextProps) => {
 
             if (props.onMoveItem) {
                 const {inventorySlot: fromSlot} = dragInfo;
-                props.onMoveItem(fromSlot!, i);
+                props.onMoveItem(fromSlot!, i, dragInfo.source);
            }
        };
 

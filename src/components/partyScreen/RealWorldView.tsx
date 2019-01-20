@@ -41,16 +41,16 @@ export default class RealWorldView extends React.Component<AllProps, LocalState>
 
             const questLines = this.props.quests.map((q) => {
                 return <QuestLineVisualization key={ q.name }
-                    selected = { q === selectedQuest }
-                    quest={ q }
-                    onSelectQuest={ () => this.handleSelectQuest(q.name) }
+                    selected={q === selectedQuest}
+                    quest={q}
+                    onSelectQuest={() => this.handleSelectQuest(q.name)}
                 />;
             });
 
             return <div className="realworldview">
                 <fieldset className="progress">
                     <legend>Quest progress</legend>
-                    { questLines }
+                    {questLines}
                 </fieldset>
                 { selectedQuest && <PartyScreen quest= { selectedQuest } /> }
             </div>;
