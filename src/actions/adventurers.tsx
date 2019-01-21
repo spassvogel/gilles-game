@@ -60,7 +60,6 @@ export function moveItemToOtherAdventurer(fromAdventurerId: string,
         toAdventurerId,
         toSlot,
     };
-    // TODO: remove Item from items store
 }
 
 // If slot is not provided, will take the first empty slot

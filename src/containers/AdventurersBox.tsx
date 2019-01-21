@@ -4,29 +4,18 @@ import { addItemToInventory, moveItemInInventory } from "src/actions/adventurers
 import { removeItemFromWarehouse } from "src/actions/items";
 import AdventurersBox, { DispatchProps, Props, StateProps } from "src/components/AdventurersBox";
 import { Item } from "src/definitions/items/types";
-import { adventurersInParty } from "src/storeHelpers";
+import { selectAdventurersGroupedByParty } from "src/selectors/adventurers";
 import { StoreState } from "src/stores";
-import { AdventurerStoreState } from "src/stores/adventurer";
 
-const mapStateToProps = (store: StoreState, ownProps: Props): StateProps => {
+const mapStateToProps = (store: StoreState): StateProps => {
 
-    const { parties } = store;
-    const foundInParty: AdventurerStoreState[] = []; // store the adventurers in parties in a temp array
-    const groupedAdventurers = Object.keys(parties).reduce((acc, val: string) => {
-        acc[val] = adventurersInParty(store, val);
-        foundInParty.push(...acc[val]);
-        return acc;
-    }, {});
-    const soloKey = "solo";
-    groupedAdventurers[soloKey] = store.adventurers.filter((a) => foundInParty.indexOf(a) === -1);
-    // TODO: reselect!
     return {
-        groupedAdventurers,
-        parties,
+        groupedAdventurers: selectAdventurersGroupedByParty(store),
+        parties: store.parties,
     };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps => {
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
     return {
         onMoveItemFromWarehouseToAdventurer: (adventurerId: string, item: Item, fromSlot: number, toSlot: number) => {
             const action1 = removeItemFromWarehouse(fromSlot);

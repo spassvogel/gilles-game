@@ -144,11 +144,9 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                     return;
                 }
 
-                // TODO: handle case
                 if (this.props.onMoveItemToOtherAdventurer) {
                     const {
                         inventorySlot: fromSlot,
-                        item,
                     } = dragInfo;
                     this.props.onMoveItemToOtherAdventurer(fromAdventurer, fromSlot!, adventurer.id);
                 }
