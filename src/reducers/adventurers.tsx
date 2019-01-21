@@ -2,7 +2,7 @@
 
 import { Reducer } from "redux";
 import { Action, ActionType,
-    InventoryAction, MoveItemInInventoryAction, MoveItemInToOtherAdventurerAction } from "src/actions/adventurers";
+    InventoryAction, MoveItemInInventoryAction, MoveItemToOtherAdventurerAction, RemoveItemFromInventoryAction } from "src/actions/adventurers";
 import { Item } from "src/definitions/items/types";
 import { AdventurerStoreState, GearStoreState, StatsStoreState } from "src/stores/adventurer";
 
@@ -154,7 +154,7 @@ export const adventurers: Reducer<AdventurerStoreState[]> = (
                 adventurerId: fromAdventurerId,
                 fromSlot,
                 toAdventurerId,
-            } = (action as MoveItemInToOtherAdventurerAction);
+            } = (action as MoveItemToOtherAdventurerAction);
 
             const fromAdventurer = state.find((a) => a.id === fromAdventurerId)!;
             const item = fromAdventurer.inventory[fromSlot];
@@ -183,25 +183,42 @@ export const adventurers: Reducer<AdventurerStoreState[]> = (
             });
         }
 
-        case ActionType.adventurerPicksUpItem:
-        case ActionType.moveItemFromWarehouseToAdventurer:
-            return receiveItem(state, action as InventoryAction);
+        case ActionType.addItemToInventory: {
+            const { item } = action as InventoryAction;
+
+            return state.map((element: AdventurerStoreState) => {
+                if (element.id === action.adventurerId) {
+                    const inventory = element.inventory.concat();
+                    let toSlot = (action as InventoryAction).toSlot;
+                    if (toSlot === null) {
+                        toSlot = inventory.findIndex((val) => val === null || val === undefined);
+                    }
+                    inventory[toSlot!] = item;
+                    // todo: check if no space
+                    return {
+                        ...element,
+                        inventory,
+                    };
+                }
+                return element;
+            });
+        }
+
+        case ActionType.removeItemFromInventory: {
+            const { fromSlot } = action as RemoveItemFromInventoryAction;
+
+            return state.map((adventurer: AdventurerStoreState) => {
+                if (adventurer.id === action.adventurerId) {
+                    const inventory = adventurer.inventory.map((element, index) => index !== fromSlot ? element : null);
+                    return {
+                        ...adventurer,
+                        inventory,
+                    };
+                }
+                return adventurer;
+            });
+        }
     }
     return state;
 };
 
-function receiveItem(state: AdventurerStoreState[], action: InventoryAction): AdventurerStoreState[] {
-    return state.map((element: AdventurerStoreState) => {
-        if (element.id === action.adventurerId) {
-            const inventory = element.inventory.concat();
-            const emptyIndex = inventory.findIndex((val) => val === null || val === undefined);
-            inventory[emptyIndex] = action.item;
-            // todo: check if no space
-            return {
-                ...element,
-                inventory,
-            };
-        }
-        return element;
-    });
-}

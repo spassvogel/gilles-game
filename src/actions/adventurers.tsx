@@ -5,7 +5,8 @@ export enum ActionType {
     moveItemInInventory = "moveItemInInventory",
     moveItemToOtherAdventurer = "moveItemToOtherAdventurer",
     moveItemFromWarehouseToAdventurer = "moveItemFromWarehouseToAdventurer",
-    adventurerPicksUpItem = "adventurerPicksUpItem",
+    addItemToInventory = "addItemToInventory",
+    removeItemFromInventory = "removeItemFromInventory"
 }
 
 export interface Action {
@@ -15,13 +16,21 @@ export interface Action {
 
 export interface InventoryAction extends Action {
     item: Item;
+    toSlot?: number;
 }
+
 export interface MoveItemInInventoryAction extends Action {
     fromSlot: number;
     toSlot: number;
 }
-export interface MoveItemInToOtherAdventurerAction extends Action {
+
+export interface RemoveItemFromInventoryAction extends Action {
     fromSlot: number;
+}
+
+export interface MoveItemToOtherAdventurerAction extends Action {
+    fromSlot: number;
+    toSlot?: number;
     toAdventurerId: string;
 }
 
@@ -41,31 +50,33 @@ export function moveItemInInventory(adventurerId: string, fromSlot: number, toSl
  * @param fromSlot index of the inventory item
  * @param toAdventurerId player who to give the item to
  */
-export function moveItemToOtherAdventurer(fromAdventurerId: string, fromSlot: number, toAdventurerId: string):
-    MoveItemInToOtherAdventurerAction {
+export function moveItemToOtherAdventurer(fromAdventurerId: string,
+                                          fromSlot: number,
+                                          toAdventurerId: string, toSlot?: number): MoveItemToOtherAdventurerAction {
     return {
         type: ActionType.moveItemToOtherAdventurer,
         adventurerId: fromAdventurerId,
         fromSlot,
         toAdventurerId,
+        toSlot,
     };
     // TODO: remove Item from items store
 }
 
-/**
- * Moves item from warehouse to adventurer
- */
-export function moveItemFromWarehouseToAdventurer(adventurerId: string, item: Item): InventoryAction {
+// If slot is not provided, will take the first empty slot
+export function addItemToInventory(adventurerId: string, item: Item, toSlot?: number): InventoryAction {
     return {
-        type: ActionType.moveItemFromWarehouseToAdventurer,
+        type: ActionType.addItemToInventory,
         adventurerId,
         item,
+        toSlot,
     };
 }
-export function adventurerPicksUpItem(adventurerId: string, item: Item): InventoryAction {
+
+export function removeItemFromInventory(adventurerId: string, fromSlot: number): RemoveItemFromInventoryAction {
     return {
-        type: ActionType.adventurerPicksUpItem,
+        type: ActionType.removeItemFromInventory,
         adventurerId,
-        item,
+        fromSlot,
     };
 }

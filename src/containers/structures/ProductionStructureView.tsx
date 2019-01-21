@@ -4,7 +4,7 @@ import ProductionStructureView,
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
 import { subtractGold } from "src/actions/gold";
-import { addItem } from "src/actions/items";
+import { addItemToWarehouse } from "src/actions/items";
 import { removeResources } from "src/actions/resources";
 import { decreaseWorkers, increaseWorkers, upgradeStructure } from "src/actions/structures";
 import { startTask } from "src/actions/tasks";
@@ -37,7 +37,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
             dispatch(increaseWorkers(ownProps.type, workers));
 
             const callbacks = [
-                addItem(productionDefinition.item),
+                addItemToWarehouse(productionDefinition.item),
                 decreaseWorkers(ownProps.type, workers),
             ];
             const start = startTask(TaskType.craftItem,

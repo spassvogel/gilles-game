@@ -10,8 +10,9 @@ import InventorySlot from "./InventorySlot";
 
 export interface Props {
     items: Array<Item|null>;
-    source: DragSourceType;
-    onMoveItem: (fromSlot: number, toSlot: number, source: DragSourceType) => void;
+    sourceId?: string;   // who does this inventory belong to?
+    sourceType: DragSourceType;
+    onDropItem: (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string) => void;
 }
 
 /**
@@ -28,21 +29,13 @@ const Inventory = (props: Props & AppContextProps) => {
                 return;
             }
 
-            if (dragInfo.source !== props.source) {
-                console.log("found different sources!");
-                return;
-            }
-
-            // TODO: pass along the dragInfo source to onMoveItem, handle accordingly
-
-            if (props.onMoveItem) {
+            if (props.onDropItem) {
                 const {inventorySlot: fromSlot} = dragInfo;
-                props.onMoveItem(fromSlot!, i, dragInfo.source);
+                props.onDropItem(dragInfo.item, fromSlot!, i, dragInfo.sourceType, dragInfo.sourceId);
            }
        };
 
         if (item) {
-
             const handleClick = () => {
                 props.onContextualObjectActivated(
                     ContextType.item,
@@ -52,7 +45,8 @@ const Inventory = (props: Props & AppContextProps) => {
 
             contents = <DraggableItemIcon
                 index={i}
-                source={props.source}
+                sourceId={props.sourceId}
+                sourceType={props.sourceType}
                 item={item}
                 onClick={() => handleClick()}
             >

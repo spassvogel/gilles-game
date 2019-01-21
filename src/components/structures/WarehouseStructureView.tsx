@@ -1,4 +1,5 @@
 import * as React from "react";
+import { DragSourceType } from "src/constants";
 import ResourceViewRow from "src/containers/ResourceViewRow";
 import { Item } from "src/definitions/items/types";
 import { Resource } from "src/definitions/resources";
@@ -7,10 +8,10 @@ import { StructureDefinition, StructureLevelDefinition } from "src/definitions/s
 import { AppContextProps } from "../App";
 import Inventory from "../ui/inventory/Inventory";
 import "./css/warehousestructureview.css";
-import { DragSourceType } from "src/constants";
 
 export interface DispatchProps {
     onMoveItemInWarehouse: (fromSlot: number, toSlot: number) => void;
+    onMoveItemFromAdventurer: (adventurerId: string, item: Item, fromSlot: number, toSlot: number) => void;
 }
 
 export interface Props  {
@@ -36,13 +37,19 @@ const WarehouseStructureView = (props: AllProps) => {
     }
     const level: number = props.level;
     const levelDefinition: StructureLevelDefinition = structureDefinition.levels[level];
-    const handleMoveItem = (fromSlot: number, toSlot: number, source: DragSourceType): void => {
-        switch(source){
+    const handleDropItem = (item: Item, fromSlot: number,
+                            toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
+        switch (sourceType) {
             case warehouse:
                 if (props.onMoveItemInWarehouse) {
                     props.onMoveItemInWarehouse(fromSlot, toSlot);
                 }
-        
+                break;
+            case DragSourceType.adventurer:
+                if (props.onMoveItemFromAdventurer) {
+                    props.onMoveItemFromAdventurer(sourceId!, item, fromSlot, toSlot);
+                }
+                break;
         }
     };
     return (
@@ -58,9 +65,9 @@ const WarehouseStructureView = (props: AllProps) => {
             </fieldset>
 
             <Inventory
-                source={warehouse}
+                sourceType={warehouse}
                 items={props.items}
-                onMoveItem={handleMoveItem}
+                onDropItem={handleDropItem}
             />
         </details>
     );

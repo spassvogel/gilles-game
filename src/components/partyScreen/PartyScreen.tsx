@@ -1,7 +1,9 @@
 
 import * as React from "react";
 import { AnyAction, Dispatch } from "redux";
+import { DragSourceType } from "src/constants";
 import { EncounterDefinition } from "src/definitions/encounters/types";
+import { Item } from "src/definitions/items/types";
 import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "src/definitions/quests";
 import { StoreState } from "src/stores";
 import { AdventurerStoreState } from "src/stores/adventurer";
@@ -11,7 +13,6 @@ import { InventoryItemDragInfo } from "../ui/DraggableItemIcon";
 import Inventory from "../ui/inventory/Inventory";
 import "./css/partyscreen.css";
 import DroppableAdventurerAvatar from "./DroppableAdventurerAvatar";
-import { DragSourceType } from "src/constants";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
@@ -84,7 +85,8 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
             return <div key= { `${adventurer.id}-${gear}`} ><b>{ gear }</b>: { adventurer.gear[gear] }  </div>;
         });
 
-        const handleMoveItem = (fromSlot: number, toSlot: number): void => {
+        const handleDropItem = (item: Item, fromSlot: number, toSlot: number): void => {
+            // TODO: what if the source is NOT adventurer?
             if (this.props.onMoveItemInInventory) {
                 this.props.onMoveItemInInventory(adventurer.id, fromSlot, toSlot);
             }
@@ -104,10 +106,10 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                 </div>
             </div>
             <div className="right">
-                <Inventory source={DragSourceType.adventurer}
+                <Inventory sourceType={DragSourceType.adventurer}
                     items={ adventurer.inventory }
 
-                    onMoveItem = { handleMoveItem }
+                    onDropItem = { handleDropItem }
                 />
             </div>
         </div>
@@ -142,8 +144,12 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                     return;
                 }
 
+                // TODO: handle case
                 if (this.props.onMoveItemToOtherAdventurer) {
-                    const { inventorySlot: fromSlot} = dragInfo;
+                    const {
+                        inventorySlot: fromSlot,
+                        item,
+                    } = dragInfo;
                     this.props.onMoveItemToOtherAdventurer(fromAdventurer, fromSlot!, adventurer.id);
                 }
             };

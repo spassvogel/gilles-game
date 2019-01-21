@@ -1,7 +1,9 @@
 import { connect } from "react-redux";
 import { AnyAction, Dispatch } from "redux";
-import { moveItemInInventory } from "src/actions/adventurers";
+import { addItemToInventory, moveItemInInventory } from "src/actions/adventurers";
+import { removeItemFromWarehouse } from "src/actions/items";
 import AdventurersBox, { DispatchProps, Props, StateProps } from "src/components/AdventurersBox";
+import { Item } from "src/definitions/items/types";
 import { adventurersInParty } from "src/storeHelpers";
 import { StoreState } from "src/stores";
 import { AdventurerStoreState } from "src/stores/adventurer";
@@ -26,6 +28,14 @@ const mapStateToProps = (store: StoreState, ownProps: Props): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps => {
     return {
+        onMoveItemFromWarehouseToAdventurer: (adventurerId: string, item: Item, fromSlot: number, toSlot: number) => {
+            const action1 = removeItemFromWarehouse(fromSlot);
+            dispatch(action1);
+
+            const action2 = addItemToInventory(adventurerId, item, toSlot);
+            dispatch(action2);
+        },
+        // Moves item within an adventurers' inventory
         onMoveItemInInventory: (adventurerId: string, fromSlot: number, toSlot: number) => {
             const action = moveItemInInventory(adventurerId, fromSlot, toSlot);
             dispatch(action);

@@ -1,15 +1,17 @@
 // TODO: Better name than this
 
 import * as React from "react";
+import { DragSourceType } from "src/constants";
+import { Item } from "src/definitions/items/types";
 import { AdventurerStoreState } from "src/stores/adventurer";
 import { PartyStoreState } from "src/stores/party";
 import "./css/adventurersbox.css";
 import AdventurerAvatar from "./partyScreen/AdventurerAvatar";
 import Inventory from "./ui/inventory/Inventory";
-import { DragSourceType } from "src/constants";
 
 export interface DispatchProps {
     onMoveItemInInventory?: (adventurerId: string, fromSlot: number, toSlot: number) => void;
+    onMoveItemFromWarehouseToAdventurer: (adventurerId: string, item: Item, fromSlot: number, toSlot: number) => void;
 }
 
 export interface StateProps {
@@ -42,13 +44,24 @@ class AdventurersBox extends React.Component<AllProps, LocalState> {
 
         const generateRow = (group: string, adventurers: AdventurerStoreState[]): JSX.Element => {
             // group is either the string "solo" or a partyId
-            console.log(adventurers)
-            const selectedAdventurer = adventurers.find((adventurer) => adventurer.id === this.state.selectedAdventurer)
+            const selectedAdventurer = adventurers
+                .find((adventurer) => adventurer.id === this.state.selectedAdventurer);
             let adventurerInfo = null;
             if (selectedAdventurer) {
-                const handleMoveItem = (fromSlot: number, toSlot: number): void => {
-                    if (this.props.onMoveItemInInventory) {
-                        this.props.onMoveItemInInventory(selectedAdventurer.id, fromSlot, toSlot);
+                const handleDropItem = (item: Item, fromSlot: number,
+                                        toSlot: number, sourceType: DragSourceType): void => {
+                    switch (sourceType) {
+                        case DragSourceType.adventurer:
+                            if (this.props.onMoveItemInInventory) {
+                                this.props.onMoveItemInInventory(selectedAdventurer.id, fromSlot, toSlot);
+                            }
+                            break;
+                        case DragSourceType.warehouse:
+                            if (this.props.onMoveItemFromWarehouseToAdventurer) {
+                                this.props.onMoveItemFromWarehouseToAdventurer(selectedAdventurer.id,
+                                    item, fromSlot, toSlot);
+                            }
+                            break;
                     }
                 };
                 adventurerInfo = <div className="adventurer-info">
@@ -60,14 +73,19 @@ class AdventurersBox extends React.Component<AllProps, LocalState> {
                         </div>
                         <Inventory
                             items={selectedAdventurer.inventory}
-                            source={DragSourceType.adventurer}
-                            onMoveItem={handleMoveItem}
+                            sourceId={selectedAdventurer.id}
+                            sourceType={DragSourceType.adventurer}
+                            onDropItem={handleDropItem}
                         />
                     </div>
                 </div>;
             }
+            const sigilImgPath = `img/sigils/${ group === "solo" ? "" : this.props.parties[group].sigil}`;
             return <li key={ group } className={ "group" }>
-                <div className="sigil"></div>
+                <div
+                    className="sigil"
+                    style={{backgroundImage: `url(${sigilImgPath})`}}
+                ></div>
                 <ul className="adventurer-portraits">
                 { adventurers.map((adventurer) => generatePortrait(adventurer)) }
                 </ul>
@@ -81,7 +99,7 @@ class AdventurersBox extends React.Component<AllProps, LocalState> {
                 this.setState({
                     selectedAdventurer,
                 });
-            }
+            };
             const className = adventurer.id === this.state.selectedAdventurer ? "selected" : undefined;
             return <li key={ adventurer.id } className={ className } >
                 <AdventurerAvatar adventurer= { adventurer } onClick={ handleClick } />

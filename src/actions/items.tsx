@@ -4,6 +4,7 @@ import { Item } from "src/definitions/items/types";
 export enum ActionType {
     addItem = "addItem",
     moveItemInWarehouse = "moveItemInWarehouse",
+    removeItem = "removeItem",
 }
 
 export interface Action {
@@ -17,13 +18,21 @@ export interface MoveItemInWarehouseAction extends Action {
 
 export interface AddAction extends Action {
     item: Item;
+    toSlot?: number;
 }
 
+export interface RemoveItemFromWarehouseAction extends Action {
+    fromSlot: number;
+}
+
+
 // Adds one Item to the warehouse
-export function addItem(item: Item): AddAction {
+// slot is optional, will take the first empty slot if not provided
+export function addItemToWarehouse(item: Item, toSlot?: number): AddAction {
     return {
         type: ActionType.addItem,
         item,
+        toSlot,
     };
 }
 
@@ -33,5 +42,11 @@ export function moveItemInWarehouse(fromSlot: number, toSlot: number): MoveItemI
         type: ActionType.moveItemInWarehouse,
         fromSlot,
         toSlot,
+    };
+}
+export function removeItemFromWarehouse(fromSlot: number): RemoveItemFromWarehouseAction {
+    return {
+        type: ActionType.removeItem,
+        fromSlot,
     };
 }

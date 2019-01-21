@@ -1,13 +1,14 @@
 import * as React from "react";
 import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from "react-dnd";
-import { DragType, DragSourceType } from "src/constants";
+import { DragSourceType, DragType } from "src/constants";
 import { Item } from "src/definitions/items/types";
 import ItemIcon from "./ItemIcon";
 
 export interface Props {
     index: number;
     item: Item;
-    source: DragSourceType;
+    sourceType: DragSourceType;
+    sourceId?: string;
     onClick?: () => void;
 }
 
@@ -19,7 +20,8 @@ interface CollectedProps {
 export interface InventoryItemDragInfo {
     item: Item;
     inventorySlot?: number;
-    source: DragSourceType;
+    sourceId?: string;
+    sourceType: DragSourceType;
 }
 
 /**
@@ -32,7 +34,8 @@ const source: DragSourceSpec<Props, InventoryItemDragInfo> = {
         return {
             inventorySlot: props.index,
             item: props.item,
-            source: props.source,
+            sourceId: props.sourceId,
+            sourceType: props.sourceType,
         };
     },
 };

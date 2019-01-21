@@ -1,8 +1,10 @@
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
-import { moveItemInWarehouse } from "src/actions/items";
+import { addItemToInventory, removeItemFromInventory } from "src/actions/adventurers";
+import { moveItemInWarehouse, removeItemFromWarehouse, addItemToWarehouse } from "src/actions/items";
 import WarehouseStructureView,
     { DispatchProps, Props, StateProps } from "src/components/structures/WarehouseStructureView";
+import { Item } from "src/definitions/items/types";
 import { withAppContext } from "src/hoc/withAppContext";
 import { selectFreeWorkers } from "src/selectors/workers";
 import { StoreState } from "../stores";
@@ -22,6 +24,13 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps {
     return {
+        onMoveItemFromAdventurer(adventurerId: string, item: Item, fromSlot: number, toSlot: number) {
+            const action1 = removeItemFromInventory(adventurerId, fromSlot);
+            dispatch(action1);
+
+            const action2 = addItemToWarehouse(item, toSlot);
+            dispatch(action2);
+        },
         onMoveItemInWarehouse(fromSlot: number, toSlot: number) {
             dispatch(moveItemInWarehouse(fromSlot, toSlot));
         },
