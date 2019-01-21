@@ -25,7 +25,8 @@ const Inventory = (props: Props & AppContextProps) => {
         let contents;
         const item = props.items[i];
         const handleDrop = (dragInfo: InventoryItemDragInfo) => {
-            if (dragInfo.inventorySlot === i) {
+            if (dragInfo.inventorySlot === i && dragInfo.sourceType === props.sourceType && dragInfo.sourceId === props.sourceId) {
+                // TODO: Swap items?!
                 return;
             }
 
