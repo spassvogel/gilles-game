@@ -81,7 +81,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
             const levelDef = structureDef.levels[structureStore.level];
             return <Text name= { structure }
                 key = { structure }
-                text = { `${levelDef.displayName} (${structureStore.level + 1})` }
+                text = { `${levelDef.displayName} (level ${structureStore.level + 1})` }
                 x = { 100 }
                 y = { 50 * index + 100 }
                 fontSize = { 40 }
