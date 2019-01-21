@@ -60,7 +60,8 @@ const WarehouseStructureView = (props: AllProps) => {
                 <ResourceViewRow type = { Resource.wood }/>
                 <ResourceViewRow type = { Resource.iron }/>
                 <ResourceViewRow type = { Resource.food }/>
-                <ResourceViewRow type = { Resource.gunpowder }/>
+                <ResourceViewRow type = { Resource.stone }/>
+                <ResourceViewRow type = { Resource.fabric }/>
                 <ResourceViewRow type = { Resource.leather }/>
             </fieldset>
 
