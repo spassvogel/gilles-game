@@ -24,7 +24,7 @@ export const initialState: StructuresStoreState = {
     [Structure.quarry]: { level: 0, workers: 0 , state: StructureState.NotBuilt },
     [Structure.tavern]: { level: 0, workers: 0, state: StructureState.Built },
     [Structure.tannery]: { level: 0, workers: 0 , state: StructureState.NotBuilt },
-    [Structure.warehouse]: { level: 0, workers: 0, state: StructureState.Built},
+    [Structure.warehouse]: { level: 1, workers: 0, state: StructureState.Built},
     [Structure.weaponsmith]: { level: 0, workers: 0, state: StructureState.Built },
     [Structure.weaver]: { level: 0, workers: 0, state: StructureState.NotBuilt },
 };
