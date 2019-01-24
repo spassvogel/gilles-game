@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import { Action, ActionType, WorkerCountAction } from "src/actions/structures";
+import { Action, ActionType, WorkerCountAction, StructureStateAction } from "src/actions/structures";
 import { Structure } from "src/definitions/structures";
 import { StructureState, StructureStoreState } from "src/stores/structure";
 import { initialState, StructuresStoreState } from "../stores/structures";
@@ -53,6 +53,11 @@ export const structures: Reducer<StructuresStoreState> = (state: StructuresStore
                 [action.structure]: structureStore,
             };
         }
+        case ActionType.setStructureState: {
+            const { state: structureState } = action as StructureStateAction;
+            return updateStructureState(state, action.structure, structureState);
+        }
+
     }
     return state;
 };

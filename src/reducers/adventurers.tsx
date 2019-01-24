@@ -132,7 +132,7 @@ export const adventurers: Reducer<AdventurerStoreState[]> = (
             } = (action as MoveItemInInventoryAction);
             const adventurer = state.find((a) => a.id === adventurerId)!;
             const inventory = adventurer.inventory.map((element, index) => {
-                if (index === fromSlot) { return null; }
+                if (index === fromSlot) { return adventurer.inventory[toSlot]; }
                 if (index === toSlot) { return adventurer.inventory[fromSlot]; }
                 return element;
             });

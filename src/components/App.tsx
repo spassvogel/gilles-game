@@ -12,14 +12,13 @@ import "./css/app.css";
 import Preloader, { MediaItem } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
 import AdventurersBox from "src/containers/AdventurersBox";
+import CheatBox from "src/containers/CheatBox";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
 }
 
 export interface DispatchProps {
-    onCheatGold?: (amount: number) => void;
-    onCheatResources?: (amount: ResourceStoreState) => void;
 }
 
 export enum View {
@@ -50,7 +49,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
     // This Component has local state, so it's a class
     constructor(props: Props & StateProps & DispatchProps) {
         super(props);
-
+        
         this.state = {
             contextInfo: null,
             contextType: null,
@@ -59,70 +58,71 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             view: View.Town,
         };
     }
-
+    
     public render() {
         const selectedStructureView = this.state.selectedStructure ?
-            <StructureDetailsView structure = { this.state.selectedStructure }/> : null;
-
+        <StructureDetailsView structure = { this.state.selectedStructure }/> : null;
+        
         const getMainView = () => {
             if (this.state.view === View.Town) {
-
+                
                 return <RealTownView
-                    onStructureClick = { this.selectStructure }
-                    // onContextualObjectActivated = { this.handleContextualObjectActivated }
-                    // media = { this.state.media }
+                onStructureClick = { this.selectStructure }
+                // onContextualObjectActivated = { this.handleContextualObjectActivated }
+                // media = { this.state.media }
                 />;
             } else {
                 return <RealWorldView/>;
             }
-
+            
         };
-
+        
         const contextView = this.state.contextType == null || this.state.contextInfo == null ? null :
-            <ContextView type = { this.state.contextType }  info = { this.state.contextInfo }/>;
-
+        <ContextView type = { this.state.contextType }  info = { this.state.contextInfo }/>;
+        
         const getAdventurersBox = () => {
             return <AdventurersBox />
         }
-
+        
         return <AppContext.Provider value = {{
             media: this.state.media,
             onContextualObjectActivated: this.handleContextualObjectActivated,
         }}>
-            <Preloader
-                manifest = { manifest }
-                onLoadComplete = { this.handleMediaLoadComplete }
-            >
-                <Topbar
-                    appView={ this.state.view }
-                    onViewButtonClick={ () => this.changeView() }
-                    persistor={ this.props.persistor }
-                />
-                {/* <div className="app-left"> */}
-                    {/* <TownView onStructureClick= { this.selectStructure }/> */}
-                    { selectedStructureView }
-                    {/* <fieldset>
-                        <legend>Cheats</legend>
-                        <button onClick={ () => this.handleCheatGold(20)}> Geiv 20 gold</button><br/>
-                        <button onClick={ () => this.handleCheatResources({
-                            food: 100,
-                            gunpowder: 100,
-                            iron: 100,
-                            leather: 100,
-                            steel: 100,
-                            wood: 100,
-                        })}> Geiv 100 all resources</button>
-                    </fieldset> */}
-                    { getMainView()  }
-                {/* </div> */}
-                <div className="app-right">
-                    { contextView }
-                    { getAdventurersBox() }
-                </div>
-            </Preloader>
+        <Preloader
+        manifest = { manifest }
+        onLoadComplete = { this.handleMediaLoadComplete }
+        >
+        <Topbar
+        appView={ this.state.view }
+        onViewButtonClick={ () => this.changeView() }
+        persistor={ this.props.persistor }
+        />
+        {/* <div className="app-left"> */}
+        {/* <TownView onStructureClick= { this.selectStructure }/> */}
+        { selectedStructureView }
+        {/* <fieldset>
+            <legend>Cheats</legend>
+            <button onClick={ () => this.handleCheatGold(20)}> Geiv 20 gold</button><br/>
+            <button onClick={ () => this.handleCheatResources({
+                food: 100,
+                gunpowder: 100,
+                iron: 100,
+                leather: 100,
+                steel: 100,
+                wood: 100,
+            })}> Geiv 100 all resources</button>
+        </fieldset> */}
+        { getMainView()  }
+        {/* </div> */}
+        <div className="app-right">
+        { contextView }
+        { getAdventurersBox() }
+        <CheatBox />
+        </div>
+        </Preloader>
         </AppContext.Provider>;
     }
-
+    
     private changeView = () => {
         if (this.state.view === View.Town) {
             this.setState({
@@ -133,31 +133,25 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             this.setState({ view: View.Town });
         }
     }
-
+    
     private selectStructure = (structure: Structure) => {
         this.setState({
             selectedStructure: structure,
         });
     }
-
+    
     private handleMediaLoadComplete = (media: MediaItem[]) => {
         this.setState({
             media,
         });
     }
-
+    
     private handleContextualObjectActivated = (type: ContextType, info: ContextInfo) => {
         this.setState({
             contextInfo: info,
             contextType: type,
         });
     }
-
-    private handleCheatGold = (amount: number) => {
-        if (this.props.onCheatGold) { this.props.onCheatGold(amount); }
-    }
-
-    private handleCheatResources = (amount: ResourceStoreState) => {
-        if (this.props.onCheatResources) { this.props.onCheatResources(amount); }
-    }
+    
+    
 }
