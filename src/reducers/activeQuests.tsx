@@ -127,7 +127,7 @@ const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
                         ...log,
                         encounter.getDescription(oracle),
                     ];
-                    currentEncounter = encounter.name;
+                    currentEncounter = nextNode.encounter!;
                     // Start encounter(encounter)
                     // TODO: How to dispatch an action from a reducer?
                     // OR: move this logic outside of reducer

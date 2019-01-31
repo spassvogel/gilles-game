@@ -1,4 +1,4 @@
-import { Encounter } from "src/definitions/encounters";
+import { Encounter } from "src/definitions/encounters/types";
 
 // tslint:disable:object-literal-sort-keys
 
@@ -6,7 +6,7 @@ export interface QuestStoreState {
     name: string;
     party: string;          // Reference to PartyStoreState.id
     progress: number;       // Which questnode the party is at currently
-    questVars: object;
+    questVars: any;
     encounterResults: string[];   // Store what option the place chose during an encounter // OBSOLETE
     log: string[];          // Quest log as strings
     currentEncounter: Encounter | null;

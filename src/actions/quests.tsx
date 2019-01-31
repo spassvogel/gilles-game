@@ -1,8 +1,7 @@
+import { Encounter } from "src/definitions/encounters/types";
+
 // tslint:disable:object-literal-sort-keys
 
-import { ProductionDefinition } from "src/definitions/production/types";
-import { EncounterDefinition } from "src/definitions/encounters/types";
-import { Encounter } from "src/definitions/encounters";
 
 export enum ActionType {
     advanceQuest = "advanceQuest",

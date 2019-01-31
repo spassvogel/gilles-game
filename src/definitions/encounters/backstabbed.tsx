@@ -4,29 +4,29 @@ import { addItemToInventory } from "src/actions/adventurers";
 import { Oracle } from "src/oracle";
 import { StoreState } from "src/stores";
 import { Item } from "../items/types";
-import { EncounterDefinition } from "./types";
+import { EncounterDefinition, Encounter } from "./types";
 
 // tslint:disable-next-line:no-empty-interface
 export interface QuestVars {
 }
 
-export const backstabbed: EncounterDefinition<QuestVars> = {
-    name: "backstabbed",
+export const backstabbed: EncounterDefinition = {
+    name: Encounter.backstabbed,
     getOracle: (questName: string, store: StoreState) => {
-        return new Oracle<QuestVars>(questName, store);
+        return new Oracle(questName, store);
     },
-    getTitle: (oracle: Oracle<QuestVars>) => "Backstabbed",
-    getDescription: (oracle: Oracle<QuestVars>) => {
+    getTitle: (oracle: Oracle) => "Backstabbed",
+    getDescription: (oracle: Oracle) => {
         return "A group of rogues emerges from the bushes, knives drawn.";
     },
-    getOptions: (oracle: Oracle<QuestVars>) => {
+    getOptions: (oracle: Oracle) => {
         const options: Record<string, string> = {
             fight: "Fight the brigands",
             flight: "Run away!",
         };
         return options;
     },
-    answer: (option: string, oracle: Oracle<QuestVars>, dispatch: Dispatch<AnyAction>) => {
+    answer: (option: string, oracle: Oracle, dispatch: Dispatch<AnyAction>) => {
         switch (option) {
             case "flight":
                 return "You run away like a pussy";

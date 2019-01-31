@@ -126,7 +126,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
         });
     }
 
-    private handleEncounterOptionClick(encounter: EncounterDefinition<any>, option: string, oracle: any): any {
+    private handleEncounterOptionClick(encounter: EncounterDefinition, option: string, oracle: any): any {
         const result = encounter.answer(option, oracle, this.props.onDispatch);
 
         /*if (!isEqual(questVars, this.props.quest.questVars)){

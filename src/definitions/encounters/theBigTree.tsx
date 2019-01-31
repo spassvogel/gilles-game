@@ -5,26 +5,26 @@ import { updateQuestVars } from "src/actions/quests";
 import { Oracle } from "src/oracle";
 import { StoreState } from "src/stores";
 import { randomInt } from "src/utils/random";
-import { EncounterDefinition } from "./types";
+import { EncounterDefinition, Encounter } from "./types";
 
 export interface QuestVars {
     treeState: string;
 }
 
-export const theBigTree: EncounterDefinition<QuestVars> = {
-    name: "theBigTree",
+export const theBigTree: EncounterDefinition = {
+    name: Encounter.theBigTree,
     getOracle: (questName: string, store: StoreState) => {
-        return new Oracle<QuestVars>(questName, store);
+        return new Oracle(questName, store);
     },
-    getTitle: (oracle: Oracle<QuestVars>) => "The big tree",
-    getDescription: (oracle: Oracle<QuestVars>) => {
+    getTitle: (oracle: Oracle) => "The big tree",
+    getDescription: (oracle: Oracle) => {
         // const pyromancer = store.adventurers.find((a) => a.name === "pyromancer");
         // if (pyromancer) {
         //     return `A huge tree blocks the way. ${pyromancer.name} offers to burn it`;
         // }
         return "A huge tree blocks the way";
     },
-    getOptions: (oracle: Oracle<QuestVars>) => {
+    getOptions: (oracle: Oracle) => {
         const store = oracle.store;
         const strongest = oracle.getAdventurerWithHighest("strength");
         //        const strongest = { name: "<<NAME>>" };
@@ -39,7 +39,7 @@ export const theBigTree: EncounterDefinition<QuestVars> = {
         // }
         return options;
     },
-    answer: (option: string, oracle: Oracle<QuestVars>, dispatch: Dispatch<AnyAction>) => {
+    answer: (option: string, oracle: Oracle, dispatch: Dispatch<AnyAction>) => {
         const { store, questVars, quest } = oracle;
         switch (option) {
             case "walkAround":

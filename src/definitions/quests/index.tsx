@@ -1,5 +1,5 @@
-import encounters, { Encounter } from "../encounters";
-import { EncounterDefinition } from "../encounters/types";
+import encounters from "../encounters";
+import { Encounter } from "../encounters/types";
 
 // tslint:disable:object-literal-sort-keys
 

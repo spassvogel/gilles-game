@@ -5,36 +5,35 @@ import { updateQuestVars, startEncounter } from "src/actions/quests";
 import { Oracle } from "src/oracle";
 import { StoreState } from "src/stores";
 import { randomInt } from "src/utils/random";
-import { EncounterDefinition } from "./types";
-import { Encounter } from ".";
+import { EncounterDefinition, Encounter } from "./types";
 
 export interface QuestVars {
 }
 
-export const goblinHouseOutside: EncounterDefinition<QuestVars> = {
-    name: "goblinHouseOutside",
+export const goblinHouseOutside: EncounterDefinition = {
+    name: Encounter.goblinHouseOutside,
     getOracle: (questName: string, store: StoreState) => {
-        return new Oracle<QuestVars>(questName, store);
+        return new Oracle(questName, store);
     },
-    getTitle: (oracle: Oracle<QuestVars>) => "The party stands outside a house",
-    getDescription: (oracle: Oracle<QuestVars>) => {
+    getTitle: (oracle: Oracle) => "The party stands outside a house",
+    getDescription: (oracle: Oracle) => {
         return "";
     },
-    getOptions: (oracle: Oracle<QuestVars>) => {
+    getOptions: (oracle: Oracle) => {
         const options: Record<string, string> = {
             goInside: "Go inside the house",
             leave: "Leave the premise",
         };
         return options;
     },
-    answer: (option: string, oracle: Oracle<QuestVars>, dispatch: Dispatch<AnyAction>) => {
+    answer: (option: string, oracle: Oracle, dispatch: Dispatch<AnyAction>) => {
         const { store, questVars, quest } = oracle;
         switch (option) {
             case "walkAround":
                 return "Your party walks around the tree";
 
             case "goInside":
-                const nextEncounter = startEncounter(quest.name, Encounter.goblinHouseHallway)
+                const nextEncounter = startEncounter(quest.name, Encounter.goblinHouseHallway);
                 //const action = updateQuestVars(quest.name, questVars);
                 dispatch(nextEncounter);
 
@@ -50,23 +49,23 @@ export const goblinHouseOutside: EncounterDefinition<QuestVars> = {
     },
 };
 
-export const goblinHouseHallway: EncounterDefinition<QuestVars> = {
-    name: "goblinHouseHallway",
+export const goblinHouseHallway: EncounterDefinition = {
+    name: Encounter.goblinHouseHallway,
     getOracle: (questName: string, store: StoreState) => {
-        return new Oracle<QuestVars>(questName, store);
+        return new Oracle(questName, store);
     },
-    getTitle: (oracle: Oracle<QuestVars>) => "The party stands inside the hallway.",
-    getDescription: (oracle: Oracle<QuestVars>) => {
+    getTitle: (oracle: Oracle) => "The party stands inside the hallway.",
+    getDescription: (oracle: Oracle) => {
         return "";
     },
-    getOptions: (oracle: Oracle<QuestVars>) => {
+    getOptions: (oracle: Oracle) => {
         const options: Record<string, string> = {
             goInside: "Go inside the house",
             leave: "Leave the premise",
         };
         return options;
     },
-    answer: (option: string, oracle: Oracle<QuestVars>, dispatch: Dispatch<AnyAction>) => {
+    answer: (option: string, oracle: Oracle, dispatch: Dispatch<AnyAction>) => {
         const { store, questVars, quest } = oracle;
         switch (option) {
             case "walkAround":

@@ -7,7 +7,7 @@ import { randomInt } from "src/utils/random";
 /**
  * The Oracle is a helper class for retrieving relevant data during encounters
  */
-export class Oracle<TQuestVars> {
+export class Oracle {
     public readonly questName: string;
     public readonly store: StoreState;
 
@@ -19,8 +19,8 @@ export class Oracle<TQuestVars> {
     /**
      * Returns the questVars of the quest that this encounter is part of
      */
-    public get questVars(): TQuestVars {
-        return this.quest.questVars as unknown as TQuestVars;
+    public get questVars(): any {
+        return this.quest.questVars;
     }
 
     /**
