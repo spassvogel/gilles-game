@@ -2,6 +2,7 @@
 import * as React from "react";
 import { AnyAction, Dispatch } from "redux";
 import { DragSourceType } from "src/constants";
+import encounterDefinitions from "src/definitions/encounters";
 import { EncounterDefinition } from "src/definitions/encounters/types";
 import { Item } from "src/definitions/items/types";
 import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "src/definitions/quests";
@@ -132,7 +133,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
             this.props.onUpdateQuestVars(questVars);
         }*/
         this.props.onUpdateEncounterResult(this.props.quest.progress, result);
-        this.props.onAdvanceQuest(this.props.quest.name);
+       // this.props.onAdvanceQuest(this.props.quest.name);
     }
 
     private getAvatars = () => {
@@ -186,20 +187,15 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                             return <p> { entry } </p>;
                         })
                     } </div>;
-                    // if (quest.progress === 0) {
-                    //     message = <p> { "The party has embarked on a new quest" } </p>;
-                    // } else {
-                    //     message = <p> { "The party trudges on" } </p>;
-                    // }
                     break;
                 }
                 case QuestNodeType.encounter: {
-                    if (quest.encounterResults[quest.progress]) {
-                        message = <p> { quest.encounterResults[quest.progress] } </p>;
-                        break;
-                    }
+                    // if (quest.encounterResults[quest.progress]) {
+                    //     message = <p> { quest.encounterResults[quest.progress] } </p>;
+                    //     break;
+                    // }
                     const store = this.props.store;
-                    const encounter = questNode.encounter!;
+                    const encounter = encounterDefinitions[quest.currentEncounter!];
                     const oracle = encounter.getOracle(quest.name, store);
 
                     message = <div><p> {encounter.getTitle(oracle)} </p>

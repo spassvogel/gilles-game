@@ -1,7 +1,8 @@
 import { AnyAction, Reducer } from "redux";
 import { ActionType as GameActionType, GameTickAction } from "src/actions/game";
-import { ActionType, QuestAction, QuestVarsAction, UpdateEncounterResultAction } from "src/actions/quests";
-import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "src/definitions/quests";
+import { ActionType, QuestAction, QuestVarsAction, UpdateEncounterResultAction, StartEncounterAction } from "src/actions/quests";
+import questDefinitions, { QuestDefinition, QuestNodeType } from "src/definitions/quests";
+import encounterDefintions from "src/definitions/encounters";
 import { oracles } from "src/oracle";
 import { QuestStoreState } from "src/stores/quest";
 
@@ -13,6 +14,7 @@ const initialState: QuestStoreState[] = [{
     questVars: {},
     encounterResults: [],
     log: [],
+    currentEncounter: null,
 }, {
     name: "retrieveMagicAmulet",
     party: "rx2nv4rqwn",
@@ -20,6 +22,7 @@ const initialState: QuestStoreState[] = [{
     questVars: {},
     encounterResults: [],
     log: [],
+    currentEncounter: null,
 }];
 
 /**
@@ -39,6 +42,10 @@ export const activeQuests: Reducer<QuestStoreState[]> = (state: QuestStoreState[
 
         case ActionType.updateEncounterResult:
             return updateEncounterResult(state, action as UpdateEncounterResultAction);
+
+        case ActionType.startEncounter:
+            return startEncounter(state, action as StartEncounterAction);
+            //return updateEncounterResult(state, action as UpdateEncounterResultAction);
 
         case GameActionType.gameTick: {
             return gameTick(state, action as GameTickAction);
@@ -74,10 +81,22 @@ const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {
     });
 };
 
+const startEncounter = (state: QuestStoreState[], action: StartEncounterAction) => {
+    return state.map((qss) => {
+        if (qss.name === action.questName) {
+            return {
+                ...qss,
+                currentEncounter: action.encounter,
+            };
+        }
+        return qss;
+    });}
+
 const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
     // Moves the quest line progress. Only if currently at a 'nothing' node
+    // Otherwise the user has to do something to move the quest along 
 
-    const speed = 100;    // nodes per minute
+    const speed = 100;    // in nodes per minute
     const MS_PER_MINUTE = 60000;
 
     return state.map((qss) => {
@@ -87,27 +106,34 @@ const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
         const currentNode = questDefinition.nodes[Math.floor(currentProgress)];
 
         if (currentNode.type === QuestNodeType.nothing) {
-            // Currently at a 'nothing ' node
+            // Currently at a 'nothing' node
             const progressIncrease = (action.delta / MS_PER_MINUTE) * speed;
             const currentNodeIndex =  Math.floor(currentProgress);
             let nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
             const hops = Math.floor(nextProgress) - currentNodeIndex;
 
             let log = qss.log;
+            let currentEncounter = qss.currentEncounter;
+
             for (let i = 0; i < hops; i++) {
                 // Loop through all the nodes we've passed since last tick
                 const nextNode = questDefinition.nodes[currentNodeIndex + i];
                 if (nextNode.type === QuestNodeType.encounter) {
                     // We've hit an encounter node. set the progress to here and stop looking at other nodes
-                    const encounter = nextNode.encounter!;
+                    const encounter = encounterDefintions[nextNode.encounter!];
                     const oracle = oracles[qss.name];
                     nextProgress = currentNodeIndex + i;
                     log = [
                         ...log,
                         encounter.getDescription(oracle),
                     ];
+                    currentEncounter = encounter.name;
+                    // Start encounter(encounter)
+                    // TODO: How to dispatch an action from a reducer?
+                    // OR: move this logic outside of reducer
                     break;
                 } else if (nextNode.type === QuestNodeType.nothing) {
+                    currentEncounter = null;
                     if (nextNode.log) {
                         log = [
                             ...log,
@@ -119,6 +145,7 @@ const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
 
             return {
                 ...qss,
+                currentEncounter,
                 progress: nextProgress,
                 log,
             };

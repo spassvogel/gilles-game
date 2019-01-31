@@ -11,6 +11,7 @@ export interface QuestVars {
 }
 
 export const backstabbed: EncounterDefinition<QuestVars> = {
+    name: "backstabbed",
     getOracle: (questName: string, store: StoreState) => {
         return new Oracle<QuestVars>(questName, store);
     },

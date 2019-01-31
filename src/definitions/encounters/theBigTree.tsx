@@ -12,6 +12,7 @@ export interface QuestVars {
 }
 
 export const theBigTree: EncounterDefinition<QuestVars> = {
+    name: "theBigTree",
     getOracle: (questName: string, store: StoreState) => {
         return new Oracle<QuestVars>(questName, store);
     },

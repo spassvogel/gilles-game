@@ -1,4 +1,4 @@
-import encounters from "../encounters";
+import encounters, { Encounter } from "../encounters";
 import { EncounterDefinition } from "../encounters/types";
 
 // tslint:disable:object-literal-sort-keys
@@ -20,7 +20,7 @@ export interface QuestNode {
     x: number;
     y: number;
     type: QuestNodeType;
-    encounter?: EncounterDefinition<any>; // TODO: or array of encounters
+    encounter?: Encounter; // TODO: or array of encounters
     log?: string;      // this text will appear in the log upon entering the node. only at 'nothing' nodes
 }
 
@@ -45,7 +45,7 @@ const kill10boars: QuestDefinition = {
         x: 0,
         y: 2,
         type: QuestNodeType.encounter,
-        encounter: encounters.theBigTree,
+        encounter: Encounter.goblinHouseOutside,
     }, {
         x: 0,
         y: 3,
@@ -63,7 +63,7 @@ const kill10boars: QuestDefinition = {
         x: 2,
         y: 1,
         type: QuestNodeType.encounter,
-        encounter: encounters.backstabbed,
+        encounter: Encounter.backstabbed,
     }, {
         x: 1,
         y: 3,
@@ -111,6 +111,11 @@ const retrieveMagicAmulet: QuestDefinition = {
         y: 1,
         type: QuestNodeType.nothing,
     }, {
+        x: 0,
+        y: 2,
+        type: QuestNodeType.encounter,
+        encounter: Encounter.theBigTree,
+    }, {
         x: 1,
         y: 1,
         type: QuestNodeType.nothing,
@@ -150,7 +155,7 @@ const retrieveMagicAmulet: QuestDefinition = {
         x: 2,
         y: 1,
         type: QuestNodeType.encounter,
-        encounter: encounters.backstabbed,
+        encounter: Encounter.backstabbed,
     }, {
         x: 3,
         y: 1,
