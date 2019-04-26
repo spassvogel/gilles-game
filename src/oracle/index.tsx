@@ -59,7 +59,7 @@ export class Oracle {
      * Returns a random adventurer in the party
      */
     public getRandomAdventurer(): AdventurerStoreState {
-        return this.adventurers[randomInt(0, this.store.adventurers.length)];
+        return this.adventurers[randomInt(0, this.adventurers.length)];
     }
 }
 

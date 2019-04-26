@@ -1,7 +1,7 @@
 // tslint:disable:object-literal-sort-keys
 import { AnyAction, Dispatch } from "redux";
 import { addGold } from "src/actions/gold";
-import { updateQuestVars, startEncounter } from "src/actions/quests";
+import { updateQuestVars, startEncounter, advanceQuest } from "src/actions/quests";
 import { Oracle } from "src/oracle";
 import { StoreState } from "src/stores";
 import { randomInt } from "src/utils/random";
@@ -15,31 +15,24 @@ export const goblinHouseOutside: EncounterDefinition = {
     getOracle: (questName: string, store: StoreState) => {
         return new Oracle(questName, store);
     },
-    getTitle: (oracle: Oracle) => "The party stands outside a house",
+    getTitle: (oracle: Oracle) => "As you make your way along the forest you notice a small house just of the road, smoke rises from the chimney",
     getDescription: (oracle: Oracle) => {
         return "";
     },
     getOptions: (oracle: Oracle) => {
         const options: Record<string, string> = {
-            goInside: "Go inside the house",
-            leave: "Leave the premise",
+            investigate: "Investigate",
+            leave: "Keep walking",
         };
         return options;
     },
     answer: (option: string, oracle: Oracle, dispatch: Dispatch<AnyAction>) => {
         const { store, questVars, quest } = oracle;
         switch (option) {
-            case "walkAround":
-                return "Your party walks around the tree";
-
-            case "goInside":
+            case "investigate":
                 const nextEncounter = startEncounter(quest.name, Encounter.goblinHouseHallway);
                 //const action = updateQuestVars(quest.name, questVars);
                 dispatch(nextEncounter);
-
-                const goldAmount = randomInt(2, 5);
-                const goldAction = addGold(goldAmount);
-                dispatch(goldAction);
 
                 // tslint:disable-next-line:max-line-length
                 return `The party coutiously opens the door and goes inside`;
@@ -60,7 +53,7 @@ export const goblinHouseHallway: EncounterDefinition = {
     },
     getOptions: (oracle: Oracle) => {
         const options: Record<string, string> = {
-            goInside: "Go inside the house",
+            investigate: "Go inside the house",
             leave: "Leave the premise",
         };
         return options;
@@ -71,17 +64,13 @@ export const goblinHouseHallway: EncounterDefinition = {
             case "walkAround":
                 return "Your party walks around the tree";
 
-            case "goInside":
+            case "leave":
                 //const nextEncounter = startEncounter(quest.name, goblinhouseInside)
-                const action = updateQuestVars(quest.name, questVars);
+                const action = advanceQuest(oracle.questName);
                 dispatch(action);
 
-                const goldAmount = randomInt(2, 5);
-                const goldAction = addGold(goldAmount);
-                dispatch(goldAction);
-
                 // tslint:disable-next-line:max-line-length
-                return `d lifts the heavy tree, moving it aside. Underneath your party finds ${goldAmount} gold coins`;
+                return `The party escapes the house unscathed`;
             default:
                 throw new Error(`Unhandled option ${option}`);
         }
