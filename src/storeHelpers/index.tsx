@@ -8,7 +8,6 @@ export const adventurersInParty = (store: StoreState, partyId: string): Adventur
     return party.adventurers.map((id: string) => findAdventurerById(store, id)!);
 };
 
-
 export const adventurersOnQuest = (store: StoreState, quest: QuestStoreState): AdventurerStoreState[] => {
     const party: PartyStoreState = store.parties[quest.party];
     return party.adventurers.map((id: string) => findAdventurerById(store, id)!);

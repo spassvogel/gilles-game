@@ -6,7 +6,7 @@ export enum ActionType {
     moveItemToOtherAdventurer = "moveItemToOtherAdventurer",
     moveItemFromWarehouseToAdventurer = "moveItemFromWarehouseToAdventurer",
     addItemToInventory = "addItemToInventory",
-    removeItemFromInventory = "removeItemFromInventory"
+    removeItemFromInventory = "removeItemFromInventory",
 }
 
 export interface Action {

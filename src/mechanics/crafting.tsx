@@ -4,8 +4,8 @@ export const MAX_WORKERS_CRAFTING = 6;
 
 /**
  * Calculates the production time for productionDefinition with given amount of workers
- * @param productionDefinition 
- * @param workers 
+ * @param productionDefinition
+ * @param workers
  */
 export const calculateProductionTime = (time: number, workers: number): number => {
     if (workers > MAX_WORKERS_CRAFTING) {

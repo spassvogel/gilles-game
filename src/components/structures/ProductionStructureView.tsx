@@ -51,11 +51,11 @@ export default class ProductionStructureView extends React.Component<AllProps, L
     }
 
     public componentDidUpdate(prevProps: AllProps, prevState: LocalState) {
-        console.log("cdu" + prevProps.workersFree);
+        // console.log("cdu" + prevProps.workersFree);
     }
 
     public componentWillUnmount() {
-        console.log("component will unmount");
+        // console.log("component will unmount");
     }
 
     public render() {

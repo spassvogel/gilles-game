@@ -221,4 +221,3 @@ export const adventurers: Reducer<AdventurerStoreState[]> = (
     }
     return state;
 };
-

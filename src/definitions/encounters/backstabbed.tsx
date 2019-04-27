@@ -4,7 +4,7 @@ import { addItemToInventory } from "src/actions/adventurers";
 import { Oracle } from "src/oracle";
 import { StoreState } from "src/stores";
 import { Item } from "../items/types";
-import { EncounterDefinition, Encounter } from "./types";
+import { Encounter, EncounterDefinition } from "./types";
 
 // tslint:disable-next-line:no-empty-interface
 export interface QuestVars {

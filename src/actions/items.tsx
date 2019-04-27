@@ -25,7 +25,6 @@ export interface RemoveItemFromWarehouseAction extends Action {
     fromSlot: number;
 }
 
-
 // Adds one Item to the warehouse
 // slot is optional, will take the first empty slot if not provided
 export function addItemToWarehouse(item: Item, toSlot?: number): AddAction {

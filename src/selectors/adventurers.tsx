@@ -16,7 +16,7 @@ const groupAdventurersByParty = (adventurers: AdventurerStoreState[], parties: R
 
     const findAdventurerById = (id: string): AdventurerStoreState | undefined => {
         return adventurers.find((a) => a.id === id);
-    }
+    };
 
     // Add up all the workers used by all structures in town
     const groupedAdventurers = Object.keys(parties).reduce((acc, val: string) => {

@@ -54,7 +54,7 @@ class CheatBox extends React.Component<AllProps, LocalState> {
             const structureDef = structureDefinitions[structure];
             const structureStore: StructureStoreState = this.props.structures[structure];
             const levelDef = structureDef.levels[structureStore.level];
-            
+
             return <div
                 className="label-dropdown"
                 key={structure}

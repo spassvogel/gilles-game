@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
 import { addItemToInventory, removeItemFromInventory } from "src/actions/adventurers";
-import { moveItemInWarehouse, removeItemFromWarehouse, addItemToWarehouse } from "src/actions/items";
+import { addItemToWarehouse, moveItemInWarehouse, removeItemFromWarehouse } from "src/actions/items";
 import WarehouseStructureView,
     { DispatchProps, Props, StateProps } from "src/components/structures/WarehouseStructureView";
 import { Item } from "src/definitions/items/types";

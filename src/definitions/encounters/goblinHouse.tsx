@@ -5,6 +5,7 @@ import { Oracle } from "src/oracle";
 import { StoreState } from "src/stores";
 import { Encounter, EncounterDefinition } from "./types";
 
+// tslint:disable-next-line:no-empty-interface
 export interface QuestVars {
 }
 

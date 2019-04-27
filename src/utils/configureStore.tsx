@@ -12,7 +12,6 @@ const persistConfig = {
     version: asInt,
 };
 
-console.log(convertIntToSemVer(asInt));
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 interface StoreAndPersistor {

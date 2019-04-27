@@ -5,7 +5,7 @@ import { updateQuestVars } from "src/actions/quests";
 import { Oracle } from "src/oracle";
 import { StoreState } from "src/stores";
 import { randomInt } from "src/utils/random";
-import { EncounterDefinition, Encounter } from "./types";
+import { Encounter, EncounterDefinition } from "./types";
 
 export interface QuestVars {
     treeState: string;

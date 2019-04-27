@@ -2,7 +2,6 @@ import { Encounter } from "src/definitions/encounters/types";
 
 // tslint:disable:object-literal-sort-keys
 
-
 export enum ActionType {
     advanceQuest = "advanceQuest",
     updateQuestVars = "updateQuestVars",

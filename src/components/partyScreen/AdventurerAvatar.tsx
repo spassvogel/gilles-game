@@ -36,6 +36,6 @@ const AdventurerAvatar = (props: Props) => {
             }
         </div>
     );
-}
+};
 
 export default AdventurerAvatar;
