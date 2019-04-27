@@ -1,4 +1,4 @@
-import Konva from 'konva/lib/Core';
+import Konva from 'konva';
 import * as React from "react";
 import { Image, Layer, Stage, Text } from "react-konva";
 import structureDefinitions, { Structure  } from "src/definitions/structures";
@@ -45,12 +45,12 @@ class RealTownView extends React.Component<AllProps, LocalState> {
 
         if (this.plasmaBeam) {
             this.plasmaBeam.filters([Konva.Filters.Brighten]);
-            this.plasmaBeam.cache();
+            this.plasmaBeam.cache(null);
             this.anim = new Konva.Animation((frame: any) => {
                 const freq = 2; // speed
                 const brightness = (Math.sin((frame.time / period) * freq) + 1) / 2;   // fluctuate between 0 and 1
                 this.plasmaBeam.brightness(brightness);
-                this.plasmaBeam.cache();
+                this.plasmaBeam.cache(null);
                 this.plasmaBeam.fillPatternOffsetX(this.plasmaBeam.fillPatternOffsetX() - 150);
             }, this.plasmaBeam.getLayer());
 
@@ -189,7 +189,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
 
 const drawHitFromCache = (img: Konva.Image) => {
     if (img) {
-        img.cache();
+        img.cache(null);
         img.drawHitFromCache(0.5);
     }
 };
