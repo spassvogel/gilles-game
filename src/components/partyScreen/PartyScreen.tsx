@@ -159,7 +159,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                 className = { (selected ? " selected" : "") }
                 adventurer = { adventurer }
                 onClick = { () => this.handleAvatarClick(adventurer.id) }
-                onDrop = { handleDropItem } 
+                onDrop = { handleDropItem }
             />;
         });
     }
