@@ -113,9 +113,12 @@ class AdventurersBox extends React.Component<AllProps, LocalState> {
         };
 
         return (
-            <ul className="adventurers-box">
+            <div className="adventurers-box">
+                <h3>Adventurers</h3>
+                <ul>
                 { generateRows() }
-            </ul>
+                </ul>
+            </div>
         );
     }
 }
