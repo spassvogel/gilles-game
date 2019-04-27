@@ -41,9 +41,12 @@ class DroppableAdventurerAvatar extends React.Component<Props & DropSourceProps>
         // const isActive = isOver && canDrop;
 
         return connectDropTarget(
-            <AdventurerAvatar
-                adventurer={ this.props.adventurer }
-                onClick= { this.props.onClick } />,
+            <div>
+                <AdventurerAvatar
+                    adventurer={ this.props.adventurer }
+                    onClick= { this.props.onClick } 
+                />
+            </div>,
         );
     }
 }
