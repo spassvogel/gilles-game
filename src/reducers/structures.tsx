@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import { Action, ActionType, WorkerCountAction, StructureStateAction } from "src/actions/structures";
+import { Action, ActionType, StructureStateAction, WorkerCountAction } from "src/actions/structures";
 import { Structure } from "src/definitions/structures";
 import { StructureState, StructureStoreState } from "src/stores/structure";
 import { initialState, StructuresStoreState } from "../stores/structures";

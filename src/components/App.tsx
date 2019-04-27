@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Persistor } from "redux-persist";
 import { ContextInfo, ContextType } from "src/constants";
+import AdventurersBox from "src/containers/AdventurersBox";
+import CheatBox from "src/containers/CheatBox";
 import RealWorldView from "src/containers/partyScreen/RealWorldView";
 import RealTownView from "src/containers/RealTownView";
 import StructureDetailsView from "src/containers/structures/StructureDetailsView";
@@ -11,8 +13,6 @@ import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
-import AdventurersBox from "src/containers/AdventurersBox";
-import CheatBox from "src/containers/CheatBox";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -49,7 +49,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
     // This Component has local state, so it's a class
     constructor(props: Props & StateProps & DispatchProps) {
         super(props);
-        
+
         this.state = {
             contextInfo: null,
             contextType: null,
@@ -58,14 +58,14 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             view: View.Town,
         };
     }
-    
+
     public render() {
         const selectedStructureView = this.state.selectedStructure ?
         <StructureDetailsView structure = { this.state.selectedStructure }/> : null;
-        
+
         const getMainView = () => {
             if (this.state.view === View.Town) {
-                
+
                 return <RealTownView
                 onStructureClick = { this.selectStructure }
                 // onContextualObjectActivated = { this.handleContextualObjectActivated }
@@ -74,16 +74,16 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             } else {
                 return <RealWorldView/>;
             }
-            
+
         };
-        
+
         const contextView = this.state.contextType == null || this.state.contextInfo == null ? null :
         <ContextView type = { this.state.contextType }  info = { this.state.contextInfo }/>;
-        
+
         const getAdventurersBox = () => {
-            return <AdventurersBox />
-        }
-        
+            return <AdventurersBox />;
+        };
+
         return <AppContext.Provider value = {{
             media: this.state.media,
             onContextualObjectActivated: this.handleContextualObjectActivated,
@@ -122,7 +122,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         </Preloader>
         </AppContext.Provider>;
     }
-    
+
     private changeView = () => {
         if (this.state.view === View.Town) {
             this.setState({
@@ -133,25 +133,24 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             this.setState({ view: View.Town });
         }
     }
-    
+
     private selectStructure = (structure: Structure) => {
         this.setState({
             selectedStructure: structure,
         });
     }
-    
+
     private handleMediaLoadComplete = (media: MediaItem[]) => {
         this.setState({
             media,
         });
     }
-    
+
     private handleContextualObjectActivated = (type: ContextType, info: ContextInfo) => {
         this.setState({
             contextInfo: info,
             contextType: type,
         });
     }
-    
-    
+
 }

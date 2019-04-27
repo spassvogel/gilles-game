@@ -1,8 +1,8 @@
 import { AnyAction, Reducer } from "redux";
 import { ActionType as GameActionType, GameTickAction } from "src/actions/game";
-import { ActionType, QuestAction, QuestVarsAction, UpdateEncounterResultAction, StartEncounterAction } from "src/actions/quests";
-import questDefinitions, { QuestDefinition, QuestNodeType } from "src/definitions/quests";
+import { ActionType, QuestAction, QuestVarsAction, StartEncounterAction, UpdateEncounterResultAction } from "src/actions/quests";
 import encounterDefintions from "src/definitions/encounters";
+import questDefinitions, { QuestDefinition, QuestNodeType } from "src/definitions/quests";
 import { oracles } from "src/oracle";
 import { QuestStoreState } from "src/stores/quest";
 
@@ -45,7 +45,7 @@ export const activeQuests: Reducer<QuestStoreState[]> = (state: QuestStoreState[
 
         case ActionType.startEncounter:
             return startEncounter(state, action as StartEncounterAction);
-            //return updateEncounterResult(state, action as UpdateEncounterResultAction);
+            // return updateEncounterResult(state, action as UpdateEncounterResultAction);
 
         case GameActionType.gameTick: {
             return gameTick(state, action as GameTickAction);
@@ -90,11 +90,11 @@ const startEncounter = (state: QuestStoreState[], action: StartEncounterAction) 
             };
         }
         return qss;
-    });}
+    }); };
 
 const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
     // Moves the quest line progress. Only if currently at a 'nothing' node
-    // Otherwise the user has to do something to move the quest along 
+    // Otherwise the user has to do something to move the quest along
 
     const speed = 100;    // in nodes per minute
     const MS_PER_MINUTE = 60000;

@@ -1,11 +1,9 @@
 // tslint:disable:object-literal-sort-keys
 import { AnyAction, Dispatch } from "redux";
-import { addGold } from "src/actions/gold";
-import { updateQuestVars, startEncounter, advanceQuest } from "src/actions/quests";
+import { advanceQuest, startEncounter, updateQuestVars } from "src/actions/quests";
 import { Oracle } from "src/oracle";
 import { StoreState } from "src/stores";
-import { randomInt } from "src/utils/random";
-import { EncounterDefinition, Encounter } from "./types";
+import { Encounter, EncounterDefinition } from "./types";
 
 export interface QuestVars {
 }
@@ -31,7 +29,7 @@ export const goblinHouseOutside: EncounterDefinition = {
         switch (option) {
             case "investigate":
                 const nextEncounter = startEncounter(quest.name, Encounter.goblinHouseHallway);
-                //const action = updateQuestVars(quest.name, questVars);
+                // const action = updateQuestVars(quest.name, questVars);
                 dispatch(nextEncounter);
 
                 // tslint:disable-next-line:max-line-length
@@ -65,7 +63,7 @@ export const goblinHouseHallway: EncounterDefinition = {
                 return "Your party walks around the tree";
 
             case "leave":
-                //const nextEncounter = startEncounter(quest.name, goblinhouseInside)
+                // const nextEncounter = startEncounter(quest.name, goblinhouseInside)
                 const action = advanceQuest(oracle.questName);
                 dispatch(action);
 
@@ -76,6 +74,5 @@ export const goblinHouseHallway: EncounterDefinition = {
         }
     },
 };
-
 
 // todo: other goblinHouse encounters
