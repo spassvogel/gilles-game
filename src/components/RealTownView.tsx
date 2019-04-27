@@ -1,4 +1,4 @@
-import * as Konva from "konva";
+import Konva from 'konva/lib/Core';
 import * as React from "react";
 import { Image, Layer, Stage, Text } from "react-konva";
 import structureDefinitions, { Structure  } from "src/definitions/structures";

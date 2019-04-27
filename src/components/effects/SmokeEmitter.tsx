@@ -1,5 +1,5 @@
 
-import * as Konva from "konva";
+import Konva from "konva";
 import * as React from "react";
 import { FastLayer } from "react-konva";
 

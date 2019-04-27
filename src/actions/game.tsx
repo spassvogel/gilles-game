@@ -1,5 +1,5 @@
 // tslint:disable:object-literal-sort-keys
-import { seedrandomStateType } from "seedrandom";
+import { State as seedrandomStateType } from "seedrandom";
 import { ResourceStoreState } from "src/stores/resources";
 
 export enum ActionType {

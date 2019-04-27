@@ -5,7 +5,7 @@
   "dependencies": {
     "@types/hoist-non-react-statics": "^3.3.1",
     "@types/moment-duration-format": "^2.2.2",
-    "konva": "^2.5.1",
+    "konva": "^3.2.4",
     "lodash": "^4.17.11",
     "moment": "^2.23.0",
     "moment-duration-format": "^2.2.2",
