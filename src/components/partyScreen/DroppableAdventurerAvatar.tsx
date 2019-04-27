@@ -52,4 +52,4 @@ export default DropTarget<Props, DropSourceProps>(
     DragType.ITEM,
     dropTarget,
     collect,
-)(AdventurerAvatar);
+)(DroppableAdventurerAvatar);

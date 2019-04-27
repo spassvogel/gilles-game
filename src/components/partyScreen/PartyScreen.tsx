@@ -138,7 +138,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
 
     private getAvatars = () => {
         return this.props.adventurers.map((adventurer: AdventurerStoreState) => {
-            const handleDrop = (dragInfo: InventoryItemDragInfo) => {
+            const handleDropItem = (dragInfo: InventoryItemDragInfo) => {
                 const fromAdventurer = this.state.selectedAdventurer!; // The adventurer that has the item
                 if (adventurer.id === fromAdventurer) {
                     // Dropping on yourself.. nothing happens
@@ -159,7 +159,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                 className = { (selected ? " selected" : "") }
                 adventurer = { adventurer }
                 onClick = { () => this.handleAvatarClick(adventurer.id) }
-                // onDrop = { handleDrop } TODO: WHY this stop working?
+                onDrop = { handleDropItem } 
             />;
         });
     }
