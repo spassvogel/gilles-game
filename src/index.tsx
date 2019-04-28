@@ -25,6 +25,23 @@ import * as random from "./utils/random";
 
 const { store, persistor } = configureStore();
 
+import itemDefinitions from "src/definitions/items";
+import * as Handlebars from "handlebars";
+
+const source = "You have found a {{item:name item}}";
+var template = Handlebars.compile(source);
+Handlebars.registerHelper('item:name', (item) => {
+    if (!itemDefinitions[item]){ 
+        return new Handlebars.SafeString(`<<ITEM DEFINITION NOT FOUND: ${item}>>`);
+    }
+    const name = itemDefinitions[item].name;
+    return new Handlebars.SafeString(name);
+});
+
+const output = template({foundItem: 'sword'});
+console.log(output)
+
+
 ReactDOM.render(
     <Provider store={store}>
         <DragDropContextProvider backend={ HTML5Backend }>

@@ -15,3 +15,27 @@
   but also:
   "you found a {item.name:{context:item}}"
   where we provide a context object { item: sword }
+
+USE as such:
+
+import itemDefinitions from "src/definitions/items";
+import * as Handlebars from "handlebars";
+
+const source = "You have found a {{item:name foundItem}}";
+var template = Handlebars.compile(source);
+Handlebars.registerHelper('item:name', (item) => {
+    if (!itemDefinitions[item]){ 
+        return new Handlebars.SafeString(`<<ITEM DEFINITION NOT FOUND: ${item}>>`);
+    }
+    const name = itemDefinitions[item].name;
+    return new Handlebars.SafeString(name);
+});
+
+const output = template({foundItem: 'sword'});
+console.log(output)
+
+Make a localization file as such:
+
+{ 'found-item': "You have found a {{item foundItem}}" }
+
+compile the templates and store them by key
