@@ -9,7 +9,7 @@
   the party gets created when the adventurers leave on the quest
   the quest has an icon, that will be the icon for the party too
 
-[ ] for multi lingual support we need a templating engine
+[x] for multi lingual support we need a templating engine
   it needs to support dynamic lookups. such as
   "you found a {item.name:sword}"
   but also:
@@ -38,8 +38,8 @@ Make a localization file as such:
 
 { 'found-item': "You have found a {{item foundItem}}" }
 
-[ ] compile the templates and store them by key
-[ ] allow for precompilation and JIT, pass by ctor, default = true
+[x] compile the templates and store them by key
+[x] allow for precompilation and JIT, pass by ctor, default = true
 [ ] add 'clear' method to TextManager for testing purposes. will set initialized to false
 
 
@@ -52,4 +52,8 @@ Make a localization file as such:
 [ ] add helper for article, undefined, defined and auto. investigate if we can do this: "item foundItem aA", "item foundItem aU" etc
     will see if 'articleDefined' or 'articleUndefined' is declared, if not, will use 'common-article..'
     auto will investigate the 'unique' property. if true use defined, otherwise undefined
-[ ] have a helper for 'capital' Capitalise
+[x] have a helper for 'capital' Capitalise
+
+[ ] The tavern has a limited number of vacancies (rooms). Upgrading the tavern upgrades this number.
+    The tavern will only accept new adventurers when there are rooms free.
+    Quests are launched from the 'quest board' in the tavern. Adventurers on quests keep their rooms
