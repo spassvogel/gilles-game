@@ -24,12 +24,13 @@ import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
 import * as random from "./utils/random";
 import { TextManager } from "./utils/textManager";
+import { addLogEntry } from "./actions/log";
 
 const { store, persistor } = configureStore();
 
 TextManager.init(texts);
 console.log(TextManager.get("resource-food-name"));
-
+store.dispatch(addLogEntry("resource-food-name"));
 
 ReactDOM.render(
     <Provider store={store}>

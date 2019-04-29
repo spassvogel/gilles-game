@@ -12,6 +12,8 @@ const testState = [
     Item.deedForWeaponsmith,
 ];
 
+// Items in warehouse
+
 /**
  * reducer
  * @param state
