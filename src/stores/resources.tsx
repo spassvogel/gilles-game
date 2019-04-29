@@ -1,3 +1,4 @@
+// The keys should be the same as the enum Resource
 export interface ResourceStoreState {
     wood?: number;
     iron?: number;
@@ -5,6 +6,7 @@ export interface ResourceStoreState {
     leather?: number;
     gunpowder?: number;
     food?: number;
+    fabric?: number;
 }
 
 export const initialState: ResourceStoreState = {

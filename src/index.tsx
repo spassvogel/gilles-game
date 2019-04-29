@@ -1,4 +1,5 @@
 import * as React from "react";
+import texts from "./lang/en-US";
 import { DragDropContextProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import * as ReactDOM from "react-dom";
@@ -22,24 +23,12 @@ import { TaskStoreState } from "./stores/task";
 import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
 import * as random from "./utils/random";
+import { TextManager } from "./utils/textManager";
 
 const { store, persistor } = configureStore();
 
-import itemDefinitions from "src/definitions/items";
-import * as Handlebars from "handlebars";
-
-const source = "You have found a {{item:name item}}";
-var template = Handlebars.compile(source);
-Handlebars.registerHelper('item:name', (item) => {
-    if (!itemDefinitions[item]){ 
-        return new Handlebars.SafeString(`<<ITEM DEFINITION NOT FOUND: ${item}>>`);
-    }
-    const name = itemDefinitions[item].name;
-    return new Handlebars.SafeString(name);
-});
-
-const output = template({foundItem: 'sword'});
-console.log(output)
+TextManager.init(texts);
+console.log(TextManager.get("resource-food-name"));
 
 
 ReactDOM.render(

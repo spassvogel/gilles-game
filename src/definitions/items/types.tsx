@@ -8,6 +8,7 @@ export enum Item {
     crossbow = "crossbow",
     longbow = "longbow",
     dagger = "dagger",
+    ironSword = "ironSword",
     deedForLumbermill = "deedForLumbermill",
     deedForWeaponsmith = "deedForWeaponsmith",
     greatswordOfGwai = "greatswordOfGwai",
@@ -23,4 +24,8 @@ export interface ItemDefinition {
     subText: string;
     name: string;
     iconImg: string;
+//    articleUndefined?: string;  // Key to text 
+    unique?: boolean;           // Indicate that this item is unique. 
+                                // Not actually enforced by anything, 
+                                // but used to generate the article ('a' or 'the')
 }

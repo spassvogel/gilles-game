@@ -10,7 +10,6 @@ function mapStateToProps(store: StoreState, ownProps: Props) {
         const name: string = Resource[ownProps.type];
         return {
             type: ownProps.type,
-            name,
             amount: store.resources[name],
         };
     }

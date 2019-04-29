@@ -49,10 +49,20 @@ export const greatswordOfGwai: EquipmentDefinition = {
     name: "Greatsword of G'wai",
     subText: "Finer steel was seldom forged",
     iconImg: "/img/equipment/sword.png",
+    unique: true,
+};
+
+export const ironSword: EquipmentDefinition = {
+    item: Item.ironSword,
+    itemType,
+    name: "Greatsword of G'wai",
+    subText: "Finer steel was seldom forged",
+    iconImg: "/img/equipment/sword.png",
 };
 
 export default {
     crossbow,
+    ironSword,
     dagger,
     greatswordOfGwai,
     khopesh,
