@@ -30,7 +30,6 @@ const { store, persistor } = configureStore();
 
 TextManager.init(texts);
 console.log(TextManager.get("resource-food-name"));
-store.dispatch(addLogEntry("resource-food-name"));
 
 ReactDOM.render(
     <Provider store={store}>
@@ -112,6 +111,9 @@ setInterval(() => {
     store.dispatch(gameTick(delta, rngState, resources));
 
     processCompletedTasks(state.tasks);
+
+    store.dispatch(addLogEntry("resource-food-name"));
+
 }, 2500);
 
 /*
