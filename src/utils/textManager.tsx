@@ -16,9 +16,8 @@ export abstract class TextManager {
         if (!this.initialized) {
             throw new Error(`Error ${this} not initialized!`);
         }
-
         const template = this.getTemplate(key);
-        if(!template) {
+        if (!template) {
             return `<<ERROR: key '${key} not found in TextManager>>`;
         }
         return template(context);
@@ -51,7 +50,7 @@ export abstract class TextManager {
     }
 }
 
-Handlebars.registerHelper("item:name", (item: string, article?:string) => {
+Handlebars.registerHelper("item:name", (item: string, article?: string) => {
     if (!itemDefinitions[item]) {
         return new Handlebars.SafeString(`<<ITEM DEFINITION NOT FOUND: ${item}>>`);
     }
@@ -67,7 +66,7 @@ Handlebars.registerHelper("item:name", (item: string, article?:string) => {
             const name = itemDefinitions[item].name;
             return new Handlebars.SafeString(name);
     }
-})
+});
 
 const itemArticleAuto = (item: string) => {
     return itemArticleUndefined(item);
@@ -75,12 +74,12 @@ const itemArticleAuto = (item: string) => {
 
 const itemArticleUndefined = (item: string) => {
     const name = itemDefinitions[item].name;
-    const articleTemplate = TextManager.getTemplate('common-article-undefined');
+    const articleTemplate = TextManager.getTemplate("common-article-undefined");
     return new Handlebars.SafeString(`${articleTemplate({ noun: name})}`);
 };
 
 const itemArticleDefined = (item: string) => {
     const name = itemDefinitions[item].name;
-    const articleTemplate = TextManager.getTemplate('common-article-defined');
+    const articleTemplate = TextManager.getTemplate("common-article-defined");
     return new Handlebars.SafeString(`${articleTemplate({ noun: name})}`);
 };

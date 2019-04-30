@@ -44,7 +44,7 @@ Make a localization file as such:
 
 
 [ ] multi langual structures
-[ ] multi langual resources
+[x] multi langual resources
 [ ] for simplicity, don't change the names of the structures as they level up
 [ ] add 'unique' optional prop to item
 [ ] add 'articleDefined', 'articleUndefined' optional props to item
@@ -56,4 +56,5 @@ Make a localization file as such:
 
 [ ] The tavern has a limited number of vacancies (rooms). Upgrading the tavern upgrades this number.
     The tavern will only accept new adventurers when there are rooms free.
-    Quests are launched from the 'quest board' in the tavern. Adventurers on quests keep their rooms
+    You can kick out an adventurer that's not on a quest. Freeing the room. Periodically new adventurers will take residence
+[ ] Quests are launched from the 'quest board' in the tavern. Adventurers on quests keep their rooms

@@ -13,6 +13,7 @@ import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
+import SimpleLog from "src/containers/log/SimpleLog";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -119,6 +120,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         { getAdventurersBox() }
         <CheatBox />
         </div>
+        <SimpleLog/>
         </Preloader>
         </AppContext.Provider>;
     }

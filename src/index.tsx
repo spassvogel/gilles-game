@@ -29,7 +29,6 @@ import { addLogEntry } from "./actions/log";
 const { store, persistor } = configureStore();
 
 TextManager.init(texts);
-console.log(TextManager.get("resource-food-name"));
 
 ReactDOM.render(
     <Provider store={store}>
@@ -88,7 +87,7 @@ const getProducedResources = (delta: number, structures: StructuresStoreState) =
 };
 
 random.init("GILLESROX2");
-store.dispatch(addGold(400));
+//store.dispatch(addGold(400));
 
 // TODO: find something less ugly and hacky than this
 oracles.kill10boars = theBigTree.getOracle("kill10boars", store);
@@ -112,7 +111,7 @@ setInterval(() => {
 
     processCompletedTasks(state.tasks);
 
-    store.dispatch(addLogEntry("resource-food-name"));
+    store.dispatch(addLogEntry("test-you-have-found-an-item", { item: "sword" }));
 
 }, 2500);
 

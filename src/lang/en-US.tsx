@@ -10,5 +10,7 @@ export default {
     "resource-leather-name": "leather",
     "resource-stone-name": "stone",
     "resource-wood-name": "wood",
-    "game-welcome": "adsfsdf"
-}
+    "item-sword-name": "sword",
+    "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
+    "game-welcome": "adsfsdf",
+};
