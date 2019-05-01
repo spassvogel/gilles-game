@@ -1,5 +1,5 @@
 27/4/2019
-[ ] display a log on the lower part of the screen.
+[x] display a log on the lower part of the screen.
   each log entry has a type: (common, quest, warning)
   can be plain text now. later to be replaced by keys that
   can be filtered (will be filtered default on the quest when a quest is clicked)
@@ -16,37 +16,15 @@
   "you found a {item.name:{context:item}}"
   where we provide a context object { item: sword }
 
-USE as such:
-
-import itemDefinitions from "src/definitions/items";
-import * as Handlebars from "handlebars";
-
-const source = "You have found a {{item:name foundItem}}";
-var template = Handlebars.compile(source);
-Handlebars.registerHelper('item:name', (item) => {
-    if (!itemDefinitions[item]){ 
-        return new Handlebars.SafeString(`<<ITEM DEFINITION NOT FOUND: ${item}>>`);
-    }
-    const name = itemDefinitions[item].name;
-    return new Handlebars.SafeString(name);
-});
-
-const output = template({foundItem: 'sword'});
-console.log(output)
-
-Make a localization file as such:
-
-{ 'found-item': "You have found a {{item foundItem}}" }
-
 [x] compile the templates and store them by key
 [x] allow for precompilation and JIT, pass by ctor, default = true
 [ ] add 'clear' method to TextManager for testing purposes. will set initialized to false
 
-
+28/4/2019
 [ ] multi langual structures
 [x] multi langual resources
 [ ] for simplicity, don't change the names of the structures as they level up
-[ ] add 'unique' optional prop to item
+[x] add 'unique' optional prop to item
 [ ] add 'articleDefined', 'articleUndefined' optional props to item
 [ ] add 'common-article-defined': 'the', 'common-article-undefined': 'a' to language file
 [ ] add helper for article, undefined, defined and auto. investigate if we can do this: "item foundItem aA", "item foundItem aU" etc
@@ -58,3 +36,4 @@ Make a localization file as such:
     The tavern will only accept new adventurers when there are rooms free.
     You can kick out an adventurer that's not on a quest. Freeing the room. Periodically new adventurers will take residence
 [ ] Quests are launched from the 'quest board' in the tavern. Adventurers on quests keep their rooms
+[ ] You can train workers/citizens to become adventurers
