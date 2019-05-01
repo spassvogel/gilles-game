@@ -1,8 +1,8 @@
 
 import * as React from "react";
 import { LogEntry } from "src/stores/logEntry";
-import "./css/simplelog.css";
 import { TextManager } from "src/utils/textManager";
+import "./css/simplelog.css";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -28,7 +28,7 @@ const getLogEntryRow = (logEntry: LogEntry) => {
 const SimpleLog = (props: AllProps) => {
 
     return <div className="log-entries">
-        { props.logEntries.map(entry => getLogEntryRow(entry))}
+        { props.logEntries.map((entry) => getLogEntryRow(entry))}
     </div>;
 };
 export default SimpleLog;

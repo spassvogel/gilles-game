@@ -24,8 +24,8 @@ export interface ItemDefinition {
     subText: string;
     name: string;
     iconImg: string;
-//    articleUndefined?: string;  // Key to text 
-    unique?: boolean;           // Indicate that this item is unique. 
-                                // Not actually enforced by anything, 
+//    articleUndefined?: string;  // Key to text
+    unique?: boolean;           // Indicate that this item is unique.
+                                // Not actually enforced by anything,
                                 // but used to generate the article ('a' or 'the')
 }

@@ -8,8 +8,8 @@ export interface Action {
 }
 
 export interface AddLogEntryAction extends Action {
-    key: string,
-    context?: any,
+    key: string;
+    context?: any;
 }
 
 export function addLogEntry(key: string, context?: any): AddLogEntryAction {

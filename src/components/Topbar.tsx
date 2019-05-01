@@ -1,9 +1,9 @@
 
 import * as React from "react";
 import { Persistor } from "redux-persist";
+import { TextManager } from "src/utils/textManager";
 import { View } from "./App";
 import "./css/topbar.css";
-import { TextManager } from "src/utils/textManager";
 
 export interface Props {
     appView: View;
@@ -28,9 +28,9 @@ export default function(props: Props & StateProps & DispatchProps) {
         props.persistor.purge();
         location.reload();
     };
-    const viewButtonText = props.appView === View.Town ? TextManager.get(`common-view-button-world`) : 
+    const viewButtonText = props.appView === View.Town ? TextManager.get(`common-view-button-world`) :
         TextManager.get(`common-view-button-town`);
-    ;
+
     return (
         <div className="topbar">
             <div className="topbar-left">

@@ -45,7 +45,7 @@ class DroppableAdventurerAvatar extends React.Component<Props & DropSourceProps>
             <div className="droppable-adventurer-avatar">
                 <AdventurerAvatar
                     adventurer={ this.props.adventurer }
-                    onClick= { this.props.onClick } 
+                    onClick= { this.props.onClick }
                 />
             </div>,
         );

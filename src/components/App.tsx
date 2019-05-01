@@ -3,6 +3,7 @@ import { Persistor } from "redux-persist";
 import { ContextInfo, ContextType } from "src/constants";
 import AdventurersBox from "src/containers/AdventurersBox";
 import CheatBox from "src/containers/CheatBox";
+import SimpleLog from "src/containers/log/SimpleLog";
 import RealWorldView from "src/containers/partyScreen/RealWorldView";
 import RealTownView from "src/containers/RealTownView";
 import StructureDetailsView from "src/containers/structures/StructureDetailsView";
@@ -13,12 +14,12 @@ import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
-import SimpleLog from "src/containers/log/SimpleLog";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface DispatchProps {
 }
 
