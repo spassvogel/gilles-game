@@ -3,12 +3,12 @@ import { AnyAction, compose, Dispatch } from "redux";
 import { addItemToInventory, removeItemFromInventory } from "src/actions/adventurers";
 import { addItemToWarehouse, moveItemInWarehouse, removeItemFromWarehouse } from "src/actions/items";
 import WarehouseStructureView,
-    { DispatchProps, Props, StateProps } from "src/components/structures/WarehouseStructureView";
+    { DispatchProps, Props, StateProps } from "src/components/structures/warehouse/WarehouseStructureView";
 import { Item } from "src/definitions/items/types";
 import { withAppContext } from "src/hoc/withAppContext";
 import { selectFreeWorkers } from "src/selectors/workers";
-import { StoreState } from "../stores";
-import { StructureStoreState } from "../stores/structure";
+import { StoreState } from "../../../stores";
+import { StructureStoreState } from "../../../stores/structure";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const structureStore: StructureStoreState = store.structures[ownProps.type];
