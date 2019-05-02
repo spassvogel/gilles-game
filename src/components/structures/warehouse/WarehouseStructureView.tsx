@@ -5,10 +5,10 @@ import { Item } from "src/definitions/items/types";
 import { Resource } from "src/definitions/resources";
 import structureDefinitions, {  Structure  } from "src/definitions/structures";
 import { StructureDefinition, StructureLevelDefinition } from "src/definitions/structures/types";
+import { TextManager } from "src/utils/textManager";
 import { AppContextProps } from "../../App";
 import Inventory from "../../ui/inventory/Inventory";
 import "./css/warehousestructureview.css";
-import { TextManager } from "src/utils/textManager";
 
 export interface DispatchProps {
     onMoveItemInWarehouse: (fromSlot: number, toSlot: number) => void;
