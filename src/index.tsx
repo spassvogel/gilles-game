@@ -1,3 +1,4 @@
+import axios from "axios";
 import * as React from "react";
 import { DragDropContextProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
@@ -15,7 +16,6 @@ import structureDefinitions from "./definitions/structures";
 import { ResourceStructureDefinition,
     ResourceStructureLevelDefinition, StructureDefinition, StructureType } from "./definitions/structures/types";
 import "./index.css";
-import texts from "./lang/en-US";
 import { oracles } from "./oracle";
 import registerServiceWorker from "./registerServiceWorker";
 import { StoreState } from "./stores";
@@ -28,6 +28,8 @@ import * as Random from "./utils/random";
 import { TextManager } from "./utils/textManager";
 
 const initGame = async () => {
+    const axiosResult = await axios.get("lang/en-US.json");
+    const texts = axiosResult.data as Record<string, string>;
     TextManager.init(texts);
     Random.init("GILLESROX2");
 

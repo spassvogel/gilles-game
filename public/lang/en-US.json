@@ -1,5 +1,4 @@
-// todo: move outside of SRC, make configurable. load through ajax
-export default {
+{
     "common-article-defined": "the {{noun}}",
     "common-article-undefined": "a {{noun}}",
     "common-view-button-town": "Town",
@@ -29,5 +28,5 @@ export default {
     "structure-weaponsmith-name": "Weaponsmith",
     "structure-weaver-name": "Weaver",
     "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
-    "test=game-welcome": "You have taken your first steps into a larger world",
-};
+    "test=game-welcome": "You have taken your first steps into a larger world"
+}
