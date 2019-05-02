@@ -2,6 +2,7 @@
 import * as React from "react";
 import ProductionStructureView from "src/containers/structures/ProductionStructureView";
 import ResourceStructureView from "src/containers/structures/ResourceStructureView";
+import TavernStructureView from "src/containers/structures/tavern/TavernStructureView";
 import WarehouseStructureView from "src/containers/WarehouseStructureView";
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { StructureDefinition, StructureType } from "src/definitions/structures/types";
@@ -37,6 +38,9 @@ const getStructureView = (structure: Structure) => {
         }
         case StructureType.warehouse: {
             return <WarehouseStructureView type = { structure }/>;
+        }
+        case StructureType.tavern: {
+            return <TavernStructureView />;
         }
         default: {
             return <div> { structure } </div>;

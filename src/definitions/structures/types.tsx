@@ -40,4 +40,10 @@ export interface ProductionStructureLevelDefinition extends StructureLevelDefini
 
 // tslint:disable-next-line:no-empty-interface
 export interface WarehousetructureDefinition extends StructureDefinition {
+    // todo: fill in later
+}
+
+// tslint:disable-next-line:no-empty-interface
+export interface TavernStructureDefinition extends StructureDefinition {
+    // todo: fill in later
 }

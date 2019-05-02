@@ -8,13 +8,13 @@ import { ProductionStructureDefinition, ProductionStructureLevelDefinition } fro
 import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "src/mechanics/crafting";
 import { ResourceStoreState } from "src/stores/resources";
 import { TaskStoreState } from "src/stores/task";
+import { TextManager } from "src/utils/textManager";
 import { formatDuration } from "src/utils/time";
 import { AppContextProps } from "../App";
 import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
 import "./css/productionstructureview.css";
-import { TextManager } from "src/utils/textManager";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;

@@ -1,8 +1,8 @@
 // tslint:disable:object-literal-sort-keys
 
-import { StructureDefinition, StructureType } from "./types";
+import { StructureType, TavernStructureDefinition } from "./types";
 
-const tavern: StructureDefinition = {
+const tavern: TavernStructureDefinition = {
     goldCost: 40,
     buildTime: 4000,
     type: StructureType.tavern,
