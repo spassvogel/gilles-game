@@ -2,8 +2,8 @@
 import * as React from "react";
 import structureDefinitions, {  Structure, StructureDefinition  } from "src/definitions/structures";
 import { StructuresStoreState } from "src/stores/structures";
-import "./css/townView.css";
 import { TextManager } from "src/utils/textManager";
+import "./css/townView.css";
 
 export interface DispatchProps {
     onStructureClick?: (structure: Structure) => void;

@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import { connect } from "react-redux";
 import { AnyAction, compose } from "redux";
-import ProductionStructureView, { DispatchProps, Props, StateProps } from "src/components/structures/tavern/TavernStructureView";
+import TavernStructureView, { DispatchProps, Props, StateProps } from "src/components/structures/tavern/TavernStructureView";
 import { Structure } from "src/definitions/structures";
 import { withAppContext } from "src/hoc/withAppContext";
 import { StoreState } from "src/stores";
@@ -10,6 +10,7 @@ import { StructureStoreState } from "src/stores/structure";
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const structureStore: StructureStoreState = store.structures[Structure.tavern];
     return {
+        adventurers: store.adventurers,
         level: structureStore.level,
     };
 }
@@ -43,4 +44,4 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
 export default compose(
     connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
     withAppContext,
-)(ProductionStructureView);
+)(TavernStructureView);

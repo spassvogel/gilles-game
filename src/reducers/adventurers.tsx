@@ -43,6 +43,7 @@ const generateRandomGear = (): EquipmentStoreState => {
 
 };
 
+// Create a bunch of guys for debugging
 const testState: AdventurerStoreState[] = [{
     id: "c4a5d270",
     equipment: generateRandomGear(),

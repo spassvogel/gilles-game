@@ -7,6 +7,7 @@ import { Persistor } from "redux-persist";
 import { State as seedrandomStateType } from "seedrandom";
 import { gameTick } from "./actions/game";
 import { addLogEntry } from "./actions/log";
+import version from "./constants/version";
 import App from "./containers/App";
 import { backstabbed } from "./definitions/encounters/backstabbed";
 import { theBigTree } from "./definitions/encounters/theBigTree";
@@ -25,7 +26,6 @@ import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
 import { TextManager } from "./utils/textManager";
-import version from "./constants/version";
 
 const initGame = async () => {
     TextManager.init(texts);
@@ -35,7 +35,7 @@ const initGame = async () => {
     if (!isHydrated) {
         startNewGame(store);
     } else {
-        continueGame(store)
+        continueGame(store);
     }
     runGame(store, persistor);
 };
@@ -53,10 +53,10 @@ const startNewGame = (store: any) => {
     console.log(`Starting new GILLES-IDLE-GAME (version ${version})`);
 };
 
-const continueGame= (store: any) => {
+const continueGame = (store: any) => {
     // tslint:disable-next-line:no-console
     console.log(`Continuing existing GILLES-IDLE-GAME (version ${version})`);
-}
+};
 
 const runGame = (store: any, persistor: Persistor) => {
     ReactDOM.render(

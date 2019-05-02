@@ -1,0 +1,10 @@
+.tavernstructureview .rooms {
+    height: 200px;
+    overflow: auto;
+}
+
+.tavernstructureview .rooms .room {
+    height: 64px;
+    border: 1px solid gray;
+    margin-bottom: 3px;
+}

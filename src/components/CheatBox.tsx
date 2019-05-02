@@ -5,8 +5,8 @@ import structureDefinitions, { Structure  } from "src/definitions/structures";
 import { ResourceStoreState } from "src/stores/resources";
 import { StructureState, StructureStoreState } from "src/stores/structure";
 import { StructuresStoreState } from "src/stores/structures";
-import "./css/cheatbox.css";
 import { TextManager } from "src/utils/textManager";
+import "./css/cheatbox.css";
 
 export interface DispatchProps {
     onCheatGold?: (amount: number) => void;
