@@ -38,24 +38,23 @@ export default class ProductionStructureView extends React.Component<AllProps, L
         };
     }
 
-    public componentDidUpdate(prevProps: AllProps, prevState: LocalState) {
-        // console.log("cdu" + prevProps.workersFree);
-    }
-
-    public componentWillUnmount() {
-        // console.log("component will unmount");
-    }
-
     public render() {
         const structureDefinition  = structureDefinitions[Structure.tavern] as TavernStructureDefinition;
         const level: number = this.props.level || 0;
         const levelDefinition: StructureLevelDefinition = structureDefinition.levels[level];
         const displayName = TextManager.get(levelDefinition.displayName);
 
+        const createRooms = () => {
+            return <div className="rooms">
+
+            </div>;
+        }
+
         return (
             <details open = { true } className = "tavernstructureview">
                 <summary>{displayName}</summary>
                 <section>
+                    { createRooms() }
                 </section>
             </details>
         );

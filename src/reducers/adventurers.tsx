@@ -4,7 +4,7 @@ import { Reducer } from "redux";
 import { Action, ActionType,
     InventoryAction, MoveItemInInventoryAction, MoveItemToOtherAdventurerAction, RemoveItemFromInventoryAction } from "src/actions/adventurers";
 import { Item } from "src/definitions/items/types";
-import { AdventurerStoreState, GearStoreState, StatsStoreState } from "src/stores/adventurer";
+import { AdventurerStoreState, EquipmentStoreState, StatsStoreState } from "src/stores/adventurer";
 
 /**
  * reducer
@@ -24,7 +24,7 @@ const generateRandomStats = (): StatsStoreState => {
     };
 };
 
-const generateRandomGear = (): GearStoreState => {
+const generateRandomGear = (): EquipmentStoreState => {
 
     const second = ["Burning Damnation",
         "Fury", "Some old guy", "the Depths", "Frozen Hells",
@@ -45,7 +45,7 @@ const generateRandomGear = (): GearStoreState => {
 
 const testState: AdventurerStoreState[] = [{
     id: "c4a5d270",
-    gear: generateRandomGear(),
+    equipment: generateRandomGear(),
     stats: generateRandomStats(),
     name: "Ximena Maddox",
     avatarImg: `/img/avatars/andy-victorovych-a1.jpg`,
@@ -53,7 +53,7 @@ const testState: AdventurerStoreState[] = [{
     inventory: [ Item.deedForLumbermill, null, Item.crossbow, Item.dagger, Item.khopesh, null, Item.sword, null,  null,  null,  null,  null,  null,  null,  null,  null],
 }, {
     id: "2e655832-65c9-484d-81d7-07938253cf4d",
-    gear: generateRandomGear(),
+    equipment: generateRandomGear(),
     stats: generateRandomStats(),
     name: "Donte Houston",
     avatarImg: `/img/avatars/andy-victorovych-a2.jpg`,
@@ -61,7 +61,7 @@ const testState: AdventurerStoreState[] = [{
     inventory: [ Item.crossbow, null, null, null, null, null, null, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null],
 }, {
     id: "ec6f1050-11e7-11e9-b13b-654a21c6ca63",
-    gear: generateRandomGear(),
+    equipment: generateRandomGear(),
     stats: generateRandomStats(),
     name: "Zackary Morris",
     avatarImg: `/img/avatars/andy-victorovych-a3.jpg`,
@@ -69,13 +69,13 @@ const testState: AdventurerStoreState[] = [{
 }, {
     id: "d299f98a-8f30-4684-b4b5-81baadb388b2",
     stats: generateRandomStats(),
-    gear: generateRandomGear(),
+    equipment: generateRandomGear(),
     name: "Mike Keith",
     avatarImg: `/img/avatars/andy-victorovych-a4.jpg`,
     inventory: [ null, null, null, null, null ],
 }, {
     id: "96c686c3",
-    gear: generateRandomGear(),
+    equipment: generateRandomGear(),
     stats: generateRandomStats(),
     name: "Wayne Monroe",
     avatarImg: `/img/avatars/andy-victorovych-a5.jpg`,
@@ -83,13 +83,13 @@ const testState: AdventurerStoreState[] = [{
 }, {
     id: "250d1a9d",
     stats: generateRandomStats(),
-    gear: generateRandomGear(),
+    equipment: generateRandomGear(),
     name: "Mike Keith",
     avatarImg: `/img/avatars/andy-victorovych-a6.jpg`,
     inventory: [ null, null, null, null, null ],
 }, {
     id: "169384ef",
-    gear: generateRandomGear(),
+    equipment: generateRandomGear(),
     stats: generateRandomStats(),
     name: "Karlee Nolan",
     avatarImg: `/img/avatars/andy-victorovych-a7.jpg`,
@@ -97,20 +97,20 @@ const testState: AdventurerStoreState[] = [{
 }, {
     id: "f22d66cb",
     stats: generateRandomStats(),
-    gear: generateRandomGear(),
+    equipment: generateRandomGear(),
     name: "Keyon Hickman",
     avatarImg: `/img/avatars/andy-victorovych-a8.jpg`,
     inventory: [ null, null, null, null, null ],
 }, {
     id: "36c686c1",
-    gear: generateRandomGear(),
+    equipment: generateRandomGear(),
     stats: generateRandomStats(),
     name: "",
     avatarImg: `/img/avatars/andy-victorovych-a9.jpg`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
     id: "12c613d4",
-    gear: generateRandomGear(),
+    equipment: generateRandomGear(),
     stats: generateRandomStats(),
     name: "",
     avatarImg: `/img/avatars/andy-victorovych-a10.jpg`,

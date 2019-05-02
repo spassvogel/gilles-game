@@ -68,7 +68,7 @@ class AdventurersBox extends React.Component<AllProps, LocalState> {
                 adventurerInfo = <div className="adventurer-info">
                     <div>{ selectedAdventurer.name } </div>
                     <div className="adventurer-info-container">
-                        <div className="gear">
+                        <div className="equipment">
                             <br />
                             [ TODO: GEAR ]
                         </div>

@@ -5,14 +5,12 @@ export interface AdventurerStoreState {
     name: string;
     avatarImg: string;
 
-    gear: GearStoreState;     // equipment
-    // tslint:disable-next-line:max-line-length
+    equipment: EquipmentStoreState;     // equipment
     inventory: Array<null | Item>;
     stats: StatsStoreState;
 }
 
-// Gear means the equipment an adventurer is carrying
-export interface GearStoreState {
+export interface EquipmentStoreState {
     head?: string;
     body?: string;
     arms?: string;

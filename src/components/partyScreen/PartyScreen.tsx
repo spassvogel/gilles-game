@@ -82,8 +82,8 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
             const value: number = adventurer.stats[stat];
             return <div key= { `${adventurer.id}-${stat}`} > <b>{ stat }</b>: { value.toFixed(1) } </div>;
         });
-        const gearList = Object.keys(adventurer.gear).map((gear) => {
-            return <div key= { `${adventurer.id}-${gear}`} ><b>{ gear }</b>: { adventurer.gear[gear] }  </div>;
+        const equipmentList = Object.keys(adventurer.equipment).map((equipment) => {
+            return <div key= { `${adventurer.id}-${equipment}`} ><b>{ equipment }</b>: { adventurer.equipment[equipment] }  </div>;
         });
 
         const handleDropItem = (item: Item, fromSlot: number, toSlot: number): void => {
@@ -102,8 +102,8 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                 <div className="attributes">
                     { attributes }
                 </div>
-                <div className="gear">
-                    { gearList }
+                <div className="equipment">
+                    { equipmentList }
                 </div>
             </div>
             <div className="right">
