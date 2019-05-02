@@ -6,19 +6,19 @@ const mine: ResourceStructureDefinition = {
     buildTime: 4000,
     type: StructureType.resource,
     levels: [{
-        displayName: "Hole in the rocky ground",
+        displayName: "structure-mine-name",
         // level 0:
         workerCapacity: 2,
         cost: 0,
         generates: { iron: 2 },
     }, {
-        displayName: "A small mine",
+        displayName: "structure-mine-name",
         // level 1:
         workerCapacity: 5,
         cost: 30,
         generates: { iron: 2 },
     }, {
-        displayName: "A large mine",
+        displayName: "structure-mine-name",
         // level 2:
         workerCapacity: 10,
         cost: 50,

@@ -8,6 +8,7 @@ import { StructureDefinition, StructureLevelDefinition } from "src/definitions/s
 import { AppContextProps } from "../App";
 import Inventory from "../ui/inventory/Inventory";
 import "./css/warehousestructureview.css";
+import { TextManager } from "src/utils/textManager";
 
 export interface DispatchProps {
     onMoveItemInWarehouse: (fromSlot: number, toSlot: number) => void;
@@ -37,6 +38,8 @@ const WarehouseStructureView = (props: AllProps) => {
     }
     const level: number = props.level;
     const levelDefinition: StructureLevelDefinition = structureDefinition.levels[level];
+    const displayName = TextManager.get(levelDefinition.displayName);
+
     const handleDropItem = (item: Item, fromSlot: number,
                             toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
         switch (sourceType) {
@@ -54,7 +57,7 @@ const WarehouseStructureView = (props: AllProps) => {
     };
     return (
         <details open = { true } className = "warehouse-structureview">
-            <summary>{ levelDefinition.displayName }</summary>
+            <summary>{ displayName }</summary>
             <fieldset className="resources">
                 <legend>Resources</legend>
                 <ResourceViewRow type = { Resource.wood }/>

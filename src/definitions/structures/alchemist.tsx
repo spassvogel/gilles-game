@@ -5,20 +5,20 @@ const alchemist: ProductionStructureDefinition = {
     goldCost: 40,
     buildTime: 4000,
     levels: [{
-        displayName: "Snake oil salesman",
+        displayName: "structure-alchemist-name",
         // level 1:
         workerCapacity: 2,
         cost: 0,
         produces: [],
     }, {
         // level 2:
-        displayName: "Apothecary",
+        displayName: "structure-alchemist-name",
         workerCapacity: 5,
         cost: 30,
         produces: [],
     }, {
         // level 3:
-        displayName: "Alchemist",
+        displayName: "structure-alchemist-name",
         workerCapacity: 10,
         cost: 50,
         produces: [],

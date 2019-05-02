@@ -7,18 +7,18 @@ const warehouse: WarehousetructureDefinition = {
     buildTime: 4000,
     type: StructureType.warehouse,
     levels: [{
-        displayName: "Shed",
+        displayName: "structure-warehouse-name",
         // level 1:
         workerCapacity: 2,
         cost: 0,
     }, {
         // level 2:
-        displayName: "Warehouse",
+        displayName: "structure-warehouse-name",
         workerCapacity: 5,
         cost: 30,
     }, {
         // level 3:
-        displayName: "Vault",
+        displayName: "structure-warehouse-name",
         workerCapacity: 10,
         cost: 50,
     }],

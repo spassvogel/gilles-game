@@ -6,19 +6,19 @@ export const weaver: ResourceStructureDefinition = {
     buildTime: 4000,
     type: StructureType.resource,
     levels: [{
-        displayName: "Weaver",
+        displayName: "structure-weaver-name",
         // level 0:
         workerCapacity: 2,
         cost: 0,
         generates: { },
     }, {
-        displayName: "Weaver",
+        displayName: "structure-weaver-name",
         // level 1:
         workerCapacity: 5,
         cost: 30,
         generates: { },
     }, {
-        displayName: "Textile plant",
+        displayName: "structure-weaver-name",
         // level 2:
         workerCapacity: 10,
         cost: 50,

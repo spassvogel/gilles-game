@@ -1,7 +1,9 @@
+// OBSOLETE
 import * as React from "react";
 import structureDefinitions, {  Structure, StructureDefinition  } from "src/definitions/structures";
 import { StructuresStoreState } from "src/stores/structures";
 import "./css/townView.css";
+import { TextManager } from "src/utils/textManager";
 
 export interface DispatchProps {
     onStructureClick?: (structure: Structure) => void;
@@ -34,8 +36,9 @@ export default function(props: Props & DispatchProps & StateProps) {
     const list = structures.map((s) => {
         const structureDefinition: StructureDefinition = structureDefinitions[s];
         const levelDefinition = structureDefinition.levels[props.structures[s].level];
+        const displayName = TextManager.get(levelDefinition.displayName);
         return  <li
-            onClick = { () => handleStructureClick(s) }> { levelDefinition.displayName }
+            onClick = { () => handleStructureClick(s) }> { displayName }
         </li>;
     });
 

@@ -6,6 +6,7 @@ import { ResourceStoreState } from "src/stores/resources";
 import { StructureState, StructureStoreState } from "src/stores/structure";
 import { StructuresStoreState } from "src/stores/structures";
 import "./css/cheatbox.css";
+import { TextManager } from "src/utils/textManager";
 
 export interface DispatchProps {
     onCheatGold?: (amount: number) => void;
@@ -56,12 +57,14 @@ class CheatBox extends React.Component<AllProps, LocalState> {
             const structureStore: StructureStoreState = this.props.structures[structure];
             const levelDef = structureDef.levels[structureStore.level];
 
+            const displayName = TextManager.get(levelDef.displayName);
+
             return <div
                 className="label-dropdown"
                 key={structure}
             >
                 <label title={structure}>
-                    { `${levelDef.displayName}` }
+                    { `${displayName}` }
                 </label>
                 <input
                     key={structure}

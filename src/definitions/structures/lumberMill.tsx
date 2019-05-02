@@ -8,19 +8,19 @@ const lumberMill: ResourceStructureDefinition = {
     buildTime: 50000,
     levels: [{
         // level 0:
-        displayName: "Woodcutter",
+        displayName: "structure-lumber-mill-name",
         workerCapacity: 2,
         cost: 0,
         generates: { wood: 2 },
     }, {
         // level 1:
-        displayName: "Lumber mill ",
+        displayName: "structure-lumber-mill-name",
         workerCapacity: 5,
         cost: 30,
         generates: { wood: 2 },
     }, {
         // level 2:
-        displayName: "Lumberyard",
+        displayName: "structure-lumber-mill-name",
         workerCapacity: 10,
         cost: 50,
         generates: { wood: 2 },

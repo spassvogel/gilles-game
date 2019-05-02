@@ -14,6 +14,7 @@ import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
 import "./css/productionstructureview.css";
+import { TextManager } from "src/utils/textManager";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;
@@ -66,6 +67,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
         }
         const level: number = this.props.level || 0;
         const levelDefinition: ProductionStructureLevelDefinition = structureDefinition.levels[level];
+        const displayName = TextManager.get(levelDefinition.displayName);
 
         const createUpgradeRow = () => {
             const gold = this.props.gold;
@@ -270,7 +272,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
         return (
             // TODO: abstract some stuff to generic StructureView
             <details open = { true } className = "productionstructureview">
-                <summary>{levelDefinition.displayName}</summary>
+                <summary>{displayName}</summary>
                 <section>
                     { createUpgradeRow() }
                     <div>craft:</div>

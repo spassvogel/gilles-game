@@ -7,6 +7,7 @@ import { StructuresStoreState } from "src/stores/structures";
 import { AppContextProps } from "./App";
 import "./css/townView.css";
 import SmokeEmitter from "./effects/SmokeEmitter";
+import { TextManager } from "src/utils/textManager";
 
 // It's actually not the *real* town view hihi
 // tslint:disable-next-line:no-empty-interface
@@ -79,9 +80,11 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                 return null;
             }
             const levelDef = structureDef.levels[structureStore.level];
+            const displayName = TextManager.get(levelDef.displayName);
+
             return <Text name= { structure }
                 key = { structure }
-                text = { `${levelDef.displayName} (level ${structureStore.level + 1})` }
+                text = { `${displayName} (level ${structureStore.level + 1})` }
                 x = { 100 }
                 y = { 50 * index + 100 }
                 fontSize = { 40 }

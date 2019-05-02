@@ -21,9 +21,9 @@
 [ ] add 'clear' method to TextManager for testing purposes. will set initialized to false
 
 28/4/2019
-[ ] multi langual structures
+[x] multi langual structures
 [x] multi langual resources
-[ ] for simplicity, don't change the names of the structures as they level up
+[x] for simplicity, don't change the names of the structures as they level up
 [x] add 'unique' optional prop to item
 [ ] add 'articleDefined', 'articleUndefined' optional props to item
 [ ] add 'common-article-defined': 'the', 'common-article-undefined': 'a' to language file

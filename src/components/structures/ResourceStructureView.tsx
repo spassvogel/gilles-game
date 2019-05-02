@@ -2,6 +2,7 @@ import * as React from "react";
 import structureDefinitions, {  Structure  } from "src/definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition } from "src/definitions/structures/types";
 import UpDownValue from "../ui/UpDownValue";
+import { TextManager } from "src/utils/textManager";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;
@@ -25,6 +26,7 @@ export default function(props: Props & DispatchProps) {
     }
     const level: number = props.level || 0;
     const levelDefinition: ResourceStructureLevelDefinition = structureDefinition.levels[level];
+    const displayName = TextManager.get(levelDefinition.displayName);
 
     const createWorkersRow = () => {
 
@@ -89,7 +91,7 @@ export default function(props: Props & DispatchProps) {
     return (
         // TODO: abstract some stuff to generic StructureView
         <details open = { true } className = "structureview">
-            <summary>{ levelDefinition.displayName }</summary>
+            <summary>{ displayName }</summary>
             <section>
                 { createWorkersRow() }
                 { createUpgradeRow() }

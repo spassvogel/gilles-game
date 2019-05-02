@@ -27,20 +27,17 @@ import * as Random from "./utils/random";
 import { TextManager } from "./utils/textManager";
 import version from "./constants/version";
 
-const initGame = () => {
+const initGame = async () => {
     TextManager.init(texts);
     Random.init("GILLESROX2");
 
-    // todo:  figure out why await doesn't work
-    configureStore().then(({ store, persistor, isHydrated }) => {
-        if (!isHydrated) {
-            startNewGame(store);
-        }
-        else {
-            continueGame(store)
-        }
-        runGame(store, persistor);
-    });
+    const { store, persistor, isHydrated } = await configureStore();
+    if (!isHydrated) {
+        startNewGame(store);
+    } else {
+        continueGame(store)
+    }
+    runGame(store, persistor);
 };
 
 /**
@@ -52,10 +49,12 @@ const startNewGame = (store: any) => {
     store.dispatch(addLogEntry("test=game-welcome"));
     // todo: here is a good place to launch a tutorial or something
 
+    // tslint:disable-next-line:no-console
     console.log(`Starting new GILLES-IDLE-GAME (version ${version})`);
 };
 
 const continueGame= (store: any) => {
+    // tslint:disable-next-line:no-console
     console.log(`Continuing existing GILLES-IDLE-GAME (version ${version})`);
 }
 

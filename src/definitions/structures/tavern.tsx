@@ -7,18 +7,18 @@ const tavern: StructureDefinition = {
     buildTime: 4000,
     type: StructureType.tavern,
     levels: [{
-        displayName: "Way Station",
+        displayName: "structure-tavern-name",
         // level 1:
         workerCapacity: 2,
         cost: 0,
     }, {
         // level 2:
-        displayName: "Tavern",
+        displayName: "structure-tavern-name",
         workerCapacity: 5,
         cost: 30,
     }, {
         // level 3:
-        displayName: "Great Hall",
+        displayName: "structure-tavern-name",
         workerCapacity: 10,
         cost: 50,
     }],
