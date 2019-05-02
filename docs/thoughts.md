@@ -37,3 +37,8 @@
     You can kick out an adventurer that's not on a quest. Freeing the room. Periodically new adventurers will take residence
 [ ] Quests are launched from the 'quest board' in the tavern. Adventurers on quests keep their rooms
 [ ] You can train workers/citizens to become adventurers
+
+
+02/05/2019 TRAITS
+
+[ ] During encounters, characters can receive certain traits. These can be beneficial or not. In some cases the traits can be healed, removed etc. Some items can be used to grant a trait to an adventurer.
