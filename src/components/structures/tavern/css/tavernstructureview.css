@@ -4,7 +4,15 @@
 }
 
 .tavernstructureview .rooms .room {
-    height: 64px;
     border: 1px solid gray;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
+    padding: 4px;
+    height: 42px;
+    box-sizing: border-box;
+}
+
+.tavernstructureview .rooms .room .adventurer-icon {
+    width: 32px;
+    float: left;
+    margin-right: 6px;
 }

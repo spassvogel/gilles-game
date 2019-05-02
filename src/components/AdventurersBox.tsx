@@ -6,7 +6,7 @@ import { Item } from "src/definitions/items/types";
 import { AdventurerStoreState } from "src/stores/adventurer";
 import { PartyStoreState } from "src/stores/party";
 import "./css/adventurersbox.css";
-import AdventurerAvatar from "./partyScreen/AdventurerAvatar";
+import AdventurerAvatar from "./ui/AdventurerAvatar";
 import Inventory from "./ui/inventory/Inventory";
 
 export interface DispatchProps {

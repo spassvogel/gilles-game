@@ -69,9 +69,9 @@ const WarehouseStructureView = (props: AllProps) => {
             </fieldset>
 
             <Inventory
-                sourceType={warehouse}
-                items={props.items}
-                onDropItem={handleDropItem}
+                sourceType = { warehouse }
+                items = { props.items }
+                onDropItem = { handleDropItem }
             />
         </details>
     );

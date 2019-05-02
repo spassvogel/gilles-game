@@ -5,6 +5,7 @@ import { StructureLevelDefinition, TavernStructureDefinition } from "src/definit
 import { AdventurerStoreState } from "src/stores/adventurer";
 import { TextManager } from "src/utils/textManager";
 import "./css/tavernstructureview.css";
+import AdventurerAvatar from "src/components/ui/AdventurerAvatar";
 
 // The UI for the tavern
 // tslint:disable-next-line:no-empty-interface
@@ -51,13 +52,23 @@ export default class TavernStructureView extends React.Component<AllProps, Local
 
             const roomContent: JSX.Element[] = [];
             for (let i = 0; i < roomCount; i++) {
-                const adventurer = this.props.adventurers.find((a) => a.room === i) || "" ;
-                roomContent.push(<div key = { `room${i}` } className="room">
-                    { `${adventurer && adventurer.name}` }
+                const adventurer = this.props.adventurers.find((a) => a.room === i);
+                let content = null;
+                if (adventurer) {
+                    content = [<AdventurerAvatar 
+                        adventurer = { adventurer }
+                        className = "adventurer-icon"
+                    />, adventurer.name];
+                } else {
+                    content = "(empty room)";
+                }
+
+                roomContent.push(<div key = { `room${i}` } className = "room">
+                    { content }
                 </div>);
             }
 
-            return <div className="rooms">
+            return <div className = "rooms">
                 { roomContent }
             </div>;
         };

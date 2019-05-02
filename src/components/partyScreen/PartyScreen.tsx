@@ -13,7 +13,7 @@ import { AppContextProps } from "../App";
 import { InventoryItemDragInfo } from "../ui/DraggableItemIcon";
 import Inventory from "../ui/inventory/Inventory";
 import "./css/partyscreen.css";
-import DroppableAdventurerAvatar from "./DroppableAdventurerAvatar";
+import DroppableAdventurerAvatar from "../ui/DroppableAdventurerAvatar";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
