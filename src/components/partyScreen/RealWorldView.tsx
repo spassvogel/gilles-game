@@ -1,7 +1,7 @@
 
 import * as React from "react";
 import PartyScreen from "src/containers/partyScreen/PartyScreen";
-import { QuestStoreState } from "src/stores/quest";
+import { QuestStatus, QuestStoreState } from "src/stores/quest";
 import QuestLineVisualization from "../world/QuestLineVisualization";
 import "./css/realworldview.css";
 
@@ -38,8 +38,8 @@ export default class RealWorldView extends React.Component<AllProps, LocalState>
 
     public render() {
             const selectedQuest = this.props.quests.find((q) => q.name === this.state.selectedQuest);
-
-            const questLines = this.props.quests.map((q) => {
+            const activeQuests = this.props.quests.filter((q) => q.status === QuestStatus.active );
+            const questLines = activeQuests.map((q) => {
                 return <QuestLineVisualization key={ q.name }
                     selected={q === selectedQuest}
                     quest={q}

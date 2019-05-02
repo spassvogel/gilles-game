@@ -10,17 +10,16 @@ import { StructuresStoreState } from "./structures";
 import { TasksStoreState } from "./tasks";
 
 export interface StoreState {
-    gold: number;
-    workers: number;
-    resources: ResourceStoreState;
+    adventurers: AdventurerStoreState[];
     engine: EngineStoreState;
+    gold: number;
+    items: Array<null|Item>;    // items in warehouse
     log: LogEntry[];
     parties: Record<string, PartyStoreState>;
-    activeQuests: QuestStoreState[];
-    availableQuests: QuestStoreState[];
+    quests: QuestStoreState[];
+    workers: number;
+    resources: ResourceStoreState;
     rngState: seedrandomStateType;
     structures: StructuresStoreState;
-    items: Array<null|Item>;    // items in warehouse
     tasks: TasksStoreState;
-    adventurers: AdventurerStoreState[];
 }

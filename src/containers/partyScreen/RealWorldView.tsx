@@ -8,7 +8,7 @@ import { StoreState } from "../../stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     return {
-        quests: store.activeQuests,
+        quests: store.quests,
     };
 }
 

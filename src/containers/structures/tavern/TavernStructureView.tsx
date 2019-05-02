@@ -5,12 +5,14 @@ import TavernStructureView, { DispatchProps, Props, StateProps } from "src/compo
 import { Structure } from "src/definitions/structures";
 import { withAppContext } from "src/hoc/withAppContext";
 import { StoreState } from "src/stores";
+import { QuestStatus } from "src/stores/quest";
 import { StructureStoreState } from "src/stores/structure";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const structureStore: StructureStoreState = store.structures[Structure.tavern];
     return {
         adventurers: store.adventurers,
+        availableQuests: store.quests.filter((q) => q.status === QuestStatus.available ),
         level: structureStore.level,
     };
 }

@@ -4,24 +4,28 @@ import { ActionType, QuestAction, QuestVarsAction, StartEncounterAction, UpdateE
 import encounterDefintions from "src/definitions/encounters";
 import questDefinitions, { QuestDefinition, QuestNodeType } from "src/definitions/quests";
 import { oracles } from "src/oracle";
-import { QuestStoreState } from "src/stores/quest";
+import { QuestStoreState, QuestStatus } from "src/stores/quest";
 
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
     name: "kill10boars",
+    status: QuestStatus.available,
     party: "3tf8h79boh6",
     progress: 0,
     questVars: {},
     encounterResults: [],
     log: [],
+    icon: "sigil1.png",
     currentEncounter: null,
 }, {
     name: "retrieveMagicAmulet",
     party: "rx2nv4rqwn",
+    status: QuestStatus.available,
     progress: 0,
     questVars: {},
     encounterResults: [],
     log: [],
+    icon: "sigil2.png",
     currentEncounter: null,
 }];
 
@@ -30,7 +34,7 @@ const initialState: QuestStoreState[] = [{
  * @param state
  * @param action
  */
-export const activeQuests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialState,
+export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialState,
                                                          action: AnyAction| GameTickAction) => {
     switch (action.type) {
         case ActionType.advanceQuest:

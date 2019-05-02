@@ -27,7 +27,7 @@ export class Oracle {
      * Returns the quest that this encounter is part of
      */
     public get quest(): QuestStoreState {
-        return this.store.activeQuests.find((q) => q.name === this.questName)!;
+        return this.store.quests.find((q) => q.name === this.questName)!;
     }
 
     /**

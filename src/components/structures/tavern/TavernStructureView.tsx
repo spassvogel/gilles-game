@@ -1,11 +1,12 @@
 import * as React from "react";
 import { AppContextProps } from "src/components/App";
+import DraggableAdventurerAvatar from "src/components/ui/DraggableAdventurerAvatar";
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { StructureLevelDefinition, TavernStructureDefinition } from "src/definitions/structures/types";
 import { AdventurerStoreState } from "src/stores/adventurer";
+import { QuestStoreState } from "src/stores/quest";
 import { TextManager } from "src/utils/textManager";
 import "./css/tavernstructureview.css";
-import AdventurerAvatar from "src/components/ui/AdventurerAvatar";
 
 // The UI for the tavern
 // tslint:disable-next-line:no-empty-interface
@@ -17,6 +18,7 @@ export interface DispatchProps {
 export interface StateProps {
     level: number;
     adventurers: AdventurerStoreState[];
+    availableQuests: QuestStoreState[];
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -55,10 +57,15 @@ export default class TavernStructureView extends React.Component<AllProps, Local
                 const adventurer = this.props.adventurers.find((a) => a.room === i);
                 let content = null;
                 if (adventurer) {
-                    content = [<AdventurerAvatar 
+                    content = [<DraggableAdventurerAvatar
                         adventurer = { adventurer }
                         className = "adventurer-icon"
-                    />, adventurer.name];
+                    />,
+                    adventurer.name,
+                    <button className = "boot">
+                        Boot
+                    </button>,
+                ];
                 } else {
                     content = "(empty room)";
                 }
@@ -69,12 +76,16 @@ export default class TavernStructureView extends React.Component<AllProps, Local
             }
 
             return <div className = "rooms">
+                <h2>Rooms</h2>
                 { roomContent }
             </div>;
         };
 
         const createQuestArea = () => {
-            // todo: left side = quest board, right side = expanded quest info + assign adventurers + launch button
+            // quest board, expanded quest info + assign adventurers + launch button
+            return <div className = "quest-area">
+                <h2>Quest board</h2>
+            </div>;
         };
 
         return (

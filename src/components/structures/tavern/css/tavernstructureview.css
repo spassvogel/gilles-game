@@ -1,6 +1,11 @@
+.tavernstructureview section {
+    display: flex;
+    height: 400px;
+}
+
 .tavernstructureview .rooms {
-    height: 200px;
     overflow: auto;
+    flex: 1;
 }
 
 .tavernstructureview .rooms .room {
@@ -15,4 +20,12 @@
     width: 32px;
     float: left;
     margin-right: 6px;
+}
+
+.tavernstructureview .rooms .room .boot {
+    float: right
+}
+
+.tavernstructureview .quest-area {
+    flex: 1;
 }
