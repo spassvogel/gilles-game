@@ -10,7 +10,7 @@ export interface Props {
 }
 
 const ResourceViewRow = ({ amount = 0, type }: Props) => {
-    const name = TextManager.get(`resource-${type}-name`);
+    const name = TextManager.getResourceName(type);
     return (
         <div>
             <label> { capitalizeFirstLetter(name) }</label>

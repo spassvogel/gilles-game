@@ -33,6 +33,14 @@ export abstract class TextManager {
         return template;
     }
 
+    public static getQuestTitle(name: string) {
+        return this.get(`quest-${name}-title`);
+    }
+
+    public static getResourceName(type: string) {
+        return this.get(`resource-${type}-name`);
+    }
+
     private static initialized = false;
     private static texts: Record<string, string>;
     private static templates: Record<string, Handlebars.TemplateDelegate<any>>;

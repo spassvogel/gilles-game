@@ -4,7 +4,7 @@ import { ActionType, QuestAction, QuestVarsAction, StartEncounterAction, UpdateE
 import encounterDefintions from "src/definitions/encounters";
 import questDefinitions, { QuestDefinition, QuestNodeType } from "src/definitions/quests";
 import { oracles } from "src/oracle";
-import { QuestStoreState, QuestStatus } from "src/stores/quest";
+import { QuestStatus, QuestStoreState } from "src/stores/quest";
 
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
@@ -35,7 +35,7 @@ const initialState: QuestStoreState[] = [{
  * @param action
  */
 export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialState,
-                                                         action: AnyAction| GameTickAction) => {
+                                                   action: AnyAction| GameTickAction) => {
     switch (action.type) {
         case ActionType.advanceQuest:
             return advanceQuest(state, action as QuestAction);

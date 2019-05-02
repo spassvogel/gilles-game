@@ -30,6 +30,7 @@ type AllProps = Props & StateProps & DispatchProps & AppContextProps;
 
 // tslint:disable-next-line:no-empty-interface
 interface LocalState {
+    selectedQuest: string | null;
 }
 
 export default class TavernStructureView extends React.Component<AllProps, LocalState> {
@@ -38,6 +39,7 @@ export default class TavernStructureView extends React.Component<AllProps, Local
         super(props);
 
         this.state = {
+            selectedQuest: null,
         };
     }
 
@@ -82,9 +84,24 @@ export default class TavernStructureView extends React.Component<AllProps, Local
         };
 
         const createQuestArea = () => {
+            const questListContent: JSX.Element[] = this.props.availableQuests.map((q) => {
+                const iconImgPath = `img/sigils/${ q.icon }`;
+                const className = "quest" + ((q.name === this.state.selectedQuest) ? " selected" : "");
+                return <li key={ q.name } className = { className } onClick = { () => { this.handleQuestClick(q.name); } }>
+                    <div
+                        className = "icon"
+                        style={{backgroundImage: `url(${iconImgPath})`}}
+                    ></div>
+                    <div className = "title">{ TextManager.getQuestTitle(q.name) } </div>
+                </li>;
+            });
+
             // quest board, expanded quest info + assign adventurers + launch button
             return <div className = "quest-area">
                 <h2>Quest board</h2>
+                <ul className = "quest-board">
+                    { questListContent }
+                </ul>
             </div>;
         };
 
@@ -97,5 +114,13 @@ export default class TavernStructureView extends React.Component<AllProps, Local
                 </section>
             </details>
         );
+    }
+
+    private handleQuestClick(name: string) {
+        if (this.state.selectedQuest === name) {
+            this.setState( { selectedQuest: null });
+        } else {
+            this.setState( { selectedQuest: name });
+        }
     }
 }
