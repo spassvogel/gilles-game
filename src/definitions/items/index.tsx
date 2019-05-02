@@ -1,7 +1,9 @@
 import deeds from "./deeds";
+import trinkets from "./trinkets";
 import weapons from "./weapons";
 
 export default {
-    ...weapons,
     ...deeds,
+    ...trinkets,
+    ...weapons,
 };

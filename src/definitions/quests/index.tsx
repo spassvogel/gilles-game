@@ -24,7 +24,7 @@ export interface QuestNode {
     log?: string;      // this text will appear in the log upon entering the node. only at 'nothing' nodes
 }
 
-const kill10boars: QuestDefinition = {
+const kill-10-boars: QuestDefinition = {
     displayName: "Kill 10 boars",
     nodes: [{
         x: 0,
@@ -76,7 +76,7 @@ const kill10boars: QuestDefinition = {
     }],
 };
 
-const retrieveMagicAmulet: QuestDefinition = {
+const retrieve-magic-amulet: QuestDefinition = {
     displayName: "Retrieve the magic amulet",
     nodes: [{
         x: 0,
@@ -164,6 +164,6 @@ const retrieveMagicAmulet: QuestDefinition = {
 };
 
 export default {
-    kill10boars,
-    retrieveMagicAmulet,
+    kill-10-boars,
+    retrieve-magic-amulet,
 };

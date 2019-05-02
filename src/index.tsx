@@ -121,8 +121,8 @@ const runGame = (store: any, persistor: Persistor) => {
     // store.dispatch(addGold(400));
 
     // TODO: find something less ugly and hacky than this
-    oracles.kill10boars = theBigTree.getOracle("kill10boars", store);
-    oracles.retrieveMagicAmulet = backstabbed.getOracle("retrieveMagicAmulet", store);
+    oracles["kill-10-boars"] = theBigTree.getOracle("kill-10-boars", store);
+    oracles["retrieve-magic-amulet"] = backstabbed.getOracle("retrieve-magic-amulet", store);
 
     const getRngState = (): seedrandomStateType | null => {
         if (Random.dirty) {
