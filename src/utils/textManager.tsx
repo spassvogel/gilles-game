@@ -18,14 +18,15 @@ export abstract class TextManager {
         }
         const template = this.getTemplate(key);
         if (!template) {
-            return `<<ERROR: key '${key} not found in TextManager>>`;
+            console.error(`Key '${key}' not found in TextManager`)
+            return `<<'${key}' missing>>`;
         }
         return template(context);
     }
 
     public static getTemplate(key: string) {
         let template = this.templates[key];
-        if (!template) {
+        if (!template && this.texts[key]) {
             // Template not found. Needs to be compiled
             this.compile(key, this.texts[key]);
             template = this.templates[key];
@@ -47,7 +48,6 @@ export abstract class TextManager {
 
     private static compileAll() {
         Object.keys(this.texts).forEach((key: string) =>  {
-
             this.compile(key, this.texts[key]);
         });
     }
