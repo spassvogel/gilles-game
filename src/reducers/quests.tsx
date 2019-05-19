@@ -9,7 +9,7 @@ import { Item } from "src/definitions/items/types";
 
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
-    name: "kill-10-boars",
+    name: "kill10Boars",
     status: QuestStatus.available,
     party: "3tf8h79boh6",
     progress: 0,
@@ -19,7 +19,7 @@ const initialState: QuestStoreState[] = [{
     icon: "sigil1.png",
     currentEncounter: null,
 }, {
-    name: "retrieve-magic-amulet",
+    name: "retrieveMagicAmulet",
     party: "rx2nv4rqwn",
     status: QuestStatus.available,
     progress: 0,
