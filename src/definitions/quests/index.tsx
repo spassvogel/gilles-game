@@ -24,7 +24,7 @@ export interface QuestNode {
     log?: string;      // this text will appear in the log upon entering the node. only at 'nothing' nodes
 }
 
-const kill10Boars : QuestDefinition = {
+const kill10Boars: QuestDefinition = {
     displayName: "Kill 10 boars",
     nodes: [{
         x: 0,

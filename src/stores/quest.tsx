@@ -10,7 +10,7 @@ export enum QuestStatus {
 }
 
 export interface QuestReward {
-    gold?: number,
+    gold?: number;
     items?: Item[];
 }
 

@@ -18,7 +18,8 @@ export abstract class TextManager {
         }
         const template = this.getTemplate(key);
         if (!template) {
-            console.error(`Key '${key}' not found in TextManager`)
+            // tslint:disable-next-line: no-console
+            console.error(`Key '${key}' not found in TextManager`);
             return `<<'${key}' missing>>`;
         }
         return template(context);
@@ -27,7 +28,7 @@ export abstract class TextManager {
     public static getTemplate(key: string) {
         let template = this.templates[key];
         if (!template && this.texts[key]) {
-            // Template not found. Needs to be compiled
+            // Template not found but key is defined. Needs to be compiled
             this.compile(key, this.texts[key]);
             template = this.templates[key];
         }

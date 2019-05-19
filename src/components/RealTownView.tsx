@@ -4,10 +4,10 @@ import { Image, Layer, Stage, Text } from "react-konva";
 import structureDefinitions, { Structure  } from "src/definitions/structures";
 import { StructureState, StructureStoreState } from "src/stores/structure";
 import { StructuresStoreState } from "src/stores/structures";
+import { TextManager } from "src/utils/textManager";
 import { AppContextProps } from "./App";
 import "./css/townView.css";
 import SmokeEmitter from "./effects/SmokeEmitter";
-import { TextManager } from "src/utils/textManager";
 
 // It's actually not the *real* town view hihi
 // tslint:disable-next-line:no-empty-interface

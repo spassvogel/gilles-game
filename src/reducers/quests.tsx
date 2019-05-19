@@ -2,10 +2,10 @@ import { AnyAction, Reducer } from "redux";
 import { ActionType as GameActionType, GameTickAction } from "src/actions/game";
 import { ActionType, QuestAction, QuestVarsAction, StartEncounterAction, UpdateEncounterResultAction } from "src/actions/quests";
 import encounterDefintions from "src/definitions/encounters";
+import { Item } from "src/definitions/items/types";
 import questDefinitions, { QuestDefinition, QuestNodeType } from "src/definitions/quests";
 import { oracles } from "src/oracle";
 import { QuestStatus, QuestStoreState } from "src/stores/quest";
-import { Item } from "src/definitions/items/types";
 
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
@@ -30,8 +30,8 @@ const initialState: QuestStoreState[] = [{
     currentEncounter: null,
     reward: {
         gold: 4,
-        items: [ Item.deedForWeaponsmith ]
-    }
+        items: [ Item.deedForWeaponsmith ],
+    },
 }];
 
 /**
