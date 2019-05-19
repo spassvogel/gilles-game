@@ -62,9 +62,13 @@ export default class TavernStructureView extends React.Component<AllProps, Local
                     content = [<DraggableAdventurerAvatar
                         adventurer = { adventurer }
                         className = "adventurer-icon"
+                        key = { `avatar:${adventurer.id}` }
                     />,
                     adventurer.name,
-                    <button className = "boot">
+                    <button 
+                        className = "boot"
+                        key = { `boot:${adventurer.id}` }
+                    >
                         Boot
                     </button>,
                 ];
