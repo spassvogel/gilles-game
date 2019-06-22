@@ -73,10 +73,10 @@ class AdventurersBox extends React.Component<AllProps, LocalState> {
                             [ TODO: GEAR ]
                         </div>
                         <Inventory
-                            items={selectedAdventurer.inventory}
-                            sourceId={selectedAdventurer.id}
-                            sourceType={DragSourceType.adventurer}
-                            onDropItem={handleDropItem}
+                            items = { selectedAdventurer.inventory }
+                            sourceId = { selectedAdventurer.id }
+                            sourceType = { DragSourceType.adventurer}
+                            onDropItem = { handleDropItem }
                         />
                     </div>
                 </div>;

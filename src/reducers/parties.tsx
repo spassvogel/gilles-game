@@ -7,9 +7,9 @@ const testState: Record<string, PartyStoreState> = {
     "3tf8h79boh6": {
         adventurers: [
             "c4a5d270",
-            "2e655832-65c9-484d-81d7-07938253cf4d",
-            "ec6f1050-11e7-11e9-b13b-654a21c6ca63",
-            "d299f98a-8f30-4684-b4b5-81baadb388b2",
+            "2e655832",
+            "ec6f1050",
+            "d299f98a",
         ],
         sigil: "sigil1.png",
     },

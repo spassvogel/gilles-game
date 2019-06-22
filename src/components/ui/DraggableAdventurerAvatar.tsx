@@ -3,10 +3,12 @@ import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, 
 import { DragSourceType, DragType } from "src/constants";
 import { AdventurerStoreState } from "src/stores/adventurer";
 import AdventurerAvatar, { Props as AdventurerAvatarProps } from "./AdventurerAvatar";
+import "./css/draggableadventureravatar.css";
 
 export interface Props {
     sourceId?: string;
     onClick?: () => void;
+    disabled?: boolean;
 }
 
 interface CollectedProps {
@@ -47,14 +49,18 @@ function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
 class DraggableAdventurerAvatar extends React.Component<Props & CollectedProps & AdventurerAvatarProps> {
 
     public render() {
-        const { onClick, isDragging, connectDragSource } = this.props;
+        const { onClick, isDragging, connectDragSource, disabled } = this.props;
+        let className = "draggable-adventurer-avatar";
+        if (disabled) {
+            className += " disabled";
+        }
 
         if (isDragging) {
             // TODO: can show some sort of empty state?
             return null;
         }
         return connectDragSource(
-            <div>
+            <div className = { className }>
                 <AdventurerAvatar
                     // Copy all props down to AdventurerAvatar
                     { ...this.props }

@@ -116,7 +116,7 @@ class CheatBox extends React.Component<AllProps, LocalState> {
     private handleCheatGold = (evt: React.MouseEvent<HTMLButtonElement>) => {
         const amount = this.state.gold;
         if (this.props.onCheatGold) { this.props.onCheatGold(amount); }
-  }
+    }
 
     private handleCheatWorkers = (evt: React.MouseEvent<HTMLButtonElement>) => {
         const amount = this.state.workers;

@@ -55,7 +55,7 @@ const testState: AdventurerStoreState[] = [{
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.deedForLumbermill, null, Item.crossbow, Item.dagger, Item.khopesh, null, Item.sword, null,  null,  null,  null,  null,  null,  null,  null,  null],
 }, {
-    id: "2e655832-65c9-484d-81d7-07938253cf4d",
+    id: "2e655832",
     equipment: generateRandomGear(),
     stats: generateRandomStats(),
     name: "Donte Houston",
@@ -65,7 +65,7 @@ const testState: AdventurerStoreState[] = [{
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.crossbow, null, null, null, null, null, null, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null],
 }, {
-    id: "ec6f1050-11e7-11e9-b13b-654a21c6ca63",
+    id: "ec6f1050",
     equipment: generateRandomGear(),
     stats: generateRandomStats(),
     name: "Zackary Morris",
@@ -74,7 +74,7 @@ const testState: AdventurerStoreState[] = [{
     avatarImg: `/img/avatars/andy-victorovych-a3.jpg`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
-    id: "d299f98a-8f30-4684-b4b5-81baadb388b2",
+    id: "d299f98a",
     stats: generateRandomStats(),
     equipment: generateRandomGear(),
     name: "Mike Keith",

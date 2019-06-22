@@ -1,8 +1,7 @@
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
 import { DragType } from "src/constants";
-import AdventurerAvatar, { Props as AdventurerAvatarProps} from "./AdventurerAvatar";
-import "./css/droppableadventureravatar.css";
+import "./css/droppableadventurerslot.css";
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {
@@ -13,7 +12,7 @@ const dropTarget: DropTargetSpec<Props> = {
     },
 };
 
-export interface Props extends AdventurerAvatarProps {
+export interface Props {
     onDrop: (item: any) => void;
 }
 
@@ -29,10 +28,9 @@ const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
     isOver: monitor.isOver(),
 });
 
-/**
- * The AdventurerAvatar displays the avatar of an adventurer in the party screen
- */
-class DroppableAdventurerAvatar extends React.Component<Props & DropSourceProps> {
+/*
+ * Can drop adventurers on this */
+class DroppableAdventurerSlot extends React.Component<Props & DropSourceProps> {
     public render() {
         const {
             isOver,
@@ -40,20 +38,23 @@ class DroppableAdventurerAvatar extends React.Component<Props & DropSourceProps>
             connectDropTarget,
         } = this.props;
         // const isActive = isOver && canDrop;
+        let className = "droppable-adventurer-slot";
+
+        if (isOver) {
+            className += " active-drop";
+        } else if (canDrop) {
+            className += " can-drop";
+        }
 
         return connectDropTarget(
-            <div className="droppable-adventurer-avatar">
-                <AdventurerAvatar
-                    adventurer = { this.props.adventurer }
-                    onClick = { this.props.onClick }
-                />
+            <div className = { className }>
             </div>,
         );
     }
 }
 
 export default DropTarget<Props, DropSourceProps>(
-    DragType.ITEM,
+    DragType.ADVENTURER,
     dropTarget,
     collect,
-)(DroppableAdventurerAvatar);
+)(DroppableAdventurerSlot);

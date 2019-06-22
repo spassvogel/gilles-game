@@ -1,30 +1,30 @@
 import * as React from "react";
+import { AdventurerAvatarDragInfo } from "src/components/ui/DraggableAdventurerAvatar";
+import { AdventurerStoreState } from "src/stores/adventurer";
 import { QuestStoreState } from "src/stores/quest";
 import { TextManager } from "src/utils/textManager";
+import AssignAdventurers from "./AssignAdventurers";
 import "./css/questboard.css";
 
-// tslint:disable-next-line:no-empty-interface
 export interface DispatchProps {
-//    onUpgrade?: (cost: number) => void;
-//   onCraft?: (productionDefinition: ProductionDefinition, workers: number) => void;
+    onQuestClick: (questName: string) => void;
+    onRemoveAdventurer: (index: number) => void;
+    onDropAdventurer: (item: AdventurerAvatarDragInfo, index: number) => void;
 }
 
-export interface StateProps {
-    availableQuests: QuestStoreState[];
-}
-
-// tslint:disable-next-line:no-empty-interface
 export interface Props {
-/*    type: Structure;*/
+    availableQuests: QuestStoreState[];
+    selectedQuest: string | null;       // name of selected quest
+    assignedAventurers: AdventurerStoreState[];
 }
 
-type AllProps = Props & StateProps & DispatchProps;
+type AllProps = Props & DispatchProps;
 
 // tslint:disable-next-line:no-empty-interface
 interface LocalState {
-    selectedQuest: string | null;       // name of selected quest 
 }
 
+// todo: perhaps this can be a plain function
 export default class QuestBoard extends React.Component<AllProps, LocalState> {
 
     constructor(props: AllProps) {
@@ -38,8 +38,8 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
     public render() {
         const questListContent: JSX.Element[] = this.props.availableQuests.map((q) => {
             const iconImgPath = `img/sigils/${ q.icon }`;
-            const className = "quest" + ((q.name === this.state.selectedQuest) ? " selected" : "");
-            return <li key={ q.name } className = { className } onClick = { () => { this.handleQuestClick(q.name); } }>
+            const className = "quest" + ((q.name === this.props.selectedQuest) ? " selected" : "");
+            return <li key={ q.name } className = { className } onClick = { () => { this.props.onQuestClick(q.name); } }>
                 <div
                     className = "icon"
                     style={{backgroundImage: `url(${iconImgPath})`}}
@@ -49,11 +49,16 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
         });
 
         const getQuestDetails = () => {
-            if (!this.state.selectedQuest) {
+            if (!this.props.selectedQuest) {
                 return null;
             }
             return <div className="quest-details">
-                { TextManager.getQuestDescription(this.state.selectedQuest) }
+                { TextManager.getQuestDescription(this.props.selectedQuest) }
+                <AssignAdventurers
+                    availableSlots = { 5 }
+                    assignedAventurers = { this.props.assignedAventurers }
+                    onRemoveAdventurer = { this.props.onRemoveAdventurer }
+                    onDropAdventurer = { this.props.onDropAdventurer } />
             </div>;
         };
 
@@ -65,13 +70,5 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
             </ul>
             { getQuestDetails() }
         </div>;
-    }
-
-    private handleQuestClick(name: string) {
-        if (this.state.selectedQuest === name) {
-            this.setState( { selectedQuest: null });
-        } else {
-            this.setState( { selectedQuest: name });
-        }
     }
 }

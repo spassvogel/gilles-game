@@ -1,6 +1,6 @@
 import * as React from "react";
 import { AppContextProps } from "src/components/App";
-import DraggableAdventurerAvatar from "src/components/ui/DraggableAdventurerAvatar";
+import DraggableAdventurerAvatar, { AdventurerAvatarDragInfo } from "src/components/ui/DraggableAdventurerAvatar";
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { StructureLevelDefinition, TavernStructureDefinition } from "src/definitions/structures/types";
 import { AdventurerStoreState } from "src/stores/adventurer";
@@ -32,7 +32,10 @@ type AllProps = Props & StateProps & DispatchProps & AppContextProps;
 // tslint:disable-next-line:no-empty-interface
 interface LocalState {
     selectedQuest: string | null;
+    assignedAventurers: AdventurerStoreState[];
 }
+
+const SOURCE_ID = "tavern";
 
 export default class TavernStructureView extends React.Component<AllProps, LocalState> {
 
@@ -40,6 +43,7 @@ export default class TavernStructureView extends React.Component<AllProps, Local
         super(props);
 
         this.state = {
+            assignedAventurers: [],
             selectedQuest: null,
         };
     }
@@ -60,9 +64,12 @@ export default class TavernStructureView extends React.Component<AllProps, Local
                 const adventurer = this.props.adventurers.find((a) => a.room === i);
                 let content = null;
                 if (adventurer) {
+                    const assigned = this.state.assignedAventurers.indexOf(adventurer) > -1;
                     content = [<DraggableAdventurerAvatar
+                        disabled = { assigned }
                         adventurer = { adventurer }
                         className = "adventurer-icon"
+                        sourceId = { SOURCE_ID }
                         key = { `avatar:${adventurer.id}` }
                     />,
                     adventurer.name,
@@ -90,12 +97,48 @@ export default class TavernStructureView extends React.Component<AllProps, Local
 
         return (
             <details open = { true } className = "tavernstructureview">
-                <summary>{displayName}</summary>
+                <summary>{ displayName }</summary>
                 <section>
                     { createRooms() }
-                    <QuestBoard availableQuests={this.props.availableQuests}/>
+                    <QuestBoard
+                        availableQuests = { this.props.availableQuests }
+                        selectedQuest = { this.state.selectedQuest }
+                        assignedAventurers = { this.state.assignedAventurers }
+                        onQuestClick = { (name: string) => this.handleQuestClick(name) }
+                        onDropAdventurer = { (item: AdventurerAvatarDragInfo, index: number) => this.handleAdventurerDrop(item, index) }
+                        onRemoveAdventurer = { (index: number) => this.handleRemoveAdventurer(index) }
+                    />
                 </section>
             </details>
         );
+    }
+
+    private handleQuestClick(name: string) {
+        if (this.state.selectedQuest === name) {
+            this.setState( { selectedQuest: null });
+        } else {
+            this.setState( { selectedQuest: name });
+        }
+    }
+
+    private handleAdventurerDrop(item: AdventurerAvatarDragInfo, index: number) {
+        if (item.sourceId === SOURCE_ID) {
+            const assignedAventurers = [ ...this.state.assignedAventurers];
+            assignedAventurers[index] = item.adventurer;
+            this.setState({
+                assignedAventurers,
+            });
+        }
+    }
+
+    /*
+     * Removes an assigned adventurer from a slot
+     * @param index  */
+    private handleRemoveAdventurer(index: number): void {
+        const assignedAventurers = [ ...this.state.assignedAventurers];
+        delete assignedAventurers[index];
+        this.setState({
+            assignedAventurers,
+        });
     }
 }
