@@ -1,4 +1,3 @@
-import encounters from "../encounters";
 import { Encounter } from "../encounters/types";
 
 // tslint:disable:object-literal-sort-keys

@@ -39,6 +39,10 @@ export abstract class TextManager {
         return this.get(`quest-${name}-title`);
     }
 
+    public static getQuestDescription(name: string) {
+        return this.get(`quest-${name}-description`);
+    }
+
     public static getResourceName(type: string) {
         return this.get(`resource-${type}-name`);
     }

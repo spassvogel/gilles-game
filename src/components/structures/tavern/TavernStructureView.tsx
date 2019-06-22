@@ -7,7 +7,7 @@ import { AdventurerStoreState } from "src/stores/adventurer";
 import { QuestStoreState } from "src/stores/quest";
 import { TextManager } from "src/utils/textManager";
 import "./css/tavernstructureview.css";
-import QuestBoard from './QuestBoard';
+import QuestBoard from "./QuestBoard";
 
 // The UI for the tavern
 // tslint:disable-next-line:no-empty-interface
@@ -66,7 +66,7 @@ export default class TavernStructureView extends React.Component<AllProps, Local
                         key = { `avatar:${adventurer.id}` }
                     />,
                     adventurer.name,
-                    <button 
+                    <button
                         className = "boot"
                         key = { `boot:${adventurer.id}` }
                     >
@@ -88,7 +88,6 @@ export default class TavernStructureView extends React.Component<AllProps, Local
             </div>;
         };
 
-        
         return (
             <details open = { true } className = "tavernstructureview">
                 <summary>{displayName}</summary>

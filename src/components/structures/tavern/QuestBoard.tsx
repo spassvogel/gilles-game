@@ -22,7 +22,7 @@ type AllProps = Props & StateProps & DispatchProps;
 
 // tslint:disable-next-line:no-empty-interface
 interface LocalState {
-    selectedQuest: string | null;
+    selectedQuest: string | null;       // name of selected quest 
 }
 
 export default class QuestBoard extends React.Component<AllProps, LocalState> {
@@ -48,18 +48,24 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
             </li>;
         });
 
+        const getQuestDetails = () => {
+            if (!this.state.selectedQuest) {
+                return null;
+            }
+            return <div className="quest-details">
+                { TextManager.getQuestDescription(this.state.selectedQuest) }
+            </div>;
+        };
+
         // quest board, expanded quest info + assign adventurers + launch button
         return <div className = "quest-board">
             <h2>Quest board</h2>
             <ul className = "quest-list">
                 { questListContent }
             </ul>
-            <div className="quest-details">
-
-            </div>
+            { getQuestDetails() }
         </div>;
-    };
-   
+    }
 
     private handleQuestClick(name: string) {
         if (this.state.selectedQuest === name) {
