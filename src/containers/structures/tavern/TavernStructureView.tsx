@@ -14,6 +14,7 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
         adventurers: store.adventurers,
         availableQuests: store.quests.filter((q) => q.status === QuestStatus.available ),
         level: structureStore.level,
+        parties: store.parties,
     };
 }
 

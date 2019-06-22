@@ -4,6 +4,7 @@ import DraggableAdventurerAvatar, { AdventurerAvatarDragInfo } from "src/compone
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { StructureLevelDefinition, TavernStructureDefinition } from "src/definitions/structures/types";
 import { AdventurerStoreState } from "src/stores/adventurer";
+import { PartyStoreState } from "src/stores/party";
 import { QuestStoreState } from "src/stores/quest";
 import { TextManager } from "src/utils/textManager";
 import "./css/tavernstructureview.css";
@@ -20,6 +21,7 @@ export interface StateProps {
     level: number;
     adventurers: AdventurerStoreState[];
     availableQuests: QuestStoreState[];
+    parties: Record<string, PartyStoreState>;
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -64,15 +66,21 @@ export default class TavernStructureView extends React.Component<AllProps, Local
                 const adventurer = this.props.adventurers.find((a) => a.room === i);
                 let content = null;
                 if (adventurer) {
-                    const assigned = this.state.assignedAventurers.indexOf(adventurer) > -1;
+                    let name = adventurer.name;
+
+                    const assigned = this.state.assignedAventurers.indexOf(adventurer) > -1; // assigned to a quest in the QuestBoard
+                    const party = this.getParty(adventurer.id);
+                    if (party) {
+                        name += " (on a quest)";
+                    }
                     content = [<DraggableAdventurerAvatar
-                        disabled = { assigned }
+                        disabled = { assigned || party != null }
                         adventurer = { adventurer }
                         className = "adventurer-icon"
                         sourceId = { SOURCE_ID }
                         key = { `avatar:${adventurer.id}` }
                     />,
-                    adventurer.name,
+                    name,
                     <button
                         className = "boot"
                         key = { `boot:${adventurer.id}` }
@@ -105,7 +113,7 @@ export default class TavernStructureView extends React.Component<AllProps, Local
                         selectedQuest = { this.state.selectedQuest }
                         assignedAventurers = { this.state.assignedAventurers }
                         onQuestClick = { (name: string) => this.handleQuestClick(name) }
-                        onDropAdventurer = { (item: AdventurerAvatarDragInfo, index: number) => this.handleAdventurerDrop(item, index) }
+                        onAddAdventurer = { (item: AdventurerAvatarDragInfo, index: number) => this.handleAddAdventurer(item, index) }
                         onRemoveAdventurer = { (index: number) => this.handleRemoveAdventurer(index) }
                     />
                 </section>
@@ -119,9 +127,14 @@ export default class TavernStructureView extends React.Component<AllProps, Local
         } else {
             this.setState( { selectedQuest: name });
         }
+
+        // Unassign all adventurers
+        this.setState({
+            assignedAventurers: [],
+        });
     }
 
-    private handleAdventurerDrop(item: AdventurerAvatarDragInfo, index: number) {
+    private handleAddAdventurer(item: AdventurerAvatarDragInfo, index: number) {
         if (item.sourceId === SOURCE_ID) {
             const assignedAventurers = [ ...this.state.assignedAventurers];
             assignedAventurers[index] = item.adventurer;
@@ -131,14 +144,25 @@ export default class TavernStructureView extends React.Component<AllProps, Local
         }
     }
 
-    /*
+    /**
      * Removes an assigned adventurer from a slot
-     * @param index  */
+     * @param index
+     */
     private handleRemoveAdventurer(index: number): void {
         const assignedAventurers = [ ...this.state.assignedAventurers];
         delete assignedAventurers[index];
         this.setState({
             assignedAventurers,
+        });
+    }
+
+    /**
+     * Returns the party the adventurer is in. undefined if not in any party
+     * @param adventurerId
+     */
+    private getParty(adventurerId: string): PartyStoreState | undefined {
+        return Object.values(this.props.parties).find((party) => {
+            return party.adventurers.indexOf(adventurerId) > -1;
         });
     }
 }

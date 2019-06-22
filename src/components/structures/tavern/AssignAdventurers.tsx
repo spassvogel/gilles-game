@@ -6,8 +6,8 @@ import { AdventurerStoreState } from "src/stores/adventurer";
 import "./css/assignadventurers.css";
 
 export interface DispatchProps {
+    onAddEventurer: (item: AdventurerAvatarDragInfo, index: number) => void;
     onRemoveAdventurer: (index: number) => void;
-    onDropAdventurer: (item: AdventurerAvatarDragInfo, index: number) => void;
 }
 
 export interface Props {
@@ -30,7 +30,7 @@ const AssignAdventurers = (props: Props & DispatchProps) => {
                 content = <AdventurerAvatar adventurer = { adventurer } displayName = { false } onClick = { () => props.onRemoveAdventurer(i) }/> ;
                 className = "has-adventurer";
             } else {
-                content = <DroppableAdventurerSlot onDrop = { (item: AdventurerAvatarDragInfo) => { props.onDropAdventurer(item, i); }} />;
+                content = <DroppableAdventurerSlot onDrop = { (item: AdventurerAvatarDragInfo) => { props.onAddEventurer(item, i); }} />;
             }
             slots.push(<li key = { `slot${i}`} className = { className }> { content } </li>);
         }

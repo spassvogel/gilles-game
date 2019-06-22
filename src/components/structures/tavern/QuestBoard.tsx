@@ -9,7 +9,7 @@ import "./css/questboard.css";
 export interface DispatchProps {
     onQuestClick: (questName: string) => void;
     onRemoveAdventurer: (index: number) => void;
-    onDropAdventurer: (item: AdventurerAvatarDragInfo, index: number) => void;
+    onAddAdventurer: (item: AdventurerAvatarDragInfo, index: number) => void;
 }
 
 export interface Props {
@@ -58,7 +58,7 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
                     availableSlots = { 5 }
                     assignedAventurers = { this.props.assignedAventurers }
                     onRemoveAdventurer = { this.props.onRemoveAdventurer }
-                    onDropAdventurer = { this.props.onDropAdventurer } />
+                    onAddEventurer = { this.props.onAddAdventurer } />
             </div>;
         };
 

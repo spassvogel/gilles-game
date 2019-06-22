@@ -54,11 +54,14 @@ class DraggableAdventurerAvatar extends React.Component<Props & CollectedProps &
         if (disabled) {
             className += " disabled";
         }
-
         if (isDragging) {
+            className += " dragging";
+        }
+
+        /*if (isDragging) {
             // TODO: can show some sort of empty state?
             return null;
-        }
+        }*/
         return connectDragSource(
             <div className = { className }>
                 <AdventurerAvatar

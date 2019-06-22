@@ -3,7 +3,16 @@
 }
 
 .draggable-adventurer-avatar.disabled {
+    /* When the avatar is not available for dragging */
     cursor: not-allowed;
     -webkit-filter: grayscale(100%);
-    filter: grayscale(100%)
+    filter: grayscale(100%);
+    opacity: .8;
+}
+
+.draggable-adventurer-avatar.dragging {
+    /* When the avatar is being dragged */
+    -webkit-filter: grayscale(50%);
+    filter: grayscale(50%);
+    opacity: .5;
 }
