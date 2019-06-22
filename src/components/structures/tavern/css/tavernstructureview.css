@@ -26,38 +26,7 @@
     float: right
 }
 
-.tavernstructureview .quest-area {
+.tavernstructureview .quest-board {
     flex: 1;
 }
 
-.tavernstructureview .quest-area .quest-board {
-    padding: 0;
-}
-
-.tavernstructureview .quest-area .quest-board .quest {
-    display: flex;
-}
-
-.tavernstructureview .quest-area .quest-board .quest.selected {
-    background-color: #165fcb;
-}
-
-.tavernstructureview .quest-area .quest-board .quest .icon {
-    height: 32px;
-    width: 26px;
-    display: inline-block;
-    padding: 3px;
-    margin: 3px;
-    box-sizing: border-box;
-    background-size: contain;
-}
-
-.tavernstructureview .quest-area .quest-board .quest .title {
-    flex: 1;
-    line-height: 32px;
-    margin-left: 10px;
-}
-
-.tavernstructureview .quest-area .quest-board .quest.selected .title {
-    color: white;
-}

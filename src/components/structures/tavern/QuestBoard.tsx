@@ -1,8 +1,7 @@
 import * as React from "react";
-import { AppContextProps } from "src/components/App";
 import { QuestStoreState } from "src/stores/quest";
 import { TextManager } from "src/utils/textManager";
-import "./css/tavernstructureview.css";
+import "./css/questboard.css";
 
 // tslint:disable-next-line:no-empty-interface
 export interface DispatchProps {
@@ -50,11 +49,14 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
         });
 
         // quest board, expanded quest info + assign adventurers + launch button
-        return <div className = "quest-area">
+        return <div className = "quest-board">
             <h2>Quest board</h2>
-            <ul className = "quest-board">
+            <ul className = "quest-list">
                 { questListContent }
             </ul>
+            <div className="quest-details">
+
+            </div>
         </div>;
     };
    

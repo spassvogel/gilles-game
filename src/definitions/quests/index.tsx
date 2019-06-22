@@ -6,7 +6,7 @@ import { Encounter } from "../encounters/types";
 export enum QuestNodeType {
     nothing = 0,    // Nothing much going on here
     encounter = 1,
-    combat = 2,
+    combat = 2,     // Not implemented
     boss = 3,
 }
 
