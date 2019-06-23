@@ -9,8 +9,8 @@ const getQuests = (state: StoreState): QuestStoreState[] => state.quests;
 const groupAdventurersByQuest = (adventurers: AdventurerStoreState[], quests: QuestStoreState[]): Record<string, AdventurerStoreState[]> => {
     const foundInParty: AdventurerStoreState[] = []; // store the adventurers in parties in a temp array
 
-    const adventurersOnQuest = (questId: string): AdventurerStoreState[] => {
-        const party: string[] = quests[questId].party;
+    const adventurersOnQuest = (quest: QuestStoreState): AdventurerStoreState[] => {
+        const party: string[] = quest.party;
         return party.map((id: string) => findAdventurerById(id)!);
     };
 
@@ -19,9 +19,10 @@ const groupAdventurersByQuest = (adventurers: AdventurerStoreState[], quests: Qu
     };
 
     // Add up all the workers used by all structures in town
-    const groupedAdventurers = Object.keys(quests).reduce((acc, val: string) => {
-        acc[val] = adventurersOnQuest(val);
-        foundInParty.push(...acc[val]);
+    const groupedAdventurers = Object.values(quests).reduce((acc, val: QuestStoreState) => {
+        const foundAdventurers = adventurersOnQuest(val);
+        acc[val.name] = foundAdventurers;
+        foundInParty.push(...foundAdventurers);
         return acc;
     }, {});
 

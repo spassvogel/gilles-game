@@ -81,7 +81,9 @@ class AdventurersBox extends React.Component<AllProps, LocalState> {
                     </div>
                 </div>;
             }
-            const sigilImgPath = `img/sigils/${ group === "solo" ? "" : this.props.quests[group].sigil}`;
+
+            const quest = this.props.quests.find((q) => q.name === group);
+            const sigilImgPath = `img/sigils/${ group === "solo" ? "" : (quest!).icon}`;
             return <li key={ group } className={ "group" }>
                 <div
                     className="sigil"
