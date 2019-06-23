@@ -33,12 +33,17 @@
 [x] have a helper for 'capital' Capitalise
 
 [ ] The tavern has a limited number of vacancies (rooms). Upgrading the tavern upgrades this number.
+[ ] Periodically new adventurers will take residence
     The tavern will only accept new adventurers when there are rooms free.
-    You can kick out an adventurer that's not on a quest. Freeing the room. Periodically new adventurers will take residence
-[ ] Quests are launched from the 'quest board' in the tavern. Adventurers on quests keep their rooms
+    Adventurers on quests keep their rooms
+[ ] You can kick out an adventurer that's not on a quest. Freeing the room. 
+[ ] Quests are launched from the 'quest board' in the tavern. 
 [ ] You can train workers/citizens to become adventurers
 
 
 02/05/2019 TRAITS
 
 [ ] During encounters, characters can receive certain traits. These can be beneficial or not. In some cases the traits can be healed, removed etc. Some items can be used to grant a trait to an adventurer.
+
+23/06/2019 HELP
+[ ] Each screen should get a contexualized help window
