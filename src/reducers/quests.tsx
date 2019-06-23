@@ -11,7 +11,12 @@ import { QuestStatus, QuestStoreState } from "src/stores/quest";
 const initialState: QuestStoreState[] = [{
     name: "kill10Boars",
     status: QuestStatus.available,
-    party: "3tf8h79boh6",
+    party: [
+        "c4a5d270",
+        "2e655832",
+        "ec6f1050",
+        "d299f98a",
+    ],
     progress: 0,
     questVars: {},
     encounterResults: [],
@@ -20,7 +25,7 @@ const initialState: QuestStoreState[] = [{
     currentEncounter: null,
 }, {
     name: "retrieveMagicAmulet",
-    party: "rx2nv4rqwn",
+    party: [],
     status: QuestStatus.available,
     progress: 0,
     questVars: {},
@@ -33,6 +38,28 @@ const initialState: QuestStoreState[] = [{
         items: [ Item.deedForWeaponsmith ],
     },
 }];
+
+// const testState: Record<string, PartyStoreState> = {
+//     "3tf8h79boh6": {
+//         adventurers: [
+//             "c4a5d270",
+//             "2e655832",
+//             "ec6f1050",
+//             "d299f98a",
+//         ],
+//         sigil: "sigil1.png",
+//     },
+//     "rx2nv4rqwn": {
+//         adventurers: [
+//             "96c686c3",
+//             "250d1a9d",
+//             "169384ef",
+//             "f22d66cb",
+//         ],
+//         sigil: "sigil2.png",
+//     },
+// };
+
 
 /**
  * reducer

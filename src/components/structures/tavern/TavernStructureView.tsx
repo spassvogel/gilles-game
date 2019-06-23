@@ -4,8 +4,7 @@ import DraggableAdventurerAvatar, { AdventurerAvatarDragInfo } from "src/compone
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { StructureLevelDefinition, TavernStructureDefinition } from "src/definitions/structures/types";
 import { AdventurerStoreState } from "src/stores/adventurer";
-import { PartyStoreState } from "src/stores/party";
-import { QuestStoreState } from "src/stores/quest";
+import { QuestStoreState, QuestStatus } from "src/stores/quest";
 import { TextManager } from "src/utils/textManager";
 import "./css/tavernstructureview.css";
 import QuestBoard from "./QuestBoard";
@@ -20,8 +19,7 @@ export interface DispatchProps {
 export interface StateProps {
     level: number;
     adventurers: AdventurerStoreState[];
-    availableQuests: QuestStoreState[];
-    parties: Record<string, PartyStoreState>;
+    quests: QuestStoreState[];
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -69,7 +67,7 @@ export default class TavernStructureView extends React.Component<AllProps, Local
                     let name = adventurer.name;
 
                     const assigned = this.state.assignedAventurers.indexOf(adventurer) > -1; // assigned to a quest in the QuestBoard
-                    const party = this.getParty(adventurer.id);
+                    const party = this.getQuestByAdventurer(adventurer.id);
                     if (party) {
                         name += " (on a quest)";
                     }
@@ -103,13 +101,15 @@ export default class TavernStructureView extends React.Component<AllProps, Local
             </div>;
         };
 
+        const availableQuests = this.props.quests.filter((q) => q.status === QuestStatus.available );
+
         return (
             <details open = { true } className = "tavernstructureview">
                 <summary>{ displayName }</summary>
                 <section>
                     { createRooms() }
                     <QuestBoard
-                        availableQuests = { this.props.availableQuests }
+                        availableQuests = { availableQuests }
                         selectedQuest = { this.state.selectedQuest }
                         assignedAventurers = { this.state.assignedAventurers }
                         onQuestClick = { (name: string) => this.handleQuestClick(name) }
@@ -160,9 +160,9 @@ export default class TavernStructureView extends React.Component<AllProps, Local
      * Returns the party the adventurer is in. undefined if not in any party
      * @param adventurerId
      */
-    private getParty(adventurerId: string): PartyStoreState | undefined {
-        return Object.values(this.props.parties).find((party) => {
-            return party.adventurers.indexOf(adventurerId) > -1;
+    private getQuestByAdventurer(adventurerId: string): QuestStoreState | undefined {
+        return Object.values(this.props.quests).find((quest) => {
+            return quest.party.indexOf(adventurerId) > -1;
         });
     }
 }

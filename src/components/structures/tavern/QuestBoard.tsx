@@ -59,6 +59,7 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
                     assignedAventurers = { this.props.assignedAventurers }
                     onRemoveAdventurer = { this.props.onRemoveAdventurer }
                     onAddEventurer = { this.props.onAddAdventurer } />
+                { /** TODO:launch quest button */}
             </div>;
         };
 

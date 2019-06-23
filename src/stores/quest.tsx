@@ -17,8 +17,7 @@ export interface QuestReward {
 export interface QuestStoreState {
     name: string;
     status: QuestStatus;
-    party: string;          // Reference to PartyStoreState.id
-                            // todo: perhaps refactor party to be part of QuestStoreState
+    party: string[];        // list of adventurer ids
     progress: number;       // Which questnode the party is at currently
     questVars: any;
     encounterResults: string[];   // Store what option the place chose during an encounter // OBSOLETE

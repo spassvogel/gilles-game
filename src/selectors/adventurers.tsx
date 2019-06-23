@@ -1,17 +1,17 @@
 import { createSelector } from "reselect";
 import { StoreState } from "src/stores";
 import { AdventurerStoreState } from "src/stores/adventurer";
-import { PartyStoreState } from "src/stores/party";
+import { QuestStoreState } from "src/stores/quest";
 
 const getAdventurers = (state: StoreState): AdventurerStoreState[] => state.adventurers;
-const getParties = (state: StoreState): Record<string, PartyStoreState> => state.parties;
+const getQuests = (state: StoreState): QuestStoreState[] => state.quests;
 
-const groupAdventurersByParty = (adventurers: AdventurerStoreState[], parties: Record<string, PartyStoreState>): Record<string, AdventurerStoreState[]> => {
+const groupAdventurersByQuest = (adventurers: AdventurerStoreState[], quests: QuestStoreState[]): Record<string, AdventurerStoreState[]> => {
     const foundInParty: AdventurerStoreState[] = []; // store the adventurers in parties in a temp array
 
-    const adventurersInParty = (partyId: string): AdventurerStoreState[] => {
-        const party: PartyStoreState = parties[partyId];
-        return party.adventurers.map((id: string) => findAdventurerById(id)!);
+    const adventurersOnQuest = (questId: string): AdventurerStoreState[] => {
+        const party: string[] = quests[questId].party;
+        return party.map((id: string) => findAdventurerById(id)!);
     };
 
     const findAdventurerById = (id: string): AdventurerStoreState | undefined => {
@@ -19,8 +19,8 @@ const groupAdventurersByParty = (adventurers: AdventurerStoreState[], parties: R
     };
 
     // Add up all the workers used by all structures in town
-    const groupedAdventurers = Object.keys(parties).reduce((acc, val: string) => {
-        acc[val] = adventurersInParty(val);
+    const groupedAdventurers = Object.keys(quests).reduce((acc, val: string) => {
+        acc[val] = adventurersOnQuest(val);
         foundInParty.push(...acc[val]);
         return acc;
     }, {});
@@ -34,6 +34,6 @@ const groupAdventurersByParty = (adventurers: AdventurerStoreState[], parties: R
 
 export const selectAdventurersGroupedByParty = createSelector([
     getAdventurers,
-    getParties],
-    groupAdventurersByParty,
+    getQuests],
+    groupAdventurersByQuest,
 );

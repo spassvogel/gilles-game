@@ -4,7 +4,7 @@ import * as React from "react";
 import { DragSourceType } from "src/constants";
 import { Item } from "src/definitions/items/types";
 import { AdventurerStoreState } from "src/stores/adventurer";
-import { PartyStoreState } from "src/stores/party";
+import { QuestStoreState } from "src/stores/quest";
 import "./css/adventurersbox.css";
 import AdventurerAvatar from "./ui/AdventurerAvatar";
 import Inventory from "./ui/inventory/Inventory";
@@ -15,7 +15,7 @@ export interface DispatchProps {
 }
 
 export interface StateProps {
-    parties: Record<string, PartyStoreState>;
+    quests: QuestStoreState[];
     groupedAdventurers: Record<string, AdventurerStoreState[]>; // keyed by party
 }
 
@@ -81,7 +81,7 @@ class AdventurersBox extends React.Component<AllProps, LocalState> {
                     </div>
                 </div>;
             }
-            const sigilImgPath = `img/sigils/${ group === "solo" ? "" : this.props.parties[group].sigil}`;
+            const sigilImgPath = `img/sigils/${ group === "solo" ? "" : this.props.quests[group].sigil}`;
             return <li key={ group } className={ "group" }>
                 <div
                     className="sigil"

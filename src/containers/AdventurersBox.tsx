@@ -11,7 +11,7 @@ const mapStateToProps = (store: StoreState): StateProps => {
 
     return {
         groupedAdventurers: selectAdventurersGroupedByParty(store),
-        parties: store.parties,
+        quests: store.quests,
     };
 };
 
