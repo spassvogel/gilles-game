@@ -18,10 +18,12 @@ const groupAdventurersByQuest = (adventurers: AdventurerStoreState[], quests: Qu
         return adventurers.find((a) => a.id === id);
     };
 
-    // Add up all the workers used by all structures in town
     const groupedAdventurers = Object.values(quests).reduce((acc, val: QuestStoreState) => {
         const foundAdventurers = adventurersOnQuest(val);
-        acc[val.name] = foundAdventurers;
+        if (foundAdventurers.length > 0) {
+            // Only active quests
+            acc[val.name] = foundAdventurers;
+        }
         foundInParty.push(...foundAdventurers);
         return acc;
     }, {});
@@ -33,7 +35,8 @@ const groupAdventurersByQuest = (adventurers: AdventurerStoreState[], quests: Qu
     return groupedAdventurers;
 };
 
-export const selectAdventurersGroupedByParty = createSelector([
+/** Returns an object keyed by active quests whose value is a list of AdventurerStoreState */
+export const selectAdventurersGroupedByQuest = createSelector([
     getAdventurers,
     getQuests],
     groupAdventurersByQuest,

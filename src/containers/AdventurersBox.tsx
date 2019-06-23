@@ -4,25 +4,25 @@ import { addItemToInventory, moveItemInInventory } from "src/actions/adventurers
 import { removeItemFromWarehouse } from "src/actions/items";
 import AdventurersBox, { DispatchProps, Props, StateProps } from "src/components/AdventurersBox";
 import { Item } from "src/definitions/items/types";
-import { selectAdventurersGroupedByParty } from "src/selectors/adventurers";
+import { selectAdventurersGroupedByQuest as selectAdventurersGroupedByQuest } from "src/selectors/adventurers";
 import { StoreState } from "src/stores";
 
 const mapStateToProps = (store: StoreState): StateProps => {
 
     return {
-        groupedAdventurers: selectAdventurersGroupedByParty(store),
-        questsGroups: store.quests,
+        groupedAdventurers: selectAdventurersGroupedByQuest(store),
+        quests: store.quests,
     };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
     return {
         onMoveItemFromWarehouseToAdventurer: (adventurerId: string, item: Item, fromSlot: number, toSlot: number) => {
-            const action1 = removeItemFromWarehouse(fromSlot);
-            dispatch(action1);
+            const removeAction = removeItemFromWarehouse(fromSlot);
+            dispatch(removeAction);
 
-            const action2 = addItemToInventory(adventurerId, item, toSlot);
-            dispatch(action2);
+            const addAction = addItemToInventory(adventurerId, item, toSlot);
+            dispatch(addAction);
         },
         // Moves item within an adventurers' inventory
         onMoveItemInInventory: (adventurerId: string, fromSlot: number, toSlot: number) => {

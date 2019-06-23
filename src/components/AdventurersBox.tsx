@@ -8,6 +8,7 @@ import { QuestStoreState } from "src/stores/quest";
 import "./css/adventurersbox.css";
 import AdventurerAvatar from "./ui/AdventurerAvatar";
 import Inventory from "./ui/inventory/Inventory";
+import { TextManager } from "src/utils/textManager";
 
 export interface DispatchProps {
     onMoveItemInInventory?: (adventurerId: string, fromSlot: number, toSlot: number) => void;
@@ -28,11 +29,12 @@ interface LocalState {
 }
 
 type AllProps = Props & StateProps & DispatchProps;
+
+/**
+ * Adventurers grouped by quest
+ */
 class AdventurersBox extends React.Component<AllProps, LocalState> {
 
-    /**
-     *
-     */
     constructor(props: AllProps) {
         super(props);
 
@@ -83,13 +85,19 @@ class AdventurersBox extends React.Component<AllProps, LocalState> {
             }
 
             const quest = this.props.quests.find((q) => q.name === group);
-            const sigilImgPath = `img/sigils/${ group === "solo" ? "" : (quest!).icon}`;
-            return <li key={ group } className={ "group" }>
+            let name = "";
+            let sigilImgPath = "";
+            if (quest) {
+                sigilImgPath = `img/sigils/${ quest.icon }`;
+                name = TextManager.getQuestTitle(quest.name);
+            }
+            return <li key = { group } className = { "group" }>
                 <div
-                    className="sigil"
-                    style={{backgroundImage: `url(${sigilImgPath})`}}
+                    className = "sigil"
+                    style = { { backgroundImage: `url(${sigilImgPath})`} }
                 ></div>
-                <ul className="adventurer-portraits">
+                <span className = "title" title = { name }> { name } </span>
+                <ul className = "adventurer-portraits">
                 { adventurers.map((adventurer) => generatePortrait(adventurer)) }
                 </ul>
                 { adventurerInfo }
