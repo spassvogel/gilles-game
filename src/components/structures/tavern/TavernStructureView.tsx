@@ -10,10 +10,8 @@ import "./css/tavernstructureview.css";
 import QuestBoard from "./QuestBoard";
 
 // The UI for the tavern
-// tslint:disable-next-line:no-empty-interface
 export interface DispatchProps {
-//    onUpgrade?: (cost: number) => void;
-//   onCraft?: (productionDefinition: ProductionDefinition, workers: number) => void;
+    onLaunchQuest: (questName: string, assignedAventurers: AdventurerStoreState[]) => void;
 }
 
 export interface StateProps {
@@ -31,7 +29,7 @@ type AllProps = Props & StateProps & DispatchProps & AppContextProps;
 
 // tslint:disable-next-line:no-empty-interface
 interface LocalState {
-    selectedQuest: string | null;
+    selectedQuestName: string | null;
     assignedAventurers: AdventurerStoreState[];
 }
 
@@ -44,7 +42,7 @@ export default class TavernStructureView extends React.Component<AllProps, Local
 
         this.state = {
             assignedAventurers: [],
-            selectedQuest: null,
+            selectedQuestName: null,
         };
     }
 
@@ -110,11 +108,12 @@ export default class TavernStructureView extends React.Component<AllProps, Local
                     { createRooms() }
                     <QuestBoard
                         availableQuests = { availableQuests }
-                        selectedQuest = { this.state.selectedQuest }
+                        selectedQuestName = { this.state.selectedQuestName }
                         assignedAventurers = { this.state.assignedAventurers }
                         onQuestClick = { (name: string) => this.handleQuestClick(name) }
                         onAddAdventurer = { (item: AdventurerAvatarDragInfo, index: number) => this.handleAddAdventurer(item, index) }
                         onRemoveAdventurer = { (index: number) => this.handleRemoveAdventurer(index) }
+                        onLaunchQuest = { (assignedAventurers: AdventurerStoreState[]) => this.handleLaunchQuest(assignedAventurers) } 
                     />
                 </section>
             </details>
@@ -122,10 +121,10 @@ export default class TavernStructureView extends React.Component<AllProps, Local
     }
 
     private handleQuestClick(name: string) {
-        if (this.state.selectedQuest === name) {
-            this.setState( { selectedQuest: null });
+        if (this.state.selectedQuestName === name) {
+            this.setState( { selectedQuestName: null });
         } else {
-            this.setState( { selectedQuest: name });
+            this.setState( { selectedQuestName: name });
         }
 
         // Unassign all adventurers
@@ -154,6 +153,10 @@ export default class TavernStructureView extends React.Component<AllProps, Local
         this.setState({
             assignedAventurers,
         });
+    }
+
+    private handleLaunchQuest(assignedAventurers: AdventurerStoreState[]): void {
+        this.props.onLaunchQuest(this.state.selectedQuestName!, assignedAventurers);
     }
 
     /**

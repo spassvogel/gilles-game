@@ -1,6 +1,6 @@
 import { AnyAction, Reducer } from "redux";
 import { ActionType as GameActionType, GameTickAction } from "src/actions/game";
-import { ActionType, QuestAction, QuestVarsAction, StartEncounterAction, UpdateEncounterResultAction } from "src/actions/quests";
+import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, StartEncounterAction, UpdateEncounterResultAction } from "src/actions/quests";
 import encounterDefintions from "src/definitions/encounters";
 import { Item } from "src/definitions/items/types";
 import questDefinitions, { QuestDefinition, QuestNodeType } from "src/definitions/quests";
@@ -39,28 +39,6 @@ const initialState: QuestStoreState[] = [{
     },
 }];
 
-// const testState: Record<string, PartyStoreState> = {
-//     "3tf8h79boh6": {
-//         adventurers: [
-//             "c4a5d270",
-//             "2e655832",
-//             "ec6f1050",
-//             "d299f98a",
-//         ],
-//         sigil: "sigil1.png",
-//     },
-//     "rx2nv4rqwn": {
-//         adventurers: [
-//             "96c686c3",
-//             "250d1a9d",
-//             "169384ef",
-//             "f22d66cb",
-//         ],
-//         sigil: "sigil2.png",
-//     },
-// };
-
-
 /**
  * reducer
  * @param state
@@ -69,6 +47,9 @@ const initialState: QuestStoreState[] = [{
 export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialState,
                                                    action: AnyAction| GameTickAction) => {
     switch (action.type) {
+        case ActionType.launchQuest:
+            return launchQuest(state, action as QuestLaunchAction);
+
         case ActionType.advanceQuest:
             return advanceQuest(state, action as QuestAction);
 
@@ -88,6 +69,13 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
         }
     }
     return state;
+};
+
+// Launches quest. Sets state to active, assigns adventurers
+const launchQuest = (state: QuestStoreState[], action: QuestLaunchAction) => {
+    console.log(action.assignedAventurers);
+    console.log(action.questName);
+    return state; // todo
 };
 
 const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {

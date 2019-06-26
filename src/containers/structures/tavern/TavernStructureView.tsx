@@ -1,11 +1,12 @@
 import { Dispatch } from "react";
 import { connect } from "react-redux";
 import { AnyAction, compose } from "redux";
+import { launchQuest } from "src/actions/quests";
 import TavernStructureView, { DispatchProps, Props, StateProps } from "src/components/structures/tavern/TavernStructureView";
 import { Structure } from "src/definitions/structures";
 import { withAppContext } from "src/hoc/withAppContext";
 import { StoreState } from "src/stores";
-import { QuestStatus } from "src/stores/quest";
+import { AdventurerStoreState } from "src/stores/adventurer";
 import { StructureStoreState } from "src/stores/structure";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
@@ -19,6 +20,10 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps {
     return {
+        onLaunchQuest: (questName: string, assignedAventurers: AdventurerStoreState[]) => {
+            dispatch(launchQuest(questName, assignedAventurers));
+        },
+
         // onCraft: (productionDefinition: ProductionDefinition, workers: number) => {
         //     const craftingTime = calculateProductionTime(productionDefinition.time, workers);
         //     dispatch(removeResources(productionDefinition.cost));

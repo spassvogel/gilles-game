@@ -1,8 +1,10 @@
 import { Encounter } from "src/definitions/encounters/types";
+import { AdventurerStoreState } from "src/stores/adventurer";
 
 // tslint:disable:object-literal-sort-keys
 
 export enum ActionType {
+    launchQuest = "launchQuest",
     advanceQuest = "advanceQuest",
     updateQuestVars = "updateQuestVars",
     updateEncounterResult = "updateEncounterResult",
@@ -20,6 +22,11 @@ export interface QuestAction extends Action {
 export interface QuestVarsAction extends QuestAction {
     vars: any;
 }
+
+export interface QuestLaunchAction extends QuestAction {
+    assignedAventurers: AdventurerStoreState[];
+}
+
 export interface StartEncounterAction extends QuestAction {
     encounter: Encounter;
 }
@@ -27,6 +34,14 @@ export interface StartEncounterAction extends QuestAction {
 export interface UpdateEncounterResultAction extends QuestAction {
     nodeIndex: number;
     result: string;
+}
+
+export function launchQuest(questName: string, assignedAventurers: AdventurerStoreState[]): QuestLaunchAction {
+    return {
+        type: ActionType.launchQuest,
+        questName,
+        assignedAventurers,
+    };
 }
 
 /** Move to the next node */

@@ -13,11 +13,12 @@ export interface DispatchProps {
     onQuestClick: (questName: string) => void;
     onRemoveAdventurer: (index: number) => void;
     onAddAdventurer: (item: AdventurerAvatarDragInfo, index: number) => void;
+    onLaunchQuest: (assignedAventurers: AdventurerStoreState[]) => void;
 }
 
 export interface Props {
     availableQuests: QuestStoreState[];
-    selectedQuest: string | null;       // name of selected quest
+    selectedQuestName: string | null;       // name of selected quest
     assignedAventurers: AdventurerStoreState[];
 }
 
@@ -41,7 +42,7 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
     public render() {
         const questListContent: JSX.Element[] = this.props.availableQuests.map((q) => {
             const iconImgPath = `img/sigils/${ q.icon }`;
-            const className = "quest" + ((q.name === this.props.selectedQuest) ? " selected" : "");
+            const className = "quest" + ((q.name === this.props.selectedQuestName) ? " selected" : "");
             return <li key={ q.name } className = { className } onClick = { () => { this.props.onQuestClick(q.name); } }>
                 <div
                     className = "icon"
@@ -52,13 +53,13 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
         });
 
         const getQuestDetails = () => {
-            if (!this.props.selectedQuest) {
+            if (!this.props.selectedQuestName) {
                 return null;
             }
             // Need a full party to launch
-            const canLaunch = this.props.assignedAventurers.filter((a) => a !== null).length > minimumCountAdventurers;
+            const canLaunch = this.props.assignedAventurers.filter((a) => a !== null).length >= minimumCountAdventurers;
             return <div className="quest-details">
-                { TextManager.getQuestDescription(this.props.selectedQuest) }
+                { TextManager.getQuestDescription(this.props.selectedQuestName) }
                 <AssignAdventurers
                     availableSlots = { availableSlots }
                     assignedAventurers = { this.props.assignedAventurers }

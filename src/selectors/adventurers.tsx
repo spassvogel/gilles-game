@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
 import { StoreState } from "src/stores";
 import { AdventurerStoreState } from "src/stores/adventurer";
-import { QuestStoreState } from "src/stores/quest";
+import { QuestStatus, QuestStoreState } from "src/stores/quest";
 
 const getAdventurers = (state: StoreState): AdventurerStoreState[] => state.adventurers;
 const getQuests = (state: StoreState): QuestStoreState[] => state.quests;
@@ -20,7 +20,7 @@ const groupAdventurersByQuest = (adventurers: AdventurerStoreState[], quests: Qu
 
     const groupedAdventurers = Object.values(quests).reduce((acc, val: QuestStoreState) => {
         const foundAdventurers = adventurersOnQuest(val);
-        if (foundAdventurers.length > 0) {
+        if (val.status === QuestStatus.active) {
             // Only active quests
             acc[val.name] = foundAdventurers;
         }
