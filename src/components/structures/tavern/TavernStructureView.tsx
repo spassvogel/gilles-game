@@ -4,7 +4,7 @@ import DraggableAdventurerAvatar, { AdventurerAvatarDragInfo } from "src/compone
 import structureDefinitions, { Structure } from "src/definitions/structures";
 import { StructureLevelDefinition, TavernStructureDefinition } from "src/definitions/structures/types";
 import { AdventurerStoreState } from "src/stores/adventurer";
-import { QuestStoreState, QuestStatus } from "src/stores/quest";
+import { QuestStatus, QuestStoreState } from "src/stores/quest";
 import { TextManager } from "src/utils/textManager";
 import "./css/tavernstructureview.css";
 import QuestBoard from "./QuestBoard";

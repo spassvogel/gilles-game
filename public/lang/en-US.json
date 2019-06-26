@@ -31,6 +31,8 @@
     "structure-warehouse-name": "Warehouse",
     "structure-weaponsmith-name": "Weaponsmith",
     "structure-weaver-name": "Weaver",
+    "structure-tavern-button-launch-quest": "Start quest",
+    "structure-tavern-title-quest-board": "Quest board",
     "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
-    "test=game-welcome": "You have taken your first steps into a larger world"
+    "test-game-welcome": "You have taken your first steps into a larger world"
 }

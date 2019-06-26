@@ -1,5 +1,8 @@
 .assign-adventurers {
-
+    margin: 20px;
+    padding: 0;
+    justify-content: center;
+    display: flex;
 }
 
 .assign-adventurers li {

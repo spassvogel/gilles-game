@@ -6,6 +6,9 @@ import { TextManager } from "src/utils/textManager";
 import AssignAdventurers from "./AssignAdventurers";
 import "./css/questboard.css";
 
+const availableSlots = 5;
+const minimumCountAdventurers = 3;  // we need this many adventurers to start the quest
+
 export interface DispatchProps {
     onQuestClick: (questName: string) => void;
     onRemoveAdventurer: (index: number) => void;
@@ -52,20 +55,22 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
             if (!this.props.selectedQuest) {
                 return null;
             }
+            // Need a full party to launch
+            const canLaunch = this.props.assignedAventurers.filter((a) => a !== null).length > minimumCountAdventurers;
             return <div className="quest-details">
                 { TextManager.getQuestDescription(this.props.selectedQuest) }
                 <AssignAdventurers
-                    availableSlots = { 5 }
+                    availableSlots = { availableSlots }
                     assignedAventurers = { this.props.assignedAventurers }
                     onRemoveAdventurer = { this.props.onRemoveAdventurer }
                     onAddEventurer = { this.props.onAddAdventurer } />
-                { /** TODO:launch quest button */}
+                <button disabled = { !canLaunch } > { TextManager.get("structure-tavern-button-launch-quest") } </button>
             </div>;
         };
 
         // quest board, expanded quest info + assign adventurers + launch button
         return <div className = "quest-board">
-            <h2>Quest board</h2>
+            <h2> { TextManager.get("structure-tavern-title-quest-board") } </h2>
             <ul className = "quest-list">
                 { questListContent }
             </ul>

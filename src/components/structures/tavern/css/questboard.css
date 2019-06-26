@@ -34,4 +34,6 @@
 .quest-board .quest-details {
     border: 1px solid grey;
     padding: 5px;
+    display: flex;
+    flex-direction: column;
 }

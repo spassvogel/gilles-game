@@ -48,7 +48,7 @@ const initGame = async () => {
  */
 const startNewGame = (store: any) => {
 
-    store.dispatch(addLogEntry("test=game-welcome"));
+    store.dispatch(addLogEntry("test-game-welcome"));
     // todo: here is a good place to launch a tutorial or something
 
     // tslint:disable-next-line:no-console
