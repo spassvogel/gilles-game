@@ -13,7 +13,7 @@ export interface DispatchProps {
     onQuestClick: (questName: string) => void;
     onRemoveAdventurer: (index: number) => void;
     onAddAdventurer: (item: AdventurerAvatarDragInfo, index: number) => void;
-    onLaunchQuest: (assignedAventurers: AdventurerStoreState[]) => void;
+    onLaunchQuest: () => void;
 }
 
 export interface Props {
@@ -65,7 +65,9 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
                     assignedAventurers = { this.props.assignedAventurers }
                     onRemoveAdventurer = { this.props.onRemoveAdventurer }
                     onAddEventurer = { this.props.onAddAdventurer } />
-                <button disabled = { !canLaunch } > { TextManager.get("structure-tavern-button-launch-quest") } </button>
+                <button disabled = { !canLaunch } onClick = { () => this.props.onLaunchQuest() }>
+                    { TextManager.get("structure-tavern-button-launch-quest") }
+                </button>
             </div>;
         };
 

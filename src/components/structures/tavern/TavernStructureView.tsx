@@ -113,7 +113,7 @@ export default class TavernStructureView extends React.Component<AllProps, Local
                         onQuestClick = { (name: string) => this.handleQuestClick(name) }
                         onAddAdventurer = { (item: AdventurerAvatarDragInfo, index: number) => this.handleAddAdventurer(item, index) }
                         onRemoveAdventurer = { (index: number) => this.handleRemoveAdventurer(index) }
-                        onLaunchQuest = { (assignedAventurers: AdventurerStoreState[]) => this.handleLaunchQuest(assignedAventurers) } 
+                        onLaunchQuest = { () => this.handleLaunchQuest() } 
                     />
                 </section>
             </details>
@@ -155,8 +155,10 @@ export default class TavernStructureView extends React.Component<AllProps, Local
         });
     }
 
-    private handleLaunchQuest(assignedAventurers: AdventurerStoreState[]): void {
-        this.props.onLaunchQuest(this.state.selectedQuestName!, assignedAventurers);
+    private handleLaunchQuest(): void {
+        const assignedAventurers = this.state.assignedAventurers;
+        const selectedQuestName = this.state.selectedQuestName!;
+        this.props.onLaunchQuest(selectedQuestName, assignedAventurers);
     }
 
     /**

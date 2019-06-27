@@ -10,7 +10,7 @@ import { QuestStatus, QuestStoreState } from "src/stores/quest";
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
     name: "kill10Boars",
-    status: QuestStatus.available,
+    status: QuestStatus.active,
     party: [
         "c4a5d270",
         "2e655832",
