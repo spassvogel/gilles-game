@@ -113,7 +113,7 @@ export default class TavernStructureView extends React.Component<AllProps, Local
                         onQuestClick = { (name: string) => this.handleQuestClick(name) }
                         onAddAdventurer = { (item: AdventurerAvatarDragInfo, index: number) => this.handleAddAdventurer(item, index) }
                         onRemoveAdventurer = { (index: number) => this.handleRemoveAdventurer(index) }
-                        onLaunchQuest = { () => this.handleLaunchQuest() } 
+                        onLaunchQuest = { () => this.handleLaunchQuest() }
                     />
                 </section>
             </details>
