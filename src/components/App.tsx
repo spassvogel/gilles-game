@@ -1,4 +1,5 @@
 import * as React from "react";
+import posed, { PoseGroup } from "react-pose";
 import { Persistor } from "redux-persist";
 import { ContextInfo, ContextType } from "src/constants";
 import AdventurersBox from "src/containers/AdventurersBox";
@@ -91,17 +92,19 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             onContextualObjectActivated: this.handleContextualObjectActivated,
         }}>
         <Preloader
-        manifest = { manifest }
-        onLoadComplete = { this.handleMediaLoadComplete }
+            manifest = { manifest }
+            onLoadComplete = { this.handleMediaLoadComplete }
         >
         <Topbar
-        appView={ this.state.view }
-        onViewButtonClick={ () => this.changeView() }
-        persistor={ this.props.persistor }
+            appView={ this.state.view }
+            onViewButtonClick={ () => this.changeView() }
+            persistor={ this.props.persistor }
         />
         {/* <div className="app-left"> */}
         {/* <TownView onStructureClick= { this.selectStructure }/> */}
-        { selectedStructureView }
+        <PoseGroup>
+            { selectedStructureView }
+        </PoseGroup>
         {/* <fieldset>
             <legend>Cheats</legend>
             <button onClick={ () => this.handleCheatGold(20)}> Geiv 20 gold</button><br/>
