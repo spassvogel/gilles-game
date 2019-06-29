@@ -5,10 +5,10 @@ import { DragSourceType } from "src/constants";
 import { Item } from "src/definitions/items/types";
 import { AdventurerStoreState } from "src/stores/adventurer";
 import { QuestStoreState } from "src/stores/quest";
+import { TextManager } from "src/utils/textManager";
 import "./css/adventurersbox.css";
 import AdventurerAvatar from "./ui/AdventurerAvatar";
 import Inventory from "./ui/inventory/Inventory";
-import { TextManager } from "src/utils/textManager";
 
 export interface DispatchProps {
     onMoveItemInInventory?: (adventurerId: string, fromSlot: number, toSlot: number) => void;

@@ -73,9 +73,20 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
 // Launches quest. Sets state to active, assigns adventurers
 const launchQuest = (state: QuestStoreState[], action: QuestLaunchAction) => {
-    console.log(action.assignedAventurers);
-    console.log(action.questName);
-    return state; // todo
+    const party = action.assignedAventurers
+        .filter((adventurer) => !!adventurer)
+        .map((adventurer) => adventurer.id);
+
+    return state.map((qss) => {
+        if (qss.name === action.questName) {
+            return {
+                ...qss,
+                status: QuestStatus.active,
+                party,
+            };
+        }
+        return qss;
+    });
 };
 
 const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {

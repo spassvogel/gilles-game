@@ -56,6 +56,11 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
             if (!this.props.selectedQuestName) {
                 return null;
             }
+            const quest = this.props.availableQuests.find((q) => q.name === this.props.selectedQuestName);
+            if (!quest) {
+                return <div> { TextManager.get("structure-tavern-quest-launched") } </div>;
+            }
+
             // Need a full party to launch
             const canLaunch = this.props.assignedAventurers.filter((a) => a !== null).length >= minimumCountAdventurers;
             return <div className="quest-details">
