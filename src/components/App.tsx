@@ -66,6 +66,33 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         const selectedStructureView = this.state.selectedStructure ?
         <StructureDetailsView structure = { this.state.selectedStructure }/> : null;
 
+        const StructureViewModal = posed.div({
+            enter: { 
+                //opacity: 1,
+                transform: 'scale(1)',
+                //paddingLeft: '0',
+                //paddingTop: '0',
+                // transition: {
+                //     duration: 200,
+                //     ease: 'linear'
+                // }
+            },
+            exit: { 
+                //opacity: 0,
+                transform: 'scale(0.5)',
+                //paddingTop: '50%',
+                //paddingLeft: '50%',
+                // transition: {
+                //     duration: 200,
+                //     ease: 'linear'
+                // }
+            },
+        });
+        const ModalBackground = posed.div({
+            enter: { opacity: 1 },
+            exit: { opacity: 0 }
+        });
+
         const getMainView = () => {
             if (this.state.view === View.Town) {
 
@@ -100,28 +127,20 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             onViewButtonClick={ () => this.changeView() }
             persistor={ this.props.persistor }
         />
-        {/* <div className="app-left"> */}
-        {/* <TownView onStructureClick= { this.selectStructure }/> */}
         <PoseGroup>
-            { selectedStructureView }
+            { !!selectedStructureView && [
+                <StructureViewModal key="structure-modal" class="structure-modal">
+                    { selectedStructureView }
+                </StructureViewModal>,
+                <ModalBackground key="structure-modal-bg" class="structure-modal-background" onClick= { () => this.closeStructureModal() } />
+                ]
+            }
         </PoseGroup>
-        {/* <fieldset>
-            <legend>Cheats</legend>
-            <button onClick={ () => this.handleCheatGold(20)}> Geiv 20 gold</button><br/>
-            <button onClick={ () => this.handleCheatResources({
-                food: 100,
-                gunpowder: 100,
-                iron: 100,
-                leather: 100,
-                steel: 100,
-                wood: 100,
-            })}> Geiv 100 all resources</button>
-        </fieldset> */}
         { getMainView()  }
         {/* </div> */}
         <div className="app-right">
-        { contextView }
-        { getAdventurersBox() }
+            { contextView }
+            { getAdventurersBox() }
         <CheatBox />
         </div>
         <SimpleLog/>
@@ -143,6 +162,12 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
     private selectStructure = (structure: Structure) => {
         this.setState({
             selectedStructure: structure,
+        });
+    }
+
+    private closeStructureModal = () => {
+        this.setState({
+            selectedStructure: null,
         });
     }
 
