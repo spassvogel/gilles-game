@@ -2,11 +2,17 @@
     font-family: 'Courier New', Courier, monospace;
     font-size: larger;
 }
+
+.questlinevisualization .questname {
+    font-family: initial;
+    font-size: medium;
+}
+
 .questlinevisualization .active {
     font-weight: bold;
 }
 
-.questlinevisualization .next {
+.questlinevisualization .select {
     float: right;
 }
 

@@ -3,6 +3,7 @@ import * as React from "react";
 import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "src/definitions/quests";
 import { QuestStoreState } from "src/stores/quest";
 import "./css/questlinevisualization.css";
+import { TextManager } from "src/utils/textManager";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -49,8 +50,10 @@ export default function(props: AllProps) {
 
     const questNodes = questDefinition.nodes.map((n, i) => createNodeVisualization(n, i));
 
-    return <div className="questlinevisualization"> { questNodes }
-        { props.selected ? <span className="selected">selected</span> : <button className="next"
-            onClick={ () => props.onSelectQuest(props.quest.name)}>select</button> }
+    return <div className="questlinevisualization"> 
+        <div className="questname"> { TextManager.getQuestTitle(quest.name) } </div>
+        { questNodes }
+        { props.selected ? <span className="selected">selected</span> : <button className="select"
+            onClick={ () => props.onSelectQuest(quest.name)}>select</button> }
     </div>;
 }

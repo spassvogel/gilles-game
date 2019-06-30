@@ -77,12 +77,13 @@ export default class TavernStructureView extends React.Component<AllProps, Local
                         key = { `avatar:${adventurer.id}` }
                     />,
                     name,
+                    /*
                     <button
                         className = "boot"
                         key = { `boot:${adventurer.id}` }
                     >
                         Boot
-                    </button>,
+                    </button>,*/
                 ];
                 } else {
                     content = "(empty room)";

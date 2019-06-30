@@ -129,10 +129,10 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         />
         <PoseGroup>
             { !!selectedStructureView && [
-                <StructureViewModal key="structure-modal" class="structure-modal">
+                <StructureViewModal key="structure-modal" className="structure-modal">
                     { selectedStructureView }
                 </StructureViewModal>,
-                <ModalBackground key="structure-modal-bg" class="structure-modal-background" onClick= { () => this.closeStructureModal() } />
+                <ModalBackground key="structure-modal-bg" className="structure-modal-background" onClick= { () => this.closeStructureModal() } />
                 ]
             }
         </PoseGroup>

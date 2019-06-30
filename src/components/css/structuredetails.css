@@ -20,12 +20,10 @@
 }
 
 .structure-details {
-    /*position: absolute;
-    top: 130px;
-    left: 130px;*/
     z-index: 2;
     width: 800px;
     background: white;
+    pointer-events: initial;
 } 
 
 .structure-details legend {
