@@ -1,3 +1,17 @@
+.log .tabs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.log .tabs li {
+    display: inline-block;
+    padding-left: 4px;
+    border: 1px solid green;
+    border-bottom: 0;
+    width: 90px;
+}
+
 .log-entries {
     height: 200px;
     overflow: auto;

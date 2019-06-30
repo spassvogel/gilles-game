@@ -10,13 +10,10 @@ import { gameTick } from "./actions/game";
 import { addLogEntry } from "./actions/log";
 import version from "./constants/version";
 import App from "./containers/App";
-import { backstabbed } from "./definitions/encounters/backstabbed";
-import { theBigTree } from "./definitions/encounters/theBigTree";
 import structureDefinitions from "./definitions/structures";
 import { ResourceStructureDefinition,
     ResourceStructureLevelDefinition, StructureDefinition, StructureType } from "./definitions/structures/types";
 import "./index.css";
-import { oracles } from "./oracle";
 import registerServiceWorker from "./registerServiceWorker";
 import { StoreState } from "./stores";
 import { ResourceStoreState } from "./stores/resources";
@@ -86,7 +83,7 @@ const runGame = (store: any, persistor: Persistor) => {
 
     /*
     * Will generate resources based on the structures in the town.
-    * Wil lreturn a ResourceStoreState with the amount of each resource to add  */
+    * Will return a ResourceStoreState with the amount of each resource to add  */
     const getProducedResources = (delta: number, structures: StructuresStoreState) => {
         const result: ResourceStoreState = {};
         const resourceInterval = 60000; // every minute constitutes a resource tick. todo: move to some other shared place
@@ -117,7 +114,68 @@ const runGame = (store: any, persistor: Persistor) => {
         Object.keys(structures).forEach((structure) => handleStructure(structure));
         return result;
     };
+/*
+    const getQuestUpdates = (delta: number, quests: QuestStoreState[]) => {
+        // Moves the quest line progress. Only if currently at a 'nothing' node
+        // Otherwise the user has to do something to move the quest along
 
+        const speed = 4;    // in nodes per minute
+        const MS_PER_MINUTE = 60000;
+
+        return quests.map((qss) => {
+            const questDefinition: QuestDefinition = questDefinitions[qss.name];
+            const currentProgress = qss.progress;
+
+            const currentNode = questDefinition.nodes[Math.floor(currentProgress)];
+
+            if (currentNode.type === QuestNodeType.nothing) {
+                // Currently at a 'nothing' node
+                const progressIncrease = (action.delta / MS_PER_MINUTE) * speed;
+                const currentNodeIndex =  Math.floor(currentProgress);
+                let nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
+                const hops = Math.floor(nextProgress) - currentNodeIndex;
+
+                let log = qss.log;
+                let currentEncounter = qss.currentEncounter;
+
+                for (let i = 0; i < hops; i++) {
+                    // Loop through all the nodes we've passed since last tick
+                    const nextNode = questDefinition.nodes[currentNodeIndex + i];
+                    if (nextNode.type === QuestNodeType.encounter) {
+                        // We've hit an encounter node. set the progress to here and stop looking at other nodes
+                        const encounter = encounterDefintions[nextNode.encounter!];
+                        const oracle = oracles[qss.name];
+                        nextProgress = currentNodeIndex + i;
+                        log = [
+                            ...log,
+                            encounter.getDescription(oracle),
+                        ];
+                        currentEncounter = nextNode.encounter!;
+                        // Start encounter(encounter)
+                        // TODO: How to dispatch an action from a reducer?
+                        // OR: move this logic outside of reducer
+                        break;
+                    } else if (nextNode.type === QuestNodeType.nothing) {
+                        currentEncounter = null;
+                        if (nextNode.log) {
+                            log = [
+                                ...log,
+                                nextNode.log,
+                            ];
+                        }
+                    }
+                }
+
+                return {
+                    ...qss,
+                    currentEncounter,
+                    progress: nextProgress,
+                    log,
+                };
+            }
+            return qss;
+        });
+    }; */
     // store.dispatch(addGold(400));
 
     // TODO: find something less ugly and hacky than this
@@ -135,7 +193,6 @@ const runGame = (store: any, persistor: Persistor) => {
         const state: StoreState = store.getState();
         const delta = Date.now() - state.engine.lastTick;
 
-    //    state.
         const resources = getProducedResources(delta, state.structures);
         const rngState = getRngState();
         store.dispatch(gameTick(delta, rngState, resources));

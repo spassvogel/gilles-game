@@ -49,7 +49,7 @@ export interface AppContextProps {
 export const AppContext = React.createContext<AppContextProps | null>(null);
 
 export default class App extends React.Component<Props & StateProps & DispatchProps, LocalState> {
-    // This Component has local state, so it's a class
+    // This Component has local state, so it"s a class
     constructor(props: Props & StateProps & DispatchProps) {
         super(props);
 
@@ -67,30 +67,26 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         <StructureDetailsView structure = { this.state.selectedStructure }/> : null;
 
         const StructureViewModal = posed.div({
-            enter: { 
-                //opacity: 1,
-                transform: 'scale(1)',
-                //paddingLeft: '0',
-                //paddingTop: '0',
-                // transition: {
-                //     duration: 200,
-                //     ease: 'linear'
-                // }
+            enter: {
+                opacity: 1,
+                transform: "scale(1)",
+                transition: {
+                     duration: 200,
+                     ease: "easeInOut",
+                },
             },
-            exit: { 
-                //opacity: 0,
-                transform: 'scale(0.5)',
-                //paddingTop: '50%',
-                //paddingLeft: '50%',
-                // transition: {
-                //     duration: 200,
-                //     ease: 'linear'
-                // }
+            exit: {
+                opacity: 0,
+                transform: "scale(0.5)",
+                transition: {
+                    duration: 150,
+                    ease: "easeInOut",
+                },
             },
         });
         const ModalBackground = posed.div({
             enter: { opacity: 1 },
-            exit: { opacity: 0 }
+            exit: { opacity: 0 },
         });
 
         const getMainView = () => {
@@ -132,7 +128,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                 <StructureViewModal key="structure-modal" className="structure-modal">
                     { selectedStructureView }
                 </StructureViewModal>,
-                <ModalBackground key="structure-modal-bg" className="structure-modal-background" onClick= { () => this.closeStructureModal() } />
+                <ModalBackground key="structure-modal-bg" className="structure-modal-background" onClick= { () => this.closeStructureModal() } />,
                 ]
             }
         </PoseGroup>

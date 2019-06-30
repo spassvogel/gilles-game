@@ -62,11 +62,10 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
         case ActionType.startEncounter:
             return startEncounter(state, action as StartEncounterAction);
-            // return updateEncounterResult(state, action as UpdateEncounterResultAction);
 
-        case GameActionType.gameTick: {
-            return gameTick(state, action as GameTickAction);
-        }
+        case GameActionType.gameTick:
+           return gameTick(state, action as GameTickAction);
+
     }
     return state;
 };
@@ -131,10 +130,14 @@ const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
     // Moves the quest line progress. Only if currently at a 'nothing' node
     // Otherwise the user has to do something to move the quest along
 
-    const speed = 100;    // in nodes per minute
+    const speed = 5;    // in nodes per minute
     const MS_PER_MINUTE = 60000;
 
     return state.map((qss) => {
+        if (qss.status !== QuestStatus.active) {
+            return qss;
+        }
+
         const questDefinition: QuestDefinition = questDefinitions[qss.name];
         const currentProgress = qss.progress;
 
@@ -152,20 +155,17 @@ const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
 
             for (let i = 0; i < hops; i++) {
                 // Loop through all the nodes we've passed since last tick
-                const nextNode = questDefinition.nodes[currentNodeIndex + i];
+                const nextNode = questDefinition.nodes[currentNodeIndex + i + 1];
                 if (nextNode.type === QuestNodeType.encounter) {
                     // We've hit an encounter node. set the progress to here and stop looking at other nodes
                     const encounter = encounterDefintions[nextNode.encounter!];
                     const oracle = oracles[qss.name];
-                    nextProgress = currentNodeIndex + i;
+                    nextProgress = currentNodeIndex + i + 1;
                     log = [
                         ...log,
                         encounter.getDescription(oracle),
                     ];
                     currentEncounter = nextNode.encounter!;
-                    // Start encounter(encounter)
-                    // TODO: How to dispatch an action from a reducer?
-                    // OR: move this logic outside of reducer
                     break;
                 } else if (nextNode.type === QuestNodeType.nothing) {
                     currentEncounter = null;

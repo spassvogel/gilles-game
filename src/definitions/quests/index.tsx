@@ -34,12 +34,12 @@ const kill10Boars: QuestDefinition = {
         x: 0,
         y: 3,
         type: QuestNodeType.nothing,
-        log: "The party sets out to vanquish 10 terrible pigs",
-    }, {
-        x: 0,
-        y: 3,
-        type: QuestNodeType.nothing,
-        log: "In the distance, a forest looms",
+        log: "The party sets out to vanquish 10 terrible pigs2",
+    // }, {
+    //     x: 0,
+    //     y: 3,
+    //     type: QuestNodeType.nothing,
+    //     log: "In the distance, a forest looms",
     }, {
         x: 0,
         y: 2,

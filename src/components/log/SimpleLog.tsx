@@ -27,8 +27,14 @@ const getLogEntryRow = (logEntry: LogEntry) => {
 
 const SimpleLog = (props: AllProps) => {
 
-    return <div className="log-entries">
-        { props.logEntries.map((entry) => getLogEntryRow(entry))}
+    return <div className="log">
+        <ul className="tabs">
+            <li>all</li>
+            <li>town</li>
+        </ul>
+        <div className="log-entries">
+            { props.logEntries.map((entry) => getLogEntryRow(entry))}
+        </div>
     </div>;
 };
 export default SimpleLog;

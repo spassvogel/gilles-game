@@ -47,3 +47,6 @@
 
 23/06/2019 HELP
 [ ] Each screen should get a contexualized help window
+
+30/06/2019 GAME TICK QUEST UPDATE
+[ ] Move gameTick from quest reducer into 'controllers'
