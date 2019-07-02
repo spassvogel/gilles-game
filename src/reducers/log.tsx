@@ -10,9 +10,10 @@ import { LogEntry } from "src/stores/logEntry";
 export const log: Reducer<LogEntry[]> = (state: LogEntry[] = [], action: AnyAction) => {
     switch (action.type) {
         case ActionType.addLogEntry:
-            const { key, context } = (action as AddLogEntryAction);
+            const { key, channel, context } = (action as AddLogEntryAction);
             const time = Date.now();
             return [{
+                    channel,
                     context,
                     key,
                     time,

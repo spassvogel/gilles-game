@@ -18,7 +18,7 @@ export interface Props  {
     gold?: number;
 }
 
-export default function(props: Props & DispatchProps) {
+const ResourceStructureView = (props: Props & DispatchProps) => {
 
     const structureDefinition = structureDefinitions[props.type] as ResourceStructureDefinition;
     if (!structureDefinition) {
@@ -99,4 +99,6 @@ export default function(props: Props & DispatchProps) {
             </section>
         </details>
     );
-}
+};
+
+export default ResourceStructureView;

@@ -51,12 +51,15 @@ export default class ProductionStructureView extends React.Component<AllProps, L
         };
     }
 
-    public componentDidUpdate(prevProps: AllProps, prevState: LocalState) {
-        // console.log("cdu" + prevProps.workersFree);
-    }
+    // public componentDidUpdate(prevProps: AllProps, prevState: LocalState) {
+    //     console.log("cdu" + prevProps.workersFree);
+    // }
 
+    public componentWillMount() {
+        console.log("component will mount" + this.props.type);
+    }
     public componentWillUnmount() {
-        // console.log("component will unmount");
+        console.log("component will unmount" + this.props.type);
     }
 
     public render() {
@@ -90,65 +93,6 @@ export default class ProductionStructureView extends React.Component<AllProps, L
             </div>;
         };
 
-        // const createCraftRows = () => {
-        //     const handleClick = (productionDefinition: ProductionDefinition) => {
-        //         if (this.props.onCraft) { this.props.onCraft(productionDefinition); }
-        //     };
-
-        //     /**
-        //      * Formats the requirements for this equipment in a nice string
-        //      * @param costs
-        //      */
-        //     const makeCostsString = (costs: ResourceStoreState): string => {
-        //         return Object.keys(costs).reduce((accumulator: string[], value) => {
-        //             if (costs[value]) { accumulator.push(`${value}: ${costs[value]}`); }
-        //             return accumulator;
-        //         }, []).join(", ") + ". ";
-        //     };
-
-        //     const makeTimeString = (time: number): string => {
-        //         return "Time: " + time + "ms";
-        //     };
-
-        //     return levelDefinition.produces.map((produces) => {
-        //         // Check if we have enough resources
-        //         const playerResources = this.props.resources || {};
-        //         const disabled = Object.keys(produces.cost)
-        //             .some((resource) => produces.cost[resource] > playerResources[resource]);
-        //         const itemDefinition: ItemDefinition = itemDefinitions[produces.item];
-
-        //         const handleUp = () => {
-        //             this.setState({
-        //                 workersAssigned: this.state.workersAssigned + 1,
-        //             });
-        //         };
-
-        //         const handleDown = () => {
-        //             this.setState({
-        //                 workersAssigned: this.state.workersAssigned - 1,
-        //             });
-        //         };
-
-        //         return <div key = { "craft" + produces.item } className="crafting-row">
-        //             <ItemIcon item= { produces.item } />
-
-        //             { itemDefinition.name }
-        //             <UpDownValue
-        //                 value={ 0 }
-        //                 label={ "Workers: " }
-        //                 onUp={ handleUp }
-        //                 onDown={ handleDown }
-        //             />
-        //             <button
-        //                 disabled={ disabled }
-        //                 onClick={ () => handleClick(produces) }>
-        //                 Craft
-        //             </button>
-        //             { makeCostsString(produces.cost) }
-        //             { makeTimeString(produces.time) }
-        //         </div>;
-        //     });
-        // };
 
         const createCraftTabs = () => {
             const selectedItem = this.state.selectedItem;
@@ -166,7 +110,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
             });
         };
 
-        const createCraftingDetails =   () => {
+        const createCraftingDetails = () => {
             const item = this.state.selectedItem;
             if (!item) { return null; }
 
@@ -218,7 +162,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
             };
 
             return (
-                <div className="crafting-details">
+                <div className = "crafting-details">
                     Craft a { itemDefinition.name }
                     <div>
                         { makeCostsString(produces.cost) }

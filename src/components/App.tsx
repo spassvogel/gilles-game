@@ -123,7 +123,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             onViewButtonClick={ () => this.changeView() }
             persistor={ this.props.persistor }
         />
-        <PoseGroup>
+        { <PoseGroup>
             { !!selectedStructureView && [
                 <StructureViewModal key="structure-modal" className="structure-modal">
                     { selectedStructureView }
@@ -131,7 +131,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                 <ModalBackground key="structure-modal-bg" className="structure-modal-background" onClick= { () => this.closeStructureModal() } />,
                 ]
             }
-        </PoseGroup>
+        </PoseGroup>}
         { getMainView()  }
         {/* </div> */}
         <div className="app-right">
@@ -173,10 +173,11 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         });
     }
 
+
     private handleContextualObjectActivated = (type: ContextType, info: ContextInfo) => {
-        this.setState({
-            contextInfo: info,
-            contextType: type,
+       setState({
+             contextInfo: info,
+             contextType: type,
         });
     }
 

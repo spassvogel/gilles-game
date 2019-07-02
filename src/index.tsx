@@ -24,6 +24,7 @@ import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
 import { TextManager } from "./utils/textManager";
 
+let interval: NodeJS.Timeout;
 const initGame = async () => {
     const axiosResult = await axios.get("lang/en-US.json");
     const texts = axiosResult.data as Record<string, string>;
@@ -55,6 +56,10 @@ const startNewGame = (store: any) => {
 const continueGame = (store: any) => {
     // tslint:disable-next-line:no-console
     console.log(`Continuing existing GILLES-IDLE-GAME (version ${version})`);
+};
+
+const stopGame = () => {
+    clearTimeout(interval);
 };
 
 const runGame = (store: any, persistor: Persistor) => {
@@ -203,7 +208,7 @@ const runGame = (store: any, persistor: Persistor) => {
 
     };
 
-    setInterval(gameLoop, 2500);
+    interval = setInterval(gameLoop, 2500);
 };
 
 initGame();
