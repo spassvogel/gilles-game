@@ -1,6 +1,7 @@
 import * as Handlebars from "handlebars";
 import itemDefinitions from "src/definitions/items";
 import { Item } from "src/definitions/items/types";
+import { Resource } from "src/definitions/resources";
 
 export abstract class TextManager {
 
@@ -45,7 +46,7 @@ export abstract class TextManager {
         return this.get(`quest-${name}-description`);
     }
 
-    public static getResourceName(type: string) {
+    public static getResourceName(type: Resource) {
         return this.get(`resource-${type}-name`);
     }
 

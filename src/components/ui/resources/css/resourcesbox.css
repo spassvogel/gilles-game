@@ -1,0 +1,17 @@
+.resourcesbox {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.resourcesbox .resource {
+    display: flex;
+}
+
+.resourcesbox .resource .icon {
+    width: 32px;
+}
+
+.resourcesbox .resource .name {
+    width: 100px;
+}

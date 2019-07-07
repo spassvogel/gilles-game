@@ -17,7 +17,6 @@ details.structureview  section {
     display: flex;
 }
 
-
 .productionstructureview .crafting-area .vertical-tab-bar {
     list-style: none;
     margin: 0;
@@ -49,4 +48,13 @@ details.structureview  section {
     border: 3px solid #165fcb;
     padding: 10px;
 }
+
+.productionstructureview .crafting-area .crafting-details .crafting-costs {
+    display: flex;
+}
+
+.productionstructureview .crafting-area .crafting-details .crafting-costs fieldset {
+    flex: 1;
+}
+
 
