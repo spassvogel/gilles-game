@@ -2,6 +2,7 @@
 export enum ItemType {
     equipment,
     deed,
+    material,
 }
 
 // the string must correspond to a named export in /items/index.tsx
@@ -12,6 +13,7 @@ export enum Item {
     ironSword = "ironSword",
     magicAmulet = "magicAmulet",
     poisonedDagger = "poisonedDagger",
+    poisonVial = "poisonVial",
     deedForLumbermill = "deedForLumbermill",
     deedForWeaponsmith = "deedForWeaponsmith",
     greatswordOfGwai = "greatswordOfGwai",
