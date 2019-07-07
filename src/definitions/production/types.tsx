@@ -3,7 +3,7 @@ import { Item } from "../items/types";
 
 export interface ProductionDefinition {
     item: Item;
-    cost: ResourceStoreState;
+    costResources: ResourceStoreState;
     time: number;
     // TODO: Can also require a number of Items
 }

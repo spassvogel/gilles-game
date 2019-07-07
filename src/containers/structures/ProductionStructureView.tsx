@@ -33,7 +33,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
     return {
         onCraft: (productionDefinition: ProductionDefinition, workers: number) => {
             const craftingTime = calculateProductionTime(productionDefinition.time, workers);
-            dispatch(removeResources(productionDefinition.cost));
+            dispatch(removeResources(productionDefinition.costResources));
             dispatch(increaseWorkers(ownProps.type, workers));
 
             const callbacks = [

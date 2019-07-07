@@ -6,31 +6,31 @@ import { ProductionDefinition } from "./types";
 
 export const crossbow: ProductionDefinition = {
     item: Item.crossbow,
-    cost: { wood: 20, iron: 5 },
+    costResources: { wood: 20, iron: 5 },
     time: time.HALF_HOUR,
 };
 export const longbow: ProductionDefinition = {
     item: Item.longbow,
-    cost: { wood: 40, iron: 5},
+    costResources: { wood: 40, iron: 5},
     time: time.ONE_HOUR,
 };
 export const poisonedDagger: ProductionDefinition = {
     item: Item.poisonedDagger,
-    cost: { wood: 50, iron: 15},
+    costResources: { wood: 50, iron: 15},
     time: time.ONE_HOUR,
 };
 export const dagger: ProductionDefinition = {
     item: Item.dagger,
-    cost: { wood: 10, iron: 10},
+    costResources: { wood: 10, iron: 10},
     time: time.ONE_HOUR,
 };
 export const sword: ProductionDefinition = {
     item: Item.sword,
-    cost: { wood: 10, iron: 30},
+    costResources: { wood: 10, iron: 30},
     time:  time.ONE_HOUR,
 };
 export const khopesh: ProductionDefinition = {
     item: Item.khopesh,
-    cost: { wood: 15, iron: 40},
+    costResources: { wood: 15, iron: 40},
     time:  time.TWO_MINUTES,
 };

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ContextType } from "src/constants";
+import ResourcesCostBox from "src/containers/ui/resources/ResourcesCostBox";
 import itemDefinitions from "src/definitions/items";
 import { Item, ItemDefinition } from "src/definitions/items/types";
 import { ProductionDefinition } from "src/definitions/production/types";
@@ -15,8 +16,6 @@ import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
 import "./css/productionstructureview.css";
-import ResourcesBox from "../ui/resources/ResourcesBox";
-import ResourcesCostBox from "src/containers/ui/resources/ResourcesCostBox";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;
@@ -118,8 +117,8 @@ export default class ProductionStructureView extends React.Component<AllProps, L
 
             const produces = levelDefinition.produces.find((p) => p.item === item)!;
             const playerResources = this.props.resources || {};
-            const missingAtLeastOneResource = Object.keys(produces.cost)
-                .some((resource) => produces.cost[resource] > playerResources[resource]);
+            const missingAtLeastOneResource = Object.keys(produces.costResources)
+                .some((resource) => produces.costResources[resource] > playerResources[resource]);
             const disabled = missingAtLeastOneResource || this.state.workersAssigned < 1;
             // TODO: Perhaps each item can have a number of minimum workers?
             // TODO: We could explain what is the reason we can't craft the item
@@ -168,7 +167,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                     Craft a { TextManager.getItemName(itemDefinition.item) }
                     <div className = "crafting-costs">
                         <fieldset>
-                            <ResourcesCostBox resources = { produces.cost } />
+                            <ResourcesCostBox resources = { produces.costResources } />
                         </fieldset>
                         <fieldset>
                             fasdkfsadlkfj
