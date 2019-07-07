@@ -9,18 +9,31 @@ export interface Props {
     resources: ResourceStoreState;
 }
 
+export interface StateProps {
+    sufficientResources?: Record<Resource, boolean>;
+}
+
+type AllProps = Props & StateProps;
+
 /**
  * The ResourcesBox displays a list of resources
  */
-const ResourcesBox = (props: Props) => {
+const ResourcesBox = (props: AllProps) => {
+    const {
+        sufficientResources,
+    } = props;
     const className = (props.className || "") + " resourcesbox";
     const listItems = Object.keys(props.resources).map((resource: Resource) => {
-        return <li className = "resource" key = { resource }>
+        let listItemClass = "resource";
+        if (sufficientResources && !sufficientResources[resource]) {
+             listItemClass += " insufficient";
+        }
+        return <li className = { listItemClass } key = { resource }>
             <div className = "icon"></div>
             <div className = "name">
                 { TextManager.getResourceName(resource) }
             </div>
-            <div className = "amount">
+            <div className = "amount" >
                 { props.resources[resource] }
             </div>
         </li>;

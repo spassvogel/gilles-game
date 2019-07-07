@@ -16,6 +16,7 @@ import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
 import "./css/productionstructureview.css";
 import ResourcesBox from "../ui/resources/ResourcesBox";
+import ResourcesCostBox from "src/containers/ui/resources/ResourcesCostBox";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;
@@ -167,7 +168,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                     Craft a { TextManager.getItemName(itemDefinition.item) }
                     <div className = "crafting-costs">
                         <fieldset>
-                            <ResourcesBox resources = { produces.cost } />
+                            <ResourcesCostBox resources = { produces.cost } />
                         </fieldset>
                         <fieldset>
                             fasdkfsadlkfj

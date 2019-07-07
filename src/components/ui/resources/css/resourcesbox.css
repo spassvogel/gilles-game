@@ -15,3 +15,7 @@
 .resourcesbox .resource .name {
     width: 100px;
 }
+
+.resourcesbox .resource.insufficient .amount {
+    color: red;
+}
