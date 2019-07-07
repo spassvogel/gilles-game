@@ -5,7 +5,7 @@ import { Action, ActionType, AddAction, MoveItemInWarehouseAction, RemoveItemFro
 import { Item } from "src/definitions/items/types";
 
 const testState = [
-    Item.poisonVial,
+    null,
     null,
     null,
     Item.dagger,

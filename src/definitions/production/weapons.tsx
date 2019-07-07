@@ -17,6 +17,7 @@ export const longbow: ProductionDefinition = {
 export const poisonedDagger: ProductionDefinition = {
     item: Item.poisonedDagger,
     costResources: { wood: 50, iron: 15},
+    costItems: [ Item.poisonVial ],
     time: time.ONE_HOUR,
 };
 export const dagger: ProductionDefinition = {

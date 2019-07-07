@@ -16,6 +16,7 @@ import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
 import "./css/productionstructureview.css";
+import MaterialsCostBox from "src/containers/ui/context/items/MaterialsCostBox";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;
@@ -162,6 +163,10 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                 });
             };
 
+            let costItemsContent = null;
+            if (produces.costItems) {
+                costItemsContent = <MaterialsCostBox items = { produces.costItems } />;
+            }
             return (
                 <div className = "crafting-details">
                     Craft a { TextManager.getItemName(itemDefinition.item) }
@@ -170,7 +175,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                             <ResourcesCostBox resources = { produces.costResources } />
                         </fieldset>
                         <fieldset>
-                            fasdkfsadlkfj
+                            { costItemsContent }
                         </fieldset>
                     </div>
                     <div style={ { display: "flex "}}>

@@ -4,6 +4,6 @@ import { Item } from "../items/types";
 export interface ProductionDefinition {
     item: Item;
     costResources: ResourceStoreState;
-    costItems?: Item[];
+    costItems?: Item[]; // cost of materials
     time: number;
 }

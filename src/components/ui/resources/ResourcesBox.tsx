@@ -30,7 +30,6 @@ const ResourcesBox = (props: AllProps) => {
              listItemClass += " insufficient";
         }
         const resourceDescription = resourceDescriptions[resource];
-        console.log(resource)
         return <li className = { listItemClass } key = { resource }>
             <div className = "icon" style = {{
                 backgroundImage:  `url(${resourceDescription.iconImg})`,
