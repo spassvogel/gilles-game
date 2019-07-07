@@ -50,3 +50,6 @@
 
 30/06/2019 GAME TICK QUEST UPDATE
 [ ] Move gameTick from quest reducer into 'controllers'
+
+07/07/2019 STRUCTURE UPGRADE TIME
+[ ] Upgrading a structure takes time

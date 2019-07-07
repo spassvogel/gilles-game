@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ContextType } from "src/constants";
+import MaterialsCostBox from "src/containers/ui/context/items/MaterialsCostBox";
 import ResourcesCostBox from "src/containers/ui/resources/ResourcesCostBox";
 import itemDefinitions from "src/definitions/items";
 import { Item, ItemDefinition } from "src/definitions/items/types";
@@ -16,7 +17,6 @@ import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
 import "./css/productionstructureview.css";
-import MaterialsCostBox from "src/containers/ui/context/items/MaterialsCostBox";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number) => void;
@@ -25,6 +25,7 @@ export interface DispatchProps {
 
 export interface StateProps {
     resources: ResourceStoreState;
+    items: Item[];  // items in inventory
     level: number;
     workersFree: number;
     gold: number;
@@ -95,7 +96,6 @@ export default class ProductionStructureView extends React.Component<AllProps, L
             </div>;
         };
 
-
         const createCraftTabs = () => {
             const selectedItem = this.state.selectedItem;
 
@@ -120,18 +120,18 @@ export default class ProductionStructureView extends React.Component<AllProps, L
             const playerResources = this.props.resources || {};
             const missingAtLeastOneResource = Object.keys(produces.costResources)
                 .some((resource) => produces.costResources[resource] > playerResources[resource]);
-            const disabled = missingAtLeastOneResource || this.state.workersAssigned < 1;
+
+            let missingAtLeastOneItem = false;
+            if (produces.costItems) {
+                missingAtLeastOneItem = produces.costItems
+                    .some((i: Item) => this.props.items.indexOf(i) === -1);
+            }
+            console.log(`missing item? ${missingAtLeastOneItem}`)
+
+            const disabled = missingAtLeastOneResource || missingAtLeastOneItem || this.state.workersAssigned < 1;
             // TODO: Perhaps each item can have a number of minimum workers?
-            // TODO: We could explain what is the reason we can't craft the item
 
             const itemDefinition: ItemDefinition = itemDefinitions[item];
-
-            const makeResourcesCostsString = (costs: ResourceStoreState): string => {
-                return Object.keys(costs).reduce((accumulator: string[], value) => {
-                    if (costs[value]) { accumulator.push(`${value}: ${costs[value]}`); }
-                    return accumulator;
-                }, []).join(", ") + ". ";
-            };
 
             const makeTimeString = (time: number): string => {
                 if (this.state.workersAssigned === 0) {

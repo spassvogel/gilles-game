@@ -8,6 +8,7 @@ import { addItemToWarehouse } from "src/actions/items";
 import { removeResources } from "src/actions/resources";
 import { decreaseWorkers, increaseWorkers, upgradeStructure } from "src/actions/structures";
 import { startTask } from "src/actions/tasks";
+import { Item } from "src/definitions/items/types";
 import { ProductionDefinition } from "src/definitions/production/types";
 import { withAppContext } from "src/hoc/withAppContext";
 import { calculateProductionTime } from "src/mechanics/crafting";
@@ -20,8 +21,16 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const structureStore: StructureStoreState = store.structures[ownProps.type];
 
     const tasks = store.tasks.running.filter((val) => val.origin === `${ownProps.type}.craft`);
+    const items: Item[] = [];
+    store.items.forEach((i) => {
+        // Creating a dense array. Typescript won't allow me to use .filter
+        if (i !== null) {
+            items.push(i);
+        }
+    });
     return {
         gold: store.gold,
+        items,
         level: structureStore.level,
         resources: store.resources,
         tasks,
@@ -49,7 +58,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
         },
         onUpgrade: (cost: number) => {
             dispatch(subtractGold(cost));
-            dispatch(upgradeStructure(ownProps.type)); // TODO: time to upgarde??
+            dispatch(upgradeStructure(ownProps.type)); // TODO: [07/07/2019] time to upgarde??
         },
     };
 }
