@@ -3,10 +3,12 @@ export enum ItemType {
     equipment,
     deed,
     material,
+    trinket,
 }
 
 // the string must correspond to a named export in /items/index.tsx
 export enum Item {
+    battleAxe = "battleAxe",
     crossbow = "crossbow",
     longbow = "longbow",
     dagger = "dagger",
@@ -14,6 +16,7 @@ export enum Item {
     magicAmulet = "magicAmulet",
     poisonedDagger = "poisonedDagger",
     poisonVial = "poisonVial",
+    ring = "ring",
     deedForLumbermill = "deedForLumbermill",
     deedForWeaponsmith = "deedForWeaponsmith",
     greatswordOfGwai = "greatswordOfGwai",

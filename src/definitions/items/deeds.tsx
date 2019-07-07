@@ -14,7 +14,7 @@ export const deedForLumbermill: DeedDefinition = {
     structure: Structure.lumberMill,
     itemType,
     subText: "It allows for the construction of a lumber mill",
-    iconImg: "/img/items/deed.png",
+    iconImg: "/img/items/deeds/deed.png",
 };
 
 export const deedForWeaponsmith: DeedDefinition = {
@@ -22,7 +22,7 @@ export const deedForWeaponsmith: DeedDefinition = {
     structure: Structure.weaponsmith,
     itemType,
     subText: "It allows for the construction of a weaponsmith",
-    iconImg: "/img/items/deed.png",
+    iconImg: "/img/items/deeds/deed.png",
 };
 
 export default {

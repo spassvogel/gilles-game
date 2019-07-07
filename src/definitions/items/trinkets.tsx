@@ -2,14 +2,20 @@
 
 import { Item, ItemDefinition, ItemType } from "./types";
 
-const itemType = ItemType.equipment;
+const itemType = ItemType.trinket;
+const basePath = "/img/items/trinkets/";
 
-export const magicAmulet: ItemDefinition = {
-    item: Item.magicAmulet,
-    itemType,
-    iconImg: "/img/items/deed.png",
+const trinketDefinitions: Record<string, ItemDefinition> = {
+    [Item.magicAmulet]: {
+        item: Item.magicAmulet,
+        itemType,
+        iconImg: `${basePath}magic-amulet.png`,
+    },
+    [Item.ring]: {
+        item: Item.ring,
+        itemType,
+        iconImg: `${basePath}ring.png`,
+    },
 };
 
-export default {
-    magicAmulet,
-};
+export default trinketDefinitions;

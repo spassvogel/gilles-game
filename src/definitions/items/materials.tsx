@@ -3,15 +3,17 @@
 import { Item, ItemType } from "./types";
 
 const itemType = ItemType.material;
+const basePath = "/img/items/materials/";
+
 export default {
     [Item.poisonVial]: {
         item: Item.poisonVial,
         itemType,
-        iconImg: "/img/items/poison-vial.png",
+        iconImg: `${basePath}poison-vial.png`,
     },
     [Item.jewel]: {
         item: Item.jewel,
         itemType,
-        iconImg: "/img/items/gem.png",
+        iconImg: `${basePath}gem.png`,
     },
 };

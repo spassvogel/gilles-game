@@ -107,7 +107,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                     className={ selectedItem === produces.item ? "selected" : "" }
                 >
                     <ItemIcon item= { produces.item } />
-                    { TextManager.getItemName(itemDefinition.item) }
+                    { TextManager.getItemName(produces.item) }
                 </li>;
             });
         };
