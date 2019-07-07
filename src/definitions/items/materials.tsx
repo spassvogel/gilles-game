@@ -9,4 +9,9 @@ export default {
         itemType,
         iconImg: "/img/items/poison-vial.png",
     },
+    [Item.jewel]: {
+        item: Item.jewel,
+        itemType,
+        iconImg: "/img/items/gem.png",
+    },
 };
