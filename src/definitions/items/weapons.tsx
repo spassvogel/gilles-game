@@ -66,5 +66,6 @@ export default {
     greatswordOfGwai,
     khopesh,
     longbow,
+    poisionedDagger,
     sword,
 };
