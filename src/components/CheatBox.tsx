@@ -1,6 +1,7 @@
 // TODO: Better name than this
 
 import * as React from "react";
+import { Item } from "src/definitions/items/types";
 import structureDefinitions, { Structure  } from "src/definitions/structures";
 import { ResourceStoreState } from "src/stores/resources";
 import { StructureState, StructureStoreState } from "src/stores/structure";
@@ -12,6 +13,7 @@ export interface DispatchProps {
     onCheatGold?: (amount: number) => void;
     onCheatWorkers?: (amount: number) => void;
     onCheatResources?: (amount: ResourceStoreState) => void;
+    onCheatItem?: (item: Item) => void;
     onCheatStructureState?: (structure: Structure, state: StructureState) => void;
 }
 
@@ -37,6 +39,7 @@ set building state
 type AllProps = Props & StateProps & DispatchProps;
 class CheatBox extends React.Component<AllProps, LocalState> {
 
+    private itemSelectRef: React.RefObject<HTMLSelectElement>;
     /**
      *
      */
@@ -48,6 +51,8 @@ class CheatBox extends React.Component<AllProps, LocalState> {
             resources: 50,
             workers: 10,
         };
+
+        this.itemSelectRef = React.createRef();
     }
 
     public render() {
@@ -77,6 +82,12 @@ class CheatBox extends React.Component<AllProps, LocalState> {
 
         const structures = Object.keys(this.props.structures)
             .map((structure) => getStructureRow(structure as Structure));
+
+        const items = Object.keys(Item).map((item: Item) => {
+            return <option value = { item } key = { item }>
+                { TextManager.getItemName(item) }
+            </option>;
+        });
 
         return (
             <div className="cheat-box">
@@ -108,6 +119,13 @@ class CheatBox extends React.Component<AllProps, LocalState> {
                     </input>
                     <button onClick= { this.handleCheatResources }>Add</button>
                 </div>
+                <div className="label-numberbox-button">
+                    <label>Items</label>
+                    <select style={{ width: "150px"}} ref = { this.itemSelectRef }>
+                        { items }
+                    </select>
+                    <button onClick= { this.handleCheatItem }>Add</button>
+                </div>
                 { structures }
             </div>
         );
@@ -132,6 +150,11 @@ class CheatBox extends React.Component<AllProps, LocalState> {
         };
 
         if (this.props.onCheatResources) { this.props.onCheatResources(amount); }
+    }
+
+    private handleCheatItem = (evt: React.MouseEvent<HTMLButtonElement>) => {
+        const item = this.itemSelectRef.current!.value as Item;
+        if (this.props.onCheatItem) { this.props.onCheatItem(item); }
     }
 
     private handleChangeStructureState = (structure: Structure, checked: boolean) => {

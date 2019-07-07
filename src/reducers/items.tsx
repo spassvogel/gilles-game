@@ -27,7 +27,12 @@ export const items: Reducer<Array<Item|null>> = (state: Array<Item|null> = testS
             const { item } = (action as AddAction);
             let { toSlot } = (action as AddAction);
             if (toSlot === undefined) {
-                toSlot = state.length;
+                toSlot = state.findIndex((slot) => slot === null);  // find first empty element
+                if (toSlot === -1) {
+                    // Still not found. Add at end
+                    // todo: [07/07/2019] GAME DESIGN
+                    return [ ...state, item ];
+                }
             }
             return state.map((element, index) => index === toSlot ? item : element);
         }

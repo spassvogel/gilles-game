@@ -53,3 +53,6 @@
 
 07/07/2019 STRUCTURE UPGRADE TIME
 [ ] Upgrading a structure takes time
+
+07/07/2019 GAME DESIGN
+[ ] Is the warehouse limited? Can you add unlimited items?
