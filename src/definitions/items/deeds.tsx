@@ -8,6 +8,7 @@ const itemType = ItemType.deed;
 export interface DeedDefinition extends ItemDefinition {
     structure: Structure;
 }
+
 export const deedForLumbermill: DeedDefinition = {
     item: Item.deedForLumbermill,
     structure: Structure.lumberMill,
