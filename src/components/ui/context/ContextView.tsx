@@ -2,6 +2,7 @@
 import * as React from "react";
 import { ContextInfo, ContextType } from "src/constants";
 import ItemContext from "src/containers/ui/context/ItemContext";
+import { TextManager } from "src/utils/textManager";
 
 export interface Props {
     type: ContextType;
@@ -26,10 +27,11 @@ export default function(props: Props & DispatchProps) {
             content = <ItemContext info= { props.info } />;
     }
 
+    const name = TextManager.getItemName(info.item);
     return (
-    <fieldset>
-        <legend> { info.name } </legend>
-        { content }
-    </fieldset>
+        <fieldset>
+            <legend> { name } </legend>
+            { content }
+        </fieldset>
     );
 }

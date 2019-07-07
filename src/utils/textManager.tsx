@@ -1,7 +1,9 @@
 import * as Handlebars from "handlebars";
 import itemDefinitions from "src/definitions/items";
+import { Item } from "src/definitions/items/types";
 
 export abstract class TextManager {
+
     public static init(texts: Record<string, string>, precompile = true) {
         this.texts = texts;
         this.templates = {};
@@ -45,6 +47,10 @@ export abstract class TextManager {
 
     public static getResourceName(type: string) {
         return this.get(`resource-${type}-name`);
+    }
+
+    public static getItemName(item: Item): string {
+        return this.get(`item-${item}-name`);
     }
 
     private static initialized = false;

@@ -105,7 +105,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                     className={ selectedItem === produces.item ? "selected" : "" }
                 >
                     <ItemIcon item= { produces.item } />
-                    { itemDefinition.name }
+                    { TextManager.getItemName(itemDefinition.item) }
                 </li>;
             });
         };
@@ -163,7 +163,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
 
             return (
                 <div className = "crafting-details">
-                    Craft a { itemDefinition.name }
+                    Craft a { TextManager.getItemName(itemDefinition.item) }
                     <div>
                         { makeCostsString(produces.cost) }
                     </div>

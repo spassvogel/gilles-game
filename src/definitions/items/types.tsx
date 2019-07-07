@@ -11,6 +11,7 @@ export enum Item {
     dagger = "dagger",
     ironSword = "ironSword",
     magicAmulet = "magicAmulet",
+    poisionedDagger = "poisionedDagger",
     deedForLumbermill = "deedForLumbermill",
     deedForWeaponsmith = "deedForWeaponsmith",
     greatswordOfGwai = "greatswordOfGwai",
@@ -24,7 +25,6 @@ export interface ItemDefinition {
     item: Item;
     itemType: ItemType;
     subText?: string;           // todo: deprecate, store subtext in language file. use name to retrieve
-    name: string;
     iconImg: string;
 //    articleUndefined?: string;  // Key to text
     unique?: boolean;           // Indicate that this item is unique.
