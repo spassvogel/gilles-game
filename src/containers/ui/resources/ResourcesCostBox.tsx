@@ -6,7 +6,7 @@ import { StoreState } from "src/stores";
 const mapStateToProps = (store: StoreState, ownProps: Props): StateProps => {
     const sufficientResources: Record<string, boolean> = {};
     Object.keys(ownProps.resources).forEach((resource: Resource) => {
-        sufficientResources[resource] = store.resources[resource] >= ownProps.resources[resource]
+        sufficientResources[resource] = store.resources[resource]! >= ownProps.resources[resource]!;
     });
     return {
         sufficientResources,

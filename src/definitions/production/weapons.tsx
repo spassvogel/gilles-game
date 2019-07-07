@@ -14,8 +14,8 @@ export const longbow: ProductionDefinition = {
     cost: { wood: 40, iron: 5},
     time: time.ONE_HOUR,
 };
-export const poisionedDagger: ProductionDefinition = {
-    item: Item.poisionedDagger,
+export const poisonedDagger: ProductionDefinition = {
+    item: Item.poisonedDagger,
     cost: { wood: 50, iron: 15},
     time: time.ONE_HOUR,
 };

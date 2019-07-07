@@ -1,10 +1,10 @@
 import * as React from "react";
+import ResourcesBox from "src/components/ui/resources/ResourcesBox";
 import { DragSourceType } from "src/constants";
-import ResourceViewRow from "src/containers/ResourceViewRow";
 import { Item } from "src/definitions/items/types";
-import { Resource } from "src/definitions/resources";
 import structureDefinitions, {  Structure  } from "src/definitions/structures";
 import { StructureDefinition, StructureLevelDefinition } from "src/definitions/structures/types";
+import { ResourceStoreState } from "src/stores/resources";
 import { TextManager } from "src/utils/textManager";
 import { AppContextProps } from "../../App";
 import Inventory from "../../ui/inventory/Inventory";
@@ -25,6 +25,7 @@ export interface StateProps  {
     workersFree: number;
     gold: number;
     items: Array<Item|null>;
+    resources: ResourceStoreState;
 }
 
 type AllProps = Props & StateProps & DispatchProps & AppContextProps;
@@ -60,12 +61,7 @@ const WarehouseStructureView = (props: AllProps) => {
             <summary>{ displayName }</summary>
             <fieldset className="resources">
                 <legend>Resources</legend>
-                <ResourceViewRow type = { Resource.wood }/>
-                <ResourceViewRow type = { Resource.iron }/>
-                <ResourceViewRow type = { Resource.food }/>
-                <ResourceViewRow type = { Resource.stone }/>
-                <ResourceViewRow type = { Resource.fabric }/>
-                <ResourceViewRow type = { Resource.leather }/>
+                <ResourcesBox resources= { props.resources }/>
             </fieldset>
 
             <Inventory

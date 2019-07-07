@@ -11,7 +11,7 @@ export enum Item {
     dagger = "dagger",
     ironSword = "ironSword",
     magicAmulet = "magicAmulet",
-    poisionedDagger = "poisionedDagger",
+    poisonedDagger = "poisonedDagger",
     deedForLumbermill = "deedForLumbermill",
     deedForWeaponsmith = "deedForWeaponsmith",
     greatswordOfGwai = "greatswordOfGwai",

@@ -1,4 +1,4 @@
-
+// Deprecated
 import * as React from "react";
 import { Resource } from "src/definitions/resources";
 import { capitalizeFirstLetter } from "src/utils/string";

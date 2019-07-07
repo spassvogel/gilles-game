@@ -25,8 +25,8 @@ export const dagger: EquipmentDefinition = {
     subText: "Excellent for ritual sacrifice and cheese platters",
     iconImg: "/img/equipment/dagger.png",
 };
-export const poisionedDagger: EquipmentDefinition = {
-    item: Item.poisionedDagger,
+export const poisonedDagger: EquipmentDefinition = {
+    item: Item.poisonedDagger,
     itemType,
     subText: "Excellent for ritual sacrifice and cheese platters",
     iconImg: "/img/equipment/dagger.png",
@@ -66,6 +66,6 @@ export default {
     greatswordOfGwai,
     khopesh,
     longbow,
-    poisionedDagger,
+    poisonedDagger,
     sword,
 };

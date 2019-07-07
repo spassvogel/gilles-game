@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
-import { addItemToInventory, removeItemFromInventory } from "src/actions/adventurers";
-import { addItemToWarehouse, moveItemInWarehouse, removeItemFromWarehouse } from "src/actions/items";
+import { removeItemFromInventory } from "src/actions/adventurers";
+import { addItemToWarehouse, moveItemInWarehouse } from "src/actions/items";
 import WarehouseStructureView,
     { DispatchProps, Props, StateProps } from "src/components/structures/warehouse/WarehouseStructureView";
 import { Item } from "src/definitions/items/types";
@@ -17,6 +17,7 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
         gold: store.gold,
         items: store.items,
         level: structureStore.level,
+        resources: store.resources,
         workers: structureStore.workers,
         workersFree: selectFreeWorkers(store),
     };

@@ -9,11 +9,15 @@
 }
 
 .resourcesbox .resource .icon {
-    width: 32px;
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .resourcesbox .resource .name {
     width: 100px;
+    margin-left: 4px;
 }
 
 .resourcesbox .resource.insufficient .amount {

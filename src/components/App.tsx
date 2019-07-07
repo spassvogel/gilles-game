@@ -9,7 +9,6 @@ import RealWorldView from "src/containers/partyScreen/RealWorldView";
 import RealTownView from "src/containers/RealTownView";
 import StructureDetailsView from "src/containers/structures/StructureDetailsView";
 import { manifest } from "src/manifest/app";
-import { ResourceStoreState } from "src/stores/resources";
 import Topbar from "../containers/Topbar";
 import { Structure } from "../definitions/structures";
 import "./css/app.css";

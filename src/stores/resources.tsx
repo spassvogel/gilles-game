@@ -1,19 +1,22 @@
+import { Resource } from "src/definitions/resources";
+
 // The keys should be the same as the enum Resource
 export interface ResourceStoreState {
-    wood?: number;
-    iron?: number;
-    steel?: number;
-    leather?: number;
-    gunpowder?: number;
-    food?: number;
-    fabric?: number;
+    [Resource.wood]?: number;
+    [Resource.iron]?: number;
+    [Resource.stone]?: number;
+    [Resource.leather]?: number;
+    [Resource.fabric]?: number;
+    [Resource.food]?: number;
+    [Resource.gunpowder]?: number;
 }
 
 export const initialState: ResourceStoreState = {
+    fabric: 0,
     food: 0,
     gunpowder: 0,
     iron: 60,
     leather: 0,
-    steel: 50,
+    stone: 0,
     wood: 40,
 };

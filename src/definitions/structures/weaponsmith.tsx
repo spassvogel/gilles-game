@@ -1,6 +1,6 @@
 // tslint:disable:object-literal-sort-keys
 
-import { crossbow, dagger, khopesh, longbow, poisionedDagger, sword } from "../production/weapons";
+import { crossbow, dagger, khopesh, longbow, poisonedDagger, sword } from "../production/weapons";
 import { ProductionStructureDefinition, StructureType } from "./types";
 
 const weaponsmith: ProductionStructureDefinition = {
@@ -30,7 +30,7 @@ const weaponsmith: ProductionStructureDefinition = {
         displayName: "structure-weaponsmith-name",
         workerCapacity: 14,
         cost: 50,
-        produces: [crossbow, dagger, longbow, sword, khopesh, poisionedDagger],
+        produces: [crossbow, dagger, longbow, sword, khopesh, poisonedDagger],
     }],
 };
 export default weaponsmith;
