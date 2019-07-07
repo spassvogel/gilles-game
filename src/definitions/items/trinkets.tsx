@@ -9,7 +9,7 @@ const trinketDefinitions: Record<string, ItemDefinition> = {
     [Item.magicAmulet]: {
         item: Item.magicAmulet,
         itemType,
-        iconImg: `${basePath}magic-amulet.png`,
+        iconImg: `${basePath}magic_amulet.png`,
     },
     [Item.ring]: {
         item: Item.ring,
