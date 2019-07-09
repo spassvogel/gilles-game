@@ -53,6 +53,7 @@ export enum Item {
 
     // quest-items
     crate = "crate",
+    key = "key",
     lockPicks = "lockPicks",
     purpleGems = "purpleGems",
     tooth = "tooth",

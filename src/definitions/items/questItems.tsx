@@ -11,6 +11,11 @@ const questItemDefinitions: Record<string, ItemDefinition> = {
         itemType,
         iconImg: `${basePath}crate.png`,
     },
+    [Item.key]: {
+        item: Item.key,
+        itemType,
+        iconImg: `${basePath}key.png`,
+    },
     [Item.lockPicks]: {
         item: Item.lockPicks,
         itemType,
