@@ -16,6 +16,11 @@ export default {
         itemType,
         iconImg: `${basePath}buckle.png`,
     },
+    [Item.chain]: {
+        item: Item.chain,
+        itemType,
+        iconImg: `${basePath}chain.png`,
+    },
     [Item.cogs]: {
         item: Item.cogs,
         itemType,
@@ -45,6 +50,11 @@ export default {
         item: Item.ribbon,
         itemType,
         iconImg: `${basePath}ribbon.png`,
+    },
+    [Item.rope]: {
+        item: Item.rope,
+        itemType,
+        iconImg: `${basePath}rope.png`,
     },
     [Item.gem]: {
         item: Item.gem,

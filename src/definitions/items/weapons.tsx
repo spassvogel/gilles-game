@@ -88,6 +88,18 @@ const weaponDefinitions: Record<string, EquipmentDefinition> = {
         subText: "Excellent for ritual sacrifice and cheese platters",
         iconImg: `${basePath}poisoned-dagger.png`,
     },
+    [Item.ravenStaff]: {
+        item: Item.ravenStaff,
+        itemType,
+        subText: "Kaa, kaa!",
+        iconImg: `${basePath}raven-staff.png`,
+    },
+    [Item.savageStaff]: {
+        item: Item.savageStaff,
+        itemType,
+        subText: "Savage dude",
+        iconImg: `${basePath}savage-staff.png`,
+    },
     [Item.spear]: {
         item: Item.spear,
         itemType,
@@ -99,6 +111,12 @@ const weaponDefinitions: Record<string, EquipmentDefinition> = {
         itemType,
         subText: "An elegant weapon for a more civilized age",
         iconImg: `${basePath}sword.png`,
+    },
+    [Item.warhammer]: {
+        item: Item.warhammer,
+        itemType,
+        subText: "A war hammer is a late medieval weapon of war intended for close combat action, whose design resembles the hammer",
+        iconImg: `${basePath}warhammer.png`,
     },
 };
 export default weaponDefinitions;
