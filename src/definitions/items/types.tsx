@@ -60,7 +60,7 @@ export enum Item {
     torch = "torch",
     tusk = "tusk",
     vial = "vial",
-    week = "week",
+    weeds = "weeds",
 }
 
 export interface ItemDefinition {
