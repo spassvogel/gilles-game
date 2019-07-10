@@ -64,3 +64,7 @@
 10/07/2019 GAME TICK RESOURCE
 [ ] Move add resource into 'controllers'
 
+10/07/2019 GAME DESIGN: minimum workers on item craft
+[ ] Perhaps each item can have a number of minimum workers?
+
+

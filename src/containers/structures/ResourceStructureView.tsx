@@ -22,7 +22,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
     return {
         onUpgrade: (cost: number) => {
             dispatch(subtractGold(cost));
-            dispatch(upgradeStructure(ownProps.type)); // Todo: time??
+            dispatch(upgradeStructure(ownProps.type)); // Todo: [07/07/2019] time??
         },
         onWorkersDown: () => {
             dispatch(decreaseWorkers(ownProps.type));

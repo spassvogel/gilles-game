@@ -13,6 +13,7 @@ import "./css/warehousestructureview.css";
 export interface DispatchProps {
     onMoveItemInWarehouse: (fromSlot: number, toSlot: number) => void;
     onMoveItemFromAdventurer: (adventurerId: string, item: Item, fromSlot: number, toSlot: number) => void;
+    onUpgrade?: (cost: number) => void;
 }
 
 export interface Props  {
@@ -42,6 +43,27 @@ const WarehouseStructureView = (props: AllProps) => {
     const levelDefinition: StructureLevelDefinition = structureDefinition.levels[level];
     const displayName = TextManager.get(levelDefinition.displayName);
 
+    const createUpgradeRow = () => {
+        const gold = props.gold;
+        const nextLevel = structureDefinition.levels[level + 1];
+        const nextLevelCost = (nextLevel != null ? nextLevel.cost : -1);
+        const canUpgrade = nextLevel != null && gold >= nextLevelCost;
+        const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
+
+        const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+            if (props.onUpgrade) { props.onUpgrade(nextLevelCost); }
+        };
+        return <div>
+            <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }
+            <button
+                style={{float: "right"}}
+                onClick = { handleClick }
+                disabled= { !canUpgrade } >
+                    { upgradeText }
+            </button>
+        </div>;
+    };
+
     const handleDropItem = (item: Item, fromSlot: number,
                             toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
         switch (sourceType) {
@@ -60,6 +82,7 @@ const WarehouseStructureView = (props: AllProps) => {
     return (
         <details open = { true } className = "warehouse-structureview">
             <summary>{ displayName }</summary>
+            { createUpgradeRow() }
             <fieldset className="resources">
                 <legend>Resources</legend>
                 <ResourcesBox

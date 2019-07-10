@@ -100,7 +100,6 @@ export default class ProductionStructureView extends React.Component<AllProps, L
             const selectedItem = this.state.selectedItem;
 
             return levelDefinition.produces.map((produces) => {
-                const itemDefinition: ItemDefinition = itemDefinitions[produces.item];
                 return <li
                     key={ `craft${produces.item}`}
                     onClick={ () => handleSelectCraftingItem(produces.item) }
@@ -126,10 +125,9 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                 missingAtLeastOneItem = produces.costItems
                     .some((i: Item) => this.props.items.indexOf(i) === -1);
             }
-            console.log(`missing item? ${missingAtLeastOneItem}`)
 
             const disabled = missingAtLeastOneResource || missingAtLeastOneItem || this.state.workersAssigned < 1;
-            // TODO: Perhaps each item can have a number of minimum workers?
+            // TODO: [10/07/2019] Perhaps each item can have a number of minimum workers?
 
             const itemDefinition: ItemDefinition = itemDefinitions[item];
 

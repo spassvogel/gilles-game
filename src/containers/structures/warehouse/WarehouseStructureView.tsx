@@ -1,7 +1,9 @@
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
 import { removeItemFromInventory } from "src/actions/adventurers";
+import { subtractGold } from "src/actions/gold";
 import { addItemToWarehouse, moveItemInWarehouse } from "src/actions/items";
+import { upgradeStructure } from "src/actions/structures";
 import WarehouseStructureView,
     { DispatchProps, Props, StateProps } from "src/components/structures/warehouse/WarehouseStructureView";
 import { Item } from "src/definitions/items/types";
@@ -41,6 +43,10 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
         },
         onMoveItemInWarehouse(fromSlot: number, toSlot: number) {
             dispatch(moveItemInWarehouse(fromSlot, toSlot));
+        },
+        onUpgrade: (cost: number) => {
+            dispatch(subtractGold(cost));
+            dispatch(upgradeStructure(ownProps.type)); // Todo: [07/07/2019] time??
         },
     };
 }
