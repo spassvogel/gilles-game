@@ -1,5 +1,3 @@
-import { ProductionDefinition } from "src/definitions/production/types";
-
 export const MAX_WORKERS_CRAFTING = 6;
 
 /**

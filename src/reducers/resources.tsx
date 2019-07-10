@@ -13,6 +13,7 @@ export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState
                                                        action: AnyAction| GameTickAction) => {
 
     const addResources = (resourcesToAdd: ResourceStoreState) => {
+        // todo: Check if warehouse can hold it
         return Object.keys(state).reduce((accumulator: object, current: string) => {
             accumulator[current] = state[current] + (resourcesToAdd[current] || 0);
             return accumulator;

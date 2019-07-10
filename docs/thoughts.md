@@ -63,6 +63,8 @@
 
 10/07/2019 GAME TICK RESOURCE
 [ ] Move add resource into 'controllers'
+[ ] Move the guard around maxResources to the reducer (but it needs access to the level of the warehouse to determine maxresources)
+    https://stackoverflow.com/questions/34333979/accessing-other-parts-of-the-state-when-using-combined-reducers
 
 10/07/2019 GAME DESIGN: minimum workers on item craft
 [ ] Perhaps each item can have a number of minimum workers?

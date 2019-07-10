@@ -160,7 +160,7 @@ const runGame = (store: any, persistor: Persistor) => {
         const state: StoreState = store.getState();
         const delta = Date.now() - state.engine.lastTick;
 
-        const resources = getProducedResources(delta, state.structures);
+        const resources = getProducedResources(delta, state);
         const rngState = getRngState();
         store.dispatch(gameTick(delta, rngState, resources));
 
