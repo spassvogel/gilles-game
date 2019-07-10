@@ -12,6 +12,10 @@ const ItemIcon = (props: Props) => {
     const { item  } =  props;
     const itemDefinition: ItemDefinition = itemDefinitions[item];
 
+    if (!itemDefinition) {
+        console.warn(`could not find definition for ${item}`);
+    }     // todo: [10/07/2019] assert
+
     return (
         <div className="item-icon"
             onClick = { props.onClick }

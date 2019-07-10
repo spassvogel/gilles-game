@@ -10,7 +10,7 @@ import tannery from "./tannery";
 import tavern from "./tavern";
 import { ProductionStructureDefinition,
     ResourceStructureDefinition,
-    WarehousetructureDefinition } from "./types";
+    WarehouseStructureDefinition } from "./types";
 import warehouse from "./warehouse";
 import weaponsmith from "./weaponsmith";
 import { weaver } from "./weaver";
@@ -29,7 +29,7 @@ export enum Structure {
     weaver = "weaver",
 }
 
-export type StructureDefinition = WarehousetructureDefinition |
+export type StructureDefinition = WarehouseStructureDefinition |
 ResourceStructureDefinition | ProductionStructureDefinition;
 
 export default {

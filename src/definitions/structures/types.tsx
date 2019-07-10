@@ -38,9 +38,12 @@ export interface ProductionStructureLevelDefinition extends StructureLevelDefini
     produces: ProductionDefinition[];
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface WarehousetructureDefinition extends StructureDefinition {
-    // todo: fill in later
+export interface WarehouseStructureDefinition extends StructureDefinition {
+    levels: WarehouseStructureLevelDefinition[];
+}
+
+export interface WarehouseStructureLevelDefinition extends StructureLevelDefinition {
+    maxResources: ResourceStoreState;
 }
 
 // tslint:disable-next-line:no-empty-interface
