@@ -1,4 +1,5 @@
 import * as React from "react";
+import "src/components/ui/css/common/icon.css";
 import { Resource } from "src/definitions/resources";
 import resourceDescriptions from "src/definitions/resources";
 import { ResourceStoreState } from "src/stores/resources";
@@ -33,7 +34,7 @@ const ResourcesBox = (props: AllProps) => {
         const resourceDescription = resourceDescriptions[resource];
         const amount = props.resources[resource]!;
         return <li className = { listItemClass } key = { resource }>
-            <div className = "icon" style = {{
+            <div className = "icon common-icon-smallest" style = {{
                 backgroundImage:  `url(${resourceDescription.iconImg})`,
             }}></div>
             <div className = "name">

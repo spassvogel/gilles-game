@@ -1,4 +1,5 @@
 import * as React from "react";
+import "src/components/ui/css/common/icon.css";
 import itemsDescription from "src/definitions/items";
 import { Item } from "src/definitions/items/types";
 import { TextManager } from "src/utils/textManager";
@@ -28,7 +29,7 @@ const ItemsBox = (props: AllProps) => {
         }
         const itemDescription = itemsDescription[item];
         return <li className = { listItemClass } key = { item }>
-            <div className = "icon" style = {{
+            <div className = "icon common-icon-smallest" style = {{
                 backgroundImage:  `url(${itemDescription.iconImg})`,
             }}></div>
             <div className = "name">
