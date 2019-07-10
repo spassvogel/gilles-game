@@ -1,8 +1,10 @@
 27/4/2019 LOG
 [x] display a log on the lower part of the screen.
     each log entry has a type: (common, quest, warning)
-    can be plain text now. later to be replaced by keys that
+    can be plain text now. 
+[x] later to be replaced by keys that
     can be filtered (will be filtered default on the quest when a quest is clicked)
+[ ] Quest logs are added to this log
 [x] for ease, a party can only exist when a quest is combined with a group of adventurers
     its not possible to create a party and send them on a quest later
     the party gets created when the adventurers leave on the quest
@@ -58,3 +60,7 @@
 
 10/07/2019 ASSERTS
 [ ] Include an assert library
+
+10/07/2019 GAME TICK RESOURCE
+[ ] Move add resource into 'controllers'
+

@@ -20,6 +20,11 @@
     margin-left: 4px;
 }
 
+.resourcesbox .resource .amount {
+    width: 40px;
+    text-align: right;
+}
+
 .resourcesbox .resource.insufficient .amount {
     color: red;
 }

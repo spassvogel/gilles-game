@@ -8,7 +8,6 @@ import "./css/resourcesbox.css";
 export interface Props {
     className?: string;
     resources: ResourceStoreState;
-    maxResources: ResourceStoreState;
 }
 
 export interface StateProps {
@@ -18,7 +17,7 @@ export interface StateProps {
 type AllProps = Props & StateProps;
 
 /**
- * The ResourcesBox is used in the Warehouse to show a list of resources
+ * The ResourcesBox displays a list of resources
  */
 const ResourcesBox = (props: AllProps) => {
     const {
@@ -31,7 +30,6 @@ const ResourcesBox = (props: AllProps) => {
              listItemClass += " insufficient";
         }
         const resourceDescription = resourceDescriptions[resource];
-        const amount = props.resources[resource]!;
         return <li className = { listItemClass } key = { resource }>
             <div className = "icon" style = {{
                 backgroundImage:  `url(${resourceDescription.iconImg})`,
@@ -40,10 +38,7 @@ const ResourcesBox = (props: AllProps) => {
                 { TextManager.getResourceName(resource) }
             </div>
             <div className = "amount" >
-                { amount.toFixed(0) }
-            </div>
-            <div className = "max" >
-                { ` / ${props.maxResources[resource]}` }
+                { props.resources[resource] }
             </div>
         </li>;
     });

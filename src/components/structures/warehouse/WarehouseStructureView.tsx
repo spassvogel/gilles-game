@@ -26,6 +26,7 @@ export interface StateProps  {
     gold: number;
     items: Array<Item|null>;
     resources: ResourceStoreState;
+    maxResources: ResourceStoreState;
 }
 
 type AllProps = Props & StateProps & DispatchProps & AppContextProps;
@@ -61,7 +62,10 @@ const WarehouseStructureView = (props: AllProps) => {
             <summary>{ displayName }</summary>
             <fieldset className="resources">
                 <legend>Resources</legend>
-                <ResourcesBox resources= { props.resources }/>
+                <ResourcesBox
+                    resources = { props.resources }
+                    maxResources = { props.maxResources }
+                />
             </fieldset>
 
             <Inventory
