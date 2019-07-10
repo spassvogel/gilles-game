@@ -1,13 +1,14 @@
 // TODO: Better name than this
 
 import * as React from "react";
-import { Item } from "src/definitions/items/types";
+import { Item, ItemType } from "src/definitions/items/types";
 import structureDefinitions, { Structure  } from "src/definitions/structures";
 import { ResourceStoreState } from "src/stores/resources";
 import { StructureState, StructureStoreState } from "src/stores/structure";
 import { StructuresStoreState } from "src/stores/structures";
 import { TextManager } from "src/utils/textManager";
 import "./css/cheatbox.css";
+import { getDefinition } from "src/definitions/items";
 
 export interface DispatchProps {
     onCheatGold?: (amount: number) => void;
@@ -83,11 +84,27 @@ class CheatBox extends React.Component<AllProps, LocalState> {
         const structures = Object.keys(this.props.structures)
             .map((structure) => getStructureRow(structure as Structure));
 
-        const items = Object.keys(Item).map((item: Item) => {
+        const getItemTypeOptions = (type: ItemType) => {
+            return Object.keys(Item)
+                // tslint:disable-next-line: triple-equals
+                .filter((item: string) => getDefinition(item as Item).itemType == type)
+                .map((item: Item) => getItemOption(item))
+        };
+
+        const getItemOption = (item: Item) => {
             return <option value = { item } key = { item }>
                 { TextManager.getItemName(item) }
             </option>;
+        };
+
+        const items = Object.keys(ItemType)
+            .filter((val: any) => !isNaN(val))
+            .map((type: string) => {
+            return <optgroup label = { ItemType[type] } key = { type }>
+                { getItemTypeOptions(type as unknown as ItemType) }
+            </optgroup>;
         });
+
 
         return (
             <div className="cheat-box">
