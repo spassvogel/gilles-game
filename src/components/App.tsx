@@ -172,7 +172,6 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         });
     }
 
-
     private handleContextualObjectActivated = (type: ContextType, info: ContextInfo) => {
         this.setState({
              contextInfo: info,

@@ -10,14 +10,10 @@ import { gameTick } from "./actions/game";
 import { addLogEntry } from "./actions/log";
 import version from "./constants/version";
 import App from "./containers/App";
-import structureDefinitions from "./definitions/structures";
-import { ResourceStructureDefinition,
-    ResourceStructureLevelDefinition, StructureDefinition, StructureType } from "./definitions/structures/types";
 import "./index.css";
+import getProducedResources from "./mechanics/gameTick/producedResources";
 import registerServiceWorker from "./registerServiceWorker";
 import { StoreState } from "./stores";
-import { ResourceStoreState } from "./stores/resources";
-import { StructuresStoreState } from "./stores/structures";
 import { TaskStoreState } from "./stores/task";
 import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
@@ -85,40 +81,6 @@ const runGame = (store: any, persistor: Persistor) => {
     };
 
     // TODO: place these 'controllers' somewhere else
-
-    /*
-    * Will generate resources based on the structures in the town.
-    * Will return a ResourceStoreState with the amount of each resource to add  */
-    const getProducedResources = (delta: number, structures: StructuresStoreState) => {
-        const result: ResourceStoreState = {};
-        const resourceInterval = 60000; // every minute constitutes a resource tick. todo: move to some other shared place
-        const factor = delta / resourceInterval;
-        // this function can run at different intervals
-        // faster or slower than once a minute
-        // we will multiply the resource amount by the factor to normalize
-
-        const handleStructure = (structure: string) => {
-            const structureDefinition: StructureDefinition = structureDefinitions[structure];
-
-            switch (structureDefinition.type) {
-                case StructureType.resource:
-                    const resourceStructureDefinition = structureDefinition as ResourceStructureDefinition;
-                    const level: number = structures[structure].level;
-                    const levelDefinition: ResourceStructureLevelDefinition = resourceStructureDefinition.levels[level];
-
-                    // Store all the resources that this structure will generate this tick into `result`
-                    Object.keys(levelDefinition.generates).reduce((accumulator: ResourceStoreState, resource: string) => {
-                        const amount: number = levelDefinition.generates[resource] * structures[structure].workers * factor;
-                        accumulator[resource] = (accumulator[resource] || 0) + amount;
-                        return accumulator;
-                    }, result);
-                    break;
-            }
-        };
-
-        Object.keys(structures).forEach((structure) => handleStructure(structure));
-        return result;
-    };
 /*
     const getQuestUpdates = (delta: number, quests: QuestStoreState[]) => {
         // Moves the quest line progress. Only if currently at a 'nothing' node

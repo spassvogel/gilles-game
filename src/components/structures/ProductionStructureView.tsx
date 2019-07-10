@@ -59,9 +59,11 @@ export default class ProductionStructureView extends React.Component<AllProps, L
     // }
 
     public componentWillMount() {
+// tslint:disable-next-line: no-console
         console.log("component will mount" + this.props.type);
     }
     public componentWillUnmount() {
+// tslint:disable-next-line: no-console
         console.log("component will unmount" + this.props.type);
     }
 
