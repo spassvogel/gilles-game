@@ -18,7 +18,7 @@ export const gold: Reducer<number> = (state: number = 0, action: AnyAction) => {
         case StructureActionType.startBuildingStructure:
             // Started building a structure
             const structureDefinition = structureDefinitions[(action as StructureAction).structure];
-            const cost = structureDefinition.goldCost;
+            const cost = structureDefinition.cost.gold || 0;
             return state - cost;
     }
     return state;

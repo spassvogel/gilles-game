@@ -5,8 +5,10 @@ import { ProductionStructureDefinition, StructureType } from "./types";
 
 const weaponsmith: ProductionStructureDefinition = {
     type: StructureType.production,
-    goldCost: 40,
-    buildTime: 4000,
+    cost: {
+        gold: 40,
+        time: 4000,
+    },
     levels: [{
         // level 1:
         displayName: "structure-weaponsmith-name",

@@ -3,8 +3,10 @@ import { ResourceStructureDefinition, StructureType } from "./types";
 
 const garden: ResourceStructureDefinition = {
     type: StructureType.resource,
-    goldCost: 40,
-    buildTime: 4000,
+    cost: {
+        gold: 40,
+        time: 4000,
+    },
     levels: [{
         displayName: "structure-garden-name",
         // level 1:

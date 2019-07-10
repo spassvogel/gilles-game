@@ -2,8 +2,10 @@
 import { ResourceStructureDefinition, StructureType } from "./types";
 
 const mine: ResourceStructureDefinition = {
-    goldCost: 40,
-    buildTime: 4000,
+    cost: {
+        gold: 40,
+        time: 4000,
+    },
     type: StructureType.resource,
     levels: [{
         displayName: "structure-mine-name",

@@ -25,14 +25,14 @@ export default function(props: Props & DispatchProps & StateProps) {
             const gold = props.store.gold;
             const deedInfo = info as DeedDefinition;
             const structureDefinition = structureDefinitions[deedInfo.structure];
-            const enoughGold = structureDefinition.goldCost <= gold;
+            const enoughGold = structureDefinition.cost.gold || 0 <= gold;
             const structureStoreState = props.store.structures[deedInfo.structure];
             const canBeBuilt = structureStoreState.state === StructureState.NotBuilt;
             const disabled = !canBeBuilt || !enoughGold;
             return <div>
                 <p> " { info.subText } " </p>
                 <button disabled={ disabled } onClick= { () => props.handleStartConstruction(deedInfo.structure) }>
-                    Start construction ({ structureDefinition.goldCost } gold)
+                    Start construction ({ structureDefinition.cost.gold } gold)
                 </button>
             </div>;
         default:

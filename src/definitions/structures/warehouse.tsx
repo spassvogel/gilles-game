@@ -3,8 +3,10 @@
 import {  StructureType, WarehouseStructureDefinition } from "./types";
 
 const warehouse: WarehouseStructureDefinition = {
-    goldCost: 40,
-    buildTime: 4000,
+    cost: {
+        gold: 40,
+        time: 4000,
+    },
     type: StructureType.warehouse,
     levels: [{
         displayName: "structure-warehouse-name",

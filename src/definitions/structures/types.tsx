@@ -1,5 +1,6 @@
 import { ResourceStoreState } from "src/stores/resources";
 import { ProductionDefinition } from "../production/types";
+import { CostStoreState } from "src/reducers";
 
 export enum StructureType {
     resource,
@@ -10,8 +11,7 @@ export enum StructureType {
 
 export interface StructureDefinition {
     type: StructureType;
-    goldCost: number;
-    buildTime: number;
+    cost: CostStoreState;
     levels: StructureLevelDefinition[];
 }
 

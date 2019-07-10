@@ -3,8 +3,10 @@
 import { ProductionStructureDefinition, StructureType } from "./types";
 
 const armoursmith: ProductionStructureDefinition = {
-    goldCost: 40,
-    buildTime: 4000,
+    cost: {
+        gold: 40,
+        time: 4000,
+    },
     type: StructureType.production,
     levels: [{
         // level 1:

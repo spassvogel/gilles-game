@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { ResourceStoreState } from "src/stores/resources";
 import { StoreState } from "../stores";
 import { adventurers } from "./adventurers";
 import { engine } from "./engine";
@@ -12,6 +13,13 @@ import { structures } from "./structures";
 import { tasks } from "./tasks";
 // import { version } from "./version";
 import { workers } from "./workers";
+
+// todo: not sure where to place this actually
+export interface CostStoreState {
+    gold?: number;
+    time?: number;
+    resources?: ResourceStoreState;
+}
 
 export default combineReducers<StoreState>({
     adventurers,

@@ -2,8 +2,10 @@
 import { ProductionStructureDefinition, StructureType } from "./types";
 const alchemist: ProductionStructureDefinition = {
     type: StructureType.production,
-    goldCost: 40,
-    buildTime: 4000,
+    cost: {
+        gold: 40,
+        time: 4000,
+    },
     levels: [{
         displayName: "structure-alchemist-name",
         // level 1:
