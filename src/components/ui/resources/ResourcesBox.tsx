@@ -10,6 +10,7 @@ export interface Props {
     className?: string;
     resources: ResourceStoreState;
     maxResources: ResourceStoreState;
+    deltaResources: ResourceStoreState;
 }
 
 export interface StateProps {
@@ -24,15 +25,25 @@ type AllProps = Props & StateProps;
 const ResourcesBox = (props: AllProps) => {
     const {
         sufficientResources,
+        resources,
+        deltaResources,
     } = props;
+
     const className = (props.className || "") + " resourcesbox";
-    const listItems = Object.keys(props.resources).map((resource: Resource) => {
+    const listItems = Object.keys(resources).map((resource: Resource) => {
         let listItemClass = "resource";
         if (sufficientResources && !sufficientResources[resource]) {
              listItemClass += " insufficient";
         }
         const resourceDescription = resourceDescriptions[resource];
         const amount = props.resources[resource]!;
+
+        let delta;
+        if (deltaResources[resource]) {
+            delta = <span className = "animate-up">
+                { `+ ${deltaResources[resource]!.toFixed(2)}`  }
+            </span>;
+        }
         return <li className = { listItemClass } key = { resource }>
             <div className = "icon common-icon-smallest" style = {{
                 backgroundImage:  `url(${resourceDescription.iconImg})`,
@@ -41,10 +52,13 @@ const ResourcesBox = (props: AllProps) => {
                 { TextManager.getResourceName(resource) }
             </div>
             <div className = "amount" >
-                { amount.toFixed(0) }
+                { amount.toFixed(1) }
             </div>
             <div className = "max" >
                 { ` / ${props.maxResources[resource]}` }
+            </div>
+            <div className = "delta">
+                { delta }
             </div>
         </li>;
     });

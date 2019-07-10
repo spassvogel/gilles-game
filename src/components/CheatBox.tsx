@@ -105,7 +105,6 @@ class CheatBox extends React.Component<AllProps, LocalState> {
             </optgroup>;
         });
 
-
         return (
             <div className="cheat-box">
                 <h3>CHEATS</h3>

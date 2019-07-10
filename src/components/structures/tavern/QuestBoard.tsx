@@ -28,7 +28,6 @@ type AllProps = Props & DispatchProps;
 interface LocalState {
 }
 
-// todo: perhaps this can be a plain function
 export default class QuestBoard extends React.Component<AllProps, LocalState> {
 
     constructor(props: AllProps) {
