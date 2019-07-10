@@ -3,7 +3,9 @@ export enum ItemType {
     equipment,
     deed,
     material,
+    questItem,
     trinket,
+    weapon,
 }
 
 // the string must correspond to a named export in /items/index.tsx
@@ -26,6 +28,17 @@ export enum Item {
     scales = "scales",
     spring = "spring",
     thread = "thread",
+
+    // quest-items
+    crate = "crate",
+    key = "key",
+    lockPicks = "lockPicks",
+    purpleGems = "purpleGems",
+    tooth = "tooth",
+    torch = "torch",
+    tusk = "tusk",
+    vial = "vial",
+    weeds = "weeds",
 
     // trinkets
     ring = "ring",
@@ -50,17 +63,6 @@ export enum Item {
     spear = "spear",
     sword = "sword",
     warhammer = "warhammer",
-
-    // quest-items
-    crate = "crate",
-    key = "key",
-    lockPicks = "lockPicks",
-    purpleGems = "purpleGems",
-    tooth = "tooth",
-    torch = "torch",
-    tusk = "tusk",
-    vial = "vial",
-    weeds = "weeds",
 }
 
 export interface ItemDefinition {

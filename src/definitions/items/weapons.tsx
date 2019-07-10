@@ -2,7 +2,7 @@
 
 import { Item, ItemDefinition, ItemType } from "./types";
 
-const itemType = ItemType.equipment; // todo: could be 'weapon'?
+const itemType = ItemType.weapon;
 const basePath = "/img/items/weapons/";
 
 // tslint:disable-next-line:no-empty-interface

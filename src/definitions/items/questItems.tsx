@@ -2,7 +2,7 @@
 
 import { Item, ItemDefinition, ItemType } from "./types";
 
-const itemType = ItemType.trinket;
+const itemType = ItemType.questItem;
 const basePath = "/img/items/quest-items/";
 
 const questItemDefinitions: Record<string, ItemDefinition> = {

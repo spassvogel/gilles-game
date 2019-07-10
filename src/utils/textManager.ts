@@ -1,6 +1,6 @@
 import * as Handlebars from "handlebars";
-import itemDefinitions from "src/definitions/items";
-import { Item } from "src/definitions/items/types";
+import itemDefinitions, { getDefinition } from "src/definitions/items";
+import { Item, ItemType } from "src/definitions/items/types";
 import { Resource } from "src/definitions/resources";
 
 export abstract class TextManager {
@@ -51,7 +51,8 @@ export abstract class TextManager {
     }
 
     public static getItemName(item: Item): string {
-        return this.get(`item-${item}-name`);
+        const itemType = ItemType[getDefinition(item).itemType];
+        return this.get(`item-${itemType}-${item}-name`);
     }
 
     private static initialized = false;
