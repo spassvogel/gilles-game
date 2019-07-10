@@ -1,3 +1,4 @@
+// tslint:disable: object-literal-sort-keys
 import { LogChannel } from "src/stores/logEntry";
 
 export enum ActionType {

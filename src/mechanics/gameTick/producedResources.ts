@@ -59,6 +59,6 @@ const getMaxResources = (store: StoreState): ResourceStoreState => {
     const level: number = store.structures[Structure.warehouse].level;
     const levelDefinition: WarehouseStructureLevelDefinition = structureDefinition.levels[level];
     return levelDefinition.maxResources;
-}
+};
 
 export default getProducedResources;
