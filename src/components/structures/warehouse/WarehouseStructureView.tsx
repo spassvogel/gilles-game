@@ -2,6 +2,7 @@ import * as React from "react";
 import ResourcesBox from "src/components/ui/resources/ResourcesBox";
 import { DragSourceType } from "src/constants";
 import { Item } from "src/definitions/items/types";
+import { Resource } from "src/definitions/resources";
 import structureDefinitions, {  Structure  } from "src/definitions/structures";
 import { StructureDefinition, StructureLevelDefinition } from "src/definitions/structures/types";
 import { ResourceStoreState } from "src/stores/resources";
@@ -9,7 +10,6 @@ import { TextManager } from "src/utils/textManager";
 import { AppContextProps } from "../../App";
 import Inventory from "../../ui/inventory/Inventory";
 import "./css/warehousestructureview.css";
-import { Resource } from "src/definitions/resources";
 
 export interface DispatchProps {
     onMoveItemInWarehouse: (fromSlot: number, toSlot: number) => void;
@@ -98,7 +98,7 @@ class WarehouseStructureView extends React.Component<AllProps, null> {
                 {
                     createUpgradeRow()
                 }
-                <fieldset className="resources animate" ref = { (ref) => { this.resourcesRef = ref; }}>
+                <fieldset className="resources" ref = { (ref) => { this.resourcesRef = ref; }}>
                     <legend>Resources</legend>
                     <ResourcesBox
                         resources = { props.resources }
@@ -121,12 +121,11 @@ class WarehouseStructureView extends React.Component<AllProps, null> {
             this.resourcesDelta[resource] = this.props.resources[resource]! - prevProps.resources[resource]!;
         });
 
-        if(this.resourcesRef){
-            this.resourcesRef.classList.remove('animate');
-     
+        if (this.resourcesRef) {
+            this.resourcesRef.classList.remove("animate");
             setTimeout(() => {
-                if(this.resourcesRef){
-                    this.resourcesRef.classList.add('animate');
+                if (this.resourcesRef) {
+                    this.resourcesRef.classList.add("animate");
                 }
             }, 200);
         }

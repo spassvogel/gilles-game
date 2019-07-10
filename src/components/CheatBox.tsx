@@ -1,6 +1,7 @@
 // TODO: Better name than this
 
 import * as React from "react";
+import { getDefinition } from "src/definitions/items";
 import { Item, ItemType } from "src/definitions/items/types";
 import structureDefinitions, { Structure  } from "src/definitions/structures";
 import { ResourceStoreState } from "src/stores/resources";
@@ -8,7 +9,6 @@ import { StructureState, StructureStoreState } from "src/stores/structure";
 import { StructuresStoreState } from "src/stores/structures";
 import { TextManager } from "src/utils/textManager";
 import "./css/cheatbox.css";
-import { getDefinition } from "src/definitions/items";
 
 export interface DispatchProps {
     onCheatGold?: (amount: number) => void;
@@ -88,7 +88,7 @@ class CheatBox extends React.Component<AllProps, LocalState> {
             return Object.keys(Item)
                 // tslint:disable-next-line: triple-equals
                 .filter((item: string) => getDefinition(item as Item).itemType == type)
-                .map((item: Item) => getItemOption(item))
+                .map((item: Item) => getItemOption(item));
         };
 
         const getItemOption = (item: Item) => {
