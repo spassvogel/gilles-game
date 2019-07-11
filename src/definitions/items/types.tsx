@@ -1,6 +1,7 @@
 
 export enum ItemType {
     deed,
+    equipment,
     material,
     questItem,
     trinket,
@@ -12,6 +13,36 @@ export enum Item {
     // deeds
     deedForLumbermill = "deedForLumbermill",
     deedForWeaponsmith = "deedForWeaponsmith",
+
+    // equipment
+    boots1 = "boots1",
+    boots2 = "boots2",
+    boots3 = "boots3",
+    chainmailHood = "chainmailHood",
+    chest = "chest",
+    clothGloves = "clothGloves",
+    cowl = "cowl",
+    greaves1 = "greaves1",
+    greaves2 = "greaves2",
+    hornedHelmet = "hornedHelmet",
+    leatherGloves = "leatherGloves",
+    nomadHelmet = "nomadHelmet",
+    pants1 = "pants1",
+    pants2 = "pants2",
+    plateChest1 = "plateChest1",
+    plateChest2 = "plateChest2",
+    plateChest3 = "plateChest3",
+    plateChest4 = "plateChest4",
+    plateGloves1 = "plateGloves1",
+    plateGloves2 = "plateGloves2",
+    plateHelmet = "plateHelmet",
+    platePants = "platePants",
+    plateShoulders1 = "plateShoulders1",
+    plateShoulders2 = "plateShoulders2",
+    robe = "robe",
+    shoulders1 = "shoulders1",
+    shoulders2 = "shoulders2",
+    vest = "vest",
 
     // materials
     bolts = "bolts",

@@ -24,7 +24,7 @@ export const structures: Reducer<StructuresStoreState> = (state: StructuresStore
                 ...state[action.structure],
                 level,
             };
-            return {
+            return    {
                 ...state,
                 [action.structure]: structureStore,
             };
