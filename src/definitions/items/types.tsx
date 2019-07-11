@@ -61,12 +61,22 @@ export enum Item {
 
     // quest-items
     crate = "crate",
+    eye = "eye",
+    feather = "feather",
+    heart = "heart",
+    horn = "horn",
     key = "key",
+    letters = "letters",
     lockPicks = "lockPicks",
+    orcFinger = "orcFinger",
+    plans = "plans",
     purpleGems = "purpleGems",
+    runestone = "runestone",
+    teeth = "teeth",
     tooth = "tooth",
     torch = "torch",
     tusk = "tusk",
+    vase = "vase",
     vial = "vial",
     weeds = "weeds",
 
