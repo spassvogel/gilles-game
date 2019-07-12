@@ -1,3 +1,4 @@
+import { Howl } from "howler";
 import * as React from "react";
 import Indicator from "./Indicator";
 
@@ -9,12 +10,13 @@ export interface Props {
 
 enum MediaType {
     image,
+    sound,
 }
 
 export interface MediaItem {
     url: string;
     mediaType: MediaType;
-    element: HTMLElement;
+    element: HTMLElement | Howl;
 }
 
 interface State {
@@ -106,25 +108,40 @@ export default class Preloader extends React.Component<Props, State> {
             console.warn(`Loading media with url ${url} more than once! Will overwrite.`);
         }
         const mediaType = getType(url);
+        let item;
         switch (mediaType) {
             case MediaType.image: {
                 // try {
-                    const value = await loadImage(url);
-                    // console.log(`loaded ${url}`); // tODO: remove
-                    const item = {
-                        element: value,
-                        mediaType,
-                        url,
-                    };
-                    media.push(item);
-                    this.setState({
-                        itemsLoaded: this.state.itemsLoaded + 1,
-                    });
-                    return item;
+                const value = await loadImage(url);
+                // console.log(`loaded ${url}`); // tODO: remove
+                item = {
+                    element: value,
+                    mediaType,
+                    url,
+                };
                 // } catch (e) {
                 //     throw Error(`Could not load image with url '${url}'`);
                 // }
             }
+            case MediaType.sound: {
+                const value = new Howl({
+                    src: [ url ],
+                });
+                item = {
+                    element: value,
+                    mediaType,
+                    url,
+                };
+            }
+        }
+        if (item) {
+            media.push(item);
+            this.setState({
+                itemsLoaded: this.state.itemsLoaded + 1,
+            });
+            return item;
+        } else {
+            throw new Error(`Unknown error while trying to load ${url}`);
         }
     }
 }
@@ -160,6 +177,9 @@ const getType = (url: string): MediaType => {
     url = url.toLowerCase();
     if (url.endsWith("png") || url.endsWith("jpg") || url.endsWith("gif")) {
         return MediaType.image;
+    }
+    if (url.endsWith("mp3") || url.endsWith("ogg") || url.endsWith("wav")) {
+        return MediaType.sound;
     }
     throw Error(`Could not determine type for ${url}`);
 };
