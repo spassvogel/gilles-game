@@ -61,6 +61,11 @@ const questItemDefinitions: Record<string, ItemDefinition> = {
         itemType,
         iconImg: `${basePath}purple-gems.png`,
     },
+    [Item.runestone]: {
+        item: Item.runestone,
+        itemType,
+        iconImg: `${basePath}runestone.png`,
+    },
     [Item.teeth]: {
         item: Item.teeth,
         itemType,
