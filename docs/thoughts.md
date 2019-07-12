@@ -56,17 +56,22 @@
 
 07/07/2019 GAME DESIGN
 [ ] Is the warehouse limited? Can you add unlimited items?
-[ ] Resource capacity is limited
+[x] Resource capacity is limited
 
 10/07/2019 ASSERTS
 [ ] Include an assert library
 
 10/07/2019 GAME TICK RESOURCE
-[ ] Move add resource into 'controllers'
+[x] Move add resource into 'controllers'
 [ ] Move the guard around maxResources to the reducer (but it needs access to the level of the warehouse to determine maxresources)
     https://stackoverflow.com/questions/34333979/accessing-other-parts-of-the-state-when-using-combined-reducers
 
 10/07/2019 GAME DESIGN: minimum workers on item craft
 [ ] Perhaps each item can have a number of minimum workers?
 
+12/07/2019 GAME DESIGN: quest prerequisites/ resource sink
+The quests should have some sort of resource cost. However we don't want weapons to break all the time. Ideas:
+[ ] Sharp weapons can get more dull if used more. Dull blades do way less damage. Craft whetstones from stone and use on the weapon to sharpen again.
+[ ] Weapons slowly lose durability (/health) when used. 
+[ ] Weapons can either be repaired ?  OR : just disassembled for a fraction of the crafting cost
 
