@@ -22,7 +22,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
 
             const callbacks = [ finishBuildingStructure(structure) ];
             const structureDefinition = structureDefinitions[structure];
-            const time = structureDefinition.buildTime;
+            const time = structureDefinition.cost.time!;
             const start = startTask(TaskType.buildStructure,
                 `${structure}.build`,
                 "town",
