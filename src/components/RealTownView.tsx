@@ -185,7 +185,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
         if (result === undefined) {
             throw Error(`Could not find image with url ${url}`);
         } else {
-            return result.element as HTMLImageElement;
+            return result.content as HTMLImageElement;
         }
     }
 }

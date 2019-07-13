@@ -16,7 +16,8 @@ enum MediaType {
 export interface MediaItem {
     url: string;
     mediaType: MediaType;
-    element: HTMLElement | Howl;
+    content?: HTMLImageElement | Howl;
+    sound?: Howl;
 }
 
 interface State {
@@ -109,30 +110,28 @@ export default class Preloader extends React.Component<Props, State> {
         }
         const mediaType = getType(url);
         let item;
-        switch (mediaType) {
-            case MediaType.image: {
-                // try {
-                const value = await loadImage(url);
-                // console.log(`loaded ${url}`); // tODO: remove
-                item = {
-                    element: value,
-                    mediaType,
-                    url,
-                };
-                // } catch (e) {
-                //     throw Error(`Could not load image with url '${url}'`);
-                // }
-            }
-            case MediaType.sound: {
-                const value = new Howl({
-                    src: [ url ],
-                });
-                item = {
-                    element: value,
-                    mediaType,
-                    url,
-                };
-            }
+        if (mediaType === MediaType.image) {
+            // try {
+            const value = await loadImage(url);
+            // console.log(`loaded ${url}`); // tODO: remove
+            item = {
+                content: value,
+                mediaType,
+                url,
+            } ;
+            // } catch (e) {
+            //     throw Error(`Could not load image with url '${url}'`);
+            // }
+        }
+        if (mediaType === MediaType.sound) {
+            const value = new Howl({
+                src: [ url ],
+            });
+            item = {
+                content: value,
+                mediaType,
+                url,
+            };
         }
         if (item) {
             media.push(item);
