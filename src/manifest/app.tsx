@@ -5,6 +5,8 @@ export const manifest = [
     "img/town/lighthouse.png",
     "img/town/tavern.png",
     "img/town/mill.png",
+    "sound/fx/button-click.ogg",
     "sound/music/Soliloquy.mp3",
     "sound/music/TheLoomingBattle.ogg",
+
 ];

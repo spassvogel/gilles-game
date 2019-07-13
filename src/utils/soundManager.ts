@@ -4,15 +4,34 @@ export enum MusicTrack {
     town,
     world,
 }
+
+export enum Sound {
+    buttonClick,
+}
+
 let media: MediaItem[];
 
 const musicTracks: { [key: number]: Howl; } = {};
 let currentMusicTrack: MusicTrack|null = null;
 
+const sounds: { [key: number]: Howl; } = {};
+
 export class SoundManager {
     public static loadMedia(m: MediaItem[]) {
         media = m;
     }
+
+    public static addSounds(soundList: Record<Sound, string>) {
+        Object.entries(soundList).forEach(([key, value]) => {
+            sounds[key] = media.find((m) => m.url === value);
+        });
+    }
+
+    public static playSound(sound: Sound) {
+        const howl = sounds[sound];
+        howl.play();
+    }
+
 
     public static addMusicTrack(track: MusicTrack, url: string) {
         const sound = media.find((m) => m.url === url);
@@ -26,7 +45,7 @@ export class SoundManager {
 
     /**
      * Fades out currently playing music and fades new music in
-     * @param track 
+     * @param track
      */
     public static playMusicTrack(track: MusicTrack) {
         if (currentMusicTrack !== null) {

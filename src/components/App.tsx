@@ -14,7 +14,8 @@ import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
-import { SoundManager } from "src/utils/soundManager";
+// tslint:disable-next-line: ordered-imports
+import { SoundManager, Sound } from "src/utils/soundManager";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -171,6 +172,11 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
 
         const sounds = media.filter((m) => m.mediaType === MediaType.sound);
         SoundManager.loadMedia(sounds);
+
+        SoundManager.addSounds({
+            [Sound.buttonClick]: "sound/fx/button-click.ogg",
+        });
+
         this.setState({
             media,
         });
