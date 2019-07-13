@@ -8,7 +8,7 @@ export interface Props {
     onLoadComplete?: (mediaItems: MediaItem[]) => void;
 }
 
-enum MediaType {
+export enum MediaType {
     image,
     sound,
 }

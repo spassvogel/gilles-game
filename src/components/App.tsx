@@ -12,8 +12,9 @@ import { manifest } from "src/manifest/app";
 import Topbar from "../containers/Topbar";
 import { Structure } from "../definitions/structures";
 import "./css/app.css";
-import Preloader, { MediaItem } from "./preloading/Preloader";
+import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
+import { SoundManager } from "src/utils/soundManager";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -92,7 +93,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             if (this.state.view === View.Town) {
 
                 return <RealTownView
-                onStructureClick = { this.selectStructure }
+                    onStructureClick = { this.selectStructure }
                 // onContextualObjectActivated = { this.handleContextualObjectActivated }
                 // media = { this.state.media }
                 />;
@@ -167,6 +168,9 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
     }
 
     private handleMediaLoadComplete = (media: MediaItem[]) => {
+
+        const sounds = media.filter((m) => m.mediaType === MediaType.sound);
+        SoundManager.loadMedia(sounds);
         this.setState({
             media,
         });

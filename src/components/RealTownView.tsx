@@ -8,6 +8,8 @@ import { TextManager } from "src/utils/textManager";
 import { AppContextProps } from "./App";
 import "./css/townView.css";
 import SmokeEmitter from "./effects/SmokeEmitter";
+import { MediaItem } from "./preloading/Preloader";
+import { SoundManager, MusicTrack } from "src/utils/soundManager";
 
 // It's actually not the *real* town view hihi
 // tslint:disable-next-line:no-empty-interface
@@ -33,15 +35,20 @@ class RealTownView extends React.Component<AllProps, LocalState> {
 
     private plasmaBeam: Konva.Rect;
     private anim: Konva.Animation;
+    private music: Howl;
 
     constructor(props: AllProps) {
         super(props);
         this.state = {
             images: {},
         };
+
+        SoundManager.addMusicTrack(MusicTrack.town, "sound/music/Soliloquy.mp3");
     }
 
     public componentDidMount() {
+        this.playMusic();
+
         const period = 500;
 
         if (this.plasmaBeam) {
@@ -166,8 +173,11 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                     />
 
                     </Layer>
-                    <SmokeEmitter emitterX = { 190 } emitterY = { 510 }
-                        smokeImg = { this.imgSrc("img/town/effects/smoke.png") }/>
+                    <SmokeEmitter
+                        emitterX = { 190 }
+                        emitterY = { 510 }
+                        smokeImg = { this.imgSrc("img/town/effects/smoke.png") }
+                    />
             </Stage>
         );
     }
@@ -187,6 +197,10 @@ class RealTownView extends React.Component<AllProps, LocalState> {
         } else {
             return result.content as HTMLImageElement;
         }
+    }
+
+    private playMusic() {
+        SoundManager.playMusicTrack(MusicTrack.town);
     }
 }
 

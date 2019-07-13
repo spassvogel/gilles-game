@@ -9,7 +9,7 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const tasks = store.tasks.running.filter((val) => val.origin === `town`);
     return {
         structures: store.structures,
-        };
+    };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps {

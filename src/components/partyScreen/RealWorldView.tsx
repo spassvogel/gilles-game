@@ -4,6 +4,7 @@ import PartyScreen from "src/containers/partyScreen/PartyScreen";
 import { QuestStatus, QuestStoreState } from "src/stores/quest";
 import QuestLineVisualization from "../world/QuestLineVisualization";
 import "./css/realworldview.css";
+import { SoundManager, MusicTrack } from "src/utils/soundManager";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -27,6 +28,8 @@ type AllProps = Props & StateProps & DispatchProps;
  * @param props
  */
 export default class RealWorldView extends React.Component<AllProps, LocalState> {
+    private music: Howl;
+
     // This Component has local state, so it's a class
     constructor(props: Props & StateProps & DispatchProps) {
         super(props);
@@ -34,26 +37,29 @@ export default class RealWorldView extends React.Component<AllProps, LocalState>
         this.state = {
             selectedQuest: null,
         };
+
+        SoundManager.addMusicTrack(MusicTrack.world, "sound/music/TheLoomingBattle.ogg");
+
     }
 
     public render() {
-            const selectedQuest = this.props.quests.find((q) => q.name === this.state.selectedQuest);
-            const activeQuests = this.props.quests.filter((q) => q.status === QuestStatus.active );
-            const questLines = activeQuests.map((q) => {
-                return <QuestLineVisualization key={ q.name }
-                    selected={q === selectedQuest}
-                    quest={q}
-                    onSelectQuest={() => this.handleSelectQuest(q.name)}
-                />;
-            });
+        const selectedQuest = this.props.quests.find((q) => q.name === this.state.selectedQuest);
+        const activeQuests = this.props.quests.filter((q) => q.status === QuestStatus.active );
+        const questLines = activeQuests.map((q) => {
+            return <QuestLineVisualization key={ q.name }
+                selected={q === selectedQuest}
+                quest={q}
+                onSelectQuest={() => this.handleSelectQuest(q.name)}
+            />;
+        });
 
-            return <div className="realworldview">
-                <fieldset className="progress">
-                    <legend>Quest progress</legend>
-                    {questLines}
-                </fieldset>
-                { selectedQuest && <PartyScreen quest= { selectedQuest } /> }
-            </div>;
+        return <div className="realworldview">
+            <fieldset className="progress">
+                <legend>Quest progress</legend>
+                {questLines}
+            </fieldset>
+            { selectedQuest && <PartyScreen quest= { selectedQuest } /> }
+        </div>;
     }
 
     public handleSelectQuest(questName: string) {
@@ -61,4 +67,16 @@ export default class RealWorldView extends React.Component<AllProps, LocalState>
             selectedQuest: questName,
         });
     }
+
+    public componentDidMount() {
+        this.playMusic();
+    }
+
+    public componentWillUnmount() {
+    }
+
+    private playMusic() {
+       SoundManager.playMusicTrack(MusicTrack.world);
+    }
+
 }
