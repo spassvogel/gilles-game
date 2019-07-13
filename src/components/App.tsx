@@ -146,6 +146,8 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
     }
 
     private changeView = () => {
+        SoundManager.playSound(Sound.buttonClick);
+
         if (this.state.view === View.Town) {
             this.setState({
                 selectedStructure: null,

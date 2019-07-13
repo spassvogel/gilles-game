@@ -23,7 +23,7 @@ export class SoundManager {
 
     public static addSounds(soundList: Record<Sound, string>) {
         Object.entries(soundList).forEach(([key, value]) => {
-            sounds[key] = media.find((m) => m.url === value);
+            sounds[key] = media.find((m) => m.url === value)!.content;
         });
     }
 
