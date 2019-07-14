@@ -63,6 +63,7 @@ export enum Item {
     crate = "crate",
     eye = "eye",
     feather = "feather",
+    food = "food",
     heart = "heart",
     horn = "horn",
     key = "key",
