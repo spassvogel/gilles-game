@@ -32,7 +32,6 @@ export class SoundManager {
         howl.play();
     }
 
-
     public static addMusicTrack(track: MusicTrack, url: string) {
         const sound = media.find((m) => m.url === url);
         if (!sound) {
