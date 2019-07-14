@@ -58,7 +58,7 @@ class WarehouseStructureView extends React.Component<AllProps, null> {
         const createUpgradeRow = () => {
             const gold = props.gold;
             const nextLevel = structureDefinition.levels[level + 1];
-            const nextLevelCost = (nextLevel != null ? nextLevel.cost : -1);
+            const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
             const canUpgrade = nextLevel != null && gold >= nextLevelCost;
             const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 

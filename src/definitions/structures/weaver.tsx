@@ -11,19 +11,25 @@ export const weaver: ResourceStructureDefinition = {
         displayName: "structure-weaver-name",
         // level 0:
         workerCapacity: 2,
-        cost: 0,
+        cost: {
+            gold: 0,
+        },
         generates: { fabric: 2 },
     }, {
         displayName: "structure-weaver-name",
         // level 1:
         workerCapacity: 5,
-        cost: 30,
+        cost: {
+             gold: 30,
+        },
         generates: { fabric: 5 },
     }, {
         displayName: "structure-weaver-name",
         // level 2:
         workerCapacity: 10,
-        cost: 50,
+        cost: {
+             gold: 50,
+        },
         generates: { fabric: 7 },
     }],
 };

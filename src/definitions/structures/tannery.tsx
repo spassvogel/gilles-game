@@ -12,19 +12,25 @@ const tannery: ResourceStructureDefinition = {
         displayName: "structure-tannery-name",
         // level 1:
         workerCapacity: 2,
-        cost: 0,
+        cost: {
+            gold: 0,
+        },
         generates: { leather: 2 },
     }, {
         // level 2:
         displayName: "structure-tannery-name",
         workerCapacity: 5,
-        cost: 30,
+        cost: {
+            gold: 30,
+        },
         generates: { leather: 5 },
     }, {
         // level 3:
         displayName: "structure-tannery-name",
         workerCapacity: 10,
-        cost: 50,
+        cost: {
+            gold: 50,
+        },
         generates: { leather: 7 },
     }],
 };

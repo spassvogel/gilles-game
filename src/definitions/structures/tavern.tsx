@@ -12,17 +12,23 @@ const tavern: TavernStructureDefinition = {
         displayName: "structure-tavern-name",
         // level 1:
         workerCapacity: 2,
-        cost: 0,
+        cost: {
+             gold: 0,
+        },
     }, {
         // level 2:
         displayName: "structure-tavern-name",
         workerCapacity: 5,
-        cost: 30,
+        cost: {
+             gold: 30,
+        },
     }, {
         // level 3:
         displayName: "structure-tavern-name",
         workerCapacity: 10,
-        cost: 50,
+        cost: {
+             gold: 50,
+        },
     }],
 };
 

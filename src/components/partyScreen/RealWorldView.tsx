@@ -2,9 +2,9 @@
 import * as React from "react";
 import PartyScreen from "src/containers/partyScreen/PartyScreen";
 import { QuestStatus, QuestStoreState } from "src/stores/quest";
+import { MusicTrack, SoundManager } from "src/utils/soundManager";
 import QuestLineVisualization from "../world/QuestLineVisualization";
 import "./css/realworldview.css";
-import { SoundManager, MusicTrack } from "src/utils/soundManager";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -70,9 +70,6 @@ export default class RealWorldView extends React.Component<AllProps, LocalState>
 
     public componentDidMount() {
         this.playMusic();
-    }
-
-    public componentWillUnmount() {
     }
 
     private playMusic() {

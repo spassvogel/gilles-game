@@ -12,20 +12,19 @@ export enum EquipmentType {
     chest,
     pants,
     head,
-    shoulders
+    shoulders,
 }
 
 export interface EquipmentDefinition extends ItemDefinition {
     equipmentType: EquipmentType;
 }
 
-
 const weaponDefinitions: Record<string, EquipmentDefinition> = {
     [Item.boots1]: {
         item: Item.boots1,
         equipmentType: EquipmentType.feet,
         itemType,
-        subText: "",
+        subText: "These boots are made for questin'",
         iconImg: `${basePath}boots_1.png`,
     },
     [Item.boots2]: {

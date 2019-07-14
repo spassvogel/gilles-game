@@ -11,19 +11,25 @@ const garden: ResourceStructureDefinition = {
         displayName: "structure-garden-name",
         // level 1:
         workerCapacity: 2,
-        cost: 0,
+        cost: {
+            gold: 0,
+        },
         generates: { food: 2 },
     }, {
         displayName: "structure-garden-name",
         // level 2:
         workerCapacity: 5,
-        cost: 30,
+        cost: {
+            gold: 30,
+        },
         generates: { food: 2 },
     }, {
         // level 3:
         displayName: "structure-garden-name",
         workerCapacity: 10,
-        cost: 50,
+        cost: {
+            gold: 50,
+        },
         generates: { food: 2 },
     }],
 };

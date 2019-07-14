@@ -1,5 +1,4 @@
 import * as React from "react";
-import { ContextType } from "src/constants";
 import MaterialsCostBox from "src/containers/ui/context/items/MaterialsCostBox";
 import ResourcesCostBox from "src/containers/ui/resources/ResourcesCostBox";
 import itemDefinitions from "src/definitions/items";
@@ -80,7 +79,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
         const createUpgradeRow = () => {
             const gold = this.props.gold;
             const nextLevel = structureDefinition.levels[level + 1];
-            const nextLevelCost = (nextLevel != null ? nextLevel.cost : -1);
+            const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
             const canUpgrade = nextLevel != null && gold >= nextLevelCost;
             const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 
@@ -119,12 +118,14 @@ export default class ProductionStructureView extends React.Component<AllProps, L
 
             const produces = levelDefinition.produces.find((p) => p.item === item)!;
             const playerResources = this.props.resources || {};
-            const missingAtLeastOneResource = Object.keys(produces.costResources)
-                .some((resource) => produces.costResources[resource] > playerResources[resource]);
+            const costResources = produces.cost.resources!;
+            const missingAtLeastOneResource = Object.keys(costResources)
+                .some((resource) => costResources[resource] > playerResources[resource]);
 
             let missingAtLeastOneItem = false;
-            if (produces.costItems) {
-                missingAtLeastOneItem = produces.costItems
+            const costMaterials = produces.cost.materials;
+            if (costMaterials) {
+                missingAtLeastOneItem = costMaterials
                     .some((i: Item) => this.props.items.indexOf(i) === -1);
             }
 
@@ -164,15 +165,15 @@ export default class ProductionStructureView extends React.Component<AllProps, L
             };
 
             let costItemsContent = null;
-            if (produces.costItems) {
-                costItemsContent = <MaterialsCostBox items = { produces.costItems } />;
+            if (costMaterials) {
+                costItemsContent = <MaterialsCostBox items = { costMaterials } />;
             }
             return (
                 <div className = "crafting-details">
                     Craft a { TextManager.getItemName(itemDefinition.item) }
                     <div className = "crafting-costs">
                         <fieldset>
-                            <ResourcesCostBox resources = { produces.costResources } />
+                            <ResourcesCostBox resources = { costResources } />
                         </fieldset>
                         <fieldset>
                             { costItemsContent }
@@ -191,7 +192,8 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                             downDisabled={ this.state.workersAssigned < 1 }
                         />
                         &nbsp;
-                        { makeTimeString(produces.time) }
+                        { makeTimeString(produces.cost.time || 0
+                            ) }
                     </div>
                     <div>
                         <button

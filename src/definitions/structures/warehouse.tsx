@@ -12,7 +12,9 @@ const warehouse: WarehouseStructureDefinition = {
         displayName: "structure-warehouse-name",
         // level 1:
         workerCapacity: 2,
-        cost: 0,
+        cost: {
+            gold: 0,
+        },
         maxResources: {
             fabric: 200,
             food: 200,
@@ -26,7 +28,9 @@ const warehouse: WarehouseStructureDefinition = {
         // level 2:
         displayName: "structure-warehouse-name",
         workerCapacity: 5,
-        cost: 30,
+        cost: {
+            gold: 30,
+        },
         maxResources: {
             fabric: 500,
             food: 500,
@@ -40,7 +44,9 @@ const warehouse: WarehouseStructureDefinition = {
         // level 3:
         displayName: "structure-warehouse-name",
         workerCapacity: 10,
-        cost: 50,
+        cost: {
+            gold: 50,
+        },
         maxResources: {
             fabric: 1000,
             food: 1000,

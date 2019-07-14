@@ -41,8 +41,8 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps {
     return {
         onCraft: (productionDefinition: ProductionDefinition, workers: number) => {
-            const craftingTime = calculateProductionTime(productionDefinition.time, workers);
-            dispatch(removeResources(productionDefinition.costResources));
+            const craftingTime = calculateProductionTime(productionDefinition.cost.time || 0, workers);
+            dispatch(removeResources(productionDefinition.cost.resources || {}));
             dispatch(increaseWorkers(ownProps.type, workers));
 
             const callbacks = [

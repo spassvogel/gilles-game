@@ -11,19 +11,25 @@ const mine: ResourceStructureDefinition = {
         displayName: "structure-mine-name",
         // level 0:
         workerCapacity: 2,
-        cost: 0,
+        cost: {
+            gold: 0,
+        },
         generates: { iron: 2 },
     }, {
         displayName: "structure-mine-name",
         // level 1:
         workerCapacity: 5,
-        cost: 30,
+        cost: {
+            gold: 30,
+        },
         generates: { iron: 2 },
     }, {
         displayName: "structure-mine-name",
         // level 2:
         workerCapacity: 10,
-        cost: 50,
+        cost: {
+            gold: 50,
+        },
         generates: { iron: 2 },
     }],
 };

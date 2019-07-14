@@ -1,5 +1,6 @@
 // tslint:disable:object-literal-sort-keys
 
+import { boots1, chest, cowl } from "../production/armour";
 import { ProductionStructureDefinition, StructureType } from "./types";
 
 const armoursmith: ProductionStructureDefinition = {
@@ -12,20 +13,26 @@ const armoursmith: ProductionStructureDefinition = {
         // level 1:
         displayName: "structure-armoursmith-name",
         workerCapacity: 2,
-        cost: 0,
-        produces: [],
+        cost: {
+            gold: 0,
+        },
+        produces: [ boots1 ],
     }, {
         // level 2:
         displayName: "structure-armoursmith-name",
         workerCapacity: 5,
-        cost: 30,
-        produces: [],
+        cost: {
+            gold: 30,
+        },
+        produces: [ boots1, chest ],
     }, {
         // level 3:
         displayName: "structure-armoursmith-name",
         workerCapacity: 10,
-        cost: 50,
-        produces: [],
+        cost: {
+            gold: 50,
+        },
+        produces: [ boots1, chest, cowl],
     }],
 };
 export default armoursmith;

@@ -43,7 +43,9 @@
 
 
 02/05/2019 TRAITS
-[ ] During encounters, characters can receive certain traits. These can be beneficial or not. In some cases the traits can be healed, removed etc. Some items can be used to grant a trait to an adventurer.
+[ ] During encounters, characters can receive certain traits. These can be beneficial or not. 
+[ ] In some cases the traits can be healed, removed etc. 
+[ ] Some items can be used to grant a trait to an adventurer.
 
 23/06/2019 HELP
 [ ] Each screen should get a contexualized help window
@@ -75,3 +77,8 @@ The quests should have some sort of resource cost. However we don't want weapons
 [ ] Weapons slowly lose durability (/health) when used. 
 [ ] Weapons can either be repaired ?  OR : just disassembled for a fraction of the crafting cost
 
+13/07/2019 GEAR REQUIREMENTS
+[ ] Gear (=apparel+weapons) can have stats requirements (e.g. a minimum amount of STR)
+
+14/07/2019 ROUTER
+[ ] Implement react router for town/world

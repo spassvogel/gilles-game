@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { Item } from "src/definitions/items/types";
 import { ResourceStoreState } from "src/stores/resources";
 import { StoreState } from "../stores";
 import { adventurers } from "./adventurers";
@@ -19,6 +20,7 @@ export interface CostStoreState {
     gold?: number;
     time?: number;
     resources?: ResourceStoreState;
+    materials?: Item[];
 }
 
 export default combineReducers<StoreState>({
