@@ -19,4 +19,4 @@ export default all;
 
 export function getDefinition(item: Item): ItemDefinition {
     return all[item];
-};
+}

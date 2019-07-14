@@ -1,7 +1,9 @@
 import { Dispatch } from "react";
 import { connect } from "react-redux";
 import { AnyAction, compose } from "redux";
+import { subtractGold } from "src/actions/gold";
 import { launchQuest } from "src/actions/quests";
+import { upgradeStructure } from "src/actions/structures";
 import TavernStructureView, { DispatchProps, Props, StateProps } from "src/components/structures/tavern/TavernStructureView";
 import { Structure } from "src/definitions/structures";
 import { withAppContext } from "src/hoc/withAppContext";
@@ -13,6 +15,7 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const structureStore: StructureStoreState = store.structures[Structure.tavern];
     return {
         adventurers: store.adventurers,
+        gold: store.gold,
         level: structureStore.level,
         quests: store.quests,
     };
@@ -23,27 +26,10 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
         onLaunchQuest: (questName: string, assignedAventurers: AdventurerStoreState[]) => {
             dispatch(launchQuest(questName, assignedAventurers));
         },
-
-        // onCraft: (productionDefinition: ProductionDefinition, workers: number) => {
-        //     const craftingTime = calculateProductionTime(productionDefinition.time, workers);
-        //     dispatch(removeResources(productionDefinition.cost));
-        //     dispatch(increaseWorkers(ownProps.type, workers));
-
-        //     const callbacks = [
-        //         addItemToWarehouse(productionDefinition.item),
-        //         decreaseWorkers(ownProps.type, workers),
-        //     ];
-        //     const start = startTask(TaskType.craftItem,
-        //         productionDefinition.item,
-        //         `${ownProps.type}.craft`,
-        //         craftingTime,
-        //         callbacks);
-        //     dispatch(start);
-        // },
-        // onUpgrade: (cost: number) => {
-        //     dispatch(subtractGold(cost));
-        //     dispatch(upgradeStructure(ownProps.type)); // TODO: time to upgarde??
-        // },
+        onUpgrade: (cost: number) => {
+            dispatch(subtractGold(cost));
+            dispatch(upgradeStructure(Structure.tavern));  // Todo: [07/07/2019] time??
+        },
     };
 }
 

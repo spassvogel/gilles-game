@@ -17,8 +17,8 @@ export interface DispatchProps {
     onUpgrade?: (cost: number) => void;
 }
 
+// tslint:disable-next-line: no-empty-interface
 export interface Props  {
-    type: Structure;
 }
 
 export interface StateProps  {
@@ -47,9 +47,9 @@ class WarehouseStructureView extends React.Component<AllProps, null> {
 
     public render() {
         const props = this.props;
-        const structureDefinition = structureDefinitions[props.type] as StructureDefinition;
+        const structureDefinition = structureDefinitions[Structure.warehouse] as StructureDefinition;
         if (!structureDefinition) {
-            throw new Error(`No definition found for structure ${props.type} with type StructureDefinition.`);
+            throw new Error(`No definition found for structure ${Structure.warehouse} with type StructureDefinition.`);
         }
         const level: number = props.level;
         const levelDefinition: StructureLevelDefinition = structureDefinition.levels[level];

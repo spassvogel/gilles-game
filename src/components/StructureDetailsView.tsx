@@ -37,7 +37,7 @@ const getStructureView = (structure: Structure) => {
             return <ResourceStructureView type = { structure }/>;
         }
         case StructureType.warehouse: {
-            return <WarehouseStructureView type = { structure }/>;
+            return <WarehouseStructureView />;
         }
         case StructureType.tavern: {
             return <TavernStructureView />;

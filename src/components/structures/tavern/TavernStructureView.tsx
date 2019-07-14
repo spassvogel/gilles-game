@@ -2,7 +2,7 @@ import * as React from "react";
 import { AppContextProps } from "src/components/App";
 import DraggableAdventurerAvatar, { AdventurerAvatarDragInfo } from "src/components/ui/DraggableAdventurerAvatar";
 import structureDefinitions, { Structure } from "src/definitions/structures";
-import { StructureLevelDefinition, TavernStructureDefinition, TavernStructureLevelDefinition } from "src/definitions/structures/types";
+import { TavernStructureDefinition, TavernStructureLevelDefinition } from "src/definitions/structures/types";
 import { AdventurerStoreState } from "src/stores/adventurer";
 import { QuestStatus, QuestStoreState } from "src/stores/quest";
 import { TextManager } from "src/utils/textManager";
@@ -12,9 +12,11 @@ import QuestBoard from "./QuestBoard";
 // The UI for the tavern
 export interface DispatchProps {
     onLaunchQuest: (questName: string, assignedAventurers: AdventurerStoreState[]) => void;
+    onUpgrade?: (cost: number) => void;
 }
 
 export interface StateProps {
+    gold: number;
     level: number;
     adventurers: AdventurerStoreState[];
     quests: QuestStoreState[];
@@ -22,7 +24,6 @@ export interface StateProps {
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
-/*    type: Structure;*/
 }
 
 type AllProps = Props & StateProps & DispatchProps & AppContextProps;
@@ -52,8 +53,29 @@ export default class TavernStructureView extends React.Component<AllProps, Local
         const levelDefinition: TavernStructureLevelDefinition = structureDefinition.levels[level];
         const displayName = TextManager.get(levelDefinition.displayName);
 
-        const roomCount = levelDefinition.rooms;
+        const createUpgradeRow = () => {
+            const gold = this.props.gold;
+            const nextLevel = structureDefinition.levels[level + 1];
+            const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
+            const canUpgrade = nextLevel != null && gold >= nextLevelCost;
+            const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 
+            const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+                if (this.props.onUpgrade) { this.props.onUpgrade(nextLevelCost); }
+            };
+            return <div>
+                <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }
+                <button
+                    style = {{ float: "right" }}
+                    onClick = { handleClick }
+                    disabled= { !canUpgrade }
+                >
+                    { upgradeText }
+                </button>
+            </div>;
+        };
+
+        const roomCount = levelDefinition.rooms;
         const createRooms = () => {
 
             const roomContent: JSX.Element[] = [];
@@ -104,6 +126,9 @@ export default class TavernStructureView extends React.Component<AllProps, Local
         return (
             <details open = { true } className = "tavernstructureview">
                 <summary>{ displayName }</summary>
+                {
+                    createUpgradeRow()
+                }
                 <section>
                     { createRooms() }
                     <QuestBoard
