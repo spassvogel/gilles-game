@@ -2,7 +2,7 @@ import * as React from "react";
 import { AppContextProps } from "src/components/App";
 import DraggableAdventurerAvatar, { AdventurerAvatarDragInfo } from "src/components/ui/DraggableAdventurerAvatar";
 import structureDefinitions, { Structure } from "src/definitions/structures";
-import { StructureLevelDefinition, TavernStructureDefinition } from "src/definitions/structures/types";
+import { StructureLevelDefinition, TavernStructureDefinition, TavernStructureLevelDefinition } from "src/definitions/structures/types";
 import { AdventurerStoreState } from "src/stores/adventurer";
 import { QuestStatus, QuestStoreState } from "src/stores/quest";
 import { TextManager } from "src/utils/textManager";
@@ -49,11 +49,10 @@ export default class TavernStructureView extends React.Component<AllProps, Local
     public render() {
         const structureDefinition  = structureDefinitions[Structure.tavern] as TavernStructureDefinition;
         const level: number = this.props.level || 0;
-        const levelDefinition: StructureLevelDefinition = structureDefinition.levels[level];
+        const levelDefinition: TavernStructureLevelDefinition = structureDefinition.levels[level];
         const displayName = TextManager.get(levelDefinition.displayName);
 
-        // todo: figure out how amount of rooms is determined. perhaps by level?
-        const roomCount = 20;
+        const roomCount = levelDefinition.rooms;
 
         const createRooms = () => {
 

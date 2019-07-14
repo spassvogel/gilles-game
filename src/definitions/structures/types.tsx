@@ -48,5 +48,9 @@ export interface WarehouseStructureLevelDefinition extends StructureLevelDefinit
 
 // tslint:disable-next-line:no-empty-interface
 export interface TavernStructureDefinition extends StructureDefinition {
-    // todo: fill in later
+    levels: TavernStructureLevelDefinition[];
+}
+
+export interface TavernStructureLevelDefinition extends StructureLevelDefinition {
+    rooms: number;
 }

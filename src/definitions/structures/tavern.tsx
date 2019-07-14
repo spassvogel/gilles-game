@@ -15,6 +15,7 @@ const tavern: TavernStructureDefinition = {
         cost: {
              gold: 0,
         },
+        rooms: 10,
     }, {
         // level 2:
         displayName: "structure-tavern-name",
@@ -22,6 +23,7 @@ const tavern: TavernStructureDefinition = {
         cost: {
              gold: 30,
         },
+        rooms: 12,
     }, {
         // level 3:
         displayName: "structure-tavern-name",
@@ -29,6 +31,7 @@ const tavern: TavernStructureDefinition = {
         cost: {
              gold: 50,
         },
+        rooms: 15,
     }],
 };
 

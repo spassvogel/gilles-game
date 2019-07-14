@@ -87,3 +87,6 @@ The quests should have some sort of resource cost. However we don't want weapons
 
 14/07/2019 XP Progression 
 [ ] https://stackoverflow.com/questions/6954874/php-game-formula-to-calculate-a-level-based-on-exp
+
+14/07/2019 Rooms of tavern
+[ ] figure out how amount of rooms is determined. perhaps by level?

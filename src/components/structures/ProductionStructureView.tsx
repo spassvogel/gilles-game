@@ -192,8 +192,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                             downDisabled={ this.state.workersAssigned < 1 }
                         />
                         &nbsp;
-                        { makeTimeString(produces.cost.time || 0
-                            ) }
+                        { makeTimeString(produces.cost.time || 0) }
                     </div>
                     <div>
                         <button

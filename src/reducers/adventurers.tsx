@@ -97,7 +97,7 @@ const testState: AdventurerStoreState[] = [{
     equipment: generateRandomGear(),
     name: "Mike Keith",
     health: Math.random() * 100,
-    room: 10,
+    room: 9,
     avatarImg: `/img/avatars/andy-victorovych-a6.jpg`,
     inventory: [ null, null, null, null, null ],
 }, {
@@ -106,7 +106,7 @@ const testState: AdventurerStoreState[] = [{
     stats: generateRandomStats(),
     name: "Karlee Nolan",
     health: Math.random() * 100,
-    room: 11,
+    room: 3,
     avatarImg: `/img/avatars/andy-victorovych-a7.jpg`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
@@ -115,7 +115,7 @@ const testState: AdventurerStoreState[] = [{
     equipment: generateRandomGear(),
     name: "Gylbarde the Earnest",
     health: Math.random() * 100,
-    room: 12,
+    room: 8,
     avatarImg: `/img/avatars/andy-victorovych-a8.jpg`,
     inventory: [ null, null, null, null, null ],
 }, {
@@ -124,7 +124,7 @@ const testState: AdventurerStoreState[] = [{
     stats: generateRandomStats(),
     name: "Lanslet of the Water",
     health: Math.random() * 100,
-    room: 14,
+    room: 6,
     avatarImg: `/img/avatars/andy-victorovych-a9.jpg`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
@@ -133,7 +133,7 @@ const testState: AdventurerStoreState[] = [{
     stats: generateRandomStats(),
     name: "Tedric the Bold",
     health: Math.random() * 100,
-    room: 15,
+    room: 7,
     avatarImg: `/img/avatars/andy-victorovych-a10.jpg`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }];
