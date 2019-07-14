@@ -72,7 +72,9 @@
 [ ] Perhaps each item can have a number of minimum workers?
 
 12/07/2019 GAME DESIGN: quest prerequisites/ resource sink
-The quests should have some sort of resource cost. However we don't want weapons to break all the time. Ideas:
+The quests should have some sort of resource cost. However we don't want weapons to break all the time.
+[ ] Are the items consumed straight away?
+    Ideas:
 [ ] Sharp weapons can get more dull if used more. Dull blades do way less damage. Craft whetstones from stone and use on the weapon to sharpen again.
 [ ] Weapons slowly lose durability (/health) when used. 
 [ ] Weapons can either be repaired ?  OR : just disassembled for a fraction of the crafting cost
@@ -82,3 +84,6 @@ The quests should have some sort of resource cost. However we don't want weapons
 
 14/07/2019 ROUTER
 [ ] Implement react router for town/world
+
+14/07/2019 XP Progression 
+[ ] https://stackoverflow.com/questions/6954874/php-game-formula-to-calculate-a-level-based-on-exp
