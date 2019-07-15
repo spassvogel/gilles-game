@@ -87,10 +87,15 @@
     "item-weapon-spear-name": "spear",
     "item-weapon-sword-name": "sword",
     "item-weapon-warhammer-name": "warhammer",
+
     "quest-kill10Boars-title": "The boar hunt",
     "quest-kill10Boars-description": "A horde of rampaging boars have been a pestilence upon the farmers. Kill no less than 10 of the beasts and return for your just reward.",
     "quest-retrieveMagicAmulet-title": "The quest for the magic amulet",
     "quest-retrieveMagicAmulet-description": "Some air headed princess left her magic amulet when she took it off to make some pics for her insta. Find and retrieve.",
+    "quest-kill10Boars-node0": "The party sets out to vanquish 10 terrible pigs",
+    "quest-kill10Boars-node1": "No pigs in sight",
+    "quest-kill10Boars-encounter-goblinHouseOutside-description": "The party sees a goblin house",
+
     "resource-fabric-name": "fabric",
     "resource-food-name": "food",
     "resource-gunpowder-name": "gunpowder",

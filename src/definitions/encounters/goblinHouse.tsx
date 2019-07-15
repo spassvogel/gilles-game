@@ -16,7 +16,7 @@ export const goblinHouseOutside: EncounterDefinition = {
     },
     getTitle: (oracle: Oracle) => "As you make your way along the forest you notice a small house just of the road, smoke rises from the chimney",
     getDescription: (oracle: Oracle) => {
-        return "";
+        return "quest-kill10Boars-encounter-goblinHouseOutside-description";
     },
     getOptions: (oracle: Oracle) => {
         const options: Record<string, string> = {

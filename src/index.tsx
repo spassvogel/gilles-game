@@ -5,13 +5,14 @@ import HTML5Backend from "react-dnd-html5-backend";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { Persistor } from "redux-persist";
-import { State as seedrandomStateType } from "seedrandom";
 import { gameTick } from "./actions/game";
 import { addLogEntry } from "./actions/log";
 import version from "./constants/version";
 import App from "./containers/App";
 import "./index.css";
 import getProducedResources from "./mechanics/gameTick/producedResources";
+import getQuestUpdates from "./mechanics/gameTick/quests";
+import getRngState from "./mechanics/gameTick/rngState";
 import registerServiceWorker from "./registerServiceWorker";
 import { StoreState } from "./stores";
 import { TaskStoreState } from "./stores/task";
@@ -80,89 +81,19 @@ const runGame = (store: any, persistor: Persistor) => {
         tasks.completed.forEach((task) => handleCompletedTask(task));
     };
 
-    // TODO: place these 'controllers' somewhere else
-/*
-    const getQuestUpdates = (delta: number, quests: QuestStoreState[]) => {
-        // Moves the quest line progress. Only if currently at a 'nothing' node
-        // Otherwise the user has to do something to move the quest along
-
-        const speed = 4;    // in nodes per minute
-        const MS_PER_MINUTE = 60000;
-
-        return quests.map((qss) => {
-            const questDefinition: QuestDefinition = questDefinitions[qss.name];
-            const currentProgress = qss.progress;
-
-            const currentNode = questDefinition.nodes[Math.floor(currentProgress)];
-
-            if (currentNode.type === QuestNodeType.nothing) {
-                // Currently at a 'nothing' node
-                const progressIncrease = (action.delta / MS_PER_MINUTE) * speed;
-                const currentNodeIndex =  Math.floor(currentProgress);
-                let nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
-                const hops = Math.floor(nextProgress) - currentNodeIndex;
-
-                let log = qss.log;
-                let currentEncounter = qss.currentEncounter;
-
-                for (let i = 0; i < hops; i++) {
-                    // Loop through all the nodes we've passed since last tick
-                    const nextNode = questDefinition.nodes[currentNodeIndex + i];
-                    if (nextNode.type === QuestNodeType.encounter) {
-                        // We've hit an encounter node. set the progress to here and stop looking at other nodes
-                        const encounter = encounterDefintions[nextNode.encounter!];
-                        const oracle = oracles[qss.name];
-                        nextProgress = currentNodeIndex + i;
-                        log = [
-                            ...log,
-                            encounter.getDescription(oracle),
-                        ];
-                        currentEncounter = nextNode.encounter!;
-                        // Start encounter(encounter)
-                        // TODO: How to dispatch an action from a reducer?
-                        // OR: move this logic outside of reducer
-                        break;
-                    } else if (nextNode.type === QuestNodeType.nothing) {
-                        currentEncounter = null;
-                        if (nextNode.log) {
-                            log = [
-                                ...log,
-                                nextNode.log,
-                            ];
-                        }
-                    }
-                }
-
-                return {
-                    ...qss,
-                    currentEncounter,
-                    progress: nextProgress,
-                    log,
-                };
-            }
-            return qss;
-        });
-    }; */
     // store.dispatch(addGold(400));
 
     // TODO: find something less ugly and hacky than this
 //    oracles.kill10b = theBigTree.getOracle("kill_10_boars", store);
   //  oracles["retrieve_magic_amulet"] = backstabbed.getOracle("retrieve_magic_amulet", store);
-
-    const getRngState = (): seedrandomStateType | null => {
-        if (Random.dirty) {
-            return Random.state();
-        }
-        return null;
-    };
-
     const gameLoop = () => {
         const state: StoreState = store.getState();
         const delta = Date.now() - state.engine.lastTick;
 
-        const resources = getProducedResources(delta, state);
+        const resourcesUpdates = getProducedResources(delta, state);
         const rngState = getRngState();
-        store.dispatch(gameTick(delta, rngState, resources));
+        const { quests, log } = getQuestUpdates(delta, state);
+        store.dispatch(gameTick(delta, rngState, resourcesUpdates, quests, log));
 
         processCompletedTasks(state.tasks);
 

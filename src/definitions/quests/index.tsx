@@ -12,7 +12,6 @@ export enum QuestNodeType {
 export interface QuestDefinition {
     displayName: string;
     nodes: QuestNode[];
-    // type: StructureType
 }
 
 export interface QuestNode {
@@ -29,12 +28,12 @@ const kill10Boars: QuestDefinition = {
         x: 0,
         y: 1,
         type: QuestNodeType.nothing,
-        log: "The party sets out to vanquish 10 terrible pigs",
+        log: "quest-kill10Boars-node0",
     }, {
         x: 0,
         y: 3,
         type: QuestNodeType.nothing,
-        log: "The party sets out to vanquish 10 terrible pigs2",
+        log: "quest-kill10Boars-node1",
     // }, {
     //     x: 0,
     //     y: 3,

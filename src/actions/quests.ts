@@ -9,6 +9,7 @@ export enum ActionType {
     updateQuestVars = "updateQuestVars",
     updateEncounterResult = "updateEncounterResult",
     startEncounter = "startEncounter",
+    updateQuests = "updateQuests",
 }
 
 export interface Action {

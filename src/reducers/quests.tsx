@@ -89,6 +89,7 @@ const launchQuest = (state: QuestStoreState[], action: QuestLaunchAction) => {
 };
 
 const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {
+    // deprecated
     return state.map((qss) => {
         if (qss.name === action.questName) {
             const progress = qss.progress + 1;
@@ -127,62 +128,18 @@ const startEncounter = (state: QuestStoreState[], action: StartEncounterAction) 
     }); };
 
 const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
-    // Moves the quest line progress. Only if currently at a 'nothing' node
-    // Otherwise the user has to do something to move the quest along
-
-    const speed = 5;    // in nodes per minute
-    const MS_PER_MINUTE = 60000;
+    const questsToUpdate = action.quests;
 
     return state.map((qss) => {
-        if (qss.status !== QuestStatus.active) {
-            return qss;
-        }
-
-        const questDefinition: QuestDefinition = questDefinitions[qss.name];
-        const currentProgress = qss.progress;
-
-        const currentNode = questDefinition.nodes[Math.floor(currentProgress)];
-
-        if (currentNode.type === QuestNodeType.nothing) {
-            // Currently at a 'nothing' node
-            const progressIncrease = (action.delta / MS_PER_MINUTE) * speed;
-            const currentNodeIndex =  Math.floor(currentProgress);
-            let nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
-            const hops = Math.floor(nextProgress) - currentNodeIndex;
-
-            let log = qss.log;
-            let currentEncounter = qss.currentEncounter;
-
-            for (let i = 0; i < hops; i++) {
-                // Loop through all the nodes we've passed since last tick
-                const nextNode = questDefinition.nodes[currentNodeIndex + i + 1];
-                if (nextNode.type === QuestNodeType.encounter) {
-                    // We've hit an encounter node. set the progress to here and stop looking at other nodes
-                    const encounter = encounterDefintions[nextNode.encounter!];
-                    const oracle = oracles[qss.name];
-                    nextProgress = currentNodeIndex + i + 1;
-                    log = [
-                        ...log,
-                        encounter.getDescription(oracle),
-                    ];
-                    currentEncounter = nextNode.encounter!;
-                    break;
-                } else if (nextNode.type === QuestNodeType.nothing) {
-                    currentEncounter = null;
-                    if (nextNode.log) {
-                        log = [
-                            ...log,
-                            nextNode.log,
-                        ];
-                    }
-                }
-            }
+        const questToUpdate = questsToUpdate.find((q) => q.name === qss.name);
+        if (questToUpdate) {
+            const progress = questToUpdate.progress;
+            const currentEncounter = questToUpdate.currentEncounter;
 
             return {
                 ...qss,
+                progress,
                 currentEncounter,
-                progress: nextProgress,
-                log,
             };
         }
         return qss;
