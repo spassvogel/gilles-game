@@ -90,3 +90,6 @@ The quests should have some sort of resource cost. However we don't want weapons
 
 14/07/2019 Rooms of tavern
 [ ] figure out how amount of rooms is determined. perhaps by level?
+
+15/07/2019 Party speed
+[ ] The speed in which the party progresses in a quest could be determined by the party itself. Perhaps the slowest member?
