@@ -22,6 +22,7 @@ export enum Item {
     chest = "chest",
     clothGloves = "clothGloves",
     cowl = "cowl",
+    fedora = "fedora",
     greaves1 = "greaves1",
     greaves2 = "greaves2",
     hornedHelmet = "hornedHelmet",
@@ -42,6 +43,7 @@ export enum Item {
     robe = "robe",
     shoulders1 = "shoulders1",
     shoulders2 = "shoulders2",
+    shoulders3 = "shoulders3",
     vest = "vest",
 
     // materials

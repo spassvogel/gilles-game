@@ -69,6 +69,13 @@ const weaponDefinitions: Record<string, EquipmentDefinition> = {
         subText: "",
         iconImg: `${basePath}cowl.png`,
     },
+    [Item.fedora]: {
+        item: Item.fedora,
+        equipmentType: EquipmentType.head,
+        itemType,
+        subText: "I study the blade",
+        iconImg: `${basePath}fedora.png`,
+    },
     [Item.greaves1]: {
         item: Item.greaves1,
         equipmentType: EquipmentType.hands,
@@ -208,6 +215,13 @@ const weaponDefinitions: Record<string, EquipmentDefinition> = {
         itemType,
         subText: "",
         iconImg: `${basePath}shoulders_2.png`,
+    },
+    [Item.shoulders3]: {
+        item: Item.shoulders3,
+        equipmentType: EquipmentType.shoulders,
+        itemType,
+        subText: "",
+        iconImg: `${basePath}shoulders_3.png`,
     },
     [Item.vest]: {
         item: Item.vest,
