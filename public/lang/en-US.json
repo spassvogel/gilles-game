@@ -95,6 +95,7 @@
     "quest-kill10Boars-node0": "The party sets out to vanquish 10 terrible pigs",
     "quest-kill10Boars-node1": "No pigs in sight",
     "quest-kill10Boars-encounter-goblinHouseOutside-description": "The party sees a goblin house",
+    "quest-kill10Boars-node4": "The party leaves the forest",
 
     "resource-fabric-name": "fabric",
     "resource-food-name": "food",

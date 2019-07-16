@@ -84,6 +84,7 @@ The quests should have some sort of resource cost. However we don't want weapons
 
 14/07/2019 ROUTER
 [ ] Implement react router for town/world
+[ ] Can go to resource production structure directly from warehouse
 
 14/07/2019 XP Progression 
 [ ] https://stackoverflow.com/questions/6954874/php-game-formula-to-calculate-a-level-based-on-exp
@@ -91,5 +92,9 @@ The quests should have some sort of resource cost. However we don't want weapons
 14/07/2019 Rooms of tavern
 [ ] figure out how amount of rooms is determined. perhaps by level?
 
-15/07/2019 Party speed
+15/07/2019 GAME DESIGN: Party speed
 [ ] The speed in which the party progresses in a quest could be determined by the party itself. Perhaps the slowest member?
+
+15/07/2019 CHORE: host on github?
+[ ] Maybe I can host this stuff on github pages. (https://github.com/gitname/react-gh-pages)
+[ ] Probably best to start a new `create-react-app`.

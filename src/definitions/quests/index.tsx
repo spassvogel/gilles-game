@@ -48,7 +48,7 @@ const kill10Boars: QuestDefinition = {
         x: 0,
         y: 3,
         type: QuestNodeType.nothing,
-        log: "The party leaves the forest",
+        log: "quest-kill10Boars-node4",
     }, {
         x: 1,
         y: 3,
