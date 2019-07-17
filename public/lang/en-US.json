@@ -3,6 +3,8 @@
     "common-article-undefined": "a {{noun}}",
     "common-view-button-town": "Town",
     "common-view-button-world": "World",
+    "common-log-tab-all": "all",
+    "common-log-tab-town": "town",
     "item-deed-deedForLumbermill-name": "deed for a lumber mill",
     "item-deed-deedForWeaponsmith-name": "deed for a weapon smith",
     "item-equipment-boots1-name": "leather boots",
@@ -114,6 +116,7 @@
     "resource-leather-name": "leather",
     "resource-stone-name": "stone",
     "resource-wood-name": "wood",
+
     "structure-alchemist-name": "Alchemist",
     "structure-armoursmith-name": "Armoursmith",
     "structure-garden-name": "Garden",
@@ -128,6 +131,7 @@
     "structure-tavern-button-launch-quest": "Start quest",
     "structure-tavern-title-quest-board": "Quest board",
     "structure-tavern-quest-launched": "Quest started!",
+
     "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
     "test-game-welcome": "You have taken your first steps into a larger world"
 }
