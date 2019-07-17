@@ -67,7 +67,9 @@ export enum Item {
     thread = "thread",
 
     // quest-items
+    blueprints = "blueprints",
     crate = "crate",
+    dynamite = "dynamite",
     eye = "eye",
     feather = "feather",
     food = "food",
@@ -76,6 +78,7 @@ export enum Item {
     key = "key",
     letters = "letters",
     lockPicks = "lockPicks",
+    oil = "oil",
     orcFinger = "orcFinger",
     plans = "plans",
     purpleGems = "purpleGems",

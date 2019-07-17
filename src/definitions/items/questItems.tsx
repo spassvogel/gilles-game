@@ -6,10 +6,20 @@ const itemType = ItemType.questItem;
 const basePath = "/img/items/quest-items/";
 
 const questItemDefinitions: Record<string, ItemDefinition> = {
+    [Item.blueprints]: {
+        item: Item.blueprints,
+        itemType,
+        iconImg: `${basePath}blueprints.png`,
+    },
     [Item.crate]: {
         item: Item.crate,
         itemType,
         iconImg: `${basePath}crate.png`,
+    },
+    [Item.dynamite]: {
+        item: Item.dynamite,
+        itemType,
+        iconImg: `${basePath}dynamite.png`,
     },
     [Item.eye]: {
         item: Item.eye,
@@ -50,6 +60,11 @@ const questItemDefinitions: Record<string, ItemDefinition> = {
         item: Item.lockPicks,
         itemType,
         iconImg: `${basePath}lock-picks.png`,
+    },
+    [Item.oil]: {
+        item: Item.oil,
+        itemType,
+        iconImg: `${basePath}oil.png`,
     },
     [Item.orcFinger]: {
         item: Item.orcFinger,
