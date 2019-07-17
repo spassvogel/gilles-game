@@ -88,6 +88,10 @@ Handlebars.registerHelper("item:name", (item: string, article?: string) => {
             return new Handlebars.SafeString(name);
     }
 });
+Handlebars.registerHelper("structure:name", (structure: string) => {
+    const name = TextManager.get(`structure-${structure}-name`);
+    return new Handlebars.SafeString(name);
+});
 
 const itemArticleAuto = (item: string) => {
     return itemArticleUndefined(item);

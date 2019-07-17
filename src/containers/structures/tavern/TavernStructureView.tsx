@@ -2,6 +2,7 @@ import { Dispatch } from "react";
 import { connect } from "react-redux";
 import { AnyAction, compose } from "redux";
 import { subtractGold } from "src/actions/gold";
+import { addLogEntry } from "src/actions/log";
 import { launchQuest } from "src/actions/quests";
 import { upgradeStructure } from "src/actions/structures";
 import TavernStructureView, { DispatchProps, Props, StateProps } from "src/components/structures/tavern/TavernStructureView";
@@ -9,6 +10,7 @@ import { Structure } from "src/definitions/structures";
 import { withAppContext } from "src/hoc/withAppContext";
 import { StoreState } from "src/stores";
 import { AdventurerStoreState } from "src/stores/adventurer";
+import { LogChannel } from "src/stores/logEntry";
 import { StructureStoreState } from "src/stores/structure";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
@@ -26,9 +28,15 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
         onLaunchQuest: (questName: string, assignedAventurers: AdventurerStoreState[]) => {
             dispatch(launchQuest(questName, assignedAventurers));
         },
-        onUpgrade: (cost: number) => {
+        onUpgrade: (cost: number, level: number) => {
             dispatch(subtractGold(cost));
             dispatch(upgradeStructure(Structure.tavern));  // Todo: [07/07/2019] time??
+
+            level++;
+            dispatch(addLogEntry("log-town-upgrade-structure-complete", LogChannel.town, {
+                level,
+                structure: Structure.tavern,
+            }));
         },
     };
 }

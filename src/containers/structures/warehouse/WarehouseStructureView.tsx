@@ -3,6 +3,7 @@ import { AnyAction, compose, Dispatch } from "redux";
 import { removeItemFromInventory } from "src/actions/adventurers";
 import { subtractGold } from "src/actions/gold";
 import { addItemToWarehouse, moveItemInWarehouse } from "src/actions/items";
+import { addLogEntry } from "src/actions/log";
 import { upgradeStructure } from "src/actions/structures";
 import WarehouseStructureView,
     { DispatchProps, Props, StateProps } from "src/components/structures/warehouse/WarehouseStructureView";
@@ -11,6 +12,7 @@ import structureDefinitions, { Structure } from "src/definitions/structures";
 import { WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "src/definitions/structures/types";
 import { withAppContext } from "src/hoc/withAppContext";
 import { selectFreeWorkers } from "src/selectors/workers";
+import { LogChannel } from "src/stores/logEntry";
 import { StoreState } from "../../../stores";
 import { StructureStoreState } from "../../../stores/structure";
 
@@ -44,9 +46,15 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
         onMoveItemInWarehouse(fromSlot: number, toSlot: number) {
             dispatch(moveItemInWarehouse(fromSlot, toSlot));
         },
-        onUpgrade: (cost: number) => {
+        onUpgrade: (cost: number, level: number) => {
             dispatch(subtractGold(cost));
             dispatch(upgradeStructure(Structure.warehouse)); // Todo: [07/07/2019] time??
+
+            level++;
+            dispatch(addLogEntry("log-town-upgrade-structure-complete", LogChannel.town, {
+                level,
+                structure: Structure.warehouse,
+            }));
         },
     };
 }

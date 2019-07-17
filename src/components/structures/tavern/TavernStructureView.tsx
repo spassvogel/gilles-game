@@ -12,7 +12,7 @@ import QuestBoard from "./QuestBoard";
 // The UI for the tavern
 export interface DispatchProps {
     onLaunchQuest: (questName: string, assignedAventurers: AdventurerStoreState[]) => void;
-    onUpgrade?: (cost: number) => void;
+    onUpgrade?: (cost: number, level: number) => void;
 }
 
 export interface StateProps {
@@ -61,7 +61,7 @@ export default class TavernStructureView extends React.Component<AllProps, Local
             const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 
             const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-                if (this.props.onUpgrade) { this.props.onUpgrade(nextLevelCost); }
+                if (this.props.onUpgrade) { this.props.onUpgrade(nextLevelCost, level + 1); }
             };
             return <div>
                 <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }

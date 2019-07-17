@@ -5,20 +5,25 @@ import { TextManager } from "src/utils/textManager";
 import UpDownValue from "../ui/UpDownValue";
 
 export interface DispatchProps {
-    onUpgrade?: (cost: number) => void;
+    onUpgrade?: (cost: number, level: number) => void;
     onWorkersUp?: () => void;
     onWorkersDown?: () => void;
 }
 
 export interface Props  {
     type: Structure;
+}
+
+export interface StateProps {
     level?: number;
     workers?: number;
     workersFree?: number;
     gold?: number;
 }
 
-const ResourceStructureView = (props: Props & DispatchProps) => {
+type AllProps = Props & StateProps & DispatchProps;
+
+const ResourceStructureView = (props: AllProps) => {
 
     const structureDefinition = structureDefinitions[props.type] as ResourceStructureDefinition;
     if (!structureDefinition) {
@@ -58,7 +63,7 @@ const ResourceStructureView = (props: Props & DispatchProps) => {
         const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 
         const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-            if (props.onUpgrade) { props.onUpgrade(nextLevelCost); }
+            if (props.onUpgrade) { props.onUpgrade(nextLevelCost, level + 1); }
         };
         return <div>
             <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }

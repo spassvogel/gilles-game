@@ -18,7 +18,7 @@ import UpDownValue from "../ui/UpDownValue";
 import "./css/productionstructureview.css";
 
 export interface DispatchProps {
-    onUpgrade?: (cost: number) => void;
+    onUpgrade?: (cost: number, level: number) => void;
     onCraft?: (productionDefinition: ProductionDefinition, workers: number) => void;
 }
 
@@ -84,7 +84,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
             const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 
             const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-                if (this.props.onUpgrade) { this.props.onUpgrade(nextLevelCost); }
+                if (this.props.onUpgrade) { this.props.onUpgrade(nextLevelCost, level + 1); }
             };
             return <div>
                 <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }

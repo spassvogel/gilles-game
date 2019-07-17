@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
 import { subtractGold } from "src/actions/gold";
 import { addItemToWarehouse } from "src/actions/items";
+import { addLogEntry } from "src/actions/log";
 import { removeResources } from "src/actions/resources";
 import { decreaseWorkers, increaseWorkers, upgradeStructure } from "src/actions/structures";
 import { startTask } from "src/actions/tasks";
@@ -13,6 +14,7 @@ import { ProductionDefinition } from "src/definitions/production/types";
 import { withAppContext } from "src/hoc/withAppContext";
 import { calculateProductionTime } from "src/mechanics/crafting";
 import { selectFreeWorkers } from "src/selectors/workers";
+import { LogChannel } from "src/stores/logEntry";
 import { TaskType } from "src/stores/task";
 import { StoreState } from "../../stores";
 import { StructureStoreState } from "../../stores/structure";
@@ -56,9 +58,15 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
                 callbacks);
             dispatch(start);
         },
-        onUpgrade: (cost: number) => {
+        onUpgrade: (cost: number, level: number) => {
             dispatch(subtractGold(cost));
             dispatch(upgradeStructure(ownProps.type)); // TODO: [07/07/2019] time to upgarde??
+
+            level++;
+            dispatch(addLogEntry("log-town-upgrade-structure-complete", LogChannel.town, {
+                level,
+                structure: ownProps.type,
+            }));
         },
     };
 }

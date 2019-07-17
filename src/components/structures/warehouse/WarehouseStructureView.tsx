@@ -14,7 +14,7 @@ import "./css/warehousestructureview.css";
 export interface DispatchProps {
     onMoveItemInWarehouse: (fromSlot: number, toSlot: number) => void;
     onMoveItemFromAdventurer: (adventurerId: string, item: Item, fromSlot: number, toSlot: number) => void;
-    onUpgrade?: (cost: number) => void;
+    onUpgrade?: (cost: number, level: number) => void;
 }
 
 // tslint:disable-next-line: no-empty-interface
@@ -63,7 +63,7 @@ class WarehouseStructureView extends React.Component<AllProps, null> {
             const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 
             const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-                if (props.onUpgrade) { props.onUpgrade(nextLevelCost); }
+                if (props.onUpgrade) { props.onUpgrade(nextLevelCost, level + 1); }
             };
             return <div>
                 <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }
