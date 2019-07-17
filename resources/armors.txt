@@ -14,8 +14,10 @@ head
   headcover
   visage
   headguard
+  coif
   faceguard
   greathelm
+  casque
   crown
   hood
   mask
@@ -55,8 +57,11 @@ shoulders (/cape)
   spaulders
   pauldrons  
   shoulderguards
-  mantle
   shoulderwraps
   shoulders
-  
+  mantle
+  greatcloak
+  shroud
+  cloak
+  cape
   
