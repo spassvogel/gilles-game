@@ -10,7 +10,7 @@ export enum EquipmentType {
     feet,
     hands,
     chest,
-    pants,
+    legs,
     head,
     shoulders,
 }
@@ -99,7 +99,7 @@ const weaponDefinitions: Record<string, EquipmentDefinition> = {
     },
     [Item.druidLegs]: {
         item: Item.druidLegs,
-        equipmentType: EquipmentType.pants,
+        equipmentType: EquipmentType.legs,
         itemType,
         subText: "",
         iconImg: `${basePath}druid-legs.png`,
@@ -148,14 +148,14 @@ const weaponDefinitions: Record<string, EquipmentDefinition> = {
     },
     [Item.pants1]: {
         item: Item.pants1,
-        equipmentType: EquipmentType.pants,
+        equipmentType: EquipmentType.legs,
         itemType,
         subText: "",
         iconImg: `${basePath}pants_1.png`,
     },
     [Item.pants2]: {
         item: Item.pants2,
-        equipmentType: EquipmentType.pants,
+        equipmentType: EquipmentType.legs,
         itemType,
         subText: "",
         iconImg: `${basePath}pants_2.png`,
@@ -211,7 +211,7 @@ const weaponDefinitions: Record<string, EquipmentDefinition> = {
     },
     [Item.platePants]: {
         item: Item.platePants,
-        equipmentType: EquipmentType.pants,
+        equipmentType: EquipmentType.legs,
         itemType,
         subText: "",
         iconImg: `${basePath}plate_pants1.png`,
