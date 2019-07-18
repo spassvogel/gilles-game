@@ -45,7 +45,7 @@ interface LocalState {
 }
 
 const resolution = {
-    height: 972,
+    height: 860, //972,
     width: 648,
 };
 

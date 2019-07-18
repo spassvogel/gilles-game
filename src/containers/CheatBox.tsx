@@ -28,5 +28,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
     };
 };
 
-export default connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps)
-    (CheatBox);
+export default connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps)(CheatBox);
