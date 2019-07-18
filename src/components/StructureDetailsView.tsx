@@ -28,7 +28,7 @@ export interface DispatchProps {
 type AllProps = Props & StateProps & DispatchProps;
 
 const getStructureView = (structure: Structure) => {
-    const structureDefinition: StructureDefinition = structureDefinitions[structure];
+    const structureDefinition: StructureDefinition = structureDefinitions[structure as string];
     switch (structureDefinition.type) {
         case StructureType.production: {
             return <ProductionStructureView type = { structure }/>;

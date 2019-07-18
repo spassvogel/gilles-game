@@ -1,4 +1,3 @@
-import { Resource } from "definitions/resources";
 import structureDefinitions, { Structure } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureDefinition, StructureType, WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import { StoreState } from "stores";

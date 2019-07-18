@@ -30,9 +30,17 @@ const ResourcesBox = (props: AllProps) => {
              listItemClass += " insufficient";
         }
         const resourceDescription = resourceDescriptions[resource];
+        console.log(resourceDescriptions[resource]);
+        console.log(resourceDescriptions)
+        console.log(resource)
+
+        if (!resourceDescription) {
+            throw new Error(`No resource description found for ${resource}`);
+        }
+
         return <li className = { listItemClass } key = { resource }>
             <div className = "icon" style = {{
-                backgroundImage:  `url(${resourceDescription.iconImg})`,
+                backgroundImage: `url(${resourceDescription.iconImg})`,
             }}></div>
             <div className = "name">
                 { TextManager.getResourceName(resource as Resource) }

@@ -1,8 +1,8 @@
 // tslint:disable:object-literal-sort-keys
-import { AnyAction, Dispatch } from "redux";
 import { addGold } from "actions/gold";
 import { updateQuestVars } from "actions/quests";
 import { Oracle } from "oracle";
+import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "stores";
 import { randomInt } from "utils/random";
 import { Encounter, EncounterDefinition } from "./types";
@@ -25,7 +25,7 @@ export const theBigTree: EncounterDefinition = {
         return "A huge tree blocks the way";
     },
     getOptions: (oracle: Oracle) => {
-        const store = oracle.store;
+        //const store = oracle.store;
         const strongest = oracle.getAdventurerWithHighest("strength");
         //        const strongest = { name: "<<NAME>>" };
         const options: Record<string, string> = {
@@ -40,7 +40,7 @@ export const theBigTree: EncounterDefinition = {
         return options;
     },
     answer: (option: string, oracle: Oracle, dispatch: Dispatch<AnyAction>) => {
-        const { store, questVars, quest } = oracle;
+        const { questVars, quest } = oracle;
         switch (option) {
             case "walkAround":
                 return "Your party walks around the tree";

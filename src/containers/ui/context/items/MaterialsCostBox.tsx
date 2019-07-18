@@ -1,6 +1,6 @@
-import { connect } from "react-redux";
 import ItemsBox, { Props, StateProps } from "components/ui/items/ItemsBox";
 import { Item } from "definitions/items/types";
+import { connect } from "react-redux";
 import { StoreState } from "stores";
 
 const mapStateToProps = (store: StoreState, ownProps: Props): StateProps => {

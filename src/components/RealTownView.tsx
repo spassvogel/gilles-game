@@ -47,7 +47,6 @@ class RealTownView extends React.Component<AllProps, LocalState> {
     public componentDidMount() {
         this.playMusic();
 
-
         /*        const period = 500;
         if (this.plasmaBeam) {
             this.plasmaBeam.filters([Konva.Filters.Brighten]);
@@ -110,7 +109,6 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                 <Image image={ this.imgSrc("img/town/sky.jpg") }></Image>
             </Layer>
             <Layer name="town">
-                { structures }
                 {/* <Rect
                     x={20}
                     y={20}
@@ -152,7 +150,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                     <Image
                         name = { Structure.warehouse }
                         image={ this.imgSrc("img/town/lighthouse.png") }
-                        onClick = { this.handleStructureClick }
+                        // onClick = { this.handleStructureClick }
 
                         ref={ (node: Konva.Image) => { drawHitFromCache(node); }}
                     />
@@ -171,6 +169,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                         // onDragEnd= { this.handleDragEnd }
                         ref={ (node: Konva.Image) => { drawHitFromCache(node); }}
                     />
+                    { structures }
 
                     </Layer>
                     <SmokeEmitter
@@ -178,6 +177,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                         emitterY = { 510 }
                         smokeImg = { this.imgSrc("img/town/effects/smoke.png") }
                     />
+
             </Stage>
         );
     }
