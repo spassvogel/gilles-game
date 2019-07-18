@@ -6,7 +6,6 @@ export enum Resource {
     leather = "leather",
     fabric = "fabric",
     food = "food",
-    gunpowder = "gunpowder",
 }
 
 export interface ResourceDefinition {
@@ -38,9 +37,5 @@ export default {
     [Resource.food]: {
         resource: Resource.food,
         iconImg: "/img/resources/food.png",
-    },
-    [Resource.gunpowder]: {
-        resource: Resource.gunpowder,
-        iconImg: "/img/resources/gunpowder.png",
     },
 };

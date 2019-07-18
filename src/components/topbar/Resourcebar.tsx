@@ -6,6 +6,7 @@ import "./css/resourcebar.css";
 import "components/ui/css/common/icon.css";
 import { ResourceStoreState } from "stores/resources";
 import resourceDescriptions from "definitions/resources";
+import { resourceOrder } from "constants/resources";
 
 export interface Props {
 }
@@ -34,9 +35,9 @@ const Resourcebar = (props: Props & StateProps & DispatchProps) => {
         </li>;
     }
 
-    const resources = Object.keys(props.resources).map((resource) => {
+    const resources = resourceOrder.map((resource) => {
         const resourceDescription = resourceDescriptions[resource];
-        return createItem(resourceDescription.iconImg, props.resources[resource], resource)
+        return createItem(resourceDescription.iconImg, props.resources[resource as string], resource)
     });
 
     resources.push(

@@ -8,13 +8,11 @@ export interface ResourceStoreState {
     [Resource.leather]?: number;
     [Resource.fabric]?: number;
     [Resource.food]?: number;
-    [Resource.gunpowder]?: number;
 }
 
 export const initialState: ResourceStoreState = {
     fabric: 0,
     food: 0,
-    gunpowder: 0,
     iron: 60,
     leather: 0,
     stone: 0,
