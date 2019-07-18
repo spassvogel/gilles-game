@@ -104,8 +104,6 @@ class RealTownView extends React.Component<AllProps, LocalState> {
         return (
             <Stage width={1024} height={768} scale= { {x: 0.4, y: 0.4} }>
             <Layer name="background" onClick = { this.handleBackgroundClick } >
-            </Layer>
-            <Layer name="background" onClick = { this.handleBackgroundClick } >
                 <Image image={ this.imgSrc("img/town/sky.jpg") }></Image>
             </Layer>
             <Layer name="town">
@@ -172,11 +170,11 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                     { structures }
 
                     </Layer>
-                    <SmokeEmitter
+                    {/* <SmokeEmitter
                         emitterX = { 190 }
                         emitterY = { 510 }
                         smokeImg = { this.imgSrc("img/town/effects/smoke.png") }
-                    />
+                    /> */}
 
             </Stage>
         );

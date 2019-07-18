@@ -1,5 +1,5 @@
-import * as React from "react";
 import { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvatar";
+import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStoreState } from "stores/quest";
 import { TextManager } from "utils/textManager";

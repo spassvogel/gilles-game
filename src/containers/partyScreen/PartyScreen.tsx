@@ -1,11 +1,11 @@
 
-import { connect } from "react-redux";
-import { AnyAction, compose, Dispatch } from "redux";
 import { moveItemInInventory, moveItemToOtherAdventurer } from "actions/adventurers";
 import { updateEncounterResult } from "actions/quests";
 import { advanceQuest } from "actions/quests";
 import PartyScreen, { DispatchProps, Props, StateProps } from "components/partyScreen/PartyScreen";
 import { withAppContext } from "hoc/withAppContext";
+import { connect } from "react-redux";
+import { AnyAction, compose, Dispatch } from "redux";
 import { adventurersOnQuest } from "storeHelpers";
 import { StoreState } from "../../stores";
 

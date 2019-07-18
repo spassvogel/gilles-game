@@ -1,5 +1,3 @@
-import { connect } from "react-redux";
-import { AnyAction, compose, Dispatch } from "redux";
 import { removeItemFromInventory } from "actions/adventurers";
 import { subtractGold } from "actions/gold";
 import { addItemToWarehouse, moveItemInWarehouse } from "actions/items";
@@ -11,6 +9,8 @@ import { Item } from "definitions/items/types";
 import structureDefinitions, { Structure } from "definitions/structures";
 import { WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import { withAppContext } from "hoc/withAppContext";
+import { connect } from "react-redux";
+import { AnyAction, compose, Dispatch } from "redux";
 import { selectFreeWorkers } from "selectors/workers";
 import { LogChannel } from "stores/logEntry";
 import { StoreState } from "../../../stores";

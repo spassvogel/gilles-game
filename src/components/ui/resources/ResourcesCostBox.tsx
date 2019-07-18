@@ -30,10 +30,6 @@ const ResourcesBox = (props: AllProps) => {
              listItemClass += " insufficient";
         }
         const resourceDescription = resourceDescriptions[resource];
-        console.log(resourceDescriptions[resource]);
-        console.log(resourceDescriptions)
-        console.log(resource)
-
         if (!resourceDescription) {
             throw new Error(`No resource description found for ${resource}`);
         }

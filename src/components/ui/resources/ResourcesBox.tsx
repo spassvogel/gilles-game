@@ -37,13 +37,9 @@ const ResourcesBox = (props: AllProps) => {
         }
         const resourceDescription = resourceDescriptions[resource];
         const amount = props.resources[resource]!;
-
-        console.log(resourceDescriptions[resource]);
-        console.log(resourceDescriptions)
         if (!resourceDescription) {
             throw new Error(`No resource description found for ${resource}`);
         }
-
 
         let delta;
         if (deltaResources[resource]) {

@@ -1,6 +1,3 @@
-import { Dispatch } from "react";
-import { connect } from "react-redux";
-import { AnyAction, compose } from "redux";
 import { subtractGold } from "actions/gold";
 import { addLogEntry } from "actions/log";
 import { launchQuest } from "actions/quests";
@@ -8,6 +5,9 @@ import { upgradeStructure } from "actions/structures";
 import TavernStructureView, { DispatchProps, Props, StateProps } from "components/structures/tavern/TavernStructureView";
 import { Structure } from "definitions/structures";
 import { withAppContext } from "hoc/withAppContext";
+import { Dispatch } from "react";
+import { connect } from "react-redux";
+import { AnyAction, compose } from "redux";
 import { StoreState } from "stores";
 import { AdventurerStoreState } from "stores/adventurer";
 import { LogChannel } from "stores/logEntry";

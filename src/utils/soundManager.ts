@@ -54,6 +54,7 @@ export class SoundManager {
         }
         const nextMusic = musicTracks[track];
         if (!nextMusic.playing()) {
+            nextMusic.loop(true);
             nextMusic.play();
         }
         nextMusic.fade(0, 1, 500);

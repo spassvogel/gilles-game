@@ -1,9 +1,9 @@
 
-import { connect } from "react-redux";
-import { AnyAction, Dispatch } from "redux";
 import { advanceQuest } from "actions/quests";
 import RealWorldView,
     { DispatchProps, Props, StateProps } from "components/partyScreen/RealWorldView";
+import { connect } from "react-redux";
+import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "../../stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {

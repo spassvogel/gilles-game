@@ -1,7 +1,7 @@
-import * as React from "react";
 import AdventurerAvatar from "components/ui/AdventurerAvatar";
 import { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvatar";
 import DroppableAdventurerSlot from "components/ui/DroppableAdventurerSlot";
+import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import "./css/assignadventurers.css";
 
