@@ -1,13 +1,10 @@
-import Topbar, { StateProps } from "components/Topbar";
+import Topbar, { StateProps } from "components/topbar/Topbar";
 import { connect } from "react-redux";
 import { selectFreeWorkers } from "selectors/workers";
 import { StoreState } from "../stores";
 
 function mapStateToProps(store: StoreState): StateProps {
     return {
-        gold: store.gold,
-        workers: store.workers,
-        workersFree: selectFreeWorkers(store),
     };
 }
 

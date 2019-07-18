@@ -138,7 +138,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             media: this.state.media,
             onContextualObjectActivated: this.handleContextualObjectActivated,
         }}>
-            <div className="app" 
+            <div className="app"
                 ref = { this.containerRef }
                 style = {{
                     width: resolution.width,
@@ -149,11 +149,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     manifest = { manifest }
                     onLoadComplete = { this.handleMediaLoadComplete }
                 >
-                <Topbar
-                    appView={ this.state.view }
-                    onViewButtonClick={ () => this.changeView() }
-                    persistor={ this.props.persistor }
-                />
+                <Topbar                />
                 <button onClick= { () => handleViewClick() }> { viewButtonText } </button>
                 { ` | `}
                 <button onClick= { () => handleResetClick() } style={ { color: "red" } }> Restart! </button>

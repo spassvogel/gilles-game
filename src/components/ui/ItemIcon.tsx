@@ -13,7 +13,7 @@ const ItemIcon = (props: Props) => {
     const itemDefinition: ItemDefinition = itemDefinitions[item];
 
     if (!itemDefinition) {
-// tslint:disable-next-line: no-console
+        // tslint:disable-next-line: no-console
         console.warn(`could not find definition for ${item}`);
     }     // todo: [10/07/2019] assert
 

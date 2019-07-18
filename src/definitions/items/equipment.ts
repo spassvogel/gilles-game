@@ -1,6 +1,4 @@
 // tslint:disable:object-literal-sort-keys
-
-import { Structure } from "../structures";
 import { Item, ItemDefinition, ItemType } from "./types";
 
 const itemType = ItemType.equipment;
