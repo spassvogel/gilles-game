@@ -127,6 +127,9 @@ const startEncounter = (state: QuestStoreState[], action: StartEncounterAction) 
 
 const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
     const questsToUpdate = action.quests;
+    if (!questsToUpdate.length) {
+        return state;
+    }
 
     return state.map((qss) => {
         const questToUpdate = questsToUpdate.find((q) => q.name === qss.name);
