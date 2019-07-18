@@ -1,9 +1,9 @@
-import { Dispatch } from "react";
-import { connect } from "react-redux";
-import { AnyAction } from "redux";
 import { addGold } from "actions/gold";
 import { addResources } from "actions/resources";
 import StructureDetailsView, { DispatchProps, Props, StateProps } from "components/StructureDetailsView";
+import { Dispatch } from "react";
+import { connect } from "react-redux";
+import { AnyAction } from "redux";
 import { ResourceStoreState } from "stores/resources";
 import { StoreState } from "../../stores";
 

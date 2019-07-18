@@ -67,6 +67,4 @@ const Inventory = (props: Props & AppContextProps) => {
         {slots}
     </div>;
 };
-// TODO: read https://stackoverflow.com/questions/51083920/how-to-handle-props-injected-by-hoc-in-react-with-typescript
-// or: https://stackoverflow.com/questions/50644696/typescript-react-alias-hoc-to-use-component-alias-typing-issues
-export default withAppContext(Inventory) as React.ComponentType<Props>;
+export default withAppContext(Inventory);

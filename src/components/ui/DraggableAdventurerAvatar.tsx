@@ -25,7 +25,7 @@ export interface AdventurerAvatarDragInfo {
  * Specifies the drag source contract.
  * Only `beginDrag` function is required.
  */
-const source: DragSourceSpec<Props & AdventurerAvatarProps, AdventurerAvatarDragInfo> = {
+const spec: DragSourceSpec<Props & AdventurerAvatarProps, AdventurerAvatarDragInfo> = {
     beginDrag(props: Props & AdventurerAvatarProps) {
         // Return the data describing the dragged item
         return {
@@ -73,4 +73,4 @@ class DraggableAdventurerAvatar extends React.Component<Props & CollectedProps &
     }
 }
 
-export default DragSource<Props, CollectedProps>(DragType.ADVENTURER, source, collect)(DraggableAdventurerAvatar);
+export default DragSource<Props & AdventurerAvatarProps, CollectedProps>(DragType.ADVENTURER, spec, collect)(DraggableAdventurerAvatar);
