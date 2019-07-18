@@ -1,17 +1,17 @@
 import { Dispatch } from "react";
 import { connect } from "react-redux";
 import { AnyAction, compose } from "redux";
-import { subtractGold } from "src/actions/gold";
-import { addLogEntry } from "src/actions/log";
-import { launchQuest } from "src/actions/quests";
-import { upgradeStructure } from "src/actions/structures";
-import TavernStructureView, { DispatchProps, Props, StateProps } from "src/components/structures/tavern/TavernStructureView";
-import { Structure } from "src/definitions/structures";
-import { withAppContext } from "src/hoc/withAppContext";
-import { StoreState } from "src/stores";
-import { AdventurerStoreState } from "src/stores/adventurer";
-import { LogChannel } from "src/stores/logEntry";
-import { StructureStoreState } from "src/stores/structure";
+import { subtractGold } from "actions/gold";
+import { addLogEntry } from "actions/log";
+import { launchQuest } from "actions/quests";
+import { upgradeStructure } from "actions/structures";
+import TavernStructureView, { DispatchProps, Props, StateProps } from "components/structures/tavern/TavernStructureView";
+import { Structure } from "definitions/structures";
+import { withAppContext } from "hoc/withAppContext";
+import { StoreState } from "stores";
+import { AdventurerStoreState } from "stores/adventurer";
+import { LogChannel } from "stores/logEntry";
+import { StructureStoreState } from "stores/structure";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const structureStore: StructureStoreState = store.structures[Structure.tavern];

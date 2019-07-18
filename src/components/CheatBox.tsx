@@ -1,13 +1,13 @@
 // TODO: Better name than this
 
+import { getDefinition } from "definitions/items";
+import { Item, ItemType } from "definitions/items/types";
+import structureDefinitions, { Structure  } from "definitions/structures";
 import * as React from "react";
-import { getDefinition } from "src/definitions/items";
-import { Item, ItemType } from "src/definitions/items/types";
-import structureDefinitions, { Structure  } from "src/definitions/structures";
-import { ResourceStoreState } from "src/stores/resources";
-import { StructureState, StructureStoreState } from "src/stores/structure";
-import { StructuresStoreState } from "src/stores/structures";
-import { TextManager } from "src/utils/textManager";
+import { ResourceStoreState } from "stores/resources";
+import { StructureState, StructureStoreState } from "stores/structure";
+import { StructuresStoreState } from "stores/structures";
+import { TextManager } from "utils/textManager";
 import "./css/cheatbox.css";
 
 export interface DispatchProps {
@@ -88,7 +88,7 @@ class CheatBox extends React.Component<AllProps, LocalState> {
             return Object.keys(Item)
                 // tslint:disable-next-line: triple-equals
                 .filter((item: string) => getDefinition(item as Item).itemType == type)
-                .map((item: Item) => getItemOption(item));
+                .map((item: string) => getItemOption(item as Item));
         };
 
         const getItemOption = (item: Item) => {

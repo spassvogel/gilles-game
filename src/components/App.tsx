@@ -1,21 +1,21 @@
 import * as React from "react";
 import posed, { PoseGroup } from "react-pose";
 import { Persistor } from "redux-persist";
-import { ContextInfo, ContextType } from "src/constants";
-import AdventurersBox from "src/containers/AdventurersBox";
-import CheatBox from "src/containers/CheatBox";
-import SimpleLog from "src/containers/log/SimpleLog";
-import RealWorldView from "src/containers/partyScreen/RealWorldView";
-import RealTownView from "src/containers/RealTownView";
-import StructureDetailsView from "src/containers/structures/StructureDetailsView";
-import { manifest } from "src/manifest/app";
+import { ContextInfo, ContextType } from "constants";
+import AdventurersBox from "containers/AdventurersBox";
+import CheatBox from "containers/CheatBox";
+import SimpleLog from "containers/log/SimpleLog";
+import RealWorldView from "containers/partyScreen/RealWorldView";
+import RealTownView from "containers/RealTownView";
+import StructureDetailsView from "containers/structures/StructureDetailsView";
+import { manifest } from "manifest/app";
 import Topbar from "../containers/Topbar";
 import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
 // tslint:disable-next-line: ordered-imports
-import { SoundManager, Sound } from "src/utils/soundManager";
+import { SoundManager, Sound } from "utils/soundManager";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {

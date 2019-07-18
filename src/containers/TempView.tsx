@@ -1,10 +1,10 @@
 // import { Dispatch } from "react";
 // import { connect } from "react-redux";
 // import { AnyAction } from "redux";
-// import { addGold } from "src/actions/gold";
-// import { addResources } from "src/actions/resources";
-// import TempView, { DispatchProps} from "src/components/TempView";
-// import { ResourceStoreState } from "src/stores/resources";
+// import { addGold } from "actions/gold";
+// import { addResources } from "actions/resources";
+// import TempView, { DispatchProps} from "components/TempView";
+// import { ResourceStoreState } from "stores/resources";
 // import { StoreState } from "../stores";
 
 // // Temporary gui

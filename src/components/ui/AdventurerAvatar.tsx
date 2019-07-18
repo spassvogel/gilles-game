@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AdventurerStoreState } from "src/stores/adventurer";
+import { AdventurerStoreState } from "stores/adventurer";
 import "./css/adventureravatar.css";
 
 export interface Props {

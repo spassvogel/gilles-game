@@ -1,5 +1,5 @@
-import { Encounter } from "src/definitions/encounters/types";
-import { AdventurerStoreState } from "src/stores/adventurer";
+import { Encounter } from "definitions/encounters/types";
+import { AdventurerStoreState } from "stores/adventurer";
 
 // tslint:disable:object-literal-sort-keys
 

@@ -1,11 +1,11 @@
 import { AnyAction, Reducer } from "redux";
-import { ActionType as GameActionType, GameTickAction } from "src/actions/game";
-import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, StartEncounterAction, UpdateEncounterResultAction } from "src/actions/quests";
-import encounterDefintions from "src/definitions/encounters";
-import { Item } from "src/definitions/items/types";
-import questDefinitions, { QuestDefinition, QuestNodeType } from "src/definitions/quests";
-import { oracles } from "src/oracle";
-import { QuestStatus, QuestStoreState } from "src/stores/quest";
+import { ActionType as GameActionType, GameTickAction } from "actions/game";
+import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, StartEncounterAction, UpdateEncounterResultAction } from "actions/quests";
+import encounterDefintions from "definitions/encounters";
+import { Item } from "definitions/items/types";
+import questDefinitions, { QuestDefinition, QuestNodeType } from "definitions/quests";
+import { oracles } from "oracle";
+import { QuestStatus, QuestStoreState } from "stores/quest";
 
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{

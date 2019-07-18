@@ -1,5 +1,5 @@
 // tslint:disable: object-literal-sort-keys
-import { LogChannel } from "src/stores/logEntry";
+import { LogChannel } from "stores/logEntry";
 
 export enum ActionType {
     addLogEntry = "addLogEntry",

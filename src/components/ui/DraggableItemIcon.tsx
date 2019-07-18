@@ -1,7 +1,7 @@
+import { DragSourceType, DragType } from "constants/dragging";
+import { Item } from "definitions/items/types";
 import * as React from "react";
 import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from "react-dnd";
-import { DragSourceType, DragType } from "src/constants";
-import { Item } from "src/definitions/items/types";
 import ItemIcon from "./ItemIcon";
 
 export interface Props {

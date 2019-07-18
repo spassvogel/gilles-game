@@ -1,8 +1,8 @@
 import { AnyAction, Reducer } from "redux";
-import { ActionType, AddLogEntryAction } from "src/actions/log";
-import { LogEntry } from "src/stores/logEntry";
-import { ActionType as GameActionType, GameTickAction } from "src/actions/game";
-import { LogUpdate } from "src/mechanics/gameTick/quests";
+import { ActionType, AddLogEntryAction } from "actions/log";
+import { LogEntry } from "stores/logEntry";
+import { ActionType as GameActionType, GameTickAction } from "actions/game";
+import { LogUpdate } from "mechanics/gameTick/quests";
 
 /**
  * reducer

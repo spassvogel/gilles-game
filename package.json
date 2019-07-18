@@ -1,58 +1,57 @@
 {
   "name": "gilles-game",
+  "homepage": "http://spassvogel.github.io/gilles-game",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/hoist-non-react-statics": "^3.3.1",
-    "@types/moment-duration-format": "^2.2.2",
     "axios": "^0.19.0",
     "handlebars": "^4.1.2",
+    "howl": "^0.2.0",
     "howler": "^2.1.2",
-    "konva": "^3.2.4",
-    "lodash": "^4.17.11",
-    "moment": "^2.23.0",
-    "moment-duration-format": "^2.2.2",
-    "react": "^16.6.3",
-    "react-dnd": "^7.0.2",
-    "react-dnd-html5-backend": "^7.0.2",
-    "react-dom": "^16.6.3",
-    "react-konva": "^16.6.31",
+    "konva": "^3.4.1",
+    "moment": "^2.24.0",
+    "moment-duration-format": "^2.3.2",
+    "react": "^16.8.6",
+    "react-dnd": "^9.3.2",
+    "react-dnd-html5-backend": "^9.3.2",
+    "react-dom": "^16.8.6",
+    "react-konva": "^16.8.7-3",
     "react-pose": "^4.0.8",
-    "react-post": "^1.0.3",
-    "react-redux": "^6.0.0",
-    "react-scripts-ts": "^4.0.8",
-    "redux": "^4.0.1",
+    "react-redux": "^7.1.0",
+    "react-scripts": "3.0.1",
     "redux-persist": "^5.10.0",
     "reselect": "^4.0.0",
-    "seedrandom": "^2.4.4",
-    "typescript": "^3.2.2",
-    "uuid": "^3.3.2"
+    "seedrandom": "^3.0.1",
+    "typescript": "^3.5.3"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts start",
-    "real-build": "react-scripts-ts build",
-    "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
     "@types/howler": "^2.1.1",
-    "@types/jest": "^23.3.9",
-    "@types/lodash": "^4.14.119",
-    "@types/node": "^10.12.9",
-    "@types/react": "^16.8.14",
-    "@types/react-dom": "^16.0.9",
-    "@types/react-redux": "^6.0.9",
-    "@types/seedrandom": "^2.4.27",
-    "@types/uuid": "^3.4.4"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "engines": {
-    "node": "11.1.0"
+    "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.1.1",
+    "@types/seedrandom": "^2.4.28",
+    "gh-pages": "^2.0.1"
   }
 }

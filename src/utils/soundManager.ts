@@ -1,4 +1,5 @@
-import { MediaItem } from "src/components/preloading/Preloader";
+import { MediaItem } from "components/preloading/Preloader";
+import { Howl } from "howler";
 
 export enum MusicTrack {
     town,

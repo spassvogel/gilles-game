@@ -1,8 +1,8 @@
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
-import { DragType } from "src/constants";
 import AdventurerAvatar, { Props as AdventurerAvatarProps} from "./AdventurerAvatar";
 import "./css/droppableadventureravatar.css";
+import { DragType } from "constants/dragging";
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {

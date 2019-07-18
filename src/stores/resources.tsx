@@ -1,4 +1,4 @@
-import { Resource } from "src/definitions/resources";
+import { Resource } from "definitions/resources";
 
 // The keys should be the same as the enum Resource
 export interface ResourceStoreState {

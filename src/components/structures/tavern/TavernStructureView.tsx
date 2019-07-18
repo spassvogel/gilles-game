@@ -1,11 +1,11 @@
 import * as React from "react";
-import { AppContextProps } from "src/components/App";
-import DraggableAdventurerAvatar, { AdventurerAvatarDragInfo } from "src/components/ui/DraggableAdventurerAvatar";
-import structureDefinitions, { Structure } from "src/definitions/structures";
-import { TavernStructureDefinition, TavernStructureLevelDefinition } from "src/definitions/structures/types";
-import { AdventurerStoreState } from "src/stores/adventurer";
-import { QuestStatus, QuestStoreState } from "src/stores/quest";
-import { TextManager } from "src/utils/textManager";
+import { AppContextProps } from "components/App";
+import DraggableAdventurerAvatar, { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvatar";
+import structureDefinitions, { Structure } from "definitions/structures";
+import { TavernStructureDefinition, TavernStructureLevelDefinition } from "definitions/structures/types";
+import { AdventurerStoreState } from "stores/adventurer";
+import { QuestStatus, QuestStoreState } from "stores/quest";
+import { TextManager } from "utils/textManager";
 import "./css/tavernstructureview.css";
 import QuestBoard from "./QuestBoard";
 

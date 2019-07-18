@@ -1,7 +1,7 @@
 // tslint:disable:object-literal-sort-keys
+import { LogUpdate, QuestUpdate } from "mechanics/gameTick/quests";
 import { State as seedrandomStateType } from "seedrandom";
-import { LogUpdate, QuestUpdate } from "src/mechanics/gameTick/quests";
-import { ResourceStoreState } from "src/stores/resources";
+import { ResourceStoreState } from "stores/resources";
 
 export enum ActionType {
     gameTick = "gameTick",

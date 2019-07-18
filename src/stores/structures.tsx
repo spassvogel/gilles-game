@@ -1,4 +1,4 @@
-import { Structure } from "src/definitions/structures";
+import { Structure } from "definitions/structures";
 import { StructureState, StructureStoreState } from "./structure";
 
 export interface StructuresStoreState {

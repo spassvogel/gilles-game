@@ -1,21 +1,21 @@
 import ProductionStructureView,
     { DispatchProps, Props, StateProps } from "../../components/structures/ProductionStructureView";
 
+import { subtractGold } from "actions/gold";
+import { addItemToWarehouse } from "actions/items";
+import { addLogEntry } from "actions/log";
+import { removeResources } from "actions/resources";
+import { decreaseWorkers, increaseWorkers, upgradeStructure } from "actions/structures";
+import { startTask } from "actions/tasks";
+import { Item } from "definitions/items/types";
+import { ProductionDefinition } from "definitions/production/types";
+import { withAppContext } from "hoc/withAppContext";
+import { calculateProductionTime } from "mechanics/crafting";
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
-import { subtractGold } from "src/actions/gold";
-import { addItemToWarehouse } from "src/actions/items";
-import { addLogEntry } from "src/actions/log";
-import { removeResources } from "src/actions/resources";
-import { decreaseWorkers, increaseWorkers, upgradeStructure } from "src/actions/structures";
-import { startTask } from "src/actions/tasks";
-import { Item } from "src/definitions/items/types";
-import { ProductionDefinition } from "src/definitions/production/types";
-import { withAppContext } from "src/hoc/withAppContext";
-import { calculateProductionTime } from "src/mechanics/crafting";
-import { selectFreeWorkers } from "src/selectors/workers";
-import { LogChannel } from "src/stores/logEntry";
-import { TaskType } from "src/stores/task";
+import { selectFreeWorkers } from "selectors/workers";
+import { LogChannel } from "stores/logEntry";
+import { TaskType } from "stores/task";
 import { StoreState } from "../../stores";
 import { StructureStoreState } from "../../stores/structure";
 

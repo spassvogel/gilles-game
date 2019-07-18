@@ -1,7 +1,7 @@
 // tslint:disable:object-literal-sort-keys
 
-import { Structure } from "src/definitions/structures";
-import { StructureState } from "src/stores/structure";
+import { Structure } from "definitions/structures";
+import { StructureState } from "stores/structure";
 
 export enum ActionType {
     upgradeStructure = "upgradeStructure",

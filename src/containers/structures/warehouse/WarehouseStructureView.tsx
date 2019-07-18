@@ -1,18 +1,18 @@
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
-import { removeItemFromInventory } from "src/actions/adventurers";
-import { subtractGold } from "src/actions/gold";
-import { addItemToWarehouse, moveItemInWarehouse } from "src/actions/items";
-import { addLogEntry } from "src/actions/log";
-import { upgradeStructure } from "src/actions/structures";
+import { removeItemFromInventory } from "actions/adventurers";
+import { subtractGold } from "actions/gold";
+import { addItemToWarehouse, moveItemInWarehouse } from "actions/items";
+import { addLogEntry } from "actions/log";
+import { upgradeStructure } from "actions/structures";
 import WarehouseStructureView,
-    { DispatchProps, Props, StateProps } from "src/components/structures/warehouse/WarehouseStructureView";
-import { Item } from "src/definitions/items/types";
-import structureDefinitions, { Structure } from "src/definitions/structures";
-import { WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "src/definitions/structures/types";
-import { withAppContext } from "src/hoc/withAppContext";
-import { selectFreeWorkers } from "src/selectors/workers";
-import { LogChannel } from "src/stores/logEntry";
+    { DispatchProps, Props, StateProps } from "components/structures/warehouse/WarehouseStructureView";
+import { Item } from "definitions/items/types";
+import structureDefinitions, { Structure } from "definitions/structures";
+import { WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
+import { withAppContext } from "hoc/withAppContext";
+import { selectFreeWorkers } from "selectors/workers";
+import { LogChannel } from "stores/logEntry";
 import { StoreState } from "../../../stores";
 import { StructureStoreState } from "../../../stores/structure";
 

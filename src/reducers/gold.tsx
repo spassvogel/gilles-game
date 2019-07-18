@@ -1,8 +1,8 @@
 import { AnyAction, Reducer } from "redux";
-import { ActionType, ModifyGoldAction } from "src/actions/gold";
+import { ActionType, ModifyGoldAction } from "actions/gold";
 import { Action as StructureAction,
-    ActionType as StructureActionType } from "src/actions/structures";
-import structureDefinitions, { Structure } from "src/definitions/structures";
+    ActionType as StructureActionType } from "actions/structures";
+import structureDefinitions, { Structure } from "definitions/structures";
 
 /**
  * reducer

@@ -1,8 +1,8 @@
 
 import * as React from "react";
-import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "src/definitions/quests";
-import { QuestStoreState } from "src/stores/quest";
-import { TextManager } from "src/utils/textManager";
+import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "definitions/quests";
+import { QuestStoreState } from "stores/quest";
+import { TextManager } from "utils/textManager";
 import "./css/questlinevisualization.css";
 
 // tslint:disable-next-line:no-empty-interface

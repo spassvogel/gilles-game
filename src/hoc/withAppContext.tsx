@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppContext, AppContextProps } from "src/components/App";
+import { AppContext, AppContextProps } from "components/App";
 
 export const withAppContext = <P extends {}>(Component: React.ComponentType<P>) =>
 class WithContext extends React.PureComponent<P & AppContextProps> {

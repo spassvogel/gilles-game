@@ -1,6 +1,6 @@
+import Topbar, { StateProps } from "components/Topbar";
 import { connect } from "react-redux";
-import Topbar, { StateProps } from "src/components/Topbar";
-import { selectFreeWorkers } from "src/selectors/workers";
+import { selectFreeWorkers } from "selectors/workers";
 import { StoreState } from "../stores";
 
 function mapStateToProps(store: StoreState): StateProps {
@@ -11,4 +11,4 @@ function mapStateToProps(store: StoreState): StateProps {
     };
 }
 
-export default connect<StateProps>(mapStateToProps)(Topbar);
+export default connect<StateProps, null, null, StoreState>(mapStateToProps)(Topbar);

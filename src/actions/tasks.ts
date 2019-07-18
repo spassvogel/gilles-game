@@ -1,6 +1,6 @@
 // tslint:disable:object-literal-sort-keys
 import { AnyAction } from "redux";
-import { TaskType } from "src/stores/task";
+import { TaskType } from "stores/task";
 
 export enum ActionType {
     start = "startTask",

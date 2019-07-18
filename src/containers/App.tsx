@@ -2,8 +2,8 @@
 import { Dispatch } from "react";
 import { connect } from "react-redux";
 import { AnyAction } from "redux";
-import App, { DispatchProps, Props, StateProps } from "src/components/App";
-import { StoreState } from "src/stores";
+import App, { DispatchProps, Props, StateProps } from "components/App";
+import { StoreState } from "stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     return { };

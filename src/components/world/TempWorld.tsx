@@ -1,9 +1,9 @@
 
 // import * as React from "react";
-// import { ContextInfo, ContextType } from "src/constants";
-// import { QuestVars } from "src/definitions/encounters/backstabbed";
-// import questDefinitions, { QuestDefinition } from "src/definitions/quests";
-// import { QuestStoreState } from "src/stores/quest";
+// import { ContextInfo, ContextType } from "constants";
+// import { QuestVars } from "definitions/encounters/backstabbed";
+// import questDefinitions, { QuestDefinition } from "definitions/quests";
+// import { QuestStoreState } from "stores/quest";
 
 // export interface Props {
 //     type: ContextType;

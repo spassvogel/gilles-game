@@ -1,8 +1,8 @@
 
+import PartyScreen from "containers/partyScreen/PartyScreen";
 import * as React from "react";
-import PartyScreen from "src/containers/partyScreen/PartyScreen";
-import { QuestStatus, QuestStoreState } from "src/stores/quest";
-import { MusicTrack, SoundManager } from "src/utils/soundManager";
+import { QuestStatus, QuestStoreState } from "stores/quest";
+import { MusicTrack, SoundManager } from "utils/soundManager";
 import QuestLineVisualization from "../world/QuestLineVisualization";
 import "./css/realworldview.css";
 

@@ -1,7 +1,7 @@
 
 import * as React from "react";
-import { LogEntry, LogChannel } from "src/stores/logEntry";
-import { TextManager } from "src/utils/textManager";
+import { LogEntry, LogChannel } from "stores/logEntry";
+import { TextManager } from "utils/textManager";
 import "./css/simplelog.css";
 
 // tslint:disable-next-line:no-empty-interface

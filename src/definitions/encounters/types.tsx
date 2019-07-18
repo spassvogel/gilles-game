@@ -1,6 +1,6 @@
 import { AnyAction, Dispatch } from "redux";
-import { Oracle } from "src/oracle";
-import { StoreState } from "src/stores";
+import { Oracle } from "oracle";
+import { StoreState } from "stores";
 
 export interface EncounterDefinition {
     name: Encounter;

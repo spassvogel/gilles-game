@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
-import { StoreState } from "src/stores";
-import { AdventurerStoreState } from "src/stores/adventurer";
-import { QuestStatus, QuestStoreState } from "src/stores/quest";
+import { StoreState } from "stores";
+import { AdventurerStoreState } from "stores/adventurer";
+import { QuestStatus, QuestStoreState } from "stores/quest";
 
 const getAdventurers = (state: StoreState): AdventurerStoreState[] => state.adventurers;
 const getQuests = (state: StoreState): QuestStoreState[] => state.quests;

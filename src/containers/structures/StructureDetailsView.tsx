@@ -1,10 +1,10 @@
 import { Dispatch } from "react";
 import { connect } from "react-redux";
 import { AnyAction } from "redux";
-import { addGold } from "src/actions/gold";
-import { addResources } from "src/actions/resources";
-import StructureDetailsView, { DispatchProps, Props, StateProps } from "src/components/StructureDetailsView";
-import { ResourceStoreState } from "src/stores/resources";
+import { addGold } from "actions/gold";
+import { addResources } from "actions/resources";
+import StructureDetailsView, { DispatchProps, Props, StateProps } from "components/StructureDetailsView";
+import { ResourceStoreState } from "stores/resources";
 import { StoreState } from "../../stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {

@@ -1,4 +1,4 @@
-import { Item } from "src/definitions/items/types";
+import { Item } from "definitions/items/types";
 
 // tslint:disable:object-literal-sort-keys
 export enum ActionType {

@@ -1,9 +1,9 @@
-import { Resource } from "src/definitions/resources";
-import structureDefinitions, { Structure } from "src/definitions/structures";
-import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureDefinition, StructureType, WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "src/definitions/structures/types";
-import { StoreState } from "src/stores";
-import { ResourceStoreState } from "src/stores/resources";
-import { StructuresStoreState } from "src/stores/structures";
+import { Resource } from "definitions/resources";
+import structureDefinitions, { Structure } from "definitions/structures";
+import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureDefinition, StructureType, WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
+import { StoreState } from "stores";
+import { ResourceStoreState } from "stores/resources";
+import { StructuresStoreState } from "stores/structures";
 
 const RESOURCE_INTERVAL = 60000; // every minute constitutes a resource tick. todo: move to some other shared place
 
@@ -41,7 +41,7 @@ const getProducedResources = (delta: number, store: StoreState): ResourceStoreSt
 
     // Check if the warehouse can actually hold it
     // todo: [10/07/2019] move to reducer
-    Object.keys(result).forEach((resource: Resource) => {
+    Object.keys(result).forEach((resource: string) => {
         if (result[resource]) {
             if (store.resources[resource]! + result[resource]! >= maxResources[resource]!) {
                 result[resource] = maxResources[resource]! - (store.resources[resource]!);

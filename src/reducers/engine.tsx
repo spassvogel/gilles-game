@@ -1,6 +1,6 @@
 import { AnyAction, Reducer } from "redux";
-import { ActionType as GameActionType } from "src/actions/game";
-import { EngineStoreState, initialState } from "src/stores/engine";
+import { ActionType as GameActionType } from "actions/game";
+import { EngineStoreState, initialState } from "stores/engine";
 
 /**
  * reducer

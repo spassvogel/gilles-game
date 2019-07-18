@@ -1,5 +1,5 @@
 import { State as seedrandomStateType } from "seedrandom";
-import * as Random from "src/utils/random";
+import * as Random from "utils/random";
 
 const getRngState = (): seedrandomStateType | null => {
     if (Random.dirty) {

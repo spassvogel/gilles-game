@@ -1,12 +1,11 @@
+import ResourcesBox from "components/ui/resources/ResourcesBox";
+import { DragSourceType } from "constants/dragging";
+import { Item } from "definitions/items/types";
+import structureDefinitions, {  Structure  } from "definitions/structures";
+import { StructureDefinition, StructureLevelDefinition } from "definitions/structures/types";
 import * as React from "react";
-import ResourcesBox from "src/components/ui/resources/ResourcesBox";
-import { DragSourceType } from "src/constants";
-import { Item } from "src/definitions/items/types";
-import { Resource } from "src/definitions/resources";
-import structureDefinitions, {  Structure  } from "src/definitions/structures";
-import { StructureDefinition, StructureLevelDefinition } from "src/definitions/structures/types";
-import { ResourceStoreState } from "src/stores/resources";
-import { TextManager } from "src/utils/textManager";
+import { ResourceStoreState } from "stores/resources";
+import { TextManager } from "utils/textManager";
 import { AppContextProps } from "../../App";
 import Inventory from "../../ui/inventory/Inventory";
 import "./css/warehousestructureview.css";
@@ -43,6 +42,7 @@ class WarehouseStructureView extends React.Component<AllProps, null> {
         super(props);
 
         this.resourcesDelta = {};
+        this.resourcesRef = null;
     }
 
     public render() {
@@ -117,7 +117,7 @@ class WarehouseStructureView extends React.Component<AllProps, null> {
     }
 
     public componentDidUpdate(prevProps: Readonly<AllProps>) {
-        Object.keys(prevProps.resources).forEach((resource: Resource) => {
+        Object.keys(prevProps.resources).forEach((resource: string) => {
             this.resourcesDelta[resource] = this.props.resources[resource]! - prevProps.resources[resource]!;
         });
 

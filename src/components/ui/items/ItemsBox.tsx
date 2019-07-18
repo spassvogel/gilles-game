@@ -1,8 +1,8 @@
+import "components/ui/css/common/icon.css";
+import itemsDescription from "definitions/items";
+import { Item } from "definitions/items/types";
 import * as React from "react";
-import "src/components/ui/css/common/icon.css";
-import itemsDescription from "src/definitions/items";
-import { Item } from "src/definitions/items/types";
-import { TextManager } from "src/utils/textManager";
+import { TextManager } from "utils/textManager";
 import "./css/itemsbox.css";
 
 export interface Props {

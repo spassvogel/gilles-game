@@ -1,4 +1,4 @@
-import { convertSemVerToInt } from "src/utils/version";
+import { convertSemVerToInt } from "utils/version";
 
 // <MAJOR>.<MINOR>.<RELEASE>
 

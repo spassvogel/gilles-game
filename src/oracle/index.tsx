@@ -1,8 +1,8 @@
-import { adventurersOnQuest } from "src/storeHelpers";
-import { StoreState } from "src/stores";
-import { AdventurerStoreState } from "src/stores/adventurer";
-import { QuestStoreState } from "src/stores/quest";
-import { randomInt } from "src/utils/random";
+import { adventurersOnQuest } from "storeHelpers";
+import { StoreState } from "stores";
+import { AdventurerStoreState } from "stores/adventurer";
+import { QuestStoreState } from "stores/quest";
+import { randomInt } from "utils/random";
 
 /**
  * The Oracle is a helper class for retrieving relevant data during encounters

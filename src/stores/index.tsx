@@ -1,5 +1,5 @@
 import { State as seedrandomStateType } from "seedrandom";
-import { Item } from "src/definitions/items/types";
+import { Item } from "definitions/items/types";
 import { AdventurerStoreState } from "./adventurer";
 import { EngineStoreState } from "./engine";
 import { LogEntry } from "./logEntry";

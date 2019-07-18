@@ -1,7 +1,7 @@
 
 // import { connect } from "react-redux";
 // import { AnyAction, Dispatch } from "redux";
-// import TempWorld, { DispatchProps, Props, StateProps } from "src/components/world/TempWorld";
+// import TempWorld, { DispatchProps, Props, StateProps } from "components/world/TempWorld";
 // import { StoreState } from "../../stores";
 
 // function mapStateToProps(store: StoreState, ownProps: Props): StateProps {

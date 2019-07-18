@@ -1,11 +1,11 @@
 // TODO: Better name than this
 
 import * as React from "react";
-import { DragSourceType } from "src/constants";
-import { Item } from "src/definitions/items/types";
-import { AdventurerStoreState } from "src/stores/adventurer";
-import { QuestStoreState } from "src/stores/quest";
-import { TextManager } from "src/utils/textManager";
+import { DragSourceType } from "constants/dragging";
+import { Item } from "definitions/items/types";
+import { AdventurerStoreState } from "stores/adventurer";
+import { QuestStoreState } from "stores/quest";
+import { TextManager } from "utils/textManager";
 import "./css/adventurersbox.css";
 import AdventurerAvatar from "./ui/AdventurerAvatar";
 import Inventory from "./ui/inventory/Inventory";

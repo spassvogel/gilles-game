@@ -1,10 +1,11 @@
+import {AppContextProps} from "components/App";
+import DraggableItemIcon, {InventoryItemDragInfo} from "components/ui/DraggableItemIcon";
+import { ContextType } from "constants/context";
+import { DragSourceType } from "constants/dragging";
+import itemDefinitions from "definitions/items";
+import {Item} from "definitions/items/types";
+import {withAppContext} from "hoc/withAppContext";
 import * as React from "react";
-import {AppContextProps} from "src/components/App";
-import DraggableItemIcon, {InventoryItemDragInfo} from "src/components/ui/DraggableItemIcon";
-import {ContextType, DragSourceType} from "src/constants";
-import itemDefinitions from "src/definitions/items";
-import {Item} from "src/definitions/items/types";
-import {withAppContext} from "src/hoc/withAppContext";
 import "./css/inventory.css";
 import InventorySlot from "./InventorySlot";
 

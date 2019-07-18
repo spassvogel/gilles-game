@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
 import { AnyAction, Dispatch } from "redux";
-import SimpleLog, { DispatchProps, Props, StateProps } from "src/components/log/SimpleLog";
-import { StoreState } from "src/stores";
-import { QuestStatus } from "src/stores/quest";
+import SimpleLog, { DispatchProps, Props, StateProps } from "components/log/SimpleLog";
+import { StoreState } from "stores";
+import { QuestStatus } from "stores/quest";
 
 const mapStateToProps = (store: StoreState): StateProps => {
     return {

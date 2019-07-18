@@ -1,4 +1,3 @@
-import { ItemDefinition } from "src/definitions/items/types";
 
 // Things that can be dragged
 export const DragType = {
@@ -12,10 +11,3 @@ export enum DragSourceType {
     warehouse,
     tavern,
 }
-
-// Things that can be shown on the ContextView
-export enum ContextType {
-    item,
-}
-
-export type ContextInfo = ItemDefinition;

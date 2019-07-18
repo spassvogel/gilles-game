@@ -1,7 +1,7 @@
 import * as Handlebars from "handlebars";
-import itemDefinitions, { getDefinition } from "src/definitions/items";
-import { Item, ItemType } from "src/definitions/items/types";
-import { Resource } from "src/definitions/resources";
+import itemDefinitions, { getDefinition } from "definitions/items";
+import { Item, ItemType } from "definitions/items/types";
+import { Resource } from "definitions/resources";
 
 export abstract class TextManager {
 

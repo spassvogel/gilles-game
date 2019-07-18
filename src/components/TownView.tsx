@@ -1,8 +1,8 @@
 // // OBSOLETE
 // import * as React from "react";
-// import structureDefinitions, {  Structure, StructureDefinition  } from "src/definitions/structures";
-// import { StructuresStoreState } from "src/stores/structures";
-// import { TextManager } from "src/utils/textManager";
+// import structureDefinitions, {  Structure, StructureDefinition  } from "definitions/structures";
+// import { StructuresStoreState } from "stores/structures";
+// import { TextManager } from "utils/textManager";
 // import "./css/townView.css";
 
 // export interface DispatchProps {

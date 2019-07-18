@@ -1,8 +1,8 @@
 import * as React from "react";
-import AdventurerAvatar from "src/components/ui/AdventurerAvatar";
-import { AdventurerAvatarDragInfo } from "src/components/ui/DraggableAdventurerAvatar";
-import DroppableAdventurerSlot from "src/components/ui/DroppableAdventurerSlot";
-import { AdventurerStoreState } from "src/stores/adventurer";
+import AdventurerAvatar from "components/ui/AdventurerAvatar";
+import { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvatar";
+import DroppableAdventurerSlot from "components/ui/DroppableAdventurerSlot";
+import { AdventurerStoreState } from "stores/adventurer";
 import "./css/assignadventurers.css";
 
 export interface DispatchProps {

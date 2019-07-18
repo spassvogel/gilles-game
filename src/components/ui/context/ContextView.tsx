@@ -1,8 +1,8 @@
 
+import { ContextInfo, ContextType } from "constants/context";
+import ItemContext from "containers/ui/context/ItemContext";
 import * as React from "react";
-import { ContextInfo, ContextType } from "src/constants";
-import ItemContext from "src/containers/ui/context/ItemContext";
-import { TextManager } from "src/utils/textManager";
+import { TextManager } from "utils/textManager";
 
 export interface Props {
     type: ContextType;

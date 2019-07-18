@@ -1,11 +1,11 @@
+import structureDefinitions, { Structure  } from "definitions/structures";
 import Konva from "konva";
 import * as React from "react";
 import { Image, Layer, Stage, Text } from "react-konva";
-import structureDefinitions, { Structure  } from "src/definitions/structures";
-import { StructureState, StructureStoreState } from "src/stores/structure";
-import { StructuresStoreState } from "src/stores/structures";
-import { MusicTrack, SoundManager } from "src/utils/soundManager";
-import { TextManager } from "src/utils/textManager";
+import { StructureState, StructureStoreState } from "stores/structure";
+import { StructuresStoreState } from "stores/structures";
+import { MusicTrack, SoundManager } from "utils/soundManager";
+import { TextManager } from "utils/textManager";
 import { AppContextProps } from "./App";
 import "./css/townView.css";
 import SmokeEmitter from "./effects/SmokeEmitter";
@@ -32,9 +32,8 @@ type AllProps = Props & DispatchProps & StateProps & AppContextProps;
 
 class RealTownView extends React.Component<AllProps, LocalState> {
 
-    private plasmaBeam: Konva.Rect;
-    private anim: Konva.Animation;
-    private music: Howl;
+    private plasmaBeam?: Konva.Rect = undefined;
+    private anim?: Konva.Animation = undefined;
 
     constructor(props: AllProps) {
         super(props);
@@ -52,13 +51,15 @@ class RealTownView extends React.Component<AllProps, LocalState> {
 
         if (this.plasmaBeam) {
             this.plasmaBeam.filters([Konva.Filters.Brighten]);
-            this.plasmaBeam.cache(null);
+            //this.plasmaBeam.cache(null);
             this.anim = new Konva.Animation((frame: any) => {
+                if (this.plasmaBeam){
                 const freq = 2; // speed
                 const brightness = (Math.sin((frame.time / period) * freq) + 1) / 2;   // fluctuate between 0 and 1
                 this.plasmaBeam.brightness(brightness);
-                this.plasmaBeam.cache(null);
+                //this.plasmaBeam.cache(null);
                 this.plasmaBeam.fillPatternOffsetX(this.plasmaBeam.fillPatternOffsetX() - 150);
+                }
             }, this.plasmaBeam.getLayer());
 
             this.anim.start();
@@ -205,7 +206,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
 
 const drawHitFromCache = (img: Konva.Image) => {
     if (img) {
-        img.cache(null);
+       // img.cache(null);
         img.drawHitFromCache(0.5);
     }
 };

@@ -1,10 +1,10 @@
 // tslint:disable:object-literal-sort-keys
 import { AnyAction, Dispatch } from "redux";
-import { addGold } from "src/actions/gold";
-import { updateQuestVars } from "src/actions/quests";
-import { Oracle } from "src/oracle";
-import { StoreState } from "src/stores";
-import { randomInt } from "src/utils/random";
+import { addGold } from "actions/gold";
+import { updateQuestVars } from "actions/quests";
+import { Oracle } from "oracle";
+import { StoreState } from "stores";
+import { randomInt } from "utils/random";
 import { Encounter, EncounterDefinition } from "./types";
 
 export interface QuestVars {

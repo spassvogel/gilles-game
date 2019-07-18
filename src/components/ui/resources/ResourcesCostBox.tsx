@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Resource } from "src/definitions/resources";
-import resourceDescriptions from "src/definitions/resources";
-import { ResourceStoreState } from "src/stores/resources";
-import { TextManager } from "src/utils/textManager";
+import { Resource } from "definitions/resources";
+import resourceDescriptions from "definitions/resources";
+import { ResourceStoreState } from "stores/resources";
+import { TextManager } from "utils/textManager";
 import "./css/resourcesbox.css";
 
 export interface Props {

@@ -1,10 +1,10 @@
+import { asInt } from "constants/version";
+import rootReducer from "reducers/index";
 import { createStore, DeepPartial } from "redux";
 import { Persistor, persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { asInt } from "src/constants/version";
-import rootReducer from "src/reducers/index";
-import { storeIsRehydrated } from "src/storeHelpers";
-import { StoreState } from "src/stores";
+import { storeIsRehydrated } from "storeHelpers";
+import { StoreState } from "stores";
 import { convertIntToSemVer } from "./version";
 
 const persistConfig = {

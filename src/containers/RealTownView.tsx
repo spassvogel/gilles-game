@@ -1,9 +1,9 @@
 
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
-import RealTownView, { DispatchProps, Props, StateProps } from "src/components/RealTownView";
-import { withAppContext } from "src/hoc/withAppContext";
-import { StoreState } from "src/stores";
+import RealTownView, { DispatchProps, Props, StateProps } from "components/RealTownView";
+import { withAppContext } from "hoc/withAppContext";
+import { StoreState } from "stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const tasks = store.tasks.running.filter((val) => val.origin === `town`);

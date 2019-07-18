@@ -1,10 +1,10 @@
+import "components/ui/css/common/icon.css";
+import "components/ui/resources/css/resourcesbox.css";
+import { Resource } from "definitions/resources";
+import resourceDescriptions from "definitions/resources";
 import * as React from "react";
-import "src/components/ui/css/common/icon.css";
-import { Resource } from "src/definitions/resources";
-import resourceDescriptions from "src/definitions/resources";
-import { ResourceStoreState } from "src/stores/resources";
-import { TextManager } from "src/utils/textManager";
-import "./css/resourcesbox.css";
+import { ResourceStoreState } from "stores/resources";
+import { TextManager } from "utils/textManager";
 
 export interface Props {
     className?: string;
@@ -30,7 +30,7 @@ const ResourcesBox = (props: AllProps) => {
     } = props;
 
     const className = (props.className || "") + " resourcesbox";
-    const listItems = Object.keys(resources).map((resource: Resource) => {
+    const listItems = Object.keys(resources).map((resource: string) => {
         let listItemClass = "resource";
         if (sufficientResources && !sufficientResources[resource]) {
              listItemClass += " insufficient";
@@ -49,7 +49,7 @@ const ResourcesBox = (props: AllProps) => {
                 backgroundImage:  `url(${resourceDescription.iconImg})`,
             }}></div>
             <div className = "name">
-                { TextManager.getResourceName(resource) }
+                { TextManager.getResourceName(resource as Resource) }
             </div>
             <div className = "amount" >
                 { amount.toFixed(1) }

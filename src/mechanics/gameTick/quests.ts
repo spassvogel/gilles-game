@@ -1,11 +1,11 @@
 import { now } from "moment";
-import encounterDefintions from "src/definitions/encounters";
-import { Encounter } from "src/definitions/encounters/types";
-import questDefinitions, { QuestDefinition, QuestNodeType } from "src/definitions/quests";
-import { oracles } from "src/oracle";
-import { StoreState } from "src/stores";
-import { LogChannel } from "src/stores/logEntry";
-import { QuestStatus, QuestStoreState } from "src/stores/quest";
+import encounterDefintions from "definitions/encounters";
+import { Encounter } from "definitions/encounters/types";
+import questDefinitions, { QuestDefinition, QuestNodeType } from "definitions/quests";
+import { oracles } from "oracle";
+import { StoreState } from "stores";
+import { LogChannel } from "stores/logEntry";
+import { QuestStatus, QuestStoreState } from "stores/quest";
 
 export interface QuestUpdate {
     name: string;

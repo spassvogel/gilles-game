@@ -1,7 +1,7 @@
 
 import { connect } from "react-redux";
 import { AnyAction, Dispatch } from "redux";
-import QuestLineVisualization, { DispatchProps, Props, StateProps } from "src/components/world/QuestLineVisualization";
+import QuestLineVisualization, { DispatchProps, Props, StateProps } from "components/world/QuestLineVisualization";
 import { StoreState } from "../../stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {

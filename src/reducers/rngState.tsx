@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 import { State as seedrandomStateType } from "seedrandom";
-import { ActionType, GameTickAction } from "src/actions/game";
+import { ActionType, GameTickAction } from "actions/game";
 
 const initialState = false;
 /**

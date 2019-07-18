@@ -1,10 +1,10 @@
 import { connect } from "react-redux";
 import { AnyAction, Dispatch } from "redux";
-import { subtractGold } from "src/actions/gold";
-import { addLogEntry } from "src/actions/log";
-import { decreaseWorkers, increaseWorkers, upgradeStructure } from "src/actions/structures";
-import { selectFreeWorkers } from "src/selectors/workers";
-import { LogChannel } from "src/stores/logEntry";
+import { subtractGold } from "actions/gold";
+import { addLogEntry } from "actions/log";
+import { decreaseWorkers, increaseWorkers, upgradeStructure } from "actions/structures";
+import { selectFreeWorkers } from "selectors/workers";
+import { LogChannel } from "stores/logEntry";
 import ResourceStructureView,  { DispatchProps, Props, StateProps } from "../../components/structures/ResourceStructureView";
 import { StoreState } from "../../stores";
 import { StructureStoreState } from "../../stores/structure";

@@ -1,7 +1,7 @@
 import { createSelector } from "reselect";
-import { StoreState } from "src/stores";
-import { StructureStoreState } from "src/stores/structure";
-import { StructuresStoreState } from "src/stores/structures";
+import { StoreState } from "stores";
+import { StructureStoreState } from "stores/structure";
+import { StructuresStoreState } from "stores/structures";
 
 const getStructures = (state: StoreState) => state.structures;
 const getWorkers = (state: StoreState) => state.workers;

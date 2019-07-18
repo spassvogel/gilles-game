@@ -1,5 +1,5 @@
 // tslint:disable:object-literal-sort-keys
-import { ResourceStoreState } from "src/stores/resources";
+import { ResourceStoreState } from "stores/resources";
 
 export enum ActionType {
     addResources = "addResources",

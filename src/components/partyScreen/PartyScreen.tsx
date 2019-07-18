@@ -1,19 +1,19 @@
 
 import * as React from "react";
 import { AnyAction, Dispatch } from "redux";
-import { DragSourceType } from "src/constants";
-import encounterDefinitions from "src/definitions/encounters";
-import { EncounterDefinition } from "src/definitions/encounters/types";
-import { Item } from "src/definitions/items/types";
-import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "src/definitions/quests";
-import { StoreState } from "src/stores";
-import { AdventurerStoreState } from "src/stores/adventurer";
-import { QuestStoreState } from "src/stores/quest";
+import encounterDefinitions from "definitions/encounters";
+import { EncounterDefinition } from "definitions/encounters/types";
+import { Item } from "definitions/items/types";
+import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "definitions/quests";
+import { StoreState } from "stores";
+import { AdventurerStoreState } from "stores/adventurer";
+import { QuestStoreState } from "stores/quest";
 import { AppContextProps } from "../App";
 import { InventoryItemDragInfo } from "../ui/DraggableItemIcon";
 import DroppableAdventurerAvatar from "../ui/DroppableAdventurerAvatar";
 import Inventory from "../ui/inventory/Inventory";
 import "./css/partyscreen.css";
+import { DragSourceType } from "constants/dragging";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
@@ -107,9 +107,8 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                 </div>
             </div>
             <div className="right">
-                <Inventory sourceType={DragSourceType.adventurer}
-                    items={ adventurer.inventory }
-
+                <Inventory sourceType = { DragSourceType.adventurer }
+                    items = { adventurer.inventory }
                     onDropItem = { handleDropItem }
                 />
             </div>

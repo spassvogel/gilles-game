@@ -1,5 +1,5 @@
-import { Encounter } from "src/definitions/encounters/types";
-import { Item } from "src/definitions/items/types";
+import { Encounter } from "definitions/encounters/types";
+import { Item } from "definitions/items/types";
 
 export enum QuestStatus {
     unavailable,

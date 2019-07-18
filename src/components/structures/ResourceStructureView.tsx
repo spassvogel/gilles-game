@@ -1,7 +1,7 @@
 import * as React from "react";
-import structureDefinitions, {  Structure  } from "src/definitions/structures";
-import { ResourceStructureDefinition, ResourceStructureLevelDefinition } from "src/definitions/structures/types";
-import { TextManager } from "src/utils/textManager";
+import structureDefinitions, {  Structure  } from "definitions/structures";
+import { ResourceStructureDefinition, ResourceStructureLevelDefinition } from "definitions/structures/types";
+import { TextManager } from "utils/textManager";
 import UpDownValue from "../ui/UpDownValue";
 
 export interface DispatchProps {

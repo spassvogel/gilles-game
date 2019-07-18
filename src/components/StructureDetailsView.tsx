@@ -1,14 +1,14 @@
 
+import ProductionStructureView from "containers/structures/ProductionStructureView";
+import ResourceStructureView from "containers/structures/ResourceStructureView";
+import TavernStructureView from "containers/structures/tavern/TavernStructureView";
+import WarehouseStructureView from "containers/structures/warehouse/WarehouseStructureView";
+import structureDefinitions, { Structure } from "definitions/structures";
+import { StructureDefinition, StructureType } from "definitions/structures/types";
 import * as React from "react";
-import ProductionStructureView from "src/containers/structures/ProductionStructureView";
-import ResourceStructureView from "src/containers/structures/ResourceStructureView";
-import TavernStructureView from "src/containers/structures/tavern/TavernStructureView";
-import WarehouseStructureView from "src/containers/structures/warehouse/WarehouseStructureView";
-import structureDefinitions, { Structure } from "src/definitions/structures";
-import { StructureDefinition, StructureType } from "src/definitions/structures/types";
-import { StructureState, StructureStoreState } from "src/stores/structure";
-import { StructuresStoreState } from "src/stores/structures";
-import { TaskStoreState } from "src/stores/task";
+import { StructureState, StructureStoreState } from "stores/structure";
+import { StructuresStoreState } from "stores/structures";
+import { TaskStoreState } from "stores/task";
 import "./css/structuredetails.css";
 import Progressbar from "./ui/Progressbar";
 

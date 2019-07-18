@@ -1,8 +1,8 @@
 import * as React from "react";
-import { AdventurerAvatarDragInfo } from "src/components/ui/DraggableAdventurerAvatar";
-import { AdventurerStoreState } from "src/stores/adventurer";
-import { QuestStoreState } from "src/stores/quest";
-import { TextManager } from "src/utils/textManager";
+import { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvatar";
+import { AdventurerStoreState } from "stores/adventurer";
+import { QuestStoreState } from "stores/quest";
+import { TextManager } from "utils/textManager";
 import AssignAdventurers from "./AssignAdventurers";
 import "./css/questboard.css";
 

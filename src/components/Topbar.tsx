@@ -1,7 +1,7 @@
 
 import * as React from "react";
 import { Persistor } from "redux-persist";
-import { TextManager } from "src/utils/textManager";
+import { TextManager } from "utils/textManager";
 import { View } from "./App";
 import "./css/topbar.css";
 

@@ -1,12 +1,12 @@
 
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
-import { moveItemInInventory, moveItemToOtherAdventurer } from "src/actions/adventurers";
-import { updateEncounterResult } from "src/actions/quests";
-import { advanceQuest } from "src/actions/quests";
-import PartyScreen, { DispatchProps, Props, StateProps } from "src/components/partyScreen/PartyScreen";
-import { withAppContext } from "src/hoc/withAppContext";
-import { adventurersOnQuest } from "src/storeHelpers";
+import { moveItemInInventory, moveItemToOtherAdventurer } from "actions/adventurers";
+import { updateEncounterResult } from "actions/quests";
+import { advanceQuest } from "actions/quests";
+import PartyScreen, { DispatchProps, Props, StateProps } from "components/partyScreen/PartyScreen";
+import { withAppContext } from "hoc/withAppContext";
+import { adventurersOnQuest } from "storeHelpers";
 import { StoreState } from "../../stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {

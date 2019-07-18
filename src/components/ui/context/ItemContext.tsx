@@ -1,10 +1,10 @@
 
+import { DeedDefinition } from "definitions/items/deeds";
+import { ItemDefinition, ItemType } from "definitions/items/types";
+import structureDefinitions, { Structure } from "definitions/structures";
 import * as React from "react";
-import { DeedDefinition } from "src/definitions/items/deeds";
-import { ItemDefinition, ItemType } from "src/definitions/items/types";
-import structureDefinitions, { Structure } from "src/definitions/structures";
-import { StoreState } from "src/stores";
-import { StructureState } from "src/stores/structure";
+import { StoreState } from "stores";
+import { StructureState } from "stores/structure";
 
 export interface Props {
     info: ItemDefinition;

@@ -1,6 +1,6 @@
 
 // import { connect } from "react-redux";
-// import TownView, { Props, StateProps } from "src/components/TownView";
+// import TownView, { Props, StateProps } from "components/TownView";
 // import { StoreState } from "../stores";
 
 // function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
