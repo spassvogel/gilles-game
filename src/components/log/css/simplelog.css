@@ -1,3 +1,8 @@
+.log {
+    position: absolute;
+    bottom: 0;
+}
+
 .log .tabs {
     list-style: none;
     padding: 0;

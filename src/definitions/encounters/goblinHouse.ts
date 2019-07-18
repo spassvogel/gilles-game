@@ -1,7 +1,7 @@
 // tslint:disable:object-literal-sort-keys
-import { AnyAction, Dispatch } from "redux";
 import { advanceQuest, startEncounter, updateQuestVars } from "actions/quests";
 import { Oracle } from "oracle";
+import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "stores";
 import { Encounter, EncounterDefinition } from "./types";
 

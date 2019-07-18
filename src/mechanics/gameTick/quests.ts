@@ -1,4 +1,3 @@
-import { now } from "moment";
 import encounterDefintions from "definitions/encounters";
 import { Encounter } from "definitions/encounters/types";
 import questDefinitions, { QuestDefinition, QuestNodeType } from "definitions/quests";

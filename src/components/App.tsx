@@ -1,3 +1,5 @@
+// tslint:disable: object-literal-sort-keys
+
 import { ContextInfo, ContextType } from "constants/context";
 import AdventurersBox from "containers/AdventurersBox";
 import CheatBox from "containers/CheatBox";
@@ -41,6 +43,11 @@ interface LocalState {
     contextInfo: ContextInfo | null;
 }
 
+const resolution = {
+    height: 972,
+    width: 648,
+};
+
 // Sharing context within the entire App
 export interface AppContextProps {
     onContextualObjectActivated: (type: ContextType, info: ContextInfo) => void;
@@ -49,6 +56,8 @@ export interface AppContextProps {
 export const AppContext = React.createContext<AppContextProps | null>(null);
 
 export default class App extends React.Component<Props & StateProps & DispatchProps, LocalState> {
+    private containerRef: React.RefObject<HTMLDivElement>;
+
     // This Component has local state, so it"s a class
     constructor(props: Props & StateProps & DispatchProps) {
         super(props);
@@ -60,6 +69,9 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             selectedStructure: null,
             view: View.Town,
         };
+        this.containerRef = React.createRef();
+
+        this.updateDimensions = this.updateDimensions.bind(this);
     }
 
     public render() {
@@ -114,34 +126,61 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             media: this.state.media,
             onContextualObjectActivated: this.handleContextualObjectActivated,
         }}>
-        <Preloader
-            manifest = { manifest }
-            onLoadComplete = { this.handleMediaLoadComplete }
-        >
-        <Topbar
-            appView={ this.state.view }
-            onViewButtonClick={ () => this.changeView() }
-            persistor={ this.props.persistor }
-        />
-        { <PoseGroup>
-            { !!selectedStructureView && [
-                <StructureViewModal key="structure-modal" className="structure-modal">
-                    { selectedStructureView }
-                </StructureViewModal>,
-                <ModalBackground key="structure-modal-bg" className="structure-modal-background" onClick= { () => this.closeStructureModal() } />,
-                ]
-            }
-        </PoseGroup>}
-        { getMainView()  }
-        {/* </div> */}
-        <div className="app-right">
-            { contextView }
-            { getAdventurersBox() }
-        <CheatBox />
-        </div>
-        <SimpleLog/>
-        </Preloader>
+            <div className="app" 
+                ref = { this.containerRef }
+                style = {{
+                    width: resolution.width,
+                    height: resolution.height,
+                }}
+            >
+                <Preloader
+                    manifest = { manifest }
+                    onLoadComplete = { this.handleMediaLoadComplete }
+                >
+                <Topbar
+                    appView={ this.state.view }
+                    onViewButtonClick={ () => this.changeView() }
+                    persistor={ this.props.persistor }
+                />
+                { <PoseGroup>
+                    { !!selectedStructureView && [
+                        <StructureViewModal key="structure-modal" className="structure-modal">
+                            { selectedStructureView }
+                        </StructureViewModal>,
+                        <ModalBackground key="structure-modal-bg" className="structure-modal-background" onClick= { () => this.closeStructureModal() } />,
+                        ]
+                    }
+                </PoseGroup>}
+                { getMainView()  }
+                <div className="app-right">
+                    { contextView }
+                    { getAdventurersBox() }
+                <CheatBox />
+                </div>
+                <SimpleLog/>
+                </Preloader>
+            </div>
         </AppContext.Provider>;
+    }
+
+    public componentDidMount() {
+        window.addEventListener("resize", this.updateDimensions);
+        this.updateDimensions();
+    }
+
+    public componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions);
+    }
+
+    private updateDimensions() {
+        if(this.containerRef.current) {
+            if (window.innerHeight < resolution.height){
+                this.containerRef.current.style.transform = `scale(${window.innerHeight / resolution.height}) translateX(-50%)`;
+
+            } else {
+                this.containerRef.current.style.transform = `scale(1) translateX(-50%)`;
+            }
+        }
     }
 
     private changeView = () => {

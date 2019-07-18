@@ -1,7 +1,7 @@
 // tslint:disable:object-literal-sort-keys
-import { AnyAction, Dispatch } from "redux";
 import { addItemToInventory } from "actions/adventurers";
 import { Oracle } from "oracle";
+import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "stores";
 import { Item } from "../items/types";
 import { Encounter, EncounterDefinition } from "./types";

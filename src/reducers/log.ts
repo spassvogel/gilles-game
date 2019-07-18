@@ -33,6 +33,7 @@ const gameTick = (state: LogEntry[], action: GameTickAction): LogEntry[] => {
     if (!action.log.length) {
         return state;
     }
+    console.log(action.log)
 
     // Add log entries
     const logEntries = action.log.map((lU: LogUpdate): LogEntry => {

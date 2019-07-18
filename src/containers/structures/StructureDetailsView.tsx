@@ -23,5 +23,4 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>): DispatchProps {
     };
 }
 
-export default connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps)
-    (StructureDetailsView);
+export default connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps)(StructureDetailsView);

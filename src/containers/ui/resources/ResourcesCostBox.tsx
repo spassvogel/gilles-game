@@ -12,5 +12,4 @@ const mapStateToProps = (store: StoreState, ownProps: Props): StateProps => {
     };
 };
 
-export default connect<StateProps, null, Props, StoreState>(mapStateToProps)
-    (ResourcesCostBox);
+export default connect<StateProps, null, Props, StoreState>(mapStateToProps)(ResourcesCostBox);
