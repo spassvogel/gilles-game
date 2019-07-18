@@ -23,18 +23,11 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const structureStore: StructureStoreState = store.structures[ownProps.type];
 
     const tasks = store.tasks.running.filter((val) => val.origin === `${ownProps.type}.craft`);
-    const items: Item[] = [];
-    store.items.forEach((i) => {
-        // Creating a dense array. Typescript won't allow me to use .filter
-        if (i !== null) {
-            items.push(i);
-        }
-    });
     return {
         gold: store.gold,
-        items,
+        items: store.items,
         level: structureStore.level,
-        resources: store.resources,
+        resources: {},//store.resources,
         tasks,
         workersFree: selectFreeWorkers(store),
     };

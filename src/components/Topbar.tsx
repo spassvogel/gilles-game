@@ -21,22 +21,11 @@ export interface StateProps  {
 }
 
 export default function(props: Props & StateProps & DispatchProps) {
-    const handleViewClick = () => {
-        props.onViewButtonClick();
-    };
-    const handleResetClick = () => {
-        props.persistor.purge();
-        window.location.reload();
-    };
-    const viewButtonText = props.appView === View.Town ? TextManager.get(`common-view-button-world`) :
-        TextManager.get(`common-view-button-town`);
 
     return (
         <div className="topbar">
             <div className="topbar-left">
-                <button onClick= { () => handleViewClick() }> { viewButtonText } </button>
-                { ` | `}
-                <button onClick= { () => handleResetClick() } style={ { color: "red" } }> Restart! </button>
+                
             </div>
             <div className="topbar-right">
                 <span>

@@ -17,6 +17,7 @@ import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
+import { TextManager } from "utils/textManager";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -112,8 +113,19 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             } else {
                 return <RealWorldView/>;
             }
-
         };
+
+        const handleViewClick = () => {
+            this.changeView();
+        };
+
+        const handleResetClick = () => {
+            this.props.persistor.purge();
+            window.location.reload();
+        };
+
+        const viewButtonText = this.state.view === View.Town ? TextManager.get(`common-view-button-world`) :
+            TextManager.get(`common-view-button-town`);
 
         const contextView = this.state.contextType == null || this.state.contextInfo == null ? null :
         <ContextView type = { this.state.contextType }  info = { this.state.contextInfo }/>;
@@ -142,6 +154,10 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     onViewButtonClick={ () => this.changeView() }
                     persistor={ this.props.persistor }
                 />
+                <button onClick= { () => handleViewClick() }> { viewButtonText } </button>
+                { ` | `}
+                <button onClick= { () => handleResetClick() } style={ { color: "red" } }> Restart! </button>
+
                 { <PoseGroup>
                     { !!selectedStructureView && [
                         <StructureViewModal key="structure-modal" className="structure-modal">
