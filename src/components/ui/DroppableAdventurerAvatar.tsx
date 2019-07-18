@@ -1,8 +1,8 @@
+import { DragType } from "constants/dragging";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
 import AdventurerAvatar, { Props as AdventurerAvatarProps} from "./AdventurerAvatar";
 import "./css/droppableadventureravatar.css";
-import { DragType } from "constants/dragging";
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {
@@ -35,8 +35,6 @@ const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
 class DroppableAdventurerAvatar extends React.Component<Props & DropSourceProps> {
     public render() {
         const {
-            isOver,
-            canDrop,
             connectDropTarget,
         } = this.props;
         // const isActive = isOver && canDrop;
