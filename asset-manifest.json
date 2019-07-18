@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/gilles-game/static/css/main.2cce8147.chunk.css",
-    "main.js": "/gilles-game/static/js/main.fc103b17.chunk.js",
-    "main.js.map": "/gilles-game/static/js/main.fc103b17.chunk.js.map",
+    "main.css": "/gilles-game/static/css/main.08baf330.chunk.css",
+    "main.js": "/gilles-game/static/js/main.0f02c0e8.chunk.js",
+    "main.js.map": "/gilles-game/static/js/main.0f02c0e8.chunk.js.map",
     "runtime~main.js": "/gilles-game/static/js/runtime~main.89b35411.js",
     "runtime~main.js.map": "/gilles-game/static/js/runtime~main.89b35411.js.map",
-    "static/js/2.b41502e9.chunk.js": "/gilles-game/static/js/2.b41502e9.chunk.js",
-    "static/js/2.b41502e9.chunk.js.map": "/gilles-game/static/js/2.b41502e9.chunk.js.map",
+    "static/js/2.662c088d.chunk.js": "/gilles-game/static/js/2.662c088d.chunk.js",
+    "static/js/2.662c088d.chunk.js.map": "/gilles-game/static/js/2.662c088d.chunk.js.map",
     "index.html": "/gilles-game/index.html",
-    "precache-manifest.d03bc9fae59fd24ce40380b4b2427676.js": "/gilles-game/precache-manifest.d03bc9fae59fd24ce40380b4b2427676.js",
+    "precache-manifest.a6021d410be186d1713b2a453dd52a18.js": "/gilles-game/precache-manifest.a6021d410be186d1713b2a453dd52a18.js",
     "service-worker.js": "/gilles-game/service-worker.js",
-    "static/css/main.2cce8147.chunk.css.map": "/gilles-game/static/css/main.2cce8147.chunk.css.map",
-    "static/media/logo.svg": "/gilles-game/static/media/logo.5d5d9eef.svg"
+    "static/css/main.08baf330.chunk.css.map": "/gilles-game/static/css/main.08baf330.chunk.css.map"
   }
 }
