@@ -1,6 +1,6 @@
-import * as React from "react";
 import structureDefinitions, {  Structure  } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition } from "definitions/structures/types";
+import * as React from "react";
 import { TextManager } from "utils/textManager";
 import UpDownValue from "../ui/UpDownValue";
 

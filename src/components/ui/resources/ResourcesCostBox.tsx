@@ -1,6 +1,6 @@
-import * as React from "react";
 import { Resource } from "definitions/resources";
 import resourceDescriptions from "definitions/resources";
+import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
 import { TextManager } from "utils/textManager";
 import "./css/resourcesbox.css";
@@ -24,7 +24,7 @@ const ResourcesBox = (props: AllProps) => {
         sufficientResources,
     } = props;
     const className = (props.className || "") + " resourcesbox";
-    const listItems = Object.keys(props.resources).map((resource: Resource) => {
+    const listItems = Object.keys(props.resources).map((resource: string) => {
         let listItemClass = "resource";
         if (sufficientResources && !sufficientResources[resource]) {
              listItemClass += " insufficient";
@@ -35,7 +35,7 @@ const ResourcesBox = (props: AllProps) => {
                 backgroundImage:  `url(${resourceDescription.iconImg})`,
             }}></div>
             <div className = "name">
-                { TextManager.getResourceName(resource) }
+                { TextManager.getResourceName(resource as Resource) }
             </div>
             <div className = "amount" >
                 { props.resources[resource] }

@@ -1,6 +1,6 @@
 
 import * as React from "react";
-import { LogEntry, LogChannel } from "stores/logEntry";
+import { LogChannel, LogEntry } from "stores/logEntry";
 import { TextManager } from "utils/textManager";
 import "./css/simplelog.css";
 
