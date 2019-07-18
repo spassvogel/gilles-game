@@ -1,5 +1,5 @@
-import { combineReducers } from "redux";
 import { Item } from "definitions/items/types";
+import { combineReducers } from "redux";
 import { ResourceStoreState } from "stores/resources";
 import { StoreState } from "../stores";
 import { adventurers } from "./adventurers";

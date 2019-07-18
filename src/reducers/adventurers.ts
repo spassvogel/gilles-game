@@ -1,9 +1,10 @@
 // tslint:disable:object-literal-sort-keys
 
-import { Reducer } from "redux";
 import { Action, ActionType,
-    InventoryAction, MoveItemInInventoryAction, MoveItemToOtherAdventurerAction, RemoveItemFromInventoryAction } from "actions/adventurers";
+    InventoryAction, MoveItemInInventoryAction,
+    MoveItemToOtherAdventurerAction, RemoveItemFromInventoryAction } from "actions/adventurers";
 import { Item } from "definitions/items/types";
+import { Reducer } from "redux";
 import { AdventurerStoreState, EquipmentStoreState, StatsStoreState } from "stores/adventurer";
 
 /**
@@ -140,7 +141,7 @@ const testState: AdventurerStoreState[] = [{
 
 // TODO: To generate a random 11 digit number, use: Math.random().toString(36).substring(2)
 
-export const adventurers: Reducer<AdventurerStoreState[]> = (
+export const adventurers: Reducer<AdventurerStoreState[], Action> = (
     state: AdventurerStoreState[] = testState, action: Action) => {
 
     switch (action.type) {

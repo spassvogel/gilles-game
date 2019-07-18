@@ -9,8 +9,8 @@ import { initialState, StructuresStoreState } from "../stores/structures";
  * @param state
  * @param action
  */
-export const structures: Reducer<StructuresStoreState> = (state: StructuresStoreState = initialState,
-                                                          action: Action) => {
+export const structures: Reducer<StructuresStoreState, Action> = (state: StructuresStoreState = initialState,
+                                                                  action: Action) => {
     switch (action.type) {
         case ActionType.startBuildingStructure: {
             return updateStructureState(state, action.structure, StructureState.Building);
