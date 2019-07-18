@@ -1,10 +1,8 @@
-import { AnyAction, Reducer } from "redux";
 import { ActionType as GameActionType, GameTickAction } from "actions/game";
 import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, StartEncounterAction, UpdateEncounterResultAction } from "actions/quests";
-import encounterDefintions from "definitions/encounters";
 import { Item } from "definitions/items/types";
 import questDefinitions, { QuestDefinition, QuestNodeType } from "definitions/quests";
-import { oracles } from "oracle";
+import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 
 // tslint:disable:object-literal-sort-keys

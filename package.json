@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "@types/howler": "^2.1.1",
+    "@types/moment-duration-format": "^2.2.2",
     "@types/react-dom": "^16.8.4",
     "@types/react-redux": "^7.1.1",
     "@types/seedrandom": "^2.4.28",

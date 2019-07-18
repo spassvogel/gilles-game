@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as React from "react";
+import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -19,7 +20,6 @@ import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
 import { TextManager } from "./utils/textManager";
-import { DndProvider } from "react-dnd";
 
 let interval: NodeJS.Timeout;
 const initGame = async () => {
