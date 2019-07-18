@@ -1,10 +1,10 @@
-import { connect } from "react-redux";
-import { AnyAction, Dispatch } from "redux";
 import { addItemToInventory, moveItemInInventory } from "actions/adventurers";
 import { removeItemFromWarehouse } from "actions/items";
 import AdventurersBox, { DispatchProps, Props, StateProps } from "components/AdventurersBox";
 import { Item } from "definitions/items/types";
-import { selectAdventurersGroupedByQuest as selectAdventurersGroupedByQuest } from "selectors/adventurers";
+import { connect } from "react-redux";
+import { AnyAction, Dispatch } from "redux";
+import { selectAdventurersGroupedByQuest } from "selectors/adventurers";
 import { StoreState } from "stores";
 
 const mapStateToProps = (store: StoreState): StateProps => {

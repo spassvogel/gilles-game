@@ -87,7 +87,7 @@ class CheatBox extends React.Component<AllProps, LocalState> {
         const getItemTypeOptions = (type: ItemType) => {
             return Object.keys(Item)
                 // tslint:disable-next-line: triple-equals
-                .filter((item: string) => getDefinition(item as Item).itemType == type)
+                .filter((item: string) => getDefinition(item as Item).itemType === type)
                 .map((item: string) => getItemOption(item as Item));
         };
 

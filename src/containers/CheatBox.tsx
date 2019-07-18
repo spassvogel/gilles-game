@@ -1,5 +1,3 @@
-import { connect } from "react-redux";
-import { AnyAction, Dispatch } from "redux";
 import { addWorkers } from "actions";
 import { addGold } from "actions/gold";
 import { addItemToWarehouse } from "actions/items";
@@ -8,6 +6,8 @@ import { setStructureState } from "actions/structures";
 import CheatBox, { DispatchProps, Props, StateProps } from "components/CheatBox";
 import { Item } from "definitions/items/types";
 import { Structure } from "definitions/structures";
+import { connect } from "react-redux";
+import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "stores";
 import { ResourceStoreState } from "stores/resources";
 import { StructureState } from "stores/structure";

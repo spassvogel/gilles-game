@@ -49,7 +49,7 @@ function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
 class DraggableAdventurerAvatar extends React.Component<Props & CollectedProps & AdventurerAvatarProps> {
 
     public render() {
-        const { onClick, isDragging, connectDragSource, disabled } = this.props;
+        const { isDragging, connectDragSource, disabled } = this.props;
         let className = "draggable-adventurer-avatar";
         if (disabled) {
             className += " disabled";

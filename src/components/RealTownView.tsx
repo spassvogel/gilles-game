@@ -47,8 +47,8 @@ class RealTownView extends React.Component<AllProps, LocalState> {
     public componentDidMount() {
         this.playMusic();
 
-        const period = 500;
 
+        /*        const period = 500;
         if (this.plasmaBeam) {
             this.plasmaBeam.filters([Konva.Filters.Brighten]);
             //this.plasmaBeam.cache(null);
@@ -63,7 +63,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
             }, this.plasmaBeam.getLayer());
 
             this.anim.start();
-        }
+        }*/
     }
 
     public componentWillUnmount() {
@@ -207,7 +207,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
 const drawHitFromCache = (img: Konva.Image) => {
     if (img) {
        // img.cache(null);
-        img.drawHitFromCache(0.5);
+       // img.drawHitFromCache(0.5);
     }
 };
 
