@@ -28,7 +28,6 @@ type AllProps = Props & StateProps & DispatchProps;
  * @param props
  */
 export default class RealWorldView extends React.Component<AllProps, LocalState> {
-    private music: Howl;
 
     // This Component has local state, so it's a class
     constructor(props: Props & StateProps & DispatchProps) {

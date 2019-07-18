@@ -3,6 +3,8 @@ import Konva from "konva";
 import * as React from "react";
 import { FastLayer } from "react-konva";
 
+
+// todo: a real particle system
 interface Props {
     emitterX: number;
     emitterY: number;
@@ -11,7 +13,7 @@ interface Props {
 
 class SmokeEmitter extends React.Component<Props> {
     private layer: Konva.FastLayer | any;
-    private animationFrame: number;
+    private animationFrame: number = 0;
 
     public componentDidMount() {
         this.initSmoke();
@@ -111,6 +113,7 @@ class Particle {
         this.endSize = 40;     // todo: props
 
         this.angle = Math.random() * 359;       // todo: props
+        this.alpha = 1;
 
         this.startLife = performance.now();
         this.lifeTime = 0;

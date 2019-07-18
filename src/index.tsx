@@ -19,6 +19,7 @@ import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
 import { TextManager } from "./utils/textManager";
+import { DndProvider } from "react-dnd";
 
 let interval: NodeJS.Timeout;
 const initGame = async () => {
@@ -61,9 +62,9 @@ const stopGame = () => {
 const runGame = (store: any, persistor: Persistor) => {
     ReactDOM.render(
         <Provider store={store}>
-            <DragDropContextProvider backend={ HTML5Backend }>
+            <DndProvider backend={ HTML5Backend }>
                 <App persistor={ persistor }/>
-            </DragDropContextProvider>
+            </DndProvider>
         </Provider>,
         document.getElementById("root") as HTMLElement,
     );

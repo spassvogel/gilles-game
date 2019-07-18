@@ -26,7 +26,7 @@ export default function(props: Props & StateProps & DispatchProps) {
     };
     const handleResetClick = () => {
         props.persistor.purge();
-        location.reload();
+        window.location.reload();
     };
     const viewButtonText = props.appView === View.Town ? TextManager.get(`common-view-button-world`) :
         TextManager.get(`common-view-button-town`);

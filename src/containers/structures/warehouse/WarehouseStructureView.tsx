@@ -62,4 +62,4 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
 export default compose(
     connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
     withAppContext,
-)(WarehouseStructureView);
+)(WarehouseStructureView) as React.ComponentType<Props>;

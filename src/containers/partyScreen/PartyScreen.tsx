@@ -42,4 +42,4 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
 export default compose(
     connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
     withAppContext,
-)(PartyScreen);
+)(PartyScreen) as React.ComponentType<Props>;

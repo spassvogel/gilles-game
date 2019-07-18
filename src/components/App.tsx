@@ -1,7 +1,4 @@
-import * as React from "react";
-import posed, { PoseGroup } from "react-pose";
-import { Persistor } from "redux-persist";
-import { ContextInfo, ContextType } from "constants";
+import { ContextInfo, ContextType } from "constants/context";
 import AdventurersBox from "containers/AdventurersBox";
 import CheatBox from "containers/CheatBox";
 import SimpleLog from "containers/log/SimpleLog";
@@ -9,13 +6,15 @@ import RealWorldView from "containers/partyScreen/RealWorldView";
 import RealTownView from "containers/RealTownView";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
 import { manifest } from "manifest/app";
+import * as React from "react";
+import posed, { PoseGroup } from "react-pose";
+import { Persistor } from "redux-persist";
+import { Sound, SoundManager } from "utils/soundManager";
 import Topbar from "../containers/Topbar";
 import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
-// tslint:disable-next-line: ordered-imports
-import { SoundManager, Sound } from "utils/soundManager";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -158,7 +157,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         }
     }
 
-    private selectStructure = (structure: Structure) => {
+    private selectStructure = (structure: Structure | null) => {
         this.setState({
             selectedStructure: structure,
         });

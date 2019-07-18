@@ -1,8 +1,8 @@
 
-import { Reducer } from "redux";
 import { GameTickAction } from "actions/game";
 import { Action, ActionType, AddAction, MoveItemInWarehouseAction, RemoveItemFromWarehouseAction } from "actions/items";
 import { Item } from "definitions/items/types";
+import { Reducer } from "redux";
 
 const testState = [
     null,

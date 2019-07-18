@@ -1,8 +1,8 @@
 // tslint:disable:object-literal-sort-keys
 
-import { Reducer } from "redux";
 import { ActionType as GameActionType, GameTickAction } from "actions/game";
 import { Action as AnyTaskAction, ActionType, AddAction} from "actions/tasks";
+import { Reducer } from "redux";
 import { TaskStoreState } from "stores/task";
 import { initialState, TasksStoreState } from "stores/tasks";
 
