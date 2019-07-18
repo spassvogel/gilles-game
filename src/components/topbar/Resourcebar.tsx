@@ -1,6 +1,5 @@
 
 import * as React from "react";
-import { Persistor } from "redux-persist";
 import { TextManager } from "utils/textManager";
 import "./css/resourcebar.css";
 import "components/ui/css/common/icon.css";
@@ -25,7 +24,7 @@ export interface StateProps  {
 const Resourcebar = (props: Props & StateProps & DispatchProps) => {
 
     const createItem = (icon: string, amount: number, title: string) => {
-        return <li title = { title }>
+        return <li title = { title } key = { title }>
             <div className = "icon common-icon-smallest" style = {{
                 backgroundImage:  `url(${icon})`,
             }}></div>
@@ -37,7 +36,7 @@ const Resourcebar = (props: Props & StateProps & DispatchProps) => {
 
     const resources = resourceOrder.map((resource) => {
         const resourceDescription = resourceDescriptions[resource];
-        return createItem(resourceDescription.iconImg, props.resources[resource as string], resource)
+        return createItem(resourceDescription.iconImg, props.resources[resource as string], TextManager.getResourceName(resource))
     });
 
     resources.push(
