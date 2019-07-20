@@ -41,7 +41,6 @@ export interface Props {
 }
 
 interface LocalState {
-    view: View;
     media: MediaItem[];
     selectedStructure: Structure | null;
     contextType: ContextType | null;
@@ -73,7 +72,6 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             contextType: null,
             media: [],
             selectedStructure: null,
-            view: View.Town,
         };
         this.containerRef = React.createRef();
 
@@ -106,19 +104,6 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             enter: { opacity: 1 },
             exit: { opacity: 0 },
         });
-
-        const getMainView = () => {
-            if (this.state.view === View.Town) {
-
-                return <RealTownView
-                    onStructureClick = { this.selectStructure }
-                // onContextualObjectActivated = { this.handleContextualObjectActivated }
-                // media = { this.state.media }
-                />;
-            } else {
-                return <RealWorldView/>;
-            }
-        };
 
         const handleViewClick = () => {
             SoundManager.playSound(Sound.buttonClick);
@@ -214,19 +199,6 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             } else {
                 this.containerRef.current.style.transform = `scale(1) translateX(-50%)`;
             }
-        }
-    }
-
-    private changeView = () => {
-        SoundManager.playSound(Sound.buttonClick);
-
-        if (this.state.view === View.Town) {
-            this.setState({
-                selectedStructure: null,
-                view: View.World,
-            });
-        } else {
-            this.setState({ view: View.Town });
         }
     }
 

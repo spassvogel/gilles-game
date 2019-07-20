@@ -104,3 +104,6 @@ The quests should have some sort of resource cost. However we don't want weapons
 
 20/07/2019 open popups
 [ ] popups can be opened using withAppContext
+
+20/07/2019 quest view
+[ ] shows latest log message when not in encounter
