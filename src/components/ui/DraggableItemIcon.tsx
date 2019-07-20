@@ -9,7 +9,7 @@ export interface Props {
     item: Item;
     sourceType: DragSourceType;
     sourceId?: string;
-    onClick?: () => void;
+    onClick?: (event: React.MouseEvent) => void;
 }
 
 interface CollectedProps {
@@ -54,7 +54,12 @@ class DraggableItemIcon extends React.Component<Props & CollectedProps > {
 
     public render() {
         const { item, onClick, isDragging, connectDragSource } = this.props;
-
+        
+        const handleClick = (event: React.MouseEvent) => {
+            if (onClick){
+                onClick(event);
+            }
+        }
         if (isDragging) {
             // TODO: can show some sort of empty state?
             return null;
@@ -62,8 +67,8 @@ class DraggableItemIcon extends React.Component<Props & CollectedProps > {
         return connectDragSource(
             <div>
                 <ItemIcon
-                item={ item }
-                onClick= { onClick }
+                    item = { item }
+                    onClick = { handleClick }
             />
             </div>,
         );

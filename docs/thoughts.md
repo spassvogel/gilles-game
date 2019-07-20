@@ -98,3 +98,9 @@ The quests should have some sort of resource cost. However we don't want weapons
 15/07/2019 CHORE: host on github?
 [ ] Maybe I can host this stuff on github pages. (https://github.com/gitname/react-gh-pages)
 [ ] Probably best to start a new `create-react-app`.
+
+20/07/2019 contextual popup
+[ ] the contextual info should just pop up over the item that you have clicked
+
+20/07/2019 open popups
+[ ] popups can be opened using withAppContext

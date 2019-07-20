@@ -38,19 +38,20 @@ const Inventory = (props: Props & AppContextProps) => {
        };
 
         if (item) {
-            const handleClick = () => {
+            const handleClick = (event: React.MouseEvent) => {
                 props.onContextualObjectActivated(
                     ContextType.item,
                     itemDefinitions[item],
+                    event.currentTarget
                 );
            };
 
             contents = <DraggableItemIcon
-                index={i}
-                sourceId={props.sourceId}
-                sourceType={props.sourceType}
-                item={item}
-                onClick={() => handleClick()}
+                index = {i}
+                sourceId = {props.sourceId}
+                sourceType = {props.sourceType}
+                item = {item}
+                onClick = { handleClick }
             >
             </DraggableItemIcon>;
        }

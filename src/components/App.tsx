@@ -19,6 +19,9 @@ import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
 import { TextManager } from "utils/textManager";
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import { DndProvider } from "react-dnd";
+import { Provider } from "react-redux";
+import HTML5Backend from "react-dnd-html5-backend";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -52,7 +55,8 @@ const resolution = {
 
 // Sharing context within the entire App
 export interface AppContextProps {
-    onContextualObjectActivated: (type: ContextType, info: ContextInfo) => void;
+    onContextualObjectActivated: (type: ContextType, info: ContextInfo, origin?: EventTarget) => void;
+    onPopupOpened: (name: string) => void;
     media: MediaItem[];
 }
 export const AppContext = React.createContext<AppContextProps | null>(null);
@@ -117,7 +121,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         };
 
         const handleViewClick = () => {
-            this.changeView();
+            SoundManager.playSound(Sound.buttonClick);
         };
 
         const handleResetClick = () => {
@@ -147,6 +151,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         return <AppContext.Provider value = {{
             media: this.state.media,
             onContextualObjectActivated: this.handleContextualObjectActivated,
+            onPopupOpened: this.handlePopupOpened,
         }}>
             <div className="app"
                 ref = { this.containerRef }
@@ -155,8 +160,8 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     height: resolution.height,
                 }}
             >
-                <Router>
-                    
+                <DndProvider backend={ HTML5Backend }>
+                <Router>                    
                     <Preloader
                         manifest = { manifest }
                         onLoadComplete = { this.handleMediaLoadComplete }
@@ -187,6 +192,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                 <SimpleLog/>
                 </Preloader>
                 </Router>
+                </DndProvider>
             </div>
         </AppContext.Provider>;
     }
@@ -243,6 +249,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
 
         SoundManager.addSounds({
             [Sound.buttonClick]: "sound/fx/button-click.ogg",
+            // add more sounds here
         });
 
         this.setState({
@@ -250,11 +257,17 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         });
     }
 
-    private handleContextualObjectActivated = (type: ContextType, info: ContextInfo) => {
+    private handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin?: EventTarget) => {
+//      var rect = (origin as HTMLElement).getBoundingClientRect();
+//      console.log ({x:rect.left,y:rect.top});
+        // todo: 20/07/2019 contextual popup
         this.setState({
              contextInfo: info,
              contextType: type,
         });
     }
 
+    private handlePopupOpened = (name: string) => {
+        console.log("opened " + name)
+    }
 }

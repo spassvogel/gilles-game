@@ -11,8 +11,6 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps {
     return {
-        // onCheatGold: (amount: number) => dispatch(addGold(amount)),
-        // onCheatResources: (amount: ResourceStoreState) => dispatch(addResources(amount)),
     };
 }
 

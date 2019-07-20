@@ -5,7 +5,7 @@ import "./css/itemicon.css";
 
 export interface Props  {
     item: Item;
-    onClick?: () => void;
+    onClick?: (event: React.MouseEvent) => void;
 }
 
 const ItemIcon = (props: Props) => {
@@ -17,9 +17,15 @@ const ItemIcon = (props: Props) => {
         console.warn(`could not find definition for ${item}`);
     }     // todo: [10/07/2019] assert
 
+    const handleClick = (event: React.MouseEvent) => {
+        if (props.onClick){
+            props.onClick(event);
+        }
+    }
+
     return (
         <div className="item-icon"
-            onClick = { props.onClick }
+            onClick = { handleClick }
             style = {{
                 backgroundImage: `url(${itemDefinition.iconImg})`,
             }}>

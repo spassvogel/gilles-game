@@ -1,7 +1,6 @@
 import axios from "axios";
 import * as React from "react";
 import { DndProvider } from "react-dnd";
-import HTML5Backend from "react-dnd-html5-backend";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { Persistor } from "redux-persist";
@@ -62,9 +61,7 @@ const stopGame = () => {
 const runGame = (store: any, persistor: Persistor) => {
     ReactDOM.render(
         <Provider store={store}>
-            <DndProvider backend={ HTML5Backend }>
-                <App persistor={ persistor }/>
-            </DndProvider>
+            <App persistor={ persistor }/>
         </Provider>,
         document.getElementById("root") as HTMLElement,
     );

@@ -1,11 +1,19 @@
-import Topbar, { StateProps } from "components/topbar/Topbar";
+import Topbar, { StateProps, Props } from "components/topbar/Topbar";
 import { connect } from "react-redux";
-import { selectFreeWorkers } from "selectors/workers";
 import { StoreState } from "../stores";
+import { compose } from "redux";
+import { withRouter } from "react-router-dom";
+import { withAppContext } from "hoc/withAppContext";
 
-function mapStateToProps(store: StoreState): StateProps {
+// todo this container might not be strictly necessary 
+// also withRouter is probably not necessary
+const mapStateToProps = (store: StoreState): StateProps => {
     return {
     };
 }
 
-export default connect<StateProps, null, null, StoreState>(mapStateToProps)(Topbar);
+export default compose(
+    connect<StateProps, null, Props, StoreState>(mapStateToProps),    
+    withRouter,
+    withAppContext
+)(Topbar) as React.ComponentType<Props>;
