@@ -18,6 +18,7 @@ import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
 import { TextManager } from "utils/textManager";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -124,15 +125,24 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             window.location.reload();
         };
 
-        const viewButtonText = this.state.view === View.Town ? TextManager.get(`common-view-button-world`) :
-            TextManager.get(`common-view-button-town`);
-
         const contextView = this.state.contextType == null || this.state.contextInfo == null ? null :
         <ContextView type = { this.state.contextType }  info = { this.state.contextInfo }/>;
 
         const getAdventurersBox = () => {
             return <AdventurersBox />;
         };
+
+        // Router elements
+        const TownButton = () => <Link to="/town">
+            <button onClick= { () => handleViewClick() }> { TextManager.get(`common-view-button-town`) } </button>
+        </Link>;
+
+        const WorldButton = () => <Link to="/world">
+            <button onClick= { () => handleViewClick() }> { TextManager.get(`common-view-button-world`) } </button>
+        </Link>;
+
+        const TownView = ()  => <RealTownView onStructureClick = { this.selectStructure } />;
+        const WorldView = () => <RealWorldView/>;
 
         return <AppContext.Provider value = {{
             media: this.state.media,
@@ -145,25 +155,30 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     height: resolution.height,
                 }}
             >
-                <Preloader
-                    manifest = { manifest }
-                    onLoadComplete = { this.handleMediaLoadComplete }
-                >
-                <Topbar                />
-                <button onClick= { () => handleViewClick() }> { viewButtonText } </button>
-                { ` | `}
-                <button onClick= { () => handleResetClick() } style={ { color: "red" } }> Restart! </button>
+                <Router>
+                    
+                    <Preloader
+                        manifest = { manifest }
+                        onLoadComplete = { this.handleMediaLoadComplete }
+                    >
+                    <Topbar/>
+                    <Redirect from="/" to="town" />
+                    <Route path="/world" component = { TownButton } />
+                    <Route path="/town" component = { WorldButton } />                    
+                    { ` | ` }
+                    <button onClick= { () => handleResetClick() } style={ { color: "red" } }> Restart! </button>
 
-                { <PoseGroup>
-                    { !!selectedStructureView && [
-                        <StructureViewModal key="structure-modal" className="structure-modal">
-                            { selectedStructureView }
-                        </StructureViewModal>,
-                        <ModalBackground key="structure-modal-bg" className="structure-modal-background" onClick= { () => this.closeStructureModal() } />,
-                        ]
-                    }
-                </PoseGroup>}
-                { getMainView()  }
+                    { <PoseGroup>
+                        { !!selectedStructureView && [
+                            <StructureViewModal key="structure-modal" className="structure-modal">
+                                { selectedStructureView }
+                            </StructureViewModal>,
+                            <ModalBackground key="structure-modal-bg" className="structure-modal-background" onClick= { () => this.closeStructureModal() } />,
+                            ]
+                        }
+                    </PoseGroup>}
+                    <Route path="/town" component = { TownView } />
+                    <Route path="/world" component = { WorldView } />
                 <div className="app-right">
                     { contextView }
                     { getAdventurersBox() }
@@ -171,6 +186,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                 </div>
                 <SimpleLog/>
                 </Preloader>
+                </Router>
             </div>
         </AppContext.Provider>;
     }
