@@ -44,7 +44,7 @@ class ContextView extends React.Component<AllProps> {
         }
 
         const name = TextManager.getItemName(info.item);
-        return <div className="contextbox">
+        return <div className = "contextbox">
             <div>{ name } </div>
             { content }
         </div>;
