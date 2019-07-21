@@ -1,5 +1,4 @@
 // tslint:disable: object-literal-sort-keys
-
 import { ContextInfo, ContextType } from "constants/context";
 import AdventurersBox from "containers/AdventurersBox";
 import CheatBox from "containers/CheatBox";
@@ -20,7 +19,6 @@ import ContextView from "./ui/context/ContextView";
 import { TextManager } from "utils/textManager";
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import { DndProvider } from "react-dnd";
-import { Provider } from "react-redux";
 import HTML5Backend from "react-dnd-html5-backend";
 
 // tslint:disable-next-line:no-empty-interface
@@ -146,7 +144,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                 }}
             >
                 <DndProvider backend={ HTML5Backend }>
-                <Router>                    
+                <Router>
                     <Preloader
                         manifest = { manifest }
                         onLoadComplete = { this.handleMediaLoadComplete }
@@ -154,7 +152,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     <Topbar/>
                     <Redirect from="/" to="town" />
                     <Route path="/world" component = { TownButton } />
-                    <Route path="/town" component = { WorldButton } />                    
+                    <Route path="/town" component = { WorldButton } />
                     { ` | ` }
                     <button onClick= { () => handleResetClick() } style={ { color: "red" } }> Restart! </button>
 
@@ -174,6 +172,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     { getAdventurersBox() }
                 <CheatBox />
                 </div>
+                <ContextView type = { this.state.contextType }  info = { this.state.contextInfo }/>
                 <SimpleLog/>
                 </Preloader>
                 </Router>

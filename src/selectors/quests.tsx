@@ -3,7 +3,6 @@ import { StoreState } from "stores";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 
 const getQuests = (state: StoreState) => state.quests;
-const getWorkers = (state: StoreState) => state.workers;
 
 const activeQuests = (quests: QuestStoreState[]) => {
     // returns the names of the active quests

@@ -20,8 +20,10 @@
     background: lightgray;
     overflow: hidden;
     height: 25px;
+    line-height: 25px;
     text-overflow: ellipsis;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 .log .tabs li.active {

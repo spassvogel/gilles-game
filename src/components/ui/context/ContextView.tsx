@@ -1,12 +1,15 @@
 
 import { ContextInfo, ContextType } from "constants/context";
 import ItemContext from "containers/ui/context/ItemContext";
+import { Item, ItemType } from "definitions/items/types";
+import { Structure } from "definitions/structures";
 import * as React from "react";
 import { TextManager } from "utils/textManager";
+import "./css/contextview.css";
 
 export interface Props {
-    type: ContextType;
-    info: ContextInfo;
+    type: ContextType | null;
+    info: ContextInfo | null;
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -18,18 +21,26 @@ export interface DispatchProps {
  * @param props
  */
 export default function(props: Props & DispatchProps) {
-    const info = props.info;
+    let info = props.info;
+    if (!info) {
+        info = {
+            item: Item.deedForWeaponsmith,
+            itemType: ItemType.weapon,
+            subText: "It allows for the construction of a weaponsmith",
+            iconImg: "/img/items/deeds/deed.png",
+        };
+    }
     let content;
 
     switch (props.type) {
         case ContextType.item:
         default:
-            content = <ItemContext info= { props.info } />;
+            content = <ItemContext info= { info } />;
     }
 
     const name = TextManager.getItemName(info.item);
     return (
-        <fieldset>
+        <fieldset className="contextbox">
             <legend> { name } </legend>
             { content }
         </fieldset>

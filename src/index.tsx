@@ -1,6 +1,5 @@
 import axios from "axios";
 import * as React from "react";
-import { DndProvider } from "react-dnd";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { Persistor } from "redux-persist";

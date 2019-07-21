@@ -1,15 +1,16 @@
-
+import "components/ui/css/common/icon.css";
+import { resourceOrder } from "constants/resources";
+import resourceDescriptions from "definitions/resources";
 import * as React from "react";
+import { ResourceStoreState } from "stores/resources";
 import { TextManager } from "utils/textManager";
 import "./css/resourcebar.css";
-import "components/ui/css/common/icon.css";
-import { ResourceStoreState } from "stores/resources";
-import resourceDescriptions from "definitions/resources";
-import { resourceOrder } from "constants/resources";
 
+// tslint:disable-next-line: no-empty-interface
 export interface Props {
 }
 
+// tslint:disable-next-line: no-empty-interface
 export interface DispatchProps {
 }
 
@@ -32,19 +33,19 @@ const Resourcebar = (props: Props & StateProps & DispatchProps) => {
                 { amount }
             </div>
         </li>;
-    }
+    };
 
     const resources = resourceOrder.map((resource) => {
         const resourceDescription = resourceDescriptions[resource];
-        return createItem(resourceDescription.iconImg, props.resources[resource as string], TextManager.getResourceName(resource))
+        return createItem(resourceDescription.iconImg, props.resources[resource as string], TextManager.getResourceName(resource));
     });
 
     resources.push(
         createItem("/img/resources/worker.png", props.workersFree, "workers"),
         createItem("/img/resources/gold.png", props.gold, "gold"),
-    )
+    );
 
-//     <span>
+// <span>
 //     workers: <b>{ props.workersFree + " / " + props.workers }</b>
 // </span>
 // <span>
@@ -56,5 +57,5 @@ const Resourcebar = (props: Props & StateProps & DispatchProps) => {
             { resources }
         </ul>
     );
-}
+};
 export default Resourcebar;
