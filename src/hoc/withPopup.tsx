@@ -51,7 +51,6 @@ export const withPopup = <TWrappedComponentProps extends PopupProps>(WrappedComp
             return (
                 <div className = { `popup ${className}` }
                     style = {{
-                        background: "pink",
                         left: x,
                         top: y,
                     }}

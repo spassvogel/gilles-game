@@ -44,10 +44,10 @@ class ContextView extends React.Component<AllProps> {
         }
 
         const name = TextManager.getItemName(info.item);
-        return <fieldset className="contextbox">
-            <legend> { name } </legend>
+        return <div className="contextbox">
+            <div>{ name } </div>
             { content }
-        </fieldset>;
+        </div>;
     }
 
     public componentDidUpdate() {

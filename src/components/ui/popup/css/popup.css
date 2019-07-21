@@ -1,5 +1,5 @@
 .popup {
-    background: white;
+    background: #000000;
     position: absolute;
     top: 200px;
     left: 100px;
@@ -9,7 +9,7 @@
 
 
 .popup .popup-arrow {
-    border-color: #FFC107;
+    border-color: #000000;
     width: 0;
     height: 0;
     border-style: solid;
