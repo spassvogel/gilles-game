@@ -67,7 +67,6 @@ export default class ProductionStructureView extends React.Component<AllProps, L
     }
 
     public render() {
-        console.log(" rendering psv");
         const structureDefinition  = structureDefinitions[this.props.type] as ProductionStructureDefinition;
         if (!structureDefinition) {
             throw new Error(`No definition found for structure ${this.props.type}

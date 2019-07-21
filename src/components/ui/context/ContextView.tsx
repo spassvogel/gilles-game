@@ -23,20 +23,16 @@ type AllProps = Props & DispatchProps & PopupProps;
  */
 class ContextView extends React.Component<AllProps> {
 
-    constructor(props: AllProps) {
-        super(props);
-    }
-
     public render() {
         let { info } = this.props;
         const { type } = this.props;
 
         if (!info) {
             info = {
+                iconImg: "/img/items/deeds/deed.png",
                 item: Item.deedForWeaponsmith,
                 itemType: ItemType.weapon,
                 subText: "It allows for the construction of a weaponsmith",
-                iconImg: "/img/items/deeds/deed.png",
             };
         }
         let content;

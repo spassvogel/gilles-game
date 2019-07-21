@@ -7,7 +7,6 @@ import { addLogEntry } from "actions/log";
 import { removeResources } from "actions/resources";
 import { decreaseWorkers, increaseWorkers, upgradeStructure } from "actions/structures";
 import { startTask } from "actions/tasks";
-import { Item } from "definitions/items/types";
 import { ProductionDefinition } from "definitions/production/types";
 import { withAppContext } from "hoc/withAppContext";
 import { calculateProductionTime } from "mechanics/crafting";
@@ -27,7 +26,7 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
         gold: store.gold,
         items: store.items,
         level: structureStore.level,
-        resources: {},//store.resources,
+        resources: store.resources,
         tasks,
         workersFree: selectFreeWorkers(store),
     };

@@ -1,6 +1,5 @@
 import "components/ui/popup/css/popup.css";
 import * as React from "react";
-import Popper from "popper.js";
 
 // Sharing context within the entire App
 export interface PopupProps {
