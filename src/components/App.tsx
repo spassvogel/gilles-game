@@ -8,18 +8,19 @@ import RealTownView from "containers/RealTownView";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
 import { manifest } from "manifest/app";
 import * as React from "react";
+import { DndProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
 import posed, { PoseGroup } from "react-pose";
+import { BrowserRouter as Router, Link, Redirect, Route } from "react-router-dom";
 import { Persistor } from "redux-persist";
 import { Sound, SoundManager } from "utils/soundManager";
+import { TextManager } from "utils/textManager";
 import Topbar from "../containers/Topbar";
 import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
-import { TextManager } from "utils/textManager";
-import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
-import { DndProvider } from "react-dnd";
-import HTML5Backend from "react-dnd-html5-backend";
+import { AppContextProps } from "hoc/withAppContext";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -43,19 +44,14 @@ interface LocalState {
     selectedStructure: Structure | null;
     contextType: ContextType | null;
     contextInfo: ContextInfo | null;
+    contextPosition: { x: number, y: number };
 }
 
 const resolution = {
-    height: 860, //972,
+    height: 860, // 972,
     width: 648,
 };
 
-// Sharing context within the entire App
-export interface AppContextProps {
-    onContextualObjectActivated: (type: ContextType, info: ContextInfo, origin?: EventTarget) => void;
-    onPopupOpened: (name: string) => void;
-    media: MediaItem[];
-}
 export const AppContext = React.createContext<AppContextProps | null>(null);
 
 export default class App extends React.Component<Props & StateProps & DispatchProps, LocalState> {
@@ -70,6 +66,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             contextType: null,
             media: [],
             selectedStructure: null,
+            contextPosition: { x: 20, y: 100 },
         };
         this.containerRef = React.createRef();
 
@@ -112,8 +109,8 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             window.location.reload();
         };
 
-        const contextView = this.state.contextType == null || this.state.contextInfo == null ? null :
-        <ContextView type = { this.state.contextType }  info = { this.state.contextInfo }/>;
+        /*const contextView = this.state.contextType == null || this.state.contextInfo == null ? null :
+        <ContextView type = { this.state.contextType }  info = { this.state.contextInfo }/>;*/
 
         const getAdventurersBox = () => {
             return <AdventurersBox />;
@@ -168,11 +165,10 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     <Route path="/town" component = { TownView } />
                     <Route path="/world" component = { WorldView } />
                 <div className="app-right">
-                    { contextView }
                     { getAdventurersBox() }
                 <CheatBox />
                 </div>
-                <ContextView type = { this.state.contextType }  info = { this.state.contextInfo }/>
+                <ContextView type = { this.state.contextType }  info = { this.state.contextInfo } position = { this.state.contextPosition }></ContextView>
                 <SimpleLog/>
                 </Preloader>
                 </Router>
@@ -191,8 +187,8 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
     }
 
     private updateDimensions() {
-        if(this.containerRef.current) {
-            if (window.innerHeight < resolution.height){
+        if (this.containerRef.current) {
+            if (window.innerHeight < resolution.height) {
                 this.containerRef.current.style.transform = `scale(${window.innerHeight / resolution.height}) translateX(-50%)`;
 
             } else {
@@ -228,17 +224,42 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         });
     }
 
-    private handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin?: EventTarget) => {
-//      var rect = (origin as HTMLElement).getBoundingClientRect();
-//      console.log ({x:rect.left,y:rect.top});
-        // todo: 20/07/2019 contextual popup
-        this.setState({
-             contextInfo: info,
-             contextType: type,
-        });
+    public componentDidUpdate() {
+        // if (this.containerRef.current && this.state.origin) {
+        //     const origin = this.state.origin;
+        //     const reference = origin as Element;
+        //     //const contentBox = this.containerRef.current.querySelector(".contentbox")!;
+        //     const contentBox = this.containerRef.current.childNodes[8] as Element;
+        //     //const contentBox = this.contextRef.current as unknown as  Element;
+        //     console.log(contentBox)
+        //     var rect = (origin as HTMLElement).getBoundingClientRect();
+        //     console.log ({x:rect.left,y:rect.top});
+    
+        //     //const popperInstance = new Popper(reference, contentBox);
+        // }
+    }
+
+    private handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: ClientRect) => {
+
+        if (this.containerRef.current) {
+            const parentBox = this.containerRef.current.getBoundingClientRect();
+
+            // position bottom, centered
+            const position = {
+                x: origin.left - parentBox.left + (origin.width / 2),
+                y: origin.top - parentBox.top + (origin.height),
+            };
+
+            // todo: 20/07/2019 contextual popup
+            this.setState({
+                contextInfo: info,
+                contextType: type,
+                contextPosition: position,
+            });
+        }
     }
 
     private handlePopupOpened = (name: string) => {
-        console.log("opened " + name)
+        console.log("opened " + name);
     }
 }

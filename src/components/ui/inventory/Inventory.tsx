@@ -1,10 +1,9 @@
-import {AppContextProps} from "components/App";
 import DraggableItemIcon, {InventoryItemDragInfo} from "components/ui/DraggableItemIcon";
 import { ContextType } from "constants/context";
 import { DragSourceType } from "constants/dragging";
 import itemDefinitions from "definitions/items";
 import {Item} from "definitions/items/types";
-import {withAppContext} from "hoc/withAppContext";
+import { AppContextProps, withAppContext } from "hoc/withAppContext";
 import * as React from "react";
 import "./css/inventory.css";
 import InventorySlot from "./InventorySlot";
@@ -39,10 +38,11 @@ const Inventory = (props: Props & AppContextProps) => {
 
         if (item) {
             const handleClick = (event: React.MouseEvent) => {
+                const origin = (event.currentTarget as HTMLElement).getBoundingClientRect();
                 props.onContextualObjectActivated(
                     ContextType.item,
                     itemDefinitions[item],
-                    event.currentTarget
+                    origin,
                 );
            };
 
@@ -57,9 +57,9 @@ const Inventory = (props: Props & AppContextProps) => {
        }
 
         const slot = <InventorySlot
-            key= {`inventory-slot-${i}`}
-            empty={contents === undefined}
-            onDrop={handleDrop}>
+            key = {`inventory-slot-${i}`}
+            empty = {contents === undefined}
+            onDrop = {handleDrop}>
                 {contents}
         </InventorySlot>;
         slots.push(slot);

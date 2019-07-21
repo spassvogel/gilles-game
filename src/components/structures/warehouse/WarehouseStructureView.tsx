@@ -1,13 +1,13 @@
+import Inventory from "components/ui/inventory/Inventory";
 import ResourcesBox from "components/ui/resources/ResourcesBox";
 import { DragSourceType } from "constants/dragging";
 import { Item } from "definitions/items/types";
 import structureDefinitions, {  Structure  } from "definitions/structures";
 import { StructureDefinition, StructureLevelDefinition } from "definitions/structures/types";
+import { AppContextProps } from "hoc/withAppContext";
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
 import { TextManager } from "utils/textManager";
-import { AppContextProps } from "../../App";
-import Inventory from "../../ui/inventory/Inventory";
 import "./css/warehousestructureview.css";
 
 export interface DispatchProps {

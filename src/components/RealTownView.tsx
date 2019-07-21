@@ -1,4 +1,5 @@
 import structureDefinitions, { Structure  } from "definitions/structures";
+import { AppContextProps } from "hoc/withAppContext";
 import Konva from "konva";
 import * as React from "react";
 import { Image, Layer, Stage, Text } from "react-konva";
@@ -6,7 +7,6 @@ import { StructureState, StructureStoreState } from "stores/structure";
 import { StructuresStoreState } from "stores/structures";
 import { MusicTrack, SoundManager } from "utils/soundManager";
 import { TextManager } from "utils/textManager";
-import { AppContextProps } from "./App";
 import "./css/townView.css";
 import SmokeEmitter from "./effects/SmokeEmitter";
 

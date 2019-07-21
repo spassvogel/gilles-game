@@ -1,8 +1,8 @@
-import * as React from "react";
-import { AppContextProps } from "components/App";
 import DraggableAdventurerAvatar, { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvatar";
 import structureDefinitions, { Structure } from "definitions/structures";
 import { TavernStructureDefinition, TavernStructureLevelDefinition } from "definitions/structures/types";
+import { AppContextProps } from "hoc/withAppContext";
+import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 import { TextManager } from "utils/textManager";

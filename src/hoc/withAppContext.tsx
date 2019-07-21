@@ -1,5 +1,15 @@
-import { AppContext, AppContextProps } from "components/App";
+import { MediaItem } from "components/preloading/Preloader";
+import { ContextInfo, ContextType } from "constants/context";
 import * as React from "react";
+import { AppContext } from "components/App";
+
+// Sharing context within the entire App
+export interface AppContextProps {
+    onContextualObjectActivated: (type: ContextType, info: ContextInfo, origin: ClientRect) => void;
+    onPopupOpened: (name: string) => void;
+    media: MediaItem[];
+}
+
 
 // export const withAppContext = <P extends {}>(Component: React.ComponentType<P>) =>
 // class WithContext extends React.Component<P & AppContextProps> {

@@ -1,4 +1,3 @@
-import * as React from "react";
 import MaterialsCostBox from "containers/ui/context/items/MaterialsCostBox";
 import ResourcesCostBox from "containers/ui/resources/ResourcesCostBox";
 import itemDefinitions from "definitions/items";
@@ -6,12 +5,13 @@ import { Item, ItemDefinition } from "definitions/items/types";
 import { ProductionDefinition } from "definitions/production/types";
 import structureDefinitions, { Structure } from "definitions/structures";
 import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from "definitions/structures/types";
+import { AppContextProps } from "hoc/withAppContext";
 import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "mechanics/crafting";
+import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
 import { TaskStoreState } from "stores/task";
 import { TextManager } from "utils/textManager";
 import { formatDuration } from "utils/time";
-import { AppContextProps } from "../App";
 import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
@@ -24,7 +24,7 @@ export interface DispatchProps {
 
 export interface StateProps {
     resources: ResourceStoreState;
-    items: (Item | null)[];  // items in inventory
+    items: Array<Item | null>;  // items in inventory
     level: number;
     workersFree: number;
     gold: number;
@@ -67,7 +67,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
     }
 
     public render() {
-        console.log(" rendering psv")
+        console.log(" rendering psv");
         const structureDefinition  = structureDefinitions[this.props.type] as ProductionStructureDefinition;
         if (!structureDefinition) {
             throw new Error(`No definition found for structure ${this.props.type}
