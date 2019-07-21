@@ -54,12 +54,12 @@ class DraggableItemIcon extends React.Component<Props & CollectedProps > {
 
     public render() {
         const { item, onClick, isDragging, connectDragSource } = this.props;
-        
+
         const handleClick = (event: React.MouseEvent) => {
-            if (onClick){
+            if (onClick) {
                 onClick(event);
             }
-        }
+        };
         if (isDragging) {
             // TODO: can show some sort of empty state?
             return null;

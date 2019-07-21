@@ -34,24 +34,30 @@ const Inventory = (props: Props & AppContextProps) => {
                 const {inventorySlot: fromSlot} = dragInfo;
                 props.onDropItem(dragInfo.item, fromSlot!, i, dragInfo.sourceType, dragInfo.sourceId);
            }
-       };
+        };
 
         if (item) {
+            const itemRef: React.RefObject<any> = React.createRef();
             const handleClick = (event: React.MouseEvent) => {
-                const origin = (event.currentTarget as HTMLElement).getBoundingClientRect();
+                const origin = (event.currentTarget as HTMLElement);
+                const originRect = origin.getBoundingClientRect();
+
                 props.onContextualObjectActivated(
                     ContextType.item,
                     itemDefinitions[item],
-                    origin,
+                    itemRef,
+                    originRect,
                 );
+                event.stopPropagation();
            };
 
             contents = <DraggableItemIcon
-                index = {i}
-                sourceId = {props.sourceId}
-                sourceType = {props.sourceType}
-                item = {item}
+                index = { i }
+                sourceId = { props.sourceId }
+                sourceType = { props.sourceType }
+                item = { item }
                 onClick = { handleClick }
+                ref = { itemRef }
             >
             </DraggableItemIcon>;
        }

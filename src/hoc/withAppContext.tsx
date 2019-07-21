@@ -1,15 +1,14 @@
+import { AppContext } from "components/App";
 import { MediaItem } from "components/preloading/Preloader";
 import { ContextInfo, ContextType } from "constants/context";
 import * as React from "react";
-import { AppContext } from "components/App";
 
 // Sharing context within the entire App
 export interface AppContextProps {
-    onContextualObjectActivated: (type: ContextType, info: ContextInfo, origin: ClientRect) => void;
+    onContextualObjectActivated: (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => void;
     onPopupOpened: (name: string) => void;
     media: MediaItem[];
 }
-
 
 // export const withAppContext = <P extends {}>(Component: React.ComponentType<P>) =>
 // class WithContext extends React.Component<P & AppContextProps> {
@@ -41,4 +40,4 @@ export const withAppContext = <TWrappedComponentProps extends AppContextProps>(W
             );
         }
     };
-}
+};

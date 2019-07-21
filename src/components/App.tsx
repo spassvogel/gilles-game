@@ -6,6 +6,7 @@ import SimpleLog from "containers/log/SimpleLog";
 import RealWorldView from "containers/partyScreen/RealWorldView";
 import RealTownView from "containers/RealTownView";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
+import { AppContextProps } from "hoc/withAppContext";
 import { manifest } from "manifest/app";
 import * as React from "react";
 import { DndProvider } from "react-dnd";
@@ -20,7 +21,7 @@ import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
-import { AppContextProps } from "hoc/withAppContext";
+import { Placement } from "hoc/withPopup";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -42,9 +43,11 @@ export interface Props {
 interface LocalState {
     media: MediaItem[];
     selectedStructure: Structure | null;
+
     contextType: ContextType | null;
     contextInfo: ContextInfo | null;
-    contextPosition: { x: number, y: number };
+    contextRect: ClientRect | null;
+    containerRect: ClientRect | null;
 }
 
 const resolution = {
@@ -62,11 +65,12 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         super(props);
 
         this.state = {
+            containerRect: null,
             contextInfo: null,
             contextType: null,
+            contextRect: null,
             media: [],
             selectedStructure: null,
-            contextPosition: { x: 20, y: 100 },
         };
         this.containerRef = React.createRef();
 
@@ -128,6 +132,20 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         const TownView = ()  => <RealTownView onStructureClick = { this.selectStructure } />;
         const WorldView = () => <RealWorldView/>;
 
+        // A contextual popup showing what you just clicked. Can be an Item
+        let ContextPopup = null;
+        if (this.state.containerRect && this.state.contextRect) {
+
+            ContextPopup = <ContextView
+                type = { this.state.contextType }
+                info = { this.state.contextInfo }
+                containerRect = { this.state.containerRect }
+                referenceRect = { this.state.contextRect }
+                placement = { Placement.top }
+            >
+            </ContextView>;
+        }
+
         return <AppContext.Provider value = {{
             media: this.state.media,
             onContextualObjectActivated: this.handleContextualObjectActivated,
@@ -139,6 +157,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     width: resolution.width,
                     height: resolution.height,
                 }}
+                onClick = { this.handleAppClick }
             >
                 <DndProvider backend={ HTML5Backend }>
                 <Router>
@@ -168,7 +187,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     { getAdventurersBox() }
                 <CheatBox />
                 </div>
-                <ContextView type = { this.state.contextType }  info = { this.state.contextInfo } position = { this.state.contextPosition }></ContextView>
+                { ContextPopup }
                 <SimpleLog/>
                 </Preloader>
                 </Router>
@@ -194,6 +213,10 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             } else {
                 this.containerRef.current.style.transform = `scale(1) translateX(-50%)`;
             }
+            const parentBox = this.containerRef.current.getBoundingClientRect();
+            this.setState({
+                containerRect: parentBox,
+            });
         }
     }
 
@@ -224,39 +247,20 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         });
     }
 
-    public componentDidUpdate() {
-        // if (this.containerRef.current && this.state.origin) {
-        //     const origin = this.state.origin;
-        //     const reference = origin as Element;
-        //     //const contentBox = this.containerRef.current.querySelector(".contentbox")!;
-        //     const contentBox = this.containerRef.current.childNodes[8] as Element;
-        //     //const contentBox = this.contextRef.current as unknown as  Element;
-        //     console.log(contentBox)
-        //     var rect = (origin as HTMLElement).getBoundingClientRect();
-        //     console.log ({x:rect.left,y:rect.top});
-    
-        //     //const popperInstance = new Popper(reference, contentBox);
-        // }
+    private handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => {
+
+        // todo: 20/07/2019 contextual popup
+        this.setState({
+            contextInfo: info,
+            contextType: type,
+            contextRect: originRect,
+        });
     }
 
-    private handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: ClientRect) => {
-
-        if (this.containerRef.current) {
-            const parentBox = this.containerRef.current.getBoundingClientRect();
-
-            // position bottom, centered
-            const position = {
-                x: origin.left - parentBox.left + (origin.width / 2),
-                y: origin.top - parentBox.top + (origin.height),
-            };
-
-            // todo: 20/07/2019 contextual popup
-            this.setState({
-                contextInfo: info,
-                contextType: type,
-                contextPosition: position,
-            });
-        }
+    private handleAppClick = () => {
+        this.setState({
+            contextRect: null
+        });
     }
 
     private handlePopupOpened = (name: string) => {
