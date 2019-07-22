@@ -3,8 +3,8 @@ import * as React from "react";
 import "./css/updownvalue.css";
 
 export interface DispatchProps {
-    onUp?: () => void;
-    onDown?: () => void;
+    onUp?: (e: React.MouseEvent) => void;
+    onDown?: (e: React.MouseEvent) => void;
 }
 export interface Props extends DispatchProps {
     label?: string;
@@ -15,12 +15,12 @@ export interface Props extends DispatchProps {
 }
 
 const UpDownValue = (props: Props) => {
-    const handleUp = () => {
-        if (props.onUp && !props.upDisabled) { props.onUp(); }
+    const handleUp = (e: React.MouseEvent) => {
+        if (props.onUp && !props.upDisabled) { props.onUp(e); }
     };
 
-    const handleDown = () => {
-        if (props.onDown && !props.downDisabled) { props.onDown(); }
+    const handleDown = (e: React.MouseEvent) => {
+        if (props.onDown && !props.downDisabled) { props.onDown(e); }
     };
 
     let displayValue;

@@ -101,10 +101,26 @@ export default class ProductionStructureView extends React.Component<AllProps, L
             const selectedItem = this.state.selectedItem;
 
             return levelDefinition.produces.map((produces) => {
+
+                const handleSelectCraftingItem = (e: React.MouseEvent) => {
+                    e.stopPropagation();
+
+                    /* todo: setting state on the App causes this Component to be remounted. it's react-poses fault
+                    https://github.com/Popmotion/popmotion/issues/820
+                    this.props.onContextualObjectActivated(
+                        ContextType.item,
+                        itemDefinitions[item],
+                    );*/
+
+                    this.setState({
+                        selectedItem: produces.item,
+                    });
+                };
+
                 return <li
-                    key={ `craft${produces.item}`}
-                    onClick={ () => handleSelectCraftingItem(produces.item) }
-                    className={ selectedItem === produces.item ? "selected" : "" }
+                    key = { `craft${produces.item}`}
+                    onClick = { handleSelectCraftingItem }
+                    className = { selectedItem === produces.item ? "selected" : "" }
                 >
                     <ItemIcon item= { produces.item } />
                     { TextManager.getItemName(produces.item) }
@@ -143,22 +159,26 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                 return ` Crafting time: ${formatted}`;
             };
 
-            const handleClick = (productionDefinition: ProductionDefinition) => {
+            const handleClick = (e: React.MouseEvent) => {
+                e.stopPropagation();
+
                 if (this.props.onCraft) {
-                    this.props.onCraft(productionDefinition, this.state.workersAssigned);
+                    this.props.onCraft(produces, this.state.workersAssigned);
                     this.setState({
                         workersAssigned: 0,
                     });
                 }
             };
 
-            const handleUp = () => {
+            const handleUp = (e: React.MouseEvent) => {
+                e.stopPropagation();
                 this.setState({
                     workersAssigned: this.state.workersAssigned + 1,
                 });
             };
 
-            const handleDown = () => {
+            const handleDown = (e: React.MouseEvent) => {
+                e.stopPropagation();
                 this.setState({
                     workersAssigned: this.state.workersAssigned - 1,
                 });
@@ -181,10 +201,10 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                     </div>
                     <div style={ { display: "flex "}}>
                         <UpDownValue
-                            value={ this.state.workersAssigned }
-                            label={ "Workers: " }
-                            onUp={ handleUp }
-                            onDown={ handleDown }
+                            value = { this.state.workersAssigned }
+                            label ={ "Workers: " }
+                            onUp = { handleUp }
+                            onDown = { handleDown }
                             upDisabled={
                                 this.state.workersAssigned >= this.props.workersFree ||
                                 this.state.workersAssigned >= MAX_WORKERS_CRAFTING
@@ -196,8 +216,8 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                     </div>
                     <div>
                         <button
-                            disabled={ disabled }
-                            onClick={ () => handleClick(produces) }>
+                            disabled = { disabled }
+                            onClick = { handleClick }>
                             Craft
                         </button>
                     </div>
@@ -205,18 +225,6 @@ export default class ProductionStructureView extends React.Component<AllProps, L
             );
         };
 
-        const handleSelectCraftingItem = (item: Item) => {
-            /* todo: setting state on the App causes this Component to be remounted. it's react-poses fault
-            https://github.com/Popmotion/popmotion/issues/820
-            this.props.onContextualObjectActivated(
-                ContextType.item,
-                itemDefinitions[item],
-            );*/
-
-            this.setState({
-                selectedItem: item,
-            });
-        };
 
         const createProgressbars = () => {
             const tasks = this.props.tasks || [];

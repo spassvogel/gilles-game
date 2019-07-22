@@ -7,6 +7,7 @@ import RealWorldView from "containers/partyScreen/RealWorldView";
 import RealTownView from "containers/RealTownView";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
 import { AppContextProps } from "hoc/withAppContext";
+import { Placement } from "hoc/withPopup";
 import { manifest } from "manifest/app";
 import * as React from "react";
 import { DndProvider } from "react-dnd";
@@ -21,7 +22,6 @@ import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
-import { Placement } from "hoc/withPopup";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -112,9 +112,6 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             this.props.persistor.purge();
             window.location.reload();
         };
-
-        /*const contextView = this.state.contextType == null || this.state.contextInfo == null ? null :
-        <ContextView type = { this.state.contextType }  info = { this.state.contextInfo }/>;*/
 
         const getAdventurersBox = () => {
             return <AdventurersBox />;
@@ -258,9 +255,11 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
     }
 
     private handleAppClick = () => {
-        this.setState({
-            contextRect: null
-        });
+        if (this.state.contextRect) {
+            this.setState({
+                contextRect: null,
+            });
+        }
     }
 
     private handlePopupOpened = (name: string) => {
