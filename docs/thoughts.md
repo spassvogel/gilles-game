@@ -51,7 +51,7 @@
 [ ] Each screen should get a contexualized help window
 
 30/06/2019 GAME TICK QUEST UPDATE
-[ ] Move gameTick from quest reducer into 'controllers'
+[x] Move gameTick from quest reducer into 'controllers'
 
 07/07/2019 STRUCTURE UPGRADE TIME
 [ ] Upgrading a structure takes time
@@ -83,27 +83,33 @@ The quests should have some sort of resource cost. However we don't want weapons
 [ ] Gear (=apparel+weapons) can have stats requirements (e.g. a minimum amount of STR)
 
 14/07/2019 ROUTER
-[ ] Implement react router for town/world
+[x] Implement react router for town/world
+[ ] Implement react router for structures
 [ ] Can go to resource production structure directly from warehouse
 
 14/07/2019 XP Progression 
 [ ] https://stackoverflow.com/questions/6954874/php-game-formula-to-calculate-a-level-based-on-exp
+[ ] or find RPG framework
 
 14/07/2019 Rooms of tavern
-[ ] figure out how amount of rooms is determined. perhaps by level?
+[x] figure out how amount of rooms is determined. perhaps by level?
 
 15/07/2019 GAME DESIGN: Party speed
 [ ] The speed in which the party progresses in a quest could be determined by the party itself. Perhaps the slowest member?
 
 15/07/2019 CHORE: host on github?
-[ ] Maybe I can host this stuff on github pages. (https://github.com/gitname/react-gh-pages)
-[ ] Probably best to start a new `create-react-app`.
+[x] Maybe I can host this stuff on github pages. (https://github.com/gitname/react-gh-pages)
+[x] Probably best to start a new `create-react-app`.
 
 20/07/2019 contextual popup
-[ ] the contextual info should just pop up over the item that you have clicked
+[x] the contextual info should just pop up over the item that you have clicked
 
 20/07/2019 open popups
 [ ] popups can be opened using withAppContext
 
 20/07/2019 quest view
 [ ] shows latest log message when not in encounter
+
+22/07/2019 OBJECTIVES
+[ ] we could have objectives as a type of achievement / tutorial kinda thing. players would learn about the game
+    and get rewarded when they complete an objective

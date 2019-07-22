@@ -8,7 +8,7 @@ export interface Props extends DispatchProps {
     label?: string;
 }
 
-export default function(props: Props) {
+const Progressbar = (props: Props) => {
     const progress: number = clamp(props.progress || 0, 0, 1);
 
     return (
@@ -17,7 +17,9 @@ export default function(props: Props) {
             <div className="progressbar-info" style= {{ width: `${progress * 100}%`}}>  </div>
         </div>
     );
-}
+};
+
+export default Progressbar;
 
 function clamp(val: number, min: number, max: number): number {
     return val > max ? max : val < min ? min : val;
