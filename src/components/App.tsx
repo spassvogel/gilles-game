@@ -4,9 +4,9 @@ import { Windows } from "constants/ui";
 import AdventurersBox from "containers/AdventurersBox";
 import SimpleLog from "containers/log/SimpleLog";
 import RealWorldView from "containers/partyScreen/RealWorldView";
-import CheatBox from "containers/popups/CheatBox";
 import RealTownView from "containers/RealTownView";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
+import CheatBox from "containers/windows/CheatBox";
 import { AppContextProps } from "hoc/withAppContext";
 import { Placement } from "hoc/withPopup";
 import { manifest } from "manifest/app";
@@ -23,6 +23,7 @@ import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
+import Menu from "./ui/window/windows/Menu";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -151,7 +152,10 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         const commonWindowProps = { onClose: this.handleWindowClosed, backEnabled: false };
         switch (this.state.window) {
             case Windows.cheats:
-                Window = <CheatBox { ...commonWindowProps } title="Cheats" />;
+                Window = <CheatBox { ...commonWindowProps } title = "Cheats" />;
+
+            case Windows.menu:
+                Window = <Menu { ...commonWindowProps } title = "Menu" />;
 
             default:
                 break;

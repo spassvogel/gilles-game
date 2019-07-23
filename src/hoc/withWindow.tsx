@@ -1,6 +1,6 @@
 import "components/ui/window/css/window.css";
-import * as React from "react";
 import Window, { Props } from "components/ui/window/Window";
+import * as React from "react";
 
 export const withWindow = <TWrappedComponentProps extends Props>(WrappedComponent: React.ComponentType<TWrappedComponentProps>) => {
     return class WithWindow extends React.Component<TWrappedComponentProps> {

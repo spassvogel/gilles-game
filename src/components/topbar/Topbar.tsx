@@ -1,4 +1,3 @@
-
 import { Windows } from "constants/ui";
 import Resourcebar from "containers/topbar/Resourcebar";
 import { AppContextProps } from "hoc/withAppContext";
@@ -19,7 +18,7 @@ type AllProps = Props & StateProps & DispatchProps & RouteComponentProps & AppCo
 
 export default function(props: AllProps) {
     const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        props.onWindowOpened(Windows.cheats);
+        props.onWindowOpened(Windows.menu);
     };
     return (
         <div className = "topbar">
