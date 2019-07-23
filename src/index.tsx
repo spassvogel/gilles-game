@@ -18,6 +18,8 @@ import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
 import { TextManager } from "./utils/textManager";
+import { LogChannel } from "stores/logEntry";
+import { Item } from "definitions/items/types";
 
 let interval: NodeJS.Timeout;
 const initGame = async () => {
@@ -53,9 +55,9 @@ const continueGame = (store: any) => {
     console.log(`Continuing existing GILLES-IDLE-GAME (version ${version})`);
 };
 
-const stopGame = () => {
-    clearTimeout(interval);
-};
+// const stopGame = () => {
+//     clearTimeout(interval);
+// };
 
 const runGame = (store: any, persistor: Persistor) => {
     ReactDOM.render(
@@ -65,8 +67,6 @@ const runGame = (store: any, persistor: Persistor) => {
         document.getElementById("root") as HTMLElement,
     );
     registerServiceWorker();
-
-    // TODO: Check HMR: https://github.com/wmonk/create-react-app-typescript/pull/312#issuecomment-385617913
 
     const processCompletedTasks = (tasks: TasksStoreState) => {
         const handleCompletedTask = (task: TaskStoreState) => {
@@ -93,8 +93,7 @@ const runGame = (store: any, persistor: Persistor) => {
 
         processCompletedTasks(state.tasks);
 
-        // store.dispatch(addLogEntry("test-you-have-found-an-item", { item: "sword" }));
-
+        //store.dispatch(addLogEntry("test-you-have-found-an-item", LogChannel.common, { item: Item.teeth }));
     };
 
     interval = setInterval(gameLoop, 2500);

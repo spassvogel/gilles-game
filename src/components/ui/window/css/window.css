@@ -26,6 +26,7 @@
     color: white;
     font-size: 25px;
 }
+
 .window .header h3 {
     height: 32px;    
     flex: 1;
@@ -33,7 +34,6 @@
     line-height: 32px;
     padding-left: 6px;
 }
-
 
 .window .header .close-button {
     background: orange;

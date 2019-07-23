@@ -250,12 +250,14 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
     }
 
     private selectStructure = (structure: Structure | null) => {
+        // could structure be a Window?
         this.setState({
             selectedStructure: structure,
         });
     }
 
     private closeStructureModal = () => {
+        // could structure be a Window?
         this.setState({
             selectedStructure: null,
         });

@@ -34,6 +34,7 @@ interface TabDefinition {
 
 interface LocalState {
     selectedTabId: string;
+    expanded: boolean;
 }
 
 class SimpleLog extends React.Component<AllProps, LocalState> {
@@ -43,6 +44,7 @@ class SimpleLog extends React.Component<AllProps, LocalState> {
 
         this.state = {
             selectedTabId: "all",
+            expanded: false,
         };
     }
 
@@ -93,9 +95,9 @@ class SimpleLog extends React.Component<AllProps, LocalState> {
             </div>;
         };
 
-        return <div className = "log">
-            <ul className = "tabs">
-                {
+        return <div className = { `log ${this.state.expanded ? "expanded" : ""}` }>
+            <div className = "tab-bar">
+                <ul className = "tabs"> {
                     tabs.map((tab) => {
                         return <li
                             key = { tab.tabId }
@@ -104,9 +106,10 @@ class SimpleLog extends React.Component<AllProps, LocalState> {
                         >
                             { tab.label }
                         </li>;
-                    })
-                }
-            </ul>
+                    })}
+                </ul>
+                <div className = "ui-button expand-button" onClick = { () => { this.handleToggleExpand(); } }> { this.state.expanded ? "▼" : "▲"} </div>
+            </div>
             <div className = "log-entries">
                 { logEntries.map((entry) => getLogEntryRow(entry))}
             </div>
@@ -116,6 +119,12 @@ class SimpleLog extends React.Component<AllProps, LocalState> {
     private handleTabClick(tabId: string) {
         this.setState({
             selectedTabId: tabId,
+        });
+    }
+
+    private handleToggleExpand() {
+        this.setState({
+            expanded: !this.state.expanded,
         });
     }
 }
