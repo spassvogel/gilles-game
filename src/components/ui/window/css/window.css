@@ -18,6 +18,13 @@
     background: purple;
     width: 32px;
     height: 32px;
+
+    /** this stuff is for the temp symbol < */
+    line-height: 29px;
+    margin: auto;
+    text-align: center;
+    color: white;
+    font-size: 25px;
 }
 .window .header h3 {
     height: 32px;    
@@ -32,4 +39,16 @@
     background: orange;
     width: 32px;
     height: 32px;
+
+    /** this stuff is for the temp symbol x */
+    line-height: 29px;
+    margin: auto;
+    text-align: center;
+    color: white;
+    font-size: 25px;
+}
+
+/** move to global file */
+.ui-button {
+    cursor: pointer;
 }

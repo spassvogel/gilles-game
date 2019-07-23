@@ -7,7 +7,7 @@ import * as React from "react";
 // Sharing context within the entire App
 export interface AppContextProps {
     onContextualObjectActivated: (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => void;
-    onWindowOpened: (popup: Windows) => void;
+    onOpenWindow: (window: Windows) => void;
     media: MediaItem[];
 }
 

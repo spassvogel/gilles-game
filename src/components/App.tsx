@@ -51,7 +51,7 @@ interface LocalState {
     contextRect: ClientRect | null;
     containerRect: ClientRect | null;
 
-    window: Windows | null;
+    activeWindows: Windows[];
 }
 
 const resolution = {
@@ -75,7 +75,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             contextRect: null,
             media: [],
             selectedStructure: null,
-            window: null,
+            activeWindows: [],
         };
         this.containerRef = React.createRef();
 
@@ -109,7 +109,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             exit: { opacity: 0 },
         });
 
-        const handleViewClick = () => {
+        const handleViewButtonClick = () => {
             SoundManager.playSound(Sound.buttonClick);
         };
 
@@ -124,11 +124,11 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
 
         // Router elements
         const TownButton = () => <Link to="/town">
-            <button onClick= { () => handleViewClick() }> { TextManager.get(`common-view-button-town`) } </button>
+            <button onClick= { () => handleViewButtonClick() }> { TextManager.get(`common-view-button-town`) } </button>
         </Link>;
 
         const WorldButton = () => <Link to="/world">
-            <button onClick= { () => handleViewClick() }> { TextManager.get(`common-view-button-world`) } </button>
+            <button onClick= { () => handleViewButtonClick() }> { TextManager.get(`common-view-button-world`) } </button>
         </Link>;
 
         const TownView = ()  => <RealTownView onStructureClick = { this.selectStructure } />;
@@ -148,23 +148,12 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             </ContextView>;
         }
 
-        let Window = null;
-        const commonWindowProps = { onClose: this.handleWindowClosed, backEnabled: false };
-        switch (this.state.window) {
-            case Windows.cheats:
-                Window = <CheatBox { ...commonWindowProps } title = "Cheats" />;
-
-            case Windows.menu:
-                Window = <Menu { ...commonWindowProps } title = "Menu" />;
-
-            default:
-                break;
-        }
+        const Window = this.getActiveWindow();
 
         return <AppContext.Provider value = {{
             media: this.state.media,
             onContextualObjectActivated: this.handleContextualObjectActivated,
-            onWindowOpened: this.handlePopupOpened,
+            onOpenWindow: this.handlePopupOpened,
         }}>
             <div className = "app"
                 ref = { this.containerRef }
@@ -218,6 +207,31 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
 
     public componentWillUnmount() {
         window.removeEventListener("resize", this.updateDimensions);
+    }
+
+    private getActiveWindow(): React.ReactElement | null {
+        if (!this.state.activeWindows.length) {
+            return null;
+        }
+
+        const topWindow = this.state.activeWindows[this.state.activeWindows.length - 1];
+        const commonWindowProps = {
+            onClose: this.handleWindowClose,
+            onBack: this.handleWindowBack,
+            backEnabled: this.state.activeWindows.length > 1,
+            closeEnabled: true,
+        };
+
+        switch (topWindow) {
+            case Windows.cheats:
+                return <CheatBox { ...commonWindowProps } title = "Cheats" />;
+
+            case Windows.menu:
+                return <Menu { ...commonWindowProps } title = "Menu" />;
+
+            default:
+                return null;
+        }
     }
 
     private updateDimensions() {
@@ -280,15 +294,34 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         }
     }
 
-    private handlePopupOpened = (popup: Windows) => {
+    private handlePopupOpened = (window: Windows) => {
         this.setState({
-            window: popup,
+            activeWindows: [
+                ...this.state.activeWindows,
+                window,
+            ],
         });
     }
 
-    private handleWindowClosed = () => {
-        this.setState({
-            window: null,
-        });
+    /**
+     * Closes all windows
+     */
+    private handleWindowClose = () => {
+        if (this.state.activeWindows.length) {
+            this.setState({
+                activeWindows: [],
+            });
+        }
+    }
+
+    /**
+     * Closes the top window of the stack
+     */
+    private handleWindowBack = () => {
+        if (this.state.activeWindows.length) {
+            this.setState({
+                activeWindows: this.state.activeWindows.slice(0, -1),
+            });
+        }
     }
 }

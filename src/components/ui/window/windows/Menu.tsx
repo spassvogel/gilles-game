@@ -1,18 +1,10 @@
-// TODO: Better name than this
-
-import { getDefinition } from "definitions/items";
-import { Item, ItemType } from "definitions/items/types";
-import structureDefinitions, { Structure  } from "definitions/structures";
-import * as React from "react";
-import { ResourceStoreState } from "stores/resources";
-import { StructureState, StructureStoreState } from "stores/structure";
-import { StructuresStoreState } from "stores/structures";
-import { TextManager } from "utils/textManager";
-import "./css/cheatbox.css";
-import { withWindow } from "hoc/withWindow";
 import { Props as WindowProps } from "components/ui/window/Window";
+import { Windows } from "constants/ui";
+import { AppContextProps, withAppContext } from "hoc/withAppContext";
+import { withWindow } from "hoc/withWindow";
+import * as React from "react";
 import { compose } from "redux";
-import { withAppContext } from "hoc/withAppContext";
+import "./css/cheatbox.css";
 
 export interface DispatchProps {
 }
@@ -28,9 +20,9 @@ interface LocalState {
 }
 
 type AllProps = Props & StateProps & DispatchProps & WindowProps;
-class Menu extends React.Component<AllProps, LocalState> {
+class Menu extends React.Component<AllProps & AppContextProps, LocalState> {
 
-    constructor(props: AllProps) {
+    constructor(props: AllProps & AppContextProps) {
         super(props);
 
         this.state = {
@@ -39,9 +31,14 @@ class Menu extends React.Component<AllProps, LocalState> {
 
     public render() {
 
-       return (
+        const handleClickCheats = () => {
+            this.props.onOpenWindow(Windows.cheats);
+        };
+        return (
             <div className="menu">
-                asb
+                <ul>
+                    <li onClick = { handleClickCheats }>Cheats!</li>
+                </ul>
             </div>
         );
     }

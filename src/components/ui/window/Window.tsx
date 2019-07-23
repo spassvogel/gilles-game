@@ -30,12 +30,12 @@ const Window: React.FunctionComponent<AllProps> = (props) => {
 
     let BackButton = null;
     if (props.backEnabled !== false) {
-        BackButton = <div className = "back-button" onClick = { handleBack }></div>;
+        BackButton = <div className = "ui-button back-button" onClick = { handleBack } > { "<" } </div>;
     }
 
     let CloseButton = null;
     if (props.closeEnabled !== false) {
-        CloseButton = <div className = "close-button" onClick = { handleClose }></div>;
+        CloseButton = <div className = "ui-button close-button" onClick = { handleClose }>x</div>;
     }
 
     return <div className = "window">

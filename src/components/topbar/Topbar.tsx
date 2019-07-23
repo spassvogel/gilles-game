@@ -18,7 +18,7 @@ type AllProps = Props & StateProps & DispatchProps & RouteComponentProps & AppCo
 
 export default function(props: AllProps) {
     const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        props.onWindowOpened(Windows.menu);
+        props.onOpenWindow(Windows.menu);
     };
     return (
         <div className = "topbar">
