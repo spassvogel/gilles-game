@@ -71,7 +71,7 @@ export abstract class TextManager {
     }
 }
 
-Handlebars.registerHelper("item:name", (item: string, article?: string) => {
+Handlebars.registerHelper("item:name", (item: Item, article?: string) => {
     if (!itemDefinitions[item]) {
         return new Handlebars.SafeString(`<<ITEM DEFINITION NOT FOUND: ${item}>>`);
     }
@@ -93,18 +93,18 @@ Handlebars.registerHelper("structure:name", (structure: string) => {
     return new Handlebars.SafeString(name);
 });
 
-const itemArticleAuto = (item: string) => {
+const itemArticleAuto = (item: Item) => {
     return itemArticleUndefined(item);
 };
 
-const itemArticleUndefined = (item: string) => {
-    const name = itemDefinitions[item].name;
+const itemArticleUndefined = (item: Item) => {
+    const name = TextManager.getItemName(item);
     const articleTemplate = TextManager.getTemplate("common-article-undefined");
     return new Handlebars.SafeString(`${articleTemplate({ noun: name})}`);
 };
 
-const itemArticleDefined = (item: string) => {
-    const name = itemDefinitions[item].name;
+const itemArticleDefined = (item: Item) => {
+    const name = TextManager.getItemName(item);
     const articleTemplate = TextManager.getTemplate("common-article-defined");
     return new Handlebars.SafeString(`${articleTemplate({ noun: name})}`);
 };
