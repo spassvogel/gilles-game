@@ -1,0 +1,35 @@
+.window {
+    background: #000000;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.window .header {
+    background: white;
+    display: flex;
+    height: 32px;
+}
+
+.window .header .back-button {
+    background: purple;
+    width: 32px;
+    height: 32px;
+}
+.window .header h3 {
+    height: 32px;    
+    flex: 1;
+    margin: 0;
+    line-height: 32px;
+    padding-left: 6px;
+}
+
+
+.window .header .close-button {
+    background: orange;
+    width: 32px;
+    height: 32px;
+}

@@ -1,12 +1,13 @@
 import { AppContext } from "components/App";
 import { MediaItem } from "components/preloading/Preloader";
 import { ContextInfo, ContextType } from "constants/context";
+import { Windows } from "constants/ui";
 import * as React from "react";
 
 // Sharing context within the entire App
 export interface AppContextProps {
     onContextualObjectActivated: (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => void;
-    onPopupOpened: (name: string) => void;
+    onWindowOpened: (popup: Windows) => void;
     media: MediaItem[];
 }
 

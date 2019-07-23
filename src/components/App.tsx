@@ -1,9 +1,10 @@
 // tslint:disable: object-literal-sort-keys
 import { ContextInfo, ContextType } from "constants/context";
+import { Windows } from "constants/ui";
 import AdventurersBox from "containers/AdventurersBox";
-import CheatBox from "containers/CheatBox";
 import SimpleLog from "containers/log/SimpleLog";
 import RealWorldView from "containers/partyScreen/RealWorldView";
+import CheatBox from "containers/popups/CheatBox";
 import RealTownView from "containers/RealTownView";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
 import { AppContextProps } from "hoc/withAppContext";
@@ -48,6 +49,8 @@ interface LocalState {
     contextInfo: ContextInfo | null;
     contextRect: ClientRect | null;
     containerRect: ClientRect | null;
+
+    window: Windows | null;
 }
 
 const resolution = {
@@ -71,6 +74,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             contextRect: null,
             media: [],
             selectedStructure: null,
+            window: null,
         };
         this.containerRef = React.createRef();
 
@@ -143,12 +147,22 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             </ContextView>;
         }
 
+        let Window = null;
+        const commonWindowProps = { onClose: this.handleWindowClosed, backEnabled: false };
+        switch (this.state.window) {
+            case Windows.cheats:
+                Window = <CheatBox { ...commonWindowProps } title="Cheats" />;
+
+            default:
+                break;
+        }
+
         return <AppContext.Provider value = {{
             media: this.state.media,
             onContextualObjectActivated: this.handleContextualObjectActivated,
-            onPopupOpened: this.handlePopupOpened,
+            onWindowOpened: this.handlePopupOpened,
         }}>
-            <div className="app"
+            <div className = "app"
                 ref = { this.containerRef }
                 style = {{
                     width: resolution.width,
@@ -182,8 +196,8 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     <Route path="/world" component = { WorldView } />
                 <div className="app-right">
                     { getAdventurersBox() }
-                <CheatBox />
                 </div>
+                { Window }
                 { ContextPopup }
                 <SimpleLog/>
                 </Preloader>
@@ -262,7 +276,15 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         }
     }
 
-    private handlePopupOpened = (name: string) => {
-        console.log("opened " + name);
+    private handlePopupOpened = (popup: Windows) => {
+        this.setState({
+            window: popup,
+        });
+    }
+
+    private handleWindowClosed = () => {
+        this.setState({
+            window: null,
+        });
     }
 }

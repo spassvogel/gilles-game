@@ -1,12 +1,9 @@
+/* todo: rename to something different, like tinypopup */
 .popup {
     background: #000000;
     position: absolute;
-    top: 200px;
-    left: 100px;
     z-index: 3;
 }
-
-
 
 .popup .popup-arrow {
     border-color: #000000;

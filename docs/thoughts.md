@@ -113,3 +113,7 @@ The quests should have some sort of resource cost. However we don't want weapons
 22/07/2019 OBJECTIVES
 [ ] we could have objectives as a type of achievement / tutorial kinda thing. players would learn about the game
     and get rewarded when they complete an objective
+
+
+23/06/2019 POPUPS CAN FLIP
+[ ] popups should try to position themselves and if there is no space, flip

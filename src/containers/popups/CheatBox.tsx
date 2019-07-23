@@ -3,11 +3,13 @@ import { addGold } from "actions/gold";
 import { addItemToWarehouse } from "actions/items";
 import { addResources } from "actions/resources";
 import { setStructureState } from "actions/structures";
-import CheatBox, { DispatchProps, Props, StateProps } from "components/CheatBox";
+import CheatBox, { DispatchProps, Props, StateProps } from "components/popups/CheatBox";
+import { Props as WindowProps } from "components/ui/window/Window";
 import { Item } from "definitions/items/types";
 import { Structure } from "definitions/structures";
+import { withWindow } from "hoc/withWindow";
 import { connect } from "react-redux";
-import { AnyAction, Dispatch } from "redux";
+import { AnyAction, compose, Dispatch } from "redux";
 import { StoreState } from "stores";
 import { ResourceStoreState } from "stores/resources";
 import { StructureState } from "stores/structure";
@@ -28,4 +30,7 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
     };
 };
 
-export default connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps)(CheatBox);
+export default compose(
+    connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
+    withWindow,
+)(CheatBox) as React.ComponentType<Props & WindowProps>;

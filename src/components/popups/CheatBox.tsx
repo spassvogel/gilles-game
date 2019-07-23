@@ -102,7 +102,6 @@ class CheatBox extends React.Component<AllProps, LocalState> {
 
         return (
             <div className="cheat-box">
-                <h3>CHEATS</h3>
                 <div className="label-numberbox-button">
                     <label>Gold</label>
                     <input type="number"

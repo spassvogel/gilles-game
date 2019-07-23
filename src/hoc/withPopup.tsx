@@ -62,7 +62,7 @@ export const withPopup = <TWrappedComponentProps extends PopupProps>(WrappedComp
             );
         }
 
-
+        // todo: 23/06/2019 flip
         public componentDidUpdate() {
            // console.log(this.props.originRef)
             // if(this.popupRef && this.props.originRef.current) {
@@ -86,8 +86,7 @@ export const withPopup = <TWrappedComponentProps extends PopupProps>(WrappedComp
 /*                var popper = new Popper(origin2, origin, {
                     placement: 'right'
                 });
-             
-            }*/  
+            }*/
         }
     };
 };
