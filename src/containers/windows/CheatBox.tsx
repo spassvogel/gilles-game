@@ -13,6 +13,9 @@ import { AnyAction, compose, Dispatch } from "redux";
 import { StoreState } from "stores";
 import { ResourceStoreState } from "stores/resources";
 import { StructureState } from "stores/structure";
+import { addLogEntry } from "actions/log";
+import { LogChannel } from "stores/logEntry";
+import { resourceOrder } from "constants/resources";
 
 const mapStateToProps = (store: StoreState): StateProps => {
     return {
@@ -22,11 +25,29 @@ const mapStateToProps = (store: StoreState): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
     return {
-        onCheatGold: (amount: number) => dispatch(addGold(amount)),
-        onCheatItem: (item: Item) => dispatch(addItemToWarehouse(item)),
-        onCheatResources: (amount: ResourceStoreState) => dispatch(addResources(amount)),
+        onCheatGold: (amount: number) => {
+            dispatch(addGold(amount));
+            dispatch(addLogEntry("common-cheat-gold-added", LogChannel.common, { amount }));
+        },
+        onCheatItem: (item: Item) => {
+            dispatch(addItemToWarehouse(item));
+            dispatch(addLogEntry("common-cheat-item-added", LogChannel.common, { item }));
+        },
+        onCheatResources: (amount: number) => {
+            // Create ResourceStoreState where value of each resource is `amount`
+            const resources = resourceOrder.reduce((acc: ResourceStoreState, resource) => {
+                acc[resource] = amount;
+                return acc;
+            }, {});
+
+            dispatch(addResources(resources));
+            dispatch(addLogEntry("common-cheat-resources-added", LogChannel.common, { amount }));
+        },
         onCheatStructureState: (structure: Structure, state: StructureState) => dispatch(setStructureState(structure, state)),
-        onCheatWorkers: (amount: number) => dispatch(addWorkers(amount)),
+        onCheatWorkers: (amount: number) => {
+            dispatch(addWorkers(amount));
+            dispatch(addLogEntry("common-cheat-workers-added", LogChannel.common, { amount }));
+        },
     };
 };
 

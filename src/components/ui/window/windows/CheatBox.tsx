@@ -13,7 +13,7 @@ import "./css/cheatbox.css";
 export interface DispatchProps {
     onCheatGold?: (amount: number) => void;
     onCheatWorkers?: (amount: number) => void;
-    onCheatResources?: (amount: ResourceStoreState) => void;
+    onCheatResources?: (amount: number) => void;
     onCheatItem?: (item: Item) => void;
     onCheatStructureState?: (structure: Structure, state: StructureState) => void;
 }
@@ -152,14 +152,7 @@ class CheatBox extends React.Component<AllProps, LocalState> {
     }
 
     private handleCheatResources = (evt: React.MouseEvent<HTMLButtonElement>) => {
-        const amount: ResourceStoreState = {
-            food: this.state.resources,
-            iron: this.state.resources,
-            leather: this.state.resources,
-            wood: this.state.resources,
-        };
-
-        if (this.props.onCheatResources) { this.props.onCheatResources(amount); }
+        if (this.props.onCheatResources) { this.props.onCheatResources(this.state.resources); }
     }
 
     private handleCheatItem = (evt: React.MouseEvent<HTMLButtonElement>) => {
