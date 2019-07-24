@@ -120,3 +120,7 @@ The quests should have some sort of resource cost. However we don't want weapons
 24/06/2019 BUTTON COMPONENTS
 [ ] buttons should get their own react component.
 [ ] first identify the different button types
+
+25/07/2019 SCROLLING TABS
+[ ] Tabbar could be scrollable
+    https://stackoverflow.com/questions/18997724/how-to-change-scroll-bar-position-with-css

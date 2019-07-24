@@ -4,6 +4,7 @@
     padding-left: 10px;
     margin: 0;
     flex: 1;
+    display: flex;
 }
 
 .widget-tabstrip .widget-tab  {
@@ -19,6 +20,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer;
+    align-self: flex-end;
 }
 
 .widget-tabstrip .widget-tab.active {
