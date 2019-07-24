@@ -1,5 +1,3 @@
-
-import PartyScreen from "containers/partyScreen/PartyScreen";
 import * as React from "react";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 import { MusicTrack, SoundManager } from "utils/soundManager";
@@ -57,7 +55,6 @@ export default class RealWorldView extends React.Component<AllProps, LocalState>
                 <legend>Quest progress</legend>
                 {questLines}
             </fieldset>
-            { selectedQuest && <PartyScreen quest= { selectedQuest } /> }
         </div>;
     }
 

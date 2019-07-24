@@ -1,8 +1,7 @@
-
 import { moveItemInInventory, moveItemToOtherAdventurer } from "actions/adventurers";
 import { updateEncounterResult } from "actions/quests";
 import { advanceQuest } from "actions/quests";
-import PartyScreen, { DispatchProps, Props, StateProps } from "components/partyScreen/PartyScreen";
+import PartyWindow, { DispatchProps, Props, StateProps } from "components/ui/window/windows/PartyWindow";
 import { withAppContext } from "hoc/withAppContext";
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
@@ -42,4 +41,4 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
 export default compose(
     connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
     withAppContext,
-)(PartyScreen) as React.ComponentType<Props>;
+)(PartyWindow) as React.ComponentType<Props>;

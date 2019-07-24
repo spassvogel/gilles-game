@@ -161,7 +161,13 @@ const retrieveMagicAmulet: QuestDefinition = {
     }],
 };
 
-export default {
+const all = {
     kill10Boars,
     retrieveMagicAmulet,
 };
+
+export default all;
+
+export function getDefinition(quest: string): QuestDefinition {
+    return all[quest];
+}

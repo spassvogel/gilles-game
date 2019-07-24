@@ -1,18 +1,20 @@
-
+import { moveItemInInventory, moveItemToOtherAdventurer } from "actions/adventurers";
+import { updateEncounterResult } from "actions/quests";
+import { advanceQuest } from "actions/quests";
+import { InventoryItemDragInfo } from "components/ui/DraggableItemIcon";
+import DroppableAdventurerAvatar from "components/ui/DroppableAdventurerAvatar";
+import Inventory from "components/ui/inventory/Inventory";
 import { DragSourceType } from "constants/dragging";
-import encounterDefinitions from "definitions/encounters";
+import { getDefinition as getEncounterDefinition } from "definitions/encounters";
 import { EncounterDefinition } from "definitions/encounters/types";
 import { Item } from "definitions/items/types";
-import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "definitions/quests";
+import { getDefinition as getQuestDefinition, QuestDefinition, QuestNode, QuestNodeType } from "definitions/quests";
 import { AppContextProps } from "hoc/withAppContext";
-import * as React from "react";
+import React from "react";
 import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "stores";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStoreState } from "stores/quest";
-import { InventoryItemDragInfo } from "../ui/DraggableItemIcon";
-import DroppableAdventurerAvatar from "../ui/DroppableAdventurerAvatar";
-import Inventory from "../ui/inventory/Inventory";
 import "./css/partyscreen.css";
 
 export interface StateProps {
@@ -39,7 +41,7 @@ interface LocalState {
 type AllProps = Props & StateProps & DispatchProps & AppContextProps;
 
 // export default
-class PartyScreen extends React.Component<AllProps, LocalState> {
+class PartyWindow extends React.Component<AllProps, LocalState> {
 
     // This Component has local state, so it's a class
     constructor(props: AllProps) {
@@ -50,7 +52,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
     }
 
     public render() {
-        const questDefinition: QuestDefinition = questDefinitions[this.props.quest.name];
+        const questDefinition: QuestDefinition = getQuestDefinition[this.props.quest.name];
 
         return (
         <div className="partyscreen">
@@ -171,7 +173,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
             return this.getAdventurerInfo(adventurer);
         } else {
             const quest = this.props.quest;
-            const questDefinition: QuestDefinition = questDefinitions[quest.name];
+            const questDefinition: QuestDefinition = getQuestDefinition(quest.name);
             const progress: number = Math.floor(quest.progress);
             const questNode: QuestNode = questDefinition.nodes[progress];
 
@@ -194,7 +196,7 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
                     //     break;
                     // }
                     const store = this.props.store;
-                    const encounter = encounterDefinitions[quest.currentEncounter!];
+                    const encounter = getEncounterDefinition(quest.currentEncounter!);
                     const oracle = encounter.getOracle(quest.name, store);
 
                     message = <div><p> {encounter.getTitle(oracle)} </p>
@@ -229,4 +231,4 @@ class PartyScreen extends React.Component<AllProps, LocalState> {
     }
 }
 
-export default (PartyScreen);
+export default PartyWindow;
