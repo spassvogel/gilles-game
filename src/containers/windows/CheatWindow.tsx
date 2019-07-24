@@ -5,7 +5,7 @@ import { addLogEntry } from "actions/log";
 import { addResources } from "actions/resources";
 import { setStructureState } from "actions/structures";
 import { Props as WindowProps } from "components/ui/window/Window";
-import CheatBox, { DispatchProps, Props, StateProps } from "components/ui/window/windows/CheatBox";
+import CheatWindow, { DispatchProps, Props, StateProps } from "components/ui/window/windows/CheatWindow";
 import { resourceOrder } from "constants/resources";
 import { Item } from "definitions/items/types";
 import { Structure } from "definitions/structures";
@@ -54,4 +54,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
 export default compose(
     connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
     withWindow,
-)(CheatBox) as React.ComponentType<Props & WindowProps>;
+)(CheatWindow) as React.ComponentType<Props & WindowProps>;

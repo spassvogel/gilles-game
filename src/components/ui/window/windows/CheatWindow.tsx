@@ -1,5 +1,3 @@
-// TODO: Better name than this
-
 import { getDefinition } from "definitions/items";
 import { Item, ItemType } from "definitions/items/types";
 import structureDefinitions, { Structure  } from "definitions/structures";
@@ -33,7 +31,7 @@ interface LocalState {
 }
 
 type AllProps = Props & StateProps & DispatchProps;
-class CheatBox extends React.Component<AllProps, LocalState> {
+class CheatWindow extends React.Component<AllProps, LocalState> {
 
     private itemSelectRef: React.RefObject<HTMLSelectElement>;
     /**
@@ -188,4 +186,4 @@ class CheatBox extends React.Component<AllProps, LocalState> {
     }
 }
 
-export default CheatBox;
+export default CheatWindow;

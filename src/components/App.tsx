@@ -6,7 +6,7 @@ import SimpleLog from "containers/log/SimpleLog";
 import RealWorldView from "containers/partyScreen/RealWorldView";
 import RealTownView from "containers/RealTownView";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
-import CheatBox from "containers/windows/CheatBox";
+import CheatBox from "containers/windows/CheatWindow";
 import { AppContextProps } from "hoc/withAppContext";
 import { Placement } from "hoc/withPopup";
 import { manifest } from "manifest/app";
