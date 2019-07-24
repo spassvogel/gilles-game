@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from 'react';
+import React, { useState } from 'react';
 import "./css/tabstrip.css";
 import { Props as TabProps } from "./Tab";
 
