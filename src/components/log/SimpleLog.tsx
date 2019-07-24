@@ -1,9 +1,10 @@
-
 import SquareIconButton from "components/widgets/SquareIconButton";
 import * as React from "react";
 import { LogChannel, LogEntry } from "stores/logEntry";
 import { TextManager } from "utils/textManager";
 import "./css/simplelog.css";
+import Tabstrip from "components/widgets/Tabstrip";
+import Tab from "components/widgets/Tab";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -20,15 +21,15 @@ export interface DispatchProps {
 
 type AllProps = Props & StateProps & DispatchProps;
 
-enum TabType {
+enum ChannelType {
     all,
     town,
     quest,
 }
 
-interface TabDefinition {
+interface ChannelDefinition {
     label: string;
-    tabType: TabType;
+    tabType: ChannelType;
     tabId: string;
     context?: string;
 }
@@ -51,39 +52,39 @@ class SimpleLog extends React.Component<AllProps, LocalState> {
 
     public render() {
 
-        const tabs: TabDefinition[] = [{
+        const channels: ChannelDefinition[] = [{
             label: TextManager.get("common-log-tab-all"),
             tabId: "all",
-            tabType: TabType.all,
+            tabType: ChannelType.all,
         }, {
             label: TextManager.get("common-log-tab-town"),
             tabId: "town",
-            tabType: TabType.town,
+            tabType: ChannelType.town,
         }];
 
         this.props.questNames.forEach((questName) => {
-            tabs.push({
+            channels.push({
                 context: questName,
                 label: TextManager.getQuestTitle(questName),
                 tabId: `quest-${questName}`,
-                tabType: TabType.quest,
+                tabType: ChannelType.quest,
             });
         });
 
         let logEntries: LogEntry[] = [];
-        const currentTab = tabs.find((t) => t.tabId === this.state.selectedTabId)!;
+        const currentTab = channels.find((t) => t.tabId === this.state.selectedTabId)!;
         switch (currentTab.tabType) {
-            case TabType.all:
+            case ChannelType.all:
                 // All the things
                 logEntries = this.props.logEntries;
                 break;
 
-            case TabType.town:
+            case ChannelType.town:
                 // Only town
                 logEntries = this.props.logEntries.filter((lE) => lE.channel === LogChannel.town);
                 break;
 
-            case TabType.quest:
+            case ChannelType.quest:
                 // Only the selected quest
                 logEntries = this.props.logEntries.filter((lE) => lE.channel === LogChannel.quest && lE.context === currentTab.context);
                 break;
@@ -96,19 +97,15 @@ class SimpleLog extends React.Component<AllProps, LocalState> {
             </div>;
         };
 
+        const Tabs = channels.map((tab) => { 
+            return <Tab label =  { tab.label } id = { tab.tabId } key = { tab.tabId } ></Tab>
+        })
+
         return <div className = { `log ${this.state.expanded ? "expanded" : ""}` }>
             <div className = "tab-bar">
-                <ul className = "tabs"> {
-                    tabs.map((tab) => {
-                        return <li
-                            key = { tab.tabId }
-                            className = { this.state.selectedTabId === tab.tabId ? "active" : "" }
-                            onClick = { () => this.handleTabClick(tab.tabId) }
-                        >
-                            { tab.label }
-                        </li>;
-                    })}
-                </ul>
+                <Tabstrip className = "tabs"  onTabSelected = { (tabId: string) => this.handleTabSelected(tabId) } > 
+                    { Tabs }
+                </Tabstrip>
                 <SquareIconButton className = "expand-button" onClick = { () => this.handleToggleExpand() } text = { this.state.expanded ? "▼" : "▲" }/>
             </div>
             <div className = "log-entries">
@@ -117,7 +114,7 @@ class SimpleLog extends React.Component<AllProps, LocalState> {
         </div>;
     }
 
-    private handleTabClick(tabId: string) {
+    private handleTabSelected(tabId: string) {
         this.setState({
             selectedTabId: tabId,
         });

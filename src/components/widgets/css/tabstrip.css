@@ -1,0 +1,26 @@
+.widget-tabstrip {
+    list-style: none;
+    padding: 0;
+    padding-left: 10px;
+    margin: 0;
+    flex: 1;
+}
+
+.widget-tabstrip .widget-tab  {
+    display: inline-block;
+    padding-left: 4px;
+    border: 1px solid green;
+    border-bottom: 0;
+    width: 120px;
+    background: lightgray;
+    overflow: hidden;
+    height: 25px;
+    line-height: 25px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.widget-tabstrip .widget-tab.active {
+    background: white;
+}
