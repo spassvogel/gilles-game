@@ -1,5 +1,6 @@
 import "components/ui/css/common/icon.css";
 import "components/ui/resources/css/resourcesbox.css";
+import SquareIconButton from "components/widgets/SquareIconButton";
 import * as React from "react";
 
 export interface Props {
@@ -30,12 +31,13 @@ const Window: React.FunctionComponent<AllProps> = (props) => {
 
     let BackButton = null;
     if (props.backEnabled !== false) {
-        BackButton = <div className = "ui-button back-button" onClick = { handleBack } > { "<" } </div>;
+         BackButton = <SquareIconButton className = "back-button" onClick = { handleBack } text = "<"/>;
+
     }
 
     let CloseButton = null;
     if (props.closeEnabled !== false) {
-        CloseButton = <div className = "ui-button close-button" onClick = { handleClose }>x</div>;
+        CloseButton = <SquareIconButton className = "close-button" onClick = { handleClose } text = "x"/>;
     }
 
     return <div className = "window">

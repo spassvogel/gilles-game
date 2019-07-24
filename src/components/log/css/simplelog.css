@@ -37,15 +37,6 @@
 
 .log .tab-bar .expand-button {
     background: purple;
-    width: 32px;
-    height: 32px;
-
-    /** this stuff is for the temp symbol < */
-    line-height: 29px;
-    margin: auto;
-    text-align: center;
-    color: white;
-    font-size: 25px;
 }
 
 .log .log-entries {

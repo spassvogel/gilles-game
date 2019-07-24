@@ -48,7 +48,7 @@ const getStructureView = (structure: Structure) => {
     }
 };
 
-export default function(props: AllProps) {
+const StructureDetails = (props: AllProps) => {
     let view;
     const structureState: StructureStoreState = props.structures[props.structure];
     if (structureState.state === StructureState.Building) {
@@ -64,4 +64,6 @@ export default function(props: AllProps) {
         <legend>Structure</legend>
         { view }
     </fieldset>;
-}
+};
+
+export default StructureDetails;

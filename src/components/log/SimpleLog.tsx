@@ -1,4 +1,5 @@
 
+import SquareIconButton from "components/widgets/SquareIconButton";
 import * as React from "react";
 import { LogChannel, LogEntry } from "stores/logEntry";
 import { TextManager } from "utils/textManager";
@@ -43,8 +44,8 @@ class SimpleLog extends React.Component<AllProps, LocalState> {
         super(props);
 
         this.state = {
-            selectedTabId: "all",
             expanded: false,
+            selectedTabId: "all",
         };
     }
 
@@ -108,7 +109,7 @@ class SimpleLog extends React.Component<AllProps, LocalState> {
                         </li>;
                     })}
                 </ul>
-                <div className = "ui-button expand-button" onClick = { () => { this.handleToggleExpand(); } }> { this.state.expanded ? "▼" : "▲"} </div>
+                <SquareIconButton className = "expand-button" onClick = { () => this.handleToggleExpand() } text = { this.state.expanded ? "▼" : "▲" }/>
             </div>
             <div className = "log-entries">
                 { logEntries.map((entry) => getLogEntryRow(entry))}
