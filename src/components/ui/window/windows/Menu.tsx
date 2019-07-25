@@ -5,6 +5,7 @@ import { withWindow } from "hoc/withWindow";
 import * as React from "react";
 import { compose } from "redux";
 import "./css/cheatbox.css";
+import CheatWindow from "containers/windows/CheatWindow";
 
 export interface DispatchProps {
 }
@@ -32,7 +33,8 @@ class Menu extends React.Component<AllProps & AppContextProps, LocalState> {
     public render() {
 
         const handleClickCheats = () => {
-            this.props.onOpenWindow(Windows.cheats);
+            const window = <CheatWindow title = "Cheats" />;
+            this.props.onOpenWindow(window);
         };
         return (
             <div className="menu">

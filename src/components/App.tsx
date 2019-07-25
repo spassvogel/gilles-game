@@ -1,11 +1,9 @@
 // tslint:disable: object-literal-sort-keys
 import { ContextInfo, ContextType } from "constants/context";
-import { Windows } from "constants/ui";
 import AdventurersBox from "containers/AdventurersBox";
 import SimpleLog from "containers/log/SimpleLog";
 import RealTownView from "containers/RealTownView";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
-import CheatBox from "containers/windows/CheatWindow";
 import RealWorldView from "containers/world/RealWorldView";
 import { AppContextProps } from "hoc/withAppContext";
 import { Placement } from "hoc/withPopup";
@@ -23,7 +21,6 @@ import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
-import Menu from "./ui/window/windows/Menu";
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -51,7 +48,7 @@ interface LocalState {
     contextRect: ClientRect | null;
     containerRect: ClientRect | null;
 
-    activeWindows: Windows[];
+    activeWindows: React.ReactElement[];
 }
 
 const resolution = {
@@ -153,7 +150,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         return <AppContext.Provider value = {{
             media: this.state.media,
             onContextualObjectActivated: this.handleContextualObjectActivated,
-            onOpenWindow: this.handlePopupOpened,
+            onOpenWindow: this.handleWindowOpened,
         }}>
             <div className = "app"
                 ref = { this.containerRef }
@@ -222,16 +219,21 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             closeEnabled: true,
         };
 
-        switch (topWindow) {
+        const element = React.cloneElement(topWindow, commonWindowProps);
+        return element;
+        /*switch (topWindow) {
             case Windows.cheats:
-                return <CheatBox { ...commonWindowProps } title = "Cheats" />;
+                return <CheatWindow { ...commonWindowProps } title = "Cheats" />;
 
             case Windows.menu:
                 return <Menu { ...commonWindowProps } title = "Menu" />;
 
+            case Windows.quest:
+                return <PartyWindow { ...commonWindowProps } quest = { this.state.quest } title = "Menu" />;
+
             default:
                 return null;
-        }
+        }*/
     }
 
     private updateDimensions() {
@@ -296,7 +298,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         }
     }
 
-    private handlePopupOpened = (window: Windows) => {
+    private handleWindowOpened = (window: React.ReactElement) => {
         this.setState({
             activeWindows: [
                 ...this.state.activeWindows,

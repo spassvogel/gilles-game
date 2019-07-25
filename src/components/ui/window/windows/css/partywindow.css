@@ -1,13 +1,10 @@
-.partyscreen {
-    position: absolute;
-    left: 320px;
-    top: 40px;
-    margin-right: 340px;
-    border: 1px solid #6b6f64;
-    width: calc(100% - 640px);  /** responsive */
+.partywindow {
+    width: 100%;
+    background: white;
+    box-sizing: border-box;
 }
 
-.partyscreen .header {
+.partywindow .header {
     height: 50px;
     line-height: 30px;
     padding: 10px;
@@ -21,12 +18,12 @@
 
 }
 
-.partyscreen .avatars {
+.partywindow .avatars {
     display: flex;
     overflow: hidden;   /** if this is not set, the avatar portraits overlap the content below */
 }
 
-.partyscreen .avatars .avatar {
+.partywindow .avatars .avatar {
     flex: 1;
     height: 120px;
     box-sizing: border-box;
@@ -36,14 +33,14 @@
 @media (max-width: 1131px) {
     /** when the avatars become vertically longer than horizontally, they become square  */
     /** The 1131px is based on the number of avatars (4) and the amount of space around the party screen (650px)*/
-    .partyscreen .avatars .avatar {
+    .partywindow .avatars .avatar {
         height: inherit;
     }
 }
 
 
 /* Using eqcss, when the avatars become vertically longer than horizontally, they become square 
-@element .partyscreen .avatars .avatar and (max-width: 120px) {
+@element .partywindow .avatars .avatar and (max-width: 120px) {
     $this {
         height: inherit;
     }
@@ -51,78 +48,78 @@
 */
 
 
-.partyscreen .avatars .avatar.selected {
+.partywindow .avatars .avatar.selected {
     border: purple 4px solid;
 }
 
-.partyscreen .questlog {
+.partywindow .questlog {
     height: 200px;
 }
 
-.partyscreen .action {
+.partywindow .action {
     height: 200px;
 }
 
-.partyscreen .adventurer-container {
+.partywindow .adventurer-container {
     display: flex;
 }
 
-.partyscreen .adventurer-container .left, .partyscreen .adventurer-container .right {
+.partywindow .adventurer-container .left, .partywindow .adventurer-container .right {
     flex: 0.5
 }
 
-.partyscreen .adventurer-container .left {
+.partywindow .adventurer-container .left {
     border-right: 1px solid grey;
 }
 
-.partyscreen .adventurer-container .left .name {
+.partywindow .adventurer-container .left .name {
     padding: 15px;
 }
 
-.partyscreen .adventurer-container .left .attributes {
+.partywindow .adventurer-container .left .attributes {
     border-top: 1px solid grey;
     border-bottom: 1px solid grey;
     padding: 15px;
 }
 
 
-.partyscreen .adventurer-container .left .equipment {
+.partywindow .adventurer-container .left .equipment {
     padding: 15px;
 }
 
 /** todo: media queries to show more columns*/
-.partyscreen .adventurer-container .inventory {
+.partywindow .adventurer-container .inventory {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
 }
 
 
 @media (max-width: 600px) {
-    .partyscreen .adventurer-container .inventory {
+    .partywindow .adventurer-container .inventory {
         grid-template-columns: 100%;
     }
 }
 
 @media (max-width: 800px) {
-    .partyscreen .adventurer-container .inventory {
+    .partywindow .adventurer-container .inventory {
         grid-template-columns: 50% 50%;
     }
 }
 
 @media (min-width: 1100px) {
-    .partyscreen .adventurer-container .inventory {
+    .partywindow .adventurer-container .inventory {
         grid-template-columns: 20% 20% 20% 20% 20%;
     }
 }
 
 @media (min-width: 1500px) {
-    .partyscreen .adventurer-container .inventory {
+    .partywindow .adventurer-container .inventory {
         grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
     }
 }
 
 @media (min-width: 1800px) {
-    .partyscreen .adventurer-container .inventory {
+    .partywindow .adventurer-container .inventory {
         grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
     }
 }

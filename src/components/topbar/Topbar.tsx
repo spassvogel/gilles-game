@@ -4,6 +4,7 @@ import { AppContextProps } from "hoc/withAppContext";
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import "./css/topbar.css";
+import Menu from "components/ui/window/windows/Menu";
 
 export interface Props {
 }
@@ -18,7 +19,8 @@ type AllProps = Props & StateProps & DispatchProps & RouteComponentProps & AppCo
 
 export default function(props: AllProps) {
     const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        props.onOpenWindow(Windows.menu);
+        const window = <Menu title = "Menu" />;
+        props.onOpenWindow(window);
     };
     return (
         <div className = "topbar">

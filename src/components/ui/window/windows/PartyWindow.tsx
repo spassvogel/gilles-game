@@ -1,6 +1,3 @@
-import { moveItemInInventory, moveItemToOtherAdventurer } from "actions/adventurers";
-import { updateEncounterResult } from "actions/quests";
-import { advanceQuest } from "actions/quests";
 import { InventoryItemDragInfo } from "components/ui/DraggableItemIcon";
 import DroppableAdventurerAvatar from "components/ui/DroppableAdventurerAvatar";
 import Inventory from "components/ui/inventory/Inventory";
@@ -15,7 +12,7 @@ import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "stores";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStoreState } from "stores/quest";
-import "./css/partyscreen.css";
+import "./css/partywindow.css";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
@@ -52,14 +49,14 @@ class PartyWindow extends React.Component<AllProps, LocalState> {
     }
 
     public render() {
-        const questDefinition: QuestDefinition = getQuestDefinition[this.props.quest.name];
+        const questDefinition: QuestDefinition = getQuestDefinition(this.props.quest.name);
 
         return (
-        <div className="partyscreen">
-            <div className="header">
+        <div className = "partywindow">
+            <div className = "header">
                 { questDefinition.displayName }
             </div>
-            <div className="avatars">
+            <div className = "avatars">
                 { this.getAvatars() }
             </div>
             { this.getBottomPart() }

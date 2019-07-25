@@ -1,3 +1,5 @@
+import PartyWindow from "containers/windows/PartyWindow";
+import { AppContextProps } from "hoc/withAppContext";
 import * as React from "react";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 import { MusicTrack, SoundManager } from "utils/soundManager";
@@ -20,7 +22,7 @@ interface LocalState {
     selectedQuest: string | null;
 }
 
-type AllProps = Props & StateProps & DispatchProps;
+type AllProps = Props & StateProps & DispatchProps & AppContextProps;
 /**
  * Temporary wrapper around PartyScreen. Shows quest line
  * @param props
@@ -28,7 +30,7 @@ type AllProps = Props & StateProps & DispatchProps;
 export default class RealWorldView extends React.Component<AllProps, LocalState> {
 
     // This Component has local state, so it's a class
-    constructor(props: Props & StateProps & DispatchProps) {
+    constructor(props: AllProps) {
         super(props);
 
         this.state = {
@@ -36,7 +38,6 @@ export default class RealWorldView extends React.Component<AllProps, LocalState>
         };
 
         SoundManager.addMusicTrack(MusicTrack.world, "sound/music/TheLoomingBattle.ogg");
-
     }
 
     public render() {
@@ -62,6 +63,9 @@ export default class RealWorldView extends React.Component<AllProps, LocalState>
         this.setState({
             selectedQuest: questName,
         });
+        const quest = this.props.quests.find((q) => q.name === questName)!;
+        const window = <PartyWindow quest = { quest } title = "Menu" />;
+        this.props.onOpenWindow(window);
     }
 
     public componentDidMount() {
