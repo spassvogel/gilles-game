@@ -1,11 +1,10 @@
 import { Props as WindowProps } from "components/ui/window/Window";
-import { Windows } from "constants/ui";
+import CheatWindow from "containers/windows/CheatWindow";
 import { AppContextProps, withAppContext } from "hoc/withAppContext";
 import { withWindow } from "hoc/withWindow";
 import * as React from "react";
 import { compose } from "redux";
 import "./css/cheatbox.css";
-import CheatWindow from "containers/windows/CheatWindow";
 
 export interface DispatchProps {
 }

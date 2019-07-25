@@ -26,7 +26,7 @@
 }
 
 .topbar .topbar-right .hamburger {
-    cursor: pointer;
+    cursor: var(--app-cursor-pointer);
     font-size: 20px;
     line-height: 32px;
 }

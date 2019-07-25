@@ -2,7 +2,7 @@
 } */
 
 .town-view li {
-    cursor: pointer;
+    cursor: var(--app-cursor-pointer);
     color: blue
 }
 

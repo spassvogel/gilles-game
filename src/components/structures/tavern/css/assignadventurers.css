@@ -14,5 +14,5 @@
 }
 
 .assign-adventurers li.has-adventurer {
-    cursor: pointer;
+    cursor: var(--app-cursor-pointer);
 }

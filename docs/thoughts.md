@@ -124,3 +124,6 @@ The quests should have some sort of resource cost. However we don't want weapons
 25/07/2019 SCROLLING TABS
 [ ] Tabbar could be scrollable
     https://stackoverflow.com/questions/18997724/how-to-change-scroll-bar-position-with-css
+
+25/07/2019 CUSTOM CURSORS
+[ ] We need cursors for move and not-allowed

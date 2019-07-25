@@ -1,6 +1,6 @@
 /** move to global buttons file */
 .ui-button {
-    cursor: pointer;
+    cursor: var(--app-cursor-pointer);
 }
 
 .widgets-squareiconbutton {

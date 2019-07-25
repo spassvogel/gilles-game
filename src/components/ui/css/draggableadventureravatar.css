@@ -1,5 +1,5 @@
 .draggable-adventurer-avatar {
-    cursor: move;
+    cursor: move;   /** todo: 25/07/2019 custom cursor */
 }
 
 .draggable-adventurer-avatar.disabled {

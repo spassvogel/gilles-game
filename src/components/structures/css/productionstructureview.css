@@ -29,7 +29,7 @@ details.structureview  section {
     margin: 0;
     padding: 0;
     line-height: 32px;
-    cursor: pointer;
+    cursor: var(--app-cursor-pointer);
 }
 
 .productionstructureview .crafting-area .vertical-tab-bar li.selected {

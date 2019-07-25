@@ -1,10 +1,17 @@
 .app {
+    --app-cursor-default: url("/img/cursors/dwarven_gauntlet_extra_4.png"), auto;
+    --app-cursor-pointer: url("/img/cursors/dwarven_gauntlet_extra_6.png"), auto;
+}
+
+.app {
     background: orange;
     position: relative;
     transform-origin: top left;
     overflow: hidden;
     position: absolute;
     left: 50%;
+
+    cursor: var(--app-cursor-default);
 }
 
 .app-left {

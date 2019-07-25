@@ -4,7 +4,7 @@
 
 .quest-board .quest-list .quest {
     display: flex;
-    cursor: pointer;
+    cursor: var(--app-cursor-pointer);
 }
 
 .quest-board .quest-list .quest.selected {

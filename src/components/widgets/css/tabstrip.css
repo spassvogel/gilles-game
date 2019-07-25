@@ -19,7 +19,7 @@
     line-height: 25px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    cursor: pointer;
+    cursor: var(--app-cursor-pointer);
     align-self: flex-end;
 }
 
