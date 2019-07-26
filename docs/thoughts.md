@@ -1,3 +1,5 @@
+backlog of ideas
+
 27/4/2019 LOG
 [x] display a log on the lower part of the screen.
     each log entry has a type: (common, quest, warning)
@@ -56,7 +58,7 @@
 07/07/2019 STRUCTURE UPGRADE TIME
 [ ] Upgrading a structure takes time
 
-07/07/2019 GAME DESIGN
+07/07/2019 GAME DESIGN: warehouse
 [ ] Is the warehouse limited? Can you add unlimited items?
 [x] Resource capacity is limited
 
@@ -72,8 +74,9 @@
 [ ] Perhaps each item can have a number of minimum workers?
 
 12/07/2019 GAME DESIGN: quest prerequisites/ resource sink
-The quests should have some sort of resource cost. However we don't want weapons to break all the time.
-[ ] Are the items consumed straight away?
+[ ] The quests should have some sort of resource cost. 
+    However we don't want weapons to break all the time.
+    Are the items consumed straight away?
     Ideas:
 [ ] Sharp weapons can get more dull if used more. Dull blades do way less damage. Craft whetstones from stone and use on the weapon to sharpen again.
 [ ] Weapons slowly lose durability (/health) when used. 
