@@ -1,3 +1,4 @@
+import { TextEntry } from "constants/text";
 
 export enum LogChannel {
     common,         // Only visible in 'all'
@@ -5,9 +6,7 @@ export enum LogChannel {
     quest,          // Visible in 'all' and the appropriate quest tab
 }
 
-export interface LogEntry {
+export interface LogEntry extends TextEntry {
     time: number;
-    key: string;
     channel: LogChannel;
-    context?: any;
 }

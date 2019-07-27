@@ -1,7 +1,8 @@
-import * as Handlebars from "handlebars";
+import { TextEntry } from "constants/text";
 import itemDefinitions, { getDefinition } from "definitions/items";
 import { Item, ItemType } from "definitions/items/types";
 import { Resource } from "definitions/resources";
+import * as Handlebars from "handlebars";
 
 export abstract class TextManager {
 
@@ -26,6 +27,10 @@ export abstract class TextManager {
             return `<<'${key}' missing>>`;
         }
         return template(context);
+    }
+
+    public static getTextEntry(textEntry: TextEntry): string {
+        return this.get(textEntry.key, textEntry.context);
     }
 
     public static getTemplate(key: string) {

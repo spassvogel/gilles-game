@@ -14,9 +14,8 @@ export const goblinHouseOutside: EncounterDefinition = {
     getOracle: (questName: string, store: StoreState) => {
         return new Oracle(questName, store);
     },
-    getTitle: (oracle: Oracle) => "As you make your way along the forest you notice a small house just of the road, smoke rises from the chimney",
     getDescription: (oracle: Oracle) => {
-        return "quest-kill10Boars-encounter-goblinHouseOutside-description";
+        return { key: "encounter-goblinHouseOutside-description" };
     },
     getOptions: (oracle: Oracle) => {
         const options: Record<string, string> = {
@@ -46,9 +45,8 @@ export const goblinHouseHallway: EncounterDefinition = {
     getOracle: (questName: string, store: StoreState) => {
         return new Oracle(questName, store);
     },
-    getTitle: (oracle: Oracle) => "The party stands inside the hallway.",
     getDescription: (oracle: Oracle) => {
-        return "";
+        return { key: "encounter-goblinHouseHallway-description" };
     },
     getOptions: (oracle: Oracle) => {
         const options: Record<string, string> = {

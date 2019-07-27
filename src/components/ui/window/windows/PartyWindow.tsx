@@ -13,6 +13,7 @@ import { StoreState } from "stores";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStoreState } from "stores/quest";
 import "./css/partywindow.css";
+import { TextManager } from "utils/textManager";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
@@ -195,9 +196,10 @@ class PartyWindow extends React.Component<AllProps, LocalState> {
                     const store = this.props.store;
                     const encounter = getEncounterDefinition(quest.currentEncounter!);
                     const oracle = encounter.getOracle(quest.name, store);
+                    const descriptionTextEntry = encounter.getDescription(oracle);
+                    const descriptionText = TextManager.getTextEntry(descriptionTextEntry);
 
-                    message = <div><p> {encounter.getTitle(oracle)} </p>
-                        <p> {encounter.getDescription(oracle)}</p></div>;
+                    message = <div><p> { descriptionText } </p></div>;
 
                     const options = encounter.getOptions(oracle);
 

@@ -15,9 +15,8 @@ export const backstabbed: EncounterDefinition = {
     getOracle: (questName: string, store: StoreState) => {
         return new Oracle(questName, store);
     },
-    getTitle: (oracle: Oracle) => "Backstabbed",
     getDescription: (oracle: Oracle) => {
-        return "A group of rogues emerges from the bushes, knives drawn.";
+        return { key: "encounter-backstabbed-description" };
     },
     getOptions: (oracle: Oracle) => {
         const options: Record<string, string> = {

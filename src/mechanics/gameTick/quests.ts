@@ -64,8 +64,7 @@ const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickRespons
                     // Add quest to log
                     log.push({
                         channel: LogChannel.quest,
-                        context: qss.name,
-                        key: encounter.getDescription(oracle),
+                        ...encounter.getDescription(oracle),
                     });
 
                     break;

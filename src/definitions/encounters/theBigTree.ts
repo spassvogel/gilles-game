@@ -16,13 +16,12 @@ export const theBigTree: EncounterDefinition = {
     getOracle: (questName: string, store: StoreState) => {
         return new Oracle(questName, store);
     },
-    getTitle: (oracle: Oracle) => "The big tree",
     getDescription: (oracle: Oracle) => {
         // const pyromancer = store.adventurers.find((a) => a.name === "pyromancer");
         // if (pyromancer) {
         //     return `A huge tree blocks the way. ${pyromancer.name} offers to burn it`;
         // }
-        return "A huge tree blocks the way";
+        return { key: "encounter-thebigtree-description" };
     },
     getOptions: (oracle: Oracle) => {
         //const store = oracle.store;

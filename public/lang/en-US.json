@@ -10,6 +10,11 @@
     "common-log-tab-all": "all",
     "common-log-tab-town": "town",
 
+    "encounter-backstabbed-description": "A group of rogues emerges from the bushes, knives drawn.",
+    "encounter-goblinHouseHallway-description": "The party stands inside the hallway",
+    "encounter-goblinHouseOutside-description": "As the party makes their way along the forest you notice a small house just of the road, smoke rises from the chimney",
+    "encounter-thebigtree-description": "A huge tree blocks the way",
+
     "item-deed-deedForLumbermill-name": "deed for a lumber mill",
     "item-deed-deedForWeaponsmith-name": "deed for a weapon smith",
     "item-equipment-boots1-name": "leather boots",
@@ -113,7 +118,6 @@
     "quest-retrieveMagicAmulet-description": "Some air headed princess left her magic amulet when she took it off to make some pics for her insta. Find and retrieve.",
     "quest-kill10Boars-node0": "The party sets out to vanquish 10 terrible pigs",
     "quest-kill10Boars-node1": "No pigs in sight",
-    "quest-kill10Boars-encounter-goblinHouseOutside-description": "The party sees a goblin house",
     "quest-kill10Boars-node4": "The party leaves the forest",
 
     "resource-fabric-name": "fabric",
