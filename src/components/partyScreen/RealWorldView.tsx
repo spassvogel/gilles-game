@@ -5,6 +5,7 @@ import { QuestStatus, QuestStoreState } from "stores/quest";
 import { MusicTrack, SoundManager } from "utils/soundManager";
 import QuestLineVisualization from "../world/QuestLineVisualization";
 import "./css/realworldview.css";
+import { TextManager } from "utils/textManager";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -64,7 +65,8 @@ export default class RealWorldView extends React.Component<AllProps, LocalState>
             selectedQuest: questName,
         });
         const quest = this.props.quests.find((q) => q.name === questName)!;
-        const window = <PartyWindow quest = { quest } title = "Menu" />;
+        const title = TextManager.getQuestTitle(quest.name);
+        const window = <PartyWindow quest = { quest }  title = { title } />;
         this.props.onOpenWindow(window);
     }
 

@@ -50,19 +50,14 @@ class PartyWindow extends React.Component<AllProps, LocalState> {
     }
 
     public render() {
-        const questDefinition: QuestDefinition = getQuestDefinition(this.props.quest.name);
-
         return (
-        <div className = "partywindow">
-            <div className = "header">
-                { questDefinition.displayName }
+            <div className = "partywindow">
+                <div className = "avatars">
+                    { this.getAvatars() }
+                </div>
+                { this.getBottomPart() }
             </div>
-            <div className = "avatars">
-                { this.getAvatars() }
-            </div>
-            { this.getBottomPart() }
-         </div>
-     );
+        );
     }
 
     public componentDidUpdate(prevProps: Props) {

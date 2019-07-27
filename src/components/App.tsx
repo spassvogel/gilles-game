@@ -221,19 +221,6 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
 
         const element = React.cloneElement(topWindow, commonWindowProps);
         return element;
-        /*switch (topWindow) {
-            case Windows.cheats:
-                return <CheatWindow { ...commonWindowProps } title = "Cheats" />;
-
-            case Windows.menu:
-                return <Menu { ...commonWindowProps } title = "Menu" />;
-
-            case Windows.quest:
-                return <PartyWindow { ...commonWindowProps } quest = { this.state.quest } title = "Menu" />;
-
-            default:
-                return null;
-        }*/
     }
 
     private updateDimensions() {
