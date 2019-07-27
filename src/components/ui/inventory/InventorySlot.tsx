@@ -48,7 +48,7 @@ class InventorySlot extends React.Component<Props & DropSourceProps> {
         }
 
         return connectDropTarget(
-            <div style={{ borderColor }} className="inventory-item">
+            <div  className = "inventory-item">
                 { this.props.children }
             </div>,
         );

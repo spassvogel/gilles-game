@@ -27,13 +27,22 @@ export const goblinHouseOutside: EncounterDefinition = {
     answer: (option: string, oracle: Oracle, dispatch: Dispatch<AnyAction>) => {
         const { store, questVars, quest } = oracle;
         switch (option) {
-            case "investigate":
+            case "investigate": {
                 const nextEncounter = startEncounter(quest.name, Encounter.goblinHouseHallway);
                 // const action = updateQuestVars(quest.name, questVars);
                 dispatch(nextEncounter);
 
                 // tslint:disable-next-line:max-line-length
                 return `The party coutiously opens the door and goes inside`;
+            }
+            case "leave": {
+                const nextEncounter = startEncounter(quest.name, Encounter.goblinHouseHallway);
+                // const action = updateQuestVars(quest.name, questVars);
+                dispatch(nextEncounter);
+
+                // tslint:disable-next-line:max-line-length
+                return `The party coutiously opens the door and goes inside`;
+            }
             default:
                 throw new Error(`Unhandled option ${option}`);
         }

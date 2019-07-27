@@ -1,8 +1,6 @@
 
 .inventory .inventory-item {
     display: inline-block;
-    border: 1px solid green;
-    border-right-width: 0;
     position: relative;
     /* box-sizing: border-box; */
 }
@@ -22,6 +20,3 @@
     padding-bottom: 100%;
 }
 
-.inventory .inventory-item:last-child {
-    border-right-width: 1px;
-}

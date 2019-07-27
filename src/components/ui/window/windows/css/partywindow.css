@@ -87,14 +87,19 @@
     padding: 15px;
 }
 
-/** todo: media queries to show more columns*/
+/** todo: media queries to show more columns */
 .partywindow .adventurer-container .inventory {
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 46px 46px 46px 46px 46px 46px 46px;
+    grid-gap: 1px;
 }
 
+.partywindow .adventurer-container .inventory .inventory-item {
+    box-shadow: 0 0 0 1px rgb(6, 156, 26);
+}
 
-@media (max-width: 600px) {
+/*
+ @media (max-width: 600px) {
     .partywindow .adventurer-container .inventory {
         grid-template-columns: 100%;
     }
@@ -122,5 +127,5 @@
     .partywindow .adventurer-container .inventory {
         grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
     }
-}
+} */
 
