@@ -1,30 +1,36 @@
 import { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvatar";
 import ItemsCostBox from "containers/ui/context/items/ItemsCostBox";
+import { Item } from "definitions/items/types";
+import { getDefinition, QuestDefinition } from "definitions/quests";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStoreState } from "stores/quest";
 import { TextManager } from "utils/textManager";
 import AssignAdventurers from "./AssignAdventurers";
 import "./css/questboard.css";
-import { getDefinition } from "definitions/quests";
 
 const availableSlots = 5;
 const minimumCountAdventurers = 3;  // we need this many adventurers to start the quest
 
-export interface DispatchProps {
+export interface StateProps {
+    items: Array<Item | null>;  // items in inventory
+}
+
+// tslint:disable-next-line: no-empty-interface
+export interface DispatchProps {}
+
+export interface Props {
+    availableQuests: QuestStoreState[];
+    selectedQuestName: string | null;       // name of selected quest
+    assignedAventurers: AdventurerStoreState[];
+
     onQuestClick: (questName: string) => void;
     onRemoveAdventurer: (index: number) => void;
     onAddAdventurer: (item: AdventurerAvatarDragInfo, index: number) => void;
     onLaunchQuest: () => void;
 }
 
-export interface Props {
-    availableQuests: QuestStoreState[];
-    selectedQuestName: string | null;       // name of selected quest
-    assignedAventurers: AdventurerStoreState[];
-}
-
-type AllProps = Props & DispatchProps;
+type AllProps = Props & DispatchProps & StateProps;
 
 // tslint:disable-next-line:no-empty-interface
 interface LocalState {
@@ -64,7 +70,12 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
             const questDefinition = getDefinition(quest.name);
 
             // Need a full party to launch
-            const canLaunch = this.props.assignedAventurers.filter((a) => a !== null).length >= minimumCountAdventurers;
+            const fullParty = this.props.assignedAventurers.filter((a) => a !== null).length >= minimumCountAdventurers;
+            // Check if we have the required items
+            const enoughItems = this.checkEnoughItems(questDefinition);
+
+            const canLaunch = fullParty && enoughItems;
+
             return <div className="quest-details">
                 { TextManager.getQuestDescription(this.props.selectedQuestName) }
                 <AssignAdventurers
@@ -87,5 +98,18 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
             </ul>
             { getQuestDetails() }
         </div>;
+    }
+
+    /**
+     * Returns true if all the items required by the quest are in the inventory
+     */
+    public checkEnoughItems(questDefinition: QuestDefinition): boolean {
+        if (!questDefinition.requiredItems) {
+            return true;
+        }
+        return questDefinition.requiredItems.every((item: Item) => {
+            const amountRequired = (questDefinition.requiredItems)!.filter((i) => i === item).length;
+            return this.props.items.filter((i) => i === item).length >= amountRequired;
+        });
     }
 }

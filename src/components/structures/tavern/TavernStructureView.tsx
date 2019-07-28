@@ -1,4 +1,5 @@
 import DraggableAdventurerAvatar, { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvatar";
+import QuestBoard from "containers/structures/tavern/QuestBoard";
 import structureDefinitions, { Structure } from "definitions/structures";
 import { TavernStructureDefinition, TavernStructureLevelDefinition } from "definitions/structures/types";
 import { AppContextProps } from "hoc/withAppContext";
@@ -7,7 +8,6 @@ import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 import { TextManager } from "utils/textManager";
 import "./css/tavernstructureview.css";
-import QuestBoard from "./QuestBoard";
 
 // The UI for the tavern
 export interface DispatchProps {
@@ -126,9 +126,7 @@ export default class TavernStructureView extends React.Component<AllProps, Local
         return (
             <details open = { true } className = "tavernstructureview">
                 <summary>{ displayName }</summary>
-                {
-                    createUpgradeRow()
-                }
+                { createUpgradeRow() }
                 <section>
                     { createRooms() }
                     <QuestBoard
