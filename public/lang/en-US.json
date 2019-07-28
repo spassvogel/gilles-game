@@ -84,6 +84,7 @@
     "item-questItem-plans-name": "plans",
     "item-questItem-purpleGems-name": "purple gems",
     "item-questItem-runestone-name": "runestone",
+    "item-questItem-sandwich-name": "sandwich",
     "item-questItem-teeth-name": "teeth",
     "item-questItem-tooth-name": "tooth",
     "item-questItem-torch-name": "torch",
@@ -142,7 +143,7 @@
     "structure-tavern-title-quest-board": "Quest board",
     "structure-tavern-quest-launched": "Quest started!",
     "structure-workshop-name": "Workshop",
-    
+
     "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
     "test-game-welcome": "You have taken your first steps into a larger world"
 }
