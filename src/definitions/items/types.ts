@@ -58,6 +58,7 @@ export enum Item {
     chain = "chain",
     cogs = "cogs",
     gem = "gem",
+    gunpowder = "gunpowder",
     ingot = "ingot",
     nails = "nails",
     poisonVial = "poisonVial",
