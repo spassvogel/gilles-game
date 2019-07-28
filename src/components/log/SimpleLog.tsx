@@ -91,7 +91,7 @@ class SimpleLog extends React.Component<AllProps, LocalState> {
         }
 
         const getLogEntryRow = (logEntry: LogEntry) => {
-            const text = TextManager.get(logEntry.key, logEntry.channelContext);
+            const text = TextManager.get(logEntry.key, logEntry.context);
             return <div className = "entry" key={ logEntry.time }>
                 { text }
             </div>;
