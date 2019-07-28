@@ -1,4 +1,6 @@
+import { TextEntry } from "constants/text";
 import { Encounter } from "../encounters/types";
+import { Item } from "definitions/items/types";
 
 // tslint:disable:object-literal-sort-keys
 
@@ -10,8 +12,8 @@ export enum QuestNodeType {
 }
 
 export interface QuestDefinition {
-    displayName: string;
     nodes: QuestNode[];
+    requiredItems?: Item[];
 }
 
 export interface QuestNode {
@@ -23,7 +25,6 @@ export interface QuestNode {
 }
 
 const kill10Boars: QuestDefinition = {
-    displayName: "Kill 10 boars",
     nodes: [{
         x: 0,
         y: 1,
@@ -75,7 +76,13 @@ const kill10Boars: QuestDefinition = {
 };
 
 const retrieveMagicAmulet: QuestDefinition = {
-    displayName: "Retrieve the magic amulet",
+    requiredItems: [
+        Item.torch,
+        Item.torch,
+        Item.torch,
+        Item.sandwich,
+        Item.sandwich,
+    ],
     nodes: [{
         x: 0,
         y: 1,

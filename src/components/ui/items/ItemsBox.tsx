@@ -17,23 +17,36 @@ export interface StateProps {
 type AllProps = Props & StateProps;
 
 /**
- * The ItemsBox displays a list of items
+ * The ItemsBox displays a list of items, to be used as requirements for something
  */
 const ItemsBox = (props: AllProps) => {
     const { itemsInInventory } = props;
     const className = (props.className || "") + " itemsbox";
-    const listItems = props.items.map((item: Item) => {
+    const aggregate = props.items.reduce((accumulator: object, current: Item) => {
+        if (!accumulator[current]) {
+            accumulator[current] = 0;
+        }
+        accumulator[current]++;
+        return accumulator;
+    }, {});
+
+    const listItems = Object.keys(aggregate).map((key: string) => {
+        const item = key as Item;
+        const amount = aggregate[key] as number;
         let listItemClass = "item";
-        if (itemsInInventory && itemsInInventory.indexOf(item) === -1) {
+
+        // Check if we have enough
+        const amountInInventory = itemsInInventory ? itemsInInventory.filter((i) => i === item).length : 0;
+        if (amount > amountInInventory) {
             listItemClass += " missing";
         }
         const itemDescription = itemsDescription[item];
         return <li className = { listItemClass } key = { item }>
             <div className = "icon common-icon-smallest" style = {{
-                backgroundImage:  `url(${itemDescription.iconImg})`,
+                backgroundImage: `url(${itemDescription.iconImg})`,
             }}></div>
             <div className = "name">
-                { TextManager.getItemName(item) }
+                { `${TextManager.getItemName(item)} (${ amount })` }
             </div>
         </li>;
     });

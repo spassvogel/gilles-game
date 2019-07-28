@@ -1,10 +1,12 @@
 import { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvatar";
+import ItemsCostBox from "containers/ui/context/items/ItemsCostBox";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStoreState } from "stores/quest";
 import { TextManager } from "utils/textManager";
 import AssignAdventurers from "./AssignAdventurers";
 import "./css/questboard.css";
+import { getDefinition } from "definitions/quests";
 
 const availableSlots = 5;
 const minimumCountAdventurers = 3;  // we need this many adventurers to start the quest
@@ -59,6 +61,7 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
             if (!quest) {
                 return <div> { TextManager.get("structure-tavern-quest-launched") } </div>;
             }
+            const questDefinition = getDefinition(quest.name);
 
             // Need a full party to launch
             const canLaunch = this.props.assignedAventurers.filter((a) => a !== null).length >= minimumCountAdventurers;
@@ -69,6 +72,7 @@ export default class QuestBoard extends React.Component<AllProps, LocalState> {
                     assignedAventurers = { this.props.assignedAventurers }
                     onRemoveAdventurer = { this.props.onRemoveAdventurer }
                     onAddEventurer = { this.props.onAddAdventurer } />
+                <ItemsCostBox items = { questDefinition.requiredItems || [] }/>
                 <button disabled = { !canLaunch } onClick = { () => this.props.onLaunchQuest() }>
                     { TextManager.get("structure-tavern-button-launch-quest") }
                 </button>

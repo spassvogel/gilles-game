@@ -5,9 +5,15 @@ import { StoreState } from "stores";
 
 const mapStateToProps = (store: StoreState, ownProps: Props): StateProps => {
     const itemsInInventory: Item[] = [];
+    const tmpWarehouse = [ ... store.items];
     ownProps.items.forEach((item: Item) => {
-        if (store.items.indexOf(item) > -1) {
-            itemsInInventory.push(item);
+        const found = tmpWarehouse.findIndex((i) => i === item);
+        if (found > -1) {
+            // Remove the item from tmpWarehouse and add to itemsInInventory
+            const [ removed ] = tmpWarehouse.splice(found, 1);
+            if (removed) {
+                itemsInInventory.push(removed);
+            }
         }
     });
     return {

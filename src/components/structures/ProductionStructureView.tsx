@@ -1,4 +1,4 @@
-import MaterialsCostBox from "containers/ui/context/items/MaterialsCostBox";
+import MaterialsCostBox from "containers/ui/context/items/ItemsCostBox";
 import ResourcesCostBox from "containers/ui/resources/ResourcesCostBox";
 import itemDefinitions from "definitions/items";
 import { Item, ItemDefinition } from "definitions/items/types";
