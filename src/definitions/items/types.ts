@@ -52,6 +52,7 @@ export enum Item {
     vest = "vest",
 
     // materials
+    arrowheads = "arrowheads",
     bolts = "bolts",
     buckle = "buckle",
     chain = "chain",

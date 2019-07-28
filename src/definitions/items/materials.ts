@@ -6,6 +6,11 @@ const itemType = ItemType.material;
 const basePath = "/img/items/materials/";
 
 export default {
+    [Item.arrowheads]: {
+        item: Item.arrowheads,
+        itemType,
+        iconImg: `${basePath}arrowheads.png`,
+    },
     [Item.bolts]: {
         item: Item.bolts,
         itemType,
