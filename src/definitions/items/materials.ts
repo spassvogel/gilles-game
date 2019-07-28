@@ -66,6 +66,11 @@ export default {
         itemType,
         iconImg: `${basePath}gem.png`,
     },
+    [Item.gunpowder]: {
+        item: Item.gunpowder,
+        itemType,
+        iconImg: `${basePath}gunpowder.png`,
+    },
     [Item.scales]: {
         item: Item.scales,
         itemType,
