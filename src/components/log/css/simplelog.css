@@ -8,6 +8,7 @@
 
 .log .tab-bar {
     display: flex;
+    background: rgba(0, 0, 0, .5);
 }
 
 .log .tab-bar .expand-button {

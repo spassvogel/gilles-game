@@ -1,6 +1,5 @@
-import { TextEntry } from "constants/text";
-import { Encounter } from "../encounters/types";
 import { Item } from "definitions/items/types";
+import { Encounter } from "../encounters/types";
 
 // tslint:disable:object-literal-sort-keys
 

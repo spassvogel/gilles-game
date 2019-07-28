@@ -30,7 +30,7 @@ const Resourcebar = (props: Props & StateProps & DispatchProps) => {
                 backgroundImage:  `url(${icon})`,
             }}></div>
             <div className = "amount">
-                { amount }
+                { amount.toFixed(0) }
             </div>
         </li>;
     };

@@ -1,13 +1,12 @@
 // tslint:disable:object-literal-sort-keys
+import { ResourceStructureDefinition, StructureType } from "./types";
 
-import { ProductionStructureDefinition, StructureType } from "./types";
-
-const quarry: ProductionStructureDefinition = {
+const quarry: ResourceStructureDefinition = {
     cost: {
         gold: 40,
         time: 4000,
     },
-    type: StructureType.production,
+    type: StructureType.resource,
     levels: [{
         displayName: "structure-quarry-name",
         // level 1:
@@ -15,7 +14,7 @@ const quarry: ProductionStructureDefinition = {
         cost: {
             gold: 0,
         },
-        produces: [],
+        generates: { stone: 2 },
     }, {
         // level 2:
         displayName: "structure-quarry-name",
@@ -23,7 +22,7 @@ const quarry: ProductionStructureDefinition = {
         cost: {
             gold: 30,
         },
-        produces: [],
+        generates: { stone: 4 },
     }, {
         // level 3:
         displayName: "structure-quarry-name",
@@ -31,7 +30,7 @@ const quarry: ProductionStructureDefinition = {
         cost: {
             gold: 50,
         },
-        produces: [],
+        generates: { stone: 6 },
     }],
 };
 
