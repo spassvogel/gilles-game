@@ -83,6 +83,7 @@ export enum Item {
     plans = "plans",
     purpleGems = "purpleGems",
     runestone = "runestone",
+    sandwich = "sandwich",
     teeth = "teeth",
     tooth = "tooth",
     torch = "torch",

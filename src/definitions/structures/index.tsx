@@ -13,7 +13,8 @@ import { ProductionStructureDefinition,
     WarehouseStructureDefinition } from "./types";
 import warehouse from "./warehouse";
 import weaponsmith from "./weaponsmith";
-import { weaver } from "./weaver";
+import weaver from "./weaver";
+import workshop from "./workshop";
 
 export enum Structure {
     alchemist = "alchemist",
@@ -27,6 +28,7 @@ export enum Structure {
     warehouse = "warehouse",
     weaponsmith = "weaponsmith",
     weaver = "weaver",
+    workshop = "workshop",
 }
 
 export type StructureDefinition = WarehouseStructureDefinition |
@@ -44,4 +46,5 @@ export default {
     warehouse,
     weaponsmith,
     weaver,
+    workshop,
 };

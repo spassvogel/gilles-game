@@ -1,7 +1,7 @@
 // tslint:disable:object-literal-sort-keys
 import { ResourceStructureDefinition, StructureType } from "./types";
 
-export const weaver: ResourceStructureDefinition = {
+const weaver: ResourceStructureDefinition = {
     cost: {
         gold: 40,
         time: 4000,
@@ -33,3 +33,5 @@ export const weaver: ResourceStructureDefinition = {
         generates: { fabric: 7 },
     }],
 };
+
+export default weaver;

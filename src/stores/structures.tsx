@@ -13,6 +13,7 @@ export interface StructuresStoreState {
     [Structure.warehouse]: StructureStoreState;
     [Structure.weaponsmith]: StructureStoreState;
     [Structure.weaver]: StructureStoreState;
+    [Structure.workshop]: StructureStoreState;
 }
 
 export const initialState: StructuresStoreState = {
@@ -27,4 +28,5 @@ export const initialState: StructuresStoreState = {
     [Structure.warehouse]: { level: 0, workers: 0, state: StructureState.Built},
     [Structure.weaponsmith]: { level: 0, workers: 0, state: StructureState.Built },
     [Structure.weaver]: { level: 0, workers: 0, state: StructureState.NotBuilt },
+    [Structure.workshop]: { level: 0, workers: 0, state: StructureState.NotBuilt },
 };

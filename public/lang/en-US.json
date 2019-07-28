@@ -141,7 +141,8 @@
     "structure-tavern-button-launch-quest": "Start quest",
     "structure-tavern-title-quest-board": "Quest board",
     "structure-tavern-quest-launched": "Quest started!",
-
+    "structure-workshop-name": "Workshop",
+    
     "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
     "test-game-welcome": "You have taken your first steps into a larger world"
 }
