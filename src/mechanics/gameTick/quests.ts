@@ -1,3 +1,4 @@
+import { TextEntry } from "constants/text";
 import encounterDefintions from "definitions/encounters";
 import { Encounter } from "definitions/encounters/types";
 import questDefinitions, { QuestDefinition, QuestNodeType } from "definitions/quests";
@@ -12,10 +13,10 @@ export interface QuestUpdate {
     progress: number;
 }
 
-export interface LogUpdate {
+export interface LogUpdate extends TextEntry {
     key: string;
     channel: LogChannel;
-    context?: any;
+    channelContext?: any;
 }
 
 interface QuestGameTickResponse {
@@ -64,6 +65,7 @@ const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickRespons
                     // Add quest to log
                     log.push({
                         channel: LogChannel.quest,
+                        channelContext: qss.name,
                         ...encounter.getDescription(oracle),
                     });
 
@@ -73,7 +75,7 @@ const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickRespons
                     if (nextNode.log) {
                         log.push({
                             channel: LogChannel.quest,
-                            context: qss.name,
+                            channelContext: qss.name,
                             key: nextNode.log,
                         });
                     }

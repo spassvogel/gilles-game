@@ -21,8 +21,6 @@ export interface QuestStoreState {
     progress: number;       // Which questnode the party is at currently
     questVars: any;
     encounterResults: string[];   // Store what option the place chose during an encounter // OBSOLETE
-    log: string[];          // Quest log as strings.
-                            // todo: deprecate
     icon: string;
 
     currentEncounter: Encounter | null;

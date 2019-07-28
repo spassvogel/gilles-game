@@ -31,7 +31,7 @@ interface ChannelDefinition {
     label: string;
     tabType: ChannelType;
     tabId: string;
-    context?: string;
+    channelContext?: string;
 }
 
 interface LocalState {
@@ -64,7 +64,7 @@ class SimpleLog extends React.Component<AllProps, LocalState> {
 
         this.props.questNames.forEach((questName) => {
             channels.push({
-                context: questName,
+                channelContext: questName,
                 label: TextManager.getQuestTitle(questName),
                 tabId: `quest-${questName}`,
                 tabType: ChannelType.quest,
@@ -86,24 +86,24 @@ class SimpleLog extends React.Component<AllProps, LocalState> {
 
             case ChannelType.quest:
                 // Only the selected quest
-                logEntries = this.props.logEntries.filter((lE) => lE.channel === LogChannel.quest && lE.context === currentTab.context);
+                logEntries = this.props.logEntries.filter((lE) => lE.channel === LogChannel.quest && lE.channelContext === currentTab.channelContext);
                 break;
         }
 
         const getLogEntryRow = (logEntry: LogEntry) => {
-            const text = TextManager.get(logEntry.key, logEntry.context);
+            const text = TextManager.get(logEntry.key, logEntry.channelContext);
             return <div className = "entry" key={ logEntry.time }>
                 { text }
             </div>;
         };
 
-        const Tabs = channels.map((tab) => { 
-            return <Tab label =  { tab.label } id = { tab.tabId } key = { tab.tabId } ></Tab>
-        })
+        const Tabs = channels.map((tab) => {
+            return <Tab label =  { tab.label } id = { tab.tabId } key = { tab.tabId } ></Tab>;
+        });
 
         return <div className = { `log ${this.state.expanded ? "expanded" : ""}` }>
             <div className = "tab-bar">
-                <Tabstrip className = "tabs"  onTabSelected = { (tabId: string) => this.handleTabSelected(tabId) } > 
+                <Tabstrip className = "tabs"  onTabSelected = { (tabId: string) => this.handleTabSelected(tabId) } >
                     { Tabs }
                 </Tabstrip>
                 <SquareIconButton className = "expand-button" onClick = { () => this.handleToggleExpand() } text = { this.state.expanded ? "▼" : "▲" }/>

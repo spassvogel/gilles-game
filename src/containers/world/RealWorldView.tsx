@@ -1,4 +1,3 @@
-import { advanceQuest } from "actions/quests";
 import RealWorldView,
     { DispatchProps, Props, StateProps } from "components/partyScreen/RealWorldView";
 import { withAppContext } from "hoc/withAppContext";
@@ -15,7 +14,6 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps {
     return {
         onAdvanceQuest: (quest: string) => {
-            dispatch(advanceQuest(quest));
         },
     };
 }

@@ -2,6 +2,7 @@ import { InventoryItemDragInfo } from "components/ui/DraggableItemIcon";
 import DroppableAdventurerAvatar from "components/ui/DroppableAdventurerAvatar";
 import Inventory from "components/ui/inventory/Inventory";
 import { DragSourceType } from "constants/dragging";
+import { TextEntry } from "constants/text";
 import { getDefinition as getEncounterDefinition } from "definitions/encounters";
 import { EncounterDefinition } from "definitions/encounters/types";
 import { Item } from "definitions/items/types";
@@ -12,12 +13,13 @@ import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "stores";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStoreState } from "stores/quest";
-import "./css/partywindow.css";
 import { TextManager } from "utils/textManager";
+import "./css/partywindow.css";
 
 export interface StateProps {
     adventurers: AdventurerStoreState[];
     store: StoreState;
+    lastLog?: TextEntry;
 }
 
 export interface Props {
@@ -175,11 +177,8 @@ class PartyWindow extends React.Component<AllProps, LocalState> {
 
             switch (questNode.type) {
                 case QuestNodeType.nothing: {
-                    const log = [ ...quest.log].reverse();
                     message = <div> {
-                        log.map((entry) => {
-                            return <p> { entry } </p>;
-                        })
+                        this.props.lastLog && TextManager.getTextEntry(this.props.lastLog)
                     } </div>;
                     break;
                 }

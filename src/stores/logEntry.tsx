@@ -9,4 +9,5 @@ export enum LogChannel {
 export interface LogEntry extends TextEntry {
     time: number;
     channel: LogChannel;
+    channelContext?: string;
 }

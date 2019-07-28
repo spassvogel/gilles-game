@@ -3,9 +3,9 @@ import { AppContextProps } from "hoc/withAppContext";
 import * as React from "react";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 import { MusicTrack, SoundManager } from "utils/soundManager";
+import { TextManager } from "utils/textManager";
 import QuestLineVisualization from "../world/QuestLineVisualization";
 import "./css/realworldview.css";
-import { TextManager } from "utils/textManager";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {

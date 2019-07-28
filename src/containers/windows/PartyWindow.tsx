@@ -1,20 +1,22 @@
 import { moveItemInInventory, moveItemToOtherAdventurer } from "actions/adventurers";
-import { advanceQuest } from "actions/quests";
 import { updateEncounterResult } from "actions/quests";
+import { advanceQuest } from "actions/quests";
 import { Props as WindowProps } from "components/ui/window/Window";
 import PartyWindow, { DispatchProps, Props, StateProps } from "components/ui/window/windows/PartyWindow";
 import { withWindow } from "hoc/withWindow";
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
+import { selectLastQuestLogEntry } from "selectors/quests";
 import { adventurersOnQuest } from "storeHelpers";
 import { StoreState } from "../../stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const adventurers = adventurersOnQuest(store, ownProps.quest);
-
+    const lastLog = selectLastQuestLogEntry(store, ownProps.quest.name);
     return {
         adventurers,
-        store,
+        lastLog,
+        store, // needed for the oracle, causes update all the time :/
     };
 }
 

@@ -1,8 +1,8 @@
-import { connect } from "react-redux";
-import { AnyAction, Dispatch } from "redux";
 import { subtractGold } from "actions/gold";
 import { addLogEntry } from "actions/log";
 import { decreaseWorkers, increaseWorkers, upgradeStructure } from "actions/structures";
+import { connect } from "react-redux";
+import { AnyAction, Dispatch } from "redux";
 import { selectFreeWorkers } from "selectors/workers";
 import { LogChannel } from "stores/logEntry";
 import ResourceStructureView,  { DispatchProps, Props, StateProps } from "../../components/structures/ResourceStructureView";
@@ -27,10 +27,10 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
             dispatch(upgradeStructure(ownProps.type)); // Todo: [07/07/2019] time??
 
             level++;
-            dispatch(addLogEntry("log-town-upgrade-structure-complete", LogChannel.town, {
+            dispatch(addLogEntry("log-town-upgrade-structure-complete", {
                 level,
                 structure: ownProps.type,
-            }));
+            }, LogChannel.town));
         },
         onWorkersDown: () => {
             dispatch(decreaseWorkers(ownProps.type));

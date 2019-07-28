@@ -18,7 +18,6 @@ const initialState: QuestStoreState[] = [{
     progress: 0,
     questVars: {},
     encounterResults: [],
-    log: [],
     icon: "sigil1.png",
     currentEncounter: null,
 }, {
@@ -28,7 +27,6 @@ const initialState: QuestStoreState[] = [{
     progress: 0,
     questVars: {},
     encounterResults: [],
-    log: [],
     icon: "sigil2.png",
     currentEncounter: null,
     reward: {
@@ -43,7 +41,7 @@ const initialState: QuestStoreState[] = [{
  * @param action
  */
 export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialState,
-                                                   action: AnyAction| GameTickAction) => {
+                                                   action: AnyAction | GameTickAction) => {
     switch (action.type) {
         case ActionType.launchQuest:
             return launchQuest(state, action as QuestLaunchAction);
@@ -93,21 +91,10 @@ const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {
             const progress = qss.progress + 1;
             const questDefinition: QuestDefinition = questDefinitions[qss.name];
             const nextNode = questDefinition.nodes[Math.floor(progress)];
-            let log = qss.log;
-
-            if (nextNode.type === QuestNodeType.nothing) {
-                if (nextNode.log) {
-                    log = [
-                        ...log,
-                        nextNode.log,
-                    ];
-                }
-            }
 
             return {
                 ...qss,
                 progress,
-                log,
             };
         }
         return qss;
@@ -123,7 +110,8 @@ const startEncounter = (state: QuestStoreState[], action: StartEncounterAction) 
             };
         }
         return qss;
-    }); };
+    });
+};
 
 const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
     const questsToUpdate = action.quests;

@@ -55,10 +55,10 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
             dispatch(upgradeStructure(ownProps.type)); // TODO: [07/07/2019] time to upgarde??
 
             level++;
-            dispatch(addLogEntry("log-town-upgrade-structure-complete", LogChannel.town, {
+            dispatch(addLogEntry("log-town-upgrade-structure-complete", {
                 level,
                 structure: ownProps.type,
-            }));
+            }, LogChannel.town));
         },
     };
 }
