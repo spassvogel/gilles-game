@@ -3,6 +3,7 @@ import DroppableAdventurerAvatar from "components/ui/DroppableAdventurerAvatar";
 import Inventory from "components/ui/inventory/Inventory";
 import { DragSourceType } from "constants/dragging";
 import { TextEntry } from "constants/text";
+import AdventurerInfo from "containers/ui/AdventurerInfo";
 import { getDefinition as getEncounterDefinition } from "definitions/encounters";
 import { EncounterDefinition } from "definitions/encounters/types";
 import { Item } from "definitions/items/types";
@@ -75,42 +76,7 @@ class PartyWindow extends React.Component<AllProps, LocalState> {
         if (!adventurer) {
             return null;
         }
-        const attributes = Object.keys(adventurer.stats).map((stat) => {
-            const value: number = adventurer.stats[stat];
-            return <div key= { `${adventurer.id}-${stat}`} > <b>{ stat }</b>: { value.toFixed(1) } </div>;
-        });
-        const equipmentList = Object.keys(adventurer.equipment).map((equipment) => {
-            return <div key= { `${adventurer.id}-${equipment}`} ><b>{ equipment }</b>: { adventurer.equipment[equipment] }  </div>;
-        });
-
-        const handleDropItem = (item: Item, fromSlot: number, toSlot: number): void => {
-            // TODO: what if the source is NOT adventurer?
-            if (this.props.onMoveItemInInventory) {
-                this.props.onMoveItemInInventory(adventurer.id, fromSlot, toSlot);
-            }
-        };
-
-        return (
-        <div className="adventurer-container">
-            <div className="left">
-                <div className="name">
-                    <b>{ adventurer.name }</b>
-                </div>
-                <div className="attributes">
-                    { attributes }
-                </div>
-                <div className="equipment">
-                    { equipmentList }
-                </div>
-            </div>
-            <div className="right">
-                <Inventory sourceType = { DragSourceType.adventurer }
-                    items = { adventurer.inventory }
-                    onDropItem = { handleDropItem }
-                />
-            </div>
-        </div>
-        );
+        return <AdventurerInfo adventurer = { adventurer } />;
     }
 
     private handleAvatarClick(adventurerId: string | null): void {

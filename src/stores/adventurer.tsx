@@ -12,12 +12,16 @@ export interface AdventurerStoreState {
     room: number;                       // Adventurer is lodged in this room in the tavern
 }
 
-export interface EquipmentStoreState {
+export interface EquipmentStoreState { // todo: make into Items
     head?: string;
-    body?: string;
-    arms?: string;
+    shoulders?: string;
+    chest?: string;
+    hands?: string;
+    legs?: string;
     feet?: string;
-    accessories?: string;
+    mainHand?: Item;
+    offHand?: Item;
+    sideArm?: Item;
 }
 
 // Mom I'm SPECIAL

@@ -1,0 +1,38 @@
+
+.adventurer-info {
+    display: flex;
+}
+
+.adventurer-info .left, .adventurer-info .right {
+    flex: 0.5
+}
+
+.adventurer-info .left {
+    border-right: 1px solid grey;
+}
+
+.adventurer-info .left .name {
+    padding: 15px;
+}
+
+.adventurer-info .left .attributes {
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    padding: 15px;
+}
+
+
+.adventurer-info .left .equipment {
+    padding: 15px;
+}
+
+/** todo: media queries to show more columns */
+.adventurer-info .inventory {
+    display: grid;
+    grid-template-columns: 46px 46px 46px 46px 46px 46px 46px;
+    grid-gap: 1px;
+}
+
+.adventurer-info .inventory .inventory-item {
+    box-shadow: 0 0 0 1px rgb(6, 156, 26);
+}

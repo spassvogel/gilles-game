@@ -130,3 +130,9 @@ backlog of ideas
 
 25/07/2019 CUSTOM CURSORS
 [ ] We need cursors for move and not-allowed
+
+29/07/2019 EQUIP EQUIPMENT
+  head                hands
+  shoulders            legs
+  chest                feet
+  mainhand  offhand sidearm

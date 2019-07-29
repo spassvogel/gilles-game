@@ -36,8 +36,8 @@ const generateRandomGear = (): EquipmentStoreState => {
         return `${firstPart} of ${secondPart}`;
     };
     return {
-        arms: combine(["Fists", "Grips", "Hands", "Handguards", "Gauntlets"]),
-        body: combine(["Breastplate", "Mithril Vest", "Titanium Armor", "Primitive Armor", "Scaled Raiment"]),
+        hands: combine(["Fists", "Grips", "Hands", "Handguards", "Gauntlets"]),
+        chest: combine(["Breastplate", "Mithril Vest", "Titanium Armor", "Primitive Armor", "Scaled Raiment"]),
         feet: combine(["Sabatons", "Footguards", "Warboots", "Slippers"]),
         head: combine(["Helmet", "Headguard", "Obsidian Crown", "Scaled Hood"]),
     };

@@ -60,43 +60,6 @@
     height: 200px;
 }
 
-.partywindow .adventurer-container {
-    display: flex;
-}
-
-.partywindow .adventurer-container .left, .partywindow .adventurer-container .right {
-    flex: 0.5
-}
-
-.partywindow .adventurer-container .left {
-    border-right: 1px solid grey;
-}
-
-.partywindow .adventurer-container .left .name {
-    padding: 15px;
-}
-
-.partywindow .adventurer-container .left .attributes {
-    border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
-    padding: 15px;
-}
-
-
-.partywindow .adventurer-container .left .equipment {
-    padding: 15px;
-}
-
-/** todo: media queries to show more columns */
-.partywindow .adventurer-container .inventory {
-    display: grid;
-    grid-template-columns: 46px 46px 46px 46px 46px 46px 46px;
-    grid-gap: 1px;
-}
-
-.partywindow .adventurer-container .inventory .inventory-item {
-    box-shadow: 0 0 0 1px rgb(6, 156, 26);
-}
 
 /*
  @media (max-width: 600px) {
