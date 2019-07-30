@@ -84,7 +84,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 4,
     avatarImg: `/img/avatars/andy-victorovych-a4.jpg`,
-    inventory: [ null, null, null, null, null ],
+    inventory: [ null, null, null, null, Item.khopesh, Item.hornedHelmet ],
 }, {
     id: "96c686c3",
     equipment: generateRandomGear(),

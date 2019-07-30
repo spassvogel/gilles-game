@@ -1,17 +1,26 @@
 // todo: hooks!
 // https://github.com/react-dnd/react-dnd/pull/1244
 import { DragType } from "constants/dragging";
-import { EquipmentType } from "definitions/items/equipment";
-import { Item } from "definitions/items/types";
+import { getDefinition } from "definitions/items";
+import { EquipmentDefinition, EquipmentType } from "definitions/items/equipment";
+import { Item, ItemType } from "definitions/items/types";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
+import "./css/equipmentslot.css";
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {
         props.onDrop(monitor.getItem());
     },
-    canDrop(props: Props)  {
-        return props.item === null; // todo: check if correct type
+    canDrop(props: Props, monitor: DropTargetMonitor)  {
+        const item = monitor.getItem().item;
+        const def = getDefinition(item);
+        // Can only drop the right equipment type
+        if (def.itemType !== ItemType.equipment) {
+            return false;
+        }
+        const equipmentDef = def as EquipmentDefinition;
+        return equipmentDef.equipmentType === props.type;
     },
 };
 
@@ -43,16 +52,15 @@ const EquipmentSlot = (props: React.PropsWithChildren<Props & DropSourceProps>) 
         connectDropTarget,
     } = props;
     const isActive = isOver && canDrop;
-
-    let borderColor = "#1b8417";
+    let borderColor = "grey";
     if (isActive) {
-        borderColor = "#e2bc23";
+        borderColor = "green";
     } else if (canDrop) {
-        borderColor = "#7ea752";
+        borderColor = "orange";
     }
 
     return connectDropTarget(
-        <div  className = "inventory-item">
+        <div  className = "equipment-slot" style = { { borderColor }}>
             { props.children }
         </div>,
     );

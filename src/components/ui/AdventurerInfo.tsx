@@ -1,11 +1,11 @@
 import { DragSourceType } from "constants/dragging";
+import { EquipmentType } from "definitions/items/equipment";
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import "./css/adventurerinfo.css";
-import Inventory from "./inventory/Inventory";
 import EquipmentSlot from "./EquipmentSlot";
-import { EquipmentType } from "definitions/items/equipment";
+import Inventory from "./inventory/Inventory";
 
 export interface Props {
     adventurer: AdventurerStoreState;
@@ -36,11 +36,26 @@ const AdventurerInfo = (props: AllProps) => {
             onDrop = { handleDropItemEquipment }
             type = { EquipmentType.head }/>head
         </li>
-        <li>shoulders</li>
-        <li>chest</li>
-        <li>hands</li>
-        <li>legs</li>
-        <li>feet</li>
+        <li><EquipmentSlot
+            item = { null }
+            onDrop = { handleDropItemEquipment }
+            type = { EquipmentType.shoulders }/>shoulders</li>
+        <li><EquipmentSlot
+            item = { null }
+            onDrop = { handleDropItemEquipment }
+            type = { EquipmentType.chest }/>chest</li>
+        <li><EquipmentSlot
+            item = { null }
+            onDrop = { handleDropItemEquipment }
+            type = { EquipmentType.hands }/>hands</li>
+        <li><EquipmentSlot
+            item = { null }
+            onDrop = { handleDropItemEquipment }
+            type = { EquipmentType.legs }/>legs</li>
+        <li><EquipmentSlot
+            item = { null }
+            onDrop = { handleDropItemEquipment }
+            type = { EquipmentType.feet }/>feet</li>
     </ul>;
 
     const handleDropItemInventory = (item: Item, fromSlot: number, toSlot: number): void => {

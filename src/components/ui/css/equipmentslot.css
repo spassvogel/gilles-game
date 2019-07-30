@@ -1,0 +1,7 @@
+.equipment-slot { 
+    width: 46px;
+    height: 46px;
+    background-size: contain;
+    background-repeat: no-repeat;    
+    border: 2px solid #995700;
+}
