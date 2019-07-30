@@ -7,7 +7,8 @@ export const DragType = {
 
 // Source, where it comes from
 export enum DragSourceType {
-    adventurer,
+    adventurerInventory,
     warehouse,
     tavern,
+    adventurerEquipment,
 }

@@ -4,6 +4,7 @@ import { Item } from "definitions/items/types";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import "./css/adventurerinfo.css";
+import DraggableItemIcon, { InventoryItemDragInfo } from "./DraggableItemIcon";
 import EquipmentSlot from "./EquipmentSlot";
 import Inventory from "./inventory/Inventory";
 
@@ -12,7 +13,9 @@ export interface Props {
 }
 
 export interface DispatchProps {
-    onMoveItemInInventory?: (adventurerId: string, fromSlot: number, toSlot: number) => void;
+    onMoveItemInInventory: (adventurerId: string, fromSlot: number, toSlot: number) => void;
+    onRemoveItemFromInventory: (adventurerId: string, fromSlot: number) => void;
+    onAssignEquipment: (adventurerId: string, type: EquipmentType, item: Item) => void;
 }
 
 type AllProps = Props & DispatchProps;
@@ -23,39 +26,72 @@ const AdventurerInfo = (props: AllProps) => {
         const value: number = adventurer.stats[stat];
         return <div key = { `${adventurer.id}-${stat}`} > <b>{ stat }</b>: { value.toFixed(1) } </div>;
     });
-    // const equipmentList = Object.keys(adventurer.equipment).map((equipment) => {
-    //     return <div key = { `${adventurer.id}-${equipment}` } ><b>{ equipment }</b>: { adventurer.equipment[equipment] }  </div>;
+    // const equipmentList = Object.keys(getEquipment(.map((equipment) =) {
+    //     return <div key = { `${adventurer.id}-${equipment}` } ><b>{ equipment }</b>: { getEquipment(equipment] }  </di)>;
     // });
 
-    const handleDropItemEquipment = (item: Item) => {
-        console.log(item);
+    const handleDropItemEquipment = (type: EquipmentType, dragInfo: InventoryItemDragInfo) => {
+        const item = dragInfo.item;
+        props.onRemoveItemFromInventory(adventurer.id, dragInfo.inventorySlot!);
+        props.onAssignEquipment(adventurer.id, type, item);
     };
+
+    const getEquipmentSlot = (type: EquipmentType) => {
+        // returns EquipmentSlot
+        const item: Item | undefined = adventurer.equipment[EquipmentType[type]];
+        let contents = null;
+
+        if (item) {
+            const itemRef: React.RefObject<any> = React.createRef();
+            const handleClick = (event: React.MouseEvent) => {
+                const origin = (event.currentTarget as HTMLElement);
+                const originRect = origin.getBoundingClientRect();
+                /*props.onContextualObjectActivated(
+                    ContextType.item,
+                    itemDefinitions[item],
+                    itemRef,
+                    originRect,
+                );*/
+                event.stopPropagation();
+            };
+
+            contents = <DraggableItemIcon
+                index = { type }
+                sourceId = { adventurer.id }
+                sourceType = { DragSourceType.adventurerEquipment }
+                item = { item }
+                onClick = { handleClick }
+                ref = { itemRef }
+            >
+            </DraggableItemIcon>;
+        }
+
+        return <EquipmentSlot
+            onDrop = { (dragInfo: InventoryItemDragInfo) => handleDropItemEquipment(type, dragInfo) }
+            type = { type }>
+                { contents }
+        </EquipmentSlot>;
+    };
+
     const equipmentList = <ul>
-        <li><EquipmentSlot
-            item = { null }
-            onDrop = { handleDropItemEquipment }
-            type = { EquipmentType.head }/>head
+        <li>
+            { getEquipmentSlot(EquipmentType.head) }
         </li>
-        <li><EquipmentSlot
-            item = { null }
-            onDrop = { handleDropItemEquipment }
-            type = { EquipmentType.shoulders }/>shoulders</li>
-        <li><EquipmentSlot
-            item = { null }
-            onDrop = { handleDropItemEquipment }
-            type = { EquipmentType.chest }/>chest</li>
-        <li><EquipmentSlot
-            item = { null }
-            onDrop = { handleDropItemEquipment }
-            type = { EquipmentType.hands }/>hands</li>
-        <li><EquipmentSlot
-            item = { null }
-            onDrop = { handleDropItemEquipment }
-            type = { EquipmentType.legs }/>legs</li>
-        <li><EquipmentSlot
-            item = { null }
-            onDrop = { handleDropItemEquipment }
-            type = { EquipmentType.feet }/>feet</li>
+        <li>
+            { getEquipmentSlot(EquipmentType.shoulders) }
+        </li>
+        <li>
+            { getEquipmentSlot(EquipmentType.chest) }
+        </li>
+        <li>
+            { getEquipmentSlot(EquipmentType.hands) }
+        </li>
+        <li>
+            { getEquipmentSlot(EquipmentType.legs) }
+        </li>
+        <li>
+            { getEquipmentSlot(EquipmentType.feet) }
+        </li>
     </ul>;
 
     const handleDropItemInventory = (item: Item, fromSlot: number, toSlot: number): void => {
@@ -78,7 +114,9 @@ const AdventurerInfo = (props: AllProps) => {
                 </div>
             </div>
             <div className = "right">
-                <Inventory sourceType = { DragSourceType.adventurer }
+                <Inventory
+                    sourceType = { DragSourceType.adventurerInventory }
+                    sourceId = { adventurer.id }
                     items = { adventurer.inventory }
                     onDropItem = { handleDropItemInventory }
                 />

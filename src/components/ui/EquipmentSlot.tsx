@@ -7,6 +7,7 @@ import { Item, ItemType } from "definitions/items/types";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
 import "./css/equipmentslot.css";
+import { InventoryItemDragInfo } from "./DraggableItemIcon";
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {
@@ -25,9 +26,8 @@ const dropTarget: DropTargetSpec<Props> = {
 };
 
 export interface Props {
-    item: Item | null;
     type: EquipmentType;
-    onDrop: (item: Item) => void;
+    onDrop: (item: InventoryItemDragInfo) => void;
 }
 
 export interface DropSourceProps {

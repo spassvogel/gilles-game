@@ -13,12 +13,12 @@ export interface AdventurerStoreState {
 }
 
 export interface EquipmentStoreState { // todo: make into Items
-    head?: string;
-    shoulders?: string;
-    chest?: string;
-    hands?: string;
-    legs?: string;
-    feet?: string;
+    head?: Item;
+    shoulders?: Item;
+    chest?: Item;
+    hands?: Item;
+    legs?: Item;
+    feet?: Item;
     mainHand?: Item;
     offHand?: Item;
     sideArm?: Item;

@@ -1,3 +1,4 @@
+import { EquipmentType } from "definitions/items/equipment";
 import { Item } from "definitions/items/types";
 
 // tslint:disable:object-literal-sort-keys
@@ -7,6 +8,7 @@ export enum ActionType {
     moveItemFromWarehouseToAdventurer = "moveItemFromWarehouseToAdventurer",
     addItemToInventory = "addItemToInventory",
     removeItemFromInventory = "removeItemFromInventory",
+    assignEquipment = "assignEquipment",
 }
 
 export interface Action {
@@ -32,6 +34,11 @@ export interface MoveItemToOtherAdventurerAction extends Action {
     fromSlot: number;
     toSlot?: number;
     toAdventurerId: string;
+}
+
+export interface EquipmentAction extends Action {
+    item: Item;
+    equipmentType: EquipmentType;
 }
 
 export function moveItemInInventory(adventurerId: string, fromSlot: number, toSlot: number):
@@ -77,5 +84,14 @@ export function removeItemFromInventory(adventurerId: string, fromSlot: number):
         type: ActionType.removeItemFromInventory,
         adventurerId,
         fromSlot,
+    };
+}
+
+export function assignEquipment(adventurerId: string, type: EquipmentType, item: Item): EquipmentAction {
+    return {
+        type: ActionType.assignEquipment,
+        adventurerId,
+        item,
+        equipmentType: type,
     };
 }

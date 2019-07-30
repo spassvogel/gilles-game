@@ -85,7 +85,7 @@ class WarehouseStructureView extends React.Component<AllProps, null> {
                         props.onMoveItemInWarehouse(fromSlot, toSlot);
                     }
                     break;
-                case DragSourceType.adventurer:
+                case DragSourceType.adventurerInventory:
                     if (props.onMoveItemFromAdventurer) {
                         props.onMoveItemFromAdventurer(sourceId!, item, fromSlot, toSlot);
                     }

@@ -31,7 +31,7 @@ const spec: DragSourceSpec<Props & AdventurerAvatarProps, AdventurerAvatarDragIn
         return {
             adventurer: props.adventurer,
             sourceId: props.sourceId,
-            sourceType: DragSourceType.adventurer,
+            sourceType: DragSourceType.adventurerInventory,
         };
     },
 };

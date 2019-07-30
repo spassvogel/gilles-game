@@ -54,7 +54,7 @@ class AdventurersBox extends React.Component<AllProps, LocalState> {
                 const handleDropItem = (item: Item, fromSlot: number,
                                         toSlot: number, sourceType: DragSourceType): void => {
                     switch (sourceType) {
-                        case DragSourceType.adventurer:
+                        case DragSourceType.adventurerInventory:
                             if (this.props.onMoveItemInInventory) {
                                 this.props.onMoveItemInInventory(selectedAdventurer.id, fromSlot, toSlot);
                             }
@@ -77,7 +77,7 @@ class AdventurersBox extends React.Component<AllProps, LocalState> {
                         <Inventory
                             items = { selectedAdventurer.inventory }
                             sourceId = { selectedAdventurer.id }
-                            sourceType = { DragSourceType.adventurer}
+                            sourceType = { DragSourceType.adventurerInventory}
                             onDropItem = { handleDropItem }
                         />
                     </div>
