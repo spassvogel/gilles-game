@@ -22,8 +22,21 @@
 }
 
 
-.adventurer-info .left .equipment {
+.adventurer-info .left .equipment ul {
     padding: 15px;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.adventurer-info .left .equipment li {
+    box-sizing: border-box;
 }
 
 /** todo: media queries to show more columns */

@@ -4,6 +4,8 @@ import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import "./css/adventurerinfo.css";
 import Inventory from "./inventory/Inventory";
+import EquipmentSlot from "./EquipmentSlot";
+import { EquipmentType } from "definitions/items/equipment";
 
 export interface Props {
     adventurer: AdventurerStoreState;
@@ -21,11 +23,27 @@ const AdventurerInfo = (props: AllProps) => {
         const value: number = adventurer.stats[stat];
         return <div key = { `${adventurer.id}-${stat}`} > <b>{ stat }</b>: { value.toFixed(1) } </div>;
     });
-    const equipmentList = Object.keys(adventurer.equipment).map((equipment) => {
-        return <div key = { `${adventurer.id}-${equipment}` } ><b>{ equipment }</b>: { adventurer.equipment[equipment] }  </div>;
-    });
+    // const equipmentList = Object.keys(adventurer.equipment).map((equipment) => {
+    //     return <div key = { `${adventurer.id}-${equipment}` } ><b>{ equipment }</b>: { adventurer.equipment[equipment] }  </div>;
+    // });
 
-    const handleDropItem = (item: Item, fromSlot: number, toSlot: number): void => {
+    const handleDropItemEquipment = (item: Item) => {
+        console.log(item);
+    };
+    const equipmentList = <ul>
+        <li><EquipmentSlot
+            item = { null }
+            onDrop = { handleDropItemEquipment }
+            type = { EquipmentType.head }/>head
+        </li>
+        <li>shoulders</li>
+        <li>chest</li>
+        <li>hands</li>
+        <li>legs</li>
+        <li>feet</li>
+    </ul>;
+
+    const handleDropItemInventory = (item: Item, fromSlot: number, toSlot: number): void => {
         // TODO: what if the source is NOT adventurer?
         if (props.onMoveItemInInventory) {
             props.onMoveItemInInventory(adventurer.id, fromSlot, toSlot);
@@ -47,7 +65,7 @@ const AdventurerInfo = (props: AllProps) => {
             <div className = "right">
                 <Inventory sourceType = { DragSourceType.adventurer }
                     items = { adventurer.inventory }
-                    onDropItem = { handleDropItem }
+                    onDropItem = { handleDropItemInventory }
                 />
             </div>
         </div>
