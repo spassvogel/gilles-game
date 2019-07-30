@@ -1,4 +1,7 @@
+import { AppContext } from "components/App";
+import { ContextType } from "constants/context";
 import { DragSourceType } from "constants/dragging";
+import { getDefinition } from "definitions/items";
 import { EquipmentType } from "definitions/items/equipment";
 import { Item } from "definitions/items/types";
 import * as React from "react";
@@ -21,6 +24,8 @@ export interface DispatchProps {
 type AllProps = Props & DispatchProps;
 
 const AdventurerInfo = (props: AllProps) => {
+
+    const context = React.useContext(AppContext)!;
     const adventurer = props.adventurer;
     const attributes = Object.keys(adventurer.stats).map((stat) => {
         const value: number = adventurer.stats[stat];
@@ -46,12 +51,12 @@ const AdventurerInfo = (props: AllProps) => {
             const handleClick = (event: React.MouseEvent) => {
                 const origin = (event.currentTarget as HTMLElement);
                 const originRect = origin.getBoundingClientRect();
-                /*props.onContextualObjectActivated(
+                context.onContextualObjectActivated(
                     ContextType.item,
-                    itemDefinitions[item],
+                    getDefinition(item),
                     itemRef,
                     originRect,
-                );*/
+                );
                 event.stopPropagation();
             };
 

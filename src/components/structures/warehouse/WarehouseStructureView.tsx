@@ -95,9 +95,7 @@ class WarehouseStructureView extends React.Component<AllProps, null> {
         return (
             <details open = { true } className = "warehouse-structureview">
                 <summary>{ displayName }</summary>
-                {
-                    createUpgradeRow()
-                }
+                { createUpgradeRow() }
                 <fieldset className="resources" ref = { (ref) => { this.resourcesRef = ref; }}>
                     <legend>Resources</legend>
                     <ResourcesBox
