@@ -1,4 +1,5 @@
 import { DragSourceType, DragType } from "constants/dragging";
+import { IconSize } from "constants/icons";
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from "react-dnd";
@@ -9,6 +10,7 @@ export interface Props {
     item: Item;
     sourceType: DragSourceType;
     sourceId?: string;
+    size?: IconSize;
     onClick?: (event: React.MouseEvent) => void;
 }
 
@@ -53,7 +55,7 @@ function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
 class DraggableItemIcon extends React.Component<Props & CollectedProps > {
 
     public render() {
-        const { item, onClick, isDragging, connectDragSource } = this.props;
+        const { item, onClick, isDragging, connectDragSource, size } = this.props;
 
         const handleClick = (event: React.MouseEvent) => {
             if (onClick) {
@@ -69,6 +71,7 @@ class DraggableItemIcon extends React.Component<Props & CollectedProps > {
                 <ItemIcon
                     item = { item }
                     onClick = { handleClick }
+                    size = { size }
             />
             </div>,
         );

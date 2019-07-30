@@ -1,4 +1,5 @@
 import { DragType } from "constants/dragging";
+import { getClassName, IconSize } from "constants/icons";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
 
@@ -14,6 +15,7 @@ const dropTarget: DropTargetSpec<Props> = {
 export interface Props {
     empty: boolean;
     onDrop: (item: any) => void;
+    size?: IconSize;
 }
 
 export interface DropSourceProps {
@@ -46,9 +48,10 @@ class InventorySlot extends React.Component<Props & DropSourceProps> {
         } else if (canDrop) {
             borderColor = "#7ea752";
         }
+        const className = "inventory-item " + getClassName(this.props.size);
 
         return connectDropTarget(
-            <div  className = "inventory-item">
+            <div className = { className }>
                 { this.props.children }
             </div>,
         );

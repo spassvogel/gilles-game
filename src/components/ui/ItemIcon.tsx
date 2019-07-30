@@ -1,16 +1,19 @@
-import itemDefinitions from "definitions/items";
-import { Item, ItemDefinition } from "definitions/items/types";
+import "components/ui/css/common/icon.css";
+import { getClassName, IconSize } from "constants/icons";
+import { getDefinition } from "definitions/items";
+import { Item } from "definitions/items/types";
 import * as React from "react";
 import "./css/itemicon.css";
 
 export interface Props  {
     item: Item;
     onClick?: (event: React.MouseEvent) => void;
+    size?: IconSize;
 }
 
 const ItemIcon = (props: Props) => {
     const { item  } =  props;
-    const itemDefinition: ItemDefinition = itemDefinitions[item];
+    const itemDefinition = getDefinition(item);
 
     if (!itemDefinition) {
         // tslint:disable-next-line: no-console
@@ -18,13 +21,15 @@ const ItemIcon = (props: Props) => {
     }     // todo: [10/07/2019] assert
 
     const handleClick = (event: React.MouseEvent) => {
-        if (props.onClick){
+        if (props.onClick) {
             props.onClick(event);
         }
-    }
+    };
+
+    const className = "item-icon " + getClassName(props.size);
 
     return (
-        <div className="item-icon"
+        <div className = { className }
             onClick = { handleClick }
             style = {{
                 backgroundImage: `url(${itemDefinition.iconImg})`,

@@ -10,6 +10,7 @@ import "./css/adventurerinfo.css";
 import DraggableItemIcon, { InventoryItemDragInfo } from "./DraggableItemIcon";
 import EquipmentSlot from "./EquipmentSlot";
 import Inventory from "./inventory/Inventory";
+import { IconSize } from "constants/icons";
 
 export interface Props {
     adventurer: AdventurerStoreState;
@@ -67,6 +68,7 @@ const AdventurerInfo = (props: AllProps) => {
                 item = { item }
                 onClick = { handleClick }
                 ref = { itemRef }
+                size = { IconSize.medium }
             >
             </DraggableItemIcon>;
         }
