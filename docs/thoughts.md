@@ -6,7 +6,7 @@ backlog of ideas
     can be plain text now. 
 [x] later to be replaced by keys that
     can be filtered (will be filtered default on the quest when a quest is clicked)
-[ ] Quest logs are added to this log
+[x] Quest logs are added to this log
 [x] for ease, a party can only exist when a quest is combined with a group of adventurers
     its not possible to create a party and send them on a quest later
     the party gets created when the adventurers leave on the quest
@@ -35,7 +35,7 @@ backlog of ideas
     auto will investigate the 'unique' property. if true use defined, otherwise undefined
 [x] have a helper for 'capital' Capitalise
 
-[ ] The tavern has a limited number of vacancies (rooms). Upgrading the tavern upgrades this number.
+[x] The tavern has a limited number of vacancies (rooms). Upgrading the tavern upgrades this number.
 [ ] Periodically new adventurers will take residence
     The tavern will only accept new adventurers when there are rooms free.
     Adventurers on quests keep their rooms
@@ -126,6 +126,7 @@ backlog of ideas
 
 25/07/2019 SCROLLING TABS
 [ ] Tabbar could be scrollable
+[ ] Scrollbar should be on top
     https://stackoverflow.com/questions/18997724/how-to-change-scroll-bar-position-with-css
 
 25/07/2019 CUSTOM CURSORS
@@ -136,3 +137,22 @@ backlog of ideas
   shoulders            legs
   chest                feet
   mainhand  offhand sidearm
+
+31/07/2019 Three.js
+Because I'm not an artist and I want to use unity3d assets
+[ ] First check if components dont get remounted too much. If yes, find out why and resolve issue!     
+[ ] Find cool fantasy town assets
+[ ] Check if can be loaded in threejs (seperate project)
+[ ] Implement in town
+[ ] It would be cool to have the town scrollable.
+    The easiest way would maybe to be to create a very long canvas, render everything on it and let the browser scroll this canvas. This way you also have a scrollbar.
+    Not optimal for performance tho.
+[ ] Find cool fantasy character unity asset packs
+[ ] Check if can be loaded in threejs (seperate project)
+[ ] Implement in combat
+    perhaps we don't need react bindings.
+    See if we can do this:
+    1. on mount, all actors are spawned and positioned
+    2. on update, all actors (AIs turn happens simultanously?) move to their new positions
+       and play their animations.
+[ ] On second hand, I think it's worth checking out react-three-fiber. Might get complicated otherwise  
