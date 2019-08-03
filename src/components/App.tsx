@@ -16,7 +16,7 @@ import { Persistor } from "redux-persist";
 import { Sound, SoundManager } from "utils/soundManager";
 import { TextManager } from "utils/textManager";
 import Topbar from "../containers/Topbar";
-import { Structure, getDefinition } from "../definitions/structures";
+import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";

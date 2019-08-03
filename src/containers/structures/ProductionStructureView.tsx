@@ -8,7 +8,6 @@ import { removeResources } from "actions/resources";
 import { decreaseWorkers, increaseWorkers, upgradeStructure } from "actions/structures";
 import { startTask } from "actions/tasks";
 import { ProductionDefinition } from "definitions/production/types";
-import { withAppContext } from "hoc/withAppContext";
 import { calculateProductionTime } from "mechanics/crafting";
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
@@ -63,7 +62,4 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
     };
 }
 
-export default compose(
-    connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
-    withAppContext, // todo: we don't need withAppContext
-)(ProductionStructureView) as React.ComponentType<Props>;
+export default connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps)(ProductionStructureView);

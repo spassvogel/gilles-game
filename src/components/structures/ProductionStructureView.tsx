@@ -5,7 +5,6 @@ import { Item, ItemDefinition } from "definitions/items/types";
 import { ProductionDefinition } from "definitions/production/types";
 import structureDefinitions, { Structure } from "definitions/structures";
 import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from "definitions/structures/types";
-import { AppContextProps } from "hoc/withAppContext";
 import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "mechanics/crafting";
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
@@ -35,7 +34,7 @@ export interface Props {
     type: Structure;
 }
 
-type AllProps = Props & StateProps & DispatchProps & AppContextProps;
+type AllProps = Props & StateProps & DispatchProps;
 
 interface LocalState {
     selectedItem: Item|null;

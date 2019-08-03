@@ -30,11 +30,14 @@ export interface StateProps  {
     maxResources: ResourceStoreState;
 }
 
-type AllProps = Props & StateProps & DispatchProps & AppContextProps;
+type AllProps = Props & StateProps & DispatchProps;
 
+// tslint:disable-next-line: no-empty-interface
+interface LocalState {
+}
 const warehouse = DragSourceType.warehouse;
 
-class WarehouseStructureView extends React.Component<AllProps, null> {
+class WarehouseStructureView extends React.Component<AllProps, LocalState> {
     private resourcesDelta: ResourceStoreState;
     private resourcesRef: HTMLFieldSetElement | null;
 

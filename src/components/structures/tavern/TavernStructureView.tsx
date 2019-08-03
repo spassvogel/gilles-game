@@ -2,7 +2,6 @@ import DraggableAdventurerAvatar, { AdventurerAvatarDragInfo } from "components/
 import QuestBoard from "containers/structures/tavern/QuestBoard";
 import structureDefinitions, { Structure } from "definitions/structures";
 import { TavernStructureDefinition, TavernStructureLevelDefinition } from "definitions/structures/types";
-import { AppContextProps } from "hoc/withAppContext";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStatus, QuestStoreState } from "stores/quest";
@@ -26,7 +25,7 @@ export interface StateProps {
 export interface Props {
 }
 
-type AllProps = Props & StateProps & DispatchProps & AppContextProps;
+type AllProps = Props & StateProps & DispatchProps;
 
 // tslint:disable-next-line:no-empty-interface
 interface LocalState {
