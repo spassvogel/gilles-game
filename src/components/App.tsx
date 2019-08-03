@@ -11,7 +11,6 @@ import { manifest } from "manifest/app";
 import * as React from "react";
 import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
-import posed, { PoseGroup } from "react-pose";
 import { BrowserRouter as Router, Link, Redirect, Route } from "react-router-dom";
 import { Persistor } from "redux-persist";
 import { Sound, SoundManager } from "utils/soundManager";
@@ -81,30 +80,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
 
     public render() {
         const selectedStructureView = this.state.selectedStructure ?
-        <StructureDetailsView structure = { this.state.selectedStructure }/> : null;
-
-        const StructureViewModal = posed.div({
-            enter: {
-                opacity: 1,
-                transform: "scale(1)",
-                transition: {
-                     duration: 200,
-                     ease: "easeInOut",
-                },
-            },
-            exit: {
-                opacity: 0,
-                transform: "scale(0.5)",
-                transition: {
-                    duration: 150,
-                    ease: "easeInOut",
-                },
-            },
-        });
-        const ModalBackground = posed.div({
-            enter: { opacity: 1 },
-            exit: { opacity: 0 },
-        });
+        <StructureDetailsView structure = { this.state.selectedStructure }/> : null;       
 
         const handleViewButtonClick = () => {
             SoundManager.playSound(Sound.buttonClick);
@@ -172,16 +148,6 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     <Route path="/town" component = { WorldButton } />
                     { ` | ` }
                     <button onClick= { () => handleResetClick() } style={ { color: "red" } }> Restart! </button>
-
-                    { <PoseGroup>
-                        { !!selectedStructureView && [
-                            <StructureViewModal key="structure-modal" className="structure-modal">
-                                { selectedStructureView }
-                            </StructureViewModal>,
-                            <ModalBackground key="structure-modal-bg" className="structure-modal-background" onClick= { () => this.closeStructureModal() } />,
-                            ]
-                        }
-                    </PoseGroup>}
                     <Route path="/town" component = { TownView } />
                     <Route path="/world" component = { WorldView } />
                 <div className="app-right">
