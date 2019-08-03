@@ -156,3 +156,8 @@ Because I'm not an artist and I want to use unity3d assets
     2. on update, all actors (AIs turn happens simultanously?) move to their new positions
        and play their animations.
 [ ] On second hand, I think it's worth checking out react-three-fiber. Might get complicated otherwise  
+    https://github.com/drcmda/react-three-fiber/issues/113
+    https://github.com/drcmda/react-three-fiber/issues/160
+
+    react-three-fiber seems to work. I think the best way is to
+    create my scene in blender, export to GLtf

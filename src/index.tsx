@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Item } from "definitions/items/types";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -19,6 +18,9 @@ import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
 import { TextManager } from "./utils/textManager";
+import Thing from "Thing";
+//import "threetest.ts";
+
 
 let interval: NodeJS.Timeout;
 const initGame = async () => {
@@ -61,7 +63,8 @@ const continueGame = (store: any) => {
 const runGame = (store: any, persistor: Persistor) => {
     ReactDOM.render(
         <Provider store={store}>
-            <App persistor={ persistor }/>
+            {/* <App persistor={ persistor }/> */}
+            <Thing />
         </Provider>,
         document.getElementById("root") as HTMLElement,
     );
