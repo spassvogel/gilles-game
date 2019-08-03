@@ -21,7 +21,7 @@
 
 .structure-details {
     z-index: 2;
-    width: 800px;
+    height: calc(100% - 80px);
     background: white;
     pointer-events: initial;
 } 

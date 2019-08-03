@@ -227,7 +227,6 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
 
     private handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => {
 
-        // todo: 20/07/2019 contextual popup
         this.setState({
             contextInfo: info,
             contextType: type,

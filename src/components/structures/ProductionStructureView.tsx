@@ -101,16 +101,8 @@ export default class ProductionStructureView extends React.Component<AllProps, L
             const selectedItem = this.state.selectedItem;
 
             return levelDefinition.produces.map((produces) => {
-
                 const handleSelectCraftingItem = (e: React.MouseEvent) => {
                     e.stopPropagation();
-
-                    /* todo: setting state on the App causes this Component to be remounted. it's react-poses fault
-                    https://github.com/Popmotion/popmotion/issues/820
-                    this.props.onContextualObjectActivated(
-                        ContextType.item,
-                        itemDefinitions[item],
-                    );*/
 
                     this.setState({
                         selectedItem: produces.item,
@@ -122,7 +114,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                     onClick = { handleSelectCraftingItem }
                     className = { selectedItem === produces.item ? "selected" : "" }
                 >
-                    <ItemIcon item= { produces.item } />
+                    <ItemIcon item= { produces.item }  />
                     { TextManager.getItemName(produces.item) }
                 </li>;
             });
@@ -224,7 +216,6 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                 </div>
             );
         };
-
 
         const createProgressbars = () => {
             const tasks = this.props.tasks || [];
