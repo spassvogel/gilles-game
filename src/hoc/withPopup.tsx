@@ -1,11 +1,15 @@
 import "components/ui/popup/css/popup.css";
 import * as React from "react";
 
+const ARROW_SIZE = 8; // warning: sync to popup.css var
+const PADDING = 8;
+
 // Sharing context within the entire App
 export interface PopupProps {
     containerRect: ClientRect;
     referenceRect: ClientRect;
     placement?: Placement;
+    children: any;
 }
 
 export enum Placement {
@@ -16,79 +20,86 @@ export enum Placement {
 }
 
 export const withPopup = <TWrappedComponentProps extends PopupProps>(WrappedComponent: React.ComponentType<TWrappedComponentProps>) => {
-    return class WithPopup extends React.Component<TWrappedComponentProps> {
-        private popupRef: React.RefObject<HTMLDivElement>;
 
-        constructor(props: TWrappedComponentProps) {
-            super(props);
-            this.popupRef = React.createRef();
-        }
+    const WithPopup = (props: TWrappedComponentProps) => {
 
-        public render() {
+        const ref = React.useRef<HTMLDivElement>(null);
+        const [ placement, setPlacement ] = React.useState<Placement>(props.placement || Placement.bottom);
 
-            const containerRect = this.props.containerRect;
-            const referenceRect = this.props.referenceRect;
-            const placement = this.props.placement || Placement.bottom;
+        const containerRect = props.containerRect;
+        const referenceRect = props.referenceRect;
 
-            let x: number = 0;
-            let y: number = 0;
-            let className: string = "";
+        React.useEffect(() => {
+            // Reposition if needed
+            const popupElement = ref.current!;
+            const popupRect = popupElement.getBoundingClientRect();
 
+            // Flip vertically
             switch (placement) {
-
-                case Placement.bottom:
-                    x = referenceRect.left - containerRect.left + referenceRect.width / 2;
-                    y = referenceRect.top - containerRect.top + referenceRect.height;
-                    className = "popup-bottom";
-                    break;
                 case Placement.top:
-                    x = referenceRect.left - containerRect.left + referenceRect.width / 2;
-                    y = referenceRect.top - containerRect.top;
-                    className = "popup-top";
-                    break;
+                    if (popupRect.top - popupRect.height - ARROW_SIZE - PADDING < containerRect.top) {
+                        // Too high, place underneath
+                        setPlacement(Placement.bottom);
+                        return;
+                    }
+                case Placement.bottom:
+                    if (popupRect.top + popupRect.height + ARROW_SIZE + PADDING > containerRect.height ) {
+                        // Too low, place top
+                        setPlacement(Placement.top);
+                        return;
+                    }
+            }
+            popupElement.style.opacity = "1"; // animated through css
+
+            // Check left bounding edge
+            if (popupRect.left < containerRect.left + PADDING) {
+                const offset = containerRect.left - popupRect.left + PADDING;
+                const contentElement = popupElement.querySelector(".popup-content") as HTMLElement;
+                contentElement.style.transform = `translateX(${offset}px)`;
             }
 
-            return (
-                <div className = { `popup ${className}` }
-                    style = {{
-                        left: x,
-                        top: y,
-                    }}
-                    ref = { this.popupRef }
-                >
-                    <div className = "popup-arrow"></div>
-                    <WrappedComponent {...this.props } />
+            // Check right bounding edge
+            if (popupRect.right > containerRect.right - PADDING) {
+                const offset = popupRect.right - containerRect.right + PADDING;
+                const contentElement = popupElement.querySelector(".popup-content") as HTMLElement;
+                contentElement.style.transform = `translateX(${-offset}px)`;
+            }
+        });
+
+        let x: number = 0;
+        let y: number = 0;
+        let className: string = "";
+
+        switch (placement) {
+            case Placement.bottom:
+                x = referenceRect.left - containerRect.left + referenceRect.width / 2;
+                y = referenceRect.top - containerRect.top + referenceRect.height;
+                className = "popup-bottom";
+                break;
+            case Placement.top:
+                x = referenceRect.left - containerRect.left + referenceRect.width / 2;
+                y = referenceRect.top - containerRect.top;
+                className = "popup-top";
+                break;
+        }
+
+        return (
+            <div className = { `popup ${className}` }
+                style = {{
+                    left: x,
+                    opacity: 0,
+                    top: y,
+                }}
+                ref = { ref }
+            >
+                <div className = "popup-arrow"></div>
+                <div className = "popup-content">
+                    <WrappedComponent {...props } />
                 </div>
-            );
-        }
-
-        // todo: 23/06/2019 flip
-        public componentDidUpdate() {
-           // console.log(this.props.originRef)
-            // if(this.popupRef && this.props.originRef.current) {
-            //     const container = this.props.containerRef.current as HTMLElement;
-            //     const containerRect = container.getBoundingClientRect();
-            //     // console.log(rect);
-
-            //     const referenceRect = this.props.referenceRect;
-
-            //     const popup = this.popupRef.current as HTMLElement;
-            //     const popupRect = (popup).getBoundingClientRect();
-
-            //     // placement: bottom
-            //     const x = referenceRect.left - containerRect.left + referenceRect.width / 2;
-            //     const y = referenceRect.top - containerRect.top + referenceRect.height;
-            //     popup.style.left = `${x}px`;
-            //     popup.style.top = `${y}px`;
-
-//                console.log(this.props.originRef.current.getBoundingClientRect())
-
-/*                var popper = new Popper(origin2, origin, {
-                    placement: 'right'
-                });
-            }*/
-        }
-    };
+            </div>
+        );
+    }
+    return WithPopup;
 };
 // export const withPopup = <P extends object>(Component: React.ComponentType<P>): React.FC<P & PopupProps> => ({...props}: PopupProps) => {
 //     return     <div className = "popup" style = {{ background: "pink" }} >

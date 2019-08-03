@@ -41,13 +41,16 @@ export interface Props {
 interface LocalState {
     media: MediaItem[];
     selectedStructure: Structure | null;
-
-    contextType: ContextType | null;
-    contextInfo: ContextInfo | null;
-    contextRect: ClientRect | null;
+    selectedContext: SelectedContext | null;
     containerRect: ClientRect | null;
 
     activeWindows: React.ReactElement[];
+}
+
+interface SelectedContext {
+    contextType: ContextType ;
+    contextInfo: ContextInfo;
+    contextRect: ClientRect;
 }
 
 const resolution = {
@@ -65,17 +68,14 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         super(props);
 
         this.state = {
+            selectedContext: null,
             containerRect: null,
-            contextInfo: null,
-            contextType: null,
-            contextRect: null,
             media: [],
             selectedStructure: null,
             activeWindows: [],
         };
         this.containerRef = React.createRef();
-
-        this.updateDimensions = this.updateDimensions.bind(this);
+        this.handleResize = this.handleResize.bind(this);
     }
 
     public render() {
@@ -106,14 +106,16 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
 
         // A contextual popup showing what you just clicked. Can be an Item
         let ContextPopup = null;
-        if (this.state.containerRect && this.state.contextRect) {
+        if (this.state.selectedContext) {
+
+            const { contextType, contextInfo, contextRect } = this.state.selectedContext;
 
             ContextPopup = <ContextView
-                type = { this.state.contextType }
-                info = { this.state.contextInfo }
-                containerRect = { this.state.containerRect }
-                referenceRect = { this.state.contextRect }
-                placement = { Placement.top }
+                type = { contextType }
+                info = { contextInfo }
+                containerRect = { this.state.containerRect! }
+                referenceRect = { contextRect }
+                placement = { Placement.bottom }
             >
             </ContextView>;
         }
@@ -161,12 +163,12 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
     }
 
     public componentDidMount() {
-        window.addEventListener("resize", this.updateDimensions);
-        this.updateDimensions();
+        window.addEventListener("resize", this.handleResize);
+        this.handleResize();
     }
 
     public componentWillUnmount() {
-        window.removeEventListener("resize", this.updateDimensions);
+        window.removeEventListener("resize", this.handleResize);
     }
 
     private getActiveWindow(): React.ReactElement | null {
@@ -186,7 +188,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         return element;
     }
 
-    private updateDimensions() {
+    private handleResize() {
         if (this.containerRef.current) {
             if (window.innerHeight < resolution.height) {
                 this.containerRef.current.style.transform = `scale(${window.innerHeight / resolution.height}) translateX(-50%)`;
@@ -195,8 +197,10 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                 this.containerRef.current.style.transform = `scale(1) translateX(-50%)`;
             }
             const parentBox = this.containerRef.current.getBoundingClientRect();
+
             this.setState({
                 containerRect: parentBox,
+                selectedContext: null, // this would be in the wrong place
             });
         }
     }
@@ -228,16 +232,18 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
     private handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => {
 
         this.setState({
-            contextInfo: info,
-            contextType: type,
-            contextRect: originRect,
+            selectedContext: {
+                contextInfo: info,
+                contextType: type,
+                contextRect: originRect,
+            },
         });
     }
 
     private handleAppClick = () => {
-        if (this.state.contextRect) {
+        if (this.state.selectedContext) {
             this.setState({
-                contextRect: null,
+                selectedContext: null,
             });
         }
     }

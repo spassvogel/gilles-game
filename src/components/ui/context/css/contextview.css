@@ -1,7 +1,6 @@
 .contextbox {
     background: white;
-    margin: 2px;
     padding: 3px;
     font-size: smaller;
-    max-width: 200px;
+    width: 200px;
 }
