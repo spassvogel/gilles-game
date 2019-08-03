@@ -34,7 +34,7 @@ export enum Structure {
 export type StructureDefinition = WarehouseStructureDefinition |
 ResourceStructureDefinition | ProductionStructureDefinition;
 
-export default {
+const all = {
     alchemist,
     armoursmith,
     garden,
@@ -48,3 +48,9 @@ export default {
     weaver,
     workshop,
 };
+
+export default all;
+
+export function getDefinition(structure: string): StructureDefinition {
+    return all[structure];
+}

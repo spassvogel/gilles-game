@@ -16,7 +16,7 @@ import { Persistor } from "redux-persist";
 import { Sound, SoundManager } from "utils/soundManager";
 import { TextManager } from "utils/textManager";
 import Topbar from "../containers/Topbar";
-import { Structure } from "../definitions/structures";
+import { Structure, getDefinition } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
@@ -79,9 +79,6 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
     }
 
     public render() {
-        const selectedStructureView = this.state.selectedStructure ?
-        <StructureDetailsView structure = { this.state.selectedStructure }/> : null;       
-
         const handleViewButtonClick = () => {
             SoundManager.playSound(Sound.buttonClick);
         };
@@ -205,17 +202,12 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
     }
 
     private selectStructure = (structure: Structure | null) => {
-        // could structure be a Window?
-        this.setState({
-            selectedStructure: structure,
-        });
-    }
+        if (structure) {
+            const displayName = TextManager.getStructureName(structure);
 
-    private closeStructureModal = () => {
-        // could structure be a Window?
-        this.setState({
-            selectedStructure: null,
-        });
+            const window = <StructureDetailsView structure = { structure } title = { displayName }/>;
+            this.handleWindowOpened(window);
+        }
     }
 
     private handleMediaLoadComplete = (media: MediaItem[]) => {

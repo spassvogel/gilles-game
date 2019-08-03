@@ -3,6 +3,7 @@ import itemDefinitions, { getDefinition } from "definitions/items";
 import { Item, ItemType } from "definitions/items/types";
 import { Resource } from "definitions/resources";
 import * as Handlebars from "handlebars";
+import { Structure } from "definitions/structures";
 
 export abstract class TextManager {
 
@@ -58,6 +59,10 @@ export abstract class TextManager {
     public static getItemName(item: Item): string {
         const itemType = ItemType[getDefinition(item).itemType];
         return this.get(`item-${itemType}-${item}-name`);
+    }
+
+    public static getStructureName(structure: Structure): string {
+        return this.get(`structure-${structure}-name`);
     }
 
     private static initialized = false;

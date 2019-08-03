@@ -21,6 +21,7 @@ import * as Random from "./utils/random";
 import { TextManager } from "./utils/textManager";
 
 let interval: NodeJS.Timeout;
+
 const initGame = async () => {
     const axiosResult = await axios.get("lang/en-US.json");
     const texts = axiosResult.data as Record<string, string>;
