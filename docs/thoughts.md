@@ -132,7 +132,12 @@ backlog of ideas
 25/07/2019 CUSTOM CURSORS
 [ ] We need cursors for move and not-allowed
 
-29/07/2019 EQUIP EQUIPMENT
+29/07/2019 EQUIP 
+
+29/07/2019 EQUIP GEAR
+[ ] Can equip gear from the players inventory
+[ ] Can equip gear from the warehouse
+
   head                hands
   shoulders            legs
   chest                feet
