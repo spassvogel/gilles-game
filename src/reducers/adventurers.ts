@@ -251,6 +251,7 @@ export const adventurers: Reducer<AdventurerStoreState[], Action> = (
                     return {
                         ...adventurer,
                         equipment: {
+                            ...adventurer.equipment,
                             [EquipmentType[equipmentType]]: item,
                         },
                     };

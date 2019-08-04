@@ -1,6 +1,7 @@
 import { AppContext } from "components/App";
 import { ContextType } from "constants/context";
 import { DragSourceType } from "constants/dragging";
+import { IconSize } from "constants/icons";
 import { getDefinition } from "definitions/items";
 import { EquipmentType } from "definitions/items/equipment";
 import { Item } from "definitions/items/types";
@@ -10,7 +11,6 @@ import "./css/adventurerinfo.css";
 import DraggableItemIcon, { InventoryItemDragInfo } from "./DraggableItemIcon";
 import EquipmentSlot from "./EquipmentSlot";
 import Inventory from "./inventory/Inventory";
-import { IconSize } from "constants/icons";
 
 export interface Props {
     adventurer: AdventurerStoreState;
