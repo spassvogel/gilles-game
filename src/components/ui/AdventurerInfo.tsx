@@ -20,6 +20,8 @@ export interface DispatchProps {
     onMoveItemInInventory: (adventurerId: string, fromSlot: number, toSlot: number) => void;
     onRemoveItemFromInventory: (adventurerId: string, fromSlot: number) => void;
     onAssignEquipment: (adventurerId: string, type: EquipmentType, item: Item) => void;
+    onAddItemToInventory: (adventurerId: string, item: Item, toSlot: number) => void;
+    onRemoveEquipment: (adventurerId: string, type: EquipmentType) => void;
 }
 
 type AllProps = Props & DispatchProps;
@@ -101,10 +103,22 @@ const AdventurerInfo = (props: AllProps) => {
         </li>
     </ul>;
 
-    const handleDropItemInventory = (item: Item, fromSlot: number, toSlot: number): void => {
-        // TODO: what if the source is NOT adventurer?
-        if (props.onMoveItemInInventory) {
-            props.onMoveItemInInventory(adventurer.id, fromSlot, toSlot);
+    const handleDropItemInventory = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
+        switch (sourceType) {
+            case DragSourceType.adventurerInventory:
+                // Drag from one inventory slot to another
+                if (props.onMoveItemInInventory) {
+                    props.onMoveItemInInventory(adventurer.id, fromSlot, toSlot);
+                }
+                break;
+
+            case DragSourceType.adventurerEquipment:
+                // Drag from equipment slot
+                if (props.onAddItemToInventory && props.onRemoveEquipment) {
+                    props.onAddItemToInventory(adventurer.id, item, toSlot);
+                    props.onRemoveEquipment(adventurer.id, fromSlot);
+                }
+                break;
         }
     };
     return (

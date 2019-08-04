@@ -1,6 +1,7 @@
 // tslint:disable:object-literal-sort-keys
 import { Action, ActionType,
-    EquipmentAction, InventoryAction,
+    AssignEquipmentAction,
+    RemoveEquipmentAction, InventoryAction,
     MoveItemInInventoryAction, MoveItemToOtherAdventurerAction, RemoveItemFromInventoryAction } from "actions/adventurers";
 import { EquipmentType } from "definitions/items/equipment";
 import { Item } from "definitions/items/types";
@@ -245,7 +246,7 @@ export const adventurers: Reducer<AdventurerStoreState[], Action> = (
 
         case ActionType.assignEquipment: {
             // Assigns equipment to an adventurer
-            const { equipmentType, item } = action as EquipmentAction;
+            const { equipmentType, item } = action as AssignEquipmentAction;
             return state.map((adventurer: AdventurerStoreState) => {
                 if (adventurer.id === action.adventurerId) {
                     return {
@@ -253,6 +254,23 @@ export const adventurers: Reducer<AdventurerStoreState[], Action> = (
                         equipment: {
                             ...adventurer.equipment,
                             [EquipmentType[equipmentType]]: item,
+                        },
+                    };
+                }
+                return adventurer;
+            });
+        }
+
+        case ActionType.removeEquipment: {
+            // Assigns equipment to an adventurer
+            const { equipmentType } = action as RemoveEquipmentAction;
+            return state.map((adventurer: AdventurerStoreState) => {
+                if (adventurer.id === action.adventurerId) {
+                    return {
+                        ...adventurer,
+                        equipment: {
+                            ...adventurer.equipment,
+                            [EquipmentType[equipmentType]]: null,
                         },
                     };
                 }

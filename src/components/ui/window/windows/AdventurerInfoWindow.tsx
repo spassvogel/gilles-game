@@ -1,4 +1,4 @@
-import { assignEquipment, moveItemInInventory, removeItemFromInventory } from "actions/adventurers";
+import { assignEquipment, moveItemInInventory, removeItemFromInventory, addItemToInventory, removeEquipment } from "actions/adventurers";
 import AdventurerInfo, { DispatchProps, Props } from "components/ui/AdventurerInfo";
 import { Props as WindowProps } from "components/ui/window/Window";
 import { EquipmentType } from "definitions/items/equipment";
@@ -20,6 +20,11 @@ const mapStateToProps = (store: StoreState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
     return {
+        // Adds item to inventory of adventurer
+        onAddItemToInventory: (adventurerId: string, item: Item, toSlot: number) => {
+            const action = addItemToInventory(adventurerId, item, toSlot);
+            dispatch(action);
+        },
         // Equipment gets assigned to a slot
         onAssignEquipment: (adventurerId: string, type: EquipmentType, item: Item) => {
             const action = assignEquipment(adventurerId, type, item);
@@ -28,6 +33,10 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
         // Moves item within an adventurers' inventory
         onMoveItemInInventory: (adventurerId: string, fromSlot: number, toSlot: number) => {
             const action = moveItemInInventory(adventurerId, fromSlot, toSlot);
+            dispatch(action);
+        },
+        onRemoveEquipment: (adventurerId: string, type: EquipmentType) => {
+            const action = removeEquipment(adventurerId, type);
             dispatch(action);
         },
         // Removes an item from an adventurers' inventory
