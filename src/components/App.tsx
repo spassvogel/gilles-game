@@ -1,6 +1,5 @@
 // tslint:disable: object-literal-sort-keys
 import { ContextInfo, ContextType } from "constants/context";
-import AdventurersBox from "containers/AdventurersBox";
 import SimpleLog from "containers/log/SimpleLog";
 import RealTownView from "containers/RealTownView";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
@@ -88,10 +87,6 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             window.location.reload();
         };
 
-        const getAdventurersBox = () => {
-            return <AdventurersBox />;
-        };
-
         // Router elements
         const TownButton = () => <Link to="/town">
             <button onClick= { () => handleViewButtonClick() }> { TextManager.get(`common-view-button-town`) } </button>
@@ -149,9 +144,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     <button onClick= { () => handleResetClick() } style={ { color: "red" } }> Restart! </button>
                     <Route path="/town" component = { TownView } />
                     <Route path="/world" component = { WorldView } />
-                <div className="app-right">
-                    { getAdventurersBox() }
-                </div>
+
                 { Window }
                 { ContextPopup }
                 <SimpleLog/>
