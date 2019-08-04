@@ -7,6 +7,8 @@ import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 import { TextManager } from "utils/textManager";
 import "./css/tavernstructureview.css";
+import { AppContext } from "components/App";
+import AdventurerInfoWindow from "components/ui/window/windows/AdventurerInfoWindow";
 
 // The UI for the tavern
 export interface DispatchProps {
@@ -38,6 +40,7 @@ const SOURCE_ID = "tavern";
 const TavernStructureView = (props: AllProps) => {
     const [assignedAventurers, setAassignedAdventurers] = React.useState<AdventurerStoreState[]>([]);
     const [selectedQuest, setSelectedQuest] = React.useState<string | null>(null);
+    const context = React.useContext(AppContext)!;
 
     const structureDefinition = getDefinition<TavernStructureDefinition>(Structure.tavern);
     const level: number = props.level || 0;
@@ -150,7 +153,8 @@ const TavernStructureView = (props: AllProps) => {
     };
 
     const handleAdventurerNameClick = (adventurer: AdventurerStoreState) => {
-        console.log(adventurer.name)
+        const window = <AdventurerInfoWindow adventurer = { adventurer } title = { adventurer.name } />;
+        context.onOpenWindow(window);
     };
 
     return (

@@ -66,7 +66,7 @@ const testState: AdventurerStoreState[] = [{
     room: 1,
     avatarImg: `/img/avatars/andy-victorovych-a2.jpg`,
     // tslint:disable-next-line:max-line-length
-    inventory: [ Item.crossbow, null, null, null, null, null, null, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null],
+    inventory: [ Item.crossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null],
 }, {
     id: "ec6f1050",
     equipment: generateRandomGear(),
@@ -129,7 +129,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 6,
     avatarImg: `/img/avatars/andy-victorovych-a9.jpg`,
-    inventory: [ Item.greatswordOfGwai, null, null, null ],
+    inventory: [ Item.greatswordOfGwai, null, null, null, Item.shoulders1, Item.fedora, Item.greaves2 ],
 }, {
     id: "12c613d4",
     equipment: generateRandomGear(),

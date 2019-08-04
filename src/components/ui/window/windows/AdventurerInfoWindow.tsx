@@ -10,7 +10,7 @@ import { compose } from "redux";
 import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "stores";
 
-type AllProps = Props & DispatchProps & WindowProps;
+type AllProps = Props & WindowProps;
 
 // todo: perhaps not use container, just pass dispatch callbacks as props?
 const mapStateToProps = (store: StoreState) => {
