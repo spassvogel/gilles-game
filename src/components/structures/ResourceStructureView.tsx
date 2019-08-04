@@ -1,4 +1,4 @@
-import structureDefinitions, {  Structure  } from "definitions/structures";
+import { getDefinition, Structure  } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition } from "definitions/structures/types";
 import * as React from "react";
 import { TextManager } from "utils/textManager";
@@ -25,13 +25,13 @@ type AllProps = Props & StateProps & DispatchProps;
 
 const ResourceStructureView = (props: AllProps) => {
 
-    const structureDefinition = structureDefinitions[props.type] as ResourceStructureDefinition;
+    const structureDefinition = getDefinition<ResourceStructureDefinition>(props.type);
     if (!structureDefinition) {
         throw new Error(`No definition found for structure ${props.type} with type ResourceStructureDefinition.`);
     }
     const level: number = props.level || 0;
     const levelDefinition: ResourceStructureLevelDefinition = structureDefinition.levels[level];
-    const displayName = TextManager.get(levelDefinition.displayName);
+    const displayName = TextManager.getStructureName(props.type);
 
     const createWorkersRow = () => {
 

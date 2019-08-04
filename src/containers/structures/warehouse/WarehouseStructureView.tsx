@@ -6,19 +6,19 @@ import { upgradeStructure } from "actions/structures";
 import WarehouseStructureView,
     { DispatchProps, Props, StateProps } from "components/structures/warehouse/WarehouseStructureView";
 import { Item } from "definitions/items/types";
-import structureDefinitions, { Structure } from "definitions/structures";
+import { getDefinition, Structure } from "definitions/structures";
 import { WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import { connect } from "react-redux";
 import { AnyAction, Dispatch } from "redux";
 import { selectAdventurersInTown } from "selectors/adventurers";
 import { selectFreeWorkers } from "selectors/workers";
+import { StoreState } from "stores";
 import { LogChannel } from "stores/logEntry";
-import { StoreState } from "../../../stores";
-import { StructureStoreState } from "../../../stores/structure";
+import { StructureStoreState } from "stores/structure";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const structureStore: StructureStoreState = store.structures[Structure.warehouse];
-    const structureDefinition = structureDefinitions[Structure.warehouse] as WarehouseStructureDefinition;
+    const structureDefinition = getDefinition<WarehouseStructureDefinition>(Structure.warehouse);
     const level: number = structureStore.level;
     const levelDefinition: WarehouseStructureLevelDefinition = structureDefinition.levels[level];
     const adventurersInTown = selectAdventurersInTown(store);   // todo: refreshes too much. fix

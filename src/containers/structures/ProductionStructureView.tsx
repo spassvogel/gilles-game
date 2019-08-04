@@ -10,7 +10,7 @@ import { startTask } from "actions/tasks";
 import { ProductionDefinition } from "definitions/production/types";
 import { calculateProductionTime } from "mechanics/crafting";
 import { connect } from "react-redux";
-import { AnyAction, compose, Dispatch } from "redux";
+import { AnyAction, Dispatch } from "redux";
 import { selectFreeWorkers } from "selectors/workers";
 import { LogChannel } from "stores/logEntry";
 import { TaskType } from "stores/task";

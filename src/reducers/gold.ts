@@ -1,7 +1,4 @@
 import { ActionType, ModifyGoldAction } from "actions/gold";
-import { Action as StructureAction,
-    ActionType as StructureActionType } from "actions/structures";
-import structureDefinitions from "definitions/structures";
 import { AnyAction, Reducer } from "redux";
 
 /**
@@ -14,12 +11,6 @@ export const gold: Reducer<number> = (state: number = 0, action: AnyAction) => {
         case ActionType.addGold:
             // Adds (or subtract, if negative) gold from the players gold supply
             return state + (action as ModifyGoldAction).amount;
-
-        case StructureActionType.startBuildingStructure:
-            // Started building a structure
-            const structureDefinition = structureDefinitions[(action as StructureAction).structure];
-            const cost = structureDefinition.cost.gold || 0;
-            return state - cost;
     }
     return state;
 };

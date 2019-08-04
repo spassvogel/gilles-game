@@ -5,7 +5,7 @@ import Tab from "components/widgets/Tab";
 import Tabstrip from "components/widgets/Tabstrip";
 import { DragSourceType } from "constants/dragging";
 import { Item } from "definitions/items/types";
-import structureDefinitions, {  Structure  } from "definitions/structures";
+import { getDefinition, Structure  } from "definitions/structures";
 import { StructureDefinition } from "definitions/structures/types";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
@@ -61,7 +61,7 @@ class WarehouseStructureView extends React.Component<AllProps, LocalState> {
 
     public render() {
         const props = this.props;
-        const structureDefinition = structureDefinitions[Structure.warehouse] as StructureDefinition;
+        const structureDefinition = getDefinition<StructureDefinition>(Structure.warehouse);
         if (!structureDefinition) {
             throw new Error(`No definition found for structure ${Structure.warehouse} with type StructureDefinition.`);
         }

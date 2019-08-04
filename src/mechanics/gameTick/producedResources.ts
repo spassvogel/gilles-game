@@ -1,4 +1,4 @@
-import structureDefinitions, { Structure } from "definitions/structures";
+import { getDefinition, Structure } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureDefinition, StructureType, WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import { StoreState } from "stores";
 import { ResourceStoreState } from "stores/resources";
@@ -19,7 +19,7 @@ const getProducedResources = (delta: number, store: StoreState): ResourceStoreSt
     const maxResources = getMaxResources(store);
 
     const handleStructure = (structure: string) => {
-        const structureDefinition: StructureDefinition = structureDefinitions[structure];
+        const structureDefinition = getDefinition(structure);
 
         if (structureDefinition.type === StructureType.resource) {
             const resourceStructureDefinition = structureDefinition as ResourceStructureDefinition;
@@ -54,7 +54,7 @@ const getProducedResources = (delta: number, store: StoreState): ResourceStoreSt
 
 // Returns a ResourceStoreState with maximum stockpile of each resource the warehouse supports
 const getMaxResources = (store: StoreState): ResourceStoreState => {
-    const structureDefinition = structureDefinitions[Structure.warehouse] as WarehouseStructureDefinition;
+    const structureDefinition = getDefinition<WarehouseStructureDefinition>(Structure.warehouse);
     const level: number = store.structures[Structure.warehouse].level;
     const levelDefinition: WarehouseStructureLevelDefinition = structureDefinition.levels[level];
     return levelDefinition.maxResources;

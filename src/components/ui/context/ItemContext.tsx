@@ -1,7 +1,7 @@
 
 import { DeedDefinition } from "definitions/items/deeds";
 import { ItemDefinition, ItemType } from "definitions/items/types";
-import structureDefinitions, { Structure } from "definitions/structures";
+import { getDefinition, Structure } from "definitions/structures";
 import * as React from "react";
 import { StoreState } from "stores";
 import { StructureState } from "stores/structure";
@@ -24,7 +24,7 @@ export default function(props: Props & DispatchProps & StateProps) {
         case ItemType.deed:
             const gold = props.store.gold;
             const deedInfo = info as DeedDefinition;
-            const structureDefinition = structureDefinitions[deedInfo.structure];
+            const structureDefinition = getDefinition(deedInfo.structure);
             const enoughGold = structureDefinition.cost.gold || 0 <= gold;
             const structureStoreState = props.store.structures[deedInfo.structure];
             const canBeBuilt = structureStoreState.state === StructureState.NotBuilt;

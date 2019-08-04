@@ -1,4 +1,4 @@
-import structureDefinitions, { Structure  } from "definitions/structures";
+import { getDefinition, Structure  } from "definitions/structures";
 import { AppContextProps } from "hoc/withAppContext";
 import Konva from "konva";
 import * as React from "react";
@@ -8,7 +8,6 @@ import { StructuresStoreState } from "stores/structures";
 import { MusicTrack, SoundManager } from "utils/soundManager";
 import { TextManager } from "utils/textManager";
 import "./css/townView.css";
-import SmokeEmitter from "./effects/SmokeEmitter";
 
 // It's actually not the *real* town view hihi
 // tslint:disable-next-line:no-empty-interface
@@ -32,7 +31,6 @@ type AllProps = Props & DispatchProps & StateProps & AppContextProps;
 
 class RealTownView extends React.Component<AllProps, LocalState> {
 
-    private plasmaBeam?: Konva.Rect = undefined;
     private anim?: Konva.Animation = undefined;
 
     constructor(props: AllProps) {
@@ -80,7 +78,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
 
     public render() {
         const structures = Object.keys(Structure).map((structure, index) => {
-            const structureDef = structureDefinitions[structure];
+            const structureDef = getDefinition(structure);
             const structureStore: StructureStoreState = this.props.structures[structure];
             if (structureStore.state === StructureState.NotBuilt) {
                 return null;
@@ -184,7 +182,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
         if (this.props.onStructureClick) { this.props.onStructureClick( Structure[evt.target.name()]); }
     }
 
-    public handleBackgroundClick = (evt: Konva.KonvaEventObject<PointerEvent>) => {
+    public handleBackgroundClick = () => {
         if (this.props.onStructureClick) { this.props.onStructureClick(null); }
     }
 

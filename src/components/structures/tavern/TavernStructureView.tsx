@@ -1,6 +1,6 @@
 import DraggableAdventurerAvatar, { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvatar";
 import QuestBoard from "containers/structures/tavern/QuestBoard";
-import structureDefinitions, { Structure } from "definitions/structures";
+import { getDefinition, Structure } from "definitions/structures";
 import { TavernStructureDefinition, TavernStructureLevelDefinition } from "definitions/structures/types";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
@@ -47,10 +47,10 @@ export default class TavernStructureView extends React.Component<AllProps, Local
     }
 
     public render() {
-        const structureDefinition  = structureDefinitions[Structure.tavern] as TavernStructureDefinition;
+        const structureDefinition = getDefinition<TavernStructureDefinition>(Structure.tavern);
         const level: number = this.props.level || 0;
         const levelDefinition: TavernStructureLevelDefinition = structureDefinition.levels[level];
-        const displayName = TextManager.get(levelDefinition.displayName);
+        const displayName = TextManager.getStructureName(Structure.tavern);
 
         const createUpgradeRow = () => {
             const gold = this.props.gold;

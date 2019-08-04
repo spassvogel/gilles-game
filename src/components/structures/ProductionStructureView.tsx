@@ -3,7 +3,7 @@ import ResourcesCostBox from "containers/ui/resources/ResourcesCostBox";
 import itemDefinitions from "definitions/items";
 import { Item, ItemDefinition } from "definitions/items/types";
 import { ProductionDefinition } from "definitions/production/types";
-import structureDefinitions, { Structure } from "definitions/structures";
+import { getDefinition, Structure } from "definitions/structures";
 import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from "definitions/structures/types";
 import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "mechanics/crafting";
 import * as React from "react";
@@ -66,14 +66,14 @@ export default class ProductionStructureView extends React.Component<AllProps, L
     }
 
     public render() {
-        const structureDefinition  = structureDefinitions[this.props.type] as ProductionStructureDefinition;
+        const structureDefinition = getDefinition<ProductionStructureDefinition>(this.props.type);
         if (!structureDefinition) {
             throw new Error(`No definition found for structure ${this.props.type}
                 with type ProductionStructureDefinition.`);
         }
         const level: number = this.props.level || 0;
         const levelDefinition: ProductionStructureLevelDefinition = structureDefinition.levels[level];
-        const displayName = TextManager.get(levelDefinition.displayName);
+        const displayName = TextManager.getStructureName(this.props.type);
 
         const createUpgradeRow = () => {
             const gold = this.props.gold;

@@ -8,9 +8,7 @@ import mine from "./mine";
 import quarry from "./quarry";
 import tannery from "./tannery";
 import tavern from "./tavern";
-import { ProductionStructureDefinition,
-    ResourceStructureDefinition,
-    WarehouseStructureDefinition } from "./types";
+import { StructureDefinition } from "./types";
 import warehouse from "./warehouse";
 import weaponsmith from "./weaponsmith";
 import weaver from "./weaver";
@@ -31,9 +29,6 @@ export enum Structure {
     workshop = "workshop",
 }
 
-export type StructureDefinition = WarehouseStructureDefinition |
-ResourceStructureDefinition | ProductionStructureDefinition;
-
 const all = {
     alchemist,
     armoursmith,
@@ -51,6 +46,6 @@ const all = {
 
 export default all;
 
-export function getDefinition(structure: string): StructureDefinition {
-    return all[structure];
+export function getDefinition<T extends StructureDefinition>(structure: string): T {
+    return all[structure] as T;
 }
