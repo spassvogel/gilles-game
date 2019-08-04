@@ -15,6 +15,15 @@
     background: purple;
 }
 
+.log .tab-bar .tabs {
+    height: 25px;
+    line-height: 25px;
+}
+
+.log .tab-bar .tabs li {
+    width: 120px;
+}
+
 .log .log-entries {
     height: 60px;
     overflow: auto;

@@ -1,11 +1,14 @@
+import AdventurerAvatar from "components/ui/AdventurerAvatar";
 import Inventory from "components/ui/inventory/Inventory";
 import ResourcesBox from "components/ui/resources/ResourcesBox";
+import Tab from "components/widgets/Tab";
+import Tabstrip from "components/widgets/Tabstrip";
 import { DragSourceType } from "constants/dragging";
 import { Item } from "definitions/items/types";
 import structureDefinitions, {  Structure  } from "definitions/structures";
-import { StructureDefinition, StructureLevelDefinition } from "definitions/structures/types";
-import { AppContextProps } from "hoc/withAppContext";
+import { StructureDefinition } from "definitions/structures/types";
 import * as React from "react";
+import { AdventurerStoreState } from "stores/adventurer";
 import { ResourceStoreState } from "stores/resources";
 import { TextManager } from "utils/textManager";
 import "./css/warehousestructureview.css";
@@ -13,6 +16,8 @@ import "./css/warehousestructureview.css";
 export interface DispatchProps {
     onMoveItemInWarehouse: (fromSlot: number, toSlot: number) => void;
     onMoveItemFromAdventurer: (adventurerId: string, item: Item, fromSlot: number, toSlot: number) => void;
+    onMoveItemInInventory: (adventurerId: string, fromSlot: number, toSlot: number) => void;
+    onMoveItemToAdventurer: (adventurerId: string, item: Item, fromSlot: number, toSlot: number) => void;
     onUpgrade?: (cost: number, level: number) => void;
 }
 
@@ -26,15 +31,17 @@ export interface StateProps  {
     workersFree: number;
     gold: number;
     items: Array<Item|null>;
+    adventurersInTown: AdventurerStoreState[];
     resources: ResourceStoreState;
     maxResources: ResourceStoreState;
 }
 
 type AllProps = Props & StateProps & DispatchProps;
 
-// tslint:disable-next-line: no-empty-interface
 interface LocalState {
+    selectedAdventurer: string | null;
 }
+
 const warehouse = DragSourceType.warehouse;
 
 class WarehouseStructureView extends React.Component<AllProps, LocalState> {
@@ -43,6 +50,10 @@ class WarehouseStructureView extends React.Component<AllProps, LocalState> {
 
     constructor(props: AllProps) {
         super(props);
+
+        this.state = {
+            selectedAdventurer: null,
+        };
 
         this.resourcesDelta = {};
         this.resourcesRef = null;
@@ -55,8 +66,7 @@ class WarehouseStructureView extends React.Component<AllProps, LocalState> {
             throw new Error(`No definition found for structure ${Structure.warehouse} with type StructureDefinition.`);
         }
         const level: number = props.level;
-        const levelDefinition: StructureLevelDefinition = structureDefinition.levels[level];
-        const displayName = TextManager.get(levelDefinition.displayName);
+        const displayName = TextManager.getStructureName(Structure.warehouse);
 
         const createUpgradeRow = () => {
             const gold = props.gold;
@@ -80,8 +90,8 @@ class WarehouseStructureView extends React.Component<AllProps, LocalState> {
             </div>;
         };
 
-        const handleDropItem = (item: Item, fromSlot: number,
-                                toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
+        const handleDropItemWarehouse = (item: Item, fromSlot: number,
+                                         toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
             switch (sourceType) {
                 case warehouse:
                     if (props.onMoveItemInWarehouse) {
@@ -95,6 +105,53 @@ class WarehouseStructureView extends React.Component<AllProps, LocalState> {
                     break;
             }
         };
+
+        const handleAdventurerTabSelected = (tabId: string) => {
+            this.setState({
+                selectedAdventurer: tabId,
+            });
+        };
+
+        const handleDropItemAdventurer = (item: Item, fromSlot: number,
+                                          toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
+            const adventurerId = this.state.selectedAdventurer!;
+            switch (sourceType) {
+                case DragSourceType.adventurerInventory:
+                    if (props.onMoveItemInInventory) {
+                        props.onMoveItemInInventory(adventurerId, fromSlot, toSlot);
+                    }
+                    break;
+                case warehouse:
+                    if (props.onMoveItemToAdventurer) {
+                        props.onMoveItemToAdventurer(adventurerId, item, fromSlot, toSlot);
+                    }
+                    break;
+            }
+        };
+
+        let adventurerContent = null;
+        if (this.state.selectedAdventurer) {
+            const adventurer = props.adventurersInTown.find((a) => a.id === this.state.selectedAdventurer)!;
+            adventurerContent = <Inventory
+                sourceType = { warehouse }
+                items = { adventurer.inventory }
+                onDropItem = { handleDropItemAdventurer }
+            />;
+        }
+
+        const adventurersArea = <>
+            <Tabstrip className = "adventurers-tabstrip" onTabSelected = { (tabId: string) => handleAdventurerTabSelected(tabId) } >
+            { props.adventurersInTown.map((a) => {
+                return <Tab id = { a.id } key = { a.id }>
+                    <AdventurerAvatar adventurer = { a } className = "common-icon-small"/>
+                </Tab>;
+            }) }
+            </Tabstrip>
+            <div className = "adventurer-info">
+                { adventurerContent }
+            </div>
+        </>;
+
         return (
             <details open = { true } className = "warehouse-structureview">
                 <summary>{ displayName }</summary>
@@ -111,8 +168,10 @@ class WarehouseStructureView extends React.Component<AllProps, LocalState> {
                 <Inventory
                     sourceType = { warehouse }
                     items = { props.items }
-                    onDropItem = { handleDropItem }
+                    onDropItem = { handleDropItemWarehouse }
                 />
+                { adventurersArea }
+
             </details>
         );
     }

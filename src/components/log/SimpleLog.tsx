@@ -1,10 +1,10 @@
 import SquareIconButton from "components/widgets/SquareIconButton";
+import Tab from "components/widgets/Tab";
+import Tabstrip from "components/widgets/Tabstrip";
 import * as React from "react";
 import { LogChannel, LogEntry } from "stores/logEntry";
 import { TextManager } from "utils/textManager";
 import "./css/simplelog.css";
-import Tabstrip from "components/widgets/Tabstrip";
-import Tab from "components/widgets/Tab";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -98,7 +98,7 @@ class SimpleLog extends React.Component<AllProps, LocalState> {
         };
 
         const Tabs = channels.map((tab) => {
-            return <Tab label =  { tab.label } id = { tab.tabId } key = { tab.tabId } ></Tab>;
+            return <Tab id = { tab.tabId } key = { tab.tabId } >{ tab.label }</Tab>;
         });
 
         return <div className = { `log ${this.state.expanded ? "expanded" : ""}` }>

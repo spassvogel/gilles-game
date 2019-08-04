@@ -3,3 +3,8 @@
     margin-top: 20px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
+
+.warehouse-structureview .adventurer-info {
+    border: 1px solid green;
+    min-height: 100px;
+}

@@ -156,3 +156,8 @@ Because I'm not an artist and I want to use unity3d assets
     2. on update, all actors (AIs turn happens simultanously?) move to their new positions
        and play their animations.
 [ ] On second hand, I think it's worth checking out react-three-fiber. Might get complicated otherwise  
+
+
+04/08/2019 Swap items between warehouse and adventurers
+[ ] Take items from warehouse and assign to adventurer inventory
+[ ] Take items from warehouse and assign to adventurer gear
