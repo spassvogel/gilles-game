@@ -64,7 +64,7 @@ export const withPopup = <TWrappedComponentProps extends PopupProps>(WrappedComp
                 const contentElement = popupElement.querySelector(".popup-content") as HTMLElement;
                 contentElement.style.transform = `translateX(${-offset}px)`;
             }
-        });
+        }, [placement]);
 
         let x: number = 0;
         let y: number = 0;

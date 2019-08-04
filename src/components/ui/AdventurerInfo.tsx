@@ -39,9 +39,15 @@ const AdventurerInfo = (props: AllProps) => {
     // });
 
     const handleDropItemEquipment = (type: EquipmentType, dragInfo: InventoryItemDragInfo) => {
+        // When an item gets dropped on equipment slot
         const item = dragInfo.item;
         props.onRemoveItemFromInventory(adventurer.id, dragInfo.inventorySlot!);
         props.onAssignEquipment(adventurer.id, type, item);
+
+        const existingEquipment = adventurer.equipment[EquipmentType[type]];
+        if (existingEquipment) {
+            props.onAddItemToInventory(adventurer.id, existingEquipment, dragInfo.inventorySlot!);
+        }
     };
 
     const getEquipmentSlot = (type: EquipmentType) => {

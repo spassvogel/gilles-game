@@ -67,7 +67,7 @@ const testState: AdventurerStoreState[] = [{
     room: 1,
     avatarImg: `/img/avatars/andy-victorovych-a2.jpg`,
     // tslint:disable-next-line:max-line-length
-    inventory: [ Item.crossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null],
+    inventory: [ Item.crossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, Item.plateHelmet, Item.cowl],
 }, {
     id: "ec6f1050",
     equipment: generateRandomGear(),

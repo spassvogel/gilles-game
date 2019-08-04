@@ -27,11 +27,10 @@ const Inventory = (props: Props & AppContextProps) => {
         let contents;
         const item = props.items[i];
         const handleDrop = (dragInfo: InventoryItemDragInfo) => {
-            /*if (dragInfo.inventorySlot === i && dragInfo.sourceType === props.sourceType && dragInfo.sourceId === props.sourceId) {
+            if (dragInfo.inventorySlot === i && dragInfo.sourceType === props.sourceType && dragInfo.sourceId === props.sourceId) {
                 // TODO: Swap items?!
                 return;
-            }*/
-
+            }
             if (props.onDropItem) {
                 const {inventorySlot: fromSlot} = dragInfo;
                 props.onDropItem(dragInfo.item, fromSlot!, i, dragInfo.sourceType, dragInfo.sourceId);
@@ -54,7 +53,7 @@ const Inventory = (props: Props & AppContextProps) => {
             size = { props.iconSize }
             onDrop = { handleDrop }
         >
-                { contents }
+            { contents }
         </InventorySlot>;
         slots.push(slot);
    }

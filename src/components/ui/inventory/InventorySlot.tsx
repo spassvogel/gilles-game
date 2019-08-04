@@ -7,8 +7,8 @@ const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {
         props.onDrop(monitor.getItem());
     },
-    canDrop(props: Props)  {
-        return props.empty;
+    canDrop(props: Props, monitor: DropTargetMonitor)  {
+        return true;
     },
 };
 
@@ -42,16 +42,22 @@ class InventorySlot extends React.Component<Props & DropSourceProps> {
         } = this.props;
         const isActive = isOver && canDrop;
 
-        let borderColor = "#1b8417";
+        const classNames = [
+            "inventory-item",
+            getClassName(this.props.size),
+        ];
+
+        let borderColor = "grey";
         if (isActive) {
-            borderColor = "#e2bc23";
+            classNames.push("drop-active");
+            borderColor = "green";
         } else if (canDrop) {
-            borderColor = "#7ea752";
+            classNames.push("drop-possible");
+            borderColor = "orange";
         }
-        const className = "inventory-item " + getClassName(this.props.size);
 
         return connectDropTarget(
-            <div className = { className }>
+            <div className = { classNames.join(" ") }>
                 { this.props.children }
             </div>,
         );
