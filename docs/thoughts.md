@@ -135,7 +135,7 @@ backlog of ideas
 29/07/2019 EQUIP 
 
 29/07/2019 EQUIP GEAR
-[ ] Can equip gear from the players inventory
+[x] Can equip gear from the players inventory
 [ ] Can equip gear from the warehouse
 
   head                hands
@@ -164,5 +164,5 @@ Because I'm not an artist and I want to use unity3d assets
 
 
 04/08/2019 Swap items between warehouse and adventurers
-[ ] Take items from warehouse and assign to adventurer inventory
+[x] Take items from warehouse and assign to adventurer inventory
 [ ] Take items from warehouse and assign to adventurer gear

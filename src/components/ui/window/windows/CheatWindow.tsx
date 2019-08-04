@@ -1,6 +1,6 @@
 import { getDefinition } from "definitions/items";
 import { Item, ItemType } from "definitions/items/types";
-import { Structure, getDefinition as getStructureDefinition } from "definitions/structures";
+import { getDefinition as getStructureDefinition, Structure } from "definitions/structures";
 import * as React from "react";
 import { StructureState, StructureStoreState } from "stores/structure";
 import { StructuresStoreState } from "stores/structures";
