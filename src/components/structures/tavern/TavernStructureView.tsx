@@ -153,7 +153,7 @@ const TavernStructureView = (props: AllProps) => {
     };
 
     const handleAdventurerNameClick = (adventurer: AdventurerStoreState) => {
-        const window = <AdventurerInfoWindow adventurer = { adventurer } title = { adventurer.name } />;
+        const window = <AdventurerInfoWindow adventurerId = { adventurer.id } title = { adventurer.name } />;
         context.onOpenWindow(window);
     };
 

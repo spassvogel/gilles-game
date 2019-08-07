@@ -13,7 +13,7 @@ import EquipmentSlot from "./EquipmentSlot";
 import Inventory from "./inventory/Inventory";
 
 export interface Props {
-    adventurer: AdventurerStoreState;
+    adventurerId: string;
 }
 
 export interface DispatchProps {
@@ -24,7 +24,11 @@ export interface DispatchProps {
     onRemoveEquipment: (adventurerId: string, type: EquipmentType) => void;
 }
 
-type AllProps = Props & DispatchProps;
+export interface StateProps {
+    adventurer: AdventurerStoreState;
+}
+
+type AllProps = Props & DispatchProps & StateProps;
 
 const AdventurerInfo = (props: AllProps) => {
 

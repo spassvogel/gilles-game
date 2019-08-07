@@ -1,5 +1,5 @@
 import { assignEquipment, moveItemInInventory, removeItemFromInventory, addItemToInventory, removeEquipment } from "actions/adventurers";
-import AdventurerInfo, { DispatchProps, Props } from "components/ui/AdventurerInfo";
+import AdventurerInfo, { DispatchProps, Props, StateProps } from "components/ui/AdventurerInfo";
 import { Props as WindowProps } from "components/ui/window/Window";
 import { EquipmentType } from "definitions/items/equipment";
 import { Item } from "definitions/items/types";
@@ -13,9 +13,12 @@ import { StoreState } from "stores";
 type AllProps = Props & WindowProps;
 
 // todo: perhaps not use container, just pass dispatch callbacks as props?
-const mapStateToProps = (store: StoreState) => {
+const mapStateToProps = (store: StoreState, ownProps: Props) => {
 
-    return {};
+    const adventurer = store.adventurers.find(a => a.id === ownProps.adventurerId)!;
+    return {
+        adventurer
+    };
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
@@ -49,5 +52,5 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
 
 export default compose(
     withWindow,
-    connect<object, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
+    connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
 )(AdventurerInfo) as React.ComponentType<AllProps>;

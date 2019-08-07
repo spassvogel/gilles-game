@@ -76,7 +76,7 @@ class PartyWindow extends React.Component<AllProps, LocalState> {
         if (!adventurer) {
             return null;
         }
-        return <AdventurerInfo adventurer = { adventurer } />;
+        return <AdventurerInfo adventurerId = { adventurer.id } />;
     }
 
     private handleAvatarClick(adventurerId: string | null): void {
