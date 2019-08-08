@@ -166,3 +166,24 @@ Because I'm not an artist and I want to use unity3d assets
 04/08/2019 Swap items between warehouse and adventurers
 [x] Take items from warehouse and assign to adventurer inventory
 [ ] Take items from warehouse and assign to adventurer gear
+
+08/08/2019 Combat
+Still haven't figured out a combat game system. But can implement some ground work. 
+Want to store the combat state in the store as such:
+combat: {
+    actors: [{
+        allegiance: "player|enemy",
+        location: [2,1],
+        health: 10,
+        actionPoints: 3,
+    }],
+    turn: "player",
+    action: {
+        type: "move|shoot|..."
+        actor: "actorId",
+        target: { location: [6,3]}
+        actionEndsAt: time
+    }
+}
+
+We can render game as ascii art for now using a PRE tag

@@ -1,4 +1,4 @@
-import { assignEquipment, moveItemInInventory, removeItemFromInventory, addItemToInventory, removeEquipment } from "actions/adventurers";
+import { addItemToInventory, assignEquipment, moveItemInInventory, removeEquipment, removeItemFromInventory } from "actions/adventurers";
 import AdventurerInfo, { DispatchProps, Props, StateProps } from "components/ui/AdventurerInfo";
 import { Props as WindowProps } from "components/ui/window/Window";
 import { EquipmentType } from "definitions/items/equipment";
@@ -15,9 +15,9 @@ type AllProps = Props & WindowProps;
 // todo: perhaps not use container, just pass dispatch callbacks as props?
 const mapStateToProps = (store: StoreState, ownProps: Props) => {
 
-    const adventurer = store.adventurers.find(a => a.id === ownProps.adventurerId)!;
+    const adventurer = store.adventurers.find((a) => a.id === ownProps.adventurerId)!;
     return {
-        adventurer
+        adventurer,
     };
 };
 
