@@ -7,9 +7,11 @@ import { QuestStoreState } from "./quest";
 import { ResourceStoreState } from "./resources";
 import { StructuresStoreState } from "./structures";
 import { TasksStoreState } from "./tasks";
+import { CombatStoreState } from './combat';
 
 export interface StoreState {
     adventurers: AdventurerStoreState[];
+    combats: CombatStoreState[];
     engine: EngineStoreState;
     gold: number;
     items: Array<null|Item>;    // items in warehouse
