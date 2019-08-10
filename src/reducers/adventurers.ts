@@ -5,7 +5,7 @@ import { Action, ActionType,
     MoveItemInInventoryAction, MoveItemToOtherAdventurerAction, RemoveItemFromInventoryAction } from "actions/adventurers";
 import { EquipmentType } from "definitions/items/equipment";
 import { Item } from "definitions/items/types";
-import { Reducer } from "redux";
+import { Reducer, AnyAction } from "redux";
 import { AdventurerStoreState, EquipmentStoreState, StatsStoreState } from "stores/adventurer";
 
 /**
@@ -144,8 +144,8 @@ const testState: AdventurerStoreState[] = [{
 
 // TODO: To generate a random 11 digit number, use: Math.random().toString(36).substring(2)
 
-export const adventurers: Reducer<AdventurerStoreState[], Action> = (
-    state: AdventurerStoreState[] = testState, action: Action) => {
+export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
+    state: AdventurerStoreState[] = testState, action: AnyAction) => {
 
     switch (action.type) {
         // Moves an  item from one inventory slot to another

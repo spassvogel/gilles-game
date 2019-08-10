@@ -10,7 +10,7 @@ import version from "./constants/version";
 import App from "./containers/App";
 import "./index.css";
 import getProducedResources from "./mechanics/gameTick/producedResources";
-import getQuestUpdates from "./mechanics/gameTick/quests";
+import getQuestUpdates, { LogUpdate } from "./mechanics/gameTick/quests";
 import getRngState from "./mechanics/gameTick/rngState";
 import registerServiceWorker from "./registerServiceWorker";
 import { StoreState } from "./stores";
@@ -19,6 +19,7 @@ import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
 import { TextManager } from "./utils/textManager";
+import updateCombat from 'mechanics/gameTick/combat';
 
 let interval: NodeJS.Timeout;
 
@@ -86,10 +87,14 @@ const runGame = (store: any, persistor: Persistor) => {
         const state: StoreState = store.getState();
         const delta = Date.now() - state.engine.lastTick;
 
+        const logs: LogUpdate[] = [];
         const resourcesUpdates = getProducedResources(delta, state);
         const rngState = getRngState();
-        const { quests, log } = getQuestUpdates(delta, state);
-        store.dispatch(gameTick(delta, rngState, resourcesUpdates, quests, log));
+        const res = updateCombat(delta, state);
+        const { questUpdates, logUpdates } = getQuestUpdates(delta, state);
+        logs.push(...logUpdates);
+        
+        store.dispatch(gameTick(delta, rngState, resourcesUpdates, questUpdates, logs));
 
         processCompletedTasks(state.tasks);
 

@@ -3,7 +3,7 @@ import ProductionStructureView from "containers/structures/ProductionStructureVi
 import ResourceStructureView from "containers/structures/ResourceStructureView";
 import TavernStructureView from "containers/structures/tavern/TavernStructureView";
 import WarehouseStructureView from "containers/structures/warehouse/WarehouseStructureView";
-import structureDefinitions, { Structure, getDefinition } from "definitions/structures";
+import { getDefinition, Structure } from "definitions/structures";
 import { StructureDefinition, StructureType } from "definitions/structures/types";
 import * as React from "react";
 import { StructureState, StructureStoreState } from "stores/structure";

@@ -1,8 +1,10 @@
 import { Item } from "definitions/items/types";
 import { combineReducers } from "redux";
+
 import { ResourceStoreState } from "stores/resources";
 import { StoreState } from "../stores";
 import { adventurers } from "./adventurers";
+import { combat } from "./combat";
 import { engine } from "./engine";
 import { gold } from "./gold";
 import { items } from "./items";
@@ -12,7 +14,6 @@ import { resources } from "./resources";
 import { rngState } from "./rngState";
 import { structures } from "./structures";
 import { tasks } from "./tasks";
-// import { version } from "./version";
 import { workers } from "./workers";
 
 // todo: not sure where to place this actually
@@ -25,6 +26,7 @@ export interface CostStoreState {
 
 export default combineReducers<StoreState>({
     adventurers,
+    combat,
     engine,
     gold,
     items,
