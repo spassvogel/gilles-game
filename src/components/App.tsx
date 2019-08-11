@@ -19,6 +19,7 @@ import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
+import CombatView from 'containers/combat/CombatView';
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -84,7 +85,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
 
         const handleResetClick = () => {
             this.props.persistor.purge();
-            window.location.reload();
+            (window as any).location.reload();
         };
 
         // Router elements
@@ -96,7 +97,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             <button onClick= { () => handleViewButtonClick() }> { TextManager.get(`common-view-button-world`) } </button>
         </Link>;
 
-        const TownView = ()  => <RealTownView onStructureClick = { this.selectStructure } />;
+        const TownView = () => <RealTownView onStructureClick = { this.selectStructure } />;
         const WorldView = () => <RealWorldView/>;
 
         // A contextual popup showing what you just clicked. Can be an Item
@@ -115,7 +116,8 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             </ContextView>;
         }
 
-        const Window = this.getActiveWindow();
+        //const Window = this.getActiveWindow();
+        const Window = <CombatView/>;
 
         return <AppContext.Provider value = {{
             media: this.state.media,
@@ -214,6 +216,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
 
         SoundManager.addSounds({
             [Sound.buttonClick]: "sound/fx/button-click.ogg",
+            [Sound.error]: "sound/fx/error.ogg",
             // add more sounds here
         });
 

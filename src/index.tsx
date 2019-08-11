@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Item } from "definitions/items/types";
+import updateCombat from "mechanics/gameTick/combat";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -19,7 +19,6 @@ import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
 import { TextManager } from "./utils/textManager";
-import updateCombat from 'mechanics/gameTick/combat';
 
 let interval: NodeJS.Timeout;
 
@@ -93,7 +92,7 @@ const runGame = (store: any, persistor: Persistor) => {
         const res = updateCombat(delta, state);
         const { questUpdates, logUpdates } = getQuestUpdates(delta, state);
         logs.push(...logUpdates);
-        
+
         store.dispatch(gameTick(delta, rngState, resourcesUpdates, questUpdates, logs));
 
         processCompletedTasks(state.tasks);

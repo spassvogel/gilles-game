@@ -25,23 +25,23 @@ export interface CombatAction {
 }
 
 export enum CombatActionType {
-    move,
-    swing,
-    shoot,
+    move = "move",
+    slash = "slash",
+    shoot = "shoot",
 }
 
 export const barBrawl: CombatStoreState = {
     actors: [{
-        name: "john",
         allegiance: Allegiance.player,
-        location: [3, 5],
         health: 100,
+        location: [3, 5],
+        name: "john",
         remainingAP: 5,
     }, {
-        name: "jack",
         allegiance: Allegiance.player,
-        location: [4, 5],
         health: 100,
+        location: [4, 6],
+        name: "aaron",
         remainingAP: 4,
     }],
     turn: Allegiance.player,
