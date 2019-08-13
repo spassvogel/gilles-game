@@ -1,13 +1,13 @@
 // tslint:disable:object-literal-sort-keys
 import { LogUpdate, QuestUpdate } from "mechanics/gameTick/quests";
+import { Action } from "redux";
 import { State as seedrandomStateType } from "seedrandom";
 import { ResourceStoreState } from "stores/resources";
 
 export enum ActionType {
     gameTick = "gameTick",
 }
-export interface GameTickAction {
-    type: ActionType;
+export interface GameTickAction extends Action<ActionType>{
     delta: number;
     rngState: seedrandomStateType | null;
     resources: ResourceStoreState;

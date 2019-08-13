@@ -92,14 +92,12 @@ const CombatView = (props: AllProps) => {
                 setActiveAction(null);
             }
         }
-
     };
 
     const handleActivateAction = (type: CombatActionType) => {
         if (activeAction === type) {
             setActiveAction(null);
         } else {
-            console.log(type)
             setActiveAction(type);
         }
     };
@@ -110,15 +108,15 @@ const CombatView = (props: AllProps) => {
         }
         return null;
     };
-
     const html = map.join("");
     return (
         <>
             <fieldset className="combat">
                 <legend>COMBAT</legend>
+                { props.combat.action }
                 <pre
-                    style={{ fontFamily: "mono"}}
-                    dangerouslySetInnerHTML={{__html: html}} 
+                    style={{ fontFamily: "\"Courier New\", Courier, monospace"}}
+                    dangerouslySetInnerHTML={{__html: html}}
                     onClick={clickMap}
                     onMouseOver={mouseover}
                     onMouseOut={mouseout}

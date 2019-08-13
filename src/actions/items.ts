@@ -1,4 +1,5 @@
 import { Item } from "definitions/items/types";
+import { Action } from "redux";
 
 // tslint:disable:object-literal-sort-keys
 export enum ActionType {
@@ -7,11 +8,9 @@ export enum ActionType {
     removeItem = "removeItem",
 }
 
-export interface Action {
-    type: ActionType;
-}
 
-export interface MoveItemInWarehouseAction extends Action {
+
+export interface MoveItemInWarehouseAction extends Action<ActionType> {
     fromSlot: number;
     toSlot: number;
 }

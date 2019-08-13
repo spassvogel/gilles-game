@@ -1,4 +1,5 @@
 // tslint:disable:object-literal-sort-keys
+import { Action } from "redux";
 import { ResourceStoreState } from "stores/resources";
 
 export enum ActionType {
@@ -6,12 +7,7 @@ export enum ActionType {
     removeResources = "removeResources",
 }
 
-export interface Action {
-    type: ActionType;
-}
-
-export interface AddResources {
-    type: ActionType;
+export interface AddResources extends Action<ActionType> {
     resources: ResourceStoreState;
 }
 

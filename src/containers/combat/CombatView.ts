@@ -14,12 +14,17 @@ const mapStateToProps = (store: StoreState, ownProps: Props): StateProps => {
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
     return {
         onStartAction: (type: CombatActionType, actor: Actor, target: number[], endsAt: number) => {
+            //dispatch()
             
+            console.log(type)
+            console.log(actor)
+            console.log(target)
+            console.log(endsAt)
         }
     };
 };
 
 export default compose<React.ComponentType<Props>>(
     withWindow,
-    connect<StateProps, null, Props, StoreState>(mapStateToProps),
+    connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
 )(CombatView);

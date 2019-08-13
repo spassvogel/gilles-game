@@ -1,4 +1,5 @@
 import { Encounter } from "definitions/encounters/types";
+import { Action } from "redux";
 import { AdventurerStoreState } from "stores/adventurer";
 
 // tslint:disable:object-literal-sort-keys
@@ -12,11 +13,8 @@ export enum ActionType {
     updateQuests = "updateQuests",
 }
 
-export interface Action {
-    type: ActionType;
-}
 
-export interface QuestAction extends Action {
+export interface QuestAction extends Action<ActionType> {
     questName: string;
 }
 
