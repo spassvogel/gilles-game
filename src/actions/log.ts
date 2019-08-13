@@ -6,7 +6,6 @@ export enum ActionType {
     addLogEntry = "addLogEntry",
 }
 
-
 export interface AddLogEntryAction extends Action<ActionType> {
     key: string;
     channel: LogChannel;

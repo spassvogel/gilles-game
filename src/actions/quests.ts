@@ -13,7 +13,6 @@ export enum ActionType {
     updateQuests = "updateQuests",
 }
 
-
 export interface QuestAction extends Action<ActionType> {
     questName: string;
 }

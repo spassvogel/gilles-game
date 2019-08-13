@@ -49,21 +49,21 @@ export interface WorkerCountAction extends StructureAction {
 //     }
 // }
 
-export function startBuildingStructure(structure: Structure): Action {
+export function startBuildingStructure(structure: Structure): StructureAction {
     return {
         type: ActionType.startBuildingStructure,
         structure,
     };
 }
 
-export function finishBuildingStructure(structure: Structure): Action {
+export function finishBuildingStructure(structure: Structure): StructureAction {
     return {
         type: ActionType.finishBuildingStructure,
         structure,
     };
 }
 
-export function upgradeStructure(structure: Structure): Action {
+export function upgradeStructure(structure: Structure): StructureAction {
     return {
         type: ActionType.upgradeStructure,
         structure,

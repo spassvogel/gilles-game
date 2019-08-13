@@ -8,8 +8,6 @@ export enum ActionType {
     removeItem = "removeItem",
 }
 
-
-
 export interface MoveItemInWarehouseAction extends Action<ActionType> {
     fromSlot: number;
     toSlot: number;

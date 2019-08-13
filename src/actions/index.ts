@@ -5,8 +5,6 @@ export enum ActionType {
     addWorkers = "addWorkers",
 }
 
-
-
 export interface ModifyWorkersAction extends Action<ActionType> {
     value: number;
 }

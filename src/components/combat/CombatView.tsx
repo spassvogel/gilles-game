@@ -157,4 +157,4 @@ const actionAllowed = (actor: Actor, location: number[], action: CombatActionTyp
             const slashDistance = 2; // tiles that we can shoot
             return getDistance(location, actor.location) <= slashDistance;
     }
-}
+};

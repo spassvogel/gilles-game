@@ -7,7 +7,7 @@ import { ResourceStoreState } from "stores/resources";
 export enum ActionType {
     gameTick = "gameTick",
 }
-export interface GameTickAction extends Action<ActionType>{
+export interface GameTickAction extends Action<ActionType> {
     delta: number;
     rngState: seedrandomStateType | null;
     resources: ResourceStoreState;
