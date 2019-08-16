@@ -116,8 +116,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             </ContextView>;
         }
 
-        //const Window = this.getActiveWindow();
-        const Window = <CombatView/>;
+        const Window = this.getActiveWindow();
 
         return <AppContext.Provider value = {{
             media: this.state.media,
@@ -223,6 +222,10 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         this.setState({
             media,
         });
+
+        // todo: temporary!
+        const window = <CombatView/>;
+        this.handleWindowOpened(window);
     }
 
     private handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => {
