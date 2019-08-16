@@ -90,8 +90,8 @@ class RealTownView extends React.Component<AllProps, LocalState> {
                 key = { structure }
                 text = { `${displayName} (level ${structureStore.level + 1})` }
                 x = { 100 }
-                y = { 50 * index + 100 }
-                fontSize = { 40 }
+                y = { 90 * index + 100 }
+                fontSize = { 80 }
                 fill = { "white" }
                 onClick = { this.handleStructureClick }
             />;

@@ -111,6 +111,12 @@ const AdventurerInfo = (props: AllProps) => {
         <li>
             { getEquipmentSlot(EquipmentType.feet) }
         </li>
+        <li>
+            { getEquipmentSlot(EquipmentType.weapon) }
+        </li>
+        <li>
+            { getEquipmentSlot(EquipmentType.weapon) }
+        </li>
     </ul>;
 
     const handleDropItemInventory = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {

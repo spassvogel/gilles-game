@@ -1,6 +1,7 @@
 
 .adventurer-info {
     display: flex;
+    background: white;
 }
 
 .adventurer-info .left, .adventurer-info .right {
