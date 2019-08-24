@@ -276,7 +276,7 @@ todo: find GURPS basic set: characters
 
 23/08/2019 WORLD MAP
 [ ] World map is paneable by dragging. Can feature a compass that always points to the town
-[ ] Research: three.js controls
+[ ] Research: three.js controls (https://threejs.org/examples/misc_controls_map.html)
 
 23/08/2019 THEME
 todo: figure out a cool theme,

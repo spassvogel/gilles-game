@@ -13,7 +13,7 @@ export interface StateProps  {
 
 // tslint:disable-next-line:no-empty-interface
 export interface DispatchProps {
-    onStartAction: (type: CombatActionType, actor: Actor, target: number[], endsAt: number) => void;
+    onStartAction: (type: CombatActionType, actor: string, target: number[], endsAt: number) => void;
 }
 
 type AllProps = Props & StateProps & DispatchProps;
@@ -81,8 +81,8 @@ const CombatView = (props: AllProps) => {
                 if (!allowed) {
                     SoundManager.playSound(Sound.error);
                 } else {
-                    const endsAt = Date.now() + 3000;
-                    props.onStartAction(activeAction, selectedActor!, location, endsAt);
+                    const endsAt = Date.now() + 3000;   // animation time
+                    props.onStartAction(activeAction, selectedActor!.name, location, endsAt);
                     setActiveAction(null);
                 }
             } else if (target.hasAttribute("data-id")) {
@@ -113,7 +113,7 @@ const CombatView = (props: AllProps) => {
         <>
             <fieldset className="combat">
                 <legend>COMBAT</legend>
-                { props.combat.action }
+                { props.combat.action && props.combat.action.type }
                 <pre
                     style={{ fontFamily: "\"Courier New\", Courier, monospace"}}
                     dangerouslySetInnerHTML={{__html: html}}

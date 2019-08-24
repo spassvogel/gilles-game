@@ -4,7 +4,7 @@ import { withWindow } from "hoc/withWindow";
 import { connect } from "react-redux";
 import { AnyAction, compose, Dispatch } from "redux";
 import { StoreState } from "stores";
-import { Actor, CombatActionType } from "stores/combat";
+import { CombatActionType } from "stores/combat";
 
 const mapStateToProps = (store: StoreState, ownProps: Props): StateProps => {
     return {
@@ -14,7 +14,7 @@ const mapStateToProps = (store: StoreState, ownProps: Props): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
     return {
-        onStartAction: (type: CombatActionType, actor: Actor, target: number[], endsAt: number) => {
+        onStartAction: (type: CombatActionType, actor: string, target: number[], endsAt: number) => {
             dispatch(startCombatAction(type, actor, target, endsAt));
         },
     };

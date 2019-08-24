@@ -9,12 +9,12 @@ export enum ActionType {
 
 export interface AddAction extends Action<ActionType> {
     combatType: CombatActionType;
-    actor: Actor;
+    actor: string;
     target: number[];
     endsAt: number;
 }
 
-export function startCombatAction(type: CombatActionType, actor: Actor, target: number[], endsAt: number): AddAction {
+export function startCombatAction(type: CombatActionType, actor: string, target: number[], endsAt: number): AddAction {
     return {
         type: ActionType.startAction,
         combatType: type,
