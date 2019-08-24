@@ -11,11 +11,30 @@ export interface Props {
 type AllProps = Props;
 
 const CombatControls = (props: AllProps) => {
+    const costs = {
+        [CombatActionType.move]: 1,
+        [CombatActionType.shoot]: 3,
+        [CombatActionType.slash]: 2,
+    };
+
+    const createButton = (actionType: CombatActionType) => {
+        const cost = costs[actionType];
+        const enoughAP = cost <= props.actor.remainingAP;
+        const enabled = enoughAP;
+        return (
+            <button 
+                disabled = { !enabled }
+                onClick = {() => props.onActivateAction(actionType)}
+                className={ props.activeAction === actionType ? "active" : "" }
+            >{ `${actionType} (${cost})` }</button>
+        );
+    }
+
     return <fieldset className="combat-controls">
         <legend> { props.actor.name } </legend>
-        <button onClick={() => props.onActivateAction(CombatActionType.move)} className={ props.activeAction === CombatActionType.move ? "active" : "" }>move</button>
-        <button onClick={() => props.onActivateAction(CombatActionType.shoot)} className={ props.activeAction === CombatActionType.shoot ? "active" : ""}>shoot</button>
-        <button onClick={() => props.onActivateAction(CombatActionType.slash)} className={ props.activeAction === CombatActionType.slash ? "active" : ""}>slash</button>
+        { createButton(CombatActionType.move)}
+        { createButton(CombatActionType.shoot)}
+        { createButton(CombatActionType.slash)}
         AP: {props.actor.remainingAP}
     </fieldset>;
 };
