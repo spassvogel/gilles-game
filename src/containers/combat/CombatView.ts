@@ -1,9 +1,10 @@
-import CombatView, { Props, StateProps, DispatchProps } from "components/combat/CombatView";
+import { startCombatAction } from "actions/combat";
+import CombatView, { DispatchProps, Props, StateProps } from "components/combat/CombatView";
 import { withWindow } from "hoc/withWindow";
 import { connect } from "react-redux";
-import { compose, AnyAction, Dispatch } from 'redux';
+import { AnyAction, compose, Dispatch } from "redux";
 import { StoreState } from "stores";
-import { CombatActionType, Actor } from 'stores/combat';
+import { Actor, CombatActionType } from "stores/combat";
 
 const mapStateToProps = (store: StoreState, ownProps: Props): StateProps => {
     return {
@@ -14,13 +15,8 @@ const mapStateToProps = (store: StoreState, ownProps: Props): StateProps => {
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
     return {
         onStartAction: (type: CombatActionType, actor: Actor, target: number[], endsAt: number) => {
-            //dispatch()
-            
-            console.log(type)
-            console.log(actor)
-            console.log(target)
-            console.log(endsAt)
-        }
+            dispatch(startCombatAction(type, actor, target, endsAt));
+        },
     };
 };
 

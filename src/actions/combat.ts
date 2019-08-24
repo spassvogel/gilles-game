@@ -1,5 +1,6 @@
 // tslint:disable:object-literal-sort-keys
 import { Action, AnyAction } from "redux";
+import { Actor, CombatActionType } from "stores/combat";
 import { TaskType } from "stores/task";
 
 export enum ActionType {
@@ -7,21 +8,18 @@ export enum ActionType {
 }
 
 export interface AddAction extends Action<ActionType> {
-    taskType: TaskType;
-    name: string;
-    origin: string;
-    time: number;
-    callbacks: AnyAction[];
+    combatType: CombatActionType;
+    actor: Actor;
+    target: number[];
+    endsAt: number;
 }
 
-export function startTask(taskType: TaskType,
-                          name: string, origin: string, time: number, callbacks: AnyAction[]): AddAction {
+export function startCombatAction(type: CombatActionType, actor: Actor, target: number[], endsAt: number): AddAction {
     return {
         type: ActionType.startAction,
-        taskType,
-        name,
-        origin,
-        time,
-        callbacks,
+        combatType: type,
+        actor,
+        target,
+        endsAt,
     };
 }

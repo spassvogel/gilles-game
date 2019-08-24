@@ -1,8 +1,7 @@
 
-import { GameTickAction } from "actions/game";
-import { Action, ActionType, AddAction, MoveItemInWarehouseAction, RemoveItemFromWarehouseAction } from "actions/items";
+import {  ActionType, AddAction, MoveItemInWarehouseAction, RemoveItemFromWarehouseAction } from "actions/items";
 import { Item } from "definitions/items/types";
-import { Reducer } from "redux";
+import { AnyAction, Reducer } from "redux";
 
 const testState = [
     null,
@@ -20,7 +19,7 @@ const testState = [
  * @param action
  */
 export const items: Reducer<Array<Item|null>> = (state: Array<Item|null> = testState,
-                                                 action: Action| GameTickAction) => {
+                                                 action: AnyAction) => {
     switch (action.type) {
         case ActionType.addItem: {
             // toSlot is optional
