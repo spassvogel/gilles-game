@@ -62,7 +62,7 @@ const CombatView = (props: AllProps) => {
 
             const actor = findActorById(props.combat.actors, x, y);
             if (actor) {
-                const selected = (actor === selectedActor);
+                const selected = selectedActor && (actor.name === selectedActor.name);
                 map.push(`<span data-position="${x},${y}" data-id="${actor.name}" style="font-weight: ${selected ? "bold" : "normal"}">${actor.name[0]}</span>`);
             } else {
                 map.push(`<span data-position="${x},${y}">□</span>`);
@@ -81,11 +81,12 @@ const CombatView = (props: AllProps) => {
                 if (!allowed) {
                     SoundManager.playSound(Sound.error);
                 } else {
-                    const endsAt = Date.now() + 3000;   // animation time
+                    const endsAt = Date.now() + 500;   // animation time
                     props.onStartAction(activeAction, selectedActor!.name, location, endsAt);
                     setActiveAction(null);
                 }
             } else if (target.hasAttribute("data-id")) {
+                // Select an actor
                 const actorName = target.attributes["data-id"].value;
                 const actor = findActorByName(props.combat.actors, actorName) || null;
                 setSelectedActor(actor);
