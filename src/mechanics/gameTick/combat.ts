@@ -1,7 +1,7 @@
+import { clearCombatAction, moveActor } from "actions/combat";
+import { Store } from "redux";
 import { StoreState } from "stores";
-import { Allegiance, CombatAction, CombatStoreState, CombatActionType } from "stores/combat";
-import { moveActor, clearCombatAction } from 'actions/combat';
-import { Store } from 'redux';
+import { Allegiance, CombatAction, CombatActionType } from "stores/combat";
 
 // tslint:disable-next-line: no-empty-interface
 export interface CombatUpdate  {
@@ -22,7 +22,6 @@ const updateCombat = (delta: number, store: Store<StoreState>): CombatUpdate | n
                 players turn now
                 */
             } else if (combat.turn === Allegiance.player) {
-                console.log('hi')
                 switch (combat.action.type) {
                     case CombatActionType.move:
                         store.dispatch(moveActor(combat.action.actor, combat.action.target));

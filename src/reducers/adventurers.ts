@@ -7,6 +7,7 @@ import { EquipmentType } from "definitions/items/equipment";
 import { Item } from "definitions/items/types";
 import { Reducer, AnyAction } from "redux";
 import { AdventurerStoreState, EquipmentStoreState, StatsStoreState } from "stores/adventurer";
+import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
 
 /**
  * reducer
@@ -246,14 +247,14 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
 
         case ActionType.assignEquipment: {
             // Assigns equipment to an adventurer
-            const { equipmentType, item } = action as AssignEquipmentAction;
+            const { equipmentSlot, item } = action as AssignEquipmentAction;
             return state.map((adventurer: AdventurerStoreState) => {
                 if (adventurer.id === action.adventurerId) {
                     return {
                         ...adventurer,
                         equipment: {
                             ...adventurer.equipment,
-                            [EquipmentType[equipmentType]]: item,
+                            [EquipmentSlotType[equipmentSlot]]: item,
                         },
                     };
                 }
@@ -263,14 +264,14 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
 
         case ActionType.removeEquipment: {
             // Assigns equipment to an adventurer
-            const { equipmentType } = action as RemoveEquipmentAction;
+            const { equipmentSlot } = action as RemoveEquipmentAction;
             return state.map((adventurer: AdventurerStoreState) => {
                 if (adventurer.id === action.adventurerId) {
                     return {
                         ...adventurer,
                         equipment: {
                             ...adventurer.equipment,
-                            [EquipmentType[equipmentType]]: null,
+                            [EquipmentSlotType[equipmentSlot]]: null,
                         },
                     };
                 }

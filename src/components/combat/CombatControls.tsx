@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Actor, CombatStoreState, CombatActionType } from "stores/combat";
+import { Actor, CombatActionType } from "stores/combat";
 //import "./css/structuredetails.css";
 
 export interface Props {

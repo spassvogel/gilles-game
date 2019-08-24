@@ -1,4 +1,4 @@
-import { EquipmentType } from "definitions/items/equipment";
+import { EquipmentSlotType } from "components/ui/EquipmentSlot";
 import { Item } from "definitions/items/types";
 
 // tslint:disable:object-literal-sort-keys
@@ -39,10 +39,10 @@ export interface MoveItemToOtherAdventurerAction extends Action {
 
 export interface AssignEquipmentAction extends Action {
     item: Item;
-    equipmentType: EquipmentType;
+    equipmentSlot: EquipmentSlotType;
 }
 export interface RemoveEquipmentAction extends Action {
-    equipmentType: EquipmentType;
+    equipmentSlot: EquipmentSlotType;
 }
 
 export function moveItemInInventory(adventurerId: string, fromSlot: number, toSlot: number):
@@ -91,19 +91,19 @@ export function removeItemFromInventory(adventurerId: string, fromSlot: number):
     };
 }
 
-export function assignEquipment(adventurerId: string, type: EquipmentType, item: Item): AssignEquipmentAction {
+export function assignEquipment(adventurerId: string, equipmentSlot: EquipmentSlotType, item: Item): AssignEquipmentAction {
     return {
         type: ActionType.assignEquipment,
         adventurerId,
         item,
-        equipmentType: type,
+        equipmentSlot,
     };
 }
 
-export function removeEquipment(adventurerId: string, type: EquipmentType): RemoveEquipmentAction {
+export function removeEquipment(adventurerId: string, equipmentSlot: EquipmentSlotType): RemoveEquipmentAction {
     return {
         type: ActionType.removeEquipment,
         adventurerId,
-        equipmentType: type,
+        equipmentSlot,
     };
 }

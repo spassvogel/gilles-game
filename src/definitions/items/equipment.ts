@@ -11,7 +11,6 @@ export enum EquipmentType {
     legs,
     head,
     shoulders,
-    weapon
 }
 
 export interface EquipmentDefinition extends ItemDefinition {

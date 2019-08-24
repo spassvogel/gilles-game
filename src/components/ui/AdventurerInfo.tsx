@@ -9,7 +9,7 @@ import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import "./css/adventurerinfo.css";
 import DraggableItemIcon, { InventoryItemDragInfo } from "./DraggableItemIcon";
-import EquipmentSlot from "./EquipmentSlot";
+import EquipmentSlot, { EquipmentSlotType } from "./EquipmentSlot";
 import Inventory from "./inventory/Inventory";
 
 export interface Props {
@@ -19,9 +19,9 @@ export interface Props {
 export interface DispatchProps {
     onMoveItemInInventory: (adventurerId: string, fromSlot: number, toSlot: number) => void;
     onRemoveItemFromInventory: (adventurerId: string, fromSlot: number) => void;
-    onAssignEquipment: (adventurerId: string, type: EquipmentType, item: Item) => void;
+    onAssignEquipment: (adventurerId: string, equipmentSlot: EquipmentSlotType, item: Item) => void;
     onAddItemToInventory: (adventurerId: string, item: Item, toSlot: number) => void;
-    onRemoveEquipment: (adventurerId: string, type: EquipmentType) => void;
+    onRemoveEquipment: (adventurerId: string, equipmentSlot: EquipmentSlotType) => void;
 }
 
 export interface StateProps {
@@ -42,23 +42,44 @@ const AdventurerInfo = (props: AllProps) => {
     //     return <div key = { `${adventurer.id}-${equipment}` } ><b>{ equipment }</b>: { getEquipment(equipment] }  </di)>;
     // });
 
-    const handleDropItemEquipment = (type: EquipmentType, dragInfo: InventoryItemDragInfo) => {
+    const handleDropItemEquipment = (dragInfo: InventoryItemDragInfo, slotType: EquipmentSlotType) => {
         // When an item gets dropped on equipment slot
         const item = dragInfo.item;
-        props.onRemoveItemFromInventory(adventurer.id, dragInfo.inventorySlot!);
-        props.onAssignEquipment(adventurer.id, type, item);
 
-        const existingEquipment = adventurer.equipment[EquipmentType[type]];
-        if (existingEquipment) {
-            props.onAddItemToInventory(adventurer.id, existingEquipment, dragInfo.inventorySlot!);
+        switch (dragInfo.sourceType) {
+            case DragSourceType.adventurerInventory: {
+                // Dragged from inventory
+                props.onRemoveItemFromInventory(adventurer.id, dragInfo.inventorySlot!);
+                props.onAssignEquipment(adventurer.id, slotType, item);
+
+                const existingEquipment = adventurer.equipment[EquipmentSlotType[slotType]];
+                if (existingEquipment) {
+                    props.onAddItemToInventory(adventurer.id, existingEquipment, dragInfo.inventorySlot!);
+                }
+                break;
+            }
+            case DragSourceType.adventurerEquipment: {
+                // Dragged from equipment slot (only applicable to weapons)
+                props.onAssignEquipment(adventurer.id, slotType, item);
+
+                const existingEquipment = adventurer.equipment[EquipmentSlotType[slotType]];
+                const fromSlot = dragInfo.inventorySlot!;
+                if (existingEquipment) {
+                    // Another weapon was there, switch them
+                    props.onAssignEquipment(adventurer.id, fromSlot, existingEquipment);
+                } else {
+                    // Clear the slot where it came from
+                    props.onRemoveEquipment(adventurer.id, fromSlot);
+                }
+                break;
+            }
         }
     };
 
-    const getEquipmentSlot = (type: EquipmentType) => {
+    const getEquipmentSlot = (slotType: EquipmentSlotType) => {
         // returns EquipmentSlot
-        const item: Item | undefined = adventurer.equipment[EquipmentType[type]];
+        const item: Item | undefined = adventurer.equipment[EquipmentSlotType[slotType]];
         let contents = null;
-
         if (item) {
             const itemRef: React.RefObject<any> = React.createRef();
             const handleClick = (event: React.MouseEvent) => {
@@ -74,7 +95,7 @@ const AdventurerInfo = (props: AllProps) => {
             };
 
             contents = <DraggableItemIcon
-                index = { type }
+                index = { slotType }
                 sourceId = { adventurer.id }
                 sourceType = { DragSourceType.adventurerEquipment }
                 item = { item }
@@ -86,36 +107,36 @@ const AdventurerInfo = (props: AllProps) => {
         }
 
         return <EquipmentSlot
-            onDrop = { (dragInfo: InventoryItemDragInfo) => handleDropItemEquipment(type, dragInfo) }
-            type = { type }>
+            onDrop = { (dragInfo: InventoryItemDragInfo) => handleDropItemEquipment(dragInfo, slotType) }
+            type = { slotType }>
                 { contents }
         </EquipmentSlot>;
     };
 
     const equipmentList = <ul>
         <li>
-            { getEquipmentSlot(EquipmentType.head) }
+            { getEquipmentSlot(EquipmentSlotType.head) }
         </li>
         <li>
-            { getEquipmentSlot(EquipmentType.shoulders) }
+            { getEquipmentSlot(EquipmentSlotType.shoulders) }
         </li>
         <li>
-            { getEquipmentSlot(EquipmentType.chest) }
+            { getEquipmentSlot(EquipmentSlotType.chest) }
         </li>
         <li>
-            { getEquipmentSlot(EquipmentType.hands) }
+            { getEquipmentSlot(EquipmentSlotType.hands) }
         </li>
         <li>
-            { getEquipmentSlot(EquipmentType.legs) }
+            { getEquipmentSlot(EquipmentSlotType.legs) }
         </li>
         <li>
-            { getEquipmentSlot(EquipmentType.feet) }
+            { getEquipmentSlot(EquipmentSlotType.feet) }
         </li>
         <li>
-            { getEquipmentSlot(EquipmentType.weapon) }
+            { getEquipmentSlot(EquipmentSlotType.mainHand) }
         </li>
         <li>
-            { getEquipmentSlot(EquipmentType.weapon) }
+            { getEquipmentSlot(EquipmentSlotType.offHand) }
         </li>
     </ul>;
 
@@ -134,6 +155,9 @@ const AdventurerInfo = (props: AllProps) => {
                     props.onAddItemToInventory(adventurer.id, item, toSlot);
                     props.onRemoveEquipment(adventurer.id, fromSlot);
                 }
+                // TODO: not working at the moment. dragging an item from equipmentslot to an existing 
+                // item in inventory bad things happen
+                // 
                 break;
         }
     };

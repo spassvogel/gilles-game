@@ -282,3 +282,8 @@ todo: find GURPS basic set: characters
 23/08/2019 THEME
 todo: figure out a cool theme,
 research fantasy concept art
+
+24/08/2019 NAMING
+[ ] come up with a better name for worn equipment, (perhaps 'apparel')
+[ ] refactor into the following structure: 
+    EQUIPMENT = { APPAREL, WEAPONS }

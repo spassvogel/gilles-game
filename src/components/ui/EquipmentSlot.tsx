@@ -3,7 +3,7 @@
 import { DragType } from "constants/dragging";
 import { getDefinition } from "definitions/items";
 import { EquipmentDefinition, EquipmentType } from "definitions/items/equipment";
-import { Item, ItemType } from "definitions/items/types";
+import { ItemDefinition, ItemType } from "definitions/items/types";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
 import "./css/equipmentslot.css";
@@ -16,17 +16,45 @@ const dropTarget: DropTargetSpec<Props> = {
     canDrop(props: Props, monitor: DropTargetMonitor)  {
         const item = monitor.getItem().item;
         const def = getDefinition(item);
-        // Can only drop the right equipment type
-        if (def.itemType !== ItemType.equipment) {
-            return false;
+
+        switch (props.type) {
+            case EquipmentSlotType.chest:
+                return checkEquipment(def, EquipmentType.chest);
+             case EquipmentSlotType.feet:
+                return checkEquipment(def, EquipmentType.feet);
+            case EquipmentSlotType.hands:
+                return checkEquipment(def, EquipmentType.hands);
+            case EquipmentSlotType.head:
+                return checkEquipment(def, EquipmentType.head);
+            case EquipmentSlotType.legs:
+                return checkEquipment(def, EquipmentType.legs);
+            case EquipmentSlotType.mainHand:
+            case EquipmentSlotType.offHand:
+                if (def.itemType !== ItemType.weapon) {
+                    return false;
+                }
+
+                // todo: prevent shields to be equipped in main hand
+                return true;
+            default:
+                return false;
         }
-        const equipmentDef = def as EquipmentDefinition;
-        return equipmentDef.equipmentType === props.type;
     },
 };
 
+export enum EquipmentSlotType {
+    feet,
+    hands,
+    chest,
+    legs,
+    head,
+    shoulders,
+    mainHand,
+    offHand,
+}
+
 export interface Props {
-    type: EquipmentType;
+    type: EquipmentSlotType;
     onDrop: (item: InventoryItemDragInfo) => void;
 }
 
@@ -71,3 +99,10 @@ export default DropTarget<Props, DropSourceProps>(
     dropTarget,
     collect,
 )(EquipmentSlot);
+
+const checkEquipment = (def: ItemDefinition, equipmentType: EquipmentType) => {
+    if (def.itemType !== ItemType.equipment) {
+        return false;
+    }
+    return  (def as EquipmentDefinition).equipmentType === equipmentType;
+}
