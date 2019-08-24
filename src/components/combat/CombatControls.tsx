@@ -6,6 +6,7 @@ export interface Props {
     actor: Actor;
     activeAction: CombatActionType | null;
     onActivateAction: (name: CombatActionType) => void;
+    disabled: boolean;
 }
 
 type AllProps = Props;
@@ -30,7 +31,7 @@ const CombatControls = (props: AllProps) => {
         );
     }
 
-    return <fieldset className="combat-controls">
+    return <fieldset className="combat-controls" disabled={props.disabled}>
         <legend> { props.actor.name } </legend>
         { createButton(CombatActionType.move)}
         { createButton(CombatActionType.shoot)}

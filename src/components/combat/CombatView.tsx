@@ -102,18 +102,27 @@ const CombatView = (props: AllProps) => {
         }
     };
 
+    const html = map.join("");
+    const combatActionInProgress = props.combat.action !== undefined;
+    const currentAction = combatActionInProgress ? props.combat.action!.type : "...";
+
     const getControl = () => {
         if (selectedActor) {
-            return <CombatControls actor={selectedActor} onActivateAction={handleActivateAction} activeAction={activeAction} />;
+            return <CombatControls
+                actor = {selectedActor}
+                onActivateAction = {handleActivateAction}
+                activeAction = {activeAction}
+                disabled = {combatActionInProgress}
+            />;
         }
         return null;
     };
-    const html = map.join("");
+
     return (
         <>
             <fieldset className="combat">
                 <legend>COMBAT</legend>
-                { props.combat.action && props.combat.action.type }
+                { currentAction }
                 <pre
                     style={{ fontFamily: "\"Courier New\", Courier, monospace"}}
                     dangerouslySetInnerHTML={{__html: html}}

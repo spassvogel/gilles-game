@@ -89,7 +89,7 @@ const runGame = (store: any, persistor: Persistor) => {
         const logs: LogUpdate[] = [];
         const resourcesUpdates = getProducedResources(delta, state);
         const rngState = getRngState();
-        const res = updateCombat(delta, state);
+        updateCombat(delta, store);
         const { questUpdates, logUpdates } = getQuestUpdates(delta, state);
         logs.push(...logUpdates);
 

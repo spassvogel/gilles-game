@@ -1,25 +1,46 @@
 // tslint:disable:object-literal-sort-keys
 import { Action, AnyAction } from "redux";
-import { Actor, CombatActionType } from "stores/combat";
-import { TaskType } from "stores/task";
+import { CombatActionType } from "stores/combat";
 
 export enum ActionType {
-    startAction = "startAction",
+    clearCombatAction = "clearCombatAction",
+    startCombatAction = "startCombatAction",
+    moveActor = "moveActor",
 }
 
-export interface AddAction extends Action<ActionType> {
+export interface AddCombatActionAction extends Action<ActionType> {
     combatType: CombatActionType;
     actor: string;
     target: number[];
     endsAt: number;
 }
 
-export function startCombatAction(type: CombatActionType, actor: string, target: number[], endsAt: number): AddAction {
+export interface MoveActorAction extends Action<ActionType> {
+    actor: string;
+    location: number[];
+}
+
+export function startCombatAction(type: CombatActionType, actor: string, target: number[], endsAt: number): AddCombatActionAction {
     return {
-        type: ActionType.startAction,
+        type: ActionType.startCombatAction,
         combatType: type,
         actor,
         target,
         endsAt,
+    };
+}
+
+export function moveActor(actor: string, location: number[]): MoveActorAction {
+    return {
+        type: ActionType.moveActor,
+        actor,
+        location,
+    };
+}
+
+export function clearCombatAction(): Action<ActionType> {
+    // currently there is only one combat possible. so only one needs to be cleared
+    return {
+        type: ActionType.clearCombatAction,
     };
 }

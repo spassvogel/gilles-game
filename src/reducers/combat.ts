@@ -1,4 +1,4 @@
-import { ActionType, AddAction } from "actions/combat";
+import { ActionType, AddCombatActionAction, MoveActorAction } from "actions/combat";
 import { AnyAction, Reducer } from "redux";
 import { barBrawl, CombatStoreState } from "stores/combat";
 
@@ -9,8 +9,8 @@ import { barBrawl, CombatStoreState } from "stores/combat";
  */
 export const combat: Reducer<CombatStoreState> = (state: CombatStoreState = barBrawl, action: AnyAction) => {
     switch (action.type) {
-        case ActionType.startAction:
-            const addAction = action as AddAction;
+        case ActionType.startCombatAction:
+            const addAction = action as AddCombatActionAction;
 
             return {
                 ...state,
@@ -20,6 +20,32 @@ export const combat: Reducer<CombatStoreState> = (state: CombatStoreState = barB
                     target: addAction.target,
                     type: addAction.combatType,
                 },
+            };
+
+        case ActionType.moveActor:
+            const moveAction = action as MoveActorAction;
+
+            // Moves an actor to another position
+            const actors = state.actors.map((a) => {
+                if (a.name === moveAction.actor) {
+                    return {
+                        ...a,
+                        location: moveAction.location,
+                    };
+                }
+                return a;
+            });
+
+            return {
+                ...state,
+                actors,
+            };
+
+            case ActionType.clearCombatAction:
+            // Clears current combat action
+            return {
+                ...state,
+                action: undefined,
             };
     }
     return state;
