@@ -155,6 +155,8 @@ const AdventurerInfo = (props: AllProps) => {
                     props.onAddItemToInventory(adventurer.id, item, toSlot);
                     props.onRemoveEquipment(adventurer.id, fromSlot);
                 }
+                // todo: switch equipment!
+
                 // TODO: not working at the moment. dragging an item from equipmentslot to an existing 
                 // item in inventory bad things happen
                 // 

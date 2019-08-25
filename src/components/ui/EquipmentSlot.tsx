@@ -3,7 +3,7 @@
 import { DragType } from "constants/dragging";
 import { getDefinition } from "definitions/items";
 import { EquipmentDefinition, EquipmentType } from "definitions/items/equipment";
-import { ItemDefinition, ItemType } from "definitions/items/types";
+import { ItemType, Item } from "definitions/items/types";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
 import "./css/equipmentslot.css";
@@ -15,32 +15,37 @@ const dropTarget: DropTargetSpec<Props> = {
     },
     canDrop(props: Props, monitor: DropTargetMonitor)  {
         const item = monitor.getItem().item;
-        const def = getDefinition(item);
 
-        switch (props.type) {
-            case EquipmentSlotType.chest:
-                return checkEquipment(def, EquipmentType.chest);
-             case EquipmentSlotType.feet:
-                return checkEquipment(def, EquipmentType.feet);
-            case EquipmentSlotType.hands:
-                return checkEquipment(def, EquipmentType.hands);
-            case EquipmentSlotType.head:
-                return checkEquipment(def, EquipmentType.head);
-            case EquipmentSlotType.legs:
-                return checkEquipment(def, EquipmentType.legs);
-            case EquipmentSlotType.mainHand:
-            case EquipmentSlotType.offHand:
-                if (def.itemType !== ItemType.weapon) {
-                    return false;
-                }
-
-                // todo: prevent shields to be equipped in main hand
-                return true;
-            default:
-                return false;
-        }
+        return itemAndEquipmentSlotMatch(item, props.type);
     },
 };
+
+// Returns true if item can be slotted in equipmentSlotType
+export const itemAndEquipmentSlotMatch = (item: Item, equipmentSlotType: EquipmentSlotType) => {
+    switch (equipmentSlotType) {
+        case EquipmentSlotType.chest:
+            return checkEquipment(item, EquipmentType.chest);
+         case EquipmentSlotType.feet:
+            return checkEquipment(item, EquipmentType.feet);
+        case EquipmentSlotType.hands:
+            return checkEquipment(item, EquipmentType.hands);
+        case EquipmentSlotType.head:
+            return checkEquipment(item, EquipmentType.head);
+        case EquipmentSlotType.legs:
+            return checkEquipment(item, EquipmentType.legs);
+        case EquipmentSlotType.mainHand:
+        case EquipmentSlotType.offHand:
+            const itemDefinition = getDefinition(item);
+            if (itemDefinition.itemType !== ItemType.weapon) {
+                return false;
+            }
+
+            // todo: prevent shields to be equipped in main hand
+            return true;
+        default:
+            return false;
+    }
+}
 
 export enum EquipmentSlotType {
     feet,
@@ -100,9 +105,10 @@ export default DropTarget<Props, DropSourceProps>(
     collect,
 )(EquipmentSlot);
 
-const checkEquipment = (def: ItemDefinition, equipmentType: EquipmentType) => {
-    if (def.itemType !== ItemType.equipment) {
+const checkEquipment = (item: Item, equipmentType: EquipmentType) => {
+    const itemDefinition = getDefinition(item);
+    if (itemDefinition.itemType !== ItemType.equipment) {
         return false;
     }
-    return  (def as EquipmentDefinition).equipmentType === equipmentType;
-}
+    return (itemDefinition as EquipmentDefinition).equipmentType === equipmentType;
+};

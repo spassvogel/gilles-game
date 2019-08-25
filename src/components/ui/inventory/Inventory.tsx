@@ -1,8 +1,6 @@
 import DraggableItemIcon, {InventoryItemDragInfo} from "components/ui/DraggableItemIcon";
-import { ContextType } from "constants/context";
 import { DragSourceType } from "constants/dragging";
 import { IconSize } from "constants/icons";
-import itemDefinitions from "definitions/items";
 import {Item} from "definitions/items/types";
 import { AppContextProps, withAppContext } from "hoc/withAppContext";
 import * as React from "react";
@@ -49,7 +47,7 @@ const Inventory = (props: Props & AppContextProps) => {
 
         const slot = <InventorySlot
             key = { `inventory-slot-${i}` }
-            empty = { contents === undefined }
+            item = { item }
             size = { props.iconSize }
             onDrop = { handleDrop }
         >
