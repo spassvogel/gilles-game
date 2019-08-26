@@ -153,13 +153,16 @@ const AdventurerInfo = (props: AllProps) => {
                 // Drag from equipment slot
                 if (props.onAddItemToInventory && props.onRemoveEquipment) {
                     props.onAddItemToInventory(adventurer.id, item, toSlot);
+                }
+
+                const existingEquipment = adventurer.inventory[toSlot];
+                if (existingEquipment) {
+                    // Was dropped on another piece of equipment in inventory, switch them
+                    props.onAssignEquipment(adventurer.id, fromSlot, existingEquipment);
+                } else {
+                    // Clear the slot where it came from
                     props.onRemoveEquipment(adventurer.id, fromSlot);
                 }
-                // todo: switch equipment!
-
-                // TODO: not working at the moment. dragging an item from equipmentslot to an existing 
-                // item in inventory bad things happen
-                // 
                 break;
         }
     };
