@@ -3,7 +3,7 @@ import { ContextType } from "constants/context";
 import { DragSourceType } from "constants/dragging";
 import { IconSize } from "constants/icons";
 import { getDefinition } from "definitions/items";
-import { EquipmentType } from "definitions/items/equipment";
+import { ApparelType } from "definitions/items/apparel";
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
