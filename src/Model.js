@@ -1,3 +1,4 @@
+// It's a js file because there is some problem with the 
 import * as THREE from 'three'
 import React, { useMemo, useState } from 'react'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
