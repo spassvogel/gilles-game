@@ -1,12 +1,9 @@
 import { InventoryItemDragInfo } from "components/ui/DraggableItemIcon";
 import DroppableAdventurerAvatar from "components/ui/DroppableAdventurerAvatar";
-import Inventory from "components/ui/inventory/Inventory";
-import { DragSourceType } from "constants/dragging";
 import { TextEntry } from "constants/text";
 import AdventurerInfo from "containers/ui/AdventurerInfo";
 import { getDefinition as getEncounterDefinition } from "definitions/encounters";
 import { EncounterDefinition } from "definitions/encounters/types";
-import { Item } from "definitions/items/types";
 import { getDefinition as getQuestDefinition, QuestDefinition, QuestNode, QuestNodeType } from "definitions/quests";
 import { AppContextProps } from "hoc/withAppContext";
 import React from "react";
@@ -76,7 +73,7 @@ class PartyWindow extends React.Component<AllProps, LocalState> {
         if (!adventurer) {
             return null;
         }
-        return <AdventurerInfo adventurer = { adventurer } />;
+        return <AdventurerInfo adventurerId = { adventurer.id } />;
     }
 
     private handleAvatarClick(adventurerId: string | null): void {

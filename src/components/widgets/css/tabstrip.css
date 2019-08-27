@@ -12,11 +12,8 @@
     padding-left: 4px;
     border: 1px solid green;
     border-bottom: 0;
-    width: 120px;
     background: lightgray;
     overflow: hidden;
-    height: 25px;
-    line-height: 25px;
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: var(--app-cursor-pointer);

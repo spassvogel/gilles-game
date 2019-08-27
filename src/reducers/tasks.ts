@@ -1,8 +1,8 @@
 // tslint:disable:object-literal-sort-keys
 
 import { ActionType as GameActionType, GameTickAction } from "actions/game";
-import { Action as AnyTaskAction, ActionType, AddAction} from "actions/tasks";
-import { Reducer } from "redux";
+import {  ActionType, AddAction} from "actions/tasks";
+import { AnyAction, Reducer } from "redux";
 import { TaskStoreState } from "stores/task";
 import { initialState, TasksStoreState } from "stores/tasks";
 
@@ -12,7 +12,7 @@ import { initialState, TasksStoreState } from "stores/tasks";
  * @param action
  */
 export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initialState,
-                                                action: AnyTaskAction | GameTickAction ) => {
+                                                action: AnyAction ) => {
     switch (action.type) {
         case ActionType.start: {
         // Adds a new task to the running tasks

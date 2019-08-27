@@ -1,9 +1,11 @@
 import { addGold } from "actions/gold";
 import { addResources } from "actions/resources";
 import StructureDetailsView, { DispatchProps, Props, StateProps } from "components/StructureDetailsView";
+import { Props as WindowProps } from "components/ui/window/Window";
+import { withWindow } from "hoc/withWindow";
 import { Dispatch } from "react";
 import { connect } from "react-redux";
-import { AnyAction } from "redux";
+import { AnyAction, compose } from "redux";
 import { ResourceStoreState } from "stores/resources";
 import { StoreState } from "../../stores";
 
@@ -23,4 +25,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>): DispatchProps {
     };
 }
 
-export default connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps)(StructureDetailsView);
+export default compose(
+    connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
+    withWindow,
+)(StructureDetailsView) as React.ComponentType<Props & WindowProps>;

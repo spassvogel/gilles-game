@@ -9,12 +9,19 @@
     display: inline-block;
     position: relative;
     background: aqua;
+    box-shadow: 0 0 0 2px grey;
+}
+
+.inventory .inventory-item.drop-active {
     box-shadow: 0 0 0 2px rgb(6, 156, 26);
 }
 
+.inventory .inventory-item.drop-possible {
+    box-shadow: 0 0 0 2px orange;
+}
+
 .inventory .inventory-item .item-icon {
-    background-color: orange;
-    
+    background-color: orange;    
 }
 
 

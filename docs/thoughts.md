@@ -51,6 +51,7 @@ backlog of ideas
 
 23/06/2019 HELP
 [ ] Each screen should get a contexualized help window
+[ ] HTML elements can receive a 'data-help' attribute with a key to refer to the localisation file
 
 30/06/2019 GAME TICK QUEST UPDATE
 [x] Move gameTick from quest reducer into 'controllers'
@@ -61,6 +62,7 @@ backlog of ideas
 07/07/2019 GAME DESIGN: warehouse
 [ ] Is the warehouse limited? Can you add unlimited items?
 [x] Resource capacity is limited
+[ ] Warehouse produces 'food rations' for quests
 
 10/07/2019 ASSERTS
 [ ] Include an assert library
@@ -82,8 +84,8 @@ backlog of ideas
 [ ] Weapons slowly lose durability (/health) when used. 
 [ ] Weapons can either be repaired ?  OR : just disassembled for a fraction of the crafting cost
 
-13/07/2019 GEAR REQUIREMENTS
-[ ] Gear (=apparel+weapons) can have stats requirements (e.g. a minimum amount of STR)
+13/07/2019 EQUIPMENT REQUIREMENTS
+[ ] Equipment (=apparel+weapons) can have stats requirements (e.g. a minimum amount of STR)
 
 14/07/2019 ROUTER
 [x] Implement react router for town/world
@@ -108,7 +110,7 @@ backlog of ideas
 [x] the contextual info should just pop up over the item that you have clicked
 
 20/07/2019 open popups
-[ ] popups can be opened using withAppContext
+[x] popups can be opened using withAppContext
 
 20/07/2019 quest view
 [ ] shows latest log message when not in encounter
@@ -133,18 +135,21 @@ backlog of ideas
 [ ] We need cursors for move and not-allowed
 
 29/07/2019 EQUIP EQUIPMENT
+[x] Can equip gear from the players inventory
+[ ] Can equip gear from the warehouse
+
   head                hands
   shoulders            legs
   chest                feet
   mainhand  offhand sidearm
 
-31/07/2019 Three.js
+31/07/2019 THREE.js
 Because I'm not an artist and I want to use unity3d assets
 [ ] First check if components dont get remounted too much. If yes, find out why and resolve issue!     
 [ ] Find cool fantasy town assets
 [ ] Check if can be loaded in threejs (seperate project)
 [ ] Implement in town
-[ ] It would be cool to have the town scrollable.
+[ ] It would be cool to have the town scrollable. (see: 23/08/2019 WORLD MAP)
     The easiest way would maybe to be to create a very long canvas, render everything on it and let the browser scroll this canvas. This way you also have a scrollbar.
     Not optimal for performance tho.
 [ ] Find cool fantasy character unity asset packs
@@ -156,8 +161,3 @@ Because I'm not an artist and I want to use unity3d assets
     2. on update, all actors (AIs turn happens simultanously?) move to their new positions
        and play their animations.
 [ ] On second hand, I think it's worth checking out react-three-fiber. Might get complicated otherwise  
-    https://github.com/drcmda/react-three-fiber/issues/113
-    https://github.com/drcmda/react-three-fiber/issues/160
-
-    react-three-fiber seems to work. I think the best way is to
-    create my scene in blender, export to GLtf

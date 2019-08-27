@@ -1,13 +1,11 @@
+import { Action } from "redux";
+
 // tslint:disable:object-literal-sort-keys
 export enum ActionType {
     addGold = "addGold",
 }
 
-export interface Action {
-    type: ActionType;
-}
-
-export interface ModifyGoldAction extends Action {
+export interface ModifyGoldAction extends Action<ActionType> {
     amount: number;
 }
 

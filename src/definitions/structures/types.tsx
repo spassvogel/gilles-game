@@ -18,6 +18,7 @@ export interface StructureDefinition {
 export interface StructureLevelDefinition {
     displayName: string;          // At this moment we can potentially support different names depending on the level
                                   // of the structure. But this is not implemented because I feel it can cause confusion
+                                  // todo: REMOVE
     cost: CostStoreState;                 // in gold
     workerCapacity: number;       // number of workers that can work at this structure at this level
 }

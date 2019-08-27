@@ -1,0 +1,11 @@
+.combat-controls button.active {
+    font-weight: bold;
+}
+
+.combat .allowed {
+    color: green;
+}
+
+.combat .disallowed {
+    color: red;
+}

@@ -1,13 +1,11 @@
+import { Action } from "redux";
 
+// todo this should go somewhere else
 export enum ActionType {
     addWorkers = "addWorkers",
 }
 
-export interface Action {
-    type: ActionType;
-}
-
-export interface ModifyWorkersAction extends Action {
+export interface ModifyWorkersAction extends Action<ActionType> {
     value: number;
 }
 

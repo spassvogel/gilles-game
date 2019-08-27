@@ -20,8 +20,8 @@ export interface LogUpdate extends TextEntry {
 }
 
 interface QuestGameTickResponse {
-    quests: QuestUpdate[];
-    log: LogUpdate[];
+    questUpdates: QuestUpdate[];
+    logUpdates: LogUpdate[];
 }
 
 const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickResponse => {
@@ -90,8 +90,8 @@ const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickRespons
     });
 
     return {
-        log,
-        quests,
+        logUpdates: log,
+        questUpdates: quests,
     };
 };
 

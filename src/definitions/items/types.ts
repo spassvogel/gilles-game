@@ -1,7 +1,7 @@
 
 export enum ItemType {
     deed,
-    equipment,
+    apparel,
     material,
     questItem,
     trinket,

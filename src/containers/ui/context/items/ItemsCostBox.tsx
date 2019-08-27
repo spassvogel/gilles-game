@@ -5,7 +5,7 @@ import { StoreState } from "stores";
 
 const mapStateToProps = (store: StoreState, ownProps: Props): StateProps => {
     const itemsInInventory: Item[] = [];
-    const tmpWarehouse = [ ... store.items];
+    const tmpWarehouse = [ ...store.items];
     ownProps.items.forEach((item: Item) => {
         const found = tmpWarehouse.findIndex((i) => i === item);
         if (found > -1) {

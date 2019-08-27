@@ -1,15 +1,12 @@
 // tslint:disable: object-literal-sort-keys
+import { Action } from "redux";
 import { LogChannel } from "stores/logEntry";
 
 export enum ActionType {
     addLogEntry = "addLogEntry",
 }
 
-export interface Action {
-    type: ActionType;
-}
-
-export interface AddLogEntryAction extends Action {
+export interface AddLogEntryAction extends Action<ActionType> {
     key: string;
     channel: LogChannel;
     context?: any;

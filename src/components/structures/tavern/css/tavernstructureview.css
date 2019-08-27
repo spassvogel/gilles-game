@@ -1,6 +1,5 @@
 .tavernstructureview section {
     display: flex;
-    height: 400px;
 }
 
 .tavernstructureview .rooms {

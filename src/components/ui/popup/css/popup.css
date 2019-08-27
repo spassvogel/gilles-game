@@ -1,8 +1,9 @@
-/* todo: rename to something different, like tinypopup */
 .popup {
-    background: #000000;
     position: absolute;
     z-index: 3;
+
+    --arrow-size: 8px;  /* warning! sync to withPopup.ARROW_SIZE */
+    transition: opacity .45s ease-in-out;
 }
 
 .popup .popup-arrow {
@@ -11,35 +12,39 @@
     height: 0;
     border-style: solid;
     position: absolute;
-    margin: 8px;
+    margin: var(--arrow-size);
 }
 
 .popup.popup-bottom {
-    transform: translate(-50%, 8px);
+    transform: translate(-50%, var(--arrow-size));
 }
 
 .popup.popup-bottom .popup-arrow {
-    border-width: 0 8px 8px 8px;
+    border-width: 0 var(--arrow-size) var(--arrow-size) var(--arrow-size);
     border-left-color: transparent;
     border-right-color: transparent;
     border-top-color: transparent;
-    top: -8px;
-    left: calc(50% - 16px);
+    top: calc(var(--arrow-size) * -1);
+    left: calc(50% - calc(var(--arrow-size) * 2));
     margin-top: 0;
     margin-bottom: 0;
 }
 
 .popup.popup-top {
-    transform: translate(-50%, calc(-100% - 8px));
+    transform: translate(-50%, calc(-100% - var(--arrow-size)));
 }
 
 .popup.popup-top .popup-arrow {
-    border-width: 8px 8px 0 8px;
+    border-width: var(--arrow-size) var(--arrow-size) 0 var(--arrow-size);
     border-left-color: transparent;
     border-right-color: transparent;
     border-bottom-color: transparent;
-    bottom: -8px;
-    left: calc(50% - 16px);
+    bottom: calc(var(--arrow-size) * -1);
+    left: calc(50% - calc(var(--arrow-size) * 2));
     margin-top: 0;
     margin-bottom: 0;
+}
+
+.popup .popup-content {
+    border: 2px solid #000000;
 }

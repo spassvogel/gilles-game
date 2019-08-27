@@ -35,9 +35,28 @@ const groupAdventurersByQuest = (adventurers: AdventurerStoreState[], quests: Qu
     return groupedAdventurers;
 };
 
+const getAdventurersInTown = (adventurers: AdventurerStoreState[], quests: QuestStoreState[]): AdventurerStoreState[] => {
+    // Get an array of all adventurer ids on any active quest
+    const adventurersOnQuest = quests.reduce<string[]>((acc, val: QuestStoreState) => {
+        if (val.status === QuestStatus.active) {
+            acc.push(...val.party);
+        }
+        return acc;
+    }, []);
+
+    return adventurers.filter((a) => adventurersOnQuest.indexOf(a.id) === -1);
+};
+
 /** Returns an object keyed by active quests whose value is a list of AdventurerStoreState */
 export const selectAdventurersGroupedByQuest = createSelector([
     getAdventurers,
     getQuests],
     groupAdventurersByQuest,
+);
+
+/** Returns an object keyed by active quests whose value is a list of AdventurerStoreState */
+export const selectAdventurersInTown = createSelector([
+    getAdventurers,
+    getQuests],
+    getAdventurersInTown,
 );

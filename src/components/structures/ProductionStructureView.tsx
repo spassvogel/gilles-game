@@ -3,9 +3,8 @@ import ResourcesCostBox from "containers/ui/resources/ResourcesCostBox";
 import itemDefinitions from "definitions/items";
 import { Item, ItemDefinition } from "definitions/items/types";
 import { ProductionDefinition } from "definitions/production/types";
-import structureDefinitions, { Structure } from "definitions/structures";
+import { getDefinition, Structure } from "definitions/structures";
 import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from "definitions/structures/types";
-import { AppContextProps } from "hoc/withAppContext";
 import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "mechanics/crafting";
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
@@ -35,7 +34,7 @@ export interface Props {
     type: Structure;
 }
 
-type AllProps = Props & StateProps & DispatchProps & AppContextProps;
+type AllProps = Props & StateProps & DispatchProps;
 
 interface LocalState {
     selectedItem: Item|null;
@@ -67,14 +66,14 @@ export default class ProductionStructureView extends React.Component<AllProps, L
     }
 
     public render() {
-        const structureDefinition  = structureDefinitions[this.props.type] as ProductionStructureDefinition;
+        const structureDefinition = getDefinition<ProductionStructureDefinition>(this.props.type);
         if (!structureDefinition) {
             throw new Error(`No definition found for structure ${this.props.type}
                 with type ProductionStructureDefinition.`);
         }
         const level: number = this.props.level || 0;
         const levelDefinition: ProductionStructureLevelDefinition = structureDefinition.levels[level];
-        const displayName = TextManager.get(levelDefinition.displayName);
+        const displayName = TextManager.getStructureName(this.props.type);
 
         const createUpgradeRow = () => {
             const gold = this.props.gold;
@@ -101,16 +100,8 @@ export default class ProductionStructureView extends React.Component<AllProps, L
             const selectedItem = this.state.selectedItem;
 
             return levelDefinition.produces.map((produces) => {
-
                 const handleSelectCraftingItem = (e: React.MouseEvent) => {
                     e.stopPropagation();
-
-                    /* todo: setting state on the App causes this Component to be remounted. it's react-poses fault
-                    https://github.com/Popmotion/popmotion/issues/820
-                    this.props.onContextualObjectActivated(
-                        ContextType.item,
-                        itemDefinitions[item],
-                    );*/
 
                     this.setState({
                         selectedItem: produces.item,
@@ -122,7 +113,7 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                     onClick = { handleSelectCraftingItem }
                     className = { selectedItem === produces.item ? "selected" : "" }
                 >
-                    <ItemIcon item= { produces.item } />
+                    <ItemIcon item= { produces.item }  />
                     { TextManager.getItemName(produces.item) }
                 </li>;
             });
@@ -224,7 +215,6 @@ export default class ProductionStructureView extends React.Component<AllProps, L
                 </div>
             );
         };
-
 
         const createProgressbars = () => {
             const tasks = this.props.tasks || [];

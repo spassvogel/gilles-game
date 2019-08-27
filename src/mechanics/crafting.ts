@@ -9,5 +9,6 @@ export const calculateProductionTime = (time: number, workers: number): number =
     if (workers > MAX_WORKERS_CRAFTING) {
         throw new Error(`Cannot possibly have more than ${MAX_WORKERS_CRAFTING} on one item!`);
     }
-    return time - (.1 * time * workers);
+    // Each additional worker shaves off 10% of the production time
+    return time - (.1 * time * (workers - 1));
 };

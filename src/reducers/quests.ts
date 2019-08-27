@@ -1,7 +1,7 @@
 import { ActionType as GameActionType, GameTickAction } from "actions/game";
 import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, StartEncounterAction, UpdateEncounterResultAction } from "actions/quests";
 import { Item } from "definitions/items/types";
-import questDefinitions, { QuestDefinition, QuestNodeType } from "definitions/quests";
+import questDefinitions, { QuestDefinition } from "definitions/quests";
 import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 
@@ -90,7 +90,7 @@ const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {
         if (qss.name === action.questName) {
             const progress = qss.progress + 1;
             const questDefinition: QuestDefinition = questDefinitions[qss.name];
-            const nextNode = questDefinition.nodes[Math.floor(progress)];
+            // const nextNode = questDefinition.nodes[Math.floor(progress)];
 
             return {
                 ...qss,

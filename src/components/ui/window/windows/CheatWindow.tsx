@@ -1,6 +1,6 @@
 import { getDefinition } from "definitions/items";
 import { Item, ItemType } from "definitions/items/types";
-import structureDefinitions, { Structure  } from "definitions/structures";
+import { getDefinition as getStructureDefinition, Structure } from "definitions/structures";
 import * as React from "react";
 import { StructureState, StructureStoreState } from "stores/structure";
 import { StructuresStoreState } from "stores/structures";
@@ -51,7 +51,7 @@ class CheatWindow extends React.Component<AllProps, LocalState> {
     public render() {
 
         const getStructureRow = (structure: Structure) => {
-            const structureDef = structureDefinitions[structure];
+            const structureDef = getStructureDefinition(structure);
             const structureStore: StructureStoreState = this.props.structures[structure];
             const levelDef = structureDef.levels[structureStore.level];
 

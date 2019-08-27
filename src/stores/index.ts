@@ -1,6 +1,7 @@
 import { Item } from "definitions/items/types";
 import { State as seedrandomStateType } from "seedrandom";
 import { AdventurerStoreState } from "./adventurer";
+import { CombatStoreState } from "./combat";
 import { EngineStoreState } from "./engine";
 import { LogEntry } from "./logEntry";
 import { QuestStoreState } from "./quest";
@@ -10,6 +11,7 @@ import { TasksStoreState } from "./tasks";
 
 export interface StoreState {
     adventurers: AdventurerStoreState[];
+    combat: CombatStoreState;   // todo: can be plural
     engine: EngineStoreState;
     gold: number;
     items: Array<null|Item>;    // items in warehouse

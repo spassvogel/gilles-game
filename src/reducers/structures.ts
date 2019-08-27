@@ -1,6 +1,6 @@
-import { Action, ActionType, StructureStateAction, WorkerCountAction } from "actions/structures";
+import { ActionType, StructureStateAction, WorkerCountAction } from "actions/structures";
 import { Structure } from "definitions/structures";
-import { Reducer } from "redux";
+import { AnyAction, Reducer } from "redux";
 import { StructureState, StructureStoreState } from "stores/structure";
 import { initialState, StructuresStoreState } from "../stores/structures";
 
@@ -9,8 +9,8 @@ import { initialState, StructuresStoreState } from "../stores/structures";
  * @param state
  * @param action
  */
-export const structures: Reducer<StructuresStoreState, Action> = (state: StructuresStoreState = initialState,
-                                                                  action: Action) => {
+export const structures: Reducer<StructuresStoreState, AnyAction> = (state: StructuresStoreState = initialState,
+                                                                     action: AnyAction) => {
     switch (action.type) {
         case ActionType.startBuildingStructure: {
             return updateStructureState(state, action.structure, StructureState.Building);

@@ -72,7 +72,7 @@ class DraggableItemIcon extends React.Component<Props & CollectedProps > {
                     item = { item }
                     onClick = { handleClick }
                     size = { size }
-            />
+                />
             </div>,
         );
     }

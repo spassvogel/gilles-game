@@ -8,6 +8,7 @@ export enum MusicTrack {
 
 export enum Sound {
     buttonClick,
+    error,
 }
 
 let media: MediaItem[];
@@ -24,6 +25,7 @@ export class SoundManager {
 
     public static addSounds(soundList: Record<Sound, string>) {
         Object.entries(soundList).forEach(([key, value]) => {
+            // todo: assert
             sounds[key] = media.find((m) => m.url === value)!.content;
         });
     }

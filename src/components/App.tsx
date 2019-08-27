@@ -1,6 +1,5 @@
 // tslint:disable: object-literal-sort-keys
 import { ContextInfo, ContextType } from "constants/context";
-import AdventurersBox from "containers/AdventurersBox";
 import SimpleLog from "containers/log/SimpleLog";
 import RealTownView from "containers/RealTownView";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
@@ -11,7 +10,6 @@ import { manifest } from "manifest/app";
 import * as React from "react";
 import { DndProvider } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
-import posed, { PoseGroup } from "react-pose";
 import { BrowserRouter as Router, Link, Redirect, Route } from "react-router-dom";
 import { Persistor } from "redux-persist";
 import { Sound, SoundManager } from "utils/soundManager";
@@ -21,6 +19,7 @@ import { Structure } from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
+import CombatView from 'containers/combat/CombatView';
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -42,13 +41,16 @@ export interface Props {
 interface LocalState {
     media: MediaItem[];
     selectedStructure: Structure | null;
-
-    contextType: ContextType | null;
-    contextInfo: ContextInfo | null;
-    contextRect: ClientRect | null;
+    selectedContext: SelectedContext | null;
     containerRect: ClientRect | null;
 
     activeWindows: React.ReactElement[];
+}
+
+interface SelectedContext {
+    contextType: ContextType ;
+    contextInfo: ContextInfo;
+    contextRect: ClientRect;
 }
 
 const resolution = {
@@ -66,57 +68,24 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         super(props);
 
         this.state = {
+            selectedContext: null,
             containerRect: null,
-            contextInfo: null,
-            contextType: null,
-            contextRect: null,
             media: [],
             selectedStructure: null,
             activeWindows: [],
         };
         this.containerRef = React.createRef();
-
-        this.updateDimensions = this.updateDimensions.bind(this);
+        this.handleResize = this.handleResize.bind(this);
     }
 
     public render() {
-        const selectedStructureView = this.state.selectedStructure ?
-        <StructureDetailsView structure = { this.state.selectedStructure }/> : null;
-
-        const StructureViewModal = posed.div({
-            enter: {
-                opacity: 1,
-                transform: "scale(1)",
-                transition: {
-                     duration: 200,
-                     ease: "easeInOut",
-                },
-            },
-            exit: {
-                opacity: 0,
-                transform: "scale(0.5)",
-                transition: {
-                    duration: 150,
-                    ease: "easeInOut",
-                },
-            },
-        });
-        const ModalBackground = posed.div({
-            enter: { opacity: 1 },
-            exit: { opacity: 0 },
-        });
-
         const handleViewButtonClick = () => {
             SoundManager.playSound(Sound.buttonClick);
         };
 
         const handleResetClick = () => {
             this.props.persistor.purge();
-            window.location.reload();
-        };
-
-        const getAdventurersBox = () => {
-            return <AdventurersBox />;
+            (window as any).location.reload();
         };
 
         // Router elements
@@ -128,19 +97,21 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
             <button onClick= { () => handleViewButtonClick() }> { TextManager.get(`common-view-button-world`) } </button>
         </Link>;
 
-        const TownView = ()  => <RealTownView onStructureClick = { this.selectStructure } />;
+        const TownView = () => <RealTownView onStructureClick = { this.selectStructure } />;
         const WorldView = () => <RealWorldView/>;
 
         // A contextual popup showing what you just clicked. Can be an Item
         let ContextPopup = null;
-        if (this.state.containerRect && this.state.contextRect) {
+        if (this.state.selectedContext) {
+
+            const { contextType, contextInfo, contextRect } = this.state.selectedContext;
 
             ContextPopup = <ContextView
-                type = { this.state.contextType }
-                info = { this.state.contextInfo }
-                containerRect = { this.state.containerRect }
-                referenceRect = { this.state.contextRect }
-                placement = { Placement.top }
+                type = { contextType }
+                info = { contextInfo }
+                containerRect = { this.state.containerRect! }
+                referenceRect = { contextRect }
+                placement = { Placement.bottom }
             >
             </ContextView>;
         }
@@ -172,21 +143,9 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     <Route path="/town" component = { WorldButton } />
                     { ` | ` }
                     <button onClick= { () => handleResetClick() } style={ { color: "red" } }> Restart! </button>
-
-                    { <PoseGroup>
-                        { !!selectedStructureView && [
-                            <StructureViewModal key="structure-modal" className="structure-modal">
-                                { selectedStructureView }
-                            </StructureViewModal>,
-                            <ModalBackground key="structure-modal-bg" className="structure-modal-background" onClick= { () => this.closeStructureModal() } />,
-                            ]
-                        }
-                    </PoseGroup>}
                     <Route path="/town" component = { TownView } />
                     <Route path="/world" component = { WorldView } />
-                <div className="app-right">
-                    { getAdventurersBox() }
-                </div>
+
                 { Window }
                 { ContextPopup }
                 <SimpleLog/>
@@ -198,12 +157,12 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
     }
 
     public componentDidMount() {
-        window.addEventListener("resize", this.updateDimensions);
-        this.updateDimensions();
+        window.addEventListener("resize", this.handleResize);
+        this.handleResize();
     }
 
     public componentWillUnmount() {
-        window.removeEventListener("resize", this.updateDimensions);
+        window.removeEventListener("resize", this.handleResize);
     }
 
     private getActiveWindow(): React.ReactElement | null {
@@ -223,7 +182,7 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         return element;
     }
 
-    private updateDimensions() {
+    private handleResize() {
         if (this.containerRef.current) {
             if (window.innerHeight < resolution.height) {
                 this.containerRef.current.style.transform = `scale(${window.innerHeight / resolution.height}) translateX(-50%)`;
@@ -232,24 +191,21 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                 this.containerRef.current.style.transform = `scale(1) translateX(-50%)`;
             }
             const parentBox = this.containerRef.current.getBoundingClientRect();
+
             this.setState({
                 containerRect: parentBox,
+                selectedContext: null, // this would be in the wrong place
             });
         }
     }
 
     private selectStructure = (structure: Structure | null) => {
-        // could structure be a Window?
-        this.setState({
-            selectedStructure: structure,
-        });
-    }
+        if (structure) {
+            const displayName = TextManager.getStructureName(structure);
 
-    private closeStructureModal = () => {
-        // could structure be a Window?
-        this.setState({
-            selectedStructure: null,
-        });
+            const window = <StructureDetailsView structure = { structure } title = { displayName }/>;
+            this.handleWindowOpened(window);
+        }
     }
 
     private handleMediaLoadComplete = (media: MediaItem[]) => {
@@ -259,28 +215,34 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
 
         SoundManager.addSounds({
             [Sound.buttonClick]: "sound/fx/button-click.ogg",
+            [Sound.error]: "sound/fx/error.ogg",
             // add more sounds here
         });
 
         this.setState({
             media,
         });
+
+        // todo: temporary!
+        const window = <CombatView/>;
+        this.handleWindowOpened(window);
     }
 
     private handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => {
 
-        // todo: 20/07/2019 contextual popup
         this.setState({
-            contextInfo: info,
-            contextType: type,
-            contextRect: originRect,
+            selectedContext: {
+                contextInfo: info,
+                contextType: type,
+                contextRect: originRect,
+            },
         });
     }
 
     private handleAppClick = () => {
-        if (this.state.contextRect) {
+        if (this.state.selectedContext) {
             this.setState({
-                contextRect: null,
+                selectedContext: null,
             });
         }
     }

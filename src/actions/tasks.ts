@@ -1,5 +1,5 @@
 // tslint:disable:object-literal-sort-keys
-import { AnyAction } from "redux";
+import { Action, AnyAction } from "redux";
 import { TaskType } from "stores/task";
 
 export enum ActionType {
@@ -7,11 +7,7 @@ export enum ActionType {
     update = "updateTasks",
 }
 
-export interface Action {
-    type: ActionType;
-}
-
-export interface AddAction extends Action {
+export interface AddAction extends Action<ActionType> {
     taskType: TaskType;
     name: string;
     origin: string;

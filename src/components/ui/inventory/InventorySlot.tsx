@@ -1,19 +1,26 @@
-import { DragType } from "constants/dragging";
+import { DragSourceType, DragType } from "constants/dragging";
 import { getClassName, IconSize } from "constants/icons";
+import { Item } from "definitions/items/types";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
+import { InventoryItemDragInfo } from "../DraggableItemIcon";
+import { itemAndEquipmentSlotMatch } from "../EquipmentSlot";
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {
         props.onDrop(monitor.getItem());
     },
-    canDrop(props: Props)  {
-        return props.empty;
+    canDrop(props: Props, monitor: DropTargetMonitor) {
+        const dragInfo: InventoryItemDragInfo = monitor.getItem();
+        if (dragInfo.sourceType === DragSourceType.adventurerEquipment) {
+            return props.item == null || itemAndEquipmentSlotMatch(props.item, dragInfo.inventorySlot!);
+        }
+        return true;
     },
 };
 
 export interface Props {
-    empty: boolean;
+    item: Item | null;
     onDrop: (item: any) => void;
     size?: IconSize;
 }
@@ -42,16 +49,19 @@ class InventorySlot extends React.Component<Props & DropSourceProps> {
         } = this.props;
         const isActive = isOver && canDrop;
 
-        let borderColor = "#1b8417";
+        const classNames = [
+            "inventory-item",
+            getClassName(this.props.size),
+        ];
+
         if (isActive) {
-            borderColor = "#e2bc23";
+            classNames.push("drop-active");
         } else if (canDrop) {
-            borderColor = "#7ea752";
+            classNames.push("drop-possible");
         }
-        const className = "inventory-item " + getClassName(this.props.size);
 
         return connectDropTarget(
-            <div className = { className }>
+            <div className = { classNames.join(" ") }>
                 { this.props.children }
             </div>,
         );

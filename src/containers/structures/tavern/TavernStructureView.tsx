@@ -4,10 +4,9 @@ import { launchQuest } from "actions/quests";
 import { upgradeStructure } from "actions/structures";
 import TavernStructureView, { DispatchProps, Props, StateProps } from "components/structures/tavern/TavernStructureView";
 import { Structure } from "definitions/structures";
-import { withAppContext } from "hoc/withAppContext";
 import { Dispatch } from "react";
 import { connect } from "react-redux";
-import { AnyAction, compose } from "redux";
+import { AnyAction } from "redux";
 import { StoreState } from "stores";
 import { AdventurerStoreState } from "stores/adventurer";
 import { LogChannel } from "stores/logEntry";
@@ -41,8 +40,4 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
     };
 }
 
-// todo: I'm not sure if this Container needs an AppContext. If not. remove it later
-export default compose(
-    connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps),
-    withAppContext,
-)(TavernStructureView) as React.ComponentType<Props>;
+export default connect<StateProps, DispatchProps, Props, StoreState>(mapStateToProps, mapDispatchToProps)(TavernStructureView);
