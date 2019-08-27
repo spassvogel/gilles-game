@@ -98,7 +98,7 @@ export const withPopup = <TWrappedComponentProps extends PopupProps>(WrappedComp
                 </div>
             </div>
         );
-    }
+    };
     return WithPopup;
 };
 // export const withPopup = <P extends object>(Component: React.ComponentType<P>): React.FC<P & PopupProps> => ({...props}: PopupProps) => {
