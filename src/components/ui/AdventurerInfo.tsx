@@ -3,7 +3,6 @@ import { ContextType } from "constants/context";
 import { DragSourceType } from "constants/dragging";
 import { IconSize } from "constants/icons";
 import { getDefinition } from "definitions/items";
-import { ApparelType } from "definitions/items/apparel";
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
@@ -106,11 +105,14 @@ const AdventurerInfo = (props: AllProps) => {
             </DraggableItemIcon>;
         }
 
-        return <EquipmentSlot
-            onDrop = { (dragInfo: InventoryItemDragInfo) => handleDropItemEquipment(dragInfo, slotType) }
-            type = { slotType }>
+        return (
+            <EquipmentSlot
+                onDrop = { (dragInfo: InventoryItemDragInfo) => handleDropItemEquipment(dragInfo, slotType) }
+                type = { slotType }
+            >
                 { contents }
-        </EquipmentSlot>;
+            </EquipmentSlot>
+        );
     };
 
     const equipmentList = <ul>

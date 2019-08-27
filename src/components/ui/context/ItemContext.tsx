@@ -1,7 +1,8 @@
 
+import { getDefinition as getApparelDefinition } from "definitions/items/apparel";
 import { DeedDefinition } from "definitions/items/deeds";
 import { ItemDefinition, ItemType } from "definitions/items/types";
-import { getDefinition as getWeaponDefinition, DamageType } from "definitions/items/weapons";
+import { DamageType, getDefinition as getWeaponDefinition } from "definitions/items/weapons";
 import { getDefinition as getStructureDefinition, Structure } from "definitions/structures";
 import * as React from "react";
 import { StoreState } from "stores";
@@ -43,6 +44,15 @@ export default function(props: Props & DispatchProps & StateProps) {
                 <>
                     <p> " { info.subText } " </p>
                     <p> damage: { weaponDefinition.damage[DamageType.kinetic] } </p>
+                </>
+            );
+
+        case ItemType.apparel:
+            const apparelDefinition = getApparelDefinition(info.item);
+            return (
+                <>
+                    <p> " { info.subText } " </p>
+                    { apparelDefinition.armorRating && <p> armor: { apparelDefinition.armorRating } </p> }
                 </>
             );
 

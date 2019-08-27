@@ -1,12 +1,13 @@
 // tslint:disable:object-literal-sort-keys
 import { ActionType,
     AssignEquipmentAction,
-    RemoveEquipmentAction, InventoryAction,
-    MoveItemInInventoryAction, MoveItemToOtherAdventurerAction, RemoveItemFromInventoryAction } from "actions/adventurers";
+    InventoryAction,
+    MoveItemInInventoryAction,
+    MoveItemToOtherAdventurerAction, RemoveEquipmentAction, RemoveItemFromInventoryAction } from "actions/adventurers";
+import { EquipmentSlotType } from "components/ui/EquipmentSlot";
 import { Item } from "definitions/items/types";
-import { Reducer, AnyAction } from "redux";
-import { AdventurerStoreState, EquipmentStoreState, StatsStoreState } from "stores/adventurer";
-import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
+import { AnyAction, Reducer } from "redux";
+import { AdventurerStoreState, StatsStoreState } from "stores/adventurer";
 
 /**
  * reducer
@@ -25,7 +26,6 @@ const generateRandomStats = (): StatsStoreState => {
         luck: Math.random() * 100,
     };
 };
-
 
 // Create a bunch of guys for debugging
 const testState: AdventurerStoreState[] = [{

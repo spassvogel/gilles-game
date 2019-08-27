@@ -54,13 +54,10 @@ class InventorySlot extends React.Component<Props & DropSourceProps> {
             getClassName(this.props.size),
         ];
 
-        let borderColor = "grey";
         if (isActive) {
             classNames.push("drop-active");
-            borderColor = "green";
         } else if (canDrop) {
             classNames.push("drop-possible");
-            borderColor = "orange";
         }
 
         return connectDropTarget(

@@ -1,7 +1,7 @@
 // tslint:disable:object-literal-sort-keys
 import { Item, ItemDefinition, ItemType } from "./types";
 
-const itemType = ItemType.equipment;
+const itemType = ItemType.apparel;
 const basePath = "/img/items/apparel/";
 
 export enum ApparelType {
@@ -15,9 +15,10 @@ export enum ApparelType {
 
 export interface ApparelDefinition extends ItemDefinition {
     equipmentType: ApparelType;
+    armorRating?: number;
 }
 
-const weaponDefinitions: Record<string, ApparelDefinition> = {
+const all: Record<string, ApparelDefinition> = {
     [Item.boots1]: {
         item: Item.boots1,
         equipmentType: ApparelType.feet,
@@ -45,6 +46,7 @@ const weaponDefinitions: Record<string, ApparelDefinition> = {
         itemType,
         subText: "",
         iconImg: `${basePath}chainmail_hood.png`,
+        armorRating: 3,
     },
     [Item.chest]: {
         item: Item.chest,
@@ -52,6 +54,7 @@ const weaponDefinitions: Record<string, ApparelDefinition> = {
         itemType,
         subText: "",
         iconImg: `${basePath}chest_1.png`,
+        armorRating: 2,
     },
     [Item.clothGloves]: {
         item: Item.clothGloves,
@@ -66,6 +69,7 @@ const weaponDefinitions: Record<string, ApparelDefinition> = {
         itemType,
         subText: "",
         iconImg: `${basePath}cowl.png`,
+        armorRating: 20,
     },
     [Item.druidChest]: {
         item: Item.druidHands,
@@ -115,6 +119,7 @@ const weaponDefinitions: Record<string, ApparelDefinition> = {
         itemType,
         subText: "",
         iconImg: `${basePath}greaves_1.png`,
+        armorRating: 10,
     },
     [Item.greaves2]: {
         item: Item.greaves2,
@@ -150,6 +155,7 @@ const weaponDefinitions: Record<string, ApparelDefinition> = {
         itemType,
         subText: "",
         iconImg: `${basePath}pants_1.png`,
+        armorRating: 10,
     },
     [Item.pants2]: {
         item: Item.pants2,
@@ -265,4 +271,8 @@ const weaponDefinitions: Record<string, ApparelDefinition> = {
     },
 };
 
-export default weaponDefinitions;
+export default all;
+
+export function getDefinition<T extends ApparelDefinition>(apparel: string): T {
+    return all[apparel] as T;
+}

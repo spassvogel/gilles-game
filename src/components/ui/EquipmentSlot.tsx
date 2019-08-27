@@ -3,7 +3,7 @@
 import { DragType } from "constants/dragging";
 import { getDefinition } from "definitions/items";
 import { ApparelDefinition, ApparelType } from "definitions/items/apparel";
-import { ItemType, Item } from "definitions/items/types";
+import { Item, ItemType } from "definitions/items/types";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
 import "./css/equipmentslot.css";
@@ -45,7 +45,7 @@ export const itemAndEquipmentSlotMatch = (item: Item, equipmentSlotType: Equipme
         default:
             return false;
     }
-}
+};
 
 export enum EquipmentSlotType {
     feet,
@@ -93,7 +93,7 @@ const EquipmentSlot = (props: React.PropsWithChildren<Props & DropSourceProps>) 
     }
 
     return connectDropTarget(
-        <div  className = "equipment-slot" style = { { borderColor }}>
+        <div className = "equipment-slot" style = { { borderColor }} title={EquipmentSlotType[props.type]}>
             { props.children }
         </div>,
     );
@@ -107,7 +107,7 @@ export default DropTarget<Props, DropSourceProps>(
 
 const checkEquipment = (item: Item, equipmentType: ApparelType) => {
     const itemDefinition = getDefinition(item);
-    if (itemDefinition.itemType !== ItemType.equipment) {
+    if (itemDefinition.itemType !== ItemType.apparel) {
         return false;
     }
     return (itemDefinition as ApparelDefinition).equipmentType === equipmentType;

@@ -42,12 +42,14 @@ export const withPopup = <TWrappedComponentProps extends PopupProps>(WrappedComp
                         setPlacement(Placement.bottom);
                         return;
                     }
+                    break;
                 case Placement.bottom:
                     if (popupRect.top + popupRect.height + ARROW_SIZE + PADDING > containerRect.height ) {
                         // Too low, place top
                         setPlacement(Placement.top);
                         return;
                     }
+                    break;
             }
             popupElement.style.opacity = "1"; // animated through css
 
