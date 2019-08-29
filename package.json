@@ -23,7 +23,7 @@
     "redux-persist": "^5.10.0",
     "reselect": "^4.0.0",
     "seedrandom": "^3.0.1",
-    "three": "^0.107.0",
+    "three": "^0.108.0",
     "typescript": "^3.5.3"
   },
   "scripts": {
