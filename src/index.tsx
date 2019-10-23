@@ -19,7 +19,6 @@ import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
 import { TextManager } from "./utils/textManager";
-import Thing from "Thing";
 //import "threetest.ts";
 
 
@@ -64,8 +63,7 @@ const continueGame = (store: any) => {
 const runGame = (store: any, persistor: Persistor) => {
     ReactDOM.render(
         <Provider store={store}>
-            {/* <App persistor={ persistor }/> */}
-            <Thing />
+            <App persistor={ persistor }/>
         </Provider>,
         document.getElementById("root") as HTMLElement,
     );

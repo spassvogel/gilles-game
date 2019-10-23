@@ -8,7 +8,7 @@
     position: relative;
     transform-origin: top left;
     overflow: hidden;
-    position: absolute;
+    /* position: absolute; */
     left: 50%;
 
     cursor: var(--app-cursor-default);

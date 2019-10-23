@@ -2,24 +2,29 @@
 import * as THREE from 'three'
 import React, { useMemo, useState } from 'react'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
+import { ColladaLoader } from 'three/examples/jsm/loaders/ColladaLoader'
 
 function Model(props/*: ModelProps | any*/) {
     const { url } = props;
     const [geometry, setGeometry] = useState();
 
     useMemo(() => {
-      console.log("loading")
-      new OBJLoader().load(url, (grp/*: Group*/) => {
-        setGeometry((grp.children[0]/* as Mesh*/).geometry);
-      });
+      if (url.toLowerCase().endsWith('obj')){
+        new OBJLoader().load(url, (grp/*: Group*/) => {
+          setGeometry((grp.children[0]/* as Mesh*/).geometry);
+        });  
+      }
+      else if (url.toLowerCase().endsWith('dae')){
+        new ColladaLoader().load(url, (collada) => {
+          setGeometry(collada.scene.children[0].geometry);
+          console.log(collada.scene.children[0].geometry)
+        }); 
+      }
     }, [url]);
-
-    const cube = new THREE.Mesh( new THREE.CircleBufferGeometry( 200, 200, 200 ), new THREE.MeshNormalMaterial() );
-    cube.position.y = 150;
 
     //return <primitive object={cube} position={[0, 0, 0]}></primitive>;
     return geometry ? <mesh 
-      //onClick
+      name = { `Model (${url})` }
       geometry={ geometry } {...props}
     >
       {/* <primitive object={cube} position={[0, 0, 0]}></primitive> */}

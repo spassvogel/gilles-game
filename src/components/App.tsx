@@ -20,6 +20,7 @@ import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
 import CombatView from 'containers/combat/CombatView';
+import WorldMap from './three/WorldMap';
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -145,10 +146,10 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
                     <button onClick= { () => handleResetClick() } style={ { color: "red" } }> Restart! </button>
                     <Route path="/town" component = { TownView } />
                     <Route path="/world" component = { WorldView } />
-
                 { Window }
                 { ContextPopup }
                 <SimpleLog/>
+
                 </Preloader>
                 </Router>
                 </DndProvider>
