@@ -11,12 +11,12 @@ function Sphere(props/*: ModelProps | any*/) {
 
     if(!window.scene) window.scene = scene;
     
-    var geometry = new THREE.SphereGeometry( 5, 32, 32 );
-    var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+    var geometry = new THREE.SphereGeometry( .2, 32, 32 );
+    var material = new THREE.MeshBasicMaterial( {color: 0xfcba03} );
 
 
     return geometry ? <mesh 
-      name = { `sphere` }
+      name = { `party` }
       geometry = { geometry }
       material = { material }
       scale = { new THREE.Vector3(30, 30, 30)}

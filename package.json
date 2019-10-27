@@ -19,7 +19,7 @@
     "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
-    "react-three-fiber": "^2.3.6",
+    "react-three-fiber": "^2.4.3",
     "redux-persist": "^5.10.0",
     "reselect": "^4.0.0",
     "seedrandom": "^3.0.1",

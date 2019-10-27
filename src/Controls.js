@@ -1,4 +1,4 @@
-// It's a js file because there is some problem with the
+// It's a js file because there is some problem with the typings
 import Model from 'Model';
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useThree } from 'react-three-fiber'
@@ -6,7 +6,10 @@ import { MapControls } from 'three/examples/jsm/controls/OrbitControls'
 import { useRender } from 'react-three-fiber'
 import * as THREE from 'three'
 
-function Controls(props/*: ModelProps | any*/) {
+const LOCAL_STORAGE_KEY = 'worldpos';
+const DEFAULT_START_POS = new THREE.Vector3(0, 0, 20);
+
+const Controls = (props/*: ModelProps | any*/) => {
     const { camera } = useThree();
     const controls = useRef();
     const camToSave = useRef({});
@@ -27,32 +30,34 @@ function Controls(props/*: ModelProps | any*/) {
       //setControls(mapControls);
       controls.current = mapControls;
 
-      camera.position.set(0, 0, 20);
-      camToSave.current.position = camera.position.clone();
-      camToSave.current.rotation = camera.rotation.clone();
-      camToSave.current.controlCenter = mapControls.target.clone();
+      camera.position.copy(DEFAULT_START_POS);
+      const savedCamera = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
 
-      /*setTimeout(() => {
-        //controls.current.reset();
-        //camera.position.set(34.83934810382639, 371.7422948770782, 162.6314663448899);
-        const { position, rotation, controlCenter } = camToSave.current;
-        restoreCamera(position, rotation, controlCenter);
-      }, 5000);*/
+      if(savedCamera){
+        camera.position.copy( savedCamera.cam );
+        mapControls.target.copy( savedCamera.target );
+      }
     }, []);
-
-    function restoreCamera(position, rotation, controlCenter){
-      camera.position.set(position.x, position.y, position.z);
-      camera.rotation.set(rotation.x, rotation.y, rotation.z);
-  
-      controls.current.target.set(controlCenter.x, controlCenter.y, controlCenter.z);
-    }
 
     useRender(state => {
       if (controls.current) {
         controls.current.update();
       }
-     //console.log(state.camera.rotation)
     })
+
+    useEffect(() => {
+      const savePosition = () => {
+        // todo: save in redux or just here?        
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
+          cam: camera.position,
+          target: controls.current.target
+        }));
+      }
+      const interval = setInterval(savePosition, 150);
+      return () => {
+        clearInterval(interval);
+      };
+    }, [])
 
     return null;
 }
