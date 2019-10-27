@@ -9,7 +9,7 @@ export interface Props {
 
 const Sphere = (props: Props) => {
     const geometry = new THREE.SphereGeometry( 5, 32, 32 );
-    const material = new THREE.MeshBasicMaterial( {color: 0xfcba03} );
+    const material = new THREE.MeshBasicMaterial( {color: "purple"} );
 
     const handleClick = (evt: any) => {
       if (props.onClick) {

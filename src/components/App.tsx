@@ -20,7 +20,6 @@ import "./css/app.css";
 import Preloader, { MediaItem, MediaType } from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
 import CombatView from 'containers/combat/CombatView';
-import WorldMap from './three/WorldMap';
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -225,8 +224,8 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
         });
 
         // todo: temporary!
-        const window = <CombatView/>;
-        this.handleWindowOpened(window);
+        //const window = <CombatView/>;
+        //this.handleWindowOpened(window);
     }
 
     private handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => {

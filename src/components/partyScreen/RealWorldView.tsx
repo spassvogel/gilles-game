@@ -6,7 +6,7 @@ import { MusicTrack, SoundManager } from "utils/soundManager";
 import { TextManager } from "utils/textManager";
 import QuestLineVisualization from "../world/QuestLineVisualization";
 import "./css/realworldview.css";
-import WorldMap from "components/three/WorldMap";
+import WorldMap from "components/three/world/WorldMap";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -58,7 +58,7 @@ export default class RealWorldView extends React.Component<AllProps, LocalState>
                 <legend>Quest progress</legend>
                 {questLines}
             </fieldset>
-            <WorldMap />
+            <WorldMap quests={this.props.quests}/>
         </div>;
     }
 
