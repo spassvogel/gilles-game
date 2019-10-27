@@ -26,7 +26,7 @@ function WorldMap(props: Props) {
      <Model url="models/town/house2/Medieval_House.obj"  position = { [ 258.861, 0, -55.582]} />
      <Terrain heightmap = { heightmap } position = { [ 258.861, 0, -55.582]} name = "Terrain" /> */}
      <WorldMapTerrain name="terrain"/>
-     <Sphere onClick={handleClick} position={new Vector3(62, 0, 14)} name="party1" />
+     <Sphere onClick={handleClick} position={[62, 0, 14]} name="party1" />
      <Sphere onClick={handleClick} name="party2" />
      </Canvas>
   )
