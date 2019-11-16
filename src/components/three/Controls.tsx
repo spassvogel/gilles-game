@@ -6,7 +6,7 @@ import { Camera, Vector2, Vector3 } from "three";
 import { MapControls } from "three/examples/jsm/controls/OrbitControls";
 
 const LOCAL_STORAGE_KEY = "worldpos";
-const DEFAULT_CAMERA_POS = new THREE.Vector3(-80, 150, 80);
+const DEFAULT_CAMERA_POS = new THREE.Vector3(-50, 150, 50);
 
 export interface Props {
   scrollToPosition?: Vector2;
