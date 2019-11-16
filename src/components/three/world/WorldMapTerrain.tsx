@@ -8,6 +8,7 @@ export interface Props {
     rotation?: THREE.Euler|number[];
     scale?: THREE.Vector3|number[];
 }
+
 const WorldMapTerrain = (props: Props) => {
 
     const url = "models/terrain/terrain-grass.dae";

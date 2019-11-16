@@ -8,7 +8,7 @@ import useAnimations from "hooks/useAnimations";
 import { Group, Mesh } from "three";
 
 const textureUrl = "models/world/human/Textures/RTS_human_atlas_4096.png";
-const animationUrl = "models/westernkingdoms/animation/archer/WK_archer_02_walk.FBX";
+const animationUrl = "models/westernkingdoms/animation/archer/WK_archer_01_idle_A.FBX";
 
 export interface Props {
     url: string;
@@ -20,10 +20,9 @@ const Guy = (props: Props) => {
 
     const modelInfo = useModel(props.url);
     const animations = useAnimations(animationUrl);
-    const group = useRef()
+    const group = useRef();
 
     const texture = useMemo(() => new THREE.TextureLoader().load(textureUrl), [textureUrl]);
-    
     const [mixer] = useState(() => new THREE.AnimationMixer(null))
 
 
@@ -42,14 +41,15 @@ const Guy = (props: Props) => {
     }, [modelInfo]);
 
     useEffect(() => {
-        if(animations && bones) {
-            console.log(animations)
-            mixer.clipAction(animations[0], bones).play();
+        // console.log('a', animations)
+        // console.log('b', group)
+            if(animations) {
+            //console.log(animations)
+            mixer.clipAction(animations[0], group.current).play();
         }
     } , [animations, bones]);
 
     useFrame((state, delta) => {
-      //group.current.rotation.y += Math.sin((delta * factor) / 2) * Math.cos((delta * factor) / 2) * 1.5
       mixer.update(delta * speed);
     })
 

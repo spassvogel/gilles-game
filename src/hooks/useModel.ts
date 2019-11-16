@@ -22,7 +22,6 @@ const useModel = (url: string) => {
             new ColladaLoader().load(url, (collada) => {
                 const colladaGroup = new Group();
                 colladaGroup.children.push(collada.scene);
-                console.log(collada.scene)
                 setGroup(colladaGroup);
 
                 //setGeometry((collada.scene.children[0] as Mesh).geometry as Geometry);

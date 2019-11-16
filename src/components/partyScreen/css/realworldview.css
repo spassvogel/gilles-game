@@ -1,3 +1,29 @@
+.realworldview {
+    position: relative;
+}
+
 .realworldview .progress {
     width: 280px;
+}
+
+.realworldview .compass {
+    width: 64px;
+    background: url("/img/world/ui/compass2.png");
+    height: 64px;
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    bottom: 0;   
+    display: flex;
+    align-items: center; /* Vertical center alignment */
+    justify-content: center
+}
+
+.realworldview .compass .distance {
+    color: white;
+    -webkit-transition: opacity 3s ease-in-out;
+    -moz-transition: opacity 3s ease-in-out;
+    -ms-transition: opacity 3s ease-in-out;
+    -o-transition: opacity 3s ease-in-out;
+    transition: opacity 3s ease-in-out;
 }

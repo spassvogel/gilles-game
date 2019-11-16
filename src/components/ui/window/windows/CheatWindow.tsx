@@ -68,7 +68,7 @@ class CheatWindow extends React.Component<AllProps, LocalState> {
                     key={structure}
                     type="checkbox"
                     checked={this.props.structures[structure].state === StructureState.Built }
-                    onChange={ () => this.handleChangeStructureState(structure, this.props.structures[structure].state !== StructureState.Built)}
+                    onChange={() => this.handleChangeStructureState(structure, this.props.structures[structure].state !== StructureState.Built)}
                 />
             </div>;
         };
@@ -84,7 +84,7 @@ class CheatWindow extends React.Component<AllProps, LocalState> {
         };
 
         const getItemOption = (item: Item) => {
-            return <option value = { item } key = { item }>
+            return <option value ={item } key ={item }>
                 { TextManager.getItemName(item) }
             </option>;
         };
@@ -92,7 +92,7 @@ class CheatWindow extends React.Component<AllProps, LocalState> {
         const items = Object.keys(ItemType)
             .filter((val: any) => !isNaN(val))
             .map((type: string) => {
-            return <optgroup label = { ItemType[type] } key = { type }>
+            return <optgroup label ={ItemType[type] } key ={type }>
                 { getItemTypeOptions(type as unknown as ItemType) }
             </optgroup>;
         });
@@ -104,34 +104,34 @@ class CheatWindow extends React.Component<AllProps, LocalState> {
                     <input type="number"
                         value= {this.state.gold}
                         style={{width: "50px"}}
-                        onChange={ this.handleChangeGold }>
+                        onChange={this.handleChangeGold}>
                     </input>
-                    <button onClick= { this.handleCheatGold }>Add</button>
+                    <button onClick={this.handleCheatGold}>Add</button>
                 </div>
                 <div className="label-numberbox-button">
                     <label>Workers</label>
                     <input type="number"
                         value= {this.state.workers}
                         style={{width: "50px"}}
-                        onChange={ this.handleChangeWorkers }>
+                        onChange={this.handleChangeWorkers}>
                     </input>
-                    <button onClick= { this.handleCheatWorkers }>Add</button>
+                    <button onClick={this.handleCheatWorkers}>Add</button>
                 </div>
                 <div className="label-numberbox-button">
                     <label>Resources</label>
                     <input type="number"
                         value= {this.state.resources}
                         style={{width: "50px"}}
-                        onChange={ this.handleChangeResources }>
+                        onChange={this.handleChangeResources}>
                     </input>
-                    <button onClick= { this.handleCheatResources }>Add</button>
+                    <button onClick={this.handleCheatResources}>Add</button>
                 </div>
                 <div className="label-numberbox-button">
                     <label>Items</label>
-                    <select style={{ width: "150px"}} ref = { this.itemSelectRef }>
+                    <select style={{width: "150px"}} ref={this.itemSelectRef}>
                         { items }
                     </select>
-                    <button onClick= { this.handleCheatItem }>Add</button>
+                    <button onClick={this.handleCheatItem}>Add</button>
                 </div>
                 { structures }
             </div>

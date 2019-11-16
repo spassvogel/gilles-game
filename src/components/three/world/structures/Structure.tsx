@@ -37,7 +37,7 @@ const Structure = (props: Props) => {
         <mesh
             name={`Model (${props.url})`}
             position={props.position}
-            scale={[.1, .1, .1]}
+            scale={[.01, .01, .01]}
         >
             <meshBasicMaterial
                 attach="material"
