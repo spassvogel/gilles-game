@@ -47,10 +47,13 @@ const RealWorldView = (props: AllProps) => {
 
     const handleMapMove = (distance: number, angle: number) => {
         const compassEl = compassRef!.current!;
+        const compassTextEl = compassEl.firstElementChild! as HTMLElement;
+
         // Rotate the compass
         compassEl.style.transform = `rotate(${angle - (Math.PI / 2)}rad)`;
         compassEl.style.opacity = distance > 10 ? "1" : "0";
-        compassRef!.current!.firstElementChild!.innerHTML = `${distance.toFixed(0)}`;
+        compassTextEl.style.transform = `rotate(${-angle + (Math.PI / 2)}rad)`;
+        compassTextEl.innerHTML = `${distance.toFixed(0)}`;
     }
 
     const handleCompassClick = () => {
