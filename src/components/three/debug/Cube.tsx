@@ -43,4 +43,4 @@ const parseVector3 = (input: THREE.Vector3|number[]): THREE.Vector3 => {
     }
     const [x, y, z] = input;
     return new Vector3(x, y, z);
-}
+};

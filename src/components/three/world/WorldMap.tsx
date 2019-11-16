@@ -2,7 +2,7 @@ import Controls from "components/three/Controls";
 import Sphere from "components/three/debug/Sphere";
 import DebugInspector from "components/three/DebugInspector";
 import WorldMapTerrain from "components/three/world/WorldMapTerrain";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Canvas } from "react-three-fiber";
 import { QuestStoreState } from "stores/quest";
 import { Object3D, Vector3, Vector2, Camera } from "three";
@@ -19,6 +19,7 @@ const HEIGHT = 690;
 export interface Props {
   quests: QuestStoreState[];
   compassCenter: Vector2;
+  scrollToPosition?: Vector2;
   onMapMove: (distance: number, angle: number) => void;
 }
 
@@ -33,6 +34,9 @@ interface LocalState {
 type AllProps = Props & DispatchProps;
 
 const WorldMap = (props: AllProps) => {
+    // useEffect(() => {
+    // }, [props.scrollToPosition]);
+
     const handleClick = (object: Object3D) => {
         console.log(object);
     };
@@ -53,12 +57,13 @@ const WorldMap = (props: AllProps) => {
     return (
         <Canvas style = {{ height: HEIGHT, width: WIDTH }} camera={{ fov: 10 }} >
             <DebugInspector /> */}
-            <Controls onCameraMove={handleCameraMove} />
+            <Controls onCameraMove={handleCameraMove} scrollToPosition={props.scrollToPosition} />
             <WorldMapTerrain rotation={terrainRotation} scale={terrainScale} />
             <Sphere onClick={handleClick} position={[62, 0, 14]} name="party1" />
             {/* <Sphere onClick={handleClick} name="party2" /> */}
             <Cube size={[1,1,1]} position={[0,0,0]} color="red"/>
             <Cube size={[1,1,1]} position={[0,0,1]} color="blue"/>
+            <Cube size={[1,1,1]} position={[1,0,2]} color="blue"/>
             <Guy url="models/westernkingdoms/models/WK_archer.FBX" position={[220, 20, 110]} />
 
             <Structure url="models/world/human/house_atlas.fbx" position={[10, 0, 0]}/>

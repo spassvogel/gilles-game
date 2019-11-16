@@ -286,5 +286,6 @@ research fantasy concept art
 [x] refactor into the following structure: 
     EQUIPMENT = { APPAREL, WEAPONS }
 
-
+17/11/2019 STORE WORLD POS
+[ ] store world pos in redux, pass to WorldMap.scrollToPosition
 read:  https://barkofthebyte.azurewebsites.net/post/2014/05/05/three-js-projecting-mouse-clicks-to-a-3d-scene-how-to-do-it-and-how-it-works

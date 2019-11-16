@@ -1,11 +1,9 @@
-// It's a js file because there is some problem with the 
-import React, { useMemo, useContext, useState, useRef, useEffect } from 'react'
-import useModel from "hooks/useModel";
-import * as THREE from 'three'
-import { useLoader, useFrame } from "react-three-fiber";
-import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import useAnimations from "hooks/useAnimations";
-import { Group, Mesh } from "three";
+import useModel from "hooks/useModel";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useFrame } from "react-three-fiber";
+import * as THREE from "three";
+import { Mesh } from "three";
 
 const textureUrl = "models/world/human/Textures/RTS_human_atlas_4096.png";
 const animationUrl = "models/westernkingdoms/animation/archer/WK_archer_01_idle_A.FBX";
@@ -25,7 +23,6 @@ const Guy = (props: Props) => {
     const texture = useMemo(() => new THREE.TextureLoader().load(textureUrl), [textureUrl]);
     const [mixer] = useState(() => new THREE.AnimationMixer(null))
 
-
     const geometry = useMemo(() => {
         if (modelInfo) {
             return (modelInfo.children[0] as Mesh).geometry;
@@ -43,7 +40,7 @@ const Guy = (props: Props) => {
     useEffect(() => {
         // console.log('a', animations)
         // console.log('b', group)
-            if(animations) {
+            if (animations) {
             //console.log(animations)
             mixer.clipAction(animations[0], group.current).play();
         }
@@ -53,8 +50,8 @@ const Guy = (props: Props) => {
       mixer.update(delta * speed);
     })
 
-    //const textureUrl = "models/terrain/grass1.png";
-    //const texture = useMemo(() => new THREE.TextureLoader().load(textureUrl), [textureUrl])
+    // const textureUrl = "models/terrain/grass1.png";
+    // const texture = useMemo(() => new THREE.TextureLoader().load(textureUrl), [textureUrl])
     if (!geometry || !texture) {
         return null;
     }
@@ -76,6 +73,6 @@ const Guy = (props: Props) => {
         </mesh>
         </group>
     );
-  }
-//https://codesandbox.io/embed/react-three-fiber-gltf-loader-animations-c671i
+}
 export default Guy;
+// https://codesandbox.io/embed/react-three-fiber-gltf-loader-animations-c671i

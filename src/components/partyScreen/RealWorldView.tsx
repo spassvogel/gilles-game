@@ -1,7 +1,7 @@
 import WorldMap from "components/three/world/WorldMap";
 import PartyWindow from "containers/windows/PartyWindow";
 import { AppContextProps } from "hoc/withAppContext";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 import { MusicTrack, SoundManager } from "utils/soundManager";
 import { TextManager } from "utils/textManager";
@@ -27,15 +27,15 @@ interface LocalState {
 
 type AllProps = Props & StateProps & DispatchProps & AppContextProps;
 
-//
-// todo: convert to pure function
+
 /**
  * Temporary wrapper around PartyScreen. Shows quest line
  * @param props
  */
 const RealWorldView = (props: AllProps) => {
     const compassRef = useRef<HTMLDivElement>(null);
-    
+    const [scrollToPosition, setScrollToPosition] = useState<Vector2>();
+
         // this.state = {
         //     selectedQuest: null,
         // };
@@ -57,7 +57,7 @@ const RealWorldView = (props: AllProps) => {
     }
 
     const handleCompassClick = () => {
-        console.log('scroll to town!');
+        setScrollToPosition(new Vector2(1, 1));
     }
 
     return (
@@ -78,7 +78,7 @@ const RealWorldView = (props: AllProps) => {
             <div className="compass" ref={compassRef} onClick={handleCompassClick}>
                 <div className="distance"></div>
             </div>
-            <WorldMap quests={props.quests} onMapMove={handleMapMove} compassCenter={new Vector2(525, 585)} />
+            <WorldMap quests={props.quests} onMapMove={handleMapMove} compassCenter={new Vector2(525, 585)} scrollToPosition={scrollToPosition}/>
         </div>
     );
 

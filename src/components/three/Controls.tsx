@@ -1,16 +1,15 @@
-// It's a js file because there is some problem with the typings
-import React, { useEffect, useRef } from 'react'
-import { useThree } from 'react-three-fiber'
-import { MapControls } from 'three/examples/jsm/controls/OrbitControls'
-import { useRender } from 'react-three-fiber'
-import * as THREE from 'three'
-import { Camera } from "three"
+import React, { useEffect, useRef } from "react";
+import { useThree } from "react-three-fiber";
+import { useRender } from "react-three-fiber";
+import * as THREE from "three";
+import { Camera, Vector2, Vector3 } from "three";
+import { MapControls } from "three/examples/jsm/controls/OrbitControls";
 
-const LOCAL_STORAGE_KEY = 'worldpos';
-const DEFAULT_CAMERA_POS = new THREE.Vector3(0, 150, 0);
-
+const LOCAL_STORAGE_KEY = "worldpos";
+const DEFAULT_CAMERA_POS = new THREE.Vector3(-80, 150, 80);
 
 export interface Props {
+  scrollToPosition?: Vector2;
   onCameraMove: (camera: Camera, controls: MapControls) => void;
 }
 
@@ -27,7 +26,7 @@ const Controls = (props: Props) => {
       mapControls.maxDistance = 250;
       mapControls.maxPolarAngle = Math.PI / 2;
       mapControls.target = new THREE.Vector3(0, 0, 0);
-      //mapControls.enableRotate = false;
+      // mapControls.enableRotate = false;
       // mapControls.enableZoom = false;
       controls.current = mapControls;
 
@@ -42,6 +41,17 @@ const Controls = (props: Props) => {
         }
       }
     }, [camera]);
+
+    useEffect(() => {
+      if (controls.current && props.scrollToPosition) {
+        const { x, y } = props.scrollToPosition!;
+        const target =  new Vector3(x, 0, y);
+        controls.current!.target = target;
+        // console.log(target.cross(DEFAULT_CAMERA_POS));
+        camera.position.copy(new Vector3(x + DEFAULT_CAMERA_POS.x, DEFAULT_CAMERA_POS.y, DEFAULT_CAMERA_POS.z + y));
+      }
+
+    }, [props.scrollToPosition]);
 
     useRender(() => {
       if (controls.current) {
@@ -73,10 +83,10 @@ const Controls = (props: Props) => {
         }));
 
       };
-      //const interval = setInterval(savePosition, 150);
+      // const interval = setInterval(savePosition, 150);
       // todo: use requestAnimationFrame https://css-tricks.com/using-requestanimationframe-with-react-hooks/
       return () => {
-        //clearInterval(interval);
+        // clearInterval(interval);
       };
     }, [camera.position]);
 
@@ -100,6 +110,6 @@ const Controls = (props: Props) => {
     }, []);
 
     return null;
-}
+};
 
 export default Controls;
