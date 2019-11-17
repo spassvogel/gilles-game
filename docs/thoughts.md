@@ -162,7 +162,7 @@ Because I'm not an artist and I want to use unity3d assets
     1. on mount, all actors are spawned and positioned
     2. on update, all actors (AIs turn happens simultanously?) move to their new positions
        and play their animations.
-[ ] On second hand, I think it's worth checking out react-three-fiber. Might get complicated otherwise  
+[x] On second hand, I think it's worth checking out react-three-fiber. Might get complicated otherwise  
 
 
 04/08/2019 Swap items between warehouse and adventurers
@@ -288,4 +288,8 @@ research fantasy concept art
 
 17/11/2019 STORE WORLD POS
 [ ] store world pos in redux, pass to WorldMap.scrollToPosition
-read:  https://barkofthebyte.azurewebsites.net/post/2014/05/05/three-js-projecting-mouse-clicks-to-a-3d-scene-how-to-do-it-and-how-it-works
+[ ] read: Three.js projecting mouse clicks to a 3D scene - how to do it and how it works
+          https://barkofthebyte.azurewebsites.net/post/2014/05/05/three-js-projecting-mouse-clicks-to-a-3d-scene-how-to-do-it-and-how-it-works
+
+17/11/2019 ANIMATIONS
+ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy.com/2017/11/06/creating-animated-gltf-characters-with-mixamo-and-blender/
