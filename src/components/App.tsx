@@ -1,5 +1,6 @@
 // tslint:disable: object-literal-sort-keys
 import { ContextInfo, ContextType} from "constants/context";
+import CombatView from "containers/combat/CombatView";
 import SimpleLog from "containers/log/SimpleLog";
 import RealTownView from "containers/RealTownView";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
@@ -19,7 +20,6 @@ import { Structure} from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType} from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
-import CombatView from 'containers/combat/CombatView';
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -224,8 +224,8 @@ export default class App extends React.Component<Props & StateProps & DispatchPr
        });
 
         // todo: temporary!
-        //const window = <CombatView/>;
-        //this.handleWindowOpened(window);
+        // const window = <CombatView/>;
+        // this.handleWindowOpened(window);
    }
 
     private handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => {

@@ -52,19 +52,6 @@ export default class ProductionStructureView extends React.Component<AllProps, L
         };
     }
 
-    // public componentDidUpdate(prevProps: AllProps, prevState: LocalState) {
-    //     console.log("cdu" + prevProps.workersFree);
-    // }
-
-    public componentWillMount() {
-// tslint:disable-next-line: no-console
-        console.log("component will mount" + this.props.type);
-    }
-    public componentWillUnmount() {
-// tslint:disable-next-line: no-console
-        console.log("component will unmount" + this.props.type);
-    }
-
     public render() {
         const structureDefinition = getDefinition<ProductionStructureDefinition>(this.props.type);
         if (!structureDefinition) {

@@ -1,4 +1,3 @@
-// It's a js file because there is some problem with the 
 import useModel from "hooks/useModel";
 import React, { useMemo } from "react";
 import * as THREE from "three";
@@ -24,8 +23,8 @@ const Structure = (props: Props) => {
     }, [modelInfo]);
 
     const texture = useMemo(() => new THREE.TextureLoader().load(textureUrl), [textureUrl]);
-    //const textureUrl = "models/terrain/grass1.png";
-    //const texture = useMemo(() => new THREE.TextureLoader().load(textureUrl), [textureUrl])
+    // const textureUrl = "models/terrain/grass1.png";
+    // const texture = useMemo(() => new THREE.TextureLoader().load(textureUrl), [textureUrl])
     if (!geometry || !texture) {
         return null;
     }

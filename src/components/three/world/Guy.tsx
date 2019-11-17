@@ -21,7 +21,7 @@ const Guy = (props: Props) => {
     const group = useRef();
 
     const texture = useMemo(() => new THREE.TextureLoader().load(textureUrl), [textureUrl]);
-    const [mixer] = useState(() => new THREE.AnimationMixer(null))
+    const [mixer] = useState(() => new THREE.AnimationMixer(null));
 
     const geometry = useMemo(() => {
         if (modelInfo) {
@@ -41,14 +41,14 @@ const Guy = (props: Props) => {
         // console.log('a', animations)
         // console.log('b', group)
             if (animations) {
-            //console.log(animations)
+            // console.log(animations)
             mixer.clipAction(animations[0], group.current).play();
         }
     } , [animations, bones]);
 
     useFrame((state, delta) => {
       mixer.update(delta * speed);
-    })
+    });
 
     // const textureUrl = "models/terrain/grass1.png";
     // const texture = useMemo(() => new THREE.TextureLoader().load(textureUrl), [textureUrl])
@@ -73,6 +73,7 @@ const Guy = (props: Props) => {
         </mesh>
         </group>
     );
-}
+};
+
 export default Guy;
 // https://codesandbox.io/embed/react-three-fiber-gltf-loader-animations-c671i

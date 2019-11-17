@@ -147,15 +147,15 @@ backlog of ideas
 
 31/07/2019 THREE.js
 Because I'm not an artist and I want to use unity3d assets
-[ ] First check if components dont get remounted too much. If yes, find out why and resolve issue!     
+[x] First check if components dont get remounted too much. If yes, find out why and resolve issue!     
 [ ] Find cool fantasy town assets
-[ ] Check if can be loaded in threejs (seperate project)
+[x] Check if can be loaded in threejs (seperate project)
 [ ] Implement in town
 [ ] It would be cool to have the town scrollable. (see: 23/08/2019 WORLD MAP)
     The easiest way would maybe to be to create a very long canvas, render everything on it and let the browser scroll this canvas. This way you also have a scrollbar.
     Not optimal for performance tho.
 [ ] Find cool fantasy character unity asset packs
-[ ] Check if can be loaded in threejs (seperate project)
+[x] Check if can be loaded in threejs (seperate project)
 [ ] Implement in combat
     perhaps we don't need react bindings.
     See if we can do this:
@@ -273,8 +273,8 @@ base and (secondary stats) are:
 [ ] shields and weapons have a integrity property (1-0) when it reaches 0 it breaks
 
 23/08/2019 WORLD MAP
-[ ] World map is paneable by dragging. Can feature a compass that always points to the town
-[ ] Research: three.js controls (https://threejs.org/examples/misc_controls_map.html)
+[x] World map is paneable by dragging. Can feature a compass that always points to the town
+[x] Research: three.js controls (https://threejs.org/examples/misc_controls_map.html)
     http://danni-three.blogspot.com/2013/09/threejs-heightmaps.html
 
 23/08/2019 THEME
