@@ -19,9 +19,6 @@ import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
 import { TextManager } from "./utils/textManager";
-import WorldMap from "components/three/world/WorldMap";
-//import "threetest.ts";
-
 
 let interval: NodeJS.Timeout;
 const initGame = async () => {
@@ -62,10 +59,11 @@ const continueGame = (store: any) => {
 // };
 
 const runGame = (store: any, persistor: Persistor) => {
-    ReactDOM.render(
+    ReactDOM.render((
         <Provider store={store}>
-            <App persistor={ persistor }/>
-        </Provider>,
+            <App persistor={persistor}/>
+        </Provider>
+        ),
         document.getElementById("root") as HTMLElement,
     );
     registerServiceWorker();
