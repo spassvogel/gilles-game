@@ -113,8 +113,13 @@ const getQuestWorldPosition = (quest: QuestStoreState): Vector3 => {
     const questDefinition = getDefinition(quest.name);
     const roundedProgress = Math.floor(quest.progress);
     const lastPosition = questDefinition.nodes[roundedProgress];
+    const lastPositionWorld = new Vector3(lastPosition.x, 1, lastPosition.y);
+
     const nextPosition = questDefinition.nodes[roundedProgress + 1];
-    const lastPostionWorld = new Vector3(lastPosition.x, 1, lastPosition.y);
+    if (!nextPosition) {
+        // We've reached the last node
+        return lastPositionWorld;
+    }
     const nextPostionWorld = new Vector3(nextPosition.x, 1, nextPosition.y);
-    return lastPostionWorld.lerp(nextPostionWorld, quest.progress - roundedProgress);
+    return lastPositionWorld.lerp(nextPostionWorld, quest.progress - roundedProgress);
 };
