@@ -31,7 +31,7 @@ const kill10Boars: QuestDefinition = {
         log: "quest-kill10Boars-node0",
     }, {
         x: 0,
-        y: 3,
+        y: 2,
         type: QuestNodeType.nothing,
         log: "quest-kill10Boars-node1",
     // }, {
@@ -41,11 +41,11 @@ const kill10Boars: QuestDefinition = {
     //     log: "In the distance, a forest looms",
     }, {
         x: 0,
-        y: 2,
+        y: 3,
         type: QuestNodeType.encounter,
         encounter: Encounter.goblinHouseOutside,
     }, {
-        x: 0,
+        x: 1,
         y: 3,
         type: QuestNodeType.nothing,
         log: "quest-kill10Boars-node4",
@@ -54,22 +54,22 @@ const kill10Boars: QuestDefinition = {
         y: 3,
         type: QuestNodeType.nothing,
     }, {
-        x: 1,
+        x: 2,
         y: 3,
         type: QuestNodeType.nothing,
     }, {
-        x: 2,
-        y: 1,
+        x: 3,
+        y: 3,
         type: QuestNodeType.encounter,
         encounter: Encounter.backstabbed,
     }, {
-        x: 1,
-        y: 3,
+        x: 4,
+        y: 4,
         type: QuestNodeType.nothing,
         log: "The party spots a boss",
     }, {
-        x: 2,
-        y: 3,
+        x: 5,
+        y: 4,
         type: QuestNodeType.boss,
     }],
 };

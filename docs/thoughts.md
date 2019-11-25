@@ -293,3 +293,13 @@ research fantasy concept art
 
 17/11/2019 ANIMATIONS
  Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy.com/2017/11/06/creating-animated-gltf-characters-with-mixamo-and-blender/
+
+THREEJS examples (MIGHT IS RIGHT):
+[ ] http://server1.lazy-kitty.com/tests/
+    check achievements
+    
+24/11/2019 Terrain generator
+[ ] uses height-map images (grey-scale) https://github.com/Usnul/meep
+
+26/11/2019 Smoke particles from the houses in world map
+[ ] https://aerotwist.com/tutorials/creating-particles-with-three-js/

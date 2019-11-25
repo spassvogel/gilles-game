@@ -1,13 +1,14 @@
 import WorldMap from "components/three/world/WorldMap";
 import PartyWindow from "containers/windows/PartyWindow";
 import { AppContextProps } from "hoc/withAppContext";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 import { Vector2 } from "three";
 import { MusicTrack, SoundManager } from "utils/soundManager";
 import { TextManager } from "utils/textManager";
 import QuestLineVisualization from "../world/QuestLineVisualization";
 import "./css/realworldview.css";
+import { getDefinition } from "definitions/quests";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -34,10 +35,7 @@ type AllProps = Props & StateProps & DispatchProps & AppContextProps;
 const RealWorldView = (props: AllProps) => {
     const compassRef = useRef<HTMLDivElement>(null);
     const [scrollToPosition, setScrollToPosition] = useState<Vector2>();
-
-        // this.state = {
-        //     selectedQuest: null,
-        // };
+    const [selectedQuest, setSelectedQuest] = useState<string>();
 
     useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.world, "sound/music/TheLoomingBattle.ogg");
@@ -59,37 +57,35 @@ const RealWorldView = (props: AllProps) => {
         setScrollToPosition(new Vector2(1, 1));
     };
 
+    const handlePartyClick = (questName: string) => {
+        setSelectedQuest(questName);console.log(questName)
+
+        const quest = props.quests.find((q) => q.name === questName)!;
+        const title = TextManager.getQuestTitle(quest.name);
+        const window = <PartyWindow quest={quest} title={title} />;
+        props.onOpenWindow(window);
+    };
+
+    const activeQuests = useMemo(() => {
+        return props.quests.filter((q) => q.status === QuestStatus.active);
+    }, [props.quests]);
+
     return (
-        // const selectedQuest = this.props.quests.find((q) => q.name === this.state.selectedQuest);
-        // const activeQuests = this.props.quests.filter((q) => q.status === QuestStatus.active );
-        // const questLines = activeQuests.map((q) => {
-        //     return <QuestLineVisualization key={q.name}
-        //         selected={q === selectedQuest}
-        //         quest={q}
-        //         onSelectQuest={() => this.handleSelectQuest(q.name)}
-        //     />;
-        // });
         <div className="realworldview">
-            {/* <fieldset className="progress">
-                <legend>Quest progress</legend>
-                {questLines}
-            </fieldset> */}
             <div className="compass" ref={compassRef} onClick={handleCompassClick}>
                 <div className="distance"></div>
             </div>
-            <WorldMap quests={props.quests} onMapMove={handleMapMove} compassCenter={new Vector2(525, 585)} scrollToPosition={scrollToPosition}/>
+            <WorldMap
+                quests={props.quests}
+                activeQuests={activeQuests}
+                selectedQuest={selectedQuest}
+                compassCenter={new Vector2(525, 585)}
+                scrollToPosition={scrollToPosition}
+                onMapMove={handleMapMove}
+                onPartyClick={handlePartyClick}
+            />
         </div>
     );
-
-    // public handleSelectQuest(questName: string) {
-    //     this.setState({
-    //         selectedQuest: questName,
-    //     });
-    //     const quest = this.props.quests.find((q) => q.name === questName)!;
-    //     const title = TextManager.getQuestTitle(quest.name);
-    //     const window = <PartyWindow quest={quest} title={title} />;
-    //     this.props.onOpenWindow(window);
-    // }
 };
 
 export default RealWorldView;
