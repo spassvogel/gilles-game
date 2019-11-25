@@ -1,6 +1,6 @@
 import React, {  } from "react";
 import * as THREE from "three";
-import { Vector3 } from "three";
+import { Object3D, Vector3 } from "three";
 
 export interface Props {
   name?: string;
@@ -10,7 +10,7 @@ export interface Props {
   onClick?: (object: THREE.Object3D) => void;
 }
 
-const Cube = (props: Props) => {
+const Cube = React.forwardRef((props: Props, ref: React.Ref<Object3D>) => {
     const size = parseVector3(props.size || new THREE.Vector3(1, 1, 1));
     const geometry = new THREE.BoxGeometry( size.x, size.y, size.z );
     const material = new THREE.MeshBasicMaterial( {color: (props.color || "green")} );
@@ -25,15 +25,16 @@ const Cube = (props: Props) => {
       return null;
     }
     return (
-      <mesh
-        name={props.name}
-        position={props.position}
-        onClick={handleClick }
-        geometry={geometry }
-        material={material }
-      />
+        <mesh
+            name={props.name}
+            position={props.position}
+            onClick={handleClick}
+            geometry={geometry}
+            material={material}
+            ref={ref}
+        />
     );
-  };
+});
 
 export default Cube;
 

@@ -3,10 +3,10 @@ import Sphere from "components/three/debug/Sphere";
 import DebugInspector from "components/three/DebugInspector";
 import WorldMapTerrain from "components/three/world/WorldMapTerrain";
 import { getDefinition } from "definitions/quests";
-import React from "react";
+import React, { useRef, useEffect, createRef, RefObject } from "react";
 import { Canvas } from "react-three-fiber";
 import { QuestStoreState } from "stores/quest";
-import { Camera, Object3D, Vector2, Vector3 } from "three";
+import { Camera, Object3D, Vector2, Vector3, Raycaster } from "three";
 import { MapControls } from "three/examples/jsm/controls/OrbitControls";
 import Cube from "../debug/Cube";
 import Guy from "./Guy";
@@ -35,15 +35,15 @@ export interface DispatchProps {
 type AllProps = Props & DispatchProps;
 
 const WorldMap = (props: AllProps) => {
-    // useEffect(() => {
-    // }, [props.scrollToPosition]);
+
+    const terrainRef = useRef<Object3D>(null);
+    const questCubesRef = useRef(props.activeQuests.map(() => createRef<Object3D>()));  // contains the party cubes
 
     const handleClick = (object: Object3D) => {
         // console.log(object);
     };
 
     const handleCameraMove = (camera: Camera) => {
-
         // the position of the compass as if it was in 3d space
         const { x, z } = unproject(camera, props.compassCenter);
 
@@ -60,24 +60,36 @@ const WorldMap = (props: AllProps) => {
     };
 
     const renderParties = () => {
-        return props.activeQuests.map(quest => {
+        console.log('rendering parties')
+        return props.activeQuests.map((quest, index) => {
             const questPosition = getQuestWorldPosition(quest);
             return (
                 <Cube
+                    key={quest.name}
                     size={[1, 1, 1]}
                     position={questPosition}
-                    color={ quest.name === props.selectedQuest ? "white" : "red"}
+                    color={quest.name === props.selectedQuest ? "white" : "red"}
                     onClick={() => handlePartyClick(quest.name)}
+                    ref={questCubesRef.current[index]}
                 />
             );
         });
-    }
-
+    };
+    useEffect(() => {
+        // This actually makes the cube pop in so is less than ideal
+        console.log(questCubesRef.current[0].current)
+        questCubesRef.current.map(({current}) => {
+            if (current) {
+                const position = determineY(current.position, terrainRef.current!);
+                current.position.copy(position);
+            }
+        });
+    }, [props.activeQuests, terrainRef]);
     return (
-        <Canvas style = {{ height: HEIGHT, width: WIDTH }} camera={{ fov: 10 }} >
-            <DebugInspector /> */}
+        <Canvas style={{ height: HEIGHT, width: WIDTH }} camera={{ fov: 10 }} >
+            <DebugInspector />
             <Controls onCameraMove={handleCameraMove} scrollToPosition={props.scrollToPosition} />
-            <WorldMapTerrain rotation={terrainRotation} scale={terrainScale} />
+            <WorldMapTerrain rotation={terrainRotation} scale={terrainScale} ref={terrainRef}/>
             <Sphere onClick={handleClick} position={[62, 0, 14]} name="party1" />
             {/* <Sphere onClick={handleClick} name="party2" /> */}
             { renderParties() }
@@ -108,18 +120,34 @@ const unproject = (camera: Camera, screenLocation: Vector2, groundY: number = 0)
     return camera.position.clone().add(direction.multiplyScalar(distance));
 };
 
-// Gets 3d world position of quest
+// Gets 3d world position of quest. This does not determine the y component as we need to render the terrain first
 const getQuestWorldPosition = (quest: QuestStoreState): Vector3 => {
     const questDefinition = getDefinition(quest.name);
     const roundedProgress = Math.floor(quest.progress);
     const lastPosition = questDefinition.nodes[roundedProgress];
-    const lastPositionWorld = new Vector3(lastPosition.x, 1, lastPosition.y);
+    const lastPositionWorld = new Vector3(lastPosition.x, 0, lastPosition.y);
 
     const nextPosition = questDefinition.nodes[roundedProgress + 1];
     if (!nextPosition) {
         // We've reached the last node
         return lastPositionWorld;
     }
-    const nextPostionWorld = new Vector3(nextPosition.x, 1, nextPosition.y);
-    return lastPositionWorld.lerp(nextPostionWorld, quest.progress - roundedProgress);
+    const nextPostionWorld = new Vector3(nextPosition.x, 0, nextPosition.y);
+    const position = lastPositionWorld.lerp(nextPostionWorld, quest.progress - roundedProgress);
+    return position;
 };
+
+const DOWN = new Vector3(0, -1, 0);
+const RAYCASTER = new Raycaster();
+// Given a position and the terrain geometry, will return a position where the y coordinate lands on the terrain
+const determineY = (position: Vector3, terrain: Object3D) => {
+    const result = position.clone();
+
+    RAYCASTER.set(new Vector3(position.x, 10, position.y), DOWN);
+    const collisionResults = RAYCASTER.intersectObject(terrain);
+
+    if (collisionResults.length > 0 && collisionResults[0].distance > 0) {
+        result.y = collisionResults[0].point.y;
+    }
+    return result;
+}

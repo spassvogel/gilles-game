@@ -1,15 +1,16 @@
 // It's a js file because there is some problem with the
 import useModel from "hooks/useModel";
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import * as THREE from "three";
-import { Mesh } from "three";
+import { Mesh, Object3D } from "three";
 
 export interface Props {
     rotation?: THREE.Euler|number[];
     scale?: THREE.Vector3|number[];
+    ref: any;
 }
 
-const WorldMapTerrain = (props: Props) => {
+const WorldMapTerrain = React.forwardRef((props: Props, ref: React.Ref<Object3D>) => {
 
     const url = "models/terrain/terrain-grass.dae";
     const textureUrl = "models/terrain/grass1.png";
@@ -36,6 +37,7 @@ const WorldMapTerrain = (props: Props) => {
             name={`Model (${url})`}
             scale={props.scale || [1, 1, 1]}
             rotation={props.rotation}
+            ref={ref}
         >
             <meshBasicMaterial
                 attach="material"
@@ -46,6 +48,6 @@ const WorldMapTerrain = (props: Props) => {
             <bufferGeometry attach="geometry" {...geometry} />
         </mesh>
     );
-  };
+});
 
 export default WorldMapTerrain;
