@@ -1,14 +1,15 @@
+import { AppContext } from "components/App";
 import WorldMap from "components/three/world/WorldMap";
 import PartyWindow from "containers/windows/PartyWindow";
+import { getDefinition } from "definitions/quests";
 import { AppContextProps } from "hoc/withAppContext";
-import React, { useEffect, useRef, useState, useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 import { Vector2 } from "three";
 import { MusicTrack, SoundManager } from "utils/soundManager";
 import { TextManager } from "utils/textManager";
 import QuestLineVisualization from "../world/QuestLineVisualization";
 import "./css/realworldview.css";
-import { getDefinition } from "definitions/quests";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -26,7 +27,7 @@ interface LocalState {
     selectedQuest: string | null;
 }
 
-type AllProps = Props & StateProps & DispatchProps & AppContextProps;
+type AllProps = Props & StateProps & DispatchProps;
 
 /**
  * Temporary wrapper around PartyScreen. Shows quest line
@@ -36,6 +37,8 @@ const RealWorldView = (props: AllProps) => {
     const compassRef = useRef<HTMLDivElement>(null);
     const [scrollToPosition, setScrollToPosition] = useState<Vector2>();
     const [selectedQuest, setSelectedQuest] = useState<string>();
+
+    const context = React.useContext(AppContext)!;
 
     useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.world, "sound/music/TheLoomingBattle.ogg");
@@ -63,7 +66,7 @@ const RealWorldView = (props: AllProps) => {
         const quest = props.quests.find((q) => q.name === questName)!;
         const title = TextManager.getQuestTitle(quest.name);
         const window = <PartyWindow quest={quest} title={title} />;
-        props.onOpenWindow(window);
+        context.onOpenWindow(window);
     };
 
     const activeQuests = useMemo(() => {

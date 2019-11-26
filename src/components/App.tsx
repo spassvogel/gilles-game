@@ -39,15 +39,6 @@ export interface Props {
     persistor: Persistor;
 }
 
-interface LocalState {
-    media: MediaItem[];
-    selectedStructure: Structure | null;
-    selectedContext: SelectedContext | null;
-    containerRect: ClientRect | null;
-
-    activeWindows: React.ReactElement[];
-}
-
 interface SelectedContext {
     contextType: ContextType ;
     contextInfo: ContextInfo;
@@ -106,13 +97,14 @@ const App = (props: AllProps) => {
     const renderTownView = () => <RealTownView onStructureClick={selectStructure} />;
     const renderWorldView = () => <RealWorldView/>;
 
-        // A contextual popup showing what you just clicked. Can be an Item
-    let ContextPopup = null;
-    if (selectedContext) {
-
+    // A contextual popup showing what you just clicked. Can be an Item
+    const renderContextPopup = () => {
+        if (!selectedContext) {
+            return null;
+        }
         const { contextType, contextInfo, contextRect} = selectedContext;
 
-        ContextPopup = (
+        return (
             <ContextView
                 type={contextType}
                 info={contextInfo}
@@ -121,7 +113,7 @@ const App = (props: AllProps) => {
                 placement={Placement.bottom}
             />
         );
-    }
+    };
 
     const handleWindowOpened = (window: React.ReactElement) => {
         setActiveWindows([
@@ -180,7 +172,6 @@ const App = (props: AllProps) => {
     };
 
     const handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => {
-
         setSelectedContext({
             contextInfo: info,
             contextType: type,
@@ -202,7 +193,7 @@ const App = (props: AllProps) => {
                 containerRef.current.style.transform = `scale(1) translateX(-50%)`;
             }
             const parentBox = containerRef.current.getBoundingClientRect();
-
+            setContainerRect(parentBox);
             // this.setState({
             //     containerRect: parentBox,
             //     selectedContext: null, // this would be in the wrong place
@@ -212,11 +203,11 @@ const App = (props: AllProps) => {
 
     useEffect(() => {
         window.addEventListener("resize", handleResize);
-
+        handleResize();
         return () => {
             window.removeEventListener("resize", handleResize);
         };
-    });
+    }, []);
 
     return (
         <AppContext.Provider value={{ media, onContextualObjectActivated: handleContextualObjectActivated, onOpenWindow: handleWindowOpened }} >
@@ -245,6 +236,7 @@ const App = (props: AllProps) => {
                         <Route path="/world" component={renderWorldView} />
                         <SimpleLog/>
                         {renderWindow()}
+                        {renderContextPopup()}
                     </Preloader>
                 </Router>
                 </DndProvider>

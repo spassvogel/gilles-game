@@ -11,6 +11,7 @@ import { MapControls } from "three/examples/jsm/controls/OrbitControls";
 import Cube from "../debug/Cube";
 import Guy from "./Guy";
 import Structure from "./structures/Structure";
+import useTraceUpdate from 'use-trace-update';
 
 const terrainRotation = [-90 * (Math.PI / 180), 0, 0];
 const terrainScale = [40, 40, 40];
@@ -35,7 +36,8 @@ export interface DispatchProps {
 type AllProps = Props & DispatchProps;
 
 const WorldMap = (props: AllProps) => {
-
+    useTraceUpdate(props);
+    
     const terrainRef = useRef<Object3D>(null);
     const questCubesRef = useRef(props.activeQuests.map(() => createRef<Object3D>()));  // contains the party cubes
 
