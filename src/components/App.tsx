@@ -146,7 +146,6 @@ const App = (props: AllProps) => {
         }
     };
     const renderWindow = (): React.ReactElement | null => {
-        console.log(activeWindows);
         if (!activeWindows.length) {
             return null;
         }
@@ -242,11 +241,10 @@ const App = (props: AllProps) => {
                         <Route path="/town" component={WorldButton} />
                         {` | `}
                         <button onClick={() => handleResetClick()} style={{ color: "red"}}> Restart! </button>
-                        {renderWindow()}
                         <Route path="/town" component={renderTownView} />
                         <Route path="/world" component={renderWorldView} />
-                        
                         <SimpleLog/>
+                        {renderWindow()}
                     </Preloader>
                 </Router>
                 </DndProvider>

@@ -50,7 +50,12 @@ const Controls = (props: Props) => {
         // console.log(target.cross(DEFAULT_CAMERA_POS));
         camera.position.copy(new Vector3(x + DEFAULT_CAMERA_POS.x, DEFAULT_CAMERA_POS.y, DEFAULT_CAMERA_POS.z + y));
       }
-
+      return () => {
+        if (controls.current) {
+          // We have to explictly disable controls or drag drop won't work anymore
+          controls.current.enabled = false;
+        }
+      };
     }, [props.scrollToPosition]);
 
     useRender(() => {

@@ -31,7 +31,7 @@ export interface InventoryItemDragInfo {
  * Only `beginDrag` function is required.
  */
 const source: DragSourceSpec<Props, InventoryItemDragInfo> = {
-    beginDrag(props: Props) {
+    beginDrag(props: Props) { console.log(props)
         // Return the data describing the dragged item
         return {
             inventorySlot: props.index,
@@ -56,7 +56,7 @@ class DraggableItemIcon extends React.Component<Props & CollectedProps > {
 
     public render() {
         const { item, onClick, isDragging, connectDragSource, size } = this.props;
-
+console.log(item)
         const handleClick = (event: React.MouseEvent) => {
             if (onClick) {
                 onClick(event);
