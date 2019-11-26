@@ -187,7 +187,7 @@ class RealTownView extends React.Component<AllProps, LocalState> {
     }
 
     private imgSrc(url: string): HTMLImageElement {
-        const result = this.props.media.find((m) => m.url === url);
+        const result = this.props.media!.find((m) => m.url === url);
         if (result === undefined) {
             throw Error(`Could not find image with url ${url}`);
         } else {

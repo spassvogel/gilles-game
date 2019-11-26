@@ -7,7 +7,7 @@ import * as React from "react";
 export interface AppContextProps {
     onContextualObjectActivated: (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => void;
     onOpenWindow: (window: React.ReactElement) => void;
-    media: MediaItem[];
+    media: MediaItem[] | null;
 }
 
 export const withAppContext = <TWrappedComponentProps extends AppContextProps>(WrappedComponent: React.ComponentType<TWrappedComponentProps>) => {

@@ -9,6 +9,7 @@ import { AppContextProps} from "hoc/withAppContext";
 import { Placement} from "hoc/withPopup";
 import { manifest} from "manifest/app";
 import * as React from "react";
+import { useRef, useState, useEffect } from "react";
 import { DndProvider} from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { BrowserRouter as Router, Link, Redirect, Route} from "react-router-dom";
@@ -59,222 +60,199 @@ const resolution = {
 };
 
 export const AppContext = React.createContext<AppContextProps | null>(null);
+type AllProps = Props & StateProps & DispatchProps;
 
-export default class App extends React.Component<Props & StateProps & DispatchProps, LocalState> {
-    private containerRef: React.RefObject<HTMLDivElement>;
+// export default class App extends React.Component<Props & StateProps & DispatchProps, LocalState> {
+const App = (props: AllProps) => {
+    const containerRef = useRef<HTMLDivElement>(null);
 
-    // This Component has local state, so it"s a class
-    constructor(props: Props & StateProps & DispatchProps) {
-        super(props);
+    const [selectedContext, setSelectedContext] = useState<SelectedContext>();
+    const [containerRect, setContainerRect] = useState<ClientRect>();
+    const [media, setMedia] = useState<MediaItem[]>([]);
+    const [selectedStructure, setSelectedStructure] = useState<Structure>();
+    const [activeWindows, setActiveWindows] = useState<React.ReactElement[]>([]);
 
-        this.state = {
-            selectedContext: null,
-            containerRect: null,
-            media: [],
-            selectedStructure: null,
-            activeWindows: [],
-       };
-        this.containerRef = React.createRef();
-        this.handleResize = this.handleResize.bind(this);
-   }
+    const handleViewButtonClick = () => {
+        SoundManager.playSound(Sound.buttonClick);
+    };
 
-    public render() {
-        const handleViewButtonClick = () => {
-            SoundManager.playSound(Sound.buttonClick);
-       };
+    const handleResetClick = () => {
+        props.persistor.purge();
+        (window as any).location.reload();
+    };
 
-        const handleResetClick = () => {
-            this.props.persistor.purge();
-            (window as any).location.reload();
-       };
+    // Router elements
+    const TownButton = () => (
+        <Link to="/town">
+            <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-town`)} </button>
+        </Link>
+    );
 
-        // Router elements
-        const TownButton = () => <Link to="/town">
-            <button onClick= { () => handleViewButtonClick()}> { TextManager.get(`common-view-button-town`)} </button>
-        </Link>;
+    const WorldButton = () => (
+        <Link to="/world">
+            <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-world`)} </button>
+        </Link>
+    );
 
-        const WorldButton = () => <Link to="/world">
-            <button onClick= { () => handleViewButtonClick()}> { TextManager.get(`common-view-button-world`)} </button>
-        </Link>;
-
-        const TownView = () => <RealTownView onStructureClick={this.selectStructure} />;
-        const WorldView = () => <RealWorldView/>;
-
-        // A contextual popup showing what you just clicked. Can be an Item
-        let ContextPopup = null;
-        if (this.state.selectedContext) {
-
-            const { contextType, contextInfo, contextRect} = this.state.selectedContext;
-
-            ContextPopup = <ContextView
-                type={contextType}
-                info={contextInfo}
-                containerRect={this.state.containerRect!}
-                referenceRect={contextRect}
-                placement={Placement.bottom}
-            >
-            </ContextView>;
-        }
-
-        const Window = this.getActiveWindow();
-
-        return <AppContext.Provider value={{
-            media: this.state.media,
-            onContextualObjectActivated: this.handleContextualObjectActivated,
-            onOpenWindow: this.handleWindowOpened,
-        }}>
-            <div className = "app"
-                ref={this.containerRef}
-                style={{
-                    width: resolution.width,
-                    height: resolution.height,
-                }}
-                onClick={this.handleAppClick}
-            >
-                <DndProvider backend={HTML5Backend}>
-                <Router>
-                    <Preloader
-                        manifest={manifest}
-                        onLoadComplete={this.handleMediaLoadComplete}
-                    >
-                    <Topbar/>
-                    <Redirect from="/" to="world" />
-                    <Route path="/world" component={TownButton} />
-                    <Route path="/town" component={WorldButton} />
-                    { ` | `}
-                    <button onClick= { () => handleResetClick()} style={ { color: "red"}}> Restart! </button>
-                    <Route path="/town" component={TownView} />
-                    <Route path="/world" component={WorldView} />
-                { Window}
-                { ContextPopup}
-                <SimpleLog/>
-
-                </Preloader>
-                </Router>
-                </DndProvider>
-            </div>
-        </AppContext.Provider>;
-   }
-
-    public componentDidMount() {
-        window.addEventListener("resize", this.handleResize);
-        this.handleResize();
-   }
-
-    public componentWillUnmount() {
-        window.removeEventListener("resize", this.handleResize);
-   }
-
-    private getActiveWindow(): React.ReactElement | null {
-        if (!this.state.activeWindows.length) {
-            return null;
-       }
-
-        const topWindow = this.state.activeWindows[this.state.activeWindows.length - 1];
-        const commonWindowProps = {
-            onClose: this.handleWindowClose,
-            onBack: this.handleWindowBack,
-            backEnabled: this.state.activeWindows.length > 1,
-            closeEnabled: true,
-       };
-
-        const element = React.cloneElement(topWindow, commonWindowProps);
-        return element;
-   }
-
-    private handleResize() {
-        if (this.containerRef.current) {
-            if (window.innerHeight < resolution.height) {
-                this.containerRef.current.style.transform = `scale(${window.innerHeight / resolution.height}) translateX(-50%)`;
-
-           } else {
-                this.containerRef.current.style.transform = `scale(1) translateX(-50%)`;
-           }
-            const parentBox = this.containerRef.current.getBoundingClientRect();
-
-            this.setState({
-                containerRect: parentBox,
-                selectedContext: null, // this would be in the wrong place
-           });
-       }
-   }
-
-    private selectStructure = (structure: Structure | null) => {
+    const selectStructure = (structure: Structure | null) => {
         if (structure) {
             const displayName = TextManager.getStructureName(structure);
 
             const window = <StructureDetailsView structure={structure} title={displayName}/>;
-            this.handleWindowOpened(window);
+            handleWindowOpened(window);
        }
-   }
+   };
 
-    private handleMediaLoadComplete = (media: MediaItem[]) => {
+    const renderTownView = () => <RealTownView onStructureClick={selectStructure} />;
+    const renderWorldView = () => <RealWorldView/>;
 
-        const sounds = media.filter((m) => m.mediaType === MediaType.sound);
+        // A contextual popup showing what you just clicked. Can be an Item
+    let ContextPopup = null;
+    if (selectedContext) {
+
+        const { contextType, contextInfo, contextRect} = selectedContext;
+
+        ContextPopup = (
+            <ContextView
+                type={contextType}
+                info={contextInfo}
+                containerRect={containerRect!}
+                referenceRect={contextRect}
+                placement={Placement.bottom}
+            />
+        );
+    }
+
+    const handleWindowOpened = (window: React.ReactElement) => {
+        setActiveWindows([
+            ...activeWindows || [],
+            window,
+        ]);
+    };
+
+    /**
+     * Closes all windows
+     */
+    const handleWindowClose = () => {
+        setActiveWindows([]);
+    };
+
+    /**
+     * Closes the top window of the stack
+     */
+    const handleWindowBack = () => {
+        if (activeWindows && activeWindows.length) {
+            setActiveWindows(activeWindows.slice(0, -1));
+        }
+    };
+    const renderWindow = (): React.ReactElement | null => {
+        console.log(activeWindows);
+        if (!activeWindows.length) {
+            return null;
+        }
+
+        const topWindow = activeWindows[activeWindows.length - 1];
+        const commonWindowProps = {
+            onClose: handleWindowClose,
+            onBack: handleWindowBack,
+            backEnabled: activeWindows.length > 1,
+            closeEnabled: true,
+        };
+
+        const element = React.cloneElement(topWindow, commonWindowProps);
+        return element;
+    };
+
+    const handleMediaLoadComplete = (mediaItems: MediaItem[]) => {
+        const sounds = mediaItems.filter((m) => m.mediaType === MediaType.sound);
         SoundManager.loadMedia(sounds);
 
         SoundManager.addSounds({
             [Sound.buttonClick]: "sound/fx/button-click.ogg",
             [Sound.error]: "sound/fx/error.ogg",
             // add more sounds here
-       });
+        });
 
-        this.setState({
-            media,
-       });
+        setMedia(mediaItems);
 
         // todo: temporary!
         // const window = <CombatView/>;
         // this.handleWindowOpened(window);
-   }
+    };
 
-    private handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => {
+    const handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => {
 
-        this.setState({
-            selectedContext: {
-                contextInfo: info,
-                contextType: type,
-                contextRect: originRect,
-           },
-       });
-   }
+        setSelectedContext({
+            contextInfo: info,
+            contextType: type,
+            contextRect: originRect,
+        });
+    };
 
-    private handleAppClick = () => {
-        if (this.state.selectedContext) {
-            this.setState({
-                selectedContext: null,
-           });
+    const handleAppClick = () => {
+        if (selectedContext) {
+            setSelectedContext(undefined);
+        }
+    };
+
+    const handleResize = () => {
+        if (containerRef.current) {
+            if (window.innerHeight < resolution.height) {
+                containerRef.current.style.transform = `scale(${window.innerHeight / resolution.height}) translateX(-50%)`;
+            } else {
+                containerRef.current.style.transform = `scale(1) translateX(-50%)`;
+            }
+            const parentBox = containerRef.current.getBoundingClientRect();
+
+            // this.setState({
+            //     containerRect: parentBox,
+            //     selectedContext: null, // this would be in the wrong place
+            // });
        }
-   }
+    };
 
-    private handleWindowOpened = (window: React.ReactElement) => {
-        this.setState({
-            activeWindows: [
-                ...this.state.activeWindows,
-                window,
-            ],
-       });
-   }
+    useEffect(() => {
+        window.addEventListener("resize", handleResize);
 
-    /**
-     * Closes all windows
-     */
-    private handleWindowClose = () => {
-        if (this.state.activeWindows.length) {
-            this.setState({
-                activeWindows: [],
-           });
-       }
-   }
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    });
 
-    /**
-     * Closes the top window of the stack
-     */
-    private handleWindowBack = () => {
-        if (this.state.activeWindows.length) {
-            this.setState({
-                activeWindows: this.state.activeWindows.slice(0, -1),
-           });
-       }
-   }
-}
+    return (
+        <AppContext.Provider value={{ media, onContextualObjectActivated: handleContextualObjectActivated, onOpenWindow: handleWindowOpened }} >
+            <div
+                className="app"
+                ref={containerRef}
+                style={{
+                    width: resolution.width,
+                    height: resolution.height,
+                }}
+                onClick={handleAppClick}
+            >
+                <DndProvider backend={HTML5Backend}>
+                <Router>
+                    <Preloader
+                        manifest={manifest}
+                        onLoadComplete={handleMediaLoadComplete}
+                    >
+                        <Topbar/>
+                        <Redirect from="/" to="world" />
+                        <Route path="/world" component={TownButton} />
+                        <Route path="/town" component={WorldButton} />
+                        {` | `}
+                        <button onClick={() => handleResetClick()} style={{ color: "red"}}> Restart! </button>
+                        {renderWindow()}
+                        <Route path="/town" component={renderTownView} />
+                        <Route path="/world" component={renderWorldView} />
+                        
+                        <SimpleLog/>
+                    </Preloader>
+                </Router>
+                </DndProvider>
+            </div>
+        </AppContext.Provider>
+    );
+};
+
+export default App;

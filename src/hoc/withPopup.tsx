@@ -9,7 +9,7 @@ export interface PopupProps {
     containerRect: ClientRect;
     referenceRect: ClientRect;
     placement?: Placement;
-    children: any;
+    children?: any;
 }
 
 export enum Placement {
