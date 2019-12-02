@@ -6,6 +6,7 @@ import { getDefinition } from "definitions/items";
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
+import { TextManager } from "utils/textManager";
 import "./css/adventurerinfo.css";
 import DraggableItemIcon, { InventoryItemDragInfo } from "./DraggableItemIcon";
 import EquipmentSlot, { EquipmentSlotType } from "./EquipmentSlot";
@@ -35,7 +36,7 @@ const AdventurerInfo = (props: AllProps) => {
     const adventurer = props.adventurer;
     const attributes = Object.keys(adventurer.stats).map((stat) => {
         const value: number = adventurer.stats[stat];
-        return <div key = { `${adventurer.id}-${stat}`} > <b>{ stat }</b>: { value.toFixed(1) } </div>;
+        return <div key={`${adventurer.id}-${stat}`} > <b>{stat}</b>: {value.toFixed(1)} </div>;
     });
     // const equipmentList = Object.keys(getEquipment(.map((equipment) =) {
     //     return <div key = { `${adventurer.id}-${equipment}` } ><b>{ equipment }</b>: { getEquipment(equipment] }  </di)>;
@@ -93,54 +94,44 @@ const AdventurerInfo = (props: AllProps) => {
                 event.stopPropagation();
             };
 
-            contents = <DraggableItemIcon
-                index = { slotType }
-                sourceId = { adventurer.id }
-                sourceType = { DragSourceType.adventurerEquipment }
-                item = { item }
-                onClick = { handleClick }
-                ref = { itemRef }
-                size = { IconSize.medium }
-            >
-            </DraggableItemIcon>;
+            contents = (
+                <DraggableItemIcon
+                    index={slotType}
+                    sourceId={adventurer.id}
+                    sourceType={DragSourceType.adventurerEquipment}
+                    item={item}
+                    onClick={handleClick}
+                    ref={itemRef}
+                    size={IconSize.medium}
+                />
+            );
         }
 
         return (
-            <EquipmentSlot
-                onDrop = { (dragInfo: InventoryItemDragInfo) => handleDropItemEquipment(dragInfo, slotType) }
-                type = { slotType }
-            >
-                { contents }
-            </EquipmentSlot>
+            <>
+                <EquipmentSlot
+                    onDrop={(dragInfo: InventoryItemDragInfo) => handleDropItemEquipment(dragInfo, slotType)}
+                    type={slotType}
+                >
+                    {contents}
+                </EquipmentSlot>
+                <span className="info">{TextManager.get(`ui-equipmentslot-${EquipmentSlotType[slotType]}`)}</span>
+            </>
         );
     };
 
-    const equipmentList = <ul>
-        <li>
-            { getEquipmentSlot(EquipmentSlotType.head) }
-        </li>
-        <li>
-            { getEquipmentSlot(EquipmentSlotType.shoulders) }
-        </li>
-        <li>
-            { getEquipmentSlot(EquipmentSlotType.chest) }
-        </li>
-        <li>
-            { getEquipmentSlot(EquipmentSlotType.hands) }
-        </li>
-        <li>
-            { getEquipmentSlot(EquipmentSlotType.legs) }
-        </li>
-        <li>
-            { getEquipmentSlot(EquipmentSlotType.feet) }
-        </li>
-        <li>
-            { getEquipmentSlot(EquipmentSlotType.mainHand) }
-        </li>
-        <li>
-            { getEquipmentSlot(EquipmentSlotType.offHand) }
-        </li>
-    </ul>;
+    const equipmentList = (
+        <ul>
+            <li>{getEquipmentSlot(EquipmentSlotType.head)}</li>
+            <li>{getEquipmentSlot(EquipmentSlotType.shoulders)}</li>
+            <li>{getEquipmentSlot(EquipmentSlotType.chest)}</li>
+            <li>{getEquipmentSlot(EquipmentSlotType.hands)}</li>
+            <li>{getEquipmentSlot(EquipmentSlotType.legs)}</li>
+            <li>{getEquipmentSlot(EquipmentSlotType.feet)}</li>
+            <li>{getEquipmentSlot(EquipmentSlotType.mainHand)}</li>
+            <li>{getEquipmentSlot(EquipmentSlotType.offHand)}</li>
+        </ul>
+    );
 
     const handleDropItemInventory = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
         switch (sourceType) {
@@ -169,24 +160,24 @@ const AdventurerInfo = (props: AllProps) => {
         }
     };
     return (
-        <div className = "adventurer-info">
-            <div className = "left">
-                <div className = "name">
-                    <b>{ adventurer.name }</b>
+        <div className="adventurer-info">
+            <div className="left">
+                <div className="name">
+                    <b>{adventurer.name}</b>
                 </div>
-                <div className = "attributes">
-                    { attributes }
+                <div className="attributes">
+                    {attributes}
                 </div>
-                <div className = "equipment">
-                    { equipmentList }
+                <div className="equipment">
+                    {equipmentList}
                 </div>
             </div>
-            <div className = "right">
+            <div className="right">
                 <Inventory
-                    sourceType = { DragSourceType.adventurerInventory }
-                    sourceId = { adventurer.id }
-                    items = { adventurer.inventory }
-                    onDropItem = { handleDropItemInventory }
+                    sourceType={DragSourceType.adventurerInventory}
+                    sourceId={adventurer.id}
+                    items={adventurer.inventory}
+                    onDropItem={handleDropItemInventory}
                 />
             </div>
         </div>

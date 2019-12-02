@@ -36,8 +36,12 @@
     grid-template-rows: repeat(3, 1fr);
 }
 
-.adventurer-info .left .equipment li {
+.adventurer-info .left .equipment ul li {
     box-sizing: border-box;
+}
+
+.adventurer-info .left .equipment ul li .info {
+    font-size: smaller;
 }
 
 /** todo: media queries to show more columns */

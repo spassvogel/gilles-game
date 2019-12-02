@@ -2,8 +2,8 @@ import { TextEntry } from "constants/text";
 import itemDefinitions, { getDefinition } from "definitions/items";
 import { Item, ItemType } from "definitions/items/types";
 import { Resource } from "definitions/resources";
-import * as Handlebars from "handlebars";
 import { Structure } from "definitions/structures";
+import * as Handlebars from "handlebars";
 
 export abstract class TextManager {
 
