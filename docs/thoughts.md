@@ -303,3 +303,6 @@ THREEJS examples (MIGHT IS RIGHT):
 
 26/11/2019 Smoke particles from the houses in world map
 [ ] https://aerotwist.com/tutorials/creating-particles-with-three-js/
+
+02/12/2019 Resource update should happen at a set interval
+    instead of every game tick

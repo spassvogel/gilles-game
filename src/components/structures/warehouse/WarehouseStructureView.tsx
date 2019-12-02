@@ -7,11 +7,14 @@ import { DragSourceType } from "constants/dragging";
 import { Item } from "definitions/items/types";
 import { getDefinition, Structure  } from "definitions/structures";
 import { StructureDefinition } from "definitions/structures/types";
+import usePrevious from "hooks/usePrevious";
 import * as React from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { AdventurerStoreState } from "stores/adventurer";
-import { ResourceStoreState } from "stores/resources";
+import { empty, ResourceStoreState } from "stores/resources";
 import { TextManager } from "utils/textManager";
 import "./css/warehousestructureview.css";
+import AdventurerInfo from "containers/ui/AdventurerInfo";
 
 export interface DispatchProps {
     onMoveItemInWarehouse: (fromSlot: number, toSlot: number) => void;
@@ -38,62 +41,76 @@ export interface StateProps  {
 
 type AllProps = Props & StateProps & DispatchProps;
 
-interface LocalState {
-    selectedAdventurer: string | null;
-}
+const WAREHOUSE = DragSourceType.warehouse;
 
-const warehouse = DragSourceType.warehouse;
+// todo 20191202: Resource update should happen at a set interval 
+const WarehouseStructureView = (props: AllProps) => {
 
-class WarehouseStructureView extends React.Component<AllProps, LocalState> {
-    private resourcesDelta: ResourceStoreState;
-    private resourcesRef: HTMLFieldSetElement | null;
+    const [selectedAdventurer, setSelectedAdventurer] = useState<string>();
 
-    constructor(props: AllProps) {
-        super(props);
+    const [resourcesDelta, setResourcesDelta] = useState<ResourceStoreState>(empty);    // updating this will trigger animation
+    const previousResources = usePrevious(props.resources);
+    const resourcesRef = useRef<HTMLFieldSetElement>(null);
 
-        this.state = {
-            selectedAdventurer: null,
-        };
+    useEffect(() => {
+        // Calculate delta
+        const delta = Object.keys(props.resources).reduce((acc, value) => {
+            if (previousResources && previousResources[value]) {
+                acc[value] = props.resources[value] - previousResources[value];
+            }
+            return acc;
+        }, {});
 
-        this.resourcesDelta = {};
-        this.resourcesRef = null;
-    }
+        setResourcesDelta(delta);
+    }, [props.resources]);
 
-    public render() {
-        const props = this.props;
-        const structureDefinition = getDefinition<StructureDefinition>(Structure.warehouse);
-        if (!structureDefinition) {
-            throw new Error(`No definition found for structure ${Structure.warehouse} with type StructureDefinition.`);
+    useEffect(() => {
+        if (!resourcesRef.current) {
+            return;
         }
-        const level: number = props.level;
-        const displayName = TextManager.getStructureName(Structure.warehouse);
+        const ref = resourcesRef.current as unknown as HTMLFieldSetElement;
+        ref.classList.remove("animate");
+        setTimeout(() => {
+            if (resourcesRef) {
+                ref.classList.add("animate");
+            }
+        }, 200);
+    }, [resourcesDelta]);
 
-        const createUpgradeRow = () => {
-            const gold = props.gold;
-            const nextLevel = structureDefinition.levels[level + 1];
-            const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
-            const canUpgrade = nextLevel != null && gold >= nextLevelCost;
-            const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
+    const structureDefinition = getDefinition<StructureDefinition>(Structure.warehouse);
+    if (!structureDefinition) {
+        throw new Error(`No definition found for structure ${Structure.warehouse} with type StructureDefinition.`);
+    }
+    const level: number = props.level;
+    const displayName = TextManager.getStructureName(Structure.warehouse);
 
-            const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-                if (props.onUpgrade) { props.onUpgrade(nextLevelCost, level + 1); }
-            };
-            return <div>
-                <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }
-                <button
-                    style = {{ float: "right" }}
-                    onClick = { handleClick }
-                    disabled= { !canUpgrade }
-                >
-                    { upgradeText }
-                </button>
-            </div>;
+    const createUpgradeRow = () => {
+        const gold = props.gold;
+        const nextLevel = structureDefinition.levels[level + 1];
+        const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
+        const canUpgrade = nextLevel != null && gold >= nextLevelCost;
+        const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
+
+        const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+            if (props.onUpgrade) { props.onUpgrade(nextLevelCost, level + 1); }
         };
+        return (
+            <div>
+                <label>level:</label>{(level + 1) + " / " + structureDefinition.levels.length}
+                <button
+                    style={{ float: "right" }}
+                    onClick={handleClick}
+                    disabled={!canUpgrade}
+                >
+                    {upgradeText}
+                </button>
+            </div>
+        );
+    };
 
-        const handleDropItemWarehouse = (item: Item, fromSlot: number,
-                                         toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
+    const handleDropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
             switch (sourceType) {
-                case warehouse:
+                case WAREHOUSE:
                     if (props.onMoveItemInWarehouse) {
                         props.onMoveItemInWarehouse(fromSlot, toSlot);
                     }
@@ -106,90 +123,80 @@ class WarehouseStructureView extends React.Component<AllProps, LocalState> {
             }
         };
 
-        const handleAdventurerTabSelected = (tabId: string) => {
-            this.setState({
-                selectedAdventurer: tabId,
-            });
-        };
+    const handleAdventurerTabSelected = (tabId: string) => {
+        setSelectedAdventurer(tabId);
+    };
 
-        const handleDropItemAdventurer = (item: Item, fromSlot: number,
-                                          toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
-            const adventurerId = this.state.selectedAdventurer!;
-            switch (sourceType) {
-                case DragSourceType.adventurerInventory:
-                    if (props.onMoveItemInInventory) {
-                        props.onMoveItemInInventory(adventurerId, fromSlot, toSlot);
-                    }
-                    break;
-                case warehouse:
-                    if (props.onMoveItemToAdventurer) {
-                        props.onMoveItemToAdventurer(adventurerId, item, fromSlot, toSlot);
-                    }
-                    break;
-            }
-        };
-
-        let adventurerContent = null;
-        if (this.state.selectedAdventurer) {
-            const adventurer = props.adventurersInTown.find((a) => a.id === this.state.selectedAdventurer)!;
-            adventurerContent = <Inventory
-                sourceType = { warehouse }
-                items = { adventurer.inventory }
-                onDropItem = { handleDropItemAdventurer }
-            />;
-        }
-
-        const adventurersArea = <>
-            <Tabstrip className = "adventurers-tabstrip" onTabSelected = { (tabId: string) => handleAdventurerTabSelected(tabId) } >
-            { props.adventurersInTown.map((a) => {
-                return <Tab id = { a.id } key = { a.id }>
-                    <AdventurerAvatar adventurer = { a } className = "common-icon-small"/>
-                </Tab>;
-            }) }
-            </Tabstrip>
-            <div className = "adventurer-info">
-                { adventurerContent }
-            </div>
-        </>;
-
-        return (
-            <details open = { true } className = "warehouse-structureview">
-                <summary>{ displayName }</summary>
-                { createUpgradeRow() }
-                <fieldset className="resources" ref = { (ref) => { this.resourcesRef = ref; }}>
-                    <legend>Resources</legend>
-                    <ResourcesBox
-                        resources = { props.resources }
-                        maxResources = { props.maxResources }
-                        deltaResources = { this.resourcesDelta }
-                    />
-                </fieldset>
-
-                <Inventory
-                    sourceType = { warehouse }
-                    items = { props.items }
-                    onDropItem = { handleDropItemWarehouse }
-                />
-                { adventurersArea }
-
-            </details>
-        );
-    }
-
-    public componentDidUpdate(prevProps: Readonly<AllProps>) {
-        Object.keys(prevProps.resources).forEach((resource: string) => {
-            this.resourcesDelta[resource] = this.props.resources[resource]! - prevProps.resources[resource]!;
-        });
-
-        if (this.resourcesRef) {
-            this.resourcesRef.classList.remove("animate");
-            setTimeout(() => {
-                if (this.resourcesRef) {
-                    this.resourcesRef.classList.add("animate");
+    const handleDropItemAdventurer = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
+        const adventurerId = selectedAdventurer!;
+        switch (sourceType) {
+            case DragSourceType.adventurerInventory:
+                if (props.onMoveItemInInventory) {
+                    props.onMoveItemInInventory(adventurerId, fromSlot, toSlot);
                 }
-            }, 200);
+                break;
+            case WAREHOUSE:
+                if (props.onMoveItemToAdventurer) {
+                    props.onMoveItemToAdventurer(adventurerId, item, fromSlot, toSlot);
+                }
+                break;
         }
-    }
-}
+    };
+
+    const renderAdventurerContent = () => {
+        if (selectedAdventurer) {
+            return (
+                <AdventurerInfo
+                    adventurerId={selectedAdventurer}
+                />
+            );
+            // return (
+            //     <Inventory
+            //         sourceType={WAREHOUSE}
+            //         items={adventurer.inventory}
+            //         onDropItem={handleDropItemAdventurer}
+            //     />
+            // );
+        }
+        return null;
+    };
+
+    const renderAdventurerTab = (adventurer: AdventurerStoreState) => (
+        <Tab id={adventurer.id} key={adventurer.id}>
+            <AdventurerAvatar adventurer={adventurer} className="common-icon-small"/>
+        </Tab>
+    );
+
+    return (
+        <details open={true} className="warehouse-structureview">
+            <summary>{displayName}</summary>
+            {createUpgradeRow()}
+            <fieldset className="resources" ref={resourcesRef}>
+                <legend>Resources</legend>
+                <ResourcesBox
+                    resources={props.resources}
+                    maxResources={props.maxResources}
+                    deltaResources={resourcesDelta}
+                />
+            </fieldset>
+
+            <Inventory
+                sourceType={WAREHOUSE}
+                items={props.items}
+                onDropItem={handleDropItemWarehouse}
+            />
+            <h3>Adventurers</h3>
+            <div>
+                <Tabstrip className="adventurers-tabstrip" onTabSelected={handleAdventurerTabSelected} >
+                {props.adventurersInTown.map((a) => renderAdventurerTab(a))}
+                </Tabstrip>
+                <div className="adventurer-inventory">
+                    {renderAdventurerContent()}
+                </div>
+            </div>
+        </details>
+    );
+
+};
 
 export default WarehouseStructureView;

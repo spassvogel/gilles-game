@@ -18,3 +18,12 @@ export const initialState: ResourceStoreState = {
     stone: 0,
     wood: 40,
 };
+
+export const empty: ResourceStoreState = {
+    fabric: 0,
+    food: 0,
+    iron: 0,
+    leather: 0,
+    stone: 0,
+    wood: 0,
+};
