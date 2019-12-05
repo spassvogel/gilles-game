@@ -53,7 +53,6 @@ const resolution = {
 export const AppContext = React.createContext<AppContextProps | null>(null);
 type AllProps = Props & StateProps & DispatchProps;
 
-// export default class App extends React.Component<Props & StateProps & DispatchProps, LocalState> {
 const App = (props: AllProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
