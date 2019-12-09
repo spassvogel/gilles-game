@@ -146,6 +146,15 @@
     "structure-tavern-quest-launched": "Quest started!",
     "structure-workshop-name": "Workshop",
 
+    "ui-equipmentslot-head": "head",
+    "ui-equipmentslot-shoulders": "shoulders",
+    "ui-equipmentslot-chest": "chest",
+    "ui-equipmentslot-hands": "hands",
+    "ui-equipmentslot-legs": "legs",
+    "ui-equipmentslot-feet": "feet",
+    "ui-equipmentslot-mainHand": "main hand",
+    "ui-equipmentslot-offHand": "off hand",
+
     "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
     "test-game-welcome": "You have taken your first steps into a larger world"
 }
