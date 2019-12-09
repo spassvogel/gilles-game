@@ -22,6 +22,8 @@ export interface DispatchProps {
     onAssignEquipment: (adventurerId: string, equipmentSlot: EquipmentSlotType, item: Item) => void;
     onAddItemToInventory: (adventurerId: string, item: Item, toSlot: number) => void;
     onRemoveEquipment: (adventurerId: string, equipmentSlot: EquipmentSlotType) => void;
+    onAddItemToWarehouse: (item: Item, toSlot: number) => void;
+    onAssignEquipmentFromWarehouse: (adventurerId: string, fromSlot: number, item: Item, equipmentSlot: EquipmentSlotType) => void;
 }
 
 export interface StateProps {
@@ -45,7 +47,6 @@ const AdventurerInfo = (props: AllProps) => {
     const handleDropItemEquipment = (dragInfo: InventoryItemDragInfo, slotType: EquipmentSlotType) => {
         // When an item gets dropped on equipment slot
         const item = dragInfo.item;
-
         switch (dragInfo.sourceType) {
             case DragSourceType.adventurerInventory: {
                 // Dragged from inventory
@@ -55,6 +56,16 @@ const AdventurerInfo = (props: AllProps) => {
                 const existingEquipment = adventurer.equipment[EquipmentSlotType[slotType]];
                 if (existingEquipment) {
                     props.onAddItemToInventory(adventurer.id, existingEquipment, dragInfo.inventorySlot!);
+                }
+                break;
+            }
+            case DragSourceType.warehouse: {
+                // Dragged from warehouse
+                props.onAssignEquipmentFromWarehouse(adventurer.id, dragInfo.inventorySlot!, item, slotType);
+
+                const existingEquipment = adventurer.equipment[EquipmentSlotType[slotType]];
+                if (existingEquipment) {
+                    props.onAddItemToWarehouse(existingEquipment, dragInfo.inventorySlot!);
                 }
                 break;
             }

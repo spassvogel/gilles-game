@@ -55,11 +55,11 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
         },
         // Moves item from warehouse to an adventurer
         onMoveItemToAdventurer: (adventurerId: string, item: Item, fromSlot: number, toSlot: number) => {
-            const action1 = removeItemFromWarehouse(fromSlot);
-            dispatch(action1);
+            const remove = removeItemFromWarehouse(fromSlot);
+            dispatch(remove);
 
-            const action2 = addItemToInventory(adventurerId, item, toSlot);
-            dispatch(action2);
+            const add = addItemToInventory(adventurerId, item, toSlot);
+            dispatch(add);
         },
         onUpgrade: (cost: number, level: number) => {
             dispatch(subtractGold(cost));

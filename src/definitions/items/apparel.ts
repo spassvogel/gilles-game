@@ -115,7 +115,7 @@ const all: Record<string, ApparelDefinition> = {
     },
     [Item.greaves1]: {
         item: Item.greaves1,
-        equipmentType: ApparelType.hands,
+        equipmentType: ApparelType.feet,
         itemType,
         subText: "",
         iconImg: `${basePath}greaves_1.png`,

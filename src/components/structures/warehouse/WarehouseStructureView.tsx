@@ -154,7 +154,7 @@ const WarehouseStructureView = (props: AllProps) => {
             //     <Inventory
             //         sourceType={WAREHOUSE}
             //         items={adventurer.inventory}
-            //         onDropItem={handleDropItemAdventurer}
+            //         
             //     />
             // );
         }
@@ -179,7 +179,7 @@ const WarehouseStructureView = (props: AllProps) => {
                     deltaResources={resourcesDelta}
                 />
             </fieldset>
-
+            <h3>Items</h3>
             <Inventory
                 sourceType={WAREHOUSE}
                 items={props.items}
