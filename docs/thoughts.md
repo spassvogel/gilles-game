@@ -306,3 +306,6 @@ THREEJS examples (MIGHT IS RIGHT):
 
 02/12/2019 Resource update should happen at a set interval
     instead of every game tick
+
+10/12/2019 
+[ ] Can drop items from warehouse onto adventurer    

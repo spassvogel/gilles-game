@@ -153,6 +153,18 @@ const AdventurerInfo = (props: AllProps) => {
                 }
                 break;
 
+                // todo: 10/12/2019
+            // case DragSourceType.warehouse: {
+            //     // Dragged from warehouse
+            //     props.onAssignEquipmentFromWarehouse(adventurer.id, dragInfo.inventorySlot!, item, slotType);
+
+            //     const existingEquipment = adventurer.equipment[EquipmentSlotType[slotType]];
+            //     if (existingEquipment) {
+            //         props.onAddItemToWarehouse(existingEquipment, dragInfo.inventorySlot!);
+            //     }
+            //     break;
+            // }
+
             case DragSourceType.adventurerEquipment:
                 // Drag from equipment slot
                 if (props.onAddItemToInventory && props.onRemoveEquipment) {

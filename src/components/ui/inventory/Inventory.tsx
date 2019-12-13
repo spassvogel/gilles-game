@@ -36,27 +36,32 @@ const Inventory = (props: Props & AppContextProps) => {
         };
 
         if (item) {
-            contents = <DraggableItemIcon
-                index = { i }
-                sourceId = { props.sourceId }
-                sourceType = { props.sourceType }
-                item = { item }
-            >
-            </DraggableItemIcon>;
+            contents = (
+                <DraggableItemIcon
+                    index={i}
+                    sourceId={props.sourceId}
+                    sourceType={props.sourceType}
+                    item={item}
+                />
+            );
        }
 
-        const slot = <InventorySlot
-            key = { `inventory-slot-${i}` }
-            item = { item }
-            size = { props.iconSize }
-            onDrop = { handleDrop }
-        >
-            { contents }
-        </InventorySlot>;
+        const slot = (
+            <InventorySlot
+                key={`inventory-slot-${i}`}
+                item={item}
+                size={props.iconSize}
+                onDrop={handleDrop}
+            >
+                {contents}
+            </InventorySlot>
+        );
         slots.push(slot);
    }
-    return <div className = "inventory">
-        {slots}
-    </div>;
+    return (
+        <div className="inventory">
+            {slots}
+        </div>
+    );
 };
 export default withAppContext(Inventory); // todo: we don't need appcontext
