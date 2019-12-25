@@ -38,12 +38,17 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
 
 function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): DispatchProps {
     return {
-        onMoveItemFromAdventurer(adventurerId: string, item: Item, fromSlot: number, toSlot: number) {
-            const action1 = removeItemFromInventory(adventurerId, fromSlot);
-            dispatch(action1);
+        onMoveItemFromAdventurer(adventurerId: string, item: Item, fromSlot: number, toSlot: number, otherItem: Item|null) {
+            const remove = removeItemFromInventory(adventurerId, fromSlot);
+            dispatch(remove);
 
-            const action2 = addItemToWarehouse(item, toSlot);
-            dispatch(action2);
+            const add = addItemToWarehouse(item, toSlot);
+            dispatch(add);
+
+            if (otherItem) {
+                const switchItem = addItemToInventory(adventurerId, otherItem, fromSlot);
+                dispatch(switchItem);
+            }
         },
         onMoveItemInWarehouse(fromSlot: number, toSlot: number) {
             dispatch(moveItemInWarehouse(fromSlot, toSlot));

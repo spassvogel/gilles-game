@@ -13,6 +13,7 @@ const mapStateToProps = (store: StoreState, ownProps: Props) => {
     const adventurer = store.adventurers.find((a) => a.id === ownProps.adventurerId)!;
     return {
         adventurer,
+        warehouse: store.items,
     };
 };
 
@@ -40,6 +41,19 @@ export const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps
 
             const assign = assignEquipment(adventurerId, equipmentSlot, item);
             dispatch(assign);
+        },
+        // Item gets removed from warehouse
+        onMoveItemFromWarehouseToInventory: (adventurerId: string, fromSlot: number, toSlot: number, item: Item, otherItem: Item|null) => {
+            const remove = removeItemFromWarehouse(fromSlot);
+            dispatch(remove);
+
+            const add = addItemToInventory(adventurerId, item, toSlot);
+            dispatch(add);
+
+            if (otherItem) {
+                const switchItem = addItemToWarehouse(otherItem, fromSlot);
+                dispatch(switchItem);
+            }
         },
         // Moves item within an adventurers' inventory
         onMoveItemInInventory: (adventurerId: string, fromSlot: number, toSlot: number) => {

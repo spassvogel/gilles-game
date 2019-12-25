@@ -15,6 +15,7 @@ const mapStateToProps = (store: StoreState, ownProps: Props) => {
     const adventurer = store.adventurers.find((a) => a.id === ownProps.adventurerId)!;
     return {
         adventurer,
+        warehouse: store.items,
     };
 };
 

@@ -4,21 +4,21 @@ import ResourcesBox from "components/ui/resources/ResourcesBox";
 import Tab from "components/widgets/Tab";
 import Tabstrip from "components/widgets/Tabstrip";
 import { DragSourceType } from "constants/dragging";
+import AdventurerInfo from "containers/ui/AdventurerInfo";
 import { Item } from "definitions/items/types";
 import { getDefinition, Structure  } from "definitions/structures";
 import { StructureDefinition } from "definitions/structures/types";
 import usePrevious from "hooks/usePrevious";
 import * as React from "react";
-import { RefObject, useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useMemo, useRef, useState } from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import { empty, ResourceStoreState } from "stores/resources";
 import { TextManager } from "utils/textManager";
 import "./css/warehousestructureview.css";
-import AdventurerInfo from "containers/ui/AdventurerInfo";
 
 export interface DispatchProps {
     onMoveItemInWarehouse: (fromSlot: number, toSlot: number) => void;
-    onMoveItemFromAdventurer: (adventurerId: string, item: Item, fromSlot: number, toSlot: number) => void;
+    onMoveItemFromAdventurer: (adventurerId: string, item: Item, fromSlot: number, toSlot: number, otherItem: Item|null) => void;
     onMoveItemInInventory: (adventurerId: string, fromSlot: number, toSlot: number) => void;
     onMoveItemToAdventurer: (adventurerId: string, item: Item, fromSlot: number, toSlot: number) => void;
     onUpgrade?: (cost: number, level: number) => void;
@@ -43,7 +43,7 @@ type AllProps = Props & StateProps & DispatchProps;
 
 const WAREHOUSE = DragSourceType.warehouse;
 
-// todo 20191202: Resource update should happen at a set interval 
+// todo 20191202: Resource update should happen at a set interval
 const WarehouseStructureView = (props: AllProps) => {
 
     const [selectedAdventurer, setSelectedAdventurer] = useState<string>();
@@ -117,7 +117,8 @@ const WarehouseStructureView = (props: AllProps) => {
                     break;
                 case DragSourceType.adventurerInventory:
                     if (props.onMoveItemFromAdventurer) {
-                        props.onMoveItemFromAdventurer(sourceId!, item, fromSlot, toSlot);
+                        const otherItem = props.items[toSlot];
+                        props.onMoveItemFromAdventurer(sourceId!, item, fromSlot, toSlot, otherItem);
                     }
                     break;
             }
@@ -127,22 +128,6 @@ const WarehouseStructureView = (props: AllProps) => {
         setSelectedAdventurer(tabId);
     };
 
-    const handleDropItemAdventurer = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
-        const adventurerId = selectedAdventurer!;
-        switch (sourceType) {
-            case DragSourceType.adventurerInventory:
-                if (props.onMoveItemInInventory) {
-                    props.onMoveItemInInventory(adventurerId, fromSlot, toSlot);
-                }
-                break;
-            case WAREHOUSE:
-                if (props.onMoveItemToAdventurer) {
-                    props.onMoveItemToAdventurer(adventurerId, item, fromSlot, toSlot);
-                }
-                break;
-        }
-    };
-
     const renderAdventurerContent = () => {
         if (selectedAdventurer) {
             return (
@@ -150,13 +135,6 @@ const WarehouseStructureView = (props: AllProps) => {
                     adventurerId={selectedAdventurer}
                 />
             );
-            // return (
-            //     <Inventory
-            //         sourceType={WAREHOUSE}
-            //         items={adventurer.inventory}
-            //         
-            //     />
-            // );
         }
         return null;
     };
