@@ -35,6 +35,9 @@ export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState
 
         case GameActionType.gameTick: {
             const resourcesToAdd = (action as GameTickAction).resources;
+            if (resourcesToAdd === null) {
+                return state;
+            }
             return addResources(resourcesToAdd);
         }
     }

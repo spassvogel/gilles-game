@@ -9,6 +9,15 @@ const testState = [
     null,
     Item.dagger,
     Item.deedForWeaponsmith,
+    null,
+    Item.sandwich,
+    Item.sandwich,
+    null,
+    null,
+    Item.torch,
+    Item.torch,
+    null,
+    Item.torch
 ];
 
 // Items in warehouse

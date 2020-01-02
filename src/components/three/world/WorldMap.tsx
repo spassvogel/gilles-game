@@ -1,9 +1,9 @@
 import Controls from "components/three/Controls";
-import Sphere from "components/three/debug/Sphere";
 import DebugInspector from "components/three/DebugInspector";
 import WorldMapTerrain from "components/three/world/WorldMapTerrain";
+import Sphere from "components/three/debug/Sphere";
 import { getDefinition } from "definitions/quests";
-import React, { useRef, useEffect, createRef, RefObject } from "react";
+import React, { useRef, useEffect, createRef, RefObject, useState } from "react";
 import { Canvas } from "react-three-fiber";
 import { QuestStoreState } from "stores/quest";
 import { Camera, Object3D, Vector2, Vector3, Raycaster } from "three";
@@ -36,7 +36,7 @@ export interface DispatchProps {
 type AllProps = Props & DispatchProps;
 
 const WorldMap = (props: AllProps) => {
-    useTraceUpdate(props);
+    //useTraceUpdate(props);
     
     const terrainRef = useRef<Object3D>(null);
     const questCubesRef = useRef(props.activeQuests.map(() => createRef<Object3D>()));  // contains the party cubes
@@ -64,7 +64,7 @@ const WorldMap = (props: AllProps) => {
     const renderParties = () => {
         console.log('rendering parties')
         return props.activeQuests.map((quest, index) => {
-            const questPosition = getQuestWorldPosition(quest);
+            const questPosition = getQuestWorldPosition(quest, terrainRef.current);
             return (
                 <Cube
                     key={quest.name}
@@ -77,23 +77,33 @@ const WorldMap = (props: AllProps) => {
             );
         });
     };
+
+    const [terrainRendered, setTerrainRendered] = useState(false);
     useEffect(() => {
-        // This actually makes the cube pop in so is less than ideal
-        console.log(questCubesRef.current[0].current)
-        questCubesRef.current.map(({current}) => {
-            if (current) {
-                const position = determineY(current.position, terrainRef.current!);
-                current.position.copy(position);
-            }
-        });
-    }, [props.activeQuests, terrainRef]);
+        console.log(terrainRef.current)
+    }, []);
+
+    // useEffect(() => {
+    //     // This actually makes the cube pop in so is less than ideal
+    //     props.activeQuests.forEach((quest, index) => {
+    //         const position = getQuestWorldPosition(quest, terrainRef.current);
+    //         (questCubesRef.current[index].current!).position.copy(position);
+    //     });
+    //     // console.log(questCubesRef.current[0].current)
+    //     // questCubesRef.current.map(({current}) => {
+    //     //     if (current) {
+    //     //         const position = determineY(current.position, terrainRef.current!);
+    //     //         current.position.copy(position);
+    //     //     }
+    //     // });
+    // }, []);
+
     return (
         <Canvas style={{ height: HEIGHT, width: WIDTH }} camera={{ fov: 10 }} >
             <DebugInspector />
             <Controls onCameraMove={handleCameraMove} scrollToPosition={props.scrollToPosition} />
             <WorldMapTerrain rotation={terrainRotation} scale={terrainScale} ref={terrainRef}/>
             <Sphere onClick={handleClick} position={[62, 0, 14]} name="party1" />
-            {/* <Sphere onClick={handleClick} name="party2" /> */}
             { renderParties() }
             <Cube size={[1, 1, 1]} position={[0, 0, 1]} color="blue"/>
             <Cube size={[1, 1, 1]} position={[1, 0, 2]} color="blue"/>
@@ -122,8 +132,8 @@ const unproject = (camera: Camera, screenLocation: Vector2, groundY: number = 0)
     return camera.position.clone().add(direction.multiplyScalar(distance));
 };
 
-// Gets 3d world position of quest. This does not determine the y component as we need to render the terrain first
-const getQuestWorldPosition = (quest: QuestStoreState): Vector3 => {
+// Gets 3d world position of quest. 
+const getQuestWorldPosition = (quest: QuestStoreState, terrain: Object3D|null): Vector3 => {
     const questDefinition = getDefinition(quest.name);
     const roundedProgress = Math.floor(quest.progress);
     const lastPosition = questDefinition.nodes[roundedProgress];
@@ -136,7 +146,12 @@ const getQuestWorldPosition = (quest: QuestStoreState): Vector3 => {
     }
     const nextPostionWorld = new Vector3(nextPosition.x, 0, nextPosition.y);
     const position = lastPositionWorld.lerp(nextPostionWorld, quest.progress - roundedProgress);
-    return position;
+
+    if (!terrain) {
+        return position;
+    }
+    const positionWithY = determineY(position, terrain);
+    return positionWithY;
 };
 
 const DOWN = new Vector3(0, -1, 0);

@@ -309,3 +309,6 @@ THREEJS examples (MIGHT IS RIGHT):
 
 10/12/2019 
 [ ] Can drop items from warehouse onto adventurer    
+
+01/01/2020 rerender of world
+[ ] Figure out why the world gets rerendered on state change of App

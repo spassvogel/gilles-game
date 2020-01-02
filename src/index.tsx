@@ -87,7 +87,7 @@ const runGame = (store: any, persistor: Persistor) => {
         const delta = Date.now() - state.engine.lastTick;
 
         const logs: LogUpdate[] = [];
-        const resourcesUpdates = getProducedResources(delta, state);
+        const resourcesUpdates = getProducedResources(state.engine.lastProducedUpdate, state);
         const rngState = getRngState();
         updateCombat(delta, store);
         const { questUpdates, logUpdates } = getQuestUpdates(delta, state);

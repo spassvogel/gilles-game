@@ -74,27 +74,6 @@ const Controls = (props: Props) => {
       }
     }, false);
 
-    useEffect(() => {
-      const savePosition = () => {
-        if (!mouseDown.current) {
-          return;
-        }
-        props.onCameraMove(camera, controls.current!);
-
-        // todo: save in redux or just here?
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({
-          cam: camera.position,
-          target: controls.current!.target,
-        }));
-
-      };
-      // const interval = setInterval(savePosition, 150);
-      // todo: use requestAnimationFrame https://css-tricks.com/using-requestanimationframe-with-react-hooks/
-      return () => {
-        // clearInterval(interval);
-      };
-    }, [camera.position]);
-
     //
     const mouseDown = useRef<boolean>(false);
     useEffect(() => {
@@ -108,6 +87,7 @@ const Controls = (props: Props) => {
 
       document.addEventListener("mousedown", handleMouseDown);
       document.addEventListener("mouseup", handleMouseUp);
+      
       return () => {
         document.removeEventListener("mousedown", handleMouseDown);
         document.removeEventListener("mouseup", handleMouseUp);

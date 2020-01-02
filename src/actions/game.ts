@@ -10,7 +10,7 @@ export enum ActionType {
 export interface GameTickAction extends Action<ActionType> {
     delta: number;
     rngState: seedrandomStateType | null;
-    resources: ResourceStoreState;
+    resources: ResourceStoreState | null;
     quests: QuestUpdate[];
     log: LogUpdate[];
 }
@@ -20,7 +20,7 @@ export interface GameTickAction extends Action<ActionType> {
 // tslint:disable: align
 export function gameTick(delta: number,
     rngState: seedrandomStateType | null,
-    resources: ResourceStoreState,
+    resources: ResourceStoreState | null,
     quests: QuestUpdate[],
     log: LogUpdate[],
 ): GameTickAction {

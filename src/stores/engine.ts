@@ -2,8 +2,10 @@
 
 export interface EngineStoreState {
     lastTick: number;
+    lastProducedUpdate: number;
 }
 
 export const initialState: EngineStoreState = {
     lastTick: Date.now(),
+    lastProducedUpdate: Date.now()
 };
