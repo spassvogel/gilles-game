@@ -1,4 +1,3 @@
-
 import { ActionType as GameActionType, GameTickAction } from "actions/game";
 import { AnyAction, Reducer } from "redux";
 import { ActionType, AddResources } from "../actions/resources";

@@ -1,4 +1,3 @@
-// tslint:disable:object-literal-sort-keys
 import { LogUpdate, QuestUpdate } from "mechanics/gameTick/quests";
 import { Action } from "redux";
 import { State as seedrandomStateType } from "seedrandom";

@@ -138,7 +138,7 @@ backlog of ideas
 
 29/07/2019 EQUIP GEAR
 [x] Can equip gear from the players inventory
-[ ] Can equip gear from the warehouse
+[x] Can equip gear from the warehouse
 
   head                hands
   shoulders            legs

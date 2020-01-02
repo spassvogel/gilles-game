@@ -10,11 +10,12 @@ import { getDefinition, Structure  } from "definitions/structures";
 import { StructureDefinition } from "definitions/structures/types";
 import usePrevious from "hooks/usePrevious";
 import * as React from "react";
-import { RefObject, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import { empty, ResourceStoreState } from "stores/resources";
 import { TextManager } from "utils/textManager";
 import "./css/warehousestructureview.css";
+import { StructuresStoreState } from 'stores/structures';
 
 export interface DispatchProps {
     onMoveItemInWarehouse: (fromSlot: number, toSlot: number) => void;
@@ -35,6 +36,7 @@ export interface StateProps  {
     gold: number;
     items: Array<Item|null>;
     adventurersInTown: AdventurerStoreState[];
+    structures: StructuresStoreState;
     resources: ResourceStoreState;
     maxResources: ResourceStoreState;
 }
@@ -62,7 +64,7 @@ const WarehouseStructureView = (props: AllProps) => {
         }, {});
 
         setResourcesDelta(delta);
-    }, [props.resources]);
+    }, [props.resources, previousResources]);
 
     useEffect(() => {
         if (!resourcesRef.current) {
@@ -153,6 +155,7 @@ const WarehouseStructureView = (props: AllProps) => {
                 <legend>Resources</legend>
                 <ResourcesBox
                     resources={props.resources}
+                    structures={props.structures}
                     maxResources={props.maxResources}
                     deltaResources={resourcesDelta}
                 />

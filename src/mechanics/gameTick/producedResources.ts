@@ -44,14 +44,13 @@ const getProducedResources = (lastProducedUpdate: number, store: StoreState): Re
     Object.keys(structures).forEach((structure) => handleStructure(structure));
 
     // Check if the warehouse can actually hold it
-    // todo: [10/07/2019] move to reducer
     Object.keys(result).forEach((resource: string) => {
         if (result[resource]) {
             if (store.resources[resource]! + result[resource]! >= maxResources[resource]!) {
                 result[resource] = maxResources[resource]! - (store.resources[resource]!);
             }
         }
-        console.log(`Adding: ${resource} ${result[resource]} factor ${factor}`);
+        //console.log(`Adding: ${resource} ${result[resource]} factor ${factor}`);
     });
 
     return result;

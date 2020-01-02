@@ -31,6 +31,7 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
         level,
         maxResources: levelDefinition.maxResources,
         resources: store.resources,
+        structures: store.structures,
         workers: structureStore.workers,
         workersFree: selectFreeWorkers(store),
     };

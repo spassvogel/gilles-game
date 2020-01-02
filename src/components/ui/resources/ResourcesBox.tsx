@@ -5,10 +5,14 @@ import resourceDescriptions from "definitions/resources";
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
 import { TextManager } from "utils/textManager";
+import { StructuresStoreState } from 'stores/structures';
+import { StructureType } from 'definitions/structures/types';
+import { Structure } from 'definitions/structures';
 
 export interface Props {
     className?: string;
     resources: ResourceStoreState;
+    structures: StructuresStoreState;
     maxResources: ResourceStoreState;
     deltaResources: ResourceStoreState;
 }
@@ -47,6 +51,9 @@ const ResourcesBox = (props: AllProps) => {
                 { `+ ${deltaResources[resource]!.toFixed(2)}`  }
             </span>;
         }
+
+        const structure = getStructure(resource);
+
         return <li className = { listItemClass } key = { resource }>
             <div className = "icon common-icon-smallest" style = {{
                 backgroundImage:  `url(${resourceDescription.iconImg})`,
@@ -63,6 +70,9 @@ const ResourcesBox = (props: AllProps) => {
             <div className = "delta">
                 { delta }
             </div>
+            <div className = "structure"> 
+                { structure }
+            </div>
         </li>;
     });
 
@@ -74,3 +84,21 @@ const ResourcesBox = (props: AllProps) => {
 };
 
 export default ResourcesBox;
+
+const getStructure = (resource: string) : Structure => {
+    switch (resource) {
+        case Resource.fabric:
+            return Structure.weaver;
+        case Resource.food:
+            return Structure.garden;
+        case Resource.iron:
+            return Structure.mine;
+        case Resource.leather:
+            return Structure.tannery;
+        case Resource.stone:
+            return Structure.quarry;
+        case Resource.wood:
+            return Structure.lumberMill;
+    }
+    throw new Error(`Unknown structure for resource ${resource}`);
+}
