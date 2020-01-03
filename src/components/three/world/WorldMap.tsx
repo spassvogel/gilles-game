@@ -7,9 +7,7 @@ import React, { useRef, useEffect, createRef, RefObject, useState } from "react"
 import { Canvas } from "react-three-fiber";
 import { QuestStoreState } from "stores/quest";
 import { Camera, Object3D, Vector2, Vector3, Raycaster } from "three";
-import { MapControls } from "three/examples/jsm/controls/OrbitControls";
 import Cube from "../debug/Cube";
-import Guy from "./Guy";
 import Structure from "./structures/Structure";
 import useTraceUpdate from 'use-trace-update';
 
@@ -18,6 +16,7 @@ const terrainScale = [40, 40, 40];
 const townPos = new Vector3(0, 0, 0);
 const WIDTH = 648;
 const HEIGHT = 690;
+
 export interface Props {
   quests: QuestStoreState[];
   compassCenter: Vector2; // compass center in 2d UI coordinate system
@@ -36,7 +35,7 @@ export interface DispatchProps {
 type AllProps = Props & DispatchProps;
 
 const WorldMap = (props: AllProps) => {
-    //useTraceUpdate(props);
+    useTraceUpdate(props);
     
     const terrainRef = useRef<Object3D>(null);
     const questCubesRef = useRef(props.activeQuests.map(() => createRef<Object3D>()));  // contains the party cubes

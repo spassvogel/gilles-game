@@ -8,6 +8,15 @@ import { StructuresStoreState } from "stores/structures";
 import { MusicTrack, SoundManager } from "utils/soundManager";
 import { TextManager } from "utils/textManager";
 import "./css/townView.css";
+import { useEffect } from 'react';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    //useRouteMatch,
+    //useParams
+  } from "react-router-dom";
 
 // It's actually not the *real* town view hihi
 // tslint:disable-next-line:no-empty-interface
@@ -24,49 +33,22 @@ export interface StateProps {
     // tasks: TaskStoreState[];
 }
 
+//   let match = useRouteMatch(); 
+// https://reacttraining.com/react-router/web/guides/quick-start
+
 // tslint:disable-next-line:no-empty-interface
 interface LocalState {}
 
 type AllProps = Props & DispatchProps & StateProps & AppContextProps;
 
-class RealTownView extends React.Component<AllProps, LocalState> {
+const RealTownView = (props: AllProps) => {
 
-    private anim?: Konva.Animation = undefined;
+    //let match = useRouteMatch(); 
 
-    constructor(props: AllProps) {
-        super(props);
-        this.state = {
-            images: {},
-        };
-
+    useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.town, "sound/music/Soliloquy.mp3");
-    }
-
-    public componentDidMount() {
-        this.playMusic();
-
-        /*        const period = 500;
-        if (this.plasmaBeam) {
-            this.plasmaBeam.filters([Konva.Filters.Brighten]);
-            //this.plasmaBeam.cache(null);
-            this.anim = new Konva.Animation((frame: any) => {
-                if (this.plasmaBeam){
-                const freq = 2; // speed
-                const brightness = (Math.sin((frame.time / period) * freq) + 1) / 2;   // fluctuate between 0 and 1
-                this.plasmaBeam.brightness(brightness);
-                //this.plasmaBeam.cache(null);
-                this.plasmaBeam.fillPatternOffsetX(this.plasmaBeam.fillPatternOffsetX() - 150);
-                }
-            }, this.plasmaBeam.getLayer());
-
-            this.anim.start();
-        }*/
-    }
-
-    public componentWillUnmount() {
-        if (this.anim) { this.anim.stop(); }
-        delete this.anim;
-    }
+        SoundManager.playMusicTrack(MusicTrack.town);
+    }, []);
 
     // public changeSize(node: Konva.Node) {
     //     node.to({
@@ -76,118 +58,16 @@ class RealTownView extends React.Component<AllProps, LocalState> {
     //     });
     // }
 
-    public render() {
-        const structures = Object.keys(Structure).map((structure, index) => {
-            const structureDef = getDefinition(structure);
-            const structureStore: StructureStoreState = this.props.structures[structure];
-            if (structureStore.state === StructureState.NotBuilt) {
-                return null;
-            }
-            const levelDef = structureDef.levels[structureStore.level];
-            const displayName = TextManager.get(levelDef.displayName);
-
-            return <Text name= { structure }
-                key = { structure }
-                text = { `█ ${displayName} (level ${structureStore.level + 1})` }
-                x = { 100 }
-                y = { 90 * index + 100 }
-                fontSize = { 80 }
-                fill = { "white" }
-                onClick = { this.handleStructureClick }
-            />;
-        });
-        // tslint:disable-next-line:no-console
-        console.log(`rendered the town`); // TODO: remove
-
-        return (
-            <Stage width={1024} height={768} scale= { {x: 0.4, y: 0.4} }>
-            <Layer name="background" onClick = { this.handleBackgroundClick } >
-                <Image image={ this.imgSrc("img/town/sky.jpg") }></Image>
-            </Layer>
-            <Layer name="town">
-                {/* <Rect
-                    x={20}
-                    y={20}
-                    width={50}
-                    height={50}
-                    fill={ "white"}
-
-                    // onClick={this.handleClick}
-                /> */}
-                {/* <Rect
-                     PLASMA BEAM
-                    x={20}
-                    y={20}
-                    width={1500}
-                    height={256}
-                    fillPatternImage = { this.imgSrc("img/town/effects/plasma_beam_heavy_green.png") }
-                    fillPatternOffset = { { x: 20, y: 0 }}
-                    globalCompositeOperation = "lighter"
-                    shadowBlur={5}
-                    ref = { (node: Konva.Rect) => this.plasmaBeam = node }
-                /> */}
-                   <Image
-                        name = "warehouse"
-                        image={ this.imgSrc("img/town/tavern.png") }
-                        x = { 15 }
-                        y = { 1057 }
-                        // stroke = "blue"
-                        shadowBlur={15}
-                        shadowColor = "red"
-                        shadowEnabled = { true }
-                        strokeWidth = { 30 }
-                        // onClick = { this.handleStructureClick }
-                        // draggable
-                        // onDragEnd= { this.handleDragEnd }
-                        // ref={ (node) => { this.convaImages.tavern = node!; }}
-                        ref={ (node: Konva.Image) => { drawHitFromCache(node); }}
-                    />
-
-                    <Image
-                        name = { Structure.warehouse }
-                        image={ this.imgSrc("img/town/lighthouse.png") }
-                        // onClick = { this.handleStructureClick }
-
-                        ref={ (node: Konva.Image) => { drawHitFromCache(node); }}
-                    />
-                    <Image
-                        name = "lumberMill"
-                        image = { this.imgSrc("img/town/mill.png") }
-                        x = { 947 }
-                        y = { 1384 }
-                        // stroke = "blue"
-                        shadowBlur={15}
-                        // shadowColor = "red"
-                        // shadowEnabled = { true }
-                        // strokeWidth = { 30 }
-                        // onClick = { this.handleStructureClick }
-                        // draggable
-                        // onDragEnd= { this.handleDragEnd }
-                        ref={ (node: Konva.Image) => { drawHitFromCache(node); }}
-                    />
-                    { structures }
-
-                    </Layer>
-                    {/* <SmokeEmitter
-                        emitterX = { 190 }
-                        emitterY = { 510 }
-                        smokeImg = { this.imgSrc("img/town/effects/smoke.png") }
-                    /> */}
-
-            </Stage>
-        );
+    const handleStructureClick = (evt: Konva.KonvaEventObject<PointerEvent>) => {
+        if (props.onStructureClick) { props.onStructureClick( Structure[evt.target.name()]); }
     }
 
-    public handleStructureClick = (evt: Konva.KonvaEventObject<PointerEvent>) => {
-        if (this.props.onStructureClick) { this.props.onStructureClick( Structure[evt.target.name()]); }
+    const handleBackgroundClick = () => {
+        if (props.onStructureClick) { props.onStructureClick(null); }
     }
 
-    public handleBackgroundClick = () => {
-        if (this.props.onStructureClick) { this.props.onStructureClick(null); }
-    }
-
-    private imgSrc(url: string): HTMLImageElement {
-        const result = this.props.media!.find((m) => m.url === url);
+    const imgSrc = (url: string): HTMLImageElement => {
+        const result = props.media!.find((m) => m.url === url);
         if (result === undefined) {
             throw Error(`Could not find image with url ${url}`);
         } else {
@@ -195,9 +75,83 @@ class RealTownView extends React.Component<AllProps, LocalState> {
         }
     }
 
-    private playMusic() {
-        SoundManager.playMusicTrack(MusicTrack.town);
-    }
+
+    const structures = Object.keys(Structure).map((structure, index) => {
+        const structureDef = getDefinition(structure);
+        const structureStore: StructureStoreState = props.structures[structure];
+        if (structureStore.state === StructureState.NotBuilt) {
+            return null;
+        }
+        const levelDef = structureDef.levels[structureStore.level];
+        const displayName = TextManager.get(levelDef.displayName);
+
+        return <Text name= { structure }
+            key = { structure }
+            text = { `█ ${displayName} (level ${structureStore.level + 1})` }
+            x = { 100 }
+            y = { 90 * index + 100 }
+            fontSize = { 80 }
+            fill = { "white" }
+            onClick = { handleStructureClick }
+        />;
+    });
+
+    return (
+        <Stage width={1024} height={768} scale= { {x: 0.4, y: 0.4} }>
+        <Layer name="background" onClick = { handleBackgroundClick } >
+            <Image image={ imgSrc("img/town/sky.jpg") }></Image>
+        </Layer>
+        <Layer name="town">
+                <Image
+                    name = "warehouse"
+                    image={ imgSrc("img/town/tavern.png") }
+                    x = { 15 }
+                    y = { 1057 }
+                    // stroke = "blue"
+                    shadowBlur={15}
+                    shadowColor = "red"
+                    shadowEnabled = { true }
+                    strokeWidth = { 30 }
+                    // onClick = { handleStructureClick }
+                    // draggable
+                    // onDragEnd= { handleDragEnd }
+                    // ref={ (node) => { convaImages.tavern = node!; }}
+                    ref={ (node: Konva.Image) => { drawHitFromCache(node); }}
+                />
+
+                <Image
+                    name = { Structure.warehouse }
+                    image={ imgSrc("img/town/lighthouse.png") }
+                    // onClick = { handleStructureClick }
+
+                    ref={ (node: Konva.Image) => { drawHitFromCache(node); }}
+                />
+                <Image
+                    name = "lumberMill"
+                    image = { imgSrc("img/town/mill.png") }
+                    x = { 947 }
+                    y = { 1384 }
+                    // stroke = "blue"
+                    shadowBlur={15}
+                    // shadowColor = "red"
+                    // shadowEnabled = { true }
+                    // strokeWidth = { 30 }
+                    // onClick = { handleStructureClick }
+                    // draggable
+                    // onDragEnd= { handleDragEnd }
+                    ref={ (node: Konva.Image) => { drawHitFromCache(node); }}
+                />
+                { structures }
+
+                </Layer>
+                {/* <SmokeEmitter
+                    emitterX = { 190 }
+                    emitterY = { 510 }
+                    smokeImg = { imgSrc("img/town/effects/smoke.png") }
+                /> */}
+
+        </Stage>
+    );
 }
 
 const drawHitFromCache = (img: Konva.Image) => {

@@ -32,22 +32,18 @@ const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
 /**
  * The AdventurerAvatar displays the avatar of an adventurer in the party screen
  */
-class DroppableAdventurerAvatar extends React.Component<Props & DropSourceProps> {
-    public render() {
-        const {
-            connectDropTarget,
-        } = this.props;
-        // const isActive = isOver && canDrop;
+ 
+const DroppableAdventurerAvatar = (props: Props & DropSourceProps) => {
+    const { connectDropTarget } = props;
 
-        return connectDropTarget(
-            <div className="droppable-adventurer-avatar">
-                <AdventurerAvatar
-                    adventurer = { this.props.adventurer }
-                    onClick = { this.props.onClick }
-                />
-            </div>,
-        );
-    }
+    return connectDropTarget(
+        <div className="droppable-adventurer-avatar">
+            <AdventurerAvatar
+                adventurer = { props.adventurer }
+                onClick = { props.onClick }
+            />
+        </div>,
+    );
 }
 
 export default DropTarget<Props, DropSourceProps>(

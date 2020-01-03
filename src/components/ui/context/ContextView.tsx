@@ -20,49 +20,31 @@ type AllProps = Props & DispatchProps & PopupProps;
  * The ContextView shows the player contextual information about the item she clicked
  * @param props
  */
-class ContextView extends React.Component<AllProps> {
+const ContextView = (props: AllProps) => {
+    let { info } = props;
+    const { type } = props;
 
-    public render() {
-        let { info } = this.props;
-        const { type } = this.props;
+    if (!info) {
+        info = {
+            iconImg: "/img/items/deeds/deed.png",
+            item: Item.deedForWeaponsmith,
+            itemType: ItemType.weapon,
+            subText: "It allows for the construction of a weaponsmith",
+        };
+    }
+    let content;
 
-        if (!info) {
-            info = {
-                iconImg: "/img/items/deeds/deed.png",
-                item: Item.deedForWeaponsmith,
-                itemType: ItemType.weapon,
-                subText: "It allows for the construction of a weaponsmith",
-            };
-        }
-        let content;
-
-        switch (type) {
-            case ContextType.item:
-            default:
-                content = <ItemContext info= { info } />;
-        }
-
-        const name = TextManager.getItemName(info.item);
-        return <div className = "contextbox">
-            <div>{ name } </div>
-            { content }
-        </div>;
+    switch (type) {
+        case ContextType.item:
+        default:
+            content = <ItemContext info= { info } />;
     }
 
-    public componentDidUpdate() {
-    //    // console.log(this.containerRef.current)
-    //     //console.log(this.props.origin)
-
-    //     if (this.containerRef.current && this.props.origin) {
-    //        // var rect = (this.props.origin as HTMLElement).getBoundingClientRect();
-    //        // console.log(rect)
-    //         const reference = this.props.origin as Element;
-
-    //         const popperInstance = new Popper(reference, this.containerRef.current
-    //             // popper options here
-    //         );
-    //     }
-    }
+    const name = TextManager.getItemName(info.item);
+    return <div className = "contextbox">
+        <div>{ name } </div>
+        { content }
+    </div>;
 }
 
 export default withPopup<AllProps>(ContextView);

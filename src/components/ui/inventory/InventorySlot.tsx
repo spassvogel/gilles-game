@@ -23,6 +23,7 @@ export interface Props {
     item: Item | null;
     onDrop: (item: any) => void;
     size?: IconSize;
+    children: React.ReactNode;
 }
 
 export interface DropSourceProps {
@@ -40,32 +41,30 @@ const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
 /**
  * The InventorySlot displays a slot in which an item can be placed.
  */
-class InventorySlot extends React.Component<Props & DropSourceProps> {
-    public render() {
-        const {
-            isOver,
-            canDrop,
-            connectDropTarget,
-        } = this.props;
-        const isActive = isOver && canDrop;
+const InventorySlot = (props: Props & DropSourceProps) => {
+    const {
+        isOver,
+        canDrop,
+        connectDropTarget,
+    } = props;
+    const isActive = isOver && canDrop;
 
-        const classNames = [
-            "inventory-item",
-            getClassName(this.props.size),
-        ];
+    const classNames = [
+        "inventory-item",
+        getClassName(props.size),
+    ];
 
-        if (isActive) {
-            classNames.push("drop-active");
-        } else if (canDrop) {
-            classNames.push("drop-possible");
-        }
-
-        return connectDropTarget(
-            <div className = { classNames.join(" ") }>
-                { this.props.children }
-            </div>,
-        );
+    if (isActive) {
+        classNames.push("drop-active");
+    } else if (canDrop) {
+        classNames.push("drop-possible");
     }
+
+    return connectDropTarget(
+        <div className = { classNames.join(" ") }>
+            { props.children }
+        </div>,
+    );
 }
 
 export default DropTarget<Props, DropSourceProps>(

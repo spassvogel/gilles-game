@@ -6,7 +6,7 @@ import { getDefinition as getEncounterDefinition } from "definitions/encounters"
 import { EncounterDefinition } from "definitions/encounters/types";
 import { getDefinition as getQuestDefinition, QuestDefinition, QuestNode, QuestNodeType } from "definitions/quests";
 import { AppContextProps } from "hoc/withAppContext";
-import React from "react";
+import React, { useState } from "react";
 import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "stores";
 import { AdventurerStoreState } from "stores/adventurer";
@@ -39,98 +39,72 @@ interface LocalState {
 type AllProps = Props & StateProps & DispatchProps & AppContextProps;
 
 // export default
-class PartyWindow extends React.Component<AllProps, LocalState> {
+const PartyWindow = (props: AllProps) => {
 
-    // This Component has local state, so it's a class
-    constructor(props: AllProps) {
-        super(props);
-        this.state = {
-            selectedAdventurer: null,
-        };
-    }
+    const [selectedAdventurer, setSelectedAdventurer] = useState<string | null>(null);
 
-    public render() {
-        return (
-            <div className = "partywindow">
-                <div className = "avatars">
-                    { this.getAvatars() }
-                </div>
-                { this.getBottomPart() }
-            </div>
-        );
-    }
+    // public componentDidUpdate(prevProps: Props) {
+    //     if (prevProps.quest !== props.quest) {
+    //         // The active quest has changed, so it doesn't make sense to keep any adventurer selected
+    //         setState({
+    //             selectedAdventurer: null,
+    //         });
+    //     }
+    // }
 
-    public componentDidUpdate(prevProps: Props) {
-        if (prevProps.quest !== this.props.quest) {
-            // The active quest has changed, so it doesn't make sense to keep any adventurer selected
-            this.setState({
-                selectedAdventurer: null,
-            });
-        }
-    }
-
-    private getAdventurerInfo(adventurer: AdventurerStoreState): any {
-        if (!adventurer) {
-            return null;
-        }
-        return <AdventurerInfo adventurerId = { adventurer.id } />;
-    }
-
-    private handleAvatarClick(adventurerId: string | null): void {
-        if (this.state.selectedAdventurer === adventurerId) {
+    const handleAvatarClick = (adventurerId: string | null): void => {
+        if (selectedAdventurer === adventurerId) {
             adventurerId = null;
         }
-        this.setState({
-            selectedAdventurer: adventurerId,
-        });
+        setSelectedAdventurer(adventurerId);
     }
 
-    private handleEncounterOptionClick(encounter: EncounterDefinition, option: string, oracle: any): any {
-        const result = encounter.answer(option, oracle, this.props.onDispatch);
+    const handleEncounterOptionClick = (encounter: EncounterDefinition, option: string, oracle: any): any => {
+        const result = encounter.answer(option, oracle, props.onDispatch);
 
-        /*if (!isEqual(questVars, this.props.quest.questVars)){
-            this.props.onUpdateQuestVars(questVars);
+        /*if (!isEqual(questVars, props.quest.questVars)){
+            props.onUpdateQuestVars(questVars);
         }*/
-        this.props.onUpdateEncounterResult(this.props.quest.progress, result);
-       // this.props.onAdvanceQuest(this.props.quest.name);
+        props.onUpdateEncounterResult(props.quest.progress, result);
+       // props.onAdvanceQuest(props.quest.name);
     }
 
-    private getAvatars = () => {
-        return this.props.adventurers.map((adventurer: AdventurerStoreState) => {
+    const getAvatars = () => {
+        return props.adventurers.map((adventurer: AdventurerStoreState) => {
             const handleDropItem = (dragInfo: InventoryItemDragInfo) => {
-                const fromAdventurer = this.state.selectedAdventurer!; // The adventurer that has the item
+                const fromAdventurer = selectedAdventurer!; // The adventurer that has the item
                 if (adventurer.id === fromAdventurer) {
                     // Dropping on yourself.. nothing happens
                     return;
                 }
 
-                if (this.props.onMoveItemToOtherAdventurer) {
+                if (props.onMoveItemToOtherAdventurer) {
                     const {
                         inventorySlot: fromSlot,
                     } = dragInfo;
-                    this.props.onMoveItemToOtherAdventurer(fromAdventurer, fromSlot!, adventurer.id);
+                    props.onMoveItemToOtherAdventurer(fromAdventurer, fromSlot!, adventurer.id);
                 }
             };
 
-            const selected = this.state.selectedAdventurer === adventurer.id;
+            const selected = selectedAdventurer === adventurer.id;
             return <DroppableAdventurerAvatar
                 key = { `${adventurer.id}-avatar` }
                 className = { (selected ? " selected" : "") }
                 adventurer = { adventurer }
-                onClick = { () => this.handleAvatarClick(adventurer.id) }
+                onClick = { () => handleAvatarClick(adventurer.id) }
                 onDrop = { handleDropItem }
             />;
         });
     }
 
-    private getBottomPart = () => {
+    const getBottomPart = () => {
 
-        if (this.state.selectedAdventurer) {
-            const adventurer: AdventurerStoreState = this.props.adventurers
-                .find((a) => a.id === this.state.selectedAdventurer)!;
-            return this.getAdventurerInfo(adventurer);
+        if (selectedAdventurer) {
+            const adventurer: AdventurerStoreState = props.adventurers
+                .find((a) => a.id === selectedAdventurer)!;
+            return <AdventurerInfo adventurerId = { adventurer.id } />;
         } else {
-            const quest = this.props.quest;
+            const quest = props.quest;
             const questDefinition: QuestDefinition = getQuestDefinition(quest.name);
             const progress: number = Math.floor(quest.progress);
             const questNode: QuestNode = questDefinition.nodes[progress];
@@ -141,7 +115,7 @@ class PartyWindow extends React.Component<AllProps, LocalState> {
             switch (questNode.type) {
                 case QuestNodeType.nothing: {
                     message = <div> {
-                        this.props.lastLog && TextManager.getTextEntry(this.props.lastLog)
+                        props.lastLog && TextManager.getTextEntry(props.lastLog)
                     } </div>;
                     break;
                 }
@@ -150,7 +124,7 @@ class PartyWindow extends React.Component<AllProps, LocalState> {
                     //     message = <p> { quest.encounterResults[quest.progress] } </p>;
                     //     break;
                     // }
-                    const store = this.props.store;
+                    const store = props.store;
                     const encounter = getEncounterDefinition(quest.currentEncounter!);
                     const oracle = encounter.getOracle(quest.name, store);
                     const descriptionTextEntry = encounter.getDescription(oracle);
@@ -162,7 +136,7 @@ class PartyWindow extends React.Component<AllProps, LocalState> {
 
                     actions = <ul>
                         { Object.keys(options).map((o) => <li key={ o }>
-                            <button onClick= { () => this.handleEncounterOptionClick(encounter, o, oracle) }>
+                            <button onClick= { () => handleEncounterOptionClick(encounter, o, oracle) }>
                                 { o }
                             </button>{ options[o]}
                         </li>)}
@@ -185,6 +159,16 @@ class PartyWindow extends React.Component<AllProps, LocalState> {
             </div>);
         }
     }
+
+    return (
+        <div className = "partywindow">
+            <div className = "avatars">
+                { getAvatars() }
+            </div>
+            { getBottomPart() }
+        </div>
+    );
 }
+
 
 export default PartyWindow;

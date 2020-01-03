@@ -30,27 +30,25 @@ const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
 
 /*
  * Can drop adventurers on this */
-class DroppableAdventurerSlot extends React.Component<Props & DropSourceProps> {
-    public render() {
-        const {
-            isOver,
-            canDrop,
-            connectDropTarget,
-        } = this.props;
-        // const isActive = isOver && canDrop;
-        let className = "droppable-adventurer-slot";
+const DroppableAdventurerSlot = (props: Props & DropSourceProps) => {
+    const {
+        isOver,
+        canDrop,
+        connectDropTarget,
+    } = props;
+    // const isActive = isOver && canDrop;
+    let className = "droppable-adventurer-slot";
 
-        if (isOver) {
-            className += " active-drop";
-        } else if (canDrop) {
-            className += " can-drop";
-        }
-
-        return connectDropTarget(
-            <div className = { className }>
-            </div>,
-        );
+    if (isOver) {
+        className += " active-drop";
+    } else if (canDrop) {
+        className += " can-drop";
     }
+
+    return connectDropTarget(
+        <div className = { className }>
+        </div>,
+    );
 }
 
 export default DropTarget<Props, DropSourceProps>(

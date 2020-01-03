@@ -1,14 +1,11 @@
 import { AppContext } from "components/App";
 import WorldMap from "components/three/world/WorldMap";
 import PartyWindow from "containers/windows/PartyWindow";
-import { getDefinition } from "definitions/quests";
-import { AppContextProps } from "hoc/withAppContext";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 import { Vector2 } from "three";
 import { MusicTrack, SoundManager } from "utils/soundManager";
 import { TextManager } from "utils/textManager";
-import QuestLineVisualization from "../world/QuestLineVisualization";
 import "./css/realworldview.css";
 
 // tslint:disable-next-line:no-empty-interface
@@ -35,14 +32,32 @@ type AllProps = Props & StateProps & DispatchProps;
  */
 const RealWorldView = (props: AllProps) => {
     const compassRef = useRef<HTMLDivElement>(null);
+    const worldMapRef = useRef<HTMLDivElement>(null);
     const [scrollToPosition, setScrollToPosition] = useState<Vector2>();
     const [selectedQuest, setSelectedQuest] = useState<string>();
 
     const context = React.useContext(AppContext)!;
 
+    const mouseout = () => {
+        // todo: 2/01/2020 disable threejs controller when leaving map area
+        console.log('mouseout - disable threejs controller');
+    }
+
+    const mouseover = () => {
+        console.log('mouseon - enable threejs controller');
+    }
+
     useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.world, "sound/music/TheLoomingBattle.ogg");
         SoundManager.playMusicTrack(MusicTrack.world);
+
+        (worldMapRef.current!).addEventListener('mouseout', mouseout);
+        (worldMapRef.current!).addEventListener('mouseover', mouseover);
+
+        return () => {
+            (worldMapRef.current!).removeEventListener('mouseout', mouseout);
+            (worldMapRef.current!).removeEventListener('mouseover', mouseover);    
+        };
     }, []);
 
     const handleMapMove = (distance: number, angle: number) => {
@@ -73,8 +88,10 @@ const RealWorldView = (props: AllProps) => {
         return props.quests.filter((q) => q.status === QuestStatus.active);
     }, [props.quests]);
 
+    
+
     return (
-        <div className="realworldview">
+        <div className="realworldview" ref={worldMapRef}>
             <div className="compass" ref={compassRef} onClick={handleCompassClick}>
                 <div className="distance"></div>
             </div>

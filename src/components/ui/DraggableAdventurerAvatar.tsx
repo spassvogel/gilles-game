@@ -46,31 +46,29 @@ function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
     };
 }
 
-class DraggableAdventurerAvatar extends React.Component<Props & CollectedProps & AdventurerAvatarProps> {
+const DraggableAdventurerAvatar = (props: Props & CollectedProps & AdventurerAvatarProps) => {
 
-    public render() {
-        const { isDragging, connectDragSource, disabled } = this.props;
-        let className = "draggable-adventurer-avatar";
-        if (disabled) {
-            className += " disabled";
-        }
-        if (isDragging) {
-            className += " dragging";
-        }
-
-        /*if (isDragging) {
-            // TODO: can show some sort of empty state?
-            return null;
-        }*/
-        return connectDragSource(
-            <div className = { className }>
-                <AdventurerAvatar
-                    // Copy all props down to AdventurerAvatar
-                    { ...this.props }
-                />
-            </div>,
-        );
+    const { isDragging, connectDragSource, disabled } = props;
+    let className = "draggable-adventurer-avatar";
+    if (disabled) {
+        className += " disabled";
     }
+    if (isDragging) {
+        className += " dragging";
+    }
+
+    /*if (isDragging) {
+        // TODO: can show some sort of empty state?
+        return null;
+    }*/
+    return connectDragSource(
+        <div className = { className }>
+            <AdventurerAvatar
+                // Copy all props down to AdventurerAvatar
+                { ...props }
+            />
+        </div>,
+    );
 }
 
 export default DragSource<Props & AdventurerAvatarProps, CollectedProps>(DragType.ADVENTURER, spec, collect)(DraggableAdventurerAvatar);

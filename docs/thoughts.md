@@ -312,3 +312,6 @@ THREEJS examples (MIGHT IS RIGHT):
 
 01/01/2020 rerender of world
 [ ] Figure out why the world gets rerendered on state change of App
+
+2/01/2020 disable threejs controller
+[ ] You cant scroll the 

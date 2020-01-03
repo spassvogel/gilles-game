@@ -9,6 +9,7 @@ import { TextManager } from "utils/textManager";
 import "./css/adventurersbox.css";
 import AdventurerAvatar from "./ui/AdventurerAvatar";
 import Inventory from "./ui/inventory/Inventory";
+import { useState } from 'react';
 
 export interface DispatchProps {
     onMoveItemInInventory?: (adventurerId: string, fromSlot: number, toSlot: number) => void;
@@ -33,105 +34,94 @@ type AllProps = Props & StateProps & DispatchProps;
 /**
  * Adventurers grouped by quest
  */
-class AdventurersBox extends React.Component<AllProps, LocalState> {
+const AdventurersBox = (props: AllProps) => {
+    
+    const [selectedAdventurer, setSelectedAdventurer] = useState<string | null>();
 
-    constructor(props: AllProps) {
-        super(props);
+    const generateRow = (group: string, adventurers: AdventurerStoreState[]): JSX.Element => {
+        // group is either the string "solo" or a partyId
+        const adventurer = adventurers
+            .find((adventurer) => adventurer.id === selectedAdventurer);
+        let adventurerInfo = null;
 
-        this.state = {
-            selectedAdventurer: null,
-        };
-    }
-
-    public render() {
-
-        const generateRow = (group: string, adventurers: AdventurerStoreState[]): JSX.Element => {
-            // group is either the string "solo" or a partyId
-            const selectedAdventurer = adventurers
-                .find((adventurer) => adventurer.id === this.state.selectedAdventurer);
-            let adventurerInfo = null;
-            if (selectedAdventurer) {
-                const handleDropItem = (item: Item, fromSlot: number,
-                                        toSlot: number, sourceType: DragSourceType): void => {
-                    switch (sourceType) {
-                        case DragSourceType.adventurerInventory:
-                            if (this.props.onMoveItemInInventory) {
-                                this.props.onMoveItemInInventory(selectedAdventurer.id, fromSlot, toSlot);
-                            }
-                            break;
-                        case DragSourceType.warehouse:
-                            if (this.props.onMoveItemFromWarehouseToAdventurer) {
-                                this.props.onMoveItemFromWarehouseToAdventurer(selectedAdventurer.id,
-                                    item, fromSlot, toSlot);
-                            }
-                            break;
-                    }
-                };
-                adventurerInfo = <div className="adventurer-info">
-                    <div>{ selectedAdventurer.name } </div>
-                    <div className="adventurer-info-container">
-                        <div className="equipment">
-                            <br />
-                            [ TODO: GEAR ]
-                        </div>
-                        <Inventory
-                            items = { selectedAdventurer.inventory }
-                            sourceId = { selectedAdventurer.id }
-                            sourceType = { DragSourceType.adventurerInventory}
-                            onDropItem = { handleDropItem }
-                        />
-                    </div>
-                </div>;
-            }
-
-            const quest = this.props.quests.find((q) => q.name === group);
-            let name = "";
-            let sigilImgPath = "";
-            if (quest) {
-                sigilImgPath = `img/sigils/${ quest.icon }`;
-                name = TextManager.getQuestTitle(quest.name);
-            }
-            return <li key = { group } className = { "group" }>
-                <div
-                    className = "sigil"
-                    style = { { backgroundImage: `url(${sigilImgPath})`} }
-                ></div>
-                <span className = "title" title = { name }> { name } </span>
-                <ul className = "adventurer-portraits">
-                { adventurers.map((adventurer) => generatePortrait(adventurer)) }
-                </ul>
-                { adventurerInfo }
-            </li>;
-        };
-
-        const generatePortrait = (adventurer: AdventurerStoreState) => {
-            const handleClick = () => {
-                const selectedAdventurer = this.state.selectedAdventurer === adventurer.id ? null : adventurer.id;
-                this.setState({
-                    selectedAdventurer,
-                });
+        if (adventurer) {
+            const handleDropItem = (item: Item, fromSlot: number,
+                                    toSlot: number, sourceType: DragSourceType): void => {
+                switch (sourceType) {
+                    case DragSourceType.adventurerInventory:
+                        if (props.onMoveItemInInventory) {
+                            props.onMoveItemInInventory(selectedAdventurer!, fromSlot, toSlot);
+                        }
+                        break;
+                    case DragSourceType.warehouse:
+                        if (props.onMoveItemFromWarehouseToAdventurer) {
+                            props.onMoveItemFromWarehouseToAdventurer(selectedAdventurer!,
+                                item, fromSlot, toSlot);
+                        }
+                        break;
+                }
             };
-            const className = adventurer.id === this.state.selectedAdventurer ? "selected" : undefined;
-            return <li key={ adventurer.id } className={ className } >
-                <AdventurerAvatar adventurer= { adventurer } onClick={ handleClick } />
-            </li>;
-        };
+            adventurerInfo = <div className="adventurer-info">
+                <div>{ adventurer!.name } </div>
+                <div className="adventurer-info-container">
+                    <div className="equipment">
+                        <br />
+                        [ TODO: GEAR ]
+                    </div>
+                    <Inventory
+                        items = { adventurer.inventory }
+                        sourceId = { selectedAdventurer! }
+                        sourceType = { DragSourceType.adventurerInventory}
+                        onDropItem = { handleDropItem }
+                    />
+                </div>
+            </div>;
+        }
 
-        const generateRows = () => {
-            const rows = Object.keys(this.props.groupedAdventurers)
-                .map((group) => generateRow(group, this.props.groupedAdventurers[group]));
-            return rows;
-        };
+        const quest = props.quests.find((q) => q.name === group);
+        let name = "";
+        let sigilImgPath = "";
+        if (quest) {
+            sigilImgPath = `img/sigils/${ quest.icon }`;
+            name = TextManager.getQuestTitle(quest.name);
+        }
+        return <li key = { group } className = { "group" }>
+            <div
+                className = "sigil"
+                style = { { backgroundImage: `url(${sigilImgPath})`} }
+            ></div>
+            <span className = "title" title = { name }> { name } </span>
+            <ul className = "adventurer-portraits">
+            { adventurers.map((adventurer) => generatePortrait(adventurer)) }
+            </ul>
+            { adventurerInfo }
+        </li>;
+    };
 
-        return (
-            <div className="adventurers-box">
-                <h3>Adventurers</h3>
-                <ul>
-                { generateRows() }
-                </ul>
-            </div>
-        );
-    }
+    const generatePortrait = (adventurer: AdventurerStoreState) => {
+        const handleClick = () => {
+            setSelectedAdventurer(selectedAdventurer === adventurer.id ? null : adventurer.id);
+        };
+        const className = adventurer.id === selectedAdventurer ? "selected" : undefined;
+        return <li key={ adventurer.id } className={ className } >
+            <AdventurerAvatar adventurer= { adventurer } onClick={ handleClick } />
+        </li>;
+    };
+
+    const generateRows = () => {
+        const rows = Object.keys(props.groupedAdventurers)
+            .map((group) => generateRow(group, props.groupedAdventurers[group]));
+        return rows;
+    };
+
+    return (
+        <div className="adventurers-box">
+            <h3>Adventurers</h3>
+            <ul>
+            { generateRows() }
+            </ul>
+        </div>
+    );
 }
 
 export default AdventurersBox;

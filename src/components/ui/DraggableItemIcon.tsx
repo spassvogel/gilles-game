@@ -52,29 +52,27 @@ function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
     };
 }
 
-class DraggableItemIcon extends React.Component<Props & CollectedProps > {
+const DraggableItemIcon = (props: Props & CollectedProps) => {   
 
-    public render() {
-        const { item, onClick, isDragging, connectDragSource, size } = this.props;
-        const handleClick = (event: React.MouseEvent) => {
-            if (onClick) {
-                onClick(event);
-            }
-        };
-        if (isDragging) {
-            // TODO: can show some sort of empty state?
-            return null;
+    const { item, onClick, isDragging, connectDragSource, size } = props;
+    const handleClick = (event: React.MouseEvent) => {
+        if (onClick) {
+            onClick(event);
         }
-        return connectDragSource((
-            <div>
-                <ItemIcon
-                    item={item}
-                    onClick={handleClick}
-                    size={size}
-                />
-            </div>
-        ));
+    };
+    if (isDragging) {
+        // TODO: can show some sort of empty state?
+        return null;
     }
+    return connectDragSource((
+        <div>
+            <ItemIcon
+                item={item}
+                onClick={handleClick}
+                size={size}
+            />
+        </div>
+    ));
 }
 
 export default DragSource<Props, CollectedProps>(DragType.ITEM, source, collect)(DraggableItemIcon);

@@ -20,30 +20,19 @@ interface LocalState {
 }
 
 type AllProps = Props & StateProps & DispatchProps & WindowProps;
-class Menu extends React.Component<AllProps & AppContextProps, LocalState> {
+const Menu = (props: AllProps & AppContextProps) => {
 
-    constructor(props: AllProps & AppContextProps) {
-        super(props);
-
-        this.state = {
-        };
-    }
-
-    public render() {
-
-        const handleClickCheats = () => {
-            const window = <CheatWindow title = "Cheats" />;
-            this.props.onOpenWindow(window);
-        };
-        return (
-            <div className="menu">
-                <ul>
-                    <li onClick = { handleClickCheats }>Cheats!</li>
-                </ul>
-            </div>
-        );
-    }
-
+    const handleClickCheats = () => {
+        const window = <CheatWindow title = "Cheats" />;
+        props.onOpenWindow(window);
+    };
+    return (
+        <div className="menu">
+            <ul>
+                <li onClick = { handleClickCheats }>Cheats!</li>
+            </ul>
+        </div>
+    );
 }
 
 export default compose(

@@ -1,11 +1,13 @@
 import { Howl } from "howler";
 import * as React from "react";
 import Indicator from "./Indicator";
+import { useState, useEffect } from 'react';
 
 // https://medium.com/@jchiam/publishing-a-typescript-react-component-to-npm-d3cc15b8d0a2
 export interface Props {
     manifest: string[];
     onLoadComplete?: (mediaItems: MediaItem[]) => void;
+    children: any;
 }
 
 export enum MediaType {
@@ -20,90 +22,40 @@ export interface MediaItem {
     sound?: Howl;
 }
 
-interface State {
-    itemsLoaded: number;
-    completed: boolean;
-}
+const Preloader = (props: Props) => {    
 
-export default class Preloader extends React.Component<Props, State> {
-//    private mounted = false;
+    const [completed, setCompleted] = useState(false);
+    const [itemsLoaded, setItemsLoaded] = useState(0);
 
-    constructor(props: Props) {
-        super(props);
+    useEffect(() => {
+        loadMedia();
+    }, []);
 
-        this.state = {
-            completed: false,
-            itemsLoaded: 0,
-        };
-    }
+    const { children, manifest } = props;
 
-    public componentDidMount() {
-        // this.mounted = true;
-        this.loadMedia();
-    }
+    const indicator = <Indicator
+        itemsLoaded = { itemsLoaded }
+        itemsTotal = { manifest.length }
+    />;
 
-    public componentDidUpdate(prevProps: Props) {
-        // const { images } = this.props;
-        // const oldImages = new Set(prevProps.images);
-
-        // let hasChanged = false;
-        // for (let i = 0; i < images.length; i += 1) {
-        //     const image = images[i];
-        //     if (!oldImages.has(image)) {
-        //         hasChanged = true;
-        //         break;
-        //     }
-        // }
-
-        // if (hasChanged) {
-        //     this.loadImages();
-        // }
-        // todo: implement
-    }
-
-    public componentWillUnmount() {
-        // this.mounted = false;
-        // if (this.autoResolveTimeout) {
-        //     clearTimeout(this.autoResolveTimeout);
-        // }
-    }
-
-    public render() {
-//        console.log(`loaded: ${this.state.itemsLoaded} `);
-        const { children, manifest } = this.props;
-        const complete = this.state.completed;
-
-        const indicator = <Indicator
-            itemsLoaded = { this.state.itemsLoaded }
-            itemsTotal = { manifest.length }
-        />;
-
-        return complete ? children : indicator;
-
-    }
-
-    protected loadMedia = () => {
+    const loadMedia = () => {
         // todo: what if props get set at runtime
-        this.setState({
-            itemsLoaded: 0,
-        });
+        setItemsLoaded(0);
 
-        const promises = this.props.manifest
-            .map((url) => this.loadItem(url)
+        const promises = props.manifest
+            .map((url) => loadItem(url)
             // tslint:disable-next-line:no-console
             .catch((err) => console.error(err)));
 
         Promise.all(promises).then((results) => {
-            if (this.props.onLoadComplete) {
-                this.props.onLoadComplete(media);
+            if (props.onLoadComplete) {
+                props.onLoadComplete(media);
             }
-            this.setState({
-                completed: true,
-            });
+            setCompleted(true);
         });
     }
 
-    protected loadItem = async (url: string): Promise<MediaItem> => {
+    const loadItem = async (url: string): Promise<MediaItem> => {
         if (media.some((m) => m.url === url)) {
             // tslint:disable-next-line:no-console
             console.warn(`Loading media with url ${url} more than once! Will overwrite.`);
@@ -111,17 +63,12 @@ export default class Preloader extends React.Component<Props, State> {
         const mediaType = getType(url);
         let item;
         if (mediaType === MediaType.image) {
-            // try {
             const value = await loadImage(url);
-            // console.log(`loaded ${url}`); // tODO: remove
             item = {
                 content: value,
                 mediaType,
                 url,
             } ;
-            // } catch (e) {
-            //     throw Error(`Could not load image with url '${url}'`);
-            // }
         }
         if (mediaType === MediaType.sound) {
             const value = new Howl({
@@ -135,14 +82,14 @@ export default class Preloader extends React.Component<Props, State> {
         }
         if (item) {
             media.push(item);
-            this.setState({
-                itemsLoaded: this.state.itemsLoaded + 1,
-            });
+            setItemsLoaded(itemsLoaded + 1);
             return item;
         } else {
             throw new Error(`Unknown error while trying to load ${url}`);
         }
     }
+
+    return completed ? children : indicator;
 }
 
 const media: MediaItem[] = [];
@@ -182,3 +129,5 @@ const getType = (url: string): MediaType => {
     }
     throw Error(`Could not determine type for ${url}`);
 };
+
+export default Preloader;

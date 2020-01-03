@@ -8,9 +8,9 @@ export interface Props {
 /**
  * Loading indicator
  */
-export default class Indicator extends React.Component<Props> {
-    public render() {
-        const { itemsLoaded, itemsTotal } = this.props;
-        return <div> { `Loading (${Math.floor((itemsLoaded || 0) / (itemsTotal || 0 ) * 100)})%`} </div>;
-    }
+const Indicator = (props: Props) =>  {
+    const { itemsLoaded, itemsTotal } = props;
+    return <div> { `Loading (${Math.floor((itemsLoaded || 0) / (itemsTotal || 0 ) * 100)})%`} </div>;
 }
+
+export default Indicator;

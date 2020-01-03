@@ -12,7 +12,7 @@ import * as React from "react";
 import { useRef, useState, useEffect } from "react";
 import { DndProvider} from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
-import { BrowserRouter as Router, Link, Redirect, Route} from "react-router-dom";
+import { BrowserRouter as Router, Link, Redirect, Route, Switch} from "react-router-dom";
 import { Persistor} from "redux-persist";
 import { Sound, SoundManager} from "utils/soundManager";
 import { TextManager} from "utils/textManager";
@@ -70,19 +70,6 @@ const App = (props: AllProps) => {
         props.persistor.purge();
         (window as any).location.reload();
     };
-
-    // Router elements
-    const TownButton = () => (
-        <Link to="/town">
-            <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-town`)} </button>
-        </Link>
-    );
-
-    const WorldButton = () => (
-        <Link to="/world">
-            <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-world`)} </button>
-        </Link>
-    );
 
     const selectStructure = (structure: Structure | null) => {
         if (structure) {
@@ -227,12 +214,24 @@ const App = (props: AllProps) => {
                     >
                         <Topbar/>
                         <Redirect from="/" to="world" />
-                        <Route path="/world" component={TownButton} />
-                        <Route path="/town" component={WorldButton} />
+                        <Switch>
+                            <Route path="/world">
+                                <Link to="/town">
+                                    <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-town`)} </button>
+                                 </Link>
+                            </Route>
+                            <Route path="/town">
+                                <Link to="/world">
+                                    <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-world`)} </button>
+                                </Link>
+                            </Route>
+                        </Switch>
                         {` | `}
                         <button onClick={() => handleResetClick()} style={{ color: "red"}}> Restart! </button>
-                        <Route path="/town" component={renderTownView} />
-                        <Route path="/world" component={renderWorldView} />
+                        <Switch>
+                            <Route path="/town" component={renderTownView} />
+                            <Route path="/world" component={renderWorldView} />
+                        </Switch>
                         <SimpleLog/>
                         {renderWindow()}
                         {renderContextPopup()}
