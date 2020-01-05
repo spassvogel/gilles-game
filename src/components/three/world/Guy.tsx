@@ -5,8 +5,8 @@ import { useFrame } from "react-three-fiber";
 import * as THREE from "three";
 import { Mesh } from "three";
 
-const textureUrl = "models/world/human/Textures/RTS_human_atlas_4096.png";
-const animationUrl = "models/westernkingdoms/animation/archer/WK_archer_01_idle_A.FBX";
+const textureUrl = "models/westernkingdoms/models/textures/WK_StandardUnits_Blue.png";
+const animationUrl = "models/westernkingdoms/animation/worker/WK_worker_carry_wood_01_idle.FBX";
 
 export interface Props {
     url: string;
@@ -40,7 +40,7 @@ const Guy = (props: Props) => {
     useEffect(() => {
         // console.log('a', animations)
         // console.log('b', group)
-            if (animations) {
+        if (animations) {
             // console.log(animations)
             mixer.clipAction(animations[0], group.current).play();
         }
@@ -66,7 +66,7 @@ const Guy = (props: Props) => {
             <meshBasicMaterial
                 attach="material"
                 fog={true}
-                color={"purple"}
+                //color={"purple"}
                 map={texture}
             />
             <bufferGeometry attach="geometry" {...geometry} />

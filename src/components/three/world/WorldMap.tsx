@@ -107,7 +107,7 @@ const WorldMap = (props: AllProps) => {
             {renderParties()}
             <Cube size={[1, 1, 1]} position={[0, 0, 1]} color="blue"/>
             <Cube size={[1, 1, 1]} position={[1, 0, 2]} color="blue"/>
-            <Guy url="models/westernkingdoms/models/WK_worker.FBX" position={[220, 20, 110]} />
+            <Guy url="models/westernkingdoms/models/WK_worker.FBX" position={[1, 1, 1]} />
 
             <Structure url="models/world/human/house_atlas.fbx" position={[10, 0, 0]}/>
             <Structure url="models/world/human/smithy_atlas.fbx" position={[20, 0, 10]}/>
