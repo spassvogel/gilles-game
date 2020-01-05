@@ -1,15 +1,16 @@
 import Controls from "components/three/Controls";
+import Sphere from "components/three/debug/Sphere";
 import DebugInspector from "components/three/DebugInspector";
 import WorldMapTerrain from "components/three/world/WorldMapTerrain";
-import Sphere from "components/three/debug/Sphere";
 import { getDefinition } from "definitions/quests";
-import React, { useRef, useEffect, createRef, RefObject, useState } from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
 import { Canvas } from "react-three-fiber";
 import { QuestStoreState } from "stores/quest";
-import { Camera, Object3D, Vector2, Vector3, Raycaster } from "three";
+import { Camera, Object3D, Raycaster, Vector2, Vector3 } from "three";
+import useTraceUpdate from "use-trace-update";
 import Cube from "../debug/Cube";
+import Guy from "./Guy";
 import Structure from "./structures/Structure";
-import useTraceUpdate from 'use-trace-update';
 
 const terrainRotation = [-90 * (Math.PI / 180), 0, 0];
 const terrainScale = [40, 40, 40];
@@ -23,6 +24,7 @@ export interface Props {
   scrollToPosition?: Vector2;
   activeQuests: QuestStoreState[];
   selectedQuest?: string;
+  controllerEnabled: boolean;
   onMapMove: (distance: number, angle: number) => void;
   onPartyClick: (questName: string) => void;
 }
@@ -36,7 +38,7 @@ type AllProps = Props & DispatchProps;
 
 const WorldMap = (props: AllProps) => {
     useTraceUpdate(props);
-    
+
     const terrainRef = useRef<Object3D>(null);
     const questCubesRef = useRef(props.activeQuests.map(() => createRef<Object3D>()));  // contains the party cubes
 
@@ -61,7 +63,6 @@ const WorldMap = (props: AllProps) => {
     };
 
     const renderParties = () => {
-        console.log('rendering parties')
         return props.activeQuests.map((quest, index) => {
             const questPosition = getQuestWorldPosition(quest, terrainRef.current);
             return (
@@ -79,7 +80,7 @@ const WorldMap = (props: AllProps) => {
 
     const [terrainRendered, setTerrainRendered] = useState(false);
     useEffect(() => {
-        console.log(terrainRef.current)
+        console.log(terrainRef.current);
     }, []);
 
     // useEffect(() => {
@@ -100,13 +101,13 @@ const WorldMap = (props: AllProps) => {
     return (
         <Canvas style={{ height: HEIGHT, width: WIDTH }} camera={{ fov: 10 }} >
             <DebugInspector />
-            <Controls onCameraMove={handleCameraMove} scrollToPosition={props.scrollToPosition} />
+            {props.controllerEnabled && <Controls onCameraMove={handleCameraMove} scrollToPosition={props.scrollToPosition} />}
             <WorldMapTerrain rotation={terrainRotation} scale={terrainScale} ref={terrainRef}/>
             <Sphere onClick={handleClick} position={[62, 0, 14]} name="party1" />
-            { renderParties() }
+            {renderParties()}
             <Cube size={[1, 1, 1]} position={[0, 0, 1]} color="blue"/>
             <Cube size={[1, 1, 1]} position={[1, 0, 2]} color="blue"/>
-            {/* <Guy url="models/westernkingdoms/models/WK_archer.FBX" position={[220, 20, 110]} /> */}
+            <Guy url="models/westernkingdoms/models/WK_worker.FBX" position={[220, 20, 110]} />
 
             <Structure url="models/world/human/house_atlas.fbx" position={[10, 0, 0]}/>
             <Structure url="models/world/human/smithy_atlas.fbx" position={[20, 0, 10]}/>
@@ -131,7 +132,7 @@ const unproject = (camera: Camera, screenLocation: Vector2, groundY: number = 0)
     return camera.position.clone().add(direction.multiplyScalar(distance));
 };
 
-// Gets 3d world position of quest. 
+// Gets 3d world position of quest.
 const getQuestWorldPosition = (quest: QuestStoreState, terrain: Object3D|null): Vector3 => {
     const questDefinition = getDefinition(quest.name);
     const roundedProgress = Math.floor(quest.progress);
@@ -166,4 +167,4 @@ const determineY = (position: Vector3, terrain: Object3D) => {
         result.y = collisionResults[0].point.y;
     }
     return result;
-}
+};

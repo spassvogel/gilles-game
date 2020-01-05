@@ -13,9 +13,9 @@ import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import { empty, ResourceStoreState } from "stores/resources";
+import { StructuresStoreState } from "stores/structures";
 import { TextManager } from "utils/textManager";
 import "./css/warehousestructureview.css";
-import { StructuresStoreState } from 'stores/structures';
 
 export interface DispatchProps {
     onMoveItemInWarehouse: (fromSlot: number, toSlot: number) => void;

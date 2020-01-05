@@ -20,10 +20,6 @@ export interface StateProps {
     quests: QuestStoreState[];
 }
 
-interface LocalState {
-    selectedQuest: string | null;
-}
-
 type AllProps = Props & StateProps & DispatchProps;
 
 /**
@@ -35,28 +31,28 @@ const RealWorldView = (props: AllProps) => {
     const worldMapRef = useRef<HTMLDivElement>(null);
     const [scrollToPosition, setScrollToPosition] = useState<Vector2>();
     const [selectedQuest, setSelectedQuest] = useState<string>();
+    const [controllerEnabled, setControllerEnabled] = useState(true);
 
     const context = React.useContext(AppContext)!;
 
     const mouseout = () => {
-        // todo: 2/01/2020 disable threejs controller when leaving map area
-        console.log('mouseout - disable threejs controller');
-    }
+        setControllerEnabled(false);
+    };
 
     const mouseover = () => {
-        console.log('mouseon - enable threejs controller');
-    }
+        setControllerEnabled(true);
+    };
 
     useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.world, "sound/music/TheLoomingBattle.ogg");
         SoundManager.playMusicTrack(MusicTrack.world);
 
-        (worldMapRef.current!).addEventListener('mouseout', mouseout);
-        (worldMapRef.current!).addEventListener('mouseover', mouseover);
+        (worldMapRef.current!).addEventListener("mouseout", mouseout);
+        (worldMapRef.current!).addEventListener("mouseover", mouseover);
 
         return () => {
-            (worldMapRef.current!).removeEventListener('mouseout', mouseout);
-            (worldMapRef.current!).removeEventListener('mouseover', mouseover);    
+            (worldMapRef.current!).removeEventListener("mouseout", mouseout);
+            (worldMapRef.current!).removeEventListener("mouseover", mouseover);
         };
     }, []);
 
@@ -76,7 +72,7 @@ const RealWorldView = (props: AllProps) => {
     };
 
     const handlePartyClick = (questName: string) => {
-        setSelectedQuest(questName);console.log(questName)
+        setSelectedQuest(questName);
 
         const quest = props.quests.find((q) => q.name === questName)!;
         const title = TextManager.getQuestTitle(quest.name);
@@ -88,12 +84,10 @@ const RealWorldView = (props: AllProps) => {
         return props.quests.filter((q) => q.status === QuestStatus.active);
     }, [props.quests]);
 
-    
-
     return (
         <div className="realworldview" ref={worldMapRef}>
             <div className="compass" ref={compassRef} onClick={handleCompassClick}>
-                <div className="distance"></div>
+                <div className="distance"/>
             </div>
             <WorldMap
                 quests={props.quests}
@@ -103,6 +97,7 @@ const RealWorldView = (props: AllProps) => {
                 scrollToPosition={scrollToPosition}
                 onMapMove={handleMapMove}
                 onPartyClick={handlePartyClick}
+                controllerEnabled={controllerEnabled}
             />
         </div>
     );
