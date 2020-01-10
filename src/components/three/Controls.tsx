@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useThree } from "react-three-fiber";
-import { useRender } from "react-three-fiber";
+import { useFrame } from "react-three-fiber";
 import * as THREE from "three";
 import { Camera, Vector2, Vector3 } from "three";
 import { MapControls } from "three/examples/jsm/controls/OrbitControls";
@@ -58,7 +58,7 @@ const Controls = (props: Props) => {
       };
     }, [props.scrollToPosition]);
 
-    useRender(() => {
+    useFrame(() => {
       if (controls.current) {
         controls.current.update();
       }
@@ -72,7 +72,7 @@ const Controls = (props: Props) => {
           target: controls.current!.target,
         }));
       }
-    }, false);
+    });
 
     //
     const mouseDown = useRef<boolean>(false);
