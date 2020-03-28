@@ -43,7 +43,7 @@ const ItemsBox = (props: AllProps) => {
         const itemDescription = itemsDescription[item];
         return <li className = { listItemClass } key = { item }>
             <div className = "icon common-icon-smallest" style = {{
-                backgroundImage: `url(${itemDescription.iconImg})`,
+                backgroundImage: `url(${process.env.PUBLIC_URL}${itemDescription.iconImg})`,
             }}></div>
             <div className = "name">
                 { `${TextManager.getItemName(item)} (${ amount })` }

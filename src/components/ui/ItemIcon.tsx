@@ -48,7 +48,7 @@ const ItemIcon: React.FC<Props> = (props) => {
         <div className = { className }
             onClick = { handleClick }
             style = {{
-                backgroundImage: `url(${itemDefinition.iconImg})`,
+                backgroundImage: `url(${process.env.PUBLIC_URL}${itemDefinition.iconImg})`,
             }}>
         </div>
     );

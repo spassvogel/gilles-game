@@ -56,7 +56,7 @@ const ResourcesBox = (props: AllProps) => {
 
         return <li className = { listItemClass } key = { resource }>
             <div className = "icon common-icon-smallest" style = {{
-                backgroundImage:  `url(${resourceDescription.iconImg})`,
+                backgroundImage:  `url(${process.env.PUBLIC_URL}${resourceDescription.iconImg})`,
             }}></div>
             <div className = "name">
                 { TextManager.getResourceName(resource as Resource) }

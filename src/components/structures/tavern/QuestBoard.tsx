@@ -35,12 +35,12 @@ type AllProps = Props & DispatchProps & StateProps;
 const QuestBoard = (props: AllProps) => {
 
     const questListContent: JSX.Element[] = props.availableQuests.map((q) => {
-        const iconImgPath = `img/sigils/${ q.icon }`;
+        const iconImgPath = `${process.env.PUBLIC_URL}img/sigils/${q.icon }`;
         const className = "quest" + ((q.name === props.selectedQuestName) ? " selected" : "");
         return <li key={ q.name } className = { className } onClick = { () => { props.onQuestClick(q.name); } }>
             <div
                 className = "icon"
-                style={{backgroundImage: `url(${iconImgPath})`}}
+                style={{backgroundImage: `url(${process.env.PUBLIC_URL}${iconImgPath})`}}
             ></div>
             <div className = "title">{ TextManager.getQuestTitle(q.name) } </div>
         </li>;

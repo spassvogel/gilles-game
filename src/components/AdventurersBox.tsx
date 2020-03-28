@@ -88,7 +88,7 @@ const AdventurersBox = (props: AllProps) => {
         return <li key = { group } className = { "group" }>
             <div
                 className = "sigil"
-                style = { { backgroundImage: `url(${sigilImgPath})`} }
+                style = { { backgroundImage: `url(${process.env.PUBLIC_URL}${sigilImgPath})`} }
             ></div>
             <span className = "title" title = { name }> { name } </span>
             <ul className = "adventurer-portraits">

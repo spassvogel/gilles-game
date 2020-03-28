@@ -27,7 +27,7 @@ const Resourcebar = (props: Props & StateProps & DispatchProps) => {
     const createItem = (icon: string, amount: number, title: string) => {
         return <li title = { title } key = { title }>
             <div className = "icon common-icon-smallest" style = {{
-                backgroundImage:  `url(${icon})`,
+                backgroundImage:  `url(${process.env.PUBLIC_URL}${icon})`,
             }}></div>
             <div className = "amount">
                 { amount.toFixed(0) }
