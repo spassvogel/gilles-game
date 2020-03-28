@@ -6,15 +6,15 @@ import { getDefinition } from "definitions/quests";
 import React, { createRef, useEffect, useRef, useState } from "react";
 import { Canvas, Dom } from "react-three-fiber";
 import { QuestStoreState } from "stores/quest";
-import { Camera, Object3D, Raycaster, Vector2, Vector3 } from "three";
+import { Camera, Object3D, Raycaster, Vector2, Vector3, Euler } from "three";
 import useTraceUpdate from "use-trace-update";
 import { Suspense } from 'react'
 import Cube from "../debug/Cube";
 import Guy from "./Guy";
 import Structure from "./structures/Structure";
 
-const terrainRotation = [-90 * (Math.PI / 180), 0, 0];
-const terrainScale = [40, 40, 40];
+const terrainRotation = new Euler(-90 * (Math.PI / 180), 0, 0);
+const terrainScale = new Vector3(40, 40, 40);
 const townPos = new Vector3(0, 0, 0);
 const WIDTH = 648;
 const HEIGHT = 690;

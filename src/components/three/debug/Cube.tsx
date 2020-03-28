@@ -27,7 +27,7 @@ const Cube = React.forwardRef((props: Props, ref: React.Ref<Object3D>) => {
     return (
         <mesh
             name={props.name}
-            position={props.position}
+            position={parseVector3(props.position || new Vector3()  )}
             onClick={handleClick}
             geometry={geometry}
             material={material}

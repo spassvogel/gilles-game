@@ -2,11 +2,11 @@
 import useModel from "hooks/useModel";
 import React, { useMemo, useRef } from "react";
 import * as THREE from "three";
-import { Mesh, Object3D } from "three";
+import { Mesh, Object3D, Vector3 } from "three";
 
 export interface Props {
-    rotation?: THREE.Euler|number[];
-    scale?: THREE.Vector3|number[];
+    rotation?: THREE.Euler;
+    scale?: THREE.Vector3;
     ref: any;
 }
 
@@ -35,7 +35,7 @@ const WorldMapTerrain = React.forwardRef((props: Props, ref: React.Ref<Object3D>
     return (
         <mesh
             name={`Model (${url})`}
-            scale={props.scale || [1, 1, 1]}
+            scale={props.scale || new Vector3(1, 1, 1)}
             rotation={props.rotation}
             ref={ref}
         >

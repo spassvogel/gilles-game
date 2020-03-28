@@ -3,7 +3,7 @@ import useModel from "hooks/useModel";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame } from "react-three-fiber";
 import * as THREE from "three";
-import { Mesh } from "three";
+import { Mesh, Vector3 } from "three";
 
 const textureUrl = "models/westernkingdoms/models/textures/WK_StandardUnits_Blue.png";
 const animationUrl = "models/westernkingdoms/animation/worker/WK_worker_carry_wood_01_idle.FBX";
@@ -60,7 +60,7 @@ const Guy = (props: Props) => {
         <group ref={group}>
         <mesh
             name={`Model (${props.url})`}
-            position={props.position}
+            position={parseVector3(props.position || new Vector3()  )}
             scale={[1, 1, 1]}
         >
             <meshBasicMaterial
@@ -77,3 +77,12 @@ const Guy = (props: Props) => {
 
 export default Guy;
 // https://codesandbox.io/embed/react-three-fiber-gltf-loader-animations-c671i
+
+
+const parseVector3 = (input: THREE.Vector3|number[]): THREE.Vector3 => {
+    if (input instanceof THREE.Vector3) {
+        return input;
+    }
+    const [x, y, z] = input;
+    return new Vector3(x, y, z);
+  };

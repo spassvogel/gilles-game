@@ -1,7 +1,7 @@
 import useModel from "hooks/useModel";
 import React, { useMemo } from "react";
 import * as THREE from "three";
-import { Mesh } from "three";
+import { Mesh, Vector3 } from "three";
 
 const textureUrl = "models/world/human/Textures/RTS_human_atlas_4096.png";
 
@@ -32,7 +32,7 @@ const Structure = (props: Props) => {
     return (
         <mesh
             name={`Model (${props.url})`}
-            position={props.position}
+            position={parseVector3(props.position || new Vector3()  )}
             scale={[.01, .01, .01]}
         >
             <meshBasicMaterial
@@ -47,3 +47,12 @@ const Structure = (props: Props) => {
 };
 
 export default Structure;
+
+
+const parseVector3 = (input: THREE.Vector3|number[]): THREE.Vector3 => {
+    if (input instanceof THREE.Vector3) {
+        return input;
+    }
+    const [x, y, z] = input;
+    return new Vector3(x, y, z);
+  };
