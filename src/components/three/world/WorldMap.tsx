@@ -1,3 +1,5 @@
+import { Stage, Sprite } from '@inlet/react-pixi';
+
 import Controls from "components/three/Controls";
 import Sphere from "components/three/debug/Sphere";
 import DebugInspector from "components/three/DebugInspector";
@@ -93,6 +95,9 @@ const WorldMap = (props: AllProps) => {
     return (
         <div>aaa
         {renderParties()}
+        <Stage>
+            <Sprite image={`${process.env.PUBLIC_URL}img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`} x={100} y={100} />
+        </Stage>
         </div>
         // <Canvas style={{ height: HEIGHT, width: WIDTH }} camera={{ fov: 10 }} >
         //     <Suspense fallback={null}>
