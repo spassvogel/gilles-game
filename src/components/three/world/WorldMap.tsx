@@ -1,3 +1,4 @@
+import * as PIXI from 'pixi.js';
 import { Stage, Sprite } from '@inlet/react-pixi';
 
 import Controls from "components/three/Controls";
@@ -13,12 +14,15 @@ import { Suspense } from 'react'
 import Cube from "../debug/Cube";
 import Guy from "./Guy";
 import Structure from "./structures/Structure";
+import { lerpPoint } from 'utils/pixiJs';
 
-const terrainRotation = new Euler(-90 * (Math.PI / 180), 0, 0);
-const terrainScale = new Vector3(40, 40, 40);
-const townPos = new Vector3(0, 0, 0);
 const WIDTH = 648;
 const HEIGHT = 690;
+
+// @ts-ignore
+PIXI.useDeprecated();
+// @ts-ignore
+window.__PIXI_INSPECTOR_GLOBAL_HOOK__ && window.__PIXI_INSPECTOR_GLOBAL_HOOK__.register({ PIXI: PIXI });
 
 export interface Props {
   quests: QuestStoreState[];
@@ -37,12 +41,10 @@ export interface DispatchProps {
 }
 
 type AllProps = Props & DispatchProps;
+//let scale = new PIXI.Point(1, 1);
 
 const WorldMap = (props: AllProps) => {
 
-    const handleClick = (object: Object3D) => {
-        // console.log(object);
-    };
 
     const handleCameraMove = (camera: Camera) => {
         // the position of the compass as if it was in 3d space
@@ -62,59 +64,49 @@ const WorldMap = (props: AllProps) => {
 
     const renderParties = () => {
         return props.activeQuests.map((quest, index) => {
+            const position = getQuestWorldPosition(quest);
+            
             return (
-                <div key={quest.name}>{quest.name}</div>
-                // <Cube
-                //     key={quest.name}
-                //     size={[1, 1, 1]}
-                //     position={questPosition}
-                //     color={quest.name === props.selectedQuest ? "white" : "red"}
-                //     onClick={() => handlePartyClick(quest.name)}
-                //     ref={questCubesRef.current[index]}
-                // />
+                <Sprite 
+                    image={`${process.env.PUBLIC_URL}/img/cursors/dwarven_gauntlet.png`} name="cursor" 
+                    x={position.x * 50}
+                    y={position.y * 50}
+                    interactive={true}
+                    pointerdown={() => {
+                       // setScale(scale + 1);
+                        handlePartyClick(quest.name)
+                    }}
+                />
             );
         });
     };
 
-
-    // useEffect(() => {
-    //     // This actually makes the cube pop in so is less than ideal
-    //     props.activeQuests.forEach((quest, index) => {
-    //         const position = getQuestWorldPosition(quest, terrainRef.current);
-    //         (questCubesRef.current[index].current!).position.copy(position);
-    //     });
-    //     // console.log(questCubesRef.current[0].current)
-    //     // questCubesRef.current.map(({current}) => {
-    //     //     if (current) {
-    //     //         const position = determineY(current.position, terrainRef.current!);
-    //     //         current.position.copy(position);
-    //     //     }
-    //     // });
-    // }, []);
-
     return (
-        <div>aaa
-        {renderParties()}
-        <Stage>
-            <Sprite image={`${process.env.PUBLIC_URL}img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`} x={100} y={100} />
+        <Stage width={WIDTH} height={HEIGHT} >
+            <Sprite 
+                image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`}
+                x={100}
+          
+            >
+                {renderParties()}
+            </Sprite>
         </Stage>
-        </div>
-        // <Canvas style={{ height: HEIGHT, width: WIDTH }} camera={{ fov: 10 }} >
-        //     <Suspense fallback={null}>
-        //         <DebugInspector />
-        //         {props.controllerEnabled && <Controls onCameraMove={handleCameraMove} scrollToPosition={props.scrollToPosition} />}
-        //         <WorldMapTerrain rotation={terrainRotation} scale={terrainScale} ref={terrainRef}/>
-        //         <Sphere onClick={handleClick} position={[62, 0, 14]} name="party1" />
-        //         {renderParties()}
-        //         <Cube size={[1, 1, 1]} position={[0, 0, 1]} color="blue"/>
-        //         <Cube size={[1, 1, 1]} position={[1, 0, 2]} color="blue"/>
-        //         <Guy url="models/westernkingdoms/models/WK_worker.FBX" position={[1, 1, 1]} />
-
-        //         <Structure url="models/world/human/house_atlas.fbx" position={[10, 0, 0]}/>
-        //         <Structure url="models/world/human/smithy_atlas.fbx" position={[20, 0, 10]}/>
-        //     </Suspense>
-        // </Canvas>
     );
 };
 
 export default WorldMap;
+
+const getQuestWorldPosition = (quest: QuestStoreState): PIXI.Point => {
+    const questDefinition = getDefinition(quest.name);
+    const roundedProgress = Math.floor(quest.progress);
+    const lastNode = questDefinition.nodes[roundedProgress];
+    const lastPosition = new PIXI.Point(lastNode.x, lastNode.y);
+
+    const nextNode = questDefinition.nodes[roundedProgress + 1];
+    if (!nextNode) {
+        // We've reached the last node
+        return lastPosition;
+    }
+    const nextPosition = new PIXI.Point(nextNode.x, nextNode.y);
+    return lerpPoint(lastPosition, nextPosition, quest.progress - roundedProgress);
+};

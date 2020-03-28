@@ -315,3 +315,7 @@ THREEJS examples (MIGHT IS RIGHT):
 
 2/01/2020 disable threejs controller
 [ ] You cant scroll the 
+
+28/03/2020 Pixi-js
+Screw 3d its way too complicated. Going to try pixi-js
+https://github.com/anvaka/ngraph/tree/master/examples/pixi.js/03%20-%20Zoom%20And%20Pan
