@@ -4,10 +4,11 @@ import DebugInspector from "components/three/DebugInspector";
 import WorldMapTerrain from "components/three/world/WorldMapTerrain";
 import { getDefinition } from "definitions/quests";
 import React, { createRef, useEffect, useRef, useState } from "react";
-import { Canvas } from "react-three-fiber";
+import { Canvas, Dom } from "react-three-fiber";
 import { QuestStoreState } from "stores/quest";
 import { Camera, Object3D, Raycaster, Vector2, Vector3 } from "three";
 import useTraceUpdate from "use-trace-update";
+import { Suspense } from 'react'
 import Cube from "../debug/Cube";
 import Guy from "./Guy";
 import Structure from "./structures/Structure";
@@ -80,7 +81,7 @@ const WorldMap = (props: AllProps) => {
 
     const [terrainRendered, setTerrainRendered] = useState(false);
     useEffect(() => {
-        console.log(terrainRef.current);
+        console.log("terrain", terrainRef.current);
     }, []);
 
     // useEffect(() => {
@@ -100,17 +101,19 @@ const WorldMap = (props: AllProps) => {
 
     return (
         <Canvas style={{ height: HEIGHT, width: WIDTH }} camera={{ fov: 10 }} >
-            <DebugInspector />
-            {props.controllerEnabled && <Controls onCameraMove={handleCameraMove} scrollToPosition={props.scrollToPosition} />}
-            <WorldMapTerrain rotation={terrainRotation} scale={terrainScale} ref={terrainRef}/>
-            <Sphere onClick={handleClick} position={[62, 0, 14]} name="party1" />
-            {renderParties()}
-            <Cube size={[1, 1, 1]} position={[0, 0, 1]} color="blue"/>
-            <Cube size={[1, 1, 1]} position={[1, 0, 2]} color="blue"/>
-            <Guy url="models/westernkingdoms/models/WK_worker.FBX" position={[1, 1, 1]} />
+            <Suspense fallback={null}>
+                <DebugInspector />
+                {props.controllerEnabled && <Controls onCameraMove={handleCameraMove} scrollToPosition={props.scrollToPosition} />}
+                <WorldMapTerrain rotation={terrainRotation} scale={terrainScale} ref={terrainRef}/>
+                <Sphere onClick={handleClick} position={[62, 0, 14]} name="party1" />
+                {renderParties()}
+                <Cube size={[1, 1, 1]} position={[0, 0, 1]} color="blue"/>
+                <Cube size={[1, 1, 1]} position={[1, 0, 2]} color="blue"/>
+                <Guy url="models/westernkingdoms/models/WK_worker.FBX" position={[1, 1, 1]} />
 
-            <Structure url="models/world/human/house_atlas.fbx" position={[10, 0, 0]}/>
-            <Structure url="models/world/human/smithy_atlas.fbx" position={[20, 0, 10]}/>
+                <Structure url="models/world/human/house_atlas.fbx" position={[10, 0, 0]}/>
+                <Structure url="models/world/human/smithy_atlas.fbx" position={[20, 0, 10]}/>
+            </Suspense>
         </Canvas>
     );
 };
