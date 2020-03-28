@@ -99,12 +99,12 @@ const RealTownView = (props: AllProps) => {
     return (
         <Stage width={1024} height={768} scale= { {x: 0.4, y: 0.4} }>
         <Layer name="background" onClick = { handleBackgroundClick } >
-            <Image image={ imgSrc("img/town/sky.jpg") }></Image>
+            {/* <Image image={ imgSrc("img/town/sky.jpg") }></Image> */}
         </Layer>
         <Layer name="town">
-                <Image
+                {/* <Image
                     name = "warehouse"
-                    image={ imgSrc("img/town/tavern.png") }
+                    // image={ imgSrc("img/town/tavern.png") }
                     x = { 15 }
                     y = { 1057 }
                     // stroke = "blue"
@@ -125,10 +125,10 @@ const RealTownView = (props: AllProps) => {
                     // onClick = { handleStructureClick }
 
                     ref={ (node: Konva.Image) => { drawHitFromCache(node); }}
-                />
-                <Image
+                /> */}
+                {/* <Image
                     name = "lumberMill"
-                    image = { imgSrc("img/town/mill.png") }
+                    // image = { imgSrc("img/town/mill.png") }
                     x = { 947 }
                     y = { 1384 }
                     // stroke = "blue"
@@ -140,7 +140,7 @@ const RealTownView = (props: AllProps) => {
                     // draggable
                     // onDragEnd= { handleDragEnd }
                     ref={ (node: Konva.Image) => { drawHitFromCache(node); }}
-                />
+                /> */}
                 { structures }
 
                 </Layer>
