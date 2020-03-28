@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { Stage, Sprite } from '@inlet/react-pixi';
 
-import Controls from "components/three/Controls";
+import Controls from "./Controls";
 import Sphere from "components/three/debug/Sphere";
 import DebugInspector from "components/three/DebugInspector";
 import { getDefinition } from "definitions/quests";
@@ -82,11 +82,13 @@ const WorldMap = (props: AllProps) => {
     };
 
     return (
-        <Stage width={WIDTH} height={HEIGHT} >
+        <Stage 
+            width={WIDTH} 
+            height={HEIGHT}
+        >
+            <Controls />
             <Sprite 
-                image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`}
-                x={100}
-          
+                image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`}          
             >
                 {renderParties()}
             </Sprite>
