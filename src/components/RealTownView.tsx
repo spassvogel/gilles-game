@@ -43,7 +43,7 @@ type AllProps = Props & DispatchProps & StateProps & AppContextProps;
 
 const RealTownView = (props: AllProps) => {
 
-    //let match = useRouteMatch(); 
+    // let match = useRouteMatch();
 
     useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.town, "sound/music/Soliloquy.mp3");
