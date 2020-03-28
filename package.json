@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@inlet/react-pixi": "^1.2.8",
     "axios": "^0.19.2",
     "handlebars": "^4.7.3",
     "howl": "^0.2.0",
