@@ -12,6 +12,7 @@
     "konva": "^3.4.1",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
+    "pixi-viewport": "^4.10.0",
     "pixi.js": "^5.2.1",
     "react": "^16.13.1",
     "react-dnd": "^9.5.1",

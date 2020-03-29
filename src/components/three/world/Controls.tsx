@@ -1,6 +1,7 @@
 import { useApp } from '@inlet/react-pixi'
 import { useEffect, useRef } from 'react';
 
+// Obsolete, using pixi-viewport now
 const Controls = () => {
     const app = useApp();
     console.log(app);

@@ -1,9 +1,13 @@
-import * as PIXI from 'pixi.js';
 
-export const lerpPoint = (point1: PIXI.Point, point2: PIXI.Point, alpha: number): PIXI.Point => {
+interface Location {
+    x: number;
+    y: number;
+}
+
+export const lerpLocation = (point1: Location, point2: Location, alpha: number): Location => {
     const x = lerp(point1.x, point2.x, alpha);
     const y = lerp(point1.y, point2.y, alpha);
-    return new PIXI.Point(x, y);
+    return { x, y };
 }
 
 const lerp = (n1: number,  n2: number,  alpha: number) =>  {
