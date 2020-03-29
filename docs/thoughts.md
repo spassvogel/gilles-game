@@ -317,5 +317,8 @@ THREEJS examples (MIGHT IS RIGHT):
 [ ] You cant scroll the 
 
 28/03/2020 Pixi-js
-Screw 3d its way too complicated. Going to try pixi-js
-https://github.com/anvaka/ngraph/tree/master/examples/pixi.js/03%20-%20Zoom%20And%20Pan
+[x] Screw 3d its way too complicated. Going to try pixi-js
+
+30/03/2020 Structure in town popup
+[ ] Town should store 
+[ ] Structures in town should display a short popup on click. The popup should have a button to expand the GUI and show all the details

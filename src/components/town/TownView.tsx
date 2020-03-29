@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Stage, Sprite, Text } from '@inlet/react-pixi';
+import {  ClickEventData } from "pixi-viewport";
 import { Structure, getDefinition } from 'definitions/structures';
 import { StructuresStoreState } from 'stores/structures';
 import { SoundManager, MusicTrack } from 'utils/soundManager';
@@ -168,10 +169,13 @@ console.log('rendering town');
             />
         });
     }
+    const viewportClick = (event: ClickEventData) => {
+        console.log(event.world.x);
+    };
 
     return (
         <Stage width={WIDTH} height={HEIGHT}>
-            <Viewport screenWidth={WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} onMount={undefined} >
+            <Viewport screenWidth={WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} onMount={undefined} onClick={viewportClick} >
                 <Sprite 
                     name="background"
                     image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}          

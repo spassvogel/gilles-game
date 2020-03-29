@@ -2,7 +2,6 @@
 import { ContextInfo, ContextType} from "constants/context";
 import CombatView from "containers/combat/CombatView";
 import SimpleLog from "containers/log/SimpleLog";
-import RealTownView from "containers/RealTownView";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
 import RealWorldView from "containers/world/RealWorldView";
 import { AppContextProps} from "hoc/withAppContext";
