@@ -29,6 +29,10 @@
     color: grey;
 }
 
+.resourcesbox .resource .structure {
+    padding-left: 15px;
+}
+
 .resourcesbox .resource .delta span {
     background-color: #FFB61E;
     font-size: 11px;

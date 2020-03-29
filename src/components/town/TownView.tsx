@@ -46,9 +46,9 @@ const TownView = (props: AllProps) => {
         SoundManager.playMusicTrack(MusicTrack.town);
     }, []);
 
-    // const handleStructureClick = (evt: Konva.KonvaEventObject<PointerEvent>) => {
-    //     if (props.onStructureClick) { props.onStructureClick( Structure[evt.target.name()]); }
-    // }
+    const handleStructureClick = (structure: Structure) => {
+        if (props.onStructureClick) { props.onStructureClick(structure); }
+    }
 
     // const handleBackgroundClick = () => {
     //     if (props.onStructureClick) { props.onStructureClick(null); }
@@ -135,6 +135,10 @@ console.log('rendering town');
                 name={structure}
                 x={x}
                 y={y}
+                interactive
+                click={() => {
+                    handleStructureClick(structure);
+                }}
                 image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}          
             />
 
