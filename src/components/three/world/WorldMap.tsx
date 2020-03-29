@@ -6,28 +6,23 @@ import Sphere from "components/three/debug/Sphere";
 import DebugInspector from "components/three/DebugInspector";
 import { getDefinition } from "definitions/quests";
 import React, { createRef, useEffect, useRef, useState } from "react";
-import { Canvas, Dom } from "react-three-fiber";
 import { QuestStoreState } from "stores/quest";
-import { Camera, Object3D, Raycaster, Vector2, Vector3, Euler } from "three";
-import useTraceUpdate from "use-trace-update";
-import { Suspense } from 'react'
-import Cube from "../debug/Cube";
-import Guy from "./Guy";
-import Structure from "./structures/Structure";
 import { lerpPoint } from 'utils/pixiJs';
+import { eventNames } from 'cluster';
 
 const WIDTH = 648;
 const HEIGHT = 690;
 
-// @ts-ignore
-PIXI.useDeprecated();
-// @ts-ignore
-window.__PIXI_INSPECTOR_GLOBAL_HOOK__ && window.__PIXI_INSPECTOR_GLOBAL_HOOK__.register({ PIXI: PIXI });
+// This stuff is needed for the pixi-js browser plugin
+if (process.env.NODE_ENV === "development") {
+    // @ts-ignore
+    PIXI.useDeprecated();
+    // @ts-ignore
+    window.__PIXI_INSPECTOR_GLOBAL_HOOK__ && window.__PIXI_INSPECTOR_GLOBAL_HOOK__.register({ PIXI: PIXI });
+}
 
 export interface Props {
   quests: QuestStoreState[];
-  compassCenter: Vector2; // compass center in 2d UI coordinate system
-  scrollToPosition?: Vector2;
   activeQuests: QuestStoreState[];
   selectedQuest?: string;
   controllerEnabled: boolean;
@@ -46,7 +41,7 @@ type AllProps = Props & DispatchProps;
 const WorldMap = (props: AllProps) => {
 
 
-    const handleCameraMove = (camera: Camera) => {
+//    const handleCameraMove = (camera: Camera) => {
         // the position of the compass as if it was in 3d space
         // const { x, z } = unproject(camera, props.compassCenter);
 
@@ -56,7 +51,7 @@ const WorldMap = (props: AllProps) => {
         // const angle = compassPos.angle(); // This only works because our town is at 0, 0
 
         // props.onMapMove(distance, angle);
-    };
+//    };
 
     const handlePartyClick = (name: string) => {
         props.onPartyClick(name);

@@ -3,7 +3,6 @@ import WorldMap from "components/three/world/WorldMap";
 import PartyWindow from "containers/windows/PartyWindow";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { QuestStatus, QuestStoreState } from "stores/quest";
-import { Vector2 } from "three";
 import { MusicTrack, SoundManager } from "utils/soundManager";
 import { TextManager } from "utils/textManager";
 import "./css/realworldview.css";
@@ -29,7 +28,6 @@ type AllProps = Props & StateProps & DispatchProps;
 const RealWorldView = (props: AllProps) => {
     const compassRef = useRef<HTMLDivElement>(null);
     const worldMapRef = useRef<HTMLDivElement>(null);
-    const [scrollToPosition, setScrollToPosition] = useState<Vector2>();
     const [selectedQuest, setSelectedQuest] = useState<string>();
     const [controllerEnabled, setControllerEnabled] = useState(true);
 
@@ -68,7 +66,7 @@ const RealWorldView = (props: AllProps) => {
     };
 
     const handleCompassClick = () => {
-        setScrollToPosition(new Vector2(1, 1));
+        //setScrollToPosition(new Vector2(1, 1));
     };
 
     const handlePartyClick = (questName: string) => {
@@ -93,8 +91,6 @@ const RealWorldView = (props: AllProps) => {
                 quests={props.quests}
                 activeQuests={activeQuests}
                 selectedQuest={selectedQuest}
-                compassCenter={new Vector2(525, 585)}
-                scrollToPosition={scrollToPosition}
                 onMapMove={handleMapMove}
                 onPartyClick={handlePartyClick}
                 controllerEnabled={controllerEnabled}
