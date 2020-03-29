@@ -87,24 +87,9 @@ const WorldMap = (props: AllProps) => {
             const location = getQuestWorldLocation(quest);
             const point = nodeLocationToPoint(location);
             const leader = getQuestLeader(storeProps.adventurers, quest)!;
-            console.log(leader);
             return (
-                <QuestMarker quest={quest} leader={leader} position={point} key={quest.name} onClick={(quest) => handlePartyClick(quest.name)}/>
                 // <>
-                // <Sprite 
-                //     image={`${process.env.PUBLIC_URL}/img/world/map-marker.png`} 
-                //     name="cursor"
-                //     key={quest.name}
-                //     x={point.x}
-                //     y={point.y}
-                //     interactive={true}
-                //     scale={new PIXI.Point(0.15, 0.15)}
-                //     anchor={new PIXI.Point(0.5, 0.935)}
-                //     pointerdown={() => {
-                //        // setScale(scale + 1);
-                //         handlePartyClick(quest.name)
-                //     }}
-                // />
+                <QuestMarker quest={quest} leader={leader} position={point} key={quest.name} onClick={(quest) => handlePartyClick(quest.name)}/>
                 // <Sprite 
                 //     image={`${process.env.PUBLIC_URL}/img/cursors/dwarven_gauntlet.png`} 
                 //     name="cursor"
@@ -131,7 +116,7 @@ const WorldMap = (props: AllProps) => {
                 >
                     {renderParties()}
                 </Sprite>
-                {/* <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH}/> */}
+                <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH}/>
             </Viewport>
         </Stage>
     );

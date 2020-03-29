@@ -40,7 +40,7 @@ const QuestMarker = (props: Props) => {
                 y={-396}
                 scale={new Point(0.46, 0.46)}
                 interactive={true}
-                mask={mask.current!}
+                { ...(mask.current && { mask: mask.current})}
             >
                 <Graphics
                     draw={graphics => {
