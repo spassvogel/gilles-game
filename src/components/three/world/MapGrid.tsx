@@ -25,6 +25,12 @@ const MapGrid = PixiComponent('Rectangle', {
     }
 
     instance.endFill();
+
+    instance.interactive = true;
+    instance.addListener("pointermove", (event) => {
+      //console.log(event.data.global)
+      //console.log(event.data.originalEvent)
+    });
   },
 });
 

@@ -1,8 +1,7 @@
 import RealWorldView,
     { DispatchProps, Props, StateProps } from "components/partyScreen/RealWorldView";
-import { withAppContext } from "hoc/withAppContext";
 import { connect } from "react-redux";
-import { AnyAction, compose, Dispatch } from "redux";
+import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {

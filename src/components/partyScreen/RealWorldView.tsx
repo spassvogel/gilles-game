@@ -88,8 +88,6 @@ const RealWorldView = (props: AllProps) => {
                 <div className="distance"/>
             </div>
             <WorldMap
-                quests={props.quests}
-                activeQuests={activeQuests}
                 selectedQuest={selectedQuest}
                 onMapMove={handleMapMove}
                 onPartyClick={handlePartyClick}

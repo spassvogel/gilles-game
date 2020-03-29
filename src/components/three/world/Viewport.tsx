@@ -1,16 +1,18 @@
-import React from "react";
+import React, { MutableRefObject, RefObject, Component } from "react";
 import { Viewport as PixiViewport} from "pixi-viewport";
 import { PixiComponent } from "@inlet/react-pixi";
 import { useApp } from '@inlet/react-pixi'
 
 interface Props {
   children: React.ReactNode;
+  onMount?(viewport: PixiViewport): void;
   screenWidth: number,
   screenHeight: number,
   worldWidth: number,
   worldHeight: number,
 }
 
+/** Viewport leverates pixi-viewport to create a pannable map */
 const Viewport = (props: Props) => {
   const app = useApp();
   return <PixiComponentViewport app={app} {...props} />;  
@@ -28,7 +30,7 @@ const PixiComponentViewport = PixiComponent("Viewport", {
       worldWidth: props.worldWidth,
       worldHeight: props.worldHeight,
       ticker: props.app.ticker,
-      interaction: props.app.renderer.plugins.interaction 
+      interaction: props.app.renderer.plugins.interaction,
       // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
     });
     //viewport.on("drag-start", () => console.log("drag-start"));
@@ -39,21 +41,21 @@ const PixiComponentViewport = PixiComponent("Viewport", {
       .pinch()
       .wheel()
       .clamp({ direction: 'all' })
-      .clampZoom({ minScale: 0.5, maxScale: 1 })
+      .clampZoom({ minScale: 0.75, maxScale: 2 })
       .decelerate();
 
-    viewport.clamp({ direction: 'all' });
+    if(props.onMount) props.onMount(viewport);
 
     return viewport;
   },
-  applyProps: (instance, oldProps, newProps) => {
-    console.log("applyProps");
-  },
-  didMount: () => {
-    console.log("didMount");
-  },
-  willUnmount: () => {
-    console.log("willUnmount");
-  }
+  // applyProps: (instance, oldProps, newProps) => {
+  //   console.log("applyProps");
+  // },
+  // didMount: () => {
+  //   console.log("didMount");
+  // },
+  // willUnmount: () => {
+  //   console.log("willUnmount");
+  // }
 });
 export default Viewport;

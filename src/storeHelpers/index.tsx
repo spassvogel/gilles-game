@@ -8,11 +8,16 @@ import { QuestStoreState } from "stores/quest";
 // };
 
 export const adventurersOnQuest = (store: StoreState, quest: QuestStoreState): AdventurerStoreState[] => {
-    return quest.party.map((id: string) => findAdventurerById(store, id)!);
+    return quest.party.map((id: string) => findAdventurerById(store.adventurers, id)!);
 };
 
-export const findAdventurerById = (store: StoreState, id: string): AdventurerStoreState | undefined => {
-    return store.adventurers.find((a) => a.id === id);
+export const getQuestLeader = (adventurers: AdventurerStoreState[], quest: QuestStoreState): AdventurerStoreState | undefined => {
+    const leaderId = quest.party[0];
+    return findAdventurerById(adventurers, leaderId);
+}
+
+export const findAdventurerById = (adventurers: AdventurerStoreState[], id: string): AdventurerStoreState | undefined => {
+    return adventurers.find((a) => a.id === id);
 };
 
 export const storeIsRehydrated = (store: StoreState): boolean => {
@@ -20,3 +25,4 @@ export const storeIsRehydrated = (store: StoreState): boolean => {
     // Probably I should find a more solid way to do this
     return !!store.rngState;
 };
+

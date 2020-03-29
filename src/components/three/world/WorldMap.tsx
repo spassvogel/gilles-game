@@ -1,16 +1,19 @@
 import * as PIXI from 'pixi.js';
 import { Stage, Sprite } from '@inlet/react-pixi';
+import { Viewport as PixiViewport} from "pixi-viewport";
+import { useSelector } from 'react-redux'
 
 import Controls from "./Controls";
-import Sphere from "components/three/debug/Sphere";
-import DebugInspector from "components/three/DebugInspector";
 import { getDefinition } from "definitions/quests";
-import React, { createRef, useEffect, useRef, useState } from "react";
-import { QuestStoreState } from "stores/quest";
+import React, { createRef, useEffect, useRef, useState, useMemo } from "react";
+import { QuestStoreState, QuestStatus } from "stores/quest";
 import { lerpLocation } from 'utils/pixiJs';
-import { eventNames } from 'cluster';
 import Viewport from './Viewport';
 import MapGrid from './MapGrid';
+import QuestMarker from './QuestMarker';
+import { StoreState } from 'stores';
+import { getQuestLeader } from 'storeHelpers';
+import { AdventurerStoreState } from 'stores/adventurer';
 
 const WIDTH = 648;
 const HEIGHT = 690;
@@ -18,21 +21,26 @@ const WORLD_WIDTH = 1500;
 const WORLD_HEIGHT = 1061;
 const GRID_WIDTH = 10;      // width or height of each node location in pixels
 
-// This stuff is needed for the pixi-js browser plugin
+// // This stuff is needed for the pixi-js browser plugin
 if (process.env.NODE_ENV === "development") {
-    // @ts-ignore
-    PIXI.useDeprecated();
+//     // @ts-ignore
+//     PIXI.useDeprecated();
     // @ts-ignore
     window.__PIXI_INSPECTOR_GLOBAL_HOOK__ && window.__PIXI_INSPECTOR_GLOBAL_HOOK__.register({ PIXI: PIXI });
 }
 
 export interface Props {
-  quests: QuestStoreState[];
-  activeQuests: QuestStoreState[];
+  //quests: QuestStoreState[];
+  //activeQuests: QuestStoreState[];
   selectedQuest?: string;
   controllerEnabled: boolean;
   onMapMove: (distance: number, angle: number) => void;
   onPartyClick: (questName: string) => void;
+}
+
+interface StateProps {
+    adventurers: AdventurerStoreState[];
+    quests: QuestStoreState[];
 }
 
 // tslint:disable-next-line: no-empty-interface
@@ -44,7 +52,7 @@ type AllProps = Props & DispatchProps;
 //let scale = new PIXI.Point(1, 1);
 
 const WorldMap = (props: AllProps) => {
-
+    //const { store } = props;
 
 //    const handleCameraMove = (camera: Camera) => {
         // the position of the compass as if it was in 3d space
@@ -58,41 +66,72 @@ const WorldMap = (props: AllProps) => {
         // props.onMapMove(distance, angle);
 //    };
 
+    const storeProps = useSelector<StoreState, StateProps>((state: StoreState) => {
+        return {
+            adventurers: state.adventurers,
+            quests: state.quests,
+            activeQuests: state.quests
+        };
+    });
+
+    const activeQuests = useMemo(() => {
+        return storeProps.quests.filter((q) => q.status === QuestStatus.active);
+    }, [storeProps.quests]);
+
     const handlePartyClick = (name: string) => {
         props.onPartyClick(name);
     };
 
     const renderParties = () => {
-        return props.activeQuests.map((quest, index) => {
+        return activeQuests.map((quest, index) => {
             const location = getQuestWorldLocation(quest);
             const point = nodeLocationToPoint(location);
-console.log(point)
+            const leader = getQuestLeader(storeProps.adventurers, quest)!;
+            console.log(leader);
             return (
-                <Sprite 
-                    image={`${process.env.PUBLIC_URL}/img/cursors/dwarven_gauntlet.png`} 
-                    name="cursor"
-                    key={quest.name}
-                    x={point.x}
-                    y={point.y}
-                    interactive={true}
-                    pointerdown={() => {
-                       // setScale(scale + 1);
-                        handlePartyClick(quest.name)
-                    }}
-                />
+                <QuestMarker quest={quest} leader={leader} position={point} key={quest.name} onClick={(quest) => handlePartyClick(quest.name)}/>
+                // <>
+                // <Sprite 
+                //     image={`${process.env.PUBLIC_URL}/img/world/map-marker.png`} 
+                //     name="cursor"
+                //     key={quest.name}
+                //     x={point.x}
+                //     y={point.y}
+                //     interactive={true}
+                //     scale={new PIXI.Point(0.15, 0.15)}
+                //     anchor={new PIXI.Point(0.5, 0.935)}
+                //     pointerdown={() => {
+                //        // setScale(scale + 1);
+                //         handlePartyClick(quest.name)
+                //     }}
+                // />
+                // <Sprite 
+                //     image={`${process.env.PUBLIC_URL}/img/cursors/dwarven_gauntlet.png`} 
+                //     name="cursor"
+                //     key={quest.name}
+                //     x={point.x}
+                //     y={point.y}
+                //     interactive={true}
+                // />
+                // </>
             );
         });
     };
 
+    const viewPortMounted = (viewport: PixiViewport) => {
+        const point = nodeLocationToPoint({ x: 0, y: 0});
+        viewport.moveCenter(point.x, point.y);
+    }
+
     return (
         <Stage width={WIDTH} height={HEIGHT}>
-            <Viewport screenWidth={WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT}>
+            <Viewport screenWidth={WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} onMount={viewPortMounted} >
                 <Sprite 
                     image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`}          
                 >
                     {renderParties()}
                 </Sprite>
-                <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH}/>
+                {/* <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH}/> */}
             </Viewport>
         </Stage>
     );
@@ -115,6 +154,7 @@ const getQuestWorldLocation = (quest: QuestStoreState) => {
     return lerpLocation(lastNode, nextNode, quest.progress - roundedProgress);
 };
 
+// Node locations work on a centered coordinate system
 const nodeLocationToPoint = (location: { x: number; y: number; }) => {
     const x = location.x * GRID_WIDTH + WORLD_WIDTH / 2;
     const y = location.y * GRID_WIDTH + WORLD_HEIGHT / 2;
