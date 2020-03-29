@@ -8,7 +8,7 @@ import { getDefinition } from "definitions/quests";
 import React, { createRef, useEffect, useRef, useState, useMemo } from "react";
 import { QuestStoreState, QuestStatus } from "stores/quest";
 import { lerpLocation } from 'utils/pixiJs';
-import Viewport from './Viewport';
+import Viewport from '../../pixi/Viewport';
 import MapGrid from './MapGrid';
 import QuestMarker from './QuestMarker';
 import { StoreState } from 'stores';
@@ -88,17 +88,7 @@ const WorldMap = (props: AllProps) => {
             const point = nodeLocationToPoint(location);
             const leader = getQuestLeader(storeProps.adventurers, quest)!;
             return (
-                // <>
                 <QuestMarker quest={quest} leader={leader} position={point} key={quest.name} onClick={(quest) => handlePartyClick(quest.name)}/>
-                // <Sprite 
-                //     image={`${process.env.PUBLIC_URL}/img/cursors/dwarven_gauntlet.png`} 
-                //     name="cursor"
-                //     key={quest.name}
-                //     x={point.x}
-                //     y={point.y}
-                //     interactive={true}
-                // />
-                // </>
             );
         });
     };
@@ -107,7 +97,7 @@ const WorldMap = (props: AllProps) => {
         const point = nodeLocationToPoint({ x: 0, y: 0});
         viewport.moveCenter(point.x, point.y);
     }
-
+console.log('rendering map')
     return (
         <Stage width={WIDTH} height={HEIGHT}>
             <Viewport screenWidth={WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} onMount={viewPortMounted} >

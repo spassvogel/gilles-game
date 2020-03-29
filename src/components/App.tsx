@@ -21,6 +21,7 @@ import { Structure} from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType} from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
+import TownView from './town/TownView';
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -80,7 +81,7 @@ const App = (props: AllProps) => {
        }
    };
 
-    const renderTownView = () => <RealTownView onStructureClick={selectStructure} />;
+    const renderTownView = () => <TownView onStructureClick={selectStructure} />;
     const renderWorldView = () => <RealWorldView/>;
 
     // A contextual popup showing what you just clicked. Can be an Item
