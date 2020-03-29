@@ -214,8 +214,10 @@ const App = (props: AllProps) => {
                         onLoadComplete={handleMediaLoadComplete}
                     >
                         <Topbar/>
-                        <Redirect from="/" to="world" />
                         <Switch>
+                            <Route path="/" exact>
+                                <Redirect from="/" to="world" />
+                            </Route>
                             <Route path="/world">
                                 <Link to="/town">
                                     <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-town`)} </button>
