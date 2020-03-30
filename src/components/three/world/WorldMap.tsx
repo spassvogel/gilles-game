@@ -93,14 +93,18 @@ const WorldMap = (props: AllProps) => {
         });
     };
 
-    const viewPortMounted = (viewport: PixiViewport) => {
-        const point = nodeLocationToPoint({ x: 0, y: 0});
-        viewport.moveCenter(point.x, point.y);
-    }
-console.log('rendering map')
+    const ref = useRef<PixiViewport>(null);
+    useEffect(() => {
+        if(ref.current) {
+            const viewport = ref.current;
+            const point = nodeLocationToPoint({ x: 0, y: 0});
+            viewport.moveCenter(point.x, point.y);
+        }
+    }, []);
+
     return (
         <Stage width={WIDTH} height={HEIGHT}>
-            <Viewport screenWidth={WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} onMount={viewPortMounted} >
+            <Viewport screenWidth={WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={ref} >
                 <Sprite 
                     image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`}          
                 >

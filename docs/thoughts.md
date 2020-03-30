@@ -10,7 +10,8 @@ backlog of ideas
 [x] for ease, a party can only exist when a quest is combined with a group of adventurers
     its not possible to create a party and send them on a quest later
     the party gets created when the adventurers leave on the quest
-[ ] the quest has an icon, that will be the icon for the party too
+[-] the quest has an icon, that will be the icon for the party too
+[ ] the quest icon will be the leader of the party
 
 27/4/2019 Multi lingual support
 [x] for multi lingual support we need a templating engine
@@ -134,7 +135,7 @@ backlog of ideas
     https://stackoverflow.com/questions/18997724/how-to-change-scroll-bar-position-with-css
 
 25/07/2019 CUSTOM CURSORS
-[ ] We need cursors for move and not-allowed
+[ ] We need cursors for move inventory item and not-allowed
 
 29/07/2019 EQUIP GEAR
 [x] Can equip gear from the players inventory
@@ -287,8 +288,9 @@ research fantasy concept art
     EQUIPMENT = { APPAREL, WEAPONS }
 
 17/11/2019 STORE WORLD POS
-[ ] store world pos in redux, pass to WorldMap.scrollToPosition
-[ ] read: Three.js projecting mouse clicks to a 3D scene - how to do it and how it works
+(obsolete)
+[-] store world pos in redux, pass to WorldMap.scrollToPosition
+[-] read: Three.js projecting mouse clicks to a 3D scene - how to do it and how it works
           https://barkofthebyte.azurewebsites.net/post/2014/05/05/three-js-projecting-mouse-clicks-to-a-3d-scene-how-to-do-it-and-how-it-works
 
 17/11/2019 ANIMATIONS
@@ -296,29 +298,47 @@ research fantasy concept art
 
 THREEJS examples (MIGHT IS RIGHT):
 [ ] http://server1.lazy-kitty.com/tests/
-    check achievements
+    check achievements (http://server1.lazy-kitty.com/tests/achievements_2019_08_11/)
     
 24/11/2019 Terrain generator
-[ ] uses height-map images (grey-scale) https://github.com/Usnul/meep
+(obsolete)
+[-] uses height-map images (grey-scale) https://github.com/Usnul/meep
 
 26/11/2019 Smoke particles from the houses in world map
-[ ] https://aerotwist.com/tutorials/creating-particles-with-three-js/
+(obsolete)
+[-] https://aerotwist.com/tutorials/creating-particles-with-three-js/
 
 02/12/2019 Resource update should happen at a set interval
     instead of every game tick
 
-10/12/2019 
+10/12/2019 Item warehouse > adventurer
 [ ] Can drop items from warehouse onto adventurer    
 
-01/01/2020 rerender of world
+01/01/2020 rerender of world (+tech)
 [ ] Figure out why the world gets rerendered on state change of App
 
 2/01/2020 disable threejs controller
-[ ] You cant scroll the 
+(obsolete)
+[-] You cant scroll the 
 
-28/03/2020 Pixi-js
+28/03/2020 Pixi-js (+tech, +art)
 [x] Screw 3d its way too complicated. Going to try pixi-js
 
-30/03/2020 Structure in town popup
-[ ] Town should store 
+30/03/2020 Structure in town popup (+tech)
+[ ] Town should store location
 [ ] Structures in town should display a short popup on click. The popup should have a button to expand the GUI and show all the details
+
+30/03/2020 Mobile (+tech, +art)
+[ ] Need to completely check if the app is responsive and works in mobile
+
+30/03/2020 Leaders (+design)
+[ ] Parties can have a leader. The leader provides the icon for the party. What else does it mean?
+[ ] Leader ability?
+
+30/03/2020 Combat visuals (+art, +tech)
+[ ] 
+[ ] See https://github.com/knervous/tiled-pixi-react
+
+30/03/2020 Refactor react (+tech)
+[ ] Refactor react, remove containers. Implement useSelector hook
+[ ] Check for needless rerendering

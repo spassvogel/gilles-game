@@ -1,9 +1,10 @@
-import * as React from "react";
+import React, { useRef, useEffect } from "react";
 import { Stage, Sprite, Text } from '@inlet/react-pixi';
 import {  ClickEventData } from "pixi-viewport";
 import { Structure, getDefinition } from 'definitions/structures';
 import { StructuresStoreState } from 'stores/structures';
 import { SoundManager, MusicTrack } from 'utils/soundManager';
+import { Viewport as PixiViewport} from "pixi-viewport";
 import Viewport from '../pixi/Viewport';
 import { StructureState, StructureStoreState } from 'stores/structure';
 import { useSelector } from 'react-redux';
@@ -48,7 +49,9 @@ const TownView = (props: AllProps) => {
     }, []);
 
     const handleStructureClick = (structure: Structure) => {
-        if (props.onStructureClick) { props.onStructureClick(structure); }
+        if (!dragging.current && props.onStructureClick) { 
+            props.onStructureClick(structure); 
+        }
     }
 
     // const handleBackgroundClick = () => {
@@ -173,9 +176,19 @@ console.log('rendering town');
         console.log(event.world.x);
     };
 
+    let dragging = useRef(false);
+    const ref = useRef<PixiViewport>(null);
+    useEffect(() => {
+        if(ref.current) {
+            const viewport = ref.current;
+            viewport.on("drag-start", (evt) => { dragging.current = true; });
+            viewport.on("drag-end", (evt) => { dragging.current = false; });
+        }
+    }, []);
+
     return (
         <Stage width={WIDTH} height={HEIGHT}>
-            <Viewport screenWidth={WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} onMount={undefined} onClick={viewportClick} >
+            <Viewport screenWidth={WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} onClick={viewportClick} ref={ref}>
                 <Sprite 
                     name="background"
                     image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}          

@@ -1,11 +1,9 @@
-import React from "react";
+import React, { Ref, ReactNode, useEffect } from "react";
 import { Viewport as PixiViewport, ClickEventData } from "pixi-viewport";
-import { PixiComponent } from "@inlet/react-pixi";
-import { useApp } from '@inlet/react-pixi'
+import { PixiComponent, useApp } from "@inlet/react-pixi";
 
 interface Props {
   children: React.ReactNode;
-  onMount?(viewport: PixiViewport): void;
   onClick?(event: ClickEventData): void;
   screenWidth: number,
   screenHeight: number,
@@ -13,11 +11,11 @@ interface Props {
   worldHeight: number,
 }
 
-/** Viewport leverates pixi-viewport to create a pannable map */
-const Viewport = (props: Props) => {
+/** Viewport leverages pixi-viewport to create a pannable map */
+const Viewport = React.forwardRef<PixiViewport, any>((props, ref) => {
   const app = useApp();
-  return <PixiComponentViewport app={app} {...props} />;  
-};
+  return <PixiComponentViewport app={app} {...props} ref={ref} />;  
+})
 
 interface PixiComponentProps {
     app: PIXI.Application;
@@ -45,8 +43,6 @@ const PixiComponentViewport = PixiComponent("Viewport", {
       .clamp({ direction: 'all' })
       .clampZoom({ minScale: 0.75, maxScale: 2 })
       .decelerate();
-
-    if(props.onMount) props.onMount(viewport);
 
     return viewport;
   },
