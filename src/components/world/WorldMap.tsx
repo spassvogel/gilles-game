@@ -3,12 +3,11 @@ import { Stage, Sprite } from '@inlet/react-pixi';
 import { Viewport as PixiViewport} from "pixi-viewport";
 import { useSelector } from 'react-redux'
 
-import Controls from "./Controls";
 import { getDefinition } from "definitions/quests";
-import React, { createRef, useEffect, useRef, useState, useMemo } from "react";
+import React, { useEffect, useRef, useMemo } from "react";
 import { QuestStoreState, QuestStatus } from "stores/quest";
 import { lerpLocation } from 'utils/pixiJs';
-import Viewport from '../../pixi/Viewport';
+import Viewport from '../pixi/Viewport';
 import MapGrid from './MapGrid';
 import QuestMarker from './QuestMarker';
 import { StoreState } from 'stores';

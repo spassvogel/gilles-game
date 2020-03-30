@@ -1,5 +1,5 @@
 import { AppContext } from "components/App";
-import WorldMap from "components/three/world/WorldMap";
+import WorldMap from "components/world/WorldMap";
 import PartyWindow from "containers/windows/PartyWindow";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { QuestStatus, QuestStoreState } from "stores/quest";
