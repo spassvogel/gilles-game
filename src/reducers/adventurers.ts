@@ -27,6 +27,7 @@ const generateRandomStats = (): StatsStoreState => {
     };
 };
 
+const avatarImgBasePath = "/img/avatars";
 // Create a bunch of guys for debugging
 const testState: AdventurerStoreState[] = [{
     id: "c4a5d270",
@@ -38,7 +39,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 0,
     name: "Ximena Maddox",
-    avatarImg: `/img/avatars/andy-victorovych-a1.jpg`,
+    avatarImg: `${avatarImgBasePath}/female/f_14.png`,
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.deedForLumbermill, null, Item.crossbow, Item.dagger, Item.khopesh, null, Item.sword, null,  null,  null,  null,  null,  null,  null,  null,  null],
 }, {
@@ -48,7 +49,7 @@ const testState: AdventurerStoreState[] = [{
     name: "Donte Houston",
     health: Math.random() * 100,
     room: 1,
-    avatarImg: `/img/avatars/andy-victorovych-a2.jpg`,
+    avatarImg: `${avatarImgBasePath}/male/m_05.png`,
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.crossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, Item.plateHelmet, Item.cowl],
 }, {
@@ -58,7 +59,7 @@ const testState: AdventurerStoreState[] = [{
     name: "Zackary Morris",
     health: Math.random() * 100,
     room: 2,
-    avatarImg: `/img/avatars/andy-victorovych-a3.jpg`,
+    avatarImg: `${avatarImgBasePath}/male/m_09.png`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
     id: "d299f98a",
@@ -67,7 +68,7 @@ const testState: AdventurerStoreState[] = [{
     name: "Mike Keith",
     health: Math.random() * 100,
     room: 4,
-    avatarImg: `/img/avatars/andy-victorovych-a4.jpg`,
+    avatarImg: `${avatarImgBasePath}/male/m_19.png`,
     inventory: [ null, null, null, null, Item.khopesh, Item.hornedHelmet ],
 }, {
     id: "96c686c3",
@@ -76,16 +77,16 @@ const testState: AdventurerStoreState[] = [{
     name: "Wayne Monroe",
     health: Math.random() * 100,
     room: 5,
-    avatarImg: `/img/avatars/andy-victorovych-a5.jpg`,
+    avatarImg: `${avatarImgBasePath}/male/m_08.png`,
     inventory: [ null, null, null ],
 }, {
     id: "250d1a9d",
     stats: generateRandomStats(),
     equipment: {},
-    name: "Mike Keith",
+    name: "Alexis Ortiz ",
     health: Math.random() * 100,
     room: 9,
-    avatarImg: `/img/avatars/andy-victorovych-a6.jpg`,
+    avatarImg: `${avatarImgBasePath}/female/f_10.png`,
     inventory: [ null, null, null, null, null ],
 }, {
     id: "169384ef",
@@ -94,7 +95,7 @@ const testState: AdventurerStoreState[] = [{
     name: "Karlee Nolan",
     health: Math.random() * 100,
     room: 3,
-    avatarImg: `/img/avatars/andy-victorovych-a7.jpg`,
+    avatarImg: `${avatarImgBasePath}/female/f_16.png`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
     id: "f22d66cb",
@@ -103,7 +104,7 @@ const testState: AdventurerStoreState[] = [{
     name: "Gylbarde the Earnest",
     health: Math.random() * 100,
     room: 8,
-    avatarImg: `/img/avatars/andy-victorovych-a8.jpg`,
+    avatarImg: `${avatarImgBasePath}/male/m_09.png`,
     inventory: [ null, null, null, null, null ],
 }, {
     id: "36c686c1",
@@ -112,7 +113,7 @@ const testState: AdventurerStoreState[] = [{
     name: "Lanslet of the Water",
     health: Math.random() * 100,
     room: 6,
-    avatarImg: `/img/avatars/andy-victorovych-a9.jpg`,
+    avatarImg: `${avatarImgBasePath}/male/m_26.png`,
     inventory: [ Item.greatswordOfGwai, null, null, null, Item.shoulders1, Item.fedora, Item.greaves2 ],
 }, {
     id: "12c613d4",
@@ -121,7 +122,7 @@ const testState: AdventurerStoreState[] = [{
     name: "Tedric the Bold",
     health: Math.random() * 100,
     room: 7,
-    avatarImg: `/img/avatars/andy-victorovych-a10.jpg`,
+    avatarImg: `${avatarImgBasePath}/male/m_33.png`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }];
 

@@ -10,7 +10,7 @@ interface Props {
     onClick?: (quest: QuestStoreState) => void;
     leader: AdventurerStoreState;
 }
-const CIRCLE_DIAMETER = 360;
+const CIRCLE_DIAMETER = 256; // = avatar size / 2
 
 const QuestMarker = (props: Props) => {
     const { quest, leader, position, onClick } = props;
@@ -38,7 +38,7 @@ const QuestMarker = (props: Props) => {
                 anchor={new Point(0.5, 0.5)}
                 x={0}
                 y={-396}
-                scale={new Point(0.46, 0.46)}
+                scale={new Point(0.66, 0.66)}
                 interactive={true}
                 { ...(mask.current && { mask: mask.current})}
             >
