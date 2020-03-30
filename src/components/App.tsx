@@ -153,8 +153,8 @@ const App = (props: AllProps) => {
         setMedia(mediaItems);
 
         // todo: temporary!
-        // const window = <CombatView/>;
-        // this.handleWindowOpened(window);
+        const window = <CombatView/>;
+        handleWindowOpened(window);
     };
 
     const handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => {

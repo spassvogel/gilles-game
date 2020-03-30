@@ -338,6 +338,7 @@ THREEJS examples (MIGHT IS RIGHT):
 30/03/2020 Combat visuals (+art, +tech)
 [ ] 
 [ ] See https://github.com/knervous/tiled-pixi-react
+    I have cloned this repo. Will try to move some code over
 
 30/03/2020 Refactor react (+tech)
 [ ] Refactor react, remove containers. Implement useSelector hook
