@@ -71,6 +71,7 @@ export enum Item {
     // quest-items
     blueprints = "blueprints",
     crate = "crate",
+    dragonEye = "dragonEye",
     dynamite = "dynamite",
     eye = "eye",
     feather = "feather",

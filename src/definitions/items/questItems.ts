@@ -21,6 +21,11 @@ const questItemDefinitions: Record<string, ItemDefinition> = {
         itemType,
         iconImg: `${basePath}dynamite.png`,
     },
+    [Item.dragonEye]: {
+        item: Item.dragonEye,
+        itemType,
+        iconImg: `${basePath}dragon-eye.png`,
+    },
     [Item.eye]: {
         item: Item.eye,
         itemType,
