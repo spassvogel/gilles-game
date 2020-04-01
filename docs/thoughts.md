@@ -294,7 +294,8 @@ research fantasy concept art
           https://barkofthebyte.azurewebsites.net/post/2014/05/05/three-js-projecting-mouse-clicks-to-a-3d-scene-how-to-do-it-and-how-it-works
 
 17/11/2019 ANIMATIONS
- Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy.com/2017/11/06/creating-animated-gltf-characters-with-mixamo-and-blender/
+(obsolete)
+Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy.com/2017/11/06/creating-animated-gltf-characters-with-mixamo-and-blender/
 
 THREEJS examples (MIGHT IS RIGHT):
 [ ] http://server1.lazy-kitty.com/tests/
@@ -335,7 +336,7 @@ THREEJS examples (MIGHT IS RIGHT):
 [ ] Parties can have a leader. The leader provides the icon for the party. What else does it mean?
 [ ] Leader ability?
 
-30/03/2020 Combat visuals (+art, +tech)
+30/03/2020 Combat situation visuals (+art, +tech)
 [ ] 
 [ ] See https://github.com/knervous/tiled-pixi-react
     I have cloned this repo. Will try to move some code over
@@ -343,3 +344,8 @@ THREEJS examples (MIGHT IS RIGHT):
 30/03/2020 Refactor react (+tech)
 [ ] Refactor react, remove containers. Implement useSelector hook
 [ ] Check for needless rerendering
+
+01/04/2020 Draw quest path
+[x] Would be cool to see the path that a party took
+    https://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas
+[ ] Best would be to have a dotted line..    

@@ -13,6 +13,7 @@ import QuestMarker from './QuestMarker';
 import { StoreState } from 'stores';
 import { getQuestLeader } from 'storeHelpers';
 import { AdventurerStoreState } from 'stores/adventurer';
+import QuestLine from './QuestLine';
 
 const WIDTH = 648;
 const HEIGHT = 690;
@@ -81,13 +82,22 @@ const WorldMap = (props: AllProps) => {
         props.onPartyClick(name);
     };
 
-    const renderParties = () => {
+    const renderQuestlines = () => {
+        return activeQuests.map((quest, index) => {
+            const previousPositions = getPreviousPositions(quest);
+            return (
+                <QuestLine positions={previousPositions}/>
+            );
+        });
+    };
+
+    const renderMarkers = () => {
         return activeQuests.map((quest, index) => {
             const location = getQuestWorldLocation(quest);
-            const point = nodeLocationToPoint(location);
+            const currentPosition = nodeLocationToPoint(location);
             const leader = getQuestLeader(storeProps.adventurers, quest)!;
             return (
-                <QuestMarker quest={quest} leader={leader} position={point} key={quest.name} onClick={(quest) => handlePartyClick(quest.name)}/>
+                <QuestMarker quest={quest} leader={leader} position={currentPosition} key={quest.name} onClick={(quest) => handlePartyClick(quest.name)}/>
             );
         });
     };
@@ -104,10 +114,9 @@ const WorldMap = (props: AllProps) => {
     return (
         <Stage width={WIDTH} height={HEIGHT}>
             <Viewport screenWidth={WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={ref} >
-                <Sprite 
-                    image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`}          
-                >
-                    {renderParties()}
+                <Sprite image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`} >
+                    {renderQuestlines()}
+                    {renderMarkers()}
                 </Sprite>
                 <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH}/>
             </Viewport>
@@ -137,4 +146,16 @@ const nodeLocationToPoint = (location: { x: number; y: number; }) => {
     const x = location.x * GRID_WIDTH + WORLD_WIDTH / 2;
     const y = location.y * GRID_WIDTH + WORLD_HEIGHT / 2;
     return new PIXI.Point(x, y);
+}
+
+const getPreviousPositions = (quest: QuestStoreState) => {
+    const positions: PIXI.Point[] = [];
+    const questDefinition = getDefinition(quest.name);
+
+    for(let i = 0; i < quest.progress; i++) {
+        positions.push(nodeLocationToPoint(questDefinition.nodes[i]))
+    }
+    const lastPosition = nodeLocationToPoint(getQuestWorldLocation(quest));
+    positions.push(lastPosition);
+    return positions;
 }

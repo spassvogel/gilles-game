@@ -91,32 +91,100 @@ const retrieveMagicAmulet: QuestDefinition = {
         y: 1,
         type: QuestNodeType.nothing,
     }, {
-        x: 1,
+        x: 2,
         y: 1,
         type: QuestNodeType.nothing,
     }, {
-        x: 1,
+        x: 3,
         y: 1,
         type: QuestNodeType.nothing,
     }, {
-        x: 1,
+        x: 4,
         y: 1,
         type: QuestNodeType.nothing,
     }, {
-        x: 1,
+        x: 5,
         y: 1,
         type: QuestNodeType.nothing,
     }, {
-        x: 1,
+        x: 7,
         y: 1,
         type: QuestNodeType.nothing,
     }, {
-        x: 0,
+        x: 8,
         y: 2,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 8,
+        y: 3,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 9,
+        y: 3,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 10,
+        y: 1,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 10,
+        y: 2,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 10,
+        y: 3,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 10,
+        y: 4,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 11,
+        y: 5,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 12,
+        y: 6,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 12,
+        y: 7,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 13,
+        y: 8,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 12,
+        y: 8,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 12,
+        y: 9,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 11,
+        y: 8,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 10,
+        y: 8,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 9,
+        y: 8,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 8,
+        y: 9,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 7,
+        y: 8,
         type: QuestNodeType.encounter,
         encounter: Encounter.theBigTree,
     }, {
-        x: 1,
+        x: 8,
         y: 1,
         type: QuestNodeType.nothing,
     }, {
