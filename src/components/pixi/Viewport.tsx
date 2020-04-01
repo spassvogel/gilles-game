@@ -1,4 +1,4 @@
-import React, { Ref, ReactNode, useEffect } from "react";
+import React from "react";
 import { Viewport as PixiViewport, ClickEventData } from "pixi-viewport";
 import { PixiComponent, useApp } from "@inlet/react-pixi";
 

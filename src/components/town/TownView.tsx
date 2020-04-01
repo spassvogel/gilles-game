@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
-import { Stage, Sprite, Text } from '@inlet/react-pixi';
+import { Stage, Sprite } from '@inlet/react-pixi';
 import {  ClickEventData } from "pixi-viewport";
-import { Structure, getDefinition } from 'definitions/structures';
+import { Structure } from 'definitions/structures';
 import { StructuresStoreState } from 'stores/structures';
 import { SoundManager, MusicTrack } from 'utils/soundManager';
 import { Viewport as PixiViewport} from "pixi-viewport";
@@ -9,7 +9,6 @@ import Viewport from '../pixi/Viewport';
 import { StructureState, StructureStoreState } from 'stores/structure';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
-import { TextManager } from 'utils/textManager';
 
 const WIDTH = 648;
 const HEIGHT = 690;
@@ -26,16 +25,7 @@ export interface Props {
     onStructureClick?: (structure: Structure | null) => void;
 }
 
-interface StateProps {
-    structures: StructuresStoreState;
-    // tasks: TaskStoreState[];
-}
 
-//   let match = useRouteMatch(); 
-// https://reacttraining.com/react-router/web/guides/quick-start
-
-// tslint:disable-next-line:no-empty-interface
-interface LocalState {}
 
 type AllProps = Props & DispatchProps /*& AppContextProps;*/
 
@@ -77,14 +67,11 @@ console.log('rendering town');
             Structure.mine,
             Structure.lumberMill
         ]
-        return orderedStructures.reverse().map((structure, index) => {
+        return orderedStructures.reverse().map((structure) => {
             const structureStore: StructureStoreState = structures[structure];
             if (structureStore.state === StructureState.NotBuilt) {
                 return null;
             }
-            const structureDef = getDefinition(structure);
-            const levelDef = structureDef.levels[structureStore.level];
-            const displayName = TextManager.get(levelDef.displayName);
                
             let x, y;              
             switch (structure) {
@@ -156,8 +143,8 @@ console.log('rendering town');
     useEffect(() => {
         if(ref.current) {
             const viewport = ref.current;
-            viewport.on("drag-start", (evt) => { dragging.current = true; });
-            viewport.on("drag-end", (evt) => { dragging.current = false; });
+            viewport.on("drag-start", () => { dragging.current = true; });
+            viewport.on("drag-end", () => { dragging.current = false; });
         }
     }, []);
 
