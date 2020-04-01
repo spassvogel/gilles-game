@@ -8,7 +8,6 @@ interface Props {
 const QuestLine = (props: Props) => {
     const { positions } = props;
     if (props.positions.length > 2) {
-        console.log('a');
         return <Graphics
             name="questline"
             x={0}

@@ -7,6 +7,8 @@ import { StructuresStoreState } from "stores/structures";
 import { TextManager } from "utils/textManager";
 import "./css/cheatbox.css";
 import { useRef, useState } from 'react';
+import { ToastManager } from 'components/ui/toasts/ToastManager';
+import { Type } from 'components/ui/toasts/Toast';
 
 export interface DispatchProps {
     onCheatGold?: (amount: number) => void;
@@ -86,28 +88,46 @@ const CheatWindow = (props: AllProps) => {
     const handleCheatGold = (evt: React.MouseEvent<HTMLButtonElement>) => {
         const amount = cheats.gold;
         if (props.onCheatGold) { props.onCheatGold(amount); }
+
+        const text = TextManager.get("common-cheat-gold-added", { amount });
+        const icon = "/img/resources/gold.png";
+        ToastManager.addToast(text, Type.cheat, icon);
     }
 
     const handleCheatWorkers = (evt: React.MouseEvent<HTMLButtonElement>) => {
         const amount = cheats.workers;
         if (props.onCheatWorkers) { props.onCheatWorkers(amount); }
+        const text = TextManager.get("common-cheat-workers-added", { amount });
+        const icon = "/img/resources/worker.png";
+        ToastManager.addToast(text, Type.cheat, icon);
     }
 
     const handleCheatResources = (evt: React.MouseEvent<HTMLButtonElement>) => {
         if (props.onCheatResources) { props.onCheatResources(cheats.resources); }
+        const text = TextManager.get("common-cheat-resources-added", { amount: cheats.resources });
+        ToastManager.addToast(text, Type.cheat);
     }
 
     const handleCheatItem = (evt: React.MouseEvent<HTMLButtonElement>) => {
         const item = itemSelectRef.current!.value as Item;
         if (props.onCheatItem) { props.onCheatItem(item); }
+
+        const text = TextManager.get("common-cheat-item-added", { item });
+        const icon = getDefinition(item).iconImg;
+        ToastManager.addToast(text, Type.cheat, icon);
     }
 
     const handleChangeStructureState = (structure: Structure, checked: boolean) => {
         if (props.onCheatStructureState) {
             props.onCheatStructureState(structure, checked ? StructureState.Built : StructureState.NotBuilt);
         }
+        if (checked) {
+            ToastManager.addToast(`The ${TextManager.getStructureName(structure)} is constructed`, Type.cheat);
+        } else {
+            ToastManager.addToast(`The ${TextManager.getStructureName(structure)} is not constructed`, Type.cheat);
+        }
     }
-
+ 
     const handleChangeGold = (event: React.ChangeEvent<HTMLInputElement>) => {
         const amount = Number(event.target.value);
         setCheats({

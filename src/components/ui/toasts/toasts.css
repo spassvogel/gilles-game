@@ -1,0 +1,141 @@
+.toasts {
+    z-index: 4;
+    position: absolute;
+    bottom: 105px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.toasts .toast {
+    height: 58px;
+    position: relative;
+    box-sizing: border-box;
+    display: grid;
+    margin: 16px;
+    background-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.84) 0, transparent 73%), radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.45) 0, transparent 50%);
+
+    animation: pop 0.5s ease-in-out 1, fadeout 1s linear 4s;
+}
+
+
+@keyframes pop {
+    10% { transform: scale(0.25);}
+    50% { transform: scale(1.25);}
+}
+
+@keyframes fadeout {
+    0% { opacity: 1; }  
+    100% { opacity: 0; }
+}
+
+.toasts .toast:after {
+    top: 0;
+    left: 115px;
+    position: absolute;
+    height: 58px;
+    width: 230px;
+    content: '';
+    box-sizing: border-box;
+    border-image-source: url("/gilles-game/img/ui/toasts/border-top.png");
+    border-image-slice: 0 0 100% 0;
+    border-image-repeat: stretch;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+}
+
+.toasts .toast .title {
+    height: 100%;
+    color: white;
+    font-size: 32px;
+    font-family: "Cambria", sans-serif;
+    text-align: center;
+    line-height: 58px;
+    text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5), 0 0 2px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.toasts .toast .banner {
+    z-index: 1;
+    right: 0;
+    top: -13px;
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    background-image: url("/gilles-game/img/ui/toasts/banner-red.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.toasts .toast .banner::after {
+    right: 12.5px;
+    top: 10px;
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    content: '';
+    background-image: url("/gilles-game/img/ui/toasts/banner-symbol.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.2));
+}
+
+.toasts .toast .type {
+    z-index: 0;
+    left: 0;
+    top: -22px;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    line-height: 22px;
+    font-size: 16px;
+    font-family: "Constantia", sans-serif;
+    color: #E7AA40;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.5), 1px 1px 1px black;
+    background-image: radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.35) 0, transparent 73%);
+    border-image-source: url("/gilles-game/img/ui/toasts/border-top.png");
+    border-image-slice: 0 0 100% 0;
+    border-image-repeat: stretch;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+}
+
+.toasts .toast .icon {
+    z-index: 1;
+    position: absolute;
+    margin-top: -2px;
+    height: 64px;
+    width: 64px;
+}
+
+.toasts .toast .icon .image {
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    box-sizing: border-box;
+}
+
+.toasts .toast .icon .foreground {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-image-source: url("/gilles-game/img/ui/toasts/border-gold-64.png");
+    border-image-slice: 3 3 3 3;
+    border-image-repeat: stretch;
+    border-width: 3px;
+    border-style: solid;
+    box-sizing: border-box;
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.7), inset 0 0 4px 1px rgba(0, 0, 0, 0.3);
+}

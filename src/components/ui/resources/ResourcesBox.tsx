@@ -6,7 +6,6 @@ import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
 import { TextManager } from "utils/textManager";
 import { StructuresStoreState } from 'stores/structures';
-import { StructureType } from 'definitions/structures/types';
 import { Structure } from 'definitions/structures';
 
 export interface Props {

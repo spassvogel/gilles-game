@@ -1,4 +1,5 @@
 // tslint:disable: object-literal-sort-keys
+// tslint:disable: object-literal-sort-keys
 import { ContextInfo, ContextType} from "constants/context";
 import CombatView from "containers/combat/CombatView";
 import SimpleLog from "containers/log/SimpleLog";
@@ -21,6 +22,8 @@ import "./css/app.css";
 import Preloader, { MediaItem, MediaType} from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
 import TownView from './town/TownView';
+import Toasts from './ui/toasts/Toasts';
+import { ToastManager } from './ui/toasts/ToastManager';
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -106,7 +109,7 @@ const App = (props: AllProps) => {
             ...activeWindows || [],
             window,
         ]);
-    };
+    };   
 
     /**
      * Closes all windows
@@ -123,6 +126,7 @@ const App = (props: AllProps) => {
             setActiveWindows(activeWindows.slice(0, -1));
         }
     };
+
     const renderWindow = (): React.ReactElement | null => {
         if (!activeWindows.length) {
             return null;
@@ -196,7 +200,11 @@ const App = (props: AllProps) => {
     }, []);
 
     return (
-        <AppContext.Provider value={{ media, onContextualObjectActivated: handleContextualObjectActivated, onOpenWindow: handleWindowOpened }} >
+        <AppContext.Provider value={{ 
+            media, 
+            onContextualObjectActivated: handleContextualObjectActivated, 
+            onOpenWindow: handleWindowOpened,
+        }} >
             <div
                 className="app"
                 ref={containerRef}
@@ -237,6 +245,7 @@ const App = (props: AllProps) => {
                         <SimpleLog/>
                         {renderWindow()}
                         {renderContextPopup()}
+                        <Toasts />
                     </Preloader>
                 </Router>
                 </DndProvider>
