@@ -86,7 +86,7 @@ const WorldMap = (props: AllProps) => {
         return activeQuests.map((quest, index) => {
             const previousPositions = getPreviousPositions(quest);
             return (
-                <QuestLine positions={previousPositions}/>
+                <QuestLine positions={previousPositions} key={quest.name}/>
             );
         });
     };
