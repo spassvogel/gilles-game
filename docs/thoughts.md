@@ -299,7 +299,7 @@ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy
 
 THREEJS examples (MIGHT IS RIGHT):
 [ ] http://server1.lazy-kitty.com/tests/
-    check achievements (http://server1.lazy-kitty.com/tests/achievements_2019_08_11/)
+[x]   check achievements (http://server1.lazy-kitty.com/tests/achievements_2019_08_11/)
     
 24/11/2019 Terrain generator
 (obsolete)
@@ -349,3 +349,23 @@ THREEJS examples (MIGHT IS RIGHT):
 [x] Would be cool to see the path that a party took
     https://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas
 [ ] Best would be to have a dotted line..    
+
+02/04/2020 Toasts (+tech)
+[x] Basic toast implementation is done
+[ ] Implement in different scenarios (quest complete, quest failed, achievement unlocked)
+[ ] Add sound
+
+02/04/2020 Make town come alive (+art)
+[ ] Add animations
+[ ] Add particle effects (fire, smoke)
+
+02/04/2020 Cool smoke shader (+art)
+[ ] Can use this in some sort of menu or loader?
+    https://codepen.io/davidhartley/pen/seEki
+
+02/04/2020 Remove preloader (+ref)
+[ ] Remove preloader
+    Preloading is not needed for images.
+[ ] Figure out if needed for sound?
+[ ] If needed, preloader for pixi can be implemented as such
+    https://www.youtube.com/watch?v=KwVszq2RjX4
