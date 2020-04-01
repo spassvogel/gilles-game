@@ -1,4 +1,4 @@
-import { Graphics } from 'pixi.js';
+import { Graphics, Point } from 'pixi.js';
 import { PixiComponent } from '@inlet/react-pixi';
 
 interface Props {
@@ -7,14 +7,17 @@ interface Props {
     gridWidth: number;
 }
 
-// For debugging
+const gridColor = 0xadadad; // grey
+const dotColor = 0x5203fc;  // purple
+
+// For debugging. Displays a grid
 const MapGrid = PixiComponent('Rectangle', {
     create: (props: Props) => new Graphics(),
-    applyProps: (instance: Graphics, _, props) => {
+    applyProps: (instance: Graphics, oldProps, props) => {
         const { width, height, gridWidth } = props;
 
         instance.clear();
-        instance.lineStyle(1, 0xff0000, 0.5);
+        instance.lineStyle(1, gridColor, 0.5);
         for(let y = 0; y < height; y++) {
             instance.moveTo(0, y * gridWidth);
             instance.lineTo(width, y * gridWidth);
@@ -24,15 +27,49 @@ const MapGrid = PixiComponent('Rectangle', {
             instance.moveTo(x * gridWidth, 0);
             instance.lineTo(x * gridWidth, height);        
         }
-
         instance.endFill();
 
-        instance.interactive = true;
-        instance.addListener("pointermove", (event) => {
-          //console.log(event.data.global)
-          //console.log(event.data.originalEvent)
+        // Store props to access them in didMount
+        // todo: figure out a nicer way to access props in didmount
+        Object.assign(instance as any, {
+            gridWidth,
+            worldWidth: width,
+            worldHeight: height
         });
     },
+
+    didMount: (instance: Graphics, parent) => {
+
+        var point = new Graphics();
+        point.beginFill(dotColor); 
+        point.drawCircle(0, 0, 3); 
+        point.endFill();
+        point.x = -999; // offscreen
+        instance.addChild(point);
+
+        const { gridWidth, worldWidth, worldHeight } = instance as any;
+        parent.addListener("clicked", (event: { world: PIXI.Point }) => {
+            const nearestX = Math.round(event.world.x / gridWidth) * gridWidth;
+            const nearestY = Math.round(event.world.y / gridWidth) * gridWidth;
+
+            // Move the purple dot
+            point.x = nearestX;
+            point.y = nearestY;
+
+            const nodeLocation = toNodeLocation(nearestX, nearestY);
+            console.log(`Node [${nodeLocation.x}, ${nodeLocation.y}]`);
+        });
+
+        // Node locations work on a centered coordinate system
+        const toNodeLocation = (x: number, y: number) => {
+            return {
+                x: (x - Math.floor(worldWidth / 2)) / gridWidth,
+                y: (y - Math.floor(worldHeight / 2)) / gridWidth,
+            }
+        }
+    },
 });
+
+
 
 export default MapGrid;

@@ -145,31 +145,6 @@ console.log('rendering town');
                 }}
                 image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}          
             />
-
-            return <Text
-                text={displayName}
-                x={150}
-                y={50 * index}
-                // style={
-                // new TextStyle({
-                //     align: 'center',
-                //     fontFamily: '"Source Sans Pro", Helvetica, sans-serif',
-                //     fontSize: 50,
-                //     fontWeight: 400,
-                //     fill: ['#ffffff', '#00ff99'], // gradient
-                //     stroke: '#01d27e',
-                //     strokeThickness: 5,
-                //     letterSpacing: 20,
-                //     dropShadow: true,
-                //     dropShadowColor: '#ccced2',
-                //     dropShadowBlur: 4,
-                //     dropShadowAngle: Math.PI / 6,
-                //     dropShadowDistance: 6,
-                //     wordWrap: true,
-                //     wordWrapWidth: 440,
-                // })
-                // }
-            />
         });
     }
     const viewportClick = (event: ClickEventData) => {

@@ -11,7 +11,9 @@ interface Props {
   worldHeight: number,
 }
 
-/** Viewport leverages pixi-viewport to create a pannable map */
+/** Viewport leverages pixi-viewport to create a pannable map 
+ * https://davidfig.github.io/pixi-viewport/jsdoc/
+ */
 const Viewport = React.forwardRef<PixiViewport, any>((props, ref) => {
   const app = useApp();
   return <PixiComponentViewport app={app} {...props} ref={ref} />;  
