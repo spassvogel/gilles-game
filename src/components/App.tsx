@@ -23,7 +23,6 @@ import Preloader, { MediaItem, MediaType} from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
 import TownView from './town/TownView';
 import Toasts from './ui/toasts/Toasts';
-import { ToastManager } from './ui/toasts/ToastManager';
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {

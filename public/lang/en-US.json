@@ -159,6 +159,7 @@
     "ui-toast-type-achievementUnlocked": "Achievement unlocked!",
     "ui-toast-type-cheat": "Cheat activated!",
     "ui-toast-type-questCompleted": "Quest completed!",
+    "ui-toast-type-questEncounter": "Encounter started!",
 
     "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
     "test-game-welcome": "You have taken your first steps into a larger world"

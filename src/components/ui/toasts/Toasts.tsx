@@ -17,7 +17,6 @@ const Toasts = () => {
     useEffect(() => {
         ToastManager.addEventListener(ToastManager.EVENT_TOASTS_UPDATED, toastsUpdated);
         return () => {
-            console.log('cleaning up')
             ToastManager.removeEventListener(ToastManager.EVENT_TOASTS_UPDATED, toastsUpdated);
         }
     }, []);

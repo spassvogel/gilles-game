@@ -66,6 +66,7 @@ const CheatWindow = (props: AllProps) => {
     const getItemTypeOptions = (type: ItemType) => {
         return Object.keys(Item)
             // tslint:disable-next-line: triple-equals
+            // eslint-disable-next-line eqeqeq
             .filter((item: string) => getDefinition(item as Item).itemType == type)
             .map((item: string) => getItemOption(item as Item));
     };
