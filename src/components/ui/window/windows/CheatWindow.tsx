@@ -146,7 +146,7 @@ const CheatWindow = (props: AllProps) => {
     }
 
     const handleChangeResources = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const amount = Number(event.target.checked);
+        const amount = Number(event.target.value);
         setCheats({
             ...cheats,
             resources: amount,
