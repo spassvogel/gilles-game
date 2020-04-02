@@ -9,9 +9,10 @@ import Viewport from '../pixi/Viewport';
 import { StructureState, StructureStoreState } from 'stores/structure';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
+import "./css/townView.css"
+import { MAX_WIDTH } from 'components/App';
 
-const WIDTH = 648;
-const HEIGHT = 690;
+const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
 const WORLD_HEIGHT = 1600;
 
@@ -146,16 +147,18 @@ console.log('rendering town');
     }, []);
 
     return (
-        <Stage width={WIDTH} height={HEIGHT}>
-            <Viewport screenWidth={WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={ref}>
-                <Sprite 
-                    name="background"
-                    image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}          
-                >
-                    {renderStructures()}
-                </Sprite>
-            </Viewport>
-        </Stage>
+        <div className="town-view">
+            <Stage width={MAX_WIDTH} height={HEIGHT} >
+                <Viewport screenWidth={MAX_WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={ref}>
+                    <Sprite 
+                        name="background"
+                        image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}          
+                    >
+                        {renderStructures()}
+                    </Sprite>
+                </Viewport>
+            </Stage>
+        </div>
     );
 }
 

@@ -83,7 +83,7 @@ const RealWorldView = (props: AllProps) => {
     }, [props.quests]);
 
     return (
-        <div className="realworldview" ref={worldMapRef}>
+        <div className="world-view" ref={worldMapRef}>
             <div className="compass" ref={compassRef} onClick={handleCompassClick}>
                 <div className="distance"/>
             </div>
