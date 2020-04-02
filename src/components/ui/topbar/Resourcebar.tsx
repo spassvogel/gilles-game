@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import "./css/resourcebar.css";
 import { StoreState } from 'stores';
 import { selectFreeWorkers } from 'selectors/workers';
+import { formatNumber } from 'utils/number';
 
 export interface StateProps  {
     gold: number;
@@ -34,7 +35,7 @@ const Resourcebar = () => {
                 backgroundImage:  `url(${process.env.PUBLIC_URL}${icon})`,
             }}></div>
             <div className = "amount">
-                { amount.toFixed(0) }
+                { formatNumber(amount) }
             </div>
         </li>;
     };

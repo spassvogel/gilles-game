@@ -23,3 +23,10 @@
 .widget-tabstrip .widget-tab.active {
     background: white;
 }
+
+/** Small resolutions */
+@media only screen and (max-width: 576px) {
+    .resourcebar li .amount {
+        font-size: smaller;
+    }
+}

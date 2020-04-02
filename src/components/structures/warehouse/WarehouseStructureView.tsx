@@ -1,8 +1,8 @@
 import AdventurerAvatar from "components/ui/AdventurerAvatar";
 import Inventory from "components/ui/inventory/Inventory";
 import ResourcesBox from "components/ui/resources/ResourcesBox";
-import Tab from "components/widgets/Tab";
-import Tabstrip from "components/widgets/Tabstrip";
+import Tab from "components/ui/tabs/Tab";
+import Tabstrip from "components/ui/tabs/Tabstrip";
 import { DragSourceType } from "constants/dragging";
 import AdventurerInfo from "containers/ui/AdventurerInfo";
 import { Item } from "definitions/items/types";

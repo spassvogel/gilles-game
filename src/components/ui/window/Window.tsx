@@ -1,6 +1,6 @@
 import "components/ui/css/common/icon.css";
 import "components/ui/resources/css/resourcesbox.css";
-import SquareIconButton from "components/widgets/SquareIconButton";
+import SquareIconButton from "components/ui/buttons/SquareIconButton";
 import * as React from "react";
 
 export interface Props {

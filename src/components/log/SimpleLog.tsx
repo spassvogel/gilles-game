@@ -1,6 +1,6 @@
-import SquareIconButton from "components/widgets/SquareIconButton";
-import Tab from "components/widgets/Tab";
-import Tabstrip from "components/widgets/Tabstrip";
+import SquareIconButton from "components/ui/buttons/SquareIconButton";
+import Tab from "components/ui/tabs/Tab";
+import Tabstrip from "components/ui/tabs/Tabstrip";
 import * as React from "react";
 import { LogChannel, LogEntry } from "stores/logEntry";
 import { TextManager } from "utils/textManager";

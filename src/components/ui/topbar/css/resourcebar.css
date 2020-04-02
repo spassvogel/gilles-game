@@ -18,5 +18,11 @@
 .resourcebar li .amount {
     padding-left: 3px;
     line-height: 22px;
-    font-size: smaller;
+}
+
+/** Small resolutions */
+@media only screen and (max-width: 576px) {
+    .resourcebar li .amount {
+        font-size: smaller;
+    }
 }
