@@ -1,26 +1,21 @@
 import Menu from "components/ui/window/windows/MenuWindow";
-import { AppContextProps } from "hoc/withAppContext";
 import * as React from "react";
-import { RouteComponentProps } from "react-router-dom";
 import "./css/topbar.css";
 import Resourcebar from './Resourcebar';
+import { useContext } from 'react';
+import { AppContext } from 'components/App';
 
-export interface Props {
-}
-export interface DispatchProps {
-}
 
-// These are injected by mapStateToProps on the Container
-export interface StateProps  {
-}
 
-type AllProps = Props & StateProps & DispatchProps & RouteComponentProps & AppContextProps;
 
-export default function(props: AllProps) {
+const Topbar = () => {
+    const context = useContext(AppContext)!;
+
     const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         const window = <Menu title = "Menu" />;
-        props.onOpenWindow(window);
+        context.onOpenWindow(window);
     };
+
     return (
         <div className = "topbar">
             <div className = "topbar-left">
@@ -32,3 +27,4 @@ export default function(props: AllProps) {
         </div>
     );
 }
+export default Topbar;

@@ -16,13 +16,13 @@ import { BrowserRouter as Router, Link, Redirect, Route, Switch} from "react-rou
 import { Persistor} from "redux-persist";
 import { Sound, SoundManager} from "utils/soundManager";
 import { TextManager} from "utils/textManager";
-import Topbar from "../containers/Topbar";
 import { Structure} from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType} from "./preloading/Preloader";
 import ContextView from "./ui/context/ContextView";
 import TownView from './town/TownView';
 import Toasts from './ui/toasts/Toasts';
+import Topbar from './ui/topbar/Topbar';
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -49,7 +49,7 @@ interface SelectedContext {
 
 const resolution = {
     height: 860, // 972,
-    width: 648,
+    width: 480,
 };
 
 export const AppContext = React.createContext<AppContextProps | null>(null);
@@ -177,7 +177,7 @@ const App = (props: AllProps) => {
     const handleResize = () => {
         if (containerRef.current) {
             if (window.innerHeight < resolution.height) {
-                containerRef.current.style.transform = `scale(${window.innerHeight / resolution.height}) translateX(-50%)`;
+               // containerRef.current.style.transform = `scale(${Math.min(window.innerWidth / resolution.width, 1)}) translateX(-50%)`;
             } else {
                 containerRef.current.style.transform = `scale(1) translateX(-50%)`;
             }
@@ -208,8 +208,8 @@ const App = (props: AllProps) => {
                 className="app"
                 ref={containerRef}
                 style={{
-                    width: resolution.width,
-                    height: resolution.height,
+                 //   width: resolution.width,
+                 //   height: resolution.height,
                 }}
                 onClick={handleAppClick}
             >

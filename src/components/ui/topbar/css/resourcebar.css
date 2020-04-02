@@ -18,4 +18,5 @@
 .resourcebar li .amount {
     padding-left: 3px;
     line-height: 22px;
+    font-size: smaller;
 }
