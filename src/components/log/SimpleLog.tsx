@@ -65,6 +65,12 @@ const SimpleLog = (props: AllProps) => {
             tabId: `quest-${questName}`,
             tabType: ChannelType.quest,
         });
+        channels.push({
+            channelContext: questName,
+            label: TextManager.getQuestTitle(questName),
+            tabId: `quest-${questName}`,
+            tabType: ChannelType.quest,
+        });
     });
 
     let logEntries: LogEntry[] = [];

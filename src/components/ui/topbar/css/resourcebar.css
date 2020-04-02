@@ -19,10 +19,9 @@
     padding-left: 3px;
     line-height: 22px;
 }
-
-/** Small resolutions */
+/* 
 @media only screen and (max-width: 576px) {
     .resourcebar li .amount {
         font-size: smaller;
     }
-}
+} */

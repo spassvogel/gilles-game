@@ -39,7 +39,7 @@ const Tabstrip = (props: AllProps) => {
         }
     };
 
-    return <ul className = { `widget-tabstrip ${className}` } onClick = { handleClick } >
+    return <ul className = { `tabstrip ${className}` } onClick = { handleClick } >
         { children }
     </ul>;
 };

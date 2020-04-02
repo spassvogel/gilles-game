@@ -18,10 +18,12 @@
 .log .tab-bar .tabs {
     height: 25px;
     line-height: 25px;
+    display: flex;
+    overflow: hidden;
 }
 
 .log .tab-bar .tabs li {
-    width: 120px;
+    flex: 1;
 }
 
 .log .log-entries {
