@@ -1,6 +1,14 @@
 .realworldview {
     position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
 }
+
+/* .realworldview canvas {
+    margin-top: -92px;  height of the log at the bottom
+} */
 
 .realworldview .progress {
     width: 280px;

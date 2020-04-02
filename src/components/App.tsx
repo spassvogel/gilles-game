@@ -52,6 +52,8 @@ const resolution = {
     width: 480,
 };
 
+export const MAX_WIDTH = 960;
+
 export const AppContext = React.createContext<AppContextProps | null>(null);
 type AllProps = Props & StateProps & DispatchProps;
 
@@ -208,6 +210,7 @@ const App = (props: AllProps) => {
                 className="app"
                 ref={containerRef}
                 style={{
+                    maxWidth: MAX_WIDTH
                  //   width: resolution.width,
                  //   height: resolution.height,
                 }}
@@ -220,23 +223,25 @@ const App = (props: AllProps) => {
                         onLoadComplete={handleMediaLoadComplete}
                     >
                         <Topbar/>
-                        <Switch>
-                            <Route path="/" exact>
-                                <Redirect from="/" to="world" />
-                            </Route>
-                            <Route path="/world">
-                                <Link to="/town">
-                                    <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-town`)} </button>
-                                 </Link>
-                            </Route>
-                            <Route path="/town">
-                                <Link to="/world">
-                                    <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-world`)} </button>
-                                </Link>
-                            </Route>
-                        </Switch>
-                        {` | `}
-                        <button onClick={() => handleResetClick()} style={{ color: "red"}}> Restart! </button>
+                        <div>
+                            <Switch>
+                                <Route path="/" exact>
+                                    <Redirect from="/" to="world" />
+                                </Route>
+                                <Route path="/world">
+                                    <Link to="/town">
+                                        <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-town`)} </button>
+                                    </Link>
+                                </Route>
+                                <Route path="/town">
+                                    <Link to="/world">
+                                        <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-world`)} </button>
+                                    </Link>
+                                </Route>
+                            </Switch>
+                            {` | `}
+                            <button onClick={() => handleResetClick()} style={{ color: "red"}}> Restart! </button>
+                        </div>
                         <Switch>
                             <Route path="/town" component={renderTownView} />
                             <Route path="/world" component={renderWorldView} />

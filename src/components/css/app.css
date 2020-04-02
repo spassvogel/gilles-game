@@ -10,6 +10,8 @@
     overflow: hidden;
     /* position: absolute; */
     left: 50%;
+    transform: translateX(-50%);
+    height: 100vh;
 
     cursor: var(--app-cursor-default);
 }
@@ -21,4 +23,12 @@
 
 .resources input[type=number] {
     width: 50px;
+}
+
+
+/** Small resolutions */
+@media only screen and (max-width: 576px) {
+    .app {
+        font-size: smaller;
+    }
 }

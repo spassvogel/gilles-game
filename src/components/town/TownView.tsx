@@ -126,17 +126,14 @@ console.log('rendering town');
                 name={structure}
                 x={x}
                 y={y}
-                interactive
-                click={() => {
+                interactive={true}
+                pointertap={() => {
                     handleStructureClick(structure);
                 }}
                 image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}          
             />
         });
     }
-    const viewportClick = (event: ClickEventData) => {
-        console.log(event.world.x);
-    };
 
     let dragging = useRef(false);
     const ref = useRef<PixiViewport>(null);
@@ -150,7 +147,7 @@ console.log('rendering town');
 
     return (
         <Stage width={WIDTH} height={HEIGHT}>
-            <Viewport screenWidth={WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} onClick={viewportClick} ref={ref}>
+            <Viewport screenWidth={WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={ref}>
                 <Sprite 
                     name="background"
                     image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}          

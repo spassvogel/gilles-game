@@ -52,7 +52,7 @@
 .toasts .toast .title {
     height: 100%;
     color: white;
-    font-size: 32px;
+    font-size: large;
     font-family: "Cambria", sans-serif;
     text-align: center;
     line-height: 58px;

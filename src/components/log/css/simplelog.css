@@ -31,6 +31,10 @@
     overflow: auto;
     border: 1px solid green;
     box-sizing: border-box;
+
+    background: rgba(0, 0, 0, .75);
+    color: white;
+    padding: 8px;
 }
 
 .log.expanded {
@@ -39,7 +43,6 @@
 
 .log.expanded .log-entries{
     height: 100%;
-    background: pink;
     flex: 1;
 }
 

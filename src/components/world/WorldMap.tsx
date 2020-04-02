@@ -14,9 +14,9 @@ import { StoreState } from 'stores';
 import { getQuestLeader } from 'storeHelpers';
 import { AdventurerStoreState } from 'stores/adventurer';
 import QuestLine from './QuestLine';
+import { MAX_WIDTH as WIDTH } from 'components/App';
 
-const WIDTH = 648;
-const HEIGHT = 690;
+const HEIGHT = 1024;
 const WORLD_WIDTH = 1500;
 const WORLD_HEIGHT = 1061;
 const GRID_WIDTH = 10;      // width or height of each node location in pixels
@@ -52,19 +52,6 @@ type AllProps = Props & DispatchProps;
 //let scale = new PIXI.Point(1, 1);
 
 const WorldMap = (props: AllProps) => {
-    //const { store } = props;
-
-//    const handleCameraMove = (camera: Camera) => {
-        // the position of the compass as if it was in 3d space
-        // const { x, z } = unproject(camera, props.compassCenter);
-
-        // // Calculate the distance and angle between the town and the virtual compass in 3d space
-        // const compassPos = new Vector2(x, z);
-        // const distance = compassPos.distanceTo(new Vector2(townPos.x, townPos.z));
-        // const angle = compassPos.angle(); // This only works because our town is at 0, 0
-
-        // props.onMapMove(distance, angle);
-//    };
 
     const storeProps = useSelector<StoreState, StateProps>((state: StoreState) => {
         return {
