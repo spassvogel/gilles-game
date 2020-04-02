@@ -1,9 +1,9 @@
 import Menu from "components/ui/window/windows/MenuWindow";
-import Resourcebar from "containers/topbar/Resourcebar";
 import { AppContextProps } from "hoc/withAppContext";
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import "./css/topbar.css";
+import Resourcebar from './Resourcebar';
 
 export interface Props {
 }

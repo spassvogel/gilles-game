@@ -4,17 +4,11 @@ import resourceDescriptions from "definitions/resources";
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
 import { TextManager } from "utils/textManager";
+import { useSelector } from 'react-redux';
 import "./css/resourcebar.css";
+import { StoreState } from 'stores';
+import { selectFreeWorkers } from 'selectors/workers';
 
-// tslint:disable-next-line: no-empty-interface
-export interface Props {
-}
-
-// tslint:disable-next-line: no-empty-interface
-export interface DispatchProps {
-}
-
-// These are injected by mapStateToProps on the Container
 export interface StateProps  {
     gold: number;
     workers: number;    // total
@@ -22,7 +16,17 @@ export interface StateProps  {
     resources: ResourceStoreState;
 }
 
-const Resourcebar = (props: Props & StateProps & DispatchProps) => {
+/** Shown on top in the UI */
+const Resourcebar = () => {
+    //console.log('rendering resourcebar')
+    const storeProps = useSelector<StoreState, StateProps>((store: StoreState) => {
+        return {
+            gold: store.gold,
+            resources: store.resources,
+            workers: store.workers,
+            workersFree: selectFreeWorkers(store),
+        };
+    });
 
     const createItem = (icon: string, amount: number, title: string) => {
         return <li title = { title } key = { title }>
@@ -37,12 +41,12 @@ const Resourcebar = (props: Props & StateProps & DispatchProps) => {
 
     const resources = resourceOrder.map((resource) => {
         const resourceDescription = resourceDescriptions[resource];
-        return createItem(resourceDescription.iconImg, props.resources[resource as string], TextManager.getResourceName(resource));
+        return createItem(resourceDescription.iconImg, storeProps.resources[resource as string], TextManager.getResourceName(resource));
     });
 
     resources.push(
-        createItem("/img/resources/worker.png", props.workersFree, "workers"),
-        createItem("/img/resources/gold.png", props.gold, "gold"),
+        createItem("/img/resources/worker.png", storeProps.workersFree, "workers"),
+        createItem("/img/resources/gold.png", storeProps.gold, "gold"),
     );
 
 // <span>
