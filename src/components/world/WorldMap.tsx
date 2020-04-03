@@ -52,7 +52,7 @@ type AllProps = Props & DispatchProps;
 //let scale = new PIXI.Point(1, 1);
 
 const WorldMap = (props: AllProps) => {
-
+    // todo: seperate useSelectors for better performance
     const storeProps = useSelector<StoreState, StateProps>((state: StoreState) => {
         return {
             adventurers: state.adventurers,

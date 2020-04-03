@@ -57,7 +57,7 @@ backlog of ideas
 30/06/2019 GAME TICK QUEST UPDATE
 [x] Move gameTick from quest reducer into 'controllers'
 
-07/07/2019 STRUCTURE UPGRADE TIME
+07/07/2019 STRUCTURE UPGRADE TIME [+design]
 [ ] Upgrading a structure takes time
 
 07/07/2019 GAME DESIGN: warehouse
@@ -102,10 +102,10 @@ backlog of ideas
 14/07/2019 Rooms of tavern
 [x] figure out how amount of rooms is determined. perhaps by level?
 
-15/07/2019 GAME DESIGN: Party speed
+15/07/2019 GAME DESIGN: Party speed [+design]
 [ ] The speed in which the party progresses in a quest could be determined by the party itself. Perhaps the slowest member?
 
-15/07/2019 CHORE: host on github?
+15/07/2019 CHORE: host on github? [+tech]
 [x] Maybe I can host this stuff on github pages. (https://github.com/gitname/react-gh-pages)
 [x] Probably best to start a new `create-react-app`.
 
@@ -315,33 +315,33 @@ THREEJS examples (MIGHT IS RIGHT):
 10/12/2019 Item warehouse > adventurer
 [ ] Can drop items from warehouse onto adventurer    
 
-01/01/2020 rerender of world (+tech)
+01/01/2020 rerender of world [+tech]
 [ ] Figure out why the world gets rerendered on state change of App
 
 2/01/2020 disable threejs controller
 (obsolete)
 [-] You cant scroll the 
 
-28/03/2020 Pixi-js (+tech, +art)
+28/03/2020 Pixi-js [+art], [+tech]
 [x] Screw 3d its way too complicated. Going to try pixi-js
 
-30/03/2020 Structure in town popup (+tech)
+30/03/2020 Structure in town popup [+tech]
 [ ] Town should store location
 [ ] Structures in town should display a short popup on click. The popup should have a button to expand the GUI and show all the details
 
-30/03/2020 Mobile (+tech, +art)
+30/03/2020 Mobile [+art], [+tech]
 [ ] Need to completely check if the app is responsive and works in mobile
 
-30/03/2020 Leaders (+design)
+30/03/2020 Leaders [+design]
 [ ] Parties can have a leader. The leader provides the icon for the party. What else does it mean?
 [ ] Leader ability?
 
-30/03/2020 Combat situation visuals (+art, +tech)
+30/03/2020 Combat situation visuals [+art], [+tech]
 [ ] 
 [ ] See https://github.com/knervous/tiled-pixi-react
     I have cloned this repo. Will try to move some code over
 
-30/03/2020 Refactor react (+tech)
+30/03/2020 Refactor react [+tech]
 [ ] Refactor react, remove containers. Implement useSelector hook
 [ ] Check for needless rerendering
 
@@ -350,22 +350,28 @@ THREEJS examples (MIGHT IS RIGHT):
     https://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas
 [ ] Best would be to have a dotted line..    
 
-02/04/2020 Toasts (+tech)
+02/04/2020 Toasts [+tech]
 [x] Basic toast implementation is done
 [ ] Implement in different scenarios (quest complete, quest failed, achievement unlocked)
 [ ] Add sound
 
-02/04/2020 Make town come alive (+art)
+02/04/2020 Make town come alive [+art]
 [ ] Add animations
 [ ] Add particle effects (fire, smoke)
 
-02/04/2020 Cool smoke shader (+art)
+02/04/2020 Cool smoke shader [+art]
 [ ] Can use this in some sort of menu or loader?
     https://codepen.io/davidhartley/pen/seEki
 
-02/04/2020 Remove preloader (+ref)
+02/04/2020 Remove preloader [+ref]
 [ ] Remove preloader
     Preloading is not needed for images.
 [ ] Figure out if needed for sound?
 [ ] If needed, preloader for pixi can be implemented as such
     https://www.youtube.com/watch?v=KwVszq2RjX4
+
+03/04/2020 Make Inventory Responsive Again (MIRA [+tech]
+[ ] nr of columns is determined by screen size (media queries)
+
+03/04/2020 Structure views have a banner [+art]
+[ ] It should show the interior of the structure, what's happening there

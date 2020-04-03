@@ -1,6 +1,5 @@
 
 import ProductionStructureView from "containers/structures/ProductionStructureView";
-import ResourceStructureView from "containers/structures/ResourceStructureView";
 import TavernStructureView from "containers/structures/tavern/TavernStructureView";
 import WarehouseStructureView from "containers/structures/warehouse/WarehouseStructureView";
 import { getDefinition, Structure } from "definitions/structures";
@@ -11,6 +10,7 @@ import { StructuresStoreState } from "stores/structures";
 import { TaskStoreState } from "stores/task";
 import "./css/structuredetails.css";
 import Progressbar from "./ui/Progressbar";
+import ResourceStructureView from './structures/ResourceStructureView';
 
 export interface Props {
     structure: Structure;

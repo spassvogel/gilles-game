@@ -20,6 +20,8 @@ export interface StateProps  {
 /** Shown on top in the UI */
 const Resourcebar = () => {
     //console.log('rendering resourcebar')
+
+    // todo: seperate useSelectors for better performance
     const storeProps = useSelector<StoreState, StateProps>((store: StoreState) => {
         return {
             gold: store.gold,
