@@ -70,7 +70,7 @@ const ResourcesBox = (props: AllProps) => {
                 { delta }
             </div>
             <div className = "structure"> 
-                gen. by { structure }
+                source: { TextManager.getStructureName(structure) }
             </div>
         </li>;
     });
