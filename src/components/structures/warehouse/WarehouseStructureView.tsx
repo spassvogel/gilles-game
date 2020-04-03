@@ -160,7 +160,7 @@ const WarehouseStructureView = (props: AllProps) => {
                     deltaResources={resourcesDelta}
                 />
             </fieldset>
-            <h3>Items</h3>
+            <h3>Stockpile</h3>
             <Inventory
                 sourceType={WAREHOUSE}
                 items={props.items}

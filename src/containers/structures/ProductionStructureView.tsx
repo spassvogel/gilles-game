@@ -23,7 +23,7 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     const tasks = store.tasks.running.filter((val) => val.origin === `${ownProps.type}.craft`);
     return {
         gold: store.gold,
-        items: store.items,
+        items: store.stockpile,
         level: structureStore.level,
         resources: store.resources,
         tasks,

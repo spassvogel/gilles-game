@@ -27,7 +27,7 @@ function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     return {
         adventurersInTown,
         gold: store.gold,
-        items: store.items,
+        items: store.stockpile,
         level,
         maxResources: levelDefinition.maxResources,
         resources: store.resources,

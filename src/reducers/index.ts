@@ -29,7 +29,7 @@ export default combineReducers<StoreState>({
     combat,
     engine,
     gold,
-    items,
+    stockpile: items,
     log,
     quests,
     resources,
