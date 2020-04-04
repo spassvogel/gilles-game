@@ -66,7 +66,8 @@ console.log('rendering town');
             Structure.armoursmith,
             Structure.warehouse,
             Structure.mine,
-            Structure.lumberMill
+            Structure.lumberMill,
+            Structure.weaver,
         ]
         return orderedStructures.reverse().map((structure) => {
             const structureStore: StructureStoreState = structures[structure];
@@ -119,6 +120,10 @@ console.log('rendering town');
                 case Structure.lumberMill:
                     x = 391;
                     y = 307;
+                    break;
+                case Structure.weaver:
+                    x = 484;
+                    y = 333;
                     break;
             }              
               
