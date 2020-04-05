@@ -2,9 +2,7 @@
 // tslint:disable: object-literal-sort-keys
 import { ContextInfo, ContextType} from "constants/context";
 import CombatView from "containers/combat/CombatView";
-import SimpleLog from "containers/log/SimpleLog";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
-import RealWorldView from "containers/world/RealWorldView";
 import { AppContextProps} from "hoc/withAppContext";
 import { Placement} from "hoc/withPopup";
 import { manifest} from "manifest/app";
@@ -23,6 +21,8 @@ import ContextView from "./ui/context/ContextView";
 import TownView from './town/TownView';
 import Toasts from './ui/toasts/Toasts';
 import Topbar from './ui/topbar/Topbar';
+import WorldView from './partyScreen/WorldView';
+import SimpleLog from './log/SimpleLog';
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -85,7 +85,7 @@ const App = (props: AllProps) => {
    };
 
     const renderTownView = () => <TownView onStructureClick={selectStructure} />;
-    const renderWorldView = () => <RealWorldView/>;
+    const renderWorldView = () => <WorldView/>;
 
     // A contextual popup showing what you just clicked. Can be an Item
     const renderContextPopup = () => {

@@ -6,21 +6,14 @@ import { LogChannel, LogEntry } from "stores/logEntry";
 import { TextManager } from "utils/textManager";
 import "./css/simplelog.css";
 import { useState } from 'react';
+import { StoreState } from 'stores';
+import { useSelector } from 'react-redux';
+import { QuestStoreState } from 'stores/quest';
+import { selectActiveQuests } from 'selectors/quests';
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
 }
-
-export interface StateProps  {
-    logEntries: LogEntry[];
-    questNames: string[];
-}
-
-// tslint:disable-next-line:no-empty-interface
-export interface DispatchProps {
-}
-
-type AllProps = Props & StateProps & DispatchProps;
 
 enum ChannelType {
     all,
@@ -35,10 +28,14 @@ interface ChannelDefinition {
     channelContext?: string;
 }
 
-const SimpleLog = (props: AllProps) => {
+const SimpleLog = (props: Props) => {
 
     const [expanded, setExpanded] = useState(false);
     const [selectedTabId, setSelectedTabId] = useState("all");
+
+    const logEntries = useSelector<StoreState, LogEntry[]>((store) => store.log);
+    const activeQuests = useSelector<StoreState, QuestStoreState[]>((store) => selectActiveQuests(store));
+
 
     const channels: ChannelDefinition[] = [{
         label: TextManager.get("common-log-tab-all"),
@@ -58,7 +55,8 @@ const SimpleLog = (props: AllProps) => {
         setExpanded(!expanded);
     }
 
-    props.questNames.forEach((questName) => {
+    activeQuests.forEach((quest) => {
+        const questName = quest.name;
         channels.push({
             channelContext: questName,
             label: TextManager.getQuestTitle(questName),
@@ -67,22 +65,22 @@ const SimpleLog = (props: AllProps) => {
         });
     });
 
-    let logEntries: LogEntry[] = [];
+    let displayEntries: LogEntry[] = [];
     const currentTab = channels.find((t) => t.tabId === selectedTabId)!;
     switch (currentTab.tabType) {
         case ChannelType.all:
             // All the things
-            logEntries = props.logEntries;
+            displayEntries = logEntries;
             break;
 
         case ChannelType.town:
             // Only town
-            logEntries = props.logEntries.filter((lE) => lE.channel === LogChannel.town);
+            displayEntries = logEntries.filter((lE) => lE.channel === LogChannel.town);
             break;
 
         case ChannelType.quest:
             // Only the selected quest
-            logEntries = props.logEntries.filter((lE) => lE.channel === LogChannel.quest && lE.channelContext === currentTab.channelContext);
+            displayEntries = logEntries.filter((lE) => lE.channel === LogChannel.quest && lE.channelContext === currentTab.channelContext);
             break;
     }
 
@@ -105,7 +103,7 @@ const SimpleLog = (props: AllProps) => {
             <SquareIconButton className = "expand-button" onClick = { () => handleToggleExpand() } text = { expanded ? "▼" : "▲" }/>
         </div>
         <div className = "log-entries">
-            { logEntries.map((entry) => getLogEntryRow(entry))}
+            { displayEntries.map((entry) => getLogEntryRow(entry))}
         </div>
     </div>;
 }

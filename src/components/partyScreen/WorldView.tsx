@@ -6,32 +6,26 @@ import { QuestStatus, QuestStoreState } from "stores/quest";
 import { MusicTrack, SoundManager } from "utils/soundManager";
 import { TextManager } from "utils/textManager";
 import "./css/realworldview.css";
+import { useSelector } from 'react-redux';
+import { StoreState } from 'stores';
+import { selectActiveQuests } from 'selectors/quests';
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
 }
 
-export interface DispatchProps {
-    onAdvanceQuest: (questName: string) => void;
-}
-
-export interface StateProps {
-    quests: QuestStoreState[];
-}
-
-type AllProps = Props & StateProps & DispatchProps;
 
 /**
  * Temporary wrapper around PartyScreen. Shows quest line
  * @param props
  */
-const RealWorldView = (props: AllProps) => {
+const RealWorldView = (props: Props) => {
     const compassRef = useRef<HTMLDivElement>(null);
     const worldMapRef = useRef<HTMLDivElement>(null);
     const [selectedQuest, setSelectedQuest] = useState<string>();
     const [controllerEnabled, setControllerEnabled] = useState(true);
 
-    const context = React.useContext(AppContext)!;
+    const activeQuests = useSelector<StoreState, QuestStoreState[]>((store) => selectActiveQuests(store));
 
     const mouseout = () => {
         setControllerEnabled(false);
@@ -72,15 +66,12 @@ const RealWorldView = (props: AllProps) => {
     const handlePartyClick = (questName: string) => {
         setSelectedQuest(questName);
 
-        const quest = props.quests.find((q) => q.name === questName)!;
+        const quest = activeQuests.find((q) => q.name === questName)!;
         const title = TextManager.getQuestTitle(quest.name);
-        const window = <PartyWindow quest={quest} title={title} />;
-        context.onOpenWindow(window);
+        console.log(quest)
+        //const window = <PartyWindow quest={quest} title={title} />;
+        //context.onOpenWindow(window);
     };
-
-    const activeQuests = useMemo(() => {
-        return props.quests.filter((q) => q.status === QuestStatus.active);
-    }, [props.quests]);
 
     return (
         <div className="world-view" ref={worldMapRef}>
@@ -90,6 +81,7 @@ const RealWorldView = (props: AllProps) => {
             <WorldMap
                 selectedQuest={selectedQuest}
                 onMapMove={handleMapMove}
+                halfMap={false}
                 onPartyClick={handlePartyClick}
                 controllerEnabled={controllerEnabled}
             />
