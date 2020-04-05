@@ -375,3 +375,6 @@ THREEJS examples (MIGHT IS RIGHT):
 
 03/04/2020 Structure views have a banner [+art]
 [ ] It should show the interior of the structure, what's happening there
+
+04/04/2020 Hit area in townview
+https://github.com/explooosion/hitarea-shapes

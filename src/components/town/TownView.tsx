@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { Stage, Sprite } from '@inlet/react-pixi';
+import { Stage, Sprite, Graphics } from '@inlet/react-pixi';
 import {  ClickEventData } from "pixi-viewport";
 import { Structure } from 'definitions/structures';
 import { StructuresStoreState } from 'stores/structures';
@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import "./css/townView.css"
 import { MAX_WIDTH } from 'components/App';
+import { Polygon } from 'pixi.js';
 
 const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
@@ -126,18 +127,38 @@ console.log('rendering town');
                     y = 333;
                     break;
             }              
-              
+            
             return <Sprite 
                 key={structure}
                 name={structure}
                 x={x}
                 y={y}
+                hitArea={new Polygon([ 
+                    5, -86.013  , 12, -82.013  , 5, -70.013  , -9, -68.013  , -12, -81.013 
+                    -34, 82.987  , -32, -21.013000000000005  , -9, -68.013  , 5, -70.013  , 28, -59.013000000000005  , 32, -21.013000000000005  , 33, 82.987])}
                 interactive={true}
                 pointertap={() => {
                     handleStructureClick(structure);
                 }}
                 image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}          
-            />
+            >
+                <Graphics
+                    name="questline"
+                    x = {41.000}
+                    y = {86.013}
+
+                    draw={graphics => {
+                        graphics.beginFill(0xffffff);
+                        graphics.drawPolygon([
+                            5, -86.013  , 12, -82.013  , 5, -70.013  , -9, -68.013  , -12, -81.013, 
+                            -34, 82.987  , -32, -21.013000000000005  , -9, -68.013  , 5, -70.013  , 28, -59.013000000000005  , 32, -21.013000000000005  , 33, 82.987
+         
+                            // -34, 7.986999999999995  , -32, -21.013000000000005  , -39, -25.013000000000005  , -40, -42.013000000000005  , -34, -53.013000000000005  , -9, -68.013  , -12, -81.013  , 5, -86.013  , 12, -82.013  , 12, -73.013  , 5, -70.013  , 28, -59.013000000000005  , 41, -40.013000000000005  , 41, -29.013000000000005  , 32, -21.013000000000005  , 33, 82.987  , -34, 82.987  , -34, 75.987 
+                        ]);
+                        graphics.endFill();
+                    }}
+                />
+            </Sprite>
         });
     }
 

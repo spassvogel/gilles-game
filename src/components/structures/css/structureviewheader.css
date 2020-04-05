@@ -1,0 +1,36 @@
+.structureview-header {
+    height: 128px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.structureview-header-mine {
+    background-image: url("/gilles-game/img/ui/structures/mine/banner.png");
+}
+
+.structureview-header-lumberMill {
+    background-image: url("/gilles-game/img/ui/structures/lumberMill/banner.png");
+    background-position: center -194px;
+}
+
+.structureview-header-garden {
+    background-image: url("/gilles-game/img/ui/structures/garden/banner.png");
+    background-position: center -492px;
+}
+
+.structureview-header-weaver {
+    background-image: url("/gilles-game/img/ui/structures/weaver/banner.png");
+    background-position: center -492px;
+}
+
+.structureview-header-tannery {
+    background-image: url("/gilles-game/img/ui/structures/tannery/banner.png");
+}
+
+.structureview-header-quarry {
+    /* todo */
+}
+

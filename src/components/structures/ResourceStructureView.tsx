@@ -1,7 +1,6 @@
 import { getDefinition, Structure  } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition } from "definitions/structures/types";
 import * as React from "react";
-import { TextManager } from "utils/textManager";
 import UpDownValue from "../ui/UpDownValue";
 import { StructureStoreState } from 'stores/structure';
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,6 +10,7 @@ import { subtractGold } from 'actions/gold';
 import { upgradeStructure, decreaseWorkers, increaseWorkers } from 'actions/structures';
 import { addLogEntry } from 'actions/log';
 import { LogChannel } from 'stores/logEntry';
+import StructureViewHeader from './StructureViewHeader';
 
 
 export interface Props  {
@@ -61,7 +61,6 @@ const ResourceStructureView = (props: Props) => {
     
 
     const levelDefinition: ResourceStructureLevelDefinition = structureDefinition.levels[level];
-    const displayName = TextManager.getStructureName(props.type);
 
     const createWorkersRow = () => {
         const upDisabled = workers === levelDefinition.workerCapacity || (workersFree || 0) < 1;
@@ -116,15 +115,16 @@ const ResourceStructureView = (props: Props) => {
     };
 
     return (
-        // TODO: abstract some stuff to generic StructureView
-        <details open={true } className = "structureview">
-            <summary>{displayName }</summary>
-            <section>
-                {createWorkersRow() }
-                {createUpgradeRow() }
-                {createGeneratesRow() }
-            </section>
-        </details>
+        <>
+            <StructureViewHeader structure={props.type} />
+            <details open={true } className = "structureview">
+                <section>
+                    {createWorkersRow() }
+                    {createUpgradeRow() }
+                    {createGeneratesRow() }
+                </section>
+            </details>
+            </>
     );
 };
 

@@ -11,6 +11,10 @@ import { TaskStoreState } from "stores/task";
 import "./css/structuredetails.css";
 import Progressbar from "./ui/Progressbar";
 import ResourceStructureView from './structures/ResourceStructureView';
+import { useDispatch } from 'react-redux';
+import { ResourceStoreState } from 'stores/resources';
+import { addGold } from 'actions/gold';
+import { addResources } from 'actions/resources';
 
 export interface Props {
     structure: Structure;
@@ -22,48 +26,49 @@ export interface StateProps  {
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface DispatchProps {
-}
 
-type AllProps = Props & StateProps & DispatchProps;
+type AllProps = Props & StateProps;
 
-const getStructureView = (structure: Structure) => {
-    const structureDefinition: StructureDefinition = getDefinition(structure);
-    switch (structureDefinition.type) {
-        case StructureType.production: {
-            return <ProductionStructureView type = { structure }/>;
-        }
-        case StructureType.resource: {
-            return <ResourceStructureView type = { structure }/>;
-        }
-        case StructureType.warehouse: {
-            return <WarehouseStructureView />;
-        }
-        case StructureType.tavern: {
-            return <TavernStructureView />;
-        }
-        default: {
-            return <div> { structure } </div>;
-        }
-    }
-};
 
 const StructureDetails = (props: AllProps) => {
-    let view;
-    const structureState: StructureStoreState = props.structures[props.structure];
-    if (structureState.state === StructureState.Building) {
-        const progress = props.buildTask ? props.buildTask.progress : 1 ;
-        view = <div>
-            <Progressbar label = "Building..." progress= { progress } />
-        </div>;
-    } else {
-        view = getStructureView(props.structure) ;
+
+    const renderContent = () => {
+        const structureState: StructureStoreState = props.structures[props.structure];
+        if (structureState.state === StructureState.Building) {
+            const progress = props.buildTask ? props.buildTask.progress : 1 ;
+            return (
+                <div>
+                    <Progressbar label="Building..." progress={progress} />
+                </div>
+            );
+        } else {
+
+            const structureDefinition: StructureDefinition = getDefinition(props.structure);
+            switch (structureDefinition.type) {
+                case StructureType.production: {
+                    return <ProductionStructureView type = { props.structure }/>;
+                }
+                case StructureType.resource: {
+                    return <ResourceStructureView type = { props.structure }/>;
+                }
+                case StructureType.warehouse: {
+                    return <WarehouseStructureView />;
+                }
+                case StructureType.tavern: {
+                    return <TavernStructureView />;
+                }
+                default: {
+                    return <div> { props.structure } </div>;
+                }
+            }
+        }
     }
 
-    return <fieldset className="structure-details">
-        <legend>Structure</legend>
-        { view }
-    </fieldset>;
+    return (
+        <div className="structure-details">
+            { renderContent() }
+        </div>
+    );
 };
 
 export default StructureDetails;
