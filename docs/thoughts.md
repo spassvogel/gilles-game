@@ -378,3 +378,6 @@ THREEJS examples (MIGHT IS RIGHT):
 
 04/04/2020 Hit area in townview
 https://github.com/explooosion/hitarea-shapes
+
+06/04/2020 Quest editor
+An editor that could help in designing quests on the world map

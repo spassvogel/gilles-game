@@ -68,7 +68,7 @@ const RealWorldView = (props: Props) => {
 
         const quest = activeQuests.find((q) => q.name === questName)!;
         const title = TextManager.getQuestTitle(quest.name);
-        console.log(quest)
+        //console.log(quest)
         //const window = <PartyWindow quest={quest} title={title} />;
         //context.onOpenWindow(window);
     };
@@ -81,7 +81,7 @@ const RealWorldView = (props: Props) => {
             <WorldMap
                 selectedQuest={selectedQuest}
                 onMapMove={handleMapMove}
-                halfMap={false}
+                smallMap={selectedQuest != null}
                 onPartyClick={handlePartyClick}
                 controllerEnabled={controllerEnabled}
             />

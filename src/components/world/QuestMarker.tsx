@@ -7,17 +7,20 @@ import { AdventurerStoreState } from 'stores/adventurer';
 interface Props {
     quest: QuestStoreState;
     position: Point;
+    selected?: boolean;
     onClick?: (quest: QuestStoreState) => void;
     leader: AdventurerStoreState;
 }
 const CIRCLE_DIAMETER = 256; // = avatar size / 2
 
 const QuestMarker = (props: Props) => {
-    const { quest, leader, position, onClick } = props;
+    const { quest, leader, position, onClick, selected } = props;
     const mask = useRef(null);
+    const image = selected ? '/img/world/map-marker-selected.png' : '/img/world/map-marker.png';
+
     return (
         <Sprite
-            image={`${process.env.PUBLIC_URL}/img/world/map-marker.png`} 
+            image={image} 
             name={quest.name}
             x={position.x}
             y={position.y}
@@ -44,7 +47,7 @@ const QuestMarker = (props: Props) => {
             >
                 <Graphics
                     draw={graphics => {
-                        graphics.beginFill(0xFF3300);
+                        graphics.beginFill(0x0);
                         graphics.drawCircle(0, 0, CIRCLE_DIAMETER);
                         graphics.endFill(); 
                     }}

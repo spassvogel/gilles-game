@@ -9,7 +9,7 @@ const getLog = (state: StoreState) => state.log;
 
 const activeQuests = (quests: QuestStoreState[]) => {
     // returns the names of the active quests
-    return quests.filter((q) => q.status === QuestStatus.active).map((q) => q.name);
+    return quests.filter((q) => q.status === QuestStatus.active).map((q) => q);
 };
 
 export const selectActiveQuests = createSelector([
