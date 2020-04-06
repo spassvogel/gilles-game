@@ -1,6 +1,6 @@
 .app {
-    --app-cursor-default: url("/gilles-game/img/cursors/dwarven_gauntlet_extra_4.png"), auto;
-    --app-cursor-pointer: url("/gilles-game/img/cursors/dwarven_gauntlet_extra_6.png"), auto;
+    --app-cursor-default: url("/img/cursors/dwarven_gauntlet_extra_4.png"), auto;
+    --app-cursor-pointer: url("/img/cursors/dwarven_gauntlet_extra_6.png"), auto;
 }
 
 .app {
