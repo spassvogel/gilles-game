@@ -1,3 +1,4 @@
+// todo: obsolete
 import { moveItemInInventory, moveItemToOtherAdventurer } from "actions/adventurers";
 import { updateEncounterResult } from "actions/quests";
 import { advanceQuest } from "actions/quests";
@@ -11,7 +12,7 @@ import { adventurersOnQuest } from "storeHelpers";
 import { StoreState } from "../../stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
-    const adventurers = adventurersOnQuest(store, ownProps.quest);
+    const adventurers = adventurersOnQuest(store.adventurers, ownProps.quest);
     const lastLog = selectLastQuestLogEntry(store, ownProps.quest.name);
     return {
         adventurers,

@@ -5,10 +5,11 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 import { MusicTrack, SoundManager } from "utils/soundManager";
 import { TextManager } from "utils/textManager";
-import "./css/realworldview.css";
+import "./css/worldView.css";
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import { selectActiveQuests } from 'selectors/quests';
+import QuestPanel from './QuestPanel';
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -22,7 +23,7 @@ export interface Props {
 const RealWorldView = (props: Props) => {
     const compassRef = useRef<HTMLDivElement>(null);
     const worldMapRef = useRef<HTMLDivElement>(null);
-    const [selectedQuest, setSelectedQuest] = useState<string>();
+    const [selectedQuest, setSelectedQuest] = useState<QuestStoreState>();
     const [controllerEnabled, setControllerEnabled] = useState(true);
 
     const activeQuests = useSelector<StoreState, QuestStoreState[]>((store) => selectActiveQuests(store));
@@ -48,25 +49,29 @@ const RealWorldView = (props: Props) => {
         };
     }, []);
 
-    const handleMapMove = (distance: number, angle: number) => {
-        const compassEl = compassRef!.current!;
-        const compassTextEl = compassEl.firstElementChild! as HTMLElement;
+    // const handleMapMove = (distance: number, angle: number) => {
+    //     const compassEl = compassRef!.current!;
+    //     const compassTextEl = compassEl.firstElementChild! as HTMLElement;
 
-        // Rotate the compass
-        compassEl.style.transform = `rotate(${angle - (Math.PI / 2)}rad)`;
-        compassEl.style.opacity = distance > 10 ? "1" : "0";
-        compassTextEl.style.transform = `rotate(${-angle + (Math.PI / 2)}rad)`;
-        compassTextEl.innerHTML = `${distance.toFixed(0)}`;
-    };
+    //     // Rotate the compass
+    //     compassEl.style.transform = `rotate(${angle - (Math.PI / 2)}rad)`;
+    //     compassEl.style.opacity = distance > 10 ? "1" : "0";
+    //     compassTextEl.style.transform = `rotate(${-angle + (Math.PI / 2)}rad)`;
+    //     compassTextEl.innerHTML = `${distance.toFixed(0)}`;
+    // };
 
-    const handleCompassClick = () => {
-        //setScrollToPosition(new Vector2(1, 1));
-    };
+    // const handleCompassClick = () => {
+    //     //setScrollToPosition(new Vector2(1, 1));
+    // };
 
     const handlePartyClick = (questName: string) => {
-        setSelectedQuest(questName);
-
         const quest = activeQuests.find((q) => q.name === questName)!;
+        if (quest === selectedQuest) {
+            setSelectedQuest(undefined);
+        } else {
+            setSelectedQuest(quest);
+        }
+
         const title = TextManager.getQuestTitle(quest.name);
         //console.log(quest)
         //const window = <PartyWindow quest={quest} title={title} />;
@@ -75,16 +80,19 @@ const RealWorldView = (props: Props) => {
 
     return (
         <div className="world-view" ref={worldMapRef}>
-            <div className="compass" ref={compassRef} onClick={handleCompassClick}>
+            {/* <div className="compass" ref={compassRef} onClick={handleCompassClick}>
                 <div className="distance"/>
-            </div>
+            </div> */}
             <WorldMap
                 selectedQuest={selectedQuest}
-                onMapMove={handleMapMove}
+                // onMapMove={handleMapMove}
                 smallMap={selectedQuest != null}
                 onPartyClick={handlePartyClick}
                 controllerEnabled={controllerEnabled}
             />
+            { selectedQuest && (
+                <QuestPanel quest={selectedQuest} />
+            )}
         </div>
     );
 };

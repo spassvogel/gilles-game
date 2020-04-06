@@ -1,0 +1,48 @@
+.quest-panel {
+    display: flex;
+    background: white;
+    flex: 1;
+}
+
+/** on the left. grow as needed */
+.quest-panel .quest-area {
+    flex: .6;
+}
+
+/** on the right. party party */
+.quest-panel .party-area {
+    flex: .4;
+    padding: 8px;
+}
+
+.quest-panel .party-area .adventurer-details {
+    border: 1px solid green;
+    height: 100%;
+    padding: 8px;
+}
+
+.quest-panel .party-area  .equipment ul {
+    padding: 15px;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.quest-panel .party-area .equipment ul li {
+    box-sizing: border-box;
+}
+
+.quest-panel .party-area .equipment ul li .info {
+    font-size: smaller;
+}
+
+/** todo: media queries to show less columns */
+.quest-panel .party-area .inventory {
+    grid-template-columns: 46px 46px 46px 46px 46px 46px 46px;
+}

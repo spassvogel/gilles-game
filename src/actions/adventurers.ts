@@ -1,5 +1,6 @@
 import { EquipmentSlotType } from "components/ui/EquipmentSlot";
 import { Item } from "definitions/items/types";
+import { Action } from "redux";
 
 // tslint:disable:object-literal-sort-keys
 export enum ActionType {
@@ -12,36 +13,35 @@ export enum ActionType {
     removeEquipment = "removeEquipment",
 }
 
-export interface Action {
-    type: ActionType;
+export interface AdventurerAction extends Action<ActionType> {
     adventurerId: string;
 }
 
-export interface InventoryAction extends Action {
+export interface InventoryAction extends AdventurerAction {
     item: Item;
     toSlot?: number;
 }
 
-export interface MoveItemInInventoryAction extends Action {
+export interface MoveItemInInventoryAction extends AdventurerAction {
     fromSlot: number;
     toSlot: number;
 }
 
-export interface RemoveItemFromInventoryAction extends Action {
+export interface RemoveItemFromInventoryAction extends AdventurerAction {
     fromSlot: number;
 }
 
-export interface MoveItemToOtherAdventurerAction extends Action {
+export interface MoveItemToOtherAdventurerAction extends AdventurerAction {
     fromSlot: number;
     toSlot?: number;
     toAdventurerId: string;
 }
 
-export interface AssignEquipmentAction extends Action {
+export interface AssignEquipmentAction extends AdventurerAction {
     item: Item;
     equipmentSlot: EquipmentSlotType;
 }
-export interface RemoveEquipmentAction extends Action {
+export interface RemoveEquipmentAction extends AdventurerAction {
     equipmentSlot: EquipmentSlotType;
 }
 

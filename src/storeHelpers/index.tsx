@@ -7,8 +7,8 @@ import { QuestStoreState } from "stores/quest";
 //     return party.adventurers.map((id: string) => findAdventurerById(store, id)!);
 // };
 
-export const adventurersOnQuest = (store: StoreState, quest: QuestStoreState): AdventurerStoreState[] => {
-    return quest.party.map((id: string) => findAdventurerById(store.adventurers, id)!);
+export const adventurersOnQuest = (adventurers: AdventurerStoreState[], quest: QuestStoreState): AdventurerStoreState[] => {
+    return quest.party.map((id: string) => findAdventurerById(adventurers, id)!);
 };
 
 export const getQuestLeader = (adventurers: AdventurerStoreState[], quest: QuestStoreState): AdventurerStoreState | undefined => {

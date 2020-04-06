@@ -2,24 +2,20 @@ import { createSelector } from "reselect";
 import { StoreState } from "stores";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStatus, QuestStoreState } from "stores/quest";
+import { adventurersOnQuest } from 'storeHelpers';
 
+// Store accessors
 const getAdventurers = (state: StoreState): AdventurerStoreState[] => state.adventurers;
 const getQuests = (state: StoreState): QuestStoreState[] => state.quests;
+
+
 
 const groupAdventurersByQuest = (adventurers: AdventurerStoreState[], quests: QuestStoreState[]): Record<string, AdventurerStoreState[]> => {
     const foundInParty: AdventurerStoreState[] = []; // store the adventurers in parties in a temp array
 
-    const adventurersOnQuest = (quest: QuestStoreState): AdventurerStoreState[] => {
-        const party: string[] = quest.party;
-        return party.map((id: string) => findAdventurerById(id)!);
-    };
-
-    const findAdventurerById = (id: string): AdventurerStoreState | undefined => {
-        return adventurers.find((a) => a.id === id);
-    };
 
     const groupedAdventurers = Object.values(quests).reduce((acc, val: QuestStoreState) => {
-        const foundAdventurers = adventurersOnQuest(val);
+        const foundAdventurers = adventurersOnQuest(adventurers,val);
         if (val.status === QuestStatus.active) {
             // Only active quests
             acc[val.name] = foundAdventurers;
@@ -54,6 +50,19 @@ export const selectAdventurersGroupedByQuest = createSelector([
     groupAdventurersByQuest,
 );
 
+/** Returns a selector keyed by active quests whose value is a list of AdventurerStoreState */
+export const createSelectAdventurersOnQuest = (questName: string) => {
+    const getAdventurersOnQuest = (adventurers: AdventurerStoreState[], quests: QuestStoreState[]): AdventurerStoreState[] => {
+        const quest = quests.find(q => q.name === questName)!;
+        return adventurersOnQuest(adventurers, quest);
+    };
+
+    return createSelector([
+        getAdventurers,
+        getQuests],
+        getAdventurersOnQuest,
+    );
+}
 /** Returns an object keyed by active quests whose value is a list of AdventurerStoreState */
 export const selectAdventurersInTown = createSelector([
     getAdventurers,

@@ -1,3 +1,4 @@
+// todo: obsolete in favour of QuestPanel
 import { InventoryItemDragInfo } from "components/ui/DraggableItemIcon";
 import DroppableAdventurerAvatar from "components/ui/DroppableAdventurerAvatar";
 import { TextEntry } from "constants/text";

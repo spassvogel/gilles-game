@@ -21,7 +21,7 @@ import ContextView from "./ui/context/ContextView";
 import TownView from './town/TownView';
 import Toasts from './ui/toasts/Toasts';
 import Topbar from './ui/topbar/Topbar';
-import WorldView from './partyScreen/WorldView';
+import WorldView from './world/WorldView';
 import SimpleLog from './log/SimpleLog';
 
 // tslint:disable-next-line:no-empty-interface
@@ -181,7 +181,7 @@ const App = (props: AllProps) => {
             if (window.innerHeight < resolution.height) {
                // containerRef.current.style.transform = `scale(${Math.min(window.innerWidth / resolution.width, 1)}) translateX(-50%)`;
             } else {
-                containerRef.current.style.transform = `scale(1) translateX(-50%)`;
+                //containerRef.current.style.transform = `scale(1) translateX(-50%)`;
             }
             const parentBox = containerRef.current.getBoundingClientRect();
             setContainerRect(parentBox);
@@ -193,6 +193,7 @@ const App = (props: AllProps) => {
     };
 
     useEffect(() => {
+        // todo: see if we can disable this;
         window.addEventListener("resize", handleResize);
         handleResize();
         return () => {

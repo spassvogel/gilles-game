@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import React, { useEffect, useRef } from "react";
 import { QuestStoreState } from "stores/quest";
 import { lerpLocation } from 'utils/pixiJs';
-import Viewport from '../pixi/Viewport';
+import Viewport from '../../pixi/Viewport';
 import MapGrid from './MapGrid';
 import QuestMarker from './QuestMarker';
 import { StoreState } from 'stores';
@@ -18,36 +18,39 @@ import { selectActiveQuests } from 'selectors/quests';
 import { getDefinition } from 'definitions/quests';
 
 const FULL_HEIGHT = 1024;
-const SMALL_HEIGHT = 256;
+const SMALL_HEIGHT = 128;   // Used when QuestPanel is open
 const WORLD_WIDTH = 1500;
 const WORLD_HEIGHT = 1061;
 const GRID_WIDTH = 10;      // width or height of each node location in pixels
 
 // // This stuff is needed for the pixi-js browser plugin
 if (process.env.NODE_ENV === "development") {
-    //     // @ts-ignore
-    //     PIXI.useDeprecated();
     // @ts-ignore
     window.__PIXI_INSPECTOR_GLOBAL_HOOK__ && window.__PIXI_INSPECTOR_GLOBAL_HOOK__.register({ PIXI: PIXI });
 }
 
 export interface Props {
-    selectedQuest?: string;
+    selectedQuest?: QuestStoreState;
     controllerEnabled: boolean;
     smallMap: boolean;
-    onMapMove: (distance: number, angle: number) => void;
     onPartyClick: (questName: string) => void;
 }
 
 
 const WorldMap = (props: Props) => {
+    const { selectedQuest } = props;
     const adventurers = useSelector<StoreState, AdventurerStoreState[]>((store) => store.adventurers);
     const activeQuests = useSelector<StoreState, QuestStoreState[]>((store) => selectActiveQuests(store));
 
     const handlePartyClick = (name: string) => {
         props.onPartyClick(name);
-        focusOnQuestingParty(activeQuests.find(q => q.name === name)!);
     };
+
+    useEffect(() => {
+        if (selectedQuest) {
+            focusOnQuestingParty(selectedQuest);
+        }
+    }, [selectedQuest]);
 
     const renderQuestlines = () => {
         return activeQuests.map((quest) => {
@@ -63,14 +66,14 @@ const WorldMap = (props: Props) => {
             const location = getQuestWorldLocation(quest);
             const currentPosition = nodeLocationToPoint(location);
             const leader = getQuestLeader(adventurers, quest)!;
-            const selected = quest.name === props.selectedQuest;
+
             return (
                 <QuestMarker 
                     quest={quest} 
                     leader={leader} 
                     position={currentPosition} 
                     key={quest.name} 
-                    selected={selected}
+                    selected={quest === selectedQuest}
                     onClick={(quest) => handlePartyClick(quest.name)} 
                 />
             );
@@ -79,6 +82,7 @@ const WorldMap = (props: Props) => {
 
     const ref = useRef<PixiViewport>(null);
     useEffect(() => {
+        // focus on center of the map
         if (ref.current) {
             const viewport = ref.current;
             const point = nodeLocationToPoint({ x: 0, y: 0 });
