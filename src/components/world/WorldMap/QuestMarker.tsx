@@ -1,8 +1,9 @@
 import React, { useRef, useEffect } from 'react';
-import { Sprite } from '@inlet/react-pixi';
+import { Sprite, useApp } from '@inlet/react-pixi';
 import { QuestStoreState } from 'stores/quest';
 import * as PIXI from 'pixi.js';
 import { AdventurerStoreState } from 'stores/adventurer';
+import { cursorDefault, cursorPointer } from 'constants/cursors';
 
 interface Props {
     quest: QuestStoreState;
@@ -22,19 +23,30 @@ const QuestMarker = (props: Props) => {
     const { quest, leader, position, onClick, selected } = props;
     const image = selected ? '/img/world/map-marker-selected.png' : '/img/world/map-marker.png';
 
-
     const avatar = useRef<Sprite>(null);
     // Mask has to be a child of the avatar in order to move with it
     useEffect(() => {
         const sprite = avatar.current as any as PIXI.Sprite;
         sprite.mask = maskGraphics;
         sprite.addChild(maskGraphics);
+
+        //sprite.cursor = "hover";
     }, [avatar]);
+
+    const pixiApp = useApp();
+    if (pixiApp) {
+        //pixiApp.renderer.plugins.interaction.cursorStyles.default = cursorDefault;
+        pixiApp.renderer.plugins.interaction.cursorStyles.hover = "url('https://i.imgur.com/IaUrttj.png'), auto;";  // use cursor: 'hover'
+        
+        console.log(pixiApp.renderer.plugins.interaction.cursorStyles.hover)
+        console.log("setup pixi2")
+    }
 
     return (
         <Sprite
             image={image} 
             name={quest.name}
+            cursor="hover"
             x={position.x}
             y={position.y}
             interactive={true}

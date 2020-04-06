@@ -39,6 +39,20 @@
 }
 
 /** Headers */
+.app-h1, .app-h2 {
+    color: black;
+    font-family: "Cambria", sans-serif;
+    text-align: center;
+}
+
+.app-h1 {
+    font-size: xx-large;
+}
+
+.app-h2 {
+    font-size: x-large;
+}
+
 .app-h1-white, .app-h2-white {
     color: white;
     font-family: "Cambria", sans-serif;
@@ -53,3 +67,6 @@
 .app-h2-white {
     font-size: x-large;
 }
+
+
+

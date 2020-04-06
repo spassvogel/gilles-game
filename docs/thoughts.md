@@ -45,7 +45,7 @@ backlog of ideas
 [ ] You can train workers/citizens to become adventurers
 
 
-02/05/2019 TRAITS
+02/05/2019 TRAITS [+design]
 [ ] During encounters, characters can receive certain traits. These can be beneficial or not. 
 [ ] In some cases the traits can be healed, removed etc. 
 [ ] Some items can be used to grant a trait to an adventurer.
@@ -54,13 +54,13 @@ backlog of ideas
 [ ] Each screen should get a contexualized help window
 [ ] HTML elements can receive a 'data-help' attribute with a key to refer to the localisation file
 
-30/06/2019 GAME TICK QUEST UPDATE
+30/06/2019 GAME TICK QUEST UPDATE [+tech]
 [x] Move gameTick from quest reducer into 'controllers'
 
 07/07/2019 STRUCTURE UPGRADE TIME [+design]
 [ ] Upgrading a structure takes time
 
-07/07/2019 GAME DESIGN: warehouse
+07/07/2019 GAME DESIGN: warehouse [+design]
 [ ] Is the warehouse limited? Can you add unlimited items?
 [x] Resource capacity is limited
 [ ] Warehouse produces 'food rations' for quests
@@ -376,8 +376,11 @@ THREEJS examples (MIGHT IS RIGHT):
 03/04/2020 Structure views have a banner [+art]
 [ ] It should show the interior of the structure, what's happening there
 
-04/04/2020 Hit area in townview
+04/04/2020 Hit area in townview [+tech]
 https://github.com/explooosion/hitarea-shapes
 
-06/04/2020 Quest editor
+06/04/2020 Quest editor [+tech]
 An editor that could help in designing quests on the world map
+
+06/04/2020 Oracle? [+tech]
+Should think about what to do with the oracle. Maybe refactor the whole thing

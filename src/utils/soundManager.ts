@@ -25,7 +25,7 @@ export class SoundManager {
 
     public static addSounds(soundList: Record<Sound, string>) {
         Object.entries(soundList).forEach(([key, value]) => {
-            // todo: assert
+            // todo: assert [10/07/2019 ASSERTS]
             sounds[key] = media.find((m) => m.url === value)!.content;
         });
     }

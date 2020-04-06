@@ -6,6 +6,7 @@ import { createSelectAdventurersOnQuest } from 'selectors/adventurers';
 import { useSelector } from 'react-redux';
 import { AdventurerStoreState } from 'stores/adventurer';
 import AdventurerPanel from './AdventurerPanel';
+import QuestDetails from './QuestDetails';
 
 interface Props {
     quest: QuestStoreState;
@@ -29,7 +30,7 @@ const QuestPanel = (props: Props) => {
     return (
         <div className="quest-panel">
             <div className="quest-area">
-
+                <QuestDetails quest={props.quest} />
             </div>
             <div className="party-area">
                 <AdventurerTabstrip adventurers={adventurers} onAdventurerTabSelected={handleAdventurerSelected} />
