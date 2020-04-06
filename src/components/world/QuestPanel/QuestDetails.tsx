@@ -6,7 +6,7 @@ import { getDefinition as getQuestDefinition, QuestDefinition, QuestNode, QuestN
 import { EncounterDefinition } from 'definitions/encounters/types';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
-import { selectLastQuestLogEntry } from 'selectors/quests';
+import { selectQuestLogEntries } from 'selectors/quests';
 import { TextEntry } from 'constants/text';
 
 interface Props {
@@ -16,8 +16,8 @@ interface Props {
 const QuestDetails = (props: Props) => {
     const { quest } = props;
 
-    const lastLog = useSelector<StoreState, TextEntry | undefined>((store: StoreState) => {
-        return selectLastQuestLogEntry(store, quest.name);
+    const log = useSelector<StoreState, TextEntry[] | undefined>((store: StoreState) => {
+        return selectQuestLogEntries(store, quest.name);
     });
     const questDefinition: QuestDefinition = getQuestDefinition(quest.name);
     const progress: number = Math.floor(quest.progress);
@@ -42,8 +42,8 @@ const QuestDetails = (props: Props) => {
 
     switch (questNode.type) {
         case QuestNodeType.nothing: {
-            message = <div> aa{
-                lastLog && TextManager.getTextEntry(lastLog)
+            message = <div> {
+                log && log.map(textEntry => (<p>{TextManager.getTextEntry(textEntry)}</p>))
             } </div>;
             break;
         }

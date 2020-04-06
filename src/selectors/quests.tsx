@@ -27,3 +27,13 @@ export const selectLastQuestLogEntry = (state: StoreState, questName: string) =>
         return questLog;
     },
 )(state);
+
+/**
+ * Returns all log entries for given quest
+ */
+export const selectQuestLogEntries = (state: StoreState, questName: string) => createSelector([
+    getLog],
+    (log: LogEntry[]): TextEntry[] | undefined => {
+        return log.filter((l) => l.channel === LogChannel.quest && l.channelContext === questName);
+    },
+)(state);
