@@ -15,13 +15,25 @@
     padding: 8px;
 }
 
+.quest-panel .party-area .tabstrip .tabstrip-tab {
+    margin-bottom: -1px;
+    border-bottom: 1px solid #ffa500;
+    margin-left: 2px;
+    padding: 0;
+}
+
+.quest-panel .party-area .tabstrip .tabstrip-tab.active {
+    border-color: #ffa500;
+    border-bottom: 1px solid white;
+}
+
 .quest-panel .party-area .adventurer-details {
-    border: 1px solid green;
+    border: 1px solid #ffa500;
     height: 100%;
     padding: 8px;
 }
 
-.quest-panel .party-area  .equipment ul {
+.quest-panel .party-area .equipment ul {
     padding: 15px;
     display: grid;
     width: 100%;

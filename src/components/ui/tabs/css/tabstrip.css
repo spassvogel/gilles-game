@@ -7,7 +7,7 @@
     display: flex;
 }
 
-.tabstrip .widget-tab  {
+.tabstrip .tabstrip-tab  {
     display: inline-block;
     padding-left: 4px;
     border: 1px solid green;
@@ -20,7 +20,7 @@
     align-self: flex-end;
 }
 
-.tabstrip .widget-tab.active {
+.tabstrip .tabstrip-tab.active {
     background: white;
 }
 

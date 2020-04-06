@@ -14,7 +14,8 @@ interface Props {
 const QuestPanel = (props: Props) => {
     
     const adventurers = useSelector(createSelectAdventurersOnQuest(props.quest.name));   
-    const [selectedAdventurerID, setSelectedAdventurerID] = useState<string>();
+    const leader = adventurers[0];
+    const [selectedAdventurerID, setSelectedAdventurerID] = useState<string>(leader.id);
 
     const selectedAdventurer = useMemo(() => {
         return adventurers.find(a => a.id === selectedAdventurerID);

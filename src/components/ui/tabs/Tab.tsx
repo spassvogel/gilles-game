@@ -18,7 +18,7 @@ const Tab = (props: AllProps) => {
         }
     };
     const className = ((props.active) ? "active" : "") + (props.className || "");
-    return <li className = { `widget-tab ${className}` } onClick = { handleClick } >
+    return <li className = { `tabstrip-tab ${className}` } onClick = { handleClick } >
         { props.children }
     </li>;
 };
