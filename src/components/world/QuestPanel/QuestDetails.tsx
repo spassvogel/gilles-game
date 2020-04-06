@@ -4,10 +4,11 @@ import { TextManager } from 'utils/textManager';
 import { getDefinition as getEncounterDefinition } from "definitions/encounters";
 import { getDefinition as getQuestDefinition, QuestDefinition, QuestNode, QuestNodeType } from "definitions/quests";
 import { EncounterDefinition } from 'definitions/encounters/types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from 'stores';
 import { selectQuestLogEntries } from 'selectors/quests';
 import { TextEntry } from 'constants/text';
+import { updateEncounterResult, advanceQuest } from 'actions/quests';
 
 interface Props {
     quest: QuestStoreState;
@@ -16,6 +17,7 @@ interface Props {
 const QuestDetails = (props: Props) => {
     const { quest } = props;
 
+    const dispatch = useDispatch();
     const log = useSelector<StoreState, TextEntry[] | undefined>((store: StoreState) => {
         return selectQuestLogEntries(store, quest.name);
     });
@@ -27,12 +29,15 @@ const QuestDetails = (props: Props) => {
     let actions = <p></p>;
 
     const handleEncounterOptionClick = (encounter: EncounterDefinition, option: string, oracle: any): any => {
-        //const result = encounter.answer(option, oracle, props.onDispatch);
+        const result = encounter.answer(option, oracle, dispatch);
 
         /*if (!isEqual(questVars, props.quest.questVars)){
             props.onUpdateQuestVars(questVars);
         }*/
-        //props.onUpdateEncounterResult(props.quest.progress, result);
+        const action = updateEncounterResult(quest.name, quest.progress, result);
+        dispatch(action);
+        dispatch(advanceQuest(quest.name));
+
        // props.onAdvanceQuest(props.quest.name);
     }
 

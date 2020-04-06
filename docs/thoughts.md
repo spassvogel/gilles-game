@@ -384,3 +384,7 @@ An editor that could help in designing quests on the world map
 
 06/04/2020 Oracle? [+tech]
 Should think about what to do with the oracle. Maybe refactor the whole thing
+
+06/04/2020 Quest indicator in map marker [+tech], [+art]
+Map marker needs to show there is an encounter going on. 
+[ ] Maybe exclamation mark? 
