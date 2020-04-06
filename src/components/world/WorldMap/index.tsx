@@ -109,7 +109,7 @@ const WorldMap = (props: Props) => {
                     {renderQuestlines()}
                     {renderMarkers()}
                 </Sprite>
-                <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} />
+                {/* <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} /> */}
             </Viewport>
         </Stage>
     );

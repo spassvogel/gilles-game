@@ -1,22 +1,35 @@
-import React, { useRef } from 'react';
-import { Sprite, Graphics } from '@inlet/react-pixi';
+import React, { useRef, useEffect } from 'react';
+import { Sprite } from '@inlet/react-pixi';
 import { QuestStoreState } from 'stores/quest';
-import { Point } from 'pixi.js';
+import * as PIXI from 'pixi.js';
 import { AdventurerStoreState } from 'stores/adventurer';
 
 interface Props {
     quest: QuestStoreState;
-    position: Point;
+    position: PIXI.Point;
     selected?: boolean;
     onClick?: (quest: QuestStoreState) => void;
     leader: AdventurerStoreState;
 }
 const CIRCLE_DIAMETER = 256; // = avatar size / 2
 
+const maskGraphics = new PIXI.Graphics();
+maskGraphics.beginFill(0xBADA55);
+maskGraphics.drawCircle(0, 0, CIRCLE_DIAMETER * 1);
+maskGraphics.endFill(); 
+
 const QuestMarker = (props: Props) => {
     const { quest, leader, position, onClick, selected } = props;
-    const mask = useRef(null);
     const image = selected ? '/img/world/map-marker-selected.png' : '/img/world/map-marker.png';
+
+
+    const avatar = useRef<Sprite>(null);
+    // Mask has to be a child of the avatar in order to move with it
+    useEffect(() => {
+        const sprite = avatar.current as any as PIXI.Sprite;
+        sprite.mask = maskGraphics;
+        sprite.addChild(maskGraphics);
+    }, [avatar]);
 
     return (
         <Sprite
@@ -25,9 +38,8 @@ const QuestMarker = (props: Props) => {
             x={position.x}
             y={position.y}
             interactive={true}
-            scale={new Point(0.1, 0.1)}
-            // scale={new Point(0.5, 0.5)}
-            anchor={new Point(0.5, 1)}
+            scale={new PIXI.Point(0.1, 0.1)}
+            anchor={new PIXI.Point(0.5, 1)}
             pointerdown={() => {
                 if(onClick) {
                     onClick(quest);
@@ -38,33 +50,15 @@ const QuestMarker = (props: Props) => {
             <Sprite 
                 image={`${process.env.PUBLIC_URL}${leader.avatarImg}`} 
                 name="avatar"
-                anchor={new Point(0.5, 0.5)}
+                anchor={new PIXI.Point(0.5, 0.5)}
                 x={0}
                 y={-396}
-                scale={new Point(0.66, 0.66)}
+                scale={new PIXI.Point(0.66, 0.66)}
                 interactive={true}
-                { ...(mask.current && { mask: mask.current})}
-            >
-                <Graphics
-                    draw={graphics => {
-                        graphics.beginFill(0x0);
-                        graphics.drawCircle(0, 0, CIRCLE_DIAMETER);
-                        graphics.endFill(); 
-                    }}
-                    anchor={new Point(0.5, 0.5)}
-                    x={0}
-                    y={0}
-                    ref={mask}
-                />
-            </Sprite>)}
+                ref={avatar}
+            />)}
         </Sprite>
     )
 }
-/* 
-const graphics = new PIXI.Graphics();
-graphics.beginFill(0xFF3300);
-graphics.drawRect(50, 250, 100, 100);
-graphics.endFill(); 
-*/
 
 export default QuestMarker;
