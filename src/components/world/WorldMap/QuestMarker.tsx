@@ -14,11 +14,6 @@ interface Props {
 }
 const CIRCLE_DIAMETER = 256; // = avatar size / 2
 
-const maskGraphics = new PIXI.Graphics();
-maskGraphics.beginFill(0xBADA55);
-maskGraphics.drawCircle(0, 0, CIRCLE_DIAMETER * 1);
-maskGraphics.endFill(); 
-
 const QuestMarker = (props: Props) => {
     const { quest, leader, position, onClick, selected } = props;
     const image = selected ? '/img/world/map-marker-selected.png' : '/img/world/map-marker.png';
@@ -27,6 +22,12 @@ const QuestMarker = (props: Props) => {
     // Mask has to be a child of the avatar in order to move with it
     useEffect(() => {
         const sprite = avatar.current as any as PIXI.Sprite;
+
+        const maskGraphics = new PIXI.Graphics();
+        maskGraphics.beginFill(0xBADA55);
+        maskGraphics.drawCircle(0, 0, CIRCLE_DIAMETER * 1);
+        maskGraphics.endFill(); 
+
         sprite.mask = maskGraphics;
         sprite.addChild(maskGraphics);
 
