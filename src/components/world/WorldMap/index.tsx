@@ -3,7 +3,7 @@ import { Stage, Sprite } from '@inlet/react-pixi';
 import { Viewport as PixiViewport } from "pixi-viewport";
 import { useSelector } from 'react-redux'
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { QuestStoreState } from "stores/quest";
 import { lerpLocation } from 'utils/pixiJs';
 import Viewport from '../../pixi/Viewport';
@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 export interface Props {
-    selectedQuest?: QuestStoreState;
+    selectedQuestName?: string;
     controllerEnabled: boolean;
     smallMap: boolean;
     onPartyClick: (questName: string) => void;
@@ -38,7 +38,12 @@ export interface Props {
 
 
 const WorldMap = (props: Props) => {
-    const { selectedQuest } = props;
+    const questSelector = useCallback(
+        (state: StoreState) => state.quests.find((q) => q.name === props.selectedQuestName), 
+        [props.selectedQuestName]
+    );
+    const selectedQuest = useSelector<StoreState, QuestStoreState | undefined>(questSelector);
+
     const adventurers = useSelector<StoreState, AdventurerStoreState[]>((store) => store.adventurers);
     const activeQuests = useSelector<StoreState, QuestStoreState[]>((store) => selectActiveQuests(store));
 

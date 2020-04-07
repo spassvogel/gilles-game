@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { QuestStoreState } from 'stores/quest';
 import { TextManager } from 'utils/textManager';
 import { getDefinition as getEncounterDefinition } from "definitions/encounters";
@@ -11,11 +11,16 @@ import { TextEntry } from 'constants/text';
 import { updateEncounterResult, advanceQuest } from 'actions/quests';
 
 interface Props {
-    quest: QuestStoreState;
+    questName: string;
 }
 
 const QuestDetails = (props: Props) => {
-    const { quest } = props;
+    const questSelector = useCallback(
+        (state: StoreState) => state.quests.find((q) => q.name === props.questName)!, 
+        [props.questName]
+    );
+    const quest = useSelector<StoreState, QuestStoreState>(questSelector);
+    console.log("rendering questdetails ", JSON.stringify(quest));
 
     const dispatch = useDispatch();
     const log = useSelector<StoreState, TextEntry[] | undefined>((store: StoreState) => {

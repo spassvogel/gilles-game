@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from "react";
 import "./css/questPanel.css";
 import AdventurerTabstrip from './AdventurerTabstrip';
-import { QuestStoreState } from 'stores/quest';
 import { createSelectAdventurersOnQuest } from 'selectors/adventurers';
 import { useSelector } from 'react-redux';
 import { AdventurerStoreState } from 'stores/adventurer';
@@ -9,12 +8,12 @@ import AdventurerPanel from './AdventurerPanel';
 import QuestDetails from './QuestDetails';
 
 interface Props {
-    quest: QuestStoreState;
+    questName: string;
 }
 
 const QuestPanel = (props: Props) => {
-    
-    const adventurers = useSelector(createSelectAdventurersOnQuest(props.quest.name));   
+
+    const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));   
     const leader = adventurers[0];
     const [selectedAdventurerID, setSelectedAdventurerID] = useState<string>(leader.id);
 
@@ -30,7 +29,7 @@ const QuestPanel = (props: Props) => {
     return (
         <div className="quest-panel">
             <div className="quest-area">
-                <QuestDetails quest={props.quest} />
+                <QuestDetails questName={props.questName} />
             </div>
             <div className="party-area">
                 <AdventurerTabstrip adventurers={adventurers} onAdventurerTabSelected={handleAdventurerSelected} />

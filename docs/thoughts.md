@@ -134,8 +134,10 @@ backlog of ideas
 [ ] Scrollbar should be on top
     https://stackoverflow.com/questions/18997724/how-to-change-scroll-bar-position-with-css
 
-25/07/2019 CUSTOM CURSORS
+25/07/2019 CUSTOM CURSORS [+tech]
 [ ] We need cursors for move inventory item and not-allowed
+[ ] Need cursors in pixi context. Why isn't it working? (https://codesandbox.io/s/autumn-waterfall-ng6gb)
+    https://pixijs.io/examples/#/interaction/custom-mouse-icon.js
 
 29/07/2019 EQUIP GEAR
 [x] Can equip gear from the players inventory
@@ -151,13 +153,13 @@ Because I'm not an artist and I want to use unity3d assets
 [x] First check if components dont get remounted too much. If yes, find out why and resolve issue!     
 [ ] Find cool fantasy town assets
 [x] Check if can be loaded in threejs (seperate project)
-[ ] Implement in town
-[ ] It would be cool to have the town scrollable. (see: 23/08/2019 WORLD MAP)
+[-] Implement in town
+[-] It would be cool to have the town scrollable. (see: 23/08/2019 WORLD MAP)
     The easiest way would maybe to be to create a very long canvas, render everything on it and let the browser scroll this canvas. This way you also have a scrollbar.
     Not optimal for performance tho.
 [ ] Find cool fantasy character unity asset packs
 [x] Check if can be loaded in threejs (seperate project)
-[ ] Implement in combat
+[-] Implement in combat
     perhaps we don't need react bindings.
     See if we can do this:
     1. on mount, all actors are spawned and positioned
@@ -166,9 +168,9 @@ Because I'm not an artist and I want to use unity3d assets
 [x] On second hand, I think it's worth checking out react-three-fiber. Might get complicated otherwise  
 
 
-04/08/2019 Swap items between warehouse and adventurers
+04/08/2019 Swap items between warehouse and adventurers [+tech]
 [x] Take items from warehouse and assign to adventurer inventory
-[ ] Take items from warehouse and assign to adventurer gear
+[x] Take items from warehouse and assign to adventurer gear
 
 08/08/2019 Combat
 Still haven't figured out a combat game system. But can implement some ground work. 

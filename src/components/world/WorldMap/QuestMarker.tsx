@@ -33,14 +33,15 @@ const QuestMarker = (props: Props) => {
         //sprite.cursor = "hover";
     }, [avatar]);
 
-    const pixiApp = useApp();
-    if (pixiApp) {
-        //pixiApp.renderer.plugins.interaction.cursorStyles.default = cursorDefault;
-        pixiApp.renderer.plugins.interaction.cursorStyles.hover = "url('https://i.imgur.com/IaUrttj.png'), auto;";  // use cursor: 'hover'
+    // todo: cursors [25/07/2019 CUSTOM CURSORS]
+    // const pixiApp = useApp();
+    // if (pixiApp) {
+    //     //pixiApp.renderer.plugins.interaction.cursorStyles.default = cursorDefault;
+    //     pixiApp.renderer.plugins.interaction.cursorStyles.hover = "url('https://i.imgur.com/IaUrttj.png'), auto;";  // use cursor: 'hover'
         
-        console.log(pixiApp.renderer.plugins.interaction.cursorStyles.hover)
-        console.log("setup pixi2")
-    }
+    //     console.log(pixiApp.renderer.plugins.interaction.cursorStyles.hover)
+    //     console.log("setup pixi2")
+    // }
 
     return (
         <Sprite
