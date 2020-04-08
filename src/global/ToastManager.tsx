@@ -1,5 +1,6 @@
 import { now } from 'moment';
 import { Type } from '../components/ui/toasts/Toast';
+import EventEmitter from './EventEmitter';
 
 export interface ToastConfig {
     time: number;
@@ -8,7 +9,7 @@ export interface ToastConfig {
     icon?: string;
 }
 
-export abstract class ToastManager {
+export abstract class ToastManager extends EventEmitter<ToastConfig[]>() {
     
     private static stack: ToastConfig[] = [];
     private static lifeTime = 5000; // Time each toast lives
@@ -34,29 +35,5 @@ export abstract class ToastManager {
             this.emit(this.EVENT_TOASTS_UPDATED, this.stack);
 
         }, this.lifeTime);
-    }
-
-    static events = {};
-    
-    static addEventListener (event: string, listener: (stack: ToastConfig[]) => void) {
-        this.events[event] = this.events[event] || [];
-        this.events[event].push(listener);
-    }
-
-    static removeEventListener (event: string, listener: (stack: ToastConfig[]) => void) {
-        if (this.events[event]) {
-            for (var i = 0; i < this.events[event].length; i++) {
-                if (this.events[event][i] === listener) {
-                    this.events[event].splice(i, 1);
-                    break;
-                }
-            };
-        }
-    }
-
-    private static emit (event: string, stack: ToastConfig[]) {
-        if (this.events[event]) {
-            this.events[event].forEach((fn: (stack: ToastConfig[]) => any) => fn(stack));
-        }
     }
 }
