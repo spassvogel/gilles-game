@@ -21,6 +21,7 @@ import Topbar from './ui/topbar/Topbar';
 import WorldView from './world/WorldView';
 import SimpleLog from './log/SimpleLog';
 import ContextTooltip from './ui/tooltip/ContextTooltip';
+import { TooltipManager } from 'global/TooltipManager';
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -141,10 +142,7 @@ const App = (props: AllProps) => {
     };
 
     const handleAppClick = () => {
-        //TooltipManager.clear();
-        // if (selectedContext) {
-        //     setSelectedContext(undefined);
-        // }
+        TooltipManager.clear();
     };
 
     // const handleResize = () => {

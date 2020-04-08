@@ -6,6 +6,9 @@ import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/Draggabl
 import { DragSourceType } from 'constants/dragging';
 import { IconSize } from 'constants/icons';
 import { TextManager } from 'utils/textManager';
+import { TooltipManager } from 'global/TooltipManager';
+import { ContextType } from 'constants/context';
+import { getDefinition } from 'definitions/items';
 
 export interface Props {
     adventurer: AdventurerStoreState
@@ -24,12 +27,7 @@ const AdventurerEquipment = (props: Props) => {
             const handleClick = (event: React.MouseEvent) => {
                 const origin = (event.currentTarget as HTMLElement);
                 const originRect = origin.getBoundingClientRect();
-                // context.onContextualObjectActivated(
-                //     ContextType.item,
-                //     getDefinition(item),
-                //     itemRef,
-                //     originRect,
-                // );
+                TooltipManager.showContextTooltip(ContextType.item, getDefinition(item), originRect);
                 event.stopPropagation();
             };
 
