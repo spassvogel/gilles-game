@@ -20,6 +20,17 @@ const dropTarget: DropTargetSpec<Props> = {
     },
 };
 
+export enum EquipmentSlotType {
+    feet,
+    hands,
+    chest,
+    legs,
+    head,
+    shoulders,
+    mainHand,
+    offHand,
+}
+
 // Returns true if item can be slotted in equipmentSlotType
 export const itemAndEquipmentSlotMatch = (item: Item, equipmentSlotType: EquipmentSlotType) => {
     switch (equipmentSlotType) {
@@ -46,17 +57,6 @@ export const itemAndEquipmentSlotMatch = (item: Item, equipmentSlotType: Equipme
             return false;
     }
 };
-
-export enum EquipmentSlotType {
-    feet,
-    hands,
-    chest,
-    legs,
-    head,
-    shoulders,
-    mainHand,
-    offHand,
-}
 
 export interface Props {
     type: EquipmentSlotType;
