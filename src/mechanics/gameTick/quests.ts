@@ -6,7 +6,7 @@ import { oracles } from "oracle";
 import { StoreState } from "stores";
 import { LogChannel } from "stores/logEntry";
 import { QuestStatus, QuestStoreState } from "stores/quest";
-import { ToastManager } from 'components/ui/toasts/ToastManager';
+import { ToastManager } from 'global/ToastManager';
 import { TextManager } from 'utils/textManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLeader } from 'storeHelpers';

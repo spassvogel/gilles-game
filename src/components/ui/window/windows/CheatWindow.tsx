@@ -7,7 +7,7 @@ import { StructuresStoreState } from "stores/structures";
 import { TextManager } from "utils/textManager";
 import "./css/cheatbox.css";
 import { useRef, useState } from 'react';
-import { ToastManager } from 'components/ui/toasts/ToastManager';
+import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 
 export interface DispatchProps {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './toasts.css';
 import Toast from './Toast';
-import { ToastManager, ToastConfig } from './ToastManager';
+import { ToastManager, ToastConfig } from '../../../global/ToastManager';
 
 // Toasts can be added by calling ToastManager.addToast
 // ToastManager will inform whenever the something is added to the list of toasts via EVENT_TOASTS_UPDATED

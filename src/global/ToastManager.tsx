@@ -1,5 +1,5 @@
 import { now } from 'moment';
-import { Type } from './Toast';
+import { Type } from '../components/ui/toasts/Toast';
 
 export interface ToastConfig {
     time: number;

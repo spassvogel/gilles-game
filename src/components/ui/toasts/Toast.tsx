@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextManager } from 'utils/textManager';
-import { ToastConfig } from './ToastManager';
+import { ToastConfig } from '../../../global/ToastManager';
 
 type Props = ToastConfig;
 
