@@ -36,7 +36,7 @@ const ItemIcon: React.FC<Props> = (props) => {
         }
     };
 
-    const className = "item-icon " + getClassName(props.size);
+    const className = `item-icon ${getClassName(props.size)}`;
 
     return (
         <div className={className}
