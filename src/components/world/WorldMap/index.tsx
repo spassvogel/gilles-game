@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import React, { useEffect, useRef, useCallback } from "react";
 import { QuestStoreState } from "stores/quest";
 import { lerpLocation } from 'utils/pixiJs';
+import questDefinitions, { QuestDefinition, QuestNodeType, QuestNode } from "definitions/quests";
 import Viewport from '../../pixi/Viewport';
 import MapGrid from './MapGrid';
 import QuestMarker from './QuestMarker';
@@ -71,7 +72,10 @@ const WorldMap = (props: Props) => {
             const location = getQuestWorldLocation(quest);
             const currentPosition = nodeLocationToPoint(location);
             const leader = getQuestLeader(adventurers, quest)!;
-
+            const questDefinition: QuestDefinition = getDefinition(quest.name);
+            const progress: number = Math.floor(quest.progress);
+            const questNode: QuestNode = questDefinition.nodes[progress];
+            
             return (
                 <QuestMarker 
                     quest={quest} 
@@ -79,6 +83,7 @@ const WorldMap = (props: Props) => {
                     position={currentPosition} 
                     key={quest.name} 
                     selected={quest === selectedQuest}
+                    encounterActive={questNode.type === QuestNodeType.encounter}
                     onClick={(quest) => handlePartyClick(quest.name)} 
                 />
             );

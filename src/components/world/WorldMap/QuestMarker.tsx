@@ -9,13 +9,14 @@ interface Props {
     quest: QuestStoreState;
     position: PIXI.Point;
     selected?: boolean;
+    encounterActive?: boolean;
     onClick?: (quest: QuestStoreState) => void;
     leader: AdventurerStoreState;
 }
 const CIRCLE_DIAMETER = 256; // = avatar size / 2
 
 const QuestMarker = (props: Props) => {
-    const { quest, leader, position, onClick, selected } = props;
+    const { quest, leader, encounterActive, position, onClick, selected } = props;
     const image = selected ? '/img/world/map-marker-selected.png' : '/img/world/map-marker.png';
 
     const avatar = useRef<Sprite>(null);
@@ -31,18 +32,18 @@ const QuestMarker = (props: Props) => {
         sprite.mask = maskGraphics;
         sprite.addChild(maskGraphics);
 
-        //sprite.cursor = "hover";
+        sprite.cursor = "hover";
     }, [avatar]);
 
-    // todo: cursors [25/07/2019 CUSTOM CURSORS]
-    // const pixiApp = useApp();
-    // if (pixiApp) {
-    //     //pixiApp.renderer.plugins.interaction.cursorStyles.default = cursorDefault;
-    //     pixiApp.renderer.plugins.interaction.cursorStyles.hover = "url('https://i.imgur.com/IaUrttj.png'), auto;";  // use cursor: 'hover'
+    //todo: cursors [25/07/2019 CUSTOM CURSORS]
+    const pixiApp = useApp();
+    if (pixiApp) {
+        //pixiApp.renderer.plugins.interaction.cursorStyles.default = cursorDefault;
+        pixiApp.renderer.plugins.interaction.cursorStyles.hover = "url('https://i.imgur.com/IaUrttj.png'), auto;";  // use cursor: 'hover'
         
-    //     console.log(pixiApp.renderer.plugins.interaction.cursorStyles.hover)
-    //     console.log("setup pixi2")
-    // }
+        console.log(pixiApp.renderer.plugins.interaction.cursorStyles.hover)
+        console.log("setup pixi2")
+    }
 
     return (
         <Sprite
@@ -62,15 +63,24 @@ const QuestMarker = (props: Props) => {
         >
             { leader && (
             <Sprite 
-                image={`${process.env.PUBLIC_URL}${leader.avatarImg}`} 
+                image={leader.avatarImg} 
                 name="avatar"
                 anchor={new PIXI.Point(0.5, 0.5)}
                 x={0}
                 y={-396}
                 scale={new PIXI.Point(0.66, 0.66)}
-                interactive={true}
                 ref={avatar}
             />)}
+            {encounterActive && (
+            <Sprite 
+                image='/img/world/quest-alert.png'
+                name="quest-alert"
+                anchor={new PIXI.Point(0.5, 1)}
+                x={180}
+                y={-396}
+                scale={new PIXI.Point(2, 2)}
+            />
+            )}
         </Sprite>
     )
 }
