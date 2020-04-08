@@ -53,7 +53,7 @@ const QuestDetails = (props: Props) => {
     switch (questNode.type) {
         case QuestNodeType.nothing: {
             message = <div> {
-                log && log.map(textEntry => (<p>{TextManager.getTextEntry(textEntry)}</p>))
+                log && log.map(textEntry => (<p key={textEntry.key}>{TextManager.getTextEntry(textEntry)}</p>))
             } </div>;
             break;
         }
