@@ -36,6 +36,7 @@ export class SoundManager {
     }
 
     public static addMusicTrack(track: MusicTrack, url: string) {
+        if (!media) { return; }
         const sound = media.find((m) => m.url === url);
         if (!sound) {
             throw new Error(`No sound found at ${url}`);
@@ -50,6 +51,8 @@ export class SoundManager {
      * @param track
      */
     public static playMusicTrack(track: MusicTrack) {
+        if (!media) { return; }
+
         if (currentMusicTrack !== null) {
             const currentMusic: Howl = musicTracks[currentMusicTrack];
             currentMusic.fade(1, 0, 500);
