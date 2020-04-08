@@ -15,6 +15,7 @@ const ContextTooltip = (props: Props) => {
     const [selectedContext, setSelectedContext] = useState<Context | undefined>();
 
     const tooltipUpdated = (context: Context | undefined) => {
+
         setSelectedContext(context);
     }
 
@@ -28,6 +29,7 @@ const ContextTooltip = (props: Props) => {
 
     const { info, type } = selectedContext;
     let content;
+    console.log(JSON.stringify(selectedContext));
 
     switch (type) {
         case ContextType.item:

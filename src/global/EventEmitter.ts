@@ -18,9 +18,9 @@ function EventEmitter<TEventType>() {
             }
         }
 
-        protected static emit (eventName: string, event: TEventType) {
+        protected static emit (eventName: string, event: TEventType | undefined) {
             if (this.events[eventName]) {
-                this.events[eventName].forEach((fn: (event: TEventType) => any) => fn(event));
+                this.events[eventName].forEach((fn: (event: TEventType | undefined) => any) => fn(event));
             }
         }
     }

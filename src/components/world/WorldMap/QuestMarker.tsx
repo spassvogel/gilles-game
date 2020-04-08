@@ -4,7 +4,6 @@ import { QuestStoreState } from 'stores/quest';
 import * as PIXI from 'pixi.js';
 import { AdventurerStoreState } from 'stores/adventurer';
 import { cursorDefault, cursorPointer } from 'constants/cursors';
-import ReactTooltip from 'react-tooltip';
 
 interface Props {
     quest: QuestStoreState;
