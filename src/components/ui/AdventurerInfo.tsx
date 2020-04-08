@@ -1,4 +1,3 @@
-import { AppContext } from "components/App";
 import { ContextType } from "constants/context";
 import { DragSourceType } from "constants/dragging";
 import { IconSize } from "constants/icons";
@@ -11,6 +10,7 @@ import "./css/adventurerinfo.css";
 import DraggableItemIcon, { InventoryItemDragInfo } from "./DraggableItemIcon";
 import EquipmentSlot, { EquipmentSlotType } from "./EquipmentSlot";
 import Inventory from "./inventory/Inventory";
+import { TooltipManager } from 'global/TooltipManager';
 
 export interface Props {
     adventurerId: string;
@@ -36,7 +36,6 @@ type AllProps = Props & DispatchProps & StateProps;
 
 const AdventurerInfo = (props: AllProps) => {
 
-    const context = React.useContext(AppContext)!;
     const adventurer = props.adventurer;
     const attributes = Object.keys(adventurer.stats).map((stat) => {
         const value: number = adventurer.stats[stat];
@@ -98,12 +97,7 @@ const AdventurerInfo = (props: AllProps) => {
             const handleClick = (event: React.MouseEvent) => {
                 const origin = (event.currentTarget as HTMLElement);
                 const originRect = origin.getBoundingClientRect();
-                context.onContextualObjectActivated(
-                    ContextType.item,
-                    getDefinition(item),
-                    itemRef,
-                    originRect,
-                );
+                TooltipManager.showContextTooltip(ContextType.item, getDefinition(item), originRect);
                 event.stopPropagation();
             };
 

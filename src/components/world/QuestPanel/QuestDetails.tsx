@@ -20,7 +20,7 @@ const QuestDetails = (props: Props) => {
         [props.questName]
     );
     const quest = useSelector<StoreState, QuestStoreState>(questSelector);
-    console.log("rendering questdetails ", JSON.stringify(quest));
+    //console.log("rendering questdetails ", JSON.stringify(quest));
 
     const dispatch = useDispatch();
     const log = useSelector<StoreState, TextEntry[] | undefined>((store: StoreState) => {
@@ -73,9 +73,12 @@ const QuestDetails = (props: Props) => {
 
             actions = <ul>
                 { Object.keys(options).map((o) => <li key={ o }>
-                    <button onClick= { () => handleEncounterOptionClick(encounter, o, oracle) }>
+                    <button onClick= { () => handleEncounterOptionClick(encounter, o, oracle) } data-tip data-for="global">
                         { o }
-                    </button>{ options[o]}
+                    </button>
+                    <p>
+                        { options[o]}
+                    </p>
                 </li>)}
             </ul>;
 

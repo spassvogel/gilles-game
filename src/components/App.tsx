@@ -1,13 +1,11 @@
 // tslint:disable: object-literal-sort-keys
-// tslint:disable: object-literal-sort-keys
 import { ContextInfo, ContextType} from "constants/context";
 import CombatView from "containers/combat/CombatView";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
 import { AppContextProps} from "hoc/withAppContext";
-import { Placement} from "hoc/withPopup";
 import { manifest} from "manifest/app";
 import * as React from "react";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, createContext } from "react";
 import { DndProvider} from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { BrowserRouter as Router, Link, Redirect, Route, Switch} from "react-router-dom";
@@ -17,12 +15,12 @@ import { TextManager} from "utils/textManager";
 import { Structure} from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType} from "./preloading/Preloader";
-import ContextView from "./ui/context/ContextView";
 import TownView from './town/TownView';
 import Toasts from './ui/toasts/Toasts';
 import Topbar from './ui/topbar/Topbar';
 import WorldView from './world/WorldView';
 import SimpleLog from './log/SimpleLog';
+import ContextTooltip from './ui/tooltip/ContextTooltip';
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -54,16 +52,14 @@ const resolution = {
 
 export const MAX_WIDTH = 960;
 
-export const AppContext = React.createContext<AppContextProps | null>(null);
+export const AppContext = createContext<AppContextProps | null>(null);
 type AllProps = Props & StateProps & DispatchProps;
+
 
 const App = (props: AllProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const [selectedContext, setSelectedContext] = useState<SelectedContext>();
-    const [containerRect, setContainerRect] = useState<ClientRect>();
     const [media, setMedia] = useState<MediaItem[]>([]);
-    const [selectedStructure, setSelectedStructure] = useState<Structure>();
     const [activeWindows, setActiveWindows] = useState<React.ReactElement[]>([]);
 
     const handleViewButtonClick = () => {
@@ -86,24 +82,6 @@ const App = (props: AllProps) => {
 
     const renderTownView = () => <TownView onStructureClick={selectStructure} />;
     const renderWorldView = () => <WorldView/>;
-
-    // A contextual popup showing what you just clicked. Can be an Item
-    const renderContextPopup = () => {
-        if (!selectedContext) {
-            return null;
-        }
-        const { contextType, contextInfo, contextRect} = selectedContext;
-
-        return (
-            <ContextView
-                type={contextType}
-                info={contextInfo}
-                containerRect={containerRect!}
-                referenceRect={contextRect}
-                placement={Placement.bottom}
-            />
-        );
-    };
 
     const handleWindowOpened = (window: React.ReactElement) => {
         setActiveWindows([
@@ -162,49 +140,37 @@ const App = (props: AllProps) => {
         //handleWindowOpened(window);
     };
 
-    const handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => {
-        setSelectedContext({
-            contextInfo: info,
-            contextType: type,
-            contextRect: originRect,
-        });
-    };
-
     const handleAppClick = () => {
-        if (selectedContext) {
-            setSelectedContext(undefined);
-        }
+        //TooltipManager.clear();
+        // if (selectedContext) {
+        //     setSelectedContext(undefined);
+        // }
     };
 
-    const handleResize = () => {
-        if (containerRef.current) {
-            if (window.innerHeight < resolution.height) {
-               // containerRef.current.style.transform = `scale(${Math.min(window.innerWidth / resolution.width, 1)}) translateX(-50%)`;
-            } else {
-                //containerRef.current.style.transform = `scale(1) translateX(-50%)`;
-            }
-            const parentBox = containerRef.current.getBoundingClientRect();
-            setContainerRect(parentBox);
-            // this.setState({
-            //     containerRect: parentBox,
-            //     selectedContext: null, // this would be in the wrong place
-            // });
-       }
-    };
+    // const handleResize = () => {
+    //     if (containerRef.current) {
+    //         if (window.innerHeight < resolution.height) {
+    //            // containerRef.current.style.transform = `scale(${Math.min(window.innerWidth / resolution.width, 1)}) translateX(-50%)`;
+    //         } else {
+    //             //containerRef.current.style.transform = `scale(1) translateX(-50%)`;
+    //         }
+    //         //const parentBox = containerRef.current.getBoundingClientRect();
+    //         //setContainerRect(parentBox);
+    //    }
+    // };
 
-    useEffect(() => {
-        // todo: see if we can disable this;
-        window.addEventListener("resize", handleResize);
-        handleResize();
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
+    // useEffect(() => {
+    //     // todo: see if we can disable this;
+    //     window.addEventListener("resize", handleResize);
+    //     handleResize();
+    //     return () => {
+    //         window.removeEventListener("resize", handleResize);
+    //     };
+    // }, []);
 
     return (
         <AppContext.Provider value={{ 
             media, 
-            onContextualObjectActivated: handleContextualObjectActivated, 
             onOpenWindow: handleWindowOpened,
         }} >
             <div
@@ -212,8 +178,6 @@ const App = (props: AllProps) => {
                 ref={containerRef}
                 style={{
                     maxWidth: MAX_WIDTH
-                 //   width: resolution.width,
-                 //   height: resolution.height,
                 }}
                 onClick={handleAppClick}
             >
@@ -241,7 +205,7 @@ const App = (props: AllProps) => {
                                 </Route>
                             </Switch>
                             {` | `}
-                            <button onClick={() => handleResetClick()} style={{ color: "red"}}> Restart! </button>
+                            <button data-for="global2" data-tip2 onClick={() => handleResetClick()} style={{ color: "red"}}> Restart! </button>
                         </div>
                         <Switch>
                             <Route path="/town" component={renderTownView} />
@@ -249,7 +213,7 @@ const App = (props: AllProps) => {
                         </Switch>
                         <SimpleLog/>
                         {renderWindow()}
-                        {renderContextPopup()}
+                        <ContextTooltip />    
                         <Toasts />
                     </Preloader>
                 </Router>

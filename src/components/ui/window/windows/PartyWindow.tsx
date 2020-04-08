@@ -6,7 +6,6 @@ import AdventurerInfo from "containers/ui/AdventurerInfo";
 import { getDefinition as getEncounterDefinition } from "definitions/encounters";
 import { EncounterDefinition } from "definitions/encounters/types";
 import { getDefinition as getQuestDefinition, QuestDefinition, QuestNode, QuestNodeType } from "definitions/quests";
-import { AppContextProps } from "hoc/withAppContext";
 import React, { useState } from "react";
 import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "stores";
@@ -37,7 +36,7 @@ interface LocalState {
     selectedAdventurer: string | null;
 }
 
-type AllProps = Props & StateProps & DispatchProps & AppContextProps;
+type AllProps = Props & StateProps & DispatchProps;
 
 // export default
 const PartyWindow = (props: AllProps) => {

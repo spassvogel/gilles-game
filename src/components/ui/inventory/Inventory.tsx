@@ -2,7 +2,6 @@ import DraggableItemIcon, {InventoryItemDragInfo} from "components/ui/DraggableI
 import { DragSourceType } from "constants/dragging";
 import { IconSize } from "constants/icons";
 import {Item} from "definitions/items/types";
-import { AppContextProps, withAppContext } from "hoc/withAppContext";
 import * as React from "react";
 import "./css/inventory.css";
 import InventorySlot from "./InventorySlot";
@@ -19,7 +18,7 @@ export interface Props {
  * Inventory is used to show Items. They can be dragged about
  * @param props
  */
-const Inventory = (props: Props & AppContextProps) => {
+const Inventory = (props: Props) => {
     const slots = [];
     for (let i = 0; i < props.items.length; i++) {
         let contents;
@@ -64,4 +63,4 @@ const Inventory = (props: Props & AppContextProps) => {
         </div>
     );
 };
-export default withAppContext(Inventory); // todo: we don't need appcontext
+export default Inventory;

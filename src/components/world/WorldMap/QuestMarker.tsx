@@ -4,6 +4,7 @@ import { QuestStoreState } from 'stores/quest';
 import * as PIXI from 'pixi.js';
 import { AdventurerStoreState } from 'stores/adventurer';
 import { cursorDefault, cursorPointer } from 'constants/cursors';
+import ReactTooltip from 'react-tooltip';
 
 interface Props {
     quest: QuestStoreState;
@@ -33,16 +34,18 @@ const QuestMarker = (props: Props) => {
         sprite.addChild(maskGraphics);
 
         sprite.cursor = "hover";
+        sprite.interactive = true;
     }, [avatar]);
 
     //todo: cursors [25/07/2019 CUSTOM CURSORS]
     const pixiApp = useApp();
     if (pixiApp) {
-        //pixiApp.renderer.plugins.interaction.cursorStyles.default = cursorDefault;
-        pixiApp.renderer.plugins.interaction.cursorStyles.hover = "url('https://i.imgur.com/IaUrttj.png'), auto;";  // use cursor: 'hover'
+        pixiApp.renderer.plugins.interaction.cursorStyles.default = cursorDefault;
+        pixiApp.renderer.plugins.interaction.cursorStyles.hover = cursorPointer; //"url('https://i.imgur.com/IaUrttj.png'), auto;";  // use cursor: 'hover'
         
-        console.log(pixiApp.renderer.plugins.interaction.cursorStyles.hover)
-        console.log("setup pixi2")
+        //console.log(pixiApp.renderer.plugins.interaction.cursorStyles.hover)
+        //console.log("setup pixi2")
+        //ReactTooltip.rebuild();
     }
 
     return (

@@ -29,7 +29,7 @@ export interface Props {
 
 
 
-type AllProps = Props & DispatchProps /*& AppContextProps;*/
+type AllProps = Props & DispatchProps;
 
 const TownView = (props: AllProps) => {
 
@@ -49,7 +49,7 @@ const TownView = (props: AllProps) => {
     // const handleBackgroundClick = () => {
     //     if (props.onStructureClick) { props.onStructureClick(null); }
     // }
-console.log('rendering town');
+    console.log('rendering town');
 
     const structures = useSelector<StoreState, StructuresStoreState>((state: StoreState) => {
         return state.structures;
