@@ -20,12 +20,12 @@
 
 .inventory .inventory-item.drop-active {
     border-color: green;
+    z-index: 2;
 }
 
 .inventory .inventory-item.drop-possible {
     border-color: orange;
     background: white;
-    z-index: 2;
 }
 
 .inventory .inventory-item .item-icon {
@@ -39,19 +39,19 @@
  */
 .inventory.inventory-medium {
     /** large screen */
-    grid-template-columns: repeat(8, 12.5%);
+    grid-template-columns: repeat(8, 48px);
 }
 
 @media only screen and (max-width: 778px) {
     /** medium screen */
     .inventory.inventory-medium {
-        grid-template-columns: 16.66% 16.66% 16.66% 16.66% 16.66% 16.66%;
+        grid-template-columns: repeat(6, 48px);
     }
 }
 
 @media only screen and (max-width: 576px) {
     /** small screen */
     .inventory.inventory-medium {
-        grid-template-columns: 25% 25% 25% 25%;
+        grid-template-columns: repeat(4, 48px);
     }
 }
