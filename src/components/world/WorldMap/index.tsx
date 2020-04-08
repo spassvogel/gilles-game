@@ -56,7 +56,18 @@ const WorldMap = (props: Props) => {
         if (selectedQuest) {
             focusOnQuestingParty(selectedQuest);
         }
-    }, [selectedQuest]);
+        
+        const onScroll = (e: WheelEvent) => {
+            // When the map is big, scrolling the mouse is just used for zoom, not for actual scrolling
+            if (!props.smallMap) {
+                e.preventDefault();
+            }
+        }
+        window.addEventListener("wheel", onScroll, {passive: false} );
+        return () => {
+            window.removeEventListener("wheel", onScroll);
+        };
+    }, [selectedQuest, props.smallMap]);
 
     const renderQuestlines = () => {
         return activeQuests.map((quest) => {
