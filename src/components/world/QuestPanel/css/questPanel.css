@@ -55,7 +55,7 @@
     font-size: smaller;
 }
 
-/** todo: media queries to show less columns */
+/* * todo: media queries to show less columns
 .quest-panel .party-area .inventory {
     grid-template-columns: 46px 46px 46px 46px 46px 46px 46px;
-}
+} */

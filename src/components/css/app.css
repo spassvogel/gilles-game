@@ -7,8 +7,6 @@
 .app {
     background: orange;
     position: relative;
-    transform-origin: top left;
-    overflow: hidden;
     /* position: absolute; */
     left: 50%;
     transform: translateX(-50%);

@@ -12,6 +12,7 @@ export interface Props {
     sourceType: DragSourceType;
     iconSize?: IconSize;
     onDropItem: (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string) => void;
+    className?: string;
 }
 
 /**
@@ -58,7 +59,7 @@ const Inventory = (props: Props) => {
         slots.push(slot);
    }
     return (
-        <div className="inventory">
+        <div className={`inventory ${props.className}`}>
             {slots}
         </div>
     );
