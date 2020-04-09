@@ -1,7 +1,7 @@
 ###Town
-See total resources
-Select buildings
-Go to world
+[x] See total resources
+[x] Select buildings
+[x] Go to world
 
 ##Tavern
 See adventurer stats
@@ -15,15 +15,15 @@ Upgrade Tavern
 Go back to town view
 
 ##Warehouse
-Assign item to adventurer inventory
-Assign item to adventurer equipment slot
-Take item from adventurer inventory
-Take item from adventurer equipment slot
-Filter search items (nice to have)
-Sell items for gold
-See item context information
-Upgrade Warehouse?
-Go back to town view
+[x] Assign item to adventurer inventory
+[x] Assign item to adventurer equipment slot
+[x] Take item from adventurer inventory
+[x] Take item from adventurer equipment slot
+[ ] Filter search items (nice to have)
+[ ] Sell items for gold
+[x] See item context information
+[ ] Upgrade Warehouse?
+[x] Go back to town view
 
 ##Resource buildings
 Assign workers to harvest resources

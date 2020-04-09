@@ -3,7 +3,7 @@ import { Stage, Sprite } from '@inlet/react-pixi';
 import { Viewport as PixiViewport } from "pixi-viewport";
 import { useSelector } from 'react-redux'
 
-import React, { useEffect, useRef, useCallback } from "react";
+import React, { useEffect, useRef, useCallback, useState } from "react";
 import { QuestStoreState } from "stores/quest";
 import { lerpLocation } from 'utils/pixiJs';
 import questDefinitions, { QuestDefinition, QuestNodeType, QuestNode } from "definitions/quests";
@@ -44,7 +44,6 @@ const WorldMap = (props: Props) => {
         [props.selectedQuestName]
     );
     const selectedQuest = useSelector<StoreState, QuestStoreState | undefined>(questSelector);
-
     const adventurers = useSelector<StoreState, AdventurerStoreState[]>((store) => store.adventurers);
     const activeQuests = useSelector<StoreState, QuestStoreState[]>((store) => selectActiveQuests(store));
 
@@ -68,6 +67,31 @@ const WorldMap = (props: Props) => {
             window.removeEventListener("wheel", onScroll);
         };
     }, [selectedQuest, props.smallMap]);
+
+    const [canvasWidth, setCanvasWidth] = useState(WIDTH);
+    const [canvasHeight, setCanvasHeight] = useState(FULL_HEIGHT);
+    const stageRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        const resize = () => {
+            setCanvasWidth(stageRef.current?.clientWidth!);
+            setCanvasHeight(stageRef.current?.clientHeight!);
+        }
+
+        window.addEventListener("resize", resize);
+        return () => {
+            window.removeEventListener("resize", resize);
+        };
+    }, [])
+    
+    const viewportRef = useRef<PixiViewport>(null);
+    useEffect(() => {
+        // focus on center of the map
+        if (viewportRef.current) {
+            const viewport = viewportRef.current;
+            const point = nodeLocationToPoint({ x: 0, y: 0 });
+            viewport.moveCenter(point.x, point.y);
+        }
+    }, [canvasWidth]);
 
     const renderQuestlines = () => {
         return activeQuests.map((quest) => {
@@ -101,19 +125,10 @@ const WorldMap = (props: Props) => {
         });
     };
 
-    const ref = useRef<PixiViewport>(null);
-    useEffect(() => {
-        // focus on center of the map
-        if (ref.current) {
-            const viewport = ref.current;
-            const point = nodeLocationToPoint({ x: 0, y: 0 });
-            viewport.moveCenter(point.x, point.y);
-        }
-    }, []);
 
     // puts the given party in the center of the map
     const focusOnQuestingParty = (quest: QuestStoreState) => {
-        const viewport = ref.current;
+        const viewport = viewportRef.current;
         if (viewport) {
             const partyLocation = getQuestWorldLocation(quest);
             const point = nodeLocationToPoint(partyLocation);
@@ -121,18 +136,20 @@ const WorldMap = (props: Props) => {
         }
     }
 
-    const height = props.smallMap ? SMALL_HEIGHT : FULL_HEIGHT;
-
+    const height = props.smallMap ? SMALL_HEIGHT : canvasHeight;
+// console.log(canvasWidth);
     return (
-        <Stage width={WIDTH} height={height}>
-            <Viewport screenWidth={WIDTH} screenHeight={height} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={ref} >
-                <Sprite image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`} >
-                    {renderQuestlines()}
-                    {renderMarkers()}
-                </Sprite>
-                {/* <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} /> */}
-            </Viewport>
-        </Stage>
+        <div ref={stageRef}>
+            <Stage width={canvasWidth} height={height} >
+                <Viewport screenWidth={canvasWidth} screenHeight={height} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef} >
+                    <Sprite image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`} >
+                        {renderQuestlines()}
+                        {renderMarkers()}
+                    </Sprite>
+                    <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} />
+                </Viewport>
+            </Stage>
+        </div>
     );
 };
 

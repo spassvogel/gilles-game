@@ -11,7 +11,7 @@ backlog of ideas
     its not possible to create a party and send them on a quest later
     the party gets created when the adventurers leave on the quest
 [-] the quest has an icon, that will be the icon for the party too
-[ ] the quest icon will be the leader of the party
+[x] the quest icon will be the leader of the party
 
 27/4/2019 Multi lingual support
 [x] for multi lingual support we need a templating engine
@@ -36,6 +36,7 @@ backlog of ideas
     auto will investigate the 'unique' property. if true use defined, otherwise undefined
 [x] have a helper for 'capital' Capitalise
 
+28/04/2019 Tavern [+design]
 [x] The tavern has a limited number of vacancies (rooms). Upgrading the tavern upgrades this number.
 [ ] Periodically new adventurers will take residence
     The tavern will only accept new adventurers when there are rooms free.
@@ -116,14 +117,14 @@ backlog of ideas
 [x] popups can be opened using withAppContext
 
 20/07/2019 quest view
-[ ] shows latest log message when not in encounter
+[x] shows latest log message when not in encounter
 
 22/07/2019 OBJECTIVES
 [ ] we could have objectives as a type of achievement / tutorial kinda thing. players would learn about the game
     and get rewarded when they complete an objective
 
 23/06/2019 POPUPS CAN FLIP
-[ ] popups should try to position themselves and if there is no space, flip
+[x] popups should try to position themselves and if there is no space, flip
 
 24/06/2019 BUTTON COMPONENTS
 [ ] buttons should get their own react component.
@@ -379,7 +380,8 @@ THREEJS examples (MIGHT IS RIGHT):
 [ ] It should show the interior of the structure, what's happening there
 
 04/04/2020 Hit area in townview [+tech]
-https://github.com/explooosion/hitarea-shapes
+[ ] https://github.com/explooosion/hitarea-shapes
+[ ] Physics editors: https://loonride.com/tools/physics
 
 06/04/2020 Quest editor [+tech]
 An editor that could help in designing quests on the world map
