@@ -5,7 +5,7 @@ import { getDefinition } from "definitions/items";
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import "./css/adventurerinfo.css";
 import DraggableItemIcon, { InventoryItemDragInfo } from "./DraggableItemIcon";
 import EquipmentSlot, { EquipmentSlotType } from "./EquipmentSlot";

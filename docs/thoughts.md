@@ -310,8 +310,8 @@ THREEJS examples (MIGHT IS RIGHT):
 [-] uses height-map images (grey-scale) https://github.com/Usnul/meep
 
 26/11/2019 Smoke particles from the houses in world map
-(obsolete)
 [-] https://aerotwist.com/tutorials/creating-particles-with-three-js/
+[ ] https://codepen.io/inlet/pen/feddc8fa71e3b5afc6c3e4eda9cc83df
 
 02/12/2019 Resource update should happen at a set interval
     instead of every game tick

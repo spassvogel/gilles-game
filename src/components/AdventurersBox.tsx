@@ -5,7 +5,7 @@ import { Item } from "definitions/items/types";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStoreState } from "stores/quest";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import "./css/adventurersbox.css";
 import AdventurerAvatar from "./ui/AdventurerAvatar";
 import Inventory from "./ui/inventory/Inventory";

@@ -3,7 +3,7 @@ import { resourceOrder } from "constants/resources";
 import resourceDescriptions from "definitions/resources";
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import { useSelector } from 'react-redux';
 import "./css/resourcebar.css";
 import { StoreState } from 'stores';

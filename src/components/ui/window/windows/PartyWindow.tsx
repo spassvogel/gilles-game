@@ -11,7 +11,7 @@ import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "stores";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStoreState } from "stores/quest";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import "./css/partywindow.css";
 
 export interface StateProps {

@@ -3,7 +3,7 @@ import Tab from "components/ui/tabs/Tab";
 import Tabstrip from "components/ui/tabs/Tabstrip";
 import * as React from "react";
 import { LogChannel, LogEntry } from "stores/logEntry";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import "./css/simplelog.css";
 import { useState } from 'react';
 import { StoreState } from 'stores';

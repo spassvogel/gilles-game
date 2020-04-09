@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import { empty, ResourceStoreState } from "stores/resources";
 import { StructuresStoreState } from "stores/structures";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import "./css/warehousestructureview.css";
 
 export interface DispatchProps {

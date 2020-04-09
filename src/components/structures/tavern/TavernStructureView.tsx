@@ -5,7 +5,7 @@ import { TavernStructureDefinition, TavernStructureLevelDefinition } from "defin
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStatus, QuestStoreState } from "stores/quest";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import "./css/tavernstructureview.css";
 import { AppContext } from "components/App";
 import AdventurerInfoWindow from "components/ui/window/windows/AdventurerInfoWindow";

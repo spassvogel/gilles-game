@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { QuestStoreState } from 'stores/quest';
-import { TextManager } from 'utils/textManager';
+import { TextManager } from 'global/TextManager';
 import { getDefinition as getEncounterDefinition } from "definitions/encounters";
 import { getDefinition as getQuestDefinition, QuestDefinition, QuestNode, QuestNodeType } from "definitions/quests";
 import { EncounterDefinition } from 'definitions/encounters/types';

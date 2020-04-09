@@ -4,7 +4,7 @@ import { getDefinition as getStructureDefinition, Structure } from "definitions/
 import * as React from "react";
 import { StructureState, StructureStoreState } from "stores/structure";
 import { StructuresStoreState } from "stores/structures";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import "./css/cheatbox.css";
 import { useRef, useState } from 'react';
 import { ToastManager } from 'global/ToastManager';

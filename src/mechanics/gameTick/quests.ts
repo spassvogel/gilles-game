@@ -7,7 +7,7 @@ import { StoreState } from "stores";
 import { LogChannel } from "stores/logEntry";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 import { ToastManager } from 'global/ToastManager';
-import { TextManager } from 'utils/textManager';
+import { TextManager } from 'global/TextManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLeader } from 'storeHelpers';
 

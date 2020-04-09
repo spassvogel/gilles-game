@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { Stage, Sprite } from '@inlet/react-pixi';
 import { Structure } from 'definitions/structures';
 import { StructuresStoreState } from 'stores/structures';
-import { SoundManager, MusicTrack } from 'utils/soundManager';
+import { SoundManager, MusicTrack } from 'global/SoundManager';
 import { Viewport as PixiViewport} from "pixi-viewport";
 import Viewport from '../pixi/Viewport';
 import { StructureState, StructureStoreState } from 'stores/structure';

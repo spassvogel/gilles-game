@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ContextType } from 'constants/context';
 import { TooltipManager, Context } from 'global/TooltipManager';
-import { TextManager } from 'utils/textManager';
+import { TextManager } from 'global/TextManager';
 import ItemContext from 'containers/ui/context/ItemContext';
 import Tooltip from './Tooltip';
 import './css/contextTooltip.css';

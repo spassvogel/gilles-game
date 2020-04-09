@@ -5,7 +5,7 @@ import { Item } from 'definitions/items/types';
 import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/DraggableItemIcon';
 import { DragSourceType } from 'constants/dragging';
 import { IconSize } from 'constants/icons';
-import { TextManager } from 'utils/textManager';
+import { TextManager } from 'global/TextManager';
 
 export interface Props {
     adventurer: AdventurerStoreState

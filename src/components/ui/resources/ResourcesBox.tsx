@@ -4,7 +4,7 @@ import { Resource } from "definitions/resources";
 import resourceDescriptions from "definitions/resources";
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import { StructuresStoreState } from 'stores/structures';
 import { Structure } from 'definitions/structures';
 

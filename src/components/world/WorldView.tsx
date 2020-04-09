@@ -1,6 +1,6 @@
 import WorldMap from "components/world/WorldMap";
 import React, { useEffect, useRef, useState } from "react";
-import { MusicTrack, SoundManager } from "utils/soundManager";
+import { MusicTrack, SoundManager } from "global/SoundManager";
 import "./css/worldView.css";
 import QuestPanel from './QuestPanel';
 

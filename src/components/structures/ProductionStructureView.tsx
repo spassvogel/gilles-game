@@ -9,7 +9,7 @@ import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "mechanics/craftin
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
 import { TaskStoreState } from "stores/task";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import { formatDuration } from "utils/time";
 import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";

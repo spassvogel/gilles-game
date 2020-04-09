@@ -18,7 +18,7 @@ import { TaskStoreState } from "./stores/task";
 import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
-import { TextManager } from "./utils/textManager";
+import { TextManager } from "./global/TextManager";
 
 const TICK_INTERVAL = 2500;
 
