@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import React, { useEffect, useRef, useCallback, useState } from "react";
 import { QuestStoreState } from "stores/quest";
 import { lerpLocation } from 'utils/pixiJs';
-import questDefinitions, { QuestDefinition, QuestNodeType, QuestNode } from "definitions/quests";
+import { QuestDefinition, QuestNodeType, QuestNode } from "definitions/quests";
 import Viewport from '../../pixi/Viewport';
 import MapGrid from './MapGrid';
 import QuestMarker from './QuestMarker';
@@ -32,11 +32,9 @@ if (process.env.NODE_ENV === "development") {
 
 export interface Props {
     selectedQuestName?: string;
-    controllerEnabled: boolean;
     smallMap: boolean;
     onPartyClick: (questName: string) => void;
 }
-
 
 const WorldMap = (props: Props) => {
     const questSelector = useCallback(

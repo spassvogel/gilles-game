@@ -11,10 +11,6 @@ import { TaskStoreState } from "stores/task";
 import "./css/structuredetails.css";
 import Progressbar from "./ui/Progressbar";
 import ResourceStructureView from './structures/ResourceStructureView';
-import { useDispatch } from 'react-redux';
-import { ResourceStoreState } from 'stores/resources';
-import { addGold } from 'actions/gold';
-import { addResources } from 'actions/resources';
 
 export interface Props {
     structure: Structure;

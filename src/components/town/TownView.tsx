@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import { Stage, Sprite, Graphics } from '@inlet/react-pixi';
-import {  ClickEventData } from "pixi-viewport";
+import { Stage, Sprite } from '@inlet/react-pixi';
 import { Structure } from 'definitions/structures';
 import { StructuresStoreState } from 'stores/structures';
 import { SoundManager, MusicTrack } from 'utils/soundManager';
@@ -11,7 +10,6 @@ import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import "./css/townView.css"
 import { MAX_WIDTH } from 'components/App';
-import * as PIXI from 'pixi.js';
 import HitAreaShapes from 'utils/hitAreaShapes';
 import polygons from './hitAreas.json';
 
@@ -48,10 +46,7 @@ const TownView = (props: AllProps) => {
         }
     }
 
-    // const handleBackgroundClick = () => {
-    //     if (props.onStructureClick) { props.onStructureClick(null); }
-    // }
-    console.log('rendering town');
+    //console.log('rendering town');
 
     const structures = useSelector<StoreState, StructuresStoreState>((state: StoreState) => {
         return state.structures;
@@ -77,6 +72,7 @@ const TownView = (props: AllProps) => {
             if (structureStore.state === StructureState.NotBuilt) {
                 return null;
             }
+            // todo: refactor into seperate components
                
             let x, y;              
             switch (structure) {
@@ -168,7 +164,7 @@ const TownView = (props: AllProps) => {
 
     return (
         <div className="town-view">
-            <Stage width={MAX_WIDTH} height={HEIGHT} >
+            <Stage width={MAX_WIDTH} height={HEIGHT}>
                 <Viewport screenWidth={MAX_WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={ref}>
                     <Sprite 
                         name="background"

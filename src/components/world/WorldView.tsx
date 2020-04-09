@@ -16,28 +16,13 @@ export interface Props {
 const RealWorldView = () => {
     const worldMapRef = useRef<HTMLDivElement>(null);
     const [selectedQuestName, setSelectedQuestName] = useState<string>();
-    const [controllerEnabled, setControllerEnabled] = useState(true);
 
 
-    const mouseout = () => {
-        setControllerEnabled(false);
-    };
-
-    const mouseover = () => {
-        setControllerEnabled(true);
-    };
+ 
 
     useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.world, "sound/music/TheLoomingBattle.ogg");
         SoundManager.playMusicTrack(MusicTrack.world);
-
-        (worldMapRef.current!).addEventListener("mouseout", mouseout);
-        (worldMapRef.current!).addEventListener("mouseover", mouseover);
-
-        return () => {
-            (worldMapRef.current!).removeEventListener("mouseout", mouseout);
-            (worldMapRef.current!).removeEventListener("mouseover", mouseover);
-        };
     }, []);
 
     // const handleMapMove = (distance: number, angle: number) => {
@@ -73,7 +58,6 @@ const RealWorldView = () => {
                 // onMapMove={handleMapMove}
                 smallMap={selectedQuestName != null}
                 onPartyClick={handlePartyClick}
-                controllerEnabled={controllerEnabled}
             />
             { selectedQuestName && (
                 <QuestPanel questName={selectedQuestName} />

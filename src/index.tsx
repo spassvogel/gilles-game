@@ -20,7 +20,8 @@ import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
 import { TextManager } from "./utils/textManager";
 
-let interval: NodeJS.Timeout;
+const TICK_INTERVAL = 2500;
+
 const initGame = async () => {
     const axiosResult = await axios.get("lang/en-US.json");
     const texts = axiosResult.data as Record<string, string>;
@@ -100,7 +101,7 @@ const runGame = (store: any, persistor: Persistor) => {
         // store.dispatch(addLogEntry("test-you-have-found-an-item", LogChannel.common, { item: Item.teeth }));
     };
 
-    interval = setInterval(gameLoop, 2500);
+    setInterval(gameLoop, TICK_INTERVAL);
 };
 
 initGame();
