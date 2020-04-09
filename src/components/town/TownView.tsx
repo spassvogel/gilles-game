@@ -12,6 +12,8 @@ import { StoreState } from 'stores';
 import "./css/townView.css"
 import { MAX_WIDTH } from 'components/App';
 import * as PIXI from 'pixi.js';
+import HitAreaShapes from 'utils/hitAreaShapes';
+import polygons from './hitAreas.json';
 
 const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
@@ -128,42 +130,28 @@ const TownView = (props: AllProps) => {
                     break;
             }              
             
-
-            const shapeData = [{"shape":[37,0,53,5,52,12]},{"shape":[45,17,68,27,81,48]},{"shape":[81,48,81,56,72,67]},{"shape":[72,67,73,165,11,168]},{"shape":[11,168,6,166,9,65]},{"shape":[9,65,1,57,1,45]},{"shape":[1,45,10,30,31,19]},{"shape":[31,19,29,5,37,2]},{"shape":[37,0,52,12,44,13]},{"shape":[45,17,81,48,72,67]},{"shape":[72,67,11,168,9,65]},{"shape":[9,65,1,45,31,19]},{"shape":[31,19,37,2,34,18]},{"shape":[37,0,44,13,45,17]},{"shape":[72,67,9,65,31,19]},{"shape":[31,19,34,18,46,20]},{"shape":[46,20,37,0,45,17]},{"shape":[72,67,31,19,46,20]},{"shape":[46,20,45,17,72,67]}];
-            const shapes = shapeData.map(({ shape }) => new PIXI.Polygon(shape));
-console.log(shapes)
+            const hitAreaShapes = new HitAreaShapes(polygons,  structure);
             return <Sprite 
                 key={structure}
                 name={structure}
                 x={x}
                 y={y}
-                // hitArea={new Polygon([ 
-                //     5, -86.013  , 12, -82.013  , 5, -70.013  , -9, -68.013  , -12, -81.013 
-                //     -34, 82.987  , -32, -21.013000000000005  , -9, -68.013  , 5, -70.013  , 28, -59.013000000000005  , 32, -21.013000000000005  , 33, 82.987])}
                 interactive={true}
+                buttonMode={true}
                 pointertap={() => {
                     handleStructureClick(structure);
                 }}
+                hitArea={hitAreaShapes}
                 image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}          
             >
-                <Graphics
+                {/* <Graphics
                     name="hitarea"
-                    // x = {41.000}
-                    // y = {86.013}
-
                     draw={graphics => {
                         graphics.beginFill(0xffffff);
-                        shapes.map(shape => graphics.drawPolygon(shape))
-                        // graphics.drawPolygon([
-                        //    // 37,0,53,5,52,12,45,17,68,27,81,48,81,48,81,56,72,67,72,67,73,165,11,168,11,168,6,166,9,65,9,65,1,57,1,45,1,45,10,30,31,19,31,19,29,5,37,2,37,0,52,12,44,13,45,17,81,48,72,67,72,67,11,168,9,65,9,65,1,45,31,19,31,19,37,2,34,18,37,0,44,13,45,17,72,67,9,65,31,19,31,19,34,18,46,20,46,20,37,0,45,17,72,67,31,19,46,20,46,20,45,17,72,67
-                        //     // 5, -86.013  , 12, -82.013  , 5, -70.013  , -9, -68.013  , -12, -81.013, 
-                        //     // -34, 82.987  , -32, -21.013000000000005  , -9, -68.013  , 5, -70.013  , 28, -59.013000000000005  , 32, -21.013000000000005  , 33, 82.987
-         
-                        //     // -34, 7.986999999999995  , -32, -21.013000000000005  , -39, -25.013000000000005  , -40, -42.013000000000005  , -34, -53.013000000000005  , -9, -68.013  , -12, -81.013  , 5, -86.013  , 12, -82.013  , 12, -73.013  , 5, -70.013  , 28, -59.013000000000005  , 41, -40.013000000000005  , 41, -29.013000000000005  , 32, -21.013000000000005  , 33, 82.987  , -34, 82.987  , -34, 75.987 
-                        // ]);
+                        hitAreaShapes.shapes.map(shape => graphics.drawPolygon(shape))
                         graphics.endFill();
                     }}
-                />
+                /> */}
             </Sprite>
         });
     }

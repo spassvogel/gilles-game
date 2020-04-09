@@ -34,6 +34,7 @@ const QuestMarker = (props: Props) => {
 
         sprite.cursor = "hover";
         sprite.interactive = true;
+        sprite.buttonMode = true;
     }, [avatar]);
 
     //todo: cursors [25/07/2019 CUSTOM CURSORS]
