@@ -12,6 +12,7 @@ import "./css/townView.css"
 import { MAX_WIDTH } from 'components/App';
 import HitAreaShapes from 'utils/hitAreaShapes';
 import polygons from './hitAreas.json';
+import LumberMill from './structures/LumberMill';
 
 const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
@@ -116,39 +117,43 @@ const TownView = (props: AllProps) => {
                     x = 183;
                     y = 527;
                     break;
-                case Structure.lumberMill:
-                    x = 391;
-                    y = 307;
-                    break;
                 case Structure.weaver:
                     x = 484;
                     y = 333;
                     break;
             }              
             
-            const hitAreaShapes = new HitAreaShapes(polygons,  structure);
-            return <Sprite 
-                key={structure}
-                name={structure}
-                x={x}
-                y={y}
-                interactive={true}
-                buttonMode={true}
-                pointertap={() => {
-                    handleStructureClick(structure);
-                }}
-                hitArea={hitAreaShapes}
-                image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}          
-            >
-                {/* <Graphics
-                    name="hitarea"
-                    draw={graphics => {
-                        graphics.beginFill(0xffffff);
-                        hitAreaShapes.shapes.map(shape => graphics.drawPolygon(shape))
-                        graphics.endFill();
-                    }}
-                /> */}
-            </Sprite>
+            switch (structure) {
+                case Structure.lumberMill: {
+                    return <LumberMill onClick={handleStructureClick} key={structure} />;
+                }
+                default: {
+                    const hitAreaShapes = new HitAreaShapes(polygons, structure);
+                    return <Sprite 
+                        key={structure}
+                        name={structure}
+                        x={x}
+                        y={y}
+                        interactive={true}
+                        buttonMode={true}
+                        pointertap={() => {
+                            handleStructureClick(structure);
+                        }}
+                        hitArea={hitAreaShapes}
+                        image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}          
+                    >
+                        {/* <Graphics
+                            name="hitarea"
+                            draw={graphics => {
+                                graphics.beginFill(0xffffff);
+                                hitAreaShapes.shapes.map(shape => graphics.drawPolygon(shape))
+                                graphics.endFill();
+                            }}
+                        /> */}
+                    </Sprite>
+                }
+            }
+
         });
     }
 
