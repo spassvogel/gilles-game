@@ -52,7 +52,7 @@ export default function(props: Props & DispatchProps & StateProps) {
             return (
                 <>
                     <p> " { info.subText } " </p>
-                    { apparelDefinition.armorRating && <p> armor: { apparelDefinition.armorRating } </p> }
+                    { apparelDefinition.armourRating && <p> armour: { apparelDefinition.armourRating } </p> }
                 </>
             );
 

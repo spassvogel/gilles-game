@@ -235,7 +235,7 @@ COMBAT SEQUENCE
 [ ] If dodge fails can try to block with shield or parry with weapon. IF succesful will deflect all dmg but cause shield/weapon integrity to go down.
 
 [ ] If not blocked or parried, part of damage is absorbed by armour (if the actor is wearing any).
-   A helmet with armor rating 20 absorbs 20 dmg of each hit.
+   A helmet with armour rating 20 absorbs 20 dmg of each hit.
 [ ] Armours integrity goes down. In general more than if would be blocked or parried.
 
 EFFECTS
@@ -274,7 +274,7 @@ base and (secondary stats) are:
 
 [x] todo: find GURPS basic set: characters
 
-[ ] each weapon / armor has a STR requirement
+[ ] each weapon / armour has a STR requirement
 [ ] shields and weapons have a integrity property (1-0) when it reaches 0 it breaks
 
 23/08/2019 WORLD MAP

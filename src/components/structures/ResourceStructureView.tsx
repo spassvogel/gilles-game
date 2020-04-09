@@ -124,7 +124,7 @@ const ResourceStructureView = (props: Props) => {
                     {createGeneratesRow() }
                 </section>
             </details>
-            </>
+        </>
     );
 };
 

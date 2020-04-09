@@ -15,7 +15,7 @@ export enum ApparelType {
 
 export interface ApparelDefinition extends ItemDefinition {
     equipmentType: ApparelType;
-    armorRating?: number;
+    armourRating?: number;
 }
 
 const all: Record<string, ApparelDefinition> = {
@@ -46,7 +46,7 @@ const all: Record<string, ApparelDefinition> = {
         itemType,
         subText: "",
         iconImg: `${basePath}chainmail_hood.png`,
-        armorRating: 3,
+        armourRating: 3,
     },
     [Item.chest]: {
         item: Item.chest,
@@ -54,7 +54,7 @@ const all: Record<string, ApparelDefinition> = {
         itemType,
         subText: "",
         iconImg: `${basePath}chest_1.png`,
-        armorRating: 2,
+        armourRating: 2,
     },
     [Item.clothGloves]: {
         item: Item.clothGloves,
@@ -69,7 +69,7 @@ const all: Record<string, ApparelDefinition> = {
         itemType,
         subText: "",
         iconImg: `${basePath}cowl.png`,
-        armorRating: 20,
+        armourRating: 20,
     },
     [Item.druidChest]: {
         item: Item.druidHands,
@@ -119,7 +119,7 @@ const all: Record<string, ApparelDefinition> = {
         itemType,
         subText: "",
         iconImg: `${basePath}greaves_1.png`,
-        armorRating: 10,
+        armourRating: 10,
     },
     [Item.greaves2]: {
         item: Item.greaves2,
@@ -155,7 +155,7 @@ const all: Record<string, ApparelDefinition> = {
         itemType,
         subText: "",
         iconImg: `${basePath}pants_1.png`,
-        armorRating: 10,
+        armourRating: 10,
     },
     [Item.pants2]: {
         item: Item.pants2,
