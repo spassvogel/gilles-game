@@ -5,10 +5,8 @@ import HitAreaShapes from 'utils/hitAreaShapes';
 import polygons from './../hitAreas.json';
 import * as PIXI from 'pixi.js';
 import { ITextureDictionary, LoaderResource } from 'pixi.js';
+import { Props } from 'components/town/TownView';
 
-interface Props {
-    onClick: (structure: Structure) => void;
-}
 
 const BLADE_ROTATION_SPEED = 0.01;
 
@@ -49,7 +47,7 @@ const LumberMill = (props: Props) => {
             interactive={true}
             buttonMode={true}
             pointertap={() => {
-                props.onClick(structure);
+                props.onStructureClick(structure);
             }}
             hitArea={hitAreaShapes}
             texture={textures["structure.png"]}

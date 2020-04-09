@@ -13,6 +13,8 @@ import { MAX_WIDTH } from 'components/App';
 import HitAreaShapes from 'utils/hitAreaShapes';
 import polygons from './hitAreas.json';
 import LumberMill from './structures/LumberMill';
+import ParticleEmitter from 'components/pixi/ParticleEmitter';
+import Tavern from './structures/Tavern';
 
 const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
@@ -25,9 +27,8 @@ export interface DispatchProps {
 }
 
 export interface Props {
-    onStructureClick?: (structure: Structure | null) => void;
+    onStructureClick: (structure: Structure | null) => void;
 }
-
 
 
 type AllProps = Props & DispatchProps;
@@ -41,7 +42,7 @@ const TownView = (props: AllProps) => {
         SoundManager.playMusicTrack(MusicTrack.town);
     }, []);
 
-    const handleStructureClick = (structure: Structure) => {
+    const handleStructureClick = (structure: Structure | null) => {
         if (!dragging.current && props.onStructureClick) { 
             props.onStructureClick(structure); 
         }
@@ -85,10 +86,7 @@ const TownView = (props: AllProps) => {
                     x = 632;
                     y = 633;
                     break;
-                case Structure.tavern:
-                    x = 500;
-                    y = 469;
-                    break;
+
                 case Structure.tannery:
                     x = 372;
                     y = 460;
@@ -125,7 +123,10 @@ const TownView = (props: AllProps) => {
             
             switch (structure) {
                 case Structure.lumberMill: {
-                    return <LumberMill onClick={handleStructureClick} key={structure} />;
+                    return <LumberMill onStructureClick={handleStructureClick} key={structure} />;
+                }
+                case Structure.tavern: {
+                    return <Tavern onStructureClick={handleStructureClick} key={structure} />;
                 }
                 default: {
                     const hitAreaShapes = new HitAreaShapes(polygons, structure);
@@ -176,6 +177,7 @@ const TownView = (props: AllProps) => {
                         image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}          
                     >
                         {renderStructures()}
+
                     </Sprite>
                 </Viewport>
             </Stage>
