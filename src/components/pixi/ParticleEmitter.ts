@@ -40,19 +40,19 @@ const ParticleEmitter = PixiComponent<Props & IContainer, PIXI.ParticleContainer
         let elapsed = performance.now();
   
         const tick = () => {
-         emitter.raf = requestAnimationFrame(tick);
+          emitter.raf = requestAnimationFrame(tick);
           const now = performance.now();
           //const amp = Math.random() * 5 + 15;
           // const amp = 15;
           // const freq = 0.0015;
           // emitter.acceleration.x = (Math.sin((elapsed * freq)) * amp) + 15;
 
-          emitter.update((now - elapsed) * 0.0005);
+          emitter.update((now - elapsed) * 0.0003);
   
           elapsed = now;
         };  
         emitter.emit = true;
-        emitter.update(0.5);
+        // emitter.update(00.2);
 
         tick();
       }

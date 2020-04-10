@@ -27,6 +27,7 @@ const Tavern = (props: Props) => {
             <ParticleEmitter
                 name="smoke"
                 x={107}
+                y={-2}
                 image={`/img/town/effects/smokeparticle.png`} 
                 config={smoke} 
             />

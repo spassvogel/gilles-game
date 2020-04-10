@@ -14,14 +14,14 @@
 	},
 	"speed": {
 		"start": 100,
-		"end": 300,
+		"end": 200,
 		"minimumSpeedMultiplier": 1
 	},
 	"acceleration": {
 		"x": 10,
-		"y": 0
+		"y": -30
 	},
-	"maxSpeed": 0,
+	"maxSpeed": 200,
 	"startRotation": {
 		"min": 265,
 		"max": 270
@@ -36,9 +36,9 @@
 		"max": 3.05
 	},
 	"blendMode": "normal",
-	"frequency": 0.001,
+	"frequency": 0.0005,
 	"emitterLifetime": -1,
-	"maxParticles": 500,
+	"maxParticles": 300,
 	"pos": {
 		"x": 0,
 		"y": 0
