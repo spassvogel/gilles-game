@@ -381,8 +381,8 @@ THREEJS examples (MIGHT IS RIGHT):
 [ ] It should show the interior of the structure, what's happening there
 
 04/04/2020 Hit area in townview [+tech]
-[ ] https://github.com/explooosion/hitarea-shapes
-[ ] Physics editors: https://loonride.com/tools/physics
+[x] https://github.com/explooosion/hitarea-shapes
+[xvc ] Physics editors: https://loonride.com/tools/physics
 
 06/04/2020 Quest editor [+tech]
 An editor that could help in designing quests on the world map
@@ -393,3 +393,9 @@ Should think about what to do with the oracle. Maybe refactor the whole thing
 06/04/2020 Encounter indicator in map marker [+tech], [+art]
 Map marker needs to show there is an encounter going on. 
 [x] Maybe exclamation mark? 
+
+10/10/2020 Make structureviews responsive 
+[ ] Tavern
+[ ] Warehouse
+
+10/10/2020 Make legenda for town

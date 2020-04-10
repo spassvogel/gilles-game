@@ -16,7 +16,7 @@ type InteractionEvents = {
 type Container<T extends PIXI.DisplayObject> = Partial<Omit<T, 'children'>> &
 Partial<WithPointLike<'position' | 'scale' | 'pivot' | 'anchor'>> &
 InteractionEvents;
-type IContainer = Container<PIXI.Container>;
+type IContainer = Container<PIXI.ParticleContainer>;
 
 const ParticleEmitter = PixiComponent<Props & IContainer, PIXI.ParticleContainer>("ParticleEmitter", {
     create() {
@@ -26,7 +26,7 @@ const ParticleEmitter = PixiComponent<Props & IContainer, PIXI.ParticleContainer
     applyProps(instance, oldProps: Props, newProps: Props) {
       const { image, config, ...newP } = newProps;
   
-      // apply rest props to PIXI.Container
+      // apply rest props to PIXI.ParticleContainer
       applyDefaultProps(instance, oldProps, newP);
       
       let emitter = (this as any)._emitter;
