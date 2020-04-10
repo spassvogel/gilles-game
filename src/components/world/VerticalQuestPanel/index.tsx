@@ -27,7 +27,7 @@ const QuestPanel = (props: Props) => {
     
     //console.log('rendering questpanel' + JSON.stringify(selectedAdventurer?.equipment))
     return (
-        <div className="quest-panel">
+        <div className="vertical-quest-panel">
             <div className="quest-area">
                 <QuestDetails questName={props.questName} />
             </div>

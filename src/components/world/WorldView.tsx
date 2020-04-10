@@ -2,7 +2,7 @@ import WorldMap from "components/world/WorldMap";
 import React, { useEffect, useRef, useState } from "react";
 import { MusicTrack, SoundManager } from "global/SoundManager";
 import "./css/worldView.css";
-import QuestPanel from './QuestPanel';
+import QuestPanel from './VerticalQuestPanel';
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {

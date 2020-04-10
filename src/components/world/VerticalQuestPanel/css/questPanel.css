@@ -1,40 +1,40 @@
-.quest-panel {
+.vertical-quest-panel {
     display: flex;
     background: white;
     flex: 1;
 }
 
 /** on the left. grow as needed */
-.quest-panel .quest-area {
+.vertical-quest-panel .quest-area {
     flex: .6;
     padding: 16px;
 }
 
 /** on the right. party party */
-.quest-panel .party-area {
+.vertical-quest-panel .party-area {
     flex: .4;
     padding: 8px;
 }
 
-.quest-panel .party-area .tabstrip .tabstrip-tab {
+.vertical-quest-panel .party-area .tabstrip .tabstrip-tab {
     margin-bottom: -1px;
     border-bottom: 1px solid #ffa500;
     margin-left: 2px;
     padding: 0;
 }
 
-.quest-panel .party-area .tabstrip .tabstrip-tab.active {
+.vertical-quest-panel .party-area .tabstrip .tabstrip-tab.active {
     border-color: #ffa500;
     border-bottom: 1px solid white;
 }
 
-.quest-panel .party-area .adventurer-details {
+.vertical-quest-panel .party-area .adventurer-details {
     border: 1px solid #ffa500;
     height: 100%;
     padding: 8px;
 }
 
-.quest-panel .party-area .equipment ul {
+.vertical-quest-panel .party-area .equipment ul {
     padding: 15px;
     display: grid;
     width: 100%;
@@ -47,15 +47,10 @@
     grid-template-rows: repeat(3, 1fr);
 }
 
-.quest-panel .party-area .equipment ul li {
+.vertical-quest-panel .party-area .equipment ul li {
     box-sizing: border-box;
 }
 
-.quest-panel .party-area .equipment ul li .info {
+.vertical-quest-panel .party-area .equipment ul li .info {
     font-size: smaller;
 }
-
-/* * todo: media queries to show less columns
-.quest-panel .party-area .inventory {
-    grid-template-columns: 46px 46px 46px 46px 46px 46px 46px;
-} */
