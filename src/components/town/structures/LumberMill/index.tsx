@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Structure } from 'definitions/structures';
 import { Sprite, useApp, useTick } from '@inlet/react-pixi';
 import HitAreaShapes from 'utils/hitAreaShapes';
 import polygons from './../hitAreas.json';
 import * as PIXI from 'pixi.js';
-import { ITextureDictionary, LoaderResource } from 'pixi.js';
+import { ITextureDictionary } from 'pixi.js';
 import { Props } from 'components/town/TownView';
 
 
@@ -17,21 +17,15 @@ const LumberMill = (props: Props) => {
     const [textures, setTextures] = useState<ITextureDictionary>();
 
     const app = useApp();
-    const [resource, setResource] = useState<LoaderResource>(app.loader.resources?.[atlas]);
 
-    //const resource = app.loader.resources?.[atlas];
     useEffect(() => {
-        console.log("checking cache" , app.loader.resources, app.loader.resources.length, app.loader.resources[atlas])
-        //if (app?.loader.resources[atas]?.textures) {
-            // have to load!
-          //  console.log('have to load');
+        if (!app.loader.resources[atlas]) {
             app.loader.add(atlas).load((_, resources) => {
-                //console.log(resources[atlas])
-                setTextures(resources[atlas]?.textures);
-                console.log("checking cache2" , app.loader.resources[atlas])
-    
+                setTextures(resources[atlas]?.textures);    
             });
-        //}
+        } else {
+            setTextures(app.loader.resources[atlas]?.textures);
+        }
     }, [app, app.loader, atlas]);
 
     const [rotation, setRotation] = useState(0);

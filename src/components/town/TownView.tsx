@@ -166,11 +166,23 @@ const TownView = (props: AllProps) => {
             viewport.on("drag-start", () => { dragging.current = true; });
             viewport.on("drag-end", () => { dragging.current = false; });
         }
+
+        const onScroll = (e: WheelEvent) => {
+            // Scrolling the mouse is just used for zoom, not for actual scrolling
+            e.preventDefault();
+        }
+        window.addEventListener("wheel", onScroll, {passive: false} );
+        return () => {
+            window.removeEventListener("wheel", onScroll);
+        };
     }, []);
 
+    const options = {
+        sharedLoader: true
+    }
     return (
         <div className="town-view">
-            <Stage width={MAX_WIDTH} height={HEIGHT}>
+            <Stage width={MAX_WIDTH} height={HEIGHT} options={options} >
                 <Viewport screenWidth={MAX_WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={ref}>
                     <Sprite 
                         name="background"
