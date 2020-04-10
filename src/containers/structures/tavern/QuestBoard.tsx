@@ -4,7 +4,7 @@ import { StoreState } from "stores";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
     return {
-        items: store.items,
+        items: store.stockpile,
     };
 }
 

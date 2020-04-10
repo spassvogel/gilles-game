@@ -1,8 +1,8 @@
 import AdventurerAvatar from "components/ui/AdventurerAvatar";
 import Inventory from "components/ui/inventory/Inventory";
 import ResourcesBox from "components/ui/resources/ResourcesBox";
-import Tab from "components/widgets/Tab";
-import Tabstrip from "components/widgets/Tabstrip";
+import Tab from "components/ui/tabs/Tab";
+import Tabstrip from "components/ui/tabs/Tabstrip";
 import { DragSourceType } from "constants/dragging";
 import AdventurerInfo from "containers/ui/AdventurerInfo";
 import { Item } from "definitions/items/types";
@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import { empty, ResourceStoreState } from "stores/resources";
 import { StructuresStoreState } from "stores/structures";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import "./css/warehousestructureview.css";
 
 export interface DispatchProps {
@@ -160,7 +160,7 @@ const WarehouseStructureView = (props: AllProps) => {
                     deltaResources={resourcesDelta}
                 />
             </fieldset>
-            <h3>Items</h3>
+            <h3>Stockpile</h3>
             <Inventory
                 sourceType={WAREHOUSE}
                 items={props.items}

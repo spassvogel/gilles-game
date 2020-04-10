@@ -1,28 +1,27 @@
 // tslint:disable: object-literal-sort-keys
-// tslint:disable: object-literal-sort-keys
 import { ContextInfo, ContextType} from "constants/context";
 import CombatView from "containers/combat/CombatView";
-import SimpleLog from "containers/log/SimpleLog";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
-import RealWorldView from "containers/world/RealWorldView";
 import { AppContextProps} from "hoc/withAppContext";
-import { Placement} from "hoc/withPopup";
 import { manifest} from "manifest/app";
 import * as React from "react";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, createContext } from "react";
 import { DndProvider} from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { BrowserRouter as Router, Link, Redirect, Route, Switch} from "react-router-dom";
 import { Persistor} from "redux-persist";
-import { Sound, SoundManager} from "utils/soundManager";
-import { TextManager} from "utils/textManager";
-import Topbar from "../containers/Topbar";
+import { Sound, SoundManager} from "global/SoundManager";
+import { TextManager} from "global/TextManager";
 import { Structure} from "../definitions/structures";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType} from "./preloading/Preloader";
-import ContextView from "./ui/context/ContextView";
 import TownView from './town/TownView';
 import Toasts from './ui/toasts/Toasts';
+import Topbar from './ui/topbar/Topbar';
+import WorldView from './world/WorldView';
+import SimpleLog from './log/SimpleLog';
+import ContextTooltip from './ui/tooltip/ContextTooltip';
+import { TooltipManager } from 'global/TooltipManager';
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {
@@ -49,19 +48,19 @@ interface SelectedContext {
 
 const resolution = {
     height: 860, // 972,
-    width: 648,
+    width: 480,
 };
 
-export const AppContext = React.createContext<AppContextProps | null>(null);
+export const MAX_WIDTH = 960;
+
+export const AppContext = createContext<AppContextProps | null>(null);
 type AllProps = Props & StateProps & DispatchProps;
+
 
 const App = (props: AllProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const [selectedContext, setSelectedContext] = useState<SelectedContext>();
-    const [containerRect, setContainerRect] = useState<ClientRect>();
     const [media, setMedia] = useState<MediaItem[]>([]);
-    const [selectedStructure, setSelectedStructure] = useState<Structure>();
     const [activeWindows, setActiveWindows] = useState<React.ReactElement[]>([]);
 
     const handleViewButtonClick = () => {
@@ -83,25 +82,7 @@ const App = (props: AllProps) => {
    };
 
     const renderTownView = () => <TownView onStructureClick={selectStructure} />;
-    const renderWorldView = () => <RealWorldView/>;
-
-    // A contextual popup showing what you just clicked. Can be an Item
-    const renderContextPopup = () => {
-        if (!selectedContext) {
-            return null;
-        }
-        const { contextType, contextInfo, contextRect} = selectedContext;
-
-        return (
-            <ContextView
-                type={contextType}
-                info={contextInfo}
-                containerRect={containerRect!}
-                referenceRect={contextRect}
-                placement={Placement.bottom}
-            />
-        );
-    };
+    const renderWorldView = () => <WorldView/>;
 
     const handleWindowOpened = (window: React.ReactElement) => {
         setActiveWindows([
@@ -160,56 +141,41 @@ const App = (props: AllProps) => {
         //handleWindowOpened(window);
     };
 
-    const handleContextualObjectActivated = (type: ContextType, info: ContextInfo, origin: React.RefObject<any>, originRect: ClientRect) => {
-        setSelectedContext({
-            contextInfo: info,
-            contextType: type,
-            contextRect: originRect,
-        });
-    };
-
     const handleAppClick = () => {
-        if (selectedContext) {
-            setSelectedContext(undefined);
-        }
+        TooltipManager.clear();
     };
 
-    const handleResize = () => {
-        if (containerRef.current) {
-            if (window.innerHeight < resolution.height) {
-                containerRef.current.style.transform = `scale(${window.innerHeight / resolution.height}) translateX(-50%)`;
-            } else {
-                containerRef.current.style.transform = `scale(1) translateX(-50%)`;
-            }
-            const parentBox = containerRef.current.getBoundingClientRect();
-            setContainerRect(parentBox);
-            // this.setState({
-            //     containerRect: parentBox,
-            //     selectedContext: null, // this would be in the wrong place
-            // });
-       }
-    };
+    // const handleResize = () => {
+    //     if (containerRef.current) {
+    //         if (window.innerHeight < resolution.height) {
+    //            // containerRef.current.style.transform = `scale(${Math.min(window.innerWidth / resolution.width, 1)}) translateX(-50%)`;
+    //         } else {
+    //             //containerRef.current.style.transform = `scale(1) translateX(-50%)`;
+    //         }
+    //         //const parentBox = containerRef.current.getBoundingClientRect();
+    //         //setContainerRect(parentBox);
+    //    }
+    // };
 
-    useEffect(() => {
-        window.addEventListener("resize", handleResize);
-        handleResize();
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
+    // useEffect(() => {
+    //     // todo: see if we can disable this;
+    //     window.addEventListener("resize", handleResize);
+    //     handleResize();
+    //     return () => {
+    //         window.removeEventListener("resize", handleResize);
+    //     };
+    // }, []);
 
     return (
         <AppContext.Provider value={{ 
             media, 
-            onContextualObjectActivated: handleContextualObjectActivated, 
             onOpenWindow: handleWindowOpened,
         }} >
             <div
                 className="app"
                 ref={containerRef}
                 style={{
-                    width: resolution.width,
-                    height: resolution.height,
+                    maxWidth: MAX_WIDTH
                 }}
                 onClick={handleAppClick}
             >
@@ -220,30 +186,32 @@ const App = (props: AllProps) => {
                         onLoadComplete={handleMediaLoadComplete}
                     >
                         <Topbar/>
-                        <Switch>
-                            <Route path="/" exact>
-                                <Redirect from="/" to="world" />
-                            </Route>
-                            <Route path="/world">
-                                <Link to="/town">
-                                    <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-town`)} </button>
-                                 </Link>
-                            </Route>
-                            <Route path="/town">
-                                <Link to="/world">
-                                    <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-world`)} </button>
-                                </Link>
-                            </Route>
-                        </Switch>
-                        {` | `}
-                        <button onClick={() => handleResetClick()} style={{ color: "red"}}> Restart! </button>
+                        <div>
+                            <Switch>
+                                <Route path="/" exact>
+                                    <Redirect from="/" to="world" />
+                                </Route>
+                                <Route path="/world">
+                                    <Link to="/town">
+                                        <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-town`)} </button>
+                                    </Link>
+                                </Route>
+                                <Route path="/town">
+                                    <Link to="/world">
+                                        <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-world`)} </button>
+                                    </Link>
+                                </Route>
+                            </Switch>
+                            {` | `}
+                            <button data-for="global2" data-tip2 onClick={() => handleResetClick()} style={{ color: "red"}}> Restart! </button>
+                        </div>
                         <Switch>
                             <Route path="/town" component={renderTownView} />
                             <Route path="/world" component={renderWorldView} />
                         </Switch>
                         <SimpleLog/>
                         {renderWindow()}
-                        {renderContextPopup()}
+                        <ContextTooltip />    
                         <Toasts />
                     </Preloader>
                 </Router>

@@ -1,0 +1,28 @@
+{"frames": {
+
+"blades.png":
+{
+	"frame": {"x":0,"y":0,"w":51,"h":50},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":51,"h":50},
+	"sourceSize": {"w":51,"h":50}
+},
+"structure.png":
+{
+	"frame": {"x":0,"y":50,"w":26,"h":222},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":26,"h":222},
+	"sourceSize": {"w":26,"h":222}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "lumberMill.png",
+	"format": "RGBA8888",
+	"size": {"w":51,"h":272},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:be0784c2f891f9ff3de360c11ceb4260:fe871f4474fa7c0b966bcd2d1272fb1e:88f64fd0462842a86c86ca8a323c9d96$"
+}
+}

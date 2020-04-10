@@ -9,13 +9,14 @@ import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "mechanics/craftin
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
 import { TaskStoreState } from "stores/task";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import { formatDuration } from "utils/time";
 import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
 import "./css/productionstructureview.css";
 import { useState } from 'react';
+import StructureViewHeader from './StructureViewHeader';
 
 export interface DispatchProps {
     onUpgrade?: (cost: number, level: number) => void;
@@ -195,24 +196,28 @@ const ProductionStructureView = (props: AllProps) => {
 
     return (
         // TODO: abstract some stuff to generic StructureView
-        <details open = { true } className = "productionstructureview">
-            <summary>{displayName}</summary>
-            <section>
-                { createUpgradeRow() }
-                <div>craft:</div>
-                {/* { createCraftRows() } */}
-                <div className="crafting-area">
-                    <ul className="vertical-tab-bar">
-                        { createCraftTabs() }
-                    </ul>
-                    { createCraftingDetails() }
-                </div>
-                <fieldset>
-                    <legend>Currently crafting:</legend>
-                    { createProgressbars() }
-                </fieldset>
-            </section>
-        </details>
+        <>
+            <StructureViewHeader structure={props.type} />
+
+            <details open = { true } className = "productionstructureview">
+                <summary>{displayName}</summary>
+                <section>
+                    { createUpgradeRow() }
+                    <div>craft:</div>
+                    {/* { createCraftRows() } */}
+                    <div className="crafting-area">
+                        <ul className="vertical-tab-bar">
+                            { createCraftTabs() }
+                        </ul>
+                        { createCraftingDetails() }
+                    </div>
+                    <fieldset>
+                        <legend>Currently crafting:</legend>
+                        { createProgressbars() }
+                    </fieldset>
+                </section>
+            </details>
+        </>
     );
 }
 

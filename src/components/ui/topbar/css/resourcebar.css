@@ -1,0 +1,27 @@
+.resourcebar {
+   margin: 0;
+   padding: 4px;
+   box-sizing: content-box;
+   display: flex;
+}
+
+.resourcebar li {
+    display: flex;
+    flex: 1;
+    max-width: 64px;
+}
+
+.resourcebar li div {
+    display: inline-block;
+}
+
+.resourcebar li .amount {
+    padding-left: 3px;
+    line-height: 22px;
+}
+/* 
+@media only screen and (max-width: 576px) {
+    .resourcebar li .amount {
+        font-size: smaller;
+    }
+} */

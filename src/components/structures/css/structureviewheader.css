@@ -1,0 +1,51 @@
+.structureview-header {
+    height: 128px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.structureview-header-alchemist {
+    background-image: url("/img/ui/structures/alchemist/banner.png");
+    background-position: center -188px;
+}
+
+.structureview-header-armoursmith {
+    background-image: url("/img/ui/structures/armoursmith/banner.png");
+    background-position: center -219px;
+}
+
+.structureview-header-mine {
+    background-image: url("/img/ui/structures/mine/banner.png");
+}
+
+.structureview-header-lu FmberMill {
+    background-image: url("/img/ui/structures/lumberMill/banner.png");
+    background-position: center -194px;
+}
+
+.structureview-header-garden {
+    background-image: url("/img/ui/structures/garden/banner.png");
+    background-position: center -492px;
+}
+
+.structureview-header-weaver {
+    background-image: url("/img/ui/structures/weaver/banner.png");
+    background-position: center -492px;
+}
+
+.structureview-header-tannery {
+    background-image: url("/img/ui/structures/tannery/banner.png");
+}
+
+.structureview-header-weaponsmith {
+    background-image: url("/img/ui/structures/weaponsmith/banner.png");
+    background-position: center -280px;
+}
+
+.structureview-header-quarry {
+    /* todo */
+}
+

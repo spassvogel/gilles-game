@@ -1,15 +1,16 @@
 .app {
-    --app-cursor-default: url("/gilles-game/img/cursors/dwarven_gauntlet_extra_4.png"), auto;
-    --app-cursor-pointer: url("/gilles-game/img/cursors/dwarven_gauntlet_extra_6.png"), auto;
+    --app-cursor-default: url("/img/cursors/dwarven_gauntlet_extra_4.png"), auto;
+    --app-cursor-pointer: url("/img/cursors/dwarven_gauntlet_extra_6.png"), auto;
+    --app-cursor-down: url("/img/cursors/dwarven_gauntlet_extra_3.png"), auto;
 }
 
 .app {
     background: orange;
     position: relative;
-    transform-origin: top left;
-    overflow: hidden;
     /* position: absolute; */
     left: 50%;
+    transform: translateX(-50%);
+    height: 100vh;
 
     cursor: var(--app-cursor-default);
 }
@@ -22,3 +23,48 @@
 .resources input[type=number] {
     width: 50px;
 }
+
+
+.app button {
+    cursor: var(--app-cursor-pointer);
+}
+
+/** Small resolutions */
+@media only screen and (max-width: 576px) {
+    .app {
+        font-size: smaller;
+    }
+}
+
+/** Headers */
+.app-h1, .app-h2 {
+    color: black;
+    font-family: "Cambria", sans-serif;
+    text-align: center;
+}
+
+.app-h1 {
+    font-size: xx-large;
+}
+
+.app-h2 {
+    font-size: x-large;
+}
+
+.app-h1-white, .app-h2-white {
+    color: white;
+    font-family: "Cambria", sans-serif;
+    text-align: center;
+    text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5), 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.app-h1-white {
+    font-size: xx-large;
+}
+
+.app-h2-white {
+    font-size: x-large;
+}
+
+
+

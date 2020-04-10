@@ -1,5 +1,5 @@
 .log {
-    position: absolute;
+    position: sticky;
     bottom: 0;
     width: 100%;
     display: flex;
@@ -18,10 +18,12 @@
 .log .tab-bar .tabs {
     height: 25px;
     line-height: 25px;
+    display: flex;
+    overflow: hidden;
 }
 
 .log .tab-bar .tabs li {
-    width: 120px;
+    flex: 1;
 }
 
 .log .log-entries {
@@ -29,6 +31,10 @@
     overflow: auto;
     border: 1px solid green;
     box-sizing: border-box;
+
+    background: rgba(0, 0, 0, .75);
+    color: white;
+    padding: 8px;
 }
 
 .log.expanded {
@@ -37,6 +43,6 @@
 
 .log.expanded .log-entries{
     height: 100%;
-    background: pink;
     flex: 1;
 }
+

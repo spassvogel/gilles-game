@@ -6,6 +6,10 @@ import { oracles } from "oracle";
 import { StoreState } from "stores";
 import { LogChannel } from "stores/logEntry";
 import { QuestStatus, QuestStoreState } from "stores/quest";
+import { ToastManager } from 'global/ToastManager';
+import { TextManager } from 'global/TextManager';
+import { Type } from 'components/ui/toasts/Toast';
+import { getQuestLeader } from 'storeHelpers';
 
 export interface QuestUpdate {
     name: string;
@@ -33,12 +37,12 @@ const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickRespons
     const log: LogUpdate[] = [];
     const quests: QuestUpdate[] = [];
 
-    store.quests.forEach((qss: QuestStoreState) => {
-        if (qss.status !== QuestStatus.active) {
+    store.quests.forEach((quest: QuestStoreState) => {
+        if (quest.status !== QuestStatus.active) {
             return;
         }
-        const questDefinition: QuestDefinition = questDefinitions[qss.name];
-        const currentProgress = qss.progress;
+        const questDefinition: QuestDefinition = questDefinitions[quest.name];
+        const currentProgress = quest.progress;
         const currentNodeIndex =  Math.floor(currentProgress);
         const currentNode = questDefinition.nodes[currentNodeIndex];
 
@@ -49,7 +53,7 @@ const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickRespons
             let nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
             const nodesPassed = Math.floor(nextProgress) - currentNodeIndex;
 
-            let currentEncounter = qss.currentEncounter;
+            let currentEncounter = quest.currentEncounter;
 
             for (let i = 1; i <= nodesPassed; i++) {
                 // Loop through all the nodes we've passed since last tick
@@ -57,15 +61,18 @@ const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickRespons
                 if (nextNode.type === QuestNodeType.encounter) {
                     // We've hit an encounter node. set the progress to here and stop looking at other nodes
                     const encounter = encounterDefintions[nextNode.encounter!];
-                    const oracle = oracles[qss.name];
+                    const oracle = oracles[quest.name];
                     nextProgress = currentNodeIndex + i;
                     currentEncounter = nextNode.encounter!;
                     // Start encounter(encounter)
+                    const questTitle = TextManager.getQuestTitle(quest.name);
+                    const leader = getQuestLeader(store.adventurers, quest);
+                    ToastManager.addToast(questTitle, Type.questEncounter, leader?.avatarImg);
 
                     // Add quest to log
                     log.push({
                         channel: LogChannel.quest,
-                        channelContext: qss.name,
+                        channelContext: quest.name,
                         ...encounter.getDescription(oracle),
                     });
 
@@ -75,7 +82,7 @@ const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickRespons
                     if (nextNode.log) {
                         log.push({
                             channel: LogChannel.quest,
-                            channelContext: qss.name,
+                            channelContext: quest.name,
                             key: nextNode.log,
                         });
                     }
@@ -83,7 +90,7 @@ const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickRespons
             }
             quests.push({
                 currentEncounter,
-                name: qss.name,
+                name: quest.name,
                 progress: nextProgress,
             });
         }

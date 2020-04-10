@@ -1,5 +1,5 @@
 .window {
-    background: rgb(124, 124, 124);
+    background: rgba(0, 0, 0, .8);
     position: absolute;
     z-index: 2;
     top: 0;

@@ -1,4 +1,4 @@
-import { ActionType, GameTickAction } from "actions/game";
+import { ActionType } from "actions/game";
 import { AnyAction, Reducer } from "redux";
 import { State as seedrandomStateType } from "seedrandom";
 

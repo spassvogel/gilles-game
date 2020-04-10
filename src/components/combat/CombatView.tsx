@@ -2,7 +2,7 @@ import * as React from "react";
 import { Actor, CombatStoreState, CombatActionType } from "stores/combat";
 import CombatControls from "./CombatControls";
 import "./css/combatview.css";
-import { SoundManager, Sound } from 'utils/soundManager';
+import { SoundManager, Sound } from 'global/SoundManager';
 
 export interface Props {
 }

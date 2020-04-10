@@ -16,6 +16,11 @@ interface Props {
  */
 const Viewport = React.forwardRef<PixiViewport, any>((props, ref) => {
   const app = useApp();
+  if (app) {
+      // Perhaps this is better moved somewhere else
+      const cursor = `url('${process.env.PUBLIC_URL}/img/cursors/dwarven_gauntlet_extra_6.png'), auto`;
+      app.renderer.plugins.interaction.cursorStyles.pointer = cursor;
+  }
   return <PixiComponentViewport app={app} {...props} ref={ref} />;  
 })
 
@@ -43,7 +48,7 @@ const PixiComponentViewport = PixiComponent("Viewport", {
       .pinch()
       .wheel()
       .clamp({ direction: 'all' })
-      .clampZoom({ minScale: 0.75, maxScale: 2 })
+      .clampZoom({ minScale: 1, maxScale: 2 })
       .decelerate();
 
     return viewport;

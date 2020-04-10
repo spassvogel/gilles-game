@@ -231,6 +231,16 @@ const retrieveMagicAmulet: QuestDefinition = {
     }],
 };
 
+// const fulruhmRaid: QuestDefinition = {
+//     nodes: [{
+//         x: -4,
+//         y: -1,
+//         type: QuestNodeType.nothing,
+//     }, {
+//         x: -4,
+//         y: -1,
+//         type: QuestNodeType.nothing,
+
 const all = {
     kill10Boars,
     retrieveMagicAmulet,

@@ -11,7 +11,7 @@ backlog of ideas
     its not possible to create a party and send them on a quest later
     the party gets created when the adventurers leave on the quest
 [-] the quest has an icon, that will be the icon for the party too
-[ ] the quest icon will be the leader of the party
+[x] the quest icon will be the leader of the party
 
 27/4/2019 Multi lingual support
 [x] for multi lingual support we need a templating engine
@@ -36,6 +36,7 @@ backlog of ideas
     auto will investigate the 'unique' property. if true use defined, otherwise undefined
 [x] have a helper for 'capital' Capitalise
 
+28/04/2019 Tavern [+design]
 [x] The tavern has a limited number of vacancies (rooms). Upgrading the tavern upgrades this number.
 [ ] Periodically new adventurers will take residence
     The tavern will only accept new adventurers when there are rooms free.
@@ -45,7 +46,7 @@ backlog of ideas
 [ ] You can train workers/citizens to become adventurers
 
 
-02/05/2019 TRAITS
+02/05/2019 TRAITS [+design]
 [ ] During encounters, characters can receive certain traits. These can be beneficial or not. 
 [ ] In some cases the traits can be healed, removed etc. 
 [ ] Some items can be used to grant a trait to an adventurer.
@@ -54,13 +55,13 @@ backlog of ideas
 [ ] Each screen should get a contexualized help window
 [ ] HTML elements can receive a 'data-help' attribute with a key to refer to the localisation file
 
-30/06/2019 GAME TICK QUEST UPDATE
+30/06/2019 GAME TICK QUEST UPDATE [+tech]
 [x] Move gameTick from quest reducer into 'controllers'
 
-07/07/2019 STRUCTURE UPGRADE TIME
+07/07/2019 STRUCTURE UPGRADE TIME [+design]
 [ ] Upgrading a structure takes time
 
-07/07/2019 GAME DESIGN: warehouse
+07/07/2019 GAME DESIGN: warehouse [+design]
 [ ] Is the warehouse limited? Can you add unlimited items?
 [x] Resource capacity is limited
 [ ] Warehouse produces 'food rations' for quests
@@ -102,10 +103,10 @@ backlog of ideas
 14/07/2019 Rooms of tavern
 [x] figure out how amount of rooms is determined. perhaps by level?
 
-15/07/2019 GAME DESIGN: Party speed
+15/07/2019 GAME DESIGN: Party speed [+design]
 [ ] The speed in which the party progresses in a quest could be determined by the party itself. Perhaps the slowest member?
 
-15/07/2019 CHORE: host on github?
+15/07/2019 CHORE: host on github? [+tech]
 [x] Maybe I can host this stuff on github pages. (https://github.com/gitname/react-gh-pages)
 [x] Probably best to start a new `create-react-app`.
 
@@ -116,14 +117,14 @@ backlog of ideas
 [x] popups can be opened using withAppContext
 
 20/07/2019 quest view
-[ ] shows latest log message when not in encounter
+[x] shows latest log message when not in encounter
 
 22/07/2019 OBJECTIVES
 [ ] we could have objectives as a type of achievement / tutorial kinda thing. players would learn about the game
     and get rewarded when they complete an objective
 
 23/06/2019 POPUPS CAN FLIP
-[ ] popups should try to position themselves and if there is no space, flip
+[x] popups should try to position themselves and if there is no space, flip
 
 24/06/2019 BUTTON COMPONENTS
 [ ] buttons should get their own react component.
@@ -134,8 +135,11 @@ backlog of ideas
 [ ] Scrollbar should be on top
     https://stackoverflow.com/questions/18997724/how-to-change-scroll-bar-position-with-css
 
-25/07/2019 CUSTOM CURSORS
+25/07/2019 CUSTOM CURSORS [+tech]
 [ ] We need cursors for move inventory item and not-allowed
+[x] Need cursors in pixi context. Why isn't it working? (https://codesandbox.io/s/autumn-waterfall-ng6gb)
+    https://pixijs.io/examples/#/interaction/custom-mouse-icon.js
+    Fixed! Path needed {process.env.PUBLIC_URL}
 
 29/07/2019 EQUIP GEAR
 [x] Can equip gear from the players inventory
@@ -151,13 +155,13 @@ Because I'm not an artist and I want to use unity3d assets
 [x] First check if components dont get remounted too much. If yes, find out why and resolve issue!     
 [ ] Find cool fantasy town assets
 [x] Check if can be loaded in threejs (seperate project)
-[ ] Implement in town
-[ ] It would be cool to have the town scrollable. (see: 23/08/2019 WORLD MAP)
+[-] Implement in town
+[-] It would be cool to have the town scrollable. (see: 23/08/2019 WORLD MAP)
     The easiest way would maybe to be to create a very long canvas, render everything on it and let the browser scroll this canvas. This way you also have a scrollbar.
     Not optimal for performance tho.
 [ ] Find cool fantasy character unity asset packs
 [x] Check if can be loaded in threejs (seperate project)
-[ ] Implement in combat
+[-] Implement in combat
     perhaps we don't need react bindings.
     See if we can do this:
     1. on mount, all actors are spawned and positioned
@@ -166,9 +170,9 @@ Because I'm not an artist and I want to use unity3d assets
 [x] On second hand, I think it's worth checking out react-three-fiber. Might get complicated otherwise  
 
 
-04/08/2019 Swap items between warehouse and adventurers
+04/08/2019 Swap items between warehouse and adventurers [+tech]
 [x] Take items from warehouse and assign to adventurer inventory
-[ ] Take items from warehouse and assign to adventurer gear
+[x] Take items from warehouse and assign to adventurer gear
 
 08/08/2019 Combat
 Still haven't figured out a combat game system. But can implement some ground work. 
@@ -231,7 +235,7 @@ COMBAT SEQUENCE
 [ ] If dodge fails can try to block with shield or parry with weapon. IF succesful will deflect all dmg but cause shield/weapon integrity to go down.
 
 [ ] If not blocked or parried, part of damage is absorbed by armour (if the actor is wearing any).
-   A helmet with armor rating 20 absorbs 20 dmg of each hit.
+   A helmet with armour rating 20 absorbs 20 dmg of each hit.
 [ ] Armours integrity goes down. In general more than if would be blocked or parried.
 
 EFFECTS
@@ -270,7 +274,7 @@ base and (secondary stats) are:
 
 [x] todo: find GURPS basic set: characters
 
-[ ] each weapon / armor has a STR requirement
+[ ] each weapon / armour has a STR requirement
 [ ] shields and weapons have a integrity property (1-0) when it reaches 0 it breaks
 
 23/08/2019 WORLD MAP
@@ -306,8 +310,8 @@ THREEJS examples (MIGHT IS RIGHT):
 [-] uses height-map images (grey-scale) https://github.com/Usnul/meep
 
 26/11/2019 Smoke particles from the houses in world map
-(obsolete)
 [-] https://aerotwist.com/tutorials/creating-particles-with-three-js/
+[ ] https://codepen.io/inlet/pen/feddc8fa71e3b5afc6c3e4eda9cc83df
 
 02/12/2019 Resource update should happen at a set interval
     instead of every game tick
@@ -315,33 +319,33 @@ THREEJS examples (MIGHT IS RIGHT):
 10/12/2019 Item warehouse > adventurer
 [ ] Can drop items from warehouse onto adventurer    
 
-01/01/2020 rerender of world (+tech)
+01/01/2020 rerender of world [+tech]
 [ ] Figure out why the world gets rerendered on state change of App
 
 2/01/2020 disable threejs controller
 (obsolete)
 [-] You cant scroll the 
 
-28/03/2020 Pixi-js (+tech, +art)
+28/03/2020 Pixi-js [+art], [+tech]
 [x] Screw 3d its way too complicated. Going to try pixi-js
 
-30/03/2020 Structure in town popup (+tech)
+30/03/2020 Structure in town popup [+tech]
 [ ] Town should store location
 [ ] Structures in town should display a short popup on click. The popup should have a button to expand the GUI and show all the details
 
-30/03/2020 Mobile (+tech, +art)
+30/03/2020 Mobile [+art], [+tech]
 [ ] Need to completely check if the app is responsive and works in mobile
 
-30/03/2020 Leaders (+design)
+30/03/2020 Leaders [+design]
 [ ] Parties can have a leader. The leader provides the icon for the party. What else does it mean?
 [ ] Leader ability?
 
-30/03/2020 Combat situation visuals (+art, +tech)
+30/03/2020 Combat situation visuals [+art], [+tech]
 [ ] 
 [ ] See https://github.com/knervous/tiled-pixi-react
     I have cloned this repo. Will try to move some code over
 
-30/03/2020 Refactor react (+tech)
+30/03/2020 Refactor react [+tech]
 [ ] Refactor react, remove containers. Implement useSelector hook
 [ ] Check for needless rerendering
 
@@ -350,22 +354,42 @@ THREEJS examples (MIGHT IS RIGHT):
     https://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas
 [ ] Best would be to have a dotted line..    
 
-02/04/2020 Toasts (+tech)
+02/04/2020 Toasts [+tech]
 [x] Basic toast implementation is done
 [ ] Implement in different scenarios (quest complete, quest failed, achievement unlocked)
 [ ] Add sound
 
-02/04/2020 Make town come alive (+art)
+02/04/2020 Make town come alive [+art]
 [ ] Add animations
 [ ] Add particle effects (fire, smoke)
 
-02/04/2020 Cool smoke shader (+art)
+02/04/2020 Cool smoke shader [+art]
 [ ] Can use this in some sort of menu or loader?
     https://codepen.io/davidhartley/pen/seEki
 
-02/04/2020 Remove preloader (+ref)
+02/04/2020 Remove preloader [+ref]
 [ ] Remove preloader
     Preloading is not needed for images.
 [ ] Figure out if needed for sound?
 [ ] If needed, preloader for pixi can be implemented as such
     https://www.youtube.com/watch?v=KwVszq2RjX4
+
+03/04/2020 Make Inventory Responsive Again (MIRA [+tech]
+[ ] nr of columns is determined by screen size (media queries)
+
+03/04/2020 Structure views have a banner [+art]
+[ ] It should show the interior of the structure, what's happening there
+
+04/04/2020 Hit area in townview [+tech]
+[ ] https://github.com/explooosion/hitarea-shapes
+[ ] Physics editors: https://loonride.com/tools/physics
+
+06/04/2020 Quest editor [+tech]
+An editor that could help in designing quests on the world map
+
+06/04/2020 Oracle? [+tech]
+Should think about what to do with the oracle. Maybe refactor the whole thing
+
+06/04/2020 Encounter indicator in map marker [+tech], [+art]
+Map marker needs to show there is an encounter going on. 
+[x] Maybe exclamation mark? 

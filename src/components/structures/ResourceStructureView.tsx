@@ -1,77 +1,98 @@
 import { getDefinition, Structure  } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition } from "definitions/structures/types";
 import * as React from "react";
-import { TextManager } from "utils/textManager";
 import UpDownValue from "../ui/UpDownValue";
+import { StructureStoreState } from 'stores/structure';
+import { useSelector, useDispatch } from 'react-redux';
+import { StoreState } from 'stores';
+import { selectFreeWorkers } from 'selectors/workers';
+import { subtractGold } from 'actions/gold';
+import { upgradeStructure, decreaseWorkers, increaseWorkers } from 'actions/structures';
+import { addLogEntry } from 'actions/log';
+import { LogChannel } from 'stores/logEntry';
+import StructureViewHeader from './StructureViewHeader';
 
-export interface DispatchProps {
-    onUpgrade?: (cost: number, level: number) => void;
-    onWorkersUp?: () => void;
-    onWorkersDown?: () => void;
-}
 
 export interface Props  {
     type: Structure;
 }
 
-export interface StateProps {
-    level?: number;
-    workers?: number;
-    workersFree?: number;
-    gold?: number;
-}
+const ResourceStructureView = (props: Props) => {
 
-type AllProps = Props & StateProps & DispatchProps;
-
-const ResourceStructureView = (props: AllProps) => {
+    // Fetch needed values from store
+    const gold = useSelector<StoreState, number>((store) => store.gold);
+    const level = useSelector<StoreState, number>((store) => { 
+        const structureStore: StructureStoreState = store.structures[props.type];
+        if (!structureStore) { throw new Error(`No structure '${props.type}' found in the store!`); }
+        return structureStore.level;
+    });
+    const workers = useSelector<StoreState, number>((store) => { 
+        const structureStore: StructureStoreState = store.structures[props.type];
+        if (!structureStore) { throw new Error(`No structure '${props.type}' found in the store!`); }
+        return structureStore.workers;
+    });
+    const workersFree = useSelector<StoreState, number>((store) => selectFreeWorkers(store));
 
     const structureDefinition = getDefinition<ResourceStructureDefinition>(props.type);
     if (!structureDefinition) {
         throw new Error(`No definition found for structure ${props.type} with type ResourceStructureDefinition.`);
     }
-    const level: number = props.level || 0;
+
+    // Reducer dispatch
+    const dispatch = useDispatch();
+    const handleUpgrade = (cost: number, level: number) => {
+        dispatch(subtractGold(cost));
+        dispatch(upgradeStructure(props.type)); // Todo: [07/07/2019] time??
+
+        level++;
+        dispatch(addLogEntry("log-town-upgrade-structure-complete", {
+            level,
+            structure: props.type,
+        }, LogChannel.town));
+    }
+    
+    const handleWorkersDown = () => {
+        dispatch(decreaseWorkers(props.type));
+    }
+
+    const handleWorkersUp = () => {
+        dispatch(increaseWorkers(props.type));
+    };
+    
+
     const levelDefinition: ResourceStructureLevelDefinition = structureDefinition.levels[level];
-    const displayName = TextManager.getStructureName(props.type);
 
     const createWorkersRow = () => {
-
-        const handleUp = () => {
-            if (props.onWorkersUp) { props.onWorkersUp(); }
-        };
-        const handleDown = () => {
-            if (props.onWorkersDown) { props.onWorkersDown(); }
-        };
-
-        const upDisabled = props.workers === levelDefinition.workerCapacity || (props.workersFree || 0) < 1;
-        const downDisabled = props.workers === 0;
+        const upDisabled = workers === levelDefinition.workerCapacity || (workersFree || 0) < 1;
+        const downDisabled = workers === 0;
         return <UpDownValue
             label="workers:"
-            value = { props.workers }
-            max = { levelDefinition.workerCapacity }
-            upDisabled = { upDisabled }
-            downDisabled = { downDisabled }
-            onDown = { handleDown }
-            onUp = { handleUp }
+            value={workers}
+            max={levelDefinition.workerCapacity}
+            upDisabled={upDisabled}
+            downDisabled={downDisabled}
+            onDown={handleWorkersDown}
+            onUp={handleWorkersUp}
         />;
     };
 
     const createUpgradeRow = () => {
-        const gold = props.gold || 0;
         const nextLevel = structureDefinition.levels[level + 1];
         const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
         const canUpgrade = nextLevel != null && gold >= nextLevelCost;
         const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 
         const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-            if (props.onUpgrade) { props.onUpgrade(nextLevelCost, level + 1); }
+            handleUpgrade(nextLevelCost, level + 1);
         };
+
         return <div>
-            <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }
+            <label>level:</label>{(level + 1) + " / " + structureDefinition.levels.length }
             <button
                 style={{float: "right"}}
-                onClick = { handleClick }
-                disabled= { !canUpgrade } >
-                    { upgradeText }
+                onClick={handleClick }
+                disabled= {!canUpgrade } >
+                    {upgradeText }
             </button>
         </div>;
     };
@@ -82,27 +103,28 @@ const ResourceStructureView = (props: AllProps) => {
             // For values that are not 0
             if (generates[value]) {
                 // tslint:disable-next-line:max-line-length
-                accumulator.push(`${generates[value]} x ${props.workers} = ${generates[value] * (props.workers || 0)} ${value}`);
+                accumulator.push(`${generates[value]} x ${workers} = ${generates[value] * (workers || 0)} ${value}`);
             }
             return accumulator;
         }, []).join(",");
         return <div>
-            { "Generates (every minute): " }
+            {"Generates (every minute): " }
             <br/>
-            { generatesText }
+            {generatesText }
         </div>;
     };
 
     return (
-        // TODO: abstract some stuff to generic StructureView
-        <details open = { true } className = "structureview">
-            <summary>{ displayName }</summary>
-            <section>
-                { createWorkersRow() }
-                { createUpgradeRow() }
-                { createGeneratesRow() }
-            </section>
-        </details>
+        <>
+            <StructureViewHeader structure={props.type} />
+            <details open={true } className = "structureview">
+                <section>
+                    {createWorkersRow() }
+                    {createUpgradeRow() }
+                    {createGeneratesRow() }
+                </section>
+            </details>
+        </>
     );
 };
 

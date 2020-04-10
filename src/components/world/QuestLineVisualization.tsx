@@ -1,8 +1,8 @@
-
+// todo: delete this
 import questDefinitions, { QuestDefinition, QuestNode, QuestNodeType } from "definitions/quests";
 import * as React from "react";
 import { QuestStoreState } from "stores/quest";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import "./css/questlinevisualization.css";
 
 // tslint:disable-next-line:no-empty-interface

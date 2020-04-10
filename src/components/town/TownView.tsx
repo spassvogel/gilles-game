@@ -1,17 +1,22 @@
 import React, { useRef, useEffect } from "react";
 import { Stage, Sprite } from '@inlet/react-pixi';
-import {  ClickEventData } from "pixi-viewport";
 import { Structure } from 'definitions/structures';
 import { StructuresStoreState } from 'stores/structures';
-import { SoundManager, MusicTrack } from 'utils/soundManager';
+import { SoundManager, MusicTrack } from 'global/SoundManager';
 import { Viewport as PixiViewport} from "pixi-viewport";
 import Viewport from '../pixi/Viewport';
 import { StructureState, StructureStoreState } from 'stores/structure';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
+import "./css/townView.css"
+import { MAX_WIDTH } from 'components/App';
+import HitAreaShapes from 'utils/hitAreaShapes';
+import polygons from './hitAreas.json';
+import LumberMill from './structures/LumberMill';
+import ParticleEmitter from 'components/pixi/ParticleEmitter';
+import Tavern from './structures/Tavern';
 
-const WIDTH = 648;
-const HEIGHT = 690;
+const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
 const WORLD_HEIGHT = 1600;
 
@@ -22,12 +27,11 @@ export interface DispatchProps {
 }
 
 export interface Props {
-    onStructureClick?: (structure: Structure | null) => void;
+    onStructureClick: (structure: Structure | null) => void;
 }
 
 
-
-type AllProps = Props & DispatchProps /*& AppContextProps;*/
+type AllProps = Props & DispatchProps;
 
 const TownView = (props: AllProps) => {
 
@@ -38,16 +42,13 @@ const TownView = (props: AllProps) => {
         SoundManager.playMusicTrack(MusicTrack.town);
     }, []);
 
-    const handleStructureClick = (structure: Structure) => {
+    const handleStructureClick = (structure: Structure | null) => {
         if (!dragging.current && props.onStructureClick) { 
             props.onStructureClick(structure); 
         }
     }
 
-    // const handleBackgroundClick = () => {
-    //     if (props.onStructureClick) { props.onStructureClick(null); }
-    // }
-console.log('rendering town');
+    //console.log('rendering town');
 
     const structures = useSelector<StoreState, StructuresStoreState>((state: StoreState) => {
         return state.structures;
@@ -65,13 +66,15 @@ console.log('rendering town');
             Structure.armoursmith,
             Structure.warehouse,
             Structure.mine,
-            Structure.lumberMill
+            Structure.lumberMill,
+            Structure.weaver,
         ]
         return orderedStructures.reverse().map((structure) => {
             const structureStore: StructureStoreState = structures[structure];
             if (structureStore.state === StructureState.NotBuilt) {
                 return null;
             }
+            // todo: refactor into seperate components
                
             let x, y;              
             switch (structure) {
@@ -83,10 +86,7 @@ console.log('rendering town');
                     x = 632;
                     y = 633;
                     break;
-                case Structure.tavern:
-                    x = 500;
-                    y = 469;
-                    break;
+
                 case Structure.tannery:
                     x = 372;
                     y = 460;
@@ -115,28 +115,48 @@ console.log('rendering town');
                     x = 183;
                     y = 527;
                     break;
-                case Structure.lumberMill:
-                    x = 391;
-                    y = 307;
+                case Structure.weaver:
+                    x = 484;
+                    y = 333;
                     break;
             }              
-              
-            return <Sprite 
-                key={structure}
-                name={structure}
-                x={x}
-                y={y}
-                interactive
-                click={() => {
-                    handleStructureClick(structure);
-                }}
-                image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}          
-            />
+            
+            switch (structure) {
+                case Structure.lumberMill: {
+                    return <LumberMill onStructureClick={handleStructureClick} key={structure} />;
+                }
+                case Structure.tavern: {
+                    return <Tavern onStructureClick={handleStructureClick} key={structure} />;
+                }
+                default: {
+                    const hitAreaShapes = new HitAreaShapes(polygons, structure);
+                    return <Sprite 
+                        key={structure}
+                        name={structure}
+                        x={x}
+                        y={y}
+                        interactive={true}
+                        buttonMode={true}
+                        pointertap={() => {
+                            handleStructureClick(structure);
+                        }}
+                        hitArea={hitAreaShapes}
+                        image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}          
+                    >
+                        {/* <Graphics
+                            name="hitarea"
+                            draw={graphics => {
+                                graphics.beginFill(0xffffff);
+                                hitAreaShapes.shapes.map(shape => graphics.drawPolygon(shape))
+                                graphics.endFill();
+                            }}
+                        /> */}
+                    </Sprite>
+                }
+            }
+
         });
     }
-    const viewportClick = (event: ClickEventData) => {
-        console.log(event.world.x);
-    };
 
     let dragging = useRef(false);
     const ref = useRef<PixiViewport>(null);
@@ -149,16 +169,19 @@ console.log('rendering town');
     }, []);
 
     return (
-        <Stage width={WIDTH} height={HEIGHT}>
-            <Viewport screenWidth={WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} onClick={viewportClick} ref={ref}>
-                <Sprite 
-                    name="background"
-                    image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}          
-                >
-                    {renderStructures()}
-                </Sprite>
-            </Viewport>
-        </Stage>
+        <div className="town-view">
+            <Stage width={MAX_WIDTH} height={HEIGHT}>
+                <Viewport screenWidth={MAX_WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={ref}>
+                    <Sprite 
+                        name="background"
+                        image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}          
+                    >
+                        {renderStructures()}
+
+                    </Sprite>
+                </Viewport>
+            </Stage>
+        </div>
     );
 }
 

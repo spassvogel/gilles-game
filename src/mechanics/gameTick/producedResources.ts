@@ -1,5 +1,5 @@
 import { getDefinition, Structure } from "definitions/structures";
-import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureDefinition, StructureType, WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
+import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureType, WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import { StoreState } from "stores";
 import { ResourceStoreState } from "stores/resources";
 import { StructuresStoreState } from "stores/structures";

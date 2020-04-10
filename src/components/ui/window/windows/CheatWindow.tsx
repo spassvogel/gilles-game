@@ -4,10 +4,10 @@ import { getDefinition as getStructureDefinition, Structure } from "definitions/
 import * as React from "react";
 import { StructureState, StructureStoreState } from "stores/structure";
 import { StructuresStoreState } from "stores/structures";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import "./css/cheatbox.css";
 import { useRef, useState } from 'react';
-import { ToastManager } from 'components/ui/toasts/ToastManager';
+import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 
 export interface DispatchProps {
@@ -146,7 +146,7 @@ const CheatWindow = (props: AllProps) => {
     }
 
     const handleChangeResources = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const amount = Number(event.target.checked);
+        const amount = Number(event.target.value);
         setCheats({
             ...cheats,
             resources: amount,

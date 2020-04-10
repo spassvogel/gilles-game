@@ -34,7 +34,7 @@ export class Oracle {
      * Returns all adventurers on this quest
      */
     public get adventurers(): AdventurerStoreState[] {
-        return adventurersOnQuest(this.store, this.quest);
+        return adventurersOnQuest(this.store.adventurers, this.quest);
     }
 
     /**
@@ -42,7 +42,7 @@ export class Oracle {
      * @param stat
      */
     public getAdventurerWithHighest(stat: string): AdventurerStoreState { // todo: refactor 'stat' into enum
-        return adventurersOnQuest(this.store, this.quest)
+        return adventurersOnQuest(this.store.adventurers, this.quest)
             .concat().sort((a, b) => (b.stats[stat] - a.stats[stat]))[0];
     }
 
@@ -51,7 +51,7 @@ export class Oracle {
      * @param stat
      */
     public getAdventurerWithLowest(stat: string): AdventurerStoreState { // todo: refactor 'stat' into enum
-        return adventurersOnQuest(this.store, this.quest)
+        return adventurersOnQuest(this.store.adventurers, this.quest)
             .concat().sort((a, b) => (a.stats[stat] - b.stats[stat]))[0];
     }
 

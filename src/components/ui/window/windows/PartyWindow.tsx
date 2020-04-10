@@ -1,3 +1,4 @@
+// todo: obsolete in favour of QuestPanel
 import { InventoryItemDragInfo } from "components/ui/DraggableItemIcon";
 import DroppableAdventurerAvatar from "components/ui/DroppableAdventurerAvatar";
 import { TextEntry } from "constants/text";
@@ -5,13 +6,12 @@ import AdventurerInfo from "containers/ui/AdventurerInfo";
 import { getDefinition as getEncounterDefinition } from "definitions/encounters";
 import { EncounterDefinition } from "definitions/encounters/types";
 import { getDefinition as getQuestDefinition, QuestDefinition, QuestNode, QuestNodeType } from "definitions/quests";
-import { AppContextProps } from "hoc/withAppContext";
 import React, { useState } from "react";
 import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "stores";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStoreState } from "stores/quest";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import "./css/partywindow.css";
 
 export interface StateProps {
@@ -36,7 +36,7 @@ interface LocalState {
     selectedAdventurer: string | null;
 }
 
-type AllProps = Props & StateProps & DispatchProps & AppContextProps;
+type AllProps = Props & StateProps & DispatchProps;
 
 // export default
 const PartyWindow = (props: AllProps) => {

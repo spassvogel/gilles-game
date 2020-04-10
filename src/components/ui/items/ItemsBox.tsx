@@ -2,7 +2,7 @@ import "components/ui/css/common/icon.css";
 import itemsDescription from "definitions/items";
 import { Item } from "definitions/items/types";
 import * as React from "react";
-import { TextManager } from "utils/textManager";
+import { TextManager } from "global/TextManager";
 import "./css/itemsbox.css";
 
 export interface Props {

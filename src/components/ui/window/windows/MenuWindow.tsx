@@ -28,9 +28,9 @@ const Menu = (props: AllProps & AppContextProps) => {
     };
     return (
         <div className="menu">
-            <ul>
-                <li onClick = { handleClickCheats }>Cheats!</li>
-            </ul>
+            <p>
+                <button onClick = { handleClickCheats }>Cheats!</button>
+            </p>
         </div>
     );
 }
