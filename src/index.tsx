@@ -22,7 +22,7 @@ import { TextManager } from "./utils/textManager";
 
 let interval: NodeJS.Timeout;
 const initGame = async () => {
-    const axiosResult = await axios.get("lang/en-US.json");
+    const axiosResult = await axios.get(`${process.env.PUBLIC_URL}/lang/en-US.json`);
     const texts = axiosResult.data as Record<string, string>;
     TextManager.init(texts);
     Random.init("GILLESROX2");
@@ -61,9 +61,9 @@ const continueGame = (store: any) => {
 const runGame = (store: any, persistor: Persistor) => {
     ReactDOM.render((
         <Provider store={store}>
-            <App persistor={persistor}/>
+            <App persistor={persistor} />
         </Provider>
-        ),
+    ),
         document.getElementById("root") as HTMLElement,
     );
     registerServiceWorker();
@@ -80,8 +80,8 @@ const runGame = (store: any, persistor: Persistor) => {
     // store.dispatch(addGold(400));
 
     // TODO: find something less ugly and hacky than this
-//    oracles.kill10b = theBigTree.getOracle("kill_10_boars", store);
-  //  oracles["retrieve_magic_amulet"] = backstabbed.getOracle("retrieve_magic_amulet", store);
+    //    oracles.kill10b = theBigTree.getOracle("kill_10_boars", store);
+    //  oracles["retrieve_magic_amulet"] = backstabbed.getOracle("retrieve_magic_amulet", store);
     const gameLoop = () => {
         const state: StoreState = store.getState();
         const delta = Date.now() - state.engine.lastTick;
