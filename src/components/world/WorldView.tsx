@@ -48,6 +48,10 @@ const RealWorldView = () => {
         }
     };
 
+    const handleRetrieveWorldViewRef = () => {
+        return worldMapRef;
+    }
+
     return (
         <div className="world-view" ref={worldMapRef}>
             {/* <div className="compass" ref={compassRef} onClick={handleCompassClick}>
@@ -58,6 +62,7 @@ const RealWorldView = () => {
                 // onMapMove={handleMapMove}
                 smallMap={selectedQuestName != null}
                 onPartyClick={handlePartyClick}
+                retrieveWorldViewRef={handleRetrieveWorldViewRef}
             />
             { selectedQuestName && (
                 <QuestPanel questName={selectedQuestName} />

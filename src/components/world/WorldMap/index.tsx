@@ -34,9 +34,11 @@ export interface Props {
     selectedQuestName?: string;
     smallMap: boolean;
     onPartyClick: (questName: string) => void;
+    retrieveWorldViewRef: () => React.RefObject<HTMLDivElement>;
 }
 
 const WorldMap = (props: Props) => {
+    const { retrieveWorldViewRef, smallMap } = props;
     const questSelector = useCallback(
         (state: StoreState) => state.quests.find((q) => q.name === props.selectedQuestName), 
         [props.selectedQuestName]
@@ -49,14 +51,10 @@ const WorldMap = (props: Props) => {
         props.onPartyClick(name);
     };
 
-    useEffect(() => {
-        if (selectedQuest) {
-            focusOnQuestingParty(selectedQuest);
-        }
-        
+    useEffect(() => {        
         const onScroll = (e: WheelEvent) => {
             // When the map is big, scrolling the mouse is just used for zoom, not for actual scrolling
-            if (!props.smallMap) {
+            if (!smallMap) {
                 e.preventDefault();
             }
         }
@@ -64,23 +62,45 @@ const WorldMap = (props: Props) => {
         return () => {
             window.removeEventListener("wheel", onScroll);
         };
-    }, [selectedQuest, props.smallMap]);
+    }, [smallMap]);
+
 
     const [canvasWidth, setCanvasWidth] = useState(WIDTH);
     const [canvasHeight, setCanvasHeight] = useState(FULL_HEIGHT);
-    const stageRef = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-        const resize = () => {
-            setCanvasWidth(stageRef.current?.clientWidth!);
-            setCanvasHeight(stageRef.current?.clientHeight!);
-        }
 
+    useEffect(() => {
+        // This will set the dimensions of the canvas tot that of the parent (worldview)
+        const resize = () => {
+            const worldView = retrieveWorldViewRef();
+            const worldViewWidth = worldView.current?.clientWidth || WIDTH;
+            const worldViewHeight = worldView.current?.clientHeight || FULL_HEIGHT;
+
+            setCanvasWidth(worldViewWidth);
+            if (smallMap) {
+                if (worldViewWidth < 576) {
+                    // Small screens
+                    setCanvasHeight(SMALL_HEIGHT / 2); 
+                } else {
+                    setCanvasHeight(SMALL_HEIGHT); 
+                }
+            }
+            else {
+                setCanvasHeight(worldViewHeight); 
+            }
+        }
+        resize();
         window.addEventListener("resize", resize);
         return () => {
             window.removeEventListener("resize", resize);
         };
-    }, [])
-    
+    }, [retrieveWorldViewRef, smallMap]);
+
+    useEffect(() => {
+        if (selectedQuest) {
+            focusOnQuestingParty(selectedQuest);
+        }
+    }, [selectedQuest, canvasHeight])
+
     const viewportRef = useRef<PixiViewport>(null);
     useEffect(() => {
         // focus on center of the map
@@ -134,20 +154,28 @@ const WorldMap = (props: Props) => {
         }
     }
 
-    const height = props.smallMap ? SMALL_HEIGHT : canvasHeight;
+    const handleMapClick = () => {
+        /// todo: close map
+        // if(smallMap === true && selectedQuest) {
+        //     props.onPartyClick(selectedQuest.name);
+        // }
+    }
+
 // console.log(canvasWidth);
     return (
-        <div ref={stageRef}>
-            <Stage width={canvasWidth} height={height} >
-                <Viewport screenWidth={canvasWidth} screenHeight={height} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef} >
-                    <Sprite image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`} >
-                        {renderQuestlines()}
-                        {renderMarkers()}
-                    </Sprite>
-                    <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} />
-                </Viewport>
-            </Stage>
-        </div>
+        <Stage width={canvasWidth} height={canvasHeight} >
+            <Viewport screenWidth={canvasWidth} screenHeight={canvasHeight} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef} >
+                <Sprite 
+                    image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`} 
+                    interactive 
+                    pointerdown={handleMapClick}
+                >
+                    {renderQuestlines()}
+                    {renderMarkers()}
+                </Sprite>
+                <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} />
+            </Viewport>
+        </Stage>
     );
 };
 
