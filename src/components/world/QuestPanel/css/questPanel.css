@@ -4,6 +4,19 @@
     flex: 1;
 }
 
+.quest-panel.quest-panel-horizontal {
+    display: flex;
+    flex-direction: column;
+}
+
+.quest-panel.quest-panel-horizontal .adventurer-panel {
+    display: flex;
+}
+
+.quest-panel.quest-panel-horizontal .adventurer-panel .info {
+    margin-right: 8px;
+}
+
 /** on the left. grow as needed */
 .quest-panel .quest-area {
     flex: .6;

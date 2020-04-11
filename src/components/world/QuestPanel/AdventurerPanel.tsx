@@ -130,17 +130,17 @@ const AdventurerPanel = (props: Props) => {
 
     return (
         <div className="adventurer-panel">
-            {/* <div className="left"> */}
+            <div className="info">
                 <div className="name">
                     <b>{adventurer.name}</b>
                 </div>
                 <div className="renderAttributes">
                     {renderAttributes()}
                 </div>
+            </div>
                 <div className="equipment">
                     <AdventurerEquipment adventurer={adventurer} onDropItemEquipment={handleDropItemEquipment} />
                 </div>
-            {/* </div> */}
             <div className="right">
                 <Inventory
                     sourceType={DragSourceType.adventurerInventory}

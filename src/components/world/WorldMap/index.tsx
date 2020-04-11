@@ -51,18 +51,18 @@ const WorldMap = (props: Props) => {
         props.onPartyClick(name);
     };
 
-    useEffect(() => {        
-        const onScroll = (e: WheelEvent) => {
-            // When the map is big, scrolling the mouse is just used for zoom, not for actual scrolling
-            if (!smallMap) {
-                e.preventDefault();
-            }
-        }
-        window.addEventListener("wheel", onScroll, {passive: false} );
-        return () => {
-            window.removeEventListener("wheel", onScroll);
-        };
-    }, [smallMap]);
+    // useEffect(() => {        
+    //     const onScroll = (e: WheelEvent) => {
+    //         // When the map is big, scrolling the mouse is just used for zoom, not for actual scrolling
+    //         if (!smallMap) {
+    //             e.preventDefault();
+    //         }
+    //     }
+    //     window.addEventListener("wheel", onScroll, {passive: false} );
+    //     return () => {
+    //         window.removeEventListener("wheel", onScroll);
+    //     };
+    // }, [smallMap]);
 
 
     const [canvasWidth, setCanvasWidth] = useState(WIDTH);

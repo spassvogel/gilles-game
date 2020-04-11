@@ -9,10 +9,11 @@ import QuestDetails from './QuestDetails';
 
 interface Props {
     questName: string;
+    vertical?: boolean;
 }
 
 const QuestPanel = (props: Props) => {
-
+    const {vertical} = props;
     const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));   
     const leader = adventurers[0];
     const [selectedAdventurerID, setSelectedAdventurerID] = useState<string>(leader.id);
@@ -27,7 +28,7 @@ const QuestPanel = (props: Props) => {
     
     //console.log('rendering questpanel' + JSON.stringify(selectedAdventurer?.equipment))
     return (
-        <div className="quest-panel">
+        <div className={`quest-panel ${(vertical ? "quest-panel-vertical" : "quest-panel-horizontal")}`}>
             <div className="quest-area">
                 <QuestDetails questName={props.questName} />
             </div>
