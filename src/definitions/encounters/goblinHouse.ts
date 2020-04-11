@@ -1,5 +1,5 @@
 // tslint:disable:object-literal-sort-keys
-import { startEncounter, updateQuestVars, advanceQuest } from "actions/quests";
+import { startEncounter, advanceQuest } from "actions/quests";
 import { Oracle } from "oracle";
 import { AnyAction, Dispatch } from "redux";
 import { StoreState } from "stores";
@@ -25,7 +25,7 @@ export const goblinHouseOutside: EncounterDefinition = {
         return options;
     },
     answer: (option: string, oracle: Oracle, dispatch: Dispatch<AnyAction>) => {
-        const { store, questVars, quest } = oracle;
+        const { quest } = oracle;
         switch (option) {
             case "investigate": {
                 const nextEncounter = startEncounter(quest.name, Encounter.goblinHouseHallway);

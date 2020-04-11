@@ -348,8 +348,9 @@ THREEJS examples (MIGHT IS RIGHT):
 30/03/2020 Refactor react [+tech]
 [ ] Refactor react, remove containers. Implement useSelector hook
 [ ] Check for needless rerendering
+[ ] Move Windows into own component and use WindowManager
 
-01/04/2020 Draw quest path
+01/04/2020 Draw quest path [+art]
 [x] Would be cool to see the path that a party took
     https://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas
 [ ] Best would be to have a dotted line..    
@@ -360,8 +361,8 @@ THREEJS examples (MIGHT IS RIGHT):
 [ ] Add sound
 
 02/04/2020 Make town come alive [+art]
-[ ] Add animations
-[ ] Add particle effects (fire, smoke)
+[x] Add animations
+[x] Add particle effects (fire, smoke)
 
 02/04/2020 Cool smoke shader [+art]
 [ ] Can use this in some sort of menu or loader?
@@ -375,20 +376,18 @@ THREEJS examples (MIGHT IS RIGHT):
     https://www.youtube.com/watch?v=KwVszq2RjX4
 
 03/04/2020 Make Inventory Responsive Again (MIRA [+tech]
-[ ] nr of columns is determined by screen size (media queries)
+nr of columns is determined by screen size (media queries)
+[ ] medium width
 
 03/04/2020 Structure views have a banner [+art]
-[ ] It should show the interior of the structure, what's happening there
+[x] It should show the interior of the structure, what's happening there
 
 04/04/2020 Hit area in townview [+tech]
 [x] https://github.com/explooosion/hitarea-shapes
-[xvc ] Physics editors: https://loonride.com/tools/physics
+[x] Physics editors: https://loonride.com/tools/physics
 
 06/04/2020 Quest editor [+tech]
-An editor that could help in designing quests on the world map
-
-06/04/2020 Oracle? [+tech]
-Should think about what to do with the oracle. Maybe refactor the whole thing
+An editor that could help in designing quests on the world map. Draws a list of nodes
 
 06/04/2020 Encounter indicator in map marker [+tech], [+art]
 Map marker needs to show there is an encounter going on. 
@@ -398,4 +397,12 @@ Map marker needs to show there is an encounter going on.
 [ ] Tavern
 [ ] Warehouse
 
-10/10/2020 Make legenda for town
+10/10/2020 Make legenda for town 
+[ ] Clicking on it will scroll the structure into view and after brief delay, open window
+
+
+10/04/2020 Oracle, Encounters? [+tech]
+Should think about what to do with the oracle. Maybe refactor the whole thing
+In any case I have decided to change the way encounters work. I'm going to leave the idea of text-adventure based stuff
+and do everything in the combat map. In addition, every encounter has one ore more multiple scenes (they are like rooms). 
+The party can freely move between these scenes and sometimes a scene change is forced.

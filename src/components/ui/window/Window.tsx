@@ -3,6 +3,7 @@ import "components/ui/resources/css/resourcesbox.css";
 import SquareIconButton from "components/ui/buttons/SquareIconButton";
 import * as React from "react";
 
+// todo: refactor using WindowManager [30/03/2020]
 export interface Props {
     title: string;
     backEnabled?: boolean;

@@ -13,7 +13,6 @@ import { MAX_WIDTH } from 'components/App';
 import HitAreaShapes from 'utils/hitAreaShapes';
 import polygons from './hitAreas.json';
 import LumberMill from './structures/LumberMill';
-import ParticleEmitter from 'components/pixi/ParticleEmitter';
 import Tavern from './structures/Tavern';
 
 const HEIGHT = 1079;
