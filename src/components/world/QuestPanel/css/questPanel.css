@@ -4,17 +4,18 @@
     flex: 1;
 }
 
-.quest-panel.quest-panel-horizontal {
+.quest-panel.quest-panel-vertical {
     display: flex;
     flex-direction: column;
 }
 
-.quest-panel.quest-panel-horizontal .adventurer-panel {
+.quest-panel.quest-panel-vertical .adventurer-panel {
     display: flex;
 }
 
-.quest-panel.quest-panel-horizontal .adventurer-panel .info {
+.quest-panel.quest-panel-vertical .adventurer-panel .info {
     margin-right: 8px;
+    flex: 1;
 }
 
 /** on the left. grow as needed */

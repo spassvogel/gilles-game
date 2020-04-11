@@ -1,6 +1,6 @@
 backlog of ideas
 
-27/4/2019 LOG
+#### 27/4/2019 LOG
 [x] display a log on the lower part of the screen.
     each log entry has a type: (common, quest, warning)
     can be plain text now. 
@@ -13,7 +13,8 @@ backlog of ideas
 [-] the quest has an icon, that will be the icon for the party too
 [x] the quest icon will be the leader of the party
 
-27/4/2019 Multi lingual support
+
+#### 27/4/2019 Multi lingual support (i18n)
 [x] for multi lingual support we need a templating engine
     it needs to support dynamic lookups. such as
     "you found a {item.name:sword}"
@@ -22,11 +23,11 @@ backlog of ideas
     where we provide a context object { item: sword }
 [x] compile the templates and store them by key
 [x] allow for precompilation and JIT, pass by ctor, default = true
-[ ] add 'clear' method to TextManager for testing purposes. will set initialized to false
 
-28/4/2019
-[x] multi langual structures
-[x] multi langual resources
+
+#### 28/4/2019
+[x] display multi langual structure
+[x] display multi langual resources
 [x] for simplicity, don't change the names of the structures as they level up
 [x] add 'unique' optional prop to item
 [ ] add 'articleDefined', 'articleUndefined' optional props to item
@@ -36,7 +37,8 @@ backlog of ideas
     auto will investigate the 'unique' property. if true use defined, otherwise undefined
 [x] have a helper for 'capital' Capitalise
 
-28/04/2019 Tavern [+design]
+
+#### 28/04/2019 Tavern [+design]
 [x] The tavern has a limited number of vacancies (rooms). Upgrading the tavern upgrades this number.
 [ ] Periodically new adventurers will take residence
     The tavern will only accept new adventurers when there are rooms free.
@@ -46,38 +48,36 @@ backlog of ideas
 [ ] You can train workers/citizens to become adventurers
 
 
-02/05/2019 TRAITS [+design]
+#### 02/05/2019 TRAITS [+design]
 [ ] During encounters, characters can receive certain traits. These can be beneficial or not. 
 [ ] In some cases the traits can be healed, removed etc. 
 [ ] Some items can be used to grant a trait to an adventurer.
 
-23/06/2019 HELP
+#### 23/06/2019 HELP
 [ ] Each screen should get a contexualized help window
 [ ] HTML elements can receive a 'data-help' attribute with a key to refer to the localisation file
 
-30/06/2019 GAME TICK QUEST UPDATE [+tech]
-[x] Move gameTick from quest reducer into 'controllers'
-
-07/07/2019 STRUCTURE UPGRADE TIME [+design]
+#### 07/07/2019 STRUCTURE UPGRADE TIME [+design]
 [ ] Upgrading a structure takes time
 
-07/07/2019 GAME DESIGN: warehouse [+design]
+#### 07/07/2019 GAME DESIGN: warehouse [+design]
 [ ] Is the warehouse limited? Can you add unlimited items?
 [x] Resource capacity is limited
 [ ] Warehouse produces 'food rations' for quests
 
-10/07/2019 ASSERTS
+#### 10/07/2019 ASSERTS [+tech]
 [ ] Include an assert library
 
-10/07/2019 GAME TICK RESOURCE
+#### 10/07/2019 GAME TICK RESOURCE [+tech]
+[x] Move gameTick from quest reducer into 'controllers'
 [x] Move add resource into 'controllers'
 [ ] Move the guard around maxResources to the reducer (but it needs access to the level of the warehouse to determine maxresources)
     https://stackoverflow.com/questions/34333979/accessing-other-parts-of-the-state-when-using-combined-reducers
 
-10/07/2019 GAME DESIGN: minimum workers on item craft
+#### 10/07/2019 GAME DESIGN: minimum workers on item craft
 [ ] Perhaps each item can have a number of minimum workers?
 
-12/07/2019 GAME DESIGN: quest prerequisites/ resource sink
+#### 12/07/2019 quest prerequisites/ resource sink [+design]
 [ ] The quests should have some sort of resource cost. 
     However we don't want weapons to break all the time.
     Are the items consumed straight away?
@@ -86,62 +86,62 @@ backlog of ideas
 [ ] Weapons slowly lose durability (/health) when used. 
 [ ] Weapons can either be repaired ?  OR : just disassembled for a fraction of the crafting cost
 
-13/07/2019 EQUIPMENT REQUIREMENTS
+#### 13/07/2019 EQUIPMENT REQUIREMENTS
 [ ] Equipment (=apparel+weapons) can have stats requirements (e.g. a minimum amount of STR)
 
-14/07/2019 ROUTER
+#### 14/07/2019 ROUTER
 [x] Implement react router for town/world
 [ ] Implement react router for structures
 [ ] Can go to resource production structure directly from warehouse
 
-14/07/2019 XP Progression 
+#### 14/07/2019 XP Progression 
 [ ] https://stackoverflow.com/questions/6954874/php-game-formula-to-calculate-a-level-based-on-exp
 [ ] or find RPG framework
 [ ] XP should have diminishing returns on weaker enemies
     research: wow?
 
-14/07/2019 Rooms of tavern
+#### 14/07/2019 Rooms of tavern
 [x] figure out how amount of rooms is determined. perhaps by level?
 
-15/07/2019 GAME DESIGN: Party speed [+design]
+#### 15/07/2019 GAME DESIGN: Party speed [+design]
 [ ] The speed in which the party progresses in a quest could be determined by the party itself. Perhaps the slowest member?
 
-15/07/2019 CHORE: host on github? [+tech]
+#### 15/07/2019: host on github? [+tech]
 [x] Maybe I can host this stuff on github pages. (https://github.com/gitname/react-gh-pages)
 [x] Probably best to start a new `create-react-app`.
 
-20/07/2019 contextual popup
+#### 20/07/2019 contextual popup
 [x] the contextual info should just pop up over the item that you have clicked
 
-20/07/2019 open popups
+#### 20/07/2019 open popups
 [x] popups can be opened using withAppContext
 
-20/07/2019 quest view
+#### 20/07/2019 quest view
 [x] shows latest log message when not in encounter
 
-22/07/2019 OBJECTIVES
+#### 22/07/2019 OBJECTIVES
 [ ] we could have objectives as a type of achievement / tutorial kinda thing. players would learn about the game
     and get rewarded when they complete an objective
 
-23/06/2019 POPUPS CAN FLIP
+#### 23/06/2019 POPUPS CAN FLIP
 [x] popups should try to position themselves and if there is no space, flip
 
-24/06/2019 BUTTON COMPONENTS
+#### 24/06/2019 BUTTON COMPONENTS
 [ ] buttons should get their own react component.
 [ ] first identify the different button types
 
-25/07/2019 SCROLLING TABS
+#### 25/07/2019 SCROLLING TABS
 [ ] Tabbar could be scrollable
 [ ] Scrollbar should be on top
     https://stackoverflow.com/questions/18997724/how-to-change-scroll-bar-position-with-css
 
-25/07/2019 CUSTOM CURSORS [+tech]
+#### 25/07/2019 CUSTOM CURSORS [+tech]
 [ ] We need cursors for move inventory item and not-allowed
 [x] Need cursors in pixi context. Why isn't it working? (https://codesandbox.io/s/autumn-waterfall-ng6gb)
     https://pixijs.io/examples/#/interaction/custom-mouse-icon.js
     Fixed! Path needed {process.env.PUBLIC_URL}
 
-29/07/2019 EQUIP GEAR
+#### 29/07/2019 EQUIP GEAR
 [x] Can equip gear from the players inventory
 [x] Can equip gear from the warehouse
 
@@ -150,7 +150,7 @@ backlog of ideas
   chest                feet
   mainhand  offhand sidearm
 
-31/07/2019 THREE.js
+#### 31/07/2019 THREE.js
 Because I'm not an artist and I want to use unity3d assets
 [x] First check if components dont get remounted too much. If yes, find out why and resolve issue!     
 [ ] Find cool fantasy town assets
@@ -170,13 +170,14 @@ Because I'm not an artist and I want to use unity3d assets
 [x] On second hand, I think it's worth checking out react-three-fiber. Might get complicated otherwise  
 
 
-04/08/2019 Swap items between warehouse and adventurers [+tech]
+#### 04/08/2019 Swap items between warehouse and adventurers [+tech]
 [x] Take items from warehouse and assign to adventurer inventory
 [x] Take items from warehouse and assign to adventurer gear
 
-08/08/2019 Combat
+#### 08/08/2019 Combat [+design] [+tech]
 Still haven't figured out a combat game system. But can implement some ground work. 
 Want to store the combat state in the store as such:
+```
 combat: {
     actors: [{
         allegiance: "player|enemy",
@@ -192,6 +193,7 @@ combat: {
         actionEndsAt: time
     }
 }
+```
 
 During combat each actor has a nr of AP. They can spend this in a few ways:
 
@@ -241,6 +243,7 @@ COMBAT SEQUENCE
 EFFECTS
 in combat these effects should be checked all the time, they are modifiers for various things
 
+```
 enum EffectType { attack, passive, ... }
 enum EffectResultType { fireDamage, ... }
 
@@ -252,6 +255,7 @@ interface Effect {
     duration?: number,
     charges?: number
 }
+```
 
 eg: "+20 fire dmg to undead" {
   effectType: attack,
@@ -277,31 +281,31 @@ base and (secondary stats) are:
 [ ] each weapon / armour has a STR requirement
 [ ] shields and weapons have a integrity property (1-0) when it reaches 0 it breaks
 
-23/08/2019 WORLD MAP
+#### 23/08/2019 WORLD MAP
 [x] World map is paneable by dragging. Can feature a compass that always points to the town
 [x] Research: three.js controls (https://threejs.org/examples/misc_controls_map.html)
     http://danni-three.blogspot.com/2013/09/threejs-heightmaps.html
 
-23/08/2019 THEME
+#### 23/08/2019 THEME [+art] [+design]
 todo: figure out a cool theme,
 research fantasy concept art
 
-24/08/2019 NAMING
+#### 24/08/2019 NAMING
 [x] come up with a better name for worn equipment, (perhaps 'apparel')
 [x] refactor into the following structure: 
     EQUIPMENT = { APPAREL, WEAPONS }
 
-17/11/2019 STORE WORLD POS
+#### 17/11/2019 STORE WORLD POS
 (obsolete)
 [-] store world pos in redux, pass to WorldMap.scrollToPosition
 [-] read: Three.js projecting mouse clicks to a 3D scene - how to do it and how it works
           https://barkofthebyte.azurewebsites.net/post/2014/05/05/three-js-projecting-mouse-clicks-to-a-3d-scene-how-to-do-it-and-how-it-works
 
-17/11/2019 ANIMATIONS
+#### 17/11/2019 ANIMATIONS
 (obsolete)
 Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy.com/2017/11/06/creating-animated-gltf-characters-with-mixamo-and-blender/
 
-THREEJS examples (MIGHT IS RIGHT):
+#### THREEJS examples (MIGHT IS RIGHT):
 [ ] http://server1.lazy-kitty.com/tests/
 [x]   check achievements (http://server1.lazy-kitty.com/tests/achievements_2019_08_11/)
     
@@ -309,100 +313,108 @@ THREEJS examples (MIGHT IS RIGHT):
 (obsolete)
 [-] uses height-map images (grey-scale) https://github.com/Usnul/meep
 
-26/11/2019 Smoke particles from the houses in world map
+#### 26/11/2019 Smoke particles from the houses in world map
 [-] https://aerotwist.com/tutorials/creating-particles-with-three-js/
-[ ] https://codepen.io/inlet/pen/feddc8fa71e3b5afc6c3e4eda9cc83df
+[x] https://codepen.io/inlet/pen/feddc8fa71e3b5afc6c3e4eda9cc83df
 
-02/12/2019 Resource update should happen at a set interval
-    instead of every game tick
+#### 02/12/2019 Resource update 
+[ ] should happen at a set interval instead of every game tick
 
-10/12/2019 Item warehouse > adventurer
+#### 10/12/2019 Item warehouse > adventurer
 [ ] Can drop items from warehouse onto adventurer    
 
-01/01/2020 rerender of world [+tech]
+#### 01/01/2020 rerender of world [+tech]
 [ ] Figure out why the world gets rerendered on state change of App
 
-2/01/2020 disable threejs controller
+####  2/01/2020 disable threejs controller
 (obsolete)
 [-] You cant scroll the 
 
-28/03/2020 Pixi-js [+art], [+tech]
+#### 28/03/2020 Pixi-js [+art], [+tech]
 [x] Screw 3d its way too complicated. Going to try pixi-js
 
-30/03/2020 Structure in town popup [+tech]
+#### 30/03/2020 Structure in town popup [+tech]
 [ ] Town should store location
 [ ] Structures in town should display a short popup on click. The popup should have a button to expand the GUI and show all the details
 
-30/03/2020 Mobile [+art], [+tech]
+#### 30/03/2020 Mobile [+art], [+tech]
 [ ] Need to completely check if the app is responsive and works in mobile
 
-30/03/2020 Leaders [+design]
+#### 30/03/2020 Leaders [+design]
 [ ] Parties can have a leader. The leader provides the icon for the party. What else does it mean?
 [ ] Leader ability?
 
-30/03/2020 Combat situation visuals [+art], [+tech]
-[ ] 
+#### 30/03/2020 Combat situation visuals [+art], [+tech]
 [ ] See https://github.com/knervous/tiled-pixi-react
     I have cloned this repo. Will try to move some code over
 
-30/03/2020 Refactor react [+tech]
+#### 30/03/2020 Refactor react [+tech]
 [ ] Refactor react, remove containers. Implement useSelector hook
 [ ] Check for needless rerendering
 [ ] Move Windows into own component and use WindowManager
 
-01/04/2020 Draw quest path [+art]
+#### 01/04/2020 Draw quest path [+art]
 [x] Would be cool to see the path that a party took
     https://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas
 [ ] Best would be to have a dotted line..    
 
-02/04/2020 Toasts [+tech]
+#### 02/04/2020 Toasts [+tech]
 [x] Basic toast implementation is done
 [ ] Implement in different scenarios (quest complete, quest failed, achievement unlocked)
 [ ] Add sound
 
-02/04/2020 Make town come alive [+art]
+#### 02/04/2020 Make town come alive [+art]
 [x] Add animations
 [x] Add particle effects (fire, smoke)
 
-02/04/2020 Cool smoke shader [+art]
+#### 02/04/2020 Cool smoke shader [+art]
 [ ] Can use this in some sort of menu or loader?
     https://codepen.io/davidhartley/pen/seEki
 
-02/04/2020 Remove preloader [+ref]
+#### 02/04/2020 Remove preloader [+ref]
 [ ] Remove preloader
     Preloading is not needed for images.
 [ ] Figure out if needed for sound?
 [ ] If needed, preloader for pixi can be implemented as such
     https://www.youtube.com/watch?v=KwVszq2RjX4
 
-03/04/2020 Make Inventory Responsive Again (MIRA [+tech]
+#### 03/04/2020 Make Inventory Responsive Again (MIRA [+tech]
 nr of columns is determined by screen size (media queries)
 [ ] medium width
 
-03/04/2020 Structure views have a banner [+art]
+#### 03/04/2020 Structure views have a banner [+art]
 [x] It should show the interior of the structure, what's happening there
 
-04/04/2020 Hit area in townview [+tech]
+#### 04/04/2020 Hit area in townview [+tech]
 [x] https://github.com/explooosion/hitarea-shapes
 [x] Physics editors: https://loonride.com/tools/physics
 
-06/04/2020 Quest editor [+tech]
+#### 06/04/2020 Quest editor [+tech]
 An editor that could help in designing quests on the world map. Draws a list of nodes
 
-06/04/2020 Encounter indicator in map marker [+tech], [+art]
+#### 06/04/2020 Encounter indicator in map marker [+tech], [+art]
 Map marker needs to show there is an encounter going on. 
 [x] Maybe exclamation mark? 
 
-10/10/2020 Make structureviews responsive 
+#### 10/10/2020 Make structureviews responsive 
 [ ] Tavern
 [ ] Warehouse
 
-10/10/2020 Make legenda for town 
+#### 10/10/2020 Make legenda for town 
 [ ] Clicking on it will scroll the structure into view and after brief delay, open window
 
-
-10/04/2020 Oracle, Encounters? [+tech]
+#### 10/04/2020 Oracle, Encounters? [+tech]
 Should think about what to do with the oracle. Maybe refactor the whole thing
 In any case I have decided to change the way encounters work. I'm going to leave the idea of text-adventure based stuff
-and do everything in the combat map. In addition, every encounter has one ore more multiple scenes (they are like rooms). 
+and do everything in the 'combat map'. However when out of combat, In addition, every encounter has one ore more multiple scenes (they are like rooms). 
 The party can freely move between these scenes and sometimes a scene change is forced.
+[ ] Implement pixi-tilemap in react-pixi (check https://github.com/Alan01252/pixi-tilemap-tutorial)
+also: https://pixijs.io/pixi-tilemap/demo/main.js
+[ ] Implement tmx loader (see tiled-pixi-react: https://www.npmjs.com/package/tiled-pixi-react)
+
+The static part of the scene is not stored in store. The dynamic part is created by Oracle.createSceneState() and stored in redux. After that, any changes (actors moving, stuff getting added/removed) are also persisted to redux.
+
+#### 11/10/2020 QuestPanel vertical [+art]
+Because the QuestPanel will be showing the sceneview it makes more sense to have a vertical layout where everything is stacked underneath each other.
+![](img/questpanel-vertical.png)
+In general we should design in such a way that if content doesnt fit on the screen there is vertical scroll.
