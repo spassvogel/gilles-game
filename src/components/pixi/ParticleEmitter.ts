@@ -1,24 +1,15 @@
-import { PixiComponent, applyDefaultProps } from "@inlet/react-pixi";
+import { PixiComponent, applyDefaultProps, Container } from "@inlet/react-pixi";
 import * as PIXI  from 'pixi.js';
 import * as particles from 'pixi-particles';
+import { OverrideProps, PropsOf } from 'utils/typescript';
 
-interface Props {
+
+type Props = OverrideProps<PropsOf<typeof Container>, {
     image: string;
     config: particles.OldEmitterConfig | particles.EmitterConfig;
-}
+}>;
 
-// todo: Do I really have to do all this stuff?
-type PointLike = PIXI.Point | PIXI.ObservablePoint | [number, number] | [number] | number;
-type WithPointLike<T extends keyof any> = { [P in T]: PointLike };
-type InteractionEvents = {
-  [P in PIXI.interaction.InteractionEventTypes]?: (event: PIXI.interaction.InteractionEvent) => void;
-};
-type Container<T extends PIXI.DisplayObject> = Partial<Omit<T, 'children'>> &
-Partial<WithPointLike<'position' | 'scale' | 'pivot' | 'anchor'>> &
-InteractionEvents;
-type IContainer = Container<PIXI.ParticleContainer>;
-
-const ParticleEmitter = PixiComponent<Props & IContainer, PIXI.ParticleContainer>("ParticleEmitter", {
+const ParticleEmitter = PixiComponent<Props, PIXI.ParticleContainer>("ParticleEmitter", {
     create() {
       return new PIXI.ParticleContainer();
     },
