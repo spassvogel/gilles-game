@@ -417,4 +417,15 @@ The static part of the scene is not stored in store. The dynamic part is created
 #### 11/10/2020 QuestPanel vertical [+art]
 Because the QuestPanel will be showing the sceneview it makes more sense to have a vertical layout where everything is stacked underneath each other.
 ![](img/questpanel-vertical.png)
+(left = vertical, right = horizontal)
+
 In general we should design in such a way that if content doesnt fit on the screen there is vertical scroll.
+
+#### 12/10/2020 Interaction in scenes [+tech]
+For interaction in the scene I want to develop a sort of system where you first click an adventurer to select it. Then underneath one to three buttons appear, [move, attack, interact], move is selected by default. 
+
+Then there are two options:
+[ ] Dragging to a tile, shows a red/green line between destination and adventurer
+[ ] Clicking on a tile
+
+Currently favouring dragging, because we can use it in combat and show the AP cost 
