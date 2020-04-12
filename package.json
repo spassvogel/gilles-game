@@ -25,6 +25,7 @@
     "redux-persist": "^5.10.0",
     "reselect": "^4.0.0",
     "seedrandom": "^3.0.5",
+    "tmx-parser": "^1.5.0",
     "typescript": "^3.8.3",
     "use-trace-update": "^1.3.0"
   },
