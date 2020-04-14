@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/gilles-game/static/css/main.db2fbf11.chunk.css",
-    "main.js": "/gilles-game/static/js/main.e0c2e901.chunk.js",
-    "main.js.map": "/gilles-game/static/js/main.e0c2e901.chunk.js.map",
+    "main.css": "/gilles-game/static/css/main.ec64c58e.chunk.css",
+    "main.js": "/gilles-game/static/js/main.61facec7.chunk.js",
+    "main.js.map": "/gilles-game/static/js/main.61facec7.chunk.js.map",
     "runtime-main.js": "/gilles-game/static/js/runtime-main.50db8a87.js",
     "runtime-main.js.map": "/gilles-game/static/js/runtime-main.50db8a87.js.map",
-    "static/js/2.3838823d.chunk.js": "/gilles-game/static/js/2.3838823d.chunk.js",
-    "static/js/2.3838823d.chunk.js.map": "/gilles-game/static/js/2.3838823d.chunk.js.map",
+    "static/js/2.42590ada.chunk.js": "/gilles-game/static/js/2.42590ada.chunk.js",
+    "static/js/2.42590ada.chunk.js.map": "/gilles-game/static/js/2.42590ada.chunk.js.map",
     "index.html": "/gilles-game/index.html",
-    "precache-manifest.3940be659506751e6b5a20156a8ba5ef.js": "/gilles-game/precache-manifest.3940be659506751e6b5a20156a8ba5ef.js",
+    "precache-manifest.1ddbc21b09f7d9478a36bc4a5e334eda.js": "/gilles-game/precache-manifest.1ddbc21b09f7d9478a36bc4a5e334eda.js",
     "service-worker.js": "/gilles-game/service-worker.js",
-    "static/css/main.db2fbf11.chunk.css.map": "/gilles-game/static/css/main.db2fbf11.chunk.css.map",
-    "static/js/2.3838823d.chunk.js.LICENSE.txt": "/gilles-game/static/js/2.3838823d.chunk.js.LICENSE.txt"
+    "static/css/main.ec64c58e.chunk.css.map": "/gilles-game/static/css/main.ec64c58e.chunk.css.map",
+    "static/js/2.42590ada.chunk.js.LICENSE.txt": "/gilles-game/static/js/2.42590ada.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.50db8a87.js",
-    "static/js/2.3838823d.chunk.js",
-    "static/css/main.db2fbf11.chunk.css",
-    "static/js/main.e0c2e901.chunk.js"
+    "static/js/2.42590ada.chunk.js",
+    "static/css/main.ec64c58e.chunk.css",
+    "static/js/main.61facec7.chunk.js"
   ]
 }
