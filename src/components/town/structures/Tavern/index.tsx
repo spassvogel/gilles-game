@@ -22,13 +22,13 @@ const Tavern = (props: Props) => {
                 props.onStructureClick(structure);
             }}
             hitArea={hitAreaShapes}
-            image={`/img/town/town-alpha/${structure}.png`}
+            image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}
         >
             <ParticleEmitter
                 name="smoke"
                 x={107}
                 y={-2}
-                image={`/img/town/effects/smokeparticle.png`} 
+                image={`${process.env.PUBLIC_URL}/img/town/effects/smokeparticle.png`} 
                 config={smoke} 
             />
         </Sprite>

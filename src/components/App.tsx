@@ -8,7 +8,7 @@ import * as React from "react";
 import { useRef, useState, createContext } from "react";
 import { DndProvider} from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
-import { BrowserRouter as Router, Link, Redirect, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Link, Redirect, Route, Switch, HashRouter} from "react-router-dom";
 import { Persistor} from "redux-persist";
 import { Sound, SoundManager} from "global/SoundManager";
 import { TextManager} from "global/TextManager";
@@ -180,7 +180,7 @@ const App = (props: AllProps) => {
                 onClick={handleAppClick}
             >
                 <DndProvider backend={HTML5Backend}>
-                <Router>
+                <HashRouter>
                     <Preloader
                         manifest={manifest}
                         onLoadComplete={handleMediaLoadComplete}
@@ -214,7 +214,7 @@ const App = (props: AllProps) => {
                         <ContextTooltip />    
                         <Toasts />
                     </Preloader>
-                </Router>
+                </HashRouter>
                 </DndProvider>
             </div>
         </AppContext.Provider>

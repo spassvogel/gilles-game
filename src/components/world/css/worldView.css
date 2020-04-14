@@ -21,7 +21,7 @@
 
 .world-view .compass {
     width: 64px;
-    background: url("/img/world/ui/compass2.png");
+    background: url("/gilles-game/img/world/ui/compass2.png");
     height: 64px;
     position: absolute;
     z-index: 1;

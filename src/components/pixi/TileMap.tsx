@@ -78,7 +78,6 @@ const TileMap = () => {
         }
         return new Uint8Array( data );
     }
-
     const parseLayer = (layer: LayerData): Uint8Array => {
         const data = layer.data.reduce((acc: Array<number>, cell, index) => {
             const { x, y } = getTileCoordsByGid(cell, layer);
@@ -179,6 +178,7 @@ const tilePath = 'https://regl-project.github.io/regl/www/gallery/assets/tiles.p
           if(ref.current){ 
             (ref.current! as any).addChild(tileMesh);
           }
+
           
         
         // const sprite = new PIXI.Sprite(image);

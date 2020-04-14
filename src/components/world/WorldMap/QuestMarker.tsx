@@ -34,7 +34,7 @@ const QuestMarker = (props: Props) => {
 
     return (
         <Sprite
-            image={image} 
+            image={`${process.env.PUBLIC_URL}${image}`} 
             name={quest.name}
             x={position.x}
             y={position.y}
@@ -50,7 +50,7 @@ const QuestMarker = (props: Props) => {
         >
             { leader && (
             <Sprite 
-                image={leader.avatarImg} 
+                image={`${process.env.PUBLIC_URL}${leader.avatarImg}`} 
                 name="avatar"
                 anchor={new PIXI.Point(0.5, 0.5)}
                 x={0}
@@ -60,7 +60,7 @@ const QuestMarker = (props: Props) => {
             />)}
             {encounterActive && (
             <Sprite 
-                image='/img/world/quest-alert.png'
+                image={`${process.env.PUBLIC_URL}/img/world/quest-alert.png`} 
                 name="quest-alert"
                 anchor={new PIXI.Point(0.5, 1)}
                 x={180}

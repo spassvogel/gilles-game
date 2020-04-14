@@ -12,7 +12,7 @@ const BLADE_ROTATION_SPEED = 0.01;
 
 const LumberMill = (props: Props) => {
     const structure = Structure.lumberMill;
-    const atlas = `/img/town/town-alpha/${structure}.json`;
+    const atlas = `${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.json`;
     const hitAreaShapes = new HitAreaShapes(polygons, structure);
     const [textures, setTextures] = useState<ITextureDictionary>();
 
