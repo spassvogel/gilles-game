@@ -5,6 +5,7 @@ import { withWindow } from "hoc/withWindow";
 import * as React from "react";
 import { compose } from "redux";
 import "./css/cheatbox.css";
+import SettingsWindow from './SettingsWindow';
 
 export interface DispatchProps {
 }
@@ -26,10 +27,18 @@ const Menu = (props: AllProps & AppContextProps) => {
         const window = <CheatWindow title = "Cheats" />;
         props.onOpenWindow(window);
     };
+
+    const handleClickSettings = () => {
+        const window = <SettingsWindow title = "Settings" />;
+        props.onOpenWindow(window);
+    };
     return (
         <div className="menu">
             <p>
-                <button onClick = { handleClickCheats }>Cheats!</button>
+                <button onClick={handleClickCheats}>Cheats!</button>
+            </p>
+            <p>
+                <button onClick={handleClickSettings}>Settings</button>
             </p>
         </div>
     );

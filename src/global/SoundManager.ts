@@ -17,8 +17,13 @@ const musicTracks: { [key: number]: Howl; } = {};
 let currentMusicTrack: MusicTrack|null = null;
 
 const sounds: { [key: number]: Howl; } = {};
+const DEFAULT_MUSIC_VOLUME = 0.8;
+const STORAGE_KEY_MUSIC_VOLUME = "musicVolume";
 
 export class SoundManager {
+    private static _musicVolume: number;
+    private static _soundVolume: number;
+
     public static loadMedia(m: MediaItem[]) {
         media = m;
     }
@@ -55,15 +60,45 @@ export class SoundManager {
 
         if (currentMusicTrack !== null) {
             const currentMusic: Howl = musicTracks[currentMusicTrack];
-            currentMusic.fade(1, 0, 500);
+            currentMusic.fade(SoundManager.musicVolume, 0, 500);
         }
         const nextMusic = musicTracks[track];
         if (!nextMusic.playing()) {
             nextMusic.loop(true);
             nextMusic.play();
         }
-        nextMusic.fade(0, 1, 500);
+        nextMusic.fade(0, SoundManager.musicVolume, 500);
 
         currentMusicTrack = track;
+    }
+
+    public static soundVolume(volume: number) {
+        
+    }
+
+    static set musicVolume(volume: number) {
+        if (currentMusicTrack) {
+            musicTracks[currentMusicTrack].volume(volume);
+        }
+        this._musicVolume = volume;
+        try {
+            localStorage.setItem(STORAGE_KEY_MUSIC_VOLUME, `${volume}`);
+        }
+        catch (e) {}
+    }
+
+    static get musicVolume() : number {
+        if (this._musicVolume !== undefined) {
+            return this._musicVolume;
+        }
+        const fromStorage = localStorage.getItem(STORAGE_KEY_MUSIC_VOLUME);
+        if (fromStorage == null) { 
+            this._musicVolume = DEFAULT_MUSIC_VOLUME;
+        } else {
+            this._musicVolume = parseFloat(fromStorage);
+            console.log('got value from storage', fromStorage)
+        }
+        console.log(this._musicVolume)
+        return this._musicVolume;
     }
 }

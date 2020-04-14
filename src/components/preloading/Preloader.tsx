@@ -72,7 +72,7 @@ const Preloader = (props: Props) => {
         }
         if (mediaType === MediaType.sound) {
             const value = new Howl({
-                src: [ url ],
+                src: [ `${process.env.PUBLIC_URL}/${url}` ],
             });
             item = {
                 content: value,
