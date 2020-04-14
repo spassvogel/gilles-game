@@ -9,6 +9,8 @@ import { StoreState } from 'stores';
 import { selectQuestLogEntries } from 'selectors/quests';
 import { TextEntry } from 'constants/text';
 import { updateEncounterResult, advanceQuest } from 'actions/quests';
+import TileMap from 'components/pixi/TileMap';
+import { Stage, Graphics } from '@inlet/react-pixi';
 
 interface Props {
     questName: string;
@@ -93,6 +95,17 @@ const QuestDetails = (props: Props) => {
         <div>
             <h1 className="app-h2">{TextManager.getQuestTitle(quest.name)}</h1>
             <div className="questlog">
+                <Stage width={1000/2} height={1000/2} >
+                    <Graphics
+                            name="hitarea"
+                            draw={graphics => {
+                                graphics.beginFill(0xBADA55);
+                                graphics.drawRect(0, 0, 1000, 1000)
+                                graphics.endFill();
+                            }}
+                        /> 
+                    <TileMap />
+                </Stage>
                 { message }
                 <div className="actions">
                     { actions}
