@@ -1,15 +1,14 @@
 import { PixiComponent, applyDefaultProps, Container } from "@inlet/react-pixi";
 import * as PIXI  from 'pixi.js';
 import * as particles from 'pixi-particles';
-import { OverrideProps, PropsOf } from 'utils/typescript';
 
 
-type Props = OverrideProps<PropsOf<typeof Container>, {
+interface Props  {
     image: string;
     config: particles.OldEmitterConfig | particles.EmitterConfig;
-}>;
+};
 
-const ParticleEmitter = PixiComponent<Props, PIXI.ParticleContainer>("ParticleEmitter", {
+const ParticleEmitter = PixiComponent<Props & React.ComponentProps<typeof Container>, PIXI.ParticleContainer>("ParticleEmitter", {
     create() {
       return new PIXI.ParticleContainer();
     },
