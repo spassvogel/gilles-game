@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "./static/css/main.db2fbf11.chunk.css",
-    "main.js": "./static/js/main.438309d8.chunk.js",
-    "main.js.map": "./static/js/main.438309d8.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.b58f9181.js",
-    "runtime-main.js.map": "./static/js/runtime-main.b58f9181.js.map",
-    "static/js/2.3838823d.chunk.js": "./static/js/2.3838823d.chunk.js",
-    "static/js/2.3838823d.chunk.js.map": "./static/js/2.3838823d.chunk.js.map",
-    "index.html": "./index.html",
-    "precache-manifest.595fda2bfba5a3996d95a56d51a0a2dc.js": "./precache-manifest.595fda2bfba5a3996d95a56d51a0a2dc.js",
-    "service-worker.js": "./service-worker.js",
-    "static/css/main.db2fbf11.chunk.css.map": "./static/css/main.db2fbf11.chunk.css.map",
-    "static/js/2.3838823d.chunk.js.LICENSE.txt": "./static/js/2.3838823d.chunk.js.LICENSE.txt"
+    "main.css": "/gilles-game/static/css/main.db2fbf11.chunk.css",
+    "main.js": "/gilles-game/static/js/main.e0c2e901.chunk.js",
+    "main.js.map": "/gilles-game/static/js/main.e0c2e901.chunk.js.map",
+    "runtime-main.js": "/gilles-game/static/js/runtime-main.50db8a87.js",
+    "runtime-main.js.map": "/gilles-game/static/js/runtime-main.50db8a87.js.map",
+    "static/js/2.3838823d.chunk.js": "/gilles-game/static/js/2.3838823d.chunk.js",
+    "static/js/2.3838823d.chunk.js.map": "/gilles-game/static/js/2.3838823d.chunk.js.map",
+    "index.html": "/gilles-game/index.html",
+    "precache-manifest.3940be659506751e6b5a20156a8ba5ef.js": "/gilles-game/precache-manifest.3940be659506751e6b5a20156a8ba5ef.js",
+    "service-worker.js": "/gilles-game/service-worker.js",
+    "static/css/main.db2fbf11.chunk.css.map": "/gilles-game/static/css/main.db2fbf11.chunk.css.map",
+    "static/js/2.3838823d.chunk.js.LICENSE.txt": "/gilles-game/static/js/2.3838823d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.b58f9181.js",
+    "static/js/runtime-main.50db8a87.js",
     "static/js/2.3838823d.chunk.js",
     "static/css/main.db2fbf11.chunk.css",
-    "static/js/main.438309d8.chunk.js"
+    "static/js/main.e0c2e901.chunk.js"
   ]
 }
