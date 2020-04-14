@@ -78,6 +78,8 @@ const App = (props: AllProps) => {
 
             const window = <StructureDetailsView structure={structure} title={displayName}/>;
             handleWindowOpened(window);
+
+            SoundManager.playSound(Sound.buttonClick);
        }
    };
 

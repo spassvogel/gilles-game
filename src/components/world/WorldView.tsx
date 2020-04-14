@@ -1,6 +1,6 @@
 import WorldMap from "components/world/WorldMap";
 import React, { useEffect, useRef, useState } from "react";
-import { MusicTrack, SoundManager } from "global/SoundManager";
+import { MusicTrack, SoundManager, Sound } from "global/SoundManager";
 import "./css/worldView.css";
 import QuestPanel from './QuestPanel';
 
@@ -16,9 +16,6 @@ export interface Props {
 const RealWorldView = () => {
     const worldMapRef = useRef<HTMLDivElement>(null);
     const [selectedQuestName, setSelectedQuestName] = useState<string>();
-
-
- 
 
     useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.world, "sound/music/TheLoomingBattle.ogg");
@@ -46,6 +43,7 @@ const RealWorldView = () => {
         } else {
             setSelectedQuestName(questName);
         }
+        SoundManager.playSound(Sound.buttonClick);
     };
 
     const handleRetrieveWorldViewRef = () => {

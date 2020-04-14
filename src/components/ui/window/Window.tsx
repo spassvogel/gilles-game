@@ -2,6 +2,7 @@ import "components/ui/css/common/icon.css";
 import "components/ui/resources/css/resourcesbox.css";
 import SquareIconButton from "components/ui/buttons/SquareIconButton";
 import * as React from "react";
+import { SoundManager, Sound } from 'global/SoundManager';
 
 // todo: refactor using WindowManager [30/03/2020]
 export interface Props {
@@ -22,11 +23,16 @@ const Window: React.FunctionComponent<AllProps> = (props) => {
     const handleClose = (e: React.MouseEvent) => {
         if (props.onClose) {
             props.onClose();
+
+            SoundManager.playSound(Sound.buttonClick);
         }
+        
     };
     const handleBack = (e: React.MouseEvent) => {
         if (props.onBack) {
             props.onBack();
+
+            SoundManager.playSound(Sound.buttonClick);
         }
     };
 
