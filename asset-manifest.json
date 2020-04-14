@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "./gilles-game/static/css/main.72cf33f2.chunk.css",
-    "main.js": "./gilles-game/static/js/main.84b3e6ea.chunk.js",
-    "main.js.map": "./gilles-game/static/js/main.84b3e6ea.chunk.js.map",
-    "runtime-main.js": "./gilles-game/static/js/runtime-main.2d0f9708.js",
-    "runtime-main.js.map": "./gilles-game/static/js/runtime-main.2d0f9708.js.map",
-    "static/js/2.b3591b8c.chunk.js": "./gilles-game/static/js/2.b3591b8c.chunk.js",
-    "static/js/2.b3591b8c.chunk.js.map": "./gilles-game/static/js/2.b3591b8c.chunk.js.map",
-    "index.html": "./gilles-game/index.html",
-    "precache-manifest.3bc0fc630136cb83e74c229fdbdc1482.js": "./gilles-game/precache-manifest.3bc0fc630136cb83e74c229fdbdc1482.js",
-    "service-worker.js": "./gilles-game/service-worker.js",
-    "static/css/main.72cf33f2.chunk.css.map": "./gilles-game/static/css/main.72cf33f2.chunk.css.map",
-    "static/js/2.b3591b8c.chunk.js.LICENSE.txt": "./gilles-game/static/js/2.b3591b8c.chunk.js.LICENSE.txt"
+    "main.css": "./static/css/main.72cf33f2.chunk.css",
+    "main.js": "./static/js/main.a4bf3b53.chunk.js",
+    "main.js.map": "./static/js/main.a4bf3b53.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.b58f9181.js",
+    "runtime-main.js.map": "./static/js/runtime-main.b58f9181.js.map",
+    "static/js/2.b3591b8c.chunk.js": "./static/js/2.b3591b8c.chunk.js",
+    "static/js/2.b3591b8c.chunk.js.map": "./static/js/2.b3591b8c.chunk.js.map",
+    "index.html": "./index.html",
+    "precache-manifest.90553669f8b7c78c6749cc741d5cd163.js": "./precache-manifest.90553669f8b7c78c6749cc741d5cd163.js",
+    "service-worker.js": "./service-worker.js",
+    "static/css/main.72cf33f2.chunk.css.map": "./static/css/main.72cf33f2.chunk.css.map",
+    "static/js/2.b3591b8c.chunk.js.LICENSE.txt": "./static/js/2.b3591b8c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.2d0f9708.js",
+    "static/js/runtime-main.b58f9181.js",
     "static/js/2.b3591b8c.chunk.js",
     "static/css/main.72cf33f2.chunk.css",
-    "static/js/main.84b3e6ea.chunk.js"
+    "static/js/main.a4bf3b53.chunk.js"
   ]
 }
