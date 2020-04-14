@@ -95,15 +95,15 @@ const QuestDetails = (props: Props) => {
         <div>
             <h1 className="app-h2">{TextManager.getQuestTitle(quest.name)}</h1>
             <div className="questlog">
-                <Stage width={1000/2} height={1000/2} >
-                    <Graphics
+                <Stage width={800/1} height={800/1} >
+                    {/* <Graphics
                             name="hitarea"
                             draw={graphics => {
                                 graphics.beginFill(0xBADA55);
                                 graphics.drawRect(0, 0, 1000, 1000)
                                 graphics.endFill();
                             }}
-                        /> 
+                        />  */}
                     <TileMap />
                 </Stage>
                 { message }
