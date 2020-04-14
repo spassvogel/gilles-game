@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1e9433d80fbe1593bfac3b4573fab28d",
+    "revision": "25a7aee386bfa2df19d0415607972d6f",
     "url": "/gilles-game/index.html"
   },
   {
-    "revision": "ad58def74c4d74e30178",
+    "revision": "0c731a1ac276c14003ec",
     "url": "/gilles-game/static/css/main.72cf33f2.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/gilles-game/static/js/2.3838823d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ad58def74c4d74e30178",
-    "url": "/gilles-game/static/js/main.b92a12a8.chunk.js"
+    "revision": "0c731a1ac276c14003ec",
+    "url": "/gilles-game/static/js/main.466c16b9.chunk.js"
   },
   {
     "revision": "eb0b70bceeb3a08644d3",
