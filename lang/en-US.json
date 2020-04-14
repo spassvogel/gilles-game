@@ -1,10 +1,10 @@
 {
     "common-article-defined": "the {{noun}}",
     "common-article-undefined": "a {{noun}}",
-    "common-cheat-gold-added": "CHEAT! Added {{amount}} gold.",
-    "common-cheat-resources-added": "CHEAT! Added {{amount}} of each resource.",
-    "common-cheat-item-added": "CHEAT! Added {{item:name item \"aA\"}}.",
-    "common-cheat-workers-added": "CHEAT! Added {{amount}} workers.",
+    "common-cheat-gold-added": "Added {{amount}} gold.",
+    "common-cheat-resources-added": "Added {{amount}} of each resource.",
+    "common-cheat-item-added": "Added {{item:name item \"aA\"}} to stockpile.",
+    "common-cheat-workers-added": "Added {{amount}} workers.",
     "common-view-button-town": "Town",
     "common-view-button-world": "World",
     "common-log-tab-all": "all",
@@ -12,7 +12,7 @@
 
     "encounter-backstabbed-description": "A group of rogues emerges from the bushes, knives drawn.",
     "encounter-goblinHouseHallway-description": "The party stands inside the hallway",
-    "encounter-goblinHouseOutside-description": "As the party makes their way along the forest you notice a small house just of the road, smoke rises from the chimney",
+    "encounter-goblinHouseOutside-description": "As the party makes their way along the forest they notice a small house just of the road, smoke rises from the chimney",
     "encounter-thebigtree-description": "A huge tree blocks the way",
 
     "item-deed-deedForLumbermill-name": "deed for a lumber mill",
@@ -72,6 +72,7 @@
     "item-trinket-ring-name": "ring",
     "item-questItem-blueprints-name": "blueprints",
     "item-questItem-crate-name": "crate",
+    "item-questItem-dragonEye-name": "dragon eye",
     "item-questItem-dynamite-name": "dynamite",
     "item-questItem-eye-name": "eye",
     "item-questItem-feather-name": "feather",
@@ -133,7 +134,7 @@
     "structure-alchemist-name": "Alchemist",
     "structure-armoursmith-name": "Armoursmith",
     "structure-garden-name": "Garden",
-    "structure-lumber-mill-name": "Lumber mill",
+    "structure-lumberMill-name": "Lumber mill",
     "structure-mine-name": "Mine",
     "structure-quarry-name": "Quarry",
     "structure-tannery-name": "Tannery",
@@ -154,6 +155,11 @@
     "ui-equipmentslot-feet": "feet",
     "ui-equipmentslot-mainHand": "main hand",
     "ui-equipmentslot-offHand": "off hand",
+
+    "ui-toast-type-achievementUnlocked": "Achievement unlocked!",
+    "ui-toast-type-cheat": "Cheat activated!",
+    "ui-toast-type-questCompleted": "Quest completed!",
+    "ui-toast-type-questEncounter": "Encounter started!",
 
     "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
     "test-game-welcome": "You have taken your first steps into a larger world"
