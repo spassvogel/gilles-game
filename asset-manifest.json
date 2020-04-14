@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "./gilles-game/static/css/main.72cf33f2.chunk.css",
-    "main.js": "./gilles-game/static/js/main.2c68a2c9.chunk.js",
-    "main.js.map": "./gilles-game/static/js/main.2c68a2c9.chunk.js.map",
-    "runtime-main.js": "./gilles-game/static/js/runtime-main.2d0f9708.js",
-    "runtime-main.js.map": "./gilles-game/static/js/runtime-main.2d0f9708.js.map",
-    "static/js/2.3838823d.chunk.js": "./gilles-game/static/js/2.3838823d.chunk.js",
-    "static/js/2.3838823d.chunk.js.map": "./gilles-game/static/js/2.3838823d.chunk.js.map",
-    "index.html": "./gilles-game/index.html",
-    "precache-manifest.edff00a357dd6a3534cd675e09107995.js": "./gilles-game/precache-manifest.edff00a357dd6a3534cd675e09107995.js",
-    "service-worker.js": "./gilles-game/service-worker.js",
-    "static/css/main.72cf33f2.chunk.css.map": "./gilles-game/static/css/main.72cf33f2.chunk.css.map",
-    "static/js/2.3838823d.chunk.js.LICENSE.txt": "./gilles-game/static/js/2.3838823d.chunk.js.LICENSE.txt"
+    "main.css": "/gilles-game/static/css/main.72cf33f2.chunk.css",
+    "main.js": "/gilles-game/static/js/main.255206be.chunk.js",
+    "main.js.map": "/gilles-game/static/js/main.255206be.chunk.js.map",
+    "runtime-main.js": "/gilles-game/static/js/runtime-main.50db8a87.js",
+    "runtime-main.js.map": "/gilles-game/static/js/runtime-main.50db8a87.js.map",
+    "static/js/2.3838823d.chunk.js": "/gilles-game/static/js/2.3838823d.chunk.js",
+    "static/js/2.3838823d.chunk.js.map": "/gilles-game/static/js/2.3838823d.chunk.js.map",
+    "index.html": "/gilles-game/index.html",
+    "precache-manifest.b7f6bc374deae3031692fec0226bf535.js": "/gilles-game/precache-manifest.b7f6bc374deae3031692fec0226bf535.js",
+    "service-worker.js": "/gilles-game/service-worker.js",
+    "static/css/main.72cf33f2.chunk.css.map": "/gilles-game/static/css/main.72cf33f2.chunk.css.map",
+    "static/js/2.3838823d.chunk.js.LICENSE.txt": "/gilles-game/static/js/2.3838823d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.2d0f9708.js",
+    "static/js/runtime-main.50db8a87.js",
     "static/js/2.3838823d.chunk.js",
     "static/css/main.72cf33f2.chunk.css",
-    "static/js/main.2c68a2c9.chunk.js"
+    "static/js/main.255206be.chunk.js"
   ]
 }
