@@ -4,9 +4,6 @@ import * as PIXI from 'pixi.js';
 import path from 'path';
 import Mesh from './Mesh';
 
-
-const tiledPath = `${process.env.PUBLIC_URL}/scenes/ork-dungeon-level1.json`;
-
 enum Orientation {
     orthagonal = "orthagonal",
     isometric = "isometric",
@@ -55,17 +52,20 @@ interface MapData {
     layers: LayerData[];
 }
 
-const TileMap = () => {
-    const app = useApp();
-    const ref = useRef<Container>(null);
+interface Props {
+    levelJson: string;
+}
+
+const TileMap = (props: Props) => {
     const [shaders, setShaders] = useState<PIXI.Shader[]>();
-     
+    const { levelJson } = props;
+
     useEffect(() => {
 
-        new PIXI.Loader().add([tiledPath]).load((loader)=>{
+        new PIXI.Loader().add(levelJson).load((loader)=>{
             
-          const mapData: MapData = loader.resources[tiledPath].data;
-          const basePath = path.dirname(tiledPath.replace(loader.baseUrl, ''));
+          const mapData: MapData = loader.resources[levelJson].data;
+          const basePath = path.dirname(levelJson.replace(loader.baseUrl, ''));
           const mapWidth = mapData.width;
           const mapHeight =  mapData.height;
         
@@ -82,9 +82,6 @@ const TileMap = () => {
             // The layers array order is depth sorted. first element in the array is lowest. last is highest
 
             const mapSize = [mapWidth, mapHeight];
-            console.log(layer.data)
-            console.log(parseLayer(layer, tileset));
-
             const map = PIXI.BaseTexture.fromBuffer(parseLayer(layer, tileset), mapWidth, mapHeight );
             const image = PIXI.Texture.from(`${basePath}/${tileset.image}`);
 
@@ -95,9 +92,10 @@ const TileMap = () => {
             const shader = PIXI.Shader.from(vert, frag, {
                 map,
                 image,
-                tileSize,                 // [nr_of_tiles_wide, nr_of_tiles_high] 
-                mapSize,                  // [tiles_width, tiles_height]
-                view: [0, 0, mapWidth, mapHeight]      // in tiles
+                tileSize,                           // [nr_of_tiles_wide, nr_of_tiles_high] 
+                mapSize,                            // [tiles_width, tiles_height]
+                view: [0, 0, mapWidth, mapHeight],  // in tiles
+                name: layer.name                    // needed for react key
             });
 
             return shader;
@@ -105,13 +103,13 @@ const TileMap = () => {
           
           setShaders(shaders);         
         });
-    }, []);
+    }, [levelJson]);
 
     return (
-        <Container ref={ref}>
+        <Container>
             { shaders && (
                 shaders.map((shader) => {
-                    return <Mesh geometry={geometry} shader={shader} /> 
+                    return <Mesh geometry={geometry} shader={shader} key={shader.uniforms.name} /> 
                 })
             )}
         </Container>

@@ -104,7 +104,7 @@ const QuestDetails = (props: Props) => {
                                 graphics.endFill();
                             }}
                         />  */}
-                    <TileMap />
+                    <TileMap levelJson={`${process.env.PUBLIC_URL}/scenes/ork-dungeon-level1.json`} />
                 </Stage>
                 { message }
                 <div className="actions">
