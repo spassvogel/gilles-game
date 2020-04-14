@@ -6,23 +6,9 @@
  <tileset firstgid="1" name="ork-dungeon" tilewidth="100" tileheight="100" tilecount="100" columns="10">
   <image source="tilesets/dungeon.jpg" width="1000" height="1000"/>
  </tileset>
- <layer id="5" name="lowest layer" width="10" height="10">
-  <data encoding="csv">
-0,0,0,63,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0
-</data>
- </layer>
  <layer id="2" name="floor" width="10" height="10">
   <data encoding="csv">
-1,93,73,0,95,93,95,73,95,95,
+0,93,73,0,95,93,95,73,95,95,
 73,73,95,93,93,93,93,95,95,95,
 24,95,73,73,95,73,73,73,95,4,
 73,73,73,73,93,73,73,96,93,73,
@@ -34,7 +20,7 @@
 73,73,93,95,73,73,95,73,73,93
 </data>
  </layer>
- <layer id="1" name="stuff" width="10" height="10">
+ <layer id="1" name="stuff" width="10" height="10" visible="0">
   <data encoding="csv">
 30,26,30,0,0,0,0,0,0,0,
 0,25,0,0,0,0,98,98,4,5,
@@ -48,7 +34,7 @@
 0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="4" name="highest stuff" width="10" height="10">
+ <layer id="4" name="highest stuff" width="10" height="10" visible="0">
   <data encoding="csv">
 0,55,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,
