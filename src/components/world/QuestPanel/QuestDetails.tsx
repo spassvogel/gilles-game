@@ -92,10 +92,9 @@ const QuestDetails = (props: Props) => {
         }
     }
     return (
-        <div>
-            <h1 className="app-h2">{TextManager.getQuestTitle(quest.name)}</h1>
-            <div className="questlog">
-                <Stage width={800/1} height={800/1} >
+        // <div>
+       //     {/* <h1 className="app-h2">{TextManager.getQuestTitle(quest.name)}</h1> */}
+        <Stage width={800/1} height={800/1} >
                     {/* <Graphics
                             name="hitarea"
                             draw={graphics => {
@@ -104,14 +103,16 @@ const QuestDetails = (props: Props) => {
                                 graphics.endFill();
                             }}
                         />  */}
-                    <TileMap levelJson={`${process.env.PUBLIC_URL}/scenes/ork-dungeon-level1.json`} />
-                </Stage>
-                { message }
+            <TileMap levelJson={`${process.env.PUBLIC_URL}/scenes/ork-dungeon-level1.json`} />
+        </Stage>
+
+            /* <div className="questlog">
+                                { message }
                 <div className="actions">
                     { actions}
                 </div>
-            </div>
-        </div>
+            </div> */
+        // </div>
     )
 }
 

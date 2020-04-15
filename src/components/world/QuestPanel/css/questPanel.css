@@ -4,13 +4,17 @@
     flex: 1;
 }
 
+.quest-panel.quest-panel-horizontal {
+    flex-direction: row;
+}
+
 .quest-panel.quest-panel-vertical {
-    display: flex;
     flex-direction: column;
 }
 
 .quest-panel.quest-panel-vertical .adventurer-panel {
     display: flex;
+    overflow: auto; /* horizontal scrollbar if needed */
 }
 
 .quest-panel.quest-panel-vertical .adventurer-panel .info {
@@ -18,10 +22,55 @@
     flex: 1;
 }
 
+.quest-panel.quest-panel-vertical .adventurer-panel .equipment {
+    margin-right: 8px;
+}
+
+
+@media only screen and (min-width: 576px) {
+    /** medium screen, horizontal layout */
+    .quest-panel.quest-panel-auto {
+        flex-direction: row;
+    }
+
+    .quest-panel.quest-panel-auto .quest-area {
+        overflow: hidden;
+        justify-content: center;
+        align-items: baseline;        
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    /** small screen, vertical layout */
+    .quest-panel.quest-panel-auto {
+        flex-direction: column;
+    }
+
+    .quest-panel.quest-panel-auto .adventurer-panel {
+        display: flex;
+        overflow: auto; /* horizontal scrollbar if needed */
+        background: purple;
+    }
+    
+    .quest-panel.quest-panel-auto .adventurer-panel .info {
+        margin-right: 8px;
+        flex: 1;
+    }
+
+    .quest-panel.quest-panel-auto .adventurer-panel .equipment {
+        margin-right: 8px;
+    }
+}
+
 /** on the left. grow as needed */
 .quest-panel .quest-area {
     flex: .6;
     padding: 16px;
+    display: flex;
+}
+
+.quest-panel canvas {
+    flex: 1;
 }
 
 /** on the right. party party */

@@ -7,13 +7,19 @@ import { AdventurerStoreState } from 'stores/adventurer';
 import AdventurerPanel from './AdventurerPanel';
 import QuestDetails from './QuestDetails';
 
+enum Layout {
+    auto,       // horizontal on large screens, vertical on small screens
+    vertical,   
+    horizontal
+}
+
 interface Props {
     questName: string;
-    horizontal?: boolean;   // default is vertical layout
+    layout?: Layout;
 }
 
 const QuestPanel = (props: Props) => {
-    const {horizontal} = props;
+    const {layout = Layout.auto} = props;
     const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));   
     const leader = adventurers[0];
     const [selectedAdventurerID, setSelectedAdventurerID] = useState<string>(leader.id);
@@ -27,8 +33,9 @@ const QuestPanel = (props: Props) => {
     }
     
     //console.log('rendering questpanel' + JSON.stringify(selectedAdventurer?.equipment))
+    
     return (
-        <div className={`quest-panel ${(horizontal ? "quest-panel-horizontal" : "quest-panel-vertical")}`}>
+        <div className={`quest-panel quest-panel-${Layout[layout]}`}>
             <div className="quest-area">
                 <QuestDetails questName={props.questName} />
             </div>
