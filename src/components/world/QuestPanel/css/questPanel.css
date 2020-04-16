@@ -64,7 +64,7 @@
 /** on the left. grow as needed */
 .quest-panel .quest-area {
     flex: .6;
-    padding: 16px;
+    padding: 8px;
     display: flex;
 }
 
