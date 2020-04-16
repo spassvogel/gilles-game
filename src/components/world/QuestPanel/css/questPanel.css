@@ -72,6 +72,11 @@
     flex: 1;
 }
 
+/** scene canvas */
+.quest-panel .quest-area canvas {
+    width: 100%;
+}
+
 /** on the right. party party */
 .quest-panel .party-area {
     flex: .4;
