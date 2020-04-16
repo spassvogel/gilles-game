@@ -9,8 +9,7 @@ import { StoreState } from 'stores';
 import { selectQuestLogEntries } from 'selectors/quests';
 import { TextEntry } from 'constants/text';
 import { updateEncounterResult, advanceQuest } from 'actions/quests';
-import TileMap from 'components/pixi/TileMap';
-import { Stage, Graphics } from '@inlet/react-pixi';
+import Scene from 'components/pixi/Scene';
 
 interface Props {
     questName: string;
@@ -94,17 +93,15 @@ const QuestDetails = (props: Props) => {
     return (
         // <div>
        //     {/* <h1 className="app-h2">{TextManager.getQuestTitle(quest.name)}</h1> */}
-        <Stage width={800/1} height={800/1} >
-                    {/* <Graphics
+                    /* <Graphics
                             name="hitarea"
                             draw={graphics => {
                                 graphics.beginFill(0xBADA55);
                                 graphics.drawRect(0, 0, 1000, 1000)
                                 graphics.endFill();
                             }}
-                        />  */}
-            <TileMap levelJson={`${process.env.PUBLIC_URL}/scenes/ork-dungeon-level1.json`} />
-        </Stage>
+                        />  */
+            <Scene jsonPath={`${process.env.PUBLIC_URL}/scenes/ork-dungeon-level1.json`} />
 
             /* <div className="questlog">
                                 { message }

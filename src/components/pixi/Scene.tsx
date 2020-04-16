@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useApp, Container } from '@inlet/react-pixi';
+import { useApp, Container, Stage } from '@inlet/react-pixi';
 import * as PIXI from 'pixi.js';
 import path from 'path';
 import Mesh from './Mesh';
@@ -44,6 +44,8 @@ interface LayerData {
 interface MapData {
     width: number;
     height: number;
+    tilewidth: number;
+    tileheight: number;
     infinite: boolean;
     backgroundcolor: string | null;
     orientation: Orientation;
@@ -53,24 +55,28 @@ interface MapData {
 }
 
 interface Props {
-    levelJson: string;
+    jsonPath: string;
 }
 
-const TileMap = (props: Props) => {
+const Scene = (props: Props) => {
     const [shaders, setShaders] = useState<PIXI.Shader[]>();
-    const { levelJson } = props;
+    const [width, setWidth] = useState(800);
+    const [height, setHeight] = useState(1000);
+    const { jsonPath } = props;
 
     useEffect(() => {
 
-        new PIXI.Loader().add(levelJson).load((loader)=>{
+        new PIXI.Loader().add(jsonPath).load((loader)=>{
             
-          const mapData: MapData = loader.resources[levelJson].data;
-          const basePath = path.dirname(levelJson.replace(loader.baseUrl, ''));
+          const mapData: MapData = loader.resources[jsonPath].data;
+          const basePath = path.dirname(jsonPath.replace(loader.baseUrl, ''));
           const mapWidth = mapData.width;
-          const mapHeight =  mapData.height;
+          const mapHeight = mapData.height;
+          setWidth(mapWidth * mapData.tilewidth);
+          setHeight(mapHeight * mapData.tileheight);
         
-          // We only support one tileset at the moment. Have to figure out how to handle//]
-          // multiple tiles
+          // We only support one tileset at the moment. Have to figure out how to handle
+          // multiple tilesets
 
           const tileset = getTileset(mapData);
           const tileSize: Array<number> = [
@@ -103,20 +109,22 @@ const TileMap = (props: Props) => {
           
           setShaders(shaders);         
         });
-    }, [levelJson]);
+    }, [jsonPath]);
 
     return (
-        <Container>
-            { shaders && (
-                shaders.map((shader) => {
-                    return <Mesh geometry={geometry} shader={shader} key={shader.uniforms.name} /> 
-                })
-            )}
-        </Container>
+        <Stage width={width} height={height} >
+            <Container>
+                { shaders && (
+                    shaders.map((shader) => {
+                        return <Mesh geometry={geometry} shader={shader} key={shader.uniforms.name} /> 
+                    })
+                )}
+            </Container>
+        </Stage>
     );
 }
 
-export default TileMap;
+export default Scene;
 
 const geometry = new PIXI.Geometry()
     .addAttribute('position', [ -1, -1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1 ]);

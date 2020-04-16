@@ -49,7 +49,6 @@
     .quest-panel.quest-panel-auto .adventurer-panel {
         display: flex;
         overflow: auto; /* horizontal scrollbar if needed */
-        background: purple;
     }
     
     .quest-panel.quest-panel-auto .adventurer-panel .info {
