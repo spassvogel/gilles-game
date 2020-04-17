@@ -408,16 +408,30 @@ Should think about what to do with the oracle. Maybe refactor the whole thing
 In any case I have decided to change the way encounters work. I'm going to leave the idea of text-adventure based stuff
 and do everything in the 'combat map'. However when out of combat, In addition, every encounter has one ore more multiple scenes (they are like rooms). 
 The party can freely move between these scenes and sometimes a scene change is forced.
+
+[x] I have implemented a lowlevel way with shaders and a Mesh to display the encounter map.
+    However it's not sufficient. It doesnt work well on mobile, it doesn't support animations and there's 
+    a problem receiving events. 
+
+    So I think the best recourse is to go with pixi tilemap
+
 [ ] Implement pixi-tilemap in react-pixi (check https://github.com/Alan01252/pixi-tilemap-tutorial)
 also: https://pixijs.io/pixi-tilemap/demo/main.js
-[ ] Implement tmx loader (see tiled-pixi-react: https://www.npmjs.com/package/tiled-pixi-react)
+[ ] First read and parse the json file
+https://github.com/pixijs/pixi-tilemap/issues/76#issuecomment-590104857
+https://github.com/pixijs/pixi-tilemap/blob/master/basic/atlas.json
+https://gamedev.stackexchange.com/questions/115982/industry-standard-json-formats-for-game-assets
+
+[-] Implement tmx loader (see tiled-pixi-react: https://www.npmjs.com/package/tiled-pixi-react)
+    (no. use json!)
 
 The static part of the scene is not stored in store. The dynamic part is created by Oracle.createSceneState() and stored in redux. After that, any changes (actors moving, stuff getting added/removed) are also persisted to redux.
 
 #### 11/10/2020 QuestPanel vertical [+art]
 Because the QuestPanel will be showing the sceneview it makes more sense to have a vertical layout where everything is stacked underneath each other.
 ![](img/questpanel-vertical.png)
-(left = vertical, right = horizontal)
+_(left = vertical, right = horizontal)_
+[x] I've implemented an 'auto' mode that shows a horizontal layout in medium screens and a vertical layout in small screens.
 
 In general we should design in such a way that if content doesnt fit on the screen there is vertical scroll.
 

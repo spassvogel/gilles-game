@@ -1,79 +1,49 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useApp, Container, Stage } from '@inlet/react-pixi';
+import { useApp, Container, Stage, Sprite } from '@inlet/react-pixi';
 import * as PIXI from 'pixi.js';
 import path from 'path';
 import Mesh from './Mesh';
+import Actor from './Actor';
+import { TiledMapData, TiledLayerData, TiledTilesetData } from 'constants/tiledMapData';
 
-enum Orientation {
-    orthagonal = "orthagonal",
-    isometric = "isometric",
-    staggered = "staggered",
-    hexagonal = "hexagonal"
-}
 
-enum RenderOrder {
-    rightUp = "right-up",
-    rightDown = "right-down",
-    leftUp = "left-up",
-    leftDown = "left-down"
-}
-
-interface TilesetData {
-    columns: number;
-    source: string;
-    image: string;
-    imagewidth: number;
-    imageheight: number;
-    tilewidth: number;
-    tileheight: number;
-    name: string;
-}
-
-interface LayerData {
-    data: Array<number>;
-    height: number;
-    id: number;
-    name: string;
-    opacity: number; // not supported atm
-    visible: boolean;
-    x: number;
-    y: number;
-    width: number;    
-}
-
-interface MapData {
-    width: number;
-    height: number;
-    tilewidth: number;
-    tileheight: number;
-    infinite: boolean;
-    backgroundcolor: string | null;
-    orientation: Orientation;
-    renderorder: RenderOrder;
-    tilesets: TilesetData[];
-    layers: LayerData[];
-}
 
 interface Props {
     jsonPath: string;
 }
 
+interface SceneProps {
+    loaded: boolean;
+    width: number;
+    height: number;
+    tileWidth?: number;
+    tileHeight?: number;
+}
+
 const Scene = (props: Props) => {
     const [shaders, setShaders] = useState<PIXI.Shader[]>();
-    const [width, setWidth] = useState(800);
-    const [height, setHeight] = useState(1000);
+    const [sceneProps, setSceneProps] = useState<SceneProps>({
+        loaded: false,
+        width: 800,
+        height: 1000,
+    })
     const { jsonPath } = props;
 
     useEffect(() => {
 
         new PIXI.Loader().add(jsonPath).load((loader)=>{
             
-          const mapData: MapData = loader.resources[jsonPath].data;
+          const mapData: TiledMapData = loader.resources[jsonPath].data;
           const basePath = path.dirname(jsonPath.replace(loader.baseUrl, ''));
           const mapWidth = mapData.width;
           const mapHeight = mapData.height;
-          setWidth(mapWidth * mapData.tilewidth);
-          setHeight(mapHeight * mapData.tileheight);
+          setSceneProps({
+              loaded: true,
+              width: mapWidth * mapData.tilewidth,
+              height: mapHeight * mapData.tileheight,
+              tileWidth: mapData.tilewidth,
+              tileHeight: mapData.tileheight,              
+          });
         
           // We only support one tileset at the moment. Have to figure out how to handle
           // multiple tilesets
@@ -84,7 +54,7 @@ const Scene = (props: Props) => {
               tileset.imageheight / tileset.tileheight,
           ];
 
-          const shaders = mapData.layers.map((layer: LayerData) => {
+          const shaders = mapData.layers.map((layer: TiledLayerData) => {
             // The layers array order is depth sorted. first element in the array is lowest. last is highest
 
             const mapSize = [mapWidth, mapHeight];
@@ -111,14 +81,25 @@ const Scene = (props: Props) => {
         });
     }, [jsonPath]);
 
+
+    const handleClick = (event: PIXI.interaction.InteractionEvent) => {
+        console.log(event.data.height, event.data.width)
+    }
     return (
-        <Stage width={width} height={height} >
-            <Container>
+        <Stage width={sceneProps.width} height={sceneProps.height} >
+            <Container pointertap={handleClick} interactive={true}>
                 { shaders && (
                     shaders.map((shader) => {
                         return <Mesh geometry={geometry} shader={shader} key={shader.uniforms.name} /> 
                     })
                 )}
+                { sceneProps.loaded && <Actor
+                    x={30}
+                    y={30}
+                    tileWidth={sceneProps.tileWidth!}
+                    tileHeight={sceneProps.tileHeight!}
+                    image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`}
+                />}
             </Container>
         </Stage>
     );
@@ -149,10 +130,9 @@ const vert = `
         gl_Position = vec4(position, 1, 1);
     }`;
 
-const parseLayer = (layer: LayerData, tileset: TilesetData): Uint8Array => {
+const parseLayer = (layer: TiledLayerData, tileset: TiledTilesetData): Uint8Array => {
     const columns = tileset.columns;
     const rows = tileset.imageheight / tileset.tileheight;
-    console.log(rows)
 
     const data = layer.data.reduce((acc: Array<number>, cell, index) => {
         const { x, y } = getTileCoordsByGid(cell, columns, rows);
@@ -177,7 +157,7 @@ const getTileCoordsByGid = (cell: number, columns: number, rows: number) => {
     return { x, y };
 }
 
-const getTileset = (map: MapData) => {
+const getTileset = (map: TiledMapData) => {
     if (!map.tilesets.length) {
         throw new Error("No tilesets found! Can't continue");
     }
