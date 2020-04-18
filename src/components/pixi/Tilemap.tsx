@@ -23,7 +23,9 @@ const Tilemap = (props: Props) => {
         const baseTexture = PIXI.BaseTexture.from(`${basePath}/${tileset.image}`);
         const spritesheet = new PIXI.Spritesheet(baseTexture, spritesheetData);
         spritesheet.parse(() => {
-            const layers = data.layers.map(layer => createTileLayer(layer, texture, data.width, tileset, spritesheet));
+            const layers = data.layers.filter(layer => layer.visible).map(layer => {
+                return createTileLayer(layer, texture, data.width, tileset, spritesheet)
+            });
             setLayers(layers);
         });
 
