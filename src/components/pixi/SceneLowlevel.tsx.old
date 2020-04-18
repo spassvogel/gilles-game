@@ -3,7 +3,6 @@ import { useApp, Container, Stage, Sprite } from '@inlet/react-pixi';
 import * as PIXI from 'pixi.js';
 import path from 'path';
 import Mesh from './Mesh';
-import Actor from './Actor';
 import { TiledMapData, TiledLayerData, TiledTilesetData } from 'constants/tiledMapData';
 
 // Low level implementation, unused
@@ -92,13 +91,13 @@ const Scene = (props: Props) => {
                         return <Mesh geometry={geometry} shader={shader} key={shader.uniforms.name} /> 
                     })
                 )}
-                { sceneProps.loaded && <Actor
+                {/* { sceneProps.loaded && <Actor
                     x={30}
                     y={30}
                     tileWidth={sceneProps.tileWidth!}
                     tileHeight={sceneProps.tileHeight!}
                     image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`}
-                />}
+                />} */}
             </Container>
         </Stage>
     );
