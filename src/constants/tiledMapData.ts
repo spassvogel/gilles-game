@@ -1,15 +1,14 @@
-enum Orientation {
-    orthagonal = "orthagonal",
-    isometric = "isometric",
-    staggered = "staggered",
-    hexagonal = "hexagonal"
-}
-
-enum RenderOrder {
-    rightUp = "right-up",
-    rightDown = "right-down",
-    leftUp = "left-up",
-    leftDown = "left-down"
+export interface TiledMapData {
+    width: number;
+    height: number;
+    tilewidth: number;
+    tileheight: number;
+    infinite: boolean;
+    backgroundcolor: string | null;
+    orientation: Orientation;
+    renderorder: RenderOrder;
+    tilesets: TiledTilesetData[];
+    layers: TiledLayerData[];
 }
 
 export interface TiledTilesetData {
@@ -20,7 +19,10 @@ export interface TiledTilesetData {
     imageheight: number;
     tilewidth: number;
     tileheight: number;
+    tilecount: number;
     name: string;
+    margin: number; // todo: 
+    spacing: number; // todo
 }
 
 export interface TiledLayerData {
@@ -35,15 +37,20 @@ export interface TiledLayerData {
     width: number;    
 }
 
-export interface TiledMapData {
-    width: number;
-    height: number;
-    tilewidth: number;
-    tileheight: number;
-    infinite: boolean;
-    backgroundcolor: string | null;
-    orientation: Orientation;
-    renderorder: RenderOrder;
-    tilesets: TilesetData[];
-    layers: TiledLayerData[];
+enum Orientation {
+    orthagonal = "orthagonal",
+    isometric = "isometric",
+    staggered = "staggered",
+    hexagonal = "hexagonal"
 }
+
+enum RenderOrder {
+    rightUp = "right-up",
+    rightDown = "right-down",
+    leftUp = "left-up",
+    leftDown = "left-down"
+}
+
+
+
+

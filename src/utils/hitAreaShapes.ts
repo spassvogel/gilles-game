@@ -5,9 +5,6 @@ export default class HitAreaShapes {
     public shapes: PIXI.Polygon[];
 
     constructor(shapes = {}, sprite: string = "0") {
-  //     console.log(shapes, sprite)
-  //     const keys = Object.keys(shapes)[sprite];      
-  // console.log(keys)
       this.shapes = shapes[sprite].map((definition: { shape: number[]; }) => {
           const shape: number[] = definition.shape;
           return new PIXI.Polygon(shape);

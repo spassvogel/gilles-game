@@ -96,7 +96,6 @@ export class SoundManager {
             this._musicVolume = DEFAULT_MUSIC_VOLUME;
         } else {
             this._musicVolume = parseFloat(fromStorage);
-            console.log('got value from storage', fromStorage)
         }
         return this._musicVolume;
     }

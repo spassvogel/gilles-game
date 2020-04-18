@@ -17,6 +17,7 @@ import QuestLine from './QuestLine';
 import { MAX_WIDTH as WIDTH } from 'components/App';
 import { selectActiveQuests } from 'selectors/quests';
 import { getDefinition } from 'definitions/quests';
+window.PIXI = PIXI; // workaround for pixi-tilemap
 
 const FULL_HEIGHT = 1024;
 const SMALL_HEIGHT = 128;   // Used when QuestPanel is open
@@ -173,7 +174,7 @@ const WorldMap = (props: Props) => {
                     {renderQuestlines()}
                     {renderMarkers()}
                 </Sprite>
-                <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} />
+                {/* <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} /> */}
             </Viewport>
         </Stage>
     );

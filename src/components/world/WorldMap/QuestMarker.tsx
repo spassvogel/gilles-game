@@ -3,6 +3,7 @@ import { Sprite } from '@inlet/react-pixi';
 import { QuestStoreState } from 'stores/quest';
 import * as PIXI from 'pixi.js';
 import { AdventurerStoreState } from 'stores/adventurer';
+window.PIXI = PIXI;
 
 interface Props {
     quest: QuestStoreState;

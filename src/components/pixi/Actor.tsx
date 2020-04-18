@@ -28,6 +28,8 @@ const Actor = PixiComponent<AllProps, PIXI.Sprite>("Actor", {
       instance.x = tilePosition.x * newProps.tileWidth;
       instance.y = tilePosition.y * newProps.tileHeight;
     }
+
+    instance.name = "Actor";
 }});
 export default Actor;
 

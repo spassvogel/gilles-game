@@ -425,6 +425,8 @@ https://gamedev.stackexchange.com/questions/115982/industry-standard-json-format
 [-] Implement tmx loader (see tiled-pixi-react: https://www.npmjs.com/package/tiled-pixi-react)
     (no. use json!)
 
+[ ] Shit. pixi-tilemap doesn't export as npm module.    
+
 The static part of the scene is not stored in store. The dynamic part is created by Oracle.createSceneState() and stored in redux. After that, any changes (actors moving, stuff getting added/removed) are also persisted to redux.
 
 #### 11/10/2020 QuestPanel vertical [+art]
@@ -443,3 +445,8 @@ Then there are two options:
 [ ] Clicking on a tile
 
 Currently favouring dragging, because we can use it in combat and show the AP cost 
+
+
+
+#### animations
+https://github.com/DragonBones/DragonBonesJS
