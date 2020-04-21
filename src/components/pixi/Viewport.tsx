@@ -9,6 +9,8 @@ interface Props {
   screenHeight: number,
   worldWidth: number,
   worldHeight: number,
+  minScale?: number;
+  maxScale?: number;
 }
 
 /** Viewport leverages pixi-viewport to create a pannable map 
@@ -40,15 +42,18 @@ const PixiComponentViewport = PixiComponent("Viewport", {
       // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
     });
     viewport.on("clicked", (event) => { if(props.onClick) props.onClick(event) });
-    //viewport.on("drag-start", () => console.log("drag-start"));
-    //viewport.on("drag-end", () => console.log("drag-end"));
+
+    const { 
+      minScale = 1, 
+      maxScale = 2 
+    } = props;
 
     viewport
       .drag()
       .pinch()
       .wheel()
       .clamp({ direction: 'all' })
-      .clampZoom({ minScale: 1, maxScale: 2 })
+      .clampZoom({ minScale, maxScale })
       .decelerate();
 
     return viewport;
