@@ -17,7 +17,7 @@
     margin: 16px;
     background-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.84) 0, transparent 73%), radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.45) 0, transparent 50%);
 
-    animation: pop 0.5s ease-in-out 1, fadeout 1s linear 4s;
+    animation: pop 0.5s ease-out 1, fadeout 1s linear 4s;    /* fade out aftr 4 seconds */
 }
 
 

@@ -105,11 +105,11 @@ const WorldMap = (props: Props) => {
     const viewportRef = useRef<PixiViewport>(null);
     useEffect(() => {
         // focus on center of the map
-        if (viewportRef.current) {
-            const viewport = viewportRef.current;
-            const point = nodeLocationToPoint({ x: 0, y: 0 });
-            viewport.moveCenter(point.x, point.y);
-        }
+            if (viewportRef.current) {
+                const viewport = viewportRef.current;
+                const point = nodeLocationToPoint({ x: 0, y: 0 });
+                viewport.moveCenter(point.x, point.y);
+            }
     }, [canvasWidth]);
 
     const renderQuestlines = () => {
