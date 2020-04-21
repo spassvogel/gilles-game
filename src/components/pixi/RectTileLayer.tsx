@@ -23,6 +23,9 @@ const RectTileLayer = PixiComponent<Props, any>("RectTileLayer", {
 
     applyProps(instance, oldProps: Props, props: Props) {
         const {layer, tileset, horizontalTiles,spritesheet} = props;
+        if (!layer.data) {
+            return;
+        }
         for (let i = 0; i < layer.data.length; i++) {
             const w = tileset.tilewidth;
             const h = tileset.tileheight;
