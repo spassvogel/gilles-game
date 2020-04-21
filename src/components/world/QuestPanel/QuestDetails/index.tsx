@@ -1,5 +1,5 @@
 import React from 'react';
-import Scene from 'components/pixi/Scene';
+import Scene from 'components/world/QuestPanel/QuestDetails/Scene';
 
 interface Props {
     questName: string;

@@ -415,9 +415,9 @@ The party can freely move between these scenes and sometimes a scene change is f
 
     So I think the best recourse is to go with pixi tilemap
 
-[ ] Implement pixi-tilemap in react-pixi (check https://github.com/Alan01252/pixi-tilemap-tutorial)
+[x] Implement pixi-tilemap in react-pixi (check https://github.com/Alan01252/pixi-tilemap-tutorial)
 also: https://pixijs.io/pixi-tilemap/demo/main.js
-[ ] First read and parse the json file
+[x] First read and parse the json file
 https://github.com/pixijs/pixi-tilemap/issues/76#issuecomment-590104857
 https://github.com/pixijs/pixi-tilemap/blob/master/basic/atlas.json
 https://gamedev.stackexchange.com/questions/115982/industry-standard-json-formats-for-game-assets
@@ -446,7 +446,9 @@ Then there are two options:
 
 Currently favouring dragging, because we can use it in combat and show the AP cost 
 
-
-
 #### animations
 https://github.com/DragonBones/DragonBonesJS
+
+#### pathfinding
+https://sbfkcel.github.io/fast-astar/
+https://github.com/sbfkcel/fast-astar

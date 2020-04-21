@@ -19,7 +19,7 @@ const QuestMarker = (props: Props) => {
     const { quest, leader, encounterActive, position, onClick, selected } = props;
     const image = selected ? '/img/world/map-marker-selected.png' : '/img/world/map-marker.png';
 
-    const avatar = useRef<Sprite>(null);
+    const avatar = useRef<PIXI.Sprite>(null);
     // Mask has to be a child of the avatar in order to move with it
     useEffect(() => {
         const sprite = avatar.current as any as PIXI.Sprite;

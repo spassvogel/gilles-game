@@ -1,18 +1,17 @@
 
-import { PixiComponent, Sprite, applyDefaultProps, Container } from '@inlet/react-pixi';
-import * as PIXI from 'pixi.js';
+import { Container } from '@inlet/react-pixi';
 import React, { useMemo } from 'react';
 
 interface Props  {
   tileWidth: number;
   tileHeight: number;
-  scenePosition?: number[];
+  sceneLocation?: number[]; // tile coordinate space 
   children: React.ReactNode;
 };
 
 const SceneObject = (props: Props) => {
     const { 
-        scenePosition = [0, 0],
+        sceneLocation = [0, 0],
         tileWidth = 0, 
         tileHeight = 0,
         children
@@ -20,10 +19,10 @@ const SceneObject = (props: Props) => {
 
     const { x, y} = useMemo(() => {
         return { 
-            x: scenePosition[0] * tileWidth,
-            y: scenePosition[1] * tileHeight,
+            x: sceneLocation[0] * tileWidth,
+            y: sceneLocation[1] * tileHeight,
         };
-    }, [scenePosition, tileWidth, tileHeight]);
+    }, [sceneLocation, tileWidth, tileHeight]);
 
     return (
         <Container x={x} y={y}>

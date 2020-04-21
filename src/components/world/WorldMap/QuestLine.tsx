@@ -32,14 +32,3 @@ const QuestLine = (props: Props) => {
 }
 
 export default QuestLine;
-// tx.moveTo(positions[0].x, positions[0].y);
-
-
-//    for (i = 1; i < positions.length - 2; i ++)
-//    {
-//       var xc = (positions[i].x + positions[i + 1].x) / 2;
-//       var yc = (positions[i].y + positions[i + 1].y) / 2;
-//       ctx.quadraticCurveTo(positions[i].x, positions[i].y, xc, yc);
-//    }
-//  // curve through the last two positions
-//  ctx.quadraticCurveTo(positions[i].x, positions[i].y, positions[i+1].x,positions[i+1].y);
