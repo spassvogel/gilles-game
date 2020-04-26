@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { Container, Stage, Graphics, Sprite } from '@inlet/react-pixi';
 import { TiledMapData } from 'constants/tiledMapData';
 import Tilemap from './Tilemap';
@@ -16,7 +16,7 @@ interface Props {
     jsonPath: string;
 }
 
-const DEBUG = false;
+const DEBUG = true;
 const DEFAULT_WIDTH = 800;
 const DEFAULT_HEIGHT = 1000;
 
@@ -41,14 +41,35 @@ const Scene = (props: Props) => {
         setActionOriginLocation(actorLocation);
     }
     const handleActorEndDrag = (event: PIXI.interaction.InteractionEvent) => {
-        setActionOriginLocation(null);
         const location = pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
         const blocked = locationIsBlocked(location);
         if (!blocked) {
-            const scenePosition = pointToSceneLocation(event.data.global);
-            setActorLocation(scenePosition);    
-        }
+            const sceneLocation = pointToSceneLocation(event.data.global);
+            setActorLocation(sceneLocation);
 
+            const convertLocation = (location: number[]) => {
+                return { x: location[0], y: location[1] }
+            }
+            const path = aStar?.findPath(convertLocation(actionOriginLocation!), convertLocation(sceneLocation));
+            if (DEBUG) {
+                const graphics = new PIXI.Graphics();
+                path?.forEach((tile) => {
+                    const [x, y] = tile;
+                    const stroke = 3;
+                    graphics.beginFill(0xDE3249, 0.5);
+                    graphics.lineStyle(stroke, 0xFF0000);
+                    graphics.drawRect(x * mapData!.tilewidth + stroke / 2, 
+                        y * mapData!.tileheight + stroke / 2, 
+                        mapData!.tilewidth - stroke / 2, 
+                        mapData!.tileheight - stroke / 2);
+                    graphics.endFill();
+                });
+                ref.current!.addChild(graphics);
+                setTimeout(() => { ref.current!.removeChild(graphics)}, 1000);
+            }
+
+        }
+        setActionOriginLocation(null);
         const actionPath = actionPathRef.current;
         actionPath?.clear();
     }
@@ -63,6 +84,7 @@ const Scene = (props: Props) => {
         return [Math.floor(point.x / mapData?.tilewidth ), Math.floor(point.y / mapData?.tilewidth)];
     }, [mapData]);
 
+    /** Returns true if */
     const locationIsBlocked = useCallback((location: number[]) => {
         return blockedTiles.some((l) => l[0] === location[0] && l[1] === location[1]);
     }, [blockedTiles]);
@@ -80,6 +102,7 @@ const Scene = (props: Props) => {
                 const from = new PIXI.Point(actionOriginLocation[0] * mapData.tilewidth + mapData.tilewidth / 2, 
                     actionOriginLocation[1] * mapData.tileheight + mapData.tileheight / 2);
                     
+                // Draw a line to the destination tile
                 actionPath.drawAction(from, event.data.global, !blocked);
             }
         }
@@ -88,6 +111,27 @@ const Scene = (props: Props) => {
             container.off('pointermove', mouseMove);
         }
     }, [mapData, blockedTiles, actionOriginLocation, pointToSceneLocation, locationIsBlocked]);
+
+    const aStar = useMemo(() => {
+        if (!mapData || !blockedTiles.length) {
+            return null;
+        }
+        const matrix: number[][] = [];
+        for (let y = 0; y < mapData.height; y++) {
+            const row: number[] = [];
+            for (let x = 0; x < mapData.width; x++) {
+                const location = [x, y];
+                const blocked = locationIsBlocked(location);
+                row.push(blocked ? 1 : 0);
+            }
+            matrix.push(row);
+        }
+        return new AStarFinder({
+            grid: {
+                matrix
+            }
+        });
+    }, [mapData, locationIsBlocked, blockedTiles])
 
     return (
         <Stage width={sceneWidth} height={sceneHeight} >
