@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/gilles-game/precache-manifest.c1b07bd250ea892ca99fdcf43f75060e.js"
+  "/gilles-game/precache-manifest.328468b775622b9481a902dc5f324dd7.js"
 );
 
 self.addEventListener('message', (event) => {
