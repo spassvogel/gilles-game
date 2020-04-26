@@ -34,7 +34,14 @@ export interface TiledLayerData {
     visible: boolean;
     x: number;
     y: number;
-    width: number;    
+    width: number;
+    properties?: TiledProperty[];
+}
+
+export interface TiledProperty {
+    name: string,
+    type: string,
+    value: any
 }
 
 enum Orientation {
@@ -50,7 +57,5 @@ enum RenderOrder {
     leftUp = "left-up",
     leftDown = "left-down"
 }
-
-
 
 
