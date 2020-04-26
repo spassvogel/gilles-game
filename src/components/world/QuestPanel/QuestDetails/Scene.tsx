@@ -4,6 +4,7 @@ import { TiledMapData } from 'constants/tiledMapData';
 import Tilemap from './Tilemap';
 import SceneObject from './SceneObject';
 import ActionPath, { RefActions } from './ActionPath';
+import { AStarFinder } from "astar-typescript";
 
 import * as PIXI from 'pixi.js';
 window.PIXI = PIXI;
@@ -15,14 +16,7 @@ interface Props {
     jsonPath: string;
 }
 
-interface SceneProps {
-    loaded: boolean;
-    width: number;
-    height: number;
-    tileWidth?: number;
-    tileHeight?: number;
-}
-
+const DEBUG = false;
 const DEFAULT_WIDTH = 800;
 const DEFAULT_HEIGHT = 1000;
 
@@ -114,7 +108,7 @@ const Scene = (props: Props) => {
                         tileHeight={mapData.tilewidth}
                         sceneLocation={actorLocation}
                     >
-                        <Graphics
+                        {DEBUG && (<Graphics
                             name="hitarea"
                             draw={graphics => {
                                 const line = 3;
@@ -122,7 +116,7 @@ const Scene = (props: Props) => {
                                 graphics.drawRect(line / 2, line / 2, mapData.tilewidth - line / 2, mapData.tileheight - line / 2);
                                 graphics.endFill();
                             }}
-                        />
+                        />)}
                         <Sprite                     
                             y={-80}
                             image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`} 

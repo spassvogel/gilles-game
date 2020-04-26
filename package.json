@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "@inlet/react-pixi": "^1.2.18",
+    "astar-typescript": "^1.1.9",
     "axios": "^0.19.2",
     "deep-equal": "^2.0.3",
     "handlebars": "^4.7.6",
