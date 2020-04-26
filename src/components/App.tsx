@@ -5,7 +5,7 @@ import StructureDetailsView from "containers/structures/StructureDetailsView";
 import { AppContextProps} from "hoc/withAppContext";
 import { manifest} from "manifest/app";
 import * as React from "react";
-import { useRef, useState, createContext } from "react";
+import { useRef, useState, createContext, useEffect } from "react";
 import { DndProvider} from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { BrowserRouter as Router, Link, Redirect, Route, Switch, HashRouter} from "react-router-dom";
@@ -13,6 +13,7 @@ import { Persistor} from "redux-persist";
 import { Sound, SoundManager} from "global/SoundManager";
 import { TextManager} from "global/TextManager";
 import { Structure} from "../definitions/structures";
+import debounce from "debounce";
 import "./css/app.css";
 import Preloader, { MediaItem, MediaType} from "./preloading/Preloader";
 import TownView from './town/TownView';
@@ -147,6 +148,18 @@ const App = (props: AllProps) => {
         TooltipManager.clear();
     };
 
+    
+    useEffect(() => {
+        const handleScroll = debounce(() => {
+            TooltipManager.clear();
+        }, 100);
+        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("wheel", handleScroll);
+        return () => {
+            window.removeEventListener("resize", handleScroll);
+            window.removeEventListener("wheel", handleScroll);
+        };
+    }, []);
     // const handleResize = () => {
     //     if (containerRef.current) {
     //         if (window.innerHeight < resolution.height) {

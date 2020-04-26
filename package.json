@@ -5,8 +5,10 @@
   "private": true,
   "dependencies": {
     "@inlet/react-pixi": "^1.2.18",
+    "@types/debounce": "^1.2.0",
     "astar-typescript": "^1.1.9",
     "axios": "^0.19.2",
+    "debounce": "^1.2.0",
     "deep-equal": "^2.0.3",
     "handlebars": "^4.7.6",
     "howl": "^0.2.0",
