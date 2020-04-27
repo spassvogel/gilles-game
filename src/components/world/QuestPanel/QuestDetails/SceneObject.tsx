@@ -5,24 +5,25 @@ import React, { useMemo } from 'react';
 interface Props  {
   tileWidth: number;
   tileHeight: number;
-  sceneLocation?: number[]; // tile coordinate space 
+  location?: number[]; // tile coordinate space 
   children: React.ReactNode;
 };
 
+// This is a wrapper that exposes a location property. Will set x and y on children
 const SceneObject = (props: Props) => {
     const { 
-        sceneLocation = [0, 0],
+        location = [0, 0],
         tileWidth = 0, 
         tileHeight = 0,
         children
     } = props;
 
-    const { x, y} = useMemo(() => {
+    const {x, y} = useMemo(() => {
         return { 
-            x: sceneLocation[0] * tileWidth,
-            y: sceneLocation[1] * tileHeight,
+            x: location[0] * tileWidth,
+            y: location[1] * tileHeight,
         };
-    }, [sceneLocation, tileWidth, tileHeight]);
+    }, [location, tileWidth, tileHeight]);
 
     return (
         <Container x={x} y={y}>

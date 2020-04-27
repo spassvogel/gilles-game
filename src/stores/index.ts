@@ -11,7 +11,7 @@ import { TasksStoreState } from "./tasks";
 
 export interface StoreState {
     adventurers: AdventurerStoreState[];
-    combat: CombatStoreState;   // todo: can be plural
+    combat: CombatStoreState;   // todo: deprecate?
     engine: EngineStoreState;
     gold: number;
     stockpile: Array<null|Item>;    // items in warehouse

@@ -11,7 +11,7 @@ const QuestDetails = (props: Props) => {
     
        //     {/* <h1 className="app-h2">{TextManager.getQuestTitle(quest.name)}</h1> */}
     return (
-        <Scene jsonPath={`${process.env.PUBLIC_URL}/scenes/ork-dungeon-level1.json`} />
+        <Scene jsonPath={`${process.env.PUBLIC_URL}/scenes/ork-dungeon-level1.json`} questName={props.questName} />
     )
 }
 

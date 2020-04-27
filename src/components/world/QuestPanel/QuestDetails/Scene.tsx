@@ -5,6 +5,10 @@ import Tilemap from './Tilemap';
 import SceneObject from './SceneObject';
 import ActionPath, { RefActions } from './ActionPath';
 import { AStarFinder } from "astar-typescript";
+import { StoreState } from 'stores';
+import { useSelector } from 'react-redux';
+import { QuestStoreState } from 'stores/quest';
+import { Actor } from 'stores/scene';
 
 import * as PIXI from 'pixi.js';
 window.PIXI = PIXI;
@@ -14,6 +18,7 @@ import 'pixi-tilemap'; // tilemap is not a real npm module :/
 
 interface Props {
     jsonPath: string;
+    questName: string;
 }
 
 const DEBUG = true;
@@ -22,11 +27,18 @@ const DEFAULT_HEIGHT = 1000;
 
 const Scene = (props: Props) => {
     const [mapData, setMapData] = useState<TiledMapData>();
-    const [actorLocation, setActorLocation] = useState([0, 0]);
-    const [actionOriginLocation, setActionOriginLocation] = useState<number[] | null>(null);
+    const [actionActor, setActionActor] = useState<Actor | null>(null);
     const [blockedTiles, setBlockedTiles] = useState<number[][]>([]);
     const ref = useRef<PIXI.Container>(null);
     const { jsonPath } = props;
+
+
+    const questSelector = useCallback(
+        (state: StoreState) => state.quests.find((q) => q.name === props.questName)!, 
+        [props.questName]
+    );
+    const quest = useSelector<StoreState, QuestStoreState>(questSelector);
+    const { scene } = quest;
 
     useEffect(() => {
         new PIXI.Loader().add(jsonPath).load((loader)=>{            
@@ -37,20 +49,22 @@ const Scene = (props: Props) => {
 
     const basePath = jsonPath.substr(0, jsonPath.lastIndexOf('/'));
 
-    const handleActorStartDrag = (event: PIXI.interaction.InteractionEvent) => {
-        setActionOriginLocation(actorLocation);
+    const handleActorStartDrag = (actor: Actor) => {
+        setActionActor(actor);
     }
+
     const handleActorEndDrag = (event: PIXI.interaction.InteractionEvent) => {
         const location = pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
         const blocked = locationIsBlocked(location);
         if (!blocked) {
             const sceneLocation = pointToSceneLocation(event.data.global);
-            setActorLocation(sceneLocation);
+            //setActorLocation(sceneLocation);
 
             const convertLocation = (location: number[]) => {
                 return { x: location[0], y: location[1] }
             }
-            const path = aStar?.findPath(convertLocation(actionOriginLocation!), convertLocation(sceneLocation));
+            const origin = actionActor!.location;
+            const path = aStar?.findPath(convertLocation(origin), convertLocation(sceneLocation));
             if (DEBUG) {
                 const graphics = new PIXI.Graphics();
                 path?.forEach((tile) => {
@@ -69,7 +83,7 @@ const Scene = (props: Props) => {
             }
 
         }
-        setActionOriginLocation(null);
+        setActionActor(null);
         const actionPath = actionPathRef.current;
         actionPath?.clear();
     }
@@ -84,7 +98,7 @@ const Scene = (props: Props) => {
         return [Math.floor(point.x / mapData?.tilewidth ), Math.floor(point.y / mapData?.tilewidth)];
     }, [mapData]);
 
-    /** Returns true if */
+    /** Returns true if the tile is blocked */
     const locationIsBlocked = useCallback((location: number[]) => {
         return blockedTiles.some((l) => l[0] === location[0] && l[1] === location[1]);
     }, [blockedTiles]);
@@ -93,9 +107,10 @@ const Scene = (props: Props) => {
     useEffect(() => {
         const container = ref.current;
         const actionPath = actionPathRef.current;
-        if (!container || !mapData) return;
+        if (!container || !mapData || !actionActor) return;
+        const actionOriginLocation = actionActor.location;
         const mouseMove = (event: PIXI.interaction.InteractionEvent) => {
-            if (container && actionPath && mapData && actionOriginLocation) {
+            if (container && actionPath && mapData && actionActor) {
                 // Find out if on a blocked tile
                 const location = pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
                 const blocked = locationIsBlocked(location);
@@ -110,7 +125,7 @@ const Scene = (props: Props) => {
         return () => {
             container.off('pointermove', mouseMove);
         }
-    }, [mapData, blockedTiles, actionOriginLocation, pointToSceneLocation, locationIsBlocked]);
+    }, [mapData, blockedTiles, actionActor, pointToSceneLocation, locationIsBlocked]);
 
     const aStar = useMemo(() => {
         if (!mapData || !blockedTiles.length) {
@@ -146,11 +161,12 @@ const Scene = (props: Props) => {
                 <ActionPath
                     ref={actionPathRef}
                 />
-                { mapData && (
+                { mapData && scene.actors.map((a) => (
                     <SceneObject
+                        key={a.name}
                         tileWidth={mapData.tilewidth}
                         tileHeight={mapData.tilewidth}
-                        sceneLocation={actorLocation}
+                        location={a.location}
                     >
                         {DEBUG && (<Graphics
                             name="hitarea"
@@ -165,12 +181,12 @@ const Scene = (props: Props) => {
                             y={-80}
                             image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`} 
                             interactive={true}
-                            pointerdown={handleActorStartDrag}
+                            pointerdown={() => handleActorStartDrag(a)}
                             pointerupoutside={handleActorEndDrag}
                         />
 
                     </SceneObject>
-                )}
+                ))}
             </Container>
         </Stage>
     );

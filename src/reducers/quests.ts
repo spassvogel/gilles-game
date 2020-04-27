@@ -3,6 +3,7 @@ import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, StartEncou
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "stores/quest";
+import { scene1 } from 'stores/scene';
 
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
@@ -19,6 +20,7 @@ const initialState: QuestStoreState[] = [{
     encounterResults: [],
     icon: "sigil1.png",
     currentEncounter: null,
+    scene: scene1,
 }, {
     name: "retrieveMagicAmulet",
     party: [],
@@ -32,6 +34,7 @@ const initialState: QuestStoreState[] = [{
         gold: 4,
         items: [ Item.deedForWeaponsmith ],
     },
+    scene: scene1,
 }];
 
 /**

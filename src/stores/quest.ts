@@ -1,5 +1,6 @@
 import { Encounter } from "definitions/encounters/types";
 import { Item } from "definitions/items/types";
+import { SceneStoreState } from './scene';
 
 export enum QuestStatus {
     unavailable,
@@ -25,5 +26,5 @@ export interface QuestStoreState {
 
     currentEncounter: Encounter | null;
     reward?: QuestReward;
-    
+    scene: SceneStoreState;
 }
