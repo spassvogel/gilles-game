@@ -25,4 +25,5 @@ export interface QuestStoreState {
 
     currentEncounter: Encounter | null;
     reward?: QuestReward;
+    
 }
