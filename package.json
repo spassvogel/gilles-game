@@ -10,6 +10,7 @@
     "axios": "^0.19.2",
     "debounce": "^1.2.0",
     "deep-equal": "^2.0.3",
+    "gsap": "^3.2.6",
     "handlebars": "^4.7.6",
     "howl": "^0.2.0",
     "howler": "^2.1.3",
