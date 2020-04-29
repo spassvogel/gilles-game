@@ -23,6 +23,7 @@ interface Props {
 }
 
 const DEBUG = true;
+const DEBUG_ACTIONQUEUE = false;
 const DEFAULT_WIDTH = 800;
 const DEFAULT_HEIGHT = 1000;
 
@@ -169,7 +170,7 @@ const Scene = (props: Props) => {
                 matrix
             }, 
             includeStartNode: false,
-            heuristic: "Euclidean",
+            heuristic: "Manhatten",
             weight: 0,
         });
     }, [mapData, locationIsBlocked, blockedTiles]);
@@ -218,7 +219,7 @@ const Scene = (props: Props) => {
                     ))}
                 </Container>
             </BridgedStage>           
-            {DEBUG && (
+            {DEBUG_ACTIONQUEUE && (
                 <div style={{ position: 'absolute', bottom: 0}}>
                     <h2>ActionQueue</h2>
                     <ul>
