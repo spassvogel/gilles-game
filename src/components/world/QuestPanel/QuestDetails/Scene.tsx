@@ -57,6 +57,10 @@ const Scene = (props: Props) => {
         }
     }
 
+    const handleCancelAction = () => {
+        setActionActor(null);
+    }
+
     // Queue actions
     const handleActorEndDrag = (event: PIXI.interaction.InteractionEvent) => {
         if(scene.actionQueue.length > 0) {
@@ -212,6 +216,7 @@ const Scene = (props: Props) => {
                                 image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`} 
                                 interactive={true}
                                 pointerdown={() => handleActorStartDrag(a)}
+                                pointerup={handleCancelAction}
                                 pointerupoutside={handleActorEndDrag}
                             />
 
