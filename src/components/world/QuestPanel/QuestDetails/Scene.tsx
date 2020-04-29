@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
-import { Container, Stage, Graphics, Sprite } from '@inlet/react-pixi';
-import { useSelector, useDispatch, ReactReduxContext, Provider } from 'react-redux';
+import { Container, Graphics, Sprite } from '@inlet/react-pixi';
+import { useSelector, useDispatch } from 'react-redux';
 import { AStarFinder } from "astar-typescript";
 import { TiledMapData } from 'constants/tiledMapData';
 import Tilemap from './Tilemap';
@@ -9,6 +9,7 @@ import { StoreState } from 'stores';
 import { QuestStoreState } from 'stores/quest';
 import { Actor, SceneAction, SceneActionType } from 'stores/scene';
 import { enqueueSceneAction } from 'actions/quests';
+import BridgedStage from 'components/pixi/util/BridgedStage';
 import SceneActor from './SceneActor';
 
 import * as PIXI from 'pixi.js';
@@ -175,57 +176,48 @@ const Scene = (props: Props) => {
 
     return (
         <>
-        {/*  Contexts are not passed through the reconcilers with the new Context API. Create a wrapper component that consumes the context and provides it again in the new reconciler context:
-             https://github.com/inlet/react-pixi/issues/77 */}
-            <ReactReduxContext.Consumer>
-                {({ store }) => (
-                    <Stage width={sceneWidth} height={sceneHeight} >
-                        <Provider store={store}>
-                            <Container 
-                                ref={ref}
-                                interactive={true} 
-                                hitArea={new PIXI.RoundedRectangle(0, 0, sceneWidth, sceneHeight, 0)}
-                            >
-                                { mapData && (
-                                    <Tilemap basePath={basePath} data={mapData} setBlockedTiles={setBlockedTiles}/>
-                                )}
-                                <ActionPath
-                                    ref={actionPathRef}
-                                />
-                                { mapData && scene.actors.map((a) => (
-                                    <SceneActor
-                                        key={a.name}
-                                        actor={a.name}
-                                        questName={props.questName}
-                                        tileWidth={mapData.tilewidth}
-                                        tileHeight={mapData.tilewidth}
-                                        location={a.location}
-                                    >
-                                        {DEBUG && (<Graphics
-                                            name="hitarea"
-                                            draw={graphics => {
-                                                const line = 3;
-                                                graphics.lineStyle(line, 0xFF0000);
-                                                graphics.drawRect(line / 2, line / 2, mapData.tilewidth - line / 2, mapData.tileheight - line / 2);
-                                                graphics.endFill();
-                                            }}
-                                        />)}
-                                        <Sprite                     
-                                            y={-80}
-                                            image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`} 
-                                            interactive={true}
-                                            pointerdown={() => handleActorStartDrag(a)}
-                                            pointerupoutside={handleActorEndDrag}
-                                        />
+            <BridgedStage width={sceneWidth} height={sceneHeight}>
+                <Container 
+                    ref={ref}
+                    interactive={true} 
+                    hitArea={new PIXI.RoundedRectangle(0, 0, sceneWidth, sceneHeight, 0)}
+                >
+                    { mapData && (
+                        <Tilemap basePath={basePath} data={mapData} setBlockedTiles={setBlockedTiles}/>
+                    )}
+                    <ActionPath
+                        ref={actionPathRef}
+                    />
+                    { mapData && scene.actors.map((a) => (
+                        <SceneActor
+                            key={a.name}
+                            actor={a.name}
+                            questName={props.questName}
+                            tileWidth={mapData.tilewidth}
+                            tileHeight={mapData.tilewidth}
+                            location={a.location}
+                        >
+                            {DEBUG && (<Graphics
+                                name="hitarea"
+                                draw={graphics => {
+                                    const line = 3;
+                                    graphics.lineStyle(line, 0xFF0000);
+                                    graphics.drawRect(line / 2, line / 2, mapData.tilewidth - line / 2, mapData.tileheight - line / 2);
+                                    graphics.endFill();
+                                }}
+                            />)}
+                            <Sprite                     
+                                y={-80}
+                                image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`} 
+                                interactive={true}
+                                pointerdown={() => handleActorStartDrag(a)}
+                                pointerupoutside={handleActorEndDrag}
+                            />
 
-                                    </SceneActor>
-                                ))}
-                            </Container>
-                        </Provider>
-                    </Stage>
-                )}
-            </ReactReduxContext.Consumer>>
-            
+                        </SceneActor>
+                    ))}
+                </Container>
+            </BridgedStage>           
             {DEBUG && (
                 <div style={{ position: 'absolute', bottom: 0}}>
                     <h2>ActionQueue</h2>

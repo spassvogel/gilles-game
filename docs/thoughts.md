@@ -441,14 +441,13 @@ In general we should design in such a way that if content doesnt fit on the scre
 For interaction in the scene I want to develop a sort of system where you first click an adventurer to select it. Then underneath one to three buttons appear, [move, attack, interact], move is selected by default. 
 
 Then there are two options:
-[ ] Dragging to a tile, shows a red/green line between destination and adventurer
-[ ] Clicking on a tile
+[x] Dragging to a tile, shows a red/green line between destination and adventurer
+[x] Clicking on a tile
 
 Currently favouring dragging, because we can use it in combat and show the AP cost 
 
 #### animations
 https://github.com/DragonBones/DragonBonesJS
 
-#### pathfinding
-https://sbfkcel.github.io/fast-astar/
-https://github.com/sbfkcel/fast-astar
+#### Font [+art]
+[ ] Implement 'gabriella' font
