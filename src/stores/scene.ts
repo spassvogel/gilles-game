@@ -9,6 +9,18 @@ export interface Actor {
 
 export interface SceneStoreState {
     actors: Actor[];
+    actionQueue: SceneAction[];
+}
+
+export interface SceneAction {
+    actionType: SceneActionType;
+    actor: string;
+    target: number[];
+    endsAt: number;
+}
+
+export enum SceneActionType {
+    move = "move"
 }
 
 export const scene1: SceneStoreState = {
@@ -21,4 +33,5 @@ export const scene1: SceneStoreState = {
         location: [4, 6],
         name: "2e655832",
     }],
+    actionQueue: [],
 };

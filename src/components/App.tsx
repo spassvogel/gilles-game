@@ -10,6 +10,8 @@ import { DndProvider} from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { BrowserRouter as Router, Link, Redirect, Route, Switch, HashRouter} from "react-router-dom";
 import { Persistor} from "redux-persist";
+import { PixiPlugin } from 'gsap/all';
+import { gsap } from 'gsap';
 import { Sound, SoundManager} from "global/SoundManager";
 import { TextManager} from "global/TextManager";
 import { Structure} from "../definitions/structures";
@@ -23,6 +25,10 @@ import WorldView from './world/WorldView';
 import SimpleLog from './log/SimpleLog';
 import ContextTooltip from './ui/tooltip/ContextTooltip';
 import { TooltipManager } from 'global/TooltipManager';
+
+PixiPlugin.registerPIXI(PIXI);
+gsap.registerPlugin(PixiPlugin);
+
 
 // tslint:disable-next-line:no-empty-interface
 export interface StateProps {

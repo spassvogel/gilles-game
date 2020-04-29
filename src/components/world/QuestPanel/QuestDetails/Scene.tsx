@@ -1,20 +1,20 @@
 import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { Container, Stage, Graphics, Sprite } from '@inlet/react-pixi';
+import { useSelector, useDispatch, ReactReduxContext, Provider } from 'react-redux';
+import { AStarFinder } from "astar-typescript";
 import { TiledMapData } from 'constants/tiledMapData';
 import Tilemap from './Tilemap';
-import SceneObject from './SceneObject';
 import ActionPath, { RefActions } from './ActionPath';
-import { AStarFinder } from "astar-typescript";
 import { StoreState } from 'stores';
-import { useSelector } from 'react-redux';
 import { QuestStoreState } from 'stores/quest';
-import { Actor } from 'stores/scene';
+import { Actor, SceneAction, SceneActionType } from 'stores/scene';
+import { enqueueSceneAction } from 'actions/quests';
+import SceneActor from './SceneActor';
 
 import * as PIXI from 'pixi.js';
 window.PIXI = PIXI;
 // eslint-disable-next-line import/first
 import 'pixi-tilemap'; // tilemap is not a real npm module :/
-
 
 interface Props {
     jsonPath: string;
@@ -29,16 +29,16 @@ const Scene = (props: Props) => {
     const [mapData, setMapData] = useState<TiledMapData>();
     const [actionActor, setActionActor] = useState<Actor | null>(null);
     const [blockedTiles, setBlockedTiles] = useState<number[][]>([]);
+    const dispatch = useDispatch();
     const ref = useRef<PIXI.Container>(null);
     const { jsonPath } = props;
-
 
     const questSelector = useCallback(
         (state: StoreState) => state.quests.find((q) => q.name === props.questName)!, 
         [props.questName]
     );
     const quest = useSelector<StoreState, QuestStoreState>(questSelector);
-    const { scene } = quest;
+    const {scene} = quest;
 
     useEffect(() => {
         new PIXI.Loader().add(jsonPath).load((loader)=>{            
@@ -50,21 +50,39 @@ const Scene = (props: Props) => {
     const basePath = jsonPath.substr(0, jsonPath.lastIndexOf('/'));
 
     const handleActorStartDrag = (actor: Actor) => {
-        setActionActor(actor);
+        if(scene.actionQueue.length === 0){
+            setActionActor(actor);
+        }
     }
 
+    // Queue actions
     const handleActorEndDrag = (event: PIXI.interaction.InteractionEvent) => {
+        if(scene.actionQueue.length > 0) {
+            return;
+        }
+
         const location = pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
         const blocked = locationIsBlocked(location);
         if (!blocked) {
             const sceneLocation = pointToSceneLocation(event.data.global);
-            //setActorLocation(sceneLocation);
 
             const convertLocation = (location: number[]) => {
                 return { x: location[0], y: location[1] }
             }
             const origin = actionActor!.location;
             const path = aStar?.findPath(convertLocation(origin), convertLocation(sceneLocation));
+            
+            const movementDuration = 500; // time every tile movement takes
+            path?.forEach((location, index) => {
+                const sceneAction: SceneAction = {
+                    actionType: SceneActionType.move,
+                    actor: actionActor!.name,
+                    target: location,
+                    endsAt: movementDuration * (index + 1) + performance.now()
+                };
+                dispatch(enqueueSceneAction(props.questName, sceneAction));
+            });
+
             if (DEBUG) {
                 const graphics = new PIXI.Graphics();
                 path?.forEach((tile) => {
@@ -79,7 +97,9 @@ const Scene = (props: Props) => {
                     graphics.endFill();
                 });
                 ref.current!.addChild(graphics);
-                setTimeout(() => { ref.current!.removeChild(graphics)}, 1000);
+                setTimeout(() => { 
+                    ref.current?.removeChild(graphics)}
+                , 1000);
             }
 
         }
@@ -91,6 +111,7 @@ const Scene = (props: Props) => {
     const sceneWidth = (mapData?.width || 0) * (mapData?.tilewidth || 0) || DEFAULT_WIDTH;
     const sceneHeight = (mapData?.height || 0) * (mapData?.tileheight || 0) || DEFAULT_HEIGHT;
 
+    // Converts pixel coordinate to scene location
     const pointToSceneLocation = useCallback((point: PIXI.Point) => {
         if (!mapData?.tilewidth || !mapData.tileheight) {
             return [0, 0];
@@ -103,11 +124,12 @@ const Scene = (props: Props) => {
         return blockedTiles.some((l) => l[0] === location[0] && l[1] === location[1]);
     }, [blockedTiles]);
 
+    // Draw a line to indicate the action to take
     const actionPathRef = useRef<RefActions>(null);
     useEffect(() => {
         const container = ref.current;
         const actionPath = actionPathRef.current;
-        if (!container || !mapData || !actionActor) return;
+        if (!container || !mapData || !actionActor || scene.actionQueue.length > 0) return;
         const actionOriginLocation = actionActor.location;
         const mouseMove = (event: PIXI.interaction.InteractionEvent) => {
             if (container && actionPath && mapData && actionActor) {
@@ -125,7 +147,7 @@ const Scene = (props: Props) => {
         return () => {
             container.off('pointermove', mouseMove);
         }
-    }, [mapData, blockedTiles, actionActor, pointToSceneLocation, locationIsBlocked]);
+    }, [mapData, blockedTiles, actionActor, pointToSceneLocation, locationIsBlocked, scene.actionQueue]);
 
     const aStar = useMemo(() => {
         if (!mapData || !blockedTiles.length) {
@@ -144,51 +166,77 @@ const Scene = (props: Props) => {
         return new AStarFinder({
             grid: {
                 matrix
-            }
+            }, 
+            includeStartNode: false,
+            heuristic: "Euclidean",
+            weight: 0,
         });
-    }, [mapData, locationIsBlocked, blockedTiles])
+    }, [mapData, locationIsBlocked, blockedTiles]);
 
     return (
-        <Stage width={sceneWidth} height={sceneHeight} >
-            <Container 
-                ref={ref}
-                interactive={true} 
-                hitArea={new PIXI.RoundedRectangle(0, 0, sceneWidth, sceneHeight, 0)}
-            >
-                { mapData && (
-                    <Tilemap basePath={basePath} data={mapData} setBlockedTiles={setBlockedTiles}/>
-                )}
-                <ActionPath
-                    ref={actionPathRef}
-                />
-                { mapData && scene.actors.map((a) => (
-                    <SceneObject
-                        key={a.name}
-                        tileWidth={mapData.tilewidth}
-                        tileHeight={mapData.tilewidth}
-                        location={a.location}
-                    >
-                        {DEBUG && (<Graphics
-                            name="hitarea"
-                            draw={graphics => {
-                                const line = 3;
-                                graphics.lineStyle(line, 0xFF0000);
-                                graphics.drawRect(line / 2, line / 2, mapData.tilewidth - line / 2, mapData.tileheight - line / 2);
-                                graphics.endFill();
-                            }}
-                        />)}
-                        <Sprite                     
-                            y={-80}
-                            image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`} 
-                            interactive={true}
-                            pointerdown={() => handleActorStartDrag(a)}
-                            pointerupoutside={handleActorEndDrag}
-                        />
+        <>
+        {/*  Contexts are not passed through the reconcilers with the new Context API. Create a wrapper component that consumes the context and provides it again in the new reconciler context:
+             https://github.com/inlet/react-pixi/issues/77 */}
+            <ReactReduxContext.Consumer>
+                {({ store }) => (
+                    <Stage width={sceneWidth} height={sceneHeight} >
+                        <Provider store={store}>
+                            <Container 
+                                ref={ref}
+                                interactive={true} 
+                                hitArea={new PIXI.RoundedRectangle(0, 0, sceneWidth, sceneHeight, 0)}
+                            >
+                                { mapData && (
+                                    <Tilemap basePath={basePath} data={mapData} setBlockedTiles={setBlockedTiles}/>
+                                )}
+                                <ActionPath
+                                    ref={actionPathRef}
+                                />
+                                { mapData && scene.actors.map((a) => (
+                                    <SceneActor
+                                        key={a.name}
+                                        actor={a.name}
+                                        questName={props.questName}
+                                        tileWidth={mapData.tilewidth}
+                                        tileHeight={mapData.tilewidth}
+                                        location={a.location}
+                                    >
+                                        {DEBUG && (<Graphics
+                                            name="hitarea"
+                                            draw={graphics => {
+                                                const line = 3;
+                                                graphics.lineStyle(line, 0xFF0000);
+                                                graphics.drawRect(line / 2, line / 2, mapData.tilewidth - line / 2, mapData.tileheight - line / 2);
+                                                graphics.endFill();
+                                            }}
+                                        />)}
+                                        <Sprite                     
+                                            y={-80}
+                                            image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`} 
+                                            interactive={true}
+                                            pointerdown={() => handleActorStartDrag(a)}
+                                            pointerupoutside={handleActorEndDrag}
+                                        />
 
-                    </SceneObject>
-                ))}
-            </Container>
-        </Stage>
+                                    </SceneActor>
+                                ))}
+                            </Container>
+                        </Provider>
+                    </Stage>
+                )}
+            </ReactReduxContext.Consumer>>
+            
+            {DEBUG && (
+                <div style={{ position: 'absolute', bottom: 0}}>
+                    <h2>ActionQueue</h2>
+                    <ul>
+                        {scene.actionQueue.map((action) => (
+                            <li key={JSON.stringify(action)}>{JSON.stringify(action)}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+        </>
     );
 }
 

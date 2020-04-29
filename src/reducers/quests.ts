@@ -1,9 +1,9 @@
 import { ActionType as GameActionType, GameTickAction } from "actions/game";
-import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, StartEncounterAction, UpdateEncounterResultAction } from "actions/quests";
+import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, StartEncounterAction, UpdateEncounterResultAction, EnqueueSceneActionAction } from "actions/quests";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "stores/quest";
-import { scene1 } from 'stores/scene';
+import { scene1, SceneActionType } from 'stores/scene';
 
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
@@ -42,8 +42,7 @@ const initialState: QuestStoreState[] = [{
  * @param state
  * @param action
  */
-export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialState,
-                                                   action: AnyAction | GameTickAction) => {
+export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialState, action: AnyAction ) => {
     switch (action.type) {
         case ActionType.launchQuest:
             return launchQuest(state, action as QuestLaunchAction);
@@ -60,6 +59,12 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
         case ActionType.startEncounter:
             return startEncounter(state, action as StartEncounterAction);
+
+        case ActionType.enqueueSceneAction:
+            return enqueueSceneAction(state, action as EnqueueSceneActionAction);
+
+            case ActionType.completeSceneAction:
+            return completeSceneAction(state, action as QuestAction);
 
         case GameActionType.gameTick:
            return gameTick(state, action as GameTickAction);
@@ -109,6 +114,55 @@ const startEncounter = (state: QuestStoreState[], action: StartEncounterAction) 
             return {
                 ...qss,
                 currentEncounter: action.encounter,
+            };
+        }
+        return qss;
+    });
+};
+
+// Enqueues a scene action on this quest
+const enqueueSceneAction = (state: QuestStoreState[], action: EnqueueSceneActionAction) => {
+    return state.map((qss) => {
+        if (qss.name === action.questName) {
+            const scene = qss.scene;
+            scene.actionQueue = [...scene.actionQueue || [], action.sceneAction];
+
+            return {
+                ...qss,
+                scene
+            };
+        }
+        return qss;
+    });
+};
+
+// Action on scene is completed
+const completeSceneAction = (state: QuestStoreState[], action: QuestAction) => {
+    return state.map((qss) => {
+        if (qss.name === action.questName) {
+            const scene = qss.scene;
+            const action = scene.actionQueue[0];
+            if (!action) return qss;
+
+            switch (action.actionType) {
+                case SceneActionType.move: {
+                    scene.actors = scene.actors.map((a) => {
+                        if (a.name === action.actor) {
+                            return { ...a, location: action.target };
+                        }
+                        return a;
+                    })
+                }
+            }
+
+            // pop first action of the stack
+            scene.actionQueue = [
+                ...scene.actionQueue.slice(1)
+            ];
+
+            return {
+                ...qss,
+                scene
             };
         }
         return qss;

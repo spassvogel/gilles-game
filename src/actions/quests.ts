@@ -1,6 +1,7 @@
 import { Encounter } from "definitions/encounters/types";
 import { Action } from "redux";
 import { AdventurerStoreState } from "stores/adventurer";
+import { SceneAction } from 'stores/scene';
 
 // tslint:disable:object-literal-sort-keys
 
@@ -11,6 +12,8 @@ export enum ActionType {
     updateEncounterResult = "updateEncounterResult",
     startEncounter = "startEncounter",
     updateQuests = "updateQuests",
+    enqueueSceneAction = "enqueueSceneAction",
+    completeSceneAction = "completeSceneAction",
 }
 
 export interface QuestAction extends Action<ActionType> {
@@ -27,6 +30,9 @@ export interface QuestLaunchAction extends QuestAction {
 
 export interface StartEncounterAction extends QuestAction {
     encounter: Encounter;
+}
+export interface EnqueueSceneActionAction extends QuestAction {
+    sceneAction: SceneAction;
 }
 
 export interface UpdateEncounterResultAction extends QuestAction {
@@ -63,6 +69,21 @@ export function startEncounter(quest: string, encounter: Encounter): StartEncoun
         type: ActionType.startEncounter,
         questName: quest,
         encounter,
+    };
+}
+
+export function enqueueSceneAction(quest: string, sceneAction: SceneAction): EnqueueSceneActionAction {
+    return {
+        type: ActionType.enqueueSceneAction,
+        questName: quest,
+        sceneAction,
+    };
+}
+
+export function completeSceneAction(quest: string): QuestAction {
+    return {
+        type: ActionType.completeSceneAction,
+        questName: quest,
     };
 }
 
