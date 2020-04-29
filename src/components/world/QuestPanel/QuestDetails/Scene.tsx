@@ -22,7 +22,7 @@ interface Props {
     questName: string;
 }
 
-const DEBUG = true;
+const DEBUG_ASTAR = false;
 const DEBUG_ACTIONQUEUE = false;
 const DEFAULT_WIDTH = 800;
 const DEFAULT_HEIGHT = 1000;
@@ -89,7 +89,7 @@ const Scene = (props: Props) => {
                 dispatch(enqueueSceneAction(props.questName, sceneAction));
             });
 
-            if (DEBUG) {
+            if (DEBUG_ASTAR) {
                 const graphics = new PIXI.Graphics();
                 path?.forEach((tile) => {
                     const [x, y] = tile;
@@ -202,12 +202,12 @@ const Scene = (props: Props) => {
                             tileHeight={mapData.tilewidth}
                             location={a.location}
                         >
-                            {DEBUG && (<Graphics
-                                name="hitarea"
+                            {actionActor?.name === a.name && (<Graphics
+                                name="selectioncircle"
                                 draw={graphics => {
                                     const line = 3;
-                                    graphics.lineStyle(line, 0xFF0000);
-                                    graphics.drawRect(line / 2, line / 2, mapData.tilewidth - line / 2, mapData.tileheight - line / 2);
+                                    graphics.lineStyle(line, 0xFFFFFF);
+                                    graphics.drawCircle(mapData.tilewidth / 2, mapData.tileheight / 2, mapData.tilewidth / 2 - line);
                                     graphics.endFill();
                                 }}
                             />)}

@@ -345,7 +345,7 @@ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy
 [ ] Leader ability?
 
 #### 30/03/2020 Combat situation visuals [+art], [+tech]
-[ ] See https://github.com/knervous/tiled-pixi-react
+[x] See https://github.com/knervous/tiled-pixi-react
     I have cloned this repo. Will try to move some code over
 
 #### 30/03/2020 Refactor react [+tech]
@@ -361,6 +361,7 @@ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy
 #### 02/04/2020 Toasts [+tech]
 [x] Basic toast implementation is done
 [ ] Implement in different scenarios (quest complete, quest failed, achievement unlocked)
+[ ] Can click quest toasts to open quest. See (29/04/2020)
 [ ] Add sound
 
 #### 02/04/2020 Make town come alive [+art]
@@ -425,7 +426,7 @@ https://gamedev.stackexchange.com/questions/115982/industry-standard-json-format
 [-] Implement tmx loader (see tiled-pixi-react: https://www.npmjs.com/package/tiled-pixi-react)
     (no. use json!)
 
-[ ] Shit. pixi-tilemap doesn't export as npm module.    
+[x] Shit. pixi-tilemap doesn't export as npm module.    
 
 The static part of the scene is not stored in store. The dynamic part is created by Oracle.createSceneState() and stored in redux. After that, any changes (actors moving, stuff getting added/removed) are also persisted to redux.
 
@@ -449,5 +450,8 @@ Currently favouring dragging, because we can use it in combat and show the AP co
 #### animations
 https://github.com/DragonBones/DragonBonesJS
 
-#### Font [+art]
-[ ] Implement 'gabriella' font
+#### 29/04/2020 Font [+art]
+[x] Implement 'gabriella' font
+
+#### 29/04/2020 Route to quest [+tech]
+[ ] So we can open a quest from anywhere, e.g toasts
