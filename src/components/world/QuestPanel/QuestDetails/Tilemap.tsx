@@ -124,7 +124,7 @@ const parseSpritesheetData = (mapData: TiledMapData): SpritesheetData => {
         const x = (i % columns) * w;
         const y = Math.floor(i / columns) * h;
 
-        frames[`${i + 1}`] = { 
+        frames[`${tileset.name}-${i + 1}`] = { 
             frame: {x, y, w, h},
             spriteSourceSize: {x, y, w, h},
             rotated: false,

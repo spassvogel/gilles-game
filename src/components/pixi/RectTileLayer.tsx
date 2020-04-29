@@ -32,9 +32,8 @@ const RectTileLayer = PixiComponent<Props, any>("RectTileLayer", {
             const x = (i % horizontalTiles) * w;
             const y = Math.floor(i / horizontalTiles) * h;
         
-            const spriteId = layer.data[i];
-        
-            if (spriteId > 0) {
+            if (layer.data[i] > 0) {
+                const spriteId = `${tileset.name}-${layer.data[i]}`;
                 instance.addFrame(spritesheet.textures[spriteId], x, y);
             }
         }
