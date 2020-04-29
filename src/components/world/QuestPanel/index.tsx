@@ -3,7 +3,6 @@ import "./css/questPanel.css";
 import AdventurerTabstrip from './AdventurerTabstrip';
 import { createSelectAdventurersOnQuest } from 'selectors/adventurers';
 import { useSelector } from 'react-redux';
-import { AdventurerStoreState } from 'stores/adventurer';
 import AdventurerPanel from './AdventurerPanel';
 import QuestDetails from './QuestDetails';
 
@@ -22,14 +21,14 @@ const QuestPanel = (props: Props) => {
     const {layout = Layout.auto} = props;
     const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));   
     const leader = adventurers[0];
-    const [selectedAdventurerID, setSelectedAdventurerID] = useState<string>(leader.id);
+    const [selectedAdventurerId, setSelectedAdventurerID] = useState<string>(leader.id);
 
     const selectedAdventurer = useMemo(() => {
-        return adventurers.find(a => a.id === selectedAdventurerID);
-    }, [adventurers, selectedAdventurerID]);
+        return adventurers.find(a => a.id === selectedAdventurerId);
+    }, [adventurers, selectedAdventurerId]);
 
-    const handleAdventurerSelected = (adventurer: AdventurerStoreState) => {
-        setSelectedAdventurerID(adventurer.id);
+    const handleAdventurerSelected = (adventurerId: string) => {
+        setSelectedAdventurerID(adventurerId);
     }
     
     //console.log('rendering questpanel' + JSON.stringify(selectedAdventurer?.equipment))
@@ -37,10 +36,19 @@ const QuestPanel = (props: Props) => {
     return (
         <div className={`quest-panel quest-panel-${Layout[layout]}`}>
             <div className="quest-area">
-                <QuestDetails questName={props.questName} />
+                <QuestDetails 
+                    questName={props.questName} 
+                    selectedActor={selectedAdventurerId} 
+                    jsonPath={`${process.env.PUBLIC_URL}/scenes/ork-dungeon-level1.json`} 
+                    setSelectedActor={handleAdventurerSelected}
+                />
             </div>
             <div className="party-area">
-                <AdventurerTabstrip adventurers={adventurers} onAdventurerTabSelected={handleAdventurerSelected} />
+                <AdventurerTabstrip 
+                    adventurers={adventurers} 
+                    selectedAdventurerId={selectedAdventurerId}
+                    onAdventurerTabSelected={handleAdventurerSelected} 
+                />
                 <div className="adventurer-details">
                     { selectedAdventurer && (
                         <AdventurerPanel adventurer={selectedAdventurer} />

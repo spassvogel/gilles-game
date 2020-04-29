@@ -17,9 +17,11 @@ window.PIXI = PIXI;
 // eslint-disable-next-line import/first
 import 'pixi-tilemap'; // tilemap is not a real npm module :/
 
-interface Props {
+export interface Props {
     jsonPath: string;
     questName: string;
+    selectedActor: string;
+    setSelectedActor: (actor: string) => void;
 }
 
 const DEBUG_ASTAR = false;
@@ -29,7 +31,7 @@ const DEFAULT_HEIGHT = 1000;
 
 const Scene = (props: Props) => {
     const [mapData, setMapData] = useState<TiledMapData>();
-    const [actionActor, setActionActor] = useState<Actor | null>(null);
+    const [actionActor, setActionActor] = useState<Actor | null>(null); // actor that the player is performing an action on
     const [blockedTiles, setBlockedTiles] = useState<number[][]>([]);
     const dispatch = useDispatch();
     const ref = useRef<PIXI.Container>(null);
@@ -41,6 +43,10 @@ const Scene = (props: Props) => {
     );
     const quest = useSelector<StoreState, QuestStoreState>(questSelector);
     const {scene} = quest;
+
+    const selectedActor = useMemo(() => {
+        return scene.actors.find(a => a.name === props.selectedActor) || null;
+    }, [scene.actors, props.selectedActor])
 
     useEffect(() => {
         new PIXI.Loader().add(jsonPath).load((loader)=>{            
@@ -55,10 +61,12 @@ const Scene = (props: Props) => {
         if(scene.actionQueue.length === 0){
             setActionActor(actor);
         }
+        props.setSelectedActor(actor.name);
     }
 
-    const handleCancelAction = () => {
+    const handleCancelAction = (event: PIXI.interaction.InteractionEvent) => {
         setActionActor(null);
+        event.stopPropagation();
     }
 
     // Queue actions
@@ -202,7 +210,7 @@ const Scene = (props: Props) => {
                             tileHeight={mapData.tilewidth}
                             location={a.location}
                         >
-                            {actionActor?.name === a.name && (<Graphics
+                            {selectedActor?.name === a.name && (<Graphics
                                 name="selectioncircle"
                                 draw={graphics => {
                                     const line = 3;

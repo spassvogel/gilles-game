@@ -6,7 +6,8 @@ import AdventurerAvatar from 'components/ui/AdventurerAvatar';
 
 interface Props {
     adventurers: AdventurerStoreState[];
-    onAdventurerTabSelected: (adventurer: AdventurerStoreState) => void;
+    selectedAdventurerId?: string;
+    onAdventurerTabSelected: (adventurerId: string) => void;
 }
 
 // Shows adventurer portraits in a tabstrip
@@ -15,7 +16,7 @@ const AdventurerTabstrip = (props: Props) => {
 
     const handleAdventurerTabSelected = (adventurerId: string) => {
         const adventurer = props.adventurers.find(a => a.id === adventurerId)!;
-        onAdventurerTabSelected(adventurer);
+        onAdventurerTabSelected(adventurer.id);
     }
 
     const renderAdventurerTab = (adventurer: AdventurerStoreState) => (
@@ -24,7 +25,11 @@ const AdventurerTabstrip = (props: Props) => {
         </Tab>
     );
     return (
-        <Tabstrip className="adventurers-tabstrip" onTabSelected={handleAdventurerTabSelected} >
+        <Tabstrip 
+            className="adventurers-tabstrip" 
+            onTabSelected={handleAdventurerTabSelected}
+            activeTab={props.selectedAdventurerId} 
+        >
             {adventurers.map((a) => renderAdventurerTab(a))}
         </Tabstrip>
     )

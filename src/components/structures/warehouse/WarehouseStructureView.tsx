@@ -16,6 +16,7 @@ import { empty, ResourceStoreState } from "stores/resources";
 import { StructuresStoreState } from "stores/structures";
 import { TextManager } from "global/TextManager";
 import "./css/warehousestructureview.css";
+import AdventurerTabstrip from 'components/world/QuestPanel/AdventurerTabstrip';
 
 export interface DispatchProps {
     onMoveItemInWarehouse: (fromSlot: number, toSlot: number) => void;
@@ -168,9 +169,11 @@ const WarehouseStructureView = (props: AllProps) => {
             />
             <h3>Adventurers</h3>
             <div>
-                <Tabstrip className="adventurers-tabstrip" onTabSelected={handleAdventurerTabSelected} >
-                {props.adventurersInTown.map((a) => renderAdventurerTab(a))}
-                </Tabstrip>
+                <AdventurerTabstrip
+                    adventurers={props.adventurersInTown} 
+                    selectedAdventurerId={selectedAdventurer}
+                    onAdventurerTabSelected={handleAdventurerTabSelected} 
+                />
                 <div className="adventurer-inventory">
                     {renderAdventurerContent()}
                 </div>

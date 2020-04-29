@@ -7,15 +7,15 @@ export interface Props {
     onClick?: React.MouseEventHandler<Element>;
     onTabSelected?: (tabId: string) => void;
     children?: any;
+    activeTab?: string;
 }
 
 type AllProps = Props;
 const Tabstrip = (props: AllProps) => {
-    let initialSelectedTab = null;
-    if (props.children && props.children.length) {
-        initialSelectedTab = props.children[0].props.id;
+    let {activeTab = null} = props;
+    if (!activeTab && props.children && props.children.length) {
+        activeTab = props.children[0].props.id;
     }
-    const [activeTab, setActiveTab] = useState<string|null>(initialSelectedTab);
     const className = props.className || "";
 
     const children = React.Children.map(props.children, (child: React.ReactElement<TabProps>) => {
@@ -27,7 +27,6 @@ const Tabstrip = (props: AllProps) => {
     });
 
     const handleTabClick = (tabId: string) => {
-        setActiveTab(tabId);
         if (props.onTabSelected) {
             props.onTabSelected(tabId);
         }
@@ -39,9 +38,11 @@ const Tabstrip = (props: AllProps) => {
         }
     };
 
-    return <ul className = { `tabstrip ${className}` } onClick = { handleClick } >
-        { children }
-    </ul>;
+    return (
+        <ul className = {`tabstrip ${className}`} onClick={handleClick}>
+            {children}
+        </ul>
+    );
 };
 
 export default Tabstrip;
