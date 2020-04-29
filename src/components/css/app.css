@@ -4,6 +4,11 @@
     --app-cursor-down: url("/gilles-game/img/cursors/dwarven_gauntlet_extra_3.png"), auto;
 }
 
+@font-face {
+    font-family: 'Gabriela';
+    src:  url('/gilles-game/font/Gabriela-Regular.woff') format('woff');
+  }
+
 .app {
     background: orange;
     position: relative;
@@ -13,6 +18,7 @@
     height: 100vh;
 
     cursor: var(--app-cursor-default);
+    font-family: "Gabriela", "Cambria", sans-serif;
 }
 
 .resources label {
@@ -39,7 +45,6 @@
 /** Headers */
 .app-h1, .app-h2 {
     color: black;
-    font-family: "Cambria", sans-serif;
     text-align: center;
 }
 
@@ -53,7 +58,6 @@
 
 .app-h1-white, .app-h2-white {
     color: white;
-    font-family: "Cambria", sans-serif;
     text-align: center;
     text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5), 0 0 2px rgba(0, 0, 0, 0.5);
 }

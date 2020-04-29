@@ -93,7 +93,6 @@
     position: absolute;
     line-height: 22px;
     font-size: 16px;
-    font-family: "Constantia", sans-serif;
     color: #E7AA40;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.5), 1px 1px 1px black;
     background-image: radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.35) 0, transparent 73%);
