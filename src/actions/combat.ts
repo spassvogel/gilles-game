@@ -11,16 +11,16 @@ export enum ActionType {
 export interface AddCombatActionAction extends Action<ActionType> {
     combatType: CombatActionType;
     actor: string;
-    target: number[];
+    target: [number, number];
     endsAt: number;
 }
 
 export interface MoveActorAction extends Action<ActionType> {
     actor: string;
-    location: number[];
+    location: [number, number];
 }
 
-export function startCombatAction(type: CombatActionType, actor: string, target: number[], endsAt: number): AddCombatActionAction {
+export function startCombatAction(type: CombatActionType, actor: string, target: [number, number], endsAt: number): AddCombatActionAction {
     return {
         type: ActionType.startCombatAction,
         combatType: type,
@@ -30,7 +30,7 @@ export function startCombatAction(type: CombatActionType, actor: string, target:
     };
 }
 
-export function moveActor(actor: string, location: number[]): MoveActorAction {
+export function moveActor(actor: string, location: [number, number]): MoveActorAction {
     return {
         type: ActionType.moveActor,
         actor,

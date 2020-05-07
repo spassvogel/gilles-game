@@ -2,7 +2,7 @@
 export interface Actor {
     name: string;
     //allegiance: Allegiance;
-    location: number[];
+    location: [number, number];
     health: number;
     //remainingAP: number;
 }
@@ -15,7 +15,7 @@ export interface SceneStoreState {
 export interface SceneAction {
     actionType: SceneActionType;
     actor: string;
-    target: number[];
+    target: [number, number];
     endsAt: number;
 }
 

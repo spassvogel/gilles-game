@@ -80,7 +80,7 @@ const Scene = (props: Props) => {
         if (!blocked) {
             const sceneLocation = pointToSceneLocation(event.data.global);
 
-            const convertLocation = (location: number[]) => {
+            const convertLocation = (location: [number, number]) => {
                 return { x: location[0], y: location[1] }
             }
             const origin = actionActor!.location;
@@ -91,7 +91,7 @@ const Scene = (props: Props) => {
                 const sceneAction: SceneAction = {
                     actionType: SceneActionType.move,
                     actor: actionActor!.name,
-                    target: location,
+                    target: [location[0], location[1]],
                     endsAt: movementDuration * (index + 1) + performance.now()
                 };
                 dispatch(enqueueSceneAction(props.questName, sceneAction));
@@ -126,7 +126,7 @@ const Scene = (props: Props) => {
     const sceneHeight = (mapData?.height || 0) * (mapData?.tileheight || 0) || DEFAULT_HEIGHT;
 
     // Converts pixel coordinate to scene location
-    const pointToSceneLocation = useCallback((point: PIXI.Point) => {
+    const pointToSceneLocation = useCallback((point: PIXI.Point): [number, number] => {
         if (!mapData?.tilewidth || !mapData.tileheight) {
             return [0, 0];
         }
@@ -134,7 +134,7 @@ const Scene = (props: Props) => {
     }, [mapData]);
 
     /** Returns true if the tile is blocked */
-    const locationIsBlocked = useCallback((location: number[]) => {
+    const locationIsBlocked = useCallback((location: [number, number]) => {
         return blockedTiles.some((l) => l[0] === location[0] && l[1] === location[1]);
     }, [blockedTiles]);
 
@@ -171,7 +171,7 @@ const Scene = (props: Props) => {
         for (let y = 0; y < mapData.height; y++) {
             const row: number[] = [];
             for (let x = 0; x < mapData.width; x++) {
-                const location = [x, y];
+                const location: [number, number] = [x, y];
                 const blocked = locationIsBlocked(location);
                 row.push(blocked ? 1 : 0);
             }

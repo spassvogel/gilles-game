@@ -12,7 +12,7 @@ interface Props  {
     tileWidth: number;
     tileHeight: number;
     questName: string;
-    location?: number[]; // tile coordinate space 
+    location?: [number, number]; // tile coordinate space 
     children: React.ReactNode;
 };
 

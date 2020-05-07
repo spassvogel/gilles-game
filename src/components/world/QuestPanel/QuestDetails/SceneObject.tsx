@@ -5,7 +5,7 @@ import React, { useMemo, forwardRef } from 'react';
 interface Props  {
   tileWidth: number;
   tileHeight: number;
-  location?: number[]; // tile coordinate space 
+  location?: [number, number]; // tile coordinate space 
   children: React.ReactNode;
 };
 
