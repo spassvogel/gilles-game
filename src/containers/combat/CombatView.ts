@@ -14,7 +14,7 @@ const mapStateToProps = (store: StoreState, ownProps: Props): StateProps => {
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
     return {
-        onStartAction: (type: CombatActionType, actor: string, target: number[], endsAt: number) => {
+        onStartAction: (type: CombatActionType, actor: string, target: [number, number], endsAt: number) => {
             dispatch(startCombatAction(type, actor, target, endsAt));
         },
     };

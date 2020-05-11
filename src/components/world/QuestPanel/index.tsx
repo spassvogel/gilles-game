@@ -39,7 +39,6 @@ const QuestPanel = (props: Props) => {
                 <QuestDetails 
                     questName={props.questName} 
                     selectedActor={selectedAdventurerId} 
-                    jsonPath={`${process.env.PUBLIC_URL}/scenes/ork-dungeon-level1.json`} 
                     setSelectedActor={handleAdventurerSelected}
                 />
             </div>

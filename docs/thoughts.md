@@ -455,3 +455,6 @@ https://github.com/DragonBones/DragonBonesJS
 
 #### 29/04/2020 Route to quest [+tech]
 [ ] So we can open a quest from anywhere, e.g toasts
+
+#### 08/05/2020 Sass
+[ ] Try to implement sass again (https://www.google.com/search?q=sass+create+react+app)

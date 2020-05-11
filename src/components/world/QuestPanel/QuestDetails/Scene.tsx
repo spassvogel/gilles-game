@@ -18,7 +18,6 @@ window.PIXI = PIXI;
 import 'pixi-tilemap'; // tilemap is not a real npm module :/
 
 export interface Props {
-    jsonPath: string;
     questName: string;
     selectedActor: string;
     setSelectedActor: (actor: string) => void;
@@ -35,7 +34,6 @@ const Scene = (props: Props) => {
     const [blockedTiles, setBlockedTiles] = useState<number[][]>([]);
     const dispatch = useDispatch();
     const ref = useRef<PIXI.Container>(null);
-    const { jsonPath } = props;
 
     const questSelector = useCallback(
         (state: StoreState) => state.quests.find((q) => q.name === props.questName)!, 
@@ -43,6 +41,7 @@ const Scene = (props: Props) => {
     );
     const quest = useSelector<StoreState, QuestStoreState>(questSelector);
     const {scene} = quest;
+    const jsonPath = `${process.env.PUBLIC_URL}/${scene.tilemap}`;
 
     const selectedActor = useMemo(() => {
         return scene.actors.find(a => a.name === props.selectedActor) || null;

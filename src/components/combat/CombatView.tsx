@@ -13,7 +13,7 @@ export interface StateProps  {
 
 // tslint:disable-next-line:no-empty-interface
 export interface DispatchProps {
-    onStartAction: (type: CombatActionType, actor: string, target: number[], endsAt: number) => void;
+    onStartAction: (type: CombatActionType, actor: string, target: [number, number], endsAt: number) => void;
 }
 
 type AllProps = Props & StateProps & DispatchProps;
@@ -74,7 +74,7 @@ const CombatView = (props: AllProps) => {
     const clickMap = (e: React.MouseEvent<HTMLPreElement>) => {
         const target = e.target as HTMLElement;
         if (target.tagName === "SPAN") {
-            const location: number[] = target.attributes["data-position"].value.split(",").map((v: string) => parseFloat(v));
+            const location: [number, number] = target.attributes["data-position"].value.split(",").map((v: string) => parseFloat(v));
 
             if (activeAction) {
                 const allowed = actionAllowed(selectedActor!, location, activeAction);

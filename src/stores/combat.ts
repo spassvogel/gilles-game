@@ -20,7 +20,7 @@ export enum Allegiance {
 export interface CombatAction {
     type: CombatActionType;
     actor: string;
-    target: number[];
+    target: [number, number];
     endsAt: number;
 }
 
