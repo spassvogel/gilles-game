@@ -84,7 +84,7 @@ const launchQuest = (questStoreState: QuestStoreState[], action: QuestLaunchActi
     return questStoreState.map((qss) => {
         if (qss.name === action.questName) {
             const questDefinition: QuestDefinition = getDefinition(action.questName);
-            const questVars = questDefinition.startQuest(qss);
+            const questVars = questDefinition.getInitialQuestVars(qss);
 
             return {
                 ...qss,

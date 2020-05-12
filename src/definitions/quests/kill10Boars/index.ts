@@ -9,7 +9,7 @@ interface Kill10BoarsQuestVars {
 
 const kill10Boars: QuestDefinition<Kill10BoarsQuestVars> = {
     getQuestVars: (questStore: QuestStoreState) => questStore.questVars as Kill10BoarsQuestVars,
-    startQuest: (questStore: QuestStoreState) => {
+    getInitialQuestVars: (questStore: QuestStoreState) => {
         const vars: Kill10BoarsQuestVars = {
             foo: false,
             bar: 3

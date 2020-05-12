@@ -13,7 +13,7 @@ export interface QuestDefinition<TQuestVars = any> {
     nodes: QuestNode[];
     requiredItems?: Item[];
     getQuestVars: (questStoreState: QuestStoreState) => TQuestVars;
-    startQuest: (questStoreState: QuestStoreState) => TQuestVars;
+    getInitialQuestVars: (questStoreState: QuestStoreState) => TQuestVars;
 }
 
 export interface QuestNode {
