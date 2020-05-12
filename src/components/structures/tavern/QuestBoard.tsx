@@ -1,13 +1,14 @@
 import { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvatar";
 import ItemsCostBox from "containers/ui/context/items/ItemsCostBox";
 import { Item } from "definitions/items/types";
-import { getDefinition, QuestDefinition } from "definitions/quests";
+import { getDefinition } from "definitions/quests";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStoreState } from "stores/quest";
 import { TextManager } from "global/TextManager";
 import AssignAdventurers from "./AssignAdventurers";
 import "./css/questboard.css";
+import { QuestDefinition } from 'definitions/quests/types';
 
 const availableSlots = 5;
 const minimumCountAdventurers = 3;  // we need this many adventurers to start the quest

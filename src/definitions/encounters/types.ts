@@ -17,4 +17,5 @@ export enum Encounter {
     goblinHouseHallway = "goblinHouseHallway",
     goblinHouseOutside = "goblinHouseOutside",
     theBigTree = "theBigTree",
+    dungeon = "dungeon",
 }

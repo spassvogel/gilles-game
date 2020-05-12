@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import React, { useEffect, useRef, useCallback, useState } from "react";
 import { QuestStoreState } from "stores/quest";
 import { lerpLocation } from 'utils/pixiJs';
-import { QuestDefinition, QuestNodeType, QuestNode } from "definitions/quests";
+import { QuestDefinition, QuestNodeType, QuestNode } from "definitions/quests/types";
 import Viewport from '../../pixi/Viewport';
 import MapGrid from './MapGrid';
 import QuestMarker from './QuestMarker';
@@ -105,11 +105,11 @@ const WorldMap = (props: Props) => {
     const viewportRef = useRef<PixiViewport>(null);
     useEffect(() => {
         // focus on center of the map
-            if (viewportRef.current) {
-                const viewport = viewportRef.current;
-                const point = nodeLocationToPoint({ x: 0, y: 0 });
-                viewport.moveCenter(point.x, point.y);
-            }
+        if (viewportRef.current) {
+            const viewport = viewportRef.current;
+            const point = nodeLocationToPoint({ x: 0, y: 0 });
+            viewport.moveCenter(point.x, point.y);
+        }
     }, [canvasWidth]);
 
     const renderQuestlines = () => {

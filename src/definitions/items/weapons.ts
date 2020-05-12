@@ -47,7 +47,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         item: Item.brassKnuckles,
         itemType,
         weaponType: WeaponType.melee,
-        subText: " Brass knuckles are pieces of metal shaped to fit around the knuckles.",
+        subText: "Brass knuckles are pieces of metal shaped to fit around the knuckles.",
         iconImg: `${basePath}brass_knuckles.png`,
         damage: { [DamageType.kinetic]: 10 },
     },

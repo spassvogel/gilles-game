@@ -1,7 +1,9 @@
 import { TextEntry } from "constants/text";
 import encounterDefintions from "definitions/encounters";
 import { Encounter } from "definitions/encounters/types";
-import questDefinitions, { QuestDefinition, QuestNodeType } from "definitions/quests";
+import questDefinitions from "definitions/quests";
+import { QuestDefinition, QuestNodeType } from 'definitions/quests/types';
+
 import { oracles } from "oracle";
 import { StoreState } from "stores";
 import { LogChannel } from "stores/logEntry";
@@ -64,6 +66,10 @@ const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickRespons
                     const oracle = oracles[quest.name];
                     nextProgress = currentNodeIndex + i;
                     currentEncounter = nextNode.encounter!;
+
+                    // todo !! START ENCOUNTER - PREPARE SCENE !!
+                    // add to QuestGameTickResponse
+
                     // Start encounter(encounter)
                     const questTitle = TextManager.getQuestTitle(quest.name);
                     const leader = getQuestLeader(store.adventurers, quest);

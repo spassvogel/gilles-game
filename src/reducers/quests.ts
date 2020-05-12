@@ -8,7 +8,7 @@ import { scene1, SceneActionType } from 'stores/scene';
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
     name: "kill10Boars",
-    status: QuestStatus.active,
+    status: QuestStatus.available,
     party: [
         "c4a5d270",
         "2e655832",
