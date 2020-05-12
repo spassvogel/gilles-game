@@ -156,6 +156,8 @@
     "ui-equipmentslot-mainHand": "main hand",
     "ui-equipmentslot-offHand": "off hand",
 
+    
+    "ui-toast-type-questLaunched": "Quest started!",
     "ui-toast-type-achievementUnlocked": "Achievement unlocked!",
     "ui-toast-type-cheat": "Cheat activated!",
     "ui-toast-type-questCompleted": "Quest completed!",

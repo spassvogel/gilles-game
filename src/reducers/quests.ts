@@ -4,16 +4,18 @@ import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 import { scene1, SceneActionType } from 'stores/scene';
+import { QuestDefinition } from 'definitions/quests/types';
+import { getDefinition } from 'definitions/quests';
 
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
     name: "kill10Boars",
     status: QuestStatus.available,
     party: [
-        "c4a5d270",
-        "2e655832",
-        "ec6f1050",
-        "d299f98a",
+        // "c4a5d270",
+        // "2e655832",
+        // "ec6f1050",
+        // "d299f98a",
     ],
     progress: 0,
     questVars: {},
@@ -63,7 +65,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
         case ActionType.enqueueSceneAction:
             return enqueueSceneAction(state, action as EnqueueSceneActionAction);
 
-            case ActionType.completeSceneAction:
+        case ActionType.completeSceneAction:
             return completeSceneAction(state, action as QuestAction);
 
         case GameActionType.gameTick:
@@ -74,17 +76,21 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 };
 
 // Launches quest. Sets state to active, assigns adventurers
-const launchQuest = (state: QuestStoreState[], action: QuestLaunchAction) => {
+const launchQuest = (questStoreState: QuestStoreState[], action: QuestLaunchAction) => {
     const party = action.assignedAventurers
         .filter((adventurer) => !!adventurer)
         .map((adventurer) => adventurer.id);
 
-    return state.map((qss) => {
+    return questStoreState.map((qss) => {
         if (qss.name === action.questName) {
+            const questDefinition: QuestDefinition = getDefinition(action.questName);
+            const questVars = questDefinition.startQuest(qss);
+
             return {
                 ...qss,
                 status: QuestStatus.active,
                 party,
+                questVars
             };
         }
         return qss;

@@ -12,8 +12,8 @@ export enum QuestNodeType {
 export interface QuestDefinition<TQuestVars = any> {
     nodes: QuestNode[];
     requiredItems?: Item[];
-    getQuestVars: (questStore: QuestStoreState) => TQuestVars;
-    startQuest: (questStore: QuestStoreState) => TQuestVars;
+    getQuestVars: (questStoreState: QuestStoreState) => TQuestVars;
+    startQuest: (questStoreState: QuestStoreState) => TQuestVars;
 }
 
 export interface QuestNode {

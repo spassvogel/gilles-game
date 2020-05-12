@@ -5,6 +5,7 @@ import { ToastConfig } from 'global/ToastManager';
 type Props = ToastConfig;
 
 export enum Type {
+    questLaunched,
     questEncounter,
     questCompleted,
     achievementUnlocked,
