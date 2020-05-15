@@ -1,4 +1,3 @@
-import { Encounter } from "definitions/encounters/types";
 import { Item } from "definitions/items/types";
 import { SceneStoreState } from './scene';
 
@@ -24,7 +23,6 @@ export interface QuestStoreState {
     encounterResults: string[];   // Store what option the place chose during an encounter // OBSOLETE
     icon: string;
 
-    currentEncounter: Encounter | null;
     reward?: QuestReward;
     scene: SceneStoreState;
 }

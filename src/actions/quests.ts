@@ -1,4 +1,3 @@
-import { Encounter } from "definitions/encounters/types";
 import { Action } from "redux";
 import { AdventurerStoreState } from "stores/adventurer";
 import { SceneAction } from 'stores/scene';
@@ -10,7 +9,7 @@ export enum ActionType {
     advanceQuest = "advanceQuest",
     updateQuestVars = "updateQuestVars",
     updateEncounterResult = "updateEncounterResult",
-    startEncounter = "startEncounter",
+    // startEncounter = "startEncounter",
     updateQuests = "updateQuests",
     enqueueSceneAction = "enqueueSceneAction",
     completeSceneAction = "completeSceneAction",
@@ -28,9 +27,9 @@ export interface QuestLaunchAction extends QuestAction {
     assignedAventurers: AdventurerStoreState[];
 }
 
-export interface StartEncounterAction extends QuestAction {
-    encounter: Encounter;
-}
+// export interface StartEncounterAction extends QuestAction {
+//     encounter: Encounter;
+// }
 export interface EnqueueSceneActionAction extends QuestAction {
     sceneAction: SceneAction;
 }
@@ -64,13 +63,13 @@ export function updateQuestVars(quest: string, vars: any): QuestVarsAction {
     };
 }
 
-export function startEncounter(quest: string, encounter: Encounter): StartEncounterAction {
-    return {
-        type: ActionType.startEncounter,
-        questName: quest,
-        encounter,
-    };
-}
+// export function startEncounter(quest: string, encounter: Encounter): StartEncounterAction {
+//     return {
+//         type: ActionType.startEncounter,
+//         questName: quest,
+//         encounter,
+//     };
+// }
 
 export function enqueueSceneAction(quest: string, sceneAction: SceneAction): EnqueueSceneActionAction {
     return {

@@ -1,6 +1,6 @@
 import { QuestStoreState } from 'stores/quest';
 import { Item } from 'definitions/items/types';
-import { Encounter } from 'definitions/encounters/types';
+import { EncounterDefinition } from './encounters';
 
 export enum QuestNodeType {
     nothing = 0,    // Nothing much going on here
@@ -10,16 +10,16 @@ export enum QuestNodeType {
 }
 
 export interface QuestDefinition<TQuestVars = any> {
-    nodes: QuestNode[];
+    nodes: QuestNode<TQuestVars>[];
     requiredItems?: Item[];
     getQuestVars: (questStoreState: QuestStoreState) => TQuestVars;
     getInitialQuestVars: (questStoreState: QuestStoreState) => TQuestVars;
 }
 
-export interface QuestNode {
+export interface QuestNode<TQuestVars = any> {
     x: number;
     y: number;
     type: QuestNodeType;
-    encounter?: Encounter; 
+    encounter?: EncounterDefinition<TQuestVars>; 
     log?: string;      // this text will appear in the log upon entering the node. only at 'nothing' nodes
 }

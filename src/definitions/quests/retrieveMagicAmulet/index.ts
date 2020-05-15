@@ -1,4 +1,3 @@
-import { Encounter } from 'definitions/encounters/types';
 import { QuestStoreState } from 'stores/quest';
 import { Item } from 'definitions/items/types';
 import { QuestDefinition, QuestNodeType } from '../types';
@@ -124,7 +123,7 @@ const retrieveMagicAmulet: QuestDefinition<RetrieveMagicAmuletQuestVars> = {
         x: 7,
         y: 8,
         type: QuestNodeType.encounter,
-        encounter: Encounter.theBigTree,
+        //encounter: Encounter.theBigTree,
     }, {
         x: 8,
         y: 1,
@@ -165,7 +164,7 @@ const retrieveMagicAmulet: QuestDefinition<RetrieveMagicAmuletQuestVars> = {
         x: 2,
         y: 1,
         type: QuestNodeType.encounter,
-        encounter: Encounter.backstabbed,
+        //encounter: Encounter.backstabbed,
     }, {
         x: 3,
         y: 1,

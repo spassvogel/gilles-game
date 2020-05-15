@@ -1,6 +1,4 @@
 import { TextEntry } from "constants/text";
-import encounterDefintions from "definitions/encounters";
-import { Encounter } from "definitions/encounters/types";
 import questDefinitions from "definitions/quests";
 import { QuestDefinition, QuestNodeType } from 'definitions/quests/types';
 
@@ -15,7 +13,6 @@ import { getQuestLeader } from 'storeHelpers';
 
 export interface QuestUpdate {
     name: string;
-    currentEncounter: Encounter | null;
     progress: number;
 }
 
@@ -55,17 +52,17 @@ const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickRespons
             let nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
             const nodesPassed = Math.floor(nextProgress) - currentNodeIndex;
 
-            let currentEncounter = quest.currentEncounter;
+            //let currentEncounter = quest.currentEncounter;
 
             for (let i = 1; i <= nodesPassed; i++) {
                 // Loop through all the nodes we've passed since last tick
                 const nextNode = questDefinition.nodes[currentNodeIndex + i];
                 if (nextNode.type === QuestNodeType.encounter) {
                     // We've hit an encounter node. set the progress to here and stop looking at other nodes
-                    const encounter = encounterDefintions[nextNode.encounter!];
-                    const oracle = oracles[quest.name];
-                    nextProgress = currentNodeIndex + i;
-                    currentEncounter = nextNode.encounter!;
+                    // const encounter = encounterDefintions[nextNode.encounter!];
+                    // const oracle = oracles[quest.name];
+                    // nextProgress = currentNodeIndex + i;
+                    // currentEncounter = nextNode.encounter!;
 
                     // todo !! START ENCOUNTER - PREPARE SCENE !!
                     // add to QuestGameTickResponse
@@ -76,15 +73,14 @@ const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickRespons
                     ToastManager.addToast(questTitle, Type.questEncounter, leader?.avatarImg);
 
                     // Add quest to log
-                    log.push({
-                        channel: LogChannel.quest,
-                        channelContext: quest.name,
-                        ...encounter.getDescription(oracle),
-                    });
+                    // log.push({
+                    //     channel: LogChannel.quest,
+                    //     channelContext: quest.name,
+                    //     // ...encounter.getDescription(oracle),
+                    // });
 
                     break;
                 } else if (nextNode.type === QuestNodeType.nothing) {
-                    currentEncounter = null;
                     if (nextNode.log) {
                         log.push({
                             channel: LogChannel.quest,
@@ -95,7 +91,6 @@ const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickRespons
                 }
             }
             quests.push({
-                currentEncounter,
                 name: quest.name,
                 progress: nextProgress,
             });

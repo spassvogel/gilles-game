@@ -1,5 +1,5 @@
 import { ActionType as GameActionType, GameTickAction } from "actions/game";
-import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, StartEncounterAction, UpdateEncounterResultAction, EnqueueSceneActionAction } from "actions/quests";
+import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, UpdateEncounterResultAction, EnqueueSceneActionAction } from "actions/quests";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "stores/quest";
@@ -21,7 +21,6 @@ const initialState: QuestStoreState[] = [{
     questVars: {},
     encounterResults: [],
     icon: "sigil1.png",
-    currentEncounter: null,
     scene: scene1,
 }, {
     name: "retrieveMagicAmulet",
@@ -31,7 +30,6 @@ const initialState: QuestStoreState[] = [{
     questVars: {},
     encounterResults: [],
     icon: "sigil2.png",
-    currentEncounter: null,
     reward: {
         gold: 4,
         items: [ Item.deedForWeaponsmith ],
@@ -59,8 +57,8 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
         case ActionType.updateEncounterResult:
             return updateEncounterResult(state, action as UpdateEncounterResultAction);
 
-        case ActionType.startEncounter:
-            return startEncounter(state, action as StartEncounterAction);
+        // case ActionType.startEncounter:
+        //     return startEncounter(state, action as StartEncounterAction);
 
         case ActionType.enqueueSceneAction:
             return enqueueSceneAction(state, action as EnqueueSceneActionAction);
@@ -114,17 +112,17 @@ const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {
     });
 };
 
-const startEncounter = (state: QuestStoreState[], action: StartEncounterAction) => {
-    return state.map((qss) => {
-        if (qss.name === action.questName) {
-            return {
-                ...qss,
-                currentEncounter: action.encounter,
-            };
-        }
-        return qss;
-    });
-};
+// const startEncounter = (state: QuestStoreState[], action: StartEncounterAction) => {
+//     return state.map((qss) => {
+//         if (qss.name === action.questName) {
+//             return {
+//                 ...qss,
+//                 currentEncounter: action.encounter,
+//             };
+//         }
+//         return qss;
+//     });
+// };
 
 // Enqueues a scene action on this quest
 const enqueueSceneAction = (state: QuestStoreState[], action: EnqueueSceneActionAction) => {
@@ -185,12 +183,12 @@ const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
         const questToUpdate = questsToUpdate.find((q) => q.name === qss.name);
         if (questToUpdate) {
             const progress = questToUpdate.progress;
-            const currentEncounter = questToUpdate.currentEncounter;
+            //const currentEncounter = questToUpdate.currentEncounter;
 
             return {
                 ...qss,
                 progress,
-                currentEncounter,
+                // currentEncounter,
             };
         }
         return qss;

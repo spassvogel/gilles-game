@@ -1,8 +1,8 @@
-import { Encounter } from 'definitions/encounters/types';
 import { QuestStoreState } from 'stores/quest';
 import { QuestDefinition, QuestNodeType } from '../types';
+import dungeon from './encounters/dungeon';
 
-interface Kill10BoarsQuestVars {
+export interface Kill10BoarsQuestVars {
     foo: boolean;
     bar: number;
 }
@@ -35,7 +35,7 @@ const kill10Boars: QuestDefinition<Kill10BoarsQuestVars> = {
         x: 0,
         y: 3,
         type: QuestNodeType.encounter,
-        encounter: Encounter.dungeon,
+        encounter: dungeon,
     }, {
         x: 1,
         y: 3,
@@ -53,7 +53,7 @@ const kill10Boars: QuestDefinition<Kill10BoarsQuestVars> = {
         x: 3,
         y: 3,
         type: QuestNodeType.encounter,
-        encounter: Encounter.backstabbed,
+        //encounter: Encounter.backstabbed,
     }, {
         x: 4,
         y: 4,
