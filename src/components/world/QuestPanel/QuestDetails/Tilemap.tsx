@@ -9,7 +9,7 @@ import * as PIXI from 'pixi.js';
 interface Props {
     basePath: string;
     data: TiledMapData;
-    setBlockedTiles: (tiles: number[][]) => void;
+    setBlockedTiles: (tiles: [number, number][]) => void;
 }
 
 const DEBUG = false;
@@ -26,7 +26,7 @@ const Tilemap = (props: Props) => {
         const texture = PIXI.Texture.from(`${basePath}/${tileset.image}`);
         const baseTexture = PIXI.BaseTexture.from(`${basePath}/${tileset.image}`);
         const spritesheet = new PIXI.Spritesheet(baseTexture, spritesheetData);
-        const blockedTiles: number[][] = [];
+        const blockedTiles: [number, number][] = [];
 
         spritesheet.parse(() => {
             const layers = data.layers.filter(layer => layer.visible).map(layer => {
@@ -145,8 +145,8 @@ const parseSpritesheetData = (mapData: TiledMapData): SpritesheetData => {
 }
 
 /** All tiles in this layer are blocking movement */
-const addToBlockedTiles = (blockedTiles: number[][], layer: TiledLayerData, columns: number) => {
-    layer.data.reduce((acc: number[][], tile, index) => {
+const addToBlockedTiles = (blockedTiles: [number, number][], layer: TiledLayerData, columns: number) => {
+    layer.data.reduce((acc: [number, number][], tile, index) => {
         if (tile > 0) {
             const x = (index % columns);
             const y = Math.floor(index / columns);

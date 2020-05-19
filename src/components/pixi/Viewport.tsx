@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { Viewport as PixiViewport, ClickEventData } from "pixi-viewport";
 import { PixiComponent, useApp } from "@inlet/react-pixi";
 
@@ -16,7 +16,7 @@ interface Props {
 /** Viewport leverages pixi-viewport to create a pannable map 
  * https://davidfig.github.io/pixi-viewport/jsdoc/
  */
-const Viewport = React.forwardRef<PixiViewport, any>((props, ref) => {
+const Viewport = forwardRef<PixiViewport, any>((props, ref) => {
   const app = useApp();
   if (app) {
       // Perhaps this is better moved somewhere else

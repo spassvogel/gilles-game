@@ -152,6 +152,7 @@ const Scene = (props: Props) => {
                 const from = new PIXI.Point(actionOriginLocation[0] * mapData.tilewidth + mapData.tilewidth / 2, 
                     actionOriginLocation[1] * mapData.tileheight + mapData.tileheight / 2);
                     
+                // console.log(Math.atan2(event.data.global.y - from.y, event.data.global.x - from.x));
                 // Draw a line to the destination tile
                 actionPath.drawAction(from, event.data.global, !blocked);
             }
