@@ -91,7 +91,7 @@ const App = (props: AllProps) => {
    };
 
     const renderTownView = () => <TownView onStructureClick={selectStructure} />;
-    const renderWorldView = () => <WorldView/>;
+    const renderWorldView = () => <WorldView />;
 
     const handleWindowOpened = (window: React.ReactElement) => {
         setActiveWindows([
