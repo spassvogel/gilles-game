@@ -11,6 +11,7 @@ import { AppContext } from "components/App";
 import AdventurerInfoWindow from "components/ui/window/windows/AdventurerInfoWindow";
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
+import { getQuestLink } from 'utils/routing';
 
 // The UI for the tavern
 export interface DispatchProps {
@@ -153,7 +154,7 @@ const TavernStructureView = (props: AllProps) => {
     const handleLaunchQuest = (): void => {
         const questTitle = TextManager.getQuestTitle(selectedQuest!);
         const leader = assignedAventurers[0];
-        ToastManager.addToast(questTitle, Type.questLaunched, leader?.avatarImg);
+        ToastManager.addToast(questTitle, Type.questLaunched, leader?.avatarImg, getQuestLink(selectedQuest!));
         props.onLaunchQuest(selectedQuest!, assignedAventurers);
     };
 

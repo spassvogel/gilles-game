@@ -20,6 +20,9 @@
     animation: pop 0.5s ease-out 1, fadeout 1s linear 4s;    /* fade out aftr 4 seconds */
 }
 
+.toasts .toast.withlink {
+    pointer-events: all;
+}
 
 @keyframes pop {
     10% { transform: scale(0.25);}

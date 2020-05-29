@@ -324,7 +324,9 @@ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy
 [ ] Can drop items from warehouse onto adventurer    
 
 #### 01/01/2020 rerender of world [+tech]
-[ ] Figure out why the world gets rerendered on state change of App
+[x] Figure out why the world gets rerendered on state change of App
+    it's because of react-router and the `component` prop on `<Route>`. with `render` prop it doesn't re-render!
+
 
 ####  2/01/2020 disable threejs controller
 (obsolete)
@@ -454,7 +456,7 @@ https://github.com/DragonBones/DragonBonesJS
 [x] Implement 'gabriella' font
 
 #### 29/04/2020 Route to quest [+tech]
-[ ] So we can open a quest from anywhere, e.g toasts
+[x] So we can open a quest from anywhere, e.g toasts
 
 #### 08/05/2020 Sass
 [ ] Try to implement sass again (https://www.google.com/search?q=sass+create+react+app)

@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextManager } from 'global/TextManager';
 import { ToastConfig } from 'global/ToastManager';
+import { useHistory } from 'react-router';
 
 type Props = ToastConfig;
 
@@ -16,12 +17,20 @@ const Toast = (props: Props) => {
     const { 
         title,
         type = Type.achievementUnlocked,
-        icon = "/img/items/quest-items/dragon-eye.png"
+        icon = "/img/items/quest-items/dragon-eye.png",
+        link
     } = props;
+    const history = useHistory();
+
+    const handleClick = () => {
+        if (link) {
+            history.push(link);
+        }
+    }
 
     const typeText = TextManager.get(`ui-toast-type-${Type[type]}`)
     return (
-        <div className="toast">
+        <div className={`toast ${link && "withlink"}`} onClick={handleClick}>
             <div className="label type">{typeText}</div>
             <div className="label title app-h2-white">{title}</div>
             <div className="icon">

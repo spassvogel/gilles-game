@@ -33,10 +33,7 @@ export interface Props {
 type AllProps = Props & DispatchProps;
 
 const TownView = (props: AllProps) => {
-
-    // let match = useRouteMatch();
-
-    React.useEffect(() => {
+    useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.town, "sound/music/Soliloquy.mp3");
         SoundManager.playMusicTrack(MusicTrack.town);
     }, []);

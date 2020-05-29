@@ -25,6 +25,7 @@ import WorldView from './world/WorldView';
 import SimpleLog from './log/SimpleLog';
 import ContextTooltip from './ui/tooltip/ContextTooltip';
 import { TooltipManager } from 'global/TooltipManager';
+import { getWorldLink } from 'utils/routing';
 
 PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);
@@ -76,6 +77,7 @@ const App = (props: AllProps) => {
 
     const handleResetClick = () => {
         props.persistor.purge();
+        // todo: go to root 
         (window as any).location.reload();
     };
 
@@ -210,7 +212,7 @@ const App = (props: AllProps) => {
                         <div>
                             <Switch>
                                 <Route path="/" exact>
-                                    <Redirect from="/" to="world" />
+                                    <Redirect from="/" to={getWorldLink()} />
                                 </Route>
                                 <Route path="/world">
                                     <Link to="/town">
@@ -218,7 +220,7 @@ const App = (props: AllProps) => {
                                     </Link>
                                 </Route>
                                 <Route path="/town">
-                                    <Link to="/world">
+                                    <Link to={getWorldLink()}>
                                         <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-world`)} </button>
                                     </Link>
                                 </Route>
@@ -228,7 +230,7 @@ const App = (props: AllProps) => {
                         </div>
                         <Switch>
                             <Route path="/town" render={renderTownView} />
-                            <Route path="/world" render={renderWorldView} />
+                            <Route path={getWorldLink()} render={renderWorldView} />
                         </Switch>
                         <SimpleLog/>
                         {renderWindow()}

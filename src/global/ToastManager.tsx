@@ -7,6 +7,7 @@ export interface ToastConfig {
     title: string;
     type?: Type;
     icon?: string;
+    link?: string;
 }
 
 export abstract class ToastManager extends EventEmitter<ToastConfig[]>() {
@@ -16,13 +17,14 @@ export abstract class ToastManager extends EventEmitter<ToastConfig[]>() {
 
     static EVENT_TOASTS_UPDATED = "toast";
 
-    static addToast(title: string, type?: Type, icon?: string) {
+    static addToast(title: string, type?: Type, icon?: string, link?: string) {
 
         this.stack = [...this.stack, {
             time: now(),
             title,
             type,
-            icon
+            icon,
+            link
         }];
 
         this.emit(this.EVENT_TOASTS_UPDATED, this.stack);

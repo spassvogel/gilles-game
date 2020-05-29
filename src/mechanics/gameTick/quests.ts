@@ -10,6 +10,7 @@ import { ToastManager } from 'global/ToastManager';
 import { TextManager } from 'global/TextManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLeader } from 'storeHelpers';
+import { getQuestLink } from 'utils/routing';
 
 export interface QuestUpdate {
     name: string;
@@ -70,7 +71,7 @@ const getQuestUpdates = (delta: number, store: StoreState): QuestGameTickRespons
                     // Start encounter(encounter)
                     const questTitle = TextManager.getQuestTitle(quest.name);
                     const leader = getQuestLeader(store.adventurers, quest);
-                    ToastManager.addToast(questTitle, Type.questEncounter, leader?.avatarImg);
+                    ToastManager.addToast(questTitle, Type.questEncounter, leader?.avatarImg, getQuestLink(quest.name));
 
                     // Add quest to log
                     // log.push({

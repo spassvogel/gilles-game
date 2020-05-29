@@ -1,10 +1,12 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import "./css/questPanel.css";
 import AdventurerTabstrip from './AdventurerTabstrip';
 import { createSelectAdventurersOnQuest } from 'selectors/adventurers';
 import { useSelector } from 'react-redux';
 import AdventurerPanel from './AdventurerPanel';
 import QuestDetails from './QuestDetails';
+import { useHistory } from 'react-router';
+import { getWorldLink } from 'utils/routing';
 
 enum Layout {
     auto,       // horizontal on large screens, vertical on small screens
@@ -18,10 +20,12 @@ interface Props {
 }
 
 const QuestPanel = (props: Props) => {
+    const history = useHistory();
     const {layout = Layout.auto} = props;
-    const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));   
+    const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));
+
     const leader = adventurers[0];
-    const [selectedAdventurerId, setSelectedAdventurerID] = useState<string>(leader.id);
+    const [selectedAdventurerId, setSelectedAdventurerID] = useState<string>(leader?.id);
 
     const selectedAdventurer = useMemo(() => {
         return adventurers.find(a => a.id === selectedAdventurerId);
@@ -31,8 +35,15 @@ const QuestPanel = (props: Props) => {
         setSelectedAdventurerID(adventurerId);
     }
     
-    //console.log('rendering questpanel' + JSON.stringify(selectedAdventurer?.equipment))
-    
+    useEffect(() => {
+        if (!adventurers.length) {
+            // no adventurers, something went wrong, perhaps invalid url
+            // bounce back to world
+            history.push(getWorldLink());
+       }
+    }, [adventurers.length, history]);
+    if (!adventurers.length) return null;
+
     return (
         <div className={`quest-panel quest-panel-${Layout[layout]}`}>
             <div className="quest-area">

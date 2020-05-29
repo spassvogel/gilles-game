@@ -21,7 +21,6 @@ const LumberMill = (props: Props) => {
     useEffect(() => {
         if (!app.loader.resources[atlas]) {
             app.loader.add(atlas).load((_, resources) => {
-                console.log(resources[atlas]?.spritesheet)
                 setTextures(resources[atlas]?.textures);    
             });
         } else {

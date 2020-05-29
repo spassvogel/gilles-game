@@ -1,9 +1,10 @@
 import WorldMap from "components/world/WorldMap";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { MusicTrack, SoundManager, Sound } from "global/SoundManager";
 import "./css/worldView.css";
 import QuestPanel from './QuestPanel';
 import { useRouteMatch, useHistory } from 'react-router';
+import { getQuestLink, getWorldLink } from 'utils/routing';
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -43,9 +44,9 @@ const RealWorldView = () => {
 
     const handlePartyClick = (questName: string) => {
         if (questName === selectedQuestName) {
-            history.push('/world');
+            history.push(getWorldLink());
         } else {
-            history.push(`/world/${questName}`);
+            history.push(getQuestLink(questName));
         }
         SoundManager.playSound(Sound.buttonClick);
     };
