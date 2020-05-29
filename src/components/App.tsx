@@ -227,8 +227,8 @@ const App = (props: AllProps) => {
                             <button data-for="global2" data-tip2 onClick={() => handleResetClick()} style={{ color: "red"}}> Restart! </button>
                         </div>
                         <Switch>
-                            <Route path="/town" component={renderTownView} />
-                            <Route path="/world" component={renderWorldView} />
+                            <Route path="/town" render={renderTownView} />
+                            <Route path="/world" render={renderWorldView} />
                         </Switch>
                         <SimpleLog/>
                         {renderWindow()}
