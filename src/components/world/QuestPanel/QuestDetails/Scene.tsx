@@ -58,7 +58,6 @@ const Scene = (props: Props) => {
     }, [jsonPath]);
 
     const basePath = jsonPath.substr(0, jsonPath.lastIndexOf('/'));
-console.log(basePath)
     const handleActorStartDrag = (actor: Actor) => {
         if(scene.actionQueue.length === 0){
             setActionActor(actor);

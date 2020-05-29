@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { MusicTrack, SoundManager, Sound } from "global/SoundManager";
 import "./css/worldView.css";
 import QuestPanel from './QuestPanel';
+import { useRouteMatch, useHistory } from 'react-router';
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -15,13 +16,16 @@ export interface Props {
  */
 const RealWorldView = () => {
     const worldMapRef = useRef<HTMLDivElement>(null);
-    const [selectedQuestName, setSelectedQuestName] = useState<string>();
+    const match = useRouteMatch('/world/:questname');
+    const selectedQuestName = match?.params['questname'];
+    const history = useHistory();
 
     useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.world, "sound/music/TheLoomingBattle.ogg");
         SoundManager.playMusicTrack(MusicTrack.world);
     }, []);
 
+    // console.log(params.questname);
     // const handleMapMove = (distance: number, angle: number) => {
     //     const compassEl = compassRef!.current!;
     //     const compassTextEl = compassEl.firstElementChild! as HTMLElement;
@@ -39,9 +43,9 @@ const RealWorldView = () => {
 
     const handlePartyClick = (questName: string) => {
         if (questName === selectedQuestName) {
-            setSelectedQuestName(undefined);
+            history.push('/world');
         } else {
-            setSelectedQuestName(questName);
+            history.push(`/world/${questName}`);
         }
         SoundManager.playSound(Sound.buttonClick);
     };
