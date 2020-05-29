@@ -4,10 +4,11 @@
 
     --arrow-size: 8px;  /* warning! sync to Tooltip.ARROW_SIZE */
     transition: opacity .45s ease-in-out;
+    box-shadow: 0 0 1px 1px rgb(0, 0, 0);
 }
 
 .tooltip .tooltip-arrow {
-    border-color: #000000;
+    border-color: #83756a;
     width: 0;
     height: 0;
     border-style: solid;
@@ -47,13 +48,12 @@
 
 .tooltip .tooltip-content {
     color: white;
-    padding: 8px;
+    /* padding: 8px; */
     background: rgba(0, 0, 0, 0.85);
-    border-image-source: url("/gilles-game/img/ui/toasts/border-gold-64.png");
-    border-image-slice: 3 3 3 3;
+    border-image-source: url("/gilles-game/img/ui/common/border-brown.png");
+    border-image-slice: 10 10 10 10;
     border-image-repeat: stretch;
-    border-width: 3px;
+    border-width: 10px;
     border-style: solid;
     box-sizing: border-box;
-    box-shadow: 0 0 16px rgba(255, 255, 255, 0.7), inset 0 0 4px 1px rgba(0, 0, 0, 0.3);
 }
