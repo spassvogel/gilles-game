@@ -10,9 +10,10 @@ export interface TiledMapData {
     tilesets: TiledTilesetData[];
     layers: TiledLayerData[];
 }
-
+  
 export interface TiledTilesetData {
     columns: number;
+    firstgid: number;
     source: string;
     image: string;
     imagewidth: number;
@@ -23,10 +24,18 @@ export interface TiledTilesetData {
     name: string;
     margin: number; // todo: 
     spacing: number; // todo
+    tiles?: TileData[];
 }
-
+  
+export interface TileData {
+    id: number,
+    properties?: TiledProperty[];
+}
+  
 export interface TiledLayerData {
-    data: Array<number>;
+    data: number[];
+    objects: TiledObjectData[];
+    type: TiledLayerType;
     height: number;
     id: number;
     name: string;
@@ -35,27 +44,43 @@ export interface TiledLayerData {
     x: number;
     y: number;
     width: number;
-    properties?: TiledProperty[];
+    properties?: TiledProperty[];  
 }
-
+  
+export interface TiledObjectData {
+    gid: number;
+    id: number;
+    name: string;
+    properties?: TiledProperty[];  
+    type: string;
+    visible: boolean;
+    width: number;
+    height: number;
+    x: number;
+    y: number;
+}
+  
+export enum TiledLayerType {
+    tilelayer = "tilelayer",
+    objectgroup = "objectgroup"
+}
+  
 export interface TiledProperty {
     name: string,
     type: string,
     value: any
 }
-
+  
 enum Orientation {
     orthagonal = "orthagonal",
     isometric = "isometric",
     staggered = "staggered",
     hexagonal = "hexagonal"
 }
-
+  
 enum RenderOrder {
     rightUp = "right-up",
     rightDown = "right-down",
     leftUp = "left-up",
     leftDown = "left-down"
-}
-
-
+} 

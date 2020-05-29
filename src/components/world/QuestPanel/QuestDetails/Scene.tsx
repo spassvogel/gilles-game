@@ -42,6 +42,9 @@ const Scene = (props: Props) => {
     const quest = useSelector<StoreState, QuestStoreState>(questSelector);
     const {scene} = quest;
     const jsonPath = `${process.env.PUBLIC_URL}/${scene.tilemap}`;
+    if (!scene.tilemap) {
+        console.error(`No tilemap for ${quest.name} defined! `);
+    }
 
     const selectedActor = useMemo(() => {
         return scene.actors.find(a => a.name === props.selectedActor) || null;
@@ -55,7 +58,7 @@ const Scene = (props: Props) => {
     }, [jsonPath]);
 
     const basePath = jsonPath.substr(0, jsonPath.lastIndexOf('/'));
-
+console.log(basePath)
     const handleActorStartDrag = (actor: Actor) => {
         if(scene.actionQueue.length === 0){
             setActionActor(actor);
@@ -80,6 +83,7 @@ const Scene = (props: Props) => {
             const sceneLocation = pointToSceneLocation(event.data.global);
 
             const convertLocation = (location: [number, number]) => {
+                // This is the format AStarFind works with
                 return { x: location[0], y: location[1] }
             }
             const origin = actionActor!.location;
