@@ -2,19 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { Structure } from 'definitions/structures';
 import { Sprite, useApp, useTick } from '@inlet/react-pixi';
 import HitAreaShapes from 'utils/hitAreaShapes';
-import polygons from './../hitAreas.json';
 import * as PIXI from 'pixi.js';
 import { ITextureDictionary } from 'pixi.js';
-import { Props } from 'components/town/TownView';
-
+import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView';
 
 const BLADE_ROTATION_SPEED = 0.01;
 
+export interface Props {
+    onStructureClick: (structure: Structure | null) => void;
+    position: PIXI.Point;
+    selected?: boolean;
+    hitAreaShapes: HitAreaShapes;
+}
+
 const LumberMill = (props: Props) => {
+    const {hitAreaShapes} = props;
     const structure = Structure.lumberMill;
     const atlas = `${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.json`;
-    const hitAreaShapes = new HitAreaShapes(polygons, structure);
     const [textures, setTextures] = useState<ITextureDictionary>();
+    const filters = props.selected ? [STRUCTURE_HIGHLIGHT_FILTER] : [];
 
     const app = useApp();
 
@@ -36,14 +42,14 @@ const LumberMill = (props: Props) => {
     return (
         <Sprite 
             name={structure}
-            x={403}
-            y={320}
+            position={props.position}
             interactive={true}
             buttonMode={true}
             pointertap={() => {
                 props.onStructureClick(structure);
             }}
             hitArea={hitAreaShapes}
+            filters={filters}
             texture={textures["structure.png"]}
         >
             <Sprite 

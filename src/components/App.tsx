@@ -8,7 +8,7 @@ import * as React from "react";
 import { useRef, useState, createContext, useEffect } from "react";
 import { DndProvider} from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
-import { BrowserRouter as Router, Link, Redirect, Route, Switch, HashRouter} from "react-router-dom";
+import { Link, Redirect, Route, Switch, HashRouter} from "react-router-dom";
 import { Persistor} from "redux-persist";
 import { PixiPlugin } from 'gsap/all';
 import { gsap } from 'gsap';
@@ -25,7 +25,7 @@ import WorldView from './world/WorldView';
 import SimpleLog from './log/SimpleLog';
 import ContextTooltip from './ui/tooltip/ContextTooltip';
 import { TooltipManager } from 'global/TooltipManager';
-import { getWorldLink } from 'utils/routing';
+import { getWorldLink, getTownLink } from 'utils/routing';
 
 PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);
@@ -90,7 +90,7 @@ const App = (props: AllProps) => {
 
             SoundManager.playSound(Sound.buttonClick);
        }
-   };
+    };
 
     const renderTownView = () => <TownView onStructureClick={selectStructure} />;
     const renderWorldView = () => <WorldView />;
@@ -193,6 +193,7 @@ const App = (props: AllProps) => {
         <AppContext.Provider value={{ 
             media, 
             onOpenWindow: handleWindowOpened,
+            onCloseWindow: handleWindowClose,
         }} >
             <div
                 className="app"
@@ -214,12 +215,12 @@ const App = (props: AllProps) => {
                                 <Route path="/" exact>
                                     <Redirect from="/" to={getWorldLink()} />
                                 </Route>
-                                <Route path="/world">
-                                    <Link to="/town">
+                                <Route path={getWorldLink()}>
+                                    <Link to={getTownLink()}>
                                         <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-town`)} </button>
                                     </Link>
                                 </Route>
-                                <Route path="/town">
+                                <Route path={getTownLink()}>
                                     <Link to={getWorldLink()}>
                                         <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-world`)} </button>
                                     </Link>
@@ -229,7 +230,7 @@ const App = (props: AllProps) => {
                             <button data-for="global2" data-tip2 onClick={() => handleResetClick()} style={{ color: "red"}}> Restart! </button>
                         </div>
                         <Switch>
-                            <Route path="/town" render={renderTownView} />
+                            <Route path={getTownLink()} render={renderTownView} />
                             <Route path={getWorldLink()} render={renderWorldView} />
                         </Switch>
                         <SimpleLog/>

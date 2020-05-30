@@ -91,8 +91,8 @@ backlog of ideas
 
 #### 14/07/2019 ROUTER
 [x] Implement react router for town/world
-[ ] Implement react router for structures
-[ ] Can go to resource production structure directly from warehouse
+[x] Implement react router for structures
+[x] Can go to resource production structure directly from warehouse
 
 #### 14/07/2019 XP Progression 
 [ ] https://stackoverflow.com/questions/6954874/php-game-formula-to-calculate-a-level-based-on-exp
@@ -119,7 +119,7 @@ backlog of ideas
 #### 20/07/2019 quest view
 [x] shows latest log message when not in encounter
 
-#### 22/07/2019 OBJECTIVES
+#### 22/07/2019 Objectives
 [ ] we could have objectives as a type of achievement / tutorial kinda thing. players would learn about the game
     and get rewarded when they complete an objective
 
@@ -460,3 +460,6 @@ https://github.com/DragonBones/DragonBonesJS
 
 #### 08/05/2020 Sass
 [ ] Try to implement sass again (https://www.google.com/search?q=sass+create+react+app)
+
+#### Item rarity [+art] [+design]
+[ ] background on items. gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary

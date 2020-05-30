@@ -1,29 +1,37 @@
 import React from "react";
-import { Props } from 'components/town/TownView';
-import { Sprite } from '@inlet/react-pixi';
+import { Sprite, Container } from '@inlet/react-pixi';
 import { Structure } from 'definitions/structures';
 import HitAreaShapes from 'utils/hitAreaShapes';
-import polygons from './../hitAreas.json';
 import smoke from './smoke.json';
 import ParticleEmitter from 'components/pixi/ParticleEmitter';
+import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView';
+
+export interface Props {
+    onStructureClick: (structure: Structure | null) => void;
+    position: PIXI.Point;
+    selected?: boolean;
+    hitAreaShapes: HitAreaShapes;
+}
 
 const Tavern = (props: Props) => {
+    const {hitAreaShapes, position} = props;
     const structure = Structure.tavern;
-    const hitAreaShapes = new HitAreaShapes(polygons, structure);
+    const filters = props.selected ? [STRUCTURE_HIGHLIGHT_FILTER] : [];
 
     return (
-        <Sprite 
-            name={structure}
-            x ={500}
-            y ={469}
-            interactive={true}
-            buttonMode={true}
-            pointertap={() => {
-                props.onStructureClick(structure);
-            }}
-            hitArea={hitAreaShapes}
-            image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}
-        >
+        <Container position={position}>
+            <Sprite 
+                name={structure}
+                interactive={true}
+                buttonMode={true}
+                pointertap={() => {
+                    props.onStructureClick(structure);
+                }}
+                filters={filters}
+                hitArea={hitAreaShapes}
+                image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}
+            >
+            </Sprite>
             <ParticleEmitter
                 name="smoke"
                 x={107}
@@ -31,7 +39,7 @@ const Tavern = (props: Props) => {
                 image={`${process.env.PUBLIC_URL}/img/town/effects/smokeparticle.png`} 
                 config={smoke} 
             />
-        </Sprite>
+        </Container>
     )
 }
 export default Tavern;

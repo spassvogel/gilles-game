@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "@inlet/react-pixi": "^1.2.18",
+    "@pixi/filter-outline": "^3.1.1",
     "@types/debounce": "^1.2.0",
     "astar-typescript": "^1.1.9",
     "axios": "^0.19.2",

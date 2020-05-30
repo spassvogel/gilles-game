@@ -7,6 +7,9 @@ import { ResourceStoreState } from "stores/resources";
 import { TextManager } from "global/TextManager";
 import { StructuresStoreState } from 'stores/structures';
 import { Structure } from 'definitions/structures';
+import { Link } from 'react-router-dom';
+import { getStructureLink } from 'utils/routing';
+import { withAppContext, AppContextProps } from 'hoc/withAppContext';
 
 export interface Props {
     className?: string;
@@ -25,7 +28,7 @@ type AllProps = Props & StateProps;
 /**
  * The ResourcesBox is used in the Warehouse to show a list of resources
  */
-const ResourcesBox = (props: AllProps) => {
+const ResourcesBox = (props: AllProps & AppContextProps) => {
     const {
         sufficientResources,
         resources,
@@ -53,6 +56,10 @@ const ResourcesBox = (props: AllProps) => {
 
         const structure = getStructure(resource);
 
+        const handleStructureClick = () => {
+            props.onCloseWindow();
+        }
+
         return <li className = { listItemClass } key = { resource }>
             <div className = "icon common-icon-smallest" style = {{
                 backgroundImage:  `url(${process.env.PUBLIC_URL}${resourceDescription.iconImg})`,
@@ -70,7 +77,10 @@ const ResourcesBox = (props: AllProps) => {
                 { delta }
             </div>
             <div className = "structure"> 
-                source: { TextManager.getStructureName(structure) }
+                source:
+                <Link to={getStructureLink(structure)} onClick={handleStructureClick}>
+                    { TextManager.getStructureName(structure) }
+                </Link>
             </div>
         </li>;
     });
@@ -82,7 +92,8 @@ const ResourcesBox = (props: AllProps) => {
     );
 };
 
-export default ResourcesBox;
+export default withAppContext(ResourcesBox);
+
 
 const getStructure = (resource: string) : Structure => {
     switch (resource) {
