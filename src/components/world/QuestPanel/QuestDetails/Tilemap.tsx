@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TiledMapData, TiledLayerData, TiledTilesetData } from 'constants/tiledMapData';
-import { Container, Text, Graphics } from '@inlet/react-pixi';
+import { Container, Text } from '@inlet/react-pixi';
 import { useEffect } from 'react';
 import { SpritesheetData, SpriteData } from 'constants/spritesheetData';
 import RectTileLayer from 'components/pixi/RectTileLayer';

@@ -1,3 +1,8 @@
+.quest-board {
+    margin: 8px;
+    margin-left: 0;
+}
+
 .quest-board .quest-list {
     padding: 0;
 }

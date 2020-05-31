@@ -37,9 +37,11 @@ const AssignAdventurers = (props: Props & DispatchProps) => {
         return slots;
     };
 
-    return <ul className = "assign-adventurers">
-        { slotsContent() }
-    </ul>;
+    return (
+        <ul className = "assign-adventurers">
+            { slotsContent() }
+        </ul>
+    );
 };
 
 export default AssignAdventurers;

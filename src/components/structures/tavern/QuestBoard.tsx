@@ -18,7 +18,6 @@ export interface StateProps {
 }
 
 // tslint:disable-next-line: no-empty-interface
-export interface DispatchProps {}
 
 export interface Props {
     availableQuests: QuestStoreState[];
@@ -31,7 +30,7 @@ export interface Props {
     onLaunchQuest: () => void;
 }
 
-type AllProps = Props & DispatchProps & StateProps;
+type AllProps = Props  & StateProps;
 
 const QuestBoard = (props: AllProps) => {
 

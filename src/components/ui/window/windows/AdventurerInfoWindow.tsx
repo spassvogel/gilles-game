@@ -1,4 +1,4 @@
-// obsolete
+// obsolete, remove!
 import AdventurerInfo, { DispatchProps, Props, StateProps } from "components/ui/AdventurerInfo";
 import { Props as WindowProps } from "components/ui/window/Window";
 import { mapDispatchToProps } from "containers/ui/AdventurerInfo";
