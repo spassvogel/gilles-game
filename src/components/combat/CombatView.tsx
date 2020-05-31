@@ -3,6 +3,7 @@ import { Actor, CombatStoreState, CombatActionType } from "stores/combat";
 import CombatControls from "./CombatControls";
 import "./css/combatview.css";
 import { SoundManager, Sound } from 'global/SoundManager';
+import { useState, useRef } from 'react';
 
 export interface Props {
 }
@@ -19,9 +20,9 @@ export interface DispatchProps {
 type AllProps = Props & StateProps & DispatchProps;
 
 const CombatView = (props: AllProps) => {
-    const [selectedActor, setSelectedActor] = React.useState<Actor|null>(null);
-    const [activeAction, setActiveAction] = React.useState<CombatActionType|null>(null);
-    const ref = React.useRef<HTMLPreElement>(null);
+    const [selectedActor, setSelectedActor] = useState<Actor|null>(null);
+    const [activeAction, setActiveAction] = useState<CombatActionType|null>(null);
+    const ref = useRef<HTMLPreElement>(null);
 
     const mouseover = (e: React.MouseEvent<HTMLPreElement>) => {
         if (!e.target || !activeAction) {
@@ -41,7 +42,7 @@ const CombatView = (props: AllProps) => {
         target.classList.remove("allowed", "disallowed");
     };
 
-    // React.useEffect(() => {
+    // useEffect(() => {
     //     if (ref.current) {
     //         ref.current!.addEventListener("mouseover", mouseover);
     //         ref.current!.addEventListener("mouseout", mouseout);

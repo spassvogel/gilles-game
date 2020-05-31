@@ -19,6 +19,7 @@ import LumberMill from './structures/LumberMill';
 import Tavern from './structures/Tavern';
 import { withAppContext, AppContextProps } from 'hoc/withAppContext';
 import Generic from './structures/Generic';
+import Legenda from './Legenda';
 
 const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
@@ -130,6 +131,7 @@ const TownView = (props: Props & AppContextProps) => {
     }
     return (
         <div className="town-view">
+            <Legenda structures={structures} />
             <Stage width={MAX_WIDTH} height={HEIGHT} options={options} >
                 <Viewport screenWidth={MAX_WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef}>
                     <Sprite 

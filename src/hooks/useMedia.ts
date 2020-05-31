@@ -1,8 +1,8 @@
 import { AppContext } from "components/App";
-import React from "react";
+import React, { useContext } from "react";
 
 export const useMedia = () => {
-    const context = React.useContext(AppContext)!;
+    const context = useContext(AppContext)!;
 
     const all = context.media!;
     const find = (url: string) => {

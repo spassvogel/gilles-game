@@ -336,8 +336,9 @@ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy
 [x] Screw 3d its way too complicated. Going to try pixi-js
 
 #### 30/03/2020 Structure in town popup [+tech]
-[ ] Town should store location
-[ ] Structures in town should display a short popup on click. The popup should have a button to expand the GUI and show all the details
+[x] Town should store location
+[.] Structures in town should display a short popup on click. The popup should have a button to expand the GUI and show all the details
+[x] Instead we have a legenda
 
 #### 30/03/2020 Mobile [+art], [+tech]
 [ ] Need to completely check if the app is responsive and works in mobile
@@ -404,7 +405,7 @@ Map marker needs to show there is an encounter going on.
 [ ] Warehouse
 
 #### 10/10/2020 Make legenda for town 
-[ ] Clicking on it will scroll the structure into view and after brief delay, open window
+[x] Clicking on it will scroll the structure into view and after brief delay, open window
 
 #### 10/04/2020 Oracle, Encounters? [+tech]
 Should think about what to do with the oracle. Maybe refactor the whole thing
