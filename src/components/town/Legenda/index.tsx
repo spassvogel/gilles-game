@@ -36,7 +36,7 @@ const Legenda = (props: Props) => {
                     return null;
                 }
                 return (
-                    <li>
+                    <li key={structure}>
                         <Link to={getStructureLink(structure)} >
                         {`${TextManager.getStructureName(structure)}`}
                         </Link>

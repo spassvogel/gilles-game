@@ -364,7 +364,7 @@ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy
 #### 02/04/2020 Toasts [+tech]
 [x] Basic toast implementation is done
 [ ] Implement in different scenarios (quest complete, quest failed, achievement unlocked)
-[ ] Can click quest toasts to open quest. See (29/04/2020)
+[x] Can click quest toasts to open quest. See (29/04/2020)
 [ ] Add sound
 
 #### 02/04/2020 Make town come alive [+art]
