@@ -16,14 +16,14 @@ const lerp = (n1: number,  n2: number,  alpha: number) =>  {
 }
 
 // Uses the shared pixi loader UNUSED ATM, doesnt work really well within useEffect ohoks
-export async function loadResourceAsync(path: string) { 
-    const loader = PIXI.Loader.shared;
-    return new Promise((resolve, reject) => {
-        loader.add(path).load((_, resources) => {
-            resolve(resources);            
-        });
-    });
-}
+// export async function loadResourceAsync(path: string) { 
+//     const loader = PIXI.Loader.shared;
+//     return new Promise((resolve, reject) => {
+//         loader.add(path).load((_, resources) => {
+//             resolve(resources);            
+//         });
+//     });
+// }
 
 export const loadResource = (path: string, callback: (resource: LoaderResource) => void) => { 
     const loader = PIXI.Loader.shared;
