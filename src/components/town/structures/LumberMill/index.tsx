@@ -5,6 +5,7 @@ import HitAreaShapes from 'utils/hitAreaShapes';
 import * as PIXI from 'pixi.js';
 import { ITextureDictionary } from 'pixi.js';
 import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView';
+import { loadResource } from 'utils/pixiJs';
 
 const BLADE_ROTATION_SPEED = 0.01;
 
@@ -25,13 +26,9 @@ const LumberMill = (props: Props) => {
     const app = useApp();
 
     useEffect(() => {
-        if (!app.loader.resources[atlas]) {
-            app.loader.add(atlas).load((_, resources) => {
-                setTextures(resources[atlas]?.textures);    
-            });
-        } else {
-            setTextures(app.loader.resources[atlas]?.textures);
-        }
+        loadResource(atlas, (resource) => {
+            setTextures(resource.textures);    
+        })
     }, [app, app.loader, atlas]);
 
     const [rotation, setRotation] = useState(0);

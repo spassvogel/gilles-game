@@ -19,17 +19,17 @@ import 'pixi-tilemap'; // tilemap is not a real npm module :/
 
 export interface Props {
     questName: string;
+    mapData: TiledMapData;
+    basePath: string;
     selectedActor: string;
     setSelectedActor: (actor: string) => void;
 }
 
 const DEBUG_ASTAR = false;
 const DEBUG_ACTIONQUEUE = false;
-const DEFAULT_WIDTH = 800;
-const DEFAULT_HEIGHT = 1000;
 
 const Scene = (props: Props) => {
-    const [mapData, setMapData] = useState<TiledMapData>();
+    const {mapData, basePath} = props;
     const [actionActor, setActionActor] = useState<Actor | null>(null); // actor that the player is performing an action on
     const [blockedTiles, setBlockedTiles] = useState<number[][]>([]);
     const dispatch = useDispatch();
@@ -41,23 +41,12 @@ const Scene = (props: Props) => {
     );
     const quest = useSelector<StoreState, QuestStoreState>(questSelector);
     const {scene} = quest;
-    const jsonPath = `${process.env.PUBLIC_URL}/${scene.tilemap}`;
-    if (!scene.tilemap) {
-        console.error(`No tilemap for ${quest.name} defined! `);
-    }
+
 
     const selectedActor = useMemo(() => {
         return scene.actors.find(a => a.name === props.selectedActor) || null;
     }, [scene.actors, props.selectedActor])
 
-    useEffect(() => {
-        new PIXI.Loader().add(jsonPath).load((loader)=>{            
-            const mapData: TiledMapData = loader.resources[jsonPath].data;
-            setMapData(mapData);
-        });
-    }, [jsonPath]);
-
-    const basePath = jsonPath.substr(0, jsonPath.lastIndexOf('/'));
     const handleActorStartDrag = (actor: Actor) => {
         if(scene.actionQueue.length === 0){
             setActionActor(actor);
@@ -106,10 +95,10 @@ const Scene = (props: Props) => {
                     const stroke = 3;
                     graphics.beginFill(0xDE3249, 0.5);
                     graphics.lineStyle(stroke, 0xFF0000);
-                    graphics.drawRect(x * mapData!.tilewidth + stroke / 2, 
-                        y * mapData!.tileheight + stroke / 2, 
-                        mapData!.tilewidth - stroke / 2, 
-                        mapData!.tileheight - stroke / 2);
+                    graphics.drawRect(x * mapData.tilewidth + stroke / 2, 
+                        y * mapData.tileheight + stroke / 2, 
+                        mapData.tilewidth - stroke / 2, 
+                        mapData.tileheight - stroke / 2);
                     graphics.endFill();
                 });
                 ref.current!.addChild(graphics);
@@ -124,15 +113,15 @@ const Scene = (props: Props) => {
         actionPath?.clear();
     }
 
-    const sceneWidth = (mapData?.width || 0) * (mapData?.tilewidth || 0) || DEFAULT_WIDTH;
-    const sceneHeight = (mapData?.height || 0) * (mapData?.tileheight || 0) || DEFAULT_HEIGHT;
+    const sceneWidth = mapData.width * mapData.tilewidth;
+    const sceneHeight = mapData.height * mapData.tileheight;
 
     // Converts pixel coordinate to scene location
     const pointToSceneLocation = useCallback((point: PIXI.Point): [number, number] => {
-        if (!mapData?.tilewidth || !mapData.tileheight) {
+        if (!mapData.tilewidth || !mapData.tileheight) {
             return [0, 0];
         }
-        return [Math.floor(point.x / mapData?.tilewidth ), Math.floor(point.y / mapData?.tilewidth)];
+        return [Math.floor(point.x / mapData.tilewidth ), Math.floor(point.y / mapData.tilewidth)];
     }, [mapData]);
 
     /** Returns true if the tile is blocked */
@@ -145,7 +134,7 @@ const Scene = (props: Props) => {
     useEffect(() => {
         const container = ref.current;
         const actionPath = actionPathRef.current;
-        if (!container || !mapData || !actionActor || scene.actionQueue.length > 0) return;
+        if (!container || !actionActor || scene.actionQueue.length > 0) return;
         const actionOriginLocation = actionActor.location;
         const mouseMove = (event: PIXI.interaction.InteractionEvent) => {
             if (container && actionPath && mapData && actionActor) {
@@ -198,13 +187,11 @@ const Scene = (props: Props) => {
                     interactive={true} 
                     hitArea={new PIXI.RoundedRectangle(0, 0, sceneWidth, sceneHeight, 0)}
                 >
-                    { mapData && (
-                        <Tilemap basePath={basePath} data={mapData} setBlockedTiles={setBlockedTiles}/>
-                    )}
+                    <Tilemap basePath={basePath} data={mapData} setBlockedTiles={setBlockedTiles}/>
                     <ActionPath
                         ref={actionPathRef}
                     />
-                    { mapData && scene.actors.map((a) => (
+                    { scene.actors.map((a) => (
                         <SceneActor
                             key={a.name}
                             actor={a.name}

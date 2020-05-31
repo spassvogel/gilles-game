@@ -123,7 +123,6 @@ const TownView = (props: Props & AppContextProps) => {
             const position = getStructurePosition(selectedStructure);
             viewport.moveCenter(position);
         }
-        console.log(`selected  ${selectedStructure}`)
     }, [selectedStructure]);
 
     const options = {

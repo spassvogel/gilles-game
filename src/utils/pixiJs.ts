@@ -1,3 +1,4 @@
+import { LoaderResource } from 'pixi.js';
 
 interface Location {
     x: number;
@@ -12,4 +13,24 @@ export const lerpLocation = (point1: Location, point2: Location, alpha: number):
 
 const lerp = (n1: number,  n2: number,  alpha: number) =>  {
     return n1 + alpha * (n2 - n1);
+}
+
+// Uses the shared pixi loader UNUSED ATM, doesnt work really well within useEffect ohoks
+export async function loadResourceAsync(path: string) { 
+    const loader = PIXI.Loader.shared;
+    return new Promise((resolve, reject) => {
+        loader.add(path).load((_, resources) => {
+            resolve(resources);            
+        });
+    });
+}
+
+export const loadResource = (path: string, callback: (resource: LoaderResource) => void) => { 
+    const loader = PIXI.Loader.shared;
+    if (loader.resources[path]) {
+        callback(loader.resources[path]);
+        console.log(`already loaded ${path}`);
+        return;
+    }
+    loader.add(path).load((_, resources) => { callback(resources[path]!)});
 }
