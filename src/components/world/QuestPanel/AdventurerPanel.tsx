@@ -8,15 +8,17 @@ import AdventurerEquipment from './AdventurerEquipment';
 import Inventory from 'components/ui/inventory/Inventory';
 import { useDispatch } from 'react-redux';
 import { Action } from "redux";
-
 import { removeItemFromInventory, assignEquipment, addItemToInventory, removeEquipment, moveItemInInventory } from 'actions/adventurers';
 import { removeItemFromWarehouse, addItemToWarehouse } from 'actions/items';
+import "./css/adventurerPanel.css";
 
 export interface Props {
     adventurer: AdventurerStoreState;
 }
 
-/** Vertical panel showing adventurer info */
+/** Vertical panel showing adventurer info 
+ * todo: move outside of /world
+*/
 const AdventurerPanel = (props: Props) => {
     const { adventurer } = props;
     const dispatch = useDispatch();

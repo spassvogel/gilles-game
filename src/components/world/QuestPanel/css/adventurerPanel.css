@@ -1,0 +1,44 @@
+
+.adventurer-panel .tabstrip .tabstrip-tab {
+    margin-bottom: -1px;
+    border-bottom: 1px solid #ffa500;
+    margin-left: 2px;
+    padding: 0;
+}
+
+.adventurer-panel .tabstrip .tabstrip-tab.active {
+    border-color: #ffa500;
+    border-bottom: 1px solid white;
+}
+
+.adventurer-panel .adventurer-details {
+    border: 1px solid #ffa500;
+    height: 100%;
+    padding: 8px;
+}
+
+.adventurer-panel .equipment ul {
+    padding: 15px;
+    display: grid;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.adventurer-panel .equipment ul li {
+    box-sizing: border-box;
+}
+
+.adventurer-panel .equipment ul li .info {
+    font-size: smaller;
+}
+
+/* * todo: media queries to show less columns
+.adventurer-panel .inventory {
+    grid-template-columns: 46px 46px 46px 46px 46px 46px 46px;
+} */
