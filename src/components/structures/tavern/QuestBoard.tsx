@@ -10,7 +10,7 @@ import AssignAdventurers from "./AssignAdventurers";
 import "./css/questboard.css";
 import { QuestDefinition } from 'definitions/quests/types';
 
-const availableSlots = 5;
+export const AVAILABLE_SLOTS = 5;
 const minimumCountAdventurers = 3;  // we need this many adventurers to start the quest
 
 export interface StateProps {
@@ -21,30 +21,18 @@ export interface StateProps {
 
 export interface Props {
     availableQuests: QuestStoreState[];
-    selectedQuestName: string | null;       // name of selected quest
+    selectedQuestName?: string;       // name of selected quest
     assignedAventurers: AdventurerStoreState[];
 
     onQuestClick: (questName: string) => void;
-    onRemoveAdventurer: (index: number) => void;
-    onAddAdventurer: (item: AdventurerAvatarDragInfo, index: number) => void;
+    onAdventurerDropped: (item: AdventurerAvatarDragInfo, index: number) => void;
+    onRemoveAdventurer: (adventurer: AdventurerStoreState) => void;
     onLaunchQuest: () => void;
 }
 
 type AllProps = Props  & StateProps;
 
 const QuestBoard = (props: AllProps) => {
-
-    const questListContent: JSX.Element[] = props.availableQuests.map((q) => {
-        const iconImgPath = `${process.env.PUBLIC_URL}img/sigils/${q.icon }`;
-        const className = "quest" + ((q.name === props.selectedQuestName) ? " selected" : "");
-        return <li key={ q.name } className = { className } onClick = { () => { props.onQuestClick(q.name); } }>
-            <div
-                className = "icon"
-                style={{backgroundImage: `url(${process.env.PUBLIC_URL}${iconImgPath})`}}
-            ></div>
-            <div className = "title">{ TextManager.getQuestTitle(q.name) } </div>
-        </li>;
-    });
 
     const getQuestDetails = () => {
         if (!props.selectedQuestName) {
@@ -64,15 +52,16 @@ const QuestBoard = (props: AllProps) => {
         const canLaunch = fullParty && enoughItems;
 
         return <div className="quest-details">
-            { TextManager.getQuestDescription(props.selectedQuestName) }
+            {TextManager.getQuestDescription(props.selectedQuestName)}
             <AssignAdventurers
-                availableSlots = { availableSlots }
-                assignedAventurers = { props.assignedAventurers }
-                onRemoveAdventurer = { props.onRemoveAdventurer }
-                onAddEventurer = { props.onAddAdventurer } />
-            <ItemsCostBox items = { questDefinition.requiredItems || [] }/>
-            <button disabled = { !canLaunch } onClick = { () => props.onLaunchQuest() }>
-                { TextManager.get("structure-tavern-button-launch-quest") }
+                availableSlots={AVAILABLE_SLOTS}
+                assignedAventurers={props.assignedAventurers}
+                onAdventurerClicked={props.onRemoveAdventurer}
+                onAdventurerDropped={props.onAdventurerDropped} 
+            />
+            <ItemsCostBox items={ questDefinition.requiredItems || [] }/>
+            <button disabled={!canLaunch} onClick = { () => props.onLaunchQuest() }>
+                {TextManager.get("structure-tavern-button-launch-quest")}
             </button>
         </div>;
     };
@@ -91,10 +80,24 @@ const QuestBoard = (props: AllProps) => {
 
     // quest board, expanded quest info + assign adventurers + launch button
     return (
-        <div className = "quest-board">
-            <h2> { TextManager.get("structure-tavern-title-quest-board") }</h2>
-            <ul className = "quest-list">
-                { questListContent }
+        <div className="quest-board">
+            <h2> 
+                {TextManager.get("structure-tavern-title-quest-board")}
+            </h2>
+            <ul className="quest-list">
+                {props.availableQuests.map((q) => {
+                    const iconImgPath = `${process.env.PUBLIC_URL}img/sigils/${q.icon }`;
+                    const className = `quest ${(q.name === props.selectedQuestName) ? " selected" : ""}`;
+                    return (
+                        <li key={q.name} className={className} onClick={() => {props.onQuestClick(q.name);} }>
+                            <div
+                                className="icon"
+                                style={{backgroundImage: `url(${process.env.PUBLIC_URL}${iconImgPath})`}}
+                            ></div>
+                            <div className="title">{ TextManager.getQuestTitle(q.name) } </div>
+                        </li>
+                    );
+                })}
             </ul>
             { getQuestDetails() }
         </div>

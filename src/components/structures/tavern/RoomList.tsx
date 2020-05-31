@@ -1,8 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { AdventurerStoreState } from 'stores/adventurer';
 import { QuestStoreState } from 'stores/quest';
-import DraggableAdventurerAvatar from 'components/ui/DraggableAdventurerAvatar';
-import { SOURCE_ID } from './TavernStructureView';
 import { AppContext } from 'components/App';
 import RoomWithAdventurer from './RoomWithAdventurer';
 import RoomEmpty from './RoomEmpty';
@@ -12,11 +10,21 @@ export interface Props {
     adventurers: AdventurerStoreState[];
     assignedAventurers: AdventurerStoreState[];
     quests: QuestStoreState[];
+    selectedQuestName?: string;       // name of selected quest
+
+    onAddAdventurer: (adventurer: AdventurerStoreState, index: number) => void;
+    onRemoveAdventurer: (adventurer: AdventurerStoreState) => void;
 }
 
 const RoomList = (props: Props) => {
-    const {roomCount, adventurers, assignedAventurers} = props;
-    const context = useContext(AppContext);
+    const {
+        roomCount,
+        adventurers,
+        assignedAventurers,
+        selectedQuestName,
+        onAddAdventurer,
+        onRemoveAdventurer
+    } = props;
     const [selectedAdventurer, setSelectedAdventurer] = useState<string>();
 
     const getQuestByAdventurer = (adventurerId: string): QuestStoreState | undefined => {
@@ -26,7 +34,11 @@ const RoomList = (props: Props) => {
     };
 
     const handleAdventurerNameClick = (adventurer: AdventurerStoreState) => {
-        setSelectedAdventurer(adventurer.id);
+        if (selectedAdventurer === adventurer.id) {
+            setSelectedAdventurer(undefined);
+        } else {
+            setSelectedAdventurer(adventurer.id);
+        }
     };
 
     const roomContent: JSX.Element[] = [];
@@ -38,16 +50,20 @@ const RoomList = (props: Props) => {
             ));
             continue;
         }
-        const assigned = assignedAventurers.indexOf(adventurer) > -1; // assigned to a quest in the QuestBoard
-        const party = getQuestByAdventurer(adventurer.id);
+        const onQuest = !!getQuestByAdventurer(adventurer.id);
 
         roomContent.push((
             <RoomWithAdventurer 
+                key={adventurer.id}
                 adventurer={adventurer}
-                assigned={assigned}
-                onClick={handleAdventurerNameClick}
+                assignedAventurers={assignedAventurers}
+                selectedQuestName={selectedQuestName}
                 expanded={selectedAdventurer === adventurer.id}
-                inParty={!!party}
+                onQuest={onQuest}
+
+                onClick={handleAdventurerNameClick}
+                onAddAdventurer={onAddAdventurer}
+                onRemoveAdventurer={onRemoveAdventurer}
             />
         ));
     }   

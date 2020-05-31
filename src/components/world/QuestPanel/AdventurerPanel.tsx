@@ -136,9 +136,9 @@ const AdventurerPanel = (props: Props) => {
                 <div className="name">
                     <b>{adventurer.name}</b>
                 </div>
-                <div className="renderAttributes">
+                {/* <div className="renderAttributes">
                     {renderAttributes()}
-                </div>
+                </div> */}
             </div>
                 <div className="equipment">
                     <AdventurerEquipment adventurer={adventurer} onDropItemEquipment={handleDropItemEquipment} />
