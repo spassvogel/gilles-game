@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { SpritesheetData, SpriteData } from 'constants/spritesheetData';
 import RectTileLayer from 'components/pixi/RectTileLayer';
 import * as PIXI from 'pixi.js';
+import { loadResource } from 'utils/pixiJs';
 
 interface Props {
     basePath: string;
@@ -22,27 +23,29 @@ const Tilemap = (props: Props) => {
     useEffect(() => {
         const spritesheetData = parseSpritesheetData(data);
         const tileset = getTileset(data);
+        loadResource(`${basePath}/${tileset.image}`, (resource) => {
+            const texture = resource.texture;
 
-        const texture = PIXI.Texture.from(`${basePath}/${tileset.image}`);
-        const baseTexture = PIXI.BaseTexture.from(`${basePath}/${tileset.image}`);
-        const spritesheet = new PIXI.Spritesheet(baseTexture, spritesheetData);
-        const blockedTiles: [number, number][] = [];
-
-        spritesheet.parse(() => {
-            const layers = data.layers.filter(layer => layer.visible).map(layer => {
-                if (layer.properties && layer.properties.some(p => p.name === 'blocksMovement' && p.value === true)){
-                    addToBlockedTiles(blockedTiles, layer, layer.width);
+            PIXI.utils.clearTextureCache();
+            const spritesheet = new PIXI.Spritesheet(texture, spritesheetData);
+            const blockedTiles: [number, number][] = [];
+    
+            spritesheet.parse(() => {
+                const layers = data.layers.filter(layer => layer.visible).map(layer => {
+                    if (layer.properties && layer.properties.some(p => p.name === 'blocksMovement' && p.value === true)){
+                        addToBlockedTiles(blockedTiles, layer, layer.width);
+                    }
+                    return createTileLayer(layer, texture, data.width, tileset, spritesheet);
+                });
+                setBlockedTiles(blockedTiles);
+                setLayers(layers);
+                
+                if (DEBUG){
+                    setDebug(getDebug(data.layers[0].data.length, data.layers[0].width, tileset.tilewidth, tileset.tileheight, blockedTiles))
                 }
-                return createTileLayer(layer, texture, data.width, tileset, spritesheet);
             });
-            setBlockedTiles(blockedTiles);
-            setLayers(layers);
-            
-            if (DEBUG){
-                setDebug(getDebug(data.layers[0].data.length, data.layers[0].width, tileset.tilewidth, tileset.tileheight, blockedTiles))
-            }
-        });
-
+    
+        })
     }, [basePath, data, setBlockedTiles]);
     return (
         <Container >

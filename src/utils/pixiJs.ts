@@ -29,7 +29,6 @@ export const loadResource = (path: string, callback: (resource: LoaderResource) 
     const loader = PIXI.Loader.shared;
     if (loader.resources[path]) {
         callback(loader.resources[path]);
-        console.log(`already loaded ${path}`);
         return;
     }
     loader.add(path).load((_, resources) => { callback(resources[path]!)});

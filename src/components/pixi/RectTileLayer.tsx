@@ -22,7 +22,7 @@ const RectTileLayer = PixiComponent<Props, any>("RectTileLayer", {
     },
 
     applyProps(instance, oldProps: Props, props: Props) {
-        const {layer, tileset, horizontalTiles,spritesheet} = props;
+        const {layer, tileset, horizontalTiles, spritesheet} = props;
         if (!layer.data) {
             return;
         }
