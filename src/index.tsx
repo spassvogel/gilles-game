@@ -1,4 +1,3 @@
-import axios from "axios";
 import updateCombat from "mechanics/gameTick/combat";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
@@ -19,13 +18,13 @@ import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
 import { TextManager } from "./global/TextManager";
+import { loadResourceAsync } from 'utils/pixiJs';
 
 const TICK_INTERVAL = 2500;
 
 const initGame = async () => {
-    const axiosResult = await axios.get(`${process.env.PUBLIC_URL}/lang/en-US.json`);
-    const texts = axiosResult.data as Record<string, string>;
-    TextManager.init(texts);
+    const texts = await loadResourceAsync(`${process.env.PUBLIC_URL}/lang/en-US.json`);
+    TextManager.init(texts.data);
     Random.init("GILLESROX2");
 
     const { store, persistor, isHydrated } = await configureStore();
@@ -38,7 +37,7 @@ const initGame = async () => {
 };
 
 /**
- * Gets called when a player
+ * Gets called when a player starts a new game
  * @param store
  */
 const startNewGame = (store: any) => {
