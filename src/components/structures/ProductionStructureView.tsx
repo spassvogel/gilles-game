@@ -1,3 +1,5 @@
+import * as React from "react";
+import { useState } from 'react';
 import MaterialsCostBox from "containers/ui/context/items/ItemsCostBox";
 import ResourcesCostBox from "containers/ui/resources/ResourcesCostBox";
 import itemDefinitions from "definitions/items";
@@ -6,7 +8,6 @@ import { ProductionDefinition } from "definitions/production/types";
 import { getDefinition, Structure } from "definitions/structures";
 import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from "definitions/structures/types";
 import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "mechanics/crafting";
-import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
 import { TaskStoreState } from "stores/task";
 import { TextManager } from "global/TextManager";
@@ -14,9 +15,8 @@ import { formatDuration } from "utils/time";
 import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
-import "./css/productionstructureview.css";
-import { useState } from 'react';
 import StructureViewHeader from './StructureViewHeader';
+import "./css/productionstructureview.css";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number, level: number) => void;
@@ -43,7 +43,6 @@ const ProductionStructureView = (props: AllProps) => {
     const [selectedItem, setSelectedItem] = useState<Item>();
     const [workersAssigned, setWorkersAssigned] = useState<number>(0);
 
-
     const structureDefinition = getDefinition<ProductionStructureDefinition>(props.type);
     if (!structureDefinition) {
         throw new Error(`No definition found for structure ${props.type}
@@ -64,11 +63,11 @@ const ProductionStructureView = (props: AllProps) => {
             if (props.onUpgrade) { props.onUpgrade(nextLevelCost, level + 1); }
         };
         return <div>
-            <label>level:</label>{ (level + 1) + " / " + structureDefinition.levels.length }
+            <label>level:</label>{ `${(level + 1)} / ${structureDefinition.levels.length}` }
             <button
                 style={{float: "right"}}
-                onClick = { handleClick }
-                disabled= { !canUpgrade } >
+                onClick={handleClick}
+                disabled={!canUpgrade} >
                     { upgradeText }
             </button>
         </div>;
@@ -84,11 +83,11 @@ const ProductionStructureView = (props: AllProps) => {
             };
 
             return <li
-                key = { `craft${produces.item}`}
-                onClick = { handleSelectCraftingItem }
-                className = { selectedItem === produces.item ? "selected" : "" }
+                key={`craft${produces.item}`}
+                onClick={handleSelectCraftingItem}
+                className={selectedItem === produces.item ? "selected" : ""}
             >
-                <ItemIcon item= { produces.item }  />
+                <ItemIcon item={produces.item} />
                 { TextManager.getItemName(produces.item) }
             </li>;
         });
@@ -144,27 +143,23 @@ const ProductionStructureView = (props: AllProps) => {
             setWorkersAssigned(workersAssigned - 1);
         };
 
-        let costItemsContent = null;
-        if (costMaterials) {
-            costItemsContent = <MaterialsCostBox items = { costMaterials } />;
-        }
         return (
-            <div className = "crafting-details">
+            <div className="crafting-details">
                 Craft a { TextManager.getItemName(itemDefinition.item) }
-                <div className = "crafting-costs">
+                <div className="crafting-costs">
                     <fieldset>
-                        <ResourcesCostBox resources = { costResources } />
+                        <ResourcesCostBox resources={costResources} />
                     </fieldset>
                     <fieldset>
-                        { costItemsContent }
+                        {costMaterials && <MaterialsCostBox items={costMaterials} />}
                     </fieldset>
                 </div>
-                <div style={ { display: "flex "}}>
+                <div style={{display: "flex"}}>
                     <UpDownValue
-                        value = { workersAssigned }
-                        label ={ "Workers: " }
-                        onUp = { handleUp }
-                        onDown = { handleDown }
+                        value={workersAssigned}
+                        label={"Workers: "}
+                        onUp={handleUp}
+                        onDown={handleDown}
                         upDisabled={
                             workersAssigned >= props.workersFree ||
                             workersAssigned >= MAX_WORKERS_CRAFTING
@@ -176,8 +171,8 @@ const ProductionStructureView = (props: AllProps) => {
                 </div>
                 <div>
                     <button
-                        disabled = { disabled }
-                        onClick = { handleClick }>
+                        disabled={disabled }
+                        onClick={handleClick }>
                         Craft
                     </button>
                 </div>
@@ -187,11 +182,13 @@ const ProductionStructureView = (props: AllProps) => {
 
     const createProgressbars = () => {
         const tasks = props.tasks || [];
-        return tasks.map((t) => <Progressbar
-            key = { `${t.name}${t.startTime}` }
-            label = { `${t.name} (${formatDuration(t.timeRemaining)})` }
-            progress = { t.progress }/>,
-        );
+        return tasks.map((t) => (
+            <Progressbar
+                key={`${t.name}${t.startTime}`}
+                label={`${t.name} (${formatDuration(t.timeRemaining)})`}
+                progress={t.progress}
+            />
+        ));
     };
 
     return (
@@ -199,7 +196,7 @@ const ProductionStructureView = (props: AllProps) => {
         <>
             <StructureViewHeader structure={props.type} />
 
-            <details open = { true } className = "productionstructureview">
+            <details open={true } className = "productionstructureview">
                 <summary>{displayName}</summary>
                 <section>
                     { createUpgradeRow() }
@@ -207,13 +204,13 @@ const ProductionStructureView = (props: AllProps) => {
                     {/* { createCraftRows() } */}
                     <div className="crafting-area">
                         <ul className="vertical-tab-bar">
-                            { createCraftTabs() }
+                            {createCraftTabs()}
                         </ul>
-                        { createCraftingDetails() }
+                        {createCraftingDetails()}
                     </div>
                     <fieldset>
                         <legend>Currently crafting:</legend>
-                        { createProgressbars() }
+                        {createProgressbars()}
                     </fieldset>
                 </section>
             </details>

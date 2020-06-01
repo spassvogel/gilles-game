@@ -53,20 +53,25 @@ backlog of ideas
 [ ] In some cases the traits can be healed, removed etc. 
 [ ] Some items can be used to grant a trait to an adventurer.
 
+
 #### 23/06/2019 HELP
 [ ] Each screen should get a contexualized help window
 [ ] HTML elements can receive a 'data-help' attribute with a key to refer to the localisation file
 
+
 #### 07/07/2019 STRUCTURE UPGRADE TIME [+design]
 [ ] Upgrading a structure takes time
+
 
 #### 07/07/2019 GAME DESIGN: warehouse [+design]
 [ ] Is the warehouse limited? Can you add unlimited items?
 [x] Resource capacity is limited
 [ ] Warehouse produces 'food rations' for quests
 
+
 #### 10/07/2019 ASSERTS [+tech]
 [ ] Include an assert library
+
 
 #### 10/07/2019 GAME TICK RESOURCE [+tech]
 [x] Move gameTick from quest reducer into 'controllers'
@@ -74,8 +79,10 @@ backlog of ideas
 [ ] Move the guard around maxResources to the reducer (but it needs access to the level of the warehouse to determine maxresources)
     https://stackoverflow.com/questions/34333979/accessing-other-parts-of-the-state-when-using-combined-reducers
 
+
 #### 10/07/2019 GAME DESIGN: minimum workers on item craft
 [ ] Perhaps each item can have a number of minimum workers?
+
 
 #### 12/07/2019 quest prerequisites/ resource sink [+design]
 [ ] The quests should have some sort of resource cost. 
@@ -86,8 +93,10 @@ backlog of ideas
 [ ] Weapons slowly lose durability (/health) when used. 
 [ ] Weapons can either be repaired ?  OR : just disassembled for a fraction of the crafting cost
 
+
 #### 13/07/2019 EQUIPMENT REQUIREMENTS
 [ ] Equipment (=apparel+weapons) can have stats requirements (e.g. a minimum amount of STR)
+
 
 #### 14/07/2019 ROUTER
 [x] Implement react router for town/world
@@ -113,15 +122,19 @@ backlog of ideas
 #### 20/07/2019 contextual popup
 [x] the contextual info should just pop up over the item that you have clicked
 
+
 #### 20/07/2019 open popups
 [x] popups can be opened using withAppContext
+
 
 #### 20/07/2019 quest view
 [x] shows latest log message when not in encounter
 
+
 #### 22/07/2019 Objectives
 [ ] we could have objectives as a type of achievement / tutorial kinda thing. players would learn about the game
     and get rewarded when they complete an objective
+
 
 #### 23/06/2019 POPUPS CAN FLIP
 [x] popups should try to position themselves and if there is no space, flip
@@ -286,20 +299,24 @@ base and (secondary stats) are:
 [x] Research: three.js controls (https://threejs.org/examples/misc_controls_map.html)
     http://danni-three.blogspot.com/2013/09/threejs-heightmaps.html
 
+
 #### 23/08/2019 THEME [+art] [+design]
 todo: figure out a cool theme,
 research fantasy concept art
+
 
 #### 24/08/2019 NAMING
 [x] come up with a better name for worn equipment, (perhaps 'apparel')
 [x] refactor into the following structure: 
     EQUIPMENT = { APPAREL, WEAPONS }
 
+
 #### 17/11/2019 STORE WORLD POS
 (obsolete)
 [-] store world pos in redux, pass to WorldMap.scrollToPosition
 [-] read: Three.js projecting mouse clicks to a 3D scene - how to do it and how it works
           https://barkofthebyte.azurewebsites.net/post/2014/05/05/three-js-projecting-mouse-clicks-to-a-3d-scene-how-to-do-it-and-how-it-works
+
 
 #### 17/11/2019 ANIMATIONS
 (obsolete)
@@ -317,28 +334,27 @@ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy
 [-] https://aerotwist.com/tutorials/creating-particles-with-three-js/
 [x] https://codepen.io/inlet/pen/feddc8fa71e3b5afc6c3e4eda9cc83df
 
+
 #### 02/12/2019 Resource update 
 [ ] should happen at a set interval instead of every game tick
 
 #### 10/12/2019 Item warehouse > adventurer
 [ ] Can drop items from warehouse onto adventurer    
 
+
 #### 01/01/2020 rerender of world [+tech]
 [x] Figure out why the world gets rerendered on state change of App
     it's because of react-router and the `component` prop on `<Route>`. with `render` prop it doesn't re-render!
 
-
-####  2/01/2020 disable threejs controller
-(obsolete)
-[-] You cant scroll the 
 
 #### 28/03/2020 Pixi-js [+art], [+tech]
 [x] Screw 3d its way too complicated. Going to try pixi-js
 
 #### 30/03/2020 Structure in town popup [+tech]
 [x] Town should store location
-[.] Structures in town should display a short popup on click. The popup should have a button to expand the GUI and show all the details
+[-] Structures in town should display a short popup on click. The popup should have a button to expand the GUI and show all the details
 [x] Instead we have a legenda
+
 
 #### 30/03/2020 Mobile [+art], [+tech]
 [ ] Need to completely check if the app is responsive and works in mobile
@@ -347,33 +363,41 @@ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy
 [ ] Parties can have a leader. The leader provides the icon for the party. What else does it mean?
 [ ] Leader ability?
 
+
 #### 30/03/2020 Combat situation visuals [+art], [+tech]
 [x] See https://github.com/knervous/tiled-pixi-react
     I have cloned this repo. Will try to move some code over
+
 
 #### 30/03/2020 Refactor react [+tech]
 [ ] Refactor react, remove containers. Implement useSelector hook
 [ ] Check for needless rerendering
 [ ] Move Windows into own component and use WindowManager
 
+
 #### 01/04/2020 Draw quest path [+art]
 [x] Would be cool to see the path that a party took
     https://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas
 [ ] Best would be to have a dotted line..    
 
+
 #### 02/04/2020 Toasts [+tech]
 [x] Basic toast implementation is done
-[ ] Implement in different scenarios (quest complete, quest failed, achievement unlocked)
+[x] Implement in different scenarios (quest complete, quest failed, achievement unlocked)
+[x] Implement for item craft complete
 [x] Can click quest toasts to open quest. See (29/04/2020)
 [ ] Add sound
+
 
 #### 02/04/2020 Make town come alive [+art]
 [x] Add animations
 [x] Add particle effects (fire, smoke)
 
+
 #### 02/04/2020 Cool smoke shader [+art]
 [ ] Can use this in some sort of menu or loader?
     https://codepen.io/davidhartley/pen/seEki
+
 
 #### 02/04/2020 Remove preloader [+ref]
 [ ] Remove preloader
@@ -382,9 +406,11 @@ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy
 [ ] If needed, preloader for pixi can be implemented as such
     https://www.youtube.com/watch?v=KwVszq2RjX4
 
+
 #### 03/04/2020 Make Inventory Responsive Again (MIRA [+tech]
 nr of columns is determined by screen size (media queries)
 [ ] medium width
+
 
 #### 03/04/2020 Structure views have a banner [+art]
 [x] It should show the interior of the structure, what's happening there
@@ -393,19 +419,24 @@ nr of columns is determined by screen size (media queries)
 [x] https://github.com/explooosion/hitarea-shapes
 [x] Physics editors: https://loonride.com/tools/physics
 
+
 #### 06/04/2020 Quest editor [+tech]
 An editor that could help in designing quests on the world map. Draws a list of nodes
+
 
 #### 06/04/2020 Encounter indicator in map marker [+tech], [+art]
 Map marker needs to show there is an encounter going on. 
 [x] Maybe exclamation mark? 
 
+
 #### 10/10/2020 Make structureviews responsive 
 [ ] Tavern
 [ ] Warehouse
 
+
 #### 10/10/2020 Make legenda for town 
 [x] Clicking on it will scroll the structure into view and after brief delay, open window
+
 
 #### 10/04/2020 Oracle, Encounters? [+tech]
 Should think about what to do with the oracle. Maybe refactor the whole thing

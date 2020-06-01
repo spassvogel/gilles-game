@@ -7,18 +7,17 @@ import { gameTick } from "./actions/game";
 import { addLogEntry } from "./actions/log";
 import version from "./constants/version";
 import App from "./containers/App";
-import "./index.css";
 import getProducedResources from "./mechanics/gameTick/producedResources";
 import getQuestUpdates, { LogUpdate } from "./mechanics/gameTick/quests";
 import getRngState from "./mechanics/gameTick/rngState";
 import registerServiceWorker from "./registerServiceWorker";
 import { StoreState } from "./stores";
-import { TaskStoreState } from "./stores/task";
-import { TasksStoreState } from "./stores/tasks";
 import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
 import { TextManager } from "./global/TextManager";
 import { loadResourceAsync } from 'utils/pixiJs';
+import { processCompletedTasks } from 'mechanics/gameTick/tasks';
+import "./index.css";
 
 const TICK_INTERVAL = 2500;
 
@@ -68,20 +67,8 @@ const runGame = (store: any, persistor: Persistor) => {
     );
     registerServiceWorker();
 
-    const processCompletedTasks = (tasks: TasksStoreState) => {
-        const handleCompletedTask = (task: TaskStoreState) => {
-            // Fire all callbacks
-            task.callbacks.forEach((action) => store.dispatch(action));
-        };
-
-        tasks.completed.forEach((task) => handleCompletedTask(task));
-    };
-
     // store.dispatch(addGold(400));
 
-    // TODO: find something less ugly and hacky than this
-    //    oracles.kill10b = theBigTree.getOracle("kill_10_boars", store);
-    //  oracles["retrieve_magic_amulet"] = backstabbed.getOracle("retrieve_magic_amulet", store);
     const gameLoop = () => {
         const state: StoreState = store.getState();
         const delta = Date.now() - state.engine.lastTick;
@@ -95,7 +82,7 @@ const runGame = (store: any, persistor: Persistor) => {
 
         store.dispatch(gameTick(delta, rngState, resourcesUpdates, questUpdates, logs));
 
-        processCompletedTasks(state.tasks);
+        processCompletedTasks(state.tasks, store.dispatch);
 
         // store.dispatch(addLogEntry("test-you-have-found-an-item", LogChannel.common, { item: Item.teeth }));
     };

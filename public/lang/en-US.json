@@ -5,6 +5,7 @@
     "common-cheat-resources-added": "Added {{amount}} of each resource.",
     "common-cheat-item-added": "Added {{item:name item \"aA\"}} to stockpile.",
     "common-cheat-workers-added": "Added {{amount}} workers.",
+    "common-item-crafted": "You have crafted {{item:name item \"aA\"}}",
     "common-view-button-town": "Town",
     "common-view-button-world": "World",
     "common-log-tab-all": "all",
@@ -160,6 +161,7 @@
     "ui-toast-type-questLaunched": "Quest started!",
     "ui-toast-type-achievementUnlocked": "Achievement unlocked!",
     "ui-toast-type-cheat": "Cheat activated!",
+    "ui-toast-type-itemCrafted": "Item crafted!",
     "ui-toast-type-questCompleted": "Quest completed!",
     "ui-toast-type-questEncounter": "Encounter started!",
 

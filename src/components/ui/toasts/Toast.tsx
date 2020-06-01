@@ -6,11 +6,12 @@ import { useHistory } from 'react-router';
 type Props = ToastConfig;
 
 export enum Type {
+    achievementUnlocked,
+    cheat,
+    itemCrafted,
     questLaunched,
     questEncounter,
     questCompleted,
-    achievementUnlocked,
-    cheat
 }
 
 const Toast = (props: Props) => {
