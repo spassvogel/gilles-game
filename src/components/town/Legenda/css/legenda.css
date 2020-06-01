@@ -15,3 +15,7 @@
 .legenda ul li a {
     color: white;
 }
+
+.legenda .highlighted {
+    color: #ffcc00;
+}

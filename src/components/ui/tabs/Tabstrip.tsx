@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./css/tabstrip.css";
 import { Props as TabProps } from "./Tab";
 
@@ -17,11 +17,10 @@ const Tabstrip = (props: AllProps) => {
         activeTab = props.children[0].props.id;
     }
     const className = props.className || "";
-
     const children = React.Children.map(props.children, (child: React.ReactElement<TabProps>) => {
         const clone: React.ReactElement<TabProps> = React.cloneElement(child, {
             active: child.props.id === activeTab,
-            onClick: () => { handleTabClick(child.props.id); },
+            onClick: () => { handleTabClick(child.props.id); }
         });
         return clone;
     });
@@ -39,7 +38,7 @@ const Tabstrip = (props: AllProps) => {
     };
 
     return (
-        <ul className = {`tabstrip ${className}`} onClick={handleClick}>
+        <ul className={`tabstrip ${className}`} onClick={handleClick}>
             {children}
         </ul>
     );

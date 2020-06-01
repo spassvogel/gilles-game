@@ -4,8 +4,9 @@ import { StructuresStoreState } from 'stores/structures';
 import { Structure } from 'definitions/structures';
 import { StructureStoreState, StructureState } from 'stores/structure';
 import { Link } from 'react-router-dom';
-import { getStructureLink } from 'utils/routing';
+import { getStructureLink, getTownLink } from 'utils/routing';
 import { TextManager } from 'global/TextManager';
+import { useRouteMatch } from 'react-router';
 
 interface Props {
     structures: StructuresStoreState;
@@ -27,6 +28,21 @@ const Legenda = (props: Props) => {
         Structure.lumberMill,
         Structure.weaver,
     ];   
+    const match = useRouteMatch(`${getTownLink()}/:structure`);
+
+    const renderText = (structure: Structure) => {
+        if (match?.params['structure'] === structure.toString()) {
+            return (
+                <span className="highlighted">{`${TextManager.getStructureName(structure)}`}</span>
+            )
+        }
+        return (
+            <Link to={getStructureLink(structure)} >
+                {`${TextManager.getStructureName(structure)}`}
+            </Link>
+        )
+    }
+
     return (
         <div className="legenda">
             <ul>
@@ -37,9 +53,7 @@ const Legenda = (props: Props) => {
                 }
                 return (
                     <li key={structure}>
-                        <Link to={getStructureLink(structure)} >
-                        {`${TextManager.getStructureName(structure)}`}
-                        </Link>
+                        {renderText(structure)}
                     </li>
                 );
             })}
