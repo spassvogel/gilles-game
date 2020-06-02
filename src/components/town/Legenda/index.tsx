@@ -12,6 +12,7 @@ interface Props {
     structures: StructuresStoreState;
 }
 
+// Legenda with clickable names of structures
 const Legenda = (props: Props) => {
     const {structures} = props;
     const orderedStructures = [

@@ -24,5 +24,5 @@ export interface QuestStoreState {
     icon: string;
 
     reward?: QuestReward;
-    scene: SceneStoreState;
+    scene?: SceneStoreState;
 }

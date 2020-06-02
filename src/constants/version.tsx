@@ -2,7 +2,7 @@ import { convertSemVerToInt } from "utils/version";
 
 // <MAJOR>.<MINOR>.<RELEASE>
 
-const version = "0.0.4";
+const version = "0.0.5";
 
 export default version;
 export const asInt: number = convertSemVerToInt(version);

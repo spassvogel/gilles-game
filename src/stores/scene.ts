@@ -10,7 +10,8 @@ export interface Actor {
 export interface SceneStoreState {
     tilemap: string;
     actors: Actor[];
-    actionQueue: SceneAction[];
+    // todo: objects
+    actionQueue?: SceneAction[];
 }
 
 export interface SceneAction {
@@ -24,16 +25,15 @@ export enum SceneActionType {
     move = "move"
 }
 
-export const scene1: SceneStoreState = {
-    tilemap: "scenes/ork-dungeon-level1.json",
-    actors: [{
-        health: 100,
-        location: [3, 5],
-        name: "c4a5d270",
-    }, {
-        health: 100,
-        location: [4, 6],
-        name: "2e655832",
-    }],
-    actionQueue: [],
-};
+// export const scene1: SceneStoreState = {
+//     tilemap: "scenes/ork-dungeon-level1.json",
+//     actors: [{
+//         health: 100,
+//         location: [3, 5],
+//         name: "c4a5d270",
+//     }, {
+//         health: 100,
+//         location: [4, 6],
+//         name: "2e655832",
+//     }],
+// };

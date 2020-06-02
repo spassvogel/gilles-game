@@ -1,4 +1,3 @@
-
 import { Container } from '@inlet/react-pixi';
 import React, { useMemo,  useEffect, useRef, useCallback } from 'react';
 import { SceneActionType, SceneAction } from 'stores/scene';
@@ -31,8 +30,11 @@ const SceneActor = (props: Props) => {
     const actionQueueSelector = useCallback(
         (state: StoreState) => {
             const quest = state.quests.find((q) => q.name === props.questName)!;
-            return quest.scene.actionQueue.filter(a => a.actor === props.actor);
-        }, 
+            if (!quest.scene!.actionQueue) {
+                return [];
+            }
+            return quest.scene!.actionQueue.filter(a => a.actor === props.actor);
+        },  
         [props.actor, props.questName]
     );
     const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);

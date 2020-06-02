@@ -1,9 +1,9 @@
 import { ActionType as GameActionType, GameTickAction } from "actions/game";
-import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, UpdateEncounterResultAction, EnqueueSceneActionAction } from "actions/quests";
+import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, UpdateEncounterResultAction, EnqueueSceneActionAction, StartEncounterAction } from "actions/quests";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "stores/quest";
-import { scene1, SceneActionType } from 'stores/scene';
+import { SceneActionType } from 'stores/scene';
 import { QuestDefinition } from 'definitions/quests/types';
 import { getDefinition } from 'definitions/quests';
 
@@ -21,7 +21,6 @@ const initialState: QuestStoreState[] = [{
     questVars: {},
     encounterResults: [],
     icon: "sigil1.png",
-    scene: scene1,
 }, {
     name: "retrieveMagicAmulet",
     party: [],
@@ -34,7 +33,6 @@ const initialState: QuestStoreState[] = [{
         gold: 4,
         items: [ Item.deedForWeaponsmith ],
     },
-    scene: scene1,
 }];
 
 /**
@@ -57,8 +55,8 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
         case ActionType.updateEncounterResult:
             return updateEncounterResult(state, action as UpdateEncounterResultAction);
 
-        // case ActionType.startEncounter:
-        //     return startEncounter(state, action as StartEncounterAction);
+        case ActionType.startEncounter:
+            return startEncounter(state, action as StartEncounterAction);
 
         case ActionType.enqueueSceneAction:
             return enqueueSceneAction(state, action as EnqueueSceneActionAction);
@@ -112,23 +110,25 @@ const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {
     });
 };
 
-// const startEncounter = (state: QuestStoreState[], action: StartEncounterAction) => {
-//     return state.map((qss) => {
-//         if (qss.name === action.questName) {
-//             return {
-//                 ...qss,
-//                 currentEncounter: action.encounter,
-//             };
-//         }
-//         return qss;
-//     });
-// };
+const startEncounter = (state: QuestStoreState[], action: StartEncounterAction) => {
+    const {scene} = action;
+    return state.map((qss) => {
+        if (qss.name === action.questName) {
+            return {
+                ...qss,
+                scene
+            };
+        }
+        return qss;
+    });
+};
 
 // Enqueues a scene action on this quest
 const enqueueSceneAction = (state: QuestStoreState[], action: EnqueueSceneActionAction) => {
     return state.map((qss) => {
         if (qss.name === action.questName) {
             const scene = qss.scene;
+            if (!scene) throw new Error("Something broke. No scene");
             scene.actionQueue = [...scene.actionQueue || [], action.sceneAction];
 
             return {
@@ -145,7 +145,8 @@ const completeSceneAction = (state: QuestStoreState[], action: QuestAction) => {
     return state.map((qss) => {
         if (qss.name === action.questName) {
             const scene = qss.scene;
-            const action = scene.actionQueue[0];
+            if (!scene) throw new Error("Something broke. No scene");
+            const action = scene.actionQueue![0];
             if (!action) return qss;
 
             switch (action.actionType) {
@@ -161,7 +162,7 @@ const completeSceneAction = (state: QuestStoreState[], action: QuestAction) => {
 
             // pop first action of the stack
             scene.actionQueue = [
-                ...scene.actionQueue.slice(1)
+                ...scene.actionQueue!.slice(1)
             ];
 
             return {

@@ -1,8 +1,10 @@
 import { SceneStoreState } from 'stores/scene';
 import { StoreState } from 'stores';
+import { TiledMapData } from 'constants/tiledMapData';
 
 export interface EncounterDefinition<TQuestVars> {
-    getScene<TQuestVars> (store: StoreState, questName: String): SceneStoreState
+    tilemap: string,
+    createScene(store: StoreState, tilemapData: TiledMapData, questName: String, questVars: TQuestVars): SceneStoreState
 
     // getOracle: (questName: string, store: StoreState) => Oracle;
     // chance?: number;    // number from 0 to 1, undefined means: 1

@@ -40,15 +40,14 @@ const Scene = (props: Props) => {
         [props.questName]
     );
     const quest = useSelector<StoreState, QuestStoreState>(questSelector);
-    const {scene} = quest;
-
+    const scene = quest.scene!;
 
     const selectedActor = useMemo(() => {
         return scene.actors.find(a => a.name === props.selectedActor) || null;
     }, [scene.actors, props.selectedActor])
 
     const handleActorStartDrag = (actor: Actor) => {
-        if(scene.actionQueue.length === 0){
+        if(scene.actionQueue && scene.actionQueue.length === 0){
             setActionActor(actor);
         }
         props.setSelectedActor(actor.name);
@@ -61,7 +60,7 @@ const Scene = (props: Props) => {
 
     // Queue actions
     const handleActorEndDrag = (event: PIXI.interaction.InteractionEvent) => {
-        if(scene.actionQueue.length > 0) {
+        if(scene.actionQueue?.length) {
             return;
         }
 
@@ -134,7 +133,7 @@ const Scene = (props: Props) => {
     useEffect(() => {
         const container = ref.current;
         const actionPath = actionPathRef.current;
-        if (!container || !actionActor || scene.actionQueue.length > 0) return;
+        if (!container || !actionActor || scene.actionQueue?.length) return;
         const actionOriginLocation = actionActor.location;
         const mouseMove = (event: PIXI.interaction.InteractionEvent) => {
             if (container && actionPath && mapData && actionActor) {
@@ -185,9 +184,9 @@ const Scene = (props: Props) => {
                 <Container 
                     ref={ref}
                     interactive={true} 
-                    hitArea={new PIXI.RoundedRectangle(0, 0, sceneWidth, sceneHeight, 0)}
+                    hitArea={new PIXI.Rectangle(0, 0, sceneWidth, sceneHeight)}
                 >
-                    <Tilemap basePath={basePath} data={mapData} setBlockedTiles={setBlockedTiles}/>
+                    <Tilemap basePath={basePath} data={mapData} setBlockedTiles={setBlockedTiles} />
                     <ActionPath
                         ref={actionPathRef}
                     />
@@ -226,7 +225,7 @@ const Scene = (props: Props) => {
                 <div style={{ position: 'absolute', bottom: 0}}>
                     <h2>ActionQueue</h2>
                     <ul>
-                        {scene.actionQueue.map((action) => (
+                        {scene.actionQueue && scene.actionQueue.map((action) => (
                             <li key={JSON.stringify(action)}>{JSON.stringify(action)}</li>
                         ))}
                     </ul>
