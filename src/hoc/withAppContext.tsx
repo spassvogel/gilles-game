@@ -1,6 +1,7 @@
 import { AppContext } from "components/App";
 import { MediaItem } from "components/preloading/Preloader";
 import * as React from "react";
+import { Component } from 'react';
 
 // Sharing context within the entire App
 export interface AppContextProps {  
@@ -12,7 +13,7 @@ export interface AppContextProps {
 export const withAppContext = <TWrappedComponentProps extends AppContextProps>(WrappedComponent: React.ComponentType<TWrappedComponentProps>) => {
     type WrappedComponentPropsExceptProvided = Exclude<keyof TWrappedComponentProps, keyof AppContextProps>;
     type ForwardedProps = Pick<TWrappedComponentProps, WrappedComponentPropsExceptProvided>;
-    return class WithContext extends React.Component<ForwardedProps> {
+    return class WithContext extends Component<ForwardedProps> {
         public render() {
             return (
                 <AppContext.Consumer>

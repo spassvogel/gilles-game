@@ -67,8 +67,8 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
                     // We've hit an encounter node. set the progress to here and stop looking at other nodes
                     
                     // Start encounter(encounter)
-                    //const encounter = encounterDefintions[nextNode.encounter!];
-                    const encounter = dungeon;
+                    const encounter = nextNode.encounter;
+                    if (!encounter) throw new Error(`No encounter specified for node ${currentNodeIndex + i} on quest ${quest.name}`);
                     loadResource(`${process.env.PUBLIC_URL}/${encounter.tilemap}`, (resource) => {
                         const mapData: TiledMapData = resource.data;
                         const scene = dungeon.createScene(state, mapData, quest.name, quest.questVars);

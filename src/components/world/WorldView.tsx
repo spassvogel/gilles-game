@@ -15,7 +15,7 @@ export interface Props {
  * WorldView shows the map and QuestPanel
  * @param props
  */
-const RealWorldView = () => {
+const WorldView = () => {
     const worldMapRef = useRef<HTMLDivElement>(null);
     const match = useRouteMatch(`${getWorldLink()}/:questname`);
     const selectedQuestName = match?.params['questname'];
@@ -74,4 +74,4 @@ const RealWorldView = () => {
     );
 };
 
-export default RealWorldView;
+export default WorldView;

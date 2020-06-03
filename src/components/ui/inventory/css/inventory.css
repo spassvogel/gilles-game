@@ -36,6 +36,30 @@
   on medium screens: 6 columns
   on small screens: 4 columns
  */
+ .inventory.inventory-small {
+    /** large screen */
+    grid-template-columns: repeat(6, 48px);
+}
+
+@media only screen and (max-width: 778px) {
+    /** medium screen */
+    .inventory.inventory-small {
+        grid-template-columns: repeat(4, 48px);
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    /** small screen */
+    .inventory.inventory-small {
+        grid-template-columns: repeat(2, 48px);
+    }
+}
+
+/* size: medium, 
+  on large screens: 8 colums 
+  on medium screens: 6 columns
+  on small screens: 4 columns
+ */
 .inventory.inventory-medium {
     /** large screen */
     grid-template-columns: repeat(8, 48px);

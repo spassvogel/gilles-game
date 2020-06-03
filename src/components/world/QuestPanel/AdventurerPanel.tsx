@@ -148,7 +148,7 @@ const AdventurerPanel = (props: Props) => {
                     sourceType={DragSourceType.adventurerInventory}
                     sourceId={adventurer.id}
                     items={adventurer.inventory}
-                    // className="inventory-medium" //todo!
+                    className="inventory-small"
                     onDropItem={handleDropItemInventory}
                 /> 
             </div>
