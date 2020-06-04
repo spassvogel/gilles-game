@@ -7,12 +7,12 @@ export interface AdventurerStoreState {
     health: number;                     // When this reaches zero, the adventurer is dead
 
     equipment: EquipmentStoreState;     // equipment
-    inventory: Array<null | Item>;
+    inventory: (null | Item)[];
     stats: StatsStoreState;
     room: number;                       // Adventurer is lodged in this room in the tavern
 }
 
-export interface EquipmentStoreState { // todo: make into Items
+export interface EquipmentStoreState {
     head?: Item;
     shoulders?: Item;
     chest?: Item;

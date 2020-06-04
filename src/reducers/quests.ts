@@ -10,12 +10,12 @@ import { getDefinition } from 'definitions/quests';
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
     name: "kill10Boars",
-    status: QuestStatus.available,
+    status: QuestStatus.active,
     party: [
-        // "c4a5d270",
-        // "2e655832",
-        // "ec6f1050",
-        // "d299f98a",
+        "c4a5d270",
+        "2e655832",
+        "ec6f1050",
+        "d299f98a",
     ],
     progress: 0,
     questVars: {},

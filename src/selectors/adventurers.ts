@@ -15,7 +15,7 @@ const groupAdventurersByQuest = (adventurers: AdventurerStoreState[], quests: Qu
 
 
     const groupedAdventurers = Object.values(quests).reduce((acc, val: QuestStoreState) => {
-        const foundAdventurers = adventurersOnQuest(adventurers,val);
+        const foundAdventurers = adventurersOnQuest(adventurers, val);
         if (val.status === QuestStatus.active) {
             // Only active quests
             acc[val.name] = foundAdventurers;
@@ -63,6 +63,7 @@ export const createSelectAdventurersOnQuest = (questName: string) => {
         getAdventurersOnQuest,
     );
 }
+
 /** Returns an object keyed by active quests whose value is a list of AdventurerStoreState */
 export const selectAdventurersInTown = createSelector([
     getAdventurers,

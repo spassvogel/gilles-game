@@ -1,6 +1,8 @@
-import { SceneStoreState } from 'stores/scene';
+import { SceneStoreState, Actor } from 'stores/scene';
 import { StoreState } from 'stores';
 import { TiledMapData } from 'constants/tiledMapData';
+import { ExtendedTiledObjectData } from 'utils/tilemap';
+import { AdventurerStoreState } from 'stores/adventurer';
 
 export interface EncounterDefinition<TQuestVars> {
     tilemap: string,
@@ -11,4 +13,22 @@ export interface EncounterDefinition<TQuestVars> {
     // getDescription: (oracle: Oracle) => TextEntry;
     // getOptions: (oracle: Oracle) => Record<string, string>;
     // answer: (option: string, oracle: Oracle, dispatch: Dispatch<AnyAction>) => string;
+}
+
+export const createActors = (tilemapObjects: { [key: string]: ExtendedTiledObjectData }, adventurers: AdventurerStoreState[]) => {
+    const startLocations = Object.values(tilemapObjects)
+        .filter(o => o.ezProps?.adventurerStart)
+        .map(o => o.location);
+    if (adventurers.length > startLocations.length) {
+        throw new Error("Not enough objects with 'adventurerStart' property set to true");
+    }
+    return adventurers.reduce((acc: Actor[], value: AdventurerStoreState, index: number) => {
+        const location = startLocations[index];
+        acc.push({
+            health: 100,
+            location,
+            name: value.id,
+        })
+        return acc;
+    }, []);
 }

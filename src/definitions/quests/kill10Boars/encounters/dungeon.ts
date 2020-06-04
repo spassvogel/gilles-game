@@ -1,46 +1,24 @@
-import { EncounterDefinition } from 'definitions/quests/encounters';
+import { EncounterDefinition, createActors } from 'definitions/quests/encounters';
 import { Kill10BoarsQuestVars } from '..';
 import { getExtendedTilemapObjects } from 'utils/tilemap';
+import { adventurersOnQuest } from 'storeHelpers';
 
 
 const dungeon: EncounterDefinition<Kill10BoarsQuestVars> = {
     tilemap: "scenes/ork-dungeon-level2.json",
 
-    createScene(store, tilemapData, questName, questVars) {
+    createScene(store, tilemapData, questName) {
         const tilemapObjects = getExtendedTilemapObjects(tilemapData);
-        
-        console.log(tilemapObjects);
+        const quest = store.quests.find(q => q.name === questName)!;
+        const adventurers = adventurersOnQuest(store.adventurers, quest);
+        const actors = createActors(tilemapObjects, adventurers);
+
+        // todo: perhaps this should be a class such that stuff that repeats for every scene can be done in a base class
         return {
             tilemap: this.tilemap,
-            actors: [{
-                health: 100,
-                location: [0, 0],
-                name: "c4a5d270",
-            }, {
-                health: 100,
-                location: [4, 6],
-                name: "2e655832",
-            }]
+            actors
         }
-        // throw new Error('not implemented');
     }
 }
+
 export default dungeon;
-
-// export class EncounterDescription {
-//     getScene(): SceneStoreState {
-//         throw new Error('not implemented');
-//     }
-// }
-
-// export class dungeon extends EncounterDescription {
-    
-// }
-
-// function getScene<TQuestVars>(store: StoreState, questName: String): SceneStoreState {
-//     return {};
-// }
-
-// // export function getDefinition<T extends WeaponDefinition>(weapon: string): T {
-// //     return weaponDefinitions[weapon] as T;
-// // }

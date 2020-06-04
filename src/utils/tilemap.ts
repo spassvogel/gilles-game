@@ -5,13 +5,13 @@ import { TiledMapData, TiledObjectData, TiledLayerType, TiledProperty } from 'co
 */
 export const getExtendedTilemapObjects = (tilemapData: TiledMapData) => {
     const objectLayers = tilemapData.layers.filter(layer => layer.type === TiledLayerType.objectgroup);
-    const objects: { [key: string]: TiledObjectData } = {};
+    const objects: { [key: string]: ExtendedTiledObjectData } = {};
     objectLayers.forEach(objectLayer => {    
         objectLayer.objects.reduce((acc: {[key: string]: ExtendedTiledObjectData}, value: TiledObjectData) => {
             const {x, y} = value;
             const location: [number, number] = [
                 x / tilemapData.tilewidth, 
-                y / tilemapData.tileheight - 1
+                y / tilemapData.tileheight
             ];
             // reduce the props array into an object with key/values
             const ezProps = parseProperties(value.properties);
@@ -36,7 +36,7 @@ const parseProperties = (properties?: TiledProperty[]) => {
     }, {});
 }
 
-export type ExtendedTiledObjectData = TiledObjectData | {
+export type ExtendedTiledObjectData = TiledObjectData & {
     location: [number, number];
     ezProps?: { [key: string]: any}
 }
