@@ -1,14 +1,15 @@
-import { SceneStoreState } from 'stores/scene';
-import { StoreState } from 'stores';
 import { EncounterDefinition } from 'definitions/quests/encounters';
 import { Kill10BoarsQuestVars } from '..';
-import { TiledMapData } from 'constants/tiledMapData';
+import { getExtendedTilemapObjects } from 'utils/tilemap';
 
 
 const dungeon: EncounterDefinition<Kill10BoarsQuestVars> = {
-    tilemap: "scenes/ork-dungeon-level1.json",
+    tilemap: "scenes/ork-dungeon-level2.json",
 
     createScene(store, tilemapData, questName, questVars) {
+        const tilemapObjects = getExtendedTilemapObjects(tilemapData);
+        
+        console.log(tilemapObjects);
         return {
             tilemap: this.tilemap,
             actors: [{
