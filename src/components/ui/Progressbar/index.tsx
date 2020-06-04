@@ -1,9 +1,7 @@
 import * as React from "react";
 import "./css/progressbar.css";
 
-// tslint:disable-next-line:no-empty-interface
-export interface DispatchProps { }
-export interface Props extends DispatchProps {
+export interface Props {
     progress?: number;     // between 0 and 1
     label?: string;
 }
@@ -13,8 +11,8 @@ const Progressbar = (props: Props) => {
 
     return (
         <div className="progressbar">
-            <div className="progressbar-label">{ props.label }</div>
-            <div className="progressbar-info" style= {{ width: `${progress * 100}%`}}>  </div>
+            <div className="progressbar-label">{props.label}</div>
+            <div className="progressbar-bar" style= {{width: `${progress * 100}%`}}></div>
         </div>
     );
 };

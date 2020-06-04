@@ -47,7 +47,7 @@ const Scene = (props: Props) => {
     }, [scene.actors, props.selectedActor])
 
     const handleActorStartDrag = (actor: Actor) => {
-        if(scene.actionQueue && scene.actionQueue.length === 0){
+        if(!scene.actionQueue || scene.actionQueue.length === 0){
             setActionActor(actor);
         }
         props.setSelectedActor(actor.name);
@@ -60,7 +60,7 @@ const Scene = (props: Props) => {
 
     // Queue actions
     const handleActorEndDrag = (event: PIXI.interaction.InteractionEvent) => {
-        if(scene.actionQueue?.length) {
+        if(scene.actionQueue?.length || !actionActor) {
             return;
         }
 
@@ -73,7 +73,7 @@ const Scene = (props: Props) => {
                 // This is the format AStarFind works with
                 return { x: location[0], y: location[1] }
             }
-            const origin = actionActor!.location;
+            const origin = actionActor.location;
             const path = aStar?.findPath(convertLocation(origin), convertLocation(sceneLocation));
             
             const movementDuration = 500; // time every tile movement takes

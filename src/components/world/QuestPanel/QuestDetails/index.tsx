@@ -27,7 +27,7 @@ const QuestDetails = (props: Props) => {
 
     return (
         <SceneWrapper scene={scene} {...props} />
-    )
+    );
 }
 
 export default QuestDetails;
@@ -49,12 +49,12 @@ const SceneWrapper = (props: SceneWrapperProps & Props) => {
     }, [jsonPath]);
 
     if (!scene.tilemap) {
-        console.error(`No tilemap defined! `);
+        console.error(`No tilemap defined!`);
     }
 
     const basePath = jsonPath.substr(0, jsonPath.lastIndexOf('/'));
     if (!mapData) return null;
     return (
         <Scene {...props} mapData={mapData} basePath={basePath} />
-    )
+    );
 }
