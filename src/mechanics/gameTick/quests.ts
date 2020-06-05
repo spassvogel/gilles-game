@@ -69,11 +69,8 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
                     // Start encounter(encounter)
                     const encounter = nextNode.encounter;
                     if (!encounter) throw new Error(`No encounter specified for node ${currentNodeIndex + i} on quest ${quest.name}`);
-                    loadResource(`${process.env.PUBLIC_URL}/${encounter.tilemap}`, (resource) => {
-                        const mapData: TiledMapData = resource.data;
-                        const scene = encounter.createScene(state, mapData, quest.name, quest.questVars);
-                        store.dispatch(startEncounter(quest.name, scene));
-                    })
+                    encounter.startScene(store, quest.name);
+
 
                     const questTitle = TextManager.getQuestTitle(quest.name);
                     const leader = getQuestLeader(state.adventurers, quest);

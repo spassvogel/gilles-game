@@ -1,3 +1,4 @@
+import { Store, AnyAction } from "redux";
 import { SceneStoreState, Actor } from 'stores/scene';
 import { StoreState } from 'stores';
 import { TiledMapData } from 'constants/tiledMapData';
@@ -5,8 +6,8 @@ import { ExtendedTiledObjectData } from 'utils/tilemap';
 import { AdventurerStoreState } from 'stores/adventurer';
 
 export interface EncounterDefinition<TQuestVars> {
-    tilemap: string,
-    createScene(store: StoreState, tilemapData: TiledMapData, questName: String, questVars: TQuestVars): SceneStoreState
+    startScene(store: Store<StoreState, AnyAction>, questName: string, sceneName?: string): void
+    createScene(store: StoreState, tilemap: string, tilemapData: TiledMapData, questName: String, questVars: TQuestVars): SceneStoreState
 
     // getOracle: (questName: string, store: StoreState) => Oracle;
     // chance?: number;    // number from 0 to 1, undefined means: 1
