@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { Container, Graphics, Sprite } from '@inlet/react-pixi';
 import { useSelector, useDispatch } from 'react-redux';
-import { AStarFinder } from "astar-typescript";
-import { TiledMapData } from 'constants/tiledMapData';
 import Tilemap from './Tilemap';
 import ActionPath, { RefActions } from './ActionPath';
 import { StoreState } from 'stores';
@@ -11,6 +9,7 @@ import { Actor, SceneAction, SceneActionType } from 'stores/scene';
 import { enqueueSceneAction } from 'actions/quests';
 import BridgedStage from 'components/pixi/util/BridgedStage';
 import SceneActor from './SceneActor';
+import { BaseSceneController } from 'definitions/quests/kill10Boars/encounters/dungeon';
 
 import * as PIXI from 'pixi.js';
 window.PIXI = PIXI;
@@ -19,8 +18,10 @@ import 'pixi-tilemap'; // tilemap is not a real npm module :/
 
 export interface Props {
     questName: string;
-    mapData: TiledMapData;
-    basePath: string;
+    //sceneName: string;
+    controller: BaseSceneController;
+    // mapData: TiledMapData;
+    // basePath: string;
     selectedActor: string;
     setSelectedActor: (actor: string) => void;
 }
@@ -29,9 +30,14 @@ const DEBUG_ASTAR = false;
 const DEBUG_ACTIONQUEUE = false;
 
 const Scene = (props: Props) => {
-    const {mapData, basePath} = props;
+    // const {mapData, basePath} = props;
+    const {controller} = props;
     const [actionActor, setActionActor] = useState<Actor | null>(null); // actor that the player is performing an action on
-    const [blockedTiles, setBlockedTiles] = useState<number[][]>([]);
+    //const [blockedTiles, setBlockedTiles] = useState<number[][]>([]);
+ 
+    const mapData = controller.mapData!;
+    const basePath = controller.basePath!;
+
     const dispatch = useDispatch();
     const ref = useRef<PIXI.Container>(null);
 
@@ -63,25 +69,24 @@ const Scene = (props: Props) => {
         if(scene.actionQueue?.length || !actionActor) {
             return;
         }
-
-        const location = pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
-        const blocked = locationIsBlocked(location);
+        const location = controller.pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
+        const blocked = controller.locationIsBlocked(location);
         if (!blocked) {
-            const sceneLocation = pointToSceneLocation(event.data.global);
+            const target = controller.pointToSceneLocation(event.data.global);
 
             const convertLocation = (location: [number, number]) => {
                 // This is the format AStarFind works with
                 return { x: location[0], y: location[1] }
             }
             const origin = actionActor.location;
-            const path = aStar?.findPath(convertLocation(origin), convertLocation(sceneLocation));
-            
+            const path = controller.aStar?.findPath(convertLocation(origin), convertLocation(target));
+
             const movementDuration = 500; // time every tile movement takes
             path?.forEach((location, index) => {
                 const sceneAction: SceneAction = {
                     actionType: SceneActionType.move,
                     actor: actionActor!.name,
-                    target: [location[0], location[1]],
+                    target: location as [number, number],
                     endsAt: movementDuration * (index + 1) + performance.now()
                 };
                 dispatch(enqueueSceneAction(props.questName, sceneAction));
@@ -116,17 +121,17 @@ const Scene = (props: Props) => {
     const sceneHeight = mapData.height * mapData.tileheight;
 
     // Converts pixel coordinate to scene location
-    const pointToSceneLocation = useCallback((point: PIXI.Point): [number, number] => {
-        if (!mapData.tilewidth || !mapData.tileheight) {
-            return [0, 0];
-        }
-        return [Math.floor(point.x / mapData.tilewidth ), Math.floor(point.y / mapData.tilewidth)];
-    }, [mapData]);
+    // const pointToSceneLocation = useCallback((point: PIXI.Point): [number, number] => {
+    //     if (!mapData.tilewidth || !mapData.tileheight) {
+    //         return [0, 0];
+    //     }
+    //     return [Math.floor(point.x / mapData.tilewidth ), Math.floor(point.y / mapData.tilewidth)];
+    // }, [mapData]);
 
     /** Returns true if the tile is blocked */
-    const locationIsBlocked = useCallback((location: [number, number]) => {
-        return blockedTiles.some((l) => l[0] === location[0] && l[1] === location[1]);
-    }, [blockedTiles]);
+    // const locationIsBlocked = useCallback((location: [number, number]) => {
+    //     return blockedTiles.some((l) => l[0] === location[0] && l[1] === location[1]);
+    // }, [blockedTiles]);
 
     // Draw a line to indicate the action to take
     const actionPathRef = useRef<RefActions>(null);
@@ -138,8 +143,8 @@ const Scene = (props: Props) => {
         const mouseMove = (event: PIXI.interaction.InteractionEvent) => {
             if (container && actionPath && mapData && actionActor) {
                 // Find out if on a blocked tile
-                const location = pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
-                const blocked = locationIsBlocked(location);
+                const location = controller.pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
+                const blocked = controller.locationIsBlocked(location);
                 const from = new PIXI.Point(actionOriginLocation[0] * mapData.tilewidth + mapData.tilewidth / 2, 
                     actionOriginLocation[1] * mapData.tileheight + mapData.tileheight / 2);
                     
@@ -152,31 +157,9 @@ const Scene = (props: Props) => {
         return () => {
             container.off('pointermove', mouseMove);
         }
-    }, [mapData, blockedTiles, actionActor, pointToSceneLocation, locationIsBlocked, scene.actionQueue]);
+    }, [mapData, actionActor, controller, scene.actionQueue]);
 
-    const aStar = useMemo(() => {
-        if (!mapData || !blockedTiles.length) {
-            return null;
-        }
-        const matrix: number[][] = [];
-        for (let y = 0; y < mapData.height; y++) {
-            const row: number[] = [];
-            for (let x = 0; x < mapData.width; x++) {
-                const location: [number, number] = [x, y];
-                const blocked = locationIsBlocked(location);
-                row.push(blocked ? 1 : 0);
-            }
-            matrix.push(row);
-        }
-        return new AStarFinder({
-            grid: {
-                matrix
-            }, 
-            includeStartNode: false,
-            heuristic: "Manhatten",
-            weight: 0,
-        });
-    }, [mapData, locationIsBlocked, blockedTiles]);
+    
 
     return (
         <>
@@ -186,7 +169,7 @@ const Scene = (props: Props) => {
                     interactive={true} 
                     hitArea={new PIXI.Rectangle(0, 0, sceneWidth, sceneHeight)}
                 >
-                    <Tilemap basePath={basePath} data={mapData} setBlockedTiles={setBlockedTiles} />
+                    <Tilemap basePath={basePath} data={mapData} /* setBlockedTiles={setBlockedTiles}*/ />
                     <ActionPath
                         ref={actionPathRef}
                     />
@@ -194,7 +177,7 @@ const Scene = (props: Props) => {
                         <SceneActor
                             key={a.name}
                             actor={a.name}
-                            questName={props.questName}
+                            controller={controller}
                             tileWidth={mapData.tilewidth}
                             tileHeight={mapData.tilewidth}
                             location={a.location}

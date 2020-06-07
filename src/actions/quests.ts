@@ -10,6 +10,8 @@ export enum ActionType {
     updateQuestVars = "updateQuestVars",
     updateEncounterResult = "updateEncounterResult",
     startEncounter = "startEncounter",
+    setSceneName = "setSceneName",
+    setScene = "setScene",
     updateQuests = "updateQuests",
     enqueueSceneAction = "enqueueSceneAction",
     completeSceneAction = "completeSceneAction",
@@ -27,7 +29,11 @@ export interface QuestLaunchAction extends QuestAction {
     assignedAventurers: AdventurerStoreState[];
 }
 
-export interface StartEncounterAction extends QuestAction {
+export interface SetSceneNameAction extends QuestAction {
+    sceneName: string;
+}
+
+export interface SetSceneAction extends QuestAction {
     scene: SceneStoreState;
 }
 
@@ -64,10 +70,18 @@ export function updateQuestVars(quest: string, vars: any): QuestVarsAction {
     };
 }
 
-export function startEncounter(quest: string, scene: SceneStoreState): StartEncounterAction {
+export function setSceneName(questName: string, sceneName: string): SetSceneNameAction {
     return {
-        type: ActionType.startEncounter,
-        questName: quest,
+        type: ActionType.setSceneName,
+        questName,
+        sceneName,
+    };
+}
+
+export function setScene(questName: string, scene: SceneStoreState): SetSceneAction {
+    return {
+        type: ActionType.setScene,
+        questName,
         scene,
     };
 }

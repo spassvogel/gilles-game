@@ -10,13 +10,13 @@ import { loadResource } from 'utils/pixiJs';
 interface Props {
     basePath: string;
     data: TiledMapData;
-    setBlockedTiles: (tiles: [number, number][]) => void;
+    //setBlockedTiles: (tiles: [number, number][]) => void;
 }
 
 const DEBUG = false;
 
 const Tilemap = (props: Props) => {
-    const {basePath, data, setBlockedTiles} = props;
+    const {basePath, data/*, setBlockedTiles*/} = props;
     const [layers, setLayers] = useState<JSX.Element[]>();
     const [debug, setDebug] = useState<JSX.Element[]>();
 
@@ -37,7 +37,7 @@ const Tilemap = (props: Props) => {
                     }
                     return createTileLayer(layer, texture, data.width, tileset, spritesheet);
                 });
-                setBlockedTiles(blockedTiles);
+                //setBlockedTiles(blockedTiles);
                 setLayers(layers);
                 
                 if (DEBUG){
@@ -46,7 +46,7 @@ const Tilemap = (props: Props) => {
             });
     
         })
-    }, [basePath, data, setBlockedTiles]);
+    }, [basePath, data]);
     return (
         <Container >
             {layers}

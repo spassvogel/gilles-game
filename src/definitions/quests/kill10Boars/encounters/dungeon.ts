@@ -1,47 +1,163 @@
 import { Store, AnyAction } from "redux";
-import { EncounterDefinition, createActors } from 'definitions/quests/encounters';
-import { Kill10BoarsQuestVars } from '..';
-import { getExtendedTilemapObjects } from 'utils/tilemap';
+import { getExtendedTilemapObjects, ExtendedTiledObjectData, addAllTilesInLayerToList } from 'utils/tilemap';
 import { adventurersOnQuest } from 'storeHelpers';
 import { StoreState } from 'stores';
 import { loadResource } from 'utils/pixiJs';
 import { TiledMapData } from 'constants/tiledMapData';
-import { startEncounter } from 'actions/quests';
+import { AStarFinder } from 'astar-typescript';
+import { AdventurerStoreState } from 'stores/adventurer';
+import { Actor } from 'stores/scene';
+import { setScene } from 'actions/quests';
 
+export class BaseSceneController {
+    public mapData?: TiledMapData;
+    public aStar?: AStarFinder;
+    public questName: string;
 
-const dungeon: EncounterDefinition<Kill10BoarsQuestVars> = {
-    //tilemap: "scenes/ork-dungeon-level2.json",
+    protected tilemapObjects?: {[key: string]: ExtendedTiledObjectData};
+    protected jsonPath?: string;
+    protected store: Store<StoreState, AnyAction>;
+    protected blockedTiles: [number, number][] = [];
 
-    startScene(store: Store<StoreState, AnyAction>, questName: string, sceneName: string = "entry") {
-        const state = store.getState();
-        const tilemaps = {
-            "entry": "scenes/ork-dungeon-level1.json",
-            "right": "scenes/ork-dungeon-level2.json"
+    constructor(store: Store<StoreState, AnyAction>, questName: string) {
+        this.store = store;
+        this.questName = questName;
+    }
+
+    get basePath(): string | null {
+        if (!this.jsonPath) return null;
+        return `${process.env.PUBLIC_URL}/${this.jsonPath.substr(0, this.jsonPath.lastIndexOf('/'))}`;
+    }
+
+    get dataLoaded(): boolean {
+        return !!this.mapData;
+    }
+
+    loadData(callback: () => void) {
+        if (this.dataLoaded) {
+            return callback();
         }
-        const tilemap = tilemaps[sceneName];
+        if (!this.jsonPath) {
+            throw new Error("No jsonPath defined!");
+        }
+        loadResource(`${process.env.PUBLIC_URL}/${this.jsonPath}`, (resource) => {
+            this.mapData = resource.data;
+            this.tilemapObjects = getExtendedTilemapObjects(resource.data);
+            
+            this.mapData!.layers.filter(layer => layer.visible).forEach(layer => {
+                if (layer.properties && layer.properties.some(p => p.name === 'blocksMovement' && p.value === true)){
+                    addAllTilesInLayerToList(this.blockedTiles, layer, layer.width);
+                }
+            });
 
-        loadResource(`${process.env.PUBLIC_URL}/${tilemap}`, (resource) => {
-            const mapData: TiledMapData = resource.data;
-            const questVars = state.quests.find(q => q.name === questName)?.questVars;
-            const scene = this.createScene(state, tilemap, mapData, questName, questVars);
+            this.aStar = this.createAStar();
 
-            store.dispatch(startEncounter(questName, scene));
+            callback();
         });
-    
-    },
+    }
 
-    createScene(store, tilemap, tilemapData, questName, questVars) {
-        const tilemapObjects = getExtendedTilemapObjects(tilemapData);
-        const quest = store.quests.find(q => q.name === questName)!;
-        const adventurers = adventurersOnQuest(store.adventurers, quest);
-        const actors = createActors(tilemapObjects, adventurers);
+    // Constructs the scene and dispatches it to be saved
+    createScene() {
+
+        const actors = this.createActors();
 
         // todo: perhaps this should be a class such that stuff that repeats for every scene can be done in a base class
-        return {
-            tilemap,
+        const scene = {
             actors
         }
+        this.store.dispatch(setScene(this.questName, scene));
     }
+
+    actorMoved(actor: string, location: [number, number]) {
+        const object = this.tilemapObjects![`${location[0]},${location[1]}`];
+        if (!object) return;
+
+        console.log(`actor ${actor} moved to ${location}, ${object}`)
+        if (object.ezProps?.loadScene) {
+            console.log(object.ezProps.loadScene)
+        }
+    }
+
+    // Converts pixel coordinate to scene location
+    pointToSceneLocation (point: PIXI.Point): [number, number] {
+        if (!this.mapData?.tilewidth || !this.mapData?.tileheight) {
+            return [0, 0];
+        }
+        return [Math.floor(point.x / this.mapData.tilewidth ), Math.floor(point.y / this.mapData.tilewidth)];
+    }
+
+    // Returns true if the tile is blocked 
+    locationIsBlocked(location: [number, number]){
+        return this.blockedTiles.some((l) => l[0] === location[0] && l[1] === location[1]);
+    }
+
+    protected createAStar() {
+        const matrix: number[][] = [];
+        for (let y = 0; y < this.mapData!.height; y++) {
+            const row: number[] = [];
+            for (let x = 0; x < this.mapData!.width; x++) {
+                const location: [number, number] = [x, y];
+                const blocked = this.locationIsBlocked(location);
+                row.push(blocked ? 1 : 0);
+            }
+            matrix.push(row);
+        }
+        return new AStarFinder({
+            grid: {
+                matrix
+            }, 
+            includeStartNode: false,
+            heuristic: "Manhatten",
+            weight: 0,
+        });
+    }
+
+    protected createActors () {
+
+        if (!this.tilemapObjects) {
+            throw new Error("No tilemapObjects");
+        }
+
+        const storeState = this.store.getState();
+        const quest = storeState.quests.find(q => q.name === this.questName)!;
+        const adventurers = adventurersOnQuest(storeState.adventurers, quest);
+
+        const startLocations = Object.values(this.tilemapObjects)
+            .filter(o => o.ezProps?.adventurerStart)
+            .map(o => o.location);
+        if (adventurers.length > startLocations.length) {
+            throw new Error("Not enough objects with 'adventurerStart' property set to true");
+        }
+        return adventurers.reduce((acc: Actor[], value: AdventurerStoreState, index: number) => {
+            const location = startLocations[index];
+            acc.push({
+                health: 100,
+                location,
+                name: value.id,
+            })
+            return acc;
+        }, []);
+    }
+
 }
 
-export default dungeon;
+export class DungeonEntranceSceneController extends BaseSceneController {
+    jsonPath = "scenes/ork-dungeon-level1.json";
+}
+
+export abstract class SceneControllerManager {
+    static store: { [key: string]: BaseSceneController } = {};
+
+    static getSceneController(scene: string, questName: string, store: Store<StoreState, AnyAction>,): BaseSceneController {
+        if (!this.store[`${questName}.${scene}`]) {
+            // todo: check param: 'scene'
+            this.store[`${questName}.${scene}`] = new DungeonEntranceSceneController(store, questName);
+        }
+        return this.store[`${questName}.${scene}`];
+    }
+
+    static destroySceneConroller(scene: string, questName: string) {
+        delete this.store[`${questName}.${scene}`];
+    }
+
+}

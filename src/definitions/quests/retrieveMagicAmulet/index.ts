@@ -1,7 +1,6 @@
 import { QuestStoreState } from 'stores/quest';
 import { Item } from 'definitions/items/types';
 import { QuestDefinition, QuestNodeType } from '../types';
-import theBigTree from './encounters/theBigTree';
 
 export interface RetrieveMagicAmuletQuestVars {
     baz: boolean;
@@ -124,7 +123,7 @@ const retrieveMagicAmulet: QuestDefinition<RetrieveMagicAmuletQuestVars> = {
         x: 7,
         y: 8,
         type: QuestNodeType.encounter,
-        encounter: theBigTree,
+
     }, {
         x: 8,
         y: 1,

@@ -1,4 +1,4 @@
-import { TiledMapData, TiledObjectData, TiledLayerType, TiledProperty } from 'constants/tiledMapData';
+import { TiledMapData, TiledObjectData, TiledLayerType, TiledProperty, TiledLayerData } from 'constants/tiledMapData';
 
 /* Tiled doesnt export the tile location of an Object. This function calculates it based on x and y.
 * Also returns a convenience object with all properties
@@ -39,4 +39,16 @@ const parseProperties = (properties?: TiledProperty[]) => {
 export type ExtendedTiledObjectData = TiledObjectData & {
     location: [number, number];
     ezProps?: { [key: string]: any}
+}
+
+/** Add tiles in this layer to list */
+export const addAllTilesInLayerToList = (list: [number, number][], layer: TiledLayerData, columns: number) => {
+    layer.data.reduce((acc: [number, number][], tile, index) => {
+        if (tile > 0) {
+            const x = (index % columns);
+            const y = Math.floor(index / columns);
+            acc.push([x, y]);  
+        }
+        return acc;
+    }, list);
 }

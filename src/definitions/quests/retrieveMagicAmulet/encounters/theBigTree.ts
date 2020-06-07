@@ -5,7 +5,6 @@ import { getExtendedTilemapObjects } from 'utils/tilemap';
 import { adventurersOnQuest } from 'storeHelpers';
 import { StoreState } from 'stores';
 import { loadResource } from 'utils/pixiJs';
-import { startEncounter } from 'actions/quests';
 import { TiledMapData } from 'constants/tiledMapData';
 
 const theBigTree: EncounterDefinition<RetrieveMagicAmuletQuestVars> = {
@@ -17,7 +16,6 @@ const theBigTree: EncounterDefinition<RetrieveMagicAmuletQuestVars> = {
             const mapData: TiledMapData = resource.data;
             const questVars = state.quests.find(q => q.name === questName)?.questVars;
             const scene = this.createScene(state, tilemap, mapData, questName, questVars);
-            store.dispatch(startEncounter(questName, scene));
         });
     
     },
@@ -30,6 +28,7 @@ const theBigTree: EncounterDefinition<RetrieveMagicAmuletQuestVars> = {
 
         // todo: perhaps this should be a class such that stuff that repeats for every scene can be done in a base class
         return {
+            sceneName: "theBigTree.entrance",
             tilemap,
             actors
         }

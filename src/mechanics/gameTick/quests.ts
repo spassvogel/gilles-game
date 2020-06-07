@@ -11,10 +11,7 @@ import { TextManager } from 'global/TextManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLeader } from 'storeHelpers';
 import { getQuestLink } from 'utils/routing';
-import dungeon from 'definitions/quests/kill10Boars/encounters/dungeon';
-import { loadResource } from 'utils/pixiJs';
-import { TiledMapData } from 'constants/tiledMapData';
-import { startEncounter } from 'actions/quests';
+import { setSceneName } from 'actions/quests';
 
 export interface QuestUpdate {
     name: string;
@@ -67,10 +64,10 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
                     // We've hit an encounter node. set the progress to here and stop looking at other nodes
                     
                     // Start encounter(encounter)
-                    const encounter = nextNode.encounter;
-                    if (!encounter) throw new Error(`No encounter specified for node ${currentNodeIndex + i} on quest ${quest.name}`);
-                    encounter.startScene(store, quest.name);
-
+                    // const encounter = nextNode.encounter;
+                    // if (!encounter) throw new Error(`No encounter specified for node ${currentNodeIndex + i} on quest ${quest.name}`);
+                    // encounter.startScene(store, quest.name);
+                    store.dispatch(setSceneName(quest.name, nextNode.startScene!));
 
                     const questTitle = TextManager.getQuestTitle(quest.name);
                     const leader = getQuestLeader(state.adventurers, quest);

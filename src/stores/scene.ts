@@ -8,9 +8,8 @@ export interface Actor {
 }
 
 export interface SceneStoreState {
-    tilemap: string;
-    actors: Actor[];
-    // todo: objects
+    tilemap?: string;   // todo: delete
+    actors: Actor[];    // todo: objects in addition to actors (or instead)
     actionQueue?: SceneAction[];
 }
 
@@ -23,6 +22,7 @@ export interface SceneAction {
 
 export enum SceneActionType {
     move = "move"
+    // todo: interact?
 }
 
 // export const scene1: SceneStoreState = {

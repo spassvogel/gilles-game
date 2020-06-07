@@ -1,5 +1,5 @@
 import { ActionType as GameActionType, GameTickAction } from "actions/game";
-import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, UpdateEncounterResultAction, EnqueueSceneActionAction, StartEncounterAction } from "actions/quests";
+import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, UpdateEncounterResultAction, EnqueueSceneActionAction, SetSceneNameAction, SetSceneAction } from "actions/quests";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "stores/quest";
@@ -55,8 +55,14 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
         case ActionType.updateEncounterResult:
             return updateEncounterResult(state, action as UpdateEncounterResultAction);
 
-        case ActionType.startEncounter:
-            return startEncounter(state, action as StartEncounterAction);
+        // case ActionType.startEncounter:
+        //     return startEncounter(state, action as StartEncounterAction);
+
+        case ActionType.setSceneName:
+            return setSceneName(state, action as SetSceneNameAction);
+
+        case ActionType.setScene:
+            return setScene(state, action as SetSceneAction);
 
         case ActionType.enqueueSceneAction:
             return enqueueSceneAction(state, action as EnqueueSceneActionAction);
@@ -110,13 +116,36 @@ const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {
     });
 };
 
-const startEncounter = (state: QuestStoreState[], action: StartEncounterAction) => {
-    const {scene} = action;
+// const startEncounter = (state: QuestStoreState[], action: StartEncounterAction) => {
+//     const {scene} = action;
+//     return state.map((qss) => {
+//         if (qss.name === action.questName) {
+//             return {
+//                 ...qss,
+//                 scene
+//             };
+//         }
+//         return qss;
+//     });
+// };
+const setSceneName = (state: QuestStoreState[], action: SetSceneNameAction) => {
     return state.map((qss) => {
         if (qss.name === action.questName) {
             return {
                 ...qss,
-                scene
+                sceneName: action.sceneName
+            };
+        }
+        return qss;
+    });
+};
+
+const setScene = (state: QuestStoreState[], action: SetSceneAction) => {
+    return state.map((qss) => {
+        if (qss.name === action.questName) {
+            return {
+                ...qss,
+                scene: action.scene
             };
         }
         return qss;

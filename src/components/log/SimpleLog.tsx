@@ -33,8 +33,8 @@ const SimpleLog = (props: Props) => {
     const [expanded, setExpanded] = useState(false);
     const [selectedTabId, setSelectedTabId] = useState("all");
 
-    const logEntries=useSelector<StoreState, LogEntry[]>((store) => store.log);
-    const activeQuests=useSelector<StoreState, QuestStoreState[]>((store) => selectActiveQuests(store));
+    const logEntries = useSelector<StoreState, LogEntry[]>((store) => store.log);
+    const activeQuests = useSelector<StoreState, QuestStoreState[]>((store) => selectActiveQuests(store));
 
 
     const channels: ChannelDefinition[]=[{

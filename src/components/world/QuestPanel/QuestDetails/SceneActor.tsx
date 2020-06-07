@@ -5,12 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { completeSceneAction } from 'actions/quests';
 import { StoreState } from 'stores';
 import { gsap } from 'gsap';
+import { BaseSceneController } from 'definitions/quests/kill10Boars/encounters/dungeon';
 
 interface Props  {
     actor: string;
     tileWidth: number;
     tileHeight: number;
-    questName: string;
+    controller: BaseSceneController;
     location?: [number, number]; // tile coordinate space 
     children: React.ReactNode;
 };
@@ -29,13 +30,13 @@ const SceneActor = (props: Props) => {
     
     const actionQueueSelector = useCallback(
         (state: StoreState) => {
-            const quest = state.quests.find((q) => q.name === props.questName)!;
+            const quest = state.quests.find((q) => q.name === props.controller.questName)!;
             if (!quest.scene!.actionQueue) {
                 return [];
             }
             return quest.scene!.actionQueue.filter(a => a.actor === props.actor);
         },  
-        [props.actor, props.questName]
+        [props.actor, props.controller.questName]
     );
     const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
 
@@ -49,7 +50,8 @@ const SceneActor = (props: Props) => {
             switch (nextAction.actionType) {
                 case SceneActionType.move: {
                     const moveComplete = () => {
-                        dispatch(completeSceneAction(props.questName));
+                        dispatch(completeSceneAction(props.controller.questName));
+                        props.controller.actorMoved(props.actor, nextAction.target);
                     }
                     const duration = (nextAction.endsAt - performance.now()) / 1000;
                     if (duration < 0) {
@@ -70,7 +72,7 @@ const SceneActor = (props: Props) => {
                 }
             }
         }
-    }, [props.questName, dispatch, tileWidth, tileHeight, actionQueue]);
+    }, [dispatch, tileWidth, tileHeight, actionQueue, props.controller, props.actor]);
 
     const {x, y} = useMemo(() => {
         return { 

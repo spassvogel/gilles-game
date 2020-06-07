@@ -25,4 +25,5 @@ export interface QuestStoreState {
 
     reward?: QuestReward;
     scene?: SceneStoreState;
+    sceneName?: string;
 }

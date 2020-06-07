@@ -1,6 +1,5 @@
 import { QuestStoreState } from 'stores/quest';
 import { QuestDefinition, QuestNodeType } from '../types';
-import dungeon from './encounters/dungeon';
 
 export interface Kill10BoarsQuestVars {
     foo: boolean;
@@ -30,7 +29,8 @@ const kill10Boars: QuestDefinition<Kill10BoarsQuestVars> = {
         x: 0,
         y: 3,
         type: QuestNodeType.encounter,
-        encounter: dungeon,
+        // encounter: dungeon,
+        startScene: "dungeon.entrance"
     }, {
         x: 1,
         y: 3,

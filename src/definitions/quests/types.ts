@@ -20,6 +20,7 @@ export interface QuestNode<TQuestVars = any> {
     x: number;
     y: number;
     type: QuestNodeType;
-    encounter?: EncounterDefinition<TQuestVars>; 
+    // encounter?: EncounterDefinition<TQuestVars>;
+    startScene?: string;
     log?: string;      // this text will appear in the log upon entering the node. only at 'nothing' nodes
 }

@@ -1,11 +1,9 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import Scene from 'components/world/QuestPanel/QuestDetails/Scene';
-import { useSelector } from 'react-redux';
+import { useSelector, useStore } from 'react-redux';
 import { StoreState } from 'stores';
 import { QuestStoreState } from 'stores/quest';
-import { TiledMapData } from 'constants/tiledMapData';
-import { loadResource } from 'utils/pixiJs';
-import { SceneStoreState } from 'stores/scene';
+import { SceneControllerManager } from 'definitions/quests/kill10Boars/encounters/dungeon';
 
 export interface Props {
     questName: string;
@@ -20,41 +18,31 @@ const QuestDetails = (props: Props) => {
         (state: StoreState) => state.quests.find((q) => q.name === props.questName)!, 
         [props.questName]
     );
-
     const quest = useSelector<StoreState, QuestStoreState>(questSelector);
-    const {scene} = quest;
-    if (!scene) return null;
+
+    const store = useStore();
+    const controller = SceneControllerManager.getSceneController(quest.sceneName!, props.questName, store);
+    const [dataLoaded, setDataLoaded] = useState<boolean>(controller.dataLoaded);
+
+    useEffect(() => {
+        if (!dataLoaded && quest.sceneName) {
+            const loadingComplete = () => {
+                setDataLoaded(true);
+                controller.createScene();
+                //console.log(`finished loading, do we have scene? ${quest.sceneName} ${quest.scene}`)
+            }
+            controller.loadData(loadingComplete);
+        }
+    }, [controller, dataLoaded, quest.sceneName]);
+
+    if (!dataLoaded || !quest.scene) {
+        return null;
+    }
 
     return (
-        <SceneWrapper scene={scene} {...props} />
+        <Scene {...props} controller={controller} />
     );
 }
 
 export default QuestDetails;
 
-interface SceneWrapperProps { 
-    scene: SceneStoreState;
-}
-
-const SceneWrapper = (props: SceneWrapperProps & Props) => {
-    const {scene} = props;
-    const jsonPath = `${process.env.PUBLIC_URL}/${scene.tilemap}`;
-    const [mapData, setMapData] = useState<TiledMapData>();
-
-    useEffect(() => {
-        loadResource(jsonPath, (resource) => {
-            const mapData: TiledMapData = resource.data;
-            setMapData(mapData);    
-        });
-    }, [jsonPath]);
-
-    if (!scene.tilemap) {
-        console.error(`No tilemap defined!`);
-    }
-
-    const basePath = jsonPath.substr(0, jsonPath.lastIndexOf('/'));
-    if (!mapData) return null;
-    return (
-        <Scene {...props} mapData={mapData} basePath={basePath} />
-    );
-}
