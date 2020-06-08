@@ -1,5 +1,5 @@
 import { AppContext } from "components/App";
-import React, { useContext } from "react";
+import { useContext } from "react";
 
 export const useMedia = () => {
     const context = useContext(AppContext)!;

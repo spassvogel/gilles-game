@@ -25,6 +25,6 @@ const all = {
 
 export default all;
 
-export function getDefinition<T>(quest: string): QuestDefinition<T> {
-    return all[quest];
+export function getDefinition<T>(questName: string): QuestDefinition<T> {
+    return all[questName];
 }

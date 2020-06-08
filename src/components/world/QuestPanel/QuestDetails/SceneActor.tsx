@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { completeSceneAction } from 'actions/quests';
 import { StoreState } from 'stores';
 import { gsap } from 'gsap';
-import { BaseSceneController } from 'definitions/quests/kill10Boars/encounters/dungeon';
+import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 
 interface Props  {
     actor: string;

@@ -3,7 +3,9 @@ import Scene from 'components/world/QuestPanel/QuestDetails/Scene';
 import { useSelector, useStore } from 'react-redux';
 import { StoreState } from 'stores';
 import { QuestStoreState } from 'stores/quest';
-import { SceneControllerManager } from 'definitions/quests/kill10Boars/encounters/dungeon';
+import { SceneControllerManager } from 'global/SceneControllerManager';
+import { useSceneController } from 'hooks/useSceneController';
+import { SceneStoreState } from 'stores/scene';
 
 export interface Props {
     questName: string;
@@ -20,29 +22,28 @@ const QuestDetails = (props: Props) => {
     );
     const quest = useSelector<StoreState, QuestStoreState>(questSelector);
 
-    const store = useStore();
-    const controller = SceneControllerManager.getSceneController(quest.sceneName!, props.questName, store);
-    const [dataLoaded, setDataLoaded] = useState<boolean>(controller.dataLoaded);
-
-    useEffect(() => {
-        if (!dataLoaded && quest.sceneName) {
-            const loadingComplete = () => {
-                setDataLoaded(true);
-                controller.createScene();
-                //console.log(`finished loading, do we have scene? ${quest.sceneName} ${quest.scene}`)
-            }
-            controller.loadData(loadingComplete);
-        }
-    }, [controller, dataLoaded, quest.sceneName]);
-
-    if (!dataLoaded || !quest.scene) {
+    if (!quest.sceneName) {
         return null;
     }
 
     return (
-        <Scene {...props} controller={controller} />
+        <SceneLoader {...props} sceneName={quest.sceneName} scene={quest.scene} />
     );
 }
 
 export default QuestDetails;
 
+type SceneLoaderProps = Props & { 
+    sceneName: string;
+    scene?: SceneStoreState;
+}
+const SceneLoader = (props: SceneLoaderProps) => {
+    const { controller, loaded }  = useSceneController(props.questName, props.sceneName);
+    if (!props.scene || !loaded) {
+        console.log('not loaded')
+        return null;
+    }
+    return (
+        <Scene {...props} controller={controller} />
+    )
+}

@@ -9,7 +9,7 @@ import { Actor, SceneAction, SceneActionType } from 'stores/scene';
 import { enqueueSceneAction } from 'actions/quests';
 import BridgedStage from 'components/pixi/util/BridgedStage';
 import SceneActor from './SceneActor';
-import { BaseSceneController } from 'definitions/quests/kill10Boars/encounters/dungeon';
+import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 
 import * as PIXI from 'pixi.js';
 window.PIXI = PIXI;
