@@ -12,5 +12,5 @@ export class DungeonHallwaySceneController extends BaseSceneController {
 
 // export const register = () => {
     SceneControllerManager.registerSceneController("kill10Boars", "dungeon.entrance", DungeonEntranceSceneController);
-    SceneControllerManager.registerSceneController("kill10Boars", "dungeon.hallway", DungeonEntranceSceneController);
+    SceneControllerManager.registerSceneController("kill10Boars", "dungeon.hallway", DungeonHallwaySceneController);
 // }

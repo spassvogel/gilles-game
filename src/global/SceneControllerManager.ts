@@ -25,4 +25,5 @@ export abstract class SceneControllerManager {
         delete this.store[`${questName}.${sceneName}`];
     }
 }
+
 require('definitions/quests/kill10Boars/encounters/dungeon');

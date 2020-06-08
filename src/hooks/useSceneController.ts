@@ -7,18 +7,18 @@ export const useSceneController = (questName: string, sceneName: string) => {
     const controller = useMemo(() => (
         SceneControllerManager.getSceneController(questName, sceneName, store)
     ), [questName, sceneName, store]);
-    const [loaded, setloaded] = useState<boolean>(controller.dataLoaded);
+    const [loaded, setLoaded] = useState<boolean>(false);
 
     useEffect(() => {
-        if (!loaded && sceneName) {
+        if (sceneName) {
+            setLoaded(false);
             const loadingComplete = () => {
-                setloaded(true);
+                setLoaded(true);
                 controller.createScene();
-                console.log(`finished loading, do we have scene? ${questName} ${sceneName}`)
             }
             controller.loadData(loadingComplete);
         }
-    }, [controller, loaded, questName, sceneName]);
+    }, [controller, questName, sceneName]);
 
     return { controller, loaded };
 }

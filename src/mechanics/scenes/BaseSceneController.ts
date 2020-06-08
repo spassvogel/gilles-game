@@ -72,10 +72,8 @@ export class BaseSceneController {
         const object = this.tilemapObjects![`${location[0]},${location[1]}`];
         if (!object) return;
 
-        console.log(`actor ${actor} moved to ${location}, ${object}`)
         if (object.ezProps?.loadScene) {
             this.store.dispatch(setSceneName(this.questName, object.ezProps.loadScene))
-            console.log(object.ezProps.loadScene)
         }
     }
 
