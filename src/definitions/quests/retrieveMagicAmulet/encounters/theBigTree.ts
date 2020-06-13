@@ -29,7 +29,6 @@ const theBigTree: EncounterDefinition<RetrieveMagicAmuletQuestVars> = {
         // todo: perhaps this should be a class such that stuff that repeats for every scene can be done in a base class
         return {
             sceneName: "theBigTree.entrance",
-            tilemap,
             actors
         }
     }

@@ -8,7 +8,6 @@ export interface Actor {
 }
 
 export interface SceneStoreState {
-    tilemap?: string;   // todo: delete
     actors: Actor[];    // todo: objects in addition to actors (or instead)
     actionQueue?: SceneAction[];
 }
