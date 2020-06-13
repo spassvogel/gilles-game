@@ -7,8 +7,7 @@ export const useMedia = () => {
     const all = context.media!;
     const find = (url: string) => {
         const found = all.find((m) => m.url === url);
-        // todo: option chaining (null coalescing operator)
-        return found ? found.content : null;
+        return found?.content;
     };
 
     return find;

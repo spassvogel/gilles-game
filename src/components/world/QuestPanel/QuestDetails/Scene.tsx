@@ -173,7 +173,8 @@ const Scene = (props: Props) => {
                     <ActionPath
                         ref={actionPathRef}
                     />
-                    { scene.actors.map((a) => (
+                    { /** todo: create SceneAventurer  */
+                    scene.actors.map((a) => (
                         <SceneActor
                             key={a.name}
                             actor={a.name}
@@ -182,15 +183,17 @@ const Scene = (props: Props) => {
                             tileHeight={mapData.tilewidth}
                             location={a.location}
                         >
-                            {selectedActor?.name === a.name && (<Graphics
-                                name="selectioncircle"
-                                draw={graphics => {
-                                    const line = 3;
-                                    graphics.lineStyle(line, 0xFFFFFF);
-                                    graphics.drawCircle(mapData.tilewidth / 2, mapData.tileheight / 2, mapData.tilewidth / 2 - line);
-                                    graphics.endFill();
-                                }}
-                            />)}
+                            {selectedActor?.name === a.name && (
+                                <Graphics
+                                    name="selectioncircle"
+                                    draw={graphics => {
+                                        const line = 3;
+                                        graphics.lineStyle(line, 0xFFFFFF);
+                                        graphics.drawCircle(mapData.tilewidth / 2, mapData.tileheight / 2, mapData.tilewidth / 2 - line);
+                                        graphics.endFill();
+                                    }}
+                                />
+                            )}
                             <Sprite                     
                                 y={-80}
                                 image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`} 
@@ -199,7 +202,24 @@ const Scene = (props: Props) => {
                                 pointerup={handleCancelAction}
                                 pointerupoutside={handleActorEndDrag}
                             />
-
+                            {selectedActor?.name === a.name && (
+                                <>
+                                <Graphics
+                                    draw={graphics => {
+                                        graphics.beginFill(0xDE3249);
+                                        graphics.drawCircle(mapData.tilewidth / 2, mapData.tileheight, mapData.tilewidth / 4);
+                                        graphics.endFill();
+                                    }}
+                                />
+                                <Sprite 
+                                    image={`${process.env.PUBLIC_URL}/img/ui/scene/icons/interact.png`}
+                                    scale={[.3, .3]} 
+                                    y={mapData.tileheight}
+                                    x={mapData.tilewidth/2}
+                                    anchor={.5}
+                                />
+                                </>
+                            )}
                         </SceneActor>
                     ))}
                 </Container>

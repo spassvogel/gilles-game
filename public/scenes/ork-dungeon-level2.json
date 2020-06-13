@@ -43,7 +43,7 @@
         {
          "draworder":"topdown",
          "id":3,
-         "name":"object",
+         "name":"objects",
          "objects":[
                 {
                  "height":100,
@@ -129,6 +129,23 @@
                  "width":100,
                  "x":500,
                  "y":900
+                }, 
+                {
+                 "height":100,
+                 "id":7,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"loadScene",
+                         "type":"string",
+                         "value":"dungeon.entrance"
+                        }],
+                 "rotation":0,
+                 "type":"exit",
+                 "visible":true,
+                 "width":100,
+                 "x":400,
+                 "y":700
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -137,7 +154,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":7,
+ "nextobjectid":8,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.3.4",
@@ -147,12 +164,12 @@
          "columns":10,
          "firstgid":1,
          "image":"tilesets\/dungeon.png",
-         "imageheight":1100,
+         "imageheight":1200,
          "imagewidth":1000,
          "margin":0,
          "name":"ork-dungeon",
          "spacing":0,
-         "tilecount":110,
+         "tilecount":120,
          "tileheight":100,
          "tiles":[
                 {

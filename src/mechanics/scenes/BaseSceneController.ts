@@ -13,8 +13,8 @@ export class BaseSceneController {
     public mapData?: TiledMapData;
     public aStar?: AStarFinder;
     public questName: string;
+    public tilemapObjects?: {[key: string]: ExtendedTiledObjectData};
 
-    protected tilemapObjects?: {[key: string]: ExtendedTiledObjectData};
     protected jsonPath?: string;
     protected store: Store<StoreState, AnyAction>;
     protected blockedTiles: [number, number][] = [];
@@ -43,7 +43,7 @@ export class BaseSceneController {
         loadResource(`${process.env.PUBLIC_URL}/${this.jsonPath}`, (resource) => {
             this.mapData = resource.data;
             this.tilemapObjects = getExtendedTilemapObjects(resource.data);
-            
+            console.log(this.tilemapObjects)
             this.mapData!.layers.filter(layer => layer.visible).forEach(layer => {
                 if (layer.properties && layer.properties.some(p => p.name === 'blocksMovement' && p.value === true)){
                     addAllTilesInLayerToList(this.blockedTiles, layer, layer.width);
