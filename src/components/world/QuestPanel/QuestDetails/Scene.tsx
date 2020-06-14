@@ -5,7 +5,7 @@ import Tilemap from './Tilemap';
 import ActionPath, { RefActions } from './ActionPath';
 import { StoreState } from 'stores';
 import { QuestStoreState } from 'stores/quest';
-import { Actor, SceneAction, SceneActionType } from 'stores/scene';
+import { SceneAction, SceneActionType, SceneObject } from 'stores/scene';
 import { enqueueSceneAction } from 'actions/quests';
 import BridgedStage from 'components/pixi/util/BridgedStage';
 import SceneActor from './SceneActor';
@@ -32,7 +32,7 @@ const DEBUG_ACTIONQUEUE = false;
 const Scene = (props: Props) => {
     // const {mapData, basePath} = props;
     const {controller} = props;
-    const [actionActor, setActionActor] = useState<Actor | null>(null); // actor that the player is performing an action on
+    const [actionActor, setActionActor] = useState<SceneObject|null>(null); // actor that the player is performing an action on
     //const [blockedTiles, setBlockedTiles] = useState<number[][]>([]);
  
     const mapData = controller.mapData!;
@@ -49,10 +49,10 @@ const Scene = (props: Props) => {
     const scene = quest.scene!;
 
     const selectedActor = useMemo(() => {
-        return scene.actors.find(a => a.name === props.selectedActor) || null;
-    }, [scene.actors, props.selectedActor])
+        return scene.objects.find(a => a.name === props.selectedActor) || null;
+    }, [scene.objects, props.selectedActor])
 
-    const handleActorStartDrag = (actor: Actor) => {
+    const handleActorStartDrag = (actor: SceneObject) => {
         if(!scene.actionQueue || scene.actionQueue.length === 0){
             setActionActor(actor);
         }
@@ -159,7 +159,64 @@ const Scene = (props: Props) => {
         }
     }, [mapData, actionActor, controller, scene.actionQueue]);
 
-    
+    const renderObject = (object: SceneObject) => {
+        const {name, location} = object;
+        switch (object.type) {
+            case "actor":
+                return (
+                    <SceneActor
+                        key={name}
+                        actor={name}
+                        controller={controller}
+                        tileWidth={mapData.tilewidth}
+                        tileHeight={mapData.tilewidth}
+                        location={location}
+                    >
+                        {selectedActor?.name === name && (
+                            <Graphics
+                                name="selectioncircle"
+                                draw={graphics => {
+                                    const line = 3;
+                                    graphics.lineStyle(line, 0xFFFFFF);
+                                    graphics.drawCircle(mapData.tilewidth / 2, mapData.tileheight / 2, mapData.tilewidth / 2 - line);
+                                    graphics.endFill();
+                                }}
+                            />
+                        )}
+                        <Sprite                     
+                            y={-80}
+                            image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`} 
+                            interactive={true}
+                            pointerdown={() => handleActorStartDrag(object)}
+                            pointerup={handleCancelAction}
+                            pointerupoutside={handleActorEndDrag}
+                        />
+                        {selectedActor?.name === name && (
+                            <>
+                                <Graphics
+                                    draw={graphics => {
+                                        graphics.beginFill(0xDE3249);
+                                        graphics.drawCircle(mapData.tilewidth / 2, mapData.tileheight, mapData.tilewidth / 4);
+                                        graphics.endFill();
+                                    }}
+                                />
+                                <Sprite 
+                                    image={`${process.env.PUBLIC_URL}/img/ui/scene/icons/interact.png`}
+                                    scale={[.3, .3]} 
+                                    y={mapData.tileheight}
+                                    x={mapData.tilewidth/2}
+                                    anchor={.5}
+                            />
+                            </>
+                        )}
+                    </SceneActor>
+                );
+            case "object": 
+                return (
+                    null
+                )
+        }
+    }
 
     return (
         <>
@@ -174,54 +231,7 @@ const Scene = (props: Props) => {
                         ref={actionPathRef}
                     />
                     { /** todo: create SceneAventurer  */
-                    scene.actors.map((a) => (
-                        <SceneActor
-                            key={a.name}
-                            actor={a.name}
-                            controller={controller}
-                            tileWidth={mapData.tilewidth}
-                            tileHeight={mapData.tilewidth}
-                            location={a.location}
-                        >
-                            {selectedActor?.name === a.name && (
-                                <Graphics
-                                    name="selectioncircle"
-                                    draw={graphics => {
-                                        const line = 3;
-                                        graphics.lineStyle(line, 0xFFFFFF);
-                                        graphics.drawCircle(mapData.tilewidth / 2, mapData.tileheight / 2, mapData.tilewidth / 2 - line);
-                                        graphics.endFill();
-                                    }}
-                                />
-                            )}
-                            <Sprite                     
-                                y={-80}
-                                image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`} 
-                                interactive={true}
-                                pointerdown={() => handleActorStartDrag(a)}
-                                pointerup={handleCancelAction}
-                                pointerupoutside={handleActorEndDrag}
-                            />
-                            {selectedActor?.name === a.name && (
-                                <>
-                                <Graphics
-                                    draw={graphics => {
-                                        graphics.beginFill(0xDE3249);
-                                        graphics.drawCircle(mapData.tilewidth / 2, mapData.tileheight, mapData.tilewidth / 4);
-                                        graphics.endFill();
-                                    }}
-                                />
-                                <Sprite 
-                                    image={`${process.env.PUBLIC_URL}/img/ui/scene/icons/interact.png`}
-                                    scale={[.3, .3]} 
-                                    y={mapData.tileheight}
-                                    x={mapData.tilewidth/2}
-                                    anchor={.5}
-                                />
-                                </>
-                            )}
-                        </SceneActor>
-                    ))}
+                    scene.objects.map((o) => renderObject(o))}
                 </Container>
             </BridgedStage>           
             {DEBUG_ACTIONQUEUE && (

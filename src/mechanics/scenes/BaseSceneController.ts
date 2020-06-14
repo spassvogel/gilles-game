@@ -6,8 +6,8 @@ import { loadResource } from 'utils/pixiJs';
 import { TiledMapData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'stores/adventurer';
-import { Actor } from 'stores/scene';
 import { setScene, setSceneName } from 'actions/quests';
+import { SceneObject } from 'stores/scene';
 
 export class BaseSceneController {
     public mapData?: TiledMapData;
@@ -59,11 +59,11 @@ export class BaseSceneController {
     // Constructs the scene and dispatches it to be saved to the store
     createScene() {
 
-        const actors = this.createActors();
+        const objects = this.createActors();
 
         // todo: perhaps this should be a class such that stuff that repeats for every scene can be done in a base class
         const scene = {
-            actors
+            objects
         }
         this.store.dispatch(setScene(this.questName, scene));
     }
@@ -111,7 +111,13 @@ export class BaseSceneController {
         });
     }
 
-    protected createActors () {
+    protected createObjects() {
+        return [
+            ...this.createActors()
+        ]
+    }
+
+    protected createActors(): SceneObject[] {
 
         if (!this.tilemapObjects) {
             throw new Error("No tilemapObjects");
@@ -127,9 +133,10 @@ export class BaseSceneController {
         if (adventurers.length > startLocations.length) {
             throw new Error("Not enough objects with 'adventurerStart' property set to true");
         }
-        return adventurers.reduce((acc: Actor[], value: AdventurerStoreState, index: number) => {
+        return adventurers.reduce((acc: SceneObject[], value: AdventurerStoreState, index: number) => {
             const location = startLocations[index];
             acc.push({
+                type: "actor",
                 health: 100,
                 location,
                 name: value.id,

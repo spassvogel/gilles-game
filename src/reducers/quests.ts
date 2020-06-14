@@ -180,7 +180,7 @@ const completeSceneAction = (state: QuestStoreState[], action: QuestAction) => {
 
             switch (action.actionType) {
                 case SceneActionType.move: {
-                    scene.actors = scene.actors.map((a) => {
+                    scene.objects = scene.objects.map((a) => {
                         if (a.name === action.actor) {
                             return { ...a, location: action.target };
                         }

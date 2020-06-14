@@ -1,10 +1,10 @@
 import { Store, AnyAction } from "redux";
-import { SceneStoreState, Actor } from 'stores/scene';
+import { SceneStoreState, SceneObject } from 'stores/scene';
 import { StoreState } from 'stores';
 import { TiledMapData } from 'constants/tiledMapData';
 import { ExtendedTiledObjectData } from 'utils/tilemap';
 import { AdventurerStoreState } from 'stores/adventurer';
-
+// todo: obsolete
 export interface EncounterDefinition<TQuestVars> {
     startScene(store: Store<StoreState, AnyAction>, questName: string, sceneName?: string): void
     createScene(store: StoreState, tilemap: string, tilemapData: TiledMapData, questName: String, questVars: TQuestVars): SceneStoreState
@@ -23,9 +23,10 @@ export const createActors = (tilemapObjects: { [key: string]: ExtendedTiledObjec
     if (adventurers.length > startLocations.length) {
         throw new Error("Not enough objects with 'adventurerStart' property set to true");
     }
-    return adventurers.reduce((acc: Actor[], value: AdventurerStoreState, index: number) => {
+    return adventurers.reduce((acc: SceneObject[], value: AdventurerStoreState, index: number) => {
         const location = startLocations[index];
         acc.push({
+            type: "actor",
             health: 100,
             location,
             name: value.id,

@@ -1,14 +1,24 @@
 
-export interface Actor {
+
+interface Common {
     name: string;
-    //allegiance: Allegiance;
     location: [number, number];
-    health: number;
-    //remainingAP: number;
 }
+export type SceneObject =
+ | Common & { type: 'object' }
+ | Common & { type: 'actor', health: number}
+
+ // export type Actor = SceneObject & {
+//     type: "actor";
+//     //allegiance: Allegiance;
+//     health: number;
+//     //remainingAP: number;
+// }
+
 
 export interface SceneStoreState {
-    actors: Actor[];    // todo: objects in addition to actors (or instead)
+    // actors: Actor[];    // todo: objects in addition to actors (or instead)
+    objects: SceneObject[];
     actionQueue?: SceneAction[];
 }
 
