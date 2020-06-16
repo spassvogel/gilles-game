@@ -6,19 +6,19 @@ import { SpritesheetData, SpriteData } from 'constants/spritesheetData';
 import RectTileLayer from 'components/pixi/RectTileLayer';
 import * as PIXI from 'pixi.js';
 import { loadResource } from 'utils/pixiJs';
-import { SceneObject } from 'stores/scene';
+import { TileObject } from 'stores/scene';
 import ObjectTileLayer from 'components/pixi/ObjectTileLayer';
 
 interface Props {
     basePath: string;
     data: TiledMapData;
-    tileobjects: SceneObject[]; // Objects that don't move
+    tileObjects: TileObject[]; // Objects that don't move
 }
 
 const DEBUG = false;
 
 const Tilemap = (props: Props) => {
-    const {basePath, data, tileobjects} = props;
+    const {basePath, data, tileObjects} = props;
     const [layers, setLayers] = useState<JSX.Element[]>();
     const [debug, setDebug] = useState<JSX.Element[]>();
 
@@ -35,7 +35,7 @@ const Tilemap = (props: Props) => {
                 const allLayers = data.layers.filter(l => l.visible && l.type === TiledLayerType.tilelayer).map(layer => {
                      return createTileLayer(layer, texture, data.width, tileset, spritesheet);
                 });
-                allLayers.push(createObjectLayer(tileobjects, texture, tileset, spritesheet));
+                allLayers.push(createObjectLayer(tileObjects, texture, tileset, spritesheet));
                 setLayers(allLayers);
                 
                 if (DEBUG){
@@ -44,7 +44,7 @@ const Tilemap = (props: Props) => {
             });
     
         })
-    }, [basePath, data, tileobjects]);
+    }, [basePath, data, tileObjects]);
     return (
         <Container >
             {layers}
@@ -113,7 +113,7 @@ const createTileLayer = (layer: TiledLayerData, texture: PIXI.Texture, horizonta
         />
     );
 }
-const createObjectLayer = (objects: SceneObject[], texture: PIXI.Texture, tileset: TiledTilesetData, spritesheet: PIXI.Spritesheet) => {
+const createObjectLayer = (objects: TileObject[], texture: PIXI.Texture, tileset: TiledTilesetData, spritesheet: PIXI.Spritesheet) => {
     return (
         <ObjectTileLayer
             key={"objects"}
@@ -136,7 +136,7 @@ const parseSpritesheetData = (mapData: TiledMapData): SpritesheetData => {
         const x = (i % columns) * w;
         const y = Math.floor(i / columns) * h;
 
-        frames[`${tileset.name}-${i + 1}`] = { 
+        frames[`${tileset.name}-${i + tileset.firstgid}`] = { 
             frame: {x, y, w, h},
             spriteSourceSize: {x, y, w, h},
             rotated: false,
