@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, forwardRef, useImperativeHandle } from "react";
-import { Graphics, useApp } from '@inlet/react-pixi';
+import React, { useRef, forwardRef, useImperativeHandle } from "react";
+import { Graphics } from '@inlet/react-pixi';
 
 interface Props {
 

@@ -106,8 +106,7 @@ export class BaseSceneController {
         this.interactWithObject(object);
     }
 
-    interactWithObject(object: TileObject) {
-        console.log(object.gid);
+    interactWithObject(_object: TileObject) {
     }
 
     // Converts pixel coordinate to scene location
