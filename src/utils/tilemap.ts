@@ -55,3 +55,7 @@ export const addAllTilesInLayerToList = (list: [number, number][], layer: TiledL
         return acc;
     }, list);
 }
+
+export const locationEquals = (a: [number, number], b: [number, number]) => {
+    return a[0] === b[0] && a[1] === b[1];
+}

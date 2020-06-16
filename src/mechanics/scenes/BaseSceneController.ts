@@ -1,5 +1,5 @@
 import { Store, AnyAction } from "redux";
-import { getExtendedTilemapObjects, ExtendedTiledObjectData, addAllTilesInLayerToList } from 'utils/tilemap';
+import { getExtendedTilemapObjects, ExtendedTiledObjectData, addAllTilesInLayerToList, locationEquals } from 'utils/tilemap';
 import { adventurersOnQuest } from 'storeHelpers';
 import { StoreState } from 'stores';
 import { loadResource } from 'utils/pixiJs';
@@ -7,7 +7,7 @@ import { TiledMapData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'stores/adventurer';
 import { setScene, setSceneName } from 'actions/quests';
-import { SceneObject } from 'stores/scene';
+import { TileObject, ActorObject } from 'stores/scene';
 
 export class BaseSceneController {
     public mapData?: TiledMapData;
@@ -58,11 +58,13 @@ export class BaseSceneController {
 
     // Constructs the scene and dispatches it to be saved to the store
     createScene() {
-        const objects = this.createObjects();
+        const tileObjects = this.createTileObjects();
+        const actors = this.createActors();
 
         // todo: perhaps this should be a class such that stuff that repeats for every scene can be done in a base class
         const scene = {
-            objects
+            tileObjects,
+            actors
         }
         this.store.dispatch(setScene(this.questName, scene));
     }
@@ -76,6 +78,38 @@ export class BaseSceneController {
         }
     }
 
+    actorCanInteract(actorName: string) {
+        const {scene} = this.getQuest();
+        const actor = scene?.actors.find(o => o.name === actorName)!;
+        const object = scene?.tileObjects
+            .find(o => locationEquals(o.location, actor.location));
+
+        // todo: should we look for some specific property?    
+        return !!object;
+    }
+
+    actorInteract(actorName: string) {
+        if (!this.actorCanInteract(actorName)) {
+            console.warn("Can't interact");
+            return;
+        }
+        const {scene} = this.getQuest();
+        const actor = scene?.actors.find(o => o.name === actorName)!;
+        const object = scene?.tileObjects
+            .find(o => locationEquals(o.location, actor.location));
+
+        if (!object || object.type !== "tileobject") {
+            console.warn("No object found");
+            return;
+        }
+    
+        this.interactWithObject(object);
+    }
+
+    interactWithObject(object: TileObject) {
+        console.log(object.gid);
+    }
+
     // Converts pixel coordinate to scene location
     pointToSceneLocation (point: PIXI.Point): [number, number] {
         if (!this.mapData?.tilewidth || !this.mapData?.tileheight) {
@@ -86,7 +120,7 @@ export class BaseSceneController {
 
     // Returns true if the tile is blocked 
     locationIsBlocked(location: [number, number]){
-        return this.blockedTiles.some((l) => l[0] === location[0] && l[1] === location[1]);
+        return this.blockedTiles.some((l) => locationEquals(l, location));
     }
 
     protected createAStar() {
@@ -110,22 +144,13 @@ export class BaseSceneController {
         });
     }
 
-    protected createObjects() {
-        return [
-            ...this.createActors(),
-            ...this.createTileobjects()
-        ]
-    }
-
-    protected createActors(): SceneObject[] {
+    protected createActors(): ActorObject[] {
 
         if (!this.tilemapObjects) {
             throw new Error("No tilemapObjects");
         }
 
-        const storeState = this.store.getState();
-        const quest = storeState.quests.find(q => q.name === this.questName)!;
-        const adventurers = adventurersOnQuest(storeState.adventurers, quest);
+        const adventurers = this.getAdventurers();
 
         const startLocations = Object.values(this.tilemapObjects)
             .filter(o => o.type === "adventurerStart")
@@ -133,10 +158,9 @@ export class BaseSceneController {
         if (adventurers.length > startLocations.length) {
             throw new Error("Not enough objects with 'adventurerStart' property set to true");
         }
-        return adventurers.reduce((acc: SceneObject[], value: AdventurerStoreState, index: number) => {
+        return adventurers.reduce((acc: ActorObject[], value: AdventurerStoreState, index: number) => {
             const location = startLocations[index];
             acc.push({
-                type: "actor",
                 health: 100,
                 location,
                 name: value.id,
@@ -145,7 +169,7 @@ export class BaseSceneController {
         }, []);
     }
 
-    protected createTileobjects(): SceneObject[] {
+    protected createTileObjects(): TileObject[] {
         if (!this.tilemapObjects) {
             throw new Error("No tilemapObjects");
         }
@@ -153,11 +177,23 @@ export class BaseSceneController {
         return Object.values(this.tilemapObjects)
             .filter(o => o.type === "tileobject")
             .map(o => ({
+                id: o.id,
                 gid: o.gid!,
                 location: o.location,
                 name: o.name,
                 type: "tileobject",
             }));
-    }   
+    }
+
+    protected getQuest() {
+        const storeState = this.store.getState();
+        return storeState.quests.find(q => q.name === this.questName)!;
+    }
+
+    protected getAdventurers() {
+        const storeState = this.store.getState();
+        const quest = this.getQuest();
+        return adventurersOnQuest(storeState.adventurers, quest);
+    }
         
 }

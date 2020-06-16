@@ -9,13 +9,13 @@ export enum QuestNodeType {
 }
 
 export interface QuestDefinition<TQuestVars = any> {
-    nodes: QuestNode<TQuestVars>[];
+    nodes: QuestNode[];
     requiredItems?: Item[];
     getQuestVars: (questStoreState: QuestStoreState) => TQuestVars;
     getInitialQuestVars: (questStoreState: QuestStoreState) => TQuestVars;
 }
 
-export interface QuestNode<TQuestVars = any> {
+export interface QuestNode {
     x: number;
     y: number;
     type: QuestNodeType;

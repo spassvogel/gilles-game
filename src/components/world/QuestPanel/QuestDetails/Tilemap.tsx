@@ -3,11 +3,11 @@ import { TiledMapData, TiledLayerData, TiledTilesetData, TiledLayerType } from '
 import { Container, Text } from '@inlet/react-pixi';
 import { useEffect } from 'react';
 import { SpritesheetData, SpriteData } from 'constants/spritesheetData';
-import RectTileLayer from 'components/pixi/RectTileLayer';
+import RectTileLayer from 'components/pixi/tile/RectTileLayer';
 import * as PIXI from 'pixi.js';
 import { loadResource } from 'utils/pixiJs';
 import { TileObject } from 'stores/scene';
-import ObjectTileLayer from 'components/pixi/ObjectTileLayer';
+import ObjectTileLayer from 'components/pixi/tile/ObjectTileLayer';
 
 interface Props {
     basePath: string;

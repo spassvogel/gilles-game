@@ -1,5 +1,5 @@
 import { ActionType as GameActionType, GameTickAction } from "actions/game";
-import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, UpdateEncounterResultAction, EnqueueSceneActionAction, SetSceneNameAction, SetSceneAction } from "actions/quests";
+import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, UpdateEncounterResultAction, EnqueueSceneActionAction, SetSceneNameAction, SetSceneAction, UpdateSceneObjectAction } from "actions/quests";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "stores/quest";
@@ -69,6 +69,9 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
         case ActionType.completeSceneAction:
             return completeSceneAction(state, action as QuestAction);
+
+        case ActionType.updateSceneObjectAction:
+            return updateSceneObjectAction(state, action as UpdateSceneObjectAction);
 
         case GameActionType.gameTick:
            return gameTick(state, action as GameTickAction);
@@ -180,7 +183,7 @@ const completeSceneAction = (state: QuestStoreState[], action: QuestAction) => {
 
             switch (action.actionType) {
                 case SceneActionType.move: {
-                    scene.objects = scene.objects.map((a) => {
+                    scene.actors = scene.actors.map((a) => {
                         if (a.name === action.actor) {
                             return { ...a, location: action.target };
                         }
@@ -202,6 +205,32 @@ const completeSceneAction = (state: QuestStoreState[], action: QuestAction) => {
         return qss;
     });
 };
+
+const updateSceneObjectAction = (state: QuestStoreState[], action: UpdateSceneObjectAction) => {
+    return state.map((qss) => {
+        if (qss.name === action.questName) {
+            const scene = qss.scene;
+            if (!scene) throw new Error("Something broke. No scene");
+
+            scene.tileObjects = scene.tileObjects.map(tO => {
+                if (tO.id === action.id) { 
+                    return {
+                        ...tO,
+                        ...action.object
+                    }
+                }
+                return tO;
+            })
+
+            return {
+                ...qss,
+                scene
+            };
+        }
+        return qss;
+    });
+}
+
 
 const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
     const questsToUpdate = action.quests;

@@ -5,7 +5,7 @@ import Tilemap from './Tilemap';
 import ActionPath, { RefActions } from './ActionPath';
 import { StoreState } from 'stores';
 import { QuestStoreState } from 'stores/quest';
-import { SceneAction, SceneActionType, SceneObject } from 'stores/scene';
+import { SceneAction, SceneActionType, ActorObject } from 'stores/scene';
 import { enqueueSceneAction } from 'actions/quests';
 import BridgedStage from 'components/pixi/util/BridgedStage';
 import SceneActor from './SceneActor';
@@ -18,10 +18,7 @@ import 'pixi-tilemap'; // tilemap is not a real npm module :/
 
 export interface Props {
     questName: string;
-    //sceneName: string;
     controller: BaseSceneController;
-    // mapData: TiledMapData;
-    // basePath: string;
     selectedActor: string;
     setSelectedActor: (actor: string) => void;
 }
@@ -31,7 +28,7 @@ const DEBUG_ACTIONQUEUE = false;
 
 const Scene = (props: Props) => {
     const {controller} = props;
-    const [actionActor, setActionActor] = useState<SceneObject|null>(null); // actor that the player is performing an action on
+    const [actionActor, setActionActor] = useState<ActorObject|null>(null); // actor that the player is performing an action on
  
     const mapData = controller.mapData!;
     const basePath = controller.basePath!;
@@ -47,15 +44,11 @@ const Scene = (props: Props) => {
     const quest = useSelector<StoreState, QuestStoreState>(questSelector);
     const scene = quest.scene!;
         
-    const tileobjects = useMemo(() => {
-        return scene.objects.filter(o => o.type === "tileobject");
-    }, [scene.objects]);
-
     const selectedActor = useMemo(() => {
-        return scene.objects.find(a => a.name === props.selectedActor) || null;
-    }, [scene.objects, props.selectedActor])
+        return scene.actors?.find(a => a.name === props.selectedActor) || null;
+    }, [scene.actors, props.selectedActor])
 
-    const handleActorStartDrag = (actor: SceneObject) => {
+    const handleActorStartDrag = (actor: ActorObject) => {
         if(!scene.actionQueue || scene.actionQueue.length === 0){
             setActionActor(actor);
         }
@@ -138,7 +131,6 @@ const Scene = (props: Props) => {
                 const from = new PIXI.Point(actionOriginLocation[0] * mapData.tilewidth + mapData.tilewidth / 2, 
                     actionOriginLocation[1] * mapData.tileheight + mapData.tileheight / 2);
                     
-                // console.log(Math.atan2(event.data.global.y - from.y, event.data.global.x - from.x));
                 // Draw a line to the destination tile
                 actionPath.drawAction(from, event.data.global, !blocked);
             }
@@ -149,64 +141,60 @@ const Scene = (props: Props) => {
         }
     }, [mapData, actionActor, controller, scene.actionQueue]);
 
-    const renderObject = (object: SceneObject) => {
-        const {name, location} = object;
-        switch (object.type) {
-            case "actor":
-                return (
-                    <SceneActor
-                        key={name}
-                        actor={name}
-                        controller={controller}
-                        tileWidth={mapData.tilewidth}
-                        tileHeight={mapData.tilewidth}
-                        location={location}
+    const renderActor = (actor: ActorObject) => {
+        const {name, location} = actor;
+        return (
+            <SceneActor
+                key={name}
+                actor={name}
+                controller={controller}
+                tileWidth={mapData.tilewidth}
+                tileHeight={mapData.tilewidth}
+                location={location}
+            >
+                {selectedActor?.name === name && (
+                    <Graphics
+                        name="selectioncircle"
+                        draw={graphics => {
+                            const line = 3;
+                            graphics.lineStyle(line, 0xFFFFFF);
+                            graphics.drawCircle(mapData.tilewidth / 2, mapData.tileheight / 2, mapData.tilewidth / 2 - line);
+                            graphics.endFill();
+                        }}
+                    />
+                )}
+                <Sprite                     
+                    y={-80}
+                    image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`} 
+                    interactive={true}
+                    pointerdown={() => handleActorStartDrag(actor)}
+                    pointerup={handleCancelAction}
+                    pointerupoutside={handleActorEndDrag}
+                />
+                { (selectedActor?.name === name && controller.actorCanInteract(selectedActor.name)) && (
+                    <Container
+                        interactive
+                        pointerdown={() => {controller.actorInteract(selectedActor.name)}}
                     >
-                        {selectedActor?.name === name && (
-                            <Graphics
-                                name="selectioncircle"
-                                draw={graphics => {
-                                    const line = 3;
-                                    graphics.lineStyle(line, 0xFFFFFF);
-                                    graphics.drawCircle(mapData.tilewidth / 2, mapData.tileheight / 2, mapData.tilewidth / 2 - line);
-                                    graphics.endFill();
-                                }}
-                            />
-                        )}
-                        <Sprite                     
-                            y={-80}
-                            image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`} 
-                            interactive={true}
-                            pointerdown={() => handleActorStartDrag(object)}
-                            pointerup={handleCancelAction}
-                            pointerupoutside={handleActorEndDrag}
+                        <Graphics
+                            draw={graphics => {
+                                graphics.beginFill(0xDE3249);
+                                graphics.drawCircle(mapData.tilewidth / 2, mapData.tileheight, mapData.tilewidth / 4);
+                                graphics.endFill();
+                            }}
                         />
-                        {selectedActor?.name === name && (
-                            <>
-                                <Graphics
-                                    draw={graphics => {
-                                        graphics.beginFill(0xDE3249);
-                                        graphics.drawCircle(mapData.tilewidth / 2, mapData.tileheight, mapData.tilewidth / 4);
-                                        graphics.endFill();
-                                    }}
-                                />
-                                <Sprite 
-                                    image={`${process.env.PUBLIC_URL}/img/ui/scene/icons/interact.png`}
-                                    scale={[.3, .3]} 
-                                    y={mapData.tileheight}
-                                    x={mapData.tilewidth/2}
-                                    anchor={.5}
-                            />
-                            </>
-                        )}
-                    </SceneActor>
-                );
-            case "tileobject":
-                console.log(object)
-                return (
-                    null
-                )
-        }
+                        <Sprite 
+                            image={`${process.env.PUBLIC_URL}/img/ui/scene/icons/interact.png`}
+                            scale={[.3, .3]} 
+                            y={mapData.tileheight}
+                            x={mapData.tilewidth/2}
+                            anchor={.5}
+                    />
+                    </Container>
+                )}
+            </SceneActor>
+        );
+        
     }
 
 
@@ -221,13 +209,13 @@ const Scene = (props: Props) => {
                     <Tilemap 
                         basePath={basePath} 
                         data={mapData} 
-                        tileobjects={tileobjects}    
+                        tileObjects={scene.tileObjects}    
                     />
                     <ActionPath
                         ref={actionPathRef}
                     />
                     { /** todo: create SceneAventurer  */
-                    scene.objects.filter(o => o.type === "actor").map((o) => renderObject(o))}
+                    scene.actors?.map((o) => renderActor(o))}
                 </Container>
             </BridgedStage>           
             {DEBUG_ACTIONQUEUE && (

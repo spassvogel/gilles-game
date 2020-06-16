@@ -1,13 +1,20 @@
 
 
-interface Common {
+
+// https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions
+export type TileObject = {
+    id: number;
+    name?: string;
+    type: string, 
+    gid: number 
+    location: [number, number];
+};
+
+export type ActorObject = {
     name: string;
     location: [number, number];
-}
-
-export type SceneObject =
- | Common & { type: 'tileobject', gid: number }
- | Common & { type: 'actor', health: number }
+    health: number 
+};
 
  // export type Actor = SceneObject & {
 //     type: "actor";
@@ -18,7 +25,8 @@ export type SceneObject =
 
 
 export interface SceneStoreState {
-    objects: SceneObject[];
+    tileObjects: TileObject[];
+    actors: ActorObject[];
     actionQueue?: SceneAction[];
 }
 

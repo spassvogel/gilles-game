@@ -1,20 +1,21 @@
 import { Action } from "redux";
 import { AdventurerStoreState } from "stores/adventurer";
-import { SceneAction, SceneStoreState } from 'stores/scene';
+import { SceneAction, SceneStoreState, TileObject } from 'stores/scene';
 
 // tslint:disable:object-literal-sort-keys
 
 export enum ActionType {
-    launchQuest = "launchQuest",
-    advanceQuest = "advanceQuest",
-    updateQuestVars = "updateQuestVars",
-    updateEncounterResult = "updateEncounterResult",
-    startEncounter = "startEncounter",
-    setSceneName = "setSceneName",
-    setScene = "setScene",
-    updateQuests = "updateQuests",
+    launchQuest = "launchQuest",                            // Embark upon a new quest
+    advanceQuest = "advanceQuest",                          // unused! remove
+    updateQuestVars = "updateQuestVars",                    // ?
+    updateEncounterResult = "updateEncounterResult",        // unused?
+    startEncounter = "startEncounter",                      // unused! remove
+    setSceneName = "setSceneName",                          // Sets name of the current scene of a quest
+    setScene = "setScene",                                  // Fills in the scene of a quest
+    updateQuests = "updateQuests",                          // unused! remove
     enqueueSceneAction = "enqueueSceneAction",
     completeSceneAction = "completeSceneAction",
+    updateSceneObjectAction = "updateSceneObjectAction",    // Updates a tile object on the scene. Can update any property except 'id'
 }
 
 export interface QuestAction extends Action<ActionType> {
@@ -46,6 +47,11 @@ export interface UpdateEncounterResultAction extends QuestAction {
     result: string;
 }
 
+export interface UpdateSceneObjectAction extends QuestAction {
+    id: number;
+    object: Partial<Omit<TileObject, 'id'>>;
+}
+
 export function launchQuest(questName: string, assignedAventurers: AdventurerStoreState[]): QuestLaunchAction {
     return {
         type: ActionType.launchQuest,
@@ -69,6 +75,8 @@ export function updateQuestVars(quest: string, vars: any): QuestVarsAction {
         vars,
     };
 }
+
+// Scene stuff
 
 export function setSceneName(questName: string, sceneName: string): SetSceneNameAction {
     return {
@@ -100,6 +108,17 @@ export function completeSceneAction(quest: string): QuestAction {
         questName: quest,
     };
 }
+
+export const updateSceneObjectAction = (questName: string, id: number, object: Partial<Omit<TileObject, 'id'>>): UpdateSceneObjectAction => {
+    return {
+        type: ActionType.updateSceneObjectAction,
+        questName,
+        id,
+        object
+    };
+}
+
+
 
 export function updateEncounterResult(quest: string, nodeIndex: number, result: string): UpdateEncounterResultAction {
     return {
