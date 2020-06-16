@@ -54,11 +54,6 @@ interface SelectedContext {
     contextRect: ClientRect;
 }
 
-const resolution = {
-    height: 860, // 972,
-    width: 480,
-};
-
 export const MAX_WIDTH = 960;
 
 export const AppContext = createContext<AppContextProps | null>(null);

@@ -1,7 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { AdventurerStoreState } from 'stores/adventurer';
 import { QuestStoreState } from 'stores/quest';
-import { AppContext } from 'components/App';
 import RoomWithAdventurer from './RoomWithAdventurer';
 import RoomEmpty from './RoomEmpty';
 

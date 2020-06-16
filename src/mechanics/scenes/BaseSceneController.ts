@@ -40,10 +40,10 @@ export class BaseSceneController {
         if (!this.jsonPath) {
             throw new Error("No jsonPath defined!");
         }
+
         loadResource(`${process.env.PUBLIC_URL}/${this.jsonPath}`, (resource) => {
             this.mapData = resource.data;
             this.tilemapObjects = getExtendedTilemapObjects(resource.data);
-            console.log(this.tilemapObjects)
             this.mapData!.layers.filter(layer => layer.visible).forEach(layer => {
                 if (layer.properties && layer.properties.some(p => p.name === 'blocksMovement' && p.value === true)){
                     addAllTilesInLayerToList(this.blockedTiles, layer, layer.width);
@@ -58,8 +58,7 @@ export class BaseSceneController {
 
     // Constructs the scene and dispatches it to be saved to the store
     createScene() {
-
-        const objects = this.createActors();
+        const objects = this.createObjects();
 
         // todo: perhaps this should be a class such that stuff that repeats for every scene can be done in a base class
         const scene = {
@@ -82,7 +81,7 @@ export class BaseSceneController {
         if (!this.mapData?.tilewidth || !this.mapData?.tileheight) {
             return [0, 0];
         }
-        return [Math.floor(point.x / this.mapData.tilewidth ), Math.floor(point.y / this.mapData.tilewidth)];
+        return [Math.floor(point.x / this.mapData.tilewidth), Math.floor(point.y / this.mapData.tilewidth)];
     }
 
     // Returns true if the tile is blocked 
@@ -113,7 +112,8 @@ export class BaseSceneController {
 
     protected createObjects() {
         return [
-            ...this.createActors()
+            ...this.createActors(),
+            ...this.createTileobjects()
         ]
     }
 
@@ -128,7 +128,7 @@ export class BaseSceneController {
         const adventurers = adventurersOnQuest(storeState.adventurers, quest);
 
         const startLocations = Object.values(this.tilemapObjects)
-            .filter(o => o.ezProps?.adventurerStart)
+            .filter(o => o.type === "adventurerStart")
             .map(o => o.location);
         if (adventurers.length > startLocations.length) {
             throw new Error("Not enough objects with 'adventurerStart' property set to true");
@@ -145,4 +145,19 @@ export class BaseSceneController {
         }, []);
     }
 
+    protected createTileobjects(): SceneObject[] {
+        if (!this.tilemapObjects) {
+            throw new Error("No tilemapObjects");
+        }
+
+        return Object.values(this.tilemapObjects)
+            .filter(o => o.type === "tileobject")
+            .map(o => ({
+                gid: o.gid!,
+                location: o.location,
+                name: o.name,
+                type: "tileobject",
+            }));
+    }   
+        
 }

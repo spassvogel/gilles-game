@@ -1,6 +1,5 @@
 import { QuestStoreState } from 'stores/quest';
 import { Item } from 'definitions/items/types';
-import { EncounterDefinition } from './encounters';
 
 export enum QuestNodeType {
     nothing = 0,    // Nothing much going on here

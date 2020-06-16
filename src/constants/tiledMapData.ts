@@ -48,7 +48,7 @@ export interface TiledLayerData {
 }
   
 export interface TiledObjectData {
-    gid: number;
+    gid?: number;
     id: number;
     name: string;
     properties?: TiledProperty[];  

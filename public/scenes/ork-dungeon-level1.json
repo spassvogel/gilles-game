@@ -67,14 +67,8 @@
                  "height":100,
                  "id":5,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"adventurerStart",
-                         "type":"bool",
-                         "value":true
-                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"adventurerStart",
                  "visible":true,
                  "width":100,
                  "x":0,
@@ -84,14 +78,8 @@
                  "height":100,
                  "id":6,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"adventurerStart",
-                         "type":"bool",
-                         "value":true
-                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"adventurerStart",
                  "visible":true,
                  "width":100,
                  "x":200,
@@ -101,14 +89,8 @@
                  "height":100,
                  "id":7,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"adventurerStart",
-                         "type":"bool",
-                         "value":true
-                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"adventurerStart",
                  "visible":true,
                  "width":100,
                  "x":600,
@@ -118,14 +100,8 @@
                  "height":100,
                  "id":8,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"adventurerStart",
-                         "type":"bool",
-                         "value":true
-                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"adventurerStart",
                  "visible":true,
                  "width":100,
                  "x":500,
@@ -135,14 +111,8 @@
                  "height":100,
                  "id":9,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"adventurerStart",
-                         "type":"bool",
-                         "value":true
-                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"adventurerStart",
                  "visible":true,
                  "width":100,
                  "x":400,
@@ -152,9 +122,9 @@
                  "gid":33,
                  "height":100,
                  "id":10,
-                 "name":"",
+                 "name":"chest",
                  "rotation":0,
-                 "type":"",
+                 "type":"tileobject",
                  "visible":true,
                  "width":100,
                  "x":200,
@@ -173,7 +143,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":11,
+ "nextobjectid":15,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -182,7 +152,7 @@
          "value":"level2"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.3.4",
+ "tiledversion":"1.3.5",
  "tileheight":100,
  "tilesets":[
         {

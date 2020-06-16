@@ -4,9 +4,10 @@ interface Common {
     name: string;
     location: [number, number];
 }
+
 export type SceneObject =
- | Common & { type: 'object' }
- | Common & { type: 'actor', health: number}
+ | Common & { type: 'tileobject', gid: number }
+ | Common & { type: 'actor', health: number }
 
  // export type Actor = SceneObject & {
 //     type: "actor";
@@ -17,7 +18,6 @@ export type SceneObject =
 
 
 export interface SceneStoreState {
-    // actors: Actor[];    // todo: objects in addition to actors (or instead)
     objects: SceneObject[];
     actionQueue?: SceneAction[];
 }
@@ -33,16 +33,3 @@ export enum SceneActionType {
     move = "move"
     // todo: interact?
 }
-
-// export const scene1: SceneStoreState = {
-//     tilemap: "scenes/ork-dungeon-level1.json",
-//     actors: [{
-//         health: 100,
-//         location: [3, 5],
-//         name: "c4a5d270",
-//     }, {
-//         health: 100,
-//         location: [4, 6],
-//         name: "2e655832",
-//     }],
-// };

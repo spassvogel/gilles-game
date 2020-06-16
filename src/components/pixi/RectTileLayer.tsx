@@ -17,7 +17,7 @@ interface Props  {
 
 const RectTileLayer = PixiComponent<Props, any>("RectTileLayer", {
     create(props: Props) {
-        var tileLayer = new window.PIXI.tilemap.CompositeRectTileLayer(0, [props.texture]);
+        const tileLayer = new window.PIXI.tilemap.CompositeRectTileLayer(0, [props.texture]);
         return tileLayer;
     },
 

@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
-import { TiledMapData, TiledLayerData, TiledTilesetData } from 'constants/tiledMapData';
+import { TiledMapData, TiledLayerData, TiledTilesetData, TiledLayerType } from 'constants/tiledMapData';
 import { Container, Text } from '@inlet/react-pixi';
 import { useEffect } from 'react';
 import { SpritesheetData, SpriteData } from 'constants/spritesheetData';
 import RectTileLayer from 'components/pixi/RectTileLayer';
 import * as PIXI from 'pixi.js';
 import { loadResource } from 'utils/pixiJs';
+import { SceneObject } from 'stores/scene';
+import ObjectTileLayer from 'components/pixi/ObjectTileLayer';
 
 interface Props {
     basePath: string;
     data: TiledMapData;
-    //setBlockedTiles: (tiles: [number, number][]) => void;
+    tileobjects: SceneObject[]; // Objects that don't move
 }
 
 const DEBUG = false;
 
 const Tilemap = (props: Props) => {
-    const {basePath, data/*, setBlockedTiles*/} = props;
+    const {basePath, data, tileobjects} = props;
     const [layers, setLayers] = useState<JSX.Element[]>();
     const [debug, setDebug] = useState<JSX.Element[]>();
 
@@ -25,28 +27,24 @@ const Tilemap = (props: Props) => {
         const tileset = getTileset(data);
         loadResource(`${basePath}/${tileset.image}`, (resource) => {
             const texture = resource.texture;
-
+            if (!texture) return;
             PIXI.utils.clearTextureCache();
             const spritesheet = new PIXI.Spritesheet(texture, spritesheetData);
-            const blockedTiles: [number, number][] = [];
     
             spritesheet.parse(() => {
-                const layers = data.layers.filter(layer => layer.visible).map(layer => {
-                    if (layer.properties && layer.properties.some(p => p.name === 'blocksMovement' && p.value === true)){
-                        addToBlockedTiles(blockedTiles, layer, layer.width);
-                    }
-                    return createTileLayer(layer, texture, data.width, tileset, spritesheet);
+                const allLayers = data.layers.filter(l => l.visible && l.type === TiledLayerType.tilelayer).map(layer => {
+                     return createTileLayer(layer, texture, data.width, tileset, spritesheet);
                 });
-                //setBlockedTiles(blockedTiles);
-                setLayers(layers);
+                allLayers.push(createObjectLayer(tileobjects, texture, tileset, spritesheet));
+                setLayers(allLayers);
                 
                 if (DEBUG){
-                    setDebug(getDebug(data.layers[0].data.length, data.layers[0].width, tileset.tilewidth, tileset.tileheight, blockedTiles))
+                    setDebug(getDebug(data.layers[0].data.length, data.layers[0].width, tileset.tilewidth, tileset.tileheight))
                 }
             });
     
         })
-    }, [basePath, data]);
+    }, [basePath, data, tileobjects]);
     return (
         <Container >
             {layers}
@@ -57,7 +55,7 @@ const Tilemap = (props: Props) => {
 
 export default Tilemap;
 
-const getDebug = (tileCount: number, columns: number, tileWidth: number, tileHeight: number, blockedTiles: number[][]) => {
+const getDebug = (tileCount: number, columns: number, tileWidth: number, tileHeight: number) => {
     const elements = [];
     for (let i = 0 ; i < tileCount ; i++) {
         const location = [(i % columns),  Math.floor(i / columns)];
@@ -115,6 +113,17 @@ const createTileLayer = (layer: TiledLayerData, texture: PIXI.Texture, horizonta
         />
     );
 }
+const createObjectLayer = (objects: SceneObject[], texture: PIXI.Texture, tileset: TiledTilesetData, spritesheet: PIXI.Spritesheet) => {
+    return (
+        <ObjectTileLayer
+            key={"objects"}
+            objects={objects}
+            texture={texture} 
+            tileset={tileset}
+            spritesheet={spritesheet}
+        />
+    );
+}
 
 const parseSpritesheetData = (mapData: TiledMapData): SpritesheetData => {
     const tileset = getTileset(mapData);
@@ -145,16 +154,4 @@ const parseSpritesheetData = (mapData: TiledMapData): SpritesheetData => {
             scale: 1
         }
     };
-}
-
-/** All tiles in this layer are blocking movement */
-const addToBlockedTiles = (blockedTiles: [number, number][], layer: TiledLayerData, columns: number) => {
-    layer.data.reduce((acc: [number, number][], tile, index) => {
-        if (tile > 0) {
-            const x = (index % columns);
-            const y = Math.floor(index / columns);
-            acc.push([x, y]);    
-        }
-        return acc;
-    }, blockedTiles);
 }

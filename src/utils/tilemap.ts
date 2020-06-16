@@ -8,7 +8,10 @@ export const getExtendedTilemapObjects = (tilemapData: TiledMapData) => {
     const objects: { [key: string]: ExtendedTiledObjectData } = {};
     objectLayers.forEach(objectLayer => {    
         objectLayer.objects.reduce((acc: {[key: string]: ExtendedTiledObjectData}, value: TiledObjectData) => {
-            const {x, y} = value;
+            let {x, y} = value;
+            if (value.type === "tileobject") { 
+                y -= value.height; // https://github.com/bjorn/tiled/issues/91
+            }
             const location: [number, number] = [
                 x / tilemapData.tilewidth, 
                 y / tilemapData.tileheight

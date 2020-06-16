@@ -49,14 +49,8 @@
                  "height":100,
                  "id":1,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"adventurerStart",
-                         "type":"bool",
-                         "value":true
-                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"adventurerStart",
                  "visible":true,
                  "width":100,
                  "x":200,
@@ -66,14 +60,8 @@
                  "height":100,
                  "id":3,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"adventurerStart",
-                         "type":"bool",
-                         "value":true
-                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"adventurerStart",
                  "visible":true,
                  "width":100,
                  "x":300,
@@ -83,14 +71,8 @@
                  "height":100,
                  "id":4,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"adventurerStart",
-                         "type":"bool",
-                         "value":true
-                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"adventurerStart",
                  "visible":true,
                  "width":100,
                  "x":400,
@@ -100,14 +82,8 @@
                  "height":100,
                  "id":5,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"adventurerStart",
-                         "type":"bool",
-                         "value":true
-                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"adventurerStart",
                  "visible":true,
                  "width":100,
                  "x":600,
@@ -117,14 +93,8 @@
                  "height":100,
                  "id":6,
                  "name":"",
-                 "properties":[
-                        {
-                         "name":"adventurerStart",
-                         "type":"bool",
-                         "value":true
-                        }],
                  "rotation":0,
-                 "type":"",
+                 "type":"adventurerStart",
                  "visible":true,
                  "width":100,
                  "x":500,

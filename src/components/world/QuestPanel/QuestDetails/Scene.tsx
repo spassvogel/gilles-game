@@ -30,23 +30,26 @@ const DEBUG_ASTAR = false;
 const DEBUG_ACTIONQUEUE = false;
 
 const Scene = (props: Props) => {
-    // const {mapData, basePath} = props;
     const {controller} = props;
     const [actionActor, setActionActor] = useState<SceneObject|null>(null); // actor that the player is performing an action on
-    //const [blockedTiles, setBlockedTiles] = useState<number[][]>([]);
  
     const mapData = controller.mapData!;
     const basePath = controller.basePath!;
-
+    
+    
     const dispatch = useDispatch();
     const ref = useRef<PIXI.Container>(null);
-
+    
     const questSelector = useCallback(
         (state: StoreState) => state.quests.find((q) => q.name === props.questName)!, 
         [props.questName]
-    );
+        );
     const quest = useSelector<StoreState, QuestStoreState>(questSelector);
     const scene = quest.scene!;
+        
+    const tileobjects = useMemo(() => {
+        return scene.objects.filter(o => o.type === "tileobject");
+    }, [scene.objects]);
 
     const selectedActor = useMemo(() => {
         return scene.objects.find(a => a.name === props.selectedActor) || null;
@@ -119,19 +122,6 @@ const Scene = (props: Props) => {
 
     const sceneWidth = mapData.width * mapData.tilewidth;
     const sceneHeight = mapData.height * mapData.tileheight;
-
-    // Converts pixel coordinate to scene location
-    // const pointToSceneLocation = useCallback((point: PIXI.Point): [number, number] => {
-    //     if (!mapData.tilewidth || !mapData.tileheight) {
-    //         return [0, 0];
-    //     }
-    //     return [Math.floor(point.x / mapData.tilewidth ), Math.floor(point.y / mapData.tilewidth)];
-    // }, [mapData]);
-
-    /** Returns true if the tile is blocked */
-    // const locationIsBlocked = useCallback((location: [number, number]) => {
-    //     return blockedTiles.some((l) => l[0] === location[0] && l[1] === location[1]);
-    // }, [blockedTiles]);
 
     // Draw a line to indicate the action to take
     const actionPathRef = useRef<RefActions>(null);
@@ -211,12 +201,14 @@ const Scene = (props: Props) => {
                         )}
                     </SceneActor>
                 );
-            case "object": 
+            case "tileobject":
+                console.log(object)
                 return (
                     null
                 )
         }
     }
+
 
     return (
         <>
@@ -226,12 +218,16 @@ const Scene = (props: Props) => {
                     interactive={true} 
                     hitArea={new PIXI.Rectangle(0, 0, sceneWidth, sceneHeight)}
                 >
-                    <Tilemap basePath={basePath} data={mapData} /* setBlockedTiles={setBlockedTiles}*/ />
+                    <Tilemap 
+                        basePath={basePath} 
+                        data={mapData} 
+                        tileobjects={tileobjects}    
+                    />
                     <ActionPath
                         ref={actionPathRef}
                     />
                     { /** todo: create SceneAventurer  */
-                    scene.objects.map((o) => renderObject(o))}
+                    scene.objects.filter(o => o.type === "actor").map((o) => renderObject(o))}
                 </Container>
             </BridgedStage>           
             {DEBUG_ACTIONQUEUE && (
