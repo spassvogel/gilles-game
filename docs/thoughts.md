@@ -128,7 +128,7 @@ backlog of ideas
 
 
 #### 20/07/2019 quest view
-[x] shows latest log message when not in encounter
+[ ] shows latest log message when not in encounter
 
 
 #### 22/07/2019 Objectives
@@ -360,7 +360,8 @@ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy
 [ ] Need to completely check if the app is responsive and works in mobile
 
 #### 30/03/2020 Leaders [+design]
-[ ] Parties can have a leader. The leader provides the icon for the party. What else does it mean?
+[x] Parties can have a leader. The leader provides the icon for the party. 
+[ ] What else does it mean?
 [ ] Leader ability?
 
 
@@ -497,7 +498,7 @@ https://github.com/DragonBones/DragonBonesJS
 [ ] background on items. gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary
 
 #### Remove unused or little used packages 
-[ ] momentjs is 231.7kb and hardly used. refactor
+[x] momentjs is 231.7kb and hardly used. refactor
 [x] tmx-parser
 
 #### Tiled manual [+doc]
