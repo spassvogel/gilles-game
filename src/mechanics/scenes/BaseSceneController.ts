@@ -8,6 +8,9 @@ import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'stores/adventurer';
 import { setScene, setSceneName, exitEncounter } from 'actions/quests';
 import { TileObject, ActorObject } from 'stores/scene';
+import { getDefinition } from 'definitions/quests';
+import { addLogEntry } from 'actions/log';
+import { LogChannel } from 'stores/logEntry';
 
 export class BaseSceneController {
     public mapData?: TiledMapData;
@@ -81,6 +84,13 @@ export class BaseSceneController {
                 this.store.dispatch(setSceneName(this.questName, object.ezProps.loadScene))
             } else {
                 // Or exit the encounter
+                const index = Math.floor(this.getQuest().progress) + 1;
+                const definition = getDefinition(this.questName);
+                const node = definition.nodes[index];
+                if (node.log) {
+                    // If the next node has a log entry, add it
+                    this.store.dispatch(addLogEntry(node.log, null, LogChannel.quest, this.questName));
+                }
                 this.store.dispatch(exitEncounter(this.questName));
             }
         }

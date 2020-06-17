@@ -55,11 +55,11 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
             let nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
             const nodesPassed = Math.floor(nextProgress) - currentNodeIndex;
 
-            console.log(nextProgress, nodesPassed)
+            // console.log(nextProgress, nodesPassed)
             for (let i = 1; i <= nodesPassed; i++) {
                 // Loop through all the nodes we've passed since last tick
                 const nextNode = questDefinition.nodes[currentNodeIndex + i];
-                console.log(`next node: ${QuestNodeType[nextNode.type]}`)
+//                console.log(`next node: ${QuestNodeType[nextNode.type]}`)
                 if (nextNode.type === QuestNodeType.encounter) {
                     // We've hit an encounter node. set the progress to here and stop looking at other nodes
 
@@ -81,7 +81,6 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
                     break;
                 } else if (nextNode.type === QuestNodeType.nothing) {
                     if (nextNode.log) {
-                        console.log(nextNode.log)
                         log.push({
                             channel: LogChannel.quest,
                             channelContext: quest.name,
@@ -96,7 +95,7 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
             });
         }
     });
-console.log(log)
+//console.log(log)
     return {
         logUpdates: log,
         questUpdates: quests,

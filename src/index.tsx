@@ -67,8 +67,6 @@ const runGame = (store: any, persistor: Persistor) => {
     );
     registerServiceWorker();
 
-    // store.dispatch(addGold(400));
-
     const gameLoop = () => {
         const state: StoreState = store.getState();
         const delta = Date.now() - state.engine.lastTick;
@@ -79,7 +77,7 @@ const runGame = (store: any, persistor: Persistor) => {
         updateCombat(delta, store);
         const { questUpdates, logUpdates } = getQuestUpdates(delta, store);
         logs.push(...logUpdates);
-        console.log(logs)
+
         store.dispatch(gameTick(delta, rngState, resourcesUpdates, questUpdates, logs));
 
         processCompletedTasks(state.tasks, store.dispatch);
