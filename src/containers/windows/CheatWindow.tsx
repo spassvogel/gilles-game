@@ -1,7 +1,7 @@
 import { addWorkers } from "actions";
 import { addGold } from "actions/gold";
 import { addItemToWarehouse } from "actions/items";
-import { addLogEntry } from "actions/log";
+import { addLogText } from "actions/log";
 import { addResources } from "actions/resources";
 import { setStructureState } from "actions/structures";
 import { Props as WindowProps } from "components/ui/window/Window";
@@ -27,11 +27,11 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
     return {
         onCheatGold: (amount: number) => {
             dispatch(addGold(amount));
-            dispatch(addLogEntry("common-cheat-gold-added", { amount }, LogChannel.common));
+            dispatch(addLogText("common-cheat-gold-added", { amount }, LogChannel.common));
         },
         onCheatItem: (item: Item) => {
             dispatch(addItemToWarehouse(item));
-            dispatch(addLogEntry("common-cheat-item-added", { item }, LogChannel.common));
+            dispatch(addLogText("common-cheat-item-added", { item }, LogChannel.common));
         },
         onCheatResources: (amount: number) => {
             // Create ResourceStoreState where value of each resource is `amount`
@@ -41,12 +41,12 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>): DispatchProps => {
             }, {});
 
             dispatch(addResources(resources));
-            dispatch(addLogEntry("common-cheat-resources-added", { amount }, LogChannel.common));
+            dispatch(addLogText("common-cheat-resources-added", { amount }, LogChannel.common));
         },
         onCheatStructureState: (structure: Structure, state: StructureState) => dispatch(setStructureState(structure, state)),
         onCheatWorkers: (amount: number) => {
             dispatch(addWorkers(amount));
-            dispatch(addLogEntry("common-cheat-workers-added", { amount }, LogChannel.common));
+            dispatch(addLogText("common-cheat-workers-added", { amount }, LogChannel.common));
         },
     };
 };

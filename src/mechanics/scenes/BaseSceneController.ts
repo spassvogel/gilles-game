@@ -11,6 +11,10 @@ import { TileObject, ActorObject } from 'stores/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLink } from 'utils/routing';
+import { TextEntry } from 'constants/text';
+import { TextManager } from 'global/TextManager';
+import { addLogText, addLogEntry } from 'actions/log';
+import { LogChannel } from 'stores/logEntry';
 
 export class BaseSceneController {
     public mapData?: TiledMapData;
@@ -203,8 +207,9 @@ export class BaseSceneController {
         return storeState.adventurers.find(a => a.id === actor.name);
     }
         
-    protected toastQuestUpdate(title: string, icon?: string) {
+    protected questUpdate(textEntry: TextEntry, icon?: string) {
+        const title = TextManager.getTextEntry(textEntry);
         ToastManager.addToast(title, Type.questUpdate, icon, getQuestLink(this.questName));
-        // todo: add to questlog
+        this.store.dispatch(addLogEntry(textEntry, LogChannel.quest, this.questName));
     }
 }

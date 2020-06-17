@@ -1,24 +1,36 @@
 // tslint:disable: object-literal-sort-keys
 import { Action } from "redux";
 import { LogChannel } from "stores/logEntry";
+import { TextEntry } from 'constants/text';
 
 export enum ActionType {
     addLogEntry = "addLogEntry",
 }
 
 export interface AddLogEntryAction extends Action<ActionType> {
-    key: string;
+    entry: TextEntry;
     channel: LogChannel;
-    context?: any;
     channelContext?: string;
 }
 
-export function addLogEntry(key: string, context?: any, channel: LogChannel = LogChannel.common, channelContext?: string): AddLogEntryAction {
+export function addLogText(key: string, context?: any, channel: LogChannel = LogChannel.common, channelContext?: string): AddLogEntryAction {
+    const entry: TextEntry = {
+        key,
+        context
+    };
     return {
         type: ActionType.addLogEntry,
-        key,
+        entry,
         channel,
         channelContext,
-        context,
+    };
+}
+
+export function addLogEntry(entry: TextEntry, channel: LogChannel = LogChannel.common, channelContext?: string): AddLogEntryAction {
+    return {
+        type: ActionType.addLogEntry,
+        entry,
+        channel,
+        channelContext,
     };
 }

@@ -3,7 +3,7 @@ import ProductionStructureView,
 
 import { subtractGold } from "actions/gold";
 import { addItemToWarehouse } from "actions/items";
-import { addLogEntry } from "actions/log";
+import { addLogText } from "actions/log";
 import { removeResources } from "actions/resources";
 import { decreaseWorkers, increaseWorkers, upgradeStructure } from "actions/structures";
 import { startTask } from "actions/tasks";
@@ -54,7 +54,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
             dispatch(upgradeStructure(ownProps.type)); // TODO: [07/07/2019] time to upgarde??
 
             level++;
-            dispatch(addLogEntry("log-town-upgrade-structure-complete", {
+            dispatch(addLogText("log-town-upgrade-structure-complete", {
                 level,
                 structure: ownProps.type,
             }, LogChannel.town));

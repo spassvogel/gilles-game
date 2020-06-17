@@ -1,5 +1,5 @@
 import { subtractGold } from "actions/gold";
-import { addLogEntry } from "actions/log";
+import { addLogText } from "actions/log";
 import { launchQuest } from "actions/quests";
 import { upgradeStructure } from "actions/structures";
 import TavernStructureView, { DispatchProps, Props, StateProps } from "components/structures/tavern/TavernStructureView";
@@ -32,7 +32,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
             dispatch(upgradeStructure(Structure.tavern));  // Todo: [07/07/2019] time??
 
             level++;
-            dispatch(addLogEntry("log-town-upgrade-structure-complete", {
+            dispatch(addLogText("log-town-upgrade-structure-complete", {
                 level,
                 structure: Structure.tavern,
             }, LogChannel.town));

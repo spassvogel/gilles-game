@@ -15,8 +15,8 @@ export class DungeonEntranceSceneController extends BaseSceneController {
             case "chest":
                 if (object.gid === TILE_CHEST_CLOSED) {
                     const adventurer = this.getAdventurerByActor(actor)?.name;
-                    const title = TextManager.get("quest-common-adventurer-opened-chest", { adventurer });
-                    this.toastQuestUpdate(title, "/img/items/misc/chest-02.png");
+                    const textEntry = { key: "quest-common-adventurer-opened-chest", context: { adventurer } };
+                    this.questUpdate(textEntry, "/img/items/misc/chest-02.png");
                     this.store.dispatch(updateSceneObjectAction(this.questName, object.id, { gid: TILE_CHEST_OPEN }));
                 }
                 // display loot modal!

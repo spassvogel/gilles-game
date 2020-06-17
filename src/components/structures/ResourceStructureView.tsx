@@ -8,7 +8,7 @@ import { StoreState } from 'stores';
 import { selectFreeWorkers } from 'selectors/workers';
 import { subtractGold } from 'actions/gold';
 import { upgradeStructure, decreaseWorkers, increaseWorkers } from 'actions/structures';
-import { addLogEntry } from 'actions/log';
+import { addLogText } from 'actions/log';
 import { LogChannel } from 'stores/logEntry';
 import StructureViewHeader from './StructureViewHeader';
 
@@ -45,7 +45,7 @@ const ResourceStructureView = (props: Props) => {
         dispatch(upgradeStructure(props.type)); // Todo: [07/07/2019] time??
 
         level++;
-        dispatch(addLogEntry("log-town-upgrade-structure-complete", {
+        dispatch(addLogText("log-town-upgrade-structure-complete", {
             level,
             structure: props.type,
         }, LogChannel.town));

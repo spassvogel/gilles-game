@@ -1,7 +1,7 @@
 import { addItemToInventory, moveItemInInventory, removeItemFromInventory } from "actions/adventurers";
 import { subtractGold } from "actions/gold";
 import { addItemToWarehouse, moveItemInWarehouse, removeItemFromWarehouse } from "actions/items";
-import { addLogEntry } from "actions/log";
+import { addLogText } from "actions/log";
 import { upgradeStructure } from "actions/structures";
 import WarehouseStructureView,
     { DispatchProps, Props, StateProps } from "components/structures/warehouse/WarehouseStructureView";
@@ -72,7 +72,7 @@ function mapDispatchToProps(dispatch: Dispatch<AnyAction>, ownProps: Props): Dis
             dispatch(upgradeStructure(Structure.warehouse)); // Todo: [07/07/2019] time??
 
             level++;
-            dispatch(addLogEntry("log-town-upgrade-structure-complete", {
+            dispatch(addLogText("log-town-upgrade-structure-complete", {
                 level,
                 structure: Structure.warehouse,
             }, LogChannel.town));
