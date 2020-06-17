@@ -31,7 +31,7 @@ export abstract class ToastManager extends EventEmitter<ToastConfig[]>() {
         setTimeout(() => {
             // Remove all popups that have expired
             this.stack = this.stack.filter((toast) => {
-                return now() - toast.time < this.lifeTime
+                return Date.now() - toast.time < this.lifeTime
             });
             this.emit(this.EVENT_TOASTS_UPDATED, this.stack);
 

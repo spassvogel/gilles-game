@@ -495,3 +495,7 @@ https://github.com/DragonBones/DragonBonesJS
 
 #### Item rarity [+art] [+design]
 [ ] background on items. gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary
+
+#### Remove unused or little used packages 
+[ ] momentjs is 231.7kb and hardly used. refactor
+[x] tmx-parser
