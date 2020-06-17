@@ -1,4 +1,3 @@
-import { now } from 'moment';
 import { Type } from '../components/ui/toasts/Toast';
 import EventEmitter from './EventEmitter';
 
@@ -20,7 +19,7 @@ export abstract class ToastManager extends EventEmitter<ToastConfig[]>() {
     static addToast(title: string, type?: Type, icon?: string, link?: string) {
 
         this.stack = [...this.stack, {
-            time: now(),
+            time: Date.now(),
             title,
             type,
             icon,
