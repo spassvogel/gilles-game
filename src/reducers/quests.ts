@@ -45,8 +45,8 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
         case ActionType.launchQuest:
             return launchQuest(state, action as QuestLaunchAction);
 
-        case ActionType.advanceQuest:
-            return advanceQuest(state, action as QuestAction);
+        case ActionType.exitEncounter:
+            return exitEncounter(state, action as QuestAction);
 
         case ActionType.updateQuestVars:
             // Updates the questvars
@@ -102,8 +102,7 @@ const launchQuest = (questStoreState: QuestStoreState[], action: QuestLaunchActi
     });
 };
 
-const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {
-    // deprecated
+const exitEncounter = (state: QuestStoreState[], action: QuestAction) => {
     return state.map((qss) => {
         if (qss.name === action.questName) {
             const progress = qss.progress + 1;
@@ -113,6 +112,8 @@ const advanceQuest = (state: QuestStoreState[], action: QuestAction) => {
             return {
                 ...qss,
                 progress,
+                scene: undefined,
+                sceneName: undefined
             };
         }
         return qss;

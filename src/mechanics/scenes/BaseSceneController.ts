@@ -6,7 +6,7 @@ import { loadResource } from 'utils/pixiJs';
 import { TiledMapData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'stores/adventurer';
-import { setScene, setSceneName } from 'actions/quests';
+import { setScene, setSceneName, exitEncounter } from 'actions/quests';
 import { TileObject, ActorObject } from 'stores/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
@@ -14,6 +14,7 @@ import { getQuestLink } from 'utils/routing';
 import { TextEntry } from 'constants/text';
 import { TextManager } from 'global/TextManager';
 import { addLogText, addLogEntry } from 'actions/log';
+import { getDefinition } from 'definitions/quests';
 import { LogChannel } from 'stores/logEntry';
 
 export class BaseSceneController {
@@ -80,9 +81,25 @@ export class BaseSceneController {
         const object = this.tilemapObjects![`${location[0]},${location[1]}`];
         if (!object) return;
 
-        if (object.ezProps?.loadScene) {
-            this.store.dispatch(setSceneName(this.questName, object.ezProps.loadScene))
+
+        
+        if (object.type === "exit") {
+            // We've hit the exit. Should we load another scene?
+            if (object.ezProps?.loadScene) {
+                this.store.dispatch(setSceneName(this.questName, object.ezProps.loadScene))
+            } else {
+                // Or exit the encounter
+                const index = Math.floor(this.getQuest().progress) + 1;
+                const definition = getDefinition(this.questName);
+                const node = definition.nodes[index];
+                if (node.log) {
+                    // If the next node has a log entry, add it
+                    this.store.dispatch(addLogText(node.log, null, LogChannel.quest, this.questName));
+                }
+                this.store.dispatch(exitEncounter(this.questName));
+            }
         }
+           
     }
 
     actorCanInteract(actorName: string) {

@@ -1,4 +1,3 @@
-// tslint:disable: object-literal-sort-keys
 import { Action } from "redux";
 import { LogChannel } from "stores/logEntry";
 import { TextEntry } from 'constants/text';

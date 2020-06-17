@@ -499,3 +499,9 @@ https://github.com/DragonBones/DragonBonesJS
 #### Remove unused or little used packages 
 [ ] momentjs is 231.7kb and hardly used. refactor
 [x] tmx-parser
+
+#### Tiled manual [+doc]
+[ ] Write a list of all the tiled stuff, object name, type, props that have some effect on the game
+  
+    type: "exit"
+    Exit the scene. If a property called `loadScene: string` is present, will load that scene. If not, the encounter will be exited

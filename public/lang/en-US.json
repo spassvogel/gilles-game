@@ -130,7 +130,9 @@
     "quest-retrieveMagicAmulet-description": "Some air headed princess left her magic amulet when she took it off to make some pics for her insta. Find and retrieve.",
     "quest-kill10Boars-node0": "The party sets out to vanquish 10 terrible pigs",
     "quest-kill10Boars-node1": "No pigs in sight",
-    "quest-kill10Boars-node4": "The party leaves the forest",
+    "quest-kill10Boars-enter-dungeon": "The party enters the dungeon",
+    "quest-kill10Boars-leave-dungeon": "The party leaves the dungeon",
+    "quest-kill10Boars-left-dungeon": "The party has a vivid flashback to the dungeon",
 
     "resource-fabric-name": "fabric",
     "resource-food-name": "food",
@@ -179,5 +181,5 @@
     "ui-view-button-world": "World",
 
     "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
-    "test-game-welcome": "You have taken your first steps into a larger world"
+    "test-game-welcome": "Welcome to Gidletown"
 }
