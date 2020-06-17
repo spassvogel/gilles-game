@@ -2,14 +2,20 @@
     "common-article-defined": "the {{noun}}",
     "common-article-undefined": "a {{noun}}",
     "common-cheat-gold-added": "Added {{amount}} gold.",
-    "common-cheat-resources-added": "Added {{amount}} of each resource.",
     "common-cheat-item-added": "Added {{item:name item \"aA\"}} to stockpile.",
+    "common-cheat-resources-added": "Added {{amount}} of each resource.",
     "common-cheat-workers-added": "Added {{amount}} workers.",
     "common-item-crafted": "You have crafted {{item:name item \"aA\"}}",
-    "common-view-button-town": "Town",
-    "common-view-button-world": "World",
-    "common-log-tab-all": "all",
-    "common-log-tab-town": "town",
+    "common-time-day": "day",
+    "common-time-day-plural": "days",
+    "common-time-hour": "hour",
+    "common-time-hour-plural": "hours",
+    "common-time-minute": "minute",
+    "common-time-minute-plural": "minutes",
+    "common-time-second": "second",
+    "common-time-second-plural": "seconds",
+    "common-time-year": "year",
+    "common-time-year-plural": "years",
 
     "encounter-backstabbed-description": "A group of rogues emerges from the bushes, knives drawn.",
     "encounter-goblinHouseHallway-description": "The party stands inside the hallway",
@@ -157,13 +163,18 @@
     "ui-equipmentslot-mainHand": "main hand",
     "ui-equipmentslot-offHand": "off hand",
 
-    
+    "ui-log-tab-all": "all",
+    "ui-log-tab-town": "town",
+
     "ui-toast-type-questLaunched": "Quest started!",
     "ui-toast-type-achievementUnlocked": "Achievement unlocked!",
     "ui-toast-type-cheat": "Cheat activated!",
     "ui-toast-type-itemCrafted": "Item crafted!",
     "ui-toast-type-questCompleted": "Quest completed!",
     "ui-toast-type-questEncounter": "Encounter started!",
+
+    "ui-view-button-town": "Town",
+    "ui-view-button-world": "World",
 
     "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
     "test-game-welcome": "You have taken your first steps into a larger world"

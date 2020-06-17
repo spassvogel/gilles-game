@@ -38,11 +38,11 @@ const SimpleLog = (props: Props) => {
 
 
     const channels: ChannelDefinition[]=[{
-        label: TextManager.get("common-log-tab-all"),
+        label: TextManager.get("ui-log-tab-all"),
         tabId: "all",
         tabType: ChannelType.all,
     }, {
-        label: TextManager.get("common-log-tab-town"),
+        label: TextManager.get("ui-log-tab-town"),
         tabId: "town",
         tabType: ChannelType.town,
     }];

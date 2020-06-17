@@ -212,12 +212,12 @@ const App = (props: AllProps) => {
                                 </Route>
                                 <Route path={getWorldLink()}>
                                     <Link to={getTownLink()}>
-                                        <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-town`)} </button>
+                                        <button onClick={() => handleViewButtonClick()}> {TextManager.get(`ui-view-button-town`)} </button>
                                     </Link>
                                 </Route>
                                 <Route path={getTownLink()}>
                                     <Link to={getWorldLink()}>
-                                        <button onClick={() => handleViewButtonClick()}> {TextManager.get(`common-view-button-world`)} </button>
+                                        <button onClick={() => handleViewButtonClick()}> {TextManager.get(`ui-view-button-world`)} </button>
                                     </Link>
                                 </Route>
                             </Switch>

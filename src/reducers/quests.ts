@@ -62,7 +62,6 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
             return setSceneName(state, action as SetSceneNameAction);
 
         case ActionType.setScene:
-            console.log('setscrene')
             return setScene(state, action as SetSceneAction);
 
         case ActionType.enqueueSceneAction:
