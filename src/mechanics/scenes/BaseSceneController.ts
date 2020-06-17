@@ -8,6 +8,9 @@ import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'stores/adventurer';
 import { setScene, setSceneName } from 'actions/quests';
 import { TileObject, ActorObject } from 'stores/scene';
+import { ToastManager } from 'global/ToastManager';
+import { Type } from 'components/ui/toasts/Toast';
+import { getQuestLink } from 'utils/routing';
 
 export class BaseSceneController {
     public mapData?: TiledMapData;
@@ -103,10 +106,10 @@ export class BaseSceneController {
             return;
         }
     
-        this.interactWithObject(object);
+        this.interactWithObject(actor, object);
     }
 
-    interactWithObject(_object: TileObject) {
+    interactWithObject(_actor: ActorObject, _object: TileObject) {
     }
 
     // Converts pixel coordinate to scene location
@@ -194,5 +197,14 @@ export class BaseSceneController {
         const quest = this.getQuest();
         return adventurersOnQuest(storeState.adventurers, quest);
     }
+
+    protected getAdventurerByActor(actor: ActorObject) {
+        const storeState = this.store.getState();
+        return storeState.adventurers.find(a => a.id === actor.name);
+    }
         
+    protected toastQuestUpdate(title: string, icon?: string) {
+        ToastManager.addToast(title, Type.questUpdate, icon, getQuestLink(this.questName));
+        // todo: add to questlog
+    }
 }

@@ -11,7 +11,7 @@ export type TileObject = {
 };
 
 export type ActorObject = {
-    name: string;
+    name: string;   // todo: refactor to id
     location: [number, number];
     health: number 
 };

@@ -9,9 +9,10 @@ export enum Type {
     achievementUnlocked,
     cheat,
     itemCrafted,
-    questLaunched,
-    questEncounter,
     questCompleted,
+    questEncounter,
+    questLaunched,
+    questUpdate,
 }
 
 const Toast = (props: Props) => {

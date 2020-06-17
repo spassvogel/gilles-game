@@ -123,6 +123,7 @@
 
     "log-town-upgrade-structure-complete": "You have upgraded {{structure:name structure \"aU\"}} to level {{level}}",
 
+    "quest-common-adventurer-opened-chest": "{{adventurer}} has opened a chest",
     "quest-kill10Boars-title": "The boar hunt",
     "quest-kill10Boars-description": "A horde of rampaging boars have been a pestilence upon the farmers. Kill no less than 10 of the beasts and return for your just reward.",
     "quest-retrieveMagicAmulet-title": "The quest for the magic amulet",
@@ -166,12 +167,13 @@
     "ui-log-tab-all": "all",
     "ui-log-tab-town": "town",
 
-    "ui-toast-type-questLaunched": "Quest started!",
     "ui-toast-type-achievementUnlocked": "Achievement unlocked!",
     "ui-toast-type-cheat": "Cheat activated!",
     "ui-toast-type-itemCrafted": "Item crafted!",
     "ui-toast-type-questCompleted": "Quest completed!",
     "ui-toast-type-questEncounter": "Encounter started!",
+    "ui-toast-type-questLaunched": "Quest started!",
+    "ui-toast-type-questUpdate": "Quest update!",
 
     "ui-view-button-town": "Town",
     "ui-view-button-world": "World",
