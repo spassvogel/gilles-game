@@ -495,3 +495,9 @@ https://github.com/DragonBones/DragonBonesJS
 
 #### Item rarity [+art] [+design]
 [ ] background on items. gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary
+
+#### Tiled manual [+doc]
+[ ] Write a list of all the tiled stuff, object name, type, props that have some effect on the game
+  
+    type: "exit"
+    Exit the scene. If a property called `loadScene: string` is present, will load that scene. If not, the encounter will be exited

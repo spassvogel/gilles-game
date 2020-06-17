@@ -123,7 +123,7 @@ const retrieveMagicAmulet: QuestDefinition<RetrieveMagicAmuletQuestVars> = {
         x: 7,
         y: 8,
         type: QuestNodeType.encounter,
-
+        startScene: "dungeon.hallway"
     }, {
         x: 8,
         y: 1,
@@ -164,11 +164,11 @@ const retrieveMagicAmulet: QuestDefinition<RetrieveMagicAmuletQuestVars> = {
         x: 2,
         y: 1,
         type: QuestNodeType.encounter,
-        //encounter: Encounter.backstabbed,
+        startScene: "dungeon.hallway"
     }, {
         x: 3,
         y: 1,
-        type: QuestNodeType.boss,
+        type: QuestNodeType.nothing,
     }],
 };
 

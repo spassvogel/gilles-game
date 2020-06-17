@@ -29,7 +29,6 @@ const kill10Boars: QuestDefinition<Kill10BoarsQuestVars> = {
         x: 0,
         y: 3,
         type: QuestNodeType.encounter,
-        // encounter: dungeon,
         startScene: "dungeon.entrance"
     }, {
         x: 1,
@@ -48,6 +47,8 @@ const kill10Boars: QuestDefinition<Kill10BoarsQuestVars> = {
         x: 3,
         y: 3,
         type: QuestNodeType.encounter,
+        startScene: "dungeon.hallway"
+
         //encounter: Encounter.backstabbed,
     }, {
         x: 4,
@@ -57,7 +58,7 @@ const kill10Boars: QuestDefinition<Kill10BoarsQuestVars> = {
     }, {
         x: 5,
         y: 4,
-        type: QuestNodeType.boss,
+        type: QuestNodeType.nothing,
     }],
 };
 

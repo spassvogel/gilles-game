@@ -6,7 +6,7 @@ import { loadResource } from 'utils/pixiJs';
 import { TiledMapData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'stores/adventurer';
-import { setScene, setSceneName } from 'actions/quests';
+import { setScene, setSceneName, exitEncounter } from 'actions/quests';
 import { TileObject, ActorObject } from 'stores/scene';
 
 export class BaseSceneController {
@@ -73,9 +73,18 @@ export class BaseSceneController {
         const object = this.tilemapObjects![`${location[0]},${location[1]}`];
         if (!object) return;
 
-        if (object.ezProps?.loadScene) {
-            this.store.dispatch(setSceneName(this.questName, object.ezProps.loadScene))
+
+        
+        if (object.type === "exit") {
+            // We've hit the exit. Should we load another scene?
+            if (object.ezProps?.loadScene) {
+                this.store.dispatch(setSceneName(this.questName, object.ezProps.loadScene))
+            } else {
+                // Or exit the encounter
+                this.store.dispatch(exitEncounter(this.questName));
+            }
         }
+           
     }
 
     actorCanInteract(actorName: string) {

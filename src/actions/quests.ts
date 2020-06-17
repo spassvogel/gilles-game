@@ -6,12 +6,12 @@ import { SceneAction, SceneStoreState, TileObject } from 'stores/scene';
 
 export enum ActionType {
     launchQuest = "launchQuest",                            // Embark upon a new quest
-    advanceQuest = "advanceQuest",                          // unused! remove
     updateQuestVars = "updateQuestVars",                    // ?
     updateEncounterResult = "updateEncounterResult",        // unused?
     startEncounter = "startEncounter",                      // unused! remove
     setSceneName = "setSceneName",                          // Sets name of the current scene of a quest
     setScene = "setScene",                                  // Fills in the scene of a quest
+    exitEncounter = "exitEncounter",                        // Encounter is complete, leave scene and continue on quest 
     updateQuests = "updateQuests",                          // unused! remove
     enqueueSceneAction = "enqueueSceneAction",
     completeSceneAction = "completeSceneAction",
@@ -60,10 +60,10 @@ export function launchQuest(questName: string, assignedAventurers: AdventurerSto
     };
 }
 
-/** Move to the next node */
-export function advanceQuest(quest: string): QuestAction {
+/** Completes the current encounter so the party can continue the quest */
+export function exitEncounter(quest: string): QuestAction {
     return {
-        type: ActionType.advanceQuest,
+        type: ActionType.exitEncounter,
         questName: quest,
     };
 }

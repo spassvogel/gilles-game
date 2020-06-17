@@ -4,8 +4,8 @@ import { Item } from 'definitions/items/types';
 export enum QuestNodeType {
     nothing = 0,    // Nothing much going on here
     encounter = 1,
-    combat = 2,     // Not implemented
-    boss = 3,
+    // combat = 2,     // Not implemented
+    // boss = 3,
 }
 
 export interface QuestDefinition<TQuestVars = any> {
@@ -15,11 +15,12 @@ export interface QuestDefinition<TQuestVars = any> {
     getInitialQuestVars: (questStoreState: QuestStoreState) => TQuestVars;
 }
 
-export interface QuestNode {
+type AllNodeTypes = {
     x: number;
     y: number;
-    type: QuestNodeType;
-    // encounter?: EncounterDefinition<TQuestVars>;
-    startScene?: string;
-    log?: string;      // this text will appear in the log upon entering the node. only at 'nothing' nodes
+    log?: string;   
 }
+
+export type QuestNode  =
+    | AllNodeTypes & { type: QuestNodeType.nothing}
+    | AllNodeTypes & { type: QuestNodeType.encounter, startScene: string}

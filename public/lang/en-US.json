@@ -166,5 +166,5 @@
     "ui-toast-type-questEncounter": "Encounter started!",
 
     "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
-    "test-game-welcome": "You have taken your first steps into a larger world"
+    "test-game-welcome": "Welcome to Gidletown"
 }
