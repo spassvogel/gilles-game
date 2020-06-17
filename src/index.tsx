@@ -79,7 +79,7 @@ const runGame = (store: any, persistor: Persistor) => {
         updateCombat(delta, store);
         const { questUpdates, logUpdates } = getQuestUpdates(delta, store);
         logs.push(...logUpdates);
-
+        console.log(logs)
         store.dispatch(gameTick(delta, rngState, resourcesUpdates, questUpdates, logs));
 
         processCompletedTasks(state.tasks, store.dispatch);

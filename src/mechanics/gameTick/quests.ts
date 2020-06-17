@@ -30,8 +30,6 @@ interface QuestGameTickResponse {
 }
 
 const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTickResponse => {
-    // Moves the quest line progress. Only if currently at a 'nothing' node
-    // Otherwise the user has to do something to move the quest along
 
     const speed = 4;    // in nodes per minute
     const MS_PER_MINUTE = 60000;
@@ -39,13 +37,15 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
     const quests: QuestUpdate[] = [];
     const state: StoreState = store.getState();
 
+    // Moves the quest line progress. Only if currently at a 'nothing' node
+    // Otherwise the player has to do something to move the quest along
     state.quests.forEach((quest: QuestStoreState) => {
         if (quest.status !== QuestStatus.active) {
             return;
         }
         const questDefinition: QuestDefinition = questDefinitions[quest.name];
         const currentProgress = quest.progress;
-        const currentNodeIndex =  Math.floor(currentProgress);
+        const currentNodeIndex = Math.floor(currentProgress);
         const currentNode = questDefinition.nodes[currentNodeIndex];
 
         if (currentNode.type === QuestNodeType.nothing) {
@@ -55,18 +55,14 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
             let nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
             const nodesPassed = Math.floor(nextProgress) - currentNodeIndex;
 
-            //let currentEncounter = quest.currentEncounter;
-
+            console.log(nextProgress, nodesPassed)
             for (let i = 1; i <= nodesPassed; i++) {
                 // Loop through all the nodes we've passed since last tick
                 const nextNode = questDefinition.nodes[currentNodeIndex + i];
+                console.log(`next node: ${QuestNodeType[nextNode.type]}`)
                 if (nextNode.type === QuestNodeType.encounter) {
                     // We've hit an encounter node. set the progress to here and stop looking at other nodes
-                    
-                    // Start encounter(encounter)
-                    // const encounter = nextNode.encounter;
-                    // if (!encounter) throw new Error(`No encounter specified for node ${currentNodeIndex + i} on quest ${quest.name}`);
-                    // encounter.startScene(store, quest.name);
+
                     store.dispatch(setSceneName(quest.name, nextNode.startScene!));
 
                     const questTitle = TextManager.getQuestTitle(quest.name);
@@ -74,15 +70,18 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
                     ToastManager.addToast(questTitle, Type.questEncounter, leader?.avatarImg, getQuestLink(quest.name));
 
                     // Add quest to log
-                    // log.push({
-                    //     channel: LogChannel.quest,
-                    //     channelContext: quest.name,
-                    //     // ...encounter.getDescription(oracle),
-                    // });
+                    if (nextNode.log) {
+                        log.push({
+                            channel: LogChannel.quest,
+                            channelContext: quest.name,
+                            key: nextNode.log,
+                        });
+                    }
 
                     break;
                 } else if (nextNode.type === QuestNodeType.nothing) {
                     if (nextNode.log) {
+                        console.log(nextNode.log)
                         log.push({
                             channel: LogChannel.quest,
                             channelContext: quest.name,
@@ -97,7 +96,7 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
             });
         }
     });
-
+console.log(log)
     return {
         logUpdates: log,
         questUpdates: quests,
