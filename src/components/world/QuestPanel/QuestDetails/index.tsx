@@ -1,25 +1,20 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Scene from 'components/world/QuestPanel/QuestDetails/Scene';
-import { useSelector } from 'react-redux';
-import { StoreState } from 'stores';
-import { QuestStoreState } from 'stores/quest';
 import { useSceneController } from 'hooks/useSceneController';
 import { SceneStoreState } from 'stores/scene';
+import useQuest from 'hooks/useQuest';
 
 export interface Props {
     questName: string;
     selectedActor: string;
     setSelectedActor: (actor: string) => void;
+    onLootCacheChanged: (value: string) => void;
 }
 
 const QuestDetails = (props: Props) => {
        //     {/* <h1 className="app-h2">{TextManager.getQuestTitle(quest.name)}</h1> */}
 
-    const questSelector = useCallback(
-        (state: StoreState) => state.quests.find((q) => q.name === props.questName)!, 
-        [props.questName]
-    );
-    const quest = useSelector<StoreState, QuestStoreState>(questSelector);
+    const quest = useQuest(props.questName);
 
     if (!quest.sceneName) {
         return null;
@@ -39,7 +34,7 @@ type SceneLoaderProps = Props & {
 
 // Ensures a sceneController is present with tilemap data loaded and quest scene data is present on the store
 const SceneLoader = (props: SceneLoaderProps) => {
-    const { controller, loaded }  = useSceneController(props.questName, props.sceneName);
+    const { controller, loaded } = useSceneController(props.questName, props.sceneName);
     if (!props.scene || !loaded || !controller.mapData) {
         return null;
     }
