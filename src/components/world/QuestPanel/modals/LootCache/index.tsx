@@ -9,6 +9,7 @@ import { DragSourceType } from 'constants/dragging';
 import { Item } from 'definitions/items/types';
 import { useDispatch } from 'react-redux';
 import { addGold } from 'actions/gold';
+import { takeGoldFromCache } from 'actions/quests';
 
 interface Props {
     questName: string;   
@@ -31,8 +32,9 @@ const LootCache = (props: Props) => {
     const handleTakeGold = (e: React.MouseEvent) => {
         e.stopPropagation();
         // todo: animate gold flying away
+        
         dispatch(addGold(cache.gold || 0));
-        console.log(cache.gold)
+        dispatch(takeGoldFromCache(props.questName, props.cacheName))
     }
 
     return (
@@ -61,7 +63,7 @@ const LootCache = (props: Props) => {
                     </div>
                 </div>
             )}
-            { cache.gold && (
+            { !!cache.gold && (
                 <div className="content">
                     <div className="gold">
                         <div 

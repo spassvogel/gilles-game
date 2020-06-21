@@ -30,6 +30,7 @@ const Resourcebar = () => {
             workersFree: selectFreeWorkers(store),
         };
     });
+    console.log(storeProps)
 
     const createItem = (icon: string, amount: number, title: string) => {
         return (
@@ -42,7 +43,7 @@ const Resourcebar = () => {
                     style = {{ backgroundImage:  `url(${process.env.PUBLIC_URL}${icon})`}}>
                 </div>
                 <div className="amount">
-                    { formatNumber(amount) }
+                    { formatNumber(amount, 0) }
                 </div>
             </li>
         )

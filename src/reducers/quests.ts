@@ -1,5 +1,5 @@
 import { ActionType as GameActionType, GameTickAction } from "actions/game";
-import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, UpdateEncounterResultAction, EnqueueSceneActionAction, SetSceneNameAction, SetSceneAction, UpdateSceneObjectAction } from "actions/quests";
+import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, UpdateEncounterResultAction, EnqueueSceneActionAction, SetSceneNameAction, SetSceneAction, UpdateSceneObjectAction, TakeGoldFromCacheAction } from "actions/quests";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "stores/quest";
@@ -72,6 +72,9 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
         case ActionType.updateSceneObjectAction:
             return updateSceneObjectAction(state, action as UpdateSceneObjectAction);
+
+        case ActionType.takeGoldFromCache:
+            return takeGoldFromCache(state, action as TakeGoldFromCacheAction);
 
         case GameActionType.gameTick:
            return gameTick(state, action as GameTickAction);
@@ -281,6 +284,22 @@ const updateEncounterResult = (state: QuestStoreState[], action: UpdateEncounter
         return qss;
     });
 };
+
+const takeGoldFromCache = (state: QuestStoreState[], action: TakeGoldFromCacheAction) => {
+    return state.map((qss: QuestStoreState) => {
+        if (qss.name === action.questName && qss.scene) {            
+            const lootCaches = {
+                ...qss.scene?.caches,
+                [action.cacheName]: {
+                    ...qss.scene?.caches[action.cacheName],
+                    gold: 0
+                }
+            }
+            qss.scene.caches = lootCaches;
+        }
+        return qss;
+    });
+}
 
 // // Call this when the quest has progressed a node. Will return either `log` or a new array
 // // with all values of `log` and a new value appended
