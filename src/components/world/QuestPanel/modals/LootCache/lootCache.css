@@ -1,0 +1,23 @@
+.lootCache {
+    color: white;
+    width: 384px;
+    min-height: 384px;
+    border: 1px solid gold;
+}
+
+.lootCache .header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.lootCache .header .title {
+    padding-left: 4px;
+}
+
+.lootCache .header .close {
+    padding-right: 4px;
+}
+
+.lootCache .header .close::before {
+    content: "x"
+}

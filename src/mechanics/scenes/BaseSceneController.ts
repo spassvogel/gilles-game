@@ -16,6 +16,7 @@ import { TextManager } from 'global/TextManager';
 import { addLogText, addLogEntry } from 'actions/log';
 import { getDefinition } from 'definitions/quests';
 import { LogChannel } from 'stores/logEntry';
+import { Item } from 'definitions/items/types';
 
 export class BaseSceneController {
     public mapData?: TiledMapData;
@@ -68,11 +69,19 @@ export class BaseSceneController {
     createScene() {
         const tileObjects = this.createTileObjects();
         const actors = this.createActors();
+        const caches = {
+            "chest": {
+                title: "test-title",
+                gold: 3,
+                items: [Item.savageStaff]
+            }
+        }
 
         // todo: perhaps this should be a class such that stuff that repeats for every scene can be done in a base class
         const scene = {
             tileObjects,
-            actors
+            actors,
+            caches
         }
         this.store.dispatch(setScene(this.questName, scene));
     }

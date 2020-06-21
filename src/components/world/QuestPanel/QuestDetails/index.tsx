@@ -12,7 +12,7 @@ export interface Props {
 }
 
 const QuestDetails = (props: Props) => {
-       //     {/* <h1 className="app-h2">{TextManager.getQuestTitle(quest.name)}</h1> */}
+ //     {/* <h1 className="app-h2">{TextManager.getQuestTitle(quest.name)}</h1> */}
 
     const quest = useQuest(props.questName);
 

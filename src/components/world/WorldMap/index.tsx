@@ -41,7 +41,7 @@ export interface Props {
 const WorldMap = (props: Props) => {
     const { retrieveWorldViewRef, smallMap } = props;
     const questSelector = useCallback(
-        (state: StoreState) => state.quests.find((q) => q.name === props.selectedQuestName), 
+        (state: StoreState) => state.quests.find((q) => q.name === props.selectedQuestName),
         [props.selectedQuestName]
     );
     const selectedQuest = useSelector<StoreState, QuestStoreState | undefined>(questSelector);
@@ -80,13 +80,13 @@ const WorldMap = (props: Props) => {
             if (smallMap) {
                 if (worldViewWidth < 576) {
                     // Small screens
-                    setCanvasHeight(SMALL_HEIGHT / 2); 
+                    setCanvasHeight(SMALL_HEIGHT / 2);
                 } else {
-                    setCanvasHeight(SMALL_HEIGHT); 
+                    setCanvasHeight(SMALL_HEIGHT);
                 }
             }
             else {
-                setCanvasHeight(worldViewHeight); 
+                setCanvasHeight(worldViewHeight);
             }
         }
         resize();
@@ -129,16 +129,16 @@ const WorldMap = (props: Props) => {
             const questDefinition: QuestDefinition = getDefinition(quest.name);
             const progress: number = Math.floor(quest.progress);
             const questNode: QuestNode = questDefinition.nodes[progress];
-            
+
             return (
-                <QuestMarker 
-                    quest={quest} 
-                    leader={leader} 
-                    position={currentPosition} 
-                    key={quest.name} 
+                <QuestMarker
+                    quest={quest}
+                    leader={leader}
+                    position={currentPosition}
+                    key={quest.name}
                     selected={quest === selectedQuest}
                     encounterActive={questNode.type === QuestNodeType.encounter}
-                    onClick={(quest) => handlePartyClick(quest.name)} 
+                    onClick={(quest) => handlePartyClick(quest.name)}
                 />
             );
         });
@@ -162,13 +162,13 @@ const WorldMap = (props: Props) => {
         // }
     }
 
-// console.log(canvasWidth);
+    // console.log(canvasWidth);
     return (
         <Stage width={canvasWidth} height={canvasHeight} >
             <Viewport screenWidth={canvasWidth} screenHeight={canvasHeight} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef} >
-                <Sprite 
-                    image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`} 
-                    interactive 
+                <Sprite
+                    image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`}
+                    interactive
                     pointerdown={handleMapClick}
                 >
                     {renderQuestlines()}

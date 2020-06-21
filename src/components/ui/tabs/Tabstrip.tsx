@@ -8,6 +8,7 @@ export interface Props {
     onTabSelected?: (tabId: string) => void;
     children?: any;
     activeTab?: string;
+    disabled?: boolean;
 }
 
 type AllProps = Props;
@@ -16,7 +17,7 @@ const Tabstrip = (props: AllProps) => {
     if (!activeTab && props.children && props.children.length) {
         activeTab = props.children[0].props.id;
     }
-    const className = props.className || "";
+    const className = `${props.className} ${(props.disabled ? "disabled" : "")}`;
     const children = React.Children.map(props.children, (child: React.ReactElement<TabProps>) => {
         const clone: React.ReactElement<TabProps> = React.cloneElement(child, {
             active: child.props.id === activeTab,
@@ -26,7 +27,7 @@ const Tabstrip = (props: AllProps) => {
     });
 
     const handleTabClick = (tabId: string) => {
-        if (props.onTabSelected) {
+        if (props.onTabSelected && props.disabled !== true) {
             props.onTabSelected(tabId);
         }
     };
