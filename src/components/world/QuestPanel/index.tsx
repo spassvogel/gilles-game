@@ -63,7 +63,8 @@ const QuestPanel = (props: Props) => {
                     <div className="modal" onClick={() => setActiveLootCache(undefined)}>
                         <LootCache 
                             questName={props.questName} 
-                            cacheName={activeLootCache} 
+                            cacheName={activeLootCache}
+                            adventurerId={selectedAdventurerId}
                             onClose={() => setActiveLootCache(undefined)}
                         />
                     </div>

@@ -32,15 +32,22 @@ const Resourcebar = () => {
     });
 
     const createItem = (icon: string, amount: number, title: string) => {
-        return <li title = { title } key = { title }>
-            <div className = "icon common-icon-smallest" style = {{
-                backgroundImage:  `url(${process.env.PUBLIC_URL}${icon})`,
-            }}></div>
-            <div className = "amount">
-                { formatNumber(amount) }
-            </div>
-        </li>;
+        return (
+            <li 
+                title={title} 
+                key={title}
+            >
+                <div 
+                    className="icon common-icon-smallest" 
+                    style = {{ backgroundImage:  `url(${process.env.PUBLIC_URL}${icon})`}}>
+                </div>
+                <div className="amount">
+                    { formatNumber(amount) }
+                </div>
+            </li>
+        )
     };
+            
 
     const resources = resourceOrder.map((resource) => {
         const resourceDescription = resourceDescriptions[resource];

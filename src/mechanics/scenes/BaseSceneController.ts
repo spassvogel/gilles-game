@@ -73,7 +73,12 @@ export class BaseSceneController {
             "chest": {
                 title: "test-title",
                 gold: 3,
-                items: [Item.savageStaff]
+                items: [
+                    Item.savageStaff,
+                    Item.savageStaff,
+                    Item.savageStaff,
+                    Item.shoulders1,
+                ]
             }
         }
 

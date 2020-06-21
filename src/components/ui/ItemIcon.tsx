@@ -14,8 +14,8 @@ export interface Props {
     showContext?: boolean;
 }
 
-const ItemIcon: React.FC<Props> = (props) => {
-    const { item } = props;
+const ItemIcon = (props: Props) => {
+    const {item} = props;
     const itemDefinition = getDefinition(item);
 
     if (!itemDefinition) {
@@ -39,11 +39,11 @@ const ItemIcon: React.FC<Props> = (props) => {
     const className = `item-icon ${getClassName(props.size)}`;
 
     return (
-        <div className={className}
-            onClick = {handleClick}
-            style = {{
-                backgroundImage: `url(${process.env.PUBLIC_URL}${itemDefinition.iconImg})`,
-            }}>
+        <div 
+            className={className}
+            onClick={handleClick}
+            style={{backgroundImage: `url(${process.env.PUBLIC_URL}${itemDefinition.iconImg})`}}
+        >
         </div>
     );
 };
