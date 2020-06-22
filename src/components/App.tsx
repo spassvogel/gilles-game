@@ -6,8 +6,8 @@ import { AppContextProps} from "hoc/withAppContext";
 import { manifest} from "manifest/app";
 import * as React from "react";
 import { useRef, useState, createContext, useEffect } from "react";
-import { DndProvider} from "react-dnd";
-import HTML5Backend from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Link, Redirect, Route, Switch, HashRouter} from "react-router-dom";
 import { Persistor} from "redux-persist";
 import { PixiPlugin } from 'gsap/all';
@@ -143,15 +143,14 @@ const App = (props: AllProps) => {
         setMedia(mediaItems);
 
         // todo: temporary!
-        //const window = <CombatView/>;
-        //handleWindowOpened(window);
+        // const window = <CombatView/>;
+        // handleWindowOpened(window);
     };
 
     const handleAppClick = () => {
         TooltipManager.clear();
     };
 
-    
     useEffect(() => {
         const handleScroll = debounce(() => {
             TooltipManager.clear();
@@ -207,7 +206,7 @@ const App = (props: AllProps) => {
                         <Topbar/>
                         <div>
                             <Switch>
-                                <Route path="/" exact>
+                                <Route path="/" exact={true} >
                                     <Redirect from="/" to={getWorldLink()} />
                                 </Route>
                                 <Route path={getWorldLink()}>
