@@ -35,6 +35,14 @@ export interface WeaponDefinition extends ItemDefinition {
 }
 
 const weaponDefinitions: Record<string, WeaponDefinition> = {
+    [Item.arbalest]: {
+        item: Item.arbalest,
+        itemType,
+        weaponType: WeaponType.crossbow,
+        subText: "Larger and mroe powerful than a crossbow",
+        iconImg: `${basePath}arbalest.png`,
+        damage: { [DamageType.kinetic]: 40 },
+    },
     [Item.battleAxe]: {
         item: Item.battleAxe,
         itemType,

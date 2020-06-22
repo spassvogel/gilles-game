@@ -181,7 +181,7 @@ const Scene = (props: Props) => {
                                 graphics.endFill();
                             }}
                         />
-                        <Sprite 
+                        <Sprite
                             image={`${process.env.PUBLIC_URL}/img/ui/scene/icons/interact.png`}
                             scale={[.3, .3]}
                             y={mapData.tileheight}

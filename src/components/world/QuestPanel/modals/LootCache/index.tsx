@@ -38,7 +38,7 @@ const LootCache = (props: Props) => {
                 return;
             }
             ref.current.querySelector(".itemslist .item")?.classList.add("taking");
-            console.log(ref.current.querySelector(".itemslist .item")?.innerHTML);
+
             if (freeSlots > 0) {
                 interval = setTimeout(() => {
                     dispatch(addItemToInventory(props.adventurerId, item));

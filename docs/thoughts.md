@@ -508,6 +508,9 @@ https://github.com/DragonBones/DragonBonesJS
     Exit the scene. If a property called `loadScene: string` is present, will load that scene. If not, the encounter will be exited
 
 ### Loot caches
+[x] Implement take all
+[ ] Use staggered gsap
 [ ] Implement dragging
-[ ] Implement dragging
-[ ] Implement dragging
+
+### Localforage [+tech]
+[x] https://github.com/localForage/localForage

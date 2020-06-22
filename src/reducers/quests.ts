@@ -112,7 +112,7 @@ const exitEncounter = (state: QuestStoreState[], action: QuestAction) => {
     return state.map((qss) => {
         if (qss.name === action.questName) {
             const progress = qss.progress + 1;
-            //const questDefinition: QuestDefinition = questDefinitions[qss.name];
+            // const questDefinition: QuestDefinition = questDefinitions[qss.name];
             // const nextNode = questDefinition.nodes[Math.floor(progress)];
 
             return {
@@ -185,14 +185,14 @@ const completeSceneAction = (state: QuestStoreState[], action: QuestAction) => {
         if (qss.name === action.questName) {
             const scene = qss.scene;
             if (!scene) throw new Error("Something broke. No scene");
-            const action = scene.actionQueue![0];
-            if (!action) return qss;
+            const sceneAction = scene.actionQueue![0];
+            if (!sceneAction) return qss;
 
-            switch (action.actionType) {
+            switch (sceneAction.actionType) {
                 case SceneActionType.move: {
                     scene.actors = scene.actors.map((a) => {
-                        if (a.name === action.actor) {
-                            return { ...a, location: action.target };
+                        if (a.name === sceneAction.actor) {
+                            return { ...a, location: sceneAction.target };
                         }
                         return a;
                     })
@@ -220,7 +220,7 @@ const updateSceneObjectAction = (state: QuestStoreState[], action: UpdateSceneOb
             if (!scene) throw new Error("Something broke. No scene");
 
             scene.tileObjects = scene.tileObjects.map(tO => {
-                if (tO.id === action.id) { 
+                if (tO.id === action.id) {
                     return {
                         ...tO,
                         ...action.object
@@ -249,7 +249,7 @@ const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
         const questToUpdate = questsToUpdate.find((q) => q.name === qss.name);
         if (questToUpdate) {
             const progress = questToUpdate.progress;
-            //const currentEncounter = questToUpdate.currentEncounter;
+            // const currentEncounter = questToUpdate.currentEncounter;
 
             return {
                 ...qss,
@@ -310,7 +310,6 @@ const takeItemFromCache = (state: QuestStoreState[], action: TakeItemFromCacheAc
             const cache = qss.scene.caches[action.cacheName];
             const index = cache.items.indexOf(action.item);
             if (index > -1 ) {
-                console.log("found at index" + index)
                 qss.scene.caches[action.cacheName].items = [
                     ...cache.items.slice(0, index),
                     ...cache.items.slice(index + 1)

@@ -29,7 +29,7 @@ export interface DispatchProps {
 
 export interface StateProps {
     adventurer: AdventurerStoreState;
-    warehouse: Array<Item|null>;
+    warehouse: (Item|null)[];
 }
 
 type AllProps = Props & DispatchProps & StateProps;

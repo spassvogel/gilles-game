@@ -100,6 +100,7 @@ export enum Item {
     magicAmulet = "magicAmulet",
 
     // weapons
+    arbalest = "arbalest",
     battleAxe = "battleAxe",
     brassKnuckles = "brassKnuckles",
     cleaver = "cleaver",

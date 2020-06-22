@@ -14,7 +14,6 @@ import { AdventurerStoreState, StatsStoreState } from "stores/adventurer";
  * @param state
  * @param action
  */
-
 const generateRandomStats = (): StatsStoreState => {
     return {
         strength: Math.random() * 100,
@@ -230,7 +229,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
 
         case ActionType.assignEquipment: {
             // Assigns equipment to an adventurer
-            const { equipmentSlot, item } = action as AssignEquipmentAction;            
+            const { equipmentSlot, item } = action as AssignEquipmentAction;
             return state.map((adventurer: AdventurerStoreState) => {
                 if (adventurer.id === action.adventurerId) {
                     return {

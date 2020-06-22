@@ -122,12 +122,13 @@ export class BaseSceneController {
         const object = scene?.tileObjects
             .find(o => locationEquals(o.location, actor.location));
 
-        // todo: should we look for some specific property?    
+        // todo: should we look for some specific property?
         return !!object;
     }
 
     actorInteract(actorName: string) {
         if (!this.actorCanInteract(actorName)) {
+            // tslint:disable-next-line: no-console
             console.warn("Can't interact");
             return;
         }
@@ -137,14 +138,16 @@ export class BaseSceneController {
             .find(o => locationEquals(o.location, actor.location));
 
         if (!object || object.type !== "tileobject") {
+            // tslint:disable-next-line: no-console
             console.warn("No object found");
             return;
         }
-    
+
         this.interactWithObject(actor, object);
     }
 
     interactWithObject(_actor: ActorObject, _object: TileObject) {
+        // override
     }
 
     // Converts pixel coordinate to scene location
@@ -155,7 +158,7 @@ export class BaseSceneController {
         return [Math.floor(point.x / this.mapData.tilewidth), Math.floor(point.y / this.mapData.tilewidth)];
     }
 
-    // Returns true if the tile is blocked 
+    // Returns true if the tile is blocked
     locationIsBlocked(location: [number, number]){
         return this.blockedTiles.some((l) => locationEquals(l, location));
     }
@@ -174,7 +177,7 @@ export class BaseSceneController {
         return new AStarFinder({
             grid: {
                 matrix
-            }, 
+            },
             includeStartNode: false,
             heuristic: "Manhatten",
             weight: 0,
@@ -237,7 +240,7 @@ export class BaseSceneController {
         const storeState = this.store.getState();
         return storeState.adventurers.find(a => a.id === actor.name);
     }
-        
+
     protected questUpdate(textEntry: TextEntry, icon?: string) {
         const title = TextManager.getTextEntry(textEntry);
         ToastManager.addToast(title, Type.questUpdate, icon, getQuestLink(this.questName));

@@ -73,7 +73,6 @@ export class SoundManager {
     }
 
     public static soundVolume(volume: number) {
-        
     }
 
     static set musicVolume(volume: number) {
