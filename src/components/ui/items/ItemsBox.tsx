@@ -1,8 +1,8 @@
-import "components/ui/css/common/icon.css";
 import itemsDescription from "definitions/items";
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { TextManager } from "global/TextManager";
+import "components/ui/css/common/icon.css";
 import "./css/itemsbox.css";
 
 export interface Props {
@@ -41,19 +41,20 @@ const ItemsBox = (props: AllProps) => {
             listItemClass += " missing";
         }
         const itemDescription = itemsDescription[item];
-        return <li className = { listItemClass } key = { item }>
-            <div className = "icon common-icon-smallest" style = {{
-                backgroundImage: `url(${process.env.PUBLIC_URL}${itemDescription.iconImg})`,
-            }}></div>
-            <div className = "name">
+        return <li className={listItemClass} key={item}>
+            <div 
+                className="icon common-icon-smallest" 
+                style={{ backgroundImage: `url(${process.env.PUBLIC_URL}${itemDescription.iconImg})`}}
+            ></div>
+            <div className="name">
                 { `${TextManager.getItemName(item)} (${ amount })` }
             </div>
         </li>;
     });
 
     return (
-        <ul className = { className } >
-            { listItems }
+        <ul className={className} >
+            {listItems}
         </ul>
     );
 };

@@ -1,15 +1,14 @@
-import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import { Container, Graphics, Sprite } from '@inlet/react-pixi';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Tilemap from './Tilemap';
 import ActionPath, { RefActions } from './ActionPath';
-import { StoreState } from 'stores';
-import { QuestStoreState } from 'stores/quest';
 import { SceneAction, SceneActionType, ActorObject } from 'stores/scene';
 import { enqueueSceneAction } from 'actions/quests';
 import BridgedStage from 'components/pixi/util/BridgedStage';
 import SceneActor from './SceneActor';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
+import useQuest from 'hooks/useQuest';
 
 import * as PIXI from 'pixi.js';
 window.PIXI = PIXI;
@@ -21,6 +20,7 @@ export interface Props {
     controller: BaseSceneController;
     selectedActor: string;
     setSelectedActor: (actor: string) => void;
+    onLootCacheChanged: (value: string) => void; // todo: opens loot cache popup
 }
 
 const DEBUG_ASTAR = false;
@@ -37,11 +37,8 @@ const Scene = (props: Props) => {
     const dispatch = useDispatch();
     const ref = useRef<PIXI.Container>(null);
     
-    const questSelector = useCallback(
-        (state: StoreState) => state.quests.find((q) => q.name === props.questName)!, 
-        [props.questName]
-        );
-    const quest = useSelector<StoreState, QuestStoreState>(questSelector);
+    const quest = useQuest(props.questName);
+
     const scene = quest.scene!;
         
     const selectedActor = useMemo(() => {
@@ -65,6 +62,8 @@ const Scene = (props: Props) => {
         if(scene.actionQueue?.length || !actionActor) {
             return;
         }
+        props.onLootCacheChanged("chest"); // todo: remove!!
+
         const location = controller.pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
         const blocked = controller.locationIsBlocked(location);
         if (!blocked) {

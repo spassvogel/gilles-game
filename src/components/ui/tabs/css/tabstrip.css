@@ -11,7 +11,7 @@
     max-width: 150px;
     display: inline-block;
     margin-left: 4px;
-    border: 1px solid green;
+    border: 2px solid green;
     border-bottom: 0;
     background: lightgray;
     overflow: hidden;
@@ -23,5 +23,13 @@
 
 .tabstrip .tabstrip-tab.active {
     background: white;
+    border-color: orange;
+}
+
+.tabstrip.disabled .tabstrip-tab {
+    opacity: .2;
+}
+.tabstrip.disabled .tabstrip-tab.active {
+    opacity: initial;
 }
 

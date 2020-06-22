@@ -1,19 +1,26 @@
+import { Item } from 'definitions/items/types';
 
 
+export interface SceneStoreState {
+    tileObjects: TileObject[];
+    actors: ActorObject[];
+    caches: { [key: string]: LootCache }
+    actionQueue?: SceneAction[];
+}
 
 // https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions
-export type TileObject = {
+export interface TileObject {
     id: number;
     name?: string;
-    type: string, 
-    gid: number 
+    type: string;
+    gid: number;
     location: [number, number];
 };
 
 export type ActorObject = {
-    name: string;   // todo: refactor to id
+    name: string;                   // todo: refactor to id
     location: [number, number];
-    health: number 
+    health: number; 
 };
 
  // export type Actor = SceneObject & {
@@ -24,10 +31,10 @@ export type ActorObject = {
 // }
 
 
-export interface SceneStoreState {
-    tileObjects: TileObject[];
-    actors: ActorObject[];
-    actionQueue?: SceneAction[];
+export interface LootCache {
+    title: string;
+    items: Item[];
+    gold?: number;
 }
 
 export interface SceneAction {

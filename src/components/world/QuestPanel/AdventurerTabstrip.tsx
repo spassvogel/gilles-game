@@ -8,6 +8,7 @@ interface Props {
     adventurers: AdventurerStoreState[];
     selectedAdventurerId?: string;
     onAdventurerTabSelected: (adventurerId: string) => void;
+    disabled?: boolean;
 }
 
 // Shows adventurer portraits in a tabstrip
@@ -28,7 +29,8 @@ const AdventurerTabstrip = (props: Props) => {
         <Tabstrip 
             className="adventurers-tabstrip" 
             onTabSelected={handleAdventurerTabSelected}
-            activeTab={props.selectedAdventurerId} 
+            activeTab={props.selectedAdventurerId}
+            disabled={props.disabled}
         >
             {adventurers.map((a) => renderAdventurerTab(a))}
         </Tabstrip>

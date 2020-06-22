@@ -506,3 +506,8 @@ https://github.com/DragonBones/DragonBonesJS
   
     type: "exit"
     Exit the scene. If a property called `loadScene: string` is present, will load that scene. If not, the encounter will be exited
+
+### Loot caches
+[ ] Implement dragging
+[ ] Implement dragging
+[ ] Implement dragging

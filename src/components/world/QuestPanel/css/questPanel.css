@@ -66,6 +66,19 @@
     flex: .6;
     padding: 8px;
     display: flex;
+    position: relative;
+}
+
+.quest-panel .quest-area .modal {
+    background: rgba(0, 0, 0, 0.75);
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    right: 8px;
+    bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .quest-panel canvas {

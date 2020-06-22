@@ -116,14 +116,16 @@
     "item-weapon-morningStar-name": "morning star",
     "item-weapon-poisonedDagger-name": "poisoned dagger",
     "item-weapon-ravenStaff-name": "ravenStaff",
-    "item-weapon-savageStaff-name": "savageStaff",
+    "item-weapon-savageStaff-name": "Savage Staff",
     "item-weapon-spear-name": "spear",
     "item-weapon-sword-name": "sword",
     "item-weapon-warhammer-name": "warhammer",
 
     "log-town-upgrade-structure-complete": "You have upgraded {{structure:name structure \"aU\"}} to level {{level}}",
-
     "quest-common-adventurer-opened-chest": "{{adventurer}} has opened a chest",
+    "quest-common-loot-cache-gold": "{{gold}} gold pieces",
+    "quest-common-loot-cache-take": "take",
+    "quest-common-loot-cache-take-all": "take all",
     "quest-kill10Boars-title": "The boar hunt",
     "quest-kill10Boars-description": "A horde of rampaging boars have been a pestilence upon the farmers. Kill no less than 10 of the beasts and return for your just reward.",
     "quest-retrieveMagicAmulet-title": "The quest for the magic amulet",

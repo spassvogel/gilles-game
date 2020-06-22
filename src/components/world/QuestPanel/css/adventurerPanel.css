@@ -1,14 +1,16 @@
 
-.adventurer-panel .tabstrip .tabstrip-tab {
-    margin-bottom: -1px;
-    border-bottom: 1px solid #ffa500;
+.adventurer-details {
+    border-top: 2px solid #ffa500;
+}
+
+.tabstrip.adventurers-tabstrip .tabstrip-tab {
+    margin-bottom: -2px;
     margin-left: 2px;
     padding: 0;
 }
 
-.adventurer-panel .tabstrip .tabstrip-tab.active {
+.tabstrip.adventurers-tabstrip .tabstrip-tab.active {
     border-color: #ffa500;
-    border-bottom: 1px solid white;
 }
 
 .adventurer-panel .adventurer-details {
