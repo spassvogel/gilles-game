@@ -30,7 +30,6 @@ const Resourcebar = () => {
             workersFree: selectFreeWorkers(store),
         };
     });
-    console.log(storeProps)
 
     const createItem = (icon: string, amount: number, title: string) => {
         return (

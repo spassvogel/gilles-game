@@ -10,6 +10,7 @@ import { Item } from 'definitions/items/types';
 import { useDispatch } from 'react-redux';
 import { addGold } from 'actions/gold';
 import { takeGoldFromCache } from 'actions/quests';
+import { addItemToInventory } from 'actions/adventurers';
 
 interface Props {
     questName: string;   
@@ -35,6 +36,15 @@ const LootCache = (props: Props) => {
         
         dispatch(addGold(cache.gold || 0));
         dispatch(takeGoldFromCache(props.questName, props.cacheName))
+    } 
+
+    const handleTakeAllItems = (e: React.MouseEvent) => {
+        e.stopPropagation();
+
+        cache.items.forEach((item) => {
+            ///console.log(item)
+            dispatch(addItemToInventory(props.adventurerId, item))
+        })
     }
 
     return (
@@ -57,7 +67,7 @@ const LootCache = (props: Props) => {
                     </div>
                     <div className="adventurer">
                         <AdventurerAvatar adventurer={adventurer}/>
-                        <button>
+                        <button onClick={handleTakeAllItems}>
                             {TextManager.get("quest-common-loot-cache-take-all")}
                         </button>
                     </div>

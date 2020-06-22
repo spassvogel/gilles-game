@@ -199,8 +199,8 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
                 if (element.id === action.adventurerId) {
                     const inventory = element.inventory.concat();
                     let toSlot = (action as InventoryAction).toSlot;
-                    if (toSlot === null) {
-                        toSlot = inventory.findIndex((val) => val === null || val === undefined);
+                    if (toSlot === null || toSlot === undefined) {
+                        toSlot = inventory.findIndex((val) => (val === null || val === undefined));
                     }
                     inventory[toSlot!] = item;
                     // todo: check if no space
