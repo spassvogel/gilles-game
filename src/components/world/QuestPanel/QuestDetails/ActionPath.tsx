@@ -11,11 +11,11 @@ export interface RefActions {
 }
 /**
  * ActionPath shows a line previewing the action the user is taking on a scene
- * @param props 
+ * @param props
  */
 const ActionPath = forwardRef((props: Props, ref: React.Ref<RefActions>) => {
     const graphicsRef = useRef<PIXI.Graphics>(null);
-  
+
     useImperativeHandle(ref, () => ({
         drawAction: (from: PIXI.Point, to: PIXI.Point, allowed: boolean = true)=> {
             const grfx = graphicsRef.current;

@@ -7,7 +7,7 @@ import "./css/inventory.css";
 import InventorySlot from "./InventorySlot";
 
 export interface Props {
-    items: Array<Item|null>;
+    items: (Item|null)[];
     sourceId?: string;   // who does this inventory belong to?
     sourceType: DragSourceType;
     iconSize?: IconSize;

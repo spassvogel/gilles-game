@@ -67,7 +67,8 @@ const QuestBoard = (props: AllProps) => {
     };
 
     /**
-     * Returns true if all the items required by the quest are in the inventory */
+     * Returns true if all the items required by the quest are in the inventory
+     */
     const checkEnoughItems = (questDefinition: QuestDefinition): boolean => {
         if (!questDefinition.requiredItems) {
             return true;

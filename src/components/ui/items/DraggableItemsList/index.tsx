@@ -1,4 +1,3 @@
-import itemsDescription from "definitions/items";
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { TextManager } from "global/TextManager";
@@ -23,12 +22,12 @@ const DraggableItemsList = (props: Props) => {
     return (
         <ul className={className} >
             {props.items.map((item, index) => (
-                <li 
-                    key={`${item}${index}`} 
+                <li
+                    key={`${item}${index}`}
                     className="item"
                 >
-                    <DraggableItemIcon 
-                        item={item} 
+                    <DraggableItemIcon
+                        item={item}
                         index={index}
                         sourceId={props.sourceId}
                         sourceType={props.sourceType}

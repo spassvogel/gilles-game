@@ -10,7 +10,8 @@
     },
     "rules": {
       "interface-name": false,
-      "max-line-length": false
+      "max-line-length": false,
+      "jsx-no-lambda": false
     },    
     "jsRules": {
       "no-empty": true

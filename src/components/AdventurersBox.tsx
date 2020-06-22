@@ -35,13 +35,13 @@ type AllProps = Props & StateProps & DispatchProps;
  * Adventurers grouped by quest
  */
 const AdventurersBox = (props: AllProps) => {
-    
+
     const [selectedAdventurer, setSelectedAdventurer] = useState<string | null>();
 
     const generateRow = (group: string, adventurers: AdventurerStoreState[]): JSX.Element => {
         // group is either the string "solo" or a partyId
         const adventurer = adventurers
-            .find((adventurer) => adventurer.id === selectedAdventurer);
+            .find((a) => a.id === selectedAdventurer);
         let adventurerInfo = null;
 
         if (adventurer) {
@@ -89,10 +89,10 @@ const AdventurersBox = (props: AllProps) => {
             <div
                 className = "sigil"
                 style = { { backgroundImage: `url(${process.env.PUBLIC_URL}${sigilImgPath})`} }
-            ></div>
+            />
             <span className = "title" title = { name }> { name } </span>
             <ul className = "adventurer-portraits">
-            { adventurers.map((adventurer) => generatePortrait(adventurer)) }
+            { adventurers.map((a) => generatePortrait(a)) }
             </ul>
             { adventurerInfo }
         </li>;

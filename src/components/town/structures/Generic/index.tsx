@@ -15,16 +15,21 @@ export interface Props {
 const Generic = (props: Props) => {
     const {structure, position, hitAreaShapes, selected, onStructureClick} = props;
     const filters = selected ? [STRUCTURE_HIGHLIGHT_FILTER] : [];
+
+    const handlePointerTap = () => {
+        onStructureClick(structure);
+    };
+
     return (
         <Sprite
             name={structure}
             position={position}
             interactive={true}
             buttonMode={true}
-            pointertap={() => { onStructureClick(structure); }}
+            pointertap={handlePointerTap}
             hitArea={hitAreaShapes}
             filters={filters}
-            image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}          
+            image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}
         >
             {/* <Graphics
                 name="hitarea"

@@ -17,8 +17,8 @@ export interface Props {
  */
 const WorldView = () => {
     const worldMapRef = useRef<HTMLDivElement>(null);
-    const match = useRouteMatch(`${getWorldLink()}/:questname`);
-    const selectedQuestName = match?.params['questname'];
+    const match = useRouteMatch<{questname: string}>(`${getWorldLink()}/:questname`);
+    const selectedQuestName = match?.params.questname;
     const history = useHistory();
 
     useEffect(() => {

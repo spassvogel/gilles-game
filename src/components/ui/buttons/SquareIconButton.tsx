@@ -16,9 +16,11 @@ const SquareIconButton = (props: AllProps) => {
         }
     };
     const className = props.className || "";
-    return <div className = { `ui-button widgets-squareiconbutton ${className}` } onClick = { handleClick }>
-        { props.text }
-    </div>;
+    return (
+        <div className={ `ui-button widgets-squareiconbutton ${className}`} onClick={handleClick}>
+            {props.text}
+        </div>
+    );
 };
 
 export default SquareIconButton;

@@ -36,11 +36,11 @@ const Toast = (props: Props) => {
             <div className="label type">{typeText}</div>
             <div className="label title app-h2-white">{title}</div>
             <div className="icon">
-                <div className="background"></div>
+                <div className="background"/>
                 <img className="image" width="300" alt="dragon eye" src={`${process.env.PUBLIC_URL}${icon}`} />
-                <div className="foreground"></div>
+                <div className="foreground"/>
             </div>
-            <div className="banner"></div>
+            <div className="banner"/>
         </div>
     );
 }

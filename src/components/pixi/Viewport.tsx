@@ -23,7 +23,7 @@ const Viewport = forwardRef<PixiViewport, any>((props, ref) => {
       const cursor = `url('${process.env.PUBLIC_URL}/img/cursors/dwarven_gauntlet_extra_6.png'), auto`;
       app.renderer.plugins.interaction.cursorStyles.pointer = cursor;
   }
-  return <PixiComponentViewport app={app} {...props} ref={ref} />;  
+  return <PixiComponentViewport app={app} {...props} ref={ref} />;
 })
 
 interface PixiComponentProps {
@@ -43,9 +43,9 @@ const PixiComponentViewport = PixiComponent("Viewport", {
     });
     viewport.on("clicked", (event) => { if(props.onClick) props.onClick(event) });
 
-    const { 
-      minScale = 1, 
-      maxScale = 2 
+    const {
+      minScale = 1,
+      maxScale = 2
     } = props;
 
     viewport

@@ -52,7 +52,7 @@ function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
     };
 }
 
-const DraggableItemIcon = (props: Props & CollectedProps) => {   
+const DraggableItemIcon = (props: Props & CollectedProps) => {
 
     const { item, onClick, isDragging, connectDragSource, size } = props;
     const handleClick = (event: React.MouseEvent) => {

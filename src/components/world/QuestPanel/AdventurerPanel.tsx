@@ -16,17 +16,17 @@ export interface Props {
     adventurer: AdventurerStoreState;
 }
 
-/** Vertical panel showing adventurer info 
+/** Vertical panel showing adventurer info
  * todo: move outside of /world
-*/
+ */
 const AdventurerPanel = (props: Props) => {
     const { adventurer } = props;
     const dispatch = useDispatch();
 
-    const renderAttributes = () => Object.keys(adventurer.stats).map((stat) => {
-        const value: number = adventurer.stats[stat];
-        return <div key={`${adventurer.id}-${stat}`} > <b>{stat}</b>: {value.toFixed(1)} </div>;
-    });    
+    // const renderAttributes = () => Object.keys(adventurer.stats).map((stat) => {
+    //     const value: number = adventurer.stats[stat];
+    //     return <div key={`${adventurer.id}-${stat}`} > <b>{stat}</b>: {value.toFixed(1)} </div>;
+    // });
 
     // When an item gets dropped on equipment slot
     const handleDropItemEquipment = (dragInfo: InventoryItemDragInfo, slotType: EquipmentSlotType) => {
@@ -42,7 +42,7 @@ const AdventurerPanel = (props: Props) => {
                     // Item gets assigned to an equipment slot
                     assignEquipment(adventurer.id, slotType, item),
                 );
-                
+
                 const existingEquipment = adventurer.equipment[EquipmentSlotType[slotType]];
                 if (existingEquipment) {
                     // There is already an item in this slot. Place in inventory
@@ -55,7 +55,7 @@ const AdventurerPanel = (props: Props) => {
                 actions.push(
                     removeItemFromWarehouse(dragInfo.inventorySlot!),
                     assignEquipment(adventurer.id, slotType, item),
-                );            
+                );
 
                 const existingEquipment = adventurer.equipment[EquipmentSlotType[slotType]];
                 if (existingEquipment) {
@@ -88,7 +88,7 @@ const AdventurerPanel = (props: Props) => {
 
     // When an item gets dropped on the inventory
     const handleDropItemInventory = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
-        const actions: Action[] = [];        
+        const actions: Action[] = [];
         switch (sourceType) {
             // Drag from one inventory slot to another
             case DragSourceType.adventurerInventory:

@@ -50,7 +50,7 @@ const SimpleLog = (props: Props) => {
     const handleTabSelected=(tabId: string) => {
         setSelectedTabId(tabId);
     }
-    
+
     const handleToggleExpand=() => {
         setExpanded(!expanded);
     }
@@ -100,7 +100,7 @@ const SimpleLog = (props: Props) => {
             <Tabstrip className="tabs" onTabSelected={handleTabSelected} activeTab={selectedTabId}>
                 {Tabs}
             </Tabstrip>
-            <SquareIconButton className="expand-button" onClick={() => handleToggleExpand()} text={expanded ? "▼" : "▲"}/>
+            <SquareIconButton className="expand-button" onClick={handleToggleExpand} text={expanded ? "▼" : "▲"}/>
         </div>
         <div className="log-entries">
             {displayEntries.map((entry) => getLogEntryRow(entry))}

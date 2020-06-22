@@ -19,7 +19,7 @@ export interface StateProps  {
 
 /** Shown on top in the UI */
 const Resourcebar = () => {
-    //console.log('rendering resourcebar')
+    // console.log('rendering resourcebar')
 
     // todo: seperate useSelectors for better performance
     const storeProps = useSelector<StoreState, StateProps>((store: StoreState) => {
@@ -33,21 +33,17 @@ const Resourcebar = () => {
 
     const createItem = (icon: string, amount: number, title: string) => {
         return (
-            <li 
-                title={title} 
-                key={title}
-            >
-                <div 
-                    className="icon common-icon-smallest" 
-                    style = {{ backgroundImage:  `url(${process.env.PUBLIC_URL}${icon})`}}>
-                </div>
+            <li title={title} key={title}>
+                <div
+                    className="icon common-icon-smallest"
+                    style = {{ backgroundImage: `url(${process.env.PUBLIC_URL}${icon})`}}
+                />
                 <div className="amount">
                     { formatNumber(amount, 0) }
                 </div>
             </li>
         )
     };
-            
 
     const resources = resourceOrder.map((resource) => {
         const resourceDescription = resourceDescriptions[resource];

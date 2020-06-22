@@ -28,11 +28,11 @@ const AssignAdventurers = (props: Props & DispatchProps) => {
             if (hasAdventurer) {
                 const adventurer = props.assignedAventurers[i];
                 content = (
-                    <AdventurerAvatar 
-                        adventurer={adventurer} 
-                        displayName={false} 
+                    <AdventurerAvatar
+                        adventurer={adventurer}
+                        displayName={false}
                         onClick={() => props.onAdventurerClicked(adventurer) }
-                    /> 
+                    />
                 );
                 className = "has-adventurer";
             } else {

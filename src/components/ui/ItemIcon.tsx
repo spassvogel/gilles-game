@@ -39,12 +39,11 @@ const ItemIcon = (props: Props) => {
     const className = `item-icon ${getClassName(props.size)}`;
 
     return (
-        <div 
+        <div
             className={className}
             onClick={handleClick}
             style={{backgroundImage: `url(${process.env.PUBLIC_URL}${itemDefinition.iconImg})`}}
-        >
-        </div>
+        />
     );
 };
 

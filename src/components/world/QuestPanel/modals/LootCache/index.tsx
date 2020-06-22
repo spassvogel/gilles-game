@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React from "react";
 import "./lootCache.css";
 import useQuest from 'hooks/useQuest';
 import DraggableItemsList from 'components/ui/items/DraggableItemsList';
@@ -6,14 +6,13 @@ import { TextManager } from 'global/TextManager';
 import AdventurerAvatar from 'components/ui/AdventurerAvatar';
 import useAdventurer from 'hooks/useAdventurer';
 import { DragSourceType } from 'constants/dragging';
-import { Item } from 'definitions/items/types';
 import { useDispatch } from 'react-redux';
 import { addGold } from 'actions/gold';
 import { takeGoldFromCache } from 'actions/quests';
 import { addItemToInventory } from 'actions/adventurers';
 
 interface Props {
-    questName: string;   
+    questName: string;
     cacheName: string;
     adventurerId: string;
     onClose: () => void;
@@ -33,16 +32,16 @@ const LootCache = (props: Props) => {
     const handleTakeGold = (e: React.MouseEvent) => {
         e.stopPropagation();
         // todo: animate gold flying away
-        
+
         dispatch(addGold(cache.gold || 0));
         dispatch(takeGoldFromCache(props.questName, props.cacheName))
-    } 
+    }
 
     const handleTakeAllItems = (e: React.MouseEvent) => {
         e.stopPropagation();
 
         cache.items.forEach((item) => {
-            ///console.log(item)
+            // todo: see if there is space, if so add
             dispatch(addItemToInventory(props.adventurerId, item))
         })
     }
@@ -53,13 +52,12 @@ const LootCache = (props: Props) => {
                 <div className="title">
                     {cache.title}
                 </div>
-                <div className="close" onClick={props.onClose}>
-                </div>
+                <div className="close" onClick={props.onClose} />
             </div>
             { cache.items.length > 0 && (
                 <div className="content">
                     <div className="items">
-                        <DraggableItemsList 
+                        <DraggableItemsList
                             items={cache.items}
                             sourceType={DragSourceType.lootCache}
                             sourceId={props.cacheName}
@@ -76,15 +74,15 @@ const LootCache = (props: Props) => {
             { !!cache.gold && (
                 <div className="content">
                     <div className="gold">
-                        <div 
-                            className="icon common-icon-medium" 
-                            style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/img/resources/gold.png)`}}>
-                        </div>
+                        <div
+                            className="icon common-icon-medium"
+                            style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/img/resources/gold.png)`}}
+                        />
                         {TextManager.get("quest-common-loot-cache-gold", { gold: cache.gold })}
                     </div>
                     <div className="take-gold">
                         <button onClick={handleTakeGold}>
-                            {TextManager.get("quest-common-loot-cache-take")} 
+                            {TextManager.get("quest-common-loot-cache-take")}
                         </button>
                     </div>
                 </div>

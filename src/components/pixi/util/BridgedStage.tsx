@@ -20,6 +20,5 @@ const BridgedStage = (props: React.ComponentProps<typeof Stage>) => {
         </ReactReduxContext.Consumer>
     );
 }
-  
 
 export default BridgedStage;

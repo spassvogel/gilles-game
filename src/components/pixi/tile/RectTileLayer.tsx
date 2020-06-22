@@ -6,7 +6,6 @@ window.PIXI = PIXI;
 // eslint-disable-next-line import/first
 import 'pixi-tilemap';
 
-
 interface Props  {
     texture: PIXI.Texture;
     horizontalTiles: number;
@@ -31,7 +30,7 @@ const RectTileLayer = PixiComponent<Props, any>("RectTileLayer", {
             const h = tileset.tileheight;
             const x = (i % horizontalTiles) * w;
             const y = Math.floor(i / horizontalTiles) * h;
-        
+
             if (layer.data[i] > 0) {
                 const spriteId = `${tileset.name}-${layer.data[i]}`;
                 instance.addFrame(spritesheet.textures[spriteId], x, y);

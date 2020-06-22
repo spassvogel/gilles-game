@@ -1,8 +1,5 @@
-import AdventurerAvatar from "components/ui/AdventurerAvatar";
 import Inventory from "components/ui/inventory/Inventory";
 import ResourcesBox from "components/ui/resources/ResourcesBox";
-import Tab from "components/ui/tabs/Tab";
-import Tabstrip from "components/ui/tabs/Tabstrip";
 import { DragSourceType } from "constants/dragging";
 import AdventurerInfo from "containers/ui/AdventurerInfo";
 import { Item } from "definitions/items/types";
@@ -35,7 +32,7 @@ export interface StateProps  {
     workers: number;
     workersFree: number;
     gold: number;
-    items: Array<Item|null>;
+    items: (Item|null)[];
     adventurersInTown: AdventurerStoreState[];
     structures: StructuresStoreState;
     resources: ResourceStoreState;
@@ -142,12 +139,6 @@ const WarehouseStructureView = (props: AllProps) => {
         return null;
     };
 
-    const renderAdventurerTab = (adventurer: AdventurerStoreState) => (
-        <Tab id={adventurer.id} key={adventurer.id}>
-            <AdventurerAvatar adventurer={adventurer} className="common-icon-small"/>
-        </Tab>
-    );
-
     return (
         <details open={true} className="warehouse-structureview">
             <summary>{displayName}</summary>
@@ -170,9 +161,9 @@ const WarehouseStructureView = (props: AllProps) => {
             <h3>Adventurers</h3>
             <div>
                 <AdventurerTabstrip
-                    adventurers={props.adventurersInTown} 
+                    adventurers={props.adventurersInTown}
                     selectedAdventurerId={selectedAdventurer}
-                    onAdventurerTabSelected={handleAdventurerTabSelected} 
+                    onAdventurerTabSelected={handleAdventurerTabSelected}
                 />
                 <div className="adventurer-inventory">
                     {renderAdventurerContent()}

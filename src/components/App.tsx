@@ -95,7 +95,7 @@ const App = (props: AllProps) => {
             ...activeWindows || [],
             window,
         ]);
-    };   
+    };
 
     /**
      * Closes all windows

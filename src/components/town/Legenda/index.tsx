@@ -28,11 +28,11 @@ const Legenda = (props: Props) => {
         Structure.mine,
         Structure.lumberMill,
         Structure.weaver,
-    ];   
-    const match = useRouteMatch(`${getTownLink()}/:structure`);
+    ];
+    const match = useRouteMatch<{structure: string}>(`${getTownLink()}/:structure`);
 
     const renderText = (structure: Structure) => {
-        if (match?.params['structure'] === structure.toString()) {
+        if (match?.params.structure === structure.toString()) {
             return (
                 <span className="highlighted">{`${TextManager.getStructureName(structure)}`}</span>
             )

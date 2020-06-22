@@ -41,7 +41,7 @@ const AdventurerButton = (props: Props) => {
     // Skip holes
     if (assignedAventurers.filter(Boolean).length === AVAILABLE_SLOTS) {
         return (
-            <button disabled  className="adventurer-button">
+            <button disabled={true} className="adventurer-button">
                 Party full
             </button>
         )

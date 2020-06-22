@@ -52,7 +52,7 @@ const RoomList = (props: Props) => {
         const onQuest = !!getQuestByAdventurer(adventurer.id);
 
         roomContent.push((
-            <RoomWithAdventurer 
+            <RoomWithAdventurer
                 key={adventurer.id}
                 adventurer={adventurer}
                 assignedAventurers={assignedAventurers}
@@ -65,7 +65,7 @@ const RoomList = (props: Props) => {
                 onRemoveAdventurer={onRemoveAdventurer}
             />
         ));
-    }   
+    }
 
     return (
         <div className="rooms">

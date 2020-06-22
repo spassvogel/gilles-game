@@ -11,7 +11,6 @@ import Viewport from '../pixi/Viewport';
 import { StructureState, StructureStoreState } from 'stores/structure';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
-import "./css/townView.css"
 import { MAX_WIDTH } from 'components/App';
 import HitAreaShapes from 'utils/hitAreaShapes';
 import polygons from './hitAreas.json';
@@ -20,6 +19,7 @@ import Tavern from './structures/Tavern';
 import { withAppContext, AppContextProps } from 'hoc/withAppContext';
 import Generic from './structures/Generic';
 import Legenda from './Legenda';
+import "./css/townView.css"
 
 const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
@@ -32,8 +32,8 @@ export interface Props {
 export const STRUCTURE_HIGHLIGHT_FILTER = new OutlineFilter(4, 0xffcc00);
 
 const TownView = (props: Props & AppContextProps) => {
-    const match = useRouteMatch(`${getTownLink()}/:structurename`);
-    const selectedStructure = match?.params['structurename'];
+    const match = useRouteMatch<{structure: string}>(`${getTownLink()}/:structure`);
+    const selectedStructure = match?.params.structure;
 
     useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.town, "sound/music/Soliloquy.mp3");
@@ -47,12 +47,10 @@ const TownView = (props: Props & AppContextProps) => {
             // } else {
             //     // history.push(getTownLink());
             // }
-            props.onStructureClick(structure); 
+            props.onStructureClick(structure);
         }
     }
-
-
-    //console.log('rendering town');
+    // console.log('rendering town');
 
     const structures = useSelector<StoreState, StructuresStoreState>((state: StoreState) => {
         return state.structures;
@@ -80,24 +78,24 @@ const TownView = (props: Props & AppContextProps) => {
                 return null;
             }
             // todo: refactor into seperate components
-        
-            const Structure = getStructure(structure);
+
+            const StructureComponent = getStructure(structure);
             const position = getStructurePosition(structure);
             const hitAreaShapes = new HitAreaShapes(polygons, structure);
             return (
-                <Structure 
+                <StructureComponent
                     position={position}
                     structure={structure}
                     hitAreaShapes={hitAreaShapes}
                     onStructureClick={handleStructureClick}
-                    key={structure} 
-                    selected={selectedStructure === structure} 
+                    key={structure}
+                    selected={selectedStructure === structure}
                 />
             );
         });
     }
 
-    let dragging = useRef(false);
+    const dragging = useRef(false);
     const viewportRef = useRef<PixiViewport>(null);
     useEffect(() => {
         if(viewportRef.current) {
@@ -120,7 +118,7 @@ const TownView = (props: Props & AppContextProps) => {
         if (selectedStructure && viewportRef.current) {
             const viewport = viewportRef.current;
             viewport.zoomPercent(2);
-            const position = getStructurePosition(selectedStructure);
+            const position = getStructurePosition(Structure[selectedStructure]);
             viewport.moveCenter(position);
         }
     }, [selectedStructure]);
@@ -133,18 +131,18 @@ const TownView = (props: Props & AppContextProps) => {
             <Legenda structures={structures} />
             <Stage width={MAX_WIDTH} height={HEIGHT} options={options} >
                 <Viewport screenWidth={MAX_WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef}>
-                    <Sprite 
+                    <Sprite
                         name="background"
-                        image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}          
+                        image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}
                     >
                         {renderStructures()}
                     </Sprite>
                 </Viewport>
             </Stage>
             {/* { selectedStructure && (
-                <StructureDetailsView 
-                    structure={selectedStructure} 
-                    title={TextManager.getStructureName(selectedStructure)} 
+                <StructureDetailsView
+                    structure={selectedStructure}
+                    title={TextManager.getStructureName(selectedStructure)}
                     onClose={() => handleStructureClick(null)}
                 />
             )} */}
@@ -170,12 +168,13 @@ const getStructure = (structure: Structure) => {
         case Structure.lumberMill:
             return LumberMill;
         case Structure.tavern:
-            return Tavern;    
+            return Tavern;
     }
 }
 
 const getStructurePosition = (structure: Structure) => {
-    let x, y;              
+    let x;
+    let y;
     switch (structure) {
         case Structure.workshop:
             x = 373;
@@ -227,4 +226,4 @@ const getStructurePosition = (structure: Structure) => {
             break;
     }
     return new PIXI.Point(x, y);
-}      
+}

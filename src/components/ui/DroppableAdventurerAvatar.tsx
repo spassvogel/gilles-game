@@ -32,7 +32,6 @@ const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
 /**
  * The AdventurerAvatar displays the avatar of an adventurer in the party screen
  */
- 
 const DroppableAdventurerAvatar = (props: Props & DropSourceProps) => {
     const { connectDropTarget } = props;
 

@@ -29,18 +29,17 @@ const DEBUG_ACTIONQUEUE = false;
 const Scene = (props: Props) => {
     const {controller} = props;
     const [actionActor, setActionActor] = useState<ActorObject|null>(null); // actor that the player is performing an action on
- 
+
     const mapData = controller.mapData!;
     const basePath = controller.basePath!;
-    
-    
+
     const dispatch = useDispatch();
     const ref = useRef<PIXI.Container>(null);
-    
+
     const quest = useQuest(props.questName);
 
     const scene = quest.scene!;
-        
+
     const selectedActor = useMemo(() => {
         return scene.actors?.find(a => a.name === props.selectedActor) || null;
     }, [scene.actors, props.selectedActor])
@@ -52,13 +51,13 @@ const Scene = (props: Props) => {
         props.setSelectedActor(actor.name);
     }
 
-    const handleCancelAction = (event: PIXI.interaction.InteractionEvent) => {
+    const handleCancelAction = (event: PIXI.InteractionEvent) => {
         setActionActor(null);
         event.stopPropagation();
     }
 
     // Queue actions
-    const handleActorEndDrag = (event: PIXI.interaction.InteractionEvent) => {
+    const handleActorEndDrag = (event: PIXI.InteractionEvent) => {
         if(scene.actionQueue?.length || !actionActor) {
             return;
         }
@@ -69,19 +68,19 @@ const Scene = (props: Props) => {
         if (!blocked) {
             const target = controller.pointToSceneLocation(event.data.global);
 
-            const convertLocation = (location: [number, number]) => {
+            const convertLocation = (l: [number, number]) => {
                 // This is the format AStarFind works with
-                return { x: location[0], y: location[1] }
+                return { x: l[0], y: l[1] }
             }
             const origin = actionActor.location;
             const path = controller.aStar?.findPath(convertLocation(origin), convertLocation(target));
 
             const movementDuration = 500; // time every tile movement takes
-            path?.forEach((location, index) => {
+            path?.forEach((l, index) => {
                 const sceneAction: SceneAction = {
                     actionType: SceneActionType.move,
                     actor: actionActor!.name,
-                    target: location as [number, number],
+                    target: l as [number, number],
                     endsAt: movementDuration * (index + 1) + performance.now()
                 };
                 dispatch(enqueueSceneAction(props.questName, sceneAction));
@@ -94,14 +93,14 @@ const Scene = (props: Props) => {
                     const stroke = 3;
                     graphics.beginFill(0xDE3249, 0.5);
                     graphics.lineStyle(stroke, 0xFF0000);
-                    graphics.drawRect(x * mapData.tilewidth + stroke / 2, 
-                        y * mapData.tileheight + stroke / 2, 
-                        mapData.tilewidth - stroke / 2, 
+                    graphics.drawRect(x * mapData.tilewidth + stroke / 2,
+                        y * mapData.tileheight + stroke / 2,
+                        mapData.tilewidth - stroke / 2,
                         mapData.tileheight - stroke / 2);
                     graphics.endFill();
                 });
                 ref.current!.addChild(graphics);
-                setTimeout(() => { 
+                setTimeout(() => {
                     ref.current?.removeChild(graphics)}
                 , 1000);
             }
@@ -122,14 +121,14 @@ const Scene = (props: Props) => {
         const actionPath = actionPathRef.current;
         if (!container || !actionActor || scene.actionQueue?.length) return;
         const actionOriginLocation = actionActor.location;
-        const mouseMove = (event: PIXI.interaction.InteractionEvent) => {
+        const mouseMove = (event: PIXI.InteractionEvent) => {
             if (container && actionPath && mapData && actionActor) {
                 // Find out if on a blocked tile
                 const location = controller.pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
                 const blocked = controller.locationIsBlocked(location);
-                const from = new PIXI.Point(actionOriginLocation[0] * mapData.tilewidth + mapData.tilewidth / 2, 
+                const from = new PIXI.Point(actionOriginLocation[0] * mapData.tilewidth + mapData.tilewidth / 2,
                     actionOriginLocation[1] * mapData.tileheight + mapData.tileheight / 2);
-                    
+
                 // Draw a line to the destination tile
                 actionPath.drawAction(from, event.data.global, !blocked);
             }
@@ -162,9 +161,9 @@ const Scene = (props: Props) => {
                         }}
                     />
                 )}
-                <Sprite                     
+                <Sprite
                     y={-80}
-                    image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`} 
+                    image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`}
                     interactive={true}
                     pointerdown={() => handleActorStartDrag(actor)}
                     pointerup={handleCancelAction}
@@ -172,7 +171,7 @@ const Scene = (props: Props) => {
                 />
                 { (selectedActor?.name === name && controller.actorCanInteract(selectedActor.name)) && (
                     <Container
-                        interactive
+                        interactive={true}
                         pointerdown={() => {controller.actorInteract(selectedActor.name)}}
                     >
                         <Graphics
@@ -184,7 +183,7 @@ const Scene = (props: Props) => {
                         />
                         <Sprite 
                             image={`${process.env.PUBLIC_URL}/img/ui/scene/icons/interact.png`}
-                            scale={[.3, .3]} 
+                            scale={[.3, .3]}
                             y={mapData.tileheight}
                             x={mapData.tilewidth/2}
                             anchor={.5}
@@ -193,7 +192,6 @@ const Scene = (props: Props) => {
                 )}
             </SceneActor>
         );
-        
     }
 
 
@@ -202,13 +200,13 @@ const Scene = (props: Props) => {
             <BridgedStage width={sceneWidth} height={sceneHeight}>
                 <Container 
                     ref={ref}
-                    interactive={true} 
+                    interactive={true}
                     hitArea={new PIXI.Rectangle(0, 0, sceneWidth, sceneHeight)}
                 >
-                    <Tilemap 
-                        basePath={basePath} 
-                        data={mapData} 
-                        tileObjects={scene.tileObjects}    
+                    <Tilemap
+                        basePath={basePath}
+                        data={mapData}
+                        tileObjects={scene.tileObjects}
                     />
                     <ActionPath
                         ref={actionPathRef}
@@ -216,7 +214,7 @@ const Scene = (props: Props) => {
                     { /** todo: create SceneAventurer  */
                     scene.actors?.map((o) => renderActor(o))}
                 </Container>
-            </BridgedStage>           
+            </BridgedStage>
             {DEBUG_ACTIONQUEUE && (
                 <div style={{ position: 'absolute', bottom: 0}}>
                     <h2>ActionQueue</h2>

@@ -27,7 +27,7 @@ const QuestDetails = (props: Props) => {
 
 export default QuestDetails;
 
-type SceneLoaderProps = Props & { 
+type SceneLoaderProps = Props & {
     sceneName: string;
     scene?: SceneStoreState;
 }

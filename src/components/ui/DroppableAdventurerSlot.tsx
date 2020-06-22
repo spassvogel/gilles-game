@@ -46,8 +46,7 @@ const DroppableAdventurerSlot = (props: Props & DropSourceProps) => {
     }
 
     return connectDropTarget(
-        <div className = { className }>
-        </div>,
+        <div className = { className }/>
     );
 }
 
