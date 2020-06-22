@@ -36,7 +36,7 @@
     .quest-panel.quest-panel-auto .quest-area {
         overflow: hidden;
         justify-content: center;
-        align-items: baseline;        
+        align-items: baseline;  
     }
 }
 
@@ -44,6 +44,10 @@
     /** small screen, vertical layout */
     .quest-panel.quest-panel-auto {
         flex-direction: column;
+    }
+
+    .quest-panel.quest-panel-auto .quest-area {
+       flex: 0 1;      
     }
 
     .quest-panel.quest-panel-auto .adventurer-panel {
@@ -83,11 +87,13 @@
 
 .quest-panel canvas {
     flex: 1;
+    max-width: 100%;
 }
 
 /** scene canvas */
 .quest-panel .quest-area canvas {
     width: 100%;
+    height: auto !important;
 }
 
 /** on the right. party party */

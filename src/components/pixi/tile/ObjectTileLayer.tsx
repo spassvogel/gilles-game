@@ -24,15 +24,17 @@ const ObjectTileLayer = PixiComponent<Props, any>("ObjectTileLayer", {
     applyProps(instance, oldProps: Props, props: Props) {
         const {objects, tileset, spritesheet} = props;
         instance.clear();
-        for (let i = 0; i < objects.length; i++) {
+        if (!objects) return;
+
+        objects.forEach((object) => {
             const w = tileset.tilewidth;
             const h = tileset.tileheight;
-            const x = objects[i].location[0] * w;
-            const y = objects[i].location[1] * h;
+            const x = object.location[0] * w;
+            const y = object.location[1] * h;
 
-            const spriteId = `${tileset.name}-${(objects[i]).gid}`;
+            const spriteId = `${tileset.name}-${(object).gid}`;
             instance.addFrame(spritesheet.textures[spriteId], x, y);
-        }
+        });
     }
 });
 

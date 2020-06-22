@@ -13,7 +13,7 @@ interface Props {
   maxScale?: number;
 }
 
-/** Viewport leverages pixi-viewport to create a pannable map 
+/** Viewport leverages pixi-viewport to create a pannable map
  * https://davidfig.github.io/pixi-viewport/jsdoc/
  */
 const Viewport = forwardRef<PixiViewport, any>((props, ref) => {

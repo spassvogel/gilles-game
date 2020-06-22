@@ -198,7 +198,7 @@ const Scene = (props: Props) => {
     return (
         <>
             <BridgedStage width={sceneWidth} height={sceneHeight}>
-                <Container 
+                <Container
                     ref={ref}
                     interactive={true}
                     hitArea={new PIXI.Rectangle(0, 0, sceneWidth, sceneHeight)}
