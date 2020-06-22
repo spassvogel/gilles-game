@@ -1,6 +1,7 @@
 import { Action } from "redux";
 import { AdventurerStoreState } from "stores/adventurer";
 import { SceneAction, SceneStoreState, TileObject } from 'stores/scene';
+import { Item } from 'definitions/items/types';
 
 // tslint:disable:object-literal-sort-keys
 
@@ -17,6 +18,7 @@ export enum ActionType {
     completeSceneAction = "completeSceneAction",
     updateSceneObjectAction = "updateSceneObjectAction",    // Updates a tile object on the scene. Can update any property except 'id'
     takeGoldFromCache = "takeGoldFromCache",                // Takes *all* the gold from a cache
+    takeItemFromCache = "takeItemFromCache"                 // Takes an item from a cache
 }
 
 export interface QuestAction extends Action<ActionType> {
@@ -50,6 +52,11 @@ export interface UpdateEncounterResultAction extends QuestAction {
 
 export interface TakeGoldFromCacheAction extends QuestAction {
     cacheName: string;
+}
+
+export interface TakeItemFromCacheAction extends QuestAction {
+    cacheName: string;
+    item: Item;
 }
 
 export interface UpdateSceneObjectAction extends QuestAction {
@@ -139,5 +146,14 @@ export const takeGoldFromCache = (questName: string, cacheName: string): TakeGol
        type: ActionType.takeGoldFromCache,
        questName,
        cacheName
-   } 
+   }
+}
+
+export const takeItemFromCache = (questName: string, cacheName: string, item: Item): TakeItemFromCacheAction => {
+   return {
+       type: ActionType.takeItemFromCache,
+       questName,
+       cacheName,
+       item
+   }
 }

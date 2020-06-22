@@ -75,9 +75,11 @@ export class BaseSceneController {
                 gold: 3,
                 items: [
                     Item.savageStaff,
-                    Item.savageStaff,
-                    Item.savageStaff,
+                    Item.battleAxe,
+                    Item.druidChest,
                     Item.shoulders1,
+                    Item.eye,
+                    Item.fedora
                 ]
             }
         }
@@ -96,7 +98,6 @@ export class BaseSceneController {
         if (!object) return;
 
 
-        
         if (object.type === "exit") {
             // We've hit the exit. Should we load another scene?
             if (object.ezProps?.loadScene) {
@@ -113,7 +114,6 @@ export class BaseSceneController {
                 this.store.dispatch(exitEncounter(this.questName));
             }
         }
-           
     }
 
     actorCanInteract(actorName: string) {

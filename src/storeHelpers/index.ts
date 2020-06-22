@@ -20,6 +20,13 @@ export const findAdventurerById = (adventurers: AdventurerStoreState[], id: stri
     return adventurers.find((a) => a.id === id);
 };
 
+/**
+ * Returns the amount of free inventory slots on this adventurer
+ */
+export const adventurerFreeInventorySlots = (adventurer: AdventurerStoreState): number => {
+    return adventurer.inventory.filter(i => i === null).length;
+};
+
 export const storeIsRehydrated = (store: StoreState): boolean => {
     // Returns a value indicating whether this store is fresh or rehydrated
     // Probably I should find a more solid way to do this

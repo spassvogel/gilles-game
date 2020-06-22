@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import "./lootCache.css";
 import useQuest from 'hooks/useQuest';
 import DraggableItemsList from 'components/ui/items/DraggableItemsList';
@@ -8,8 +8,9 @@ import useAdventurer from 'hooks/useAdventurer';
 import { DragSourceType } from 'constants/dragging';
 import { useDispatch } from 'react-redux';
 import { addGold } from 'actions/gold';
-import { takeGoldFromCache } from 'actions/quests';
+import { takeGoldFromCache, takeItemFromCache } from 'actions/quests';
 import { addItemToInventory } from 'actions/adventurers';
+import { adventurerFreeInventorySlots } from 'storeHelpers';
 
 interface Props {
     questName: string;
@@ -24,6 +25,34 @@ const LootCache = (props: Props) => {
     const {scene} = quest;
     const cache = scene?.caches[props.cacheName];
     const adventurer = useAdventurer(props.adventurerId);
+    const [taking, setTaking] = useState(false)
+    const freeSlots = adventurerFreeInventorySlots(adventurer);
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        let interval: NodeJS.Timeout;
+        if (taking && cache && ref.current) {
+            const item = cache.items[0];
+            if (!item) {
+                setTaking(false);
+                return;
+            }
+            ref.current.querySelector(".itemslist .item")?.classList.add("taking");
+            console.log(ref.current.querySelector(".itemslist .item")?.innerHTML);
+            if (freeSlots > 0) {
+                interval = setTimeout(() => {
+                    dispatch(addItemToInventory(props.adventurerId, item));
+                    dispatch(takeItemFromCache(props.questName, props.cacheName, item));
+                }, 500);
+            }
+            else {
+                setTaking(false);
+            }
+        }
+        return () => {
+            clearInterval(interval);
+        }
+    }, [cache, freeSlots, dispatch, props.adventurerId, props.cacheName, props.questName, taking]);
 
     if (!cache) {
         return null;
@@ -39,15 +68,11 @@ const LootCache = (props: Props) => {
 
     const handleTakeAllItems = (e: React.MouseEvent) => {
         e.stopPropagation();
-
-        cache.items.forEach((item) => {
-            // todo: see if there is space, if so add
-            dispatch(addItemToInventory(props.adventurerId, item))
-        })
+        setTaking(true);
     }
 
     return (
-        <div className="lootCache">
+        <div className={`loot-cache`} ref={ref}>
             <div className="header">
                 <div className="title">
                     {cache.title}
@@ -65,7 +90,7 @@ const LootCache = (props: Props) => {
                     </div>
                     <div className="adventurer">
                         <AdventurerAvatar adventurer={adventurer}/>
-                        <button onClick={handleTakeAllItems}>
+                        <button onClick={handleTakeAllItems} disabled={freeSlots === 0}>
                             {TextManager.get("quest-common-loot-cache-take-all")}
                         </button>
                     </div>

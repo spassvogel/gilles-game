@@ -1,5 +1,5 @@
 import { ActionType as GameActionType, GameTickAction } from "actions/game";
-import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, UpdateEncounterResultAction, EnqueueSceneActionAction, SetSceneNameAction, SetSceneAction, UpdateSceneObjectAction, TakeGoldFromCacheAction } from "actions/quests";
+import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, UpdateEncounterResultAction, EnqueueSceneActionAction, SetSceneNameAction, SetSceneAction, UpdateSceneObjectAction, TakeGoldFromCacheAction, TakeItemFromCacheAction } from "actions/quests";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "stores/quest";
@@ -75,6 +75,9 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
         case ActionType.takeGoldFromCache:
             return takeGoldFromCache(state, action as TakeGoldFromCacheAction);
+
+        case ActionType.takeItemFromCache:
+            return takeItemFromCache(state, action as TakeItemFromCacheAction);
 
         case GameActionType.gameTick:
            return gameTick(state, action as GameTickAction);
@@ -287,7 +290,7 @@ const updateEncounterResult = (state: QuestStoreState[], action: UpdateEncounter
 
 const takeGoldFromCache = (state: QuestStoreState[], action: TakeGoldFromCacheAction) => {
     return state.map((qss: QuestStoreState) => {
-        if (qss.name === action.questName && qss.scene) {            
+        if (qss.name === action.questName && qss.scene) {
             const lootCaches = {
                 ...qss.scene?.caches,
                 [action.cacheName]: {
@@ -296,6 +299,23 @@ const takeGoldFromCache = (state: QuestStoreState[], action: TakeGoldFromCacheAc
                 }
             }
             qss.scene.caches = lootCaches;
+        }
+        return qss;
+    });
+}
+
+const takeItemFromCache = (state: QuestStoreState[], action: TakeItemFromCacheAction) => {
+    return state.map((qss: QuestStoreState) => {
+        if (qss.name === action.questName && qss.scene) {
+            const cache = qss.scene.caches[action.cacheName];
+            const index = cache.items.indexOf(action.item);
+            if (index > -1 ) {
+                console.log("found at index" + index)
+                qss.scene.caches[action.cacheName].items = [
+                    ...cache.items.slice(0, index),
+                    ...cache.items.slice(index + 1)
+                ]
+            }
         }
         return qss;
     });
