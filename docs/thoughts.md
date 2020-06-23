@@ -514,3 +514,6 @@ https://github.com/DragonBones/DragonBonesJS
 
 ### Localforage [+tech]
 [x] https://github.com/localForage/localForage
+
+### Item descriptions [+ref]
+[ ] Refactor to use translations file

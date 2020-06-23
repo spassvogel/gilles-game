@@ -39,7 +39,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         item: Item.arbalest,
         itemType,
         weaponType: WeaponType.crossbow,
-        subText: "Larger and mroe powerful than a crossbow",
+        subText: "Larger and more powerful than a crossbow",
         iconImg: `${basePath}arbalest.png`,
         damage: { [DamageType.kinetic]: 40 },
     },
@@ -106,6 +106,14 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         subText: "Finer steel was seldom forged",
         iconImg: `${basePath}greatsword-gwai.png`,
         unique: true,
+        damage: { [DamageType.kinetic]: 25 },
+    },
+    [Item.javelin]: {
+        item: Item.javelin,
+        itemType,
+        weaponType: WeaponType.poleArm,
+        subText: "A javelin is a light spear designed primarily to be thrown as a ranged weapon.",
+        iconImg: `${basePath}javelin.png`,
         damage: { [DamageType.kinetic]: 25 },
     },
     [Item.khopesh]: {

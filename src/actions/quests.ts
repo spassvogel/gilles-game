@@ -130,8 +130,6 @@ export const updateSceneObjectAction = (questName: string, id: number, object: P
     };
 }
 
-
-
 export function updateEncounterResult(quest: string, nodeIndex: number, result: string): UpdateEncounterResultAction {
     return {
         type: ActionType.updateEncounterResult,

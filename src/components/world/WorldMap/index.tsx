@@ -28,6 +28,7 @@ const GRID_WIDTH = 10;      // width or height of each node location in pixels
 // // This stuff is needed for the pixi-js browser plugin
 if (process.env.NODE_ENV === "development") {
     // @ts-ignore
+    // tslint:disable-next-line: no-unused-expression
     window.__PIXI_INSPECTOR_GLOBAL_HOOK__ && window.__PIXI_INSPECTOR_GLOBAL_HOOK__.register({ PIXI: PIXI });
 }
 
@@ -52,7 +53,7 @@ const WorldMap = (props: Props) => {
         props.onPartyClick(name);
     };
 
-    // useEffect(() => {        
+    // useEffect(() => {
     //     const onScroll = (e: WheelEvent) => {
     //         // When the map is big, scrolling the mouse is just used for zoom, not for actual scrolling
     //         if (!smallMap) {
@@ -138,7 +139,7 @@ const WorldMap = (props: Props) => {
                     key={quest.name}
                     selected={quest === selectedQuest}
                     encounterActive={questNode.type === QuestNodeType.encounter}
-                    onClick={(quest) => handlePartyClick(quest.name)}
+                    onClick={(q) => handlePartyClick(q.name)}
                 />
             );
         });
@@ -168,7 +169,7 @@ const WorldMap = (props: Props) => {
             <Viewport screenWidth={canvasWidth} screenHeight={canvasHeight} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef} >
                 <Sprite
                     image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`}
-                    interactive
+                    interactive={true}
                     pointerdown={handleMapClick}
                 >
                     {renderQuestlines()}

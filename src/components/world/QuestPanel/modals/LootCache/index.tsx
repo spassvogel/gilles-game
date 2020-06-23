@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./lootCache.css";
 import useQuest from 'hooks/useQuest';
 import DraggableItemsList from 'components/ui/items/DraggableItemsList';
@@ -31,6 +31,10 @@ const LootCache = (props: Props) => {
 
     useEffect(() => {
         let interval: NodeJS.Timeout;
+        // Todo:
+        // determine max items to be added to inventory
+        // play staggered animation onClick
+        // add items immediately
         if (taking && cache && ref.current) {
             const item = cache.items[0];
             if (!item) {
