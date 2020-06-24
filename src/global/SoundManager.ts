@@ -72,6 +72,7 @@ export class SoundManager {
         currentMusicTrack = track;
     }
 
+    // tslint:disable-next-line: no-empty
     public static soundVolume(volume: number) {
     }
 
@@ -83,7 +84,10 @@ export class SoundManager {
         try {
             localStorage.setItem(STORAGE_KEY_MUSIC_VOLUME, `${volume}`);
         }
-        catch (e) {}
+        catch (e) {
+            // tslint:disable-next-line: no-console
+            console.warn(e);
+        }
     }
 
     static get musicVolume() : number {
@@ -91,7 +95,7 @@ export class SoundManager {
             return this._musicVolume;
         }
         const fromStorage = localStorage.getItem(STORAGE_KEY_MUSIC_VOLUME);
-        if (fromStorage == null) { 
+        if (fromStorage == null) {
             this._musicVolume = DEFAULT_MUSIC_VOLUME;
         } else {
             this._musicVolume = parseFloat(fromStorage);

@@ -9,6 +9,7 @@ interface Props {
 export interface RefActions {
     drawAction: (from: PIXI.Point, to: PIXI.Point, allowed?: boolean) => void;
     clear: () => void;
+    parent: PIXI.Container;
 }
 /**
  * ActionPath shows a line previewing the action the user is taking on a scene
@@ -17,21 +18,25 @@ export interface RefActions {
 const ActionPath = forwardRef((props: Props, ref: React.Ref<RefActions>) => {
     const graphicsRef = useRef<PIXI.Graphics>(null);
 
-    useImperativeHandle(ref, () => ({
-        drawAction: (from: PIXI.Point, to: PIXI.Point, allowed: boolean = true)=> {
-            const grfx = graphicsRef.current;
-            if (!grfx) return; 
-            const color = allowed ? 0x00FF00 : 0xFF3300;
-            grfx.clear()
-                .lineStyle(3, color)
-                .moveTo(from.x, from.y)
-                .lineTo(to.x, to.y);
-        },
-        clear: () => { 
-            const grfx = graphicsRef.current;
-            grfx?.clear();
+    useImperativeHandle(ref, () => {
+        // console.log(graphicsRef.current.parent)
+        return {
+            drawAction: (from: PIXI.Point, to: PIXI.Point, allowed: boolean = true)=> {
+                const grfx = graphicsRef.current;
+                if (!grfx) return;
+                const color = allowed ? 0x00FF00 : 0xFF3300;
+                grfx.clear()
+                    .lineStyle(3, color)
+                    .moveTo(from.x, from.y)
+                    .lineTo(to.x, to.y);
+            },
+            clear: () => {
+                const grfx = graphicsRef.current;
+                grfx?.clear();
+            },
+            parent: graphicsRef.current?.parent!
         }
-    }));
+    });
 
     return (
         <Graphics

@@ -7,40 +7,39 @@ import { StoreState } from 'stores';
 import { gsap } from 'gsap';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 
-interface Props  {
-    actor: string;
-    tileWidth: number;
-    tileHeight: number;
+export interface Props  {
+    name: string;
     controller: BaseSceneController;
-    location?: [number, number]; // tile coordinate space 
+    location?: [number, number]; // tile coordinate space
     children: React.ReactNode;
 };
 
 // This is a wrapper that exposes a location property. Will set x and y on children
 const SceneActor = (props: Props) => {
-    const { 
+    const {
         location = [0, 0],
-        tileWidth = 0, 
-        tileHeight = 0,
+        controller,
         children
     } = props;
+    const tileWidth = controller.mapData?.tilewidth!;
+    const tileHeight = controller.mapData?.tileheight!;
 
     const actorRef = useRef<PIXI.Container>(null);
     const dispatch = useDispatch();
-    
+
     const actionQueueSelector = useCallback(
         (state: StoreState) => {
             const quest = state.quests.find((q) => q.name === props.controller.questName)!;
             if (!quest.scene!.actionQueue) {
                 return [];
             }
-            return quest.scene!.actionQueue.filter(a => a.actor === props.actor);
-        },  
-        [props.actor, props.controller.questName]
+            return quest.scene!.actionQueue.filter(a => a.actor === props.name);
+        },
+        [props.name, props.controller.questName]
     );
     const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
 
-    //Handle actions 
+    // Handle actions 
     useEffect(() => {
         if (!actorRef) {
             return;
@@ -51,7 +50,7 @@ const SceneActor = (props: Props) => {
                 case SceneActionType.move: {
                     const moveComplete = () => {
                         dispatch(completeSceneAction(props.controller.questName));
-                        props.controller.actorMoved(props.actor, nextAction.target);
+                        props.controller.actorMoved(props.name, nextAction.target);
                     }
                     const duration = (nextAction.endsAt - performance.now()) / 1000;
                     if (duration < 0) {
@@ -72,10 +71,10 @@ const SceneActor = (props: Props) => {
                 }
             }
         }
-    }, [dispatch, tileWidth, tileHeight, actionQueue, props.controller, props.actor]);
+    }, [dispatch, tileWidth, tileHeight, actionQueue, props.controller, props.name]);
 
     const {x, y} = useMemo(() => {
-        return { 
+        return {
             x: location[0] * tileWidth,
             y: location[1] * tileHeight,
         };

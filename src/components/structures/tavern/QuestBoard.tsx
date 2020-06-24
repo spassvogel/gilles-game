@@ -14,7 +14,7 @@ export const AVAILABLE_SLOTS = 5;
 const minimumCountAdventurers = 3;  // we need this many adventurers to start the quest
 
 export interface StateProps {
-    items: Array<Item | null>;  // items in inventory
+    items: (Item | null)[];  // items in inventory
 }
 
 // tslint:disable-next-line: no-empty-interface
@@ -57,7 +57,7 @@ const QuestBoard = (props: AllProps) => {
                 availableSlots={AVAILABLE_SLOTS}
                 assignedAventurers={props.assignedAventurers}
                 onAdventurerClicked={props.onRemoveAdventurer}
-                onAdventurerDropped={props.onAdventurerDropped} 
+                onAdventurerDropped={props.onAdventurerDropped}
             />
             <ItemsCostBox items={ questDefinition.requiredItems || [] }/>
             <button disabled={!canLaunch} onClick = { () => props.onLaunchQuest() }>
@@ -82,7 +82,7 @@ const QuestBoard = (props: AllProps) => {
     // quest board, expanded quest info + assign adventurers + launch button
     return (
         <div className="quest-board">
-            <h2> 
+            <h2>
                 {TextManager.get("structure-tavern-title-quest-board")}
             </h2>
             <ul className="quest-list">
@@ -94,7 +94,7 @@ const QuestBoard = (props: AllProps) => {
                             <div
                                 className="icon"
                                 style={{backgroundImage: `url(${process.env.PUBLIC_URL}${iconImgPath})`}}
-                            ></div>
+                            />
                             <div className="title">{ TextManager.getQuestTitle(q.name) } </div>
                         </li>
                     );

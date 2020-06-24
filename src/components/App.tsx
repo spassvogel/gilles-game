@@ -1,31 +1,31 @@
 // tslint:disable: object-literal-sort-keys
-import { ContextInfo, ContextType} from "constants/context";
+import {ContextInfo, ContextType} from "constants/context";
 import CombatView from "containers/combat/CombatView";
 import StructureDetailsView from "containers/structures/StructureDetailsView";
-import { AppContextProps} from "hoc/withAppContext";
-import { manifest} from "manifest/app";
+import {AppContextProps} from "hoc/withAppContext";
+import {manifest} from "manifest/app";
 import * as React from "react";
-import { useRef, useState, createContext, useEffect } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { Link, Redirect, Route, Switch, HashRouter} from "react-router-dom";
-import { Persistor} from "redux-persist";
-import { PixiPlugin } from 'gsap/all';
-import { gsap } from 'gsap';
-import { Sound, SoundManager} from "global/SoundManager";
-import { TextManager} from "global/TextManager";
-import { Structure} from "../definitions/structures";
+import {useRef, useState, createContext, useEffect } from "react";
+import {DndProvider } from "react-dnd";
+import {HTML5Backend } from 'react-dnd-html5-backend';
+import {Link, Redirect, Route, Switch, HashRouter} from "react-router-dom";
+import {Persistor} from "redux-persist";
+import {PixiPlugin } from 'gsap/all';
+import {gsap } from 'gsap';
+import {Sound, SoundManager} from "global/SoundManager";
+import {TextManager} from "global/TextManager";
+import {Structure} from "../definitions/structures";
 import debounce from "debounce";
 import "./css/app.css";
-import Preloader, { MediaItem, MediaType} from "./preloading/Preloader";
+import Preloader, {MediaItem, MediaType} from "./preloading/Preloader";
 import TownView from './town/TownView';
 import Toasts from './ui/toasts/Toasts';
 import Topbar from './ui/topbar/Topbar';
 import WorldView from './world/WorldView';
 import SimpleLog from './log/SimpleLog';
 import ContextTooltip from './ui/tooltip/ContextTooltip';
-import { TooltipManager } from 'global/TooltipManager';
-import { getWorldLink, getTownLink } from 'utils/routing';
+import {TooltipManager } from 'global/TooltipManager';
+import {getWorldLink, getTownLink } from 'utils/routing';
 
 PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);
@@ -72,7 +72,7 @@ const App = (props: AllProps) => {
 
     const handleResetClick = () => {
         props.persistor.purge();
-        // todo: go to root 
+        // todo: go to root
         (window as any).location.reload();
     };
 
@@ -184,8 +184,8 @@ const App = (props: AllProps) => {
     // }, []);
 
     return (
-        <AppContext.Provider value={{ 
-            media, 
+        <AppContext.Provider value={{
+            media,
             onOpenWindow: handleWindowOpened,
             onCloseWindow: handleWindowClose,
         }} >
@@ -221,7 +221,7 @@ const App = (props: AllProps) => {
                                 </Route>
                             </Switch>
                             {` | `}
-                            <button data-for="global2" data-tip2 onClick={() => handleResetClick()} style={{ color: "red"}}> Restart! </button>
+                            <button onClick={() => handleResetClick()} style={{color: "red"}}> Restart! </button>
                         </div>
                         <Switch>
                             <Route path={getTownLink()} render={renderTownView} />
@@ -229,7 +229,7 @@ const App = (props: AllProps) => {
                         </Switch>
                         <SimpleLog/>
                         {renderWindow()}
-                        <ContextTooltip />    
+                        <ContextTooltip />
                         <Toasts />
                     </Preloader>
                 </HashRouter>
