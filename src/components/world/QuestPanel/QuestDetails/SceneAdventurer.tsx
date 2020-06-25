@@ -6,6 +6,7 @@ import useQuest from 'hooks/useQuest';
 import { enqueueSceneAction } from 'actions/quests';
 import { SceneAction, SceneActionType } from 'stores/scene';
 import ActionPath, { RefActions } from './ActionPath';
+import useAdventurer from 'hooks/useAdventurer';
 
 interface Props  {
     questName: string;
@@ -28,6 +29,8 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
 
     const quest = useQuest(props.questName);
     const scene = quest.scene!;
+
+    const adventurer = useAdventurer(name);
 
     // Draw a line to indicate the action to take
     const actionPathRef = useRef<RefActions>(null);
@@ -150,6 +153,13 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                     pointerdown={handleActorStartDrag}
                     pointerup={handleCancelAction}
                     pointerupoutside={handleActorEndDrag}
+                />
+                <Sprite
+                    scale={.1}
+                    anchor={.5}
+                    x={tileWidth / 2}
+                    y={-30}
+                    image={`${process.env.PUBLIC_URL}/${adventurer.avatarImg}`}
                 />
                 { (selected && controller.actorCanInteract(name)) && (
                     <Container
