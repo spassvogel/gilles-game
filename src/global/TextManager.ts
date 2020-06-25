@@ -18,14 +18,24 @@ export abstract class TextManager {
 
 //    public static addTexts(texts: Record<string, string>)
     public static get(key: string, context?: any): string {
+        const result = this.getDefault(key, context);
+        if (result === null) {
+            // tslint:disable-next-line: no-console
+            console.error(`Key '${key}' not found in TextManager`);
+            return `<<'${key}' missing>>`;
+        } else {
+            return result;
+        }
+    }
+
+    // Will return `null` when no text found, otherwise will return the text
+    public static getDefault(key: string, context?: any): string|null {
         if (!this.initialized) {
             throw new Error(`Error ${this} not initialized!`);
         }
         const template = this.getTemplate(key);
         if (!template) {
-            // tslint:disable-next-line: no-console
-            console.error(`Key '${key}' not found in TextManager`);
-            return `<<'${key}' missing>>`;
+            return null;
         }
         return template(context);
     }
@@ -59,6 +69,10 @@ export abstract class TextManager {
     public static getItemName(item: Item): string {
         const itemType = ItemType[getDefinition(item).itemType];
         return this.get(`item-${itemType}-${item}-name`);
+    }
+    public static getItemSubtext(item: Item): string|null {
+        const itemType = ItemType[getDefinition(item).itemType];
+        return this.getDefault(`item-${itemType}-${item}-subtext`);
     }
 
     public static getStructureName(structure: Structure): string {

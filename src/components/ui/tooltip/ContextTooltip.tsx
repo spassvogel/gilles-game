@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { ContextType } from 'constants/context';
 import { TooltipManager, Context } from 'global/TooltipManager';
 import { TextManager } from 'global/TextManager';
-import ItemContext from 'containers/ui/context/ItemContext';
 import Tooltip from './Tooltip';
+import ItemContext from './context/ItemContext';
 import './css/contextTooltip.css';
 
-export interface Props {
-}
 
 // A contextual popup showing what you just clicked. Can be an Item
-const ContextTooltip = (props: Props) => {
+const ContextTooltip = () => {
 
     const [selectedContext, setSelectedContext] = useState<Context | undefined>();
 
@@ -27,12 +25,12 @@ const ContextTooltip = (props: Props) => {
     if (!selectedContext) { return null; }
 
     const { info, type } = selectedContext;
-    let content;
-
-    switch (type) {
-        case ContextType.item:
-        default:
-            content = <ItemContext info={info} />;
+    const renderContent = () => {
+        switch (type) {
+            case ContextType.item:
+            default:
+                return <ItemContext info={info} />;
+        }
     }
 
     const name = TextManager.getItemName(info.item);
@@ -41,7 +39,7 @@ const ContextTooltip = (props: Props) => {
         <Tooltip referenceRect={selectedContext.referenceRect}>
             <div className = "context-tooltip">
                 <div>{name}</div>
-                {content}
+                {renderContent()}
             </div>
         </Tooltip>
     )

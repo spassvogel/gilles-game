@@ -125,7 +125,6 @@ export enum Item {
 export interface ItemDefinition {
     item: Item;
     itemType: ItemType;
-    subText?: string;           // todo: deprecate, store subtext in language file. use name to retrieve
     iconImg: string;
 //    articleUndefined?: string;  // Key to text
     unique?: boolean;           // Indicate that this item is unique.

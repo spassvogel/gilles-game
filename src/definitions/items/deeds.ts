@@ -13,7 +13,6 @@ export const deedForLumbermill: DeedDefinition = {
     item: Item.deedForLumbermill,
     structure: Structure.lumberMill,
     itemType,
-    subText: "It allows for the construction of a lumber mill",
     iconImg: "/img/items/deeds/deed.png",
 };
 
@@ -21,7 +20,6 @@ export const deedForWeaponsmith: DeedDefinition = {
     item: Item.deedForWeaponsmith,
     structure: Structure.weaponsmith,
     itemType,
-    subText: "It allows for the construction of a weaponsmith",
     iconImg: "/img/items/deeds/deed.png",
 };
 
