@@ -69,9 +69,10 @@ export class BaseSceneController {
     createScene() {
         const tileObjects = this.createTileObjects();
         const actors = this.createActors();
+        // todo: temp, refactor
         const caches = {
             "chest": {
-                title: "test-title",
+                title: "encounter-dungeon-caches-chest",
                 gold: 3,
                 items: [
                     Item.savageStaff,

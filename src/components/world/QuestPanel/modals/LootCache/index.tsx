@@ -79,7 +79,7 @@ const LootCache = (props: Props) => {
         <div className={`loot-cache`} ref={ref}>
             <div className="header">
                 <div className="title">
-                    {cache.title}
+                    {TextManager.get(cache.title)}
                 </div>
                 <div className="close" onClick={props.onClose} />
             </div>

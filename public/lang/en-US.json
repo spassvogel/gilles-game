@@ -21,6 +21,7 @@
     "encounter-goblinHouseHallway-description": "The party stands inside the hallway",
     "encounter-goblinHouseOutside-description": "As the party makes their way along the forest they notice a small house just of the road, smoke rises from the chimney",
     "encounter-thebigtree-description": "A huge tree blocks the way",
+    "encounter-dungeon-caches-chest": "An old chest",
 
     "item-deed-deedForLumbermill-name": "deed for a lumber mill",
     "item-deed-deedForLumbermill-subtext": "It allows for the construction of a lumber mill",

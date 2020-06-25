@@ -17,11 +17,11 @@ export interface Props {
  * The ItemsList displays a list of items vertically. Shows icon and description
  */
 const DraggableItemsList = (props: Props) => {
-    const className = (props.className || "") + " itemslist";
+    const className = (props.className || "")+ " itemslist";
 
     return (
         <ul className={className} >
-            {props.items.map((item, index) => (
+            {props.items.map((item, index)=> (
                 <li
                     key={`${item}${index}`}
                     className="item"
@@ -32,7 +32,10 @@ const DraggableItemsList = (props: Props) => {
                         sourceId={props.sourceId}
                         sourceType={props.sourceType}
                     />
-                    {TextManager.getItemName(item) }
+                    <div className="text">
+                        <p className="name">{TextManager.getItemName(item)}</p>
+                        <p className="subtext">{TextManager.getItemSubtext(item)}</p>
+                    </div>
                 </li>
             ))}
         </ul>

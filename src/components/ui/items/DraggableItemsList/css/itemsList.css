@@ -8,3 +8,9 @@
 .itemslist .item {
     display: flex;
 }
+.itemslist .item .text p {
+    margin: 4px;
+}
+.itemslist .item .text .subtext {
+    color: #83756a;
+}

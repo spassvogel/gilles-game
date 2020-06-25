@@ -1,13 +1,13 @@
 .loot-cache {
     color: white;
     width: 384px;
-    border: 1px solid gold;
+    border: 1px solid #83756a;
 }
 
 .loot-cache .header {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid gold;
+    border-bottom: 1px solid #83756a;
     padding: 8px;
 }
 
@@ -65,7 +65,7 @@
     padding-top: 8px;
 }
 
-.loot-cache .content .gold {
+.loot-cache .content .#83756a {
     margin: 8px;
     background: rgba(0, 0, 0, 0.8);
     flex: 1;
@@ -73,11 +73,11 @@
     display: flex;  
 }
 
-.loot-cache .content .gold .icon {
+.loot-cache .content .#83756a .icon {
     margin-right: 4px
 }
 
-.loot-cache .content  .take-gold {
+.loot-cache .content  .take-#83756a {
     width: 64px;
     padding-right: 8px;
     display: flex;
