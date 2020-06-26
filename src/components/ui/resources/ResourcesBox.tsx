@@ -1,15 +1,18 @@
-import "components/ui/css/common/icon.css";
-import "components/ui/resources/css/resourcesbox.css";
 import { Resource } from "definitions/resources";
 import resourceDescriptions from "definitions/resources";
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
 import { TextManager } from "global/TextManager";
 import { StructuresStoreState } from 'stores/structures';
-import { Structure } from 'definitions/structures';
+import { getStructureByResource } from 'definitions/structures';
 import { Link } from 'react-router-dom';
 import { getStructureLink } from 'utils/routing';
 import { withAppContext, AppContextProps } from 'hoc/withAppContext';
+import "components/ui/css/common/icon.css";
+import "components/ui/resources/css/resourcesbox.css";
+import { useSelector } from 'react-redux';
+import { StoreState } from 'stores';
+import { StructureState } from 'stores/structure';
 
 export interface Props {
     className?: string;
@@ -34,14 +37,15 @@ const ResourcesBox = (props: AllProps & AppContextProps) => {
         resources,
         deltaResources,
     } = props;
+    const structures = useSelector<StoreState, StructuresStoreState>(store => store.structures);
 
-    const className = (props.className || "") + " resourcesbox";
+    const className=(props.className || "") + " resourcesbox";
     const listItems = Object.keys(resources).map((resource: string) => {
         let listItemClass = "resource";
         if (sufficientResources && !sufficientResources[resource]) {
              listItemClass += " insufficient";
         }
-        const resourceDescription = resourceDescriptions[resource];
+        const resourceDescription=resourceDescriptions[resource];
         const amount = props.resources[resource]!;
         if (!resourceDescription) {
             throw new Error(`No resource description found for ${resource}`);
@@ -49,44 +53,50 @@ const ResourcesBox = (props: AllProps & AppContextProps) => {
 
         let delta;
         if (deltaResources[resource]) {
-            delta = <span className = "animate-up">
+            delta = <span className="animate-up">
                 { `+ ${deltaResources[resource]!.toFixed(2)}`  }
             </span>;
         }
 
-        const structure = getStructure(resource);
+        const structure = getStructureByResource(Resource[resource]);
 
-        const handleStructureClick = () => {
+        const handleStructureClick=() => {
             props.onCloseWindow();
         }
 
-        return <li className = { listItemClass } key = { resource }>
-            <div className = "icon common-icon-smallest" style = {{
-                backgroundImage:  `url(${process.env.PUBLIC_URL}${resourceDescription.iconImg})`,
-            }}></div>
-            <div className = "name">
-                { TextManager.getResourceName(resource as Resource) }
-            </div>
-            <div className = "amount" >
-                { amount.toFixed(1) }
-            </div>
-            <div className = "max" >
-                { ` / ${props.maxResources[resource]}` }
-            </div>
-            <div className = "delta">
-                { delta }
-            </div>
-            <div className = "structure"> 
-                source:
-                <Link to={getStructureLink(structure)} onClick={handleStructureClick}>
-                    { TextManager.getStructureName(structure) }
-                </Link>
-            </div>
-        </li>;
+        return (
+            <li className={listItemClass} key={resource}>
+                <div className="icon common-icon-smallest" style={{
+                    backgroundImage: `url(${process.env.PUBLIC_URL}${resourceDescription.iconImg})`,
+                }}/>
+                <div className="name">
+                    { TextManager.getResourceName(resource as Resource) }
+                </div>
+                <div className="amount" >
+                    { amount.toFixed(1) }
+                </div>
+                <div className="max" >
+                    { ` / ${props.maxResources[resource]}` }
+                </div>
+                <div className="delta">
+                    { delta }
+                </div>
+                <div className="structure">
+                    source:
+                    { structures[structure].state === StructureState.Built ? (
+                        <Link to={getStructureLink(structure)} onClick={handleStructureClick}>
+                            { TextManager.getStructureName(structure) }
+                        </Link>
+                    ) : (
+                        TextManager.getStructureName(structure)
+                    )}
+                </div>
+            </li>
+        );
     });
 
     return (
-        <ul className = { className } >
+        <ul className={ className } >
             { listItems }
         </ul>
     );
@@ -95,20 +105,3 @@ const ResourcesBox = (props: AllProps & AppContextProps) => {
 export default withAppContext(ResourcesBox);
 
 
-const getStructure = (resource: string) : Structure => {
-    switch (resource) {
-        case Resource.fabric:
-            return Structure.weaver;
-        case Resource.food:
-            return Structure.garden;
-        case Resource.iron:
-            return Structure.mine;
-        case Resource.leather:
-            return Structure.tannery;
-        case Resource.stone:
-            return Structure.quarry;
-        case Resource.wood:
-            return Structure.lumberMill;
-    }
-    throw new Error(`Unknown structure for resource ${resource}`);
-}

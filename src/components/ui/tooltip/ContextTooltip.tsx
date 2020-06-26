@@ -4,6 +4,9 @@ import { TooltipManager, Context } from 'global/TooltipManager';
 import { TextManager } from 'global/TextManager';
 import Tooltip from './Tooltip';
 import ItemContext from './context/ItemContext';
+import { ItemDefinition } from 'definitions/items/types';
+import { Resource } from 'definitions/resources';
+import ResourceContext from './context/ResourceContext';
 import './css/contextTooltip.css';
 
 
@@ -27,18 +30,31 @@ const ContextTooltip = () => {
     const { info, type } = selectedContext;
     const renderContent = () => {
         switch (type) {
+            case ContextType.resource: {
+                const name = TextManager.getResourceName(info as Resource);
+                return (
+                    <>
+                        <div className="name resource">{name}</div>
+                        <ResourceContext info={info as string} />
+                    </>
+                );
+            }
             case ContextType.item:
-            default:
-                return <ItemContext info={info} />;
+            default: {
+                const name = TextManager.getItemName((info as ItemDefinition).item);
+                return (
+                    <>
+                        <div className="name item">{name}</div>
+                        <ItemContext info={info as ItemDefinition} />
+                    </>
+                );
+            }
         }
     }
-
-    const name = TextManager.getItemName(info.item);
 
     return (
         <Tooltip referenceRect={selectedContext.referenceRect}>
             <div className = "context-tooltip">
-                <div>{name}</div>
                 {renderContent()}
             </div>
         </Tooltip>

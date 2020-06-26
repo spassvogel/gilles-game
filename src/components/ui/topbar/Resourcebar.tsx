@@ -3,12 +3,13 @@ import { resourceOrder } from "constants/resources";
 import resourceDescriptions from "definitions/resources";
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
-import { TextManager } from "global/TextManager";
 import { useSelector } from 'react-redux';
 import "./css/resourcebar.css";
 import { StoreState } from 'stores';
 import { selectFreeWorkers } from 'selectors/workers';
 import { formatNumber } from 'utils/number';
+import { TooltipManager } from 'global/TooltipManager';
+import { ContextType } from 'constants/context';
 
 export interface StateProps  {
     gold: number;
@@ -19,7 +20,6 @@ export interface StateProps  {
 
 /** Shown on top in the UI */
 const Resourcebar = () => {
-    // console.log('rendering resourcebar')
 
     // todo: seperate useSelectors for better performance
     const storeProps = useSelector<StoreState, StateProps>((store: StoreState) => {
@@ -31,12 +31,21 @@ const Resourcebar = () => {
         };
     });
 
-    const createItem = (icon: string, amount: number, title: string) => {
+    const createItem = (icon: string, amount: number, type: string) => {
+
+        const handleClick = (event: React.MouseEvent) => {
+
+            const origin = (event.currentTarget as HTMLElement);
+            const originRect = origin.getBoundingClientRect();
+            TooltipManager.showContextTooltip(ContextType.resource, type, originRect);
+            event.stopPropagation();
+        };
+
         return (
-            <li title={title} key={title}>
+            <li key={type} onClick={handleClick}>
                 <div
                     className="icon common-icon-smallest"
-                    style = {{ backgroundImage: `url(${process.env.PUBLIC_URL}${icon})`}}
+                    style={{ backgroundImage: `url(${process.env.PUBLIC_URL}${icon})` }}
                 />
                 <div className="amount">
                     { formatNumber(amount, 0) }
@@ -47,7 +56,7 @@ const Resourcebar = () => {
 
     const resources = resourceOrder.map((resource) => {
         const resourceDescription = resourceDescriptions[resource];
-        return createItem(resourceDescription.iconImg, storeProps.resources[resource as string], TextManager.getResourceName(resource));
+        return createItem(resourceDescription.iconImg, storeProps.resources[resource as string], resource);
     });
 
     resources.push(

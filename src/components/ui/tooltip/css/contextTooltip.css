@@ -3,3 +3,6 @@
     font-size: smaller;
     width: 200px;
 }
+.context-tooltip .name {
+    text-transform: capitalize;
+}
