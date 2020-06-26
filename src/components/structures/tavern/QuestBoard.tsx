@@ -9,13 +9,12 @@ import { TextManager } from "global/TextManager";
 import AssignAdventurers from "./AssignAdventurers";
 import "./css/questboard.css";
 import { QuestDefinition } from 'definitions/quests/types';
+import { useSelector } from 'react-redux';
+import { StoreState } from 'stores';
 
 export const AVAILABLE_SLOTS = 5;
 const minimumCountAdventurers = 3;  // we need this many adventurers to start the quest
 
-export interface StateProps {
-    items: (Item | null)[];  // items in inventory
-}
 
 // tslint:disable-next-line: no-empty-interface
 
@@ -30,9 +29,9 @@ export interface Props {
     onLaunchQuest: () => void;
 }
 
-type AllProps = Props  & StateProps;
+const QuestBoard = (props: Props) => {
 
-const QuestBoard = (props: AllProps) => {
+    const items = useSelector<StoreState, (null|Item)[]>(state => state.stockpile);
 
     const getQuestDetails = () => {
         if (!props.selectedQuestName) {
@@ -51,19 +50,21 @@ const QuestBoard = (props: AllProps) => {
 
         const canLaunch = fullParty && enoughItems;
 
-        return <div className="quest-details">
-            {TextManager.getQuestDescription(props.selectedQuestName)}
-            <AssignAdventurers
-                availableSlots={AVAILABLE_SLOTS}
-                assignedAventurers={props.assignedAventurers}
-                onAdventurerClicked={props.onRemoveAdventurer}
-                onAdventurerDropped={props.onAdventurerDropped}
-            />
-            <ItemsCostBox items={ questDefinition.requiredItems || [] }/>
-            <button disabled={!canLaunch} onClick = { () => props.onLaunchQuest() }>
-                {TextManager.get("structure-tavern-button-launch-quest")}
-            </button>
-        </div>;
+        return (
+            <div className="quest-details">
+                {TextManager.getQuestDescription(props.selectedQuestName)}
+                <AssignAdventurers
+                    availableSlots={AVAILABLE_SLOTS}
+                    assignedAventurers={props.assignedAventurers}
+                    onAdventurerClicked={props.onRemoveAdventurer}
+                    onAdventurerDropped={props.onAdventurerDropped}
+                />
+                <ItemsCostBox items={ questDefinition.requiredItems || [] }/>
+                <button disabled={!canLaunch} onClick = { () => props.onLaunchQuest() }>
+                    {TextManager.get("structure-tavern-button-launch-quest")}
+                </button>
+            </div>
+        );
     };
 
     /**
@@ -75,7 +76,7 @@ const QuestBoard = (props: AllProps) => {
         }
         return questDefinition.requiredItems.every((item: Item) => {
             const amountRequired = (questDefinition.requiredItems)!.filter((i) => i === item).length;
-            return props.items.filter((i) => i === item).length >= amountRequired;
+            return items.filter((i) => i === item).length >= amountRequired;
         });
     }
 

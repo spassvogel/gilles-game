@@ -1,6 +1,5 @@
 import * as React from "react";
 import { AdventurerAvatarDragInfo} from "components/ui/DraggableAdventurerAvatar";
-import QuestBoard from "containers/structures/tavern/QuestBoard";
 import { getDefinition, Structure} from "definitions/structures";
 import { TavernStructureDefinition, TavernStructureLevelDefinition} from "definitions/structures/types";
 import { AdventurerStoreState} from "stores/adventurer";
@@ -12,6 +11,7 @@ import { Type} from 'components/ui/toasts/Toast';
 import { getQuestLink} from 'utils/routing';
 import RoomList from './RoomList';
 import { useState} from 'react';
+import QuestBoard from './QuestBoard';
 
 // The UI for the tavern
 export interface DispatchProps {
@@ -56,7 +56,7 @@ const TavernStructureView = (props: AllProps) => {
         const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
             if (props.onUpgrade) { props.onUpgrade(nextLevelCost, level + 1);}
         };
-        
+
         return (
             <div>
                 <label>level:</label>{ `${(level + 1)} / ${structureDefinition.levels.length}` }
@@ -70,7 +70,6 @@ const TavernStructureView = (props: AllProps) => {
             </div>
         );
     };
-    
 
     const getAvailableQuests = props.quests.filter((q) => q.status === QuestStatus.available );
 
@@ -112,11 +111,11 @@ const TavernStructureView = (props: AllProps) => {
     };
 
     return (
-        <details open className="tavernstructureview">
+        <details open={true} className="tavernstructureview">
             <summary>{displayName}</summary>
             {createUpgradeRow()}
             <section>
-                <RoomList 
+                <RoomList
                     roomCount={levelDefinition.rooms}
                     adventurers={adventurers}
                     assignedAventurers={assignedAventurers}

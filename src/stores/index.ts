@@ -14,7 +14,7 @@ export interface StoreState {
     combat: CombatStoreState;   // todo: deprecate?
     engine: EngineStoreState;
     gold: number;
-    stockpile: Array<null|Item>;    // items in warehouse
+    stockpile: (null|Item)[];    // items in warehouse
     log: LogEntry[];
     quests: QuestStoreState[];
     workers: number;
