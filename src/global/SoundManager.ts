@@ -54,8 +54,12 @@ export class SoundManager {
         howl.play();
     }
 
-    public static addMusicTrack(track: MusicTrack, url: string) {
+    public static async addMusicTrack(track: MusicTrack, url: string) {
         if (!media) { return; }
+        if (!this._initialized) {
+            await this.init();
+        }
+
         const sound = media.find((m) => m.url === url);
         if (!sound) {
             throw new Error(`No sound found at ${url}`);
