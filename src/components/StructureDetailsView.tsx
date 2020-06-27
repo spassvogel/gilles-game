@@ -4,34 +4,31 @@ import WarehouseStructureView from "containers/structures/warehouse/WarehouseStr
 import { getDefinition, Structure } from "definitions/structures";
 import { StructureDefinition, StructureType } from "definitions/structures/types";
 import * as React from "react";
-import { StructureState, StructureStoreState } from "stores/structure";
-import { StructuresStoreState } from "stores/structures";
-import { TaskStoreState } from "stores/task";
+import { StructureState } from "stores/structure";
 import Progressbar from "./ui/Progressbar";
 import ResourceStructureView from './structures/ResourceStructureView';
 import TavernStructureView from './structures/tavern/TavernStructureView';
-import "./css/structuredetails.css";
+import "./css/structuredetailsview.css";
+import { useSelector } from 'react-redux';
+import { StoreState } from 'stores';
+import { TasksStoreState } from 'stores/tasks';
+import useStructure from 'hooks/store/useStructure';
+import { withWindow } from 'hoc/withWindow';
+import { Props as WindowProps } from "components/ui/window/Window";
 
 export interface Props {
     structure: Structure;
 }
 
-export interface StateProps  {
-    structures: StructuresStoreState;
-    buildTask: TaskStoreState;
-}
-
-// tslint:disable-next-line:no-empty-interface
-
-type AllProps = Props & StateProps;
-
-
-const StructureDetails = (props: AllProps) => {
+const StructureDetailsView = (props: Props & WindowProps) => {
+    const tasks = useSelector<StoreState, TasksStoreState>(store => store.tasks);
+    const buildTask = tasks.running.filter((val) =>
+        val.origin === `town` && val.name === `${props.structure}.build`)[0];
+    const structureState = useStructure(props.structure);
 
     const renderContent = () => {
-        const structureState: StructureStoreState = props.structures[props.structure];
         if (structureState.state === StructureState.Building) {
-            const progress = props.buildTask ? props.buildTask.progress : 1;
+            const progress = buildTask ? buildTask.progress : 1;
             return (
                 <div>
                     <Progressbar label="Building..." progress={progress} />
@@ -67,4 +64,4 @@ const StructureDetails = (props: AllProps) => {
     );
 };
 
-export default StructureDetails;
+export default withWindow(StructureDetailsView);

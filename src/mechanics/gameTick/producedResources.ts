@@ -4,7 +4,7 @@ import { StoreState } from "stores";
 import { ResourceStoreState } from "stores/resources";
 import { StructuresStoreState } from "stores/structures";
 
-//const RESOURCE_INTERVAL = 60000; // every minute constitutes a resource tick. todo: move to some other shared place
+// const RESOURCE_INTERVAL = 60000; // every minute constitutes a resource tick. todo: move to some other shared place
 const RESOURCE_INTERVAL = 20000; // every thirty seconds constitutes a resource tick. todo: move to some other shared place
 
  /*
@@ -50,7 +50,7 @@ const getProducedResources = (lastProducedUpdate: number, store: StoreState): Re
                 result[resource] = maxResources[resource]! - (store.resources[resource]!);
             }
         }
-        //console.log(`Adding: ${resource} ${result[resource]} factor ${factor}`);
+        // console.log(`Adding: ${resource} ${result[resource]} factor ${factor}`);
     });
 
     return result;

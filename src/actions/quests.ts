@@ -12,7 +12,7 @@ export enum ActionType {
     startEncounter = "startEncounter",                      // unused! remove
     setSceneName = "setSceneName",                          // Sets name of the current scene of a quest
     setScene = "setScene",                                  // Fills in the scene of a quest
-    exitEncounter = "exitEncounter",                        // Encounter is complete, leave scene and continue on quest 
+    exitEncounter = "exitEncounter",                        // Encounter is complete, leave scene and continue on quest
     updateQuests = "updateQuests",                          // unused! remove
     enqueueSceneAction = "enqueueSceneAction",
     completeSceneAction = "completeSceneAction",

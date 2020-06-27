@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Actor, CombatActionType } from "stores/combat";
-//import "./css/structuredetails.css";
 
 export interface Props {
     actor: Actor;

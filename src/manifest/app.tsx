@@ -4,5 +4,4 @@ export const manifest = [
     "sound/fx/toast.ogg",
     "sound/music/Soliloquy.mp3",
     "sound/music/TheLoomingBattle.ogg",
-
 ];

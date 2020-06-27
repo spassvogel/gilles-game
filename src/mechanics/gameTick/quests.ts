@@ -52,7 +52,7 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
             // Currently at a 'nothing' node
             const progressIncrease = (delta / MS_PER_MINUTE) * speed;
             // todo: [15/07/2019] speed could be different for each party
-            let nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
+            const nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
             const nodesPassed = Math.floor(nextProgress) - currentNodeIndex;
 
             // console.log(nextProgress, nodesPassed)
@@ -95,7 +95,6 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
             });
         }
     });
-//console.log(log)
     return {
         logUpdates: log,
         questUpdates: quests,

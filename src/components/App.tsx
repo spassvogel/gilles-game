@@ -1,7 +1,6 @@
 // tslint:disable: object-literal-sort-keys
 import {ContextInfo, ContextType} from "constants/context";
 import CombatView from "containers/combat/CombatView";
-import StructureDetailsView from "containers/structures/StructureDetailsView";
 import {AppContextProps} from "hoc/withAppContext";
 import {manifest} from "manifest/app";
 import * as React from "react";
@@ -27,6 +26,7 @@ import ContextTooltip from './ui/tooltip/ContextTooltip';
 import {TooltipManager } from 'global/TooltipManager';
 import {getWorldLink, getTownLink } from 'utils/routing';
 import localforage from 'localforage';
+import StructureDetailsView from './StructureDetailsView';
 
 PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);
