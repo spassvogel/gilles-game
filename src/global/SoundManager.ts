@@ -9,6 +9,7 @@ export enum MusicTrack {
 export enum Sound {
     buttonClick,
     error,
+    toast
 }
 
 let media: MediaItem[];

@@ -277,7 +277,7 @@ eg: "+20 fire dmg to undead" {
   value: 20
 }
 
-We can render game as ascii art for now using a PRE tag
+We can render game as ascii art for now using a PRE tag 
 
 [ ] Some tiles on the combat map offer cover. Cover works in all directions.
 
@@ -387,7 +387,7 @@ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy
 [x] Implement in different scenarios (quest complete, quest failed, achievement unlocked)
 [x] Implement for item craft complete
 [x] Can click quest toasts to open quest. See (29/04/2020)
-[ ] Add sound
+[x] Add sound
 
 
 #### 02/04/2020 Make town come alive [+art]
@@ -437,7 +437,7 @@ Map marker needs to show there is an encounter going on.
 
 #### 10/10/2020 Make legenda for town 
 [x] Clicking on it will scroll the structure into view and after brief delay, open window
-
+[ ] Make outline pulse for better UX
 
 #### 10/04/2020 Oracle, Encounters? [+tech]
 Should think about what to do with the oracle. Maybe refactor the whole thing

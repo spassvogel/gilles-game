@@ -134,9 +134,11 @@ const App = (props: AllProps) => {
         const sounds = mediaItems.filter((m) => m.mediaType === MediaType.sound);
         SoundManager.loadMedia(sounds);
 
+        // todo: refactor manifest stuff
         SoundManager.addSounds({
             [Sound.buttonClick]: "sound/fx/button-click.ogg",
             [Sound.error]: "sound/fx/error.ogg",
+            [Sound.toast]: "sound/fx/toast.ogg"
             // add more sounds here
         });
 
