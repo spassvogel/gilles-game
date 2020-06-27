@@ -21,12 +21,12 @@ const ResourceStructureView = (props: Props) => {
 
     // Fetch needed values from store
     const gold = useSelector<StoreState, number>((store) => store.gold);
-    const level = useSelector<StoreState, number>((store) => { 
+    const level = useSelector<StoreState, number>((store) => {
         const structureStore: StructureStoreState = store.structures[props.type];
         if (!structureStore) { throw new Error(`No structure '${props.type}' found in the store!`); }
         return structureStore.level;
     });
-    const workers = useSelector<StoreState, number>((store) => { 
+    const workers = useSelector<StoreState, number>((store) => {
         const structureStore: StructureStoreState = store.structures[props.type];
         if (!structureStore) { throw new Error(`No structure '${props.type}' found in the store!`); }
         return structureStore.workers;
@@ -81,7 +81,7 @@ const ResourceStructureView = (props: Props) => {
         const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 
         const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-            handleUpgrade(nextLevelCost, level + 1);
+            handleUpgrade(nextLevelCost);
         };
 
         return <div>

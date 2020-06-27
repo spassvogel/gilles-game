@@ -38,7 +38,7 @@ const Window: React.FunctionComponent<AllProps> = (props) => {
 
     return <div className = "window">
         <div className = "header">
-            { props.backEnabled !== false && <SquareIconButton className = "back-button" onClick = { handleBack } text = "<"/>; }
+            { props.backEnabled !== false && <SquareIconButton className = "back-button" onClick = { handleBack } text = "<"/> }
             <h3>{ props.title }</h3>
             { props.closeEnabled !== false && <SquareIconButton className = "close-button" onClick = { handleClose } text = "x"/> }
         </div>
