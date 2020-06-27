@@ -1,6 +1,6 @@
 import React, { useRef, useMemo } from "react";
 import { Container } from '@inlet/react-pixi';
-import useQuest from 'hooks/useQuest';
+import useQuest from 'hooks/store/useQuest';
 import Tilemap from './Tilemap';
 import { ActorObject } from 'stores/scene';
 import BridgedStage from 'components/pixi/util/BridgedStage';

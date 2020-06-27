@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useState } from 'react';
 import MaterialsCostBox from "containers/ui/context/items/ItemsCostBox";
-import ResourcesCostBox from "containers/ui/resources/ResourcesCostBox";
 import itemDefinitions from "definitions/items";
 import { Item, ItemDefinition } from "definitions/items/types";
 import { ProductionDefinition } from "definitions/production/types";
@@ -17,6 +16,7 @@ import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
 import StructureViewHeader from './StructureViewHeader';
 import "./css/productionstructureview.css";
+import ResourcesCostBox from 'components/ui/resources/ResourcesCostBox';
 
 export interface DispatchProps {
     onUpgrade?: (cost: number, level: number) => void;
@@ -25,7 +25,7 @@ export interface DispatchProps {
 
 export interface StateProps {
     resources: ResourceStoreState;
-    items: Array<Item | null>;  // items in inventory
+    items: (Item | null)[];  // items in inventory
     level: number;
     workersFree: number;
     gold: number;

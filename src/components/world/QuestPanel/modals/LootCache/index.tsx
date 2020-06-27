@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./lootCache.css";
-import useQuest from 'hooks/useQuest';
+import useQuest from 'hooks/store/useQuest';
 import DraggableItemsList from 'components/ui/items/DraggableItemsList';
 import { TextManager } from 'global/TextManager';
 import AdventurerAvatar from 'components/ui/AdventurerAvatar';
-import useAdventurer from 'hooks/useAdventurer';
+import useAdventurer from 'hooks/store/useAdventurer';
 import { DragSourceType } from 'constants/dragging';
 import { useDispatch } from 'react-redux';
 import { addGold } from 'actions/gold';
 import { takeGoldFromCache, takeItemFromCache } from 'actions/quests';
 import { addItemToInventory } from 'actions/adventurers';
 import { adventurerFreeInventorySlots } from 'storeHelpers';
+import "./lootCache.css";
 
 interface Props {
     questName: string;

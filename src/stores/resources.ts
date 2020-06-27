@@ -13,10 +13,10 @@ export interface ResourceStoreState {
 export const initialState: ResourceStoreState = {
     fabric: 0,
     food: 0,
-    iron: 60,
+    iron: 10,
     leather: 0,
     stone: 0,
-    wood: 40,
+    wood: 10,
 };
 
 export const empty: ResourceStoreState = {

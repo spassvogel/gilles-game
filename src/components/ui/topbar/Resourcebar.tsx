@@ -3,13 +3,13 @@ import { resourceOrder } from "constants/resources";
 import resourceDescriptions from "definitions/resources";
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
-import { useSelector } from 'react-redux';
 import "./css/resourcebar.css";
-import { StoreState } from 'stores';
-import { selectFreeWorkers } from 'selectors/workers';
 import { formatNumber } from 'utils/number';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
+import useGold from 'hooks/store/useGold';
+import useResources from 'hooks/store/useResources';
+import { useWorkersFree } from 'hooks/store/useWorkers';
 
 export interface StateProps  {
     gold: number;
@@ -21,15 +21,9 @@ export interface StateProps  {
 /** Shown on top in the UI */
 const Resourcebar = () => {
 
-    // todo: seperate useSelectors for better performance
-    const storeProps = useSelector<StoreState, StateProps>((store: StoreState) => {
-        return {
-            gold: store.gold,
-            resources: store.resources,
-            workers: store.workers,
-            workersFree: selectFreeWorkers(store),
-        };
-    });
+    const gold = useGold();
+    const storeResources = useResources();
+    const workersFree = useWorkersFree();
 
     const createItem = (icon: string, amount: number, type: string) => {
 
@@ -56,20 +50,13 @@ const Resourcebar = () => {
 
     const resources = resourceOrder.map((resource) => {
         const resourceDescription = resourceDescriptions[resource];
-        return createItem(resourceDescription.iconImg, storeProps.resources[resource as string], resource);
+        return createItem(resourceDescription.iconImg, storeResources[resource as string], resource);
     });
 
     resources.push(
-        createItem("/img/resources/worker.png", storeProps.workersFree, "workers"),
-        createItem("/img/resources/gold.png", storeProps.gold, "gold"),
+        createItem("/img/resources/worker.png", workersFree, "workers"),
+        createItem("/img/resources/gold.png", gold, "gold"),
     );
-
-// <span>
-//     workers: <b>{ props.workersFree + " / " + props.workers }</b>
-// </span>
-// <span>
-//     gold: <b>{ props.gold }</b>
-// </span>
 
     return (
         <ul className="resourcebar">

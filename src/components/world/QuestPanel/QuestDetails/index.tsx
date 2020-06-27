@@ -2,7 +2,7 @@ import React from 'react';
 import Scene from 'components/world/QuestPanel/QuestDetails/Scene';
 import { useSceneController } from 'hooks/useSceneController';
 import { SceneStoreState } from 'stores/scene';
-import useQuest from 'hooks/useQuest';
+import useQuest from 'hooks/store/useQuest';
 
 export interface Props {
     questName: string;

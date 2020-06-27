@@ -2,11 +2,11 @@ import { Container, Graphics, Sprite } from '@inlet/react-pixi';
 import React, { useRef, useEffect, useState } from 'react';
 import SceneActor, { Props as SceneActorProps } from './SceneActor';
 import { useDispatch } from 'react-redux';
-import useQuest from 'hooks/useQuest';
+import useQuest from 'hooks/store/useQuest';
 import { enqueueSceneAction } from 'actions/quests';
 import { SceneAction, SceneActionType } from 'stores/scene';
 import ActionPath, { RefActions } from './ActionPath';
-import useAdventurer from 'hooks/useAdventurer';
+import useAdventurer from 'hooks/store/useAdventurer';
 
 interface Props  {
     questName: string;

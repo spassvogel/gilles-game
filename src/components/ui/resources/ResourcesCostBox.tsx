@@ -4,6 +4,8 @@ import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
 import { TextManager } from "global/TextManager";
 import "./css/resourcesbox.css";
+import { useMemo } from 'react';
+import useResources from 'hooks/store/useResources';
 
 export interface Props {
     className?: string;
@@ -19,10 +21,20 @@ type AllProps = Props & StateProps;
 /**
  * The ResourcesBox displays a list of resources
  */
-const ResourcesBox = (props: AllProps) => {
+const ResourcesCostBox = (props: AllProps) => {
     const {
-        sufficientResources,
+        resources,
     } = props;
+
+    const storeResources = useResources();
+    const sufficientResources = useMemo(() => {
+        return Object.keys(resources).reduce((acc, value) => {
+            acc[value] = storeResources[value] >= resources[value];
+            return acc;
+        }, {});
+    }, [resources, storeResources]);
+
+
     const className = (props.className || "") + " resourcesbox";
     const listItems = Object.keys(props.resources).map((resource: string) => {
         let listItemClass = "resource";
@@ -35,23 +47,24 @@ const ResourcesBox = (props: AllProps) => {
         }
 
         return <li className = { listItemClass } key = { resource }>
-            <div className = "icon" style = {{
-                backgroundImage: `url(${process.env.PUBLIC_URL}${resourceDescription.iconImg})`,
-            }}></div>
-            <div className = "name">
-                { TextManager.getResourceName(resource as Resource) }
+            <div
+                className="icon"
+                style={{backgroundImage: `url(${process.env.PUBLIC_URL}${resourceDescription.iconImg})`}}
+            />
+            <div className="name">
+                {TextManager.getResourceName(resource as Resource)}
             </div>
-            <div className = "amount" >
+            <div className="amount" >
                 { props.resources[resource] }
             </div>
         </li>;
     });
 
     return (
-        <ul className = { className } >
-            { listItems }
+        <ul className={className}>
+            {listItems}
         </ul>
     );
 };
 
-export default ResourcesBox;
+export default ResourcesCostBox;
