@@ -432,7 +432,7 @@ Map marker needs to show there is an encounter going on.
 
 
 #### 10/10/2020 Make structureviews responsive 
-[ ] Tavern
+[x] Tavern
 [ ] Warehouse
 
 

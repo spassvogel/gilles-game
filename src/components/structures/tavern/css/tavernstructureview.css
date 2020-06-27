@@ -1,5 +1,8 @@
-.tavernstructureview section {
-    display: flex;
+/** medium and large resolutions */
+@media only screen and (min-width: 576px) {
+    .tavernstructureview section {
+        display: flex;
+    }
 }
 
 .tavernstructureview .rooms {
