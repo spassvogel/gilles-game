@@ -40,17 +40,16 @@ const ResourceStructureView = (props: Props) => {
 
     // Reducer dispatch
     const dispatch = useDispatch();
-    const handleUpgrade = (cost: number, level: number) => {
+    const handleUpgrade = (cost: number) => {
         dispatch(subtractGold(cost));
         dispatch(upgradeStructure(props.type)); // Todo: [07/07/2019] time??
 
-        level++;
         dispatch(addLogText("log-town-upgrade-structure-complete", {
-            level,
+            level: level + 1,
             structure: props.type,
         }, LogChannel.town));
     }
-    
+
     const handleWorkersDown = () => {
         dispatch(decreaseWorkers(props.type));
     }
@@ -58,7 +57,6 @@ const ResourceStructureView = (props: Props) => {
     const handleWorkersUp = () => {
         dispatch(increaseWorkers(props.type));
     };
-    
 
     const levelDefinition: ResourceStructureLevelDefinition = structureDefinition.levels[level];
 

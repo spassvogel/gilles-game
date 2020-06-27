@@ -19,12 +19,12 @@ const QuestLine = (props: Props) => {
                 let i = 0;
                 for (i = 1; i < positions.length - 2; i ++)
                 {
-                    var xc = (positions[i].x + positions[i + 1].x) / 2;
-                    var yc = (positions[i].y + positions[i + 1].y) / 2;
+                    const xc = (positions[i].x + positions[i + 1].x) / 2;
+                    const yc = (positions[i].y + positions[i + 1].y) / 2;
                     graphics.quadraticCurveTo(positions[i].x, positions[i].y, xc, yc);
                 }
                 graphics.quadraticCurveTo(positions[i].x, positions[i].y, positions[i+1].x, positions[i+1].y);
-                graphics.endFill(); 
+                graphics.endFill();
             }}
         />;
     }

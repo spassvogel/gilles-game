@@ -24,31 +24,6 @@ export interface WorkerCountAction extends StructureAction {
     workers: number;
 }
 
-// export interface SetStructureAmount {
-//     type: constants.SET_STRUCTURE_AMOUNT;
-//     structure: string,
-//     amount: number
-// export interface SetStructureAmount {
-//     type: constants.SET_STRUCTURE_AMOUNT;
-//     structure: string,
-//     amount: number
-// }
-// export interface UpgradeStructure {
-//     type: constants.SET_STRUCTURE_AMOUNT;
-//     structure: StructureType
-// }
-
-// export type IncrementSomething = IncrementStructure | IncrementResource; // UNUSED?
-// export type StructureAction = SetStructureAmount | UpgradeStructure;
-
-// export function setStructureAmount(structure:string, amount:number): SetStructureAmount {
-//     return {
-//         type: constants.SET_STRUCTURE_AMOUNT,
-//         structure,
-//         amount
-//     }
-// }
-
 export function startBuildingStructure(structure: Structure): StructureAction {
     return {
         type: ActionType.startBuildingStructure,

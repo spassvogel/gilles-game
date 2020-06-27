@@ -7,7 +7,7 @@ interface Props {
 }
 
 const StructureViewHeader = (props: Props) => {
-    //const displayName = TextManager.getStructureName(props.structure);
+    // const displayName = TextManager.getStructureName(props.structure);
     return (
         <div className={`structureview-header structureview-header-${props.structure}`}>
             {/* <h1 className="app-h1-white">{displayName}</h1> */}

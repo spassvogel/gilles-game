@@ -39,7 +39,7 @@ const SceneActor = (props: Props) => {
     );
     const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
 
-    // Handle actions 
+    // Handle actions
     useEffect(() => {
         if (!actorRef) {
             return;

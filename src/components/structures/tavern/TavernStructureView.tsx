@@ -5,19 +5,24 @@ import { TavernStructureDefinition, TavernStructureLevelDefinition} from "defini
 import { AdventurerStoreState} from "stores/adventurer";
 import { QuestStatus, QuestStoreState} from "stores/quest";
 import { TextManager} from "global/TextManager";
-import "./css/tavernstructureview.css";
 import { ToastManager} from 'global/ToastManager';
 import { Type} from 'components/ui/toasts/Toast';
 import { getQuestLink} from 'utils/routing';
 import RoomList from './RoomList';
 import { useState} from 'react';
 import QuestBoard from './QuestBoard';
+import useGold from 'hooks/store/useGold';
+import useStructure from 'hooks/store/useStructure';
+import { useSelector, useDispatch } from 'react-redux';
+import { StoreState } from 'stores';
+import { launchQuest } from 'actions/quests';
+import { subtractGold } from 'actions/gold';
+import { upgradeStructure } from 'actions/structures';
+import { addLogText } from 'actions/log';
+import { LogChannel } from 'stores/logEntry';
+import "./css/tavernstructureview.css";
 
-// The UI for the tavern
-export interface DispatchProps {
-    onLaunchQuest: (questName: string, assignedAventurers: AdventurerStoreState[]) => void;
-    onUpgrade?: (cost: number, level: number) => void;
-}
+
 
 export interface StateProps {
     gold: number;
@@ -30,31 +35,48 @@ export interface StateProps {
 export interface Props {
 }
 
-type AllProps = Props & StateProps & DispatchProps;
-
-// tslint:disable-next-line:no-empty-interface
 
 export const SOURCE_ID = "tavern";
 
-const TavernStructureView = (props: AllProps) => {
-    const {adventurers, quests} = props;
+// The UI for the tavern
+const TavernStructureView = (props: Props) => {
+    const gold = useGold();
+    const level = useStructure(Structure.tavern).level;
+    const adventurers = useSelector<StoreState, AdventurerStoreState[]>(store => store.adventurers);
+    const quests = useSelector<StoreState, QuestStoreState[]>(store => store.quests);
+
     const [assignedAventurers, setAassignedAdventurers] = useState<AdventurerStoreState[]>([]);
     const [selectedQuest, setSelectedQuest] = useState<string>();
 
     const structureDefinition = getDefinition<TavernStructureDefinition>(Structure.tavern);
-    const level: number = props.level || 0;
     const levelDefinition: TavernStructureLevelDefinition = structureDefinition.levels[level];
     const displayName = TextManager.getStructureName(Structure.tavern);
 
+    const dispatch = useDispatch();
+
+    const onLaunchQuest = (questName: string) => {
+        dispatch(launchQuest(questName, assignedAventurers));
+    };
+
+    const onUpgrade = (cost: number) => {
+        dispatch(subtractGold(cost));
+        dispatch(upgradeStructure(Structure.tavern));  // Todo: [07/07/2019] time??
+
+        dispatch(addLogText("log-town-upgrade-structure-complete", {
+            level: level + 1,
+            structure: Structure.tavern,
+        }, LogChannel.town));
+    };
+
     const createUpgradeRow = () => {
-        const gold = props.gold;
+
         const nextLevel = structureDefinition.levels[level + 1];
         const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
         const canUpgrade = nextLevel != null && gold >= nextLevelCost;
         const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 
         const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-            if (props.onUpgrade) { props.onUpgrade(nextLevelCost, level + 1);}
+            onUpgrade(nextLevelCost);
         };
 
         return (
@@ -71,7 +93,7 @@ const TavernStructureView = (props: AllProps) => {
         );
     };
 
-    const getAvailableQuests = props.quests.filter((q) => q.status === QuestStatus.available );
+    const getAvailableQuests = quests.filter((q) => q.status === QuestStatus.available );
 
     const handleQuestClick = (name: string): void => {
         if (selectedQuest === name) {
@@ -107,7 +129,7 @@ const TavernStructureView = (props: AllProps) => {
         const questTitle = TextManager.getQuestTitle(selectedQuest!);
         const leader = assignedAventurers[0];
         ToastManager.addToast(questTitle, Type.questLaunched, leader?.avatarImg, getQuestLink(selectedQuest!));
-        props.onLaunchQuest(selectedQuest!, assignedAventurers);
+        onLaunchQuest(selectedQuest!);
     };
 
     return (

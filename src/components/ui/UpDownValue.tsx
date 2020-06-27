@@ -37,10 +37,10 @@ const UpDownValue = (props: Props) => {
             { displayValue }
             <i className= { "arrow up" + (props.upDisabled ? " disabled" : "" )}
                 onClick= { handleUp }
-            ></i>
+            />
             <i className={"arrow down" + (props.downDisabled ? " disabled" : "")}
                 onClick= { handleDown }
-            ></i>
+            />
         </div>
     );
 };

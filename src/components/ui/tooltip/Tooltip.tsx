@@ -23,7 +23,7 @@ export const Tooltip = (props: Props) => {
     const ref = useRef<HTMLDivElement>(null);
     const [placement, setPlacement] = useState<Placement>(props.placement || Placement.bottom);
  
-    const [containerRect, setContainerRect] = useState<ClientRect>(); // This is the 
+    const [containerRect, setContainerRect] = useState<ClientRect>(); // This is the
 
     useEffect(() => {
         // Reposition if needed
@@ -96,7 +96,7 @@ export const Tooltip = (props: Props) => {
                 y = referenceRect.top - containerRect!.top;
                 className = "tooltip-top";
                 break;
-        }    
+        }
     }
 
     return (
@@ -108,7 +108,7 @@ export const Tooltip = (props: Props) => {
             }}
             ref = { ref }
         >
-            <div className = "tooltip-arrow"></div>
+            <div className = "tooltip-arrow"/>
             <div className = "tooltip-content">
                 {children}
             </div>

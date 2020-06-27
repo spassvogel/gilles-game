@@ -29,7 +29,7 @@ const GRID_WIDTH = 10;      // width or height of each node location in pixels
 if (process.env.NODE_ENV === "development") {
     // @ts-ignore
     // tslint:disable-next-line: no-unused-expression
-    window.__PIXI_INSPECTOR_GLOBAL_HOOK__ && window.__PIXI_INSPECTOR_GLOBAL_HOOK__.register({ PIXI: PIXI });
+    window.__PIXI_INSPECTOR_GLOBAL_HOOK__ && window.__PIXI_INSPECTOR_GLOBAL_HOOK__.register({ PIXI });
 }
 
 export interface Props {

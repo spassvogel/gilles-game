@@ -27,7 +27,7 @@ const QuestMarker = (props: Props) => {
         const maskGraphics = new PIXI.Graphics();
         maskGraphics.beginFill(0xBADA55);
         maskGraphics.drawCircle(0, 0, CIRCLE_DIAMETER * 1);
-        maskGraphics.endFill(); 
+        maskGraphics.endFill();
 
         sprite.mask = maskGraphics;
         sprite.addChild(maskGraphics);

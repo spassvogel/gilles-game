@@ -25,7 +25,7 @@ const MapGrid = PixiComponent('Rectangle', {
 
         for(let x = 0; x < width; x++) {
             instance.moveTo(x * gridWidth, 0);
-            instance.lineTo(x * gridWidth, height);        
+            instance.lineTo(x * gridWidth, height);
         }
         instance.endFill();
 
@@ -40,9 +40,9 @@ const MapGrid = PixiComponent('Rectangle', {
 
     didMount: (instance: Graphics, parent) => {
 
-        var point = new Graphics();
-        point.beginFill(dotColor); 
-        point.drawCircle(0, 0, 3); 
+        const point = new Graphics();
+        point.beginFill(dotColor);
+        point.drawCircle(0, 0, 3);
         point.endFill();
         point.x = -999; // offscreen
         instance.addChild(point);
@@ -55,9 +55,6 @@ const MapGrid = PixiComponent('Rectangle', {
             // Move the purple dot
             point.x = nearestX;
             point.y = nearestY;
-
-            const nodeLocation = toNodeLocation(nearestX, nearestY);
-            console.log(`Node [${nodeLocation.x}, ${nodeLocation.y}]`);
         });
 
         // Node locations work on a centered coordinate system

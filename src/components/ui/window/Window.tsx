@@ -1,8 +1,8 @@
-import "components/ui/css/common/icon.css";
-import "components/ui/resources/css/resourcesbox.css";
 import SquareIconButton from "components/ui/buttons/SquareIconButton";
 import * as React from "react";
 import { SoundManager, Sound } from 'global/SoundManager';
+import "components/ui/css/common/icon.css";
+import "components/ui/resources/css/resourcesbox.css";
 
 // todo: refactor using WindowManager [30/03/2020]
 export interface Props {
@@ -22,36 +22,25 @@ const Window: React.FunctionComponent<AllProps> = (props) => {
 
     const handleClose = (e: React.MouseEvent) => {
         if (props.onClose) {
-            props.onClose();
+            props?.onClose();
 
             SoundManager.playSound(Sound.buttonClick);
         }
-        
     };
+
     const handleBack = (e: React.MouseEvent) => {
         if (props.onBack) {
-            props.onBack();
+            props?.onBack();
 
             SoundManager.playSound(Sound.buttonClick);
         }
     };
-
-    let BackButton = null;
-    if (props.backEnabled !== false) {
-         BackButton = <SquareIconButton className = "back-button" onClick = { handleBack } text = "<"/>;
-
-    }
-
-    let CloseButton = null;
-    if (props.closeEnabled !== false) {
-        CloseButton = <SquareIconButton className = "close-button" onClick = { handleClose } text = "x"/>;
-    }
 
     return <div className = "window">
         <div className = "header">
-            { BackButton }
+            { props.backEnabled !== false && <SquareIconButton className = "back-button" onClick = { handleBack } text = "<"/>; }
             <h3>{ props.title }</h3>
-            { CloseButton }
+            { props.closeEnabled !== false && <SquareIconButton className = "close-button" onClick = { handleClose } text = "x"/> }
         </div>
         { props.children }
     </div>;
