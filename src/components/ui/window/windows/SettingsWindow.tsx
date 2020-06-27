@@ -1,4 +1,3 @@
-import CheatWindow from "containers/windows/CheatWindow";
 import { withWindow } from "hoc/withWindow";
 import * as React from "react";
 import { compose } from "redux";

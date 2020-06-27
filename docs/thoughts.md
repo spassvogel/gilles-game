@@ -354,6 +354,7 @@ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy
 [x] Town should store location
 [-] Structures in town should display a short popup on click. The popup should have a button to expand the GUI and show all the details
 [x] Instead we have a legenda
+[ ] Make the outline of the structure pulse a bit 
 
 
 #### 30/03/2020 Mobile [+art], [+tech]

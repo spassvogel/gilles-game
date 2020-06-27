@@ -29,6 +29,7 @@ export interface Props {
     onStructureClick: (structure: Structure | null) => void;
 }
 
+// todo: animate this
 export const STRUCTURE_HIGHLIGHT_FILTER = new OutlineFilter(4, 0xffcc00);
 
 const TownView = (props: Props & AppContextProps) => {
