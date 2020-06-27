@@ -134,7 +134,6 @@ const App = (props: AllProps) => {
 
     const handleMediaLoadComplete = (mediaItems: MediaItem[]) => {
         const sounds = mediaItems.filter((m) => m.mediaType === MediaType.sound);
-        SoundManager.init();
         SoundManager.loadMedia(sounds);
 
         // todo: refactor manifest stuff

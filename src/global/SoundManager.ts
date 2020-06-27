@@ -27,11 +27,14 @@ const STORAGE_KEY_SOUND_VOLUME = "soundVolume";
 export class SoundManager {
     private static _musicVolume: number = DEFAULT_MUSIC_VOLUME;
     private static _soundVolume: number = DEFAULT_SOUND_VOLUME;
+    private static _initialized = false;
 
     public static async init() {
         // Attempt to fetch volumes from storage. If not set, revert to defaults
         this._musicVolume = await localforage.getItem(STORAGE_KEY_MUSIC_VOLUME) || this.musicVolume;
         this._soundVolume = await localforage.getItem(STORAGE_KEY_SOUND_VOLUME) || this.soundVolume;
+
+        this._initialized = true;
     }
 
     public static loadMedia(m: MediaItem[]) {
@@ -48,7 +51,6 @@ export class SoundManager {
     public static playSound(sound: Sound) {
         const howl = sounds[sound];
         howl.volume(this.soundVolume);
-        console.log(this.soundVolume)
         howl.play();
     }
 
@@ -67,8 +69,11 @@ export class SoundManager {
      * Fades out currently playing music and fades new music in
      * @param track
      */
-    public static playMusicTrack(track: MusicTrack) {
+    public static async playMusicTrack(track: MusicTrack) {
         if (!media) { return; }
+        if (!this._initialized) {
+            await this.init();
+        }
 
         if (currentMusicTrack !== null) {
             const currentMusic: Howl = musicTracks[currentMusicTrack];
@@ -79,7 +84,6 @@ export class SoundManager {
             nextMusic.loop(true);
             nextMusic.play();
         }
-
         nextMusic.fade(0, SoundManager.musicVolume, 500);
 
         currentMusicTrack = track;
