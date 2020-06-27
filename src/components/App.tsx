@@ -26,6 +26,7 @@ import SimpleLog from './log/SimpleLog';
 import ContextTooltip from './ui/tooltip/ContextTooltip';
 import {TooltipManager } from 'global/TooltipManager';
 import {getWorldLink, getTownLink } from 'utils/routing';
+import localforage from 'localforage';
 
 PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);
@@ -72,6 +73,7 @@ const App = (props: AllProps) => {
 
     const handleResetClick = () => {
         props.persistor.purge();
+        localforage.clear();
         // todo: go to root
         (window as any).location.reload();
     };
@@ -132,6 +134,7 @@ const App = (props: AllProps) => {
 
     const handleMediaLoadComplete = (mediaItems: MediaItem[]) => {
         const sounds = mediaItems.filter((m) => m.mediaType === MediaType.sound);
+        SoundManager.init();
         SoundManager.loadMedia(sounds);
 
         // todo: refactor manifest stuff

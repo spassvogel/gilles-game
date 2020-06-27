@@ -1,5 +1,6 @@
 import { MediaItem } from "components/preloading/Preloader";
 import { Howl } from "howler";
+import localforage from 'localforage';
 
 export enum MusicTrack {
     town,
@@ -20,10 +21,18 @@ let currentMusicTrack: MusicTrack|null = null;
 const sounds: { [key: number]: Howl; } = {};
 const DEFAULT_MUSIC_VOLUME = 0.8;
 const STORAGE_KEY_MUSIC_VOLUME = "musicVolume";
+const DEFAULT_SOUND_VOLUME = 1;
+const STORAGE_KEY_SOUND_VOLUME = "soundVolume";
 
 export class SoundManager {
-    private static _musicVolume: number;
-    private static _soundVolume: number;
+    private static _musicVolume: number = DEFAULT_MUSIC_VOLUME;
+    private static _soundVolume: number = DEFAULT_SOUND_VOLUME;
+
+    public static async init() {
+        // Attempt to fetch volumes from storage. If not set, revert to defaults
+        this._musicVolume = await localforage.getItem(STORAGE_KEY_MUSIC_VOLUME) || this.musicVolume;
+        this._soundVolume = await localforage.getItem(STORAGE_KEY_SOUND_VOLUME) || this.soundVolume;
+    }
 
     public static loadMedia(m: MediaItem[]) {
         media = m;
@@ -38,6 +47,8 @@ export class SoundManager {
 
     public static playSound(sound: Sound) {
         const howl = sounds[sound];
+        howl.volume(this.soundVolume);
+        console.log(this.soundVolume)
         howl.play();
     }
 
@@ -68,13 +79,19 @@ export class SoundManager {
             nextMusic.loop(true);
             nextMusic.play();
         }
+
         nextMusic.fade(0, SoundManager.musicVolume, 500);
 
         currentMusicTrack = track;
     }
 
-    // tslint:disable-next-line: no-empty
-    public static soundVolume(volume: number) {
+    static set soundVolume(volume: number) {
+        this._soundVolume = volume;
+        localforage.setItem(STORAGE_KEY_SOUND_VOLUME, volume);
+    }
+
+    static get soundVolume(): number {
+        return this._soundVolume;
     }
 
     static set musicVolume(volume: number) {
@@ -82,25 +99,10 @@ export class SoundManager {
             musicTracks[currentMusicTrack].volume(volume);
         }
         this._musicVolume = volume;
-        try {
-            localStorage.setItem(STORAGE_KEY_MUSIC_VOLUME, `${volume}`);
-        }
-        catch (e) {
-            // tslint:disable-next-line: no-console
-            console.warn(e);
-        }
+        localforage.setItem(STORAGE_KEY_MUSIC_VOLUME, `${volume}`);
     }
 
     static get musicVolume() : number {
-        if (this._musicVolume !== undefined) {
-            return this._musicVolume;
-        }
-        const fromStorage = localStorage.getItem(STORAGE_KEY_MUSIC_VOLUME);
-        if (fromStorage == null) {
-            this._musicVolume = DEFAULT_MUSIC_VOLUME;
-        } else {
-            this._musicVolume = parseFloat(fromStorage);
-        }
         return this._musicVolume;
     }
 }

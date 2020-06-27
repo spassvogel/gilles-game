@@ -5,7 +5,7 @@ import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 export abstract class SceneControllerManager {
     static store: { [key: string]: BaseSceneController } = {};
     static controllerTypes = {};
-    
+
     static registerSceneController(questName: string, sceneName: string, controllerType: typeof BaseSceneController) {
         this.controllerTypes[`${questName}.${sceneName}`] = controllerType;
     }
@@ -13,7 +13,6 @@ export abstract class SceneControllerManager {
     static getSceneController(questName: string, sceneName: string, store: Store<StoreState, AnyAction>,): BaseSceneController {
         if (!this.store[`${questName}.${sceneName}`]) {
             if (!this.controllerTypes[`${questName}.${sceneName}`]) {
-                console.log(this.controllerTypes)
                 throw new Error(`No controller registered for ${questName}.${sceneName}`);
             }
             this.store[`${questName}.${sceneName}`] = new this.controllerTypes[`${questName}.${sceneName}`](store, questName);
@@ -26,4 +25,5 @@ export abstract class SceneControllerManager {
     }
 }
 
+// tslint:disable-next-line: no-var-requires
 require('definitions/quests/kill10Boars/encounters/dungeon');

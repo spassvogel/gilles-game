@@ -1,7 +1,7 @@
-function EventEmitter<TEventType>() {
+function eventEmitter<TEventType>() {
     abstract class EventEmitter {
         static events = {};
-        
+
         static addEventListener (eventName: string, listener: (event: TEventType) => void) {
             this.events[eventName] = this.events[eventName] || [];
             this.events[eventName].push(listener);
@@ -9,7 +9,7 @@ function EventEmitter<TEventType>() {
 
         static removeEventListener (eventName: string, listener: (event: TEventType) => void) {
             if (this.events[eventName]) {
-                for (var i = 0; i < this.events[eventName].length; i++) {
+                for (let i = 0; i < this.events[eventName].length; i++) {
                     if (this.events[eventName][i] === listener) {
                         this.events[eventName].splice(i, 1);
                         break;
@@ -27,4 +27,4 @@ function EventEmitter<TEventType>() {
     return EventEmitter;
 }
 
-export default EventEmitter;
+export default eventEmitter;
