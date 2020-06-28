@@ -22,7 +22,7 @@ export const Tooltip = (props: Props) => {
     const {children, referenceRect} = props;
     const ref = useRef<HTMLDivElement>(null);
     const [placement, setPlacement] = useState<Placement>(props.placement || Placement.bottom);
- 
+
     const [containerRect, setContainerRect] = useState<ClientRect>(); // This is the
 
     useEffect(() => {

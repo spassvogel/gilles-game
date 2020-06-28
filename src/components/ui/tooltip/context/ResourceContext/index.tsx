@@ -4,10 +4,11 @@ import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import { StructuresStoreState } from 'stores/structures';
 import { Resource } from 'definitions/resources';
-import { getStructureByResource } from 'definitions/structures';
+import { getStructureByResource, getDefinition } from 'definitions/structures';
 import { StructureState } from 'stores/structure';
 import { getStructureLink } from 'utils/routing';
 import { Link } from 'react-router-dom';
+import { ResourceStructureLevelDefinition, ResourceStructureDefinition } from 'definitions/structures/types';
 import './resourceContext.css';
 
 export interface Props {
@@ -17,7 +18,37 @@ export interface Props {
 const ResourceContext = (props: Props) => {
 
     const resource = props.info;
-    const structures = useSelector<StoreState, StructuresStoreState>(store => store.structures);
+    const structureStates = useSelector<StoreState, StructuresStoreState>(store => store.structures);
+
+    const renderProducedBy = () => {
+        const structure = getStructureByResource(Resource[resource]);
+        const structureState = structureStates[structure];
+        if (structureState.state !== StructureState.Built) {
+            return (
+                <span>
+                    {TextManager.get("ui-tooltip-resource-produce-row-notbuilt", {
+                        structure: TextManager.getStructureName(structure)
+                    })}
+                </span>
+            )
+        }
+        const structureDefinition = getDefinition<ResourceStructureDefinition>(structure);
+        const levelDefinition: ResourceStructureLevelDefinition = structureDefinition.levels[structureState.level];
+        const amount = levelDefinition.generates[resource];
+        const split = TextManager.get("ui-tooltip-resource-produce-row", {
+            structure: "%SPLIT%",
+            amount
+        }).split("%SPLIT%");
+        return (
+            <span className="produced">
+                {split[0]}
+                <Link to={getStructureLink(structure)} >
+                    { TextManager.getStructureName(structure) }
+                </Link>
+                {split[1]}
+            </span>
+        )
+    }
 
     switch (resource) {
         case Resource.fabric:
@@ -26,21 +57,13 @@ const ResourceContext = (props: Props) => {
         case Resource.leather:
         case Resource.stone:
         case Resource.wood: {
-            const structure = getStructureByResource(Resource[resource]);
             return (
                 <>
                     <div className="resource-context">
                         {TextManager.get(`resource-${resource}-info`)}
                     </div>
                     <div>
-                        Produced by:
-                        { structures[structure].state === StructureState.Built ? (
-                            <Link to={getStructureLink(structure)} >
-                                { ` ${TextManager.getStructureName(structure)}` }
-                            </Link>
-                        ) : (
-                            TextManager.getStructureName(structure)
-                        )}
+                        {renderProducedBy()}
                     </div>
                 </>
             )

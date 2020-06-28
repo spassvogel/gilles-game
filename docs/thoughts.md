@@ -518,3 +518,15 @@ https://github.com/DragonBones/DragonBonesJS
 
 ### Item descriptions [+ref]
 [ ] Refactor to use translations file
+
+### 28/06/2020 various 
+[x] show amount of RSS generation in tooltip
+- abstract itemInteraction into hook
+- toast on scene enter, check scene vars
+- frozen door
+- place item interaction
+- fire pit with particles
+- mobile: height of small world map + close button
+- mobile: width of town
+- mobile: dragdrop
+- bug: tooltip 

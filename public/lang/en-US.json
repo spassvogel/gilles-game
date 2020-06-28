@@ -216,6 +216,9 @@
     "ui-toast-type-questLaunched": "Quest started!",
     "ui-toast-type-questUpdate": "Quest update!",
 
+    "ui-tooltip-resource-produce-row": "At {{structure}} ({{amount}}/minute)",
+    "ui-tooltip-resource-produce-row-notbuilt": "At {{structure}} (not constructed)",
+
     "ui-view-button-town": "Town",
     "ui-view-button-world": "World",
 
