@@ -11,6 +11,7 @@ import DraggableItemIcon, { InventoryItemDragInfo } from "./DraggableItemIcon";
 import EquipmentSlot, { EquipmentSlotType } from "./EquipmentSlot";
 import Inventory from "./inventory/Inventory";
 import { TooltipManager } from 'global/TooltipManager';
+import useItemDropActions from 'hooks/actions/useItemActions';
 
 export interface Props {
     adventurerId: string;
@@ -34,6 +35,7 @@ export interface StateProps {
 
 type AllProps = Props & DispatchProps & StateProps;
 
+// Used in warehouse
 const AdventurerInfo = (props: AllProps) => {
 
     const adventurer = props.adventurer;
@@ -41,51 +43,18 @@ const AdventurerInfo = (props: AllProps) => {
         const value: number = adventurer.stats[stat];
         return <div key={`${adventurer.id}-${stat}`} > <b>{stat}</b>: {value.toFixed(1)} </div>;
     });
-    // const equipmentList = Object.keys(getEquipment(.map((equipment) =) {
-    //     return <div key = { `${adventurer.id}-${equipment}` } ><b>{ equipment }</b>: { getEquipment(equipment] }  </di)>;
-    // });
+
+    const {
+        dropItemEquipment,
+        dropItemInventory
+    } = useItemDropActions()
 
     const handleDropItemEquipment = (dragInfo: InventoryItemDragInfo, slotType: EquipmentSlotType) => {
-        // When an item gets dropped on equipment slot
-        const item = dragInfo.item;
-        switch (dragInfo.sourceType) {
-            case DragSourceType.adventurerInventory: {
-                // Dragged from inventory
-                props.onRemoveItemFromInventory(adventurer.id, dragInfo.inventorySlot!);
-                props.onAssignEquipment(adventurer.id, slotType, item);
+        dropItemEquipment(dragInfo, slotType, adventurer);
+    };
 
-                const existingEquipment = adventurer.equipment[EquipmentSlotType[slotType]];
-                if (existingEquipment) {
-                    props.onAddItemToInventory(adventurer.id, existingEquipment, dragInfo.inventorySlot!);
-                }
-                break;
-            }
-            case DragSourceType.warehouse: {
-                // Dragged from warehouse
-                props.onAssignEquipmentFromWarehouse(adventurer.id, dragInfo.inventorySlot!, item, slotType);
-
-                const existingEquipment = adventurer.equipment[EquipmentSlotType[slotType]];
-                if (existingEquipment) {
-                    props.onAddItemToWarehouse(existingEquipment, dragInfo.inventorySlot!);
-                }
-                break;
-            }
-            case DragSourceType.adventurerEquipment: {
-                // Dragged from equipment slot (only applicable to weapons)
-                props.onAssignEquipment(adventurer.id, slotType, item);
-
-                const existingEquipment = adventurer.equipment[EquipmentSlotType[slotType]];
-                const fromSlot = dragInfo.inventorySlot!;
-                if (existingEquipment) {
-                    // Another weapon was there, switch them
-                    props.onAssignEquipment(adventurer.id, fromSlot, existingEquipment);
-                } else {
-                    // Clear the slot where it came from
-                    props.onRemoveEquipment(adventurer.id, fromSlot);
-                }
-                break;
-            }
-        }
+    const handleDropItemInventory = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
+        dropItemInventory(item, fromSlot, toSlot, sourceType, adventurer, sourceId);
     };
 
     const getEquipmentSlot = (slotType: EquipmentSlotType) => {
@@ -140,39 +109,6 @@ const AdventurerInfo = (props: AllProps) => {
         </ul>
     );
 
-    const handleDropItemInventory = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
-        switch (sourceType) {
-            case DragSourceType.adventurerInventory:
-                // Drag from one inventory slot to another
-                if (props.onMoveItemInInventory) {
-                    props.onMoveItemInInventory(adventurer.id, fromSlot, toSlot);
-                }
-                break;
-
-            case DragSourceType.warehouse: {
-                // Dragged from warehouse
-                const otherItem = adventurer.inventory[toSlot];
-                props.onMoveItemFromWarehouseToInventory(adventurer.id, fromSlot, toSlot, item, otherItem);
-                break;
-            }
-
-            case DragSourceType.adventurerEquipment:
-                // Drag from equipment slot
-                if (props.onAddItemToInventory && props.onRemoveEquipment) {
-                    props.onAddItemToInventory(adventurer.id, item, toSlot);
-                }
-
-                const existingEquipment = adventurer.inventory[toSlot];
-                if (existingEquipment) {
-                    // Was dropped on another piece of equipment in inventory, switch them
-                    props.onAssignEquipment(adventurer.id, fromSlot, existingEquipment);
-                } else {
-                    // Clear the slot where it came from
-                    props.onRemoveEquipment(adventurer.id, fromSlot);
-                }
-                break;
-        }
-    };
     return (
         <div className="adventurer-info">
             <div className="left">
