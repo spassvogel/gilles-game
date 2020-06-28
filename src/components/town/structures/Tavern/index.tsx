@@ -20,7 +20,7 @@ const Tavern = (props: Props) => {
 
     return (
         <Container position={position}>
-            <Sprite 
+            <Sprite
                 name={structure}
                 interactive={true}
                 buttonMode={true}
@@ -30,14 +30,13 @@ const Tavern = (props: Props) => {
                 filters={filters}
                 hitArea={hitAreaShapes}
                 image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}
-            >
-            </Sprite>
+            />
             <ParticleEmitter
                 name="smoke"
                 x={107}
                 y={-2}
-                image={`${process.env.PUBLIC_URL}/img/town/effects/smokeparticle.png`} 
-                config={smoke} 
+                image={`${process.env.PUBLIC_URL}/img/town/effects/smokeparticle.png`}
+                config={smoke}
             />
         </Container>
     )

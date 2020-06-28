@@ -11,6 +11,7 @@ import Viewport from '../pixi/Viewport';
 import { StructureState, StructureStoreState } from 'stores/structure';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
+import { gsap } from 'gsap';
 import { MAX_WIDTH } from 'components/App';
 import HitAreaShapes from 'utils/hitAreaShapes';
 import polygons from './hitAreas.json';
@@ -30,7 +31,7 @@ export interface Props {
 }
 
 // todo: animate this
-export const STRUCTURE_HIGHLIGHT_FILTER = new OutlineFilter(4, 0xffcc00);
+export const STRUCTURE_HIGHLIGHT_FILTER = new OutlineFilter(14, 0xffcc00);
 
 const TownView = (props: Props & AppContextProps) => {
     const match = useRouteMatch<{structure: string}>(`${getTownLink()}/:structure`);
@@ -39,6 +40,20 @@ const TownView = (props: Props & AppContextProps) => {
     useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.town, "sound/music/Soliloquy.mp3");
         SoundManager.playMusicTrack(MusicTrack.town);
+    }, []);
+
+    useEffect(() => {
+        // STRUCTURE_HIGHLIGHT_FILTER.thickness = 4;
+        const tween = gsap.to(STRUCTURE_HIGHLIGHT_FILTER, {
+            duration: .6,
+            thickness: 2,
+            yoyo: true,
+            repeat: -1
+        });
+        return () => {
+            tween.pause(0);
+            tween.kill();
+        }
     }, []);
 
     const handleStructureClick = (structure: Structure | null) => {
