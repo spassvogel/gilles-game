@@ -529,4 +529,4 @@ https://github.com/DragonBones/DragonBonesJS
 - mobile: height of small world map + close button
 - mobile: width of town
 - mobile: dragdrop
-- bug: tooltip 
+[x] bug: tooltip 
