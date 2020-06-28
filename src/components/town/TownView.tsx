@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Stage, Sprite } from '@inlet/react-pixi';
 import { Structure } from 'definitions/structures';
 import { StructuresStoreState } from 'stores/structures';
@@ -36,6 +36,7 @@ export const STRUCTURE_HIGHLIGHT_FILTER = new OutlineFilter(14, 0xffcc00);
 const TownView = (props: Props & AppContextProps) => {
     const match = useRouteMatch<{structure: string}>(`${getTownLink()}/:structure`);
     const selectedStructure = match?.params.structure;
+    const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.town, "sound/music/Soliloquy.mp3");
@@ -43,7 +44,6 @@ const TownView = (props: Props & AppContextProps) => {
     }, []);
 
     useEffect(() => {
-        // STRUCTURE_HIGHLIGHT_FILTER.thickness = 4;
         const tween = gsap.to(STRUCTURE_HIGHLIGHT_FILTER, {
             duration: .6,
             thickness: 2,
@@ -139,14 +139,33 @@ const TownView = (props: Props & AppContextProps) => {
         }
     }, [selectedStructure]);
 
+    const [canvasWidth, setCanvasWidth] = useState(MAX_WIDTH);
+    const [canvasHeight, setCanvasHeight] = useState(HEIGHT);
+
+    useEffect(() => {
+        // This will set the dimensions of the canvas tot that of the townview
+        const resize = () => {
+            const worldViewWidth = ref.current?.clientWidth || MAX_WIDTH;
+            const worldViewHeight = ref.current?.clientHeight || HEIGHT;
+
+            setCanvasWidth(worldViewWidth);
+            setCanvasHeight(worldViewHeight);
+        }
+        resize();
+        window.addEventListener("resize", resize);
+        return () => {
+            window.removeEventListener("resize", resize);
+        };
+    }, []);
+
     const options = {
         sharedLoader: true
     }
     return (
-        <div className="town-view">
+        <div className="town-view" ref={ref}>
             <Legenda structures={structures} />
             <Stage width={MAX_WIDTH} height={HEIGHT} options={options} >
-                <Viewport screenWidth={MAX_WIDTH} screenHeight={HEIGHT} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef}>
+                <Viewport screenWidth={canvasWidth} screenHeight={canvasHeight} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef}>
                     <Sprite
                         name="background"
                         image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}
