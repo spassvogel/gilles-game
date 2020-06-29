@@ -12,33 +12,23 @@ import EquipmentSlot, { EquipmentSlotType } from "./EquipmentSlot";
 import Inventory from "./inventory/Inventory";
 import { TooltipManager } from 'global/TooltipManager';
 import useItemDropActions from 'hooks/actions/useItemActions';
+import useAdventurer from 'hooks/store/useAdventurer';
 
 export interface Props {
     adventurerId: string;
 }
 
-export interface DispatchProps {
-    onMoveItemInInventory: (adventurerId: string, fromSlot: number, toSlot: number) => void;
-    onRemoveItemFromInventory: (adventurerId: string, fromSlot: number) => void;
-    onAssignEquipment: (adventurerId: string, equipmentSlot: EquipmentSlotType, item: Item) => void;
-    onAddItemToInventory: (adventurerId: string, item: Item, toSlot: number) => void;
-    onMoveItemFromWarehouseToInventory: (adventurerId: string, fromSlot: number, toSlot: number, item: Item, otherItem: Item|null) => void;
-    onRemoveEquipment: (adventurerId: string, equipmentSlot: EquipmentSlotType) => void;
-    onAddItemToWarehouse: (item: Item, toSlot: number) => void;
-    onAssignEquipmentFromWarehouse: (adventurerId: string, fromSlot: number, item: Item, equipmentSlot: EquipmentSlotType) => void;
-}
+
 
 export interface StateProps {
     adventurer: AdventurerStoreState;
     warehouse: (Item|null)[];
 }
 
-type AllProps = Props & DispatchProps & StateProps;
-
 // Used in warehouse
-const AdventurerInfo = (props: AllProps) => {
+const AdventurerInfo = (props: Props) => {
 
-    const adventurer = props.adventurer;
+    const adventurer = useAdventurer(props.adventurerId);
     const attributes = Object.keys(adventurer.stats).map((stat) => {
         const value: number = adventurer.stats[stat];
         return <div key={`${adventurer.id}-${stat}`} > <b>{stat}</b>: {value.toFixed(1)} </div>;

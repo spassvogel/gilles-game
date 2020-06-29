@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { AdventurerStoreState } from 'stores/adventurer';
 
 // Returns the adventurer from redux store
+// todo: rename to useAdventurerState and move to 'adventurers.ts'
 const useAdventurer = (adventurerId: string) => {
     const adventurerSelector = useCallback(
         (state: StoreState) => state.adventurers.find((q) => q.id === adventurerId)!,

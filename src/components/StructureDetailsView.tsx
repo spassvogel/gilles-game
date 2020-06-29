@@ -1,6 +1,5 @@
 
 import ProductionStructureView from "containers/structures/ProductionStructureView";
-import WarehouseStructureView from "containers/structures/warehouse/WarehouseStructureView";
 import { getDefinition, Structure } from "definitions/structures";
 import { StructureDefinition, StructureType } from "definitions/structures/types";
 import * as React from "react";
@@ -15,6 +14,7 @@ import { TasksStoreState } from 'stores/tasks';
 import useStructure from 'hooks/store/useStructure';
 import { withWindow } from 'hoc/withWindow';
 import { Props as WindowProps } from "components/ui/window/Window";
+import WarehouseStructureView from './structures/warehouse/WarehouseStructureView';
 
 export interface Props {
     structure: Structure;

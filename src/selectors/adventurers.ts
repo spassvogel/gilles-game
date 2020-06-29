@@ -4,11 +4,11 @@ import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStatus, QuestStoreState } from "stores/quest";
 import { adventurersOnQuest } from 'storeHelpers';
 
+// maybe this is not used anymore?
+
 // Store accessors
 const getAdventurers = (state: StoreState): AdventurerStoreState[] => state.adventurers;
 const getQuests = (state: StoreState): QuestStoreState[] => state.quests;
-
-
 
 const groupAdventurersByQuest = (adventurers: AdventurerStoreState[], quests: QuestStoreState[]): Record<string, AdventurerStoreState[]> => {
     const foundInParty: AdventurerStoreState[] = []; // store the adventurers in parties in a temp array

@@ -1,15 +1,17 @@
 import { useDispatch } from 'react-redux';
 import { Action } from "redux";
 import { removeItemFromInventory, assignEquipment, addItemToInventory, removeEquipment, moveItemInInventory } from 'actions/adventurers';
-import { removeItemFromWarehouse, addItemToWarehouse } from 'actions/items';
+import { removeItemFromWarehouse, addItemToWarehouse, moveItemInWarehouse } from 'actions/items';
 import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
 import { Item } from 'definitions/items/types';
 import { InventoryItemDragInfo } from 'components/ui/DraggableItemIcon';
 import { DragSourceType } from 'constants/dragging';
 import { AdventurerStoreState } from 'stores/adventurer';
+import useStockpileState from 'hooks/store/useStockpileState';
 
 const useItemDropActions = () => {
     const dispatch = useDispatch();
+    const stockpile = useStockpileState();
 
     // When an item gets dropped on equipment slot
     const dropItemEquipment = (dragInfo: InventoryItemDragInfo, slotType: EquipmentSlotType, adventurer: AdventurerStoreState) => {
@@ -112,9 +114,46 @@ const useItemDropActions = () => {
         }
         actions.forEach(a => dispatch(a));
     };
+
+    // When an item gets dropped on the warehouse inventory
+    const dropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
+        const actions: Action[] = [];
+
+        switch (sourceType) {
+            // Dragged from the warehouse itself
+            case DragSourceType.warehouse: {
+                actions.push(
+                    moveItemInWarehouse(fromSlot, toSlot)
+                )
+                const otherItem = stockpile[toSlot];
+                if (otherItem) {
+                    actions.push(
+                        addItemToInventory(sourceId!, otherItem, fromSlot)
+                    )
+                }
+                break;
+            }
+            // Dragged from an adventurer inventory
+            case DragSourceType.adventurerInventory: {
+                actions.push(
+                    removeItemFromInventory(sourceId!, fromSlot),
+                    addItemToWarehouse(item, toSlot)
+                )
+                const otherItem = stockpile[toSlot];
+                if (otherItem) {
+                    actions.push(
+                        addItemToInventory(sourceId!, otherItem, fromSlot)
+                    )
+                }
+                break;
+            }
+        }
+        actions.forEach(a => dispatch(a));
+    };
     return {
         dropItemEquipment,
-        dropItemInventory
+        dropItemInventory,
+        dropItemWarehouse
     }
 }
 

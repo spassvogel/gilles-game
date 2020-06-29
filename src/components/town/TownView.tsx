@@ -31,7 +31,7 @@ export interface Props {
 }
 
 // todo: animate this
-export const STRUCTURE_HIGHLIGHT_FILTER = new OutlineFilter(14, 0xffcc00);
+export const STRUCTURE_HIGHLIGHT_FILTER = new OutlineFilter(8, 0xffcc00);
 
 const TownView = (props: Props & AppContextProps) => {
     const match = useRouteMatch<{structure: string}>(`${getTownLink()}/:structure`);

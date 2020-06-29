@@ -27,7 +27,7 @@ const testState = [
  * @param state
  * @param action
  */
-export const items: Reducer<Array<Item|null>> = (state: Array<Item|null> = testState,
+export const items: Reducer<(Item|null)[]> = (state: (Item|null)[] = testState,
                                                  action: AnyAction) => {
     switch (action.type) {
         case ActionType.addItem: {
@@ -52,8 +52,7 @@ export const items: Reducer<Array<Item|null>> = (state: Array<Item|null> = testS
             } = (action as MoveItemInWarehouseAction);
 
             return state.map((element, index) => {
-                // todo: items switch places
-                if (index === fromSlot) { return null; }
+                if (index === fromSlot) { return state[toSlot]; }
                 if (index === toSlot) { return state[fromSlot]; }
                 return element;
             });

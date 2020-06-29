@@ -6,11 +6,9 @@ import { StructureStoreState } from 'stores/structure';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from 'stores';
 import { selectFreeWorkers } from 'selectors/workers';
-import { subtractGold } from 'actions/gold';
-import { upgradeStructure, decreaseWorkers, increaseWorkers } from 'actions/structures';
-import { addLogText } from 'actions/log';
-import { LogChannel } from 'stores/logEntry';
+import { decreaseWorkers, increaseWorkers } from 'actions/structures';
 import StructureViewHeader from './StructureViewHeader';
+import useStructureActions from 'hooks/actions/useStructureActions';
 
 
 export interface Props  {
@@ -37,18 +35,10 @@ const ResourceStructureView = (props: Props) => {
     if (!structureDefinition) {
         throw new Error(`No definition found for structure ${props.type} with type ResourceStructureDefinition.`);
     }
+    const {startUpgradeStructure} = useStructureActions();
 
     // Reducer dispatch
     const dispatch = useDispatch();
-    const handleUpgrade = (cost: number) => {
-        dispatch(subtractGold(cost));
-        dispatch(upgradeStructure(props.type)); // Todo: [07/07/2019] time??
-
-        dispatch(addLogText("log-town-upgrade-structure-complete", {
-            level: level + 1,
-            structure: props.type,
-        }, LogChannel.town));
-    }
 
     const handleWorkersDown = () => {
         dispatch(decreaseWorkers(props.type));
@@ -80,8 +70,8 @@ const ResourceStructureView = (props: Props) => {
         const canUpgrade = nextLevel != null && gold >= nextLevelCost;
         const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 
-        const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-            handleUpgrade(nextLevelCost);
+        const handleClick = () => {
+            startUpgradeStructure(nextLevelCost, level + 1, props.type);
         };
 
         return <div>

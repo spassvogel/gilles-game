@@ -35,6 +35,7 @@ const ResourceContext = (props: Props) => {
         const structureDefinition = getDefinition<ResourceStructureDefinition>(structure);
         const levelDefinition: ResourceStructureLevelDefinition = structureDefinition.levels[structureState.level];
         const amount = levelDefinition.generates[resource];
+        // Split the string at {{structure}}
         const split = TextManager.get("ui-tooltip-resource-produce-row", {
             structure: "%SPLIT%",
             amount
