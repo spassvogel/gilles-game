@@ -23,6 +23,7 @@ export const useSceneController = (questName: string, sceneName: string) => {
                 // If the store has no scene for this quest yet, create and store it!
                 if (!scene) {
                     controller.createScene();
+                    controller.sceneEntered();
                 }
             }
             controller.loadData(loadingComplete);

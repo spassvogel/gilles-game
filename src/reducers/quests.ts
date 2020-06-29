@@ -6,6 +6,7 @@ import { QuestStatus, QuestStoreState } from "stores/quest";
 import { SceneActionType } from 'stores/scene';
 import { QuestDefinition } from 'definitions/quests/types';
 import { getDefinition } from 'definitions/quests';
+import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars';
 
 // tslint:disable:object-literal-sort-keys
 const initialState: QuestStoreState[] = [{
@@ -18,7 +19,7 @@ const initialState: QuestStoreState[] = [{
         "d299f98a",
     ],
     progress: 0,
-    questVars: {},
+    questVars: initialQuestVars,
     encounterResults: [],
     icon: "sigil1.png",
 }, {

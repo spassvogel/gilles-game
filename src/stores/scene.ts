@@ -20,7 +20,7 @@ export interface TileObject {
 export type ActorObject = {
     name: string;                   // todo: refactor to id
     location: [number, number];
-    health: number; 
+    health: number;
 };
 
  // export type Actor = SceneObject & {

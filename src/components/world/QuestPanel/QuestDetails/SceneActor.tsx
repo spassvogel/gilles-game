@@ -9,7 +9,7 @@ import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 
 export interface Props  {
     name: string;
-    controller: BaseSceneController;
+    controller: BaseSceneController<any>;
     location?: [number, number]; // tile coordinate space
     children: React.ReactNode;
 };

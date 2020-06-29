@@ -7,7 +7,7 @@ import { TiledMapData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'stores/adventurer';
 import { setScene, setSceneName, exitEncounter } from 'actions/quests';
-import { TileObject, ActorObject } from 'stores/scene';
+import { TileObject, ActorObject, LootCache } from 'stores/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLink } from 'utils/routing';
@@ -16,9 +16,8 @@ import { TextManager } from 'global/TextManager';
 import { addLogText, addLogEntry } from 'actions/log';
 import { getDefinition } from 'definitions/quests';
 import { LogChannel } from 'stores/logEntry';
-import { Item } from 'definitions/items/types';
 
-export class BaseSceneController {
+export class BaseSceneController<TQuestVars> {
     public mapData?: TiledMapData;
     public aStar?: AStarFinder;
     public questName: string;
@@ -69,21 +68,7 @@ export class BaseSceneController {
     createScene() {
         const tileObjects = this.createTileObjects();
         const actors = this.createActors();
-        // todo: temp, refactor
-        const caches = {
-            "chest": {
-                title: "encounter-dungeon-caches-chest",
-                gold: 3,
-                items: [
-                    Item.savageStaff,
-                    Item.battleAxe,
-                    Item.druidChest,
-                    Item.shoulders1,
-                    Item.eye,
-                    Item.fedora
-                ]
-            }
-        }
+        const caches = this.createCaches();
 
         // todo: perhaps this should be a class such that stuff that repeats for every scene can be done in a base class
         const scene = {
@@ -92,6 +77,10 @@ export class BaseSceneController {
             caches
         }
         this.store.dispatch(setScene(this.questName, scene));
+    }
+
+    // tslint:disable-next-line: no-empty
+    sceneEntered() {
     }
 
     actorMoved(actor: string, location: [number, number]) {
@@ -226,9 +215,17 @@ export class BaseSceneController {
             }));
     }
 
+    protected createCaches(): { [key: string]: LootCache } {
+        return {};
+    }
+
     protected getQuest() {
         const storeState = this.store.getState();
         return storeState.quests.find(q => q.name === this.questName)!;
+    }
+
+    protected getQuestVars(): TQuestVars {
+        return this.getQuest().questVars;
     }
 
     protected getAdventurers() {

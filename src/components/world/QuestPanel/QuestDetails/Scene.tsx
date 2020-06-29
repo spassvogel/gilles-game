@@ -14,7 +14,7 @@ import 'pixi-tilemap'; // tilemap is not a real npm module :/
 
 export interface Props {
     questName: string;
-    controller: BaseSceneController;
+    controller: BaseSceneController<any>;
     selectedActor: string;
     setSelectedActor: (actor: string) => void;
     onLootCacheChanged: (value: string) => void; // todo: opens loot cache popup

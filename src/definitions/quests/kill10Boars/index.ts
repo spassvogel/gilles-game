@@ -1,19 +1,12 @@
 import { QuestStoreState } from 'stores/quest';
 import { QuestDefinition, QuestNodeType } from '../types';
+import { initialQuestVars, Kill10BoarsQuestVars } from './questVars';
 
-export interface Kill10BoarsQuestVars {
-    foo: boolean;
-    bar: number;
-}
 
 const kill10Boars: QuestDefinition<Kill10BoarsQuestVars> = {
     getQuestVars: (questStore: QuestStoreState) => questStore.questVars as Kill10BoarsQuestVars,
     getInitialQuestVars: (questStore: QuestStoreState) => {
-        const vars: Kill10BoarsQuestVars = {
-            foo: false,
-            bar: 3
-        }
-        return vars;
+        return initialQuestVars;
     },
     nodes: [{
         x: 0,
