@@ -164,7 +164,7 @@ const TownView = (props: Props & AppContextProps) => {
     return (
         <div className="town-view" ref={ref}>
             <Legenda structures={structures} />
-            <Stage width={MAX_WIDTH} height={HEIGHT} options={options} >
+            <Stage width={canvasWidth} height={canvasHeight} options={options} >
                 <Viewport screenWidth={canvasWidth} screenHeight={canvasHeight} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef}>
                     <Sprite
                         name="background"

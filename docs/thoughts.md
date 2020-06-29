@@ -527,7 +527,7 @@ https://github.com/DragonBones/DragonBonesJS
 - place item interaction
 - fire pit with particles
 - mobile: height of small world map + close button
-- mobile: width of town
+[x] mobile: width of town
 [ ] mobile: dragdrop 
     use touch backend: https://react-dnd.github.io/react-dnd/docs/backends/touch 
     https://louisbrunner.github.io/dnd-multi-backend/packages/react-dnd-multi-backend/
