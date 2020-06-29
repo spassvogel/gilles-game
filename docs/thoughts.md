@@ -517,11 +517,11 @@ https://github.com/DragonBones/DragonBonesJS
 [x] https://github.com/localForage/localForage
 
 ### Item descriptions [+ref]
-[ ] Refactor to use translations file
+[x] Refactor to use translations file
 
 ### 28/06/2020 various 
 [x] show amount of RSS generation in tooltip
-- abstract itemInteraction into hook
+[x] abstract itemInteraction into hook
 - toast on scene enter, check scene vars
 - frozen door
 - place item interaction
