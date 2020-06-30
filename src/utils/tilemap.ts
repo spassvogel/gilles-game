@@ -6,14 +6,14 @@ import { TiledMapData, TiledObjectData, TiledLayerType, TiledProperty, TiledLaye
 export const getExtendedTilemapObjects = (tilemapData: TiledMapData) => {
     const objectLayers = tilemapData.layers.filter(layer => layer.type === TiledLayerType.objectgroup);
     const objects: { [key: string]: ExtendedTiledObjectData } = {};
-    objectLayers.forEach(objectLayer => {    
-        objectLayer.objects.reduce((acc: {[key: string]: ExtendedTiledObjectData}, value: TiledObjectData) => {
+    objectLayers.forEach(objectLayer => {
+        objectLayer.objects.reduce((acc: {[location: string]: ExtendedTiledObjectData}, value: TiledObjectData) => {
             let {x, y} = value;
-            if (value.type === "tileobject") { 
+            if (value.gid !== undefined) {
                 y -= value.height; // https://github.com/bjorn/tiled/issues/91
             }
             const location: [number, number] = [
-                x / tilemapData.tilewidth, 
+                x / tilemapData.tilewidth,
                 y / tilemapData.tileheight
             ];
             // reduce the props array into an object with key/values
@@ -50,7 +50,7 @@ export const addAllTilesInLayerToList = (list: [number, number][], layer: TiledL
         if (tile > 0) {
             const x = (index % columns);
             const y = Math.floor(index / columns);
-            acc.push([x, y]);  
+            acc.push([x, y]);
         }
         return acc;
     }, list);

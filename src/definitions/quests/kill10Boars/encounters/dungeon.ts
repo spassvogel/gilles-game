@@ -12,23 +12,6 @@ const TILE_CHEST_OPEN = 34; // todo: take this from json?
 export class DungeonEntranceSceneController extends BaseSceneController<Kill10BoarsQuestVars> {
     jsonPath = "scenes/ork-dungeon-level1.json";
 
-    createCaches() {
-        return {
-            "chest": {
-                title: "encounter-dungeon-caches-chest",
-                gold: 3,
-                items: [
-                    // Item.savageStaff,
-                    // Item.battleAxe,
-                    // Item.druidChest,
-                    // Item.shoulders1,
-                    Item.eye,
-                    Item.fedora
-                ]
-            }
-        };
-    }
-
     interactWithObject(actor: ActorObject, object: TileObject) {
         switch (object.name) {
             // todo: I want to share this common stuff with other SceneControllers

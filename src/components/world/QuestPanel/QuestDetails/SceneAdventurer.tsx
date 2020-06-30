@@ -71,6 +71,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
 
     // Queue actions
     const handleActorEndDrag = (event: PIXI.InteractionEvent) => {
+        setActionActive(false);
         if(scene.actionQueue?.length) {
             return;
         }

@@ -16,12 +16,13 @@ import { TextManager } from 'global/TextManager';
 import { addLogText, addLogEntry } from 'actions/log';
 import { getDefinition } from 'definitions/quests';
 import { LogChannel } from 'stores/logEntry';
+import { Item } from 'definitions/items/types';
 
 export class BaseSceneController<TQuestVars> {
     public mapData?: TiledMapData;
     public aStar?: AStarFinder;
     public questName: string;
-    public tilemapObjects?: {[key: string]: ExtendedTiledObjectData};
+    public tilemapObjects?: {[location: string]: ExtendedTiledObjectData};
 
     protected jsonPath?: string;
     protected store: Store<StoreState, AnyAction>;
@@ -205,18 +206,32 @@ export class BaseSceneController<TQuestVars> {
         }
 
         return Object.values(this.tilemapObjects)
-            .filter(o => o.type === "tileobject")
             .map(o => ({
                 id: o.id,
                 gid: o.gid!,
                 location: o.location,
                 name: o.name,
-                type: "tileobject",
+                type: o.type
             }));
     }
 
-    protected createCaches(): { [key: string]: LootCache } {
-        return {};
+    protected createCaches(): { [name: string]: LootCache } {
+        return Object.values(this.tilemapObjects!)
+            .filter(o => o.type === "lootCache")
+            .reduce((acc: { [name: string]: LootCache }, value) => {
+                // serialize comma separated string to array of Item
+                const items = value.ezProps?.items.split(",").map((v:string) => {
+                    const item = Item[v.trim()];
+                    if (item) {
+                        return item;
+                    }
+                }).filter(Boolean);
+                acc[value.name] = {
+                    title: value.ezProps?.title,
+                    items
+                }
+                return acc;
+            }, {});
     }
 
     protected getQuest() {

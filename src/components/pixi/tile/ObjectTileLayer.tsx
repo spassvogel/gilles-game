@@ -32,8 +32,10 @@ const ObjectTileLayer = PixiComponent<Props, any>("ObjectTileLayer", {
             const x = object.location[0] * w;
             const y = object.location[1] * h;
 
-            const spriteId = `${tileset.name}-${(object).gid}`;
-            instance.addFrame(spritesheet.textures[spriteId], x, y);
+            if (object.gid !== undefined) {
+                const spriteId = `${tileset.name}-${(object).gid}`;
+                instance.addFrame(spritesheet.textures[spriteId], x, y);
+            }
         });
     }
 });

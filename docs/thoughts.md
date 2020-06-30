@@ -508,6 +508,12 @@ https://github.com/DragonBones/DragonBonesJS
     type: "exit"
     Exit the scene. If a property called `loadScene: string` is present, will load that scene. If not, the encounter will be exited
 
+    type: "lootCache"
+    Can interact to loot items
+    possible properties: 
+    - items: comma seperated list of items 
+    - title: translation key shown in the dialog
+
 ### Loot caches
 [x] Implement take all
 [ ] Use staggered gsap
