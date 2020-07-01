@@ -2,12 +2,14 @@ import React, { useState, useMemo, useEffect } from "react";
 import "./css/questPanel.css";
 import AdventurerTabstrip from './AdventurerTabstrip';
 import { createSelectAdventurersOnQuest } from 'selectors/adventurers';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import AdventurerPanel from './AdventurerPanel';
 import QuestDetails from './QuestDetails';
 import { useHistory } from 'react-router';
 import { getWorldLink } from 'utils/routing';
 import LootCache from './modals/LootCache';
+import useQuest from 'hooks/store/useQuest';
+import { setActiveLootCache } from 'actions/quests';
 
 enum Layout {
     auto,       // horizontal on large screens, vertical on small screens
@@ -22,9 +24,9 @@ interface Props {
 
 const QuestPanel = (props: Props) => {
     const history = useHistory();
+    const dispatch = useDispatch();
     const {layout = Layout.auto} = props;
     const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));
-    const [activeLootCache, setActiveLootCache] = useState<string>();
     const leader = adventurers[0];
     const [selectedAdventurerId, setSelectedAdventurerID] = useState<string>(leader?.id);
 
@@ -32,12 +34,15 @@ const QuestPanel = (props: Props) => {
         return adventurers.find(a => a.id === selectedAdventurerId);
     }, [adventurers, selectedAdventurerId]);
 
-    const handleLootCacheChanged = (value: string) => {
-        setActiveLootCache(value);
-    }
+    const quest = useQuest(props.questName);
+    const activeLootCache = quest?.scene?.activeLootCache;
 
     const handleAdventurerSelected = (adventurerId: string) => {
         setSelectedAdventurerID(adventurerId);
+    }
+
+    const handleCloseLootCacheModal = () => {
+        dispatch(setActiveLootCache(props.questName));
     }
 
     useEffect(() => {
@@ -58,12 +63,12 @@ const QuestPanel = (props: Props) => {
                     setSelectedActor={handleAdventurerSelected}
                 />
                 { activeLootCache && (
-                    <div className="modal" onClick={() => setActiveLootCache(undefined)}>
+                    <div className="modal" onClick={handleCloseLootCacheModal}>
                         <LootCache
                             questName={props.questName}
                             cacheName={activeLootCache}
                             adventurerId={selectedAdventurerId}
-                            onClose={() => setActiveLootCache(undefined)}
+                            onClose={handleCloseLootCacheModal}
                         />
                     </div>
                 )}

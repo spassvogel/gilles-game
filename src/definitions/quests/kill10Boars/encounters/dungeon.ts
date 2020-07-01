@@ -1,7 +1,7 @@
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { SceneControllerManager } from 'global/SceneControllerManager';
 import { TileObject, ActorObject } from 'stores/scene';
-import { updateSceneObjectAction } from 'actions/quests';
+import { updateSceneObjectAction, setActiveLootCache } from 'actions/quests';
 import { Kill10BoarsQuestVars } from '../questVars';
 // tslint:disable: max-classes-per-file
 
@@ -21,6 +21,8 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
                     this.questUpdate(textEntry, "/img/items/misc/chest-02.png");
                     this.store.dispatch(updateSceneObjectAction(this.questName, object.id, { gid: TILE_CHEST_OPEN }));
                 }
+                this.store.dispatch(setActiveLootCache(this.questName, object.name));
+
                 // display loot modal!
                 break;
         }

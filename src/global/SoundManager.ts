@@ -83,7 +83,6 @@ export class SoundManager {
 
         if (currentMusicTrack !== null) {
             const currentMusic: Howl = musicTracks[currentMusicTrack];
-            console.log(SoundManager.musicVolume)
             currentMusic.fade(SoundManager.musicVolume, 0, 500);
         }
         const nextMusic = musicTracks[track];

@@ -6,7 +6,7 @@ export interface SceneStoreState {
     actors: ActorObject[];
     caches: { [key: string]: LootCache }
     actionQueue?: SceneAction[];
-    activeLootCache?: string; // todo: could be other things besides lootcache?
+    activeLootCache?: string; // todo: could be other interaction things besides lootcache?
 }
 
 // https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions

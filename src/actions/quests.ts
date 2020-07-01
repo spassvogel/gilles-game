@@ -17,6 +17,7 @@ export enum ActionType {
     enqueueSceneAction = "enqueueSceneAction",
     completeSceneAction = "completeSceneAction",
     updateSceneObjectAction = "updateSceneObjectAction",    // Updates a tile object on the scene. Can update any property except 'id'
+    setActiveLootCache = "setActiveLootCache",              // Sets the active loot cache (displays a modal)
     takeGoldFromCache = "takeGoldFromCache",                // Takes *all* the gold from a cache
     takeItemFromCache = "takeItemFromCache"                 // Takes an item from a cache
 }
@@ -52,6 +53,9 @@ export interface UpdateEncounterResultAction extends QuestAction {
 
 export interface TakeGoldFromCacheAction extends QuestAction {
     cacheName: string;
+}
+export interface SetActiveLootCacheAction extends QuestAction {
+    cacheName?: string;
 }
 
 export interface TakeItemFromCacheAction extends QuestAction {
@@ -142,6 +146,14 @@ export function updateEncounterResult(quest: string, nodeIndex: number, result: 
 export const takeGoldFromCache = (questName: string, cacheName: string): TakeGoldFromCacheAction => {
    return {
        type: ActionType.takeGoldFromCache,
+       questName,
+       cacheName
+   }
+}
+
+export const setActiveLootCache = (questName: string, cacheName?: string): SetActiveLootCacheAction => {
+   return {
+       type: ActionType.setActiveLootCache,
        questName,
        cacheName
    }

@@ -128,7 +128,7 @@ export class BaseSceneController<TQuestVars> {
         const object = scene?.tileObjects
             .find(o => locationEquals(o.location, actor.location));
 
-        if (!object || object.type !== "tileobject") {
+        if (!object) {
             // tslint:disable-next-line: no-console
             console.warn("No object found");
             return;

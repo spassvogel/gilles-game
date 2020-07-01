@@ -19,7 +19,7 @@ export interface QuestStoreState {
     status: QuestStatus;
     party: string[];                // list of adventurer ids
     progress: number;               // Which questnode the party is at currently
-    questVars: any;                     // 
+    questVars: any;                 // 
     encounterResults: string[];   // Store what option the place chose during an encounter // OBSOLETE
     icon: string;
 
@@ -27,4 +27,3 @@ export interface QuestStoreState {
     scene?: SceneStoreState;
     sceneName?: string;
 }
- 

@@ -1,5 +1,5 @@
 import { ActionType as GameActionType, GameTickAction } from "actions/game";
-import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, UpdateEncounterResultAction, EnqueueSceneActionAction, SetSceneNameAction, SetSceneAction, UpdateSceneObjectAction, TakeGoldFromCacheAction, TakeItemFromCacheAction } from "actions/quests";
+import { ActionType, QuestAction, QuestLaunchAction, QuestVarsAction, UpdateEncounterResultAction, EnqueueSceneActionAction, SetSceneNameAction, SetSceneAction, UpdateSceneObjectAction, TakeGoldFromCacheAction, TakeItemFromCacheAction, SetActiveLootCacheAction } from "actions/quests";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "stores/quest";
@@ -73,6 +73,9 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
         case ActionType.updateSceneObjectAction:
             return updateSceneObjectAction(state, action as UpdateSceneObjectAction);
+
+        case ActionType.setActiveLootCache:
+            return setActiveLootCache(state, action as SetActiveLootCacheAction);
 
         case ActionType.takeGoldFromCache:
             return takeGoldFromCache(state, action as TakeGoldFromCacheAction);
@@ -289,6 +292,14 @@ const updateEncounterResult = (state: QuestStoreState[], action: UpdateEncounter
     });
 };
 
+const setActiveLootCache = (state: QuestStoreState[], action: SetActiveLootCacheAction) => {
+    return state.map((qss: QuestStoreState) => {
+        if (qss.name === action.questName && qss.scene) {
+            qss.scene.activeLootCache = action.cacheName;
+        }
+        return qss;
+    });
+}
 const takeGoldFromCache = (state: QuestStoreState[], action: TakeGoldFromCacheAction) => {
     return state.map((qss: QuestStoreState) => {
         if (qss.name === action.questName && qss.scene) {
