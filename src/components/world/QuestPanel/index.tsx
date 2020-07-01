@@ -55,7 +55,6 @@ const QuestPanel = (props: Props) => {
                 <QuestDetails
                     questName={props.questName}
                     selectedActor={selectedAdventurerId}
-                    onLootCacheChanged={handleLootCacheChanged}
                     setSelectedActor={handleAdventurerSelected}
                 />
                 { activeLootCache && (

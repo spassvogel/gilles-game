@@ -87,9 +87,11 @@ const SimpleLog = (props: Props) => {
 
     const getLogEntryRow = (logEntry: LogEntry) => {
         const text = TextManager.get(logEntry.key, logEntry.context);
-        return <div className="entry" key={logEntry.time}>
-            {text}
-        </div>;
+        return (
+            <div className="entry" key={logEntry.time}>
+                {text}
+            </div>
+        );
     };
 
     return (

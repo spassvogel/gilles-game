@@ -9,7 +9,6 @@ export interface Props {
     questName: string;
     selectedActor: string;
     setSelectedActor: (actor: string) => void;
-    onLootCacheChanged: (value: string) => void;
 }
 
 const QuestDetails = (props: Props) => {

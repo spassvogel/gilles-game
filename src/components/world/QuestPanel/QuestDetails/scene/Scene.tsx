@@ -17,7 +17,6 @@ export interface Props {
     controller: BaseSceneController<any>;
     selectedActor: string;
     setSelectedActor: (actor: string) => void;
-    onLootCacheChanged: (value: string) => void; // todo: opens loot cache popup
 }
 
 const DEBUG_ACTIONQUEUE = false;
@@ -48,7 +47,6 @@ const Scene = (props: Props) => {
                 key={name}
                 questName={props.questName}
                 selected={selectedActor?.name === name}
-                onLootCacheChanged={props.onLootCacheChanged}
                 setSelectedActor={props.setSelectedActor}
             />
         );
