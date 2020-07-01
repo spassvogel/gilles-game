@@ -27,7 +27,7 @@ const AdventurerTabstrip = (props: Props) => {
     );
     return (
         <Tabstrip 
-            className="adventurers-tabstrip" 
+            className="adventurers-tabstrip"
             onTabSelected={handleAdventurerTabSelected}
             activeTab={props.selectedAdventurerId}
             disabled={props.disabled}

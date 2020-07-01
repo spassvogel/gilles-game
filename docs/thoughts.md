@@ -493,7 +493,7 @@ https://github.com/DragonBones/DragonBonesJS
 [x] So we can open a quest from anywhere, e.g toasts
 
 #### 08/05/2020 Sass
-[ ] Try to implement sass again (https://www.google.com/search?q=sass+create+react+app)
+[x] Try to implement sass again (https://www.google.com/search?q=sass+create+react+app)
 
 #### Item rarity [+art] [+design]
 [ ] background on items. gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary

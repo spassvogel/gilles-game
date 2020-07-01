@@ -33,8 +33,8 @@ export class SoundManager {
         // Attempt to fetch volumes from storage. If not set, revert to defaults
         this._musicVolume = await localforage.getItem(STORAGE_KEY_MUSIC_VOLUME);
         this._soundVolume = await localforage.getItem(STORAGE_KEY_SOUND_VOLUME);
-        if (this._soundVolume === undefined) this._soundVolume = DEFAULT_SOUND_VOLUME;
-        if (this._musicVolume === undefined) this._musicVolume = DEFAULT_MUSIC_VOLUME;
+        if (this._soundVolume === null) this._soundVolume = DEFAULT_SOUND_VOLUME;
+        if (this._musicVolume === null) this._musicVolume = DEFAULT_MUSIC_VOLUME;
 
         this._initialized = true;
     }
@@ -83,6 +83,7 @@ export class SoundManager {
 
         if (currentMusicTrack !== null) {
             const currentMusic: Howl = musicTracks[currentMusicTrack];
+            console.log(SoundManager.musicVolume)
             currentMusic.fade(SoundManager.musicVolume, 0, 500);
         }
         const nextMusic = musicTracks[track];

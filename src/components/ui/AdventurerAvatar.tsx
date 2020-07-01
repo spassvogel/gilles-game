@@ -26,7 +26,7 @@ const AdventurerAvatar = (props: Props) => {
     };
     return (
         <div className = { className }
-            style={{ backgroundImage: `url(${process.env.PUBLIC_URL}${adventurer.avatarImg})` }}
+            style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${adventurer.avatarImg})` }}
             onClick={ () => handleClick() }>
             <div className="sizer"/>
             {

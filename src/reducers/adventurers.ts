@@ -26,7 +26,7 @@ const generateRandomStats = (): StatsStoreState => {
     };
 };
 
-const avatarImgBasePath = "/img/avatars";
+const avatarImgBasePath = "img/avatars";
 // Create a bunch of guys for debugging
 const testState: AdventurerStoreState[] = [{
     id: "c4a5d270",
