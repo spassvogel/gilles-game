@@ -11,7 +11,7 @@ import { TileObject, ActorObject, LootCache } from 'stores/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLink } from 'utils/routing';
-import { TextEntry } from 'constants/text';
+import { TextEntry, isTextEntry } from 'constants/text';
 import { TextManager } from 'global/TextManager';
 import { addLogText, addLogEntry } from 'actions/log';
 import { getDefinition } from 'definitions/quests';
@@ -254,7 +254,8 @@ export class BaseSceneController<TQuestVars> {
         return storeState.adventurers.find(a => a.id === actor.name);
     }
 
-    protected questUpdate(textEntry: TextEntry, icon?: string) {
+    protected questUpdate(input: string | TextEntry, icon?: string) : void {
+        const textEntry: TextEntry = isTextEntry(input) ? input : {key: input};
         const title = TextManager.getTextEntry(textEntry);
         ToastManager.addToast(title, Type.questUpdate, icon, getQuestLink(this.questName));
         this.store.dispatch(addLogEntry(textEntry, LogChannel.quest, this.questName));

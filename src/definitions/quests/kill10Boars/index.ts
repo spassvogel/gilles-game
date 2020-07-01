@@ -31,7 +31,7 @@ const kill10Boars: QuestDefinition<Kill10BoarsQuestVars> = {
         x: 0,
         y: 3,
         type: QuestNodeType.encounter,
-        log: "quest-kill10Boars-enter-dungeon",
+        // log: "quest-kill10Boars-enter-dungeon",
         startScene: "dungeon.entrance"
     }, {
         x: 1,

@@ -2,7 +2,6 @@ import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { SceneControllerManager } from 'global/SceneControllerManager';
 import { TileObject, ActorObject } from 'stores/scene';
 import { updateSceneObjectAction } from 'actions/quests';
-import { Item } from 'definitions/items/types';
 import { Kill10BoarsQuestVars } from '../questVars';
 // tslint:disable: max-classes-per-file
 
@@ -30,7 +29,9 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
 
     sceneEntered() {
         const vars = this.getQuestVars();
-        console.log("entered", vars);
+        if (!vars.dungeon.entered) {
+            this.questUpdate("quest-kill10Boars-enter-dungeon-see-chest");
+        }
     }
 }
 
