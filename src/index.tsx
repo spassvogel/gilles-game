@@ -6,6 +6,7 @@ import { Persistor } from "redux-persist";
 import { gameTick } from "./actions/game";
 import { addLogText } from "./actions/log";
 import version from "./constants/version";
+import App from "./containers/App";
 import getProducedResources from "./mechanics/gameTick/producedResources";
 import getQuestUpdates, { LogUpdate } from "./mechanics/gameTick/quests";
 import getRngState from "./mechanics/gameTick/rngState";
@@ -16,7 +17,6 @@ import * as Random from "./utils/random";
 import { TextManager } from "./global/TextManager";
 import { loadResourceAsync } from 'utils/pixiJs';
 import { processCompletedTasks } from 'mechanics/gameTick/tasks';
-import App from 'components/App';
 import "./index.css";
 
 const TICK_INTERVAL = 2500;
