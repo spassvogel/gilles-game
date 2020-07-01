@@ -11,7 +11,7 @@ import LootCache from './modals/LootCache';
 
 enum Layout {
     auto,       // horizontal on large screens, vertical on small screens
-    vertical,   
+    vertical,
     horizontal
 }
 
@@ -34,13 +34,12 @@ const QuestPanel = (props: Props) => {
 
     const handleLootCacheChanged = (value: string) => {
         setActiveLootCache(value);
-
     }
 
     const handleAdventurerSelected = (adventurerId: string) => {
         setSelectedAdventurerID(adventurerId);
     }
-    
+
     useEffect(() => {
         if (!adventurers.length) {
             // no adventurers, something went wrong, perhaps invalid url
@@ -53,16 +52,16 @@ const QuestPanel = (props: Props) => {
     return (
         <div className={`quest-panel quest-panel-${Layout[layout]}`}>
             <div className="quest-area">
-                <QuestDetails 
-                    questName={props.questName} 
+                <QuestDetails
+                    questName={props.questName}
                     selectedActor={selectedAdventurerId}
                     onLootCacheChanged={handleLootCacheChanged}
                     setSelectedActor={handleAdventurerSelected}
                 />
                 { activeLootCache && (
                     <div className="modal" onClick={() => setActiveLootCache(undefined)}>
-                        <LootCache 
-                            questName={props.questName} 
+                        <LootCache
+                            questName={props.questName}
                             cacheName={activeLootCache}
                             adventurerId={selectedAdventurerId}
                             onClose={() => setActiveLootCache(undefined)}
@@ -71,8 +70,8 @@ const QuestPanel = (props: Props) => {
                 )}
             </div>
             <div className="party-area">
-                <AdventurerTabstrip 
-                    adventurers={adventurers} 
+                <AdventurerTabstrip
+                    adventurers={adventurers}
                     selectedAdventurerId={selectedAdventurerId}
                     onAdventurerTabSelected={handleAdventurerSelected}
                     disabled={activeLootCache !== undefined}
