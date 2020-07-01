@@ -19,7 +19,6 @@ interface Props {
  */
 const Viewport = forwardRef<PixiViewport, any>((props, ref) => {
   const app = useApp();
-  console.log(gauntlet)
   if (app) {
       // Perhaps this is better moved somewhere else
       const cursor = `url('${gauntlet}'), auto`;
