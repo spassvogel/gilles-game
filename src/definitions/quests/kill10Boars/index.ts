@@ -13,20 +13,18 @@ const kill10Boars: QuestDefinition<Kill10BoarsQuestVars> = {
         y: 1,
         type: QuestNodeType.nothing,
         log: "quest-kill10Boars-node0",
-    // }, {
-    //     x: 0,
-    //     y: 2,
-    //     type: QuestNodeType.nothing,
-    //     log: "quest-kill10Boars-node0",
-    // }, {
-    //     x: 0,
-    //     y: 3,
-    //     type: QuestNodeType.nothing,
-    //     log: "quest-kill10Boars-node0",
-    // }, {
-    //     x: 0,
-    //     y: 4,
-    //     type: QuestNodeType.nothing,
+    }, {
+        x: 0,
+        y: 2,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 0,
+        y: 3,
+        type: QuestNodeType.nothing,
+    }, {
+        x: 0,
+        y: 4,
+        type: QuestNodeType.nothing,
     }, {
         x: 0,
         y: 3,

@@ -1,8 +1,9 @@
 import React from 'react';
-import Scene from 'components/world/QuestPanel/QuestDetails/Scene';
+import Scene from 'components/world/QuestPanel/QuestDetails/scene/Scene';
 import { useSceneController } from 'hooks/useSceneController';
 import { SceneStoreState } from 'stores/scene';
 import useQuest from 'hooks/store/useQuest';
+import OnTheRoad from './OnTheRoad';
 
 export interface Props {
     questName: string;
@@ -12,12 +13,11 @@ export interface Props {
 }
 
 const QuestDetails = (props: Props) => {
- //     {/* <h1 className="app-h2">{TextManager.getQuestTitle(quest.name)}</h1> */}
 
     const quest = useQuest(props.questName);
 
     if (!quest.sceneName) {
-        return null;
+        return <OnTheRoad questName={props.questName} />;
     }
 
     return (

@@ -13,6 +13,10 @@ details.structureview  section {
     padding: 0 32px;
 }
 
+.productionstructureview {
+    padding: 8px;
+}
+
 .productionstructureview .crafting-area {
     display: flex;
 }
