@@ -1,6 +1,7 @@
 {
   "name": "gilles-game",
-  "homepage": "http://spassvogel.github.io/gilles-game",
+  "homepage-": "http://spassvogel.github.io/gilles-game",
+  "homepage": "./",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

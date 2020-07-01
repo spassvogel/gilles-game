@@ -31,8 +31,10 @@ export class SoundManager {
 
     public static async init() {
         // Attempt to fetch volumes from storage. If not set, revert to defaults
-        this._musicVolume = await localforage.getItem(STORAGE_KEY_MUSIC_VOLUME) || this.musicVolume;
-        this._soundVolume = await localforage.getItem(STORAGE_KEY_SOUND_VOLUME) || this.soundVolume;
+        this._musicVolume = await localforage.getItem(STORAGE_KEY_MUSIC_VOLUME);
+        this._soundVolume = await localforage.getItem(STORAGE_KEY_SOUND_VOLUME);
+        if (this._soundVolume === undefined) this._soundVolume = DEFAULT_SOUND_VOLUME;
+        if (this._musicVolume === undefined) this._musicVolume = DEFAULT_MUSIC_VOLUME;
 
         this._initialized = true;
     }
@@ -107,7 +109,7 @@ export class SoundManager {
             musicTracks[currentMusicTrack].volume(volume);
         }
         this._musicVolume = volume;
-        localforage.setItem(STORAGE_KEY_MUSIC_VOLUME, `${volume}`);
+        localforage.setItem(STORAGE_KEY_MUSIC_VOLUME, volume);
     }
 
     static get musicVolume() : number {
