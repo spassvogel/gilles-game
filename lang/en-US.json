@@ -18,7 +18,7 @@
     "common-time-year-plural": "years",
 
     "encounter-backstabbed-description": "A group of rogues emerges from the bushes, knives drawn.",
-    "encounter-goblinHouseHallway-description": "The party stands inside the hallway",
+    "encounter-goblinHouseHallway-descriptx2ion": "The party stands inside the hallway",
     "encounter-goblinHouseOutside-description": "As the party makes their way along the forest they notice a small house just of the road, smoke rises from the chimney",
     "encounter-thebigtree-description": "A huge tree blocks the way",
     "encounter-dungeon-caches-chest": "An old chest",
@@ -160,6 +160,7 @@
     "quest-kill10Boars-node0": "The party sets out to vanquish 10 terrible pigs",
     "quest-kill10Boars-node1": "No pigs in sight",
     "quest-kill10Boars-enter-dungeon": "The party enters the dungeon",
+    "quest-kill10Boars-enter-dungeon-see-chest": "The party notices a chest in the middle of the room",
     "quest-kill10Boars-leave-dungeon": "The party leaves the dungeon",
     "quest-kill10Boars-left-dungeon": "The party has a vivid flashback to the dungeon",
 
