@@ -27,6 +27,7 @@ import {TooltipManager } from 'global/TooltipManager';
 import {getWorldLink, getTownLink } from 'utils/routing';
 import localforage from 'localforage';
 import StructureDetailsView from './StructureDetailsView';
+import Background from './Background';
 
 PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);
@@ -193,6 +194,7 @@ const App = (props: AllProps) => {
             onOpenWindow: handleWindowOpened,
             onCloseWindow: handleWindowClose,
         }} >
+            <Background />
             <div
                 className="app"
                 ref={containerRef}

@@ -76,7 +76,7 @@ backlog of ideas
 #### 10/07/2019 GAME TICK RESOURCE [+tech]
 [x] Move gameTick from quest reducer into 'controllers'
 [x] Move add resource into 'controllers'
-[ ] Move the guard around maxResources to the reducer (but it needs access to the level of the warehouse to determine maxresources)
+[-] Move the guard around maxResources to the reducer (but it needs access to the level of the warehouse to determine maxresources)
     https://stackoverflow.com/questions/34333979/accessing-other-parts-of-the-state-when-using-combined-reducers
 
 
@@ -128,7 +128,7 @@ backlog of ideas
 
 
 #### 20/07/2019 quest view
-[ ] shows latest log message when not in encounter
+[x] shows latest log message when not in encounter
 
 
 #### 22/07/2019 Objectives
@@ -339,7 +339,7 @@ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy
 [ ] should happen at a set interval instead of every game tick
 
 #### 10/12/2019 Item warehouse > adventurer
-[ ] Can drop items from warehouse onto adventurer    
+[x] Can drop items from warehouse onto adventurer    
 
 
 #### 01/01/2020 rerender of world [+tech]
@@ -354,7 +354,7 @@ Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy
 [x] Town should store location
 [-] Structures in town should display a short popup on click. The popup should have a button to expand the GUI and show all the details
 [x] Instead we have a legenda
-[ ] Make the outline of the structure pulse a bit 
+[x] Make the outline of the structure pulse a bit 
 
 
 #### 30/03/2020 Mobile [+art], [+tech]
@@ -438,7 +438,7 @@ Map marker needs to show there is an encounter going on.
 
 #### 10/10/2020 Make legenda for town 
 [x] Clicking on it will scroll the structure into view and after brief delay, open window
-[ ] Make outline pulse for better UX
+[x] Make outline pulse for better UX
 
 #### 10/04/2020 Oracle, Encounters? [+tech]
 Should think about what to do with the oracle. Maybe refactor the whole thing

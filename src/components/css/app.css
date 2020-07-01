@@ -7,7 +7,7 @@
 @font-face {
     font-family: 'Gabriela';
     src:  url('/gilles-game/font/Gabriela-Regular.woff') format('woff');
-  }
+}
 
 .app {
     background: orange;
