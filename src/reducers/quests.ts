@@ -338,7 +338,6 @@ const takeItemFromCache = (state: QuestStoreState[], action: TakeItemFromCacheAc
 //             ];
 //         case QuestNodeType.encounter:
 //             const encounter = nextNode.encounter!;
-//             const oracle = oracles[quest.name];
 //             console.log(encounter.getDescription(oracle))
 //             //return log;
 //             return [

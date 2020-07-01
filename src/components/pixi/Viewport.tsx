@@ -1,6 +1,7 @@
 import React, { forwardRef } from "react";
 import { Viewport as PixiViewport, ClickEventData } from "pixi-viewport";
 import { PixiComponent, useApp } from "@inlet/react-pixi";
+import gauntlet from "components/App/styles/img/cursors/dwarven_gauntlet_extra_6.png";
 
 interface Props {
   children: React.ReactNode;
@@ -18,9 +19,10 @@ interface Props {
  */
 const Viewport = forwardRef<PixiViewport, any>((props, ref) => {
   const app = useApp();
+  console.log(gauntlet)
   if (app) {
       // Perhaps this is better moved somewhere else
-      const cursor = `url('${process.env.PUBLIC_URL}/img/cursors/dwarven_gauntlet_extra_6.png'), auto`;
+      const cursor = `url('${gauntlet}'), auto`;
       app.renderer.plugins.interaction.cursorStyles.pointer = cursor;
   }
   return <PixiComponentViewport app={app} {...props} ref={ref} />;

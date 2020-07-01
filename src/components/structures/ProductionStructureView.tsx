@@ -15,8 +15,8 @@ import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
 import StructureViewHeader from './StructureViewHeader';
-import "./css/productionstructureview.css";
 import ResourcesCostBox from 'components/ui/resources/ResourcesCostBox';
+import "./styles/productionStructureView.scss";
 
 export interface DispatchProps {
     onUpgrade?: (cost: number, level: number) => void;

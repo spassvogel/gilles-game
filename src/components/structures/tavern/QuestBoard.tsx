@@ -88,13 +88,12 @@ const QuestBoard = (props: Props) => {
             </h2>
             <ul className="quest-list">
                 {props.availableQuests.map((q) => {
-                    const iconImgPath = `${process.env.PUBLIC_URL}img/sigils/${q.icon }`;
                     const className = `quest ${(q.name === props.selectedQuestName) ? " selected" : ""}`;
                     return (
                         <li key={q.name} className={className} onClick={() => {props.onQuestClick(q.name);} }>
                             <div
                                 className="icon"
-                                style={{backgroundImage: `url(${process.env.PUBLIC_URL}${iconImgPath})`}}
+                                style={{backgroundImage: `url(${process.env.PUBLIC_URL})`}}
                             />
                             <div className="title">{ TextManager.getQuestTitle(q.name) } </div>
                         </li>

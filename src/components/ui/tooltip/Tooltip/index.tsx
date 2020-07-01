@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './tooltip.scss';
+import './style/tooltip.scss';
 import { TooltipManager } from 'global/TooltipManager';
 
 const ARROW_SIZE = 8; // warning: sync to tooltip.css var
@@ -19,7 +19,7 @@ export enum Placement {
 }
 
 export const Tooltip = (props: Props) => {
-    const {children, referenceRect} = props;
+    const { children, referenceRect } = props;
     const ref = useRef<HTMLDivElement>(null);
     const [placement, setPlacement] = useState<Placement>(props.placement || Placement.bottom);
 
@@ -42,7 +42,7 @@ export const Tooltip = (props: Props) => {
                 }
                 break;
             case Placement.bottom:
-                if (tooltipRect.top + tooltipRect.height + ARROW_SIZE + PADDING > containerRect!.height ) {
+                if (tooltipRect.top + tooltipRect.height + ARROW_SIZE + PADDING > containerRect!.height) {
                     // Too low, place top
                     setPlacement(Placement.top);
                     return;
@@ -100,16 +100,16 @@ export const Tooltip = (props: Props) => {
     }
 
     return (
-        <div className = { `tooltip ${className}` }
-            style = {{
+        <div className={`tooltip ${className}`}
+            style={{
                 left: x,
                 opacity: 0,
                 top: y,
             }}
-            ref = { ref }
+            ref={ref}
         >
-            <div className = "tooltip-arrow"/>
-            <div className = "tooltip-content">
+            <div className="tooltip-arrow" />
+            <div className="tooltip-content">
                 {children}
             </div>
         </div>

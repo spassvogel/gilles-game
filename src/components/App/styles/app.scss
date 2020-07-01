@@ -1,13 +1,13 @@
 
 .app {
-    --app-cursor-default: url("/gilles-game/img/cursors/dwarven_gauntlet_extra_4.png"), auto;
-    --app-cursor-pointer: url("/gilles-game/img/cursors/dwarven_gauntlet_extra_6.png"), auto;
-    --app-cursor-down: url("/gilles-game/img/cursors/dwarven_gauntlet_extra_3.png"), auto;
+    --app-cursor-default: url("./img/cursors/dwarven_gauntlet_extra_4.png"), auto;
+    --app-cursor-pointer: url("./img/cursors/dwarven_gauntlet_extra_6.png"), auto;
+    --app-cursor-down: url("./img/cursors/dwarven_gauntlet_extra_3.png"), auto;
 }
 
 @font-face {
     font-family: 'Gabriela';
-    src:  url('/gilles-game/font/Gabriela-Regular.woff') format('woff');
+    src:  url('./font/Gabriela-Regular.woff') format('woff');
 }
 
 .app {

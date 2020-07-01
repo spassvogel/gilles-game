@@ -1,6 +1,6 @@
 import React from "react";
 import { Structure } from 'definitions/structures';
-import "./css/structureviewheader.css";
+import "./styles/structureViewHeader.scss";
 
 interface Props {
     structure: Structure;

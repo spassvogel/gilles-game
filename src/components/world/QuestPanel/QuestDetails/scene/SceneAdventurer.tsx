@@ -175,7 +175,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                             }}
                         />
                         <Sprite
-                            image={`${process.env.PUBLIC_URL}/img/ui/scene/icons/interact.png`}
+                            image={`${process.env.PUBLIC_URL}/img/scene/ui/interact.png`}
                             scale={[.3, .3]}
                             y={tileHeight}
                             x={tileWidth/2}

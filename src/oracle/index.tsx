@@ -62,7 +62,3 @@ export class Oracle {
         return this.adventurers[randomInt(0, this.adventurers.length)];
     }
 }
-
-export const oracles: any = {
-    // This will be the global store to hold all oracles, keyed by quest
-};
