@@ -30,15 +30,17 @@ const SettingsWindow = (props: AllProps) => {
     };
     return (
         <div className="settings-window">
-            <details open = { true } >
+            <details open = { true } className="sound" >
                 <summary>Sound</summary>
                 <section>
                     <p>
                         <label>Music</label>
+                        🔇 
                         <input type="range" min="0" max="1" step="0.05" onChange={handleMusicChange} defaultValue={`${Math.sqrt(SoundManager.musicVolume)}`} />
                     </p>
                     <p>
                         <label>Sound</label>
+                        🔇 
                         <input type="range" min="0" max="1" step="0.1" />
                     </p>
                 </section>

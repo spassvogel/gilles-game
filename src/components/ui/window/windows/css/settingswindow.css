@@ -2,3 +2,7 @@
     background: white;
     padding: 8px;
 }
+
+.settings-window .sound input {
+    margin-bottom: -8px
+}
