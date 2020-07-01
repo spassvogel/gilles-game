@@ -1,13 +1,15 @@
+@import 'components/styles/variables.scss';
+
 .loot-cache {
     color: white;
     width: 384px;
-    border: 1px solid #83756a;
+    border: 1px solid $color-secondary;
 }
 
 .loot-cache .header {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #83756a;
+    border-bottom: 1px solid $color-secondary;
     padding: 8px;
 }
 

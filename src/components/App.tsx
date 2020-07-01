@@ -15,7 +15,7 @@ import {Sound, SoundManager} from "global/SoundManager";
 import {TextManager} from "global/TextManager";
 import {Structure} from "../definitions/structures";
 import debounce from "debounce";
-import "./css/app.css";
+import "./css/app.scss";
 import Preloader, {MediaItem, MediaType} from "./preloading/Preloader";
 import TownView from './town/TownView';
 import Toasts from './ui/toasts/Toasts';

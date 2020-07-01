@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { ContextType } from 'constants/context';
 import { TooltipManager, Context } from 'global/TooltipManager';
 import { TextManager } from 'global/TextManager';
-import Tooltip from './Tooltip';
-import ItemContext from './context/ItemContext';
+import ItemContext from '../context/ItemContext';
 import { ItemDefinition } from 'definitions/items/types';
 import { Resource } from 'definitions/resources';
-import ResourceContext from './context/ResourceContext';
-import './css/contextTooltip.css';
+import ResourceContext from '../context/ResourceContext';
+import './contextTooltip.css';
+import Tooltip from '../Tooltip';
 
 
 // A contextual popup showing what you just clicked. Can be an Item

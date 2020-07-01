@@ -9,7 +9,7 @@ import { StructureState } from 'stores/structure';
 import { getStructureLink } from 'utils/routing';
 import { Link } from 'react-router-dom';
 import { ResourceStructureLevelDefinition, ResourceStructureDefinition } from 'definitions/structures/types';
-import './resourceContext.css';
+import './resourceContext.scss';
 
 export interface Props {
     info: string;

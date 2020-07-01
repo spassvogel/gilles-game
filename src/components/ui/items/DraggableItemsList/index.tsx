@@ -4,7 +4,7 @@ import { TextManager } from "global/TextManager";
 import "components/ui/css/common/icon.css";
 import DraggableItemIcon from 'components/ui/DraggableItemIcon';
 import { DragSourceType } from 'constants/dragging';
-import "./css/itemsList.css";
+import "./itemsList.scss";
 
 export interface Props {
     className?: string;

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './css/tooltip.css';
+import './tooltip.scss';
 import { TooltipManager } from 'global/TooltipManager';
 
 const ARROW_SIZE = 8; // warning: sync to tooltip.css var

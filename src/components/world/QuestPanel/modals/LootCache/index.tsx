@@ -10,7 +10,7 @@ import { addGold } from 'actions/gold';
 import { takeGoldFromCache, takeItemFromCache } from 'actions/quests';
 import { addItemToInventory } from 'actions/adventurers';
 import { adventurerFreeInventorySlots } from 'storeHelpers';
-import "./lootCache.css";
+import "./lootCache.scss";
 
 interface Props {
     questName: string;
