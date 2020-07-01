@@ -2,7 +2,7 @@ import * as React from "react";
 import { useDispatch } from 'react-redux';
 import { Structure, getDefinition } from 'definitions/structures';
 import { subtractGold } from 'actions/gold';
-import { startBuildingStructure } from 'actions/structures';
+import { startBuildingStructure, finishBuildingStructure } from 'actions/structures';
 import { startTask } from 'actions/tasks';
 import { TaskType } from 'stores/task';
 import { DeedDefinition } from 'definitions/items/deeds';
@@ -32,7 +32,7 @@ const DeedContent = (props: Props) => {
         dispatch(subtractGold(structureDefinition.cost.gold || 0));
         dispatch(startBuildingStructure(structure));
 
-        const callbacks = [ startBuildingStructure(structure) ];
+        const callbacks = [ finishBuildingStructure(structure) ];
         const time = structureDefinition.cost.time!;
         const start = startTask(TaskType.buildStructure,
             `${structure}.build`,

@@ -105,7 +105,7 @@ const ResourceStructureView = (props: Props) => {
     return (
         <>
             <StructureViewHeader structure={props.type} />
-            <details open={true } className = "structureview">
+            <details open={true} className="structureview">
                 <section>
                     {createWorkersRow() }
                     {createUpgradeRow() }

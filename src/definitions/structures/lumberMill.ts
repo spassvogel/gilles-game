@@ -1,12 +1,13 @@
 // tslint:disable:object-literal-sort-keys
 
 import { ResourceStructureDefinition, StructureType } from "./types";
+import { HALF_HOUR } from 'utils/time';
 
 const lumberMill: ResourceStructureDefinition = {
     type: StructureType.resource,
     cost: {
         gold: 31,
-        time: 5000,
+        time: HALF_HOUR,
     },
     levels: [{
         // level 0:

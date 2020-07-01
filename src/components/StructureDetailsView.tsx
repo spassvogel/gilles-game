@@ -7,7 +7,6 @@ import { StructureState } from "stores/structure";
 import Progressbar from "./ui/Progressbar";
 import ResourceStructureView from './structures/ResourceStructureView';
 import TavernStructureView from './structures/tavern/TavernStructureView';
-import "./css/structuredetailsview.css";
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import { TasksStoreState } from 'stores/tasks';
@@ -15,6 +14,8 @@ import useStructure from 'hooks/store/useStructure';
 import { withWindow } from 'hoc/withWindow';
 import { Props as WindowProps } from "components/ui/window/Window";
 import WarehouseStructureView from './structures/warehouse/WarehouseStructureView';
+import { formatDuration } from 'utils/time';
+import "./css/structuredetailsview.css";
 
 export interface Props {
     structure: Structure;
@@ -28,10 +29,13 @@ const StructureDetailsView = (props: Props & WindowProps) => {
 
     const renderContent = () => {
         if (structureState.state === StructureState.Building) {
-            const progress = buildTask ? buildTask.progress : 1;
+            if (!buildTask) return null;
             return (
-                <div>
-                    <Progressbar label="Building..." progress={progress} />
+                <div className="building">
+                    <Progressbar
+                        progress={buildTask.progress}
+                        label={`Building... (${formatDuration(buildTask.timeRemaining)})`}
+                    />
                 </div>
             );
         } else {

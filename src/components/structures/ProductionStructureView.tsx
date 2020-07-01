@@ -62,15 +62,17 @@ const ProductionStructureView = (props: AllProps) => {
         const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
             if (props.onUpgrade) { props.onUpgrade(nextLevelCost, level + 1); }
         };
-        return <div>
-            <label>level:</label>{ `${(level + 1)} / ${structureDefinition.levels.length}` }
-            <button
-                style={{float: "right"}}
-                onClick={handleClick}
-                disabled={!canUpgrade} >
-                    { upgradeText }
-            </button>
-        </div>;
+        return (
+            <div>
+                <label>level:</label>{ `${(level + 1)} / ${structureDefinition.levels.length}` }
+                <button
+                    style={{float: "right"}}
+                    onClick={handleClick}
+                    disabled={!canUpgrade}>
+                        { upgradeText }
+                </button>
+            </div>
+        );
     };
 
     const createCraftTabs = () => {
@@ -82,14 +84,16 @@ const ProductionStructureView = (props: AllProps) => {
                 setSelectedItem(produces.item);
             };
 
-            return <li
-                key={`craft${produces.item}`}
-                onClick={handleSelectCraftingItem}
-                className={selectedItem === produces.item ? "selected" : ""}
-            >
-                <ItemIcon item={produces.item} />
-                { TextManager.getItemName(produces.item) }
-            </li>;
+            return (
+                <li
+                    key={`craft${produces.item}`}
+                    onClick={handleSelectCraftingItem}
+                    className={selectedItem === produces.item ? "selected" : ""}
+                >
+                    <ItemIcon item={produces.item} />
+                    { TextManager.getItemName(produces.item) }
+                </li>
+            );
         });
     };
 

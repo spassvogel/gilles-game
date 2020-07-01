@@ -29,3 +29,7 @@
 .structure-details legend {
     padding-top: 30px;
 }
+
+.structure-details .building {
+    padding: 16px;
+}
