@@ -110,11 +110,10 @@ export class BaseSceneController<TQuestVars> {
     actorCanInteract(actorName: string) {
         const {scene} = this.getQuest();
         const actor = scene?.actors.find(o => o.name === actorName)!;
-        const object = scene?.tileObjects
-            .find(o => locationEquals(o.location, actor.location));
+        const object = this.tilemapObjects?.[`${actor.location[0]},${actor.location[1]}`];
 
         // todo: should we look for some specific property?
-        return !!object;
+        return object && object.ezProps?.interactive;
     }
 
     actorInteract(actorName: string) {

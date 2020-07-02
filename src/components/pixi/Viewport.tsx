@@ -58,15 +58,6 @@ const PixiComponentViewport = PixiComponent("Viewport", {
       .decelerate();
 
     return viewport;
-  },
-  // applyProps: (instance, oldProps, newProps) => {
-  //   console.log("applyProps");
-  // },
-  // didMount: () => {
-  //   console.log("didMount");
-  // },
-  // willUnmount: () => {
-  //   console.log("willUnmount");
-  // }
+  }
 });
 export default Viewport;

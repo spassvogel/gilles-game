@@ -54,6 +54,7 @@
   <object id="9" type="adventurerStart" x="400" y="900" width="100" height="100"/>
   <object id="10" name="chest" type="lootCache" gid="33" x="200" y="600" width="100" height="100">
    <properties>
+    <property name="interactive" type="bool" value="true"/>
     <property name="items" value="nomadHelmet,teeth, poisonVial,fedora,tophat"/>
     <property name="title" value="encounter-dungeon-caches-chest"/>
    </properties>

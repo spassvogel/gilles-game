@@ -74,7 +74,6 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
         if(scene.actionQueue?.length) {
             return;
         }
-        //props.onLootCacheChanged("chest"); // todo: remove!!
 
         const endLocation = controller.pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
         const blocked = controller.locationIsBlocked(endLocation);

@@ -125,6 +125,11 @@
                  "name":"chest",
                  "properties":[
                         {
+                         "name":"interactive",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
                          "name":"items",
                          "type":"string",
                          "value":"nomadHelmet,teeth, poisonVial,fedora,tophat"
