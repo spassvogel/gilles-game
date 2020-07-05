@@ -4,7 +4,6 @@ import { PixiComponent, useApp } from "@inlet/react-pixi";
 import gauntlet from "components/App/styles/img/cursors/dwarven_gauntlet_extra_6.png";
 
 interface Props {
-  children: React.ReactNode;
   onClick?(event: ClickEventData): void;
   screenWidth: number,
   screenHeight: number,

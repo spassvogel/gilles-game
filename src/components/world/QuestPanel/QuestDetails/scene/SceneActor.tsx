@@ -1,5 +1,5 @@
 import { Container } from '@inlet/react-pixi';
-import React, { useMemo,  useEffect, useRef, useCallback } from 'react';
+import React, { useMemo,  useEffect, useRef, useCallback, PropsWithChildren } from 'react';
 import { SceneActionType, SceneAction } from 'stores/scene';
 import { useDispatch, useSelector } from 'react-redux';
 import { completeSceneAction } from 'actions/quests';
@@ -11,11 +11,10 @@ export interface Props  {
     name: string;
     controller: BaseSceneController<any>;
     location?: [number, number]; // tile coordinate space
-    children: React.ReactNode;
 };
 
 // This is a wrapper that exposes a location property. Will set x and y on children
-const SceneActor = (props: Props) => {
+const SceneActor = (props: PropsWithChildren<Props>) => {
     const {
         location = [0, 0],
         controller,

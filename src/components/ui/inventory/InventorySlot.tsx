@@ -5,6 +5,7 @@ import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
 import { InventoryItemDragInfo } from "../DraggableItemIcon";
 import { itemAndEquipmentSlotMatch } from "../EquipmentSlot";
+import { PropsWithChildren } from 'react';
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {
@@ -23,7 +24,6 @@ export interface Props {
     item: Item | null;
     onDrop: (item: any) => void;
     size?: IconSize;
-    children: React.ReactNode;
 }
 
 export interface DropSourceProps {
@@ -41,7 +41,7 @@ const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
 /**
  * The InventorySlot displays a slot in which an item can be placed.
  */
-const InventorySlot = (props: Props & DropSourceProps) => {
+const InventorySlot = (props: PropsWithChildren<Props> & DropSourceProps) => {
     const {
         isOver,
         canDrop,

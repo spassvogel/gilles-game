@@ -1,14 +1,13 @@
 import { Howl } from "howler";
 import * as React from "react";
 import Indicator from "./Indicator";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, PropsWithChildren } from 'react';
 
 // https://medium.com/@jchiam/publishing-a-typescript-react-component-to-npm-d3cc15b8d0a2
-export interface Props {
+export type Props = PropsWithChildren<{
     manifest: string[];
     onLoadComplete?: (mediaItems: MediaItem[]) => void;
-    children: any;
-}
+}>
 
 export enum MediaType {
     image,
@@ -22,7 +21,7 @@ export interface MediaItem {
     sound?: Howl;
 }
 
-const Preloader = (props: Props) => {    
+const Preloader = (props: Props) => {
 
     const [completed, setCompleted] = useState(false);
     const [itemsLoaded, setItemsLoaded] = useState(0);

@@ -1,16 +1,15 @@
 
 import { Container } from '@inlet/react-pixi';
-import React, { useMemo, forwardRef } from 'react';
+import React, { useMemo, forwardRef, PropsWithChildren } from 'react';
 
 interface Props  {
   tileWidth: number;
   tileHeight: number;
   location?: [number, number]; // tile coordinate space
-  children: React.ReactNode;
 };
 
 // This is a wrapper that exposes a location property. Will set x and y on children
-const SceneObject = forwardRef((props: Props, ref: React.Ref<PIXI.Container>) => {
+const SceneObject = forwardRef((props: PropsWithChildren<Props>, ref: React.Ref<PIXI.Container>) => {
     const {
         location = [0, 0],
         tileWidth = 0,
