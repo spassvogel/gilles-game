@@ -32,11 +32,6 @@ const Preloader = (props: Props) => {
 
     const { children, manifest } = props;
 
-    const indicator = <Indicator
-        itemsLoaded = { itemsLoaded }
-        itemsTotal = { manifest.length }
-    />;
-
     const loadMedia = () => {
         // todo: what if props get set at runtime
         setItemsLoaded(0);
@@ -87,8 +82,15 @@ const Preloader = (props: Props) => {
             throw new Error(`Unknown error while trying to load ${url}`);
         }
     }
-
-    return completed ? children : indicator;
+    if (!completed) {
+        return (
+            <Indicator
+                itemsLoaded = { itemsLoaded }
+                itemsTotal = { manifest.length }
+            />
+        );
+    }
+    return <> {children} </>;
 }
 
 const media: MediaItem[] = [];

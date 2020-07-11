@@ -30,19 +30,18 @@ const Tilemap = (props: Props) => {
             if (!texture) return;
             PIXI.utils.clearTextureCache();
             const spritesheet = new PIXI.Spritesheet(texture, spritesheetData);
-    
+
             spritesheet.parse(() => {
                 const allLayers = data.layers.filter(l => l.visible && l.type === TiledLayerType.tilelayer).map(layer => {
                      return createTileLayer(layer, texture, data.width, tileset, spritesheet);
                 });
                 allLayers.push(createObjectLayer(tileObjects, texture, tileset, spritesheet));
                 setLayers(allLayers);
-                
+
                 if (DEBUG){
                     setDebug(getDebug(data.layers[0].data.length, data.layers[0].width, tileset.tilewidth, tileset.tileheight))
                 }
             });
-    
         })
     }, [basePath, data, tileObjects]);
     return (
@@ -61,7 +60,7 @@ const getDebug = (tileCount: number, columns: number, tileWidth: number, tileHei
         const location = [(i % columns),  Math.floor(i / columns)];
         const x = location[0] * tileWidth;
         const y = location[1] * tileHeight;
-        var style = {
+        const style = {
             font : 'bold italic 36px Arial',
             fill : '#F7EDCA',
             stroke : '#4a1850',
@@ -105,8 +104,8 @@ const createTileLayer = (layer: TiledLayerData, texture: PIXI.Texture, horizonta
     return (
         <RectTileLayer
             key={layer.name}
-            texture={texture} 
-            layer={layer} 
+            texture={texture}
+            layer={layer}
             horizontalTiles={horizontalTiles}
             tileset={tileset}
             spritesheet={spritesheet}
@@ -118,7 +117,7 @@ const createObjectLayer = (objects: TileObject[], texture: PIXI.Texture, tileset
         <ObjectTileLayer
             key={"objects"}
             objects={objects}
-            texture={texture} 
+            texture={texture}
             tileset={tileset}
             spritesheet={spritesheet}
         />
@@ -136,7 +135,7 @@ const parseSpritesheetData = (mapData: TiledMapData): SpritesheetData => {
         const x = (i % columns) * w;
         const y = Math.floor(i / columns) * h;
 
-        frames[`${tileset.name}-${i + tileset.firstgid}`] = { 
+        frames[`${tileset.name}-${i + tileset.firstgid}`] = {
             frame: {x, y, w, h},
             spriteSourceSize: {x, y, w, h},
             rotated: false,

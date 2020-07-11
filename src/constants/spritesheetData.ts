@@ -1,9 +1,9 @@
 
 export interface SpritesheetData {
-    frames: { 
+    frames: {
         [name: string]: SpriteData;
     }
-    meta: { 
+    meta: {
         image: string;
         size: Size;
         scale: number;
@@ -12,7 +12,7 @@ export interface SpritesheetData {
 
 export interface SpriteData {
     frame: Frame,
-    rotated?: boolean, 
+    rotated?: boolean,
     trimmed?: boolean;
     spriteSourceSize?: Frame;
     sourceSize?: Size;

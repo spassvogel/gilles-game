@@ -22,10 +22,10 @@ export async function loadResourceAsync(path: string) {
         if (loader.resources[path]) {
             resolve(loader.resources[path]);
         }
-        else { 
+        else {
             loader.add(path).load((_, resources) => {
-                resolve(resources[path]);            
-            });    
+                resolve(resources[path]);
+            });
         }
     });
 }
