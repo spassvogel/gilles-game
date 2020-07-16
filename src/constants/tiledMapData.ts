@@ -29,6 +29,7 @@ export interface TiledTilesetData {
 
 export interface TileData {
     id: number,
+    image: string;
     properties?: TiledProperty[];
 }
 

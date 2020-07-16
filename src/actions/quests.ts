@@ -1,6 +1,6 @@
 import { Action } from "redux";
 import { AdventurerStoreState } from "stores/adventurer";
-import { SceneAction, SceneStoreState, TileObject } from 'stores/scene';
+import { SceneAction, SceneStoreState, SceneObject } from 'stores/scene';
 import { Item } from 'definitions/items/types';
 
 // tslint:disable:object-literal-sort-keys
@@ -65,7 +65,7 @@ export interface TakeItemFromCacheAction extends QuestAction {
 
 export interface UpdateSceneObjectAction extends QuestAction {
     id: number;
-    object: Partial<Omit<TileObject, 'id'>>;
+    object: Partial<Omit<SceneObject, 'id'>>;
 }
 
 export function launchQuest(questName: string, assignedAventurers: AdventurerStoreState[]): QuestLaunchAction {
@@ -125,7 +125,7 @@ export function completeSceneAction(quest: string): QuestAction {
     };
 }
 
-export const updateSceneObjectAction = (questName: string, id: number, object: Partial<Omit<TileObject, 'id'>>): UpdateSceneObjectAction => {
+export const updateSceneObjectAction = (questName: string, id: number, object: Partial<Omit<SceneObject, 'id'>>): UpdateSceneObjectAction => {
     return {
         type: ActionType.updateSceneObjectAction,
         questName,

@@ -1,7 +1,7 @@
 import { PixiComponent } from "@inlet/react-pixi";
 import * as PIXI  from 'pixi.js';
 import { TiledTilesetData } from 'constants/tiledMapData';
-import { TileObject } from 'stores/scene';
+import { SceneObject } from 'stores/scene';
 
 window.PIXI = PIXI;
 // eslint-disable-next-line import/first
@@ -10,7 +10,7 @@ import 'pixi-tilemap';
 
 interface Props  {
     texture: PIXI.Texture;
-    objects: TileObject[];
+    objects: SceneObject[];
     tileset: TiledTilesetData;
     spritesheet: PIXI.Spritesheet;
 };

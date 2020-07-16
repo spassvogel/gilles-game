@@ -6,25 +6,25 @@ import { SpritesheetData, SpriteData } from 'constants/spritesheetData';
 import RectTileLayer from 'components/pixi/tile/RectTileLayer';
 import * as PIXI from 'pixi.js';
 import { loadResource } from 'utils/pixiJs';
-import { TileObject } from 'stores/scene';
+import { SceneObject } from 'stores/scene';
 import ObjectTileLayer from 'components/pixi/tile/ObjectTileLayer';
+import useTilesetsLoader from 'hooks/useTilesetsLoader';
 
 interface Props {
     basePath: string;
     data: TiledMapData;
-    tileObjects: TileObject[]; // Objects that don't move
+    spritesheets: {[key: string]: PIXI.Spritesheet}
 }
 
 const DEBUG = false;
 
 const Tilemap = (props: Props) => {
-    const {basePath, data, tileObjects} = props;
-    const [layers, setLayers] = useState<JSX.Element[]>();
-    const [debug, setDebug] = useState<JSX.Element[]>();
+    const {data, spritesheets} = props;
 
-    useEffect(() => {
-        const spritesheetData = parseSpritesheetData(data);
-        const tileset = getTileset(data);
+    /*
+      useEffect(() => {
+        // const tileset = getTileset(data);
+        // const spritesheetData = parseSpritesheetData(data);
         loadResource(`${basePath}/${tileset.image}`, (resource) => {
             const texture = resource.texture;
             if (!texture) return;
@@ -43,11 +43,14 @@ const Tilemap = (props: Props) => {
                 }
             });
         })
-    }, [basePath, data, tileObjects]);
+    }, [basePath, data, tileObjects]);*/
     return (
         <Container >
-            {layers}
-            {debug}
+            {data.layers
+                .filter(l => l.visible && l.type === TiledLayerType.tilelayer)
+                .map(layer => createTileLayer(layer, data.width, data.tilesets, spritesheets))
+            }
+
         </Container>
     );
 }
@@ -87,32 +90,20 @@ const getDebug = (tileCount: number, columns: number, tileWidth: number, tileHei
     return elements;
 }
 
-const getTileset = (mapData: TiledMapData) => {
-    if (!mapData.tilesets.length) {
-        throw new Error("No tilesets found! Can't continue");
-    }
-    if (mapData.tilesets.length > 1) {
-        console.warn("Found more than one tileset. But we currently only support one.");
-    }
-    if (mapData.tilesets[0].source) {
-        throw new Error("Please embed tilemaps in Tiled! Can't continue");
-    }
-    return mapData.tilesets[0];
-}
 
-const createTileLayer = (layer: TiledLayerData, texture: PIXI.Texture, horizontalTiles: number, tileset: TiledTilesetData, spritesheet: PIXI.Spritesheet) => {
+
+const createTileLayer = (layer: TiledLayerData, horizontalTiles: number, tilesets: TiledTilesetData[], spritesheets: {[key: string]: PIXI.Spritesheet}) => {
     return (
         <RectTileLayer
             key={layer.name}
-            texture={texture}
             layer={layer}
             horizontalTiles={horizontalTiles}
-            tileset={tileset}
-            spritesheet={spritesheet}
+            tilesets={tilesets}
+            spritesheets={spritesheets}
         />
     );
 }
-const createObjectLayer = (objects: TileObject[], texture: PIXI.Texture, tileset: TiledTilesetData, spritesheet: PIXI.Spritesheet) => {
+const createObjectLayer = (objects: SceneObject[], texture: PIXI.Texture, tileset: TiledTilesetData, spritesheet: PIXI.Spritesheet) => {
     return (
         <ObjectTileLayer
             key={"objects"}
@@ -124,33 +115,3 @@ const createObjectLayer = (objects: TileObject[], texture: PIXI.Texture, tileset
     );
 }
 
-const parseSpritesheetData = (mapData: TiledMapData): SpritesheetData => {
-    const tileset = getTileset(mapData);
-    const columns = tileset.columns;
-
-    const frames: { [name: string]: SpriteData } = {};
-    for (let i = 0; i < tileset.tilecount; i++) {
-        const w = tileset.tilewidth;
-        const h = tileset.tileheight;
-        const x = (i % columns) * w;
-        const y = Math.floor(i / columns) * h;
-
-        frames[`${tileset.name}-${i + tileset.firstgid}`] = {
-            frame: {x, y, w, h},
-            spriteSourceSize: {x, y, w, h},
-            rotated: false,
-            trimmed: false,
-            sourceSize: { w, h}
-        };
-    }
-    const image = tileset.image;
-    const size = { w: tileset.imagewidth, h: tileset.imageheight };
-    return {
-        frames,
-        meta: {
-            image,
-            size,
-            scale: 1
-        }
-    };
-}

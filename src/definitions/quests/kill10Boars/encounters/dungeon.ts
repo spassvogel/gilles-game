@@ -1,6 +1,6 @@
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { SceneControllerManager } from 'global/SceneControllerManager';
-import { TileObject, ActorObject } from 'stores/scene';
+import { SceneObject, ActorObject } from 'stores/scene';
 import { updateSceneObjectAction, setActiveLootCache } from 'actions/quests';
 import { Kill10BoarsQuestVars } from '../questVars';
 // tslint:disable: max-classes-per-file
@@ -11,7 +11,7 @@ const TILE_CHEST_OPEN = 34; // todo: take this from json?
 export class DungeonEntranceSceneController extends BaseSceneController<Kill10BoarsQuestVars> {
     jsonPath = "scenes/ork-dungeon-level1.json";
 
-    interactWithObject(actor: ActorObject, object: TileObject) {
+    interactWithObject(actor: ActorObject, object: SceneObject) {
         switch (object.name) {
             // todo: I want to share this common stuff with other SceneControllers
             case "chest":

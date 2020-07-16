@@ -44,6 +44,11 @@ export type ExtendedTiledObjectData = TiledObjectData & {
     ezProps?: { [key: string]: any}
 }
 
+export enum TiledObjectType {
+    adventurerStart = "adventurerStart",
+    exit = "exit"
+}
+
 /** Add tiles in this layer to list */
 export const addAllTilesInLayerToList = (list: [number, number][], layer: TiledLayerData, columns: number) => {
     layer.data.reduce((acc: [number, number][], tile, index) => {

@@ -223,7 +223,7 @@ const updateSceneObjectAction = (state: QuestStoreState[], action: UpdateSceneOb
             const scene = qss.scene;
             if (!scene) throw new Error("Something broke. No scene");
 
-            scene.tileObjects = scene.tileObjects.map(tO => {
+            scene.objects = scene.objects.map(tO => {
                 if (tO.id === action.id) {
                     return {
                         ...tO,

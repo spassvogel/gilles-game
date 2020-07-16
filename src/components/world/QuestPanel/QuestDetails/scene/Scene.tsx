@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useEffect } from "react";
 import { Container } from '@inlet/react-pixi';
 import useQuest from 'hooks/store/useQuest';
 import Tilemap from './Tilemap';
@@ -6,6 +6,8 @@ import { ActorObject } from 'stores/scene';
 import BridgedStage from 'components/pixi/util/BridgedStage';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import SceneAdventurer from './SceneAdventurer';
+import useTilesetsLoader from 'hooks/useTilesetsLoader';
+import renderObject from './renderObject';
 
 import * as PIXI from 'pixi.js';
 window.PIXI = PIXI;
@@ -25,6 +27,12 @@ const Scene = (props: Props) => {
     const {controller} = props;
     const mapData = controller.mapData!;
     const basePath = controller.basePath!;
+
+    const {
+        loadComplete,
+        loadTilesets,
+        tileSpritesheets
+    } = useTilesetsLoader(basePath);
 
     const ref = useRef<PIXI.Container>(null);
     const quest = useQuest(props.questName);
@@ -52,6 +60,16 @@ const Scene = (props: Props) => {
         );
     }
 
+
+
+    useEffect(() => {
+        loadTilesets(mapData.tilesets);
+    }, [loadTilesets, mapData.tilesets]);
+
+    if (!loadComplete) {
+        return <div>loading...</div>
+    }
+
     return (
         <>
             <BridgedStage width={sceneWidth} height={sceneHeight}>
@@ -63,8 +81,9 @@ const Scene = (props: Props) => {
                     <Tilemap
                         basePath={basePath}
                         data={mapData}
-                        tileObjects={scene.tileObjects}
-                    />
+                        spritesheets={tileSpritesheets}
+                        />
+                    {  scene.objects.map((o) => renderObject(o, controller, tileSpritesheets ))}
                     { scene.actors?.map((o) => renderActor(o))}
                 </Container>
             </BridgedStage>

@@ -1,5 +1,5 @@
 import { Store, AnyAction } from "redux";
-import { getExtendedTilemapObjects, ExtendedTiledObjectData, addAllTilesInLayerToList, locationEquals } from 'utils/tilemap';
+import { getExtendedTilemapObjects, ExtendedTiledObjectData, addAllTilesInLayerToList, locationEquals, TiledObjectType } from 'utils/tilemap';
 import { adventurersOnQuest } from 'storeHelpers';
 import { StoreState } from 'stores';
 import { loadResource } from 'utils/pixiJs';
@@ -7,7 +7,7 @@ import { TiledMapData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'stores/adventurer';
 import { setScene, setSceneName, exitEncounter } from 'actions/quests';
-import { TileObject, ActorObject, LootCache } from 'stores/scene';
+import { SceneObject, ActorObject, LootCache } from 'stores/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLink } from 'utils/routing';
@@ -42,6 +42,7 @@ export class BaseSceneController<TQuestVars> {
         return !!this.mapData;
     }
 
+    // Loads tiles from json
     loadData(callback: () => void) {
         if (this.dataLoaded) {
             return callback();
@@ -67,21 +68,21 @@ export class BaseSceneController<TQuestVars> {
 
     // Constructs the scene and dispatches it to be saved to the store
     createScene() {
-        const tileObjects = this.createTileObjects();
+        const objects = this.createObjects();
         const actors = this.createActors();
         const caches = this.createCaches();
 
         // todo: perhaps this should be a class such that stuff that repeats for every scene can be done in a base class
         const scene = {
-            tileObjects,
+            objects,
             actors,
             caches
         }
         this.store.dispatch(setScene(this.questName, scene));
     }
 
-    // tslint:disable-next-line: no-empty
     sceneEntered() {
+        // tslint:disable-next-line: no-empty
     }
 
     actorMoved(actor: string, location: [number, number]) {
@@ -124,7 +125,7 @@ export class BaseSceneController<TQuestVars> {
         }
         const {scene} = this.getQuest();
         const actor = scene?.actors.find(o => o.name === actorName)!;
-        const object = scene?.tileObjects
+        const object = scene?.objects
             .find(o => locationEquals(o.location, actor.location));
 
         if (!object) {
@@ -136,7 +137,7 @@ export class BaseSceneController<TQuestVars> {
         this.interactWithObject(actor, object);
     }
 
-    interactWithObject(_actor: ActorObject, _object: TileObject) {
+    interactWithObject(_actor: ActorObject, _object: SceneObject) {
         // override
     }
 
@@ -199,19 +200,26 @@ export class BaseSceneController<TQuestVars> {
         }, []);
     }
 
-    protected createTileObjects(): TileObject[] {
+    // These objects are saved in store
+    protected createObjects(): SceneObject[] {
         if (!this.tilemapObjects) {
             throw new Error("No tilemapObjects");
         }
 
         return Object.values(this.tilemapObjects)
-            .map(o => ({
-                id: o.id,
-                gid: o.gid!,
-                location: o.location,
-                name: o.name,
-                type: o.type
-            }));
+            .map(o => this.createObject(o))
+            .filter((o): o is SceneObject => o !== null);   // filter out null values
+    }
+
+
+    protected createObject(config: ExtendedTiledObjectData): SceneObject | null {
+        switch (config.type) {
+            case TiledObjectType.adventurerStart:
+            case TiledObjectType.exit:
+                return null;
+            default:
+                return config;
+        }
     }
 
     protected createCaches(): { [name: string]: LootCache } {
@@ -219,7 +227,7 @@ export class BaseSceneController<TQuestVars> {
             .filter(o => o.type === "lootCache")
             .reduce((acc: { [name: string]: LootCache }, value) => {
                 // serialize comma separated string to array of Item
-                const items = value.ezProps?.items.split(",").map((v:string) => {
+                const items = value.ezProps?.items?.split(",").map((v:string) => {
                     const item = Item[v.trim()];
                     if (item) {
                         return item;

@@ -2,19 +2,18 @@ import { Item } from 'definitions/items/types';
 
 
 export interface SceneStoreState {
-    tileObjects: TileObject[];
+    objects: SceneObject[];
     actors: ActorObject[];
     caches: { [key: string]: LootCache }
     actionQueue?: SceneAction[];
     activeLootCache?: string; // todo: could be other interaction things besides lootcache?
 }
 
-// https://www.typescriptlang.org/docs/handbook/advanced-types.html#discriminated-unions
-export interface TileObject {
+export interface SceneObject {
     id: number;
     name?: string;
     type: string;
-    gid: number;
+    gid?: number;
     location: [number, number];
 };
 
