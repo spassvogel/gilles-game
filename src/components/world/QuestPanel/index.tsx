@@ -9,7 +9,7 @@ import { useHistory } from 'react-router';
 import { getWorldLink } from 'utils/routing';
 import LootCache from './modals/LootCache';
 import useQuest from 'hooks/store/useQuest';
-import { setActiveLootCache } from 'actions/quests';
+import { setActiveSceneInteractionModal } from 'actions/quests';
 
 enum Layout {
     auto,       // horizontal on large screens, vertical on small screens
@@ -35,14 +35,14 @@ const QuestPanel = (props: Props) => {
     }, [adventurers, selectedAdventurerId]);
 
     const quest = useQuest(props.questName);
-    const activeLootCache = quest?.scene?.activeLootCache;
+    const activeInteractionModal = quest?.scene?.activeInteractionModal;
 
     const handleAdventurerSelected = (adventurerId: string) => {
         setSelectedAdventurerID(adventurerId);
     }
 
     const handleCloseLootCacheModal = () => {
-        dispatch(setActiveLootCache(props.questName));
+        dispatch(setActiveSceneInteractionModal(props.questName));
     }
 
     useEffect(() => {
@@ -62,11 +62,11 @@ const QuestPanel = (props: Props) => {
                     selectedActor={selectedAdventurerId}
                     setSelectedActor={handleAdventurerSelected}
                 />
-                { activeLootCache && (
+                { activeInteractionModal && activeInteractionModal.type === 'lootCache' && (
                     <div className="modal" onClick={handleCloseLootCacheModal}>
                         <LootCache
                             questName={props.questName}
-                            cacheName={activeLootCache}
+                            cacheName={activeInteractionModal.lootCache}
                             adventurerId={selectedAdventurerId}
                             onClose={handleCloseLootCacheModal}
                         />
@@ -78,7 +78,7 @@ const QuestPanel = (props: Props) => {
                     adventurers={adventurers}
                     selectedAdventurerId={selectedAdventurerId}
                     onAdventurerTabSelected={handleAdventurerSelected}
-                    disabled={activeLootCache !== undefined}
+                    disabled={activeInteractionModal !== undefined}
                 />
                 <div className="adventurer-details">
                     { selectedAdventurer && (

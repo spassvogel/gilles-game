@@ -1,6 +1,6 @@
 import { Action } from "redux";
 import { AdventurerStoreState } from "stores/adventurer";
-import { SceneAction, SceneStoreState, SceneObject } from 'stores/scene';
+import { SceneAction, SceneStoreState, SceneObject, SceneInteractionModal } from 'stores/scene';
 import { Item } from 'definitions/items/types';
 
 // tslint:disable:object-literal-sort-keys
@@ -17,7 +17,7 @@ export enum ActionType {
     enqueueSceneAction = "enqueueSceneAction",
     completeSceneAction = "completeSceneAction",
     updateSceneObjectAction = "updateSceneObjectAction",    // Updates a tile object on the scene. Can update any property except 'id'
-    setActiveLootCache = "setActiveLootCache",              // Sets the active loot cache (displays a modal)
+    setActiveSceneInteractionModal = "setActiveSceneInteractionModal",     // Sets the active  modal
     takeGoldFromCache = "takeGoldFromCache",                // Takes *all* the gold from a cache
     takeItemFromCache = "takeItemFromCache"                 // Takes an item from a cache
 }
@@ -54,8 +54,9 @@ export interface UpdateEncounterResultAction extends QuestAction {
 export interface TakeGoldFromCacheAction extends QuestAction {
     cacheName: string;
 }
-export interface SetActiveLootCacheAction extends QuestAction {
-    cacheName?: string;
+
+export interface SetActiveSceneInteractionModalAction extends QuestAction {
+    sceneInteractionModal?: SceneInteractionModal;
 }
 
 export interface TakeItemFromCacheAction extends QuestAction {
@@ -151,11 +152,11 @@ export const takeGoldFromCache = (questName: string, cacheName: string): TakeGol
    }
 }
 
-export const setActiveLootCache = (questName: string, cacheName?: string): SetActiveLootCacheAction => {
+export const setActiveSceneInteractionModal = (questName: string, sceneInteractionModal?: SceneInteractionModal): SetActiveSceneInteractionModalAction => {
    return {
-       type: ActionType.setActiveLootCache,
+       type: ActionType.setActiveSceneInteractionModal,
        questName,
-       cacheName
+       sceneInteractionModal
    }
 }
 

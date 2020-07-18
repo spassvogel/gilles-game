@@ -6,7 +6,7 @@ export interface SceneStoreState {
     actors: ActorObject[];
     caches: { [key: string]: LootCache }
     actionQueue?: SceneAction[];
-    activeLootCache?: string; // todo: could be other interaction things besides lootcache?
+    activeInteractionModal?: SceneInteractionModal;
 }
 
 export interface SceneObject {
@@ -23,13 +23,17 @@ export type ActorObject = {
     health: number;
 };
 
+
+
  // export type Actor = SceneObject & {
 //     type: "actor";
 //     //allegiance: Allegiance;
 //     health: number;
 //     //remainingAP: number;
 // }
-
+export type SceneInteractionModal =
+| { type: 'lootCache', lootCache: string }
+| { type: 'choices', choices: string[] }
 
 export interface LootCache {
     title: string;
