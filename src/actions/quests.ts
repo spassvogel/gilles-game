@@ -125,7 +125,7 @@ export function completeSceneAction(quest: string): QuestAction {
     };
 }
 
-export const updateSceneObjectAction = (questName: string, id: number, object: Partial<Omit<SceneObject, 'id'>>): UpdateSceneObjectAction => {
+export const updateSceneObject = (questName: string, id: number, object: Partial<Omit<SceneObject, 'id'>>): UpdateSceneObjectAction => {
     return {
         type: ActionType.updateSceneObjectAction,
         questName,
