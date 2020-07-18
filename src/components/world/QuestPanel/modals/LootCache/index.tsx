@@ -10,7 +10,8 @@ import { addGold } from 'actions/gold';
 import { takeGoldFromCache, takeItemFromCache } from 'actions/quests';
 import { addItemToInventory } from 'actions/adventurers';
 import { adventurerFreeInventorySlots } from 'storeHelpers';
-import "./lootCache.scss";
+import "../styles/lootCache.scss";
+import "../styles/modal.scss";
 
 interface Props {
     questName: string;
@@ -76,7 +77,7 @@ const LootCache = (props: Props) => {
     }
 
     return (
-        <div className={`loot-cache`} ref={ref}>
+        <div className={`interaction-modal loot-cache`} ref={ref}>
             <div className="header">
                 <div className="title">
                     {TextManager.get(cache.title)}

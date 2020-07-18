@@ -33,7 +33,7 @@ export type ActorObject = {
 // }
 export type SceneInteractionModal =
 | { type: 'lootCache', lootCache: string }
-| { type: 'choices', choices: string[] }
+| { type: 'choices', choices: string[], title: string }
 
 export interface LootCache {
     title: string;

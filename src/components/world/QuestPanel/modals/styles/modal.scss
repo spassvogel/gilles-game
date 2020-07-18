@@ -1,0 +1,34 @@
+@import 'components/styles/variables.scss';
+
+.interaction-modal {
+    color: white;
+    width: 384px;
+    border: 1px solid $color-secondary;
+}
+
+.interaction-modal .header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $color-secondary;
+    padding: 8px;
+}
+
+.interaction-modal .header .title {
+    padding-left: 4px;
+}
+
+.interaction-modal .header .close {
+    padding-right: 4px;
+}
+
+.interaction-modal .header .close::before {
+    content: "x"
+}
+
+.interaction-modal .content {
+    display: flex;
+}
+
+.interaction-modal .content button {
+    flex: 1;
+}

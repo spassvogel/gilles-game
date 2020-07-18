@@ -28,6 +28,18 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
 
                 // display loot modal!
                 break;
+
+            case "altar":
+                this.store.dispatch(setActiveSceneInteractionModal(this.questName, {
+                    type: 'choices',
+                    title: 'quest-kill10boars-dungeonentrance-altar',
+                    choices: [
+                        "quest-kill10boars-dungeonentrance-altar-lightcandle",
+                        "quest-kill10boars-dungeonentrance-altar-rummagedrawers"
+                    ]
+                }));
+
+                break;
         }
         super.interactWithObject(actor, object);
     }
