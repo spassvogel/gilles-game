@@ -10,13 +10,11 @@ export interface Props {
 }
 
 const QuestDetails = (props: Props) => {
-
     const quest = useQuest(props.questName);
 
     if (!quest.sceneName) {
         return <OnTheRoad questName={props.questName} />;
     }
-
     return (
         <Scene {...props} />
     );

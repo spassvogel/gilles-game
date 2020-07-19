@@ -25,7 +25,7 @@ const OnTheRoad = (props: Props) => {
         }
         progress--;
     } while (progress >= 0);
-    return null;
+    return <h1 className="app-h2">{TextManager.getQuestTitle(quest.name)}</h1>;
 }
 
 export default OnTheRoad;

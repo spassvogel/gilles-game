@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import useQuest from 'hooks/store/useQuest';
 import DraggableItemsList from 'components/ui/items/DraggableItemsList';
 import { TextManager } from 'global/TextManager';
@@ -12,9 +12,9 @@ import { addItemToInventory } from 'actions/adventurers';
 import { adventurerFreeInventorySlots } from 'storeHelpers';
 import "../styles/choices.scss";
 import "../styles/modal.scss";
+import { SceneControllerContext } from '../../context/SceneControllerContext';
 
 interface Props {
-    questName: string;
     title: string;
     choices: string[];
     adventurerId: string;
@@ -23,13 +23,17 @@ interface Props {
 
 const Choices = (props: Props) => {
     const dispatch = useDispatch();
-    const quest = useQuest(props.questName);
+    const controller = useContext(SceneControllerContext)!;
+    const quest = useQuest(controller.questName);
     const {scene} = quest;
     const adventurer = useAdventurer(props.adventurerId);
     const [taking, setTaking] = useState(false)
     const freeSlots = adventurerFreeInventorySlots(adventurer);
     const ref = useRef<HTMLDivElement>(null);
 
+    const onChoiceClick = () => {
+        console.log(controller.questName)
+    }
     return (
         <div className={`interaction-modal choices`} ref={ref}>
             <div className="header">
@@ -41,7 +45,7 @@ const Choices = (props: Props) => {
              { props.choices.length > 0 && (
                 <div className="content">
                     {props.choices.map(choice => (
-                        <button>{TextManager.get(choice)}</button>
+                        <button key={choice} onClick={onChoiceClick}>{TextManager.get(choice)}</button>
                     ))}
                 </div>
             )}

@@ -68,7 +68,6 @@ const QuestPanel = (props: Props) => {
                     { activeInteractionModal && activeInteractionModal.type === 'lootCache' && (
                         <div className="modal" onClick={handleCloseLootCacheModal}>
                             <LootCache
-                                questName={props.questName}
                                 cacheName={activeInteractionModal.lootCache}
                                 adventurerId={selectedAdventurerId}
                                 onClose={handleCloseLootCacheModal}
@@ -78,7 +77,6 @@ const QuestPanel = (props: Props) => {
                     { activeInteractionModal && activeInteractionModal.type === 'choices' && (
                         <div className="modal" onClick={handleCloseLootCacheModal}>
                             <Choices
-                                questName={props.questName}
                                 title={activeInteractionModal.title}
                                 choices={activeInteractionModal.choices}
                                 adventurerId={selectedAdventurerId}

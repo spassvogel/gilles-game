@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import useQuest from 'hooks/store/useQuest';
 import DraggableItemsList from 'components/ui/items/DraggableItemsList';
 import { TextManager } from 'global/TextManager';
@@ -10,11 +10,11 @@ import { addGold } from 'actions/gold';
 import { takeGoldFromCache, takeItemFromCache } from 'actions/quests';
 import { addItemToInventory } from 'actions/adventurers';
 import { adventurerFreeInventorySlots } from 'storeHelpers';
+import { SceneControllerContext } from '../../context/SceneControllerContext';
 import "../styles/lootCache.scss";
 import "../styles/modal.scss";
 
 interface Props {
-    questName: string;
     cacheName: string;
     adventurerId: string;
     onClose: () => void;
@@ -22,7 +22,9 @@ interface Props {
 
 const LootCache = (props: Props) => {
     const dispatch = useDispatch();
-    const quest = useQuest(props.questName);
+    const controller = useContext(SceneControllerContext)!;
+    const {questName} = controller;
+    const quest = useQuest(questName);
     const {scene} = quest;
     const cache = scene?.caches[props.cacheName];
     const adventurer = useAdventurer(props.adventurerId);
@@ -47,7 +49,7 @@ const LootCache = (props: Props) => {
             if (freeSlots > 0) {
                 interval = setTimeout(() => {
                     dispatch(addItemToInventory(props.adventurerId, item));
-                    dispatch(takeItemFromCache(props.questName, props.cacheName, item));
+                    dispatch(takeItemFromCache(questName, props.cacheName, item));
                 }, 500);
             }
             else {
@@ -57,7 +59,7 @@ const LootCache = (props: Props) => {
         return () => {
             clearInterval(interval);
         }
-    }, [cache, freeSlots, dispatch, props.adventurerId, props.cacheName, props.questName, taking]);
+    }, [cache, freeSlots, dispatch, props.adventurerId, props.cacheName, questName, taking]);
 
     if (!cache) {
         return null;
@@ -68,7 +70,7 @@ const LootCache = (props: Props) => {
         // todo: animate gold flying away
 
         dispatch(addGold(cache.gold || 0));
-        dispatch(takeGoldFromCache(props.questName, props.cacheName))
+        dispatch(takeGoldFromCache(questName, props.cacheName))
     }
 
     const handleTakeAllItems = (e: React.MouseEvent) => {
