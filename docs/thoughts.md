@@ -142,6 +142,7 @@ backlog of ideas
 #### 24/06/2019 BUTTON COMPONENTS
 [ ] buttons should get their own react component.
 [ ] first identify the different button types
+[ ] https://www.youtube.com/watch?v=ftINEEKWtFQ
 
 #### 25/07/2019 SCROLLING TABS
 [ ] Tabbar could be scrollable

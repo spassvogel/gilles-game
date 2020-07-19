@@ -10,7 +10,10 @@ export abstract class SceneControllerManager {
         this.controllerTypes[`${questName}.${sceneName}`] = controllerType;
     }
 
-    static getSceneController<TQuestVars>(questName: string, sceneName: string, store: Store<StoreState, AnyAction>,): BaseSceneController<TQuestVars> {
+    /**
+     * Gets the scenecontroller for scene. Creates it if it doesnt exist
+     */
+    static getSceneController<TQuestVars>(questName: string, sceneName: string, store: Store<StoreState, AnyAction>): BaseSceneController<TQuestVars> {
         if (!this.store[`${questName}.${sceneName}`]) {
             if (!this.controllerTypes[`${questName}.${sceneName}`]) {
                 throw new Error(`No controller registered for ${questName}.${sceneName}`);

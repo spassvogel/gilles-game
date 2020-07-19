@@ -4,7 +4,7 @@ import * as React from "react";
 import { Component, ComponentType } from 'react';
 
 // Sharing context within the entire App
-export interface AppContextProps {  
+export interface AppContextProps {
     onOpenWindow: (window: React.ReactElement) => void;
     onCloseWindow: () => void;
     media: MediaItem[] | null;

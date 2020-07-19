@@ -15,6 +15,7 @@ interface Props  {
     spritesheet: PIXI.Spritesheet;
 };
 
+// unused at the moment
 const ObjectTileLayer = PixiComponent<Props, any>("ObjectTileLayer", {
     create(props: Props) {
         const tileLayer = new window.PIXI.tilemap.CompositeRectTileLayer(0, [props.texture]);

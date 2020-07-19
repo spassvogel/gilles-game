@@ -11,6 +11,7 @@ import LootCache from './modals/LootCache';
 import useQuest from 'hooks/store/useQuest';
 import { setActiveSceneInteractionModal } from 'actions/quests';
 import Choices from './modals/Choices';
+import SceneControllerContextProvider from './context/SceneControllerContext';
 
 enum Layout {
     auto,       // horizontal on large screens, vertical on small screens
@@ -58,32 +59,34 @@ const QuestPanel = (props: Props) => {
     return (
         <div className={`quest-panel quest-panel-${Layout[layout]}`}>
             <div className="quest-area">
-                <QuestDetails
-                    questName={props.questName}
-                    selectedActor={selectedAdventurerId}
-                    setSelectedActor={handleAdventurerSelected}
-                />
-                { activeInteractionModal && activeInteractionModal.type === 'lootCache' && (
-                    <div className="modal" onClick={handleCloseLootCacheModal}>
-                        <LootCache
-                            questName={props.questName}
-                            cacheName={activeInteractionModal.lootCache}
-                            adventurerId={selectedAdventurerId}
-                            onClose={handleCloseLootCacheModal}
-                        />
-                    </div>
-                )}
-                { activeInteractionModal && activeInteractionModal.type === 'choices' && (
-                    <div className="modal" onClick={handleCloseLootCacheModal}>
-                        <Choices
-                            questName={props.questName}
-                            title={activeInteractionModal.title}
-                            choices={activeInteractionModal.choices}
-                            adventurerId={selectedAdventurerId}
-                            onClose={handleCloseLootCacheModal}
-                        />
-                    </div>
-                )}
+                <SceneControllerContextProvider questName={props.questName}>
+                    <QuestDetails
+                        questName={props.questName}
+                        selectedActor={selectedAdventurerId}
+                        setSelectedActor={handleAdventurerSelected}
+                    />
+                    { activeInteractionModal && activeInteractionModal.type === 'lootCache' && (
+                        <div className="modal" onClick={handleCloseLootCacheModal}>
+                            <LootCache
+                                questName={props.questName}
+                                cacheName={activeInteractionModal.lootCache}
+                                adventurerId={selectedAdventurerId}
+                                onClose={handleCloseLootCacheModal}
+                            />
+                        </div>
+                    )}
+                    { activeInteractionModal && activeInteractionModal.type === 'choices' && (
+                        <div className="modal" onClick={handleCloseLootCacheModal}>
+                            <Choices
+                                questName={props.questName}
+                                title={activeInteractionModal.title}
+                                choices={activeInteractionModal.choices}
+                                adventurerId={selectedAdventurerId}
+                                onClose={handleCloseLootCacheModal}
+                            />
+                        </div>
+                    )}
+                </SceneControllerContextProvider>
             </div>
             <div className="party-area">
                 <AdventurerTabstrip

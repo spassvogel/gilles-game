@@ -9,7 +9,6 @@ import ActionPath, { RefActions } from './ActionPath';
 import useAdventurer from 'hooks/store/useAdventurer';
 
 interface Props  {
-    questName: string;
     selected: boolean;
     setSelectedActor: (actor: string) => void;
 };
@@ -26,7 +25,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
     const tileHeight = controller.mapData?.tileheight!;
     const dispatch = useDispatch();
 
-    const quest = useQuest(props.questName);
+    const quest = useQuest(controller.questName);
     const scene = quest.scene!;
 
     const adventurer = useAdventurer(name);
@@ -97,7 +96,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                     target: l as [number, number],
                     endsAt: movementDuration * (index + 1) + performance.now()
                 };
-                dispatch(enqueueSceneAction(props.questName, sceneAction));
+                dispatch(enqueueSceneAction(controller.questName, sceneAction));
             });
 
             // if (DEBUG_ASTAR) {

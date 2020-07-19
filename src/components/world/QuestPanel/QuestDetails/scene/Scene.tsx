@@ -1,22 +1,19 @@
-import React, { useRef, useMemo, useEffect } from "react";
+import React, { useRef, useMemo, useEffect, useContext } from "react";
 import { Container } from '@inlet/react-pixi';
 import useQuest from 'hooks/store/useQuest';
 import Tilemap from './Tilemap';
 import { ActorObject } from 'stores/scene';
 import BridgedStage from 'components/pixi/util/BridgedStage';
-import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import SceneAdventurer from './SceneAdventurer';
 import useTilesetsLoader from 'hooks/useTilesetsLoader';
 import renderObject from './renderObject';
-
+import { SceneControllerContext } from '../../context/SceneControllerContext';
 import * as PIXI from 'pixi.js';
 window.PIXI = PIXI;
 // eslint-disable-next-line import/first
 import 'pixi-tilemap'; // tilemap is not a real npm module :/
 
 export interface Props {
-    questName: string;
-    controller: BaseSceneController<any>;
     selectedActor: string;
     setSelectedActor: (actor: string) => void;
 }
@@ -24,7 +21,7 @@ export interface Props {
 const DEBUG_ACTIONQUEUE = false;
 
 const Scene = (props: Props) => {
-    const {controller} = props;
+    const controller = useContext(SceneControllerContext)!;
     const mapData = controller.mapData!;
     const basePath = controller.basePath!;
 
@@ -35,7 +32,7 @@ const Scene = (props: Props) => {
     } = useTilesetsLoader(basePath);
 
     const ref = useRef<PIXI.Container>(null);
-    const quest = useQuest(props.questName);
+    const quest = useQuest(controller.questName);
     const scene = quest.scene!;
 
     const selectedActor = useMemo(() => {
@@ -49,18 +46,15 @@ const Scene = (props: Props) => {
         const {name, location} = actor;
         return (
             <SceneAdventurer
-                controller={controller}
                 location={location}
+                controller={controller}
                 name={name}
                 key={name}
-                questName={props.questName}
                 selected={selectedActor?.name === name}
                 setSelectedActor={props.setSelectedActor}
             />
         );
     }
-
-
 
     useEffect(() => {
         loadTilesets(mapData.tilesets);
