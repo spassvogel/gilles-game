@@ -9,8 +9,6 @@ import {
     SetSceneNameAction,
     SetSceneAction,
     UpdateSceneObjectAction,
-    TakeGoldFromCacheAction,
-    TakeItemFromCacheAction,
     SetActiveSceneInteractionModalAction
 } from "actions/quests";
 import { Item } from "definitions/items/types";
@@ -89,12 +87,6 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
         case ActionType.setActiveSceneInteractionModal:
             return setActiveSceneInteractionModal(state, action as SetActiveSceneInteractionModalAction);
-
-        case ActionType.takeGoldFromCache:
-            return takeGoldFromCache(state, action as TakeGoldFromCacheAction);
-
-        case ActionType.takeItemFromCache:
-            return takeItemFromCache(state, action as TakeItemFromCacheAction);
 
         case GameActionType.gameTick:
            return gameTick(state, action as GameTickAction);
@@ -313,37 +305,38 @@ const setActiveSceneInteractionModal = (state: QuestStoreState[], action: SetAct
         return qss;
     });
 }
-const takeGoldFromCache = (state: QuestStoreState[], action: TakeGoldFromCacheAction) => {
-    return state.map((qss: QuestStoreState) => {
-        if (qss.name === action.questName && qss.scene) {
-            const lootCaches = {
-                ...qss.scene?.caches,
-                [action.cacheName]: {
-                    ...qss.scene?.caches[action.cacheName],
-                    gold: 0
-                }
-            }
-            qss.scene.caches = lootCaches;
-        }
-        return qss;
-    });
-}
 
-const takeItemFromCache = (state: QuestStoreState[], action: TakeItemFromCacheAction) => {
-    return state.map((qss: QuestStoreState) => {
-        if (qss.name === action.questName && qss.scene) {
-            const cache = qss.scene.caches[action.cacheName];
-            const index = cache.items.indexOf(action.item);
-            if (index > -1 ) {
-                qss.scene.caches[action.cacheName].items = [
-                    ...cache.items.slice(0, index),
-                    ...cache.items.slice(index + 1)
-                ]
-            }
-        }
-        return qss;
-    });
-}
+// const takeGoldFromCache = (state: QuestStoreState[], action: TakeGoldFromCacheAction) => {
+//     return state.map((qss: QuestStoreState) => {
+//         if (qss.name === action.questName && qss.scene) {
+//             const lootCaches = {
+//                 ...qss.scene?.caches,
+//                 [action.cacheName]: {
+//                     ...qss.scene?.caches[action.cacheName],
+//                     gold: 0
+//                 }
+//             }
+//             qss.scene.caches = lootCaches;
+//         }
+//         return qss;
+//     });
+// }
+
+// const takeItemFromCache = (state: QuestStoreState[], action: TakeItemFromCacheAction) => {
+//     return state.map((qss: QuestStoreState) => {
+//         if (qss.name === action.questName && qss.scene) {
+//             const cache = qss.scene.caches[action.cacheName];
+//             const index = cache.items.indexOf(action.item);
+//             if (index > -1 ) {
+//                 qss.scene.caches[action.cacheName].items = [
+//                     ...cache.items.slice(0, index),
+//                     ...cache.items.slice(index + 1)
+//                 ]
+//             }
+//         }
+//         return qss;
+//     });
+// }
 
 // // Call this when the quest has progressed a node. Will return either `log` or a new array
 // // with all values of `log` and a new value appended

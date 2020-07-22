@@ -17,6 +17,7 @@ import { addLogText, addLogEntry } from 'actions/log';
 import { getDefinition } from 'definitions/quests';
 import { LogChannel } from 'stores/logEntry';
 import { Item } from 'definitions/items/types';
+import { addGold } from 'actions/gold';
 
 export class BaseSceneController<TQuestVars> {
     public mapData?: TiledMapData;
@@ -152,6 +153,20 @@ export class BaseSceneController<TQuestVars> {
     // Returns true if the tile is blocked
     locationIsBlocked(location: [number, number]){
         return this.blockedTiles.some((l) => locationEquals(l, location));
+    }
+
+    // Should be overridden
+    getLootCache(name: string): LootCache | undefined {
+        // Override this to retrieve LootCache from questvars
+        return;
+    }
+
+    takeGoldFromCache(name: string) {
+        // Override this to remove items from questvars
+        const lootCache = this.getLootCache(name);
+        if (lootCache){
+            this.store.dispatch(addGold(lootCache.gold || 0));
+        }
     }
 
     protected createAStar() {

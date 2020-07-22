@@ -1,8 +1,9 @@
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { SceneControllerManager } from 'global/SceneControllerManager';
-import { SceneObject, ActorObject } from 'stores/scene';
-import { updateSceneObject, setActiveSceneInteractionModal } from 'actions/quests';
+import { SceneObject, ActorObject, LootCache } from 'stores/scene';
+import { updateSceneObject, setActiveSceneInteractionModal, updateQuestVars } from 'actions/quests';
 import { Kill10BoarsQuestVars } from '../questVars';
+import { addGold } from 'actions/gold';
 // tslint:disable: max-classes-per-file
 
 const TILE_CHEST_CLOSED = 33; // todo: take this from json?
@@ -21,12 +22,11 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
                     this.questUpdate(textEntry, "/img/items/misc/chest-02.png");
                     this.store.dispatch(updateSceneObject(this.questName, object.id, { gid: TILE_CHEST_OPEN }));
                 }
+                // display loot modal!
                 this.store.dispatch(setActiveSceneInteractionModal(this.questName, {
                     type: 'lootCache',
                     lootCache: object.name
                 }));
-
-                // display loot modal!
                 break;
 
             case "altar":
@@ -48,6 +48,20 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
         const vars = this.getQuestVars();
         if (!vars.dungeon.entered) {
             this.questUpdate("quest-kill10Boars-enter-dungeon-see-chest");
+        }
+    }
+
+    getLootCache(name: string): LootCache | undefined {
+        return this.getQuestVars().dungeon.lootCaches[name];
+    }
+
+    takeGoldFromCache(name: string) {
+        super.takeGoldFromCache(name);  // first add gold to inventory
+        const lootCache = this.getLootCache(name);
+        if (lootCache){
+            const questVars = this.getQuestVars();
+            questVars.dungeon.lootCaches[name].gold = 0;
+            this.store.dispatch(updateQuestVars(this.questName, questVars));
         }
     }
 }

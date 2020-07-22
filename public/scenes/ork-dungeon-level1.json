@@ -128,16 +128,6 @@
                          "name":"interactive",
                          "type":"bool",
                          "value":true
-                        }, 
-                        {
-                         "name":"items",
-                         "type":"string",
-                         "value":"nomadHelmet,teeth, poisonVial,fedora,tophat"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"encounter-dungeon-caches-chest"
                         }],
                  "rotation":0,
                  "type":"lootCache",

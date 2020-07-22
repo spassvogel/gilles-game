@@ -36,8 +36,8 @@ const Scene = (props: Props) => {
     const scene = quest.scene!;
 
     const selectedActor = useMemo(() => {
-        return scene.actors?.find(a => a.name === props.selectedActor) || null;
-    }, [scene.actors, props.selectedActor]);
+        return scene?.actors?.find(a => a.name === props.selectedActor) || null;
+    }, [scene, props.selectedActor]);
 
     const sceneWidth = mapData.width * mapData.tilewidth;
     const sceneHeight = mapData.height * mapData.tileheight;

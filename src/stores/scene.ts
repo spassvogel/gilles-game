@@ -4,7 +4,6 @@ import { Item } from 'definitions/items/types';
 export interface SceneStoreState {
     objects: SceneObject[];
     actors: ActorObject[];
-    caches: { [key: string]: LootCache }
     actionQueue?: SceneAction[];
     activeInteractionModal?: SceneInteractionModal;
 }

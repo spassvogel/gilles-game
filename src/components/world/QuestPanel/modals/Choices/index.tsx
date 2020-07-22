@@ -1,18 +1,10 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useRef, useContext } from "react";
 import useQuest from 'hooks/store/useQuest';
-import DraggableItemsList from 'components/ui/items/DraggableItemsList';
 import { TextManager } from 'global/TextManager';
-import AdventurerAvatar from 'components/ui/AdventurerAvatar';
 import useAdventurer from 'hooks/store/useAdventurer';
-import { DragSourceType } from 'constants/dragging';
-import { useDispatch } from 'react-redux';
-import { addGold } from 'actions/gold';
-import { takeGoldFromCache, takeItemFromCache } from 'actions/quests';
-import { addItemToInventory } from 'actions/adventurers';
-import { adventurerFreeInventorySlots } from 'storeHelpers';
+import { SceneControllerContext } from '../../context/SceneControllerContext';
 import "../styles/choices.scss";
 import "../styles/modal.scss";
-import { SceneControllerContext } from '../../context/SceneControllerContext';
 
 interface Props {
     title: string;
@@ -22,13 +14,7 @@ interface Props {
 }
 
 const Choices = (props: Props) => {
-    const dispatch = useDispatch();
     const controller = useContext(SceneControllerContext)!;
-    const quest = useQuest(controller.questName);
-    const {scene} = quest;
-    const adventurer = useAdventurer(props.adventurerId);
-    const [taking, setTaking] = useState(false)
-    const freeSlots = adventurerFreeInventorySlots(adventurer);
     const ref = useRef<HTMLDivElement>(null);
 
     const onChoiceClick = () => {

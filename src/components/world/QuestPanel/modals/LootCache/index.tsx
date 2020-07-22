@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import useQuest from 'hooks/store/useQuest';
 import DraggableItemsList from 'components/ui/items/DraggableItemsList';
 import { TextManager } from 'global/TextManager';
 import AdventurerAvatar from 'components/ui/AdventurerAvatar';
@@ -7,7 +6,6 @@ import useAdventurer from 'hooks/store/useAdventurer';
 import { DragSourceType } from 'constants/dragging';
 import { useDispatch } from 'react-redux';
 import { addGold } from 'actions/gold';
-import { takeGoldFromCache, takeItemFromCache } from 'actions/quests';
 import { addItemToInventory } from 'actions/adventurers';
 import { adventurerFreeInventorySlots } from 'storeHelpers';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
@@ -24,13 +22,11 @@ const LootCache = (props: Props) => {
     const dispatch = useDispatch();
     const controller = useContext(SceneControllerContext)!;
     const {questName} = controller;
-    const quest = useQuest(questName);
-    const {scene} = quest;
-    const cache = scene?.caches[props.cacheName];
     const adventurer = useAdventurer(props.adventurerId);
     const [taking, setTaking] = useState(false)
     const freeSlots = adventurerFreeInventorySlots(adventurer);
     const ref = useRef<HTMLDivElement>(null);
+    const cache = controller.getLootCache(props.cacheName);
 
     useEffect(() => {
         let interval: NodeJS.Timeout;
@@ -49,7 +45,7 @@ const LootCache = (props: Props) => {
             if (freeSlots > 0) {
                 interval = setTimeout(() => {
                     dispatch(addItemToInventory(props.adventurerId, item));
-                    dispatch(takeItemFromCache(questName, props.cacheName, item));
+                    //dispatch(takeItemFromCache(questName, props.cacheName, item));
                 }, 500);
             }
             else {
@@ -69,8 +65,9 @@ const LootCache = (props: Props) => {
         e.stopPropagation();
         // todo: animate gold flying away
 
-        dispatch(addGold(cache.gold || 0));
-        dispatch(takeGoldFromCache(questName, props.cacheName))
+        controller.takeGoldFromCache(props.cacheName);
+        //dispatch(addGold(cache.gold || 0));
+        //dispatch(takeGoldFromCache(questName, props.cacheName))
     }
 
     const handleTakeAllItems = (e: React.MouseEvent) => {

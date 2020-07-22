@@ -18,8 +18,6 @@ export enum ActionType {
     completeSceneAction = "completeSceneAction",
     updateSceneObjectAction = "updateSceneObjectAction",    // Updates a tile object on the scene. Can update any property except 'id'
     setActiveSceneInteractionModal = "setActiveSceneInteractionModal",     // Sets the active  modal
-    takeGoldFromCache = "takeGoldFromCache",                // Takes *all* the gold from a cache
-    takeItemFromCache = "takeItemFromCache"                 // Takes an item from a cache
 }
 
 export interface QuestAction extends Action<ActionType> {
@@ -49,10 +47,6 @@ export interface EnqueueSceneActionAction extends QuestAction {
 export interface UpdateEncounterResultAction extends QuestAction {
     nodeIndex: number;
     result: string;
-}
-
-export interface TakeGoldFromCacheAction extends QuestAction {
-    cacheName: string;
 }
 
 export interface SetActiveSceneInteractionModalAction extends QuestAction {
@@ -144,27 +138,10 @@ export function updateEncounterResult(quest: string, nodeIndex: number, result: 
     };
 }
 
-export const takeGoldFromCache = (questName: string, cacheName: string): TakeGoldFromCacheAction => {
-   return {
-       type: ActionType.takeGoldFromCache,
-       questName,
-       cacheName
-   }
-}
-
 export const setActiveSceneInteractionModal = (questName: string, sceneInteractionModal?: SceneInteractionModal): SetActiveSceneInteractionModalAction => {
    return {
        type: ActionType.setActiveSceneInteractionModal,
        questName,
        sceneInteractionModal
-   }
-}
-
-export const takeItemFromCache = (questName: string, cacheName: string, item: Item): TakeItemFromCacheAction => {
-   return {
-       type: ActionType.takeItemFromCache,
-       questName,
-       cacheName,
-       item
    }
 }
