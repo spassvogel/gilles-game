@@ -8,9 +8,12 @@ import { InventoryItemDragInfo } from 'components/ui/DraggableItemIcon';
 import { DragSourceType } from 'constants/dragging';
 import { AdventurerStoreState } from 'stores/adventurer';
 import useStockpileState from 'hooks/store/useStockpileState';
+import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
+import { useContext } from 'react';
 
 const useItemDropActions = () => {
     const dispatch = useDispatch();
+    const sceneController = useContext(SceneControllerContext);  // is only available when in a scene
     const stockpile = useStockpileState();
 
     // When an item gets dropped on equipment slot
@@ -110,6 +113,14 @@ const useItemDropActions = () => {
                     actions.push(removeEquipment(adventurer.id, fromSlot));
                 }
                 break;
+            }
+
+            // Dragged from lootCache on a scene
+            case DragSourceType.lootCache: {
+                if (sceneController && sourceId) {
+                    // Let the scene controller handle this action
+                    sceneController.takeItemFromCache(fromSlot, sourceId, adventurer, toSlot);
+                }
             }
         }
         actions.forEach(a => dispatch(a));

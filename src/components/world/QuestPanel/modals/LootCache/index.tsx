@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useRef, useContext } from "react";
+import gsap from 'gsap';
 import DraggableItemsList from 'components/ui/items/DraggableItemsList';
 import { TextManager } from 'global/TextManager';
 import AdventurerAvatar from 'components/ui/AdventurerAvatar';
 import useAdventurer from 'hooks/store/useAdventurer';
 import { DragSourceType } from 'constants/dragging';
-import { useDispatch } from 'react-redux';
-import { addGold } from 'actions/gold';
-import { addItemToInventory } from 'actions/adventurers';
 import { adventurerFreeInventorySlots } from 'storeHelpers';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
 import "../styles/lootCache.scss";
@@ -19,43 +17,11 @@ interface Props {
 }
 
 const LootCache = (props: Props) => {
-    const dispatch = useDispatch();
     const controller = useContext(SceneControllerContext)!;
-    const {questName} = controller;
     const adventurer = useAdventurer(props.adventurerId);
-    const [taking, setTaking] = useState(false)
     const freeSlots = adventurerFreeInventorySlots(adventurer);
     const ref = useRef<HTMLDivElement>(null);
     const cache = controller.getLootCache(props.cacheName);
-
-    useEffect(() => {
-        let interval: NodeJS.Timeout;
-        // Todo:
-        // determine max items to be added to inventory
-        // play staggered animation onClick
-        // add items immediately
-        if (taking && cache && ref.current) {
-            const item = cache.items[0];
-            if (!item) {
-                setTaking(false);
-                return;
-            }
-            ref.current.querySelector(".itemslist .item")?.classList.add("taking");
-
-            if (freeSlots > 0) {
-                interval = setTimeout(() => {
-                    dispatch(addItemToInventory(props.adventurerId, item));
-                    //dispatch(takeItemFromCache(questName, props.cacheName, item));
-                }, 500);
-            }
-            else {
-                setTaking(false);
-            }
-        }
-        return () => {
-            clearInterval(interval);
-        }
-    }, [cache, freeSlots, dispatch, props.adventurerId, props.cacheName, questName, taking]);
 
     if (!cache) {
         return null;
@@ -66,13 +32,26 @@ const LootCache = (props: Props) => {
         // todo: animate gold flying away
 
         controller.takeGoldFromCache(props.cacheName);
-        //dispatch(addGold(cache.gold || 0));
-        //dispatch(takeGoldFromCache(questName, props.cacheName))
     }
 
     const handleTakeAllItems = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setTaking(true);
+        ref.current!.querySelectorAll(".itemslist .item").forEach((el, index) => {
+            if (index >= freeSlots) return;
+            el.classList.add("taking");
+        });
+        gsap.to(".itemslist .item.taking", {
+            right: "-100%",
+            stagger: {
+              each: 0.1,
+              ease: "power2.inOut",
+            },
+            onComplete: () => {
+                for (let i = 0; i < freeSlots; i++) {
+                    controller.takeItemFromCache(0, props.cacheName, adventurer);
+                }
+            }
+        });
     }
 
     return (

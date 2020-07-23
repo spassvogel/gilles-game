@@ -19,11 +19,7 @@
     height: 48px;
 }
 
-.loot-cache .content .items .itemslist .item.taking {
-    right: -100%;
-    height: 0;
-    transition: right ease-out .25s, height .5s linear .25s;
-}
+
 
 .loot-cache .content .items .itemslist .item .item-icon {
     margin-right: 8px;

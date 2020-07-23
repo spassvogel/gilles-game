@@ -522,8 +522,8 @@ https://github.com/DragonBones/DragonBonesJS
 
 ### Loot caches
 [x] Implement take all
-[ ] Use staggered gsap
-[ ] Implement dragging
+[x] Use staggered gsap
+[x] Implement dragging
 
 ### Localforage [+tech]
 [x] https://github.com/localForage/localForage

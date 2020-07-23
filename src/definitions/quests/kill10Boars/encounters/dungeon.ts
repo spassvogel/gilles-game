@@ -3,7 +3,7 @@ import { SceneControllerManager } from 'global/SceneControllerManager';
 import { SceneObject, ActorObject, LootCache } from 'stores/scene';
 import { updateSceneObject, setActiveSceneInteractionModal, updateQuestVars } from 'actions/quests';
 import { Kill10BoarsQuestVars } from '../questVars';
-import { addGold } from 'actions/gold';
+import { AdventurerStoreState } from 'stores/adventurer';
 // tslint:disable: max-classes-per-file
 
 const TILE_CHEST_CLOSED = 33; // todo: take this from json?
@@ -61,6 +61,18 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
         if (lootCache){
             const questVars = this.getQuestVars();
             questVars.dungeon.lootCaches[name].gold = 0;
+            this.store.dispatch(updateQuestVars(this.questName, questVars));
+        }
+    }
+
+
+    takeItemFromCache(itemIndex: number, name: string, adventurer: AdventurerStoreState, toSlot?: number) {
+        super.takeItemFromCache(itemIndex, name, adventurer, toSlot);
+        const lootCache = this.getLootCache(name);
+        if (lootCache){
+            const questVars = this.getQuestVars();
+            const items = questVars.dungeon.lootCaches[name].items.filter((_: any, index: number) => index !== itemIndex);
+            questVars.dungeon.lootCaches[name].items = items;
             this.store.dispatch(updateQuestVars(this.questName, questVars));
         }
     }

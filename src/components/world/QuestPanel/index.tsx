@@ -57,9 +57,9 @@ const QuestPanel = (props: Props) => {
     if (!adventurers.length) return null;
 
     return (
-        <div className={`quest-panel quest-panel-${Layout[layout]}`}>
-            <div className="quest-area">
-                <SceneControllerContextProvider questName={props.questName}>
+        <SceneControllerContextProvider questName={props.questName}>
+            <div className={`quest-panel quest-panel-${Layout[layout]}`}>
+                <div className="quest-area">
                     <QuestDetails
                         questName={props.questName}
                         selectedActor={selectedAdventurerId}
@@ -84,22 +84,22 @@ const QuestPanel = (props: Props) => {
                             />
                         </div>
                     )}
-                </SceneControllerContextProvider>
-            </div>
-            <div className="party-area">
-                <AdventurerTabstrip
-                    adventurers={adventurers}
-                    selectedAdventurerId={selectedAdventurerId}
-                    onAdventurerTabSelected={handleAdventurerSelected}
-                    disabled={activeInteractionModal !== undefined}
-                />
-                <div className="adventurer-details">
-                    { selectedAdventurer && (
-                        <AdventurerPanel adventurer={selectedAdventurer} />
-                    )}
+                </div>
+                <div className="party-area">
+                    <AdventurerTabstrip
+                        adventurers={adventurers}
+                        selectedAdventurerId={selectedAdventurerId}
+                        onAdventurerTabSelected={handleAdventurerSelected}
+                        disabled={activeInteractionModal !== undefined}
+                        />
+                    <div className="adventurer-details">
+                        { selectedAdventurer && (
+                            <AdventurerPanel adventurer={selectedAdventurer} />
+                            )}
+                    </div>
                 </div>
             </div>
-        </div>
+        </SceneControllerContextProvider>
     )
 }
 

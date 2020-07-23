@@ -18,6 +18,7 @@ import { getDefinition } from 'definitions/quests';
 import { LogChannel } from 'stores/logEntry';
 import { Item } from 'definitions/items/types';
 import { addGold } from 'actions/gold';
+import { addItemToInventory } from 'actions/adventurers';
 
 export class BaseSceneController<TQuestVars> {
     public mapData?: TiledMapData;
@@ -162,11 +163,20 @@ export class BaseSceneController<TQuestVars> {
     }
 
     takeGoldFromCache(name: string) {
-        // Override this to remove items from questvars
+        // Override this to remove gold from questvars
         const lootCache = this.getLootCache(name);
         if (lootCache){
             this.store.dispatch(addGold(lootCache.gold || 0));
         }
+    }
+
+    takeItemFromCache(itemIndex: number, name: string, adventurer: AdventurerStoreState, toSlot?: number) {
+        // Override this to remove items from questvars
+        const lootCache = this.getLootCache(name);
+        if (!lootCache) return;
+
+        const item = lootCache.items[itemIndex];
+        this.store.dispatch(addItemToInventory(adventurer.id, item, toSlot))
     }
 
     protected createAStar() {
