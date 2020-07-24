@@ -20,7 +20,7 @@ import { getDefinition } from 'definitions/quests';
 window.PIXI = PIXI; // workaround for pixi-tilemap
 
 const FULL_HEIGHT = 1024;
-const SMALL_HEIGHT = 128;   // Used when QuestPanel is open
+const SMALL_HEIGHT = 64;   // Used when QuestPanel is open
 const WORLD_WIDTH = 1500;
 const WORLD_HEIGHT = 1061;
 const GRID_WIDTH = 10;      // width or height of each node location in pixels
@@ -109,7 +109,7 @@ const WorldMap = (props: Props) => {
         if (viewportRef.current) {
             const viewport = viewportRef.current;
             const point = nodeLocationToPoint({ x: 0, y: 0 });
-            viewport.moveCenter(point.x, point.y);
+            viewport.moveCenter(point.x, point.y + 10);
         }
     }, [canvasWidth]);
 
@@ -163,21 +163,25 @@ const WorldMap = (props: Props) => {
         // }
     }
 
-    // console.log(canvasWidth);
     return (
-        <Stage width={canvasWidth} height={canvasHeight} >
-            <Viewport screenWidth={canvasWidth} screenHeight={canvasHeight} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef} >
-                <Sprite
-                    image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`}
-                    interactive={true}
-                    pointerdown={handleMapClick}
-                >
-                    {renderQuestlines()}
-                    {renderMarkers()}
-                </Sprite>
-                {/* <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} /> */}
-            </Viewport>
-        </Stage>
+        <>
+            <Stage width={canvasWidth} height={canvasHeight} >
+                <Viewport screenWidth={canvasWidth} screenHeight={canvasHeight} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef} >
+                    <Sprite
+                        image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`}
+                        interactive={true}
+                        pointerdown={handleMapClick}
+                        >
+                        {renderQuestlines()}
+                        {renderMarkers()}
+                    </Sprite>
+                    {/* <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} /> */}
+                </Viewport>
+            </Stage>
+            <div>
+            {props.selectedQuestName}
+            </div>
+        </>
     );
 };
 

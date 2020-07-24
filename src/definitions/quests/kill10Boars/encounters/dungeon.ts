@@ -31,14 +31,9 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
 
             case "altar":
                 this.store.dispatch(setActiveSceneInteractionModal(this.questName, {
-                    type: 'choices',
-                    title: 'quest-kill10boars-dungeonentrance-altar',
-                    choices: [
-                        "quest-kill10boars-dungeonentrance-altar-lightcandle",
-                        "quest-kill10boars-dungeonentrance-altar-rummagedrawers"
-                    ]
+                    type: 'situation',
+                    situation: 'altar'
                 }));
-
                 break;
         }
         super.interactWithObject(actor, object);
@@ -65,7 +60,6 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
         }
     }
 
-
     takeItemFromCache(itemIndex: number, name: string, adventurer: AdventurerStoreState, toSlot?: number) {
         super.takeItemFromCache(itemIndex, name, adventurer, toSlot);
         const lootCache = this.getLootCache(name);
@@ -74,6 +68,53 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
             const items = questVars.dungeon.lootCaches[name].items.filter((_: any, index: number) => index !== itemIndex);
             questVars.dungeon.lootCaches[name].items = items;
             this.store.dispatch(updateQuestVars(this.questName, questVars));
+        }
+    }
+
+    getSituation(situation: string, adventurerId?: string) {
+        switch (situation) {
+            case 'altar':
+                const questVars = this.getQuestVars();
+                if (questVars.dungeon.situations.altar.candleLit) {
+                    return {
+                        title: 'quest-kill10boars-dungeonentrance-altar',
+                        choices: [
+                            "quest-kill10boars-dungeonentrance-altar-rummagedrawers"
+                        ]
+                    }
+                }
+                return {
+                    title: 'quest-kill10boars-dungeonentrance-altar',
+                    choices: [
+                        "quest-kill10boars-dungeonentrance-altar-lightcandle",
+                        "quest-kill10boars-dungeonentrance-altar-rummagedrawers"
+                    ]
+                }
+                default:
+                    return super.getSituation(situation, adventurerId);
+        }
+    }
+
+    handleSituationOptionClick(situation: string, option: string) {
+        // @ts-ignore
+        switch (situation) {
+            case 'altar': {
+                switch (option) {
+                    case 'quest-kill10boars-dungeonentrance-altar-lightcandle':
+                        const questVars = this.getQuestVars();
+                        questVars.dungeon.situations.altar.candleLit = true;
+                        this.store.dispatch(updateQuestVars(this.questName, questVars));
+                        break;
+
+                    case 'quest-kill10boars-dungeonentrance-altar-rummagedrawers':
+                        // display loot modal!
+                        this.store.dispatch(setActiveSceneInteractionModal(this.questName, {
+                            type: 'lootCache',
+                            lootCache: 'altar'
+                        }));
+                        break;
+                }
+            }
         }
     }
 }

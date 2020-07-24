@@ -5,11 +5,15 @@ export interface Kill10BoarsQuestVars {
     dungeon: {
         entered: boolean,
         lootCaches: {
-            chest: LootCache
+            chest: LootCache,
+            altar: LootCache,
+        },
+        situations: {
+            altar: {
+                candleLit: boolean
+            }
         }
-    },
-    foo: boolean;
-    bar: number;
+    }
 }
 
 export const initialQuestVars: Kill10BoarsQuestVars = {
@@ -25,9 +29,19 @@ export const initialQuestVars: Kill10BoarsQuestVars = {
                     Item.fedora,
                 ],
                 gold: 100
+            },
+            altar: {
+                title: "quest-kill10boars-dungeonentrance-altar",
+                items: [
+                    Item.bolts,
+                    Item.letters
+                ]
+            }
+        },
+        situations: {
+            altar: {
+                candleLit: false
             }
         }
-    },
-    foo: false,
-    bar: 3
+    }
 }

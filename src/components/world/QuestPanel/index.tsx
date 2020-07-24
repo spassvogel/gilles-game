@@ -10,7 +10,7 @@ import { getWorldLink } from 'utils/routing';
 import LootCache from './modals/LootCache';
 import useQuest from 'hooks/store/useQuest';
 import { setActiveSceneInteractionModal } from 'actions/quests';
-import Choices from './modals/Choices';
+import Situation from './modals/Situation';
 import SceneControllerContextProvider from './context/SceneControllerContext';
 
 enum Layout {
@@ -74,11 +74,10 @@ const QuestPanel = (props: Props) => {
                             />
                         </div>
                     )}
-                    { activeInteractionModal && activeInteractionModal.type === 'choices' && (
+                    { activeInteractionModal && activeInteractionModal.type === 'situation' && (
                         <div className="modal" onClick={handleCloseLootCacheModal}>
-                            <Choices
-                                title={activeInteractionModal.title}
-                                choices={activeInteractionModal.choices}
+                            <Situation
+                                situation={activeInteractionModal.situation}
                                 adventurerId={selectedAdventurerId}
                                 onClose={handleCloseLootCacheModal}
                             />

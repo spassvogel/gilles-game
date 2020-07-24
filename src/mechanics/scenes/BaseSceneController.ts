@@ -16,7 +16,6 @@ import { TextManager } from 'global/TextManager';
 import { addLogText, addLogEntry } from 'actions/log';
 import { getDefinition } from 'definitions/quests';
 import { LogChannel } from 'stores/logEntry';
-import { Item } from 'definitions/items/types';
 import { addGold } from 'actions/gold';
 import { addItemToInventory } from 'actions/adventurers';
 
@@ -72,13 +71,11 @@ export class BaseSceneController<TQuestVars> {
     createScene() {
         const objects = this.createObjects();
         const actors = this.createActors();
-        const caches = this.createCaches();
 
         // todo: perhaps this should be a class such that stuff that repeats for every scene can be done in a base class
         const scene = {
             objects,
-            actors,
-            caches
+            actors
         }
         this.store.dispatch(setScene(this.questName, scene));
     }
@@ -179,6 +176,14 @@ export class BaseSceneController<TQuestVars> {
         this.store.dispatch(addItemToInventory(adventurer.id, item, toSlot))
     }
 
+    getSituation(situation: string, adventurerId?: string) : { title: string, choices: string[]} | undefined {
+         return undefined;
+    }
+
+    handleSituationOptionClick(situation: string, option: string) {
+        // @ts-ignore
+    }
+
     protected createAStar() {
         const matrix: number[][] = [];
         for (let y = 0; y < this.mapData!.height; y++) {
@@ -236,7 +241,6 @@ export class BaseSceneController<TQuestVars> {
             .filter((o): o is SceneObject => o !== null);   // filter out null values
     }
 
-
     protected createObject(config: ExtendedTiledObjectData): SceneObject | null {
         switch (config.type) {
             case TiledObjectType.adventurerStart:
@@ -247,24 +251,24 @@ export class BaseSceneController<TQuestVars> {
         }
     }
 
-    protected createCaches(): { [name: string]: LootCache } {
-        return Object.values(this.tilemapObjects!)
-            .filter(o => o.type === "lootCache")
-            .reduce((acc: { [name: string]: LootCache }, value) => {
-                // serialize comma separated string to array of Item
-                const items = value.ezProps?.items?.split(",").map((v:string) => {
-                    const item = Item[v.trim()];
-                    if (item) {
-                        return item;
-                    }
-                }).filter(Boolean);
-                acc[value.name] = {
-                    title: value.ezProps?.title,
-                    items
-                }
-                return acc;
-            }, {});
-    }
+    // protected createCaches(): { [name: string]: LootCache } {
+    //     return Object.values(this.tilemapObjects!)
+    //         .filter(o => o.type === "lootCache")
+    //         .reduce((acc: { [name: string]: LootCache }, value) => {
+    //             // serialize comma separated string to array of Item
+    //             const items = value.ezProps?.items?.split(",").map((v:string) => {
+    //                 const item = Item[v.trim()];
+    //                 if (item) {
+    //                     return item;
+    //                 }
+    //             }).filter(Boolean);
+    //             acc[value.name] = {
+    //                 title: value.ezProps?.title,
+    //                 items
+    //             }
+    //             return acc;
+    //         }, {});
+    // }
 
     protected getQuest() {
         const storeState = this.store.getState();
