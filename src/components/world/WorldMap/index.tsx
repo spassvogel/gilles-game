@@ -17,6 +17,9 @@ import QuestLine from './QuestLine';
 import { MAX_WIDTH as WIDTH } from 'components/App';
 import { selectActiveQuests } from 'selectors/quests';
 import { getDefinition } from 'definitions/quests';
+import './styles/worldMap.scss';
+import { TextManager } from 'global/TextManager';
+
 window.PIXI = PIXI; // workaround for pixi-tilemap
 
 const FULL_HEIGHT = 1024;
@@ -164,7 +167,7 @@ const WorldMap = (props: Props) => {
     }
 
     return (
-        <>
+        <div className="world-map">
             <Stage width={canvasWidth} height={canvasHeight} >
                 <Viewport screenWidth={canvasWidth} screenHeight={canvasHeight} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef} >
                     <Sprite
@@ -178,13 +181,17 @@ const WorldMap = (props: Props) => {
                     {/* <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} /> */}
                 </Viewport>
             </Stage>
-            <div>
-            {props.selectedQuestName}
-            </div>
-        </>
+            {props.selectedQuestName && (
+                <div className="title">
+                    <span>
+                        {TextManager.getQuestTitle(props.selectedQuestName)}
+                    </span>
+                    <span onClick={() => handlePartyClick(props.selectedQuestName!)}>x</span>
+                </div>
+            )}
+        </div>
     );
 };
-
 
 
 export default WorldMap;

@@ -18,7 +18,6 @@ const OnTheRoad = (props: Props) => {
         if (log) {
             return (
                 <div>
-                    { <h1 className="app-h2">{TextManager.getQuestTitle(quest.name)}</h1>}
                     <p>{`${TextManager.get(log)}`}</p>
                 </div>
             )

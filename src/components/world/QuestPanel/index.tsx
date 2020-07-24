@@ -94,7 +94,7 @@ const QuestPanel = (props: Props) => {
                     <div className="adventurer-details">
                         { selectedAdventurer && (
                             <AdventurerPanel adventurer={selectedAdventurer} />
-                            )}
+                        )}
                     </div>
                 </div>
             </div>
