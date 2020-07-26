@@ -19,7 +19,7 @@ const musicTracks: { [key: number]: Howl; } = {};
 let currentMusicTrack: MusicTrack|null = null;
 
 const sounds: { [key: number]: Howl; } = {};
-const DEFAULT_MUSIC_VOLUME = 0.8;
+const DEFAULT_MUSIC_VOLUME = 0;
 const STORAGE_KEY_MUSIC_VOLUME = "musicVolume";
 const DEFAULT_SOUND_VOLUME = 1;
 const STORAGE_KEY_SOUND_VOLUME = "soundVolume";
