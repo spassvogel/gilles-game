@@ -39,30 +39,31 @@ const Scene = (props: Props) => {
         return scene?.actors?.find(a => a.name === props.selectedActor) || null;
     }, [scene, props.selectedActor]);
 
-    const sceneWidth = mapData.width * mapData.tilewidth;
-    const sceneHeight = mapData.height * mapData.tileheight;
 
     const renderActor = (actor: ActorObject) => {
         const {name, location} = actor;
         return (
             <SceneAdventurer
-                location={location}
-                controller={controller}
-                name={name}
-                key={name}
-                selected={selectedActor?.name === name}
-                setSelectedActor={props.setSelectedActor}
+            location={location}
+            controller={controller}
+            name={name}
+            key={name}
+            selected={selectedActor?.name === name}
+            setSelectedActor={props.setSelectedActor}
             />
         );
     }
 
     useEffect(() => {
+        if (!mapData) return;
         loadTilesets(mapData.tilesets);
-    }, [loadTilesets, mapData.tilesets]);
+    }, [loadTilesets, mapData]);
 
-    if (!loadComplete) {
+    if (!loadComplete || !mapData) {
         return <div>loading...</div>
     }
+    const sceneWidth = mapData.width * mapData.tilewidth;
+    const sceneHeight = mapData.height * mapData.tileheight;
 
     return (
         <>
@@ -77,7 +78,7 @@ const Scene = (props: Props) => {
                         data={mapData}
                         spritesheets={tileSpritesheets}
                         />
-                    {  scene.objects.map((o) => renderObject(o, controller, tileSpritesheets ))}
+                    { scene.objects.map((o) => renderObject(o, controller, tileSpritesheets ))}
                     { scene.actors?.map((o) => renderActor(o))}
                 </Container>
             </BridgedStage>

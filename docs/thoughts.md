@@ -98,7 +98,7 @@ backlog of ideas
 [ ] Equipment (=apparel+weapons) can have stats requirements (e.g. a minimum amount of STR)
 
 
-#### 14/07/2019 ROUTER
+#### 14/07/2019 Router [+tech]
 [x] Implement react router for town/world
 [x] Implement react router for structures
 [x] Can go to resource production structure directly from warehouse
@@ -544,3 +544,8 @@ https://github.com/DragonBones/DragonBonesJS
     use touch backend: https://react-dnd.github.io/react-dnd/docs/backends/touch 
     https://louisbrunner.github.io/dnd-multi-backend/packages/react-dnd-multi-backend/
 [x] bug: tooltip 
+
+
+### 27/07/2020 character UI
+[ ] Style character UI
+![](https://assetstorev1-prd-cdn.unity3d.com/package-screenshot/bf8d4897-4d76-4246-8bb4-8537aa7732cf.webp)

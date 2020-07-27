@@ -135,23 +135,7 @@
          "spacing":0,
          "tilecount":120,
          "tileheight":100,
-         "tiles":[
-                {
-                 "animation":[
-                        {
-                         "duration":100,
-                         "tileid":89
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":99
-                        }, 
-                        {
-                         "duration":100,
-                         "tileid":109
-                        }],
-                 "id":8
-                }],
+         "tiles":[],
          "tilewidth":100
         }],
  "tilewidth":100,
