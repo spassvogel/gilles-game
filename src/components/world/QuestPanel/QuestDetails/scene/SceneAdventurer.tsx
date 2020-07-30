@@ -164,20 +164,29 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                         interactive={true}
                         pointerdown={() => {controller.actorInteract(name)}}
                     >
-                        <Graphics
+                        {/* <Graphics
                             draw={graphics => {
                                 graphics.beginFill(0xDE3249);
                                 graphics.drawCircle(tileWidth / 2, tileHeight, tileWidth / 4);
                                 graphics.endFill();
                             }}
-                        />
+                        /> */}
                         <Sprite
-                            image={`${process.env.PUBLIC_URL}/img/scene/ui/interact.png`}
-                            scale={[.3, .3]}
+                            image={`${process.env.PUBLIC_URL}/img/scene/ui/background.png`}
+                            width={tileWidth / 2}
+                            height={tileWidth / 2}
                             y={tileHeight}
                             x={tileWidth/2}
                             anchor={.5}
-                    />
+                        />
+                        <Sprite
+                            image={`${process.env.PUBLIC_URL}/img/scene/ui/interact.png`}
+                            width={tileWidth / 2}
+                            height={tileWidth / 2}
+                            y={tileHeight}
+                            x={tileWidth/2}
+                            anchor={.5}
+                        />
                     </Container>
                 )}
             </SceneActor>
