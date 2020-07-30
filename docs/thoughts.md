@@ -547,5 +547,5 @@ https://github.com/DragonBones/DragonBonesJS
 
 
 ### 27/07/2020 character UI
-[ ] Style character UI
+[x] Style character UI
 ![](https://assetstorev1-prd-cdn.unity3d.com/package-screenshot/bf8d4897-4d76-4246-8bb4-8537aa7732cf.webp)

@@ -19,7 +19,7 @@
     padding: 8px;
 }
 
-.adventurer-panel .equipment ul {
+/* .adventurer-panel .equipment ul {
     padding: 15px;
     display: grid;
     width: 100%;
@@ -38,7 +38,7 @@
 
 .adventurer-panel .equipment ul li .info {
     font-size: smaller;
-}
+} */
 
 /* * todo: media queries to show less columns
 .adventurer-panel .inventory {

@@ -6,56 +6,52 @@ import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/Draggabl
 import { DragSourceType } from 'constants/dragging';
 import { IconSize } from 'constants/icons';
 import { TextManager } from 'global/TextManager';
+import './styles/adventurerEquipment.scss';
 
 export interface Props {
     adventurer: AdventurerStoreState
     onDropItemEquipment: (dragInfo: InventoryItemDragInfo, slotType: EquipmentSlotType) => void;
 }
 
+// Shows the gear an adventurer is wearing
 const AdventurerEquipment = (props: Props) => {
     const { adventurer, onDropItemEquipment } = props;
 
     const getEquipmentSlot = (slotType: EquipmentSlotType) => {
         // returns EquipmentSlot
         const item: Item | undefined = adventurer.equipment[EquipmentSlotType[slotType]];
-        let contents = null;
-        if (item) {
-            const itemRef: React.RefObject<any> = React.createRef();
-
-            contents = (
-                <DraggableItemIcon
-                    index={slotType}
-                    sourceId={adventurer.id}
-                    sourceType={DragSourceType.adventurerEquipment}
-                    item={item}
-                    ref={itemRef}
-                    size={IconSize.medium}
-                />
-            );
-        }
 
         return (
-            <>
+            <li className={EquipmentSlotType[slotType]}>
                 <EquipmentSlot
                     onDrop={(dragInfo: InventoryItemDragInfo) => onDropItemEquipment(dragInfo, slotType)}
                     type={slotType}
                 >
-                    {contents}
+                    {item && (
+                        <DraggableItemIcon
+                            index={slotType}
+                            sourceId={adventurer.id}
+                            sourceType={DragSourceType.adventurerEquipment}
+                            item={item}
+                            size={IconSize.medium}
+                        />
+                    )}
                 </EquipmentSlot>
                 <span className="info">{TextManager.get(`ui-equipmentslot-${EquipmentSlotType[slotType]}`)}</span>
-            </>
+            </li>
         );
     };
     return (
-        <ul>
-            <li>{getEquipmentSlot(EquipmentSlotType.head)}</li>
-            <li>{getEquipmentSlot(EquipmentSlotType.shoulders)}</li>
-            <li>{getEquipmentSlot(EquipmentSlotType.chest)}</li>
-            <li>{getEquipmentSlot(EquipmentSlotType.hands)}</li>
-            <li>{getEquipmentSlot(EquipmentSlotType.legs)}</li>
-            <li>{getEquipmentSlot(EquipmentSlotType.feet)}</li>
-            <li>{getEquipmentSlot(EquipmentSlotType.mainHand)}</li>
-            <li>{getEquipmentSlot(EquipmentSlotType.offHand)}</li>
+        <ul className="adventurer-equipment">
+            {getEquipmentSlot(EquipmentSlotType.head)}
+            {getEquipmentSlot(EquipmentSlotType.chest)}
+            {getEquipmentSlot(EquipmentSlotType.hands)}
+            {getEquipmentSlot(EquipmentSlotType.shoulders)}
+            {getEquipmentSlot(EquipmentSlotType.legs)}
+            {getEquipmentSlot(EquipmentSlotType.feet)}
+            {getEquipmentSlot(EquipmentSlotType.mainHand)}
+            {getEquipmentSlot(EquipmentSlotType.offHand)}
+            <li className="guy" />
         </ul>
     )
 }
