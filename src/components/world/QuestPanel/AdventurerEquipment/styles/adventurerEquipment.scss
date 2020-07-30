@@ -56,6 +56,11 @@
     .offHand {
         grid-column: 3; 
         grid-row: 4;
+
+        .equipment-slot, .common-icon-medium {
+            width: 40px;
+            height: 40px;
+        }
     }
 
     .guy {
