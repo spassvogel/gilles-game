@@ -20,6 +20,7 @@ import "./styles/productionStructureView.scss";
 import { ProductionStructureStoreState } from 'stores/structure';
 import useGold from 'hooks/store/useGold';
 import useStructureState from 'hooks/store/useStructureState';
+import useResourcesState from 'hooks/store/useResourcesState';
 
 export interface DispatchProps {
     onUpgrade?: (cost: number, level: number) => void;
@@ -45,28 +46,27 @@ const ProductionStructureView = (props: Props) => {
     const [workersAssigned, setWorkersAssigned] = useState<number>(0);
 
     const gold = useGold();
-    const structureState: ProductionStructureStoreState = useStructureState(type).level;
-
+    const structureState = useStructureState(type) as ProductionStructureStoreState;
+    const resourcesState = useResourcesState();
 
     const structureDefinition = getDefinition<ProductionStructureDefinition>(props.type);
     if (!structureDefinition) {
         throw new Error(`No definition found for structure ${props.type}
             with type ProductionStructureDefinition.`);
     }
-    const level: number = props.level || 0;
+    const level: number = structureState.level;
     // const storeState: ProductionStructureStoreState = 
     const levelDefinition: ProductionStructureLevelDefinition = structureDefinition.levels[level];
     const displayName = TextManager.getStructureName(props.type);
 
     const createUpgradeRow = () => {
-        const gold = props.gold;
         const nextLevel = structureDefinition.levels[level + 1];
         const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
         const canUpgrade = nextLevel != null && gold >= nextLevelCost;
         const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 
         const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-            if (props.onUpgrade) { props.onUpgrade(nextLevelCost, level + 1); }
+            //if (props.onUpgrade) { props.onUpgrade(nextLevelCost, level + 1); }
         };
         return (
             <div>
@@ -82,7 +82,7 @@ const ProductionStructureView = (props: Props) => {
     };
 
     const createCraftTabs = () => {
-        // todo: 
+        // todo: look in storeState.produces!
         return levelDefinition.unlocks.map((produces) => {
             const handleSelectCraftingItem = (e: React.MouseEvent) => {
                 e.stopPropagation();
@@ -108,10 +108,9 @@ const ProductionStructureView = (props: Props) => {
         if (!item) { return null; }
 
         const produces = levelDefinition.unlocks.find((p) => p.item === item)!;
-        const playerResources = props.resources || {};
         const costResources = produces.cost.resources!;
         const missingAtLeastOneResource = Object.keys(costResources)
-            .some((resource) => costResources[resource] > playerResources[resource]);
+            .some((resource) => costResources[resource] > resourcesState[resource]);
 
         let missingAtLeastOneItem = false;
         const costMaterials = produces.cost.materials;

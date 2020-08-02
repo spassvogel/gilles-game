@@ -5,7 +5,7 @@ import { Structure } from 'definitions/structures';
 import { StructureStoreState } from 'stores/structure';
 
 // Returns the structure state from redux store
-const useStructureState = (structure: Structure) => {
+const useStructureState = (structure: Structure): StructureStoreState => {
     const structureSelector = useCallback(
         (state: StoreState) => state.structures[structure],
         [structure]

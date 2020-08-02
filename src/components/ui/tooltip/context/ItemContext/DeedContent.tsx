@@ -7,7 +7,7 @@ import { startTask } from 'actions/tasks';
 import { TaskType } from 'stores/task';
 import { DeedDefinition } from 'definitions/items/deeds';
 import useGold from 'hooks/store/useGold';
-import useStructure from 'hooks/store/useStructure';
+import useStructureState from 'hooks/store/useStructureState';
 import { StructureState } from 'stores/structure';
 import { TextManager } from 'global/TextManager';
 
@@ -22,7 +22,7 @@ const DeedContent = (props: Props) => {
     const gold = useGold();
     const structureDefinition = getDefinition(info.structure);
     const enoughGold = structureDefinition.cost.gold || 0 <= gold;
-    const structureStoreState = useStructure(info.structure);
+    const structureStoreState = useStructureState(info.structure);
     const canBeBuilt = structureStoreState.state === StructureState.NotBuilt;
     const disabled = !canBeBuilt || !enoughGold;
     const subtext = TextManager.getItemSubtext(info.item);
