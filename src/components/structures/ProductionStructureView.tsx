@@ -21,6 +21,7 @@ import { ProductionStructureStoreState } from 'stores/structure';
 import useGold from 'hooks/store/useGold';
 import useStructureState from 'hooks/store/useStructureState';
 import useResourcesState from 'hooks/store/useResourcesState';
+import useStockpileState from 'hooks/store/useStockpileState';
 
 export interface DispatchProps {
     onUpgrade?: (cost: number, level: number) => void;
@@ -48,6 +49,7 @@ const ProductionStructureView = (props: Props) => {
     const gold = useGold();
     const structureState = useStructureState(type) as ProductionStructureStoreState;
     const resourcesState = useResourcesState();
+    const stockpileState = useStockpileState();
 
     const structureDefinition = getDefinition<ProductionStructureDefinition>(props.type);
     if (!structureDefinition) {
@@ -116,7 +118,7 @@ const ProductionStructureView = (props: Props) => {
         const costMaterials = produces.cost.materials;
         if (costMaterials) {
             missingAtLeastOneItem = costMaterials
-                .some((i: Item) => props.items.indexOf(i) === -1);
+                .some((i: Item) => stockpileState.indexOf(i) === -1);
         }
 
         const disabled = missingAtLeastOneResource || missingAtLeastOneItem || workersAssigned < 1;
@@ -136,10 +138,10 @@ const ProductionStructureView = (props: Props) => {
         const handleClick = (e: React.MouseEvent) => {
             e.stopPropagation();
 
-            if (props.onCraft) {
-                props.onCraft(produces, workersAssigned);
-                setWorkersAssigned(0);
-            }
+            // if (props.onCraft) {
+            //     props.onCraft(produces, workersAssigned);
+            //     setWorkersAssigned(0);
+            // }
         };
 
         const handleUp = (e: React.MouseEvent) => {
