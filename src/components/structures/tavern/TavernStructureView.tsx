@@ -22,8 +22,6 @@ import { addLogText } from 'actions/log';
 import { LogChannel } from 'stores/logEntry';
 import "./css/tavernstructureview.css";
 
-
-
 export interface StateProps {
     gold: number;
     level: number;

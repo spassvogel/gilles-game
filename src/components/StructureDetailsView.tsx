@@ -43,7 +43,7 @@ const StructureDetailsView = (props: Props & WindowProps) => {
             const structureDefinition: StructureDefinition = getDefinition(props.structure);
             switch (structureDefinition.type) {
                 case StructureType.production: {
-                    return <ProductionStructureView type={props.structure}/>;
+                    return <ProductionStructureView structure={props.structure}/>;
                 }
                 case StructureType.resource: {
                     return <ResourceStructureView type = { props.structure }/>;

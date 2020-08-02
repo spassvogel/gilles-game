@@ -7,8 +7,6 @@ import { ProductionDefinition } from "definitions/production/types";
 import { getDefinition, Structure } from "definitions/structures";
 import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from "definitions/structures/types";
 import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "mechanics/crafting";
-import { ResourceStoreState } from "stores/resources";
-import { TaskStoreState } from "stores/task";
 import { TextManager } from "global/TextManager";
 import { formatDuration } from "utils/time";
 import ItemIcon from "../ui/ItemIcon";
@@ -22,44 +20,74 @@ import useGold from 'hooks/store/useGold';
 import useStructureState from 'hooks/store/useStructureState';
 import useResourcesState from 'hooks/store/useResourcesState';
 import useStockpileState from 'hooks/store/useStockpileState';
+import { useWorkersFreeState } from 'hooks/store/useWorkersState';
+import { useCraftingTasksStateByStructure } from 'hooks/store/useTasksState';
+import { removeResources } from 'actions/resources';
+import { increaseWorkers, upgradeStructure } from 'actions/structures';
+import { addItemToWarehouse } from 'actions/items';
+import { TaskType } from 'stores/task';
+import { startTask } from 'actions/tasks';
+import { useDispatch } from 'react-redux';
+import { subtractGold } from 'actions/gold';
+import { addLogText } from 'actions/log';
+import { LogChannel } from 'stores/logEntry';
 
-export interface DispatchProps {
-    onUpgrade?: (cost: number, level: number) => void;
-    onCraft?: (productionDefinition: ProductionDefinition, workers: number) => void;
-}
 
-export interface StateProps {
-    resources: ResourceStoreState;
-    items: (Item | null)[];  // items in inventory
-    level: number;
-    workersFree: number;
-    gold: number;
-    tasks: TaskStoreState[];
-}
+
 
 export interface Props {
-    type: Structure;
+    structure: Structure;
 }
 
 const ProductionStructureView = (props: Props) => {
-    const {type} = props;
+    const {structure} = props;
     const [selectedItem, setSelectedItem] = useState<Item>();
     const [workersAssigned, setWorkersAssigned] = useState<number>(0);
 
+    const dispatch = useDispatch();
     const gold = useGold();
-    const structureState = useStructureState(type) as ProductionStructureStoreState;
+    const structureState = useStructureState(structure) as ProductionStructureStoreState;
     const resourcesState = useResourcesState();
     const stockpileState = useStockpileState();
+    const workersFree = useWorkersFreeState();
+    const tasks = useCraftingTasksStateByStructure(structure);
 
-    const structureDefinition = getDefinition<ProductionStructureDefinition>(props.type);
+    const structureDefinition = getDefinition<ProductionStructureDefinition>(props.structure);
     if (!structureDefinition) {
-        throw new Error(`No definition found for structure ${props.type}
+        throw new Error(`No definition found for structure ${props.structure}
             with type ProductionStructureDefinition.`);
     }
     const level: number = structureState.level;
     // const storeState: ProductionStructureStoreState = 
     const levelDefinition: ProductionStructureLevelDefinition = structureDefinition.levels[level];
-    const displayName = TextManager.getStructureName(props.type);
+    const displayName = TextManager.getStructureName(props.structure);
+
+    const handleCraft = (productionDefinition: ProductionDefinition, workers: number) => {
+        const craftingTime = calculateProductionTime(productionDefinition.cost.time || 0, workers);
+        dispatch(removeResources(productionDefinition.cost.resources || {}));
+        dispatch(increaseWorkers(structure, workers));
+
+        const callbacks = [
+            addItemToWarehouse(productionDefinition.item),
+            increaseWorkers(structure, workers),
+        ];
+        const start = startTask(TaskType.craftItem,
+            productionDefinition.item,
+            `${structure}.craft`,
+            craftingTime,
+            callbacks);
+        dispatch(start);
+    }
+
+    const handleUpgrade = (cost: number) => {
+        dispatch(subtractGold(cost));
+        dispatch(upgradeStructure(structure)); // TODO: [07/07/2019] time to upgarde??
+
+        dispatch(addLogText("log-town-upgrade-structure-complete", {
+            level: level + 1,
+            structure,
+        }, LogChannel.town));
+    }
 
     const createUpgradeRow = () => {
         const nextLevel = structureDefinition.levels[level + 1];
@@ -67,15 +95,12 @@ const ProductionStructureView = (props: Props) => {
         const canUpgrade = nextLevel != null && gold >= nextLevelCost;
         const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
 
-        const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-            //if (props.onUpgrade) { props.onUpgrade(nextLevelCost, level + 1); }
-        };
         return (
             <div>
                 <label>level:</label>{ `${(level + 1)} / ${structureDefinition.levels.length}` }
                 <button
                     style={{float: "right"}}
-                    onClick={handleClick}
+                    onClick={() => {handleUpgrade(nextLevelCost)}}
                     disabled={!canUpgrade}>
                         { upgradeText }
                 </button>
@@ -138,10 +163,8 @@ const ProductionStructureView = (props: Props) => {
         const handleClick = (e: React.MouseEvent) => {
             e.stopPropagation();
 
-            // if (props.onCraft) {
-            //     props.onCraft(produces, workersAssigned);
-            //     setWorkersAssigned(0);
-            // }
+            handleCraft(produces, workersAssigned);
+            setWorkersAssigned(0);
         };
 
         const handleUp = (e: React.MouseEvent) => {
@@ -172,7 +195,7 @@ const ProductionStructureView = (props: Props) => {
                         onUp={handleUp}
                         onDown={handleDown}
                         upDisabled={
-                            workersAssigned >= props.workersFree ||
+                            workersAssigned >= workersFree ||
                             workersAssigned >= MAX_WORKERS_CRAFTING
                         }
                         downDisabled={ workersAssigned < 1 }
@@ -191,8 +214,7 @@ const ProductionStructureView = (props: Props) => {
         );
     };
 
-    const createProgressbars = () => {
-        const tasks = props.tasks || [];
+    const renderProgressbars = () => {
         return tasks.map((t) => (
             <Progressbar
                 key={`${t.name}${t.startTime}`}
@@ -205,7 +227,7 @@ const ProductionStructureView = (props: Props) => {
     return (
         // TODO: abstract some stuff to generic StructureView
         <>
-            <StructureViewHeader structure={props.type} />
+            <StructureViewHeader structure={props.structure} />
 
             <details open={true } className = "productionstructureview">
                 <summary>{displayName}</summary>
@@ -221,7 +243,7 @@ const ProductionStructureView = (props: Props) => {
                     </div>
                     <fieldset>
                         <legend>Currently crafting:</legend>
-                        {createProgressbars()}
+                        {renderProgressbars()}
                     </fieldset>
                 </section>
             </details>
