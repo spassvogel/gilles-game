@@ -1,5 +1,4 @@
 
-import ProductionStructureView from "containers/structures/ProductionStructureView";
 import { getDefinition, Structure } from "definitions/structures";
 import { StructureDefinition, StructureType } from "definitions/structures/types";
 import * as React from "react";
@@ -10,12 +9,13 @@ import TavernStructureView from './structures/tavern/TavernStructureView';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import { TasksStoreState } from 'stores/tasks';
-import useStructure from 'hooks/store/useStructure';
+import useStructureState from 'hooks/store/useStructureState';
 import { withWindow } from 'hoc/withWindow';
 import { Props as WindowProps } from "components/ui/window/Window";
 import WarehouseStructureView from './structures/warehouse/WarehouseStructureView';
 import { formatDuration } from 'utils/time';
 import "./css/structuredetailsview.css";
+import ProductionStructureView from './structures/ProductionStructureView';
 
 export interface Props {
     structure: Structure;
@@ -25,7 +25,7 @@ const StructureDetailsView = (props: Props & WindowProps) => {
     const tasks = useSelector<StoreState, TasksStoreState>(store => store.tasks);
     const buildTask = tasks.running.filter((val) =>
         val.origin === `town` && val.name === `${props.structure}.build`)[0];
-    const structureState = useStructure(props.structure);
+    const structureState = useStructureState(props.structure);
 
     const renderContent = () => {
         if (structureState.state === StructureState.Building) {
@@ -43,7 +43,7 @@ const StructureDetailsView = (props: Props & WindowProps) => {
             const structureDefinition: StructureDefinition = getDefinition(props.structure);
             switch (structureDefinition.type) {
                 case StructureType.production: {
-                    return <ProductionStructureView type = { props.structure }/>;
+                    return <ProductionStructureView type={props.structure}/>;
                 }
                 case StructureType.resource: {
                     return <ResourceStructureView type = { props.structure }/>;

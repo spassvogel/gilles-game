@@ -17,6 +17,9 @@ import UpDownValue from "../ui/UpDownValue";
 import StructureViewHeader from './StructureViewHeader';
 import ResourcesCostBox from 'components/ui/resources/ResourcesCostBox';
 import "./styles/productionStructureView.scss";
+import { ProductionStructureStoreState } from 'stores/structure';
+import useGold from 'hooks/store/useGold';
+import useStructureState from 'hooks/store/useStructureState';
 
 export interface DispatchProps {
     onUpgrade?: (cost: number, level: number) => void;
@@ -36,12 +39,14 @@ export interface Props {
     type: Structure;
 }
 
-type AllProps = Props & StateProps & DispatchProps;
-
-const ProductionStructureView = (props: AllProps) => {
-
+const ProductionStructureView = (props: Props) => {
+    const {type} = props;
     const [selectedItem, setSelectedItem] = useState<Item>();
     const [workersAssigned, setWorkersAssigned] = useState<number>(0);
+
+    const gold = useGold();
+    const structureState: ProductionStructureStoreState = useStructureState(type).level;
+
 
     const structureDefinition = getDefinition<ProductionStructureDefinition>(props.type);
     if (!structureDefinition) {
@@ -49,6 +54,7 @@ const ProductionStructureView = (props: AllProps) => {
             with type ProductionStructureDefinition.`);
     }
     const level: number = props.level || 0;
+    // const storeState: ProductionStructureStoreState = 
     const levelDefinition: ProductionStructureLevelDefinition = structureDefinition.levels[level];
     const displayName = TextManager.getStructureName(props.type);
 
@@ -76,7 +82,7 @@ const ProductionStructureView = (props: AllProps) => {
     };
 
     const createCraftTabs = () => {
-
+        // todo: 
         return levelDefinition.unlocks.map((produces) => {
             const handleSelectCraftingItem = (e: React.MouseEvent) => {
                 e.stopPropagation();

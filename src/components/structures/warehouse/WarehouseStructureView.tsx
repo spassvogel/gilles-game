@@ -12,7 +12,7 @@ import { StructuresStoreState } from "stores/structures";
 import { TextManager } from "global/TextManager";
 import "./css/warehousestructureview.css";
 import AdventurerTabstrip from 'components/world/QuestPanel/AdventurerTabstrip';
-import useStructure from 'hooks/store/useStructure';
+import useStructureState from 'hooks/store/useStructureState';
 import useResources from 'hooks/store/useResources';
 import useGold from 'hooks/store/useGold';
 import useStructureActions from 'hooks/actions/useStructureActions';
@@ -76,7 +76,7 @@ const WarehouseStructureView = (props: Props) => {
         throw new Error(`No definition found for structure ${Structure.warehouse} with type StructureDefinition.`);
     }
 
-    const structureState = useStructure(Structure.warehouse);
+    const structureState = useStructureState(Structure.warehouse);
     const levelDefinition: WarehouseStructureLevelDefinition = structureDefinition.levels[structureState.level] as WarehouseStructureLevelDefinition;
     const level: number = structureState.level;
     const displayName = TextManager.getStructureName(Structure.warehouse);
