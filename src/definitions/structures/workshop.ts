@@ -15,7 +15,7 @@ const workshop: ProductionStructureDefinition = {
         cost: {
             gold: 0,
         },
-        produces: [ torch, sandwich ],
+        unlocks: [ torch, sandwich ],
     }, {
         // level 2:
         displayName: "structure-workshop-name",
@@ -23,7 +23,7 @@ const workshop: ProductionStructureDefinition = {
         cost: {
             gold: 30,
         },
-        produces: [],
+        unlocks: [],
     }, {
         // level 3:
         displayName: "structure-workshop-name",
@@ -31,7 +31,7 @@ const workshop: ProductionStructureDefinition = {
         cost: {
             gold: 50,
         },
-        produces: [],
+        unlocks: [],
     }, {
         // level 4:
         displayName: "structure-workshop-name",
@@ -39,7 +39,7 @@ const workshop: ProductionStructureDefinition = {
         cost: {
             gold: 50,
         },
-        produces: [],
+        unlocks: [],
     }],
 };
 export default workshop;

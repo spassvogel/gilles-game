@@ -88,8 +88,8 @@ const CheatWindow = (props: Props) => {
             <input
                 key={structure}
                 type="checkbox"
-                checked={structures[structure].state === StructureState.Built }
-                onChange={() => handleChangeStructureState(structure, structures[structure].state !== StructureState.Built)}
+                checked={structureStore.state === StructureState.Built }
+                onChange={() => handleChangeStructureState(structure, structureStore.state !== StructureState.Built)}
             />
         </div>;
     };

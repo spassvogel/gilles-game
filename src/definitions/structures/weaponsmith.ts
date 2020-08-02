@@ -16,7 +16,7 @@ const weaponsmith: ProductionStructureDefinition = {
         cost: {
             gold: 0,
         },
-        produces: [crossbow, dagger],
+        unlocks: [crossbow, dagger],
     }, {
         // level 2:
         displayName: "structure-weaponsmith-name",
@@ -24,7 +24,7 @@ const weaponsmith: ProductionStructureDefinition = {
         cost: {
             gold: 30,
         },
-        produces: [crossbow, dagger, longbow],
+        unlocks: [crossbow, dagger, longbow],
     }, {
         // level 3:
         displayName: "structure-weaponsmith-name",
@@ -32,7 +32,7 @@ const weaponsmith: ProductionStructureDefinition = {
         cost: {
             gold: 50,
         },
-        produces: [crossbow, dagger, longbow, sword, khopesh],
+        unlocks: [crossbow, dagger, longbow, sword, khopesh],
     }, {
         // level 4:
         displayName: "structure-weaponsmith-name",
@@ -40,7 +40,7 @@ const weaponsmith: ProductionStructureDefinition = {
         cost: {
             gold: 50,
         },
-        produces: [crossbow, dagger, longbow, sword, khopesh, poisonedDagger],
+        unlocks: [crossbow, dagger, longbow, sword, khopesh, poisonedDagger],
     }],
 };
 export default weaponsmith;

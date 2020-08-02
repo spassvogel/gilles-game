@@ -15,10 +15,10 @@ import { selectFreeWorkers } from "selectors/workers";
 import { LogChannel } from "stores/logEntry";
 import { TaskType } from "stores/task";
 import { StoreState } from "../../stores";
-import { StructureStoreState } from "../../stores/structure";
+import { ProductionStructureStoreState } from "../../stores/structure";
 
 function mapStateToProps(store: StoreState, ownProps: Props): StateProps {
-    const structureStore: StructureStoreState = store.structures[ownProps.type];
+    const structureStore: ProductionStructureStoreState = store.structures[ownProps.type] as ProductionStructureStoreState;
 
     const tasks = store.tasks.running.filter((val) => val.origin === `${ownProps.type}.craft`);
     return {

@@ -48,7 +48,7 @@ const ProductionStructureView = (props: AllProps) => {
         throw new Error(`No definition found for structure ${props.type}
             with type ProductionStructureDefinition.`);
     }
-    const level: number =   props.level || 0;
+    const level: number = props.level || 0;
     const levelDefinition: ProductionStructureLevelDefinition = structureDefinition.levels[level];
     const displayName = TextManager.getStructureName(props.type);
 
@@ -77,7 +77,7 @@ const ProductionStructureView = (props: AllProps) => {
 
     const createCraftTabs = () => {
 
-        return levelDefinition.produces.map((produces) => {
+        return levelDefinition.unlocks.map((produces) => {
             const handleSelectCraftingItem = (e: React.MouseEvent) => {
                 e.stopPropagation();
 
@@ -101,7 +101,7 @@ const ProductionStructureView = (props: AllProps) => {
         const item = selectedItem;
         if (!item) { return null; }
 
-        const produces = levelDefinition.produces.find((p) => p.item === item)!;
+        const produces = levelDefinition.unlocks.find((p) => p.item === item)!;
         const playerResources = props.resources || {};
         const costResources = produces.cost.resources!;
         const missingAtLeastOneResource = Object.keys(costResources)

@@ -16,7 +16,7 @@ const armoursmith: ProductionStructureDefinition = {
         cost: {
             gold: 0,
         },
-        produces: [ boots1 ],
+        unlocks: [ boots1 ],
     }, {
         // level 2:
         displayName: "structure-armoursmith-name",
@@ -24,7 +24,7 @@ const armoursmith: ProductionStructureDefinition = {
         cost: {
             gold: 30,
         },
-        produces: [ boots1, chest ],
+        unlocks: [ boots1, chest ],
     }, {
         // level 3:
         displayName: "structure-armoursmith-name",
@@ -32,7 +32,7 @@ const armoursmith: ProductionStructureDefinition = {
         cost: {
             gold: 50,
         },
-        produces: [ boots1, chest, cowl],
+        unlocks: [ boots1, chest, cowl],
     }],
 };
 export default armoursmith;
