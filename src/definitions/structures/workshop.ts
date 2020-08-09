@@ -1,5 +1,4 @@
 // tslint:disable:object-literal-sort-keys
-import { sandwich, torch } from "definitions/production/questItems";
 import { ProductionStructureDefinition, StructureType } from "./types";
 
 const workshop: ProductionStructureDefinition = {
@@ -15,7 +14,7 @@ const workshop: ProductionStructureDefinition = {
         cost: {
             gold: 0,
         },
-        unlocks: [ torch, sandwich ],
+        unlocks: [ ],
     }, {
         // level 2:
         displayName: "structure-workshop-name",

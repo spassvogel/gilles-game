@@ -32,9 +32,6 @@ import { subtractGold } from 'actions/gold';
 import { addLogText } from 'actions/log';
 import { LogChannel } from 'stores/logEntry';
 
-
-
-
 export interface Props {
     structure: Structure;
 }
@@ -58,8 +55,7 @@ const ProductionStructureView = (props: Props) => {
             with type ProductionStructureDefinition.`);
     }
     const level: number = structureState.level;
-    // const storeState: ProductionStructureStoreState = 
-    const levelDefinition: ProductionStructureLevelDefinition = structureDefinition.levels[level];
+    const storeState: ProductionStructureStoreState = useStructureState(structure) as ProductionStructureStoreState;
     const displayName = TextManager.getStructureName(props.structure);
 
     const handleCraft = (productionDefinition: ProductionDefinition, workers: number) => {
@@ -109,8 +105,7 @@ const ProductionStructureView = (props: Props) => {
     };
 
     const createCraftTabs = () => {
-        // todo: look in storeState.produces!
-        return levelDefinition.unlocks.map((produces) => {
+        return storeState.produces.map((produces) => {
             const handleSelectCraftingItem = (e: React.MouseEvent) => {
                 e.stopPropagation();
 
@@ -134,7 +129,7 @@ const ProductionStructureView = (props: Props) => {
         const item = selectedItem;
         if (!item) { return null; }
 
-        const produces = levelDefinition.unlocks.find((p) => p.item === item)!;
+        const produces = storeState.produces.find((p) => p.item === item)!;
         const costResources = produces.cost.resources!;
         const missingAtLeastOneResource = Object.keys(costResources)
             .some((resource) => costResources[resource] > resourcesState[resource]);
@@ -142,8 +137,7 @@ const ProductionStructureView = (props: Props) => {
         let missingAtLeastOneItem = false;
         const costMaterials = produces.cost.materials;
         if (costMaterials) {
-            missingAtLeastOneItem = costMaterials
-                .some((i: Item) => stockpileState.indexOf(i) === -1);
+            missingAtLeastOneItem = costMaterials.some((i: Item) => stockpileState.indexOf(i) === -1);
         }
 
         const disabled = missingAtLeastOneResource || missingAtLeastOneItem || workersAssigned < 1;

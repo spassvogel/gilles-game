@@ -1,5 +1,8 @@
 import { Structure } from "definitions/structures";
 import { StructureState, StructureStoreState, initialState as structureInitialState, ProductionStructureStoreState } from "./structure";
+import { boots1 } from 'definitions/production/armour';
+import { dagger, crossbow } from 'definitions/production/weapons';
+import { sandwich, torch } from 'definitions/production/questItems';
 
 export interface StructuresStoreState {
     [Structure.alchemist]: ProductionStructureStoreState;
@@ -13,12 +16,12 @@ export interface StructuresStoreState {
     [Structure.warehouse]: StructureStoreState;
     [Structure.weaponsmith]: ProductionStructureStoreState;
     [Structure.weaver]: StructureStoreState;
-    [Structure.workshop]: StructureStoreState;
+    [Structure.workshop]: ProductionStructureStoreState;
 }
 
 export const initialState: StructuresStoreState = {
-    [Structure.alchemist]:  { ...structureInitialState, produces: [] },
-    [Structure.armoursmith]: { ...structureInitialState, produces: [] },
+    [Structure.alchemist]:  { ...structureInitialState, produces: [ ] },
+    [Structure.armoursmith]: { ...structureInitialState, produces: [ boots1 ] },
     [Structure.garden]: { level: 0, workers: 0, state: StructureState.Built  }, // TODO: change back to NotBuilt
     [Structure.lumberMill]: structureInitialState,
     [Structure.mine]: { level: 0, workers: 0, state: StructureState.NotBuilt  },
@@ -26,7 +29,7 @@ export const initialState: StructuresStoreState = {
     [Structure.tavern]: { level: 0, workers: 0, state: StructureState.Built },
     [Structure.tannery]: structureInitialState,
     [Structure.warehouse]: { level: 0, workers: 0, state: StructureState.Built},
-    [Structure.weaponsmith]:  { ...structureInitialState, produces: [] },
+    [Structure.weaponsmith]:  { ...structureInitialState, produces: [ crossbow, dagger ] },
     [Structure.weaver]: structureInitialState,
-    [Structure.workshop]: structureInitialState,
+    [Structure.workshop]:  { ...structureInitialState, produces: [ torch, sandwich ] },
 };

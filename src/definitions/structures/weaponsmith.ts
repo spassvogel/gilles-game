@@ -1,6 +1,6 @@
 // tslint:disable:object-literal-sort-keys
 
-import { crossbow, dagger, khopesh, longbow, poisonedDagger, sword } from "../production/weapons";
+import { khopesh, longbow, poisonedDagger, sword } from "../production/weapons";
 import { ProductionStructureDefinition, StructureType } from "./types";
 
 const weaponsmith: ProductionStructureDefinition = {
@@ -16,7 +16,7 @@ const weaponsmith: ProductionStructureDefinition = {
         cost: {
             gold: 0,
         },
-        unlocks: [crossbow, dagger],
+        unlocks: [],
     }, {
         // level 2:
         displayName: "structure-weaponsmith-name",
@@ -24,7 +24,7 @@ const weaponsmith: ProductionStructureDefinition = {
         cost: {
             gold: 30,
         },
-        unlocks: [crossbow, dagger, longbow],
+        unlocks: [longbow],
     }, {
         // level 3:
         displayName: "structure-weaponsmith-name",
@@ -32,7 +32,7 @@ const weaponsmith: ProductionStructureDefinition = {
         cost: {
             gold: 50,
         },
-        unlocks: [crossbow, dagger, longbow, sword, khopesh],
+        unlocks: [sword, khopesh],
     }, {
         // level 4:
         displayName: "structure-weaponsmith-name",
@@ -40,7 +40,7 @@ const weaponsmith: ProductionStructureDefinition = {
         cost: {
             gold: 50,
         },
-        unlocks: [crossbow, dagger, longbow, sword, khopesh, poisonedDagger],
+        unlocks: [poisonedDagger],
     }],
 };
 export default weaponsmith;
