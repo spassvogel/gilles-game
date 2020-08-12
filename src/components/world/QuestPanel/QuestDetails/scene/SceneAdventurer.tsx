@@ -6,7 +6,7 @@ import useQuest from 'hooks/store/useQuest';
 import { enqueueSceneAction } from 'actions/quests';
 import { SceneAction, SceneActionType } from 'stores/scene';
 import ActionPath, { RefActions } from './ActionPath';
-import useAdventurer from 'hooks/store/useAdventurer';
+import useAdventurerState from 'hooks/store/adventurers';
 
 interface Props  {
     selected: boolean;
@@ -28,7 +28,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
     const quest = useQuest(controller.questName);
     const scene = quest.scene!;
 
-    const adventurer = useAdventurer(name);
+    const adventurer = useAdventurerState(name);
 
     // Draw a line to indicate the action to take
     const actionPathRef = useRef<RefActions>(null);

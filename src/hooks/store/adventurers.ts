@@ -2,7 +2,7 @@ import { AdventurerStoreState } from 'stores/adventurer';
 import { QuestStoreState, QuestStatus } from 'stores/quest';
 import { StoreState } from 'stores';
 import { useSelector } from 'react-redux';
-import { useMemo } from 'react';
+import { useMemo, useCallback } from 'react';
 
 const getAdventurersInTown = (adventurers: AdventurerStoreState[], quests: QuestStoreState[]): AdventurerStoreState[] => {
     // Get an array of all adventurer ids on any active quest
@@ -27,3 +27,15 @@ export const useAdventurersInTown = () => {
 
     return adventurersInTown;
 }
+
+// Returns the adventurer from redux store
+const useAdventurerState = (adventurerId: string) => {
+    const adventurerSelector = useCallback(
+        (state: StoreState) => state.adventurers.find((q) => q.id === adventurerId)!,
+        [adventurerId]
+    );
+    const quest = useSelector<StoreState, AdventurerStoreState>(adventurerSelector);
+    return quest;
+}
+
+export default useAdventurerState;

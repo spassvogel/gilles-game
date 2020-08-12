@@ -12,7 +12,7 @@ import EquipmentSlot, { EquipmentSlotType } from "./EquipmentSlot";
 import Inventory from "./inventory/Inventory";
 import { TooltipManager } from 'global/TooltipManager';
 import useItemDropActions from 'hooks/actions/useItemActions';
-import useAdventurer from 'hooks/store/useAdventurer';
+import useAdventurerState from 'hooks/store/adventurers';
 
 export interface Props {
     adventurerId: string;
@@ -28,7 +28,7 @@ export interface StateProps {
 // Used in warehouse
 const AdventurerInfo = (props: Props) => {
 
-    const adventurer = useAdventurer(props.adventurerId);
+    const adventurer = useAdventurerState(props.adventurerId);
     const attributes = Object.keys(adventurer.stats).map((stat) => {
         const value: number = adventurer.stats[stat];
         return <div key={`${adventurer.id}-${stat}`} > <b>{stat}</b>: {value.toFixed(1)} </div>;

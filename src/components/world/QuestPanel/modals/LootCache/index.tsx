@@ -3,10 +3,10 @@ import gsap from 'gsap';
 import DraggableItemsList from 'components/ui/items/DraggableItemsList';
 import { TextManager } from 'global/TextManager';
 import AdventurerAvatar from 'components/ui/AdventurerAvatar';
-import useAdventurer from 'hooks/store/useAdventurer';
 import { DragSourceType } from 'constants/dragging';
 import { adventurerFreeInventorySlots } from 'storeHelpers';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
+import useAdventurerState from 'hooks/store/adventurers';
 import "../styles/lootCache.scss";
 import "../styles/modal.scss";
 
@@ -18,7 +18,7 @@ interface Props {
 
 const LootCache = (props: Props) => {
     const controller = useContext(SceneControllerContext)!;
-    const adventurer = useAdventurer(props.adventurerId);
+    const adventurer = useAdventurerState(props.adventurerId);
     const freeSlots = adventurerFreeInventorySlots(adventurer);
     const ref = useRef<HTMLDivElement>(null);
     const cache = controller.getLootCache(props.cacheName);
