@@ -37,7 +37,7 @@ const AdventurerEquipment = (props: Props) => {
                         />
                     )}
                 </EquipmentSlot>
-                <span className="info">{TextManager.get(`ui-equipmentslot-${EquipmentSlotType[slotType]}`)}</span>
+                <span className="info">{TextManager.getEquipmentSlot(slotType)}</span>
             </li>
         );
     };

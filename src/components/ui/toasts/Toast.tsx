@@ -16,7 +16,7 @@ export enum Type {
 }
 
 const Toast = (props: Props) => {
-    const { 
+    const {
         title,
         type = Type.achievementUnlocked,
         icon = "/img/items/quest-items/dragon-eye.png",
@@ -30,7 +30,7 @@ const Toast = (props: Props) => {
         }
     }
 
-    const typeText = TextManager.get(`ui-toast-type-${Type[type]}`)
+    const typeText = TextManager.getToastType(type);
     return (
         <div className={`toast ${link && "withlink"}`} onClick={handleClick}>
             <div className="label type">{typeText}</div>

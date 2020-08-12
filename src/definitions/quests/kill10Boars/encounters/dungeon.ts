@@ -42,7 +42,7 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
     sceneEntered() {
         const vars = this.getQuestVars();
         if (!vars.dungeon.entered) {
-            this.questUpdate("quest-kill10Boars-enter-dungeon-see-chest");
+            this.questUpdate("quest-kill-10boars-enter-dungeon-see-chest");
         }
     }
 
@@ -77,17 +77,17 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
                 const questVars = this.getQuestVars();
                 if (questVars.dungeon.situations.altar.candleLit) {
                     return {
-                        title: 'quest-kill10boars-dungeonentrance-altar',
+                        title: 'quest-kill10-boars-dungeonentrance-altar',
                         choices: [
-                            "quest-kill10boars-dungeonentrance-altar-rummagedrawers"
+                            "quest-kill10-boars-dungeonentrance-altar-rummagedrawers"
                         ]
                     }
                 }
                 return {
-                    title: 'quest-kill10boars-dungeonentrance-altar',
+                    title: 'quest-kill10-boars-dungeonentrance-altar',
                     choices: [
-                        "quest-kill10boars-dungeonentrance-altar-lightcandle",
-                        "quest-kill10boars-dungeonentrance-altar-rummagedrawers"
+                        "quest-kill10-boars-dungeonentrance-altar-lightcandle",
+                        "quest-kill10-boars-dungeonentrance-altar-rummagedrawers"
                     ]
                 }
                 default:
@@ -100,13 +100,13 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
         switch (situation) {
             case 'altar': {
                 switch (option) {
-                    case 'quest-kill10boars-dungeonentrance-altar-lightcandle':
+                    case 'quest-kill10-boars-dungeonentrance-altar-lightcandle':
                         const questVars = this.getQuestVars();
                         questVars.dungeon.situations.altar.candleLit = true;
                         this.store.dispatch(updateQuestVars(this.questName, questVars));
                         break;
 
-                    case 'quest-kill10boars-dungeonentrance-altar-rummagedrawers':
+                    case 'quest-kill10-boars-dungeonentrance-altar-rummagedrawers':
                         // display loot modal!
                         this.store.dispatch(setActiveSceneInteractionModal(this.questName, {
                             type: 'lootCache',

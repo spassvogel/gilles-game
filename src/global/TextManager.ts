@@ -6,10 +6,12 @@ import { Resource } from "definitions/resources";
 import { Structure } from "definitions/structures";
 import * as Handlebars from "handlebars";
 import { Trait } from 'definitions/traits/types';
+import { Type } from 'components/ui/toasts/Toast';
+import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
 
 export abstract class TextManager {
 
-    public static init(texts: Record<string, string>, precompile = true) {
+    public static init(texts: {[key: string]: string}, precompile = true) {
         this.texts = texts;
         this.templates = {};
         if (precompile) {
@@ -56,8 +58,12 @@ export abstract class TextManager {
         return template;
     }
 
+    public static getEquipmentSlot(slotType: EquipmentSlotType) {
+        return this.get(`ui-equipmentslot-${toKebab(EquipmentSlotType[slotType])}`);
+    }
+
     public static getQuestTitle(name: string) {
-        return this.get(`quest-${name}-title`);
+        return this.get(`quest-${toKebab(name)}-title`);
     }
 
     public static getQuestDescription(name: string) {
@@ -70,7 +76,7 @@ export abstract class TextManager {
 
     public static getItemName(item: Item): string {
         const itemType = ItemType[getDefinition(item).itemType];
-        return this.get(`item-${itemType}-${item}-name`);
+        return this.get(`item-${itemType}-${toKebab(item)}-name`);
     }
     public static getItemSubtext(item: Item): string|null {
         const itemType = ItemType[getDefinition(item).itemType];
@@ -78,11 +84,15 @@ export abstract class TextManager {
     }
 
     public static getStructureName(structure: Structure): string {
-        return this.get(`structure-${structure}-name`);
+        return this.get(`structure-${toKebab(structure)}-name`);
     }
 
     public static getTraitName(trait: Trait): string {
         return this.get(`trait-${toKebab(trait)}-name`);
+    }
+
+    public static getToastType(type: Type): string {
+        return this.get(`ui-toast-type-${toKebab(Type[type])}`);
     }
 
     private static initialized = false;
