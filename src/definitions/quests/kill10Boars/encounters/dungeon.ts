@@ -42,7 +42,7 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
     sceneEntered() {
         const vars = this.getQuestVars();
         if (!vars.dungeon.entered) {
-            this.questUpdate("quest-kill-10boars-enter-dungeon-see-chest");
+            this.questUpdate("quest-kill10-boars-enter-dungeon-see-chest");
         }
     }
 
