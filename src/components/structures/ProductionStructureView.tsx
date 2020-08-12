@@ -5,7 +5,7 @@ import itemDefinitions from "definitions/items";
 import { Item, ItemDefinition } from "definitions/items/types";
 import { ProductionDefinition } from "definitions/production/types";
 import { getDefinition, Structure } from "definitions/structures";
-import { ProductionStructureDefinition, ProductionStructureLevelDefinition } from "definitions/structures/types";
+import { ProductionStructureDefinition } from "definitions/structures/types";
 import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "mechanics/crafting";
 import { TextManager } from "global/TextManager";
 import { formatDuration } from "utils/time";

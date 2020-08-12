@@ -1,3 +1,7 @@
+export interface TraitDefinition {
+    hasEffect?: boolean;
+}
+
 export enum Trait {
     arrowFinder = "arrowFinder",
     gloomy = "gloomy",
@@ -5,3 +9,4 @@ export enum Trait {
     houseMaddox = "houseMaddox",
     houseMonroe = "houseMonroe",
 }
+

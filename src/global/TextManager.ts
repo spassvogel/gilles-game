@@ -1,9 +1,11 @@
+import { paramCase as toKebab} from "text-param-case";
 import { TextEntry } from "constants/text";
 import itemDefinitions, { getDefinition } from "definitions/items";
 import { Item, ItemType } from "definitions/items/types";
 import { Resource } from "definitions/resources";
 import { Structure } from "definitions/structures";
 import * as Handlebars from "handlebars";
+import { Trait } from 'definitions/traits/types';
 
 export abstract class TextManager {
 
@@ -77,6 +79,10 @@ export abstract class TextManager {
 
     public static getStructureName(structure: Structure): string {
         return this.get(`structure-${structure}-name`);
+    }
+
+    public static getTraitName(trait: Trait): string {
+        return this.get(`trait-${toKebab(trait)}-name`);
     }
 
     private static initialized = false;

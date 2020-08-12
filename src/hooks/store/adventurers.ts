@@ -34,8 +34,7 @@ const useAdventurerState = (adventurerId: string) => {
         (state: StoreState) => state.adventurers.find((q) => q.id === adventurerId)!,
         [adventurerId]
     );
-    const quest = useSelector<StoreState, AdventurerStoreState>(adventurerSelector);
-    return quest;
+    return useSelector<StoreState, AdventurerStoreState>(adventurerSelector);
 }
 
 export default useAdventurerState;

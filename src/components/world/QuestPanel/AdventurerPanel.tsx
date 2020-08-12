@@ -8,6 +8,7 @@ import { InventoryItemDragInfo } from 'components/ui/DraggableItemIcon';
 import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
 import { Item } from 'definitions/items/types';
 import "./css/adventurerPanel.css";
+import AdventurerTraits from './AdventurerTraits';
 
 export interface Props {
     adventurer: AdventurerStoreState;
@@ -42,6 +43,7 @@ const AdventurerPanel = (props: Props) => {
                 <div className="name">
                     <b>{adventurer.name}</b>
                 </div>
+                <AdventurerTraits adventurerId={adventurer.id}/>
                 {/* <div className="renderAttributes">
                     {renderAttributes()}
                 </div> */}

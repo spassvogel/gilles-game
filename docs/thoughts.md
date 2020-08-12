@@ -53,8 +53,8 @@ backlog of ideas
 [ ] In some cases the traits can be healed, removed etc. 
 [ ] Some items can be used to grant a trait to an adventurer.
 [ ] Maybe there can be permanent traits and mutable traits? Should we differentiate between the two?
-[ ] Create trait enum list 
-[ ] Create trait definition file
+[x] Create trait enum list 
+[x] Create trait definition file
 [ ] UX: Clicking on a trait opens a context info popup showing name and (possibly) lore text.
     Trait name and lore text is a composed translation key. 
     when hasEffect bool is true, show effect text  
