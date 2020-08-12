@@ -8,6 +8,7 @@ import { EquipmentSlotType } from "components/ui/EquipmentSlot";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { AdventurerStoreState, StatsStoreState } from "stores/adventurer";
+import { Trait } from 'definitions/traits/types';
 
 /**
  * reducer
@@ -38,6 +39,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 0,
     name: "Ximena Maddox",
+    traits: [Trait.houseMaddox, Trait.gloomy],
     avatarImg: `${avatarImgBasePath}/female/f_14.png`,
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.deedForLumbermill, null, Item.crossbow, Item.dagger, Item.khopesh, null, Item.sword, null,  null,  null,  null,  null,  null,  null,  null,  null],
@@ -49,6 +51,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 1,
     avatarImg: `${avatarImgBasePath}/male/m_05.png`,
+    traits: [Trait.houseHouston],
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.crossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, Item.plateHelmet, Item.cowl],
 }, {
@@ -58,6 +61,7 @@ const testState: AdventurerStoreState[] = [{
     name: "Zackary Morris",
     health: Math.random() * 100,
     room: 2,
+    traits: [Trait.gloomy],
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
@@ -68,6 +72,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 4,
     avatarImg: `${avatarImgBasePath}/male/m_19.png`,
+    traits: [Trait.arrowFinder],
     inventory: [ null, null, null, null, Item.khopesh, Item.hornedHelmet ],
 }, {
     id: "96c686c3",
@@ -77,6 +82,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 5,
     avatarImg: `${avatarImgBasePath}/male/m_08.png`,
+    traits: [Trait.houseMonroe, Trait.arrowFinder],
     inventory: [ null, null, null ],
 }, {
     id: "250d1a9d",

@@ -1,9 +1,11 @@
 import { Item } from "definitions/items/types";
+import { Trait } from 'definitions/traits/types';
 
 export interface AdventurerStoreState {
     id: string;
     name: string;
     avatarImg: string;
+    traits?: Trait[];
     health: number;                     // When this reaches zero, the adventurer is dead
 
     equipment: EquipmentStoreState;     // equipment

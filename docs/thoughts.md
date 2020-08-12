@@ -308,6 +308,7 @@ APs can be spent in any order.
 [ ] Is there an 'overwatch' mode for ranged actors??
 [ ] What sort of 'shooting' arc is there? 180 degrees
 [ ] What about obstructions for ranged? 
+    Check: https://www.google.com/search?client=firefox-b-d&q=Bresenham+javascript
 [ ] What about other adventurers obstructing ranged combat?
 
 [ ] All scenecontroller stuff has to go through basecontroller to aplpy game logic. 
