@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from 'react';
-import MaterialsCostBox from "containers/ui/context/items/ItemsCostBox";
+import ItemsCostBox from "containers/ui/context/items/ItemsCostBox";
 import itemDefinitions from "definitions/items";
 import { Item, ItemDefinition } from "definitions/items/types";
 import { ProductionDefinition } from "definitions/production/types";
@@ -179,7 +179,7 @@ const ProductionStructureView = (props: Props) => {
                         <ResourcesCostBox resources={costResources} />
                     </fieldset>
                     <fieldset>
-                        {costMaterials && <MaterialsCostBox items={costMaterials} />}
+                        {costMaterials && <ItemsCostBox items={costMaterials} />}
                     </fieldset>
                 </div>
                 <div style={{display: "flex"}}>
