@@ -55,7 +55,7 @@ backlog of ideas
 [ ] Maybe there can be permanent traits and mutable traits? Should we differentiate between the two?
 [x] Create trait enum list 
 [x] Create trait definition file
-[ ] UX: Clicking on a trait opens a context info popup showing name and (possibly) lore text.
+[x] UX: Clicking on a trait opens a context info popup showing name and lore text.
     Trait name and lore text is a composed translation key. 
     when hasEffect bool is true, show effect text  
 [ ] To grind specific gear for specific adventurers (instead of min-maxing the same best gear on all chars)
@@ -64,8 +64,6 @@ backlog of ideas
 [ ] Examples: 
     "arrow finder": When looting a body has a chance to find arrows 
     "gloomy": will sometimes say depressing things
-
-
 
 #### 23/06/2019 HELP
 [ ] Each screen should get a contexualized help window

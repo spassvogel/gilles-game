@@ -4,6 +4,8 @@ import { Trait } from 'definitions/traits/types';
 import './styles/adventurerTraits.scss';
 import { getDefinition } from 'definitions/traits';
 import { TextManager } from 'global/TextManager';
+import { ContextType } from 'constants/context';
+import { TooltipManager } from 'global/TooltipManager';
 
 interface Props {
     adventurerId: string;
@@ -14,11 +16,19 @@ const AdventurerTraits = (props: Props) => {
 
     const renderTrait = (trait: Trait, last: boolean) => {
         const traitDefinition = getDefinition(trait);
+        const handleClick = (event: React.MouseEvent) => {
+            const origin = (event.currentTarget as HTMLElement);
+            const originRect = origin.getBoundingClientRect();
+            TooltipManager.showContextTooltip(ContextType.trait, traitDefinition, originRect);
+            event.stopPropagation();
+        };
         return (
-            <li>
-                {TextManager.getTraitName(trait)}
+            <>
+                <li onClick={handleClick}>
+                    {TextManager.getTraitName(trait)}
+                </li>
                 {!last && (', ')}
-            </li>
+            </>
         )
     };
 

@@ -91,6 +91,14 @@ export abstract class TextManager {
         return this.get(`trait-${toKebab(trait)}-name`);
     }
 
+    public static getTraitDescription(trait: Trait): string {
+        return this.get(`trait-${toKebab(trait)}-description`);
+    }
+
+    public static getTraitEffect(trait: Trait): string {
+        return this.get(`trait-${toKebab(trait)}-effect`);
+    }
+
     public static getToastType(type: Type): string {
         return this.get(`ui-toast-type-${toKebab(Type[type])}`);
     }

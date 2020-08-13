@@ -210,10 +210,17 @@
     "test-game-welcome": "Welcome to Gidletown",
     "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
 
+    "trait-arrow-finder-description": "Arrow finder lore text",
+    "trait-arrow-finder-effect": "Small chance to find arrows on looted bodies",
     "trait-arrow-finder-name": "Arrow finder",
+    "trait-gloomy-description": "adj. dark, black · adj. feeling down, blue · adj. sad, depressing",
+    "trait-gloomy-effect": "Will sometimes utter depressive remarks",
     "trait-gloomy-name": "Gloomy",
+    "trait-house-houston-description": "A proud member of House Houston",
     "trait-house-houston-name": "House Houston",
+    "trait-house-maddox-description": "A proud member of House Maddox",
     "trait-house-maddox-name": "House Maddox",
+    "trait-house-monroe-description": "A proud member of House Monroe",
     "trait-house-monroe-name": "House Monroe",
 
     "ui-equipmentslot-chest": "chest",

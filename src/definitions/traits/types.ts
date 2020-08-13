@@ -1,4 +1,5 @@
 export interface TraitDefinition {
+    trait: Trait;
     hasEffect?: boolean;
 }
 
