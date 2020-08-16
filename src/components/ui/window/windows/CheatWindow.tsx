@@ -19,8 +19,8 @@ import { StoreState } from 'stores';
 import { addGold } from 'actions/gold';
 import { addItemToWarehouse } from 'actions/items';
 import { addWorkers } from 'actions';
-import "./css/cheatbox.css";
 import { withWindow } from 'hoc/withWindow';
+import "./styles/cheat.scss";
 
 
 // tslint:disable-next-line:no-empty-interface
@@ -183,7 +183,7 @@ const CheatWindow = (props: Props) => {
     }
 
     return (
-        <div className="cheat-box">
+        <div className="cheat-window">
             <div className="label-numberbox-button">
                 <label>Gold</label>
                 <input type="number"

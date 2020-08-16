@@ -1,0 +1,28 @@
+.cheat-window {
+    background: white;
+
+    .label-numberbox-button {
+        display: flex;
+        padding: 2px;
+    }
+
+    .label-numberbox-button label {
+        flex: 1;
+        padding-left: 2px;
+    }
+
+    .label-numberbox-button button {
+        height: 23px;
+        margin-left: 4px;
+    }
+
+    .label-dropdown {
+        display: flex;
+        padding: 2px;
+    }
+
+    .label-dropdown label {
+        flex: 1;
+        padding-left: 2px;
+    }
+}
