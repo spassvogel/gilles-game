@@ -2,6 +2,7 @@ import updateCombat from "mechanics/gameTick/combat";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { Store, AnyAction } from "redux";
 import { Persistor } from "redux-persist";
 import { gameTick } from "./actions/game";
 import { addLogText } from "./actions/log";
@@ -57,12 +58,15 @@ const continueGame = (store: any) => {
 //     clearTimeout(interval);
 // };
 
-const runGame = (store: any, persistor: Persistor) => {
+let interval: NodeJS.Timeout;
+const runGame = (store: Store<StoreState, AnyAction>, persistor: Persistor) => {
+    clearTimeout(interval);
+
     ReactDOM.render((
         <Provider store={store}>
             <App persistor={persistor} />
         </Provider>
-    ),
+        ),
         document.getElementById("root") as HTMLElement,
     );
     registerServiceWorker();
@@ -85,7 +89,8 @@ const runGame = (store: any, persistor: Persistor) => {
         // store.dispatch(addLogEntry("test-you-have-found-an-item", LogChannel.common, { item: Item.teeth }));
     };
 
-    setInterval(gameLoop, TICK_INTERVAL);
+    interval = setInterval(gameLoop, TICK_INTERVAL);
 };
+export {runGame};
 
 initGame();

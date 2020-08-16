@@ -548,7 +548,6 @@ https://github.com/DragonBones/DragonBonesJS
     type: "lootCache"
     Can interact to loot items
     possible properties: 
-    - items: comma seperated list of items 
     - title: translation key shown in the dialog
 
 ### Loot caches
@@ -604,5 +603,5 @@ Studies are tasks like `{structure_name}.study` with a callback that adds the it
 
 
 ### 10/8/2020 Save and load
-[ ] Save gamestate into file 
-[ ] Load gamestate from file
+[x] Save gamestate into file 
+[x] Load gamestate from file

@@ -8,6 +8,7 @@ type Props = ToastConfig;
 export enum Type {
     achievementUnlocked,
     cheat,
+    game,
     itemCrafted,
     questCompleted,
     questEncounter,

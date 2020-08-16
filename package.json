@@ -31,6 +31,7 @@
     "redux-persist": "^6.0.0",
     "reselect": "^4.0.0",
     "seedrandom": "^3.0.5",
+    "simple-encryptor": "^4.0.0",
     "text-param-case": "^1.0.0",
     "typescript": "^3.9.7",
     "use-trace-update": "^1.3.0"

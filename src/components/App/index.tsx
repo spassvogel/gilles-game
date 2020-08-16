@@ -50,14 +50,8 @@ export interface Props {
     persistor: Persistor;
 }
 
-interface SelectedContext {
-    contextType: ContextType ;
-    contextInfo: ContextInfo;
-    contextRect: ClientRect;
-}
 
 export const MAX_WIDTH = 960;
-
 export const AppContext = createContext<AppContextProps | null>(null);
 type AllProps = Props & StateProps & DispatchProps;
 
@@ -209,7 +203,7 @@ const App = (props: AllProps) => {
                         manifest={manifest}
                         onLoadComplete={handleMediaLoadComplete}
                     >
-                        <Topbar/>
+                        <Topbar persistor={props.persistor} />
                         <div>
                             <Switch>
                                 <Route path="/" exact={true} >

@@ -234,8 +234,11 @@
     "ui-log-tab-all": "all",
     "ui-log-tab-town": "town",
 
+    "ui-game-loaded": "Game loaded",
+
     "ui-toast-type-achievement-unlocked": "Achievement unlocked!",
     "ui-toast-type-cheat": "Cheat activated!",
+    "ui-toast-type-game": "Game",
     "ui-toast-type-item-crafted": "Item crafted!",
     "ui-toast-type-quest-completed": "Quest completed!",
     "ui-toast-type-quest-encounter": "Encounter started!",
