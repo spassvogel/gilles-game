@@ -14,8 +14,8 @@ import { withWindow } from 'hoc/withWindow';
 import { Props as WindowProps } from "components/ui/window/Window";
 import WarehouseStructureView from './structures/warehouse/WarehouseStructureView';
 import { formatDuration } from 'utils/time';
-import "./css/structuredetailsview.css";
 import ProductionStructureView from './structures/ProductionStructureView';
+import "./css/structuredetailsview.css";
 
 export interface Props {
     structure: Structure;

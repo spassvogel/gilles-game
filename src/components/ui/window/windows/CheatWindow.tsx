@@ -70,7 +70,6 @@ const CheatWindow = (props: Props) => {
 
     const structures = useSelector<StoreState, StructuresStoreState>(store => store.structures);
 
-
     const getStructureRow = (structure: Structure) => {
         const structureDef = getStructureDefinition(structure);
         const structureStore: StructureStoreState = structures[structure];
@@ -78,20 +77,22 @@ const CheatWindow = (props: Props) => {
 
         const displayName = TextManager.get(levelDef.displayName);
 
-        return <div
-            className="label-dropdown"
-            key={structure}
-        >
-            <label title={structure}>
-                { `${displayName}` }
-            </label>
-            <input
+        return (
+            <div
+                className="label-dropdown"
                 key={structure}
-                type="checkbox"
-                checked={structureStore.state === StructureState.Built }
-                onChange={() => handleChangeStructureState(structure, structureStore.state !== StructureState.Built)}
-            />
-        </div>;
+            >
+                <label title={structure}>
+                    { `${displayName}` }
+                </label>
+                <input
+                    key={structure}
+                    type="checkbox"
+                    checked={structureStore.state === StructureState.Built }
+                    onChange={() => handleChangeStructureState(structure, structureStore.state !== StructureState.Built)}
+                />
+            </div>
+        );
     };
 
     const getItemTypeOptions = (type: ItemType) => {
@@ -103,17 +104,21 @@ const CheatWindow = (props: Props) => {
     };
 
     const getItemOption = (item: Item) => {
-        return <option value ={item } key ={item }>
-            { TextManager.getItemName(item) }
-        </option>;
+        return (
+            <option value ={item } key ={item }>
+                { TextManager.getItemName(item) }
+            </option>
+        );
     };
 
     const items = Object.keys(ItemType)
         .filter((val: any) => !isNaN(val))
         .map((type: string) => {
-        return <optgroup label ={ItemType[type] } key ={type }>
-            { getItemTypeOptions(type as unknown as ItemType) }
-        </optgroup>;
+        return (
+            <optgroup label ={ItemType[type] } key ={type }>
+                { getItemTypeOptions(type as unknown as ItemType) }
+            </optgroup>
+        );
     });
 
 

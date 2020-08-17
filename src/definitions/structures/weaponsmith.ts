@@ -1,7 +1,9 @@
 // tslint:disable:object-literal-sort-keys
 
-import { khopesh, longbow, poisonedDagger, sword } from "../production/weapons";
+import weaponsmithProduction from "../production/weaponsmith";
 import { ProductionStructureDefinition, StructureType } from "./types";
+
+const { khopesh, longbow, poisonedDagger, sword } = weaponsmithProduction;
 
 const weaponsmith: ProductionStructureDefinition = {
     type: StructureType.production,

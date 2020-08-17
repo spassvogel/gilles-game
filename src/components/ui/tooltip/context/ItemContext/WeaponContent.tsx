@@ -1,6 +1,7 @@
 import * as React from "react";
 import { WeaponDefinition, DamageType } from 'definitions/items/weapons';
 import { TextManager } from 'global/TextManager';
+import ProduceOrStudy from './ProduceOrStudy';
 
 interface Props {
     info: WeaponDefinition;
@@ -14,6 +15,7 @@ const WeaponContent = (props: Props) => {
         <>
             { subtext && (<p>"{subtext}"</p>)}
             <p> damage: { info.damage[DamageType.kinetic] } </p>
+            <ProduceOrStudy item={info.item} />
         </>
     );
 

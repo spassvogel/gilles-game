@@ -16,3 +16,13 @@ export const createSelectCraftingTasksByStructure = (structure: Structure) => {
         craftingTasksByStructure,
     );
 }
+/** Returns a selector for the store that selects all study tasks running for given structure */
+export const createSelectStudyingTasksByStructure = (structure: Structure) => {
+    const studyingTasksByStructure = (tasks: TasksStoreState) => {
+        return tasks.running.filter((val) => val.origin === `${structure}.study`);
+    };
+    return createSelector([
+        getTasks],
+        studyingTasksByStructure,
+    );
+}

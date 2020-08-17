@@ -1,9 +1,10 @@
 import { Structure } from "definitions/structures";
 import { StructureState, StructureStoreState, initialState as structureInitialState, ProductionStructureStoreState } from "./structure";
 import { boots1 } from 'definitions/production/armour';
-import { dagger, crossbow } from 'definitions/production/weapons';
+import weaponsmithProduction from "definitions/production/weaponsmith";
 import { sandwich, torch } from 'definitions/production/questItems';
 
+const { dagger, crossbow } = weaponsmithProduction
 export interface StructuresStoreState {
     [Structure.alchemist]: ProductionStructureStoreState;
     [Structure.armoursmith]: ProductionStructureStoreState;

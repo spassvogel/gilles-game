@@ -3,6 +3,7 @@ import { AnyAction } from "redux";
 export enum TaskType {
     buildStructure,
     craftItem,
+    studyItem
 }
 
 export interface TaskStoreState {

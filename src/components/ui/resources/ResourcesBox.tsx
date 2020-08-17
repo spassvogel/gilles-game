@@ -12,7 +12,7 @@ import "components/ui/css/common/icon.css";
 import "components/ui/resources/css/resourcesbox.css";
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
-import { StructureState, StructureStoreState } from 'stores/structure';
+import { StructureState } from 'stores/structure';
 
 export interface Props {
     className?: string;
