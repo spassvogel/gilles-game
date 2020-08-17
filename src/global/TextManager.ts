@@ -80,7 +80,7 @@ export abstract class TextManager {
     }
     public static getItemSubtext(item: Item): string|null {
         const itemType = ItemType[getDefinition(item).itemType];
-        return this.getDefault(`item-${itemType}-${item}-subtext`);
+        return this.getDefault(`item-${itemType}-${toKebab(item)}-subtext`);
     }
 
     public static getStructureName(structure: Structure): string {

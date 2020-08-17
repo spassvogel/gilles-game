@@ -11,7 +11,7 @@ const lumberMill: ResourceStructureDefinition = {
     },
     levels: [{
         // level 0:
-        displayName: "structure-lumberMill-name",
+        displayName: "structure-lumber-mill-name",
         workerCapacity: 2,
         cost: {
             gold: 0,
@@ -19,7 +19,7 @@ const lumberMill: ResourceStructureDefinition = {
         generates: { wood: 2 },
     }, {
         // level 1:
-        displayName: "structure-lumberMill-name",
+        displayName: "structure-lumber-mill-name",
         workerCapacity: 5,
         cost: {
             gold: 30,
@@ -27,7 +27,7 @@ const lumberMill: ResourceStructureDefinition = {
         generates: { wood: 2 },
     }, {
         // level 2:
-        displayName: "structure-lumberMill-name",
+        displayName: "structure-lumber-mill-name",
         workerCapacity: 10,
         cost: {
             gold: 50,

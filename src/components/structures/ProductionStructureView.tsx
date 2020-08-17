@@ -1,8 +1,7 @@
 import * as React from "react";
 import { useState } from 'react';
 import ItemsCostBox from "containers/ui/context/items/ItemsCostBox";
-import itemDefinitions from "definitions/items";
-import { Item, ItemDefinition } from "definitions/items/types";
+import { Item } from "definitions/items/types";
 import { ProductionDefinition } from "definitions/production/types";
 import { getDefinition, Structure } from "definitions/structures";
 import { ProductionStructureDefinition } from "definitions/structures/types";
@@ -21,7 +20,7 @@ import useStructureState from 'hooks/store/useStructureState';
 import useResourcesState from 'hooks/store/useResourcesState';
 import useStockpileState from 'hooks/store/useStockpileState';
 import { useWorkersFreeState } from 'hooks/store/useWorkersState';
-import { useCraftingTasksStateByStructure } from 'hooks/store/useTasksState';
+import { useCraftingTasksStateByStructure, useStudyingTasksStateByStructure } from 'hooks/store/useTasksState';
 import { removeResources } from 'actions/resources';
 import { increaseWorkers, upgradeStructure } from 'actions/structures';
 import { addItemToWarehouse } from 'actions/items';
@@ -47,7 +46,8 @@ const ProductionStructureView = (props: Props) => {
     const resourcesState = useResourcesState();
     const stockpileState = useStockpileState();
     const workersFree = useWorkersFreeState();
-    const tasks = useCraftingTasksStateByStructure(structure);
+    const craftingTasks = useCraftingTasksStateByStructure(structure);
+    const studyingTasks = useStudyingTasksStateByStructure(structure);
 
     const structureDefinition = getDefinition<ProductionStructureDefinition>(props.structure);
     if (!structureDefinition) {
@@ -93,7 +93,8 @@ const ProductionStructureView = (props: Props) => {
 
         return (
             <div>
-                <label>level:</label>{ `${(level + 1)} / ${structureDefinition.levels.length}` }
+                <label>{TextManager.get("ui-structure-level")}</label>
+                { `${(level + 1)} / ${structureDefinition.levels.length}` }
                 <button
                     style={{float: "right"}}
                     onClick={() => {handleUpgrade(nextLevelCost)}}
@@ -143,15 +144,13 @@ const ProductionStructureView = (props: Props) => {
         const disabled = missingAtLeastOneResource || missingAtLeastOneItem || workersAssigned < 1;
         // TODO: [10/07/2019] Perhaps each item can have a number of minimum workers?
 
-        const itemDefinition: ItemDefinition = itemDefinitions[item];
-
-        const makeTimeString = (time: number): string => {
+        const makeTimeString = (asNumber: number): string => {
             if (workersAssigned === 0) {
                 return "";
             }
-            const craftingTime = calculateProductionTime(time, workersAssigned);
-            const formatted = formatDuration(craftingTime);
-            return ` Crafting time: ${formatted}`;
+            const craftingTime = calculateProductionTime(asNumber, workersAssigned);
+            const time = formatDuration(craftingTime);
+            return TextManager.get("ui-structure-production-crafting-time", { time });
         };
 
         const handleClick = (e: React.MouseEvent) => {
@@ -173,7 +172,7 @@ const ProductionStructureView = (props: Props) => {
 
         return (
             <div className="crafting-details">
-                Craft a { TextManager.getItemName(itemDefinition.item) }
+                { TextManager.get("ui-structure-production-craft-a", {item}) }
                 <div className="crafting-costs">
                     <fieldset>
                         <ResourcesCostBox resources={costResources} />
@@ -185,7 +184,7 @@ const ProductionStructureView = (props: Props) => {
                 <div style={{display: "flex"}}>
                     <UpDownValue
                         value={workersAssigned}
-                        label={"Workers: "}
+                        label={TextManager.get("ui-structure-production-workers")}
                         onUp={handleUp}
                         onDown={handleDown}
                         upDisabled={
@@ -208,15 +207,6 @@ const ProductionStructureView = (props: Props) => {
         );
     };
 
-    const renderProgressbars = () => {
-        return tasks.map((t) => (
-            <Progressbar
-                key={`${t.name}${t.startTime}`}
-                label={`${t.name} (${formatDuration(t.timeRemaining)})`}
-                progress={t.progress}
-            />
-        ));
-    };
 
     return (
         // TODO: abstract some stuff to generic StructureView
@@ -236,9 +226,27 @@ const ProductionStructureView = (props: Props) => {
                         {createCraftingDetails()}
                     </div>
                     <fieldset>
-                        <legend>Currently crafting:</legend>
-                        {renderProgressbars()}
+                        <legend>{TextManager.get("ui-structure-production-crafting")}</legend>
+                        {craftingTasks.map((t) => (
+                            <Progressbar
+                                key={`${t.name}${t.startTime}`}
+                                label={`${t.name} (${formatDuration(t.timeRemaining)})`}
+                                progress={t.progress}
+                            />
+                        ))}
                     </fieldset>
+                    {studyingTasks.length > 0 && (
+                    <fieldset>
+                        <legend>{TextManager.get("ui-structure-production-studying")}</legend>
+                        {studyingTasks.map((t) => (
+                            <Progressbar
+                                key={`${t.name}${t.startTime}`}
+                                label={`${t.name} (${formatDuration(t.timeRemaining)})`}
+                                progress={t.progress}
+                            />
+                        ))}
+                    </fieldset>
+                    )}
                 </section>
             </details>
         </>

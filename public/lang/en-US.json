@@ -241,6 +241,14 @@
 
     "ui-game-loaded": "Game loaded",
 
+
+    "ui-structure-level": "Level: ",
+    "ui-structure-production-craft-a": "Craft {{item:name item \"aA\"}}",
+    "ui-structure-production-crafting": "Currently crafting:",
+    "ui-structure-production-crafting-time": " Crafting time: {{time}}",
+    "ui-structure-production-studying": "Currently studying:",
+    "ui-structure-production-workers": "Workers: ",
+
     "ui-toast-type-achievement-unlocked": "Achievement unlocked!",
     "ui-toast-type-cheat": "Cheat activated!",
     "ui-toast-type-game": "Game",
