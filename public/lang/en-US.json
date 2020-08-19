@@ -260,6 +260,8 @@
 
     "ui-tooltip-resource-produce-row": "At {{structure}} ({{amount}}/minute)",
     "ui-tooltip-resource-produce-row-notbuilt": "At {{structure}} (not constructed)",
+    "ui-tooltip-study-currently-studying": "Currently studying ",
+    "ui-tooltip-study-start-study": "Study",
 
     "ui-view-button-town": "Town",
     "ui-view-button-world": "World"

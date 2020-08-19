@@ -12,10 +12,10 @@ import { TextManager } from 'global/TextManager';
 import { useStudyingTasksStateByStructure } from 'hooks/store/useTasksState';
 import { startTask } from 'actions/tasks';
 import { TaskType } from 'stores/task';
-import * as time from "utils/time";
 import { useDispatch } from 'react-redux';
 import { addItemToToProduces } from 'actions/structures';
 import { formatDuration } from 'utils/time';
+import { STUDY_TIME } from 'mechanics/studying';
 
 interface Props {
     item: Item;
@@ -51,7 +51,7 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
     // const productionDefinition = getProductionDefinition(props.item);
 
     // Can already be produced
-    if (structureStore.produces.some((pd: ProductionDefinition) => pd.item === props.item)){
+    if (structureStore.produces.some((item: Item) => item === props.item)){
         return (
             <p>Constructed at:&nbsp;
                 <Link to={getStructureLink(structure)} >
@@ -62,10 +62,15 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
     }
 
     // Currently studied
-    const task = studyTasks.find(sT => sT.name == props.item);
+    const task = studyTasks.find(sT => sT.name === props.item);
     if (task) {
         return (
-            <p>currently studying {formatDuration(task.timeRemaining, true)}</p>
+            <p>
+                <Link to={getStructureLink(structure)} >
+                    {TextManager.get("ui-tooltip-study-currently-studying")}
+                </Link>
+                {formatDuration(task.timeRemaining, true)}
+            </p>
         )
     }
 
@@ -74,7 +79,7 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
             addItemToToProduces(props.structure, props.item)
         ];
 
-        const studyTime = time.HALF_HOUR;
+        const studyTime = STUDY_TIME;
         const start = startTask(TaskType.studyItem,
             props.item,
             `${structure}.study`,
@@ -83,9 +88,12 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
         dispatch(start);
     }
 
+    // todo: level requirement?
     return (
         <p>
-            <button onClick={startStudy}>Study</button>
+            <button onClick={startStudy}>
+                {TextManager.get("ui-tooltip-study-start-study")}
+            </button>
         </p>
     );
 }

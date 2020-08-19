@@ -12,4 +12,5 @@ export interface CostStoreState {
 export interface ProductionDefinition {
     item: Item;
     cost: CostStoreState;
+    levelRequired?: number;
 }

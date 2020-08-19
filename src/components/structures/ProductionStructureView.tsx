@@ -4,6 +4,7 @@ import ItemsCostBox from "containers/ui/context/items/ItemsCostBox";
 import { Item } from "definitions/items/types";
 import { ProductionDefinition } from "definitions/production/types";
 import { getDefinition, Structure } from "definitions/structures";
+import { getDefinition as getProductionDefinition } from "definitions/production";
 import { ProductionStructureDefinition } from "definitions/structures/types";
 import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "mechanics/crafting";
 import { TextManager } from "global/TextManager";
@@ -106,21 +107,21 @@ const ProductionStructureView = (props: Props) => {
     };
 
     const createCraftTabs = () => {
-        return storeState.produces.map((produces) => {
+        return storeState.produces.map((item) => {
             const handleSelectCraftingItem = (e: React.MouseEvent) => {
                 e.stopPropagation();
 
-                setSelectedItem(produces.item);
+                setSelectedItem(item);
             };
 
             return (
                 <li
-                    key={`craft${produces.item}`}
+                    key={`craft${item}`}
                     onClick={handleSelectCraftingItem}
-                    className={selectedItem === produces.item ? "selected" : ""}
+                    className={selectedItem === item ? "selected" : ""}
                 >
-                    <ItemIcon item={produces.item} />
-                    { TextManager.getItemName(produces.item) }
+                    <ItemIcon item={item} />
+                    { TextManager.getItemName(item) }
                 </li>
             );
         });
@@ -130,7 +131,7 @@ const ProductionStructureView = (props: Props) => {
         const item = selectedItem;
         if (!item) { return null; }
 
-        const produces = storeState.produces.find((p) => p.item === item)!;
+        const produces = getProductionDefinition(item)!;
         const costResources = produces.cost.resources!;
         const missingAtLeastOneResource = Object.keys(costResources)
             .some((resource) => costResources[resource] > resourcesState[resource]);

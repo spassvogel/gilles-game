@@ -1,4 +1,4 @@
-import { ProductionDefinition } from 'definitions/production/types';
+import { Item } from 'definitions/items/types';
 
 export enum StructureState {
     NotBuilt,
@@ -19,5 +19,5 @@ export const initialState: StructureStoreState = {
 };
 
 export interface ProductionStructureStoreState extends StructureStoreState {
-    produces: ProductionDefinition[];
+    produces: Item[];
 }
