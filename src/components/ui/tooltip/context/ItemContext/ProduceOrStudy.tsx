@@ -48,8 +48,6 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
     }
 
     // const structureDefinition = getStructureDefinition<ProductionStructureDefinition>(structure);
-    // const productionDefinition = getProductionDefinition(props.item);
-
     // Can already be produced
     if (structureStore.produces.some((item: Item) => item === props.item)){
         return (
@@ -70,6 +68,16 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
                     {TextManager.get("ui-tooltip-study-currently-studying")}
                 </Link>
                 {formatDuration(task.timeRemaining, true)}
+            </p>
+        )
+    }
+
+    // Cant study because the structure is not high lvl enough
+    const productionDefinition = getProductionDefinition(props.item);
+    if (structureStore.level < (productionDefinition.levelRequired || 0)) {
+        return (
+            <p className="invalid">
+                {`Requires ${ TextManager.getStructureName(structure)} level ${productionDefinition.levelRequired}`}
             </p>
         )
     }
