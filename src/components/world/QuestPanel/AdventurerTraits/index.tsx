@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import useAdventurerState from 'hooks/store/adventurers';
 import { Trait } from 'definitions/traits/types';
 import './styles/adventurerTraits.scss';
@@ -23,12 +23,12 @@ const AdventurerTraits = (props: Props) => {
             event.stopPropagation();
         };
         return (
-            <>
+            <Fragment key={trait}>
                 <li onClick={handleClick}>
                     {TextManager.getTraitName(trait)}
                 </li>
                 {!last && (', ')}
-            </>
+            </Fragment>
         )
     };
 

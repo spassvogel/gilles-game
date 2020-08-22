@@ -252,6 +252,7 @@ research: different weapon types and their strenghts and weaknesses
 
 COMBAT SEQUENCE
 
+See [GURPS Combat Example (Basic)](https://www.youtube.com/watch?v=-G0l_n9rEYk)
 [ ] When attacking, first roll to hit. Weapon skill determines hit or miss. For ranged, a distance penalty applies. Also cover bonus can be in effect.
 [ ] research: how does weapon skill work? does it include STR?
     can it increasy by time?

@@ -20,8 +20,9 @@ import { getDefinition } from 'definitions/quests';
 import './styles/worldMap.scss';
 import { TextManager } from 'global/TextManager';
 
-window.PIXI = PIXI; // workaround for pixi-tilemap
+// there is a very weird bug 
 
+window.PIXI = PIXI; // workaround for pixi-tilemap
 const FULL_HEIGHT = 1024;
 const SMALL_HEIGHT = 64;   // Used when QuestPanel is open
 const WORLD_WIDTH = 1500;
@@ -112,7 +113,7 @@ const WorldMap = (props: Props) => {
         if (viewportRef.current) {
             const viewport = viewportRef.current;
             const point = nodeLocationToPoint({ x: 0, y: 0 });
-            viewport.moveCenter(point.x, point.y + 10);
+            viewport.moveCenter(point.x / 2, point.y / 2 + 10);
         }
     }, [canvasWidth]);
 
@@ -166,14 +167,21 @@ const WorldMap = (props: Props) => {
         // }
     }
 
+    const options = {
+        sharedLoader: true,
+        width: canvasWidth / 2,
+        height: canvasHeight / 2, 
+        scale: 0.5
+    }
     return (
         <div className="world-map">
-            <Stage width={canvasWidth} height={canvasHeight} >
-                <Viewport screenWidth={canvasWidth} screenHeight={canvasHeight} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef} >
+            <Stage width={canvasWidth / 2} height={canvasHeight / 2} options={options}>
+                <Viewport screenWidth={canvasWidth / 2} screenHeight={canvasHeight /2} worldWidth={WORLD_WIDTH / 2} worldHeight={WORLD_HEIGHT / 2} ref={viewportRef} >
                     <Sprite
                         image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`}
                         interactive={true}
                         pointerdown={handleMapClick}
+                        scale={0.5}
                         >
                         {renderQuestlines()}
                         {renderMarkers()}
