@@ -45,7 +45,9 @@ const testState: AdventurerStoreState[] = [{
     inventory: [ Item.deedForLumbermill, null, Item.crossbow, Item.dagger, Item.khopesh, null, Item.sword, null,  null,  null,  null,  null,  null,  null,  null,  null],
 }, {
     id: "2e655832",
-    equipment: {},
+    equipment: {
+        feet: Item.boots2
+    },
     stats: generateRandomStats(),
     name: "Donte Houston",
     health: Math.random() * 100,
@@ -56,7 +58,9 @@ const testState: AdventurerStoreState[] = [{
     inventory: [ Item.crossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, Item.plateHelmet, Item.cowl],
 }, {
     id: "ec6f1050",
-    equipment: {},
+    equipment: {
+        feet: Item.boots3
+    },
     stats: generateRandomStats(),
     name: "Zackary Morris",
     health: Math.random() * 100,

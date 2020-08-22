@@ -1,6 +1,7 @@
 import * as React from "react";
 import { TextManager } from 'global/TextManager';
 import { ApparelDefinition } from 'definitions/items/apparel';
+import ProduceOrStudy from './ProduceOrStudy';
 
 interface Props {
     info: ApparelDefinition;
@@ -9,14 +10,14 @@ interface Props {
 const ApparelContent = (props: Props) => {
     const { info } = props;
     const subtext = TextManager.getItemSubtext(info.item);
-
+console.log(info)
     return (
         <>
             { subtext && (<p>"{subtext}"</p>)}
             { info.armourRating && <p> armour: { info.armourRating } </p> }
+            <ProduceOrStudy item={info.item} />
         </>
     );
-
-}
+};
 
 export default ApparelContent;
