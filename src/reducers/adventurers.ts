@@ -7,7 +7,7 @@ import { ActionType,
 import { EquipmentSlotType } from "components/ui/EquipmentSlot";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
-import { AdventurerStoreState, StatsStoreState } from "stores/adventurer";
+import { AdventurerStoreState, BasicAttributesStoreState } from "stores/adventurer";
 import { Trait } from 'definitions/traits/types';
 
 /**
@@ -15,15 +15,12 @@ import { Trait } from 'definitions/traits/types';
  * @param state
  * @param action
  */
-const generateRandomStats = (): StatsStoreState => {
+const generateRandomAttributes = (): BasicAttributesStoreState => {
     return {
-        strength: Math.random() * 100,
-        perception: Math.random() * 100,
-        endurance: Math.random() * 100,
-        charisma: Math.random() * 100,
-        intelligenge: Math.random() * 100,
-        agility: Math.random() * 100,
-        luck: Math.random() * 100,
+        strength: Math.floor(Math.random() * 3) + 9,
+        dexterity: Math.floor(Math.random() * 3) + 9,
+        intelligence: Math.floor(Math.random() * 3) + 9,
+        health: Math.floor(Math.random() * 3) + 9
     };
 };
 
@@ -35,7 +32,7 @@ const testState: AdventurerStoreState[] = [{
         chest: Item.chest,
         head: Item.cowl,
     },
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     health: Math.random() * 100,
     room: 0,
     name: "Ximena Maddox",
@@ -48,7 +45,7 @@ const testState: AdventurerStoreState[] = [{
     equipment: {
         feet: Item.boots2
     },
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     name: "Donte Houston",
     health: Math.random() * 100,
     room: 1,
@@ -61,7 +58,7 @@ const testState: AdventurerStoreState[] = [{
     equipment: {
         feet: Item.boots3
     },
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     name: "Zackary Morris",
     health: Math.random() * 100,
     room: 2,
@@ -70,7 +67,7 @@ const testState: AdventurerStoreState[] = [{
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
     id: "d299f98a",
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     equipment: {},
     name: "Mike Keith",
     health: Math.random() * 100,
@@ -81,7 +78,7 @@ const testState: AdventurerStoreState[] = [{
 }, {
     id: "96c686c3",
     equipment: {},
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     name: "Wayne Monroe",
     health: Math.random() * 100,
     room: 5,
@@ -90,7 +87,7 @@ const testState: AdventurerStoreState[] = [{
     inventory: [ null, null, null ],
 }, {
     id: "250d1a9d",
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     equipment: {},
     name: "Alexis Ortiz ",
     health: Math.random() * 100,
@@ -100,7 +97,7 @@ const testState: AdventurerStoreState[] = [{
 }, {
     id: "169384ef",
     equipment: {},
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     name: "Karlee Nolan",
     health: Math.random() * 100,
     room: 3,
@@ -108,7 +105,7 @@ const testState: AdventurerStoreState[] = [{
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
     id: "f22d66cb",
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     equipment: {},
     name: "Gylbarde the Earnest",
     health: Math.random() * 100,
@@ -118,7 +115,7 @@ const testState: AdventurerStoreState[] = [{
 }, {
     id: "36c686c1",
     equipment: {},
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     name: "Lanslet of the Water",
     health: Math.random() * 100,
     room: 6,
@@ -127,7 +124,7 @@ const testState: AdventurerStoreState[] = [{
 }, {
     id: "12c613d4",
     equipment: {},
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     name: "Tedric the Bold",
     health: Math.random() * 100,
     room: 7,

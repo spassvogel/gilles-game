@@ -37,23 +37,23 @@ export class Oracle {
         return adventurersOnQuest(this.store.adventurers, this.quest);
     }
 
-    /**
-     * Returns the adventurer in the encounter with highest given stat
-     * @param stat
-     */
-    public getAdventurerWithHighest(stat: string): AdventurerStoreState { // todo: refactor 'stat' into enum
-        return adventurersOnQuest(this.store.adventurers, this.quest)
-            .concat().sort((a, b) => (b.stats[stat] - a.stats[stat]))[0];
-    }
+    // /**
+    //  * Returns the adventurer in the encounter with highest given stat
+    //  * @param stat
+    //  */
+    // public getAdventurerWithHighest(stat: string): AdventurerStoreState { // todo: refactor 'stat' into enum
+    //     return adventurersOnQuest(this.store.adventurers, this.quest)
+    //         .concat().sort((a, b) => (b.stats[stat] - a.stats[stat]))[0];
+    // }
 
-    /**
-     * Returns the adventurer in the encounter with lowest given stat
-     * @param stat
-     */
-    public getAdventurerWithLowest(stat: string): AdventurerStoreState { // todo: refactor 'stat' into enum
-        return adventurersOnQuest(this.store.adventurers, this.quest)
-            .concat().sort((a, b) => (a.stats[stat] - b.stats[stat]))[0];
-    }
+    // /**
+    //  * Returns the adventurer in the encounter with lowest given stat
+    //  * @param stat
+    //  */
+    // public getAdventurerWithLowest(stat: string): AdventurerStoreState { // todo: refactor 'stat' into enum
+    //     return adventurersOnQuest(this.store.adventurers, this.quest)
+    //         .concat().sort((a, b) => (a.stats[stat] - b.stats[stat]))[0];
+    // }
 
     /**
      * Returns a random adventurer in the party

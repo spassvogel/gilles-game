@@ -10,7 +10,6 @@ import { useEffect, useRef, useState } from "react";
 import { empty, ResourceStoreState } from "stores/resources";
 import { StructuresStoreState } from "stores/structures";
 import { TextManager } from "global/TextManager";
-import "./css/warehousestructureview.css";
 import AdventurerTabstrip from 'components/world/QuestPanel/AdventurerTabstrip';
 import useStructureState from 'hooks/store/useStructureState';
 import useResourcesState from 'hooks/store/useResourcesState';
@@ -21,7 +20,8 @@ import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import { useAdventurersInTown } from 'hooks/store/adventurers';
 import useItemDropActions from 'hooks/actions/useItemActions';
-import AdventurerInfo from 'components/ui/AdventurerInfo';
+import AdventurerInfo from 'components/ui/adventurer/AdventurerInfo';
+import "./css/warehousestructureview.css";
 
 // tslint:disable-next-line: no-empty-interface
 export interface Props  {

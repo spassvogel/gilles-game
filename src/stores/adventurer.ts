@@ -10,7 +10,7 @@ export interface AdventurerStoreState {
 
     equipment: EquipmentStoreState;     // equipment
     inventory: (null | Item)[];
-    stats: StatsStoreState;
+    basicAttributes: BasicAttributesStoreState;
     room: number;                       // Adventurer is lodged in this room in the tavern
 }
 
@@ -26,13 +26,9 @@ export interface EquipmentStoreState {
     sideArm?: Item;
 }
 
-// Mom I'm SPECIAL
-export interface StatsStoreState {
+export interface BasicAttributesStoreState {
     strength: number;
-    perception: number;
-    endurance: number;
-    charisma: number;
-    intelligenge: number;
-    agility: number;
-    luck: number;
+    dexterity: number;
+    intelligence: number;
+    health: number;
 }
