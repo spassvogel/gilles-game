@@ -76,11 +76,11 @@ export abstract class TextManager {
 
     public static getItemName(item: Item): string {
         const itemType = ItemType[getDefinition(item).itemType];
-        return this.get(`item-${itemType}-${toKebab(item)}-name`);
+        return this.get(`item-${toKebab(itemType)}-${toKebab(item)}-name`);
     }
     public static getItemSubtext(item: Item): string|null {
         const itemType = ItemType[getDefinition(item).itemType];
-        return this.getDefault(`item-${itemType}-${toKebab(item)}-subtext`);
+        return this.getDefault(`item-${toKebab(itemType)}-${toKebab(item)}-subtext`);
     }
 
     public static getStructureName(structure: Structure): string {
@@ -136,6 +136,7 @@ Handlebars.registerHelper("item:name", (item: Item, article?: string) => {
             return new Handlebars.SafeString(name);
     }
 });
+
 Handlebars.registerHelper("structure:name", (structure: string) => {
     const name = TextManager.get(`structure-${structure}-name`);
     return new Handlebars.SafeString(name);

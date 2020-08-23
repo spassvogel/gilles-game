@@ -3,7 +3,7 @@ import { Item } from 'definitions/items/types';
 import { getDefinition as getProductionDefinition, getProductionStructureForItem } from 'definitions/production';
 import useStructureState from 'hooks/store/useStructureState';
 import { Structure, getDefinition as getStructureDefinition } from 'definitions/structures';
-import { ProductionStructureStoreState } from 'stores/structure';
+import { ProductionStructureStoreState, StructureState } from 'stores/structure';
 import { getDefinition as getItemDefinition } from 'definitions/items';
 import { ProductionDefinition } from 'definitions/production/types';
 import { Link } from 'react-router-dom';
@@ -45,7 +45,7 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
 
     if (!structure) {
         return null;
-    }
+    }   
 
     // const structureDefinition = getStructureDefinition<ProductionStructureDefinition>(structure);
     // Can already be produced
@@ -74,10 +74,11 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
 
     // Cant study because the structure is not high lvl enough
     const productionDefinition = getProductionDefinition(props.item);
-    if (structureStore.level < (productionDefinition.levelRequired || 0)) {
+    if (structureStore.level < (productionDefinition.levelRequired || 0) || structureStore.state !== StructureState.Built) {
+
         return (
             <p className="invalid">
-                {`Requires ${ TextManager.getStructureName(structure)} level ${productionDefinition.levelRequired}`}
+                {TextManager.get("ui-tooltip-study-requires-structure-level", { structure, level: (productionDefinition.levelRequired || 0) + 1})}
             </p>
         )
     }
@@ -96,7 +97,6 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
         dispatch(start);
     }
 
-    // todo: level requirement?
     return (
         <p>
             <button onClick={startStudy}>

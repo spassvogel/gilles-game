@@ -10,7 +10,7 @@ interface Props {
 const ApparelContent = (props: Props) => {
     const { info } = props;
     const subtext = TextManager.getItemSubtext(info.item);
-console.log(info)
+
     return (
         <>
             { subtext && (<p>"{subtext}"</p>)}
