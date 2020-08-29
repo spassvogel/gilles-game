@@ -1,4 +1,4 @@
-import { Container, Sprite } from '@inlet/react-pixi';
+import { Container } from '@inlet/react-pixi';
 import React, { useMemo,  useEffect, useRef, useCallback, PropsWithChildren, useState } from 'react';
 import { SceneActionType, SceneAction } from 'stores/scene';
 import { useDispatch, useSelector } from 'react-redux';
@@ -65,16 +65,13 @@ const SceneActor = (props: PropsWithChildren<Props>) => {
             switch (nextAction.actionType) {
                 case SceneActionType.move: {
                     const moveComplete = () => {
-                        // setAnimation("stand");
-                        // animation.current = "stand"
-                        //console.log('stand')
+
 
                         dispatch(completeSceneAction(props.controller.questName));
                         props.controller.actorMoved(props.name, nextAction.target);
                     }
                     const duration = (nextAction.endsAt - performance.now()) / 1000;
                     if (duration < 0) {
-                        console.log('done!')
                         moveComplete();
                     }
 
@@ -104,7 +101,6 @@ const SceneActor = (props: PropsWithChildren<Props>) => {
                         setOrientation(Orientation.northWest);
                     }
                     setAnimation("walk");
-                    // animation.current = "attack2";
                     gsap.killTweensOf(actorRef.current);
                     gsap.to(actorRef.current, {
                         duration,
@@ -120,10 +116,7 @@ const SceneActor = (props: PropsWithChildren<Props>) => {
             }
             previousAction.current = nextAction;
         }
-        else {
-            // console.log('no next')
-            // setAnimation("stand")
-        }
+
     }, [dispatch, tileWidth, tileHeight, actionQueue, props.controller, props.name, location]);
 
     const {x, y} = useMemo(() => {
@@ -135,25 +128,12 @@ const SceneActor = (props: PropsWithChildren<Props>) => {
         };
     }, [location, tileWidth, tileHeight]);
 
-
-
-    const clickFootman = () => {
-        // const frames = Object.keys(spritesheet?.textures);
-        // const index = frames.indexOf(frame!);
-        // const newIndex = (index+ 1) % frames.length;
-        // if (orientation !== Orientation.northWest)
-        //     setOrientation(orientation+1)
-        // else
-        //     setOrientation(Orientation.north)
-    }
-
     const [spritesheet, setSpritesheet] = useState<PIXI.Spritesheet>();
     const [frames, setFrames] = useState<{ [key: string]: PIXI.Texture[]}|null>(null);
 
     useEffect(() => {
         loadResource(`${process.env.PUBLIC_URL}/img/scene/actors/footman.json`, (resource) => {
             setSpritesheet(resource.spritesheet);
-
         });
     }, []);
 
@@ -182,42 +162,8 @@ const SceneActor = (props: PropsWithChildren<Props>) => {
         flipped.current = value;
     }
 
-    // const animation = useRef("stand");
     useEffect(() => {
-        switch (orientation) {
-            case Orientation.north:
-                // setFrame(`${animation.current}-n`);
-                setFlipped(false);
-                break;
-            case Orientation.northEast:
-                // setFrame(`${animation.current}-ne`);
-                setFlipped(false);
-                break;
-            case Orientation.east:
-                // setFrame(`${animation.current}-e`);
-                setFlipped(false);
-                break;
-            case Orientation.southEast:
-                // setFrame(`${animation.current}-se`);
-                setFlipped(false);
-                break;
-            case Orientation.south:
-                // setFrame(`${animation.current}-s`);
-                setFlipped(false);
-                break;
-            case Orientation.southWest:
-                // setFrame(`${animation.current}-se`);
-                setFlipped(true);
-                break;
-            case Orientation.west:
-                // setFrame(`${animation.current}-e`);
-                setFlipped(true);
-                break;
-            case Orientation.northWest:
-                // setFrame(`${animation.current}-ne`);
-                setFlipped(true);
-                break;
-        }
+        setFlipped(orientation === Orientation.southWest || orientation === Orientation.west || orientation === Orientation.northWest)
     }, [orientation]);
 
     const getFrames = useCallback(() => {
@@ -235,8 +181,6 @@ const SceneActor = (props: PropsWithChildren<Props>) => {
     return (
         <Container x={x} y={y} ref={actorRef} name={props.name}>
             { spritesheet && frames && (
-                <>
-                {/* <>{console.log(frames)}</> */}
                 <SpriteAnimated
                     animationSpeed={0.1}
                     name="footman"
@@ -246,10 +190,7 @@ const SceneActor = (props: PropsWithChildren<Props>) => {
                     scale={[(flipped.current ? -1 : 1), 1]}
                     anchor={[.5, .5]}
                     pivot={[0, 0]}
-                    // interactive={true}
-                    pointerdown={clickFootman}
                 />
-                </>
             )}
             {children}
         </Container>

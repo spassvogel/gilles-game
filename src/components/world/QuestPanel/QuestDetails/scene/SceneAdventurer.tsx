@@ -128,7 +128,12 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
 
 
     return (
-        <>
+        <Container
+            interactive={true}
+            pointerdown={handleActorStartDrag}
+            pointerup={handleCancelAction}
+            pointerupoutside={handleActorEndDrag}
+        >
             <ActionPath ref={actionPathRef} />
             <SceneActor
                 key={name}
@@ -150,10 +155,6 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                 {/* <Sprite
                     y={-80}
                     image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`}
-                    interactive={true}
-                    pointerdown={handleActorStartDrag}
-                    pointerup={handleCancelAction}
-                    pointerupoutside={handleActorEndDrag}
                 /> */}
                 <Sprite
                     scale={.1}
@@ -161,15 +162,11 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                     x={tileWidth / 2}
                     y={-30}
                     image={`${process.env.PUBLIC_URL}/${adventurer.avatarImg}`}
-                    interactive={true}
-                    pointerdown={handleActorStartDrag}
-                    pointerup={handleCancelAction}
-                    pointerupoutside={handleActorEndDrag}
                 />
                 { (selected && controller.actorCanInteract(name)) && (
                     <Container
-                    interactive={true}
-                    pointerdown={() => {controller.actorInteract(name)}}
+                        interactive={true}
+                        pointerdown={() => {controller.actorInteract(name)}}
                     >
                         {/* <Graphics
                             draw={graphics => {
@@ -197,7 +194,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                     </Container>
                 )}
             </SceneActor>
-        </>
+        </Container>
     )
 }
 
