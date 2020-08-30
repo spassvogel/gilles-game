@@ -74,7 +74,7 @@ const SceneActor = (props: PropsWithChildren<Props>) => {
                         moveComplete();
                     }
 
-                    // define orientation
+                    // determine orientation
                     if (location[0] === nextAction.target[0] && location[1] > nextAction.target[1]) {
                         setOrientation(Orientation.north);
                     }
@@ -249,6 +249,7 @@ const SceneActor = (props: PropsWithChildren<Props>) => {
                     isPlaying={true}
                     textures={frames[getFrames()]}
                     x={50}
+                    y={30}
                     scale={[(flipped.current ? -1 : 1), 1]}
                     anchor={[.5, .5]}
                     pivot={[0, 0]}

@@ -351,10 +351,6 @@ research fantasy concept art
           https://barkofthebyte.azurewebsites.net/post/2014/05/05/three-js-projecting-mouse-clicks-to-a-3d-scene-how-to-do-it-and-how-it-works
 
 
-#### 17/11/2019 ANIMATIONS
-(obsolete)
-Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy.com/2017/11/06/creating-animated-gltf-characters-with-mixamo-and-blender/
-
 #### THREEJS examples (MIGHT IS RIGHT):
 [ ] http://server1.lazy-kitty.com/tests/
 [x]   check achievements (http://server1.lazy-kitty.com/tests/achievements_2019_08_11/)
