@@ -26,8 +26,6 @@ enum Orientation {
     northWest = "nw"
 }
 
-// todo: idle look around
-
 // This is a wrapper that exposes a location property. Will set x and y on children
 const SceneActor = (props: PropsWithChildren<Props>) => {
     const {

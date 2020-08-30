@@ -16,7 +16,7 @@ const lerp = (n1: number,  n2: number,  alpha: number) =>  {
 }
 
 // Uses the shared pixi loader to load a resource
-export async function loadResourceAsync(path: string) { 
+export async function loadResourceAsync(path: string) {
     const loader = PIXI.Loader.shared;
     return new Promise<LoaderResource>((resolve, reject) => {
         if (loader.resources[path]) {

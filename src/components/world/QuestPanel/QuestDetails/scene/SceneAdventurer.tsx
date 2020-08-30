@@ -7,7 +7,6 @@ import { enqueueSceneAction } from 'actions/quests';
 import { SceneAction, SceneActionType } from 'stores/scene';
 import ActionPath, { RefActions } from './ActionPath';
 import useAdventurerState from 'hooks/store/adventurers';
-import { loadResource } from 'utils/pixiJs';
 
 interface Props  {
     selected: boolean;
@@ -35,6 +34,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
     // Draw a line to indicate the action to take
     const actionPathRef = useRef<RefActions>(null);
     const [actionActive, setActionActive] = useState(false);
+
     useEffect(() => {
         if (!actionActive || !location /* || scene.actionQueue?.length*/) {
             return;
@@ -64,15 +64,12 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
         props.setSelectedActor(name);
     }
 
-    const handleCancelAction = (event: PIXI.InteractionEvent) => {
-        setActionActive(false);
-        event.stopPropagation();
-    }
-
     // Queue actions
     const handleActorEndDrag = (event: PIXI.InteractionEvent) => {
         setActionActive(false);
+        const actionPath = actionPathRef.current;
         if(scene.actionQueue?.length) {
+            actionPath?.clear();
             return;
         }
 
@@ -122,7 +119,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
 
         }
         setActionActive(false);
-        const actionPath = actionPathRef.current;
+        // const actionPath = actionPathRef.current;
         actionPath?.clear();
     }
 
@@ -131,7 +128,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
         <Container
             interactive={true}
             pointerdown={handleActorStartDrag}
-            pointerup={handleCancelAction}
+            pointerup={handleActorEndDrag}
             pointerupoutside={handleActorEndDrag}
         >
             <ActionPath ref={actionPathRef} />
