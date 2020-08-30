@@ -77,6 +77,10 @@ const loadGame = async (state: StoreState) => {
     await persistor.purge();
     const { store } = await configureStore(state);
     runGame(store);
+
+    // We have to cause the page to reinitialize and all react components to remount
+    // eslint-disable-next-line no-restricted-globals
+    location.href = '#/world/'; // todo: load path from metadata '#/world/kill10Boars';
 }
 
 const restartGame = () => {
