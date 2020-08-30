@@ -257,7 +257,8 @@
     "ui-toast-type-quest-encounter": "Encounter started!",
     "ui-toast-type-quest-launched": "Quest started!",
     "ui-toast-type-quest-update": "Quest update!",
-    
+
+    "ui-tooltip-damage-reduction": "Damage reduction: {{damageReduction}}",
     "ui-tooltip-study-requires-structure-level": "Study: Requires {{structure:name structure}} level {{level}}",
     "ui-tooltip-resource-produce-row": "At {{structure}} ({{amount}}/minute)",
     "ui-tooltip-resource-produce-row-notbuilt": "At {{structure}} (not constructed)",
