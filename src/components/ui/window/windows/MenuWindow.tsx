@@ -85,11 +85,18 @@ const Menu = (props: AllProps & AppContextProps) => {
                 <button onClick={handleClickSettings}>Settings</button>
             </p>
             <p>
-                <button onClick={handleClickSave}>Save</button>
-            </p>
-            <p>
-                <input type="file" onChange={handleFileChange}/>
-                <button onClick={handleClickLoad} disabled={!loadedStore}>Load</button>
+                <fieldset>
+                    <legend>Save and load</legend>
+                    <section>
+                        Save game to disk:&nbsp;
+                        <button onClick={handleClickSave}>Save</button>
+                    </section>
+                    <section>
+                        Load game from disk:&nbsp;
+                        <input type="file" onChange={handleFileChange} />
+                        <button onClick={handleClickLoad} disabled={!loadedStore}>Load</button>
+                    </section>
+                </fieldset>
             </p>
         </div>
     );

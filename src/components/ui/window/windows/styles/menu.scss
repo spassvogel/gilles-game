@@ -2,4 +2,14 @@
     input[type=file] {
         color: white;
     }
+
+    fieldset {
+        color: white;
+        display: flex;
+        flex-direction: column;
+
+        section {
+            margin-top: 20px;
+        }
+    }
 }

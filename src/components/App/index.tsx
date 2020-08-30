@@ -23,10 +23,10 @@ import SimpleLog from 'components/log/SimpleLog';
 import ContextTooltip from 'components/ui/tooltip/ContextTooltip';
 import {TooltipManager } from 'global/TooltipManager';
 import {getWorldLink, getTownLink } from 'utils/routing';
-import localforage from 'localforage';
 import StructureDetailsView from 'components/StructureDetailsView';
 import Background from 'components/Background';
 import {manifest} from "./manifest/app";
+import { restartGame } from 'index';
 import "./styles/app.scss";
 
 PixiPlugin.registerPIXI(PIXI);
@@ -66,11 +66,9 @@ const App = (props: AllProps) => {
         SoundManager.playSound(Sound.buttonClick);
     };
 
-    const handleResetClick = () => {
-        props.persistor.purge();
-        localforage.clear();
-        // todo: go to root
-        (window as any).location.reload();
+    const handleRestartClick = () => {
+        restartGame();
+
     };
 
     const selectStructure = (structure: Structure | null) => {
@@ -221,7 +219,7 @@ const App = (props: AllProps) => {
                                 </Route>
                             </Switch>
                             {` | `}
-                            <button onClick={() => handleResetClick()} style={{color: "red"}}> Restart! </button>
+                            <button onClick={() => handleRestartClick()} style={{color: "red"}}> Restart! </button>
                         </div>
                         <Switch>
                             <Route path={getTownLink()} render={renderTownView} />

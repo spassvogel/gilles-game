@@ -602,3 +602,6 @@ Studies are tasks like `{structure_name}.study` with a callback that adds the it
 ### 10/8/2020 Save and load
 [x] Save gamestate into file 
 [x] Load gamestate from file
+[ ] Save metadata into file. Like: current route, timestamp, game version
+[ ] Load current route from file
+[ ] Show time, game version when loading game
