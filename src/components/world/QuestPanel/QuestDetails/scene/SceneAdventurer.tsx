@@ -10,6 +10,7 @@ import useAdventurerState from 'hooks/store/adventurers';
 
 interface Props  {
     name: string;
+    // spritesheet: PIXI.Spritesheet;
     selected: boolean;
     setSelectedActor: (actor: string) => void;
 };
@@ -21,6 +22,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
         controller,
         location,
         name,
+        // spritesheet,
         selected,
     } = props;
     const tileWidth = controller.mapData?.tilewidth!;
@@ -135,6 +137,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
             <SceneActor
                 key={name}
                 name={name}
+                // spritesheet={spritesheet}
                 controller={controller}
                 location={location}
                 interactive={true}

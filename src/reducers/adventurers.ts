@@ -25,6 +25,7 @@ const generateRandomAttributes = (): BasicAttributesStoreState => {
 };
 
 const avatarImgBasePath = "img/avatars";
+const spritesheetBasePath = "img/scene/actors/"
 // Create a bunch of guys for debugging
 const testState: AdventurerStoreState[] = [{
     id: "c4a5d270",
@@ -38,6 +39,7 @@ const testState: AdventurerStoreState[] = [{
     name: "Ximena Maddox",
     traits: [Trait.houseMaddox, Trait.gloomy],
     avatarImg: `${avatarImgBasePath}/female/f_14.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.deedForLumbermill, null, Item.crossbow, Item.dagger, Item.khopesh, null, Item.sword, null,  null,  null,  null,  null,  null,  null,  null,  null],
 }, {
@@ -50,6 +52,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 1,
     avatarImg: `${avatarImgBasePath}/male/m_05.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     traits: [Trait.houseHouston],
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.crossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, Item.plateHelmet, Item.cowl],
@@ -64,6 +67,7 @@ const testState: AdventurerStoreState[] = [{
     room: 2,
     traits: [Trait.gloomy],
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
     id: "d299f98a",
@@ -73,6 +77,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 4,
     avatarImg: `${avatarImgBasePath}/male/m_19.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     traits: [Trait.arrowFinder],
     inventory: [ null, null, null, null, Item.khopesh, Item.hornedHelmet ],
 }, {
@@ -83,6 +88,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 5,
     avatarImg: `${avatarImgBasePath}/male/m_08.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     traits: [Trait.houseMonroe, Trait.arrowFinder],
     inventory: [ null, null, null ],
 }, {
@@ -93,6 +99,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 9,
     avatarImg: `${avatarImgBasePath}/female/f_10.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ null, null, null, null, null ],
 }, {
     id: "169384ef",
@@ -102,6 +109,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 3,
     avatarImg: `${avatarImgBasePath}/female/f_16.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
     id: "f22d66cb",
@@ -111,6 +119,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 8,
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ null, null, null, null, null ],
 }, {
     id: "36c686c1",
@@ -120,6 +129,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 6,
     avatarImg: `${avatarImgBasePath}/male/m_26.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null, Item.shoulders1, Item.fedora, Item.greaves2 ],
 }, {
     id: "12c613d4",
@@ -129,6 +139,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 7,
     avatarImg: `${avatarImgBasePath}/male/m_33.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }];
 

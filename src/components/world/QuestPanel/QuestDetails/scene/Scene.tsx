@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect, useContext, useState } from "react";
+import React, { useRef, useMemo, useEffect, useContext, useState, useCallback } from "react";
 import { Container } from '@inlet/react-pixi';
 import useQuest from 'hooks/store/useQuest';
 import Tilemap from './Tilemap';
@@ -42,29 +42,26 @@ const Scene = (props: Props) => {
         return scene?.actors?.find(a => a.name === props.selectedActor) || null;
     }, [scene, props.selectedActor]);
 
-    const [spritesheet, setSpritesheet] = useState<PIXI.Spritesheet>();
-    useEffect(() => {
-        // loadResource(`${process.env.PUBLIC_URL}/img/scene/actors/footman.json`, (resource) => {
-        //     // console.log('done loading for ' + props.name, resource, resource.spritesheet)
-        //     setSpritesheet(resource.spritesheet);
-        // });
-    }, []);
+    
+    const renderActors = useCallback(() => {
+        const renderActor = (actor: ActorObject) => {
+            console.log('ra', actor.location)
+            const {name, location} = actor;
+            return (
+                <SceneAdventurer
+                    location={location}
+                    // spritesheet={spritesheet}
+                    controller={controller}
+                    name={name}
+                    key={name}
+                    selected={selectedActor?.name === name}
+                    setSelectedActor={props.setSelectedActor}
+                />
+            );
+        }
+        return scene.actors?.map((o) => renderActor(o));
 
-    const renderActor = (actor: ActorObject) => {
-        if (!spritesheet) return null;
-        const {name, location} = actor;
-        return (
-            <SceneAdventurer
-                location={location}
-                spritesheet={spritesheet}
-                controller={controller}
-                name={name}
-                key={name}
-                selected={selectedActor?.name === name}
-                setSelectedActor={props.setSelectedActor}
-            />
-        );
-    }
+    }, [])
 
     useEffect(() => {
         if (!mapData) return;
@@ -91,7 +88,7 @@ const Scene = (props: Props) => {
                         spritesheets={tileSpritesheets}
                     />
                     { scene.objects.map((o) => renderObject(o, controller, tileSpritesheets ))}
-                    { scene.actors?.map((o) => renderActor(o))}
+                    { renderActors()}
                 </Container>
             </BridgedStage>
             {DEBUG_ACTIONQUEUE && (

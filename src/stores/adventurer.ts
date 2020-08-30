@@ -5,6 +5,7 @@ export interface AdventurerStoreState {
     id: string;
     name: string;
     avatarImg: string;
+    spritesheetPath: string;            // Path to JSON of spritesheet to use in scenes
     traits?: Trait[];
     health: number;                     // When this reaches zero, the adventurer is dead
 

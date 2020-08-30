@@ -11,6 +11,7 @@ import SpriteAnimated from './SpriteAnimated';
 
 export interface Props  {
     name: string;
+    // spritesheet: PIXI.Spritesheet;
     controller: BaseSceneController<any>;
     location?: [number, number]; // tile coordinate space
 };
@@ -30,6 +31,7 @@ enum Orientation {
 const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeof Container>) => {
     const {
         location = [0, 0],
+        // spritesheet,
         controller,
         children,
         ...rest
@@ -54,6 +56,10 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
     const [animation, setAnimation] = useState("stand");
 
+    const spritesheet = useMemo(() => {
+        return controller.getActorSpritesheet2();
+    }, [controller]);
+
     // Handle actions
     useEffect(() => {
         if (!actorRef) {
@@ -65,8 +71,6 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
             switch (nextAction.actionType) {
                 case SceneActionType.move: {
                     const moveComplete = () => {
-
-
                         dispatch(completeSceneAction(props.controller.questName));
                         props.controller.actorMoved(props.name, nextAction.target);
                     }
@@ -128,15 +132,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         };
     }, [location, tileWidth, tileHeight]);
 
-    const [spritesheet, setSpritesheet] = useState<PIXI.Spritesheet>();
     const [frames, setFrames] = useState<{ [key: string]: PIXI.Texture[]}|null>(null);
-
-    useEffect(() => {
-        loadResource(`${process.env.PUBLIC_URL}/img/scene/actors/footman.json`, (resource) => {
-            console.log('done loading for ' + props.name, resource, resource.spritesheet)
-            setSpritesheet(resource.spritesheet);
-        });
-    }, []);
 
     useEffect(() => {
         if (!spritesheet) return;
