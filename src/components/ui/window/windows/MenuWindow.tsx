@@ -55,8 +55,8 @@ const Menu = (props: AllProps & AppContextProps) => {
         const dataToLoad = loadedStore;
         setLoadedStore(undefined);
         props.persistor.purge().then(async () => {
-            const { store, persistor } = await configureStore(dataToLoad);
-            runGame(store, persistor);
+            const { store } = await configureStore(dataToLoad);
+            runGame(store);
             ToastManager.addToast(TextManager.get("ui-game-loaded"), Type.game, "/img/items/misc/magic-eye.png");
             props.onCloseWindow();
         });
