@@ -598,10 +598,12 @@ Studies are tasks like `{structure_name}.study` with a callback that adds the it
 
 [ ] Figure out a way to calculate damage and armour effects.    
 
-
 ### 10/8/2020 Save and load
 [x] Save gamestate into file 
 [x] Load gamestate from file
 [ ] Save metadata into file. Like: current route, timestamp, game version
 [ ] Load current route from file
 [ ] Show time, game version when loading game
+
+### 30/8/2020 Quest / Adventurer definitions
+Quests and adventurers dont need to be stored in the store when not active
