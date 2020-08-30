@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect, useContext } from "react";
+import React, { useRef, useMemo, useEffect, useContext, useState } from "react";
 import { Container } from '@inlet/react-pixi';
 import useQuest from 'hooks/store/useQuest';
 import Tilemap from './Tilemap';
@@ -8,6 +8,9 @@ import SceneAdventurer from './SceneAdventurer';
 import useTilesetsLoader from 'hooks/useTilesetsLoader';
 import renderObject from './renderObject';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
+import { loadResource } from 'utils/pixiJs';
+
+
 import * as PIXI from 'pixi.js';
 window.PIXI = PIXI;
 // eslint-disable-next-line import/first
@@ -39,12 +42,21 @@ const Scene = (props: Props) => {
         return scene?.actors?.find(a => a.name === props.selectedActor) || null;
     }, [scene, props.selectedActor]);
 
+    const [spritesheet, setSpritesheet] = useState<PIXI.Spritesheet>();
+    useEffect(() => {
+        // loadResource(`${process.env.PUBLIC_URL}/img/scene/actors/footman.json`, (resource) => {
+        //     // console.log('done loading for ' + props.name, resource, resource.spritesheet)
+        //     setSpritesheet(resource.spritesheet);
+        // });
+    }, []);
 
     const renderActor = (actor: ActorObject) => {
+        if (!spritesheet) return null;
         const {name, location} = actor;
         return (
             <SceneAdventurer
                 location={location}
+                spritesheet={spritesheet}
                 controller={controller}
                 name={name}
                 key={name}
@@ -59,7 +71,7 @@ const Scene = (props: Props) => {
         loadTilesets(mapData.tilesets);
     }, [loadTilesets, mapData]);
 
-    if (!loadComplete || !mapData) {
+    if (!loadComplete || !mapData || !scene) {
         return <div>loading...</div>
     }
     const sceneWidth = mapData.width * mapData.tilewidth;
@@ -77,7 +89,7 @@ const Scene = (props: Props) => {
                         basePath={basePath}
                         data={mapData}
                         spritesheets={tileSpritesheets}
-                        />
+                    />
                     { scene.objects.map((o) => renderObject(o, controller, tileSpritesheets ))}
                     { scene.actors?.map((o) => renderActor(o))}
                 </Container>

@@ -72,13 +72,11 @@ const continueGame = (store: any) => {
     console.log(`Continuing existing GILLES-IDLE-GAME (version ${version})`);
 };
 
-const loadGame = (state: StoreState) => {
+const loadGame = async (state: StoreState) => {
     // todo: implement in MenuWindow!
-
-
-    // persistor.purge().then(async () => {
-    //     const { store } = await configureStore(dataToLoad);
-    //     runGame(store);
+    await persistor.purge();
+    const { store } = await configureStore(state);
+    runGame(store);
 }
 
 const restartGame = () => {

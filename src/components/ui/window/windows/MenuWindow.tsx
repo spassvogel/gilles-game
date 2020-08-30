@@ -8,7 +8,7 @@ import CheatWindow from './CheatWindow';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import { Persistor } from 'redux-persist';
-import { runGame } from 'index';
+import { runGame, loadGame } from 'index';
 import configureStore from 'utils/configureStore';
 import { useState } from 'react';
 import { ToastManager } from 'global/ToastManager';
@@ -50,16 +50,14 @@ const Menu = (props: AllProps & AppContextProps) => {
         a.click();
     }
 
-    const handleClickLoad = () => {
+    const handleClickLoad = async () => {
         if (!loadedStore) return;
-        const dataToLoad = loadedStore;
         setLoadedStore(undefined);
-        props.persistor.purge().then(async () => {
-            const { store } = await configureStore(dataToLoad);
-            runGame(store);
-            ToastManager.addToast(TextManager.get("ui-game-loaded"), Type.game, "/img/items/misc/magic-eye.png");
-            props.onCloseWindow();
-        });
+
+        await loadGame(loadedStore);
+        ToastManager.addToast(TextManager.get("ui-game-loaded"), Type.game, "/img/items/misc/magic-eye.png");
+        props.onCloseWindow();
+
     }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,20 +82,18 @@ const Menu = (props: AllProps & AppContextProps) => {
             <p>
                 <button onClick={handleClickSettings}>Settings</button>
             </p>
-            <p>
-                <fieldset>
-                    <legend>Save and load</legend>
-                    <section>
-                        Save game to disk:&nbsp;
-                        <button onClick={handleClickSave}>Save</button>
-                    </section>
-                    <section>
-                        Load game from disk:&nbsp;
-                        <input type="file" onChange={handleFileChange} />
-                        <button onClick={handleClickLoad} disabled={!loadedStore}>Load</button>
-                    </section>
-                </fieldset>
-            </p>
+            <fieldset>
+                <legend>Save and load</legend>
+                <section>
+                    Save game to disk:&nbsp;
+                    <button onClick={handleClickSave}>Save</button>
+                </section>
+                <section>
+                    Load game from disk:&nbsp;
+                    <input type="file" onChange={handleFileChange} />
+                    <button onClick={handleClickLoad} disabled={!loadedStore}>Load</button>
+                </section>
+            </fieldset>
         </div>
     );
 }
