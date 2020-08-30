@@ -9,6 +9,7 @@ import ActionPath, { RefActions } from './ActionPath';
 import useAdventurerState from 'hooks/store/adventurers';
 
 interface Props  {
+    name: string;
     selected: boolean;
     setSelectedActor: (actor: string) => void;
 };
@@ -77,6 +78,11 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
         const blocked = controller.locationIsBlocked(endLocation);
         if (!blocked) {
             const target = controller.pointToSceneLocation(event.data.global);
+            if(target[0] < 0 || target[0] >= controller.mapData?.width! || target[1] < 0 || target[1] >= controller.mapData?.height!) {
+                // Released out of bounds
+                actionPath?.clear();
+                return;
+            }
 
             const convertLocation = (l: [number, number]) => {
                 // This is the format AStarFind works with
@@ -119,24 +125,23 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
 
         }
         setActionActive(false);
-        // const actionPath = actionPathRef.current;
         actionPath?.clear();
     }
 
 
     return (
-        <Container
-            interactive={true}
-            pointerdown={handleActorStartDrag}
-            pointerup={handleActorEndDrag}
-            pointerupoutside={handleActorEndDrag}
-        >
+        <Container interactive={true}>
             <ActionPath ref={actionPathRef} />
             <SceneActor
                 key={name}
                 name={name}
                 controller={controller}
                 location={location}
+                interactive={true}
+                pointerdown={handleActorStartDrag}
+                pointerup={handleActorEndDrag}
+                pointerupoutside={handleActorEndDrag}
+                hitArea={new PIXI.Rectangle(location?.[0], location?.[1], tileWidth, tileHeight)}
             >
                 {selected && (
                     <Graphics

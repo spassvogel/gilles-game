@@ -44,12 +44,12 @@ const Scene = (props: Props) => {
         const {name, location} = actor;
         return (
             <SceneAdventurer
-            location={location}
-            controller={controller}
-            name={name}
-            key={name}
-            selected={selectedActor?.name === name}
-            setSelectedActor={props.setSelectedActor}
+                location={location}
+                controller={controller}
+                name={name}
+                key={name}
+                selected={selectedActor?.name === name}
+                setSelectedActor={props.setSelectedActor}
             />
         );
     }

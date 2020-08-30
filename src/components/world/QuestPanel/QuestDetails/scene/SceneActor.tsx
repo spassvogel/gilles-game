@@ -1,5 +1,5 @@
-import { Container } from '@inlet/react-pixi';
 import React, { useMemo,  useEffect, useRef, useCallback, PropsWithChildren, useState } from 'react';
+import { Container } from '@inlet/react-pixi';
 import { SceneActionType, SceneAction } from 'stores/scene';
 import { useDispatch, useSelector } from 'react-redux';
 import { completeSceneAction } from 'actions/quests';
@@ -27,11 +27,12 @@ enum Orientation {
 }
 
 // This is a wrapper that exposes a location property. Will set x and y on children
-const SceneActor = (props: PropsWithChildren<Props>) => {
+const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeof Container>) => {
     const {
         location = [0, 0],
         controller,
-        children
+        children,
+        ...rest
     } = props;
     const tileWidth = controller.mapData?.tilewidth!;
     const tileHeight = controller.mapData?.tileheight!;
@@ -49,7 +50,7 @@ const SceneActor = (props: PropsWithChildren<Props>) => {
             return quest.scene!.actionQueue.filter(a => a.actor === props.name);
         },
         [props.name, props.controller.questName]
-        );
+    );
     const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
     const [animation, setAnimation] = useState("stand");
 
@@ -241,7 +242,7 @@ const SceneActor = (props: PropsWithChildren<Props>) => {
 
     // console.log(props.name, spritesheet, frames)
     return (
-        <Container x={x} y={y} ref={actorRef} name={props.name}>
+        <Container x={x} y={y} ref={actorRef} {...rest}>
             { spritesheet && frames && (
                 <SpriteAnimated
                     animationSpeed={0.1}
