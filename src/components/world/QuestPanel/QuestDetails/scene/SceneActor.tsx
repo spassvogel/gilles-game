@@ -26,6 +26,7 @@ enum Orientation {
     northWest = "nw"
 }
 
+// todo: idle look around
 
 // This is a wrapper that exposes a location property. Will set x and y on children
 const SceneActor = (props: PropsWithChildren<Props>) => {
@@ -133,6 +134,7 @@ const SceneActor = (props: PropsWithChildren<Props>) => {
 
     useEffect(() => {
         loadResource(`${process.env.PUBLIC_URL}/img/scene/actors/footman.json`, (resource) => {
+            console.log('done loading for ' + props.name, resource, resource.spritesheet)
             setSpritesheet(resource.spritesheet);
         });
     }, []);
@@ -166,6 +168,66 @@ const SceneActor = (props: PropsWithChildren<Props>) => {
         setFlipped(orientation === Orientation.southWest || orientation === Orientation.west || orientation === Orientation.northWest)
     }, [orientation]);
 
+    useEffect(() => {
+        // Randomly turn left or right
+        const randomOrientation = () => {
+            const left = Math.random() < .5;
+            if (orientation === Orientation.north && left) {
+                setOrientation(Orientation.northWest);
+            }
+            else if (orientation === Orientation.northWest && left) {
+                setOrientation(Orientation.west);
+            }
+            else if (orientation === Orientation.west && left) {
+                setOrientation(Orientation.southWest);
+            }
+            else if (orientation === Orientation.southWest && left) {
+                setOrientation(Orientation.south);
+            }
+            else if (orientation === Orientation.south && left) {
+                setOrientation(Orientation.southEast);
+            }
+            else if (orientation === Orientation.southEast && left) {
+                setOrientation(Orientation.east);
+            }
+            else if (orientation === Orientation.east && left) {
+                setOrientation(Orientation.northEast);
+            }
+            else if (orientation === Orientation.northEast && left) {
+                setOrientation(Orientation.north);
+            }
+            if (orientation === Orientation.north && !left) {
+                setOrientation(Orientation.northEast);
+            }
+            else if (orientation === Orientation.northEast && !left) {
+                setOrientation(Orientation.east);
+            }
+            else if (orientation === Orientation.east && !left) {
+                setOrientation(Orientation.southEast);
+            }
+            else if (orientation === Orientation.southEast && !left) {
+                setOrientation(Orientation.south);
+            }
+            else if (orientation === Orientation.south && !left) {
+                setOrientation(Orientation.southWest);
+            }
+            else if (orientation === Orientation.southWest && !left) {
+                setOrientation(Orientation.west);
+            }
+            else if (orientation === Orientation.west && !left) {
+                setOrientation(Orientation.northWest);
+            }
+            else if (orientation === Orientation.northWest && !left) {
+                setOrientation(Orientation.north);
+            }
+        }
+        const minDuration = 2000;
+        const maxDuration = 4000;
+        const duration = minDuration + Math.random() * maxDuration;
+        const interval = setInterval(randomOrientation, duration);
+        return () => clearInterval(interval);
+    }, [animation, orientation])
+
     const getFrames = useCallback(() => {
         switch (orientation) {
             case Orientation.northWest:
@@ -178,6 +240,8 @@ const SceneActor = (props: PropsWithChildren<Props>) => {
                 return `${animation}-${orientation}`;
         }
     }, [animation, orientation]);
+
+    // console.log(props.name, spritesheet, frames)
     return (
         <Container x={x} y={y} ref={actorRef} name={props.name}>
             { spritesheet && frames && (
