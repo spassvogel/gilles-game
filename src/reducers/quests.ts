@@ -147,12 +147,16 @@ const exitEncounter = (state: QuestStoreState[], action: QuestAction) => {
 //         return qss;
 //     });
 // };
+
+// To change scene, set scene name. The scenecontroller will load the scene data and art assets
+// and call setScene reducer
 const setSceneName = (state: QuestStoreState[], action: SetSceneNameAction) => {
     return state.map((qss) => {
         if (qss.name === action.questName) {
             return {
                 ...qss,
-                sceneName: action.sceneName
+                sceneName: action.sceneName,
+                scene: undefined
             };
         }
         return qss;
