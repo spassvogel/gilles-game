@@ -18,6 +18,15 @@ export enum WeaponType {
     staff,
     sword,
     poleArm,
+    // shield ?
+}
+
+export enum WeaponClassification {
+    oneHanded,  // Can be used in main hand or off hand
+    mainHand,   // Can only be used in main hand
+    offHand,    // Can only be used in the off hand
+    twoHanded,  // Can be used in the main hand and will disable off hand from being used
+    shield // ?
 }
 
 export enum DamageType {
@@ -31,6 +40,7 @@ export interface DamageDefinition {
 // tslint:disable-next-line:no-empty-interface
 export interface WeaponDefinition extends ItemDefinition {
     weaponType: WeaponType;
+    classification?: WeaponClassification;
     damage: DamageDefinition;
 }
 
@@ -39,6 +49,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         item: Item.arbalest,
         itemType,
         weaponType: WeaponType.crossbow,
+        classification: WeaponClassification.mainHand,
         iconImg: `${basePath}arbalest.png`,
         damage: { [DamageType.kinetic]: 40 },
     },
@@ -81,6 +92,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         item: Item.dagger,
         itemType,
         weaponType: WeaponType.knife,
+        classification: WeaponClassification.oneHanded,
         iconImg: `${basePath}dagger.png`,
         damage: { [DamageType.kinetic]: 8 },
     },
