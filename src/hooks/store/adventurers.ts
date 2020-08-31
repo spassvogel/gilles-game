@@ -3,6 +3,9 @@ import { QuestStoreState, QuestStatus } from 'stores/quest';
 import { StoreState } from 'stores';
 import { useSelector } from 'react-redux';
 import { useMemo, useCallback } from 'react';
+import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
+import { Item } from 'definitions/items/types';
+import { getDefinition } from 'definitions/items/apparel';
 
 const getAdventurersInTown = (adventurers: AdventurerStoreState[], quests: QuestStoreState[]): AdventurerStoreState[] => {
     // Get an array of all adventurer ids on any active quest
@@ -28,7 +31,7 @@ export const useAdventurersInTown = () => {
     return adventurersInTown;
 }
 
-// Returns the adventurer from redux store
+/** Returns the adventurer from store */
 export const useAdventurerState = (adventurerId: string) => {
     const adventurerSelector = useCallback(
         (state: StoreState) => state.adventurers.find((q) => q.id === adventurerId)!,
@@ -36,4 +39,25 @@ export const useAdventurerState = (adventurerId: string) => {
     );
     return useSelector<StoreState, AdventurerStoreState>(adventurerSelector);
 }
+
+/* Returns a map keyed by EquipmentSlotType with DR of an adventurer.
+   0 if nothing worn or if item does not have DR */
+export const useAdventurerDamageReduction = (adventurerId: string): { [key: string]: number } => {
+    const adventurer = useAdventurerState(adventurerId);
+    const findDR = (type: EquipmentSlotType) => {
+        const item: Item = adventurer.equipment[EquipmentSlotType[type]];
+        if (!item) return 0;
+        return getDefinition(item).damageReduction || 0;
+    }
+    return {
+        [EquipmentSlotType[EquipmentSlotType.head]]: findDR(EquipmentSlotType.head),
+        [EquipmentSlotType[EquipmentSlotType.chest]]: findDR(EquipmentSlotType.chest),
+        [EquipmentSlotType[EquipmentSlotType.hands]]: findDR(EquipmentSlotType.hands),
+        [EquipmentSlotType[EquipmentSlotType.shoulders]]: findDR(EquipmentSlotType.shoulders),
+        [EquipmentSlotType[EquipmentSlotType.legs]]: findDR(EquipmentSlotType.legs),
+        [EquipmentSlotType[EquipmentSlotType.feet]]: findDR(EquipmentSlotType.feet),
+    }
+}
+
+
 

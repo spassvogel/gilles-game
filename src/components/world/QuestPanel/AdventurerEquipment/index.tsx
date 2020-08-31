@@ -6,6 +6,7 @@ import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/Draggabl
 import { DragSourceType } from 'constants/dragging';
 import { IconSize } from 'constants/icons';
 import { TextManager } from 'global/TextManager';
+import Guy from './Guy';
 import './styles/adventurerEquipment.scss';
 
 export interface Props {
@@ -51,7 +52,7 @@ const AdventurerEquipment = (props: Props) => {
             {getEquipmentSlot(EquipmentSlotType.feet)}
             {getEquipmentSlot(EquipmentSlotType.mainHand)}
             {getEquipmentSlot(EquipmentSlotType.offHand)}
-            <li className="guy" />
+            <Guy adventurerId={adventurer.id} />
         </ul>
     )
 }

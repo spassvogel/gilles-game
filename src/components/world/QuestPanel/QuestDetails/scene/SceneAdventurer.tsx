@@ -135,7 +135,6 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
         <Container interactive={true}>
             <ActionPath ref={actionPathRef} />
             <SceneActor
-                key={name}
                 name={name}
                 // spritesheet={spritesheet}
                 controller={controller}

@@ -42,11 +42,11 @@ const Scene = (props: Props) => {
         return scene?.actors?.find(a => a.name === props.selectedActor) || null;
     }, [scene, props.selectedActor]);
 
-    
+
     const renderActors = useCallback(() => {
         const renderActor = (actor: ActorObject) => {
-            console.log('ra', actor.location)
             const {name, location} = actor;
+            console.log('ra', name)
             return (
                 <SceneAdventurer
                     location={location}
