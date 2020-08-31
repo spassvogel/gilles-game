@@ -607,3 +607,8 @@ Studies are tasks like `{structure_name}.study` with a callback that adds the it
 
 ### 30/8/2020 Quest / Adventurer definitions
 Quests and adventurers dont need to be stored in the store when not active
+
+### 31/8/2020 Skills
+[ ] Implement list of skills of adventurers
+[ ] We just need combat skills for the time being
+    https://gurps.fandom.com/wiki/List_of_Skills

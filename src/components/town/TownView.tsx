@@ -159,7 +159,8 @@ const TownView = (props: Props & AppContextProps) => {
     }, []);
 
     const options = {
-        sharedLoader: true
+        sharedLoader: true,
+        resolution: window.devicePixelRatio
     }
     return (
         <div className="town-view" ref={ref}>
