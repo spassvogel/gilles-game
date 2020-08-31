@@ -6,7 +6,7 @@ import useQuest from 'hooks/store/useQuest';
 import { enqueueSceneAction } from 'actions/quests';
 import { SceneAction, SceneActionType } from 'stores/scene';
 import ActionPath, { RefActions } from './ActionPath';
-import useAdventurerState from 'hooks/store/adventurers';
+import { useAdventurerState } from 'hooks/store/adventurers';
 
 interface Props  {
     name: string;

@@ -11,7 +11,7 @@ import EquipmentSlot, { EquipmentSlotType } from "../../EquipmentSlot";
 import Inventory from "../../inventory/Inventory";
 import { TooltipManager } from 'global/TooltipManager';
 import useItemDropActions from 'hooks/actions/useItemActions';
-import useAdventurerState from 'hooks/store/adventurers';
+import { useAdventurerState } from 'hooks/store/adventurers';
 import "./styles/adventurerinfo.scss";
 
 export interface Props {

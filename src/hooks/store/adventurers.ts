@@ -29,7 +29,7 @@ export const useAdventurersInTown = () => {
 }
 
 // Returns the adventurer from redux store
-const useAdventurerState = (adventurerId: string) => {
+export const useAdventurerState = (adventurerId: string) => {
     const adventurerSelector = useCallback(
         (state: StoreState) => state.adventurers.find((q) => q.id === adventurerId)!,
         [adventurerId]
@@ -37,4 +37,3 @@ const useAdventurerState = (adventurerId: string) => {
     return useSelector<StoreState, AdventurerStoreState>(adventurerSelector);
 }
 
-export default useAdventurerState;

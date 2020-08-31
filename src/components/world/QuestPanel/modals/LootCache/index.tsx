@@ -6,7 +6,7 @@ import AdventurerAvatar from 'components/ui/AdventurerAvatar';
 import { DragSourceType } from 'constants/dragging';
 import { adventurerFreeInventorySlots } from 'storeHelpers';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
-import useAdventurerState from 'hooks/store/adventurers';
+import { useAdventurerState } from 'hooks/store/adventurers';
 import "../styles/lootCache.scss";
 import "../styles/modal.scss";
 

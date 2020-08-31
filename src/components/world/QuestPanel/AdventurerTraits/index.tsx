@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import useAdventurerState from 'hooks/store/adventurers';
+import { useAdventurerState } from 'hooks/store/adventurers';
 import { Trait } from 'definitions/traits/types';
 import './styles/adventurerTraits.scss';
 import { getDefinition } from 'definitions/traits';
