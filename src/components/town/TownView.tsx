@@ -20,7 +20,7 @@ import Tavern from './structures/Tavern';
 import { withAppContext, AppContextProps } from 'hoc/withAppContext';
 import Generic from './structures/Generic';
 import Legenda from './Legenda';
-import "./css/townView.css"
+import "./styles/townView.scss"
 
 const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
