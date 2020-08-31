@@ -13,7 +13,6 @@ export enum WeaponType {
     fist,
     flail,
     hammer,
-    melee,
     knife,
     staff,
     sword,
@@ -29,6 +28,21 @@ export enum WeaponClassification {
     shield // ?
 }
 
+export const typeClassifications = {
+    [WeaponType.axe]: WeaponClassification.oneHanded,
+    [WeaponType.bow]: WeaponClassification.oneHanded,
+    [WeaponType.club]: WeaponClassification.oneHanded,
+    [WeaponType.crossbow]: WeaponClassification.mainHand,
+    [WeaponType.fist]: WeaponClassification.oneHanded,
+    [WeaponType.flail]: WeaponClassification.mainHand,
+    [WeaponType.hammer]: WeaponClassification.oneHanded,
+    [WeaponType.knife]: WeaponClassification.oneHanded,
+    [WeaponType.staff]: WeaponClassification.twoHanded,
+    [WeaponType.sword]: WeaponClassification.oneHanded,
+    [WeaponType.poleArm]: WeaponClassification.twoHanded
+}
+
+
 export enum DamageType {
     kinetic = "kinetic",
 }
@@ -37,10 +51,10 @@ export interface DamageDefinition {
     [DamageType.kinetic]: number | undefined;
 }
 
+
 // tslint:disable-next-line:no-empty-interface
 export interface WeaponDefinition extends ItemDefinition {
     weaponType: WeaponType;
-    classification?: WeaponClassification;
     damage: DamageDefinition;
 }
 
@@ -49,7 +63,6 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         item: Item.arbalest,
         itemType,
         weaponType: WeaponType.crossbow,
-        classification: WeaponClassification.mainHand,
         iconImg: `${basePath}arbalest.png`,
         damage: { [DamageType.kinetic]: 40 },
     },
@@ -63,7 +76,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
     [Item.brassKnuckles]: {
         item: Item.brassKnuckles,
         itemType,
-        weaponType: WeaponType.melee,
+        weaponType: WeaponType.fist,
         iconImg: `${basePath}brass_knuckles.png`,
         damage: { [DamageType.kinetic]: 10 },
     },
@@ -92,7 +105,6 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         item: Item.dagger,
         itemType,
         weaponType: WeaponType.knife,
-        classification: WeaponClassification.oneHanded,
         iconImg: `${basePath}dagger.png`,
         damage: { [DamageType.kinetic]: 8 },
     },
