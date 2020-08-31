@@ -171,7 +171,6 @@ const WorldMap = (props: Props) => {
         sharedLoader: true,
         width: canvasWidth / 2,
         height: canvasHeight / 2,
-        resolution: window.devicePixelRatio
     }
     return (
         <div className="world-map">
