@@ -18,6 +18,7 @@ interface Props  {
 // unused at the moment
 const ObjectTileLayer = PixiComponent<Props, any>("ObjectTileLayer", {
     create(props: Props) {
+        // @ts-ignore
         const tileLayer = new window.PIXI.tilemap.CompositeRectTileLayer(0, [props.texture]);
         return tileLayer;
     },
