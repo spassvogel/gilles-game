@@ -1,14 +1,14 @@
 @import 'components/styles/variables.scss';
 
 .world-map {
-    margin-bottom: -5px; /* no idea where this margin comes from */
+    margin-bottom: -32px;
 
     .title {
         background: rgba(0, 0, 0, 0.8);
         color: $color-text-darker;
         height: 32px;
-        top: 32px;
-        position: absolute;
+        top: -32px;
+        position: relative;
         width: 100%;
         display: flex;
         align-items: center;
