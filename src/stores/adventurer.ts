@@ -1,14 +1,17 @@
 import { Item } from "definitions/items/types";
+import { Trait } from 'definitions/traits/types';
 
 export interface AdventurerStoreState {
     id: string;
     name: string;
     avatarImg: string;
+    spritesheetPath: string;            // Path to JSON of spritesheet to use in scenes
+    traits?: Trait[];
     health: number;                     // When this reaches zero, the adventurer is dead
 
     equipment: EquipmentStoreState;     // equipment
     inventory: (null | Item)[];
-    stats: StatsStoreState;
+    basicAttributes: BasicAttributesStoreState;
     room: number;                       // Adventurer is lodged in this room in the tavern
 }
 
@@ -24,13 +27,9 @@ export interface EquipmentStoreState {
     sideArm?: Item;
 }
 
-// Mom I'm SPECIAL
-export interface StatsStoreState {
+export interface BasicAttributesStoreState {
     strength: number;
-    perception: number;
-    endurance: number;
-    charisma: number;
-    intelligenge: number;
-    agility: number;
-    luck: number;
+    dexterity: number;
+    intelligence: number;
+    health: number;
 }

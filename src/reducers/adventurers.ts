@@ -7,26 +7,25 @@ import { ActionType,
 import { EquipmentSlotType } from "components/ui/EquipmentSlot";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
-import { AdventurerStoreState, StatsStoreState } from "stores/adventurer";
+import { AdventurerStoreState, BasicAttributesStoreState } from "stores/adventurer";
+import { Trait } from 'definitions/traits/types';
 
 /**
  * reducer
  * @param state
  * @param action
  */
-const generateRandomStats = (): StatsStoreState => {
+const generateRandomAttributes = (): BasicAttributesStoreState => {
     return {
-        strength: Math.random() * 100,
-        perception: Math.random() * 100,
-        endurance: Math.random() * 100,
-        charisma: Math.random() * 100,
-        intelligenge: Math.random() * 100,
-        agility: Math.random() * 100,
-        luck: Math.random() * 100,
+        strength: Math.floor(Math.random() * 3) + 9,
+        dexterity: Math.floor(Math.random() * 3) + 9,
+        intelligence: Math.floor(Math.random() * 3) + 9,
+        health: Math.floor(Math.random() * 3) + 9
     };
 };
 
 const avatarImgBasePath = "img/avatars";
+const spritesheetBasePath = "img/scene/actors/"
 // Create a bunch of guys for debugging
 const testState: AdventurerStoreState[] = [{
     id: "c4a5d270",
@@ -34,94 +33,113 @@ const testState: AdventurerStoreState[] = [{
         chest: Item.chest,
         head: Item.cowl,
     },
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     health: Math.random() * 100,
     room: 0,
     name: "Ximena Maddox",
+    traits: [Trait.houseMaddox, Trait.gloomy],
     avatarImg: `${avatarImgBasePath}/female/f_14.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.deedForLumbermill, null, Item.crossbow, Item.dagger, Item.khopesh, null, Item.sword, null,  null,  null,  null,  null,  null,  null,  null,  null],
 }, {
     id: "2e655832",
-    equipment: {},
-    stats: generateRandomStats(),
+    equipment: {
+        feet: Item.boots2
+    },
+    basicAttributes: generateRandomAttributes(),
     name: "Donte Houston",
     health: Math.random() * 100,
     room: 1,
     avatarImg: `${avatarImgBasePath}/male/m_05.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
+    traits: [Trait.houseHouston],
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.crossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, Item.plateHelmet, Item.cowl],
 }, {
     id: "ec6f1050",
-    equipment: {},
-    stats: generateRandomStats(),
+    equipment: {
+        feet: Item.boots3
+    },
+    basicAttributes: generateRandomAttributes(),
     name: "Zackary Morris",
     health: Math.random() * 100,
     room: 2,
+    traits: [Trait.gloomy],
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
     id: "d299f98a",
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     equipment: {},
     name: "Mike Keith",
     health: Math.random() * 100,
     room: 4,
     avatarImg: `${avatarImgBasePath}/male/m_19.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
+    traits: [Trait.arrowFinder],
     inventory: [ null, null, null, null, Item.khopesh, Item.hornedHelmet ],
 }, {
     id: "96c686c3",
     equipment: {},
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     name: "Wayne Monroe",
     health: Math.random() * 100,
     room: 5,
     avatarImg: `${avatarImgBasePath}/male/m_08.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
+    traits: [Trait.houseMonroe, Trait.arrowFinder],
     inventory: [ null, null, null ],
 }, {
     id: "250d1a9d",
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     equipment: {},
     name: "Alexis Ortiz ",
     health: Math.random() * 100,
     room: 9,
     avatarImg: `${avatarImgBasePath}/female/f_10.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ null, null, null, null, null ],
 }, {
     id: "169384ef",
     equipment: {},
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     name: "Karlee Nolan",
     health: Math.random() * 100,
     room: 3,
     avatarImg: `${avatarImgBasePath}/female/f_16.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }, {
     id: "f22d66cb",
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     equipment: {},
     name: "Gylbarde the Earnest",
     health: Math.random() * 100,
     room: 8,
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ null, null, null, null, null ],
 }, {
     id: "36c686c1",
     equipment: {},
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     name: "Lanslet of the Water",
     health: Math.random() * 100,
     room: 6,
     avatarImg: `${avatarImgBasePath}/male/m_26.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null, Item.shoulders1, Item.fedora, Item.greaves2 ],
 }, {
     id: "12c613d4",
     equipment: {},
-    stats: generateRandomStats(),
+    basicAttributes: generateRandomAttributes(),
     name: "Tedric the Bold",
     health: Math.random() * 100,
     room: 7,
     avatarImg: `${avatarImgBasePath}/male/m_33.png`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
 }];
 

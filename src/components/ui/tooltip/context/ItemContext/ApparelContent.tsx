@@ -1,6 +1,7 @@
 import * as React from "react";
 import { TextManager } from 'global/TextManager';
 import { ApparelDefinition } from 'definitions/items/apparel';
+import ProduceOrStudy from './ProduceOrStudy';
 
 interface Props {
     info: ApparelDefinition;
@@ -8,15 +9,16 @@ interface Props {
 
 const ApparelContent = (props: Props) => {
     const { info } = props;
+    const { damageReduction } = info;
     const subtext = TextManager.getItemSubtext(info.item);
 
     return (
         <>
             { subtext && (<p>"{subtext}"</p>)}
-            { info.armourRating && <p> armour: { info.armourRating } </p> }
+            { damageReduction && <p> { TextManager.get("ui-tooltip-damage-reduction", { damageReduction}) } </p> }
+            <ProduceOrStudy item={info.item} />
         </>
     );
-
-}
+};
 
 export default ApparelContent;

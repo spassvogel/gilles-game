@@ -15,8 +15,10 @@ const lerp = (n1: number,  n2: number,  alpha: number) =>  {
     return n1 + alpha * (n2 - n1);
 }
 
-// Uses the shared pixi loader to load a resource
-export async function loadResourceAsync(path: string) { 
+/**
+ * Uses the shared pixi loader to load a resource
+ */
+export async function loadResourceAsync(path: string) {
     const loader = PIXI.Loader.shared;
     return new Promise<LoaderResource>((resolve, reject) => {
         if (loader.resources[path]) {
@@ -30,7 +32,7 @@ export async function loadResourceAsync(path: string) {
     });
 }
 
-export const loadResource = (path: string, callback: (resource: LoaderResource) => void) => { 
+export const loadResource = (path: string, callback: (resource: LoaderResource) => void) => {
     const loader = PIXI.Loader.shared;
     if (loader.resources[path]) {
         callback(loader.resources[path]);

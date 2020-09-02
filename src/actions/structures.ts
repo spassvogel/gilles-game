@@ -3,6 +3,7 @@
 import { Structure } from "definitions/structures";
 import { Action } from "redux";
 import { StructureState } from "stores/structure";
+import { Item } from 'definitions/items/types';
 
 export enum ActionType {
     upgradeStructure = "upgradeStructure",
@@ -11,6 +12,7 @@ export enum ActionType {
     startBuildingStructure = "startBuildingStructure",
     finishBuildingStructure = "finishBuildingStructure",
     setStructureState = "setStructureState",
+    addItemToToProduces = "addItemToToProduces"
 }
 
 export interface StructureAction extends Action<ActionType> {
@@ -18,6 +20,9 @@ export interface StructureAction extends Action<ActionType> {
 }
 export interface StructureStateAction extends StructureAction {
     state: StructureState;
+}
+export interface AddItemToProducesAction extends StructureAction {
+    item: Item;
 }
 
 export interface WorkerCountAction extends StructureAction {
@@ -68,5 +73,13 @@ export function setStructureState(structure: Structure, state: StructureState): 
         type: ActionType.setStructureState,
         structure,
         state,
+    };
+}
+
+export function addItemToToProduces(structure: Structure, item: Item): AddItemToProducesAction {
+    return {
+        type: ActionType.addItemToToProduces,
+        structure,
+        item,
     };
 }

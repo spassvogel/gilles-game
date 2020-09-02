@@ -1,0 +1,12 @@
+@import 'components/styles/variables.scss';
+
+.adventurer-traits {
+    list-style: none;
+    padding: 0;
+    
+    li {
+        color: $color-secondary;
+        display: inline;
+        text-decoration: underline;
+    }
+}

@@ -19,13 +19,13 @@ export const ONE_HOUR = ONE_MINUTE * 60;
 export const ONE_DAY = ONE_HOUR * 24;
 export const ONE_YEAR = ONE_DAY * 265.25;
 
-export const formatDuration = (ms: number): string => {
+export const formatDuration = (ms: number, short?: boolean): string => {
     const timeUnitsList = [
-        { unit: 'year', amount: ONE_YEAR },
-        { unit: 'day', amount: ONE_DAY },
-        { unit: 'hour', amount: ONE_HOUR },
-        { unit: 'minute', amount: ONE_MINUTE },
-        { unit: 'second', amount: ONE_SECOND },
+        { unit: short? 'y' : 'year', amount: ONE_YEAR },
+        { unit: short? 'd' : 'day', amount: ONE_DAY },
+        { unit: short? 'h' : 'hour', amount: ONE_HOUR },
+        { unit: short? 'm' : 'minute', amount: ONE_MINUTE },
+        { unit: short? 's': 'second', amount: ONE_SECOND },
     ]
     let time = Math.abs(ms);
     const output: string[] = [];
@@ -33,8 +33,8 @@ export const formatDuration = (ms: number): string => {
         const tmp = Math.floor(time / el.amount);
         time -= tmp * el.amount
         if (tmp !== 0) {
-            const unit = TextManager.get(`common-time-${el.unit}${tmp > 1 ? "-plural": ""}`);
-            output.push(`${tmp} ${unit}`);
+            const unit = TextManager.get(`common-time-${el.unit}${tmp > 1 && !short ? "-plural": ""}`);
+            output.push(`${tmp}${unit}`);
         }
     })
     return output.join(" ");

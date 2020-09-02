@@ -1,4 +1,4 @@
-import { ActionType, StructureStateAction, WorkerCountAction } from "actions/structures";
+import { ActionType, StructureStateAction, WorkerCountAction, AddItemToProducesAction } from "actions/structures";
 import { Structure } from "definitions/structures";
 import { AnyAction, Reducer } from "redux";
 import { StructureState, StructureStoreState } from "stores/structure";
@@ -56,6 +56,20 @@ export const structures: Reducer<StructuresStoreState, AnyAction> = (state: Stru
         case ActionType.setStructureState: {
             const { state: structureState } = action as StructureStateAction;
             return updateStructureState(state, action.structure, structureState);
+        }
+
+        case ActionType.addItemToToProduces: {
+            // Adds given item to a structures' `produces` list
+            const { item } = action as AddItemToProducesAction;
+            const produces = [...state[action.structure].produces, item];
+            const structureStore: StructureStoreState = {
+                ...state[action.structure],
+                produces,
+            };
+            return {
+                ...state,
+                [action.structure]: structureStore,
+            };
         }
 
     }

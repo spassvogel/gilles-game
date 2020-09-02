@@ -8,8 +8,8 @@ import { formatNumber } from 'utils/number';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
 import useGold from 'hooks/store/useGold';
-import useResources from 'hooks/store/useResources';
-import { useWorkersFree } from 'hooks/store/useWorkers';
+import useResourcesState from 'hooks/store/useResourcesState';
+import { useWorkersFreeState } from 'hooks/store/useWorkersState';
 
 export interface StateProps  {
     gold: number;
@@ -22,8 +22,8 @@ export interface StateProps  {
 const Resourcebar = () => {
 
     const gold = useGold();
-    const storeResources = useResources();
-    const workersFree = useWorkersFree();
+    const storeResources = useResourcesState();
+    const workersFree = useWorkersFreeState();
 
     const createItem = (icon: string, amount: number, type: string) => {
 

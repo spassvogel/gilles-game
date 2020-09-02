@@ -13,7 +13,7 @@ const alchemist: ProductionStructureDefinition = {
         cost: {
             gold: 0,
         },
-        produces: [],
+        unlocks: [],
     }, {
         // level 2:
         displayName: "structure-alchemist-name",
@@ -21,7 +21,7 @@ const alchemist: ProductionStructureDefinition = {
         cost: {
             gold: 30,
         },
-        produces: [],
+        unlocks: [],
     }, {
         // level 3:
         displayName: "structure-alchemist-name",
@@ -29,7 +29,7 @@ const alchemist: ProductionStructureDefinition = {
         cost: {
              gold: 50,
         },
-        produces: [],
+        unlocks: [],
     }],
 };
 

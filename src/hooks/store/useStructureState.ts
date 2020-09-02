@@ -5,13 +5,10 @@ import { Structure } from 'definitions/structures';
 import { StructureStoreState } from 'stores/structure';
 
 // Returns the structure state from redux store
-// todo: rename to `useStructureState`
-const useStructure = (structure: Structure) => {
+export default function useStructureState<T extends StructureStoreState>(structure: Structure): T {
     const structureSelector = useCallback(
-        (state: StoreState) => state.structures[structure],
+        (state: StoreState) => state.structures[structure] as T,
         [structure]
     );
-    return useSelector<StoreState, StructureStoreState>(structureSelector);
+    return useSelector<StoreState, T>(structureSelector);
 }
-
-export default useStructure;

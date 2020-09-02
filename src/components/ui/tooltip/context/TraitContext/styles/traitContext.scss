@@ -1,0 +1,12 @@
+@import 'components/styles/variables.scss';
+
+.trait-context {
+    .description {
+        color: $color-secondary;
+    }
+
+    .effect {
+        font-style: italic;
+        margin-top: 6px;
+    }
+}

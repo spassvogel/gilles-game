@@ -6,12 +6,15 @@ import useQuest from 'hooks/store/useQuest';
 import { enqueueSceneAction } from 'actions/quests';
 import { SceneAction, SceneActionType } from 'stores/scene';
 import ActionPath, { RefActions } from './ActionPath';
-import useAdventurer from 'hooks/store/useAdventurer';
+import { useAdventurerState } from 'hooks/store/adventurers';
 
 interface Props  {
+    name: string;
+    // spritesheet: PIXI.Spritesheet;
     selected: boolean;
     setSelectedActor: (actor: string) => void;
 };
+
 
 // The adventurers avatar on the scene
 const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
@@ -19,6 +22,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
         controller,
         location,
         name,
+        // spritesheet,
         selected,
     } = props;
     const tileWidth = controller.mapData?.tilewidth!;
@@ -28,11 +32,12 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
     const quest = useQuest(controller.questName);
     const scene = quest.scene!;
 
-    const adventurer = useAdventurer(name);
+    const adventurer = useAdventurerState(name);
 
     // Draw a line to indicate the action to take
     const actionPathRef = useRef<RefActions>(null);
     const [actionActive, setActionActive] = useState(false);
+
     useEffect(() => {
         if (!actionActive || !location /* || scene.actionQueue?.length*/) {
             return;
@@ -62,15 +67,12 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
         props.setSelectedActor(name);
     }
 
-    const handleCancelAction = (event: PIXI.InteractionEvent) => {
-        setActionActive(false);
-        event.stopPropagation();
-    }
-
     // Queue actions
     const handleActorEndDrag = (event: PIXI.InteractionEvent) => {
         setActionActive(false);
+        const actionPath = actionPathRef.current;
         if(scene.actionQueue?.length) {
+            actionPath?.clear();
             return;
         }
 
@@ -78,6 +80,11 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
         const blocked = controller.locationIsBlocked(endLocation);
         if (!blocked) {
             const target = controller.pointToSceneLocation(event.data.global);
+            if(target[0] < 0 || target[0] >= controller.mapData?.width! || target[1] < 0 || target[1] >= controller.mapData?.height!) {
+                // Released out of bounds
+                actionPath?.clear();
+                return;
+            }
 
             const convertLocation = (l: [number, number]) => {
                 // This is the format AStarFind works with
@@ -120,18 +127,23 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
 
         }
         setActionActive(false);
-        const actionPath = actionPathRef.current;
         actionPath?.clear();
     }
 
+
     return (
-        <>
+        <Container interactive={true}>
             <ActionPath ref={actionPathRef} />
             <SceneActor
-                key={name}
                 name={name}
+                // spritesheet={spritesheet}
                 controller={controller}
                 location={location}
+                interactive={true}
+                pointerdown={handleActorStartDrag}
+                pointerup={handleActorEndDrag}
+                pointerupoutside={handleActorEndDrag}
+                hitArea={new PIXI.Rectangle(location?.[0], location?.[1], tileWidth, tileHeight)}
             >
                 {selected && (
                     <Graphics
@@ -144,14 +156,10 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                         }}
                     />
                 )}
-                <Sprite
+                {/* <Sprite
                     y={-80}
                     image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`}
-                    interactive={true}
-                    pointerdown={handleActorStartDrag}
-                    pointerup={handleCancelAction}
-                    pointerupoutside={handleActorEndDrag}
-                />
+                /> */}
                 <Sprite
                     scale={.1}
                     anchor={.5}
@@ -164,24 +172,33 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                         interactive={true}
                         pointerdown={() => {controller.actorInteract(name)}}
                     >
-                        <Graphics
+                        {/* <Graphics
                             draw={graphics => {
                                 graphics.beginFill(0xDE3249);
                                 graphics.drawCircle(tileWidth / 2, tileHeight, tileWidth / 4);
                                 graphics.endFill();
                             }}
-                        />
+                        /> */}
                         <Sprite
-                            image={`${process.env.PUBLIC_URL}/img/scene/ui/interact.png`}
-                            scale={[.3, .3]}
+                            image={`${process.env.PUBLIC_URL}/img/scene/ui/background.png`}
+                            width={tileWidth / 2}
+                            height={tileWidth / 2}
                             y={tileHeight}
                             x={tileWidth/2}
                             anchor={.5}
-                    />
+                        />
+                        <Sprite
+                            image={`${process.env.PUBLIC_URL}/img/scene/ui/interact.png`}
+                            width={tileWidth / 2}
+                            height={tileWidth / 2}
+                            y={tileHeight}
+                            x={tileWidth/2}
+                            anchor={.5}
+                        />
                     </Container>
                 )}
             </SceneActor>
-        </>
+        </Container>
     )
 }
 

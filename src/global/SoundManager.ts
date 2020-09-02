@@ -19,7 +19,7 @@ const musicTracks: { [key: number]: Howl; } = {};
 let currentMusicTrack: MusicTrack|null = null;
 
 const sounds: { [key: number]: Howl; } = {};
-const DEFAULT_MUSIC_VOLUME = 0.8;
+const DEFAULT_MUSIC_VOLUME = 0;
 const STORAGE_KEY_MUSIC_VOLUME = "musicVolume";
 const DEFAULT_SOUND_VOLUME = 1;
 const STORAGE_KEY_SOUND_VOLUME = "soundVolume";
@@ -31,10 +31,10 @@ export class SoundManager {
 
     public static async init() {
         // Attempt to fetch volumes from storage. If not set, revert to defaults
-        this._musicVolume = await localforage.getItem(STORAGE_KEY_MUSIC_VOLUME);
-        this._soundVolume = await localforage.getItem(STORAGE_KEY_SOUND_VOLUME);
-        if (this._soundVolume === null) this._soundVolume = DEFAULT_SOUND_VOLUME;
-        if (this._musicVolume === null) this._musicVolume = DEFAULT_MUSIC_VOLUME;
+        this._musicVolume = await localforage.getItem(STORAGE_KEY_MUSIC_VOLUME) || DEFAULT_MUSIC_VOLUME;
+        this._soundVolume = await localforage.getItem(STORAGE_KEY_SOUND_VOLUME) || DEFAULT_SOUND_VOLUME;
+        // if (this._soundVolume === null) this._soundVolume = DEFAULT_SOUND_VOLUME;
+        // if (this._musicVolume === null) this._musicVolume = DEFAULT_MUSIC_VOLUME;
 
         this._initialized = true;
     }

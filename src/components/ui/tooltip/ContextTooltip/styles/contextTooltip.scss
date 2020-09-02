@@ -1,0 +1,15 @@
+@import 'components/styles/variables.scss';
+
+.context-tooltip {
+    padding: 3px;
+    font-size: smaller;
+    width: 200px;
+    
+    .name {
+        text-transform: capitalize;
+    }
+
+    .invalid {
+        color: $color-invalid;
+    }
+}

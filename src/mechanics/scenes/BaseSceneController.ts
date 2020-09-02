@@ -2,7 +2,7 @@ import { Store, AnyAction } from "redux";
 import { getExtendedTilemapObjects, ExtendedTiledObjectData, addAllTilesInLayerToList, locationEquals, TiledObjectType } from 'utils/tilemap';
 import { adventurersOnQuest } from 'storeHelpers';
 import { StoreState } from 'stores';
-import { loadResource } from 'utils/pixiJs';
+import { loadResource, loadResourceAsync } from 'utils/pixiJs';
 import { TiledMapData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'stores/adventurer';
@@ -29,6 +29,8 @@ export class BaseSceneController<TQuestVars> {
     protected store: Store<StoreState, AnyAction>;
     protected blockedTiles: [number, number][] = [];
 
+    protected spritesheetsMap: {[key: string]: PIXI.Spritesheet} = {} // Various spritesheets, e.g for actors
+
     constructor(store: Store<StoreState, AnyAction>, questName: string) {
         this.store = store;
         this.questName = questName;
@@ -43,7 +45,7 @@ export class BaseSceneController<TQuestVars> {
         return !!this.mapData;
     }
 
-    // Loads tiles from json
+    // Loads tiles from json, loads all scene assets
     loadData(callback: () => void) {
         if (this.dataLoaded) {
             return callback();
@@ -52,7 +54,7 @@ export class BaseSceneController<TQuestVars> {
             throw new Error("No jsonPath defined!");
         }
 
-        loadResource(`${process.env.PUBLIC_URL}/${this.jsonPath}`, (resource) => {
+        loadResource(`${process.env.PUBLIC_URL}/${this.jsonPath}`, async (resource) => {
             this.mapData = resource.data;
             this.tilemapObjects = getExtendedTilemapObjects(resource.data);
             this.mapData!.layers.filter(layer => layer.visible).forEach(layer => {
@@ -61,6 +63,15 @@ export class BaseSceneController<TQuestVars> {
                 }
             });
 
+
+            const adventurers = this.getAdventurers();
+            const spritesheets = Array.from(new Set<string>(adventurers.map(a => a.spritesheetPath)));
+            for(const path of spritesheets) {
+                const {spritesheet} = await loadResourceAsync(path);
+                this.spritesheetsMap[path] = spritesheet!;
+                console.log('done loading ', path, spritesheet)
+            }
+            // Create aStar based on blocked tiles
             this.aStar = this.createAStar();
 
             callback();
@@ -82,6 +93,21 @@ export class BaseSceneController<TQuestVars> {
 
     sceneEntered() {
         // tslint:disable-next-line: no-empty
+    }
+
+    getActorSpritesheet(actorName: string): PIXI.Spritesheet {
+        console.log(actorName)
+        // todo: what about the non-adventurer actors (e.g the enemies)
+        const adventurers = this.getAdventurers();
+        const adventurer = adventurers.find(a => a.id === actorName)!;
+        return this.spritesheetsMap[adventurer.spritesheetPath];
+    }
+
+    getActorSpritesheet2(): PIXI.Spritesheet {
+        // todo: what about the non-adventurer actors (e.g the enemies)
+        // const adventurers = this.getAdventurers();
+        // const adventurer = adventurers.find(a => a.id === actorName)!;
+        return this.spritesheetsMap['img/scene/actors/footman.json'];
     }
 
     actorMoved(actor: string, location: [number, number]) {
@@ -279,7 +305,7 @@ export class BaseSceneController<TQuestVars> {
         return this.getQuest().questVars;
     }
 
-    protected getAdventurers() {
+    protected getAdventurers(): AdventurerStoreState[] {
         const storeState = this.store.getState();
         const quest = this.getQuest();
         return adventurersOnQuest(storeState.adventurers, quest);
@@ -290,10 +316,12 @@ export class BaseSceneController<TQuestVars> {
         return storeState.adventurers.find(a => a.id === actor.name);
     }
 
-    protected questUpdate(input: string | TextEntry, icon?: string) : void {
+    protected questUpdate(input: string | TextEntry, icon?: string, toast: boolean = false) : void {
         const textEntry: TextEntry = isTextEntry(input) ? input : {key: input};
         const title = TextManager.getTextEntry(textEntry);
-        ToastManager.addToast(title, Type.questUpdate, icon, getQuestLink(this.questName));
+        if (toast) {
+            ToastManager.addToast(title, Type.questUpdate, icon, getQuestLink(this.questName));
+        }
         this.store.dispatch(addLogEntry(textEntry, LogChannel.quest, this.questName));
     }
 }

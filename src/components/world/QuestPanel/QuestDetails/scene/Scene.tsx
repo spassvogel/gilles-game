@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect, useContext } from "react";
+import React, { useRef, useMemo, useEffect, useContext, useState, useCallback } from "react";
 import { Container } from '@inlet/react-pixi';
 import useQuest from 'hooks/store/useQuest';
 import Tilemap from './Tilemap';
@@ -8,6 +8,9 @@ import SceneAdventurer from './SceneAdventurer';
 import useTilesetsLoader from 'hooks/useTilesetsLoader';
 import renderObject from './renderObject';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
+import { loadResource } from 'utils/pixiJs';
+
+
 import * as PIXI from 'pixi.js';
 window.PIXI = PIXI;
 // eslint-disable-next-line import/first
@@ -39,30 +42,37 @@ const Scene = (props: Props) => {
         return scene?.actors?.find(a => a.name === props.selectedActor) || null;
     }, [scene, props.selectedActor]);
 
-    const sceneWidth = mapData.width * mapData.tilewidth;
-    const sceneHeight = mapData.height * mapData.tileheight;
 
-    const renderActor = (actor: ActorObject) => {
-        const {name, location} = actor;
-        return (
-            <SceneAdventurer
-                location={location}
-                controller={controller}
-                name={name}
-                key={name}
-                selected={selectedActor?.name === name}
-                setSelectedActor={props.setSelectedActor}
-            />
-        );
-    }
+    const renderActors = useCallback(() => {
+        const renderActor = (actor: ActorObject) => {
+            const {name, location} = actor;
+            console.log('ra', name)
+            return (
+                <SceneAdventurer
+                    location={location}
+                    // spritesheet={spritesheet}
+                    controller={controller}
+                    name={name}
+                    key={name}
+                    selected={selectedActor?.name === name}
+                    setSelectedActor={props.setSelectedActor}
+                />
+            );
+        }
+        return scene.actors?.map((o) => renderActor(o));
+
+    }, [])
 
     useEffect(() => {
+        if (!mapData) return;
         loadTilesets(mapData.tilesets);
-    }, [loadTilesets, mapData.tilesets]);
+    }, [loadTilesets, mapData]);
 
-    if (!loadComplete) {
+    if (!loadComplete || !mapData || !scene) {
         return <div>loading...</div>
     }
+    const sceneWidth = mapData.width * mapData.tilewidth;
+    const sceneHeight = mapData.height * mapData.tileheight;
 
     return (
         <>
@@ -76,9 +86,9 @@ const Scene = (props: Props) => {
                         basePath={basePath}
                         data={mapData}
                         spritesheets={tileSpritesheets}
-                        />
-                    {  scene.objects.map((o) => renderObject(o, controller, tileSpritesheets ))}
-                    { scene.actors?.map((o) => renderActor(o))}
+                    />
+                    { scene.objects.map((o) => renderObject(o, controller, tileSpritesheets ))}
+                    { renderActors()}
                 </Container>
             </BridgedStage>
             {DEBUG_ACTIONQUEUE && (

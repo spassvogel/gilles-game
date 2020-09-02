@@ -17,12 +17,6 @@ import { tasks } from "./tasks";
 import { workers } from "./workers";
 
 // todo: not sure where to place this actually
-export interface CostStoreState {
-    gold?: number;
-    time?: number;
-    resources?: ResourceStoreState;
-    materials?: Item[];
-}
 
 export default combineReducers<StoreState>({
     adventurers,

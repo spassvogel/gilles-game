@@ -10,10 +10,9 @@ import { useEffect, useRef, useState } from "react";
 import { empty, ResourceStoreState } from "stores/resources";
 import { StructuresStoreState } from "stores/structures";
 import { TextManager } from "global/TextManager";
-import "./css/warehousestructureview.css";
 import AdventurerTabstrip from 'components/world/QuestPanel/AdventurerTabstrip';
-import useStructure from 'hooks/store/useStructure';
-import useResources from 'hooks/store/useResources';
+import useStructureState from 'hooks/store/useStructureState';
+import useResourcesState from 'hooks/store/useResourcesState';
 import useGold from 'hooks/store/useGold';
 import useStructureActions from 'hooks/actions/useStructureActions';
 import useStockpileState from 'hooks/store/useStockpileState';
@@ -21,7 +20,8 @@ import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import { useAdventurersInTown } from 'hooks/store/adventurers';
 import useItemDropActions from 'hooks/actions/useItemActions';
-import AdventurerInfo from 'components/ui/AdventurerInfo';
+import AdventurerInfo from 'components/ui/adventurer/AdventurerInfo';
+import "./css/warehousestructureview.css";
 
 // tslint:disable-next-line: no-empty-interface
 export interface Props  {
@@ -35,7 +35,7 @@ const WAREHOUSE = DragSourceType.warehouse;
 const WarehouseStructureView = (props: Props) => {
 
     const [selectedAdventurer, setSelectedAdventurer] = useState<string>();
-    const resources = useResources();
+    const resources = useResourcesState();
     const [resourcesDelta, setResourcesDelta] = useState<ResourceStoreState>(empty);    // updating this will trigger animation
     const previousResources = usePrevious(resources);
     const resourcesRef = useRef<HTMLFieldSetElement>(null);
@@ -76,7 +76,7 @@ const WarehouseStructureView = (props: Props) => {
         throw new Error(`No definition found for structure ${Structure.warehouse} with type StructureDefinition.`);
     }
 
-    const structureState = useStructure(Structure.warehouse);
+    const structureState = useStructureState(Structure.warehouse);
     const levelDefinition: WarehouseStructureLevelDefinition = structureDefinition.levels[structureState.level] as WarehouseStructureLevelDefinition;
     const level: number = structureState.level;
     const displayName = TextManager.getStructureName(Structure.warehouse);

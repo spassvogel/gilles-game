@@ -1,11 +1,11 @@
-import "components/ui/css/common/icon.css";
 import { ContextType } from "constants/context";
 import { getClassName, IconSize } from "constants/icons";
 import { getDefinition } from "definitions/items";
 import { Item } from "definitions/items/types";
 import * as React from "react";
-import "./css/itemicon.css";
 import { TooltipManager } from 'global/TooltipManager';
+import "./css/itemicon.css";
+import "components/ui/css/common/icon.css";
 
 export interface Props {
     item: Item;

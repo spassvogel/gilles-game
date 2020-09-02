@@ -6,8 +6,10 @@ import ItemContext from '../context/ItemContext';
 import { ItemDefinition } from 'definitions/items/types';
 import { Resource } from 'definitions/resources';
 import ResourceContext from '../context/ResourceContext';
-import './contextTooltip.css';
+import './styles/contextTooltip.scss';
 import Tooltip from '../Tooltip';
+import { TraitDefinition } from 'definitions/traits/types';
+import TraitContext from '../context/TraitContext';
 
 
 // A contextual popup showing what you just clicked. Can be an Item
@@ -39,13 +41,23 @@ const ContextTooltip = () => {
                     </>
                 );
             }
-            case ContextType.item:
-            default: {
+            case ContextType.item: {
                 const name = TextManager.getItemName((info as ItemDefinition).item);
                 return (
                     <>
                         <div className="name item">{name}</div>
                         <ItemContext info={info as ItemDefinition} />
+                    </>
+                );
+            }
+            case ContextType.trait:
+            default: {
+                const traitDefinition = info as TraitDefinition;
+                const name = TextManager.getTraitName(traitDefinition.trait);
+                return (
+                    <>
+                        <div className="name item">{name}</div>
+                        <TraitContext traitDefinition={traitDefinition} />
                     </>
                 );
             }

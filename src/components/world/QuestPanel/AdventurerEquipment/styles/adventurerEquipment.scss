@@ -1,0 +1,70 @@
+.adventurer-equipment {
+    display: grid;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    row-gap: 16px;
+    grid-template-columns: repeat(4, 25%);
+    margin: 32px auto;
+    max-width: 320px;
+    
+    li {
+        margin: auto;
+    }
+
+    li .info {
+        position: absolute;
+        font-size: small;
+        text-align: center;
+    }
+
+    .head {
+        grid-column: 0; 
+        grid-row: 0;
+    }
+
+    .chest {
+        grid-column: 0; 
+        grid-row: 2;
+    }
+
+    .hands {
+        grid-column: 0 / 1; 
+        grid-row: 3;
+    }
+
+    .shoulders {
+        grid-column: 4; 
+        grid-row: 1;
+    }
+
+    .legs {
+        grid-column: 4; 
+        grid-row: 2;
+    }
+
+    .feet {
+        grid-column: 4; 
+        grid-row: 3;
+    }
+
+    .mainHand {
+        grid-column: 2; 
+        grid-row: 4;
+    }
+ 
+    .offHand {
+        grid-column: 3; 
+        grid-row: 4;
+
+        .equipment-slot, .common-icon-medium {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    .guy {
+        grid-column: 2 / 4;
+        grid-row: 1 / 4;
+    }
+}

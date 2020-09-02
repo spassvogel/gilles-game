@@ -2,6 +2,7 @@ import updateCombat from "mechanics/gameTick/combat";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { Store, AnyAction } from "redux";
 import { Persistor } from "redux-persist";
 import { gameTick } from "./actions/game";
 import { addLogText } from "./actions/log";
@@ -17,23 +18,36 @@ import * as Random from "./utils/random";
 import { TextManager } from "./global/TextManager";
 import { loadResourceAsync } from 'utils/pixiJs';
 import { processCompletedTasks } from 'mechanics/gameTick/tasks';
+import localforage from 'localforage';
 import "./index.css";
 
+// Todo: Refactor into class
 const TICK_INTERVAL = 2500;
+let persistor: Persistor;
 
 const initGame = async () => {
     const texts = await loadResourceAsync(`${process.env.PUBLIC_URL}/lang/en-US.json`);
     TextManager.init(texts.data);
     Random.init("GILLESROX2");
 
-    const { store, persistor, isHydrated } = await configureStore();
+    readPersistedStore();
+};
+
+/**
+ * Attemps to read persisted store state. Calls `runGame`
+ */
+const readPersistedStore = async () => {
+    const storeConfiguration = await configureStore();
+    const { store, isHydrated } = storeConfiguration;
+    persistor = storeConfiguration.persistor;
+
     if (!isHydrated) {
         startNewGame(store);
     } else {
         continueGame(store);
     }
-    runGame(store, persistor);
-};
+    runGame(store);
+}
 
 /**
  * Gets called when a player starts a new game
@@ -48,21 +62,53 @@ const startNewGame = (store: any) => {
     console.log(`Starting new GILLES-IDLE-GAME (version ${version})`);
 };
 
+
+/**
+ * Continue playing earlier persisted store
+ * @param store
+ */
 const continueGame = (store: any) => {
     // tslint:disable-next-line:no-console
     console.log(`Continuing existing GILLES-IDLE-GAME (version ${version})`);
 };
 
+const loadGame = async (state: StoreState) => {
+    // todo: implement in MenuWindow!
+    await persistor.purge();
+    const { store } = await configureStore(state);
+    runGame(store);
+
+    // We have to cause the page to reinitialize and all react components to remount
+    // eslint-disable-next-line no-restricted-globals
+    location.href = '#/world/'; // todo: load path from metadata '#/world/kill10Boars';
+}
+
+const restartGame = () => {
+    // eslint-disable-next-line no-restricted-globals
+    if(confirm('Are you sure you wish to reset all your progress?')){
+        clearTimeout(interval);
+        persistor.purge();
+        localforage.clear();
+
+        readPersistedStore();
+        // eslint-disable-next-line no-restricted-globals
+        location.href = "#/town"
+    }
+}
+
 // const stopGame = () => {
 //     clearTimeout(interval);
 // };
 
-const runGame = (store: any, persistor: Persistor) => {
+let interval: NodeJS.Timeout;
+const runGame = (store: Store<StoreState, AnyAction>) => {
+    clearTimeout(interval);
+
     ReactDOM.render((
         <Provider store={store}>
             <App persistor={persistor} />
         </Provider>
-    ),
+        ),
         document.getElementById("root") as HTMLElement,
     );
     registerServiceWorker();
@@ -85,7 +131,8 @@ const runGame = (store: any, persistor: Persistor) => {
         // store.dispatch(addLogEntry("test-you-have-found-an-item", LogChannel.common, { item: Item.teeth }));
     };
 
-    setInterval(gameLoop, TICK_INTERVAL);
+    interval = setInterval(gameLoop, TICK_INTERVAL);
 };
+export {runGame, restartGame, loadGame};
 
 initGame();

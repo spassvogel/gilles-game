@@ -5,7 +5,7 @@ import { StoreState } from 'stores';
 import { StructuresStoreState } from 'stores/structures';
 import { Resource } from 'definitions/resources';
 import { getStructureByResource, getDefinition } from 'definitions/structures';
-import { StructureState } from 'stores/structure';
+import { StructureState, StructureStoreState } from 'stores/structure';
 import { getStructureLink } from 'utils/routing';
 import { Link } from 'react-router-dom';
 import { ResourceStructureLevelDefinition, ResourceStructureDefinition } from 'definitions/structures/types';
@@ -22,7 +22,7 @@ const ResourceContext = (props: Props) => {
 
     const renderProducedBy = () => {
         const structure = getStructureByResource(Resource[resource]);
-        const structureState = structureStates[structure];
+        const structureState: StructureStoreState = structureStates[structure];
         if (structureState.state !== StructureState.Built) {
             return (
                 <span>

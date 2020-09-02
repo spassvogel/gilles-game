@@ -1,6 +1,6 @@
-import { CostStoreState } from "reducers";
 import { ResourceStoreState } from "stores/resources";
-import { ProductionDefinition } from "../production/types";
+import { ProductionDefinition, CostStoreState } from "../production/types";
+import { Item } from 'definitions/items/types';
 
 export enum StructureType {
     resource,
@@ -36,7 +36,7 @@ export interface ProductionStructureDefinition extends StructureDefinition {
 }
 
 export interface ProductionStructureLevelDefinition extends StructureLevelDefinition {
-    produces: ProductionDefinition[];
+    unlocks: Item[];
 }
 
 export interface WarehouseStructureDefinition extends StructureDefinition {

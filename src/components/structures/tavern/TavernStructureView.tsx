@@ -12,7 +12,7 @@ import RoomList from './RoomList';
 import { useState} from 'react';
 import QuestBoard from './QuestBoard';
 import useGold from 'hooks/store/useGold';
-import useStructure from 'hooks/store/useStructure';
+import useStructureState from 'hooks/store/useStructureState';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from 'stores';
 import { launchQuest } from 'actions/quests';
@@ -21,8 +21,6 @@ import { upgradeStructure } from 'actions/structures';
 import { addLogText } from 'actions/log';
 import { LogChannel } from 'stores/logEntry';
 import "./css/tavernstructureview.css";
-
-
 
 export interface StateProps {
     gold: number;
@@ -41,7 +39,7 @@ export const SOURCE_ID = "tavern";
 // The UI for the tavern
 const TavernStructureView = (props: Props) => {
     const gold = useGold();
-    const level = useStructure(Structure.tavern).level;
+    const level = useStructureState(Structure.tavern).level;
     const adventurers = useSelector<StoreState, AdventurerStoreState[]>(store => store.adventurers);
     const quests = useSelector<StoreState, QuestStoreState[]>(store => store.quests);
 

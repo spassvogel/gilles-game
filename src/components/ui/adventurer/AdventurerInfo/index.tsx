@@ -6,19 +6,17 @@ import { Item } from "definitions/items/types";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
 import { TextManager } from "global/TextManager";
-import "./css/adventurerinfo.css";
-import DraggableItemIcon, { InventoryItemDragInfo } from "./DraggableItemIcon";
-import EquipmentSlot, { EquipmentSlotType } from "./EquipmentSlot";
-import Inventory from "./inventory/Inventory";
+import DraggableItemIcon, { InventoryItemDragInfo } from "../../DraggableItemIcon";
+import EquipmentSlot, { EquipmentSlotType } from "../../EquipmentSlot";
+import Inventory from "../../inventory/Inventory";
 import { TooltipManager } from 'global/TooltipManager';
 import useItemDropActions from 'hooks/actions/useItemActions';
-import useAdventurer from 'hooks/store/useAdventurer';
+import { useAdventurerState } from 'hooks/store/adventurers';
+import "./styles/adventurerinfo.scss";
 
 export interface Props {
     adventurerId: string;
 }
-
-
 
 export interface StateProps {
     adventurer: AdventurerStoreState;
@@ -28,11 +26,7 @@ export interface StateProps {
 // Used in warehouse
 const AdventurerInfo = (props: Props) => {
 
-    const adventurer = useAdventurer(props.adventurerId);
-    const attributes = Object.keys(adventurer.stats).map((stat) => {
-        const value: number = adventurer.stats[stat];
-        return <div key={`${adventurer.id}-${stat}`} > <b>{stat}</b>: {value.toFixed(1)} </div>;
-    });
+    const adventurer = useAdventurerState(props.adventurerId);
 
     const {
         dropItemEquipment,
@@ -81,7 +75,7 @@ const AdventurerInfo = (props: Props) => {
                 >
                     {contents}
                 </EquipmentSlot>
-                <span className="info">{TextManager.get(`ui-equipmentslot-${EquipmentSlotType[slotType]}`)}</span>
+                <span className="info">{TextManager.getEquipmentSlot(slotType)}</span>
             </>
         );
     };
@@ -106,7 +100,14 @@ const AdventurerInfo = (props: Props) => {
                     <b>{adventurer.name}</b>
                 </div>
                 <div className="attributes">
-                    {attributes}
+                    { Object.keys(adventurer.basicAttributes).map((stat) => {
+                        const value: number = adventurer.basicAttributes[stat];
+                        return (
+                            <div key={`${adventurer.id}-${stat}`} >
+                                 <b>{stat}</b>: {value.toFixed(1)}
+                            </div>
+                        );
+                    })}
                 </div>
                 <div className="equipment">
                     {equipmentList}

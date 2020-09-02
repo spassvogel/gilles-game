@@ -31,7 +31,7 @@ export const initialQuestVars: Kill10BoarsQuestVars = {
                 gold: 100
             },
             altar: {
-                title: "quest-kill10boars-dungeonentrance-altar",
+                title: "quest-kill10-boars-dungeonentrance-altar",
                 items: [
                     Item.bolts,
                     Item.letters

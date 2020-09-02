@@ -48,11 +48,22 @@ backlog of ideas
 [ ] You can train workers/citizens to become adventurers
 
 
-#### 02/05/2019 TRAITS [+design]
+#### 02/05/2019 Traits [+design]
 [ ] During encounters, characters can receive certain traits. These can be beneficial or not. 
 [ ] In some cases the traits can be healed, removed etc. 
 [ ] Some items can be used to grant a trait to an adventurer.
-
+[ ] Maybe there can be permanent traits and mutable traits? Should we differentiate between the two?
+[x] Create trait enum list 
+[x] Create trait definition file
+[x] UX: Clicking on a trait opens a context info popup showing name and lore text.
+    Trait name and lore text is a composed translation key. 
+    when hasEffect bool is true, show effect text  
+[ ] To grind specific gear for specific adventurers (instead of min-maxing the same best gear on all chars)
+    some gear can only be used by specific traits. Or set bonusses and effects can only apply to specific traits. 
+    This because our adventurers have no class. (lol)
+[ ] Examples: 
+    "arrow finder": When looting a body has a chance to find arrows 
+    "gloomy": will sometimes say depressing things
 
 #### 23/06/2019 HELP
 [ ] Each screen should get a contexualized help window
@@ -98,7 +109,7 @@ backlog of ideas
 [ ] Equipment (=apparel+weapons) can have stats requirements (e.g. a minimum amount of STR)
 
 
-#### 14/07/2019 ROUTER
+#### 14/07/2019 Router [+tech]
 [x] Implement react router for town/world
 [x] Implement react router for structures
 [x] Can go to resource production structure directly from warehouse
@@ -241,6 +252,7 @@ research: different weapon types and their strenghts and weaknesses
 
 COMBAT SEQUENCE
 
+See [GURPS Combat Example (Basic)](https://www.youtube.com/watch?v=-G0l_n9rEYk)
 [ ] When attacking, first roll to hit. Weapon skill determines hit or miss. For ranged, a distance penalty applies. Also cover bonus can be in effect.
 [ ] research: how does weapon skill work? does it include STR?
     can it increasy by time?
@@ -278,11 +290,31 @@ eg: "+20 fire dmg to undead" {
   value: 20
 }
 
-We can render game as ascii art for now using a PRE tag 
-
 [ ] Some tiles on the combat map offer cover. Cover works in all directions.
 
-23/8/2019 ADVENTURER STATS
+IMPLEMENTATION
+
+[ ] Scene controller can set 'combat = true' on scene. Then all actions of scene actors cost AP.
+[ ] Player has button to forgeit turn. Clears all AP on all player scene actors.
+[ ] Make useCombat hook to absract logic 
+
+[ ] When player actors have no APs left aand there are *no* running secene actions 
+    the AI selects one of their actors to make a move on. AI has different behaviour types,
+    'berzeker', 'sniper', etc
+
+APs can be spent in any order.
+
+[ ] Is there an 'overwatch' mode for ranged actors??
+[ ] What sort of 'shooting' arc is there? 180 degrees
+[ ] What about obstructions for ranged? 
+    Check: https://www.google.com/search?client=firefox-b-d&q=Bresenham+javascript
+[ ] What about other adventurers obstructing ranged combat?
+
+[ ] All scenecontroller stuff has to go through basecontroller to aplpy game logic. 
+    e.g. the 'arrow finder' trait logic needs to be in the BaseSceneController. 
+[ ] Might need to seperate this stuff into different files. Find out if Typescript can do that.
+
+### 23/8/2019 ADVENTURER STATS
 
 base and (secondary stats) are:
 - STRength (melee attack)
@@ -318,10 +350,6 @@ research fantasy concept art
 [-] read: Three.js projecting mouse clicks to a 3D scene - how to do it and how it works
           https://barkofthebyte.azurewebsites.net/post/2014/05/05/three-js-projecting-mouse-clicks-to-a-3d-scene-how-to-do-it-and-how-it-works
 
-
-#### 17/11/2019 ANIMATIONS
-(obsolete)
-Creating animated glTF Characters with Mixamo and Blender https://www.donmccurdy.com/2017/11/06/creating-animated-gltf-characters-with-mixamo-and-blender/
 
 #### THREEJS examples (MIGHT IS RIGHT):
 [ ] http://server1.lazy-kitty.com/tests/
@@ -517,7 +545,6 @@ https://github.com/DragonBones/DragonBonesJS
     type: "lootCache"
     Can interact to loot items
     possible properties: 
-    - items: comma seperated list of items 
     - title: translation key shown in the dialog
 
 ### Loot caches
@@ -537,10 +564,51 @@ https://github.com/DragonBones/DragonBonesJS
 - toast on scene enter, check scene vars
 - frozen door
 - place item interaction
-- fire pit with particles
+- fire pit with particlesƒcom
 - mobile: height of small world map + close button
 [x] mobile: width of town
 [ ] mobile: dragdrop 
     use touch backend: https://react-dnd.github.io/react-dnd/docs/backends/touch 
     https://louisbrunner.github.io/dnd-multi-backend/packages/react-dnd-multi-backend/
 [x] bug: tooltip 
+
+
+### 27/07/2020 character UI
+[x] Style character UI
+![](https://assetstorev1-prd-cdn.unity3d.com/package-screenshot/bf8d4897-4d76-4246-8bb4-8537aa7732cf.webp)
+
+### 9/8/2020 Study Items
+Non unique items can be studied at a structure to be able to craft them. 
+Every production structure needs a list of potentitally craftable items
+and in the store a list of items that have been studied and can be crafted.
+
+Can study flowchart: 
+
+1. Is item unique? if yes: can't study
+2. Is item found at a production structure list? if no: can't study
+3. Is item already studied at prodstruc? if yes: can't study
+4. Is the item already being studied at prodstruc? if yes: can't study
+5. otherwise: can study!
+
+Studies are tasks like `{structure_name}.study` with a callback that adds the item to the 'produces' list
+
+### 10/8/2020 Item effects
+[ ] Item def gets a  `canEquip` function (optional). Passes adventurerStorestate and returns true if the item
+    can be equipped.
+
+[ ] Figure out a way to calculate damage and armour effects.    
+
+### 10/8/2020 Save and load
+[x] Save gamestate into file 
+[x] Load gamestate from file
+[ ] Save metadata into file. Like: current route, timestamp, game version
+[ ] Load current route from file
+[ ] Show time, game version when loading game
+
+### 30/8/2020 Quest / Adventurer definitions
+Quests and adventurers dont need to be stored in the store when not active
+
+### 31/8/2020 Skills
+[ ] Implement list of skills of adventurers
+[ ] We just need combat skills for the time being
+    https://gurps.fandom.com/wiki/List_of_Skills
