@@ -1,6 +1,6 @@
 // tslint:disable:object-literal-sort-keys
 
-import { Item, ItemDefinition, ItemType } from "./types";
+import { Item, ItemDefinition, ItemType, Rarity } from "./types";
 
 const itemType = ItemType.weapon;
 const basePath = "/img/items/weapons/";
@@ -85,6 +85,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.crossbow,
         iconImg: `${basePath}crossbow.png`,
+        rarity: Rarity.common,
         damage: { [DamageType.kinetic]: 3 },
     },
     [Item.cleaver]: {
@@ -92,6 +93,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.knife,
         iconImg: `${basePath}cleaver.png`,
+        rarity: Rarity.common,
         damage: { [DamageType.kinetic]: 5 },
     },
     [Item.club]: {
@@ -99,6 +101,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.club,
         iconImg: `${basePath}club.png`,
+        rarity: Rarity.common,
         damage: { [DamageType.kinetic]: 8 },
     },
     [Item.dagger]: {
@@ -106,6 +109,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.knife,
         iconImg: `${basePath}dagger.png`,
+        rarity: Rarity.uncommon,
         damage: { [DamageType.kinetic]: 8 },
     },
     [Item.flail]: {
@@ -113,6 +117,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.flail,
         iconImg: `${basePath}flail.png`,
+        rarity: Rarity.uncommon,
         damage: { [DamageType.kinetic]: 15 },
     },
     [Item.greatswordOfGwai]: {
@@ -121,6 +126,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         weaponType: WeaponType.sword,
         iconImg: `${basePath}greatsword-gwai.png`,
         unique: true,
+        rarity: Rarity.legendary,
         damage: { [DamageType.kinetic]: 25 },
     },
     [Item.javelin]: {
@@ -128,6 +134,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.poleArm,
         iconImg: `${basePath}javelin.png`,
+        rarity: Rarity.epic,
         damage: { [DamageType.kinetic]: 25 },
     },
     [Item.khopesh]: {
@@ -135,6 +142,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.sword,
         iconImg: `${basePath}khopesh.png`,
+        rarity: Rarity.epic,
         damage: { [DamageType.kinetic]: 15 },
     },
     [Item.longbow]: {
@@ -142,6 +150,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.bow,
         iconImg: `${basePath}longbow.png`,
+        rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 2 },
     },
     [Item.mace]: {
@@ -149,6 +158,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.club,
         iconImg: `${basePath}mace.png`,
+        rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 15 },
     },
     [Item.morningStar]: {
@@ -156,6 +166,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.club,
         iconImg: `${basePath}morning-star.png`,
+        rarity: Rarity.uncommon,
         damage: { [DamageType.kinetic]: 13 },
     },
     [Item.poisonedDagger]: {
@@ -163,6 +174,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.knife,
         iconImg: `${basePath}poisoned-dagger.png`,
+        rarity: Rarity.epic,
         damage: { [DamageType.kinetic]: 12 },
     },
     [Item.ravenStaff]: {
@@ -170,6 +182,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.staff,
         iconImg: `${basePath}raven-staff.png`,
+        rarity: Rarity.epic,
         damage: { [DamageType.kinetic]: 13 },
     },
     [Item.savageStaff]: {
@@ -177,6 +190,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.staff,
         iconImg: `${basePath}savage-staff.png`,
+        rarity: Rarity.epic,
         damage: { [DamageType.kinetic]: 8 },
     },
     [Item.spear]: {
@@ -184,6 +198,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.poleArm,
         iconImg: `${basePath}sword.png`,
+        rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 10 },
     },
     [Item.sword]: {
@@ -191,6 +206,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.sword,
         iconImg: `${basePath}sword.png`,
+        rarity: Rarity.uncommon,
         damage: { [DamageType.kinetic]: 14 },
     },
     [Item.warhammer]: {
@@ -198,6 +214,7 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         itemType,
         weaponType: WeaponType.hammer,
         iconImg: `${basePath}warhammer.png`,
+        rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 16 },
     },
 };

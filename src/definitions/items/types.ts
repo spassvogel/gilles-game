@@ -122,10 +122,20 @@ export enum Item {
     warhammer = "warhammer",
 }
 
+export enum Rarity {
+    // gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary
+    common,
+    uncommon,
+    rare,
+    epic,
+    legendary
+}
+
 export interface ItemDefinition {
     item: Item;
     itemType: ItemType;
     iconImg: string;
+    rarity?: Rarity;
 //    articleUndefined?: string;  // Key to text
     unique?: boolean;           // Indicate that this item is unique.
                                 // Not actually enforced by anything,
