@@ -12,6 +12,7 @@ export interface AdventurerStoreState {
     equipment: EquipmentStoreState;     // equipment
     inventory: (null | Item)[];
     basicAttributes: BasicAttributesStoreState;
+    skills: SkillsStoreState;           // 
     room: number;                       // Adventurer is lodged in this room in the tavern
 }
 
@@ -32,4 +33,8 @@ export interface BasicAttributesStoreState {
     dexterity: number;
     intelligence: number;
     health: number;
+}
+
+export interface SkillsStoreState {
+    [key: string]: number
 }

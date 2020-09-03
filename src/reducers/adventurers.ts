@@ -9,6 +9,7 @@ import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { AdventurerStoreState, BasicAttributesStoreState } from "stores/adventurer";
 import { Trait } from 'definitions/traits/types';
+import { WeaponType } from 'definitions/items/weapons';
 
 /**
  * reducer
@@ -40,6 +41,9 @@ const testState: AdventurerStoreState[] = [{
     traits: [Trait.houseMaddox, Trait.gloomy],
     avatarImg: `${avatarImgBasePath}/female/f_14.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
+    skills: {
+        [WeaponType.axe]: 3
+    },
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.deedForLumbermill, null, Item.crossbow, Item.dagger, Item.khopesh, null, Item.sword, null,  null,  null,  null,  null,  null,  null,  null,  null],
 }, {
@@ -54,6 +58,10 @@ const testState: AdventurerStoreState[] = [{
     avatarImg: `${avatarImgBasePath}/male/m_05.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     traits: [Trait.houseHouston],
+    skills: {
+        [WeaponType.crossbow]: 2,
+        [WeaponType.staff]: 3
+    },
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.crossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, Item.plateHelmet, Item.cowl],
 }, {
@@ -66,6 +74,10 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 2,
     traits: [Trait.gloomy],
+    skills: {
+        [WeaponType.sword]: 2,
+        [WeaponType.hammer]: 6
+    },
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
@@ -79,6 +91,9 @@ const testState: AdventurerStoreState[] = [{
     avatarImg: `${avatarImgBasePath}/male/m_19.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     traits: [Trait.arrowFinder],
+    skills: {
+        [WeaponType.sword]: 3
+    },
     inventory: [ null, null, null, null, Item.khopesh, Item.hornedHelmet ],
 }, {
     id: "96c686c3",
@@ -90,6 +105,9 @@ const testState: AdventurerStoreState[] = [{
     avatarImg: `${avatarImgBasePath}/male/m_08.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     traits: [Trait.houseMonroe, Trait.arrowFinder],
+    skills: {
+        [WeaponType.axe]: 3
+    },
     inventory: [ null, null, null ],
 }, {
     id: "250d1a9d",
@@ -101,6 +119,9 @@ const testState: AdventurerStoreState[] = [{
     avatarImg: `${avatarImgBasePath}/female/f_10.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ null, null, null, null, null ],
+    skills: {
+        [WeaponType.axe]: 3
+    },
 }, {
     id: "169384ef",
     equipment: {},
@@ -111,6 +132,9 @@ const testState: AdventurerStoreState[] = [{
     avatarImg: `${avatarImgBasePath}/female/f_16.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
+    skills: {
+        [WeaponType.axe]: 3
+    },
 }, {
     id: "f22d66cb",
     basicAttributes: generateRandomAttributes(),
@@ -121,6 +145,9 @@ const testState: AdventurerStoreState[] = [{
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ null, null, null, null, null ],
+    skills: {
+        [WeaponType.axe]: 3
+    },
 }, {
     id: "36c686c1",
     equipment: {},
@@ -131,6 +158,9 @@ const testState: AdventurerStoreState[] = [{
     avatarImg: `${avatarImgBasePath}/male/m_26.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null, Item.shoulders1, Item.fedora, Item.greaves2 ],
+    skills: {
+        [WeaponType.axe]: 3
+    },
 }, {
     id: "12c613d4",
     equipment: {},
@@ -141,6 +171,9 @@ const testState: AdventurerStoreState[] = [{
     avatarImg: `${avatarImgBasePath}/male/m_33.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
+    skills: {
+        [WeaponType.axe]: 3
+    },
 }];
 
 // TODO: To generate a random 11 digit number, use: Math.random().toString(36).substring(2)
