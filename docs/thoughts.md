@@ -612,3 +612,6 @@ Quests and adventurers dont need to be stored in the store when not active
 [ ] Implement list of skills of adventurers
 [ ] We just need combat skills for the time being
     https://gurps.fandom.com/wiki/List_of_Skills
+
+### Group adventurer sections
+https://css-tricks.com/sticky-smooth-active-nav/
