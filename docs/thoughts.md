@@ -253,6 +253,7 @@ research: different weapon types and their strenghts and weaknesses
 COMBAT SEQUENCE
 
 See [GURPS Combat Example (Basic)](https://www.youtube.com/watch?v=-G0l_n9rEYk)
+https://www.youtube.com/watch?v=LO8BHmnIrVU
 [ ] When attacking, first roll to hit. Weapon skill determines hit or miss. For ranged, a distance penalty applies. Also cover bonus can be in effect.
 [ ] research: how does weapon skill work? does it include STR?
     can it increasy by time?
@@ -291,6 +292,11 @@ eg: "+20 fire dmg to undead" {
 }
 
 [ ] Some tiles on the combat map offer cover. Cover works in all directions.
+
+About 3D6
+![3d6](img/d36-curve.png)
+Read more: https://www.thedarkfortress.co.uk/tech_reports/3_dice_rolls.php
+
 
 IMPLEMENTATION
 
@@ -524,8 +530,9 @@ https://github.com/DragonBones/DragonBonesJS
 #### 08/05/2020 Sass
 [x] Try to implement sass again (https://www.google.com/search?q=sass+create+react+app)
 
-#### Item rarity [+art] [+design]
+#### Item rarity/quality [+art] [+design]
 [ ] background on items. gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary
+https://wow.gamepedia.com/Quality
 
 #### Remove unused or little used packages 
 [x] momentjs is 231.7kb and hardly used. refactor
