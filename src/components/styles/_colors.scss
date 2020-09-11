@@ -1,4 +1,10 @@
 $color-secondary: #83756a;
 $color-invalid: darkred;
 $color-text-darker: #B1B1B1;
-$color-text-lighter: #ffffff;
+$color-text-lighter: hsl(0, 0%, 100%);
+
+$color-rarity-common: #ffffff;
+$color-rarity-uncommon: #1eff00;
+$color-rarity-rare: #0070dd;
+$color-rarity-epic: #a335ee;
+$color-rarity-legendary: #ff8000;
