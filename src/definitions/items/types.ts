@@ -101,26 +101,34 @@ export enum Item {
     magicAmulet = "magicAmulet",
 
     // weapons
+    aegisOfValor = "aegisOfValor",
     arbalest = "arbalest",
     battleAxe = "battleAxe",
+    berserkerShield = "berserkerShield",
     brassKnuckles = "brassKnuckles",
+    buckler = "buckler",
     cleaver = "cleaver",
     club = "club",
     crossbow = "crossbow",
     dagger = "dagger",
     flail = "flail",
+    goldenShield = "goldenShield",
     greatswordOfGwai = "greatswordOfGwai",
+    indomitableCarapace = "indomitableCarapace",
     javelin = "javelin",
     khopesh = "khopesh",
     longbow = "longbow",
     mace = "mace",
     morningStar = "morningStar",
+    paintedBuckler = "paintedBuckler",
     poisonedDagger = "poisonedDagger",
     ravenStaff = "ravenStaff",
     savageStaff = "savageStaff",
     spear = "spear",
+    steelShield = "steelShield",
     sword = "sword",
     warhammer = "warhammer",
+    woodenBulwark = "woodenBulwark"
 }
 
 

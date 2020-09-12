@@ -56,14 +56,22 @@ export interface DamageDefinition {
 // tslint:disable-next-line:no-empty-interface
 export interface WeaponDefinition extends ItemDefinition {
     weaponType: WeaponType;
-    damage: DamageDefinition;
+    damage?: DamageDefinition;
 }
 
 const weaponDefinitions: Record<string, WeaponDefinition> = {
+    [Item.aegisOfValor]: {
+        item: Item.aegisOfValor,
+        itemType,
+        weaponType: WeaponType.shield,
+        rarity: Rarity.legendary,
+        iconImg: `${basePath}aegis-of-valor.png`,
+    },
     [Item.arbalest]: {
         item: Item.arbalest,
         itemType,
         weaponType: WeaponType.crossbow,
+        rarity: Rarity.epic,
         iconImg: `${basePath}arbalest.png`,
         damage: { [DamageType.kinetic]: 40 },
     },
@@ -71,15 +79,31 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         item: Item.battleAxe,
         itemType,
         weaponType: WeaponType.axe,
+        rarity: Rarity.common,
         iconImg: `${basePath}battle_axe.png`,
         damage: { [DamageType.kinetic]: 20 },
+    },
+    [Item.berserkerShield]: {
+        item: Item.berserkerShield,
+        itemType,
+        weaponType: WeaponType.shield,
+        rarity: Rarity.epic,
+        iconImg: `${basePath}berserker-shield.png`,
     },
     [Item.brassKnuckles]: {
         item: Item.brassKnuckles,
         itemType,
         weaponType: WeaponType.fist,
         iconImg: `${basePath}brass_knuckles.png`,
+        rarity: Rarity.common,
         damage: { [DamageType.kinetic]: 10 },
+    },
+    [Item.buckler]: {
+        item: Item.buckler,
+        itemType,
+        weaponType: WeaponType.shield,
+        rarity: Rarity.common,
+        iconImg: `${basePath}buckler.png`,
     },
     [Item.crossbow]: {
         item: Item.crossbow,
@@ -121,6 +145,13 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         rarity: Rarity.uncommon,
         damage: { [DamageType.kinetic]: 15 },
     },
+    [Item.goldenShield]: {
+        item: Item.goldenShield,
+        itemType,
+        weaponType: WeaponType.shield,
+        rarity: Rarity.rare,
+        iconImg: `${basePath}golden-shield.png`,
+    },
     [Item.greatswordOfGwai]: {
         item: Item.greatswordOfGwai,
         itemType,
@@ -129,6 +160,14 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         unique: true,
         rarity: Rarity.legendary,
         damage: { [DamageType.kinetic]: 25 },
+    },
+    [Item.indomitableCarapace]: {
+        item: Item.indomitableCarapace,
+        itemType,
+        weaponType: WeaponType.shield,
+        rarity: Rarity.epic,
+        unique: true,
+        iconImg: `${basePath}indomitable-carapace.png`,
     },
     [Item.javelin]: {
         item: Item.javelin,
@@ -170,6 +209,12 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         rarity: Rarity.uncommon,
         damage: { [DamageType.kinetic]: 13 },
     },
+    [Item.paintedBuckler]: {
+        item: Item.paintedBuckler,
+        itemType,
+        weaponType: WeaponType.shield,
+        iconImg: `${basePath}painted-buckler.png`,
+    },
     [Item.poisonedDagger]: {
         item: Item.poisonedDagger,
         itemType,
@@ -202,6 +247,13 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 10 },
     },
+    [Item.steelShield]: {
+        item: Item.steelShield,
+        itemType,
+        weaponType: WeaponType.shield,
+        rarity: Rarity.rare,
+        iconImg: `${basePath}steel-shield.png`,
+    },
     [Item.sword]: {
         item: Item.sword,
         itemType,
@@ -217,6 +269,13 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         iconImg: `${basePath}warhammer.png`,
         rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 16 },
+    },
+    [Item.woodenBulwark]: {
+        item: Item.woodenBulwark,
+        itemType,
+        weaponType: WeaponType.shield,
+        rarity: Rarity.common,
+        iconImg: `${basePath}wooden-bulwark.png`,
     },
 };
 export default weaponDefinitions;

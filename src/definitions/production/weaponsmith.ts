@@ -5,6 +5,14 @@ import { Item } from "../items/types";
 import { ProductionDefinition } from "./types";
 
 const weaponsmithProduction: {[key: string]: ProductionDefinition} = {
+    [Item.aegisOfValor]: {
+        item: Item.aegisOfValor,
+        levelRequired: 3,
+        cost: {
+            resources: { wood: 20, iron: 5 },
+            time: time.HALF_HOUR,
+        },
+    },
     [Item.arbalest]: {
         item: Item.arbalest,
         cost: {
@@ -14,6 +22,14 @@ const weaponsmithProduction: {[key: string]: ProductionDefinition} = {
     },
     [Item.battleAxe]: {
         item: Item.battleAxe,
+        cost: {
+            resources: { wood: 20, iron: 5 },
+            time: time.HALF_HOUR,
+        },
+    },
+    [Item.berserkerShield]: {
+        item: Item.berserkerShield,
+        levelRequired: 2,
         cost: {
             resources: { wood: 20, iron: 5 },
             time: time.HALF_HOUR,
@@ -61,6 +77,14 @@ const weaponsmithProduction: {[key: string]: ProductionDefinition} = {
             time: time.ONE_HOUR,
         },
     },
+    [Item.goldenShield]: {
+        item: Item.goldenShield,
+        levelRequired: 2,
+        cost: {
+            resources: { wood: 20, iron: 5 },
+            time: time.HALF_HOUR,
+        },
+    },
     [Item.javelin]: {
         item: Item.javelin,
         cost: {
@@ -96,6 +120,13 @@ const weaponsmithProduction: {[key: string]: ProductionDefinition} = {
             time: time.ONE_HOUR,
         },
     },
+    [Item.paintedBuckler]: {
+        item: Item.paintedBuckler,
+        cost: {
+            resources: { wood: 20, iron: 10},
+            time: time.ONE_HOUR + time.HALF_HOUR,
+        },
+    },
     [Item.poisonedDagger]: {
         item: Item.poisonedDagger,
         cost: {
@@ -125,6 +156,13 @@ const weaponsmithProduction: {[key: string]: ProductionDefinition} = {
             time: time.ONE_HOUR,
         },
     },
+    [Item.steelShield]: {
+        item: Item.steelShield,
+        cost: {
+            resources: { wood: 15, iron: 15},
+            time: time.ONE_HOUR,
+        },
+    },
     [Item.sword]: {
         item: Item.sword,
         cost: {
@@ -134,6 +172,13 @@ const weaponsmithProduction: {[key: string]: ProductionDefinition} = {
     },
     [Item.warhammer]: {
         item: Item.warhammer,
+        cost: {
+            resources: { wood: 10, iron: 30},
+            time:  time.ONE_HOUR,
+        },
+    },
+    [Item.woodenBulwark]: {
+        item: Item.woodenBulwark,
         cost: {
             resources: { wood: 10, iron: 30},
             time:  time.ONE_HOUR,

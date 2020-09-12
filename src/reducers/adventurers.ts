@@ -33,6 +33,7 @@ const testState: AdventurerStoreState[] = [{
     equipment: {
         chest: Item.chest,
         head: Item.cowl,
+        offHand: Item.indomitableCarapace
     },
     basicAttributes: generateRandomAttributes(),
     health: Math.random() * 100,
@@ -45,7 +46,7 @@ const testState: AdventurerStoreState[] = [{
         [WeaponType.axe]: 3
     },
     // tslint:disable-next-line:max-line-length
-    inventory: [ Item.deedForLumbermill, null, Item.crossbow, Item.dagger, Item.khopesh, null, Item.sword, null,  null,  null,  null,  null,  null,  null,  null,  null],
+    inventory: [ Item.deedForLumbermill, null, Item.crossbow, Item.dagger, Item.khopesh, null, Item.sword, null,  null,  null,  null,  Item.steelShield,  null,  null,  null,  null],
 }, {
     id: "2e655832",
     equipment: {
@@ -63,11 +64,12 @@ const testState: AdventurerStoreState[] = [{
         [WeaponType.staff]: 3
     },
     // tslint:disable-next-line:max-line-length
-    inventory: [ Item.crossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, null, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, Item.plateHelmet, Item.cowl],
+    inventory: [ Item.crossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, Item.buckler, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, Item.plateHelmet, Item.cowl],
 }, {
     id: "ec6f1050",
     equipment: {
-        feet: Item.boots3
+        feet: Item.boots3,
+        offHand: Item.aegisOfValor
     },
     basicAttributes: generateRandomAttributes(),
     name: "Zackary Morris",
@@ -80,7 +82,7 @@ const testState: AdventurerStoreState[] = [{
     },
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
-    inventory: [ Item.greatswordOfGwai, null, null, null ],
+    inventory: [ Item.greatswordOfGwai, null, null, null, Item.berserkerShield ],
 }, {
     id: "d299f98a",
     basicAttributes: generateRandomAttributes(),
@@ -94,7 +96,7 @@ const testState: AdventurerStoreState[] = [{
     skills: {
         [WeaponType.sword]: 3
     },
-    inventory: [ null, null, null, null, Item.khopesh, Item.hornedHelmet ],
+    inventory: [ null, null, null, null, Item.khopesh, Item.hornedHelmet, Item.woodenBulwark ],
 }, {
     id: "96c686c3",
     equipment: {},
@@ -108,7 +110,7 @@ const testState: AdventurerStoreState[] = [{
     skills: {
         [WeaponType.axe]: 3
     },
-    inventory: [ null, null, null ],
+    inventory: [ null, null, null, Item.goldenShield ],
 }, {
     id: "250d1a9d",
     basicAttributes: generateRandomAttributes(),

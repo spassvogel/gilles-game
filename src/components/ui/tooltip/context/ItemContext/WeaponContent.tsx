@@ -14,7 +14,7 @@ const WeaponContent = (props: Props) => {
     return (
         <>
             { subtext && (<p>"{subtext}"</p>)}
-            <p> damage: { info.damage[DamageType.kinetic] } </p>
+            { info.damage && <p> damage: { info.damage[DamageType.kinetic] } </p>}
             <ProduceOrStudy item={info.item} />
         </>
     );
