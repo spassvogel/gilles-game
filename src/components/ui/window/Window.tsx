@@ -1,7 +1,7 @@
 import SquareIconButton from "components/ui/buttons/SquareIconButton";
 import * as React from "react";
 import { SoundManager, Sound } from 'global/SoundManager';
-import "components/ui/css/common/icon.css";
+import "components/ui/styles/icon.scss";
 import "components/ui/resources/css/resourcesbox.css";
 
 // todo: refactor using WindowManager [30/03/2020]

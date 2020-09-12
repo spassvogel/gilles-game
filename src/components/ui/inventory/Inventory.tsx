@@ -3,8 +3,8 @@ import { DragSourceType } from "constants/dragging";
 import { IconSize } from "constants/icons";
 import {Item} from "definitions/items/types";
 import * as React from "react";
-import "./css/inventory.css";
 import InventorySlot from "./InventorySlot";
+import "./styles/inventory.scss";
 
 export interface Props {
     items: (Item|null)[];

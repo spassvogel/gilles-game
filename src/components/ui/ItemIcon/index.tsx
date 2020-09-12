@@ -5,10 +5,10 @@ import { getDefinition } from "definitions/items";
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { TooltipManager } from 'global/TooltipManager';
-import "./styles/itemicon.scss";
-import "components/ui/css/common/icon.css";
-import "components/ui/styles/item.scss";
 import { TextManager } from 'global/TextManager';
+import "./styles/itemicon.scss";
+import "components/ui/styles/icon.scss";
+import "components/ui/styles/item.scss";
 
 export interface Props {
     item: Item;
@@ -39,7 +39,7 @@ const ItemIcon = (props: Props) => {
         }
     };
 
-    const className = `item-icon ${getClassName(props.size)} ${getIconClassName(itemDefinition.rarity)}`;
+    const className = `item-icon ${getClassName(props.size)} ${getIconClassName(itemDefinition.rarity)} `;
 
     return (
         <div

@@ -1,15 +1,15 @@
-import "components/ui/css/common/icon.css";
 import { resourceOrder } from "constants/resources";
 import resourceDescriptions from "definitions/resources";
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
-import "./css/resourcebar.css";
 import { formatNumber } from 'utils/number';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
 import useGold from 'hooks/store/useGold';
 import useResourcesState from 'hooks/store/useResourcesState';
 import { useWorkersFreeState } from 'hooks/store/useWorkersState';
+import "./css/resourcebar.css";
+import "components/ui/styles/icon.scss";
 
 export interface StateProps  {
     gold: number;

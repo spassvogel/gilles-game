@@ -1,3 +1,4 @@
+@import 'components/styles/variables.scss';
 
 .common-icon-smallest, .common-icon-small, .common-icon-medium, .common-icon-big, .common-icon-biggest {
     background-size: contain;
@@ -15,6 +16,6 @@
 }
 
 .common-icon-medium {
-    width: 46px;
-    height: 46px;
+    width: $item-size-medium;
+    height: $item-size-medium;
 }

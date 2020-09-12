@@ -8,11 +8,11 @@ import { getStructureByResource } from 'definitions/structures';
 import { Link } from 'react-router-dom';
 import { getStructureLink } from 'utils/routing';
 import { withAppContext, AppContextProps } from 'hoc/withAppContext';
-import "components/ui/css/common/icon.css";
-import "components/ui/resources/css/resourcesbox.css";
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import { StructureState } from 'stores/structure';
+import "components/ui/styles/icon.scss";
+import "components/ui/resources/css/resourcesbox.css";
 
 export interface Props {
     className?: string;

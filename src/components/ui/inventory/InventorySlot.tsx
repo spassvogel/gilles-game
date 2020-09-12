@@ -1,5 +1,5 @@
 import { DragSourceType, DragType } from "constants/dragging";
-import { getClassName, IconSize } from "constants/icons";
+import { IconSize } from "constants/icons";
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
@@ -51,7 +51,6 @@ const InventorySlot = (props: PropsWithChildren<Props> & DropSourceProps) => {
 
     const classNames = [
         "inventory-item",
-        getClassName(props.size),
     ];
 
     if (isActive) {
@@ -61,7 +60,7 @@ const InventorySlot = (props: PropsWithChildren<Props> & DropSourceProps) => {
     }
 
     return connectDropTarget(
-        <div className = { classNames.join(" ") }>
+        <div className={classNames.join(" ")}>
             { props.children }
         </div>,
     );

@@ -1,9 +1,9 @@
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { TextManager } from "global/TextManager";
-import "components/ui/css/common/icon.css";
 import DraggableItemIcon from 'components/ui/DraggableItemIcon';
 import { DragSourceType } from 'constants/dragging';
+import "components/ui/styles/icon.scss";
 import "./itemsList.scss";
 
 export interface Props {
