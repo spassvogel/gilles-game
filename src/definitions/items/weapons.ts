@@ -1,6 +1,6 @@
 // tslint:disable:object-literal-sort-keys
-
-import { Item, ItemDefinition, ItemType, Rarity } from "./types";
+import { Item, ItemDefinition, ItemType } from "./types";
+import { Rarity } from 'constants/items';
 
 const itemType = ItemType.weapon;
 const basePath = "/img/items/weapons/";

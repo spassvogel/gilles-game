@@ -1,3 +1,4 @@
+import { Rarity } from 'constants/items';
 
 export enum ItemType {
     deed,
@@ -122,14 +123,6 @@ export enum Item {
     warhammer = "warhammer",
 }
 
-export enum Rarity {
-    // gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary
-    common,
-    uncommon,
-    rare,
-    epic,
-    legendary
-}
 
 export interface ItemDefinition {
     item: Item;
