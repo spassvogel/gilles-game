@@ -10,6 +10,7 @@ import './styles/contextTooltip.scss';
 import Tooltip from '../Tooltip';
 import { TraitDefinition } from 'definitions/traits/types';
 import TraitContext from '../context/TraitContext';
+import { getItemNameClassName } from 'constants/items';
 
 
 // A contextual popup showing what you just clicked. Can be an Item
@@ -43,10 +44,12 @@ const ContextTooltip = () => {
             }
             case ContextType.item: {
                 const name = TextManager.getItemName((info as ItemDefinition).item);
+                const itemDefinition = info as ItemDefinition;
+                const className = `name item ${getItemNameClassName(itemDefinition)}`
                 return (
                     <>
-                        <div className="name item">{name}</div>
-                        <ItemContext info={info as ItemDefinition} />
+                        <div className={`${className}`}>{name}</div>
+                        <ItemContext info={itemDefinition} />
                     </>
                 );
             }

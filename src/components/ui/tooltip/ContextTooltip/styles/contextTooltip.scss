@@ -12,4 +12,24 @@
     .invalid {
         color: $color-invalid;
     }
+
+    .item-name-common {
+        color: $color-rarity-common;
+    }
+    
+    .item-name-uncommon {
+        color: $color-rarity-uncommon;
+    }
+    
+    .item-name-rare {
+        color: $color-rarity-rare;
+    }
+    
+    .item-name-epic {
+        color: $color-rarity-epic;
+    }
+    
+    .item-name-legendary {
+        color: $color-rarity-legendary;
+    }
 }

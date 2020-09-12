@@ -1,6 +1,6 @@
 import { ContextType } from "constants/context";
 import { getClassName, IconSize } from "constants/icons";
-import { getClassName as getRarityClassName } from "constants/items";
+import { getIconClassName } from "constants/items";
 import { getDefinition } from "definitions/items";
 import { Item } from "definitions/items/types";
 import * as React from "react";
@@ -39,7 +39,7 @@ const ItemIcon = (props: Props) => {
         }
     };
 
-    const className = `item-icon ${getClassName(props.size)} ${getRarityClassName(itemDefinition.rarity)}`;
+    const className = `item-icon ${getClassName(props.size)} ${getIconClassName(itemDefinition.rarity)}`;
 
     return (
         <div
