@@ -17,7 +17,7 @@ export enum WeaponType {
     staff,
     sword,
     poleArm,
-    // shield ?
+    shield
 }
 
 export enum WeaponClassification {
@@ -39,7 +39,8 @@ export const typeClassifications = {
     [WeaponType.knife]: WeaponClassification.oneHanded,
     [WeaponType.staff]: WeaponClassification.twoHanded,
     [WeaponType.sword]: WeaponClassification.oneHanded,
-    [WeaponType.poleArm]: WeaponClassification.twoHanded
+    [WeaponType.poleArm]: WeaponClassification.twoHanded,
+    [WeaponType.shield]: WeaponClassification.shield
 }
 
 

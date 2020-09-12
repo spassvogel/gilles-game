@@ -7,6 +7,7 @@ import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
 import { InventoryItemDragInfo } from '../DraggableItemIcon';
 import "./styles/equipmentslot.scss";
+import { WeaponDefinition, typeClassifications, WeaponClassification } from 'definitions/items/weapons';
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {
@@ -45,9 +46,19 @@ export const itemAndEquipmentSlotMatch = (item: Item, equipmentSlotType: Equipme
             return checkEquipment(item, ApparelType.legs);
         case EquipmentSlotType.mainHand:
         case EquipmentSlotType.offHand:
-            const itemDefinition = getDefinition(item);
+            const itemDefinition: WeaponDefinition = getDefinition(item) as WeaponDefinition;
             if (itemDefinition.itemType !== ItemType.weapon) {
                 return false;
+            }
+            const weaponClassification: WeaponClassification = typeClassifications[itemDefinition.weaponType];
+            switch (weaponClassification) {
+                case WeaponClassification.oneHanded:
+                    return true;
+                case WeaponClassification.mainHand:
+                    return equipmentSlotType === EquipmentSlotType.mainHand;
+                case WeaponClassification.offHand:
+                case WeaponClassification.shield:
+                    return equipmentSlotType === EquipmentSlotType.offHand;
             }
 
             // todo: prevent shields to be equipped in main hand
