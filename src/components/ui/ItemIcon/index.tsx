@@ -8,6 +8,7 @@ import { TooltipManager } from 'global/TooltipManager';
 import "./styles/itemicon.scss";
 import "components/ui/css/common/icon.css";
 import "components/ui/styles/item.scss";
+import { TextManager } from 'global/TextManager';
 
 export interface Props {
     item: Item;
@@ -44,8 +45,9 @@ const ItemIcon = (props: Props) => {
         <div
             className={className}
             onClick={handleClick}
-            style={{backgroundImage: `url(${process.env.PUBLIC_URL}${itemDefinition.iconImg})`}}
-        />
+        >
+            <img src={`${process.env.PUBLIC_URL}${itemDefinition.iconImg}`} alt={TextManager.getItemName(props.item)} />
+        </div>
     );
 };
 

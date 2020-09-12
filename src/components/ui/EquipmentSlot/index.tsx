@@ -1,4 +1,3 @@
-// todo: hooks!
 // https://github.com/react-dnd/react-dnd/pull/1244
 import { DragType } from "constants/dragging";
 import { getDefinition } from "definitions/items";
@@ -6,8 +5,8 @@ import { ApparelDefinition, ApparelType } from "definitions/items/apparel";
 import { Item, ItemType } from "definitions/items/types";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
-import "./css/equipmentslot.css";
-import { InventoryItemDragInfo } from "./DraggableItemIcon";
+import { InventoryItemDragInfo } from '../DraggableItemIcon';
+import "./styles/equipmentslot.scss";
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {
