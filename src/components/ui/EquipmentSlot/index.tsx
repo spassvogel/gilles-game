@@ -1,7 +1,7 @@
 // https://github.com/react-dnd/react-dnd/pull/1244
 import { DragType } from "constants/dragging";
 import { getDefinition } from "definitions/items";
-import { ApparelDefinition, ApparelType } from "definitions/items/apparel";
+import { ApparelDefinition } from "definitions/items/apparel";
 import { Item, ItemType } from "definitions/items/types";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
@@ -35,15 +35,11 @@ export enum EquipmentSlotType {
 export const itemAndEquipmentSlotMatch = (item: Item, equipmentSlotType: EquipmentSlotType) => {
     switch (equipmentSlotType) {
         case EquipmentSlotType.chest:
-            return checkEquipment(item, ApparelType.chest);
-         case EquipmentSlotType.feet:
-            return checkEquipment(item, ApparelType.feet);
+        case EquipmentSlotType.feet:
         case EquipmentSlotType.hands:
-            return checkEquipment(item, ApparelType.hands);
         case EquipmentSlotType.head:
-            return checkEquipment(item, ApparelType.head);
         case EquipmentSlotType.legs:
-            return checkEquipment(item, ApparelType.legs);
+            return checkEquipment(item, equipmentSlotType);
         case EquipmentSlotType.mainHand:
         case EquipmentSlotType.offHand:
             const itemDefinition: WeaponDefinition = getDefinition(item) as WeaponDefinition;
@@ -115,7 +111,7 @@ export default DropTarget<Props, DropSourceProps>(
     collect,
 )(EquipmentSlot);
 
-const checkEquipment = (item: Item, equipmentType: ApparelType) => {
+const checkEquipment = (item: Item, equipmentType: EquipmentSlotType) => {
     const itemDefinition = getDefinition(item);
     if (itemDefinition.itemType !== ItemType.apparel) {
         return false;

@@ -8,8 +8,11 @@ import * as Handlebars from "handlebars";
 import { Trait } from 'definitions/traits/types';
 import { Type } from 'components/ui/toasts/Toast';
 import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
+import { WeaponType, WeaponClassification } from 'definitions/items/weapons';
 
 export abstract class TextManager {
+
+
 
     public static init(texts: {[key: string]: string}, precompile = true) {
         this.texts = texts;
@@ -101,6 +104,14 @@ export abstract class TextManager {
 
     public static getToastType(type: Type): string {
         return this.get(`ui-toast-type-${toKebab(Type[type])}`);
+    }
+
+    public static getWeaponType(type: WeaponType) {
+        return this.get(`ui-weapon-type-${toKebab(WeaponType[type])}`);
+    }
+
+    static getWeaponClassification(weaponClass: WeaponClassification) {
+        return this.get(`ui-weapon-class-${toKebab(WeaponClassification[weaponClass])}`);
     }
 
     private static initialized = false;
