@@ -46,7 +46,7 @@ const testState: AdventurerStoreState[] = [{
         [WeaponType.axe]: 3
     },
     // tslint:disable-next-line:max-line-length
-    inventory: [ Item.deedForLumbermill, null, Item.crossbow, Item.dagger, Item.khopesh, null, Item.sword, null,  null,  null,  null,  Item.steelShield,  null,  null,  null,  null],
+    inventory: [ Item.deedForLumbermill, null, Item.simpleCrossbow, Item.dagger, Item.khopesh, null, Item.sword, null,  null,  null,  null,  Item.steelShield,  null,  null,  null,  null],
 }, {
     id: "2e655832",
     equipment: {
@@ -64,7 +64,7 @@ const testState: AdventurerStoreState[] = [{
         [WeaponType.staff]: 3
     },
     // tslint:disable-next-line:max-line-length
-    inventory: [ Item.crossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, Item.buckler, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, Item.plateHelmet, Item.cowl],
+    inventory: [ Item.simpleCrossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, Item.buckler, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, Item.plateHelmet, Item.cowl],
 }, {
     id: "ec6f1050",
     equipment: {

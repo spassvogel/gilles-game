@@ -15,9 +15,9 @@ export enum WeaponType {
     hammer,
     knife,
     staff,
+    shield,
     sword,
     poleArm,
-    shield
 }
 
 export enum WeaponClassification {
@@ -25,7 +25,8 @@ export enum WeaponClassification {
     mainHand,   // Can only be used in main hand
     offHand,    // Can only be used in the off hand
     twoHanded,  // Can be used in the main hand and will disable off hand from being used
-    shield // ?
+    shield      // ?
+    // add 'ranged'?
 }
 
 export const typeClassifications = {
@@ -104,14 +105,6 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         weaponType: WeaponType.shield,
         rarity: Rarity.common,
         iconImg: `${basePath}buckler.png`,
-    },
-    [Item.crossbow]: {
-        item: Item.crossbow,
-        itemType,
-        weaponType: WeaponType.crossbow,
-        iconImg: `${basePath}crossbow.png`,
-        rarity: Rarity.common,
-        damage: { [DamageType.kinetic]: 3 },
     },
     [Item.cleaver]: {
         item: Item.cleaver,
@@ -238,6 +231,14 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         iconImg: `${basePath}savage-staff.png`,
         rarity: Rarity.epic,
         damage: { [DamageType.kinetic]: 8 },
+    },
+    [Item.simpleCrossbow]: {
+        item: Item.simpleCrossbow,
+        itemType,
+        weaponType: WeaponType.crossbow,
+        iconImg: `${basePath}crossbow.png`,
+        rarity: Rarity.common,
+        damage: { [DamageType.kinetic]: 3 },
     },
     [Item.spear]: {
         item: Item.spear,
