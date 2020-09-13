@@ -42,8 +42,8 @@ const weaponsmithProduction: {[key: string]: ProductionDefinition} = {
             time: time.HALF_HOUR,
         },
     },
-    [Item.crossbow]: {
-        item: Item.crossbow,
+    [Item.simpleCrossbow]: {
+        item: Item.simpleCrossbow,
         cost: {
             resources: { wood: 20, iron: 5 },
             time: time.HALF_HOUR,
