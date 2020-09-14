@@ -1,4 +1,4 @@
-import React, { useMemo,  useEffect, useRef, useCallback, PropsWithChildren, useState } from 'react';
+import React, { useMemo,  useEffect, useRef, useCallback, PropsWithChildren, useState, memo } from 'react';
 import { Container } from '@inlet/react-pixi';
 import { SceneActionType, SceneAction } from 'stores/scene';
 import { useDispatch, useSelector } from 'react-redux';
@@ -257,4 +257,4 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     )
 };
 
-export default SceneActor;
+export default memo(SceneActor);
