@@ -1,0 +1,19 @@
+@import 'components/styles/variables.scss';
+
+.adventurer-skills {
+    list-style: none;
+    padding: 0;
+    
+    li {
+        display: flex;
+        
+        span {
+            flex: .5;
+        }
+        
+        span.skill {            
+            color: $color-secondary;
+            text-decoration: underline;
+        }
+    }
+}

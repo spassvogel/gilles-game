@@ -46,7 +46,6 @@ const Scene = (props: Props) => {
     const renderActors = useCallback(() => {
         const renderActor = (actor: ActorObject) => {
             const {name, location} = actor;
-            console.log('ra', name)
             return (
                 <SceneAdventurer
                     location={location}
@@ -59,7 +58,7 @@ const Scene = (props: Props) => {
                 />
             );
         }
-        return scene.actors?.map((o) => renderActor(o));
+        return scene?.actors?.map((o) => renderActor(o));
 
     }, [])
 

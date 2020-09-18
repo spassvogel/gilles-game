@@ -36,9 +36,12 @@ const AdventurerTraits = (props: Props) => {
         return null;
     }
     return (
-        <ul className="adventurer-traits">
-            {adventurer.traits.map((t, i)=> renderTrait(t, i === adventurer.traits!.length -1))}
-        </ul>
+        <>
+            <p>Traits</p>
+            <ul className="adventurer-traits">
+                {adventurer.traits.map((t, i)=> renderTrait(t, i === adventurer.traits!.length -1))}
+            </ul>
+        </>
     )
 }
 

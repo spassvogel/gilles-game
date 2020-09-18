@@ -5,7 +5,8 @@ import { TraitDefinition } from 'definitions/traits/types';
 export enum ContextType {
     item,
     trait,
-    resource
+    resource,
+    skill
 }
 
 export type ContextInfo = ItemDefinition | TraitDefinition | string;

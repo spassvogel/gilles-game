@@ -7,8 +7,9 @@ import useItemDropActions from 'hooks/actions/useItemActions';
 import { InventoryItemDragInfo } from 'components/ui/DraggableItemIcon';
 import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
 import { Item } from 'definitions/items/types';
-import "./css/adventurerPanel.css";
 import AdventurerTraits from './AdventurerTraits';
+import AdventurerSkills from './AdventurerSkills';
+import "./css/adventurerPanel.css";
 
 export interface Props {
     adventurer: AdventurerStoreState;
@@ -44,6 +45,7 @@ const AdventurerPanel = (props: Props) => {
                     <b>{adventurer.name}</b>
                 </div>
                 <AdventurerTraits adventurerId={adventurer.id}/>
+                <AdventurerSkills adventurerId={adventurer.id}/>
                 {/* <div className="renderAttributes">
                     {renderAttributes()}
                 </div> */}
