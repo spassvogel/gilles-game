@@ -6,7 +6,7 @@ import { startBuildingStructure, finishBuildingStructure } from 'actions/structu
 import { startTask } from 'actions/tasks';
 import { TaskType } from 'stores/task';
 import { DeedDefinition } from 'definitions/items/deeds';
-import useGoldState from 'hooks/store/useGold';
+import useGoldState from 'hooks/store/useGoldState';
 import useStructureState from 'hooks/store/useStructureState';
 import { StructureState } from 'stores/structure';
 import { TextManager } from 'global/TextManager';

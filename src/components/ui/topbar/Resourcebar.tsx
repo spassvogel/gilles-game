@@ -5,7 +5,7 @@ import { ResourceStoreState } from "stores/resources";
 import { formatNumber } from 'utils/number';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
-import useGoldState from 'hooks/store/useGold';
+import useGoldState from 'hooks/store/useGoldState';
 import useResourcesState from 'hooks/store/useResourcesState';
 import { useWorkersFreeState } from 'hooks/store/useWorkersState';
 import "./styles/resourcebar.scss";

@@ -13,7 +13,7 @@ import { TextManager } from "global/TextManager";
 import AdventurerTabstrip from 'components/world/QuestPanel/AdventurerTabstrip';
 import useStructureState from 'hooks/store/useStructureState';
 import useResourcesState from 'hooks/store/useResourcesState';
-import useGoldState from 'hooks/store/useGold';
+import useGoldState from 'hooks/store/useGoldState';
 import useStructureActions from 'hooks/actions/useStructureActions';
 import useStockpileState from 'hooks/store/useStockpileState';
 import { useSelector } from 'react-redux';

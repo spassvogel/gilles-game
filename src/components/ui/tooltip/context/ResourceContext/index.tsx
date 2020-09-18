@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { ResourceStructureLevelDefinition, ResourceStructureDefinition } from 'definitions/structures/types';
 import useResourcesState from 'hooks/store/useResourcesState';
 import { formatNumber } from 'utils/number';
-import useGoldState from 'hooks/store/useGold';
+import useGoldState from 'hooks/store/useGoldState';
 import { useWorkersFreeState, useWorkersState } from 'hooks/store/useWorkersState';
 import './resourceContext.scss';
 

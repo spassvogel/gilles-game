@@ -11,7 +11,7 @@ import { getQuestLink} from 'utils/routing';
 import RoomList from './RoomList';
 import { useState} from 'react';
 import QuestBoard from './QuestBoard';
-import useGoldState from 'hooks/store/useGold';
+import useGoldState from 'hooks/store/useGoldState';
 import useStructureState from 'hooks/store/useStructureState';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from 'stores';

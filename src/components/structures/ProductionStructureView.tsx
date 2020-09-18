@@ -14,9 +14,8 @@ import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";
 import StructureViewHeader from './StructureViewHeader';
 import ResourcesCostBox from 'components/ui/resources/ResourcesCostBox';
-import "./styles/productionStructureView.scss";
 import { ProductionStructureStoreState } from 'stores/structure';
-import useGoldState from 'hooks/store/useGold';
+import useGoldState from 'hooks/store/useGoldState';
 import useStructureState from 'hooks/store/useStructureState';
 import useResourcesState from 'hooks/store/useResourcesState';
 import useStockpileState from 'hooks/store/useStockpileState';
@@ -31,6 +30,7 @@ import { useDispatch } from 'react-redux';
 import { subtractGold } from 'actions/gold';
 import { addLogText } from 'actions/log';
 import { LogChannel } from 'stores/logEntry';
+import "./styles/productionStructureView.scss";
 
 export interface Props {
     structure: Structure;
