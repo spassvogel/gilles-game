@@ -16,7 +16,7 @@ import StructureViewHeader from './StructureViewHeader';
 import ResourcesCostBox from 'components/ui/resources/ResourcesCostBox';
 import "./styles/productionStructureView.scss";
 import { ProductionStructureStoreState } from 'stores/structure';
-import useGold from 'hooks/store/useGold';
+import useGoldState from 'hooks/store/useGold';
 import useStructureState from 'hooks/store/useStructureState';
 import useResourcesState from 'hooks/store/useResourcesState';
 import useStockpileState from 'hooks/store/useStockpileState';
@@ -42,7 +42,7 @@ const ProductionStructureView = (props: Props) => {
     const [workersAssigned, setWorkersAssigned] = useState<number>(0);
 
     const dispatch = useDispatch();
-    const gold = useGold();
+    const gold = useGoldState();
     const structureState = useStructureState(structure) as ProductionStructureStoreState;
     const resourcesState = useResourcesState();
     const stockpileState = useStockpileState();

@@ -5,7 +5,7 @@ import { ResourceStoreState } from "stores/resources";
 import { formatNumber } from 'utils/number';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
-import useGold from 'hooks/store/useGold';
+import useGoldState from 'hooks/store/useGold';
 import useResourcesState from 'hooks/store/useResourcesState';
 import { useWorkersFreeState } from 'hooks/store/useWorkersState';
 import "./styles/resourcebar.scss";
@@ -21,7 +21,7 @@ export interface StateProps  {
 /** Shown on top in the UI */
 const Resourcebar = () => {
 
-    const gold = useGold();
+    const goldState = useGoldState();
     const storeResources = useResourcesState();
     const workersFree = useWorkersFreeState();
 
@@ -55,7 +55,7 @@ const Resourcebar = () => {
 
     resources.push(
         createItem("/img/resources/worker.png", workersFree, "workers"),
-        createItem("/img/resources/gold.png", gold, "gold"),
+        createItem("/img/resources/gold.png", goldState, "gold"),
     );
 
     return (

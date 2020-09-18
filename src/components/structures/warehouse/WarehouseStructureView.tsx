@@ -13,7 +13,7 @@ import { TextManager } from "global/TextManager";
 import AdventurerTabstrip from 'components/world/QuestPanel/AdventurerTabstrip';
 import useStructureState from 'hooks/store/useStructureState';
 import useResourcesState from 'hooks/store/useResourcesState';
-import useGold from 'hooks/store/useGold';
+import useGoldState from 'hooks/store/useGold';
 import useStructureActions from 'hooks/actions/useStructureActions';
 import useStockpileState from 'hooks/store/useStockpileState';
 import { useSelector } from 'react-redux';
@@ -39,7 +39,7 @@ const WarehouseStructureView = (props: Props) => {
     const [resourcesDelta, setResourcesDelta] = useState<ResourceStoreState>(empty);    // updating this will trigger animation
     const previousResources = usePrevious(resources);
     const resourcesRef = useRef<HTMLFieldSetElement>(null);
-    const gold = useGold();
+    const gold = useGoldState();
     const stockpileState = useStockpileState();
     const structuresState = useSelector<StoreState, StructuresStoreState>(store => store.structures);
     const {startUpgradeStructure} = useStructureActions();

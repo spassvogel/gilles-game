@@ -268,11 +268,13 @@
 
     "ui-tooltip-damage-reduction": "Damage reduction: {{damageReduction}}",
     "ui-tooltip-study-requires-structure-level": "Study: Requires {{structure:name structure}} level {{level}}",
-    "ui-tooltip-resource-produce-row": "At {{structure}} ({{amount}}/minute)",
-    "ui-tooltip-resource-produce-row-notbuilt": "At {{structure}} (not constructed)",
+    "ui-tooltip-resource-produce-row": "Produced at {{structure}} ({{amount}}/minute)",
+    "ui-tooltip-resource-produce-row-notbuilt": "Produced at {{structure}} (not constructed)",
+    "ui-tooltip-resource-quantity": "Quantity: {{amount}}",
     "ui-tooltip-study-currently-studying": "Currently studying ",
     "ui-tooltip-study-start-study": "Study",
-
+    "ui-tooltip-workers-quantity": "Quantity: {{free}} free ({{total}} total)",
+    
     "ui-view-button-town": "Town",
     "ui-view-button-world": "World",
 

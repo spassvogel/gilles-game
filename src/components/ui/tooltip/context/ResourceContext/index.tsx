@@ -9,6 +9,10 @@ import { StructureState, StructureStoreState } from 'stores/structure';
 import { getStructureLink } from 'utils/routing';
 import { Link } from 'react-router-dom';
 import { ResourceStructureLevelDefinition, ResourceStructureDefinition } from 'definitions/structures/types';
+import useResourcesState from 'hooks/store/useResourcesState';
+import { formatNumber } from 'utils/number';
+import useGoldState from 'hooks/store/useGold';
+import { useWorkersFreeState, useWorkersState } from 'hooks/store/useWorkersState';
 import './resourceContext.scss';
 
 export interface Props {
@@ -18,6 +22,10 @@ export interface Props {
 const ResourceContext = (props: Props) => {
 
     const resource = props.info;
+    const resourcesState = useResourcesState();
+    const goldState = useGoldState();
+    const workersState = useWorkersState();
+    const workersFreeState = useWorkersFreeState();
     const structureStates = useSelector<StoreState, StructuresStoreState>(store => store.structures);
 
     const renderProducedBy = () => {
@@ -58,10 +66,15 @@ const ResourceContext = (props: Props) => {
         case Resource.leather:
         case Resource.stone:
         case Resource.wood: {
+            const amount = formatNumber(resourcesState[resource]!, 0);
+
             return (
                 <>
                     <div className="resource-context">
                         {TextManager.get(`resource-${resource}-info`)}
+                    </div>
+                    <div>
+                        {TextManager.get(`ui-tooltip-resource-quantity`, { amount } )}
                     </div>
                     <div>
                         {renderProducedBy()}
@@ -69,16 +82,35 @@ const ResourceContext = (props: Props) => {
                 </>
             )
         }
-        default: {
+        case "gold": {
+            const amount = goldState;
             return (
                 <>
                     <div className="resource-context">
                         {` ${TextManager.get(`resource-${resource}-info`)}`}
                     </div>
+                    <div>
+                        {TextManager.get(`ui-tooltip-resource-quantity`, { amount } )}
+                    </div>
                 </>
             )
         }
-
+        case "workers": {
+            const free = workersFreeState;
+            const total = workersState;
+            return (
+                <>
+                    <div className="resource-context">
+                        {` ${TextManager.get(`resource-${resource}-info`)}`}
+                    </div>
+                    <div>
+                        {TextManager.get(`ui-tooltip-workers-quantity`, { free, total } )}
+                    </div>
+                </>
+            )
+        }
+        default:
+            throw new Error("Uknow value " + resource);
     }
 
 }

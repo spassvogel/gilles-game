@@ -6,7 +6,7 @@ import { startBuildingStructure, finishBuildingStructure } from 'actions/structu
 import { startTask } from 'actions/tasks';
 import { TaskType } from 'stores/task';
 import { DeedDefinition } from 'definitions/items/deeds';
-import useGold from 'hooks/store/useGold';
+import useGoldState from 'hooks/store/useGold';
 import useStructureState from 'hooks/store/useStructureState';
 import { StructureState } from 'stores/structure';
 import { TextManager } from 'global/TextManager';
@@ -19,7 +19,7 @@ const DeedContent = (props: Props) => {
     const { info } = props;
     const dispatch = useDispatch();
 
-    const gold = useGold();
+    const gold = useGoldState();
     const structureDefinition = getDefinition(info.structure);
     const enoughGold = structureDefinition.cost.gold || 0 <= gold;
     const structureStoreState = useStructureState(info.structure);
