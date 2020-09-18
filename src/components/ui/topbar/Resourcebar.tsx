@@ -8,7 +8,7 @@ import { ContextType } from 'constants/context';
 import useGold from 'hooks/store/useGold';
 import useResourcesState from 'hooks/store/useResourcesState';
 import { useWorkersFreeState } from 'hooks/store/useWorkersState';
-import "./css/resourcebar.css";
+import "./styles/resourcebar.scss";
 import "components/ui/styles/icon.scss";
 
 export interface StateProps  {

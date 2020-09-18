@@ -1,10 +1,10 @@
 import Menu from "components/ui/window/windows/MenuWindow";
 import * as React from "react";
-import "./css/topbar.css";
 import Resourcebar from './Resourcebar';
 import { useContext } from 'react';
 import { AppContext } from 'components/App';
 import { Persistor } from 'redux-persist';
+import "./styles/topbar.scss";
 
 interface Props {
     persistor: Persistor;

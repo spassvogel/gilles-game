@@ -1,0 +1,31 @@
+@import 'components/styles/variables.scss';
+
+$padding: 4px;
+
+.resourcebar {
+   margin: 0;
+   padding: $padding;
+   box-sizing: content-box;
+   display: flex;
+
+   li {
+        display: flex;
+        flex: 1;
+        max-width: 64px;
+    
+        div {
+            display: inline-block;
+        }
+
+        .amount {
+            padding-left: 3px;
+            line-height: $misc-topbar-height - $padding;
+        }
+
+        @media only screen and (max-width: 376px) {
+            .amount {
+                display: none;
+            }
+        }
+    }
+}

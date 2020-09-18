@@ -9,7 +9,7 @@ import {StoreState} from 'stores';
 import {useSelector} from 'react-redux';
 import {QuestStoreState} from 'stores/quest';
 import {selectActiveQuests} from 'selectors/quests';
-import "./css/simplelog.css";
+import "./styles/simplelog.scss";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
