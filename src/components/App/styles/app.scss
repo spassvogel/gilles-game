@@ -1,5 +1,6 @@
 
 .app {
+    // todo: 08/05/2020  Use variables for cursor
     --app-cursor-default: url("./img/cursors/dwarven_gauntlet_extra_4.png"), auto;
     --app-cursor-pointer: url("./img/cursors/dwarven_gauntlet_extra_6.png"), auto;
     --app-cursor-down: url("./img/cursors/dwarven_gauntlet_extra_3.png"), auto;
@@ -16,6 +17,8 @@
     /* position: absolute; */
     left: 50%;
     transform: translateX(-50%);
+    height: 100vh;
+    min-height: 100vh;
 
     cursor: var(--app-cursor-default);
     font-family: "Gabriela", "Cambria", sans-serif;

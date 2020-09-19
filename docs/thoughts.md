@@ -302,7 +302,7 @@ IMPLEMENTATION
 
 [ ] Scene controller can set 'combat = true' on scene. Then all actions of scene actors cost AP.
 [ ] Player has button to forgeit turn. Clears all AP on all player scene actors.
-[ ] Make useCombat hook to absract logic 
+[ ] Make useCombat hook to abstract logic 
 
 [ ] When player actors have no APs left aand there are *no* running secene actions 
     the AI selects one of their actors to make a move on. AI has different behaviour types,
@@ -529,6 +529,7 @@ https://github.com/DragonBones/DragonBonesJS
 
 #### 08/05/2020 Sass
 [x] Try to implement sass again (https://www.google.com/search?q=sass+create+react+app)
+[ ] Use variables for cursor
 
 #### Item rarity/quality [+art] [+design]
 [ ] background on items. gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary

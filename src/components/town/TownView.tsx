@@ -133,7 +133,7 @@ const TownView = (props: Props & AppContextProps) => {
     useEffect(() => {
         if (selectedStructure && viewportRef.current) {
             const viewport = viewportRef.current;
-            viewport.zoomPercent(2);
+            viewport.zoomPercent(0);
             const position = getStructurePosition(Structure[selectedStructure]);
             viewport.moveCenter(position);
         }
@@ -164,8 +164,8 @@ const TownView = (props: Props & AppContextProps) => {
     return (
         <div className="town-view" ref={ref}>
             <Legenda structures={structures} />
-            <Stage width={canvasWidth} height={canvasHeight} options={options} >
-                <Viewport screenWidth={canvasWidth} screenHeight={canvasHeight} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef}>
+            <Stage width={canvasWidth / 2} height={canvasHeight / 2} options={options} >
+                <Viewport screenWidth={canvasWidth / 2} screenHeight={canvasHeight / 2} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef}>
                     <Sprite
                         name="background"
                         image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}

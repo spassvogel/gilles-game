@@ -20,16 +20,17 @@ const Background = () => {
         requestAnimationFrame(update);
     },[]);
 
-    return (
-        <Stage width={window.innerWidth} height={window.innerHeight} className="background">
-            <Sprite
-                image={'https://s3-us-west-2.amazonaws.com/s.cdpn.io/167451/test_BG.jpg'}
-                width={window.innerWidth}
-                height={window.innerHeight}
-                // filters={[filter.current]}
-            />
-        </Stage>
-    )
+    return null;
+    // return (
+    //     <Stage width={window.innerWidth} height={window.innerHeight} className="background">
+    //         <Sprite
+    //             image={'https://s3-us-west-2.amazonaws.com/s.cdpn.io/167451/test_BG.jpg'}
+    //             width={window.innerWidth}
+    //             height={window.innerHeight}
+    //             // filters={[filter.current]}
+    //         />
+    //     </Stage>
+    // )
 }
 export default Background;
 
