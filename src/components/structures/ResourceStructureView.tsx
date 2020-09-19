@@ -1,6 +1,6 @@
+import * as React from "react";
 import { getDefinition, Structure  } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition } from "definitions/structures/types";
-import * as React from "react";
 import UpDownValue from "../ui/UpDownValue";
 import { StructureStoreState } from 'stores/structure';
 import { useSelector, useDispatch } from 'react-redux';
@@ -9,6 +9,7 @@ import { selectFreeWorkers } from 'selectors/workers';
 import { decreaseWorkers, increaseWorkers } from 'actions/structures';
 import StructureViewHeader from './StructureViewHeader';
 import useStructureActions from 'hooks/actions/useStructureActions';
+import { TextManager } from 'global/TextManager';
 
 
 export interface Props  {
@@ -53,15 +54,17 @@ const ResourceStructureView = (props: Props) => {
     const createWorkersRow = () => {
         const upDisabled = workers === levelDefinition.workerCapacity || (workersFree || 0) < 1;
         const downDisabled = workers === 0;
-        return <UpDownValue
-            label="workers:"
-            value={workers}
-            max={levelDefinition.workerCapacity}
-            upDisabled={upDisabled}
-            downDisabled={downDisabled}
-            onDown={handleWorkersDown}
-            onUp={handleWorkersUp}
-        />;
+        return (
+            <UpDownValue
+                label={TextManager.get("ui-structure-production-workers")}
+                value={workers}
+                max={levelDefinition.workerCapacity}
+                upDisabled={upDisabled}
+                downDisabled={downDisabled}
+                onDown={handleWorkersDown}
+                onUp={handleWorkersUp}
+            />
+        );
     };
 
     const createUpgradeRow = () => {
@@ -75,7 +78,10 @@ const ResourceStructureView = (props: Props) => {
         };
 
         return <div>
-            <label>level:</label>{(level + 1) + " / " + structureDefinition.levels.length }
+            <label>
+                {TextManager.get("ui-structure-level")}
+            </label>
+            {(level + 1) + " / " + structureDefinition.levels.length }
             <button
                 style={{float: "right"}}
                 onClick={handleClick }
