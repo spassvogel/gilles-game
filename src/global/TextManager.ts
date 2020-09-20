@@ -111,9 +111,6 @@ export abstract class TextManager {
     }
 
     public static getSkillName(type: WeaponType) {
-        console.log('type' + WeaponType[type])
-        console.log(type)
-        console.log(`skill-${toKebab(WeaponType[type])}-name`)
         return this.get(`skill-${toKebab(WeaponType[type])}-name`);
     }
 
