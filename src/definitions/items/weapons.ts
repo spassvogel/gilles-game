@@ -6,18 +6,18 @@ const itemType = ItemType.weapon;
 const basePath = "/img/items/weapons/";
 
 export enum WeaponType {
-    axe,
-    bow,
-    club,
-    crossbow,
-    fist,
-    flail,
-    hammer,
-    knife,
-    staff,
-    shield,
-    sword,
-    poleArm,
+    axe = "axe",
+    bow = "bow",
+    club = "club",
+    crossbow = "crossbow",
+    fist = "fist",
+    flail = "flail",
+    hammer = "hammer",
+    knife = "knife",
+    staff = "staff",
+    shield = "shield",
+    sword = "sword",
+    poleArm = "poleArm",
 }
 
 export enum WeaponClassification {

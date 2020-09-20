@@ -13,7 +13,7 @@ interface Props {
 const AdventurerSkills = (props: Props) => {
     const adventurer = useAdventurerState(props.adventurerId);
 
-    const renderSkill = (skill: string) => {
+    const renderSkill = (skill: WeaponType) => {
         // const traitDefinition = getDefinition(trait);
         const handleClick = (event: React.MouseEvent) => {
             const origin = (event.currentTarget as HTMLElement);
@@ -25,7 +25,7 @@ const AdventurerSkills = (props: Props) => {
             <Fragment key={skill}>
                 <li onClick={handleClick}>
                     <span className="skill" onClick={handleClick}>
-                        {WeaponType[skill]}:
+                        {TextManager.getSkillName(skill)}
                     </span>
                     <span>
                         {adventurer.skills[skill]}
@@ -41,10 +41,13 @@ const AdventurerSkills = (props: Props) => {
     }
     return (
         <>
-        <p>Skills</p>
-        <ul className="adventurer-skills">
-            {Object.keys(adventurer.skills)?.map((s, i)=> renderSkill(s))}
-        </ul>
+            <p>Skills</p>
+            <ul className="adventurer-skills">
+                {Object.keys(adventurer.skills)?.map((s, i) => {
+                    const skill: WeaponType = WeaponType[s];
+                    return renderSkill(skill);
+                })}
+            </ul>
         </>
     )
 }

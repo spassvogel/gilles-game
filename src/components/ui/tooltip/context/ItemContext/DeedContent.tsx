@@ -43,7 +43,7 @@ const DeedContent = (props: Props) => {
     }
     return (
         <div>
-            { subtext && (<p>"{subtext}"</p>)}
+            { subtext && (<p className="subtext">"{subtext}"</p>)}
             <button disabled={ disabled } onClick= { () => handleStartConstruction(info.structure) }>
                 Start construction ({ structureDefinition.cost.gold } gold)
             </button>

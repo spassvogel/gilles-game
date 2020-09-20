@@ -110,6 +110,17 @@ export abstract class TextManager {
         return this.get(`ui-weapon-type-${toKebab(WeaponType[type])}`);
     }
 
+    public static getSkillName(type: WeaponType) {
+        console.log('type' + WeaponType[type])
+        console.log(type)
+        console.log(`skill-${toKebab(WeaponType[type])}-name`)
+        return this.get(`skill-${toKebab(WeaponType[type])}-name`);
+    }
+
+    public static getSkillInfo(type: WeaponType) {
+        return this.get(`skill-${toKebab(WeaponType[type])}-info`);
+    }
+
     static getWeaponClassification(weaponClass: WeaponClassification) {
         return this.get(`ui-weapon-class-${toKebab(WeaponClassification[weaponClass])}`);
     }

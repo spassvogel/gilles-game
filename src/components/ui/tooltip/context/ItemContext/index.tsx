@@ -7,6 +7,7 @@ import DeedContent from './DeedContent';
 import WeaponContent from './WeaponContent';
 import ApparelContent from './ApparelContent';
 import { TextManager } from 'global/TextManager';
+import "./styles/itemContext.scss";
 
 export interface Props {
     info: ItemDefinition;
@@ -27,7 +28,7 @@ const ItemContext = (props: Props) => {
 
         default:
             const subtext = TextManager.getItemSubtext(info.item);
-            return (subtext && (<p>"{subtext}"</p>)) || null;
+            return (subtext && (<p className="subtext">"{subtext}"</p>)) || null;
     }
 }
 export default ItemContext;

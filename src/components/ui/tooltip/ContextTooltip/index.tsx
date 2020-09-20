@@ -11,6 +11,7 @@ import Tooltip from '../Tooltip';
 import { TraitDefinition } from 'definitions/traits/types';
 import TraitContext from '../context/TraitContext';
 import { getItemNameClassName } from 'constants/items';
+import { WeaponType } from 'definitions/items/weapons';
 
 
 // A contextual popup showing what you just clicked. Can be an Item
@@ -53,16 +54,34 @@ const ContextTooltip = () => {
                     </>
                 );
             }
-            case ContextType.trait:
-            default: {
+            case ContextType.trait: {
                 const traitDefinition = info as TraitDefinition;
                 const name = TextManager.getTraitName(traitDefinition.trait);
                 return (
                     <>
-                        <div className="name item">{name}</div>
+                        <div className="name trait">
+                            {TextManager.get("ui-tooltip-type-trait")}
+                            {name}
+                        </div>
                         <TraitContext traitDefinition={traitDefinition} />
                     </>
                 );
+            }
+            case ContextType.skill: {
+                const skill = info as WeaponType;
+                const name = TextManager.getSkillName(skill);
+                return (
+                    <>
+                        <div className="name skill">
+                            {TextManager.get("ui-tooltip-type-skill")}
+                            {name}
+                        </div>
+                        { TextManager.getSkillInfo(skill)}
+                    </>
+                );
+            }
+            default: {
+                throw new Error(`Unknown context type ${selectedContext.type}`)
             }
         }
     }
