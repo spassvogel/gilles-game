@@ -4,6 +4,7 @@ import DraggableAdventurerAvatar from 'components/ui/DraggableAdventurerAvatar';
 import { SOURCE_ID } from './TavernStructureView';
 import AdventurerPanel from 'components/world/QuestPanel/AdventurerPanel';
 import AdventurerButton from './AdventurerButton';
+import { TextManager } from 'global/TextManager';
 
 export interface Props {
     adventurer: AdventurerStoreState;
@@ -50,14 +51,14 @@ const RoomWithAdventurer = (props: Props) => {
                 />
                 <span key={ adventurer.id } onClick={() => onClick(adventurer)}>
                     {adventurer.name}
-                    {(onQuest) && " (on a quest)" }
+                    {(onQuest) && TextManager.get("structure-tavern-on-a-quest") }
                 </span>
             </div>
             { expanded && (
                 <div className="adventurer-details">
                     <AdventurerPanel adventurer={adventurer} />
                     { (!onQuest && selectedQuestName) && (
-                        <AdventurerButton 
+                        <AdventurerButton
                             adventurer={adventurer}
                             assignedAventurers={assignedAventurers}
                             onAddAdventurer={onAddAdventurer}

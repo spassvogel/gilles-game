@@ -70,7 +70,7 @@ export abstract class TextManager {
     }
 
     public static getQuestDescription(name: string) {
-        return this.get(`quest-${name}-description`);
+        return this.get(`quest-${toKebab(name)}-description`);
     }
 
     public static getResourceName(type: Resource) {
