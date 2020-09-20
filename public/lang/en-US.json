@@ -187,7 +187,7 @@
     "quest-retrieve-magic-amulet-description": "Some air headed princess left her magic amulet when she took it off to make some pics for her insta. Find and retrieve.",
     "quest-retrieve-magic-amulet-title": "The quest for the magic amulet",
 
-    "resource-fabric-info": "This material is used for various cloths",
+    "resource-fabric-info": "Woven fabric cloths",
     "resource-fabric-name": "fabric",
     "resource-food-info": "Various foodstuffs for hungry adventurers",
     "resource-food-name": "food",
@@ -213,6 +213,7 @@
     "structure-tannery-name": "Tannery",
     "structure-tavern-button-launch-quest": "Start quest",
     "structure-tavern-name": "Tavern",
+    "structure-tavern-on-a-quest": " (on a quest)",
     "structure-tavern-quest-launched": "Quest started!",
     "structure-tavern-title-quest-board": "Quest board",
     "structure-warehouse-name": "Warehouse",
