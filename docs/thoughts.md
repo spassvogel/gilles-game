@@ -151,9 +151,9 @@ backlog of ideas
 [x] popups should try to position themselves and if there is no space, flip
 
 #### 24/06/2019 BUTTON COMPONENTS
-[ ] buttons should get their own react component.
-[ ] first identify the different button types
-[ ] https://www.youtube.com/watch?v=ftINEEKWtFQ
+[x] buttons should get their own react component.
+[x]  first identify the different button types
+[x] https://www.youtube.com/watch?v=ftINEEKWtFQ
 
 #### 25/07/2019 SCROLLING TABS
 [ ] Tabbar could be scrollable

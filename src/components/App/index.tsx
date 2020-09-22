@@ -1,6 +1,4 @@
 // tslint:disable: object-literal-sort-keys
-import {ContextInfo, ContextType} from "constants/context";
-import CombatView from "containers/combat/CombatView";
 import {AppContextProps} from "hoc/withAppContext";
 import * as React from "react";
 import {useRef, useState, createContext, useEffect } from "react";
@@ -27,6 +25,7 @@ import StructureDetailsView from 'components/StructureDetailsView';
 import Background from 'components/Background';
 import {manifest} from "./manifest/app";
 import { restartGame } from 'index';
+import Button, { ButtonColor, ButtonSize } from 'components/ui/buttons/Button';
 import "./styles/app.scss";
 
 PixiPlugin.registerPIXI(PIXI);
@@ -209,17 +208,17 @@ const App = (props: AllProps) => {
                                 </Route>
                                 <Route path={getWorldLink()}>
                                     <Link to={getTownLink()}>
-                                        <button onClick={() => handleViewButtonClick()}> {TextManager.get(`ui-view-button-town`)} </button>
+                                        <Button onClick={() => handleViewButtonClick()} size="small" color="green"> {TextManager.get(`ui-view-button-town`)} </Button>
                                     </Link>
                                 </Route>
                                 <Route path={getTownLink()}>
                                     <Link to={getWorldLink()}>
-                                        <button onClick={() => handleViewButtonClick()}> {TextManager.get(`ui-view-button-world`)} </button>
+                                        <Button onClick={() => handleViewButtonClick()} size="small" > {TextManager.get(`ui-view-button-world`)} </Button>
                                     </Link>
                                 </Route>
                             </Switch>
                             {` | `}
-                            <button onClick={() => handleRestartClick()} style={{color: "red"}}> Restart! </button>
+                            <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} size="small"> Restart! </Button>
                         </div>
                         <Switch>
                             <Route path={getTownLink()} render={renderTownView} />

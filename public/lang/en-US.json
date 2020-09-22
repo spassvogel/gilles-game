@@ -212,6 +212,9 @@
     "structure-quarry-name": "Quarry",
     "structure-tannery-name": "Tannery",
     "structure-tavern-button-launch-quest": "Start quest",
+    "structure-tavern-button-leave-quest": "Leave quest",
+    "structure-tavern-button-join-quest": "Join {{quest}}",
+    "structure-tavern-button-join-quest-full-party": "Party full",
     "structure-tavern-name": "Tavern",
     "structure-tavern-on-a-quest": " (on a quest)",
     "structure-tavern-quest-launched": "Quest started!",
@@ -262,6 +265,9 @@
     "trait-house-monroe-description": "A proud member of House Monroe",
     "trait-house-monroe-name": "House Monroe",
 
+    "ui-adventurer-info-skills-title": "Skills",
+    "ui-adventurer-info-traits-title": "Traits",
+
     "ui-equipmentslot-chest": "chest",
     "ui-equipmentslot-feet": "feet",
     "ui-equipmentslot-hands": "hands",
@@ -274,7 +280,6 @@
     "ui-log-tab-town": "town",
 
     "ui-game-loaded": "Game loaded",
-
 
     "ui-structure-level": "Level: ",
     "ui-structure-production-craft-a": "Craft {{item:name item \"aA\"}}",

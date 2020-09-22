@@ -37,7 +37,7 @@ const AdventurerTraits = (props: Props) => {
     }
     return (
         <>
-            <p>Traits</p>
+            <p>{TextManager.get("ui-adventurer-info-traits-title")}</p>
             <ul className="adventurer-traits">
                 {adventurer.traits.map((t, i)=> renderTrait(t, i === adventurer.traits!.length -1))}
             </ul>

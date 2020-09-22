@@ -1,0 +1,140 @@
+
+$large-height: 77px;
+$large-margin: 46px;
+
+$medium-height: 32px;
+$medium-margin: 19px;
+
+$small-height: 16px;
+$small-margin: 10px;
+
+.button {
+    padding: 0;
+    background: none;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+    
+    justify-content: space-between;
+    display: inline-flex;
+    
+    span {
+        color: white;
+        font-family: "Gabriela", "Cambria", sans-serif;
+        overflow-y: hidden;
+        flex: 1;
+    }
+
+    &:disabled {
+        filter: grayscale(1) brightness(2.5);
+        span {
+            color: rgb(87, 87, 87) !important;
+        }
+    }
+
+    &:before, &:after {
+        content: '';
+        height: 100%;
+        display: inline-block;
+        // position: absolute;
+        // background-image: inherit;
+        // background: green !important;
+    }
+    
+    &.button-large {
+        height: $large-height;
+        line-height: $large-height;
+        // margin: 0 $large-margin;
+        
+        span {
+            font-size: xx-large;
+            background-position: 0 -$large-height;
+        }
+
+        &:before {
+            width: $large-margin;
+            background-position: 0 0;
+            left: -$large-margin;
+        }
+
+        &:after {
+            width: $large-margin;
+            background-position: 0 -2*$large-height;
+            right: -$large-margin;
+        }
+    }
+
+    &.button-medium {
+        height: $medium-height;
+        line-height: $medium-height;
+        // margin: 0 $medium-margin;
+        
+        span {
+            font-size: large;
+            background-position: 0 -$medium-height;
+        }
+
+        &:before {
+            width: $medium-margin;
+            background-position: 0 0;
+            left: -$medium-margin;
+        }
+
+        &:after {
+            width: $medium-margin;
+            background-position: 0 -2*$medium-height;
+            right: -$medium-margin;
+        }
+    }
+
+    &.button-small {
+        height: $small-height;
+        line-height: $small-height;
+        // margin: 0 $small-margin;
+
+        span {
+            background-position: 0 -$small-height;
+            font-size: small;
+        }
+
+        &:before {
+            width: $small-margin;
+            background-position: 0 0;
+            left: -$small-margin;
+        }
+
+        &:after {
+            width: $small-margin;
+            background-position: 0 -2*$small-height;
+            right: -$small-margin;
+        }
+    }
+
+    &.button-purple.button-large span, &.button-purple.button-large:before, &.button-purple.button-large:after {
+        background-image: url('./images/button-large-purple.png');
+    }
+    &.button-blue.button-large span, &.button-blue.button-large:before, &.button-blue.button-large:after {
+        background-image: url('./images/button-large-blue.png');
+    }
+    &.button-green.button-large span, &.button-green.button-large:before, &.button-green.button-large:after {
+        background-image: url('./images/button-large-green.png');
+    }
+    &.button-purple.button-medium span, &.button-purple.button-medium:before, &.button-purple.button-medium:after {
+        background-image: url('./images/button-medium-purple.png');
+    }
+    &.button-blue.button-medium span, &.button-blue.button-medium:before, &.button-blue.button-medium:after {
+        background-image: url('./images/button-medium-blue.png');
+    }
+    &.button-green.button-medium span, &.button-green.button-medium:before, &.button-green.button-medium:after {
+        background-image: url('./images/button-medium-green.png');
+    }
+    &.button-purple.button-small span , &.button-purple.button-small:before, &.button-purple.button-small:after {
+        background-image: url('./images/button-small-purple.png');
+    }
+    &.button-blue.button-small span , &.button-blue.button-small:before, &.button-blue.button-small:after {
+        background-image: url('./images/button-small-blue.png');
+    }
+    &.button-green.button-small span , &.button-green.button-small:before, &.button-green.button-small:after {
+        background-image: url('./images/button-small-green.png');
+    }
+}

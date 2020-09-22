@@ -61,6 +61,7 @@ const RoomWithAdventurer = (props: Props) => {
                         <AdventurerButton
                             adventurer={adventurer}
                             assignedAventurers={assignedAventurers}
+                            questName={selectedQuestName}
                             onAddAdventurer={onAddAdventurer}
                             onRemoveAdventurer={onRemoveAdventurer}
                         />

@@ -1,11 +1,15 @@
 import * as React from "react";
 import { AdventurerStoreState } from 'stores/adventurer';
 import { AVAILABLE_SLOTS } from './QuestBoard';
+import Button from 'components/ui/buttons/Button';
+import { TextManager } from 'global/TextManager';
 import "./css/adventurerButton.css";
+import useQuest from 'hooks/store/useQuest';
 
 export interface Props {
     adventurer: AdventurerStoreState;
     assignedAventurers: AdventurerStoreState[];  // assigned to a quest in the QuestBoard
+    questName: string;
 
     onAddAdventurer: (adventurer: AdventurerStoreState, index: number) => void;
     onRemoveAdventurer: (adventurer: AdventurerStoreState) => void;
@@ -16,11 +20,13 @@ const AdventurerButton = (props: Props) => {
     const {
         adventurer,
         assignedAventurers,
+        questName,
         onAddAdventurer,
         onRemoveAdventurer
     } = props;
 
     const isAssigned = assignedAventurers.indexOf(adventurer) > -1;
+    const quest = TextManager.getQuestTitle(questName);
 
     const handleAddClick = () => {
         const emptySlot = getEmptySlot(assignedAventurers);
@@ -33,23 +39,23 @@ const AdventurerButton = (props: Props) => {
 
     if (isAssigned) {
         return (
-            <button onClick={handleRemoveClick} className="adventurer-button">
-                Leave
-            </button>
+            <Button onClick={handleRemoveClick} className="adventurer-button">
+               {TextManager.get("structure-tavern-button-leave-quest")}
+            </Button>
         );
     }
     // Skip holes
     if (assignedAventurers.filter(Boolean).length === AVAILABLE_SLOTS) {
         return (
-            <button disabled={true} className="adventurer-button">
-                Party full
-            </button>
+            <Button disabled={true} className="adventurer-button">
+                {TextManager.get("structure-tavern-button-join-quest-full-party")}
+            </Button>
         )
     }
     return (
-        <button onClick={handleAddClick}  className="adventurer-button">
-            Join
-        </button>
+        <Button onClick={handleAddClick}  className="adventurer-button">
+            {TextManager.get("structure-tavern-button-join-quest", { quest })}
+        </Button>
     )
 }
 

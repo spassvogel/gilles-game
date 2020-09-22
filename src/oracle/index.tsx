@@ -1,3 +1,4 @@
+//todo: delete
 import { adventurersOnQuest } from "storeHelpers";
 import { StoreState } from "stores";
 import { AdventurerStoreState } from "stores/adventurer";

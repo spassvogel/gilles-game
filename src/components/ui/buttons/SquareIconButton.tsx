@@ -7,9 +7,7 @@ export interface Props {
     onClick?: React.MouseEventHandler<Element>;
 }
 
-type AllProps = Props;
-
-const SquareIconButton = (props: AllProps) => {
+const SquareIconButton = (props: Props) => {
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         if (props.onClick) {
             props.onClick(e);
@@ -17,7 +15,10 @@ const SquareIconButton = (props: AllProps) => {
     };
     const className = props.className || "";
     return (
-        <div className={ `ui-button widgets-squareiconbutton ${className}`} onClick={handleClick}>
+        <div
+            className={`ui-button widgets-squareiconbutton ${className}`}
+            onClick={handleClick}
+        >
             {props.text}
         </div>
     );

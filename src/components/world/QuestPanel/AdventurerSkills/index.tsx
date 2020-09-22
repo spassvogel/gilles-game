@@ -41,7 +41,7 @@ const AdventurerSkills = (props: Props) => {
     }
     return (
         <>
-            <p>Skills</p>
+            <p>{TextManager.get("ui-adventurer-info-skills-title")}</p>
             <ul className="adventurer-skills">
                 {Object.keys(adventurer.skills)?.map((s, i) => {
                     const skill: WeaponType = WeaponType[s];

@@ -11,6 +11,7 @@ import "./css/questboard.css";
 import { QuestDefinition } from 'definitions/quests/types';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
+import Button from 'components/ui/buttons/Button';
 
 export const AVAILABLE_SLOTS = 5;
 const minimumCountAdventurers = 3;  // we need this many adventurers to start the quest
@@ -60,9 +61,9 @@ const QuestBoard = (props: Props) => {
                     onAdventurerDropped={props.onAdventurerDropped}
                 />
                 <ItemsCostBox items={ questDefinition.requiredItems || [] }/>
-                <button disabled={!canLaunch} onClick = { () => props.onLaunchQuest() }>
+                <Button disabled={!canLaunch} onClick = { () => props.onLaunchQuest() }>
                     {TextManager.get("structure-tavern-button-launch-quest")}
-                </button>
+                </Button>
             </div>
         );
     };
