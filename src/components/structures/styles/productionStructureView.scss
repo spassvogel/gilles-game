@@ -13,52 +13,51 @@ details.structureview  section {
     padding: 0 32px;
 }
 
-.productionstructureview {
+.production-structure-view {
     padding: 8px;
-}
+    
+    .crafting-area {
+        display: flex;
+    
+        .vertical-tab-bar {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            width: 200px;
+            
+            li {
+                display: flex;
+                margin: 0;
+                padding: 0;
+                line-height: 32px;
+                cursor: var(--app-cursor-pointer);
 
-.productionstructureview .crafting-area {
-    display: flex;
-}
+                &.selected {
+                    background: #165fcb;
+                    color: white;
+                }
+                
+                .item-icon {
+                    width: 32px;
+                    height: 32px;
+                    margin-right: 10px;
+                }
+            }
+        }
+        
+        .crafting-details {
+            flex: 1;
+            border: 3px solid #165fcb;
+            padding: 10px;
 
-.productionstructureview .crafting-area .vertical-tab-bar {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 200px;
+            .crafting-costs {
+                display: flex;
+            
+                fieldset {
+                    flex: 1;
+                }
+            }
+        }
+    }
 }
-
-.productionstructureview .crafting-area .vertical-tab-bar li {
-    display: flex;
-    margin: 0;
-    padding: 0;
-    line-height: 32px;
-    cursor: var(--app-cursor-pointer);
-}
-
-.productionstructureview .crafting-area .vertical-tab-bar li.selected {
-    background: #165fcb;
-    color: white;
-}
-
-.productionstructureview .crafting-area .vertical-tab-bar li .item-icon {
-    width: 32px;
-    height: 32px;
-    margin-right: 10px;
-}
-
-.productionstructureview .crafting-area .crafting-details {
-    flex: 1;
-    border: 3px solid #165fcb;
-    padding: 10px;
-}
-
-.productionstructureview .crafting-area .crafting-details .crafting-costs {
-    display: flex;
-}
-
-.productionstructureview .crafting-area .crafting-details .crafting-costs fieldset {
-    flex: 1;
-}
-
 

@@ -214,7 +214,7 @@ const ProductionStructureView = (props: Props) => {
         <>
             <StructureViewHeader structure={props.structure} />
 
-            <details open={true } className = "productionstructureview">
+            <details open={true } className = "production-structure-view">
                 <summary>{displayName}</summary>
                 <section>
                     { createUpgradeRow() }
