@@ -15,6 +15,10 @@ details.structureview  section {
 
 .production-structure-view {
     padding: 8px;
+
+    .upgrade {
+        float: right;
+    }
     
     .crafting-area {
         display: flex;
@@ -56,6 +60,12 @@ details.structureview  section {
                 fieldset {
                     flex: 1;
                 }
+            }
+
+            .buttonrow {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 16px;
             }
         }
     }

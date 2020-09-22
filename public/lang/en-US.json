@@ -284,6 +284,7 @@
     "ui-structure-level": "Level: ",
     "ui-structure-upgrade": "Upgrade to level {{level}} ({{cost}} gold)",
     "ui-structure-upgrade-max": "Upgraded to max level",
+    "ui-structure-production-craft": "Craft",
     "ui-structure-production-craft-a": "Craft {{item:name item \"aA\"}}",
     "ui-structure-production-crafting": "Currently crafting:",
     "ui-structure-production-crafting-time": " Crafting time: {{time}}",

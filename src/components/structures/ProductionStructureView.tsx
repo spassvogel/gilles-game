@@ -31,6 +31,7 @@ import { subtractGold } from 'actions/gold';
 import { addLogText } from 'actions/log';
 import { LogChannel } from 'stores/logEntry';
 import "./styles/productionStructureView.scss";
+import Button from 'components/ui/buttons/Button';
 
 export interface Props {
     structure: Structure;
@@ -90,18 +91,18 @@ const ProductionStructureView = (props: Props) => {
         const nextLevel = structureDefinition.levels[level + 1];
         const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
         const canUpgrade = nextLevel != null && gold >= nextLevelCost;
-        const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
+        const upgradeText = nextLevel == null ? TextManager.get("ui-structure-upgrade-max") : TextManager.get("ui-structure-upgrade", { cost: nextLevelCost, level: level + 2 });
 
         return (
             <div>
                 <label>{TextManager.get("ui-structure-level")}</label>
                 { `${(level + 1)} / ${structureDefinition.levels.length}` }
-                <button
-                    style={{float: "right"}}
+                <Button
+                    className="upgrade"
                     onClick={() => {handleUpgrade(nextLevelCost)}}
                     disabled={!canUpgrade}>
                         { upgradeText }
-                </button>
+                </Button>
             </div>
         );
     };
@@ -182,27 +183,30 @@ const ProductionStructureView = (props: Props) => {
                         {costMaterials && <ItemsCostBox items={costMaterials} />}
                     </fieldset>
                 </div>
-                <div style={{display: "flex"}}>
-                    <UpDownValue
-                        value={workersAssigned}
-                        label={TextManager.get("ui-structure-production-workers")}
-                        onUp={handleUp}
-                        onDown={handleDown}
-                        upDisabled={
-                            workersAssigned >= workersFree ||
-                            workersAssigned >= MAX_WORKERS_CRAFTING
-                        }
-                        downDisabled={ workersAssigned < 1 }
-                    />
-                    &nbsp;
-                    { makeTimeString(produces.cost.time || 0) }
-                </div>
-                <div>
-                    <button
-                        disabled={disabled }
-                        onClick={handleClick }>
-                        Craft
-                    </button>
+                <div className="buttonrow">
+                    <div>
+                        <UpDownValue
+                            value={workersAssigned}
+                            label={TextManager.get("ui-structure-production-workers")}
+                            onUp={handleUp}
+                            onDown={handleDown}
+                            upDisabled={
+                                workersAssigned >= workersFree ||
+                                workersAssigned >= MAX_WORKERS_CRAFTING
+                            }
+                            downDisabled={ workersAssigned < 1 }
+                        />
+                        { makeTimeString(produces.cost.time || 0) }
+                    </div>
+                    <div>
+                        <Button
+                            disabled={disabled}
+                            className="craft"
+                            onClick={handleClick}
+                        >
+                            {TextManager.get("ui-structure-production-craft")}
+                        </Button>
+                    </div>
                 </div>
             </div>
         );
