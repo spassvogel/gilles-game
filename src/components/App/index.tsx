@@ -201,24 +201,24 @@ const App = (props: AllProps) => {
                         onLoadComplete={handleMediaLoadComplete}
                     >
                         <Topbar persistor={props.persistor} />
-                        <div>
+                        <div style={{ margin: "4px 0 0 8px"}}>
                             <Switch>
                                 <Route path="/" exact={true} >
                                     <Redirect from="/" to={getWorldLink()} />
                                 </Route>
                                 <Route path={getWorldLink()}>
                                     <Link to={getTownLink()}>
-                                        <Button onClick={() => handleViewButtonClick()} size="small" color="green"> {TextManager.get(`ui-view-button-town`)} </Button>
+                                        <Button onClick={() => handleViewButtonClick()} color="green"> {TextManager.get(`ui-view-button-town`)} </Button>
                                     </Link>
                                 </Route>
                                 <Route path={getTownLink()}>
                                     <Link to={getWorldLink()}>
-                                        <Button onClick={() => handleViewButtonClick()} size="small" > {TextManager.get(`ui-view-button-world`)} </Button>
+                                        <Button onClick={() => handleViewButtonClick()}  > {TextManager.get(`ui-view-button-world`)} </Button>
                                     </Link>
                                 </Route>
                             </Switch>
                             {` | `}
-                            <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} size="small"> Restart! </Button>
+                            <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} > Restart! </Button>
                         </div>
                         <Switch>
                             <Route path={getTownLink()} render={renderTownView} />
