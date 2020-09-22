@@ -10,7 +10,8 @@ import { decreaseWorkers, increaseWorkers } from 'actions/structures';
 import StructureViewHeader from './StructureViewHeader';
 import useStructureActions from 'hooks/actions/useStructureActions';
 import { TextManager } from 'global/TextManager';
-
+import Button from 'components/ui/buttons/Button';
+import './styles/resourceStructureView.scss';
 
 export interface Props  {
     type: Structure;
@@ -71,24 +72,27 @@ const ResourceStructureView = (props: Props) => {
         const nextLevel = structureDefinition.levels[level + 1];
         const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
         const canUpgrade = nextLevel != null && gold >= nextLevelCost;
-        const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
+        const upgradeText = nextLevel == null ? TextManager.get("ui-structure-upgrade-max") : TextManager.get("ui-structure-upgrade", { cost: nextLevelCost, level: level + 2 });
 
         const handleClick = () => {
             startUpgradeStructure(nextLevelCost, level + 1, props.type);
         };
 
-        return <div>
-            <label>
-                {TextManager.get("ui-structure-level")}
-            </label>
-            {(level + 1) + " / " + structureDefinition.levels.length }
-            <button
-                style={{float: "right"}}
-                onClick={handleClick }
-                disabled= {!canUpgrade } >
-                    {upgradeText }
-            </button>
-        </div>;
+        return (
+            <div>
+                <label>
+                    {TextManager.get("ui-structure-level")}
+                </label>
+                {(level + 1) + " / " + structureDefinition.levels.length }
+                <Button
+                    className="upgrade"
+                    size="small"
+                    onClick={handleClick }
+                    disabled= {!canUpgrade } >
+                        {upgradeText }
+                </Button>
+            </div>
+        );
     };
 
     const createGeneratesRow = () => {
@@ -111,7 +115,7 @@ const ResourceStructureView = (props: Props) => {
     return (
         <>
             <StructureViewHeader structure={props.type} />
-            <details open={true} className="structureview">
+            <details open={true} className="resource-structure-view">
                 <section>
                     {createWorkersRow() }
                     {createUpgradeRow() }

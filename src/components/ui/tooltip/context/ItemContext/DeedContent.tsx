@@ -10,6 +10,7 @@ import useGoldState from 'hooks/store/useGoldState';
 import useStructureState from 'hooks/store/useStructureState';
 import { StructureState } from 'stores/structure';
 import { TextManager } from 'global/TextManager';
+import Button from 'components/ui/buttons/Button';
 
 interface Props {
     info: DeedDefinition;
@@ -44,9 +45,13 @@ const DeedContent = (props: Props) => {
     return (
         <div>
             { subtext && (<p className="subtext">"{subtext}"</p>)}
-            <button disabled={ disabled } onClick= { () => handleStartConstruction(info.structure) }>
+            <Button
+                disabled={disabled}
+                size="small"
+                onClick={() => handleStartConstruction(info.structure)}
+            >
                 Start construction ({ structureDefinition.cost.gold } gold)
-            </button>
+            </Button>
         </div>
     );
 

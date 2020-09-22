@@ -10,9 +10,9 @@ export enum ButtonSize {
 }
 
 export enum ButtonColor {
-    blue,
-    purple,
-    green
+    blue = "blue",
+    purple = "purple",
+    green = "green"
 }
 
 export type Props = PropsWithChildren<{
@@ -25,7 +25,7 @@ export type Props = PropsWithChildren<{
 }>
 
 
-const Button = (props: Props) => {
+const Button = (props: React.ComponentProps<'button'> & Props) => {
     const { color, size, ...otherProps } = props;
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
