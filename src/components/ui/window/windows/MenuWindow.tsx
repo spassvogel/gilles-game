@@ -8,14 +8,14 @@ import CheatWindow from './CheatWindow';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import { Persistor } from 'redux-persist';
-import { runGame, loadGame } from 'index';
-import configureStore from 'utils/configureStore';
+import { loadGame } from 'index';
 import { useState } from 'react';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { TextManager } from 'global/TextManager';
 import { createEncryptor } from 'simple-encryptor';
 import "./styles/menu.scss";
+import Button from 'components/ui/buttons/Button';
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -77,21 +77,21 @@ const Menu = (props: AllProps & AppContextProps) => {
     return (
         <div className="menu">
             <p>
-                <button onClick={handleClickCheats}>Cheats!</button>
+                <Button onClick={handleClickCheats}>Cheats!</Button>
             </p>
             <p>
-                <button onClick={handleClickSettings}>Settings</button>
+                <Button onClick={handleClickSettings}>Settings</Button>
             </p>
             <fieldset>
                 <legend>Save and load</legend>
                 <section>
                     Save game to disk:&nbsp;
-                    <button onClick={handleClickSave}>Save</button>
+                    <Button onClick={handleClickSave}>Save</Button>
                 </section>
                 <section>
                     Load game from disk:&nbsp;
                     <input type="file" onChange={handleFileChange} />
-                    <button onClick={handleClickLoad} disabled={!loadedStore}>Load</button>
+                    <Button onClick={handleClickLoad} disabled={!loadedStore}>Load</Button>
                 </section>
             </fieldset>
         </div>

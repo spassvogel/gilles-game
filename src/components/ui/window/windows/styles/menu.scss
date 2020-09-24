@@ -3,11 +3,19 @@
         color: white;
     }
 
+    p {
+        margin: 8px;
+    }
+
     fieldset {
         color: white;
         display: flex;
         flex-direction: column;
 
+        .button {
+            float: right;
+        }
+        
         section {
             margin-top: 20px;
         }

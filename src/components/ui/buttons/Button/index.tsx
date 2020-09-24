@@ -37,7 +37,7 @@ const Button = (props: React.ComponentProps<'button'> & Props) => {
         ${props.className || ""}
         button-${typeof color === "string" ? color : ButtonColor[color ?? ButtonColor.blue]}
         button-${typeof props.size === "string" ? props.size : ButtonSize[props.size ?? ButtonSize.auto]}
-        ${props.square && "button-square"}
+        ${props.square ? "button-square" : ""}
     `;
     return (
         <button
