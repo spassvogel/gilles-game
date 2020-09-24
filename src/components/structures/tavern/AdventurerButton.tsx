@@ -3,8 +3,7 @@ import { AdventurerStoreState } from 'stores/adventurer';
 import { AVAILABLE_SLOTS } from './QuestBoard';
 import Button from 'components/ui/buttons/Button';
 import { TextManager } from 'global/TextManager';
-import "./css/adventurerButton.css";
-import useQuest from 'hooks/store/useQuest';
+import "./styles/adventurerButton.scss";
 
 export interface Props {
     adventurer: AdventurerStoreState;

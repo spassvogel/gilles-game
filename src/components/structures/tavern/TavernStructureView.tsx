@@ -20,7 +20,8 @@ import { subtractGold } from 'actions/gold';
 import { upgradeStructure } from 'actions/structures';
 import { addLogText } from 'actions/log';
 import { LogChannel } from 'stores/logEntry';
-import "./css/tavernstructureview.css";
+import Button from 'components/ui/buttons/Button';
+import "./styles/tavernstructureview.scss";
 
 export interface StateProps {
     gold: number;
@@ -71,7 +72,7 @@ const TavernStructureView = (props: Props) => {
         const nextLevel = structureDefinition.levels[level + 1];
         const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
         const canUpgrade = nextLevel != null && gold >= nextLevelCost;
-        const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
+        const upgradeText = nextLevel == null ? TextManager.get("ui-structure-upgrade-max") : TextManager.get("ui-structure-upgrade", { cost: nextLevelCost, level: level + 2 });
 
         const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
             onUpgrade(nextLevelCost);
@@ -79,14 +80,14 @@ const TavernStructureView = (props: Props) => {
 
         return (
             <div>
-                <label>level:</label>{ `${(level + 1)} / ${structureDefinition.levels.length}` }
-                <button
-                    style = {{ float: "right"}}
+                <label>{TextManager.get("ui-structure-level")}</label>
+                { `${(level + 1)} / ${structureDefinition.levels.length}` }
+                <Button
+                    className="upgrade"
                     onClick={handleClick}
-                    disabled= { !canUpgrade}
-                >
-                    { upgradeText}
-                </button>
+                    disabled={!canUpgrade}>
+                        { upgradeText }
+                </Button>
             </div>
         );
     };

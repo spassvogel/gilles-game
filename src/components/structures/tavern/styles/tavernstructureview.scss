@@ -1,0 +1,54 @@
+/** medium and large resolutions */
+@media only screen and (min-width: 576px) {
+    .tavernstructureview section {
+        display: flex;
+    }
+}
+
+.tavernstructureview {
+    
+    .upgrade {
+        float: right;
+    }
+
+    .rooms {
+        overflow: auto;
+        flex: 1;
+        margin: 8px;
+    
+        .adventurer-details {
+            border: 1px solid grey;
+            padding: 8px;
+            top: -4px;
+            position: relative;
+        }
+        
+        .room {
+            border: 1px solid gray;
+            margin-bottom: 4px;
+            padding: 4px;
+            height: 42px;
+            box-sizing: border-box;
+        
+            &.expanded {
+                background-color: #165fcb;
+                color: #fff;
+            }
+            
+            .adventurer-icon {
+                width: 32px;
+                float: left;
+                margin-right: 6px;
+            }
+            
+            .boot {
+                float: right
+            }
+        }
+    }
+
+    .quest-board {
+        flex: 1;
+    }
+}
+

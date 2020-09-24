@@ -1,0 +1,44 @@
+.quest-board {
+    margin: 8px;
+	margin-left: 0;
+
+    .quest-list {
+        padding: 0;
+
+        .quest {
+            display: flex;
+            cursor: var(--app-cursor-pointer);
+
+            .icon {
+				height: 32px;
+				width: 26px;
+				display: inline-block;
+				padding: 3px;
+				margin: 3px;
+				box-sizing: border-box;
+				background-size: contain;
+			}
+
+            .title {
+				flex: 1;
+				line-height: 32px;
+				margin-left: 10px;
+			}
+		}
+
+        .quest.selected {
+            background-color: #165fcb;
+
+            .title {
+				color: white;
+			}
+		}
+	}
+
+    .quest-details {
+		border: 1px solid grey;
+		padding: 5px;
+		display: flex;
+		flex-direction: column;
+	}
+}

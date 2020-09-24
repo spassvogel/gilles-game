@@ -7,11 +7,11 @@ import { AdventurerStoreState } from "stores/adventurer";
 import { QuestStoreState } from "stores/quest";
 import { TextManager } from "global/TextManager";
 import AssignAdventurers from "./AssignAdventurers";
-import "./css/questboard.css";
 import { QuestDefinition } from 'definitions/quests/types';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import Button from 'components/ui/buttons/Button';
+import "./styles/questboard.scss";
 
 export const AVAILABLE_SLOTS = 5;
 const minimumCountAdventurers = 3;  // we need this many adventurers to start the quest

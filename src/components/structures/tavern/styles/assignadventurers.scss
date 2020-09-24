@@ -1,0 +1,19 @@
+.assign-adventurers {
+	margin: 20px;
+	padding: 0;
+	justify-content: center;
+    display: flex;
+    
+	li {
+		display: inline-block;
+		width: 32px;
+		height: 32px;
+		border: 1px solid gray;
+		margin: 2px;
+    
+    
+        &.has-adventurer {
+		    cursor: var(--app-cursor-pointer);
+        }
+    }
+}
