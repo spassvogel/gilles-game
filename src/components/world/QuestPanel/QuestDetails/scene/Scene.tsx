@@ -60,7 +60,7 @@ const Scene = (props: Props) => {
         }
         return scene?.actors?.map((o) => renderActor(o));
 
-    }, [])
+    }, [controller, props.setSelectedActor, scene, selectedActor])
 
     useEffect(() => {
         if (!mapData) return;

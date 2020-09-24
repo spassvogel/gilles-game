@@ -6,7 +6,6 @@ import { completeSceneAction } from 'actions/quests';
 import { StoreState } from 'stores';
 import { gsap } from 'gsap';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
-import { loadResource } from 'utils/pixiJs';
 import SpriteAnimated from './SpriteAnimated';
 
 export interface Props  {

@@ -21,29 +21,6 @@ const DEBUG = false;
 const Tilemap = (props: Props) => {
     const {data, spritesheets} = props;
 
-    /*
-      useEffect(() => {
-        // const tileset = getTileset(data);
-        // const spritesheetData = parseSpritesheetData(data);
-        loadResource(`${basePath}/${tileset.image}`, (resource) => {
-            const texture = resource.texture;
-            if (!texture) return;
-            PIXI.utils.clearTextureCache();
-            const spritesheet = new PIXI.Spritesheet(texture, spritesheetData);
-
-            spritesheet.parse(() => {
-                const allLayers = data.layers.filter(l => l.visible && l.type === TiledLayerType.tilelayer).map(layer => {
-                     return createTileLayer(layer, texture, data.width, tileset, spritesheet);
-                });
-                allLayers.push(createObjectLayer(tileObjects, texture, tileset, spritesheet));
-                setLayers(allLayers);
-
-                if (DEBUG){
-                    setDebug(getDebug(data.layers[0].data.length, data.layers[0].width, tileset.tilewidth, tileset.tileheight))
-                }
-            });
-        })
-    }, [basePath, data, tileObjects]);*/
     return (
         <Container >
             {data.layers
