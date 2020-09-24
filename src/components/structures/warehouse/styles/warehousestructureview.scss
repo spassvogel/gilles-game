@@ -1,0 +1,17 @@
+
+.warehouse-structureview {
+    .upgrade {
+        float: right;
+    }
+    
+    .inventory {
+        margin-top: 20px;
+        grid-template-columns: repeat(5, 1fr);
+    }
+    
+    .adventurer-inventory {
+        border: 1px solid green;
+        min-height: 100px;
+        padding-left: 20px;
+    }
+}

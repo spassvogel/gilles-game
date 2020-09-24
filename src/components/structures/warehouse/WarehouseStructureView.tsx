@@ -21,7 +21,8 @@ import { StoreState } from 'stores';
 import { useAdventurersInTown } from 'hooks/store/adventurers';
 import useItemDropActions from 'hooks/actions/useItemActions';
 import AdventurerInfo from 'components/ui/adventurer/AdventurerInfo';
-import "./css/warehousestructureview.css";
+import "./styles/warehousestructureview.scss";
+import Button from 'components/ui/buttons/Button';
 
 // tslint:disable-next-line: no-empty-interface
 export interface Props  {
@@ -85,21 +86,21 @@ const WarehouseStructureView = (props: Props) => {
         const nextLevel = structureDefinition.levels[level + 1];
         const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
         const canUpgrade = nextLevel != null && gold >= nextLevelCost;
-        const upgradeText = `Upgrade! (${nextLevelCost < 0 ? "max" : nextLevelCost + " gold"})`;
+        const upgradeText = nextLevel == null ? TextManager.get("ui-structure-upgrade-max") : TextManager.get("ui-structure-upgrade", { cost: nextLevelCost, level: level + 2 });
 
         const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
             startUpgradeStructure(nextLevelCost, level + 1, Structure.warehouse);
         };
         return (
             <div>
-                <label>level:</label>{(level + 1) + " / " + structureDefinition.levels.length}
-                <button
-                    style={{ float: "right" }}
+                <label>{TextManager.get("ui-structure-level")}</label>
+                { `${(level + 1)} / ${structureDefinition.levels.length}` }
+                <Button
+                    className="upgrade"
                     onClick={handleClick}
-                    disabled={!canUpgrade}
-                >
-                    {upgradeText}
-                </button>
+                    disabled={!canUpgrade}>
+                        { upgradeText }
+                </Button>
             </div>
         );
     };
