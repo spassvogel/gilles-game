@@ -530,6 +530,7 @@ https://github.com/DragonBones/DragonBonesJS
 #### 08/05/2020 Sass
 [x] Try to implement sass again (https://www.google.com/search?q=sass+create+react+app)
 [ ] Use variables for cursor
+[ ] Convert existing css to sass: http://beautifytools.com/css-to-scss-converter.php
 
 #### Item rarity/quality [+art] [+design]
 [ ] background on items. gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary

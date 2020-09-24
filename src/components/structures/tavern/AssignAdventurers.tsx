@@ -3,7 +3,7 @@ import { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvata
 import DroppableAdventurerSlot from "components/ui/DroppableAdventurerSlot";
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
-import "./css/assignadventurers.css";
+import "./styles/assignadventurers.scss";
 
 export interface DispatchProps {
     onAdventurerDropped: (item: AdventurerAvatarDragInfo, index: number) => void;

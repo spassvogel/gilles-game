@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux';
 import { addItemToToProduces } from 'actions/structures';
 import { formatDuration } from 'utils/time';
 import { STUDY_TIME } from 'mechanics/studying';
+import Button from 'components/ui/buttons/Button';
 
 interface Props {
     item: Item;
@@ -45,7 +46,7 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
 
     if (!structure) {
         return null;
-    }   
+    }
 
     // const structureDefinition = getStructureDefinition<ProductionStructureDefinition>(structure);
     // Can already be produced
@@ -99,9 +100,9 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
 
     return (
         <p>
-            <button onClick={startStudy}>
+            <Button onClick={startStudy} size="small">
                 {TextManager.get("ui-tooltip-study-start-study")}
-            </button>
+            </Button>
         </p>
     );
 }
