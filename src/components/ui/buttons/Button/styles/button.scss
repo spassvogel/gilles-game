@@ -56,7 +56,7 @@ $small-margin: 10px;
 
         &:after {
             width: $large-margin;
-            background-position: 0 -2*$large-height;
+            background-position: right -2*$large-height;
             right: -$large-margin;
         }
     }
@@ -78,8 +78,23 @@ $small-margin: 10px;
 
         &:after {
             width: $medium-margin;
-            background-position: 0 -2*$medium-height;
+            background-position: right -2*$medium-height;
             right: -$medium-margin;
+        }
+
+        &.button-square {
+            span {
+                width: 14px;
+                display: inline-block;
+            }
+
+            &:before {
+                width: 8px;
+            }
+
+            &:after {
+                width: 8px;
+            }
         }
     }
 

@@ -1,4 +1,3 @@
-import SquareIconButton from "components/ui/buttons/SquareIconButton";
 import Tab from "components/ui/tabs/Tab";
 import Tabstrip from "components/ui/tabs/Tabstrip";
 import * as React from "react";
@@ -10,6 +9,7 @@ import {useSelector} from 'react-redux';
 import {QuestStoreState} from 'stores/quest';
 import {selectActiveQuests} from 'selectors/quests';
 import "./styles/simplelog.scss";
+import Button from 'components/ui/buttons/Button';
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
@@ -102,7 +102,13 @@ const SimpleLog = (props: Props) => {
                         return <Tab id={tab.tabId} key={tab.tabId}>{tab.label}</Tab>;
                     })}
                 </Tabstrip>
-                <SquareIconButton className="expand-button" onClick={handleToggleExpand} text={expanded ? "▼" : "▲"}/>
+                <Button
+                    className="expand-button"
+                    onClick={handleToggleExpand}
+                    square={true}
+                    size={"medium"}
+                    text={expanded ? "▼" : "▲"}
+                />
             </div>
             <div className="log-entries">
                 {displayEntries.map((entry) => getLogEntryRow(entry))}

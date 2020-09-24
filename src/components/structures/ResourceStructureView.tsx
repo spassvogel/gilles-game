@@ -86,7 +86,6 @@ const ResourceStructureView = (props: Props) => {
                 {(level + 1) + " / " + structureDefinition.levels.length }
                 <Button
                     className="upgrade"
-                    size="small"
                     onClick={handleClick }
                     disabled= {!canUpgrade } >
                         {upgradeText }
