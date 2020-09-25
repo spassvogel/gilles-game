@@ -18,6 +18,7 @@ $small-margin: 10px;
     
     justify-content: space-between;
     display: inline-flex;
+    position: relative;
     
     span {
         color: white;
@@ -37,6 +38,7 @@ $small-margin: 10px;
         content: '';
         height: 100%;
         display: inline-block;
+        position: absolute;
     }
     
     &.button-large {
@@ -46,18 +48,20 @@ $small-margin: 10px;
         span {
             font-size: large;
             background-position: 0 -$large-height;
+            margin: 0 $large-margin;
         }
 
         &:before {
             width: $large-margin;
             background-position: 0 0;
-            left: -$large-margin;
+            height: $large-height;
         }
 
         &:after {
             width: $large-margin;
             background-position: right -2*$large-height;
-            right: -$large-margin;
+            right: 0;
+            height: $large-height;
         }
     }
 
@@ -68,24 +72,27 @@ $small-margin: 10px;
         span {
             font-size: medium;
             background-position: 0 -$medium-height;
+            margin: 0 $medium-margin;
         }
 
         &:before {
             width: $medium-margin;
+            height: $medium-height;
             background-position: 0 0;
-            left: -$medium-margin;
         }
 
         &:after {
             width: $medium-margin;
+            height: $medium-height;
+            right: 0;
             background-position: right -2*$medium-height;
-            right: -$medium-margin;
         }
 
         &.button-square {
             span {
                 width: 14px;
                 display: inline-block;
+                margin: 0 8px;
             }
 
             &:before {
@@ -105,18 +112,20 @@ $small-margin: 10px;
         span {
             background-position: 0 -$small-height;
             font-size: smaller;
+            margin: 0 $small-margin;
         }
 
         &:before {
             width: $small-margin;
+            height: $small-height;
             background-position: 0 0;
-            left: -$small-margin;
         }
 
         &:after {
             width: $small-margin;
+            height: $small-height;
             background-position: 0 -2*$small-height;
-            right: -$small-margin;
+            right: 0;
         }
     }
 
@@ -128,18 +137,20 @@ $small-margin: 10px;
             span {
                 background-position: 0 -$small-height;
                 font-size: smaller;
+                margin: 0 $small-margin;
             }
     
             &:before {
                 width: $small-margin;
+                height: $small-height;
                 background-position: 0 0;
-                left: -$small-margin;
             }
     
             &:after {
                 width: $small-margin;
+                height: $small-height;
                 background-position: 0 -2*$small-height;
-                right: -$small-margin;
+                right: 0;
             }
         }
     }

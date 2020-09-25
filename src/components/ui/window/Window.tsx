@@ -45,6 +45,7 @@ const Window: React.FunctionComponent<AllProps> = (props) => {
                         onClick={handleBack}
                         square={true}
                         size={"medium"}
+                        color="purple"
                         text="<"
                     />
                 )}
@@ -55,6 +56,7 @@ const Window: React.FunctionComponent<AllProps> = (props) => {
                         onClick={handleClose}
                         square={true}
                         size={"medium"}
+                        color="purple"
                         text="x"
                     />
                 )}

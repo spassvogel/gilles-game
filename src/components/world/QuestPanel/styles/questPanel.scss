@@ -1,0 +1,122 @@
+
+@import 'components/styles/variables.scss';
+
+.quest-panel {
+	display: flex;
+	background: white;
+    flex: 1;
+    
+    /** on the left. grow as needed */
+	.quest-area {
+		flex: .6;
+		padding: 8px;
+		display: flex;
+        position: relative;
+        
+		.modal {
+			background: rgba(0, 0, 0, 0.75);
+			position: absolute;
+			left: 8px;
+			top: 8px;
+			right: 8px;
+			bottom: 8px;
+			display: flex;
+			justify-content: center;
+            align-items: baseline;
+
+            &>div {
+                margin-top: 50%;
+            }
+		}
+        
+        /** scene canvas */
+        canvas {
+			width: 100%;
+			height: auto !important;
+            flex: 1;
+            max-width: 100%;
+		}
+
+    }
+
+    /** on the right. party party */
+    .party-area {
+		flex: .4;
+        padding: 8px;
+        
+        .tabstrip.adventurers-tabstrip {
+            .tabstrip-tab {
+                margin-bottom: -2px;
+                margin-left: 2px;
+                padding: 0;
+            }
+            
+            .tabstrip-tab.active {
+                border-color: #ffa500;
+            }
+        }
+                
+        .adventurer-details {
+            border-top: 2px solid #ffa500;
+        }
+	}
+
+    &.quest-panel-horizontal {
+        flex-direction: row;
+    }
+
+    &.quest-panel-vertical {
+        flex-direction: column;
+
+        .adventurer-panel {
+            display: flex;
+            overflow: auto; /* horizontal scrollbar if needed */
+
+            .info {
+                margin-right: 8px;
+                flex: 1;
+            }
+
+            .equipment {
+                margin-right: 8px;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: $max-width-small) {
+    /** medium screen, horizontal layout */
+	.quest-panel.quest-panel-auto {
+		flex-direction: row;
+
+        .quest-area {
+			overflow: hidden;
+			justify-content: center;
+			align-items: baseline;
+		}
+	}
+}
+@media only screen and (max-width: $max-width-small) {
+    /** small screen, vertical layout */
+
+    .quest-panel.quest-panel-auto {
+		flex-direction: column;
+    
+        .quest-area {
+			flex: 0 1;
+		}
+    
+        .adventurer-panel {
+			display: flex;
+			overflow: auto;
+    
+            .info {
+				margin-right: 8px;
+				flex: 1;
+			}
+			.equipment {
+				margin-right: 8px;
+			}
+		}
+	}
+}

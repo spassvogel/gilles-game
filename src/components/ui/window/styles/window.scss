@@ -1,33 +1,27 @@
 @import 'components/styles/variables.scss';
 
 .window {
-    background: rgba(0, 0, 0, .8);
-    position: absolute;
-    z-index: 2;
-    top: $misc-topbar-height;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
+	background: rgba(0, 0, 0, .8);
+	position: absolute;
+	z-index: 2;
+	top: $misc-topbar-height;
+	left: 0;
+	width: 100%;
+	height: 100%;
 
-.window .header {
-    background: white;
-    display: flex;
-    height: 32px;
-}
+    .header {
 
-.window .header .back-button {
-    background: purple;
+        background: black;
+		display: flex;
+		height: 32px;
+        
+		h3 {
+            height: 32px;
+            color: white;
+			flex: 1;
+			margin: 0;
+			line-height: 32px;
+			padding-left: 6px;
+		}
+	}
 }
-
-.window .header h3 {
-    height: 32px;    
-    flex: 1;
-    margin: 0;
-    line-height: 32px;
-    padding-left: 6px;
-}
-
-.window .header .close-button {
-}
-

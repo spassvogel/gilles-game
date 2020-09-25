@@ -7,6 +7,7 @@ import { DragSourceType } from 'constants/dragging';
 import { adventurerFreeInventorySlots } from 'storeHelpers';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
 import { useAdventurerState } from 'hooks/store/adventurers';
+import Button from 'components/ui/buttons/Button';
 import "../styles/lootCache.scss";
 import "../styles/modal.scss";
 
@@ -73,9 +74,9 @@ const LootCache = (props: Props) => {
                     </div>
                     <div className="adventurer">
                         <AdventurerAvatar adventurer={adventurer}/>
-                        <button onClick={handleTakeAllItems} disabled={freeSlots === 0}>
+                        <Button onClick={handleTakeAllItems} disabled={freeSlots === 0} size="small">
                             {TextManager.get("quest-common-loot-cache-take-all")}
-                        </button>
+                        </Button>
                     </div>
                 </div>
             )}
@@ -89,9 +90,9 @@ const LootCache = (props: Props) => {
                         {TextManager.get("quest-common-loot-cache-gold", { gold: cache.gold })}
                     </div>
                     <div className="take-gold">
-                        <button onClick={handleTakeGold}>
+                        <Button onClick={handleTakeGold} size="small">
                             {TextManager.get("quest-common-loot-cache-take")}
-                        </button>
+                        </Button>
                     </div>
                 </div>
             )}

@@ -27,7 +27,7 @@ export type Props = PropsWithChildren<{
 
 
 const Button = (props: React.ComponentProps<'button'> & Props) => {
-    const { color, size, ...otherProps } = props;
+    const { color, size, square, text, ...otherProps } = props;
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         props.onClick?.(e)
@@ -37,8 +37,9 @@ const Button = (props: React.ComponentProps<'button'> & Props) => {
         ${props.className || ""}
         button-${typeof color === "string" ? color : ButtonColor[color ?? ButtonColor.blue]}
         button-${typeof props.size === "string" ? props.size : ButtonSize[props.size ?? ButtonSize.auto]}
-        ${props.square ? "button-square" : ""}
+        ${square ? "button-square" : ""}
     `;
+
     return (
         <button
             {...otherProps}
@@ -46,8 +47,8 @@ const Button = (props: React.ComponentProps<'button'> & Props) => {
             onClick={handleClick}
         >
             <span>
-                {!!props.text && props.text}
-                {!props.text && props.children}
+                {!!text && text}
+                {!text && props.children}
             </span>
         </button>
     );

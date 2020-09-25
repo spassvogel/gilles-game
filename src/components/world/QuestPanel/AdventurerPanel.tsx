@@ -9,7 +9,7 @@ import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
 import { Item } from 'definitions/items/types';
 import AdventurerTraits from './AdventurerTraits';
 import AdventurerSkills from './AdventurerSkills';
-import "./css/adventurerPanel.css";
+import "./styles/adventurerPanel.scss";
 
 export interface Props {
     adventurer: AdventurerStoreState;
@@ -42,7 +42,7 @@ const AdventurerPanel = (props: Props) => {
         <div className="adventurer-panel">
             <div className="info">
                 <div className="name">
-                    <b>{adventurer.name}</b>
+                    {adventurer.name}
                 </div>
                 <AdventurerTraits adventurerId={adventurer.id}/>
                 <AdventurerSkills adventurerId={adventurer.id}/>

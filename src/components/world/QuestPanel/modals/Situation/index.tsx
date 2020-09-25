@@ -1,6 +1,7 @@
 import React, { MouseEvent, useRef, useContext } from "react";
 import { TextManager } from 'global/TextManager';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
+import Button from 'components/ui/buttons/Button';
 import "../styles/situation.scss";
 import "../styles/modal.scss";
 
@@ -40,7 +41,7 @@ const Situation = (props: Props) => {
              { choices.length > 0 && (
                 <div className="content">
                     {choices.map(choice => (
-                        <button key={choice} data-option={choice} onClick={handleChoiceClick}>{TextManager.get(choice)}</button>
+                        <Button key={choice} data-option={choice} onClick={handleChoiceClick}>{TextManager.get(choice)}</Button>
                     ))}
                 </div>
             )}

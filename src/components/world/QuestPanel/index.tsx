@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useEffect } from "react";
-import "./css/questPanel.css";
 import AdventurerTabstrip from './AdventurerTabstrip';
 import { createSelectAdventurersOnQuest } from 'selectors/adventurers';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,6 +11,7 @@ import useQuest from 'hooks/store/useQuest';
 import { setActiveSceneInteractionModal } from 'actions/quests';
 import Situation from './modals/Situation';
 import SceneControllerContextProvider from './context/SceneControllerContext';
+import "./styles/questPanel.scss";
 
 enum Layout {
     auto,       // horizontal on large screens, vertical on small screens
