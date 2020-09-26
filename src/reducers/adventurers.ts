@@ -72,7 +72,7 @@ const testState: AdventurerStoreState[] = [{
         offHand: Item.aegisOfValor
     },
     basicAttributes: generateRandomAttributes(),
-    name: "Zackary Morris",
+    name: "Zackary 'bone bag' Morris",
     health: Math.random() * 100,
     room: 2,
     traits: [Trait.gloomy],
@@ -81,7 +81,7 @@ const testState: AdventurerStoreState[] = [{
         [WeaponType.hammer]: 6
     },
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
-    spritesheetPath: `${spritesheetBasePath}footman.json`,
+    spritesheetPath: `${spritesheetBasePath}skeleton.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null, Item.berserkerShield ],
 }, {
     id: "d299f98a",
