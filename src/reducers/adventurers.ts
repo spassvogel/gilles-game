@@ -41,9 +41,10 @@ const testState: AdventurerStoreState[] = [{
     name: "Ximena Maddox",
     traits: [Trait.houseMaddox, Trait.gloomy],
     avatarImg: `${avatarImgBasePath}/female/f_14.png`,
-    spritesheetPath: `${spritesheetBasePath}grunt.json`,
+    spritesheetPath: `${spritesheetBasePath}archer.json`,
     skills: {
-        [WeaponType.axe]: 3
+        [WeaponType.crossbow]: 10,
+        [WeaponType.bow]: 10
     },
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.deedForLumbermill, null, Item.simpleCrossbow, Item.dagger, Item.khopesh, null, Item.sword, null,  null,  null,  null,  Item.steelShield,  null,  null,  null,  null],
@@ -91,7 +92,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 4,
     avatarImg: `${avatarImgBasePath}/male/m_19.png`,
-    spritesheetPath: `${spritesheetBasePath}footman.json`,
+    spritesheetPath: `${spritesheetBasePath}grunt.json`,
     traits: [Trait.arrowFinder],
     skills: {
         [WeaponType.sword]: 13
@@ -105,7 +106,7 @@ const testState: AdventurerStoreState[] = [{
     health: Math.random() * 100,
     room: 5,
     avatarImg: `${avatarImgBasePath}/male/m_08.png`,
-    spritesheetPath: `${spritesheetBasePath}footman.json`,
+    spritesheetPath: `${spritesheetBasePath}grunt.json`,
     traits: [Trait.houseMonroe, Trait.arrowFinder],
     skills: {
         [WeaponType.axe]: 12
