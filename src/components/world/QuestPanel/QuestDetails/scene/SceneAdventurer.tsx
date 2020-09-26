@@ -1,5 +1,5 @@
 import { Container, Graphics, Sprite } from '@inlet/react-pixi';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo, memo } from 'react';
 import SceneActor, { Props as SceneActorProps } from './SceneActor';
 import { useDispatch } from 'react-redux';
 import useQuest from 'hooks/store/useQuest';
@@ -202,4 +202,4 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
     )
 }
 
-export default SceneAdventurer;
+export default memo(SceneAdventurer);

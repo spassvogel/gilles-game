@@ -18,6 +18,7 @@ import { getDefinition } from 'definitions/quests';
 import { LogChannel } from 'stores/logEntry';
 import { addGold } from 'actions/gold';
 import { addItemToInventory } from 'actions/adventurers';
+import { Texture } from 'pixi.js';
 
 export class BaseSceneController<TQuestVars> {
     public mapData?: TiledMapData;
@@ -66,11 +67,18 @@ export class BaseSceneController<TQuestVars> {
 
             const adventurers = this.getAdventurers();
             const spritesheets = Array.from(new Set<string>(adventurers.map(a => a.spritesheetPath)));
+            console.log('spritesheets', spritesheets);
             for(const path of spritesheets) {
                 const {spritesheet} = await loadResourceAsync(path);
                 this.spritesheetsMap[path] = spritesheet!;
+
+                // Object.keys(spritesheet!.textures).forEach((key: string) => {
+                //     Texture.removeFromCache(spritesheet!.textures[key]); //or just 'key' will work in that case
+                //     // baseTex = spaceship.textures[key].baseTexture; //they all have same base texture
+                // });
                 console.log('done loading ', path, spritesheet)
             }
+            // PIXI.utils.clearTextureCache()
             // Create aStar based on blocked tiles
             this.aStar = this.createAStar();
 
@@ -107,7 +115,7 @@ export class BaseSceneController<TQuestVars> {
         // todo: what about the non-adventurer actors (e.g the enemies)
         // const adventurers = this.getAdventurers();
         // const adventurer = adventurers.find(a => a.id === actorName)!;
-        return this.spritesheetsMap['img/scene/actors/footman.json'];
+        return this.spritesheetsMap['img/scene/actors/grunt.json'];
     }
 
     actorMoved(actor: string, location: [number, number]) {

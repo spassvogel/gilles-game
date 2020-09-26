@@ -8,6 +8,7 @@ import { gsap } from 'gsap';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import SpriteAnimated from './SpriteAnimated';
 
+const useIdleAnimation = false;
 export interface Props  {
     name: string;
     // spritesheet: PIXI.Spritesheet;
@@ -56,8 +57,8 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     const [animation, setAnimation] = useState("stand");
 
     const spritesheet = useMemo(() => {
-        return controller.getActorSpritesheet2();
-    }, [controller]);
+        return controller.getActorSpritesheet(props.name);
+    }, [controller, props.name]);
 
     // Handle actions
     useEffect(() => {
@@ -163,6 +164,9 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     }, [orientation]);
 
     useEffect(() => {
+        if (!useIdleAnimation) return;
+
+        // Idle animation
         // Randomly turn left or right
         const randomOrientation = () => {
             const left = Math.random() < .5;
@@ -223,17 +227,18 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     }, [animation, orientation])
 
     const getFrames = useCallback(() => {
+        const prefix = spritesheet.data.meta.image;
         switch (orientation) {
             case Orientation.northWest:
-                return `${animation}-${Orientation.northEast}`;
+                return `${prefix}-${animation}-${Orientation.northEast}`;
             case Orientation.west:
-                return `${animation}-${Orientation.east}`;
+                return `${prefix}-${animation}-${Orientation.east}`;
             case Orientation.southWest:
-                return `${animation}-${Orientation.southEast}`;
+                return `${prefix}-${animation}-${Orientation.southEast}`;
             default:
-                return `${animation}-${orientation}`;
+                return `${prefix}-${animation}-${orientation}`;
         }
-    }, [animation, orientation]);
+    }, [animation, orientation, spritesheet.data.meta.image]);
 
     // console.log(props.name, spritesheet, frames)
     return (

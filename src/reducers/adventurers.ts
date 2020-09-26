@@ -41,7 +41,7 @@ const testState: AdventurerStoreState[] = [{
     name: "Ximena Maddox",
     traits: [Trait.houseMaddox, Trait.gloomy],
     avatarImg: `${avatarImgBasePath}/female/f_14.png`,
-    spritesheetPath: `${spritesheetBasePath}footman.json`,
+    spritesheetPath: `${spritesheetBasePath}grunt.json`,
     skills: {
         [WeaponType.axe]: 3
     },
@@ -60,8 +60,8 @@ const testState: AdventurerStoreState[] = [{
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     traits: [Trait.houseHouston],
     skills: {
-        [WeaponType.crossbow]: 2,
-        [WeaponType.staff]: 3
+        [WeaponType.crossbow]: 12,
+        [WeaponType.staff]: 13
     },
     // tslint:disable-next-line:max-line-length
     inventory: [ Item.simpleCrossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, Item.buckler, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, Item.plateHelmet, Item.cowl],
@@ -77,7 +77,7 @@ const testState: AdventurerStoreState[] = [{
     room: 2,
     traits: [Trait.gloomy],
     skills: {
-        [WeaponType.sword]: 2,
+        [WeaponType.sword]: 12,
         [WeaponType.hammer]: 6
     },
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
@@ -94,7 +94,7 @@ const testState: AdventurerStoreState[] = [{
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     traits: [Trait.arrowFinder],
     skills: {
-        [WeaponType.sword]: 3
+        [WeaponType.sword]: 13
     },
     inventory: [ null, null, null, null, Item.khopesh, Item.hornedHelmet, Item.woodenBulwark ],
 }, {
@@ -108,7 +108,7 @@ const testState: AdventurerStoreState[] = [{
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     traits: [Trait.houseMonroe, Trait.arrowFinder],
     skills: {
-        [WeaponType.axe]: 3
+        [WeaponType.axe]: 12
     },
     inventory: [ null, null, null, Item.goldenShield ],
 }, {
@@ -122,7 +122,7 @@ const testState: AdventurerStoreState[] = [{
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ null, null, null, null, null ],
     skills: {
-        [WeaponType.axe]: 3
+        [WeaponType.axe]: 10
     },
 }, {
     id: "169384ef",
@@ -135,7 +135,7 @@ const testState: AdventurerStoreState[] = [{
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
     skills: {
-        [WeaponType.axe]: 3
+        [WeaponType.axe]: 10
     },
 }, {
     id: "f22d66cb",
@@ -148,7 +148,7 @@ const testState: AdventurerStoreState[] = [{
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ null, null, null, null, null ],
     skills: {
-        [WeaponType.axe]: 3
+        [WeaponType.axe]: 13
     },
 }, {
     id: "36c686c1",
@@ -174,7 +174,7 @@ const testState: AdventurerStoreState[] = [{
     spritesheetPath: `${spritesheetBasePath}footman.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
     skills: {
-        [WeaponType.axe]: 3
+        [WeaponType.axe]: 10
     },
 }];
 
