@@ -1,6 +1,6 @@
 {
     "frames": {
-        "archer.png-stand-n": {
+        "stand-n": {
             "frame": {
                 "x": 0,
                 "y": 0,
@@ -8,7 +8,7 @@
                 "h": 222
             }
         },
-        "archer.png-stand-ne": {
+        "stand-ne": {
             "frame": {
                 "x": 222,
                 "y": 0,
@@ -16,7 +16,7 @@
                 "h": 222
             }
         },
-        "archer.png-stand-e": {
+        "stand-e": {
             "frame": {
                 "x": 444,
                 "y": 0,
@@ -24,7 +24,7 @@
                 "h": 222
             }
         },
-        "archer.png-stand-se": {
+        "stand-se": {
             "frame": {
                 "x": 666,
                 "y": 0,
@@ -32,7 +32,7 @@
                 "h": 222
             }
         },
-        "archer.png-stand-s": {
+        "stand-s": {
             "frame": {
                 "x": 888,
                 "y": 0,
@@ -40,7 +40,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk0-n": {
+        "walk0-n": {
             "frame": {
                 "x": 0,
                 "y": 222,
@@ -48,7 +48,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk0-ne": {
+        "walk0-ne": {
             "frame": {
                 "x": 222,
                 "y": 222,
@@ -56,7 +56,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk0-e": {
+        "walk0-e": {
             "frame": {
                 "x": 444,
                 "y": 222,
@@ -64,7 +64,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk0-se": {
+        "walk0-se": {
             "frame": {
                 "x": 666,
                 "y": 222,
@@ -72,7 +72,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk0-s": {
+        "walk0-s": {
             "frame": {
                 "x": 888,
                 "y": 222,
@@ -80,7 +80,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk1-n": {
+        "walk1-n": {
             "frame": {
                 "x": 0,
                 "y": 444,
@@ -88,7 +88,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk1-ne": {
+        "walk1-ne": {
             "frame": {
                 "x": 222,
                 "y": 444,
@@ -96,7 +96,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk1-e": {
+        "walk1-e": {
             "frame": {
                 "x": 444,
                 "y": 444,
@@ -104,7 +104,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk1-se": {
+        "walk1-se": {
             "frame": {
                 "x": 666,
                 "y": 444,
@@ -112,7 +112,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk1-s": {
+        "walk1-s": {
             "frame": {
                 "x": 888,
                 "y": 444,
@@ -120,7 +120,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk2-n": {
+        "walk2-n": {
             "frame": {
                 "x": 0,
                 "y": 666,
@@ -128,7 +128,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk2-ne": {
+        "walk2-ne": {
             "frame": {
                 "x": 222,
                 "y": 666,
@@ -136,7 +136,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk2-e": {
+        "walk2-e": {
             "frame": {
                 "x": 444,
                 "y": 666,
@@ -144,7 +144,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk2-se": {
+        "walk2-se": {
             "frame": {
                 "x": 666,
                 "y": 666,
@@ -152,7 +152,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk2-s": {
+        "walk2-s": {
             "frame": {
                 "x": 888,
                 "y": 666,
@@ -160,7 +160,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk3-n": {
+        "walk3-n": {
             "frame": {
                 "x": 0,
                 "y": 888,
@@ -168,7 +168,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk3-ne": {
+        "walk3-ne": {
             "frame": {
                 "x": 222,
                 "y": 888,
@@ -176,7 +176,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk3-e": {
+        "walk3-e": {
             "frame": {
                 "x": 444,
                 "y": 888,
@@ -184,7 +184,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk3-se": {
+        "walk3-se": {
             "frame": {
                 "x": 666,
                 "y": 888,
@@ -192,7 +192,7 @@
                 "h": 222
             }
         },
-        "archer.png-walk3-s": {
+        "walk3-s": {
             "frame": {
                 "x": 888,
                 "y": 888,
@@ -200,7 +200,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack0-n": {
+        "attack0-n": {
             "frame": {
                 "x": 0,
                 "y": 1110,
@@ -208,7 +208,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack0-ne": {
+        "attack0-ne": {
             "frame": {
                 "x": 222,
                 "y": 1110,
@@ -216,7 +216,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack0-e": {
+        "attack0-e": {
             "frame": {
                 "x": 444,
                 "y": 1110,
@@ -224,7 +224,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack0-se": {
+        "attack0-se": {
             "frame": {
                 "x": 666,
                 "y": 1110,
@@ -232,7 +232,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack0-s": {
+        "attack0-s": {
             "frame": {
                 "x": 888,
                 "y": 1110,
@@ -240,7 +240,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack1-n": {
+        "attack1-n": {
             "frame": {
                 "x": 0,
                 "y": 1332,
@@ -248,7 +248,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack1-ne": {
+        "attack1-ne": {
             "frame": {
                 "x": 222,
                 "y": 1332,
@@ -256,7 +256,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack1-e": {
+        "attack1-e": {
             "frame": {
                 "x": 444,
                 "y": 1332,
@@ -264,7 +264,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack1-se": {
+        "attack1-se": {
             "frame": {
                 "x": 666,
                 "y": 1332,
@@ -272,7 +272,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack1-s": {
+        "attack1-s": {
             "frame": {
                 "x": 888,
                 "y": 1332,
@@ -280,7 +280,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack2-n": {
+        "attack2-n": {
             "frame": {
                 "x": 0,
                 "y": 1554,
@@ -288,7 +288,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack2-ne": {
+        "attack2-ne": {
             "frame": {
                 "x": 222,
                 "y": 1554,
@@ -296,7 +296,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack2-e": {
+        "attack2-e": {
             "frame": {
                 "x": 444,
                 "y": 1554,
@@ -304,7 +304,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack2-se": {
+        "attack2-se": {
             "frame": {
                 "x": 666,
                 "y": 1554,
@@ -312,7 +312,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack2-s": {
+        "attack2-s": {
             "frame": {
                 "x": 888,
                 "y": 1554,
@@ -320,7 +320,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack3-n": {
+        "attack3-n": {
             "frame": {
                 "x": 0,
                 "y": 1776,
@@ -328,7 +328,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack3-ne": {
+        "attack3-ne": {
             "frame": {
                 "x": 222,
                 "y": 1776,
@@ -336,7 +336,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack3-e": {
+        "attack3-e": {
             "frame": {
                 "x": 444,
                 "y": 1776,
@@ -344,7 +344,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack3-se": {
+        "attack3-se": {
             "frame": {
                 "x": 666,
                 "y": 1776,
@@ -352,7 +352,7 @@
                 "h": 222
             }
         },
-        "archer.png-attack3-s": {
+        "attack3-s": {
             "frame": {
                 "x": 888,
                 "y": 1776,
@@ -360,7 +360,7 @@
                 "h": 222
             }
         },
-        "archer.png-die1-n": {
+        "die1-n": {
             "frame": {
                 "x": 0,
                 "y": 1998,
@@ -368,7 +368,7 @@
                 "h": 222
             }
         },
-        "archer.png-die1-ne": {
+        "die1-ne": {
             "frame": {
                 "x": 222,
                 "y": 1998,
@@ -376,7 +376,7 @@
                 "h": 222
             }
         },
-        "archer.png-die1-e": {
+        "die1-e": {
             "frame": {
                 "x": 444,
                 "y": 1998,
@@ -384,7 +384,7 @@
                 "h": 222
             }
         },
-        "archer.png-die1-se": {
+        "die1-se": {
             "frame": {
                 "x": 666,
                 "y": 1998,
@@ -392,7 +392,7 @@
                 "h": 222
             }
         },
-        "archer.png-die1-s": {
+        "die1-s": {
             "frame": {
                 "x": 888,
                 "y": 1998,
@@ -400,7 +400,7 @@
                 "h": 222
             }
         },
-        "archer.png-die2-n": {
+        "die2-n": {
             "frame": {
                 "x": 0,
                 "y": 2220,
@@ -408,7 +408,7 @@
                 "h": 222
             }
         },
-        "archer.png-die2-ne": {
+        "die2-ne": {
             "frame": {
                 "x": 222,
                 "y": 2220,
@@ -416,7 +416,7 @@
                 "h": 222
             }
         },
-        "archer.png-die2-e": {
+        "die2-e": {
             "frame": {
                 "x": 444,
                 "y": 2220,
@@ -424,7 +424,7 @@
                 "h": 222
             }
         },
-        "archer.png-die2-se": {
+        "die2-se": {
             "frame": {
                 "x": 666,
                 "y": 2220,
@@ -432,7 +432,7 @@
                 "h": 222
             }
         },
-        "archer.png-die2-s": {
+        "die2-s": {
             "frame": {
                 "x": 888,
                 "y": 2220,

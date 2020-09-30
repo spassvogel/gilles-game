@@ -104,18 +104,16 @@ export class BaseSceneController<TQuestVars> {
     }
 
     getActorSpritesheet(actorName: string): PIXI.Spritesheet {
-        console.log(actorName)
+        // todo: what about the non-adventurer actors (e.g the enemies)
+        const path = this.getActorSpritesheetPath(actorName);
+        return this.spritesheetsMap[path];
+    }
+
+    getActorSpritesheetPath(actorName: string): string {
         // todo: what about the non-adventurer actors (e.g the enemies)
         const adventurers = this.getAdventurers();
         const adventurer = adventurers.find(a => a.id === actorName)!;
-        return this.spritesheetsMap[adventurer.spritesheetPath];
-    }
-
-    getActorSpritesheet2(): PIXI.Spritesheet {
-        // todo: what about the non-adventurer actors (e.g the enemies)
-        // const adventurers = this.getAdventurers();
-        // const adventurer = adventurers.find(a => a.id === actorName)!;
-        return this.spritesheetsMap['img/scene/actors/grunt.json'];
+        return adventurer.spritesheetPath;
     }
 
     actorMoved(actor: string, location: [number, number]) {

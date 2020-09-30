@@ -11,7 +11,6 @@ import SpriteAnimated from './SpriteAnimated';
 const useIdleAnimation = false;
 export interface Props  {
     name: string;
-    // spritesheet: PIXI.Spritesheet;
     controller: BaseSceneController<any>;
     location?: [number, number]; // tile coordinate space
 };
@@ -56,8 +55,8 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
     const [animation, setAnimation] = useState("stand");
 
-    const spritesheet = useMemo(() => {
-        return controller.getActorSpritesheet(props.name);
+    const spritesheetPath = useMemo(() => {
+        return controller.getActorSpritesheetPath(props.name);
     }, [controller, props.name]);
 
     // Handle actions
@@ -135,9 +134,10 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     const [frames, setFrames] = useState<{ [key: string]: PIXI.Texture[]}|null>(null);
 
     useEffect(() => {
-        if (!spritesheet) return;
-
-        const allFrames = Object.keys(spritesheet.textures);
+        if (!spritesheetPath) return;
+console.log(spritesheetPath);
+console.log(PIXI.Loader.shared)
+        const allFrames = Object.keys(PIXI.Loader.shared.resources[spritesheetPath].textures!);
         const indexed = allFrames.reduce((acc: any, frame: string) => {
             // frames are in the format of: 'stand-n', 'walk0-ne', 'walk1-ne' etc
             // create a mapping with arrays keyed by the part without the number,
@@ -146,11 +146,11 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
             if (!acc[key]) {
               acc[key] = [];
             }
-            acc[key].push(PIXI.Texture.from(frame));
+            acc[key].push(PIXI.Loader.shared.resources[spritesheetPath].textures![frame]);
             return acc;
         }, {});
         setFrames(indexed);
-    }, [spritesheet])
+    }, [spritesheetPath])
 
     const [orientation, setOrientation] = useState<Orientation>(Orientation.north);
     // const [flipped, setFlipped] = useState(false);
@@ -227,23 +227,24 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     }, [animation, orientation])
 
     const getFrames = useCallback(() => {
-        const prefix = spritesheet.data.meta.image;
+        const prefix = ''; 
+        //const prefix = `${spritesheet.data.meta.image}-`;
         switch (orientation) {
             case Orientation.northWest:
-                return `${prefix}-${animation}-${Orientation.northEast}`;
+                return `${prefix}${animation}-${Orientation.northEast}`;
             case Orientation.west:
-                return `${prefix}-${animation}-${Orientation.east}`;
+                return `${prefix}${animation}-${Orientation.east}`;
             case Orientation.southWest:
-                return `${prefix}-${animation}-${Orientation.southEast}`;
+                return `${prefix}${animation}-${Orientation.southEast}`;
             default:
-                return `${prefix}-${animation}-${orientation}`;
+                return `${prefix}${animation}-${orientation}`;
         }
-    }, [animation, orientation, spritesheet.data.meta.image]);
+    }, [animation, orientation]);
 
     // console.log(props.name, spritesheet, frames)
     return (
         <Container x={x} y={y} ref={actorRef} {...rest}>
-            { spritesheet && frames && (
+            { spritesheetPath && frames && (
                 <SpriteAnimated
                     animationSpeed={0.1}
                     name="footman"
