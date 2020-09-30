@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useState } from 'react';
-import ItemsCostBox from "containers/ui/context/items/ItemsCostBox";
 import { Item } from "definitions/items/types";
 import { ProductionDefinition } from "definitions/production/types";
 import { getDefinition, Structure } from "definitions/structures";
@@ -32,6 +31,7 @@ import { addLogText } from 'actions/log';
 import { LogChannel } from 'stores/logEntry';
 import "./styles/productionStructureView.scss";
 import Button from 'components/ui/buttons/Button';
+import ItemsBox from 'components/ui/items/ItemsBox';
 
 export interface Props {
     structure: Structure;
@@ -180,7 +180,7 @@ const ProductionStructureView = (props: Props) => {
                         <ResourcesCostBox resources={costResources} />
                     </fieldset>
                     <fieldset>
-                        {costMaterials && <ItemsCostBox items={costMaterials} />}
+                        {costMaterials && <ItemsBox items={costMaterials} />}
                     </fieldset>
                 </div>
                 <div className="buttonrow">

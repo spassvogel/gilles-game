@@ -72,6 +72,9 @@ const continueGame = (store: any) => {
     console.log(`Continuing existing GILLES-IDLE-GAME (version ${version})`);
 };
 
+/**
+ * Loads a saved game from disks
+ */
 const loadGame = async (state: StoreState) => {
     // todo: implement in MenuWindow!
     await persistor.purge();

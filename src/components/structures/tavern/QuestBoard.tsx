@@ -1,5 +1,4 @@
 import { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvatar";
-import ItemsCostBox from "containers/ui/context/items/ItemsCostBox";
 import { Item } from "definitions/items/types";
 import { getDefinition } from "definitions/quests";
 import * as React from "react";
@@ -11,6 +10,7 @@ import { QuestDefinition } from 'definitions/quests/types';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import Button from 'components/ui/buttons/Button';
+import ItemsBox from 'components/ui/items/ItemsBox';
 import "./styles/questboard.scss";
 
 export const AVAILABLE_SLOTS = 5;
@@ -40,7 +40,9 @@ const QuestBoard = (props: Props) => {
         }
         const quest = props.availableQuests.find((q) => q.name === props.selectedQuestName);
         if (!quest) {
-            return <div> { TextManager.get("structure-tavern-quest-launched") } </div>;
+            return (
+                <div> { TextManager.get("structure-tavern-quest-launched") } </div>
+            );
         }
         const questDefinition = getDefinition(quest.name);
 
@@ -60,7 +62,7 @@ const QuestBoard = (props: Props) => {
                     onAdventurerClicked={props.onRemoveAdventurer}
                     onAdventurerDropped={props.onAdventurerDropped}
                 />
-                <ItemsCostBox items={ questDefinition.requiredItems || [] }/>
+                <ItemsBox items={ questDefinition.requiredItems || [] }/>
                 <Button disabled={!canLaunch} onClick = { () => props.onLaunchQuest() }>
                     {TextManager.get("structure-tavern-button-launch-quest")}
                 </Button>
@@ -91,7 +93,10 @@ const QuestBoard = (props: Props) => {
                 {props.availableQuests.map((q) => {
                     const className = `quest ${(q.name === props.selectedQuestName) ? " selected" : ""}`;
                     return (
-                        <li key={q.name} className={className} onClick={() => {props.onQuestClick(q.name);} }>
+                        <li key={q.name}
+                            className={className}
+                            onClick={() => {props.onQuestClick(q.name);} }
+                        >
                             <div
                                 className="icon"
                                 style={{backgroundImage: `url(${process.env.PUBLIC_URL})`}}
