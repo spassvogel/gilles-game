@@ -8,11 +8,11 @@ import { gsap } from 'gsap';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import SpriteAnimated from './SpriteAnimated';
 
-const useIdleAnimation = false;
 export interface Props  {
     name: string;
     controller: BaseSceneController<any>;
     location?: [number, number]; // tile coordinate space
+    idleAnimation?: boolean;
 };
 
 enum Orientation {
@@ -32,6 +32,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         location = [0, 0],
         // spritesheet,
         controller,
+        idleAnimation,
         children,
         ...rest
     } = props;
@@ -164,7 +165,7 @@ console.log(PIXI.Loader.shared)
     }, [orientation]);
 
     useEffect(() => {
-        if (!useIdleAnimation) return;
+        if (!idleAnimation) return;
 
         // Idle animation
         // Randomly turn left or right

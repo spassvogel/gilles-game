@@ -1,7 +1,4 @@
-import { Item } from "definitions/items/types";
 import { combineReducers } from "redux";
-
-import { ResourceStoreState } from "stores/resources";
 import { StoreState } from "../stores";
 import { adventurers } from "./adventurers";
 import { combat } from "./combat";
@@ -16,8 +13,6 @@ import { structures } from "./structures";
 import { tasks } from "./tasks";
 import { workers } from "./workers";
 
-// todo: not sure where to place this actually
-
 export default combineReducers<StoreState>({
     adventurers,
     combat,
@@ -30,6 +25,5 @@ export default combineReducers<StoreState>({
     rngState,
     structures,
     tasks,
-    // version,
     workers,
 });

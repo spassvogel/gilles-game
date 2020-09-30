@@ -136,7 +136,6 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
             <ActionPath ref={actionPathRef} />
             <SceneActor
                 name={name}
-                // spritesheet={spritesheet}
                 controller={controller}
                 location={location}
                 interactive={true}
@@ -144,6 +143,8 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                 pointerup={handleActorEndDrag}
                 pointerupoutside={handleActorEndDrag}
                 hitArea={new PIXI.Rectangle(location?.[0], location?.[1], tileWidth, tileHeight)}
+                idleAnimation={Math.random() < 0.5}
+
             >
                 {selected && (
                     <Graphics
