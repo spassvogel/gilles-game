@@ -13,7 +13,7 @@ import useStructureState from 'hooks/store/useStructureState';
 import { withWindow } from 'hoc/withWindow';
 import { Props as WindowProps } from "components/ui/window/Window";
 import WarehouseStructureView from './structures/warehouse/WarehouseStructureView';
-import { formatDuration } from 'utils/time';
+import { formatDuration } from 'utils/format/time';
 import ProductionStructureView from './structures/ProductionStructureView';
 import "./css/structuredetailsview.css";
 

@@ -1,4 +1,5 @@
 import { LoaderResource } from 'pixi.js';
+import { lerp } from './math';
 
 interface Location {
     x: number;
@@ -11,9 +12,6 @@ export const lerpLocation = (point1: Location, point2: Location, alpha: number):
     return { x, y };
 }
 
-const lerp = (n1: number,  n2: number,  alpha: number) =>  {
-    return n1 + alpha * (n2 - n1);
-}
 
 /**
  * Uses the shared pixi loader to load a resource

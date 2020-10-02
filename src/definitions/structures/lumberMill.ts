@@ -1,7 +1,7 @@
 // tslint:disable:object-literal-sort-keys
 
 import { ResourceStructureDefinition, StructureType } from "./types";
-import { HALF_HOUR } from 'utils/time';
+import { HALF_HOUR } from 'utils/format/time';
 
 const lumberMill: ResourceStructureDefinition = {
     type: StructureType.resource,

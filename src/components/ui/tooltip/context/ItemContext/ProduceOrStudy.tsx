@@ -14,7 +14,7 @@ import { startTask } from 'actions/tasks';
 import { TaskType } from 'stores/task';
 import { useDispatch } from 'react-redux';
 import { addItemToToProduces } from 'actions/structures';
-import { formatDuration } from 'utils/time';
+import { formatDuration } from 'utils/format/time';
 import { STUDY_TIME } from 'mechanics/studying';
 import Button from 'components/ui/buttons/Button';
 

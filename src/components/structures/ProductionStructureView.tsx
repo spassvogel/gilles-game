@@ -7,7 +7,7 @@ import { getDefinition as getProductionDefinition } from "definitions/production
 import { ProductionStructureDefinition } from "definitions/structures/types";
 import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "mechanics/crafting";
 import { TextManager } from "global/TextManager";
-import { formatDuration } from "utils/time";
+import { formatDuration } from "utils/format/time";
 import ItemIcon from "../ui/ItemIcon";
 import Progressbar from "../ui/Progressbar";
 import UpDownValue from "../ui/UpDownValue";

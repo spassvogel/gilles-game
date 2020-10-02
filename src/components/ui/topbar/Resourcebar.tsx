@@ -2,7 +2,7 @@ import { resourceOrder } from "constants/resources";
 import resourceDescriptions from "definitions/resources";
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
-import { formatNumber } from 'utils/number';
+import { formatNumber } from 'utils/format/number';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
 import useGoldState from 'hooks/store/useGoldState';

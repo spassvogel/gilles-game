@@ -1,13 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
-import { Stage, Sprite } from '@inlet/react-pixi';
 import { Structure } from 'definitions/structures';
 import { StructuresStoreState } from 'stores/structures';
 import { SoundManager, MusicTrack } from 'global/SoundManager';
-import { Viewport as PixiViewport} from 'pixi-viewport';
 import { useRouteMatch } from 'react-router';
 import {OutlineFilter} from '@pixi/filter-outline';
 import { getTownLink } from 'utils/routing';
-import Viewport from '../pixi/Viewport';
 import { StructureState, StructureStoreState } from 'stores/structure';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
@@ -21,7 +18,8 @@ import { withAppContext, AppContextProps } from 'hoc/withAppContext';
 import Generic from './structures/Generic';
 import Legenda from './Legenda';
 import "./styles/townView.scss"
-import { GodrayFilter } from 'pixi-filters';
+import TownStage from './TownStage';
+import { Viewport as PixiViewport } from "pixi-viewport";
 
 const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
@@ -31,13 +29,13 @@ export interface Props {
     onStructureClick: (structure: Structure | null) => void;
 }
 
-// todo: animate this
 export const STRUCTURE_HIGHLIGHT_FILTER = new OutlineFilter(8, 0xffcc00);
 
 const TownView = (props: Props & AppContextProps) => {
     const match = useRouteMatch<{structure: string}>(`${getTownLink()}/:structure`);
     const selectedStructure = match?.params.structure;
     const ref = useRef<HTMLDivElement>(null);
+    const viewportRef = useRef<PixiViewport>(null);
 
     useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.town, "sound/music/Soliloquy.mp3");
@@ -113,12 +111,18 @@ const TownView = (props: Props & AppContextProps) => {
     }
 
     const dragging = useRef(false);
-    const viewportRef = useRef<PixiViewport>(null);
+
     useEffect(() => {
         if(viewportRef.current) {
             const viewport = viewportRef.current;
             viewport.on("drag-start", () => { dragging.current = true; });
             viewport.on("drag-end", () => { dragging.current = false; });
+            viewport.on("moved", () => {
+                // console.log('top:', viewport.top)
+                // console.log('bottom:', viewport.bottom)
+                const rightFactor = viewport.right / (WORLD_WIDTH );
+                console.log('right:', viewport.right, rightFactor)
+            })
         }
 
         const onScroll = (e: WheelEvent) => {
@@ -159,23 +163,19 @@ const TownView = (props: Props & AppContextProps) => {
         };
     }, []);
 
-    const options = {
-        sharedLoader: true
-    }
+
     return (
         <div className="town-view" ref={ref}>
             <Legenda structures={structures} />
-            <Stage width={canvasWidth / 2} height={canvasHeight / 2} options={options} >
-                <Viewport screenWidth={canvasWidth / 2} screenHeight={canvasHeight / 2} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef}>
-                    <Sprite
-                        name="background"
-                        image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}
-                        filters={[new GodrayFilter()]}
-                    >
-                        {renderStructures()}
-                    </Sprite>
-                </Viewport>
-            </Stage>
+            <TownStage
+                screenWidth={canvasWidth / 2}
+                screenHeight={canvasHeight / 2}
+                worldWidth={WORLD_WIDTH}
+                worldHeight={WORLD_HEIGHT}
+                ref={viewportRef}
+            >
+                {renderStructures()}
+            </TownStage>
             {/* { selectedStructure && (
                 <StructureDetailsView
                     structure={selectedStructure}
