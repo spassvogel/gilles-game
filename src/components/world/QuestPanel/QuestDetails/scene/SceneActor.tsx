@@ -1,5 +1,6 @@
 import React, { useMemo,  useEffect, useRef, useCallback, PropsWithChildren, useState, memo } from 'react';
 import { Container } from '@inlet/react-pixi';
+import { ColorReplaceFilter, MultiColorReplaceFilter } from 'pixi-filters';
 import { SceneActionType, SceneAction } from 'stores/scene';
 import { useDispatch, useSelector } from 'react-redux';
 import { completeSceneAction } from 'actions/quests';
@@ -256,6 +257,10 @@ console.log(PIXI.Loader.shared)
                     scale={[(flipped.current ? -1 : 1), 1]}
                     anchor={[.5, .5]}
                     pivot={[0, 0]}
+                    // filters={[new ColorReplaceFilter(0x002487, 0x875c00, 0.35)]}
+                    filters={[
+                        createColorReplaceFilter(BLUES, PURPLE)
+                    ]}
                 />
             )}
             {children}
@@ -264,3 +269,68 @@ console.log(PIXI.Loader.shared)
 };
 
 export default memo(SceneActor);
+
+const createColorReplaceFilter = (from: number[], to: number[]) => {
+    const replacements = from.map((val, index) => {
+        return [
+            from[index], to[index]
+        ]
+    });
+    return new MultiColorReplaceFilter(replacements, 0.15);
+}
+
+const BLUES = [
+    0x000e5f,
+    0x00227f,
+    0x0038a5,
+    0x0055cc,
+];
+
+const REDS = [
+    0x570800,
+    0x700c00,
+    0x901000,
+    0xb51700
+];
+
+const TEALS = [
+    0x00330d,
+    0x00653a,
+    0x08936f,
+    0x30bea5
+];
+
+const PURPLE = [
+    0x3b0d3a,
+    0x641d5e,
+    0x884696,
+    0xaa61bd
+];
+
+const ORANGE = [
+    0x802d0c,
+    0xaa4a12,
+    0xd16d11,
+    0xf59717
+];
+
+const BLACK = [
+    0x0d0d1a,
+    0x1a1b2b,
+    0x25263a,
+    0x35354c
+];
+
+const WHITE = [
+    0x30375e,
+    0x676993,
+    0xa9aac2,
+    0xe6e6e6
+];
+
+const YELLOW = [
+    0xc28600,
+    0xd6ae10,
+    0xe9d333,
+    0xfdf959
+];

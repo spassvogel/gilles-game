@@ -21,6 +21,7 @@ import { withAppContext, AppContextProps } from 'hoc/withAppContext';
 import Generic from './structures/Generic';
 import Legenda from './Legenda';
 import "./styles/townView.scss"
+import { GodrayFilter } from 'pixi-filters';
 
 const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
@@ -169,6 +170,7 @@ const TownView = (props: Props & AppContextProps) => {
                     <Sprite
                         name="background"
                         image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}
+                        filters={[new GodrayFilter()]}
                     >
                         {renderStructures()}
                     </Sprite>

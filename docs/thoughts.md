@@ -407,7 +407,7 @@ research fantasy concept art
 
 
 #### 30/03/2020 Refactor react [+tech]
-[ ] Refactor react, remove containers. Implement useSelector hook
+[x] Refactor react, remove containers. Implement useSelector hook
 [ ] Check for needless rerendering
 [ ] Move Windows into own component and use WindowManager
 
