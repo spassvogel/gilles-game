@@ -36,6 +36,7 @@ const TownView = (props: Props & AppContextProps) => {
     const selectedStructure = match?.params.structure;
     const ref = useRef<HTMLDivElement>(null);
     const viewportRef = useRef<PixiViewport>(null);
+    const dragging = useRef(false);
 
     useEffect(() => {
         SoundManager.addMusicTrack(MusicTrack.town, "sound/music/Soliloquy.mp3");
@@ -55,13 +56,20 @@ const TownView = (props: Props & AppContextProps) => {
         }
     }, []);
 
+    useEffect(() => {
+        if(viewportRef.current) {
+
+            const viewport = viewportRef.current;
+            viewport.on("drag-start", (e) => {
+                dragging.current = true;
+                e.event.stopPropagation();
+            });
+            viewport.on("drag-end", () => { dragging.current = false; });
+        }
+    }, []);
+
     const handleStructureClick = (structure: Structure | null) => {
         if (!dragging.current) {
-            // if (structure) {
-            //     // history.push(getStructureLink(structure));
-            // } else {
-            //     // history.push(getTownLink());
-            // }
             props.onStructureClick(structure);
         }
     }
@@ -109,31 +117,6 @@ const TownView = (props: Props & AppContextProps) => {
             );
         });
     }
-
-    const dragging = useRef(false);
-
-    useEffect(() => {
-        if(viewportRef.current) {
-            const viewport = viewportRef.current;
-            viewport.on("drag-start", () => { dragging.current = true; });
-            viewport.on("drag-end", () => { dragging.current = false; });
-            viewport.on("moved", () => {
-                // console.log('top:', viewport.top)
-                // console.log('bottom:', viewport.bottom)
-                const rightFactor = viewport.right / (WORLD_WIDTH );
-                console.log('right:', viewport.right, rightFactor)
-            })
-        }
-
-        const onScroll = (e: WheelEvent) => {
-            // Scrolling the mouse is just used for zoom, not for actual scrolling
-            e.preventDefault();
-        }
-        window.addEventListener("wheel", onScroll, {passive: false});
-        return () => {
-            window.removeEventListener("wheel", onScroll);
-        };
-    }, []);
 
     useEffect(() => {
         if (selectedStructure && viewportRef.current) {
