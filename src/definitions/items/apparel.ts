@@ -30,12 +30,14 @@ const all: Record<string, ApparelDefinition> = {
         item: Item.boots2,
         equipmentType: EquipmentSlotType.feet,
         itemType,
+        damageReduction: 1,
         iconImg: `${basePath}boots_2.png`,
     },
     [Item.boots3]: {
         item: Item.boots3,
         equipmentType: EquipmentSlotType.feet,
         itemType,
+        damageReduction: 2,
         iconImg: `${basePath}boots_3.png`,
     },
     [Item.chainmailHood]: {
@@ -57,6 +59,7 @@ const all: Record<string, ApparelDefinition> = {
         equipmentType: EquipmentSlotType.hands,
         itemType,
         iconImg: `${basePath}cloth_gloves.png`,
+        damageReduction: 1
     },
     [Item.cowl]: {
         item: Item.cowl,
@@ -144,6 +147,7 @@ const all: Record<string, ApparelDefinition> = {
         equipmentType: EquipmentSlotType.legs,
         itemType,
         iconImg: `${basePath}pants_2.png`,
+        damageReduction: 3
     },
     [Item.plateChest1]: {
         item: Item.plateChest1,
@@ -222,6 +226,7 @@ const all: Record<string, ApparelDefinition> = {
         equipmentType: EquipmentSlotType.shoulders,
         itemType,
         iconImg: `${basePath}shoulders_2.png`,
+        damageReduction: 2
     },
     [Item.shoulders3]: {
         item: Item.shoulders3,

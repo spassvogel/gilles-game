@@ -151,8 +151,8 @@ Handlebars.registerHelper("item:name", (item: Item, article?: string) => {
             return itemArticleDefined(item);
         default:
             // No article
-            const name = itemDefinitions[item].name;
-            return new Handlebars.SafeString(name);
+            // const name = itemDefinitions[item].name;
+            return new Handlebars.SafeString(item);
     }
 });
 

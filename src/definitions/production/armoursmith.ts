@@ -311,7 +311,7 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
                 iron: 45
             },
             time: time.ONE_HOUR,
-        }
+        },
     },
     [Item.robe]: {
         item: Item.robe,

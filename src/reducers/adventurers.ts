@@ -31,8 +31,12 @@ const spritesheetBasePath = "img/scene/actors/"
 const testState: AdventurerStoreState[] = [{
     id: "c4a5d270",
     equipment: {
-        chest: Item.chest,
         head: Item.cowl,
+        chest: Item.chest,
+        hands: Item.clothGloves,
+        shoulders: Item.shoulders2,
+        legs: Item.pants2,
+        feet: Item.boots3,
         offHand: Item.indomitableCarapace
     },
     basicAttributes: generateRandomAttributes(),
