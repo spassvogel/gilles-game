@@ -8,6 +8,8 @@ export interface AdventurerStoreState {
     spritesheetPath: string;            // Path to JSON of spritesheet to use in scenes
     traits?: Trait[];
     health: number;                     // When this reaches zero, the adventurer is dead
+    xp: number;
+    baseAP: number;                     // Amount of AP this adventurer has
 
     equipment: EquipmentStoreState;     // equipment
     inventory: (null | Item)[];

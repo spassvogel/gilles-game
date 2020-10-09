@@ -26,7 +26,8 @@ const generateRandomAttributes = (): BasicAttributesStoreState => {
 };
 
 const avatarImgBasePath = "img/avatars";
-const spritesheetBasePath = "img/scene/actors/"
+const spritesheetBasePath = "img/scene/actors/";
+
 // Create a bunch of guys for debugging
 const testState: AdventurerStoreState[] = [{
     id: "c4a5d270",
@@ -41,6 +42,8 @@ const testState: AdventurerStoreState[] = [{
     },
     basicAttributes: generateRandomAttributes(),
     health: Math.random() * 100,
+    xp: Math.random() * 100,
+    baseAP: 6,
     room: 0,
     name: "Ximena Maddox",
     traits: [Trait.houseMaddox, Trait.gloomy],
@@ -60,6 +63,8 @@ const testState: AdventurerStoreState[] = [{
     basicAttributes: generateRandomAttributes(),
     name: "Donte Houston",
     health: Math.random() * 100,
+    xp: Math.random() * 100,
+    baseAP: 6,
     room: 1,
     avatarImg: `${avatarImgBasePath}/male/m_05.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
@@ -79,6 +84,8 @@ const testState: AdventurerStoreState[] = [{
     basicAttributes: generateRandomAttributes(),
     name: "Zackary 'bone bag' Morris",
     health: Math.random() * 100,
+    xp: Math.random() * 100,
+    baseAP: 5,
     room: 2,
     traits: [Trait.gloomy],
     skills: {
@@ -94,6 +101,8 @@ const testState: AdventurerStoreState[] = [{
     equipment: {},
     name: "Mike Keith",
     health: Math.random() * 100,
+    xp: Math.random() * 100,
+    baseAP: 6,
     room: 4,
     avatarImg: `${avatarImgBasePath}/male/m_19.png`,
     spritesheetPath: `${spritesheetBasePath}grunt.json`,
@@ -108,6 +117,8 @@ const testState: AdventurerStoreState[] = [{
     basicAttributes: generateRandomAttributes(),
     name: "Wayne Monroe",
     health: Math.random() * 100,
+    xp: Math.random() * 100,
+    baseAP: 4,
     room: 5,
     avatarImg: `${avatarImgBasePath}/male/m_08.png`,
     spritesheetPath: `${spritesheetBasePath}grunt.json`,
@@ -122,6 +133,8 @@ const testState: AdventurerStoreState[] = [{
     equipment: {},
     name: "Alexis Ortiz ",
     health: Math.random() * 100,
+    xp: Math.random() * 100,
+    baseAP: 5,
     room: 9,
     avatarImg: `${avatarImgBasePath}/female/f_10.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
@@ -135,6 +148,8 @@ const testState: AdventurerStoreState[] = [{
     basicAttributes: generateRandomAttributes(),
     name: "Karlee Nolan",
     health: Math.random() * 100,
+    xp: Math.random() * 100,
+    baseAP: 5,
     room: 3,
     avatarImg: `${avatarImgBasePath}/female/f_16.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
@@ -148,6 +163,8 @@ const testState: AdventurerStoreState[] = [{
     equipment: {},
     name: "Gylbarde the Earnest",
     health: Math.random() * 100,
+    xp: Math.random() * 100,
+    baseAP: 5,
     room: 8,
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
@@ -161,6 +178,9 @@ const testState: AdventurerStoreState[] = [{
     basicAttributes: generateRandomAttributes(),
     name: "Lanslet of the Water",
     health: Math.random() * 100,
+    xp: Math.random() * 100,
+    baseAP: 6,
+
     room: 6,
     avatarImg: `${avatarImgBasePath}/male/m_26.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,
@@ -174,6 +194,8 @@ const testState: AdventurerStoreState[] = [{
     basicAttributes: generateRandomAttributes(),
     name: "Tedric the Bold",
     health: Math.random() * 100,
+    xp: Math.random() * 100,
+    baseAP: 6,
     room: 7,
     avatarImg: `${avatarImgBasePath}/male/m_33.png`,
     spritesheetPath: `${spritesheetBasePath}footman.json`,

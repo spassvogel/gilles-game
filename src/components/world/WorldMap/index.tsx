@@ -20,8 +20,6 @@ import { getDefinition } from 'definitions/quests';
 import './styles/worldMap.scss';
 import { TextManager } from 'global/TextManager';
 
-// there is a very weird bug 
-
 window.PIXI = PIXI; // workaround for pixi-tilemap
 const FULL_HEIGHT = 1024;
 const SMALL_HEIGHT = 64;   // Used when QuestPanel is open

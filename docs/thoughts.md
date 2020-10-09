@@ -117,8 +117,15 @@ backlog of ideas
 #### 14/07/2019 XP Progression 
 [ ] https://stackoverflow.com/questions/6954874/php-game-formula-to-calculate-a-level-based-on-exp
 [ ] or find RPG framework
+    level = 0.5 * Math.sqrt(xp)
+    
 [ ] XP should have diminishing returns on weaker enemies
     research: wow?
+[ ] Action points come with level, use logarithmic scale:
+
+for (var i = 0; i < 30; i++) {
+ console.log(i + ":" + Math.floor(Math.log(i+1)*1))
+}
 
 #### 14/07/2019 Rooms of tavern
 [x] figure out how amount of rooms is determined. perhaps by level?

@@ -12,6 +12,7 @@ import { setActiveSceneInteractionModal } from 'actions/quests';
 import Situation from './modals/Situation';
 import SceneControllerContextProvider from './context/SceneControllerContext';
 import "./styles/questPanel.scss";
+import CombatBar from './CombatBar';
 
 enum Layout {
     auto,       // horizontal on large screens, vertical on small screens
@@ -58,6 +59,7 @@ const QuestPanel = (props: Props) => {
 
     return (
         <SceneControllerContextProvider questName={props.questName}>
+            <CombatBar questName={props.questName} />
             <div className={`quest-panel quest-panel-${Layout[layout]}`}>
                 <div className="quest-area">
                     <QuestDetails
