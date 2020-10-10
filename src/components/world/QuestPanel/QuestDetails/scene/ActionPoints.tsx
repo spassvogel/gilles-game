@@ -1,5 +1,5 @@
 import React, { useRef, forwardRef, useImperativeHandle } from "react";
-import { Graphics, Text } from '@inlet/react-pixi';
+import { Text } from '@inlet/react-pixi';
 
 // tslint:disable-next-line: no-empty-interface
 interface Props {

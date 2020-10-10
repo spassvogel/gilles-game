@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect, useContext, useState, useCallback } from "react";
+import React, { useRef, useMemo, useEffect, useContext, useCallback } from "react";
 import { Container } from '@inlet/react-pixi';
 import useQuest from 'hooks/store/useQuest';
 import Tilemap from './Tilemap';
@@ -8,7 +8,6 @@ import SceneAdventurer from './SceneAdventurer';
 import useTilesetsLoader from 'hooks/useTilesetsLoader';
 import renderObject from './renderObject';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
-import { loadResource } from 'utils/pixiJs';
 
 
 import * as PIXI from 'pixi.js';

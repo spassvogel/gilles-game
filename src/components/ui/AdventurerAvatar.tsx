@@ -10,7 +10,7 @@ export interface Props {
 }
 
 /**
- * The AdventurerAvatar displays the avatar of an adventurer in the party screen
+ * The AdventurerAvatar displays the avatar of an adventurer
  */
 const AdventurerAvatar = (props: Props) => {
     const {

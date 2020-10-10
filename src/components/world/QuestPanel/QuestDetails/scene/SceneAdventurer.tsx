@@ -1,5 +1,5 @@
 import { Container, Graphics, Sprite } from '@inlet/react-pixi';
-import React, { useRef, useEffect, useState, useMemo, memo } from 'react';
+import React, { useRef, useEffect, useState, memo } from 'react';
 import SceneActor, { Props as SceneActorProps } from './SceneActor';
 import { useDispatch } from 'react-redux';
 import useQuest from 'hooks/store/useQuest';

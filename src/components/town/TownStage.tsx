@@ -1,5 +1,5 @@
 
-import React, { useRef, useEffect, useState, PropsWithChildren, forwardRef, useImperativeHandle } from "react";
+import React, { useRef, useEffect, PropsWithChildren, forwardRef, useImperativeHandle } from "react";
 import { Sprite, Stage } from '@inlet/react-pixi';
 import { Viewport as PixiViewport} from 'pixi-viewport';
 import { GodrayFilter } from 'pixi-filters';
