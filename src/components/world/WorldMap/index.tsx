@@ -178,8 +178,7 @@ const WorldMap = (props: Props) => {
                         image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`}
                         interactive={true}
                         pointerdown={handleMapClick}
-                        scale={0.5}
-                        >
+                    >
                         {renderQuestlines()}
                         {renderMarkers()}
                     </Sprite>
