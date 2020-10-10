@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./css/progressbar.css";
+import "./styles/progressbar.scss";
 
 export interface Props {
     progress?: number;     // between 0 and 1
@@ -12,7 +12,7 @@ const Progressbar = (props: Props) => {
     return (
         <div className="progressbar">
             <div className="progressbar-label">{props.label}</div>
-            <div className="progressbar-bar" style= {{width: `${progress * 100}%`}}></div>
+            <div className="progressbar-bar" style= {{width: `${progress * 100}%`}}/>
         </div>
     );
 };

@@ -3,19 +3,19 @@ import { getDefinition, Structure } from "definitions/structures";
 import { StructureDefinition, StructureType } from "definitions/structures/types";
 import * as React from "react";
 import { StructureState } from "stores/structure";
-import Progressbar from "./ui/Progressbar";
-import ResourceStructureView from './structures/ResourceStructureView';
-import TavernStructureView from './structures/tavern/TavernStructureView';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import { TasksStoreState } from 'stores/tasks';
 import useStructureState from 'hooks/store/useStructureState';
 import { withWindow } from 'hoc/withWindow';
 import { Props as WindowProps } from "components/ui/window/Window";
-import WarehouseStructureView from './structures/warehouse/WarehouseStructureView';
 import { formatDuration } from 'utils/format/time';
-import ProductionStructureView from './structures/ProductionStructureView';
-import "./css/structuredetailsview.css";
+import Progressbar from 'components/ui/Progressbar';
+import ProductionStructureView from 'components/structures/ProductionStructureView';
+import WarehouseStructureView from 'components/structures/warehouse/WarehouseStructureView';
+import TavernStructureView from 'components/structures/tavern/TavernStructureView';
+import ResourceStructureView from 'components/structures/ResourceStructureView';
+import "./styles/structuredetailsview.scss";
 
 export interface Props {
     structure: Structure;
@@ -46,7 +46,7 @@ const StructureDetailsView = (props: Props & WindowProps) => {
                     return <ProductionStructureView structure={props.structure}/>;
                 }
                 case StructureType.resource: {
-                    return <ResourceStructureView type = { props.structure }/>;
+                    return <ResourceStructureView type={props.structure} />;
                 }
                 case StructureType.warehouse: {
                     return <WarehouseStructureView />;

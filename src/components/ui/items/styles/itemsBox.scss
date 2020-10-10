@@ -1,0 +1,25 @@
+.items-box {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+
+    .item {
+		display: flex;
+
+        .name {
+			width: 100px;
+			margin-left: 4px;
+		}
+	}
+
+    .item.missing {
+
+        .icon {
+			opacity: 0.5;
+		}
+
+        .name {
+			color: red;
+		}
+	}
+}

@@ -2,11 +2,11 @@ import itemsDescription from "definitions/items";
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { TextManager } from "global/TextManager";
-import "components/ui/styles/icon.scss";
-import "./css/itemsbox.css";
 import useStockpileState from 'hooks/store/useStockpileState';
 import { useMemo } from 'react';
 import { getClassName, IconSize } from 'constants/icons';
+import "components/ui/styles/icon.scss";
+import "./styles/itemsBox.scss";
 
 export interface Props {
     className?: string;
@@ -21,7 +21,7 @@ export interface Props {
  */
 const ItemsBox = (props: Props) => {
     const { items } = props;
-    const className = (props.className || "") + " itemsbox";
+    const className = (props.className || "") + " items-box";
     const aggregate = items.reduce((accumulator: object, current: Item) => {
         if (!accumulator[current]) {
             accumulator[current] = 0;

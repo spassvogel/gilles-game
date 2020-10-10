@@ -1,5 +1,5 @@
 import { ResourceStoreState } from "stores/resources";
-import { ProductionDefinition, CostStoreState } from "../production/types";
+import { CostStoreState } from "../production/types";
 import { Item } from 'definitions/items/types';
 
 export enum StructureType {

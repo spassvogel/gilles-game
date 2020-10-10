@@ -1,6 +1,6 @@
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
-import { IconSize } from 'constants/icons';
+import { getClassName, IconSize } from 'constants/icons';
 import "./styles/adventureravatar.scss";
 
 export interface Props {
@@ -17,9 +17,12 @@ export interface Props {
 const AdventurerAvatar = (props: Props) => {
     const {
         adventurer,
+        size
     } = props;
 
-    const className = (props.className || "") + " avatar";
+    const className = (props.className || "") +
+        (size !== undefined ? getClassName(size) : "") +
+        " avatar";
 
     const handleClick = () => {
         if (props.onClick) {

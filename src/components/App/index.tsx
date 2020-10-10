@@ -1,6 +1,6 @@
 // tslint:disable: object-literal-sort-keys
-import {AppContextProps} from "hoc/withAppContext";
 import * as React from "react";
+import {AppContextProps} from "hoc/withAppContext";
 import {useRef, useState, createContext, useEffect } from "react";
 import {DndProvider } from "react-dnd";
 import {HTML5Backend } from 'react-dnd-html5-backend';
@@ -21,11 +21,11 @@ import SimpleLog from 'components/log/SimpleLog';
 import ContextTooltip from 'components/ui/tooltip/ContextTooltip';
 import {TooltipManager } from 'global/TooltipManager';
 import {getWorldLink, getTownLink } from 'utils/routing';
-import StructureDetailsView from 'components/StructureDetailsView';
 import Background from 'components/Background';
 import {manifest} from "./manifest/app";
 import { restartGame } from 'index';
-import Button, { ButtonColor, ButtonSize } from 'components/ui/buttons/Button';
+import Button, { ButtonColor } from 'components/ui/buttons/Button';
+import StructureDetailsView from 'components/town/StructureDetailsView';
 import "./styles/app.scss";
 
 PixiPlugin.registerPIXI(PIXI);
@@ -74,7 +74,7 @@ const App = (props: AllProps) => {
         if (structure) {
             const displayName = TextManager.getStructureName(structure);
 
-            const window = <StructureDetailsView structure={structure} title={displayName}/>;
+            const window = <StructureDetailsView structure={structure} title={displayName} />;
             handleWindowOpened(window);
 
             SoundManager.playSound(Sound.buttonClick);
