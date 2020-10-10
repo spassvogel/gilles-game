@@ -54,7 +54,7 @@ const readPersistedStore = async () => {
  * @param store
  */
 const startNewGame = (store: any) => {
-
+console.log("STARTING NEW GAME")
     store.dispatch(addLogText("test-game-welcome"));
     // todo: here is a good place to launch a tutorial or something
 

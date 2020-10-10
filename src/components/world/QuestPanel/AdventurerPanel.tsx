@@ -10,6 +10,7 @@ import { Item } from 'definitions/items/types';
 import AdventurerTraits from './AdventurerTraits';
 import AdventurerSkills from './AdventurerSkills';
 import "./styles/adventurerPanel.scss";
+import Level from 'components/ui/adventurer/AdventurerInfo/Level';
 
 export interface Props {
     adventurer: AdventurerStoreState;
@@ -44,6 +45,8 @@ const AdventurerPanel = (props: Props) => {
                 <div className="name">
                     {adventurer.name}
                 </div>
+                <Level xp={adventurer.xp} />
+
                 <AdventurerTraits adventurerId={adventurer.id}/>
                 <AdventurerSkills adventurerId={adventurer.id}/>
                 {/* <div className="renderAttributes">

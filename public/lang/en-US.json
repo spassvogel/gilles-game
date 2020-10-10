@@ -267,6 +267,7 @@
 
     "ui-adventurer-info-skills-title": "Skills",
     "ui-adventurer-info-traits-title": "Traits",
+    "ui-adventurer-info-xp-progress": "{{xp}}/{{next}} xp to next level",
 
     "ui-equipmentslot-chest": "chest",
     "ui-equipmentslot-feet": "feet",

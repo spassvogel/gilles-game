@@ -1,10 +1,10 @@
 import WorldMap from "components/world/WorldMap";
 import React, { useEffect, useRef } from "react";
 import { MusicTrack, SoundManager, Sound } from "global/SoundManager";
-import "./css/worldView.css";
 import QuestPanel from './QuestPanel';
 import { useRouteMatch, useHistory } from 'react-router';
 import { getQuestLink, getWorldLink } from 'utils/routing';
+import "./styles/worldView.scss";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {

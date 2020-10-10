@@ -1,10 +1,9 @@
+import * as React from "react";
 import { ContextType } from "constants/context";
 import { DragSourceType } from "constants/dragging";
 import { IconSize } from "constants/icons";
 import { getDefinition } from "definitions/items";
 import { Item } from "definitions/items/types";
-import * as React from "react";
-import { AdventurerStoreState } from "stores/adventurer";
 import { TextManager } from "global/TextManager";
 import DraggableItemIcon, { InventoryItemDragInfo } from "../../DraggableItemIcon";
 import EquipmentSlot, { EquipmentSlotType } from "../../EquipmentSlot";
@@ -13,15 +12,12 @@ import { TooltipManager } from 'global/TooltipManager';
 import useItemDropActions from 'hooks/actions/useItemActions';
 import { useAdventurerState } from 'hooks/store/adventurers';
 import "./styles/adventurerinfo.scss";
+import Level from './Level';
 
 export interface Props {
     adventurerId: string;
 }
 
-export interface StateProps {
-    adventurer: AdventurerStoreState;
-    warehouse: (Item|null)[];
-}
 
 // Used in warehouse
 const AdventurerInfo = (props: Props) => {
@@ -99,6 +95,7 @@ const AdventurerInfo = (props: Props) => {
                 <div className="name">
                     <b>{adventurer.name}</b>
                 </div>
+                <Level xp={adventurer.xp} />
                 <div className="attributes">
                     { Object.keys(adventurer.basicAttributes).map((stat) => {
                         const value: number = adventurer.basicAttributes[stat];

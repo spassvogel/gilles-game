@@ -340,6 +340,16 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
                 return adventurer;
             });
         }
+
     }
+
+    // debug: this will auto-increase the levels of every adventurer at every tick
+    // return state.map((adventurer: AdventurerStoreState) => {
+    //     return {
+    //         ...adventurer,
+    //         xp: adventurer.xp + 1
+    //     };
+    // });
+
     return state;
 };
