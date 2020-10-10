@@ -6,6 +6,7 @@ import "components/ui/styles/icon.scss";
 import "./css/itemsbox.css";
 import useStockpileState from 'hooks/store/useStockpileState';
 import { useMemo } from 'react';
+import { getClassName, IconSize } from 'constants/icons';
 
 export interface Props {
     className?: string;
@@ -60,7 +61,7 @@ const ItemsBox = (props: Props) => {
         const itemDescription = itemsDescription[item];
         return <li className={listItemClass} key={item}>
             <div
-                className="icon common-icon-smallest" 
+                className={`icon ${getClassName(IconSize.smallest)}`}
                 style={{ backgroundImage: `url(${process.env.PUBLIC_URL}${itemDescription.iconImg})`}}
             />
             <div className="name">

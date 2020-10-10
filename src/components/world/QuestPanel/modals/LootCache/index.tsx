@@ -10,6 +10,7 @@ import { useAdventurerState } from 'hooks/store/adventurers';
 import Button from 'components/ui/buttons/Button';
 import "../styles/lootCache.scss";
 import "../styles/modal.scss";
+import { getClassName, IconSize } from 'constants/icons';
 
 interface Props {
     cacheName: string;
@@ -84,7 +85,7 @@ const LootCache = (props: Props) => {
                 <div className="content">
                     <div className="gold">
                         <div
-                            className="icon common-icon-medium"
+                            className={`icon ${getClassName(IconSize.medium)}`}
                             style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/img/resources/gold.png)`}}
                         />
                         {TextManager.get("quest-common-loot-cache-gold", { gold: cache.gold })}

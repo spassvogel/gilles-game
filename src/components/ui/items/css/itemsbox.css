@@ -8,10 +8,6 @@
     display: flex;
 }
 
-.itemsbox .item .icon {
-
-}
-
 .itemsbox .item .name {
     width: 100px;
     margin-left: 4px;

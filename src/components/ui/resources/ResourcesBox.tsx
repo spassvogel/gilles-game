@@ -13,6 +13,7 @@ import { StoreState } from 'stores';
 import { StructureState } from 'stores/structure';
 import "components/ui/styles/icon.scss";
 import "components/ui/resources/css/resourcesbox.css";
+import { getClassName, IconSize } from 'constants/icons';
 
 export interface Props {
     className?: string;
@@ -66,9 +67,12 @@ const ResourcesBox = (props: AllProps & AppContextProps) => {
 
         return (
             <li className={listItemClass} key={resource}>
-                <div className="icon common-icon-smallest" style={{
-                    backgroundImage: `url(${process.env.PUBLIC_URL}${resourceDescription.iconImg})`,
-                }}/>
+                <div
+                    className={`icon ${getClassName(IconSize.smallest)}`}
+                    style={{
+                        backgroundImage: `url(${process.env.PUBLIC_URL}${resourceDescription.iconImg})`,
+                    }}
+                />
                 <div className="name">
                     { TextManager.getResourceName(resource as Resource) }
                 </div>

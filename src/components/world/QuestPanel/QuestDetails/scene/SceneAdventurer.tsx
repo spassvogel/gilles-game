@@ -8,7 +8,6 @@ import { SceneAction, SceneActionType } from 'stores/scene';
 import ActionPath, { RefActions } from './ActionPath';
 import { useAdventurerState } from 'hooks/store/adventurers';
 import ActionPoints, { RefActionPoints } from './ActionPoints';
-import { calculateApCosts } from 'mechanics/scenes/actionPoints';
 
 interface Props  {
     name: string;
