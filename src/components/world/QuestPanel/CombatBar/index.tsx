@@ -13,7 +13,7 @@ const CombatBar = (props: Props) => {
 
     return (
         <div>
-            {adventurers.map(a => a.name)}
+            {adventurers.map(a => a.name[0])}
         </div>
     )
 }

@@ -7,14 +7,14 @@ import { enqueueSceneAction } from 'actions/quests';
 import { SceneAction, SceneActionType } from 'stores/scene';
 import ActionPath, { RefActions } from './ActionPath';
 import { useAdventurerState } from 'hooks/store/adventurers';
+import ActionPoints, { RefActionPoints } from './ActionPoints';
+import { calculateApCosts } from 'mechanics/scenes/actionPoints';
 
 interface Props  {
     name: string;
-    // spritesheet: PIXI.Spritesheet;
     selected: boolean;
     setSelectedActor: (actor: string) => void;
 };
-
 
 // The adventurers avatar on the scene
 const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
@@ -36,6 +36,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
 
     // Draw a line to indicate the action to take
     const actionPathRef = useRef<RefActions>(null);
+    const actionPointsRef = useRef<RefActionPoints>(null);
     const [actionActive, setActionActive] = useState(false);
 
     useEffect(() => {
@@ -54,6 +55,13 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
 
                 // Draw a line to the destination tile
                 actionPath.drawAction(from, event.data.global, !blocked);
+
+                const ap = controller.calculateWalkApCosts(location, destinationLocation);
+                if (ap > 0) {
+                    actionPointsRef.current?.drawAp(destinationLocation, ap);
+                } else {
+                    actionPointsRef.current?.clear();
+                }
             }
         }
         container.on('pointermove', mouseMove);
@@ -73,6 +81,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
         const actionPath = actionPathRef.current;
         if(scene.actionQueue?.length) {
             actionPath?.clear();
+            actionPointsRef.current?.clear();
             return;
         }
 
@@ -83,17 +92,12 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
             if(target[0] < 0 || target[0] >= controller.mapData?.width! || target[1] < 0 || target[1] >= controller.mapData?.height!) {
                 // Released out of bounds
                 actionPath?.clear();
+                actionPointsRef.current?.clear();
                 return;
             }
 
-            const convertLocation = (l: [number, number]) => {
-                // This is the format AStarFind works with
-                return { x: l[0], y: l[1] }
-            }
-            const origin = location!;
-            const path = controller.aStar?.findPath(
-                convertLocation(origin), convertLocation(target)
-            );
+            const path = controller.findPath(location!, target);
+
 
             const movementDuration = 500; // time every tile movement takes
             path?.forEach((l, index) => {
@@ -128,12 +132,14 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
         }
         setActionActive(false);
         actionPath?.clear();
+        actionPointsRef.current?.clear();
     }
 
 
     return (
         <Container interactive={true}>
             <ActionPath ref={actionPathRef} />
+            <ActionPoints ref={actionPointsRef} tileWidth={tileWidth} tileHeight={tileHeight} />
             <SceneActor
                 name={name}
                 controller={controller}
@@ -144,7 +150,6 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                 pointerupoutside={handleActorEndDrag}
                 hitArea={new PIXI.Rectangle(location?.[0], location?.[1], tileWidth, tileHeight)}
                 idleAnimation={Math.random() < 0.5}
-
             >
                 {selected && (
                     <Graphics

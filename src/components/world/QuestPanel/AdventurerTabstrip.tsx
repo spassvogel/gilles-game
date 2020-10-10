@@ -3,6 +3,7 @@ import Tabstrip from 'components/ui/tabs/Tabstrip';
 import { AdventurerStoreState } from 'stores/adventurer';
 import Tab from 'components/ui/tabs/Tab';
 import AdventurerAvatar from 'components/ui/AdventurerAvatar';
+import { getClassName, IconSize } from 'constants/icons';
 
 interface Props {
     adventurers: AdventurerStoreState[];
@@ -22,7 +23,7 @@ const AdventurerTabstrip = (props: Props) => {
 
     const renderAdventurerTab = (adventurer: AdventurerStoreState) => (
         <Tab id={adventurer.id} key={adventurer.id}>
-            <AdventurerAvatar adventurer={adventurer} className="common-icon-small"/>
+            <AdventurerAvatar adventurer={adventurer} className={getClassName(IconSize.small)}/>
         </Tab>
     );
     return (

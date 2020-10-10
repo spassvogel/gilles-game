@@ -20,6 +20,7 @@ import { addGold } from 'actions/gold';
 import { addItemToInventory } from 'actions/adventurers';
 
 export class BaseSceneController<TQuestVars> {
+
     public mapData?: TiledMapData;
     public aStar?: AStarFinder;
     public questName: string;
@@ -213,6 +214,28 @@ export class BaseSceneController<TQuestVars> {
 
     handleSituationOptionClick(situation: string, option: string) {
         // @ts-ignore
+    }
+
+    /**
+     * Returns a path from two locations on the map
+     * @param origin
+     * @param target
+     */
+    findPath(origin: [number, number], target: [number, number]) {
+        const convertLocation = (l: [number, number]) => {
+            // This is the format AStarFind works with
+            return { x: l[0], y: l[1] }
+        }
+        return this.aStar?.findPath(
+            convertLocation(origin), convertLocation(target)
+        );
+    }
+
+    /**
+     * Calculates the AP costs to walk
+     */
+    calculateWalkApCosts(from: [number, number], to: [number, number]) {
+        return this.findPath(from, to)?.length || 0;
     }
 
     protected createAStar() {
