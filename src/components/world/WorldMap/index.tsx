@@ -167,13 +167,13 @@ const WorldMap = (props: Props) => {
 
     const options = {
         sharedLoader: true,
-        width: canvasWidth / 2,
-        height: canvasHeight / 2,
+        width: canvasWidth,
+        height: canvasHeight,
     }
     return (
         <div className="world-map">
-            <Stage width={canvasWidth / 2} height={canvasHeight / 2} options={options}>
-                <Viewport screenWidth={canvasWidth / 2} screenHeight={canvasHeight /2} worldWidth={WORLD_WIDTH / 2} worldHeight={WORLD_HEIGHT / 2} ref={viewportRef} >
+            <Stage width={canvasWidth} height={canvasHeight} options={options}>
+                <Viewport screenWidth={canvasWidth} screenHeight={canvasHeight} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef} >
                     <Sprite
                         image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`}
                         interactive={true}

@@ -151,8 +151,8 @@ const TownView = (props: Props & AppContextProps) => {
         <div className="town-view" ref={ref}>
             <Legenda structures={structures} />
             <TownStage
-                screenWidth={canvasWidth / 2}
-                screenHeight={canvasHeight / 2}
+                screenWidth={canvasWidth}
+                screenHeight={canvasHeight}
                 worldWidth={WORLD_WIDTH}
                 worldHeight={WORLD_HEIGHT}
                 ref={viewportRef}
