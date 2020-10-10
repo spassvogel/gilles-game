@@ -1,6 +1,6 @@
 import React, { useMemo,  useEffect, useRef, useCallback, PropsWithChildren, useState, memo } from 'react';
 import { Container } from '@inlet/react-pixi';
-import { ColorReplaceFilter, MultiColorReplaceFilter } from 'pixi-filters';
+import { MultiColorReplaceFilter } from 'pixi-filters';
 import { SceneActionType, SceneAction } from 'stores/scene';
 import { useDispatch, useSelector } from 'react-redux';
 import { completeSceneAction } from 'actions/quests';
@@ -137,8 +137,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
 
     useEffect(() => {
         if (!spritesheetPath) return;
-console.log(spritesheetPath);
-console.log(PIXI.Loader.shared)
+
         const allFrames = Object.keys(PIXI.Loader.shared.resources[spritesheetPath].textures!);
         const indexed = allFrames.reduce((acc: any, frame: string) => {
             // frames are in the format of: 'stand-n', 'walk0-ne', 'walk1-ne' etc

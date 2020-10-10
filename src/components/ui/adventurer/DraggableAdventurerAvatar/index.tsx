@@ -2,8 +2,8 @@ import { DragSourceType, DragType } from "constants/dragging";
 import * as React from "react";
 import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from "react-dnd";
 import { AdventurerStoreState } from "stores/adventurer";
-import AdventurerAvatar, { Props as AdventurerAvatarProps } from "./AdventurerAvatar";
-import "./css/draggableadventureravatar.css";
+import AdventurerAvatar, { Props as AdventurerAvatarProps } from '../AdventurerAvatar';
+import "./styles/draggableadventureravatar.scss";
 
 export interface Props {
     sourceId?: string;

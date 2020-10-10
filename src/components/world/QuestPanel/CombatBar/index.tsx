@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect, useContext } from "react";
 import { useSelector } from 'react-redux';
 import { createSelectAdventurersOnQuest } from 'selectors/adventurers';
 import { SceneControllerContext } from '../context/SceneControllerContext';
+import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
 
 interface Props {
     questName: string;
@@ -13,7 +14,9 @@ const CombatBar = (props: Props) => {
 
     return (
         <div>
-            {adventurers.map(a => a.name[0])}
+            {adventurers.map(a => (
+                <AdventurerAvatar adventurer={a} key={a.id}/>
+            ))}
         </div>
     )
 }

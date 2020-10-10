@@ -1,4 +1,3 @@
-import { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvatar";
 import { Item } from "definitions/items/types";
 import { getDefinition } from "definitions/quests";
 import * as React from "react";
@@ -11,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import Button from 'components/ui/buttons/Button';
 import ItemsBox from 'components/ui/items/ItemsBox';
+import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import "./styles/questboard.scss";
 
 export const AVAILABLE_SLOTS = 5;

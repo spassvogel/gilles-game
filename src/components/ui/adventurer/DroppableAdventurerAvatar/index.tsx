@@ -1,7 +1,8 @@
 import { DragType } from "constants/dragging";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
-import "./css/droppableadventurerslot.css";
+import AdventurerAvatar, { Props as AdventurerAvatarProps}  from '../AdventurerAvatar';
+import "./styles/droppableadventureravatar.scss";
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {
@@ -12,7 +13,7 @@ const dropTarget: DropTargetSpec<Props> = {
     },
 };
 
-export interface Props {
+export interface Props extends AdventurerAvatarProps {
     onDrop: (item: any) => void;
 }
 
@@ -28,30 +29,24 @@ const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
     isOver: monitor.isOver(),
 });
 
-/*
- * Can drop adventurers on this */
-const DroppableAdventurerSlot = (props: Props & DropSourceProps) => {
-    const {
-        isOver,
-        canDrop,
-        connectDropTarget,
-    } = props;
-    // const isActive = isOver && canDrop;
-    let className = "droppable-adventurer-slot";
-
-    if (isOver) {
-        className += " active-drop";
-    } else if (canDrop) {
-        className += " can-drop";
-    }
+/**
+ * The AdventurerAvatar displays the avatar of an adventurer in the party screen
+ */
+const DroppableAdventurerAvatar = (props: Props & DropSourceProps) => {
+    const { connectDropTarget } = props;
 
     return connectDropTarget(
-        <div className = { className }/>
+        <div className="droppable-adventurer-avatar">
+            <AdventurerAvatar
+                adventurer = { props.adventurer }
+                onClick = { props.onClick }
+            />
+        </div>,
     );
 }
 
 export default DropTarget<Props, DropSourceProps>(
-    DragType.ADVENTURER,
+    DragType.ITEM,
     dropTarget,
     collect,
-)(DroppableAdventurerSlot);
+)(DroppableAdventurerAvatar);

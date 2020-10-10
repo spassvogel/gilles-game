@@ -1,10 +1,10 @@
 import React from 'react';
 import { AdventurerStoreState } from 'stores/adventurer';
-import DraggableAdventurerAvatar from 'components/ui/DraggableAdventurerAvatar';
 import { SOURCE_ID } from './TavernStructureView';
 import AdventurerPanel from 'components/world/QuestPanel/AdventurerPanel';
 import AdventurerButton from './AdventurerButton';
 import { TextManager } from 'global/TextManager';
+import DraggableAdventurerAvatar from 'components/ui/adventurer/DraggableAdventurerAvatar';
 
 export interface Props {
     adventurer: AdventurerStoreState;

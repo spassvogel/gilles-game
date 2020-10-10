@@ -2,7 +2,7 @@ import React, { useRef, useContext } from "react";
 import gsap from 'gsap';
 import DraggableItemsList from 'components/ui/items/DraggableItemsList';
 import { TextManager } from 'global/TextManager';
-import AdventurerAvatar from 'components/ui/AdventurerAvatar';
+import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
 import { DragSourceType } from 'constants/dragging';
 import { adventurerFreeInventorySlots } from 'storeHelpers';
 import { SceneControllerContext } from '../../context/SceneControllerContext';

@@ -1,9 +1,9 @@
 import * as React from "react";
-import AdventurerAvatar from "components/ui/AdventurerAvatar";
-import { AdventurerAvatarDragInfo } from "components/ui/DraggableAdventurerAvatar";
-import DroppableAdventurerSlot from "components/ui/DroppableAdventurerSlot";
 import { AdventurerStoreState } from "stores/adventurer";
+import AdventurerAvatar from "components/ui/adventurer/AdventurerAvatar";
+import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import "./styles/assignadventurers.scss";
+import DroppableAdventurerSlot from 'components/ui/adventurer/DroppableAdventurerSlot';
 
 export interface DispatchProps {
     onAdventurerDropped: (item: AdventurerAvatarDragInfo, index: number) => void;
@@ -40,7 +40,14 @@ const AssignAdventurers = (props: Props & DispatchProps) => {
                     <DroppableAdventurerSlot onDrop={ (item: AdventurerAvatarDragInfo) => { props.onAdventurerDropped(item, i); }} />
                 );
             }
-            slots.push(<li key = { `slot${i}`} className = { className }> { content } </li>);
+            slots.push(
+                <li
+                    key={`slot${i}`}
+                    className={className}
+                >
+                    {content}
+                </li>
+            );
         }
         return slots;
     };

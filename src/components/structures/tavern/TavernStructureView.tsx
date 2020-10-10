@@ -1,5 +1,4 @@
 import * as React from "react";
-import { AdventurerAvatarDragInfo} from "components/ui/DraggableAdventurerAvatar";
 import { getDefinition, Structure} from "definitions/structures";
 import { TavernStructureDefinition, TavernStructureLevelDefinition} from "definitions/structures/types";
 import { AdventurerStoreState} from "stores/adventurer";
@@ -21,6 +20,7 @@ import { upgradeStructure } from 'actions/structures';
 import { addLogText } from 'actions/log';
 import { LogChannel } from 'stores/logEntry';
 import Button from 'components/ui/buttons/Button';
+import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import "./styles/tavernstructureview.scss";
 
 export interface StateProps {

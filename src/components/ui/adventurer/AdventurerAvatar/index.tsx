@@ -1,12 +1,14 @@
 import * as React from "react";
 import { AdventurerStoreState } from "stores/adventurer";
-import "./css/adventureravatar.css";
+import { IconSize } from 'constants/icons';
+import "./styles/adventureravatar.scss";
 
 export interface Props {
     adventurer: AdventurerStoreState;
     className?: string;
     displayName?: boolean;
     onClick?: (adventurerId: string) => void;
+    size?: IconSize;
 }
 
 /**

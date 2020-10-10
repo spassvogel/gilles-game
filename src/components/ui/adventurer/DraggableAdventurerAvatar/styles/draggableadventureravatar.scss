@@ -1,0 +1,18 @@
+.draggable-adventurer-avatar {
+    cursor: move;   /** todo: 25/07/2019 custom cursor */
+
+    &.disabled {
+        /* When the avatar is not available for dragging */
+        cursor: not-allowed;
+        -webkit-filter: grayscale(100%);
+        filter: grayscale(100%);
+        opacity: .8;
+    }
+
+    &.dragging {
+        /* When the avatar is being dragged */
+        -webkit-filter: grayscale(50%);
+        filter: grayscale(50%);
+        opacity: .5;
+    }
+}

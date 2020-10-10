@@ -1,0 +1,17 @@
+.avatar {
+    text-align: center;
+    background-size: cover;
+    position: relative;
+
+    .sizer {
+        width: 100%;
+        padding-bottom: 100%;
+    }
+
+    .name {
+        position: absolute;
+        color: white;
+        width: 100%;
+        bottom: 3px;
+    }
+}
