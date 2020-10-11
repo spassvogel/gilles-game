@@ -166,6 +166,7 @@ const WorldMap = (props: Props) => {
     }
 
     const options = {
+        autoDensity: true,
         sharedLoader: true,
         width: canvasWidth,
         height: canvasHeight,

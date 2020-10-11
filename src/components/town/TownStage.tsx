@@ -80,6 +80,7 @@ const TownStage = forwardRef<any, PropsWithChildren<Props>>((props, ref: React.R
 export default TownStage;
 
 const options = {
+    autoDensity: true,
     sharedLoader: true
 }
 
