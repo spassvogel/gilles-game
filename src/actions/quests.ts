@@ -16,6 +16,7 @@ export enum ActionType {
     updateQuests = "updateQuests",                          // unused! remove
     enqueueSceneAction = "enqueueSceneAction",
     completeSceneAction = "completeSceneAction",
+    deductActorAp = "deductActorAp",
     updateSceneObjectAction = "updateSceneObjectAction",    // Updates a tile object on the scene. Can update any property except 'id'
     setActiveSceneInteractionModal = "setActiveSceneInteractionModal",     // Sets the active  modal
 }
@@ -42,6 +43,11 @@ export interface SetSceneAction extends QuestAction {
 
 export interface EnqueueSceneActionAction extends QuestAction {
     sceneAction: SceneAction;
+}
+
+export interface DeductActorApAction extends QuestAction {
+    actor: string;
+    ap: number;
 }
 
 export interface UpdateEncounterResultAction extends QuestAction {
@@ -117,6 +123,15 @@ export function completeSceneAction(quest: string): QuestAction {
     return {
         type: ActionType.completeSceneAction,
         questName: quest,
+    };
+}
+
+export function deductActorAp(quest: string, actor: string, ap: number): DeductActorApAction {
+    return {
+        type: ActionType.deductActorAp,
+        questName: quest,
+        actor,
+        ap
     };
 }
 

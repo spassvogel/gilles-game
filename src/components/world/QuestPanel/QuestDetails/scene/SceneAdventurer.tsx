@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState, memo } from 'react';
 import SceneActor, { Props as SceneActorProps } from './SceneActor';
 import { useDispatch } from 'react-redux';
 import useQuest from 'hooks/store/useQuest';
-import { enqueueSceneAction } from 'actions/quests';
+import { deductActorAp, enqueueSceneAction } from 'actions/quests';
 import { SceneAction, SceneActionType } from 'stores/scene';
 import ActionPath, { RefActions } from './ActionPath';
 import { useAdventurerState } from 'hooks/store/adventurers';
@@ -97,8 +97,8 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                 return;
             }
 
+            // Find path to walk using aStar
             const path = controller.findPath(location!, target);
-
 
             const movementDuration = 500; // time every tile movement takes
             path?.forEach((l, index) => {
@@ -110,6 +110,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                 };
                 dispatch(enqueueSceneAction(controller.questName, sceneAction));
             });
+            dispatch(deductActorAp(controller.questName, name, path?.length || 0));
 
             // if (DEBUG_ASTAR) {
             //     const graphics = new PIXI.Graphics();

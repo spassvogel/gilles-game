@@ -1,7 +1,13 @@
 .combat-bar {
     display: flex;
+    justify-content: space-between;
+    padding-left: 8px;
 
-    .ap {
-        width: 46px;
+    .adventurers {
+        display: flex;
+
+        .ap {
+            width: 46px;
+        }
     }
 }

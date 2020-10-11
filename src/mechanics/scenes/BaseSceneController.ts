@@ -123,7 +123,6 @@ export class BaseSceneController<TQuestVars> {
         const object = this.tilemapObjects![`${location[0]},${location[1]}`];
         if (!object) return;
 
-
         if (object.type === "exit") {
             // We've hit the exit. Should we load another scene?
             if (object.ezProps?.loadScene) {
