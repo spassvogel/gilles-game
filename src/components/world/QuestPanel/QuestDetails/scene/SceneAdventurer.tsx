@@ -49,27 +49,31 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                 // Find out if on a blocked tile
                 const destinationLocation = controller.pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
                 const blocked = controller.locationIsBlocked(destinationLocation);
+                let enoughAp = true;
                 const from = new PIXI.Point(location[0] * tileWidth + tileWidth / 2,
                     location[1] * tileHeight + tileHeight / 2);
-
-                // Draw a line to the destination tile
-                actionPath.drawAction(from, event.data.global, !blocked);
 
                 if (combat) {
                     const ap = controller.calculateWalkApCosts(location, destinationLocation);
                     if (ap > 0) {
                         actionPointsRef.current?.drawAp(destinationLocation, ap);
+
+                        const remaining = controller.getRemainingAdventurerAp(name) || -1;
+                        enoughAp = remaining >= ap;
                     } else {
                         actionPointsRef.current?.clear();
                     }
                 }
+
+                // Draw a line to the destination tile
+                actionPath.drawAction(from, event.data.global, !blocked && enoughAp);
             }
         }
         container.on('pointermove', mouseMove);
         return () => {
            container.off('pointermove', mouseMove);
         }
-    }, [actionActive, combat, controller, location, tileHeight, tileWidth]);
+    }, [actionActive, combat, controller, location, name, tileHeight, tileWidth]);
 
     const handleActorStartDrag = () => {
         setActionActive(true);
@@ -80,61 +84,67 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
     const handleActorEndDrag = (event: PIXI.InteractionEvent) => {
         setActionActive(false);
         const actionPath = actionPathRef.current;
+
+        setActionActive(false);
+        actionPath?.clear();
+        actionPointsRef.current?.clear();
+
         if(scene.actionQueue?.length) {
-            actionPath?.clear();
-            actionPointsRef.current?.clear();
             return;
         }
 
         const endLocation = controller.pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
         const blocked = controller.locationIsBlocked(endLocation);
-        if (!blocked) {
-            const target = controller.pointToSceneLocation(event.data.global);
-            if(target[0] < 0 || target[0] >= controller.mapData?.width! || target[1] < 0 || target[1] >= controller.mapData?.height!) {
-                // Released out of bounds
-                actionPath?.clear();
-                actionPointsRef.current?.clear();
+        if (blocked) {
+            return;
+        }
+        const target = controller.pointToSceneLocation(event.data.global);
+        if(target[0] < 0 || target[0] >= controller.mapData?.width! || target[1] < 0 || target[1] >= controller.mapData?.height!) {
+            // Released out of bounds
+            return;
+        }
+
+        // Find path to walk using aStar
+        const path = controller.findPath(location!, target);
+
+        if (combat) {
+            const remaining = controller.getRemainingAdventurerAp(name) || -1;
+            if (remaining < (path?.length || 0)){
                 return;
             }
-
-            // Find path to walk using aStar
-            const path = controller.findPath(location!, target);
-
-            const movementDuration = 500; // time every tile movement takes
-            path?.forEach((l, index) => {
-                const sceneAction: SceneAction = {
-                    actionType: SceneActionType.move,
-                    actor: name,
-                    target: l as [number, number],
-                    endsAt: movementDuration * (index + 1) + performance.now()
-                };
-                dispatch(enqueueSceneAction(controller.questName, sceneAction));
-            });
-            dispatch(deductActorAp(controller.questName, name, path?.length || 0));
-
-            // if (DEBUG_ASTAR) {
-            //     const graphics = new PIXI.Graphics();
-            //     path?.forEach((tile) => {
-            //         const [x, y] = tile;
-            //         const stroke = 3;
-            //         graphics.beginFill(0xDE3249, 0.5);
-            //         graphics.lineStyle(stroke, 0xFF0000);
-            //         graphics.drawRect(x * tileWidth + stroke / 2,
-            //             y * tileHeight + stroke / 2,
-            //             tileWidth - stroke / 2,
-            //             tileHeight - stroke / 2);
-            //         graphics.endFill();
-            //     });
-            //     ref.current!.addChild(graphics);
-            //     setTimeout(() => {
-            //         ref.current?.removeChild(graphics)}
-            //     , 1000);
-            // }
-
         }
-        setActionActive(false);
-        actionPath?.clear();
-        actionPointsRef.current?.clear();
+
+        const movementDuration = 500; // time every tile movement takes
+        path?.forEach((l, index) => {
+            const sceneAction: SceneAction = {
+                actionType: SceneActionType.move,
+                actor: name,
+                target: l as [number, number],
+                endsAt: movementDuration * (index + 1) + performance.now()
+            };
+            dispatch(enqueueSceneAction(controller.questName, sceneAction));
+        });
+        dispatch(deductActorAp(controller.questName, name, path?.length || 0));
+
+        // if (DEBUG_ASTAR) {
+        //     const graphics = new PIXI.Graphics();
+        //     path?.forEach((tile) => {
+        //         const [x, y] = tile;
+        //         const stroke = 3;
+        //         graphics.beginFill(0xDE3249, 0.5);
+        //         graphics.lineStyle(stroke, 0xFF0000);
+        //         graphics.drawRect(x * tileWidth + stroke / 2,
+        //             y * tileHeight + stroke / 2,
+        //             tileWidth - stroke / 2,
+        //             tileHeight - stroke / 2);
+        //         graphics.endFill();
+        //     });
+        //     ref.current!.addChild(graphics);
+        //     setTimeout(() => {
+        //         ref.current?.removeChild(graphics)}
+        //     , 1000);
+        // }
+
     }
 
 

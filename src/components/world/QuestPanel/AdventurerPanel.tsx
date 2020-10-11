@@ -89,7 +89,7 @@ const ApIndicator = (props: Props) => {
     const controller = useContext(SceneControllerContext)!;
 
     const ap = useMemo(() => {
-        return controller.getRemainingAdventurerIdAp(props.adventurer.id)
+        return controller.getRemainingAdventurerAp(props.adventurer.id)
     }, [controller, props.adventurer.id]);
 
     if (!quest?.scene?.combat) {

@@ -25,7 +25,7 @@ const CombatBar = (props: Props) => {
                     <React.Fragment key={a.id}>
                         <AdventurerAvatar adventurer={a} size={IconSize.smallest}/>
                         <div className="ap">
-                            {controller.getRemainingAdventurerIdAp(a.id)} AP
+                            {controller.getRemainingAdventurerAp(a.id)} AP
                         </div>
                     </React.Fragment>
                 ))}

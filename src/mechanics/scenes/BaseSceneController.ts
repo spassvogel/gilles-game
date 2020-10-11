@@ -240,7 +240,7 @@ export class BaseSceneController<TQuestVars> {
         return this.findPath(from, to)?.length || 0;
     }
 
-    getRemainingAdventurerIdAp(adventurerId: string) {
+    getRemainingAdventurerAp(adventurerId: string) {
         const { scene } = this.getQuest();
         return scene?.actors.find(a => a.name === adventurerId)?.ap;
     }
