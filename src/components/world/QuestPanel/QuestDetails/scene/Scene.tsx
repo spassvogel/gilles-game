@@ -9,7 +9,6 @@ import useTilesetsLoader from 'hooks/useTilesetsLoader';
 import renderObject from './renderObject';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
 
-
 import * as PIXI from 'pixi.js';
 window.PIXI = PIXI;
 // eslint-disable-next-line import/first
@@ -40,7 +39,6 @@ const Scene = (props: Props) => {
     const selectedActor = useMemo(() => {
         return scene?.actors?.find(a => a.name === props.selectedActor) || null;
     }, [scene, props.selectedActor]);
-
 
     const renderActors = useCallback(() => {
         const renderActor = (actor: ActorObject) => {

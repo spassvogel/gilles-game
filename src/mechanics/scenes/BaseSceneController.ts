@@ -18,6 +18,7 @@ import { getDefinition } from 'definitions/quests';
 import { LogChannel } from 'stores/logEntry';
 import { addGold } from 'actions/gold';
 import { addItemToInventory } from 'actions/adventurers';
+import { calculateInitialAp } from './actionPoints';
 
 export class BaseSceneController<TQuestVars> {
 
@@ -76,7 +77,7 @@ export class BaseSceneController<TQuestVars> {
                 //     Texture.removeFromCache(spritesheet!.textures[key]); //or just 'key' will work in that case
                 //     // baseTex = spaceship.textures[key].baseTexture; //they all have same base texture
                 // });
-                //console.log('done loading ', path, spritesheet)
+                // console.log('done loading ', path, spritesheet)
             }
             // PIXI.utils.clearTextureCache()
             // Create aStar based on blocked tiles
@@ -90,11 +91,13 @@ export class BaseSceneController<TQuestVars> {
     createScene() {
         const objects = this.createObjects();
         const actors = this.createActors();
+        const combat = true;
 
         // todo: perhaps this should be a class such that stuff that repeats for every scene can be done in a base class
         const scene = {
             objects,
-            actors
+            actors,
+            combat
         }
         this.store.dispatch(setScene(this.questName, scene));
     }
@@ -238,6 +241,11 @@ export class BaseSceneController<TQuestVars> {
         return this.findPath(from, to)?.length || 0;
     }
 
+    getRemainingAdventurerIdAp(adventurerId: string) {
+        const { scene } = this.getQuest();
+        return scene?.actors.find(a => a.name === adventurerId)?.ap;
+    }
+
     protected createAStar() {
         const matrix: number[][] = [];
         for (let y = 0; y < this.mapData!.height; y++) {
@@ -254,7 +262,7 @@ export class BaseSceneController<TQuestVars> {
                 matrix
             },
             includeStartNode: false,
-            heuristic: "Manhatten",
+            heuristic: "Manhattan",
             weight: 0,
         });
     }
@@ -275,11 +283,12 @@ export class BaseSceneController<TQuestVars> {
         }
         return adventurers.reduce((acc: ActorObject[], value: AdventurerStoreState, index: number) => {
             const location = startLocations[index];
+            const ap = calculateInitialAp(value);
             acc.push({
-                health: 100,
                 location,
                 name: value.id,
-            })
+                ap
+            });
             return acc;
         }, []);
     }

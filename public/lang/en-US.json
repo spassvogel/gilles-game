@@ -268,6 +268,9 @@
     "ui-adventurer-info-skills-title": "Skills",
     "ui-adventurer-info-traits-title": "Traits",
     "ui-adventurer-info-xp-progress": "{{xp}}/{{next}} xp to next level",
+    "ui-adventurer-info-ap-remaining": " ({{ap}} AP remaining)",
+
+    "ui-combat-bar-title": "Battle is joined!",
 
     "ui-equipmentslot-chest": "chest",
     "ui-equipmentslot-feet": "feet",

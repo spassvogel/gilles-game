@@ -21,7 +21,6 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
         controller,
         location,
         name,
-        // spritesheet,
         selected,
     } = props;
     const tileWidth = controller.mapData?.tilewidth!;
@@ -30,6 +29,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
 
     const quest = useQuest(controller.questName);
     const scene = quest.scene!;
+    const {combat} = scene;
 
     const adventurer = useAdventurerState(name);
 
@@ -55,11 +55,13 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                 // Draw a line to the destination tile
                 actionPath.drawAction(from, event.data.global, !blocked);
 
-                const ap = controller.calculateWalkApCosts(location, destinationLocation);
-                if (ap > 0) {
-                    actionPointsRef.current?.drawAp(destinationLocation, ap);
-                } else {
-                    actionPointsRef.current?.clear();
+                if (combat) {
+                    const ap = controller.calculateWalkApCosts(location, destinationLocation);
+                    if (ap > 0) {
+                        actionPointsRef.current?.drawAp(destinationLocation, ap);
+                    } else {
+                        actionPointsRef.current?.clear();
+                    }
                 }
             }
         }
@@ -67,7 +69,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
         return () => {
            container.off('pointermove', mouseMove);
         }
-    }, [actionActive, controller, location, tileHeight, tileWidth]);
+    }, [actionActive, combat, controller, location, tileHeight, tileWidth]);
 
     const handleActorStartDrag = () => {
         setActionActive(true);

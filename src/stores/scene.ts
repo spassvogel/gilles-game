@@ -6,6 +6,7 @@ export interface SceneStoreState {
     actors: ActorObject[];
     actionQueue?: SceneAction[];
     activeInteractionModal?: SceneInteractionModal;
+    combat: boolean;
 }
 
 export interface SceneObject {
@@ -18,11 +19,9 @@ export interface SceneObject {
 
 export type ActorObject = {
     name: string;                   // todo: refactor to id
-    location: [number, number];
-    health: number;
+    location: [number, number];     // current location in the scene
+    ap: number;                     // Remaining AP
 };
-
-
 
  // export type Actor = SceneObject & {
 //     type: "actor";
@@ -30,6 +29,7 @@ export type ActorObject = {
 //     health: number;
 //     //remainingAP: number;
 // }
+
 export type SceneInteractionModal =
 | { type: 'lootCache', lootCache: string }
 | { type: 'situation', situation: string }
@@ -50,4 +50,5 @@ export interface SceneAction {
 export enum SceneActionType {
     move = "move"
     // todo: interact?
+    // todo: attack?
 }

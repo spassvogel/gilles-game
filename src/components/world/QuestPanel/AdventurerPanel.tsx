@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useMemo } from "react";
 import { AdventurerStoreState } from 'stores/adventurer';
 import { DragSourceType } from 'constants/dragging';
 import AdventurerEquipment from './AdventurerEquipment';
@@ -9,19 +9,22 @@ import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
 import { Item } from 'definitions/items/types';
 import AdventurerTraits from './AdventurerTraits';
 import AdventurerSkills from './AdventurerSkills';
-import "./styles/adventurerPanel.scss";
 import Level from 'components/ui/adventurer/AdventurerInfo/Level';
+import useQuest from 'hooks/store/useQuest';
+import { SceneControllerContext } from './context/SceneControllerContext';
+import "./styles/adventurerPanel.scss";
+import { TextManager } from 'global/TextManager';
 
 export interface Props {
     adventurer: AdventurerStoreState;
+    questName?: string;
 }
 
 /** Vertical panel showing adventurer info
  * todo: move outside of /world
  */
 const AdventurerPanel = (props: Props) => {
-    const { adventurer } = props;
-
+    const { adventurer, questName } = props;
     // const renderAttributes = () => Object.keys(adventurer.stats).map((stat) => {
     //     const value: number = adventurer.stats[stat];
     //     return <div key={`${adventurer.id}-${stat}`} > <b>{stat}</b>: {value.toFixed(1)} </div>;
@@ -44,6 +47,7 @@ const AdventurerPanel = (props: Props) => {
             <div className="info">
                 <div className="name">
                     {adventurer.name}
+                    {questName && <ApIndicator questName={questName} adventurer={adventurer} />}
                 </div>
                 <Level xp={adventurer.xp} />
 
@@ -73,3 +77,25 @@ const AdventurerPanel = (props: Props) => {
 }
 
 export default AdventurerPanel;
+
+
+
+
+/** Vertical panel showing adventurer info
+ * todo: move outside of /world
+ */
+const ApIndicator = (props: Props) => {
+    const quest = useQuest(props.questName!);
+    const controller = useContext(SceneControllerContext)!;
+
+    const ap = useMemo(() => {
+        return controller.getRemainingAdventurerIdAp(props.adventurer.id)
+    }, [controller, props.adventurer.id]);
+
+    if (!quest?.scene?.combat) {
+        return null;
+    }
+    return (
+        <span>{TextManager.get("ui-adventurer-info-ap-remaining", { ap })}</span>
+    );
+}
