@@ -4,7 +4,7 @@ import { DragSourceType } from 'constants/dragging';
 import AdventurerEquipment from './AdventurerEquipment';
 import Inventory from 'components/ui/inventory/Inventory';
 import useItemDropActions from 'hooks/actions/useItemActions';
-import { InventoryItemDragInfo } from 'components/ui/DraggableItemIcon';
+import { InventoryItemDragInfo } from 'components/ui/ItemIcon/DraggableItemIcon';
 import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
 import { Item } from 'definitions/items/types';
 import AdventurerTraits from './AdventurerTraits';

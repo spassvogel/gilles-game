@@ -5,9 +5,9 @@ import { ApparelDefinition } from "definitions/items/apparel";
 import { Item, ItemType } from "definitions/items/types";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
-import { InventoryItemDragInfo } from '../DraggableItemIcon';
-import "./styles/equipmentslot.scss";
+import { InventoryItemDragInfo } from '../ItemIcon/DraggableItemIcon';
 import { WeaponDefinition, typeClassifications, WeaponClassification } from 'definitions/items/weapons';
+import "./styles/equipmentslot.scss";
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {

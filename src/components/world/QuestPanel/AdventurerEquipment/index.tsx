@@ -2,7 +2,7 @@ import React from "react";
 import { AdventurerStoreState } from 'stores/adventurer';
 import EquipmentSlot, { EquipmentSlotType } from 'components/ui/EquipmentSlot';
 import { Item } from 'definitions/items/types';
-import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/DraggableItemIcon';
+import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/ItemIcon/DraggableItemIcon';
 import { DragSourceType } from 'constants/dragging';
 import { IconSize } from 'constants/icons';
 import { TextManager } from 'global/TextManager';

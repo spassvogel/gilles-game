@@ -3,7 +3,7 @@ import { IconSize } from "constants/icons";
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
-import { InventoryItemDragInfo } from "../DraggableItemIcon";
+import { InventoryItemDragInfo } from "../ItemIcon/DraggableItemIcon";
 import { itemAndEquipmentSlotMatch } from "../EquipmentSlot";
 import { PropsWithChildren } from 'react';
 

@@ -5,7 +5,7 @@ import { IconSize } from "constants/icons";
 import { getDefinition } from "definitions/items";
 import { Item } from "definitions/items/types";
 import { TextManager } from "global/TextManager";
-import DraggableItemIcon, { InventoryItemDragInfo } from "../../DraggableItemIcon";
+import DraggableItemIcon, { InventoryItemDragInfo } from "../../ItemIcon/DraggableItemIcon";
 import EquipmentSlot, { EquipmentSlotType } from "../../EquipmentSlot";
 import Inventory from "../../inventory/Inventory";
 import { TooltipManager } from 'global/TooltipManager';

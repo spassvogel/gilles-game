@@ -31,7 +31,6 @@ enum Orientation {
 const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeof Container>) => {
     const {
         location = [0, 0],
-        // spritesheet,
         controller,
         idleAnimation,
         children,
@@ -225,11 +224,11 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         const duration = minDuration + Math.random() * maxDuration;
         const interval = setInterval(randomOrientation, duration);
         return () => clearInterval(interval);
-    }, [animation, orientation])
+    }, [animation, idleAnimation, orientation])
 
     const getFrames = useCallback(() => {
-        const prefix = ''; 
-        //const prefix = `${spritesheet.data.meta.image}-`;
+        const prefix = '';
+        // const prefix = `${spritesheet.data.meta.image}-`;
         switch (orientation) {
             case Orientation.northWest:
                 return `${prefix}${animation}-${Orientation.northEast}`;
@@ -242,7 +241,6 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         }
     }, [animation, orientation]);
 
-    // console.log(props.name, spritesheet, frames)
     return (
         <Container x={x} y={y} ref={actorRef} {...rest}>
             { spritesheetPath && frames && (
@@ -256,7 +254,6 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                     scale={[(flipped.current ? -1 : 1), 1]}
                     anchor={[.5, .5]}
                     pivot={[0, 0]}
-                    // filters={[new ColorReplaceFilter(0x002487, 0x875c00, 0.35)]}
                     filters={[
                         createColorReplaceFilter(BLUES, PURPLE)
                     ]}

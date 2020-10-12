@@ -3,7 +3,7 @@ import { IconSize } from "constants/icons";
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from "react-dnd";
-import ItemIcon from "./ItemIcon";
+import ItemIcon from ".";
 
 export interface Props {
     index: number;

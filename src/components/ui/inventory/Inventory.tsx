@@ -1,4 +1,4 @@
-import DraggableItemIcon, {InventoryItemDragInfo} from "components/ui/DraggableItemIcon";
+import DraggableItemIcon, {InventoryItemDragInfo} from "components/ui/ItemIcon/DraggableItemIcon";
 import { DragSourceType } from "constants/dragging";
 import { IconSize } from "constants/icons";
 import {Item} from "definitions/items/types";

@@ -4,7 +4,7 @@ import { removeItemFromInventory, assignEquipment, addItemToInventory, removeEqu
 import { removeItemFromWarehouse, addItemToWarehouse, moveItemInWarehouse } from 'actions/items';
 import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
 import { Item } from 'definitions/items/types';
-import { InventoryItemDragInfo } from 'components/ui/DraggableItemIcon';
+import { InventoryItemDragInfo } from 'components/ui/ItemIcon/DraggableItemIcon';
 import { DragSourceType } from 'constants/dragging';
 import { AdventurerStoreState } from 'stores/adventurer';
 import useStockpileState from 'hooks/store/useStockpileState';
