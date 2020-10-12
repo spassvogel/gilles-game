@@ -3,9 +3,9 @@ import resourceDescriptions from "definitions/resources";
 import * as React from "react";
 import { ResourceStoreState } from "stores/resources";
 import { TextManager } from "global/TextManager";
-import "./css/resourcesbox.css";
 import { useMemo } from 'react';
 import useResources from 'hooks/store/useResourcesState';
+import "./styles/resourcesbox.scss";
 
 export interface Props {
     className?: string;

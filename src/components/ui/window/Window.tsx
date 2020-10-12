@@ -1,8 +1,7 @@
 import * as React from "react";
 import { SoundManager, Sound } from 'global/SoundManager';
-import "components/ui/styles/icon.scss";
-import "components/ui/resources/css/resourcesbox.css";
 import Button from '../buttons/Button';
+import "components/ui/styles/icon.scss";
 
 // todo: refactor using WindowManager [30/03/2020]
 export interface Props {

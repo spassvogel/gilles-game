@@ -11,9 +11,9 @@ import { withAppContext, AppContextProps } from 'hoc/withAppContext';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import { StructureState } from 'stores/structure';
-import "components/ui/styles/icon.scss";
-import "components/ui/resources/css/resourcesbox.css";
 import { getClassName, IconSize } from 'constants/icons';
+import "components/ui/styles/icon.scss";
+import "./styles/resourcesbox.scss";
 
 export interface Props {
     className?: string;
