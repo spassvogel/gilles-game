@@ -10,7 +10,6 @@ import { getQuestLink} from 'utils/routing';
 import RoomList from './RoomList';
 import { useState} from 'react';
 import QuestBoard from './QuestBoard';
-import useGoldState from 'hooks/store/useGoldState';
 import useStructureState from 'hooks/store/useStructureState';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from 'stores';
@@ -19,8 +18,8 @@ import { subtractGold } from 'actions/gold';
 import { upgradeStructure } from 'actions/structures';
 import { addLogText } from 'actions/log';
 import { LogChannel } from 'stores/logEntry';
-import Button from 'components/ui/buttons/Button';
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
+import UpgradeStructureButton from '../UpgradeStructureButton';
 import "./styles/tavernstructureview.scss";
 
 export interface StateProps {
@@ -39,7 +38,6 @@ export const SOURCE_ID = "tavern";
 
 // The UI for the tavern
 const TavernStructureView = (props: Props) => {
-    const gold = useGoldState();
     const level = useStructureState(Structure.tavern).level;
     const adventurers = useSelector<StoreState, AdventurerStoreState[]>(store => store.adventurers);
     const quests = useSelector<StoreState, QuestStoreState[]>(store => store.quests);
@@ -55,41 +53,6 @@ const TavernStructureView = (props: Props) => {
 
     const onLaunchQuest = (questName: string) => {
         dispatch(launchQuest(questName, assignedAventurers));
-    };
-
-    const onUpgrade = (cost: number) => {
-        dispatch(subtractGold(cost));
-        dispatch(upgradeStructure(Structure.tavern));  // Todo: [07/07/2019] time??
-
-        dispatch(addLogText("log-town-upgrade-structure-complete", {
-            level: level + 1,
-            structure: Structure.tavern,
-        }, LogChannel.town));
-    };
-
-    const createUpgradeRow = () => {
-
-        const nextLevel = structureDefinition.levels[level + 1];
-        const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
-        const canUpgrade = nextLevel != null && gold >= nextLevelCost;
-        const upgradeText = nextLevel == null ? TextManager.get("ui-structure-upgrade-max") : TextManager.get("ui-structure-upgrade", { cost: nextLevelCost, level: level + 2 });
-
-        const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-            onUpgrade(nextLevelCost);
-        };
-
-        return (
-            <div>
-                <label>{TextManager.get("ui-structure-level")}</label>
-                { `${(level + 1)} / ${structureDefinition.levels.length}` }
-                <Button
-                    className="upgrade"
-                    onClick={handleClick}
-                    disabled={!canUpgrade}>
-                        { upgradeText }
-                </Button>
-            </div>
-        );
     };
 
     const getAvailableQuests = quests.filter((q) => q.status === QuestStatus.available );
@@ -134,7 +97,7 @@ const TavernStructureView = (props: Props) => {
     return (
         <details open={true} className="tavernstructureview">
             <summary>{displayName}</summary>
-            {createUpgradeRow()}
+            <UpgradeStructureButton structure={Structure.tavern} />
             <section>
                 <RoomList
                     roomCount={levelDefinition.rooms}

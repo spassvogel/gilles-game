@@ -1,7 +1,7 @@
 import { StoreState } from 'stores';
 import { useSelector } from 'react-redux';
 import { TasksStoreState } from 'stores/tasks';
-import { createSelectCraftingTasksByStructure, createSelectStudyingTasksByStructure } from 'selectors/tasks';
+import { createSelectCraftingTasksByStructure, createSelectStudyingTasksByStructure, createSelectUpgradeTasksByStructure } from 'selectors/tasks';
 import { Structure } from 'definitions/structures';
 
 // Returns all the tasks from redux store
@@ -17,5 +17,10 @@ export const useCraftingTasksStateByStructure = (structure: Structure) => {
 // Returns all running crafting tasks for given structure
 export const useStudyingTasksStateByStructure = (structure: Structure) => {
     return useSelector(createSelectStudyingTasksByStructure(structure));
+}
+
+// Returns all running update tasks for given structure
+export const useUpgradeTasksStateByStructure = (structure: Structure) => {
+    return useSelector(createSelectUpgradeTasksByStructure(structure));
 }
 

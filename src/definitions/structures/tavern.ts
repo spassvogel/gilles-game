@@ -1,5 +1,6 @@
 // tslint:disable:object-literal-sort-keys
 
+import { ONE_MINUTE, TWO_MINUTES } from 'utils/format/time';
 import { StructureType, TavernStructureDefinition } from "./types";
 
 const tavern: TavernStructureDefinition = {
@@ -21,7 +22,8 @@ const tavern: TavernStructureDefinition = {
         displayName: "structure-tavern-name",
         workerCapacity: 5,
         cost: {
-             gold: 30,
+            gold: 30,
+            time: ONE_MINUTE
         },
         rooms: 12,
     }, {
@@ -30,6 +32,7 @@ const tavern: TavernStructureDefinition = {
         workerCapacity: 10,
         cost: {
              gold: 50,
+             time: TWO_MINUTES
         },
         rooms: 15,
     }],

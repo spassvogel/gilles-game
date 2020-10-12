@@ -8,46 +8,42 @@ import { StoreState } from 'stores';
 import { selectFreeWorkers } from 'selectors/workers';
 import { decreaseWorkers, increaseWorkers } from 'actions/structures';
 import StructureViewHeader from './StructureViewHeader';
-import useStructureActions from 'hooks/actions/useStructureActions';
 import { TextManager } from 'global/TextManager';
-import Button from 'components/ui/buttons/Button';
+import UpgradeStructureButton from './UpgradeStructureButton';
 import './styles/resourceStructureView.scss';
 
 export interface Props  {
-    type: Structure;
+    structure: Structure;
 }
 
 const ResourceStructureView = (props: Props) => {
-
+    const {structure} = props;
     // Fetch needed values from store
-    const gold = useSelector<StoreState, number>((store) => store.gold);
     const level = useSelector<StoreState, number>((store) => {
-        const structureStore: StructureStoreState = store.structures[props.type];
-        if (!structureStore) { throw new Error(`No structure '${props.type}' found in the store!`); }
+        const structureStore: StructureStoreState = store.structures[props.structure];
+        if (!structureStore) { throw new Error(`No structure '${props.structure}' found in the store!`); }
         return structureStore.level;
     });
     const workers = useSelector<StoreState, number>((store) => {
-        const structureStore: StructureStoreState = store.structures[props.type];
-        if (!structureStore) { throw new Error(`No structure '${props.type}' found in the store!`); }
+        const structureStore: StructureStoreState = store.structures[props.structure];
+        if (!structureStore) { throw new Error(`No structure '${props.structure}' found in the store!`); }
         return structureStore.workers;
     });
     const workersFree = useSelector<StoreState, number>((store) => selectFreeWorkers(store));
 
-    const structureDefinition = getDefinition<ResourceStructureDefinition>(props.type);
+    const structureDefinition = getDefinition<ResourceStructureDefinition>(props.structure);
     if (!structureDefinition) {
-        throw new Error(`No definition found for structure ${props.type} with type ResourceStructureDefinition.`);
+        throw new Error(`No definition found for structure ${props.structure} with type ResourceStructureDefinition.`);
     }
-    const {startUpgradeStructure} = useStructureActions();
-
     // Reducer dispatch
     const dispatch = useDispatch();
 
     const handleWorkersDown = () => {
-        dispatch(decreaseWorkers(props.type));
+        dispatch(decreaseWorkers(props.structure));
     }
 
     const handleWorkersUp = () => {
-        dispatch(increaseWorkers(props.type));
+        dispatch(increaseWorkers(props.structure));
     };
 
     const levelDefinition: ResourceStructureLevelDefinition = structureDefinition.levels[level];
@@ -65,32 +61,6 @@ const ResourceStructureView = (props: Props) => {
                 onDown={handleWorkersDown}
                 onUp={handleWorkersUp}
             />
-        );
-    };
-
-    const createUpgradeRow = () => {
-        const nextLevel = structureDefinition.levels[level + 1];
-        const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
-        const canUpgrade = nextLevel != null && gold >= nextLevelCost;
-        const upgradeText = nextLevel == null ? TextManager.get("ui-structure-upgrade-max") : TextManager.get("ui-structure-upgrade", { cost: nextLevelCost, level: level + 2 });
-
-        const handleClick = () => {
-            startUpgradeStructure(nextLevelCost, level + 1, props.type);
-        };
-
-        return (
-            <div>
-                <label>
-                    {TextManager.get("ui-structure-level")}
-                </label>
-                {(level + 1) + " / " + structureDefinition.levels.length }
-                <Button
-                    className="upgrade"
-                    onClick={handleClick }
-                    disabled= {!canUpgrade } >
-                        {upgradeText }
-                </Button>
-            </div>
         );
     };
 
@@ -113,11 +83,11 @@ const ResourceStructureView = (props: Props) => {
 
     return (
         <>
-            <StructureViewHeader structure={props.type} />
+            <StructureViewHeader structure={props.structure} />
             <details open={true} className="resource-structure-view">
                 <section>
                     {createWorkersRow() }
-                    {createUpgradeRow() }
+                    <UpgradeStructureButton structure={structure} />
                     {createGeneratesRow() }
                 </section>
             </details>

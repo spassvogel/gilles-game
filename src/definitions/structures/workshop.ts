@@ -1,4 +1,5 @@
 // tslint:disable:object-literal-sort-keys
+import { ONE_MINUTE, THREE_MINUTES, TWO_MINUTES } from 'utils/format/time';
 import { ProductionStructureDefinition, StructureType } from "./types";
 
 const workshop: ProductionStructureDefinition = {
@@ -21,6 +22,7 @@ const workshop: ProductionStructureDefinition = {
         workerCapacity: 5,
         cost: {
             gold: 30,
+            time: ONE_MINUTE
         },
         unlocks: [],
     }, {
@@ -29,6 +31,7 @@ const workshop: ProductionStructureDefinition = {
         workerCapacity: 10,
         cost: {
             gold: 50,
+            time: TWO_MINUTES
         },
         unlocks: [],
     }, {
@@ -37,6 +40,7 @@ const workshop: ProductionStructureDefinition = {
         workerCapacity: 14,
         cost: {
             gold: 50,
+            time: THREE_MINUTES
         },
         unlocks: [],
     }],

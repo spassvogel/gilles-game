@@ -3,9 +3,9 @@ import ResourcesBox from "components/ui/resources/ResourcesBox";
 import { DragSourceType } from "constants/dragging";
 import { Item } from "definitions/items/types";
 import { getDefinition, Structure } from "definitions/structures";
+import * as React from "react";
 import { StructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import usePrevious from "hooks/usePrevious";
-import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import { empty, ResourceStoreState } from "stores/resources";
 import { StructuresStoreState } from "stores/structures";
@@ -13,24 +13,20 @@ import { TextManager } from "global/TextManager";
 import AdventurerTabstrip from 'components/world/QuestPanel/AdventurerTabstrip';
 import useStructureState from 'hooks/store/useStructureState';
 import useResourcesState from 'hooks/store/useResourcesState';
-import useGoldState from 'hooks/store/useGoldState';
-import useStructureActions from 'hooks/actions/useStructureActions';
 import useStockpileState from 'hooks/store/useStockpileState';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import { useAdventurersInTown } from 'hooks/store/adventurers';
 import useItemDropActions from 'hooks/actions/useItemActions';
 import AdventurerInfo from 'components/ui/adventurer/AdventurerInfo';
+import UpgradeStructureButton from '../UpgradeStructureButton';
 import "./styles/warehousestructureview.scss";
-import Button from 'components/ui/buttons/Button';
 
 // tslint:disable-next-line: no-empty-interface
 export interface Props  {
 }
 
-
 const WAREHOUSE = DragSourceType.warehouse;
-
 
 // todo 20191202: Resource update should happen at a set interval
 const WarehouseStructureView = (props: Props) => {
@@ -40,10 +36,8 @@ const WarehouseStructureView = (props: Props) => {
     const [resourcesDelta, setResourcesDelta] = useState<ResourceStoreState>(empty);    // updating this will trigger animation
     const previousResources = usePrevious(resources);
     const resourcesRef = useRef<HTMLFieldSetElement>(null);
-    const gold = useGoldState();
     const stockpileState = useStockpileState();
     const structuresState = useSelector<StoreState, StructuresStoreState>(store => store.structures);
-    const {startUpgradeStructure} = useStructureActions();
     const adventurersInTown = useAdventurersInTown();
     const {dropItemWarehouse} = useItemDropActions();
 
@@ -79,31 +73,7 @@ const WarehouseStructureView = (props: Props) => {
 
     const structureState = useStructureState(Structure.warehouse);
     const levelDefinition: WarehouseStructureLevelDefinition = structureDefinition.levels[structureState.level] as WarehouseStructureLevelDefinition;
-    const level: number = structureState.level;
     const displayName = TextManager.getStructureName(Structure.warehouse);
-
-    const createUpgradeRow = () => {
-        const nextLevel = structureDefinition.levels[level + 1];
-        const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
-        const canUpgrade = nextLevel != null && gold >= nextLevelCost;
-        const upgradeText = nextLevel == null ? TextManager.get("ui-structure-upgrade-max") : TextManager.get("ui-structure-upgrade", { cost: nextLevelCost, level: level + 2 });
-
-        const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-            startUpgradeStructure(nextLevelCost, level + 1, Structure.warehouse);
-        };
-        return (
-            <div>
-                <label>{TextManager.get("ui-structure-level")}</label>
-                { `${(level + 1)} / ${structureDefinition.levels.length}` }
-                <Button
-                    className="upgrade"
-                    onClick={handleClick}
-                    disabled={!canUpgrade}>
-                        { upgradeText }
-                </Button>
-            </div>
-        );
-    };
 
     const handleDropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
         dropItemWarehouse(item, fromSlot, toSlot, sourceType, sourceId);
@@ -127,7 +97,7 @@ const WarehouseStructureView = (props: Props) => {
     return (
         <details open={true} className="warehouse-structureview">
             <summary>{displayName}</summary>
-            {createUpgradeRow()}
+            <UpgradeStructureButton structure={Structure.warehouse} />
             <fieldset className="resources" ref={resourcesRef}>
                 <legend>Resources</legend>
                 <ResourcesBox

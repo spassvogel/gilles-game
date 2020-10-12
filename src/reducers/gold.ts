@@ -6,7 +6,7 @@ import { AnyAction, Reducer } from "redux";
  * @param state
  * @param action
  */
-export const gold: Reducer<number> = (state: number = 0, action: AnyAction) => {
+export const gold: Reducer<number> = (state: number = 40, action: AnyAction) => {
     switch (action.type) {
         case ActionType.addGold:
             // Adds (or subtract, if negative) gold from the players gold supply

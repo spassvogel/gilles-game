@@ -2,6 +2,7 @@
 
 import { ProductionStructureDefinition, StructureType } from "./types";
 import { Item } from 'definitions/items/types';
+import { ONE_MINUTE, TWO_MINUTES } from 'utils/format/time';
 
 const armoursmith: ProductionStructureDefinition = {
     cost: {
@@ -23,6 +24,7 @@ const armoursmith: ProductionStructureDefinition = {
         workerCapacity: 5,
         cost: {
             gold: 30,
+            time: ONE_MINUTE
         },
         unlocks: [ Item.chest ],
     }, {
@@ -31,6 +33,7 @@ const armoursmith: ProductionStructureDefinition = {
         workerCapacity: 10,
         cost: {
             gold: 50,
+            time: TWO_MINUTES
         },
         unlocks: [ Item.cowl],
     }],

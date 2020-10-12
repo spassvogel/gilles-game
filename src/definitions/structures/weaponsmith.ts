@@ -1,6 +1,7 @@
 // tslint:disable:object-literal-sort-keys
 import { ProductionStructureDefinition, StructureType } from "./types";
 import { Item } from 'definitions/items/types';
+import { ONE_MINUTE, THREE_MINUTES, TWO_MINUTES } from 'utils/format/time';
 
 const weaponsmith: ProductionStructureDefinition = {
     type: StructureType.production,
@@ -22,6 +23,7 @@ const weaponsmith: ProductionStructureDefinition = {
         workerCapacity: 5,
         cost: {
             gold: 30,
+            time: ONE_MINUTE
         },
         unlocks: [],
     }, {
@@ -30,6 +32,8 @@ const weaponsmith: ProductionStructureDefinition = {
         workerCapacity: 10,
         cost: {
             gold: 50,
+            time: TWO_MINUTES
+
         },
         unlocks: [],
     }, {
@@ -38,6 +42,7 @@ const weaponsmith: ProductionStructureDefinition = {
         workerCapacity: 14,
         cost: {
             gold: 50,
+            time: THREE_MINUTES
         },
         unlocks: [Item.poisonedDagger],
     }],

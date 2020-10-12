@@ -5,13 +5,14 @@ import { Structure } from 'definitions/structures';
 import { addLogText } from 'actions/log';
 import { LogChannel } from 'stores/logEntry';
 
-
+// this hook is not used at the moment
 const useStructureActions = () => {
     const dispatch = useDispatch();
 
+    // Unused
     const startUpgradeStructure = (cost: number, level: number, structure: Structure) => {
         dispatch(subtractGold(cost));
-        dispatch(upgradeStructure(structure)); // Todo: [07/07/2019] time??
+        dispatch(upgradeStructure(structure));
 
         dispatch(addLogText("log-town-upgrade-structure-complete", {
             level,
@@ -20,7 +21,7 @@ const useStructureActions = () => {
     }
 
     return {
-        startUpgradeStructure
+        startUpgradeStructure //unused
     }
 }
 

@@ -14,24 +14,21 @@ import UpDownValue from "../ui/UpDownValue";
 import StructureViewHeader from './StructureViewHeader';
 import ResourcesCostBox from 'components/ui/resources/ResourcesCostBox';
 import { ProductionStructureStoreState } from 'stores/structure';
-import useGoldState from 'hooks/store/useGoldState';
 import useStructureState from 'hooks/store/useStructureState';
 import useResourcesState from 'hooks/store/useResourcesState';
 import useStockpileState from 'hooks/store/useStockpileState';
 import { useWorkersFreeState } from 'hooks/store/useWorkersState';
 import { useCraftingTasksStateByStructure, useStudyingTasksStateByStructure } from 'hooks/store/useTasksState';
 import { removeResources } from 'actions/resources';
-import { increaseWorkers, upgradeStructure } from 'actions/structures';
+import { increaseWorkers } from 'actions/structures';
 import { addItemToWarehouse } from 'actions/items';
 import { TaskType } from 'stores/task';
 import { startTask } from 'actions/tasks';
 import { useDispatch } from 'react-redux';
-import { subtractGold } from 'actions/gold';
-import { addLogText } from 'actions/log';
-import { LogChannel } from 'stores/logEntry';
-import "./styles/productionStructureView.scss";
 import Button from 'components/ui/buttons/Button';
 import ItemsBox from 'components/ui/items/ItemsBox';
+import "./styles/productionStructureView.scss";
+import UpgradeStructureButton from './UpgradeStructureButton';
 
 export interface Props {
     structure: Structure;
@@ -43,8 +40,6 @@ const ProductionStructureView = (props: Props) => {
     const [workersAssigned, setWorkersAssigned] = useState<number>(0);
 
     const dispatch = useDispatch();
-    const gold = useGoldState();
-    const structureState = useStructureState(structure) as ProductionStructureStoreState;
     const resourcesState = useResourcesState();
     const stockpileState = useStockpileState();
     const workersFree = useWorkersFreeState();
@@ -56,7 +51,6 @@ const ProductionStructureView = (props: Props) => {
         throw new Error(`No definition found for structure ${props.structure}
             with type ProductionStructureDefinition.`);
     }
-    const level: number = structureState.level;
     const storeState: ProductionStructureStoreState = useStructureState(structure) as ProductionStructureStoreState;
     const displayName = TextManager.getStructureName(props.structure);
 
@@ -76,36 +70,6 @@ const ProductionStructureView = (props: Props) => {
             callbacks);
         dispatch(start);
     }
-
-    const handleUpgrade = (cost: number) => {
-        dispatch(subtractGold(cost));
-        dispatch(upgradeStructure(structure)); // TODO: [07/07/2019] time to upgarde??
-
-        dispatch(addLogText("log-town-upgrade-structure-complete", {
-            level: level + 1,
-            structure,
-        }, LogChannel.town));
-    }
-
-    const createUpgradeRow = () => {
-        const nextLevel = structureDefinition.levels[level + 1];
-        const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
-        const canUpgrade = nextLevel != null && gold >= nextLevelCost;
-        const upgradeText = nextLevel == null ? TextManager.get("ui-structure-upgrade-max") : TextManager.get("ui-structure-upgrade", { cost: nextLevelCost, level: level + 2 });
-
-        return (
-            <div>
-                <label>{TextManager.get("ui-structure-level")}</label>
-                { `${(level + 1)} / ${structureDefinition.levels.length}` }
-                <Button
-                    className="upgrade"
-                    onClick={() => {handleUpgrade(nextLevelCost)}}
-                    disabled={!canUpgrade}>
-                        { upgradeText }
-                </Button>
-            </div>
-        );
-    };
 
     const createCraftTabs = () => {
         return storeState.produces.map((item) => {
@@ -221,7 +185,7 @@ const ProductionStructureView = (props: Props) => {
             <details open={true } className = "production-structure-view">
                 <summary>{displayName}</summary>
                 <section>
-                    { createUpgradeRow() }
+                    <UpgradeStructureButton structure={structure} />
                     <div>craft:</div>
                     {/* { createCraftRows() } */}
                     <div className="crafting-area">

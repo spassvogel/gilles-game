@@ -46,7 +46,7 @@ const StructureDetailsView = (props: Props & WindowProps) => {
                     return <ProductionStructureView structure={props.structure}/>;
                 }
                 case StructureType.resource: {
-                    return <ResourceStructureView type={props.structure} />;
+                    return <ResourceStructureView structure={props.structure} />;
                 }
                 case StructureType.warehouse: {
                     return <WarehouseStructureView />;

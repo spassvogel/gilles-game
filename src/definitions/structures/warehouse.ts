@@ -1,5 +1,6 @@
 // tslint:disable:object-literal-sort-keys
 
+import { FOUR_MINUTES, ONE_MINUTE, TWO_MINUTES } from 'utils/format/time';
 import {  StructureType, WarehouseStructureDefinition } from "./types";
 
 const warehouse: WarehouseStructureDefinition = {
@@ -28,7 +29,8 @@ const warehouse: WarehouseStructureDefinition = {
         displayName: "structure-warehouse-name",
         workerCapacity: 5,
         cost: {
-            gold: 30,
+            gold: 13,
+            time: FOUR_MINUTES
         },
         maxResources: {
             fabric: 500,
@@ -44,6 +46,7 @@ const warehouse: WarehouseStructureDefinition = {
         workerCapacity: 10,
         cost: {
             gold: 50,
+            time: TWO_MINUTES * 5
         },
         maxResources: {
             fabric: 1000,

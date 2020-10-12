@@ -65,13 +65,14 @@ backlog of ideas
     "arrow finder": When looting a body has a chance to find arrows 
     "gloomy": will sometimes say depressing things
 
+
 #### 23/06/2019 HELP
 [ ] Each screen should get a contexualized help window
 [ ] HTML elements can receive a 'data-help' attribute with a key to refer to the localisation file
 
 
 #### 07/07/2019 STRUCTURE UPGRADE TIME [+design]
-[ ] Upgrading a structure takes time
+[x] Upgrading a structure takes time
 
 
 #### 07/07/2019 GAME DESIGN: warehouse [+design]

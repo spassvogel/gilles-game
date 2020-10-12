@@ -1,4 +1,5 @@
 // tslint:disable:object-literal-sort-keys
+import { ONE_MINUTE, TWO_MINUTES } from 'utils/format/time';
 import { ResourceStructureDefinition, StructureType } from "./types";
 
 const mine: ResourceStructureDefinition = {
@@ -21,6 +22,7 @@ const mine: ResourceStructureDefinition = {
         workerCapacity: 5,
         cost: {
             gold: 30,
+            time: ONE_MINUTE
         },
         generates: { iron: 2 },
     }, {
@@ -29,6 +31,7 @@ const mine: ResourceStructureDefinition = {
         workerCapacity: 10,
         cost: {
             gold: 50,
+            time: TWO_MINUTES
         },
         generates: { iron: 2 },
     }],

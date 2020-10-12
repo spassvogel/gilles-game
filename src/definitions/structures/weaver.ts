@@ -1,4 +1,5 @@
 // tslint:disable:object-literal-sort-keys
+import { ONE_MINUTE, THREE_MINUTES } from 'utils/format/time';
 import { ResourceStructureDefinition, StructureType } from "./types";
 
 const weaver: ResourceStructureDefinition = {
@@ -20,7 +21,8 @@ const weaver: ResourceStructureDefinition = {
         // level 1:
         workerCapacity: 5,
         cost: {
-             gold: 30,
+            gold: 30,
+            time: ONE_MINUTE
         },
         generates: { fabric: 5 },
     }, {
@@ -28,7 +30,8 @@ const weaver: ResourceStructureDefinition = {
         // level 2:
         workerCapacity: 10,
         cost: {
-             gold: 50,
+            gold: 50,
+            time: THREE_MINUTES
         },
         generates: { fabric: 7 },
     }],
