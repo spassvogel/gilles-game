@@ -125,20 +125,33 @@
                  "name":"chest",
                  "properties":[
                         {
-                         "name":"items",
-                         "type":"string",
-                         "value":"nomadHelmet,teeth, poisonVial,fedora,tophat"
-                        }, 
-                        {
-                         "name":"title",
-                         "type":"string",
-                         "value":"encounter-dungeon-caches-chest"
+                         "name":"interactive",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"lootCache",
                  "visible":true,
                  "width":100,
                  "x":200,
+                 "y":600
+                }, 
+                {
+                 "gid":201,
+                 "height":100,
+                 "id":15,
+                 "name":"altar",
+                 "properties":[
+                        {
+                         "name":"interactive",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"lootCache",
+                 "visible":true,
+                 "width":100,
+                 "x":400,
                  "y":600
                 }],
          "opacity":1,
@@ -154,7 +167,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":15,
+ "nextobjectid":16,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -210,6 +223,19 @@
                  "id":35,
                  "type":"chest-open-gold"
                 }],
+         "tilewidth":100
+        }, 
+        {
+         "columns":10,
+         "firstgid":121,
+         "image":"tilesets\/tavern.png",
+         "imageheight":1000,
+         "imagewidth":1000,
+         "margin":0,
+         "name":"tavern",
+         "spacing":0,
+         "tilecount":100,
+         "tileheight":100,
          "tilewidth":100
         }],
  "tilewidth":100,
