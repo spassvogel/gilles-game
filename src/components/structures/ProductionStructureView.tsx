@@ -9,8 +9,8 @@ import { calculateProductionTime, MAX_WORKERS_CRAFTING } from "mechanics/craftin
 import { TextManager } from "global/TextManager";
 import { formatDuration } from "utils/format/time";
 import ItemIcon from "../ui/ItemIcon";
-import Progressbar from "../ui/Progressbar";
-import UpDownValue from "../ui/UpDownValue";
+import Progressbar from "components/ui/common/Progressbar";
+import UpDownValue from "components/ui/common/UpDownValue";
 import StructureViewHeader from './StructureViewHeader';
 import ResourcesCostBox from 'components/ui/resources/ResourcesCostBox';
 import { ProductionStructureStoreState } from 'stores/structure';
@@ -27,8 +27,8 @@ import { startTask } from 'actions/tasks';
 import { useDispatch } from 'react-redux';
 import Button from 'components/ui/buttons/Button';
 import ItemsBox from 'components/ui/items/ItemsBox';
-import "./styles/productionStructureView.scss";
 import UpgradeStructureButton from './UpgradeStructureButton';
+import "./styles/productionStructureView.scss";
 
 export interface Props {
     structure: Structure;

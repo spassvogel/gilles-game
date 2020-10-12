@@ -10,7 +10,7 @@ export default class HitAreaShapes {
           return new PIXI.Polygon(shape);
       });
     }
-  
+
     /**
      * Called by hitArea
      * @param {number} x

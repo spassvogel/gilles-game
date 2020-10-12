@@ -1,0 +1,26 @@
+.updownvalue {
+	.max {
+		color: #777777;
+		margin-right: 3px;
+	}
+	i.arrow {
+		border: solid black;
+		border-width: 0 3px 3px 0;
+		display: inline-block;
+		padding: 3px;
+		margin: 2px;
+		cursor: var(--app-cursor-pointer);
+	}
+	i.arrow.disabled {
+		border-color: #777777;
+		cursor: default;
+	}
+	i.arrow.up {
+		transform: translate(2px, 2px) rotate(-135deg);
+		-webkit-transform: translate(2px, 2px) rotate(-135deg);
+	}
+	i.arrow.down {
+		transform: translate(2px, -2px) rotate(45deg);
+		-webkit-transform: translate(2px, -2px) rotate(45deg);
+	}
+}

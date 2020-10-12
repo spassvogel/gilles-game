@@ -14,10 +14,6 @@ import useStructureState from 'hooks/store/useStructureState';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from 'stores';
 import { launchQuest } from 'actions/quests';
-import { subtractGold } from 'actions/gold';
-import { upgradeStructure } from 'actions/structures';
-import { addLogText } from 'actions/log';
-import { LogChannel } from 'stores/logEntry';
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import UpgradeStructureButton from '../UpgradeStructureButton';
 import "./styles/tavernstructureview.scss";
@@ -37,7 +33,7 @@ export interface Props {
 export const SOURCE_ID = "tavern";
 
 // The UI for the tavern
-const TavernStructureView = (props: Props) => {
+const TavernStructureView = () => {
     const level = useStructureState(Structure.tavern).level;
     const adventurers = useSelector<StoreState, AdventurerStoreState[]>(store => store.adventurers);
     const quests = useSelector<StoreState, QuestStoreState[]>(store => store.quests);

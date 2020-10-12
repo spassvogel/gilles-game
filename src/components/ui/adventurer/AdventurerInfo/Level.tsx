@@ -1,6 +1,6 @@
 import * as React from "react";
 import { levelToXp, xpToLevel } from 'mechanics/adventurers/levels';
-import Progressbar from 'components/ui/Progressbar';
+import Progressbar from 'components/ui/common/Progressbar';
 import { TextManager } from 'global/TextManager';
 
 export interface Props {

@@ -12,7 +12,7 @@ import Button from 'components/ui/buttons/Button';
 import { startTask } from 'actions/tasks';
 import { TaskType } from 'stores/task';
 import { useUpgradeTasksStateByStructure } from 'hooks/store/useTasksState';
-import Progressbar from 'components/ui/Progressbar';
+import Progressbar from 'components/ui/common/Progressbar';
 import { formatDuration } from 'utils/format/time';
 
 export interface Props {

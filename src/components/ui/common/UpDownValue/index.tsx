@@ -1,6 +1,6 @@
 // Todo: come up with a less retarded name
 import * as React from "react";
-import "./css/updownvalue.css";
+import "./styles/updownvalue.scss";
 
 export interface DispatchProps {
     onUp?: (e: React.MouseEvent) => void;

@@ -1,6 +1,6 @@
 // tslint:disable:object-literal-sort-keys
 
-import { FOUR_MINUTES, ONE_MINUTE, TWO_MINUTES } from 'utils/format/time';
+import { FOUR_MINUTES, TWO_MINUTES } from 'utils/format/time';
 import {  StructureType, WarehouseStructureDefinition } from "./types";
 
 const warehouse: WarehouseStructureDefinition = {

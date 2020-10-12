@@ -10,7 +10,7 @@ import useStructureState from 'hooks/store/useStructureState';
 import { withWindow } from 'hoc/withWindow';
 import { Props as WindowProps } from "components/ui/window/Window";
 import { formatDuration } from 'utils/format/time';
-import Progressbar from 'components/ui/Progressbar';
+import Progressbar from 'components/ui/common/Progressbar';
 import ProductionStructureView from 'components/structures/ProductionStructureView';
 import WarehouseStructureView from 'components/structures/warehouse/WarehouseStructureView';
 import TavernStructureView from 'components/structures/tavern/TavernStructureView';
