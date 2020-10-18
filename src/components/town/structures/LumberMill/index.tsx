@@ -27,7 +27,7 @@ const LumberMill = (props: Props) => {
 
     useEffect(() => {
         loadResource(atlas, (resource) => {
-            setTextures(resource.textures);    
+            setTextures(resource.textures);
         })
     }, [app, app.loader, atlas]);
 
@@ -37,7 +37,7 @@ const LumberMill = (props: Props) => {
 
     if (!textures) return null;
     return (
-        <Sprite 
+        <Sprite
             name={structure}
             position={props.position}
             interactive={true}
@@ -49,15 +49,15 @@ const LumberMill = (props: Props) => {
             filters={filters}
             texture={textures["structure.png"]}
         >
-            <Sprite 
+            <Sprite
                 name="blades"
                 texture={textures["blades.png"]}
                 anchor={new PIXI.Point(0.5, 0.5)}
                 x={15}
                 y={10}
                 rotation={rotation}
-            /> 
-        </Sprite>        
+            />
+        </Sprite>
     )
 }
 

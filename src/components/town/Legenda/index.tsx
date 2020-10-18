@@ -1,5 +1,4 @@
 import React from "react";
-import "./css/legenda.css";
 import { StructuresStoreState } from 'stores/structures';
 import { Structure } from 'definitions/structures';
 import { StructureStoreState, StructureState } from 'stores/structure';
@@ -7,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { getStructureLink, getTownLink } from 'utils/routing';
 import { TextManager } from 'global/TextManager';
 import { useRouteMatch } from 'react-router';
+import "./styles/legenda.scss";
 
 interface Props {
     structures: StructuresStoreState;

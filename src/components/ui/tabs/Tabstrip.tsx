@@ -1,21 +1,20 @@
 import React from "react";
-import "./css/tabstrip.css";
 import { Props as TabProps } from "./Tab";
 import { SoundManager, Sound } from 'global/SoundManager';
+import "./styles/tabstrip.scss";
 
 export interface Props {
     className?: string;
     onClick?: React.MouseEventHandler<Element>;
     onTabSelected?: (tabId: string) => void;
-    children?: any;
+    children: React.ReactElement<TabProps>[] |  React.ReactElement<TabProps>;
     activeTab?: string;
     disabled?: boolean;
 }
 
-type AllProps = Props;
-const Tabstrip = (props: AllProps) => {
+const Tabstrip = (props: Props) => {
     let {activeTab = null} = props;
-    if (!activeTab && props.children && props.children.length) {
+    if (!activeTab && props.children && props.children) {
         activeTab = props.children[0].props.id;
     }
     const className = `${props.className} ${(props.disabled ? "disabled" : "")}`;

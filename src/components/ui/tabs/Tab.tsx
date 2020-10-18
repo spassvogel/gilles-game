@@ -1,5 +1,4 @@
 import * as React from "react";
-import "./css/tabstrip.css";
 
 export interface Props {
     id: string;
