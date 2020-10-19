@@ -6,12 +6,15 @@ import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
 import { IconSize } from 'constants/icons';
 import "./styles/combatBar.scss";
 import { TextManager } from 'global/TextManager';
+import Button from 'components/ui/buttons/Button';
 
 interface Props {
     questName: string;
+    selectedAdventurerId?: string;
 }
 
 const CombatBar = (props: Props) => {
+    const {selectedAdventurerId} = props;
     const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));
     const controller = useContext(SceneControllerContext)!;
 
@@ -22,15 +25,15 @@ const CombatBar = (props: Props) => {
             </div>
             <div className="adventurers">
                 {adventurers.map(a => (
-                    <React.Fragment key={a.id}>
+                    <div key={a.id} className={`adventurer ${selectedAdventurerId === a.id ? "selected" : ""}`}>
                         <AdventurerAvatar adventurer={a} size={IconSize.smallest}/>
                         <div className="ap">
                             {controller.getRemainingAdventurerAp(a.id)} AP
                         </div>
-                    </React.Fragment>
+                    </div>
                 ))}
-
             </div>
+            <Button size="small">End turn</Button>
         </div>
     )
 }

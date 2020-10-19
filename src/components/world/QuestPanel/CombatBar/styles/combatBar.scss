@@ -1,12 +1,22 @@
 .combat-bar {
     display: flex;
     justify-content: space-between;
-    padding-left: 8px;
+    padding: 0 8px;
+    align-items: center;
 
     .adventurers {
         display: flex;
 
+        .adventurer {
+            display: flex;
+            
+            &.selected {
+                color: #fff;
+            }
+        }
+        
         .ap {
+            padding-left: 4px;
             width: 46px;
         }
     }
