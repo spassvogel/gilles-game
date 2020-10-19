@@ -38,7 +38,7 @@ const Button = (props: React.ComponentProps<'button'> & Props) => {
         button-${typeof color === "string" ? color : ButtonColor[color ?? ButtonColor.blue]}
         button-${typeof props.size === "string" ? props.size : ButtonSize[props.size ?? ButtonSize.auto]}
         ${square ? "button-square" : ""}
-    `;
+    `.replace(/\n\s*/g, " ");
 
     return (
         <button
