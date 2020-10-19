@@ -89,6 +89,7 @@ const ApIndicator = (props: Props) => {
     const controller = useContext(SceneControllerContext)!;
 
     const ap = useMemo(() => {
+        if (!controller) return null;
         return controller.getRemainingAdventurerAp(props.adventurer.id)
     }, [controller, props.adventurer.id]);
 
