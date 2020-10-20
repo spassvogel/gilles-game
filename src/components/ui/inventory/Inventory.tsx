@@ -59,7 +59,7 @@ const Inventory = (props: Props) => {
         slots.push(slot);
    }
     return (
-        <div className={`inventory ${props.className}`}>
+        <div className={`inventory ${props.className ? props.className : ""}`}>
             {slots}
         </div>
     );

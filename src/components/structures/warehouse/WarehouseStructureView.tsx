@@ -31,14 +31,14 @@ const WAREHOUSE = DragSourceType.warehouse;
 // todo 20191202: Resource update should happen at a set interval
 const WarehouseStructureView = (props: Props) => {
 
-    const [selectedAdventurer, setSelectedAdventurer] = useState<string>();
+    const adventurersInTown = useAdventurersInTown();
+    const [selectedAdventurer, setSelectedAdventurer] = useState<string>(adventurersInTown[0]?.id);
     const resources = useResourcesState();
     const [resourcesDelta, setResourcesDelta] = useState<ResourceStoreState>(empty);    // updating this will trigger animation
     const previousResources = usePrevious(resources);
     const resourcesRef = useRef<HTMLFieldSetElement>(null);
     const stockpileState = useStockpileState();
     const structuresState = useSelector<StoreState, StructuresStoreState>(store => store.structures);
-    const adventurersInTown = useAdventurersInTown();
     const {dropItemWarehouse} = useItemDropActions();
 
     useEffect(() => {
@@ -83,17 +83,6 @@ const WarehouseStructureView = (props: Props) => {
         setSelectedAdventurer(tabId);
     };
 
-    const renderAdventurerContent = () => {
-        if (selectedAdventurer) {
-            return (
-                <AdventurerInfo
-                    adventurerId={selectedAdventurer}
-                />
-            );
-        }
-        return null;
-    };
-
     return (
         <details open={true} className="warehouse-structureview">
             <summary>{displayName}</summary>
@@ -110,6 +99,7 @@ const WarehouseStructureView = (props: Props) => {
             <h3>Stockpile</h3>
             <Inventory
                 sourceType={WAREHOUSE}
+                className="inventory-large"
                 items={stockpileState}
                 onDropItem={handleDropItemWarehouse}
             />
@@ -121,7 +111,11 @@ const WarehouseStructureView = (props: Props) => {
                     onAdventurerTabSelected={handleAdventurerTabSelected}
                 />
                 <div className="adventurer-inventory">
-                    {renderAdventurerContent()}
+                    { selectedAdventurer && (
+                        <AdventurerInfo
+                            adventurerId={selectedAdventurer}
+                        />
+                    )}
                 </div>
             </div>
         </details>

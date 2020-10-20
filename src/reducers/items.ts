@@ -17,7 +17,19 @@ const testState = [
     Item.torch,
     Item.torch,
     null,
-    Item.torch
+    Item.torch,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
 ];
 
 // Items in warehouse

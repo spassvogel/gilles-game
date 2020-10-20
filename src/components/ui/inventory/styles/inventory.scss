@@ -35,8 +35,8 @@
 
 /* size: small, 
   on large screens: 8 colums 
-  on medium screens: 6 columns
-  on small screens: 4 columns
+  on medium screens: 4 columns
+  on small screens: 2 columns
  */
  .inventory.inventory-small {
     /** large screen */
@@ -78,5 +78,29 @@
     /** small screen */
     .inventory.inventory-medium {
         grid-template-columns: repeat(4, $item-size-medium + 4px);
+    }
+}
+
+/* size: large, basically as wide as the uiå
+  on large screens: 16 colums 
+  on medium screens: 12 columns
+  on small screens: 6 columns
+ */
+.inventory.inventory-large {
+    /** large screen */
+    grid-template-columns: repeat(19, $item-size-medium + 4px);
+}
+
+@media only screen and (max-width: 778px) {
+    /** medium screen */
+    .inventory.inventory-large {
+        grid-template-columns: repeat(12, $item-size-medium + 4px);
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    /** small screen */
+    .inventory.inventory-large {
+        grid-template-columns: repeat(6, $item-size-medium + 4px);
     }
 }
