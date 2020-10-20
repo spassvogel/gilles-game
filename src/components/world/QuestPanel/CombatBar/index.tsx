@@ -4,9 +4,9 @@ import { createSelectAdventurersOnQuest } from 'selectors/adventurers';
 import { SceneControllerContext } from '../context/SceneControllerContext';
 import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
 import { IconSize } from 'constants/icons';
-import "./styles/combatBar.scss";
 import { TextManager } from 'global/TextManager';
 import Button from 'components/ui/buttons/Button';
+import "./styles/combatBar.scss";
 
 interface Props {
     questName: string;

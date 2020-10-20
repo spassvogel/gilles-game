@@ -21,8 +21,8 @@ $small-margin: 10px;
     position: relative;
     
     span {
-        color: white;
-        font-family: "Gabriela", "Cambria", sans-serif;
+        color: $color-text-lighter;
+        font-family: $font-normal;
         overflow-y: hidden;
         flex: 1;
     }

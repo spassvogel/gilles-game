@@ -10,9 +10,9 @@
 .inventory .inventory-item {
     display: inline-block;
     position: relative;
-    background: aqua;
+    background: #4d4d4d75;
 
-    border: 2px solid grey;
+    border: 2px solid $color-secondary;
     box-sizing: content-box;
     min-width: $item-size-medium;
     min-height: $item-size-medium;
@@ -21,17 +21,16 @@
 }
 
 .inventory .inventory-item.drop-active {
-    border-color: green;
+    border-color: $color-valid;
     z-index: 2;
 }
 
 .inventory .inventory-item.drop-possible {
-    border-color: orange;
-    background: white;
+    border-color: $color-primary;
 }
 
 .inventory .inventory-item .item-icon {
-    background-color: orange;    
+    background-color: $color-primary;    
 }
 
 /* size: small, 

@@ -3,6 +3,7 @@ import useQuest from 'hooks/store/useQuest';
 import { getDefinition } from 'definitions/quests';
 import { QuestDefinition } from 'definitions/quests/types';
 import { TextManager } from 'global/TextManager';
+import './styles/onTheRoad.scss';
 
 export interface Props {
     questName: string;
@@ -24,7 +25,7 @@ const OnTheRoad = (props: Props) => {
         }
         progress--;
     } while (progress >= 0);
-    return <h1 className="app-h2">{TextManager.getQuestTitle(quest.name)}</h1>;
+    return <h1 className="on-the-road questname">{TextManager.getQuestTitle(quest.name)}</h1>;
 }
 
 export default OnTheRoad;

@@ -1,8 +1,14 @@
+@import 'components/styles/variables.scss';
+
 .combat-bar {
     display: flex;
     justify-content: space-between;
     padding: 0 8px;
     align-items: center;
+
+    .title {
+        flex: 1;
+    }
 
     .adventurers {
         display: flex;
@@ -11,7 +17,7 @@
             display: flex;
             
             &.selected {
-                color: #fff;
+                color: $color-text-lighter;
             }
         }
         
