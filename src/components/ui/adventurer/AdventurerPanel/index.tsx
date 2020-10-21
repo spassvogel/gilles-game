@@ -7,7 +7,7 @@ import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
 import { Item } from 'definitions/items/types';
 import AdventurerSkills from './AdventurerSkills';
 import { useAdventurerState } from 'hooks/store/adventurers';
-import Level from 'components/ui/adventurer/AdventurerInfo/Level';
+import Level from 'components/ui/adventurer/AdventurerPanel/Level';
 import ApIndicator from './ApIndicator';
 import AdventurerTraits from './AdventurerTraits';
 import AdventurerEquipment from './AdventurerEquipment';
@@ -24,7 +24,6 @@ export interface Props {
 }
 
 /** Vertical panel showing adventurer info
- * todo: move outside of /world
  */
 const AdventurerPanel = (props: Props) => {
     const {

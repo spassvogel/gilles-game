@@ -7,7 +7,6 @@ export interface Props {
     xp: number;
 }
 
-
 const Level = (props: Props) => {
     const { xp } = props;
     const currentLevel = xpToLevel(xp);
@@ -15,18 +14,15 @@ const Level = (props: Props) => {
     const nextLevel = currentLevel + 1;
     const nextLevelXp = levelToXp(nextLevel);
 
-
     return (
         <div className="level">
             Level {currentLevel}
             <Progressbar
                 progress={(xp - currentLevelXp) / (nextLevelXp - currentLevelXp)}
-                label={TextManager.get(
-                    "ui-adventurer-info-xp-progress", {
+                label={TextManager.get("ui-adventurer-info-xp-progress", {
                     xp: Math.floor(xp - currentLevelXp),
                     next: nextLevelXp - currentLevelXp
-                    }
-                )}
+                })}
             />
         </div>
     )
