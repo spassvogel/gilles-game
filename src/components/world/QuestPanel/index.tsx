@@ -1,8 +1,7 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import AdventurerTabstrip from './AdventurerTabstrip';
 import { createSelectAdventurersOnQuest } from 'selectors/adventurers';
 import { useSelector, useDispatch } from 'react-redux';
-import AdventurerPanel from './AdventurerPanel';
 import QuestDetails from './QuestDetails';
 import { useHistory } from 'react-router';
 import { getWorldLink } from 'utils/routing';
@@ -12,6 +11,7 @@ import { setActiveSceneInteractionModal } from 'actions/quests';
 import Situation from './modals/Situation';
 import SceneControllerContextProvider from './context/SceneControllerContext';
 import CombatBar from './CombatBar';
+import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
 import "./styles/questPanel.scss";
 
 enum Layout {
@@ -32,10 +32,6 @@ const QuestPanel = (props: Props) => {
     const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));
     const leader = adventurers[0];
     const [selectedAdventurerId, setSelectedAdventurerID] = useState<string>(leader?.id);
-
-    const selectedAdventurer = useMemo(() => {
-        return adventurers.find(a => a.id === selectedAdventurerId);
-    }, [adventurers, selectedAdventurerId]);
 
     const quest = useQuest(props.questName);
     const activeInteractionModal = quest?.scene?.activeInteractionModal;
@@ -92,11 +88,11 @@ const QuestPanel = (props: Props) => {
                         selectedAdventurerId={selectedAdventurerId}
                         onAdventurerTabSelected={handleAdventurerSelected}
                         disabled={activeInteractionModal !== undefined}
-                        />
+                    />
                     <div className="adventurer-details">
-                        { selectedAdventurer && (
+                        { selectedAdventurerId && (
                             <AdventurerPanel
-                                adventurer={selectedAdventurer}
+                                adventurerId={selectedAdventurerId}
                                 questName={props.questName}
                             />
                         )}

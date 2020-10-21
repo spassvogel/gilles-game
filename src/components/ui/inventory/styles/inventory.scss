@@ -43,14 +43,14 @@
     grid-template-columns: repeat(6, $item-size-medium + 4px);
 }
 
-@media only screen and (max-width: 778px) {
+@media only screen and (max-width: $max-width-medium) {
     /** medium screen */
     .inventory.inventory-small {
         grid-template-columns: repeat(4, $item-size-medium + 4px);
     }
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: $max-width-small) {
     /** small screen */
     .inventory.inventory-small {
         grid-template-columns: repeat(2, $item-size-medium + 4px);
@@ -67,14 +67,14 @@
     grid-template-columns: repeat(8, $item-size-medium + 4px);
 }
 
-@media only screen and (max-width: 778px) {
+@media only screen and (max-width: $max-width-medium) {
     /** medium screen */
     .inventory.inventory-medium {
         grid-template-columns: repeat(6, $item-size-medium + 4px);
     }
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: $max-width-small) {
     /** small screen */
     .inventory.inventory-medium {
         grid-template-columns: repeat(4, $item-size-medium + 4px);
@@ -91,14 +91,14 @@
     grid-template-columns: repeat(19, $item-size-medium + 4px);
 }
 
-@media only screen and (max-width: 778px) {
+@media only screen and (max-width: $max-width-medium) {
     /** medium screen */
     .inventory.inventory-large {
         grid-template-columns: repeat(12, $item-size-medium + 4px);
     }
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: $max-width-small) {
     /** small screen */
     .inventory.inventory-large {
         grid-template-columns: repeat(6, $item-size-medium + 4px);

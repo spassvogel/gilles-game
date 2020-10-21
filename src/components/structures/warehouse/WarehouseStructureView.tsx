@@ -18,9 +18,9 @@ import { useSelector } from 'react-redux';
 import { StoreState } from 'stores';
 import { useAdventurersInTown } from 'hooks/store/adventurers';
 import useItemDropActions from 'hooks/actions/useItemActions';
-import AdventurerInfo from 'components/ui/adventurer/AdventurerInfo';
 import UpgradeStructureButton from '../UpgradeStructureButton';
-import "./styles/warehousestructureview.scss";
+import "./styles/warehouseStructureView.scss";
+import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
 
 // tslint:disable-next-line: no-empty-interface
 export interface Props  {
@@ -112,8 +112,11 @@ const WarehouseStructureView = (props: Props) => {
                 />
                 <div className="adventurer-inventory">
                     { selectedAdventurer && (
-                        <AdventurerInfo
+                        <AdventurerPanel
                             adventurerId={selectedAdventurer}
+                            horizontalMode={true}
+                            traits={false}
+                            skills={false}
                         />
                     )}
                 </div>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { AdventurerStoreState } from 'stores/adventurer';
 import { SOURCE_ID } from './TavernStructureView';
-import AdventurerPanel from 'components/world/QuestPanel/AdventurerPanel';
 import AdventurerButton from './AdventurerButton';
 import { TextManager } from 'global/TextManager';
 import DraggableAdventurerAvatar from 'components/ui/adventurer/DraggableAdventurerAvatar';
+import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
 
 export interface Props {
     adventurer: AdventurerStoreState;
@@ -56,7 +56,7 @@ const RoomWithAdventurer = (props: Props) => {
             </div>
             { expanded && (
                 <div className="adventurer-details">
-                    <AdventurerPanel adventurer={adventurer} />
+                    <AdventurerPanel adventurerId={adventurer.id} />
                     { (!onQuest && selectedQuestName) && (
                         <AdventurerButton
                             adventurer={adventurer}
