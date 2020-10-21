@@ -1,4 +1,4 @@
-import { QuestStoreState } from 'stores/quest';
+import { QuestStoreState } from 'store/types/quest';
 import { QuestDefinition, QuestNodeType } from '../types';
 import { initialQuestVars, Kill10BoarsQuestVars } from './questVars';
 

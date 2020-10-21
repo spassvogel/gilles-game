@@ -1,7 +1,7 @@
 import { resourceOrder } from "constants/resources";
 import resourceDescriptions from "definitions/resources";
 import * as React from "react";
-import { ResourceStoreState } from "stores/resources";
+import { ResourceStoreState } from "store/types/resources";
 import { formatNumber } from 'utils/format/number';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';

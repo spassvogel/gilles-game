@@ -1,7 +1,7 @@
-import { clearCombatAction, moveActor } from "actions/combat";
+import { clearCombatAction, moveActor } from "store/actions/combat";
 import { Store } from "redux";
-import { StoreState } from "stores";
-import { Allegiance, CombatAction, CombatActionType } from "stores/combat";
+import { StoreState } from "store/types";
+import { Allegiance, CombatAction, CombatActionType } from "store/types/combat";
 
 // tslint:disable-next-line: no-empty-interface
 export interface CombatUpdate  {

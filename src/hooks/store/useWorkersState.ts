@@ -1,6 +1,6 @@
-import { StoreState } from 'stores';
+import { StoreState } from 'store/types';
 import { useSelector } from 'react-redux';
-import { selectFreeWorkers } from 'selectors/workers';
+import { selectFreeWorkers } from 'store/selectors/workers';
 
 // Returns all the workers from redux store
 export const useWorkersState = () => {

@@ -6,7 +6,7 @@ import { compose } from "redux";
 import SettingsWindow from './SettingsWindow';
 import CheatWindow from './CheatWindow';
 import { useSelector } from 'react-redux';
-import { StoreState } from 'stores';
+import { StoreState } from 'store/types';
 import { Persistor } from 'redux-persist';
 import { loadGame } from 'index';
 import { useState } from 'react';

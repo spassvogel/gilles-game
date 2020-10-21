@@ -1,15 +1,15 @@
 import Tab from "components/ui/tabs/Tab";
 import Tabstrip from "components/ui/tabs/Tabstrip";
 import * as React from "react";
-import {LogChannel, LogEntry} from "stores/logEntry";
+import {LogChannel, LogEntry} from "store/types/logEntry";
 import {TextManager} from "global/TextManager";
 import {useState} from 'react';
-import {StoreState} from 'stores';
 import {useSelector} from 'react-redux';
-import {QuestStoreState} from 'stores/quest';
-import {selectActiveQuests} from 'selectors/quests';
-import "./styles/simplelog.scss";
 import Button from 'components/ui/buttons/Button';
+import { StoreState } from 'store/types';
+import { QuestStoreState } from 'store/types/quest';
+import { selectActiveQuests } from 'store/selectors/quests';
+import "./styles/simplelog.scss";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {

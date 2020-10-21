@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { AdventurerStoreState } from 'stores/adventurer';
-import { QuestStoreState } from 'stores/quest';
+import { AdventurerStoreState } from 'store/types/adventurer';
+import { QuestStoreState } from 'store/types/quest';
 import RoomWithAdventurer from './RoomWithAdventurer';
 import RoomEmpty from './RoomEmpty';
 

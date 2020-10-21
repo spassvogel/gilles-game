@@ -1,8 +1,8 @@
-import { StoreState } from 'stores';
 import { useSelector } from 'react-redux';
-import { TasksStoreState } from 'stores/tasks';
-import { createSelectCraftingTasksByStructure, createSelectStudyingTasksByStructure, createSelectUpgradeTasksByStructure } from 'selectors/tasks';
+import { TasksStoreState } from 'store/types/tasks';
+import { createSelectCraftingTasksByStructure, createSelectStudyingTasksByStructure, createSelectUpgradeTasksByStructure } from 'store/selectors/tasks';
 import { Structure } from 'definitions/structures';
+import { StoreState } from 'store/types';
 
 // Returns all the tasks from redux store
 export const useTasksState = () => {

@@ -1,8 +1,8 @@
-import { ActionType, StructureStateAction, WorkerCountAction, AddItemToProducesAction } from "actions/structures";
+import { ActionType, StructureStateAction, WorkerCountAction, AddItemToProducesAction } from "store/actions/structures";
 import { Structure } from "definitions/structures";
 import { AnyAction, Reducer } from "redux";
-import { StructureState, StructureStoreState } from "stores/structure";
-import { initialState, StructuresStoreState } from "../stores/structures";
+import { StructureState, StructureStoreState } from "store/types/structure";
+import { initialState, StructuresStoreState } from "store/types/structures";
 
 /**
  * reducer

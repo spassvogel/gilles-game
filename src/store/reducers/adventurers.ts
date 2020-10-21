@@ -3,11 +3,11 @@ import { ActionType,
     AssignEquipmentAction,
     InventoryAction,
     MoveItemInInventoryAction,
-    MoveItemToOtherAdventurerAction, RemoveEquipmentAction, RemoveItemFromInventoryAction } from "actions/adventurers";
+    MoveItemToOtherAdventurerAction, RemoveEquipmentAction, RemoveItemFromInventoryAction } from "store/actions/adventurers";
 import { EquipmentSlotType } from "components/ui/EquipmentSlot";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
-import { AdventurerStoreState, BasicAttributesStoreState } from "stores/adventurer";
+import { AdventurerStoreState, BasicAttributesStoreState } from "store/types/adventurer";
 import { Trait } from 'definitions/traits/types';
 import { WeaponType } from 'definitions/items/weapons';
 

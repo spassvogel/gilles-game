@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AdventurerStoreState } from "stores/adventurer";
+import { AdventurerStoreState } from "store/types/adventurer";
 import AdventurerAvatar from "components/ui/adventurer/AdventurerAvatar";
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import "./styles/assignadventurers.scss";

@@ -1,7 +1,7 @@
 import { useStore } from 'react-redux';
 import { SceneControllerManager } from 'global/SceneControllerManager';
 import { useEffect, useState, useMemo } from 'react';
-import { StoreState } from 'stores';
+import { StoreState } from 'store/types';
 
 export const useSceneController = (questName: string, sceneName: string) => {
     const store = useStore<StoreState>();

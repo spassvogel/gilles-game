@@ -1,7 +1,7 @@
 import React from "react";
-import { StructuresStoreState } from 'stores/structures';
+import { StructuresStoreState } from 'store/types/structures';
 import { Structure } from 'definitions/structures';
-import { StructureStoreState, StructureState } from 'stores/structure';
+import { StructureStoreState, StructureState } from 'store/types/structure';
 import { Link } from 'react-router-dom';
 import { getStructureLink, getTownLink } from 'utils/routing';
 import { TextManager } from 'global/TextManager';

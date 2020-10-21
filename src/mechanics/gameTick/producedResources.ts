@@ -1,8 +1,8 @@
 import { getDefinition, Structure } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureType, WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
-import { StoreState } from "stores";
-import { ResourceStoreState } from "stores/resources";
-import { StructuresStoreState } from "stores/structures";
+import { StoreState } from "store/types";
+import { ResourceStoreState } from "store/types/resources";
+import { StructuresStoreState } from "store/types/structures";
 
 // const RESOURCE_INTERVAL = 60000; // every minute constitutes a resource tick. todo: move to some other shared place
 const RESOURCE_INTERVAL = 20000; // every thirty seconds constitutes a resource tick. todo: move to some other shared place

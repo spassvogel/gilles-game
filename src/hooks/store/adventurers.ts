@@ -1,6 +1,6 @@
-import { AdventurerStoreState } from 'stores/adventurer';
-import { QuestStoreState, QuestStatus } from 'stores/quest';
-import { StoreState } from 'stores';
+import { AdventurerStoreState } from 'store/types/adventurer';
+import { QuestStoreState, QuestStatus } from 'store/types/quest';
+import { StoreState } from 'store/types';
 import { useSelector } from 'react-redux';
 import { useMemo, useCallback } from 'react';
 import { EquipmentSlotType } from 'components/ui/EquipmentSlot';

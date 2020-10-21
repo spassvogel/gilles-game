@@ -4,21 +4,21 @@ import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { Store, AnyAction } from "redux";
 import { Persistor } from "redux-persist";
-import { gameTick } from "./actions/game";
-import { addLogText } from "./actions/log";
+import localforage from 'localforage';
+import { gameTick } from "store/actions/game";
+import { addLogText } from "store/actions/log";
 import version from "./constants/version";
 import App from "./components/App";
 import getProducedResources from "./mechanics/gameTick/producedResources";
 import getQuestUpdates, { LogUpdate } from "./mechanics/gameTick/quests";
 import getRngState from "./mechanics/gameTick/rngState";
 import registerServiceWorker from "./registerServiceWorker";
-import { StoreState } from "./stores";
 import configureStore from "./utils/configureStore";
 import * as Random from "./utils/random";
 import { TextManager } from "./global/TextManager";
 import { loadResourceAsync } from 'utils/pixiJs';
 import { processCompletedTasks } from 'mechanics/gameTick/tasks';
-import localforage from 'localforage';
+import { StoreState } from 'store/types';
 import "./index.css";
 
 // Todo: Refactor into class

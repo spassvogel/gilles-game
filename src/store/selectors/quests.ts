@@ -1,8 +1,8 @@
 import { TextEntry } from "constants/text";
 import { createSelector } from "reselect";
-import { StoreState } from "stores";
-import { LogChannel, LogEntry } from "stores/logEntry";
-import { QuestStatus, QuestStoreState } from "stores/quest";
+import { StoreState } from "store/types";
+import { LogChannel, LogEntry } from "store/types/logEntry";
+import { QuestStatus, QuestStoreState } from "store/types/quest";
 
 const getQuests = (state: StoreState) => state.quests;
 const getLog = (state: StoreState) => state.log;

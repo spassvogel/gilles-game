@@ -2,7 +2,7 @@ import { SceneControllerContext } from 'components/world/QuestPanel/context/Scen
 import { TextManager } from 'global/TextManager';
 import useQuest from 'hooks/store/useQuest';
 import React, { useContext, useMemo } from "react";
-import { AdventurerStoreState } from 'stores/adventurer';
+import { AdventurerStoreState } from 'store/types/adventurer';
 
 export interface Props {
     adventurer: AdventurerStoreState;

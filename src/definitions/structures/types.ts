@@ -1,4 +1,4 @@
-import { ResourceStoreState } from "stores/resources";
+import { ResourceStoreState } from "store/types/resources";
 import { CostStoreState } from "../production/types";
 import { Item } from 'definitions/items/types';
 

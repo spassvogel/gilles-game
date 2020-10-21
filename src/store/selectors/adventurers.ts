@@ -1,8 +1,8 @@
 import { createSelector } from "reselect";
-import { StoreState } from "stores";
-import { AdventurerStoreState } from "stores/adventurer";
-import { QuestStatus, QuestStoreState } from "stores/quest";
-import { adventurersOnQuest } from 'storeHelpers';
+import { adventurersOnQuest } from 'store/helpers/storeHelpers';
+import { StoreState } from 'store/types';
+import { AdventurerStoreState } from "store/types/adventurer";
+import { QuestStatus, QuestStoreState } from 'store/types/quest';
 
 // maybe this is not used anymore?
 

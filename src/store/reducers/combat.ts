@@ -1,6 +1,6 @@
-import { ActionType, AddCombatActionAction, MoveActorAction } from "actions/combat";
+import { ActionType, AddCombatActionAction, MoveActorAction } from "store/actions/combat";
 import { AnyAction, Reducer } from "redux";
-import { barBrawl, CombatStoreState } from "stores/combat";
+import { barBrawl, CombatStoreState } from "store/types/combat";
 
 /**
  * reducer

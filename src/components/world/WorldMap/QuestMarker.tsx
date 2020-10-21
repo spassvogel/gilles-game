@@ -1,8 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { Sprite } from '@inlet/react-pixi';
-import { QuestStoreState } from 'stores/quest';
+import { QuestStoreState } from 'store/types/quest';
 import * as PIXI from 'pixi.js';
-import { AdventurerStoreState } from 'stores/adventurer';
+import { AdventurerStoreState } from 'store/types/adventurer';
 window.PIXI = PIXI;
 
 interface Props {

@@ -1,5 +1,5 @@
 import React from "react";
-import { AdventurerStoreState } from 'stores/adventurer';
+import { AdventurerStoreState } from 'store/types/adventurer';
 import EquipmentSlot, { EquipmentSlotType } from 'components/ui/EquipmentSlot';
 import { Item } from 'definitions/items/types';
 import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/ItemIcon/DraggableItemIcon';

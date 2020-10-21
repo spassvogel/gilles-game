@@ -1,7 +1,7 @@
 import { PixiComponent } from "@inlet/react-pixi";
 import * as PIXI  from 'pixi.js';
 import { TiledTilesetData } from 'constants/tiledMapData';
-import { SceneObject } from 'stores/scene';
+import { SceneObject } from 'store/types/scene';
 
 window.PIXI = PIXI;
 // eslint-disable-next-line import/first

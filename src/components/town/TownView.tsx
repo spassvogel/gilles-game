@@ -1,13 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Structure } from 'definitions/structures';
-import { StructuresStoreState } from 'stores/structures';
+import { StructuresStoreState } from 'store/types/structures';
 import { SoundManager, MusicTrack } from 'global/SoundManager';
 import { useRouteMatch } from 'react-router';
 import {OutlineFilter} from '@pixi/filter-outline';
 import { getTownLink } from 'utils/routing';
-import { StructureState, StructureStoreState } from 'stores/structure';
+import { StructureState, StructureStoreState } from 'store/types/structure';
 import { useSelector } from 'react-redux';
-import { StoreState } from 'stores';
+import { StoreState } from 'store/types';
 import { gsap } from 'gsap';
 import { MAX_WIDTH } from 'components/App';
 import HitAreaShapes from 'utils/hitAreaShapes';

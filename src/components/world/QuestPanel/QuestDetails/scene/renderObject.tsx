@@ -1,6 +1,6 @@
 import React, {  } from "react";
 import SceneObjectWrapper from './SceneObjectWrapper';
-import { SceneObject } from 'stores/scene';
+import { SceneObject } from 'store/types/scene';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { Sprite } from '@inlet/react-pixi';
 import { TiledTilesetData } from 'constants/tiledMapData';

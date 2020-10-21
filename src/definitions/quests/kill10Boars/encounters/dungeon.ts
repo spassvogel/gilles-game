@@ -1,9 +1,9 @@
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { SceneControllerManager } from 'global/SceneControllerManager';
-import { SceneObject, ActorObject, LootCache } from 'stores/scene';
-import { updateSceneObject, setActiveSceneInteractionModal, updateQuestVars } from 'actions/quests';
+import { SceneObject, ActorObject, LootCache } from 'store/types/scene';
+import { updateSceneObject, setActiveSceneInteractionModal, updateQuestVars } from 'store/actions/quests';
 import { Kill10BoarsQuestVars } from '../questVars';
-import { AdventurerStoreState } from 'stores/adventurer';
+import { AdventurerStoreState } from 'store/types/adventurer';
 // tslint:disable: max-classes-per-file
 
 const TILE_CHEST_CLOSED = 33; // todo: take this from json?

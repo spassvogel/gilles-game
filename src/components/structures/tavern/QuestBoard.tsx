@@ -1,13 +1,13 @@
 import { Item } from "definitions/items/types";
 import { getDefinition } from "definitions/quests";
 import * as React from "react";
-import { AdventurerStoreState } from "stores/adventurer";
-import { QuestStoreState } from "stores/quest";
+import { AdventurerStoreState } from "store/types/adventurer";
+import { QuestStoreState } from "store/types/quest";
 import { TextManager } from "global/TextManager";
 import AssignAdventurers from "./AssignAdventurers";
 import { QuestDefinition } from 'definitions/quests/types';
 import { useSelector } from 'react-redux';
-import { StoreState } from 'stores';
+import { StoreState } from 'store/types';
 import Button from 'components/ui/buttons/Button';
 import ItemsBox from 'components/ui/items/ItemsBox';
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';

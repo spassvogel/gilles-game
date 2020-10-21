@@ -1,6 +1,6 @@
-import { ActionType as GameActionType, GameTickAction } from "actions/game";
+import { ActionType as GameActionType, GameTickAction } from "store/actions/game";
 import { AnyAction, Reducer } from "redux";
-import { EngineStoreState, initialState } from "stores/engine";
+import { EngineStoreState, initialState } from "store/types/engine";
 
 /**
  * reducer

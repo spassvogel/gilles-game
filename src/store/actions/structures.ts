@@ -2,7 +2,7 @@
 
 import { Structure } from "definitions/structures";
 import { Action } from "redux";
-import { StructureState } from "stores/structure";
+import { StructureState } from "store/types/structure";
 import { Item } from 'definitions/items/types';
 
 export enum ActionType {

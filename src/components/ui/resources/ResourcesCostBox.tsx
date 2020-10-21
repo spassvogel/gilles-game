@@ -1,7 +1,7 @@
 import { Resource } from "definitions/resources";
 import resourceDescriptions from "definitions/resources";
 import * as React from "react";
-import { ResourceStoreState } from "stores/resources";
+import { ResourceStoreState } from "store/types/resources";
 import { TextManager } from "global/TextManager";
 import { useMemo } from 'react';
 import useResources from 'hooks/store/useResourcesState';

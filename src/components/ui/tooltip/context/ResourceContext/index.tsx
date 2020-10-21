@@ -1,11 +1,11 @@
 import * as React from "react";
 import { TextManager } from 'global/TextManager';
 import { useSelector } from 'react-redux';
-import { StoreState } from 'stores';
-import { StructuresStoreState } from 'stores/structures';
+import { StoreState } from 'store/types';
+import { StructuresStoreState } from 'store/types/structures';
 import { Resource } from 'definitions/resources';
 import { getStructureByResource, getDefinition } from 'definitions/structures';
-import { StructureState, StructureStoreState } from 'stores/structure';
+import { StructureState, StructureStoreState } from 'store/types/structure';
 import { getStructureLink } from 'utils/routing';
 import { Link } from 'react-router-dom';
 import { ResourceStructureLevelDefinition, ResourceStructureDefinition } from 'definitions/structures/types';

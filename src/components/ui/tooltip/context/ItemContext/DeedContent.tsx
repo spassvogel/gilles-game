@@ -1,14 +1,14 @@
 import * as React from "react";
 import { useDispatch } from 'react-redux';
 import { Structure, getDefinition } from 'definitions/structures';
-import { subtractGold } from 'actions/gold';
-import { startBuildingStructure, finishBuildingStructure } from 'actions/structures';
-import { startTask } from 'actions/tasks';
-import { TaskType } from 'stores/task';
+import { subtractGold } from 'store/actions/gold';
+import { startBuildingStructure, finishBuildingStructure } from 'store/actions/structures';
+import { startTask } from 'store/actions/tasks';
+import { TaskType } from 'store/types/task';
 import { DeedDefinition } from 'definitions/items/deeds';
 import useGoldState from 'hooks/store/useGoldState';
 import useStructureState from 'hooks/store/useStructureState';
-import { StructureState } from 'stores/structure';
+import { StructureState } from 'store/types/structure';
 import { TextManager } from 'global/TextManager';
 import Button from 'components/ui/buttons/Button';
 

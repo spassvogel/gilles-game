@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
-import { StoreState } from 'stores';
+import { StoreState } from 'store/types';
 import { useSelector } from 'react-redux';
-import { QuestStoreState } from 'stores/quest';
+import { QuestStoreState } from 'store/types/quest';
 
 // Returns the quest from redux store
 const useQuest = (questName: string) => {

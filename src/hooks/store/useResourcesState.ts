@@ -1,6 +1,6 @@
-import { StoreState } from 'stores';
+import { StoreState } from 'store/types';
 import { useSelector } from 'react-redux';
-import { ResourceStoreState } from 'stores/resources';
+import { ResourceStoreState } from 'store/types/resources';
 
 // Returns the resources from redux store
 const useResourcesState = () => {

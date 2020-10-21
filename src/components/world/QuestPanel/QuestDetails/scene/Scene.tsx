@@ -2,7 +2,7 @@ import React, { useRef, useMemo, useEffect, useContext, useCallback } from "reac
 import { Container } from '@inlet/react-pixi';
 import useQuest from 'hooks/store/useQuest';
 import Tilemap from './Tilemap';
-import { ActorObject } from 'stores/scene';
+import { ActorObject } from 'store/types/scene';
 import BridgedStage from 'components/pixi/util/BridgedStage';
 import SceneAdventurer from './SceneAdventurer';
 import useTilesetsLoader from 'hooks/useTilesetsLoader';

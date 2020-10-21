@@ -1,6 +1,6 @@
-import { StoreState } from "stores";
-import { AdventurerStoreState } from "stores/adventurer";
-import { QuestStoreState } from "stores/quest";
+import { StoreState } from "store/types";
+import { AdventurerStoreState } from "store/types/adventurer";
+import { QuestStoreState } from "store/types/quest";
 
 // export const adventurersInParty = (store: StoreState, partyId: string): AdventurerStoreState[] => {
 //     const party: PartyStoreState = store.parties[partyId];

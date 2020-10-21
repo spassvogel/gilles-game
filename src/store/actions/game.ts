@@ -1,7 +1,7 @@
 import { LogUpdate, QuestUpdate } from "mechanics/gameTick/quests";
 import { Action } from "redux";
 import { State as seedrandomStateType } from "seedrandom";
-import { ResourceStoreState } from "stores/resources";
+import { ResourceStoreState } from "store/types/resources";
 
 export enum ActionType {
     gameTick = "gameTick",

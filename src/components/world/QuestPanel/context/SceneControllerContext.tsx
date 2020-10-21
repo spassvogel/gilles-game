@@ -2,7 +2,7 @@ import React, { createContext, PropsWithChildren, useState, useMemo, useEffect }
 import { SceneControllerManager } from 'global/SceneControllerManager';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { useStore } from 'react-redux';
-import { StoreState } from 'stores';
+import { StoreState } from 'store/types';
 
 export const SceneControllerContext = createContext<BaseSceneController<any> | null>(null);
 

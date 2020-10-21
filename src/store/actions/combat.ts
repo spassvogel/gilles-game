@@ -1,6 +1,6 @@
 // tslint:disable:object-literal-sort-keys
 import { Action } from "redux";
-import { CombatActionType } from "stores/combat";
+import { CombatActionType } from "store/types/combat";
 
 export enum ActionType {
     clearCombatAction = "clearCombatAction",

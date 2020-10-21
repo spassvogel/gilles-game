@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import { LogChannel } from "stores/logEntry";
+import { LogChannel } from "store/types/logEntry";
 import { TextEntry } from 'constants/text';
 
 export enum ActionType {

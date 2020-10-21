@@ -1,6 +1,6 @@
 import React from "react";
 import Tabstrip from 'components/ui/tabs/Tabstrip';
-import { AdventurerStoreState } from 'stores/adventurer';
+import { AdventurerStoreState } from 'store/types/adventurer';
 import Tab from 'components/ui/tabs/Tab';
 import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
 import { getClassName, IconSize } from 'constants/icons';

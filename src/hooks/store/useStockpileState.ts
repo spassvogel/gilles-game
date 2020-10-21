@@ -1,4 +1,4 @@
-import { StoreState } from 'stores';
+import { StoreState } from 'store/types';
 import { useSelector } from 'react-redux';
 import { Item } from 'definitions/items/types';
 

@@ -1,5 +1,5 @@
-import { ActionType, ModifyWorkersAction } from "actions";
 import { AnyAction, Reducer } from "redux";
+import { ActionType, ModifyWorkersAction } from 'store/actions';
 
 /**
  * reducer

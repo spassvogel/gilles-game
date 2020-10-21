@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
-import { subtractGold } from 'actions/gold';
-import { upgradeStructure } from 'actions/structures';
+import { subtractGold } from 'store/actions/gold';
+import { upgradeStructure } from 'store/actions/structures';
 import { Structure } from 'definitions/structures';
-import { addLogText } from 'actions/log';
-import { LogChannel } from 'stores/logEntry';
+import { addLogText } from 'store/actions/log';
+import { LogChannel } from 'store/types/logEntry';
 
 // this hook is not used at the moment
 const useStructureActions = () => {

@@ -1,9 +1,9 @@
 
-import { ActionType as GameActionType } from "actions/game";
-import {  ActionType, AddAction} from "actions/tasks";
+import { ActionType as GameActionType } from "store/actions/game";
+import {  ActionType, AddAction} from "store/actions/tasks";
 import { AnyAction, Reducer } from "redux";
-import { TaskStoreState } from "stores/task";
-import { initialState, TasksStoreState } from "stores/tasks";
+import { TaskStoreState } from "store/types/task";
+import { initialState, TasksStoreState } from "store/types/tasks";
 
 /**
  * Tasks reducer

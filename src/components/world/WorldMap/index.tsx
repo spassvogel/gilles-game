@@ -4,21 +4,21 @@ import { Viewport as PixiViewport } from "pixi-viewport";
 import { useSelector } from 'react-redux'
 
 import React, { useEffect, useRef, useCallback, useState } from "react";
-import { QuestStoreState } from "stores/quest";
+import { QuestStoreState } from "store/types/quest";
 import { lerpLocation } from 'utils/pixiJs';
 import { QuestDefinition, QuestNodeType, QuestNode } from "definitions/quests/types";
 import Viewport from '../../pixi/Viewport';
 import MapGrid from './MapGrid';
 import QuestMarker from './QuestMarker';
-import { StoreState } from 'stores';
-import { getQuestLeader } from 'storeHelpers';
-import { AdventurerStoreState } from 'stores/adventurer';
+import { AdventurerStoreState } from 'store/types/adventurer';
 import QuestLine from './QuestLine';
 import { MAX_WIDTH as WIDTH } from 'components/App';
-import { selectActiveQuests } from 'selectors/quests';
+import { selectActiveQuests } from 'store/selectors/quests';
 import { getDefinition } from 'definitions/quests';
-import './styles/worldMap.scss';
 import { TextManager } from 'global/TextManager';
+import { getQuestLeader } from 'store/helpers/storeHelpers';
+import { StoreState } from 'store/types';
+import './styles/worldMap.scss';
 
 window.PIXI = PIXI; // workaround for pixi-tilemap
 const FULL_HEIGHT = 1024;

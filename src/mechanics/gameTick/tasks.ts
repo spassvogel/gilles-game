@@ -1,5 +1,5 @@
-import { TaskStoreState, TaskType } from 'stores/task';
-import { TasksStoreState } from 'stores/tasks';
+import { TaskStoreState, TaskType } from 'store/types/task';
+import { TasksStoreState } from 'store/types/tasks';
 import { AnyAction, Dispatch } from "redux";
 import { ToastManager } from 'global/ToastManager';
 import { TextManager } from 'global/TextManager';

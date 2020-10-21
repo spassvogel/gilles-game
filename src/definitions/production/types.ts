@@ -1,5 +1,5 @@
 import { Item } from "../items/types";
-import { ResourceStoreState } from 'stores/resources';
+import { ResourceStoreState } from 'store/types/resources';
 
 
 export interface CostStoreState {

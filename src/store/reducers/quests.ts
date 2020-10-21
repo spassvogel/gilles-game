@@ -1,4 +1,4 @@
-import { ActionType as GameActionType, GameTickAction } from "actions/game";
+import { ActionType as GameActionType, GameTickAction } from "store/actions/game";
 import {
     ActionType,
     QuestAction,
@@ -11,11 +11,11 @@ import {
     UpdateSceneObjectAction,
     SetActiveSceneInteractionModalAction,
     DeductActorApAction
-} from "actions/quests";
+} from "store/actions/quests";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
-import { QuestStatus, QuestStoreState } from "stores/quest";
-import { SceneActionType } from 'stores/scene';
+import { QuestStatus, QuestStoreState } from "store/types/quest";
+import { SceneActionType } from 'store/types/scene';
 import { QuestDefinition } from 'definitions/quests/types';
 import { getDefinition } from 'definitions/quests';
 import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars';

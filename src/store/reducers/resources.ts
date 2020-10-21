@@ -1,7 +1,7 @@
-import { ActionType as GameActionType, GameTickAction } from "actions/game";
+import { ActionType as GameActionType, GameTickAction } from "store/actions/game";
 import { AnyAction, Reducer } from "redux";
-import { ActionType, AddResources } from "../actions/resources";
-import { initialState, ResourceStoreState } from "../stores/resources";
+import { ActionType, AddResources } from "store/actions/resources";
+import { initialState, ResourceStoreState } from "store/types/resources";
 
 /**
  * reducer

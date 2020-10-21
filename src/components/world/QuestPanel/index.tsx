@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import AdventurerTabstrip from './AdventurerTabstrip';
-import { createSelectAdventurersOnQuest } from 'selectors/adventurers';
+import { createSelectAdventurersOnQuest } from 'store/selectors/adventurers';
 import { useSelector, useDispatch } from 'react-redux';
 import QuestDetails from './QuestDetails';
 import { useHistory } from 'react-router';
 import { getWorldLink } from 'utils/routing';
 import LootCache from './modals/LootCache';
 import useQuest from 'hooks/store/useQuest';
-import { setActiveSceneInteractionModal } from 'actions/quests';
+import { setActiveSceneInteractionModal } from 'store/actions/quests';
 import Situation from './modals/Situation';
 import SceneControllerContextProvider from './context/SceneControllerContext';
 import CombatBar from './CombatBar';

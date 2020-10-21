@@ -1,4 +1,4 @@
-import { QuestStoreState } from 'stores/quest';
+import { QuestStoreState } from 'store/types/quest';
 import { Item } from 'definitions/items/types';
 import { QuestDefinition, QuestNodeType } from '../types';
 

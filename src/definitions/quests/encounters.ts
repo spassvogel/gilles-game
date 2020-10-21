@@ -1,9 +1,9 @@
 // import { Store, AnyAction } from "redux";
-// import { SceneStoreStat } from 'stores/scene';
-// import { StoreState } from 'stores';
+// import { SceneStoreStat } from 'store/types/scene';
+// import { StoreState } from 'store/types';
 // import { TiledMapData } from 'constants/tiledMapData';
 // import { ExtendedTiledObjectData } from 'utils/tilemap';
-// import { AdventurerStoreState } from 'stores/adventurer';
+// import { AdventurerStoreState } from 'store/types/adventurer';
 // // todo: obsolete
 // export interface EncounterDefinition<TQuestVars> {
 //     startScene(store: Store<StoreState, AnyAction>, questName: string, sceneName?: string): void

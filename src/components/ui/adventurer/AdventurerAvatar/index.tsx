@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AdventurerStoreState } from "stores/adventurer";
+import { AdventurerStoreState } from "store/types/adventurer";
 import { getClassName, IconSize } from 'constants/icons';
 import "./styles/adventureravatar.scss";
 

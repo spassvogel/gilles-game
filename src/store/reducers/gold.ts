@@ -1,4 +1,4 @@
-import { ActionType, ModifyGoldAction } from "actions/gold";
+import { ActionType, ModifyGoldAction } from "store/actions/gold";
 import { AnyAction, Reducer } from "redux";
 
 /**

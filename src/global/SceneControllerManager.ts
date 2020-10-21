@@ -1,5 +1,5 @@
 import { Store, AnyAction } from "redux";
-import { StoreState } from 'stores';
+import { StoreState } from 'store/types';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 
 export abstract class SceneControllerManager {

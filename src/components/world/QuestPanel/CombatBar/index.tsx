@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useSelector } from 'react-redux';
-import { createSelectAdventurersOnQuest } from 'selectors/adventurers';
+import { createSelectAdventurersOnQuest } from 'store/selectors/adventurers';
 import { SceneControllerContext } from '../context/SceneControllerContext';
 import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
 import { IconSize } from 'constants/icons';

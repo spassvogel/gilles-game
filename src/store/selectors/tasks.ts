@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
-import { StoreState } from "stores";
-import { TasksStoreState } from 'stores/tasks';
+import { StoreState } from "store/types";
+import { TasksStoreState } from 'store/types/tasks';
 import { Structure } from 'definitions/structures';
 
 const getTasks = (state: StoreState) => state.tasks;

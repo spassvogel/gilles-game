@@ -2,10 +2,10 @@
 import { getDefinition, Structure } from "definitions/structures";
 import { StructureDefinition, StructureType } from "definitions/structures/types";
 import * as React from "react";
-import { StructureState } from "stores/structure";
+import { StructureState } from "store/types/structure";
 import { useSelector } from 'react-redux';
-import { StoreState } from 'stores';
-import { TasksStoreState } from 'stores/tasks';
+import { StoreState } from 'store/types';
+import { TasksStoreState } from 'store/types/tasks';
 import useStructureState from 'hooks/store/useStructureState';
 import { withWindow } from 'hoc/withWindow';
 import { Props as WindowProps } from "components/ui/window/Window";

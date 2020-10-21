@@ -3,15 +3,15 @@ import questDefinitions from "definitions/quests";
 import { QuestDefinition, QuestNodeType } from 'definitions/quests/types';
 
 import { Store } from "redux";
-import { StoreState } from "stores";
-import { LogChannel } from "stores/logEntry";
-import { QuestStatus, QuestStoreState } from "stores/quest";
+import { StoreState } from "store/types";
+import { LogChannel } from "store/types/logEntry";
+import { QuestStatus, QuestStoreState } from "store/types/quest";
 import { ToastManager } from 'global/ToastManager';
 import { TextManager } from 'global/TextManager';
 import { Type } from 'components/ui/toasts/Toast';
-import { getQuestLeader } from 'storeHelpers';
 import { getQuestLink } from 'utils/routing';
-import { setSceneName } from 'actions/quests';
+import { setSceneName } from 'store/actions/quests';
+import { getQuestLeader } from 'store/helpers/storeHelpers';
 
 export interface QuestUpdate {
     name: string;

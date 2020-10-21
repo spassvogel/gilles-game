@@ -1,6 +1,6 @@
 import { Action } from "redux";
-import { AdventurerStoreState } from "stores/adventurer";
-import { SceneAction, SceneStoreState, SceneObject, SceneInteractionModal } from 'stores/scene';
+import { AdventurerStoreState } from "store/types/adventurer";
+import { SceneAction, SceneStoreState, SceneObject, SceneInteractionModal } from "store/types/scene";
 import { Item } from 'definitions/items/types';
 
 // tslint:disable:object-literal-sort-keys

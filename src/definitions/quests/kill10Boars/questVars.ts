@@ -1,5 +1,5 @@
 import { Item } from 'definitions/items/types';
-import { LootCache } from 'stores/scene';
+import { LootCache } from 'store/types/scene';
 
 export interface Kill10BoarsQuestVars {
     dungeon: {

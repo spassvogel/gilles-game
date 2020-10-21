@@ -1,6 +1,6 @@
 // tslint:disable:object-literal-sort-keys
 import { Action } from "redux";
-import { ResourceStoreState } from "stores/resources";
+import { ResourceStoreState } from "store/types/resources";
 
 export enum ActionType {
     addResources = "addResources",

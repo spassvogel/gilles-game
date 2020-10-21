@@ -1,5 +1,5 @@
 
-import {  ActionType, AddAction, MoveItemInWarehouseAction, RemoveItemFromWarehouseAction } from "actions/items";
+import {  ActionType, AddAction, MoveItemInWarehouseAction, RemoveItemFromWarehouseAction } from "store/actions/items";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 

@@ -1,11 +1,11 @@
-import rootReducer from "reducers/index";
+import rootReducer from "store/reducers/index";
 import { createStore, DeepPartial, AnyAction } from "redux";
 import { Persistor, persistReducer, persistStore } from "redux-persist";
 import localForage from 'localforage';
-import { storeIsRehydrated } from "storeHelpers";
-import { StoreState } from "stores";
 import { PersistPartial } from 'redux-persist/lib/persistReducer';
 import { asInt } from "constants/version";
+import { storeIsRehydrated } from 'store/helpers/storeHelpers';
+import { StoreState } from 'store/types';
 
 const persistConfig = {
     key: "root",

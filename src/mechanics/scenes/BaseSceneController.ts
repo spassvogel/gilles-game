@@ -1,24 +1,24 @@
 import { Store, AnyAction } from "redux";
 import { getExtendedTilemapObjects, ExtendedTiledObjectData, addAllTilesInLayerToList, locationEquals, TiledObjectType } from 'utils/tilemap';
-import { adventurersOnQuest } from 'storeHelpers';
-import { StoreState } from 'stores';
+import { StoreState } from 'store/types';
 import { loadResource, loadResourceAsync } from 'utils/pixiJs';
 import { TiledMapData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
-import { AdventurerStoreState } from 'stores/adventurer';
-import { setScene, setSceneName, exitEncounter } from 'actions/quests';
-import { SceneObject, ActorObject, LootCache } from 'stores/scene';
+import { AdventurerStoreState } from 'store/types/adventurer';
+import { setScene, setSceneName, exitEncounter } from 'store/actions/quests';
+import { SceneObject, ActorObject, LootCache } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLink } from 'utils/routing';
 import { TextEntry, isTextEntry } from 'constants/text';
 import { TextManager } from 'global/TextManager';
-import { addLogText, addLogEntry } from 'actions/log';
+import { addLogText, addLogEntry } from 'store/actions/log';
 import { getDefinition } from 'definitions/quests';
-import { LogChannel } from 'stores/logEntry';
-import { addGold } from 'actions/gold';
-import { addItemToInventory } from 'actions/adventurers';
+import { LogChannel } from 'store/types/logEntry';
+import { addGold } from 'store/actions/gold';
+import { addItemToInventory } from 'store/actions/adventurers';
 import { calculateInitialAp } from './actionPoints';
+import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 
 export class BaseSceneController<TQuestVars> {
 
