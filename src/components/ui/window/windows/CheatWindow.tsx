@@ -1,11 +1,11 @@
+import * as React from "react";
+import { useRef, useState } from 'react';
 import { getDefinition } from "definitions/items";
 import { Item, ItemType } from "definitions/items/types";
 import { getDefinition as getStructureDefinition, Structure } from "definitions/structures";
-import * as React from "react";
 import { StructureState, StructureStoreState } from "store/types/structure";
 import { StructuresStoreState } from "store/types/structures";
 import { TextManager } from "global/TextManager";
-import { useRef, useState } from 'react';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,13 +20,13 @@ import { addGold } from 'store/actions/gold';
 import { addItemToWarehouse } from 'store/actions/items';
 import { withWindow } from 'hoc/withWindow';
 import { addWorkers } from 'store/actions';
+import { getTimeMultiplier, setCheatTimeMultiplier, TimeType } from 'mechanics/time';
 import "./styles/cheat.scss";
 
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
 }
-
 
 const CheatWindow = (props: Props) => {
 
@@ -37,6 +37,7 @@ const CheatWindow = (props: Props) => {
         workers: 10,
     });
     const dispatch = useDispatch();
+    const [timeMultiplier, setTimeMultiplier] = useState(getTimeMultiplier(TimeType.cheat));
 
     const onCheatGold = (amount: number) => {
         dispatch(addGold(amount));
@@ -83,12 +84,12 @@ const CheatWindow = (props: Props) => {
                 key={structure}
             >
                 <label title={structure}>
-                    { `${displayName}` }
+                    {`${displayName}`}
                 </label>
                 <input
                     key={structure}
                     type="checkbox"
-                    checked={structureStore.state === StructureState.Built }
+                    checked={structureStore.state === StructureState.Built}
                     onChange={() => handleChangeStructureState(structure, structureStore.state !== StructureState.Built)}
                 />
             </div>
@@ -105,8 +106,8 @@ const CheatWindow = (props: Props) => {
 
     const getItemOption = (item: Item) => {
         return (
-            <option value ={item } key ={item }>
-                { TextManager.getItemName(item) }
+            <option value={item} key={item}>
+                { TextManager.getItemName(item)}
             </option>
         );
     };
@@ -114,13 +115,12 @@ const CheatWindow = (props: Props) => {
     const items = Object.keys(ItemType)
         .filter((val: any) => !isNaN(val))
         .map((type: string) => {
-        return (
-            <optgroup label ={ItemType[type] } key ={type }>
-                { getItemTypeOptions(type as unknown as ItemType) }
-            </optgroup>
-        );
-    });
-
+            return (
+                <optgroup label={ItemType[type]} key={type}>
+                    { getItemTypeOptions(type as unknown as ItemType)}
+                </optgroup>
+            );
+        });
 
     const handleCheatGold = (evt: React.MouseEvent<HTMLButtonElement>) => {
         const amount = cheats.gold;
@@ -164,7 +164,7 @@ const CheatWindow = (props: Props) => {
     }
 
     const handleChangeGold = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const amount = Number(event.target.value);
+        const amount = Number.parseFloat(event.target.value);
         setCheats({
             ...cheats,
             gold: amount,
@@ -172,7 +172,7 @@ const CheatWindow = (props: Props) => {
     }
 
     const handleChangeWorkers = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const amount = Number(event.target.value);
+        const amount = Number.parseFloat(event.target.value);
         setCheats({
             ...cheats,
             workers: amount,
@@ -180,11 +180,17 @@ const CheatWindow = (props: Props) => {
     }
 
     const handleChangeResources = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const amount = Number(event.target.value);
+        const amount = Number.parseFloat(event.target.value);
         setCheats({
             ...cheats,
             resources: amount,
         });
+    }
+
+    const handleChangeTimeMultiplier = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = Number.parseFloat(event.target.value);
+        setTimeMultiplier(value)
+        setCheatTimeMultiplier(value);
     }
 
     return (
@@ -192,35 +198,47 @@ const CheatWindow = (props: Props) => {
             <div className="label-numberbox-button">
                 <label>Gold</label>
                 <input type="number"
-                    value= {cheats.gold}
-                    style={{width: "50px"}}
-                    onChange={handleChangeGold}/>
+                    value={cheats.gold}
+                    style={{ width: "50px" }}
+                    onChange={handleChangeGold} />
                 <button onClick={handleCheatGold}>Add</button>
             </div>
             <div className="label-numberbox-button">
                 <label>Workers</label>
                 <input type="number"
-                    value= {cheats.workers}
-                    style={{width: "50px"}}
-                    onChange={handleChangeWorkers}/>
+                    value={cheats.workers}
+                    style={{ width: "50px" }}
+                    onChange={handleChangeWorkers} />
                 <button onClick={handleCheatWorkers}>Add</button>
             </div>
             <div className="label-numberbox-button">
                 <label>Resources</label>
                 <input type="number"
-                    value= {cheats.resources}
-                    style={{width: "50px"}}
-                    onChange={handleChangeResources}/>
+                    value={cheats.resources}
+                    style={{ width: "50px" }}
+                    onChange={handleChangeResources} />
                 <button onClick={handleCheatResources}>Add</button>
             </div>
             <div className="label-numberbox-button">
                 <label>Items</label>
-                <select style={{width: "150px"}} ref={itemSelectRef}>
-                    { items }
+                <select style={{ width: "150px" }} ref={itemSelectRef}>
+                    {items}
                 </select>
                 <button onClick={handleCheatItem}>Add</button>
             </div>
-            { Object.keys(structures).map((structure) => getStructureRow(structure as Structure)) }
+            <div className="label-range-value">
+                <label>Speed</label>
+                <input
+                    type="range"
+                    min="1" max="10" value={timeMultiplier} step={1}
+                    onChange={handleChangeTimeMultiplier}
+                />
+                {timeMultiplier}x speed
+            </div>
+            <div>
+                <h2>Structures</h2>
+            </div>
+            { Object.keys(structures).map((structure) => getStructureRow(structure as Structure))}
         </div>
     );
 }

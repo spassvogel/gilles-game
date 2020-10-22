@@ -12,6 +12,7 @@ import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLink } from 'utils/routing';
 import { setSceneName } from 'store/actions/quests';
 import { getQuestLeader } from 'store/helpers/storeHelpers';
+import { getTimeMultiplier, TimeType } from 'mechanics/time';
 
 export interface QuestUpdate {
     name: string;
@@ -32,6 +33,7 @@ interface QuestGameTickResponse {
 const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTickResponse => {
 
     const speed = 4;    // in nodes per minute
+    const timeMultiplier = getTimeMultiplier(TimeType.questProgress);
     const MS_PER_MINUTE = 60000;
     const log: LogUpdate[] = [];
     const quests: QuestUpdate[] = [];
@@ -50,7 +52,7 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
 
         if (currentNode.type === QuestNodeType.nothing) {
             // Currently at a 'nothing' node
-            const progressIncrease = (delta / MS_PER_MINUTE) * speed;
+            const progressIncrease = (delta / (MS_PER_MINUTE / timeMultiplier)) * speed;
             // todo: [15/07/2019] speed could be different for each party
             const nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
             const nodesPassed = Math.floor(nextProgress) - currentNodeIndex;

@@ -1,5 +1,6 @@
 import { getDefinition, Structure } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureType, WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
+import { getTimeMultiplier, TimeType } from 'mechanics/time';
 import { StoreState } from "store/types";
 import { ResourceStoreState } from "store/types/resources";
 import { StructuresStoreState } from "store/types/structures";
@@ -13,7 +14,9 @@ const RESOURCE_INTERVAL = 20000; // every thirty seconds constitutes a resource 
 const getProducedResources = (lastProducedUpdate: number, store: StoreState): ResourceStoreState|null => {
     const structures: StructuresStoreState = store.structures;
     const result: ResourceStoreState = {};
-    const factor = ((Date.now() - lastProducedUpdate) / RESOURCE_INTERVAL);
+    const timeMultiplier = getTimeMultiplier(TimeType.resourceGeneration);
+
+    const factor = ((Date.now() - lastProducedUpdate) / (RESOURCE_INTERVAL / timeMultiplier));
 
     // this function can run at different intervals
     // faster or slower than once a minute
