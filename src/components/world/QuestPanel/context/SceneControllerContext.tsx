@@ -41,7 +41,7 @@ const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
         }
     }, [controller, questName, scene, sceneName]);
 
-    if (controller && !(controller.dataLoaded || loaded)) {
+    if (controller && (!controller.dataLoaded || !loaded)) {
         return (
             <div>loading...</div>
         );
