@@ -1,12 +1,12 @@
+import * as React from "react";
 import { ContextType } from "constants/context";
 import { getClassName, IconSize } from "constants/icons";
 import { getIconClassName } from "constants/items";
 import { getDefinition } from "definitions/items";
 import { Item } from "definitions/items/types";
-import * as React from "react";
 import { TooltipManager } from 'global/TooltipManager';
 import { TextManager } from 'global/TextManager';
-import "./styles/itemicon.scss";
+import "./styles/itemIcon.scss";
 import "./styles/icon.scss";
 import "./styles/item.scss";
 
