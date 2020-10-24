@@ -9,7 +9,7 @@ import { StructureState, StructureStoreState } from 'store/types/structure';
 import { getStructureLink } from 'utils/routing';
 import { Link } from 'react-router-dom';
 import { ResourceStructureLevelDefinition, ResourceStructureDefinition } from 'definitions/structures/types';
-import useResourcesState from 'hooks/store/useResourcesState';
+import { useMaxResourcesState, useResourcesState } from 'hooks/store/resources';
 import { formatNumber } from 'utils/format/number';
 import useGoldState from 'hooks/store/useGoldState';
 import { useWorkersFreeState, useWorkersState } from 'hooks/store/useWorkersState';
@@ -27,6 +27,7 @@ const ResourceContext = (props: Props) => {
     const workersState = useWorkersState();
     const workersFreeState = useWorkersFreeState();
     const structureStates = useSelector<StoreState, StructuresStoreState>(store => store.structures);
+    const maxResources = useMaxResourcesState();
 
     const renderProducedBy = () => {
         const structure = getStructureByResource(Resource[resource]);
@@ -67,10 +68,10 @@ const ResourceContext = (props: Props) => {
         case Resource.stone:
         case Resource.wood: {
             const amount = formatNumber(resourcesState[resource]!, 0);
-
+            const full = resourcesState[resource]! >= maxResources[resource]!;
             return (
-                <>
-                    <div className="resource-context">
+                <div className="resource-context">
+                    <div className="info">
                         {TextManager.get(`resource-${resource}-info`)}
                     </div>
                     <div>
@@ -79,7 +80,12 @@ const ResourceContext = (props: Props) => {
                     <div>
                         {renderProducedBy()}
                     </div>
-                </>
+                    { full && (
+                        <div className="warning-full">
+                            {TextManager.get(`ui-tooltip-resource-warehouse-full`, { resource })}
+                        </div>
+                    )}
+                </div>
             )
         }
         case "gold": {

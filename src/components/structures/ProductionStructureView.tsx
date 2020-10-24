@@ -15,7 +15,7 @@ import StructureViewHeader from './StructureViewHeader';
 import ResourcesCostBox from 'components/ui/resources/ResourcesCostBox';
 import { ProductionStructureStoreState } from 'store/types/structure';
 import useStructureState from 'hooks/store/useStructureState';
-import useResourcesState from 'hooks/store/useResourcesState';
+import { useResourcesState } from 'hooks/store/resources';
 import useStockpileState from 'hooks/store/useStockpileState';
 import { useWorkersFreeState } from 'hooks/store/useWorkersState';
 import { useCraftingTasksStateByStructure, useStudyingTasksStateByStructure } from 'hooks/store/useTasksState';

@@ -1,6 +1,6 @@
 export enum TimeType {
     questProgress,          // progress on the worldmap
-    resourceGeneration, 
+    resourceGeneration,
     cheat
 }
 // todo: should come from store?

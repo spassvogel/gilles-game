@@ -161,6 +161,11 @@ Handlebars.registerHelper("structure:name", (structure: string) => {
     return new Handlebars.SafeString(name);
 });
 
+Handlebars.registerHelper("resource:name", (resource: string) => {
+    const name = TextManager.get(`resource-${resource}-name`);
+    return new Handlebars.SafeString(name);
+});
+
 const itemArticleAuto = (item: Item) => {
     return itemArticleUndefined(item);
 };

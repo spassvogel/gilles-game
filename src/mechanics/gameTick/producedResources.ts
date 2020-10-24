@@ -1,6 +1,7 @@
-import { getDefinition, Structure } from "definitions/structures";
-import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureType, WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
+import { getDefinition } from "definitions/structures";
+import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureType } from "definitions/structures/types";
 import { getTimeMultiplier, TimeType } from 'mechanics/time';
+import { selectMaxResources } from 'store/selectors/resources';
 import { StoreState } from "store/types";
 import { ResourceStoreState } from "store/types/resources";
 import { StructuresStoreState } from "store/types/structures";
@@ -16,12 +17,11 @@ const getProducedResources = (lastProducedUpdate: number, store: StoreState): Re
     const result: ResourceStoreState = {};
     const timeMultiplier = getTimeMultiplier(TimeType.resourceGeneration);
 
-    const factor = ((Date.now() - lastProducedUpdate) / (RESOURCE_INTERVAL / timeMultiplier));
-
     // this function can run at different intervals
     // faster or slower than once a minute
     // we will multiply the resource amount by the factor to normalize
-    const maxResources = getMaxResources(store);
+    const factor = ((Date.now() - lastProducedUpdate) / (RESOURCE_INTERVAL / timeMultiplier));
+    const maxResources = selectMaxResources(store);
 
     const handleStructure = (structure: string) => {
         const structureDefinition = getDefinition(structure);
@@ -59,12 +59,5 @@ const getProducedResources = (lastProducedUpdate: number, store: StoreState): Re
     return result;
 };
 
-// Returns a ResourceStoreState with maximum stockpile of each resource the warehouse supports
-const getMaxResources = (store: StoreState): ResourceStoreState => {
-    const structureDefinition = getDefinition<WarehouseStructureDefinition>(Structure.warehouse);
-    const level: number = store.structures[Structure.warehouse].level;
-    const levelDefinition: WarehouseStructureLevelDefinition = structureDefinition.levels[level];
-    return levelDefinition.maxResources;
-};
 
 export default getProducedResources;

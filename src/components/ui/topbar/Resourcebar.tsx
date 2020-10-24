@@ -6,7 +6,7 @@ import { formatNumber } from 'utils/format/number';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
 import useGoldState from 'hooks/store/useGoldState';
-import useResourcesState from 'hooks/store/useResourcesState';
+import { useResourcesState } from 'hooks/store/resources';
 import { useWorkersFreeState } from 'hooks/store/useWorkersState';
 import "./styles/resourcebar.scss";
 import "components/ui/styles/icon.scss";

@@ -4,7 +4,7 @@ import * as React from "react";
 import { ResourceStoreState } from "store/types/resources";
 import { TextManager } from "global/TextManager";
 import { useMemo } from 'react';
-import useResources from 'hooks/store/useResourcesState';
+import { useResourcesState } from 'hooks/store/resources';
 import "./styles/resourcesbox.scss";
 
 export interface Props {
@@ -26,7 +26,7 @@ const ResourcesCostBox = (props: AllProps) => {
         resources,
     } = props;
 
-    const storeResources = useResources();
+    const storeResources = useResourcesState();
     const sufficientResources = useMemo(() => {
         return Object.keys(resources).reduce((acc, value) => {
             acc[value] = storeResources[value] >= resources[value];

@@ -14,6 +14,7 @@ import { StructureState } from 'store/types/structure';
 import { getClassName, IconSize } from 'constants/icons';
 import "components/ui/styles/icon.scss";
 import "./styles/resourcesbox.scss";
+import { formatNumber } from 'utils/format/number';
 
 export interface Props {
     className?: string;
@@ -64,7 +65,7 @@ const ResourcesBox = (props: AllProps & AppContextProps) => {
         const handleStructureClick=() => {
             props.onCloseWindow();
         }
-
+        const full = amount >= props.maxResources[resource];
         return (
             <li className={listItemClass} key={resource}>
                 <div
@@ -76,8 +77,8 @@ const ResourcesBox = (props: AllProps & AppContextProps) => {
                 <div className="name">
                     { TextManager.getResourceName(resource as Resource) }
                 </div>
-                <div className="amount" >
-                    { amount.toFixed(1) }
+                <div className={`amount${full ? " full" : ""}`}  >
+                    { formatNumber(amount, 0) }
                 </div>
                 <div className="max" >
                     { ` / ${props.maxResources[resource]}` }

@@ -309,6 +309,7 @@
     "ui-tooltip-study-requires-structure-level": "Study: Requires {{structure:name structure}} level {{level}}",
     "ui-tooltip-resource-produce-row": "Produced at {{structure}} ({{amount}}/minute)",
     "ui-tooltip-resource-produce-row-notbuilt": "Produced at {{structure}} (not constructed)",
+    "ui-tooltip-resource-warehouse-full": "Warehouse is currently full of {{resource:name resource}} and we cannot produce any more",
     "ui-tooltip-resource-quantity": "Quantity: {{amount}}",
     "ui-tooltip-study-currently-studying": "Currently studying ",
     "ui-tooltip-study-start-study": "Study",

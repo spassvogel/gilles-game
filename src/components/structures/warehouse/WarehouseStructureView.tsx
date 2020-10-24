@@ -12,7 +12,7 @@ import { StructuresStoreState } from "store/types/structures";
 import { TextManager } from "global/TextManager";
 import AdventurerTabstrip from 'components/world/QuestPanel/AdventurerTabstrip';
 import useStructureState from 'hooks/store/useStructureState';
-import useResourcesState from 'hooks/store/useResourcesState';
+import { useResourcesState } from 'hooks/store/resources';
 import useStockpileState from 'hooks/store/useStockpileState';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
