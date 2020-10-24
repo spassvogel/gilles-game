@@ -1,0 +1,21 @@
+@import 'components/styles/variables.scss';
+
+.common-icon-smallest, .common-icon-small, .common-icon-medium, .common-icon-big, .common-icon-biggest {
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.common-icon-smallest {
+    width: 22px;
+    height: 22px;
+}
+
+.common-icon-small {
+    width: 32px;
+    height: 32px;
+}
+
+.common-icon-medium {
+    width: $item-size-medium;
+    height: $item-size-medium;
+}

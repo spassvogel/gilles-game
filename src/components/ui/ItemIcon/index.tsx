@@ -7,8 +7,8 @@ import * as React from "react";
 import { TooltipManager } from 'global/TooltipManager';
 import { TextManager } from 'global/TextManager';
 import "./styles/itemicon.scss";
-import "components/ui/styles/icon.scss";
-import "components/ui/styles/item.scss";
+import "./styles/icon.scss";
+import "./styles/item.scss";
 
 export interface Props {
     item: Item;
