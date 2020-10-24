@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { ContextType } from 'constants/context';
 import { TooltipManager, Context } from 'global/TooltipManager';
 import { TextManager } from 'global/TextManager';
-import ItemContext from '../context/ItemContext';
+import ItemContext from './context/ItemContext';
 import { ItemDefinition } from 'definitions/items/types';
 import { Resource } from 'definitions/resources';
-import ResourceContext from '../context/ResourceContext';
-import './styles/contextTooltip.scss';
+import ResourceContext from './context/ResourceContext';
 import Tooltip from '../Tooltip';
 import { TraitDefinition } from 'definitions/traits/types';
-import TraitContext from '../context/TraitContext';
+import TraitContext from './context/TraitContext';
 import { getItemNameClassName } from 'constants/items';
 import { WeaponType } from 'definitions/items/weapons';
+import './styles/contextTooltip.scss';
 
 
 // A contextual popup showing what you just clicked. Can be an Item
