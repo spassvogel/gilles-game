@@ -1,11 +1,11 @@
-import { DragSourceType, DragType } from "constants/dragging";
-import { IconSize } from "constants/icons";
-import { Item } from "definitions/items/types";
 import * as React from "react";
-import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
-import { InventoryItemDragInfo } from "../ItemIcon/DraggableItemIcon";
-import { itemAndEquipmentSlotMatch } from "../EquipmentSlot";
 import { PropsWithChildren } from 'react';
+import { DragSourceType, DragType } from "constants/dragging";
+import { Item } from "definitions/items/types";
+import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
+import { itemAndEquipmentSlotMatch } from "../EquipmentSlot";
+import { InventoryItemDragInfo } from '../items/DraggableItemIcon';
+import { IconSize } from '../common/Icon';
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {

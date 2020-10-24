@@ -1,9 +1,9 @@
+import * as React from "react";
 import Inventory from "components/ui/inventory/Inventory";
 import ResourcesBox from "components/ui/resources/ResourcesBox";
 import { DragSourceType } from "constants/dragging";
 import { Item } from "definitions/items/types";
 import { getDefinition, Structure } from "definitions/structures";
-import * as React from "react";
 import { StructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import usePrevious from "hooks/usePrevious";
 import { useEffect, useRef, useState } from "react";
@@ -19,8 +19,8 @@ import { StoreState } from 'store/types';
 import { useAdventurersInTown } from 'hooks/store/adventurers';
 import useItemDropActions from 'hooks/actions/useItemActions';
 import UpgradeStructureButton from '../UpgradeStructureButton';
-import "./styles/warehouseStructureView.scss";
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
+import "./styles/warehouseStructureView.scss";
 
 // tslint:disable-next-line: no-empty-interface
 export interface Props  {
@@ -29,7 +29,7 @@ export interface Props  {
 const WAREHOUSE = DragSourceType.warehouse;
 
 // todo 20191202: Resource update should happen at a set interval
-const WarehouseStructureView = (props: Props) => {
+const WarehouseStructureView = () => {
 
     const adventurersInTown = useAdventurersInTown();
     const [selectedAdventurer, setSelectedAdventurer] = useState<string>(adventurersInTown[0]?.id);
@@ -83,10 +83,29 @@ const WarehouseStructureView = (props: Props) => {
         setSelectedAdventurer(tabId);
     };
 
+    /*
+    workerCapacity: 2,
+    cost: {
+        gold: 0,
+    },
+    maxResources: {
+        fabric: 200,
+        food: 200,
+        iron: 200,
+        leather: 200,
+        stone: 200,
+        wood: 200,
+    },
+    */
+
+    const handleHelpClicked = () => {
+
+    }
+
     return (
         <details open={true} className="warehouse-structureview">
             <summary>{displayName}</summary>
-            <UpgradeStructureButton structure={Structure.warehouse} />
+            <UpgradeStructureButton structure={Structure.warehouse} onHelpClicked={handleHelpClicked}/>
             <fieldset className="resources" ref={resourcesRef}>
                 <legend>Resources</legend>
                 <ResourcesBox

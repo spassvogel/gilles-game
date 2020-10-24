@@ -1,10 +1,9 @@
 import { Item } from "definitions/items/types";
 import * as React from "react";
 import { TextManager } from "global/TextManager";
-import DraggableItemIcon from 'components/ui/ItemIcon/DraggableItemIcon';
 import { DragSourceType } from 'constants/dragging';
-import "components/ui/styles/icon.scss";
-import "./itemsList.scss";
+import DraggableItemIcon from '../DraggableItemIcon';
+import "./styles/itemsList.scss";
 
 export interface Props {
     className?: string;

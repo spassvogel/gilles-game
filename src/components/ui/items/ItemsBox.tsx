@@ -4,9 +4,8 @@ import * as React from "react";
 import { TextManager } from "global/TextManager";
 import useStockpileState from 'hooks/store/useStockpileState';
 import { useMemo } from 'react';
-import { getClassName, IconSize } from 'constants/icons';
-import "components/ui/styles/icon.scss";
 import "./styles/itemsBox.scss";
+import Icon from '../common/Icon';
 
 export interface Props {
     className?: string;
@@ -59,15 +58,17 @@ const ItemsBox = (props: Props) => {
             listItemClass += " missing";
         }
         const itemDescription = itemsDescription[item];
-        return <li className={listItemClass} key={item}>
-            <div
-                className={`icon ${getClassName(IconSize.smallest)}`}
-                style={{ backgroundImage: `url(${process.env.PUBLIC_URL}${itemDescription.iconImg})`}}
-            />
-            <div className="name">
-                { `${TextManager.getItemName(item)} (${ amount })` }
-            </div>
-        </li>;
+        return (
+            <li className={listItemClass} key={item}>
+                <Icon
+                    image={itemDescription.iconImg}
+                    size="smallest"
+                />
+                <div className="name">
+                    { `${TextManager.getItemName(item)} (${ amount })` }
+                </div>
+            </li>
+        );
     });
 
     return (

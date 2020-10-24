@@ -1,9 +1,9 @@
-import { DragSourceType, DragType } from "constants/dragging";
-import { IconSize } from "constants/icons";
-import { Item } from "definitions/items/types";
 import * as React from "react";
+import { IconSize } from 'components/ui/common/Icon';
+import { DragSourceType, DragType } from "constants/dragging";
+import { Item } from "definitions/items/types";
+import ItemIcon from "./ItemIcon";
 import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from "react-dnd";
-import ItemIcon from ".";
 
 export interface Props {
     index: number;

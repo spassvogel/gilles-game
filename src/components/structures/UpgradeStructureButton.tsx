@@ -17,10 +17,11 @@ import { formatDuration } from 'utils/format/time';
 
 export interface Props {
     structure: Structure;
+    onHelpClicked?: () => void;
 }
 
 const UpgradeStructureButton = (props: Props) => {
-    const {structure} = props;
+    const {structure, onHelpClicked} = props;
     const dispatch = useDispatch();
     const gold = useGoldState();
 
@@ -74,6 +75,9 @@ const UpgradeStructureButton = (props: Props) => {
                 onClick={() => {handleUpgrade(nextLevelCost)}}
                 disabled={!canUpgrade}>
                     { upgradeText }
+                <Button className="help" square={true} onClick={onHelpClicked}>
+                    ?
+                </Button>
             </Button>
         </div>
     );

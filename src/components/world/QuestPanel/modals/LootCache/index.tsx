@@ -7,8 +7,8 @@ import { DragSourceType } from 'constants/dragging';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
 import { useAdventurerState } from 'hooks/store/adventurers';
 import Button from 'components/ui/buttons/Button';
-import { getClassName, IconSize } from 'constants/icons';
 import { adventurerFreeInventorySlots } from 'store/helpers/storeHelpers';
+import Icon from 'components/ui/common/Icon';
 import "../styles/lootCache.scss";
 import "../styles/modal.scss";
 
@@ -84,9 +84,9 @@ const LootCache = (props: Props) => {
             { !!cache.gold && (
                 <div className="content">
                     <div className="gold">
-                        <div
-                            className={`icon ${getClassName(IconSize.medium)}`}
-                            style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/img/resources/gold.png)`}}
+                        <Icon
+                            image="img/resources/gold.png"
+                            size="medium"
                         />
                         {TextManager.get("quest-common-loot-cache-gold", { gold: cache.gold })}
                     </div>

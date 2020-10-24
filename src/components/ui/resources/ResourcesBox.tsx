@@ -1,6 +1,6 @@
+import * as React from "react";
 import { Resource } from "definitions/resources";
 import resourceDescriptions from "definitions/resources";
-import * as React from "react";
 import { ResourceStoreState } from "store/types/resources";
 import { TextManager } from "global/TextManager";
 import { StructuresStoreState } from 'store/types/structures';
@@ -11,10 +11,9 @@ import { withAppContext, AppContextProps } from 'hoc/withAppContext';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
 import { StructureState } from 'store/types/structure';
-import { getClassName, IconSize } from 'constants/icons';
-import "components/ui/styles/icon.scss";
-import "./styles/resourcesbox.scss";
 import { formatNumber } from 'utils/format/number';
+import Icon from '../common/Icon';
+import "./styles/resourcesbox.scss";
 
 export interface Props {
     className?: string;
@@ -68,12 +67,7 @@ const ResourcesBox = (props: AllProps & AppContextProps) => {
         const full = amount >= props.maxResources[resource];
         return (
             <li className={listItemClass} key={resource}>
-                <div
-                    className={`icon ${getClassName(IconSize.smallest)}`}
-                    style={{
-                        backgroundImage: `url(${process.env.PUBLIC_URL}${resourceDescription.iconImg})`,
-                    }}
-                />
+                <Icon image={resourceDescription.iconImg} size="smallest"/>
                 <div className="name">
                     { TextManager.getResourceName(resource as Resource) }
                 </div>

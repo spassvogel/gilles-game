@@ -18,6 +18,7 @@ export interface Props {
     questName?: string;
     horizontalMode?: boolean;
 
+    name?: boolean; // whether to show the adventurer name
     levelBar?: boolean; // whether to show the level bar
     traits?: boolean; // whether to show traits
     skills?: boolean; // whether to show skills
@@ -30,6 +31,7 @@ const AdventurerPanel = (props: Props) => {
         adventurerId,
         questName,
         horizontalMode,
+        name = true,
         levelBar = true,
         traits = true,
         skills = true
@@ -56,10 +58,12 @@ const AdventurerPanel = (props: Props) => {
         <div className={`adventurer-panel${(horizontalMode ? " horizontal" : "")}`}>
             <div className="left">
                 <div className="info">
-                    <div className="name">
-                        {adventurer.name}
-                        {questName && <ApIndicator questName={questName} adventurer={adventurer} />}
-                    </div>
+                    { name && (
+                        <div className="name">
+                            {adventurer.name}
+                            {questName && <ApIndicator questName={questName} adventurer={adventurer} />}
+                        </div>
+                    )}
                     { levelBar && <Level xp={adventurer.xp} /> }
 
                     { traits && <AdventurerTraits adventurerId={adventurer.id}/> }

@@ -1,10 +1,10 @@
-import DraggableItemIcon, {InventoryItemDragInfo} from "components/ui/ItemIcon/DraggableItemIcon";
-import { DragSourceType } from "constants/dragging";
-import { IconSize } from "constants/icons";
-import {Item} from "definitions/items/types";
 import * as React from "react";
+import { DragSourceType } from "constants/dragging";
+import {Item} from "definitions/items/types";
 import InventorySlot from "./InventorySlot";
+import DraggableItemIcon, { InventoryItemDragInfo } from '../items/DraggableItemIcon';
 import "./styles/inventory.scss";
+import { IconSize } from '../common/Icon';
 
 export interface Props {
     items: (Item|null)[];

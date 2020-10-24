@@ -5,6 +5,7 @@ import { ResourceStoreState } from "store/types/resources";
 import { TextManager } from "global/TextManager";
 import { useMemo } from 'react';
 import { useResourcesState } from 'hooks/store/resources';
+import Icon from 'components/ui/common/Icon';
 import "./styles/resourcesbox.scss";
 
 export interface Props {
@@ -46,18 +47,22 @@ const ResourcesCostBox = (props: AllProps) => {
             throw new Error(`No resource description found for ${resource}`);
         }
 
-        return <li className = { listItemClass } key = { resource }>
-            <div
-                className="icon"
-                style={{backgroundImage: `url(${process.env.PUBLIC_URL}${resourceDescription.iconImg})`}}
-            />
-            <div className="name">
-                {TextManager.getResourceName(resource as Resource)}
-            </div>
-            <div className="amount" >
-                { props.resources[resource] }
-            </div>
-        </li>;
+        return (
+            <li
+                className={listItemClass}
+                key={resource}
+            >
+                <Icon
+                    image={resourceDescription.iconImg}
+                />
+                <div className="name">
+                    {TextManager.getResourceName(resource as Resource)}
+                </div>
+                <div className="amount" >
+                    { props.resources[resource] }
+                </div>
+            </li>
+        );
     });
 
     return (

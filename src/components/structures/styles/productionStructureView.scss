@@ -20,6 +20,10 @@ details.structureview  section {
         float: right;
     }
     
+    .help {
+        float: right;
+    }
+
     .crafting-area {
         display: flex;
     
@@ -42,8 +46,6 @@ details.structureview  section {
                 }
                 
                 .item-icon {
-                    width: 32px;
-                    height: 32px;
                     margin-right: 10px;
                 }
             }

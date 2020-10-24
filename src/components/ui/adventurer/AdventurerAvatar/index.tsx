@@ -1,6 +1,6 @@
+import Icon, { IconSize } from 'components/ui/common/Icon';
 import * as React from "react";
 import { AdventurerStoreState } from "store/types/adventurer";
-import { getClassName, IconSize } from 'constants/icons';
 import "./styles/adventureravatar.scss";
 
 export interface Props {
@@ -20,9 +20,7 @@ const AdventurerAvatar = (props: Props) => {
         size
     } = props;
 
-    const className = (props.className || "") +
-        (size !== undefined ? getClassName(size) : "") +
-        " avatar";
+    const className = `${(props.className || "")} avatar`;
 
     const handleClick = () => {
         if (props.onClick) {
@@ -30,16 +28,19 @@ const AdventurerAvatar = (props: Props) => {
         }
     };
     return (
-        <div className = { className }
-            style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/${adventurer.avatarImg})` }}
-            onClick={ () => handleClick() }>
-            <div className="sizer"/>
-            {
-                props.displayName && <div className="name">
+        <Icon
+            className={className}
+            image={adventurer.avatarImg}
+            size={size}
+            onClick={handleClick}
+        >
+            {/* <div className="sizer"/>
+            { props.displayName && (
+                <div className="name">
                     { adventurer.name }
                 </div>
-            }
-        </div>
+            )} */}
+        </Icon>
     );
 };
 

@@ -8,9 +8,8 @@ import { ContextType } from 'constants/context';
 import useGoldState from 'hooks/store/useGoldState';
 import { useResourcesState } from 'hooks/store/resources';
 import { useWorkersFreeState } from 'hooks/store/useWorkersState';
+import Icon from 'components/ui/common/Icon';
 import "./styles/resourcebar.scss";
-import "components/ui/styles/icon.scss";
-import { getClassName, IconSize } from 'constants/icons';
 
 export interface StateProps  {
     gold: number;
@@ -38,9 +37,9 @@ const Resourcebar = () => {
 
         return (
             <li key={type} onClick={handleClick}>
-                <div
-                    className={`icon ${getClassName(IconSize.smallest)}`}
-                    style={{ backgroundImage: `url(${process.env.PUBLIC_URL}${icon})` }}
+                <Icon
+                    image={icon}
+                    size="smallest"
                 />
                 <div className="amount">
                     { formatNumber(amount, 0) }

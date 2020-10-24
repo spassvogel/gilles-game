@@ -31,12 +31,14 @@ const Toast = (props: Props) => {
         }
     }
 
+    // todo use components/ui/Icon with largest size??
+
     const typeText = TextManager.getToastType(type);
     return (
         <div className={`toast ${link && "withlink"}`} onClick={handleClick}>
             <div className="label type">{typeText}</div>
             <div className="label title">{title}</div>
-            <div className="icon">
+            <div className="toast-icon">
                 <div className="background"/>
                 <img className="image" width="300" alt="dragon eye" src={`${process.env.PUBLIC_URL}${icon}`} />
                 <div className="foreground"/>

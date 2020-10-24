@@ -56,7 +56,7 @@ const RoomWithAdventurer = (props: Props) => {
             </div>
             { expanded && (
                 <div className="adventurer-details">
-                    <AdventurerPanel adventurerId={adventurer.id} />
+                    <AdventurerPanel adventurerId={adventurer.id} name={false} />
                     { (!onQuest && selectedQuestName) && (
                         <AdventurerButton
                             adventurer={adventurer}

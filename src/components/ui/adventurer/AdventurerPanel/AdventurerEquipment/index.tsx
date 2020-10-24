@@ -2,10 +2,10 @@ import React from "react";
 import { AdventurerStoreState } from 'store/types/adventurer';
 import EquipmentSlot, { EquipmentSlotType } from 'components/ui/EquipmentSlot';
 import { Item } from 'definitions/items/types';
-import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/ItemIcon/DraggableItemIcon';
+import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import { DragSourceType } from 'constants/dragging';
-import { IconSize } from 'constants/icons';
 import { TextManager } from 'global/TextManager';
+import { IconSize } from 'components/ui/common/Icon';
 import Guy from './Guy';
 import './styles/adventurerEquipment.scss';
 

@@ -1,14 +1,11 @@
 import * as React from "react";
 import { ContextType } from "constants/context";
-import { getClassName, IconSize } from "constants/icons";
-import { getIconClassName } from "constants/items";
+import { Rarity } from "constants/items";
 import { getDefinition } from "definitions/items";
 import { Item } from "definitions/items/types";
 import { TooltipManager } from 'global/TooltipManager';
-import { TextManager } from 'global/TextManager';
+import Icon, { IconSize } from 'components/ui/common/Icon';
 import "./styles/itemIcon.scss";
-import "./styles/icon.scss";
-import "./styles/item.scss";
 
 export interface Props {
     item: Item;
@@ -39,16 +36,34 @@ const ItemIcon = (props: Props) => {
         }
     };
 
-    const className = `item-icon ${getClassName(props.size)} ${getIconClassName(itemDefinition.rarity)} `;
+    const className = `item-icon ${getIconClassName(itemDefinition.rarity)} `;
 
     return (
-        <div
-            className={className}
-            onClick={handleClick}
-        >
-            <img src={`${process.env.PUBLIC_URL}${itemDefinition.iconImg}`} alt={TextManager.getItemName(props.item)} />
+        <div className={className}>
+            <Icon
+                image={itemDefinition.iconImg}
+                size={props.size}
+                onClick={handleClick}
+            />
         </div>
     );
 };
 
 export default ItemIcon;
+
+
+const getIconClassName = (rarity?: Rarity): string => {
+    switch (rarity) {
+        case Rarity.common:
+            return "item-icon-common";
+        case Rarity.uncommon:
+            return "item-icon-uncommon";
+        case Rarity.rare:
+            return "item-icon-rare";
+        case Rarity.epic:
+            return "item-icon-epic";
+        case Rarity.legendary:
+            return "item-icon-legendary";
+    }
+    return getIconClassName(Rarity.common);
+};
