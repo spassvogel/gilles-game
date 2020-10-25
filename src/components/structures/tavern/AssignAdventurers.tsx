@@ -2,9 +2,9 @@ import * as React from "react";
 import { AdventurerStoreState } from "store/types/adventurer";
 import AdventurerAvatar from "components/ui/adventurer/AdventurerAvatar";
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
-import "./styles/assignadventurers.scss";
 import DroppableAdventurerSlot from 'components/ui/adventurer/DroppableAdventurerSlot';
 import { IconSize } from 'components/ui/common/Icon';
+import "./styles/assignadventurers.scss";
 
 export interface DispatchProps {
     onAdventurerDropped: (item: AdventurerAvatarDragInfo, index: number) => void;
@@ -40,7 +40,7 @@ const AssignAdventurers = (props: Props & DispatchProps) => {
             } else {
                 content = (
                     <DroppableAdventurerSlot
-                        onDrop={ (item: AdventurerAvatarDragInfo) => { props.onAdventurerDropped(item, i); }} 
+                        onDrop={(item: AdventurerAvatarDragInfo) => { props.onAdventurerDropped(item, i); }}
                     />
                 );
             }
@@ -57,7 +57,9 @@ const AssignAdventurers = (props: Props & DispatchProps) => {
     };
 
     return (
-        <ul className = "assign-adventurers">
+        <ul
+            className="assign-adventurers"
+        >
             { slotsContent() }
         </ul>
     );

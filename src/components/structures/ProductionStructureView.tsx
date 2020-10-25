@@ -188,7 +188,6 @@ const ProductionStructureView = (props: Props) => {
                 <section>
                     <UpgradeStructureButton structure={structure} />
                     <div>craft:</div>
-                    {/* { createCraftRows() } */}
                     <div className="crafting-area">
                         <ul className="vertical-tab-bar">
                             {createCraftTabs()}
