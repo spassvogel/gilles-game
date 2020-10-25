@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { TooltipManager } from 'global/TooltipManager';
-import { InfoModal } from 'components/ui/modals/InfoModal';
+import { InfoWindow } from 'components/ui/modals/InfoWindow';
 import './styles/tooltip.scss';
 
 const ARROW_SIZE = 8; // warning: sync to tooltip.css var
@@ -110,9 +110,9 @@ export const Tooltip = (props: Props) => {
             ref={ref}
         >
             <div className="tooltip-arrow" />
-            <InfoModal className="tooltip-content">
+            <InfoWindow className="tooltip-content">
                 {children}
-            </InfoModal>
+            </InfoWindow>
         </div>
     );
 }

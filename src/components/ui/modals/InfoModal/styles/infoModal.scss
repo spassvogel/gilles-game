@@ -1,14 +1,8 @@
 @import 'components/styles/variables.scss';
 
-
+$margin: 8px;
 .info-modal {
-    color: $color-text-lighter;
-    background: rgba(0, 0, 0, 0.85);
-    border-image-source: url("./images/border-brown.png");
-    border-image-slice: 10 10 10 10;
-    border-image-repeat: stretch;
-    border-width: 10px;
-    border-style: solid;
-    box-sizing: border-box;
-    box-shadow: 0 0 1px 1px rgb(0, 0, 0);
+    position: absolute;
+    width: calc(100% - #{2 * $margin});
+    margin: $margin;
 }

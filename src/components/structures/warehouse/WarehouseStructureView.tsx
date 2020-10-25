@@ -21,6 +21,7 @@ import useItemDropActions from 'hooks/actions/useItemActions';
 import UpgradeStructureButton from '../UpgradeStructureButton';
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
 import "./styles/warehouseStructureView.scss";
+import { InfoModal } from 'components/ui/modals/InfoModal';
 
 // tslint:disable-next-line: no-empty-interface
 export interface Props  {
@@ -104,6 +105,7 @@ const WarehouseStructureView = () => {
 
     return (
         <details open={true} className="warehouse-structureview">
+            <InfoModal />
             <summary>{displayName}</summary>
             <UpgradeStructureButton structure={Structure.warehouse} onHelpClicked={handleHelpClicked}/>
             <fieldset className="resources" ref={resourcesRef}>
