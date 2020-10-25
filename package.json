@@ -10,7 +10,7 @@
     "@types/debounce": "^1.2.0",
     "astar-typescript": "^1.2.2",
     "debounce": "^1.2.0",
-    "deep-equal": "^2.0.3",
+    "deep-equal": "^2.0.4",
     "gsap": "^3.5.1",
     "handlebars": "^4.7.6",
     "howl": "^0.2.0",
