@@ -1,12 +1,12 @@
 // https://github.com/react-dnd/react-dnd/pull/1244
+import * as React from "react";
+import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
 import { DragType } from "constants/dragging";
 import { getDefinition } from "definitions/items";
 import { ApparelDefinition } from "definitions/items/apparel";
 import { Item, ItemType } from "definitions/items/types";
-import * as React from "react";
-import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
-import { InventoryItemDragInfo } from '../ItemIcon/DraggableItemIcon';
 import { WeaponDefinition, typeClassifications, WeaponClassification } from 'definitions/items/weapons';
+import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import "./styles/equipmentslot.scss";
 
 const dropTarget: DropTargetSpec<Props> = {
