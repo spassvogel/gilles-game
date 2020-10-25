@@ -54,6 +54,7 @@ const ResourcesCostBox = (props: AllProps) => {
             >
                 <Icon
                     image={resourceDescription.iconImg}
+                    size="small"
                 />
                 <div className="name">
                     {TextManager.getResourceName(resource as Resource)}

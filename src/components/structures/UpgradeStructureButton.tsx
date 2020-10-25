@@ -70,14 +70,14 @@ const UpgradeStructureButton = (props: Props) => {
         <div>
             <label>{TextManager.get("ui-structure-level")}</label>
             { `${(level + 1)} / ${structureDefinition.levels.length}` }
+            <Button className="help" square={true} onClick={onHelpClicked}>
+                ?
+            </Button>
             <Button
                 className="upgrade"
                 onClick={() => {handleUpgrade(nextLevelCost)}}
                 disabled={!canUpgrade}>
                     { upgradeText }
-                <Button className="help" square={true} onClick={onHelpClicked}>
-                    ?
-                </Button>
             </Button>
         </div>
     );

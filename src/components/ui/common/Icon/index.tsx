@@ -22,12 +22,13 @@ const Icon = (props: PropsWithChildren<Props> & React.ComponentProps<"div">) => 
         image,
         size,
         children,
-        className = ""
+        className = "",
+        ...restProps
     } = props;
-
     return (
         <div
             className={`icon ${getClassName((typeof size === "string") ? IconSize[size] : size)} ${className}`}
+            {...restProps}
             style={{
                 backgroundImage: `url(${process.env.PUBLIC_URL}${image})`,
             }}

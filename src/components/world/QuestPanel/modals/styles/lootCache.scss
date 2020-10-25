@@ -1,62 +1,65 @@
 @import 'components/styles/variables.scss';
 
+.loot-cache {
+	.content {
+		.items {
+			padding: 8px;
+            flex: 1;
+            
+			.items-list {
+                overflow: hidden;
+                
+				.item {
+					background: rgba(0, 0, 0, 0.8);
+					padding: 4px;
+					margin-bottom: 4px;
+					position: relative;
+					right: 0;
+                    height: 48px;
+                    
+					.item-icon {
+						margin-right: 8px;
+					}
+				}
+			}
+		}
 
-.loot-cache .content .items {
-    padding: 8px;
-    flex: 1;
-}
+        .adventurer {
+			width: 64px;
+			padding-right: 8px;
+			padding-top: 8px;
+			button { width: 100%;
+			margin-top: 8px;
+		}
 
-.loot-cache .content .items .itemslist {
-    overflow: hidden;
-}
+        .gold {
+			.icon {
+				margin-right: 8px;
+			}
+		}
 
-.loot-cache .content .items .itemslist .item {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 4px;
-    margin-bottom: 4px;
-    position: relative;
-    right: 0;
-    height: 48px;
-}
+        .take-gold {
+			width: 64px;
+			padding-right: 8px;
+			display: flex;
+			align-items: center;
+            padding-bottom: 8px;
+            
+			button {
+				// margin-right: 8px;
+				width: 100%;
+			}
+		}
+	}
 
-
-
-.loot-cache .content .items .itemslist .item .item-icon {
-    margin-right: 8px;
-}
-
-.loot-cache .content .adventurer {
-    width: 64px;
-    padding-right: 8px;
-    padding-top: 8px;
-
-    button {
-        width: 100%;
-        margin-top: 8px;
+		.content {
+			.gold {
+				margin: 8px;
+				background: rgba(0, 0, 0, 0.8);
+				flex: 1;
+				padding: 4px;
+				display: flex;
+			}
+		}
     }
-}
-
-.loot-cache .content .gold {
-    margin: 8px;
-    background: rgba(0, 0, 0, 0.8);
-    flex: 1;
-    padding: 4px;
-    display: flex;  
-}
-
-.loot-cache .content .gold .icon {
-    margin-right: 8px
-}
-
-.loot-cache .content  .take-gold {
-    width: 64px;
-    padding-right: 8px;
-    display: flex;
-    align-items: center;
-    padding-bottom: 8px;
-}
-
-.loot-cache .content  .take-gold button {
-    // margin-right: 8px;
-    width: 100%;
 }

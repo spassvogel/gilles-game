@@ -631,5 +631,9 @@ Quests and adventurers dont need to be stored in the store when not active
     https://gurps.fandom.com/wiki/List_of_Skills
 
 ### Group adventurer sections
+Adventurer panel can contain quite a lot of information and player has to be able to navigate quickly
 https://css-tricks.com/sticky-smooth-active-nav/
 
+
+### 24/10/2020 Outline on tooltip arrow
+[ ] https://web.archive.org/web/20190215131142/https://www.jhaurawachsman.com/2013/css-triangles-border-stroke/

@@ -1,18 +1,22 @@
 @import 'components/styles/variables.scss';
 
-.itemslist {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    margin: 0;
-}
+.items-list {
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+	margin: 0;
 
-.itemslist .item {
-    display: flex;
-}
-.itemslist .item .text p {
-    margin: 4px;
-}
-.itemslist .item .text .subtext {
-    color: $color-secondary;
+    .item {
+		display: flex;
+
+        .text {
+			p {
+				margin: 4px;
+			}
+
+            .subtext {
+				color: $color-secondary;
+			}
+		}
+	}
 }

@@ -1,11 +1,11 @@
+import * as React from "react";
 import itemsDescription from "definitions/items";
 import { Item } from "definitions/items/types";
-import * as React from "react";
 import { TextManager } from "global/TextManager";
 import useStockpileState from 'hooks/store/useStockpileState';
 import { useMemo } from 'react';
+import Icon from 'components/ui/common/Icon';
 import "./styles/itemsBox.scss";
-import Icon from '../common/Icon';
 
 export interface Props {
     className?: string;

@@ -1,16 +1,19 @@
+@import 'components/styles/variables.scss';
+
 details.structureview {
     margin-bottom: 10px;
-}
-details.structureview  section {
-    margin-left: 15px;
-}
 
-.structureview .crafting-row {
-    display: flex;
-}
+    section {
+        margin-left: 15px;
+    }
 
-.structureview .crafting-row .updownvalue {
-    padding: 0 32px;
+    .crafting-row {
+        display: flex;
+    
+        .updownvalue {
+            padding: 0 32px;
+        }
+    }
 }
 
 .production-structure-view {
@@ -36,12 +39,12 @@ details.structureview  section {
             li {
                 display: flex;
                 margin: 0;
-                padding: 0;
-                line-height: 32px;
+                padding: 2px;
+                line-height: $item-size-small;
                 cursor: var(--app-cursor-pointer);
 
                 &.selected {
-                    background: #165fcb;
+                    background: $color-secondary;
                     color: white;
                 }
                 
@@ -53,7 +56,7 @@ details.structureview  section {
         
         .crafting-details {
             flex: 1;
-            border: 3px solid #165fcb;
+            border: 3px solid $color-secondary;
             padding: 10px;
 
             .crafting-costs {

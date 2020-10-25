@@ -1,3 +1,4 @@
+@import 'components/styles/variables.scss';
 
 .warehouse-structureview {
     .upgrade {
@@ -8,7 +9,7 @@
     }
     
     .adventurer-inventory {
-        border: 1px solid green;
+        border: 1px solid $color-secondary;
         min-height: 100px;
         padding-left: 20px;
     }

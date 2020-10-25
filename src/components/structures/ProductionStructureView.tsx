@@ -28,6 +28,7 @@ import ItemsBox from 'components/ui/items/ItemsBox';
 import ItemIcon from 'components/ui/items/ItemIcon';
 import StructureViewHeader from './StructureViewHeader';
 import UpgradeStructureButton from './UpgradeStructureButton';
+import { IconSize } from 'components/ui/common/Icon';
 import "./styles/productionStructureView.scss";
 
 export interface Props {
@@ -85,7 +86,7 @@ const ProductionStructureView = (props: Props) => {
                     onClick={handleSelectCraftingItem}
                     className={selectedItem === item ? "selected" : ""}
                 >
-                    <ItemIcon item={item} />
+                    <ItemIcon item={item} size={IconSize.small} />
                     { TextManager.getItemName(item) }
                 </li>
             );

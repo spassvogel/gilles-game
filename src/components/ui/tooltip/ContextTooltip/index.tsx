@@ -9,12 +9,12 @@ import ResourceContext from './context/ResourceContext';
 import Tooltip from '../Tooltip';
 import { TraitDefinition } from 'definitions/traits/types';
 import TraitContext from './context/TraitContext';
-import { getItemNameClassName } from 'constants/items';
 import { WeaponType } from 'definitions/items/weapons';
 import './styles/contextTooltip.scss';
+import { Rarity } from 'constants/items';
 
 
-// A contextual popup showing what you just clicked. Can be an Item
+// A contextual popup showing what you just clicked. Can be an Item, Resource, Trait, skill
 const ContextTooltip = () => {
 
     const [selectedContext, setSelectedContext] = useState<Context | undefined>();
@@ -95,3 +95,20 @@ const ContextTooltip = () => {
     )
 }
 export default ContextTooltip;
+
+export const getItemNameClassName = (item: ItemDefinition): string => {
+    const {rarity} = item;
+    switch (rarity) {
+        case Rarity.common:
+            return "item-name-common";
+        case Rarity.uncommon:
+            return "item-name-uncommon";
+        case Rarity.rare:
+            return "item-name-rare";
+        case Rarity.epic:
+            return "item-name-epic";
+        case Rarity.legendary:
+            return "item-name-legendary";
+    }
+    return "item-name-common";
+};

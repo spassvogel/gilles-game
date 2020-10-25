@@ -16,7 +16,7 @@ export interface Props {
  * The ItemsList displays a list of items vertically. Shows icon and description
  */
 const DraggableItemsList = (props: Props) => {
-    const className = (props.className || "")+ " itemslist";
+    const className = (props.className || "")+ " items-list";
 
     return (
         <ul className={className} >

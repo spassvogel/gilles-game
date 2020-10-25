@@ -64,6 +64,7 @@ const DraggableItemIcon = (props: Props & CollectedProps) => {
         // TODO: can show some sort of empty state?
         return null;
     }
+    // The wrapping div is needed by ReactDnD
     return connectDragSource((
         <div>
             <ItemIcon

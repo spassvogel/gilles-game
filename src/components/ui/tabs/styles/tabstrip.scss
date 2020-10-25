@@ -1,3 +1,5 @@
+@import 'components/styles/variables.scss';
+
 .tabstrip {
 	list-style: none;
 	padding: 0;
@@ -10,7 +12,7 @@
 		max-width: 150px;
 		display: inline-block;
 		margin-left: 4px;
-		border: 2px solid green;
+		border: 2px solid $color-secondary;
 		border-bottom: 0;
 		background: lightgray;
 		overflow: hidden;
@@ -22,7 +24,7 @@
     
 	.tabstrip-tab.active {
 		background: white;
-		border-color: orange;
+		border-color: $color-highlighted;
 	}
 }
 
