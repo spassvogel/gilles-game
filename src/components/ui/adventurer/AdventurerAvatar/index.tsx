@@ -22,7 +22,7 @@ const AdventurerAvatar = (props: Props) => {
 
     const className = `${(props.className || "")} avatar`;
 
-    const handleClick3 = () => {
+    const handleClick = () => {
         if (props.onClick) {
             props.onClick(props.adventurer.id);
         }
@@ -32,15 +32,8 @@ const AdventurerAvatar = (props: Props) => {
             className={className}
             image={adventurer.avatarImg}
             size={size}
-            onClick={handleClick3}
-        >
-            {/* <div className="sizer"/>
-            { props.displayName && (
-                <div className="name">
-                    { adventurer.name }
-                </div>
-            )} */}
-        </Icon>
+            onClick={handleClick}
+        />
     );
 };
 
