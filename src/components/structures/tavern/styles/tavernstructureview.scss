@@ -34,8 +34,8 @@
             box-sizing: border-box;
         
             &.expanded {
-                background-color: #165fcb;
-                color: #fff;
+                background-color: $color-primary;
+                color: $color-text-lighter;
             }
             
             .adventurer-icon {
