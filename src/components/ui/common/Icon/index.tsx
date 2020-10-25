@@ -5,8 +5,9 @@ import "./styles/icon.scss";
 
 export interface Props {
     image: string;
-    size?: IconSize | "smallest" | "small" | "medium";
-    className?: string
+    size?: IconSize | "smallest" | "small" | "medium" | "big";
+    className?: string;
+    border?: Border | "none" | "gold";
 }
 
 export enum IconSize {
@@ -17,23 +18,32 @@ export enum IconSize {
     biggest = "biggest"
 }
 
+export enum Border {
+    none = "none",
+    gold = "gold"
+}
+
 const Icon = (props: PropsWithChildren<Props> & React.ComponentProps<"div">) => {
     const {
         image,
         size,
         children,
         className = "",
+        border = "none",
         ...restProps
     } = props;
     return (
         <div
-            className={`icon ${getClassName((typeof size === "string") ? IconSize[size] : size)} ${className}`}
+            className={`icon ${sizeClassName((typeof size === "string") ? IconSize[size] : size)} ${className}`}
             {...restProps}
             style={{
                 backgroundImage: `url(${process.env.PUBLIC_URL}${image})`,
             }}
         >
             {children}
+            { border !== "none" && border && (
+                <div className={`border ${borderClassName((typeof border === "string") ? Border[border] : border)} `}/>
+            )}
         </div>
     );
 };
@@ -41,18 +51,28 @@ const Icon = (props: PropsWithChildren<Props> & React.ComponentProps<"div">) => 
 export default Icon;
 
 
-const getClassName = (size?: IconSize): string => {
+const sizeClassName = (size?: IconSize): string => {
     switch (size) {
         case IconSize.smallest:
-            return "common-icon-smallest";
+            return "size-smallest";
         case IconSize.small:
-            return "common-icon-small";
+            return "size-small";
         case IconSize.medium:
-            return "common-icon-medium";
+            return "size-medium";
         case IconSize.big:
-            return "common-icon-big";
+            return "size-big";
         case IconSize.biggest:
-            return "common-icon-biggest";
+            return "size-biggest";
     }
-    return getClassName(IconSize.medium);
+    return sizeClassName(IconSize.medium);
 };
+
+const borderClassName = (border?: Border): string => {
+    switch (border) {
+        case Border.gold:
+            return "border-gold";
+        case Border.none:
+        default:
+            return "";
+    }
+}

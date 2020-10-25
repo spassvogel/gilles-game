@@ -2,6 +2,7 @@ import React from 'react';
 import { TextManager } from 'global/TextManager';
 import { ToastConfig } from 'global/ToastManager';
 import { useHistory } from 'react-router';
+import Icon from 'components/ui/common/Icon';
 
 type Props = ToastConfig;
 
@@ -31,18 +32,12 @@ const Toast = (props: Props) => {
         }
     }
 
-    // todo use components/ui/Icon with largest size??
-
     const typeText = TextManager.getToastType(type);
     return (
-        <div className={`toast ${link && "withlink"}`} onClick={handleClick}>
+        <div className={`toast ${link ? "withlink" : ""}`} onClick={handleClick}>
             <div className="label type">{typeText}</div>
             <div className="label title">{title}</div>
-            <div className="toast-icon">
-                <div className="background"/>
-                <img className="image" width="300" alt="dragon eye" src={`${process.env.PUBLIC_URL}${icon}`} />
-                <div className="foreground"/>
-            </div>
+            <Icon size="big" image={icon} className="toast-icon" border="gold" />
             <div className="banner"/>
         </div>
     );

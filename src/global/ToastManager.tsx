@@ -1,4 +1,5 @@
-import { Type } from '../components/ui/toasts/Toast';
+import { FIVE_SECONDS } from 'utils/format/time';
+import { Type } from 'components/ui/toasts/Toast';
 import EventEmitter from './EventEmitter';
 import { SoundManager, Sound } from './SoundManager';
 
@@ -13,8 +14,8 @@ export interface ToastConfig {
 export abstract class ToastManager extends EventEmitter<ToastConfig[]>() {
 
     private static stack: ToastConfig[] = [];
-    private static lifeTime = 5000; // Time each toast lives
-
+    private static lifeTime = FIVE_SECONDS; // Time each toast lives
+                                            // also update CSS animation!
     static EVENT_TOASTS_UPDATED = "toast";
 
     static addToast(title: string, type?: Type, icon?: string, link?: string) {
