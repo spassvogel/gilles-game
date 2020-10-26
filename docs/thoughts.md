@@ -435,7 +435,7 @@ research fantasy concept art
 #### 02/04/2020 Make town come alive [+art]
 [x] Add animations
 [x] Add particle effects (fire, smoke)
-
+[ ] Add clouds 
 
 #### 02/04/2020 Cool smoke shader [+art]
 [ ] Can use this in some sort of menu or loader?

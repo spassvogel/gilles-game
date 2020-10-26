@@ -73,7 +73,7 @@ const continueGame = (store: any) => {
 };
 
 /**
- * Loads a saved game from disks
+ * Loads a saved game from a file
  */
 const loadGame = async (state: StoreState) => {
     // todo: implement in MenuWindow!
