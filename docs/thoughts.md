@@ -369,9 +369,6 @@ research fantasy concept art
 [ ] http://server1.lazy-kitty.com/tests/
 [x]   check achievements (http://server1.lazy-kitty.com/tests/achievements_2019_08_11/)
     
-24/11/2019 Terrain generator
-(obsolete)
-[-] uses height-map images (grey-scale) https://github.com/Usnul/meep
 
 #### 26/11/2019 Smoke particles from the houses in world map
 [-] https://aerotwist.com/tutorials/creating-particles-with-three-js/
@@ -380,6 +377,7 @@ research fantasy concept art
 
 #### 02/12/2019 Resource update 
 [ ] should happen at a set interval instead of every game tick
+[ ] Can show progress bar in resource screen
 
 #### 10/12/2019 Item warehouse > adventurer
 [x] Can drop items from warehouse onto adventurer    
@@ -538,7 +536,8 @@ https://github.com/DragonBones/DragonBonesJS
 #### 08/05/2020 Sass
 [x] Try to implement sass again (https://www.google.com/search?q=sass+create+react+app)
 [ ] Use variables for cursor
-[ ] Convert existing css to sass: http://beautifytools.com/css-to-scss-converter.php
+[x] Convert existing css to sass: http://beautifytools.com/css-to-scss-converter.php
+[ ] Use craco and react-scoped-css for scoping https://dev.to/viclafouch/how-to-scope-your-css-scss-in-react-js-271a
 
 #### Item rarity/quality [+art] [+design]
 [ ] background on items. gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary

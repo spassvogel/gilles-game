@@ -1,9 +1,7 @@
 import * as React from "react";
 import { getDefinition, Structure } from 'definitions/structures';
 import { formatDuration } from 'utils/format/time';
-import resourceDescriptions from "definitions/resources";
-import { TavernStructureDefinition, WarehouseStructureDefinition } from 'definitions/structures/types';
-import { Resource } from 'definitions/resources';
+import { TavernStructureDefinition } from 'definitions/structures/types';
 import Icon from 'components/ui/common/Icon';
 import { TextManager } from 'global/TextManager';
 import "./styles/upgradeHelpModal.scss"

@@ -5,7 +5,7 @@ import "./styles/icon.scss";
 
 export interface Props {
     image: string;
-    size?: IconSize | "smallest" | "small" | "medium" | "big";
+    size?: IconSizeType;
     className?: string;
     border?: Border | "none" | "gold";
 }
@@ -17,6 +17,8 @@ export enum IconSize {
     big = "big",
     biggest = "biggest"
 }
+
+type IconSizeType = IconSize | "smallest" | "small" | "medium" | "big";
 
 export enum Border {
     none = "none",

@@ -19,19 +19,7 @@ import UpgradeStructureButton from '../UpgradeStructureButton';
 import UpgradeHelpModal from './UpgradeHelpModal';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
-import "./styles/tavernstructureview.scss";
-
-export interface StateProps {
-    gold: number;
-    level: number;
-    adventurers: AdventurerStoreState[];
-    quests: QuestStoreState[];
-}
-
-// tslint:disable-next-line:no-empty-interface
-export interface Props {
-}
-
+import "./styles/tavernStructureView.scss";
 
 export const SOURCE_ID = "tavern";
 
@@ -123,7 +111,7 @@ const TavernStructureView = () => {
                     onQuestClick={(name: string) => handleQuestClick(name)}
                     onAdventurerDropped={handleAdventurerDropped}
                     onRemoveAdventurer={handleRemoveAdventurer}
-                    onLaunchQuest={() => handleLaunchQuest()}
+                    onLaunchQuest={handleLaunchQuest}
                 />
             </section>
         </details>

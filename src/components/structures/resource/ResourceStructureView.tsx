@@ -19,6 +19,7 @@ export interface Props  {
     structure: Structure;
 }
 
+// todo: 02/12/2019 [ ] Can show progress bar in resource screen
 const ResourceStructureView = (props: Props) => {
     const {structure} = props;
     // Fetch needed values from store
@@ -40,7 +41,6 @@ const ResourceStructureView = (props: Props) => {
     }
     // Reducer dispatch
     const dispatch = useDispatch();
-
     const handleWorkersDown = () => {
         dispatch(decreaseWorkers(props.structure));
     }
