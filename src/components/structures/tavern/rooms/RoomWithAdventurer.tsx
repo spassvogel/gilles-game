@@ -1,6 +1,6 @@
 import React from 'react';
 import { AdventurerStoreState } from 'store/types/adventurer';
-import { SOURCE_ID } from './TavernStructureView';
+import { SOURCE_ID } from '../TavernStructureView';
 import AdventurerButton from './AdventurerButton';
 import { TextManager } from 'global/TextManager';
 import DraggableAdventurerAvatar from 'components/ui/adventurer/DraggableAdventurerAvatar';
@@ -49,10 +49,17 @@ const RoomWithAdventurer = (props: Props) => {
                     sourceId={SOURCE_ID}
                     key={`avatar:${adventurer.id}`}
                 />
-                <span key={ adventurer.id } onClick={() => onClick(adventurer)}>
-                    {adventurer.name}
-                    {(onQuest) && TextManager.get("ui-structure-tavern-on-a-quest") }
-                </span>
+                <div
+                    key={adventurer.id}
+                    onClick={() => onClick(adventurer)}
+                >
+                    <section>
+                        {adventurer.name}
+                    </section>
+                    <section className="on-a-quest">
+                     {(onQuest) && TextManager.get("ui-structure-tavern-on-a-quest") }
+                    </section>
+                </div>
             </div>
             { expanded && (
                 <div className="adventurer-details">

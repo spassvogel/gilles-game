@@ -7,7 +7,7 @@ import { TextManager} from "global/TextManager";
 import { ToastManager} from 'global/ToastManager';
 import { Type} from 'components/ui/toasts/Toast';
 import { getQuestLink} from 'utils/routing';
-import RoomList from './RoomList';
+import RoomList from './rooms/RoomList';
 import { useState} from 'react';
 import QuestBoard from './QuestBoard';
 import useStructureState from 'hooks/store/useStructureState';
@@ -16,10 +16,10 @@ import { StoreState } from 'store/types';
 import { launchQuest } from 'store/actions/quests';
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import UpgradeStructureButton from '../UpgradeStructureButton';
-import "./styles/tavernstructureview.scss";
 import UpgradeHelpModal from './UpgradeHelpModal';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
+import "./styles/tavernstructureview.scss";
 
 export interface StateProps {
     gold: number;

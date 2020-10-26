@@ -1,0 +1,40 @@
+@import 'components/styles/variables.scss';
+
+.room-list {
+    overflow: auto;
+    flex: 1;
+    margin: 8px;
+
+    .adventurer-details {
+        border: 1px solid grey;
+        padding: 8px;
+        top: -4px;
+        position: relative;
+    }
+    
+    .room {
+        border: 1px solid gray;
+        margin-bottom: 4px;
+        padding: 4px;
+        height: $item-size-medium + 10px;
+        box-sizing: border-box;
+        display: flex;
+    
+        &.expanded {
+            background-color: $color-primary;
+            color: $color-text-lighter;
+        }
+        
+        .adventurer-icon {
+            margin-right: 6px;
+        }
+
+        .on-a-quest {
+            color: $color-text-darker;
+        }
+        
+        .boot {
+            float: right
+        }
+    }
+}

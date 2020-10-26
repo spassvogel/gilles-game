@@ -47,7 +47,7 @@ const UpgradeHelpModal = (props: Props) => {
                         level: level + 2
                     })}
                 </div>
-                <div/>
+                <div><Icon image="img/ui/structures/tavern.png" size="smallest"/></div>
                 <div>{TextManager.get("ui-structure-tavern-rooms")}</div>
                 <div className="number">{currentLevel.rooms}</div>
                 <div className="arrow">⟶</div>

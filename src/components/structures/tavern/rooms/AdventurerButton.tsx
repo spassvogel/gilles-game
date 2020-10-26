@@ -1,6 +1,6 @@
 import * as React from "react";
 import { AdventurerStoreState } from 'store/types/adventurer';
-import { AVAILABLE_SLOTS } from './QuestBoard';
+import { AVAILABLE_SLOTS } from '../QuestBoard';
 import Button from 'components/ui/buttons/Button';
 import { TextManager } from 'global/TextManager';
 import "./styles/adventurerButton.scss";
