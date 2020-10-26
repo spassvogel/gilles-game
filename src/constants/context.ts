@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { ItemDefinition } from "definitions/items/types";
 import { WeaponType } from 'definitions/items/weapons';
 import { TraitDefinition } from 'definitions/traits/types';
@@ -7,7 +8,8 @@ export enum ContextType {
     item,
     trait,
     resource,
-    skill
+    skill,
+    component
 }
 
-export type ContextInfo = ItemDefinition | TraitDefinition | WeaponType | string;
+export type ContextInfo = ItemDefinition | TraitDefinition | WeaponType | string | ReactNode;

@@ -1,8 +1,10 @@
 @import 'components/styles/variables.scss';
 
 $margin: 8px;
+
 .info-modal {
     position: absolute;
     width: calc(100% - #{2 * $margin});
     margin: $margin;
+    z-index: 2048;
 }

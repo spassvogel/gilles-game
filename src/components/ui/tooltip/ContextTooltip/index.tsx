@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { ContextType } from 'constants/context';
 import { TooltipManager, Context } from 'global/TooltipManager';
 import { TextManager } from 'global/TextManager';
@@ -10,11 +10,11 @@ import Tooltip from '../Tooltip';
 import { TraitDefinition } from 'definitions/traits/types';
 import TraitContext from './context/TraitContext';
 import { WeaponType } from 'definitions/items/weapons';
-import './styles/contextTooltip.scss';
 import { Rarity } from 'constants/items';
+import './styles/contextTooltip.scss';
 
-
-// A contextual popup showing what you just clicked. Can be an Item, Resource, Trait, skill
+// A contextual popup showing what you just clicked.
+// Can be an Item, Resource, Trait, skill
 const ContextTooltip = () => {
 
     const [selectedContext, setSelectedContext] = useState<Context | undefined>();
@@ -22,7 +22,6 @@ const ContextTooltip = () => {
     const tooltipUpdated = (context: Context | undefined) => {
         setSelectedContext(context);
     }
-
     useEffect(() => {
         TooltipManager.addEventListener(TooltipManager.EVENT_CONTEXT_UPDATED, tooltipUpdated);
         return () => {
@@ -31,7 +30,7 @@ const ContextTooltip = () => {
     }, []);
     if (!selectedContext) { return null; }
 
-    const { info, type } = selectedContext;
+    const { info, type, className } = selectedContext;
     const renderContent = () => {
         switch (type) {
             case ContextType.resource: {
@@ -46,10 +45,9 @@ const ContextTooltip = () => {
             case ContextType.item: {
                 const name = TextManager.getItemName((info as ItemDefinition).item);
                 const itemDefinition = info as ItemDefinition;
-                const className = `name item ${getItemNameClassName(itemDefinition)}`
                 return (
                     <>
-                        <div className={`${className}`}>{name}</div>
+                        <div className={`name item ${getItemNameClassName(itemDefinition)}`}>{name}</div>
                         <ItemContext info={itemDefinition} />
                     </>
                 );
@@ -80,6 +78,10 @@ const ContextTooltip = () => {
                     </>
                 );
             }
+            case ContextType.component: {
+                const component = info as ReactNode;
+                return component;
+            }
             default: {
                 throw new Error(`Unknown context type ${selectedContext.type}`)
             }
@@ -87,8 +89,8 @@ const ContextTooltip = () => {
     }
 
     return (
-        <Tooltip referenceRect={selectedContext.referenceRect}>
-            <div className = "context-tooltip">
+        <Tooltip referenceRect={selectedContext.referenceRect} className={className}>
+            <div className="context-tooltip">
                 {renderContent()}
             </div>
         </Tooltip>

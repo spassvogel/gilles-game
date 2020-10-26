@@ -10,6 +10,7 @@ export interface Props {
     referenceRect: ClientRect;  // place tooltip in reference to this rect
     placement?: Placement;
     children?: any;
+    className?: string;
 }
 
 export enum Placement {
@@ -21,6 +22,7 @@ export enum Placement {
 
 export const Tooltip = (props: Props) => {
     const { children, referenceRect } = props;
+    let { className = "" } = props;
     const ref = useRef<HTMLDivElement>(null);
     const [placement, setPlacement] = useState<Placement>(props.placement || Placement.bottom);
 
@@ -83,19 +85,18 @@ export const Tooltip = (props: Props) => {
 
     let x: number = 0;
     let y: number = 0;
-    let className: string = "";
 
     if (containerRect) {
         switch (placement) {
             case Placement.bottom:
                 x = referenceRect.left - containerRect!.left + referenceRect.width / 2;
                 y = referenceRect.top - containerRect!.top + referenceRect.height;
-                className = "tooltip-bottom";
+                className += " tooltip-bottom";
                 break;
             case Placement.top:
                 x = referenceRect.left - containerRect!.left + referenceRect.width / 2;
                 y = referenceRect.top - containerRect!.top;
-                className = "tooltip-top";
+                className += " tooltip-top";
                 break;
         }
     }
