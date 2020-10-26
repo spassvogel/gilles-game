@@ -17,7 +17,7 @@ import { formatDuration } from 'utils/format/time';
 
 export interface Props {
     structure: Structure;
-    onHelpClicked?: () => void;
+    onHelpClicked?: (e: React.MouseEvent) => void;
 }
 
 const UpgradeStructureButton = (props: Props) => {
@@ -60,6 +60,7 @@ const UpgradeStructureButton = (props: Props) => {
         return (
             <Progressbar
                 key={`${t.name}${t.startTime}`}
+                className="upgrading" // todo: margin: 8
                 label={`${TextManager.get("structure-upgrade-button-upgrading")} (${formatDuration(t.timeRemaining)})`}
                 progress={t.progress}
             />
@@ -70,9 +71,11 @@ const UpgradeStructureButton = (props: Props) => {
         <div>
             <label>{TextManager.get("ui-structure-level")}</label>
             { `${(level + 1)} / ${structureDefinition.levels.length}` }
-            <Button className="help" square={true} onClick={onHelpClicked}>
-                ?
-            </Button>
+            { canUpgrade && (
+                <Button className="help" square={true} onClick={onHelpClicked}>
+                    ?
+                </Button>
+            )}
             <Button
                 className="upgrade"
                 onClick={() => {handleUpgrade(nextLevelCost)}}

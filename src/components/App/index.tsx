@@ -1,4 +1,3 @@
-// tslint:disable: object-literal-sort-keys
 import * as React from "react";
 import {AppContextProps} from "hoc/withAppContext";
 import {useRef, useState, createContext, useEffect } from "react";

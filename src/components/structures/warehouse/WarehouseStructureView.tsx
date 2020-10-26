@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from "react";
 import { empty, ResourceStoreState } from "store/types/resources";
 import { StructuresStoreState } from "store/types/structures";
 import { TextManager } from "global/TextManager";
+import { TooltipManager } from 'global/TooltipManager';
 import AdventurerTabstrip from 'components/world/QuestPanel/AdventurerTabstrip';
 import useStructureState from 'hooks/store/useStructureState';
 import { useResourcesState } from 'hooks/store/resources';
@@ -20,8 +21,9 @@ import { useAdventurersInTown } from 'hooks/store/adventurers';
 import useItemDropActions from 'hooks/actions/useItemActions';
 import UpgradeStructureButton from '../UpgradeStructureButton';
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
+import UpgradeHelpModal from './UpgradeHelpModal';
+import { ContextType } from 'constants/context';
 import "./styles/warehouseStructureView.scss";
-import { InfoModal } from 'components/ui/modals/InfoModal';
 
 // tslint:disable-next-line: no-empty-interface
 export interface Props  {
@@ -84,32 +86,21 @@ const WarehouseStructureView = () => {
         setSelectedAdventurer(tabId);
     };
 
-    /*
-    workerCapacity: 2,
-    cost: {
-        gold: 0,
-    },
-    maxResources: {
-        fabric: 200,
-        food: 200,
-        iron: 200,
-        leather: 200,
-        stone: 200,
-        wood: 200,
-    },
-    */
+    const handleHelpClicked = (event: React.MouseEvent) => {
+        const origin = (event.currentTarget as HTMLElement);
+        const originRect = origin.getBoundingClientRect();
+        const content = <UpgradeHelpModal level={structureState.level} />;
+        TooltipManager.showContextTooltip(ContextType.component, content, originRect, "upgrade-structure-tooltip");
 
-    const handleHelpClicked = () => {
-
+        event.stopPropagation();
     }
 
     return (
         <details open={true} className="warehouse-structureview">
-            <InfoModal />
             <summary>{displayName}</summary>
             <UpgradeStructureButton structure={Structure.warehouse} onHelpClicked={handleHelpClicked}/>
             <fieldset className="resources" ref={resourcesRef}>
-                <legend>Resources</legend>
+                <legend>{TextManager.get("ui-structure-warehouse-resources")}</legend>
                 <ResourcesBox
                     resources={resources}
                     structures={structuresState}
@@ -117,14 +108,14 @@ const WarehouseStructureView = () => {
                     deltaResources={resourcesDelta}
                 />
             </fieldset>
-            <h3>Stockpile</h3>
+            <h3>{TextManager.get("ui-structure-warehouse-stockpile")}</h3>
             <Inventory
                 sourceType={WAREHOUSE}
                 className="inventory-large"
                 items={stockpileState}
                 onDropItem={handleDropItemWarehouse}
             />
-            <h3>Adventurers</h3>
+            <h3>{TextManager.get("ui-structure-warehouse-adventurers")}</h3>
             <div>
                 <AdventurerTabstrip
                     adventurers={adventurersInTown}

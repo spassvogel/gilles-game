@@ -297,6 +297,9 @@
     "ui-structure-production-crafting-time": " Crafting time: {{time}}",
     "ui-structure-production-studying": "Currently studying:",
     "ui-structure-production-workers": "Workers: ",
+    "ui-structure-warehouse-adventurers": "Adventurers",
+    "ui-structure-warehouse-resources": "Resources",
+    "ui-structure-warehouse-stockpile": "Stockpile",
     "ui-structure-warehouse-help-upgrade-header-capacity": "Capacity",
     "ui-structure-warehouse-help-upgrade-header-level": "Level {{level}}",
 
