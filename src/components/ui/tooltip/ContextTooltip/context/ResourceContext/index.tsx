@@ -93,7 +93,9 @@ const ResourceContext = (props: Props) => {
             return (
                 <>
                     <div className="resource-context">
-                        {` ${TextManager.get(`resource-${resource}-info`)}`}
+                        <div className="info">
+                            {` ${TextManager.get(`resource-${resource}-info`)}`}
+                        </div>
                     </div>
                     <div>
                         {TextManager.get(`ui-tooltip-resource-quantity`, { amount } )}
@@ -107,7 +109,9 @@ const ResourceContext = (props: Props) => {
             return (
                 <>
                     <div className="resource-context">
+                       <div className="info">
                         {` ${TextManager.get(`resource-${resource}-info`)}`}
+                        </div>
                     </div>
                     <div>
                         {TextManager.get(`ui-tooltip-workers-quantity`, { free, total } )}
