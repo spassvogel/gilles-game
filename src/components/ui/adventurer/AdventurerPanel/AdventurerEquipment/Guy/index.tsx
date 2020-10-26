@@ -1,6 +1,6 @@
 import React from "react";
 import './styles/guy.scss';
-import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
+import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { useAdventurerDamageReduction } from 'hooks/store/adventurers';
 
 

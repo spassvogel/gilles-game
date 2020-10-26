@@ -7,7 +7,7 @@ import { Structure } from "definitions/structures";
 import * as Handlebars from "handlebars";
 import { Trait } from 'definitions/traits/types';
 import { Type } from 'components/ui/toasts/Toast';
-import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
+import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { WeaponType, WeaponClassification } from 'definitions/items/weapons';
 
 export abstract class TextManager {

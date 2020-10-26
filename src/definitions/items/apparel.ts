@@ -1,6 +1,6 @@
 // tslint:disable:object-literal-sort-keys
 import { Item, ItemDefinition, ItemType } from "./types";
-import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
+import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 
 const itemType = ItemType.apparel;
 const basePath = "/img/items/apparel/";

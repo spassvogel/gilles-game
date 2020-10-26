@@ -3,7 +3,7 @@ import { QuestStoreState, QuestStatus } from 'store/types/quest';
 import { StoreState } from 'store/types';
 import { useSelector } from 'react-redux';
 import { useMemo, useCallback } from 'react';
-import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
+import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { Item } from 'definitions/items/types';
 import { getDefinition } from 'definitions/items/apparel';
 

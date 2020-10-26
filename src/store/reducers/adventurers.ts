@@ -4,7 +4,7 @@ import { ActionType,
     InventoryAction,
     MoveItemInInventoryAction,
     MoveItemToOtherAdventurerAction, RemoveEquipmentAction, RemoveItemFromInventoryAction } from "store/actions/adventurers";
-import { EquipmentSlotType } from "components/ui/EquipmentSlot";
+import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { AdventurerStoreState, BasicAttributesStoreState } from "store/types/adventurer";

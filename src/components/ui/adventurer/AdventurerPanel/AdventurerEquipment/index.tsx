@@ -1,6 +1,6 @@
 import React from "react";
 import { AdventurerStoreState } from 'store/types/adventurer';
-import EquipmentSlot, { EquipmentSlotType } from 'components/ui/EquipmentSlot';
+import EquipmentSlot, { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { Item } from 'definitions/items/types';
 import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import { DragSourceType } from 'constants/dragging';

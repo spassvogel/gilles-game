@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Action } from "redux";
 import { removeItemFromInventory, assignEquipment, addItemToInventory, removeEquipment, moveItemInInventory } from 'store/actions/adventurers';
 import { removeItemFromWarehouse, addItemToWarehouse, moveItemInWarehouse } from 'store/actions/items';
-import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
+import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { Item } from 'definitions/items/types';
 import { DragSourceType } from 'constants/dragging';
 import { AdventurerStoreState } from 'store/types/adventurer';

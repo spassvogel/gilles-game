@@ -2,7 +2,7 @@ import React, {  } from "react";
 import { DragSourceType } from 'constants/dragging';
 import Inventory from 'components/ui/inventory/Inventory';
 import useItemDropActions from 'hooks/actions/useItemActions';
-import { EquipmentSlotType } from 'components/ui/EquipmentSlot';
+import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import { Item } from 'definitions/items/types';
 import AdventurerSkills from './AdventurerSkills';

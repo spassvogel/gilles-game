@@ -1,4 +1,4 @@
-import { EquipmentSlotType } from "components/ui/EquipmentSlot";
+import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { Item } from "definitions/items/types";
 import { Action } from "redux";
 
