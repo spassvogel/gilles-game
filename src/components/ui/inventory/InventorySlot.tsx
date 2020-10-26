@@ -3,9 +3,9 @@ import { PropsWithChildren } from 'react';
 import { DragSourceType, DragType } from "constants/dragging";
 import { Item } from "definitions/items/types";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
-import { itemAndEquipmentSlotMatch } from "../EquipmentSlot";
 import { InventoryItemDragInfo } from '../items/DraggableItemIcon';
 import { IconSize } from '../common/Icon';
+import { itemAndEquipmentSlotMatch } from '../adventurer/EquipmentSlot';
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {
