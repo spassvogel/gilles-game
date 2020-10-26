@@ -67,7 +67,7 @@ const ResourcesBox = (props: AllProps & AppContextProps) => {
         const full = amount >= props.maxResources[resource];
         return (
             <li className={listItemClass} key={resource}>
-                <Icon image={resourceDescription.iconImg} size="small"/>
+                <Icon image={resourceDescription.iconImg} size="smallest"/>
                 <div className="name">
                     { TextManager.getResourceName(resource as Resource) }
                 </div>
