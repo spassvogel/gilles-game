@@ -39,7 +39,7 @@ const AdventurerButton = (props: Props) => {
     if (isAssigned) {
         return (
             <Button onClick={handleRemoveClick} className="adventurer-button">
-               {TextManager.get("structure-tavern-button-leave-quest")}
+               {TextManager.get("ui-structure-tavern-button-leave-quest")}
             </Button>
         );
     }
@@ -47,13 +47,13 @@ const AdventurerButton = (props: Props) => {
     if (assignedAventurers.filter(Boolean).length === AVAILABLE_SLOTS) {
         return (
             <Button disabled={true} className="adventurer-button">
-                {TextManager.get("structure-tavern-button-join-quest-full-party")}
+                {TextManager.get("ui-structure-tavern-button-join-quest-full-party")}
             </Button>
         )
     }
     return (
         <Button onClick={handleAddClick}  className="adventurer-button">
-            {TextManager.get("structure-tavern-button-join-quest", { quest })}
+            {TextManager.get("ui-structure-tavern-button-join-quest", { quest })}
         </Button>
     )
 }

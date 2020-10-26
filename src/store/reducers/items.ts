@@ -1,45 +1,37 @@
 
-import {  ActionType, AddAction, MoveItemInWarehouseAction, RemoveItemFromWarehouseAction } from "store/actions/items";
+import { ActionType, AddAction, MoveItemInWarehouseAction, RemoveItemFromWarehouseAction } from "store/actions/items";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
-
-const testState = [
-    null,
-    null,
-    null,
-    Item.dagger,
-    Item.deedForWeaponsmith,
-    null,
-    Item.sandwich,
-    Item.sandwich,
-    null,
-    null,
-    Item.torch,
-    Item.torch,
-    null,
-    Item.torch,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
-];
+import { getDefinition, Structure } from 'definitions/structures';
+import { WarehouseStructureDefinition } from 'definitions/structures/types';
 
 // Items in warehouse
+const getTestState = () => {
+    const result = [];
+    const { maxStockpile } = getDefinition<WarehouseStructureDefinition>(Structure.warehouse).levels[0];
+    for (let i = 0; i < maxStockpile; i++) {
+        if (Math.random() < .5) {
+            result.push(null)
+        } else {
+            const randomItem = randomEnum(Item);
+            result.push(randomItem);
+        }
+    }
+    return result;
+}
+
+const randomEnum = <T>(anEnum: T): T[keyof T] => {
+    const enumValues = (Object.values(anEnum) as unknown) as T[keyof T][];
+    const randomIndex = Math.floor(Math.random() * enumValues.length);
+    return enumValues[randomIndex];
+}
 
 /**
  * reducer
  * @param state
  * @param action
  */
-export const items: Reducer<(Item|null)[]> = (state: (Item|null)[] = testState,
+export const items: Reducer<(Item|null)[]> = (state: (Item|null)[] = getTestState(),
                                                  action: AnyAction) => {
     switch (action.type) {
         case ActionType.addItem: {

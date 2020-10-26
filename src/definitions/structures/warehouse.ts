@@ -24,6 +24,7 @@ const warehouse: WarehouseStructureDefinition = {
             stone: 200,
             wood: 200,
         },
+        maxStockpile: 16
     }, {
         // level 2:
         displayName: "structure-warehouse-name",
@@ -40,6 +41,7 @@ const warehouse: WarehouseStructureDefinition = {
             stone: 500,
             wood: 500,
         },
+        maxStockpile: 32
     }, {
         // level 3:
         displayName: "structure-warehouse-name",
@@ -56,6 +58,7 @@ const warehouse: WarehouseStructureDefinition = {
             stone: 1000,
             wood: 1000,
         },
+        maxStockpile: 48
     }],
 };
 

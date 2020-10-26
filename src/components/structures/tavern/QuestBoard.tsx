@@ -41,7 +41,7 @@ const QuestBoard = (props: Props) => {
         const quest = props.availableQuests.find((q) => q.name === props.selectedQuestName);
         if (!quest) {
             return (
-                <div> { TextManager.get("structure-tavern-quest-launched") } </div>
+                <div> { TextManager.get("ui-structure-tavern-quest-launched") } </div>
             );
         }
         const questDefinition = getDefinition(quest.name);
@@ -64,7 +64,7 @@ const QuestBoard = (props: Props) => {
                 />
                 <ItemsBox items={ questDefinition.requiredItems || [] }/>
                 <Button disabled={!canLaunch} onClick = { () => props.onLaunchQuest() }>
-                    {TextManager.get("structure-tavern-button-launch-quest")}
+                    {TextManager.get("ui-structure-tavern-button-launch-quest")}
                 </Button>
             </div>
         );
@@ -87,7 +87,7 @@ const QuestBoard = (props: Props) => {
     return (
         <div className="quest-board">
             <h2>
-                {TextManager.get("structure-tavern-title-quest-board")}
+                {TextManager.get("ui-structure-tavern-title-quest-board")}
             </h2>
             <ul className="quest-list">
                 {props.availableQuests.map((q) => {

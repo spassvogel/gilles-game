@@ -3,6 +3,7 @@ import { AdventurerStoreState } from 'store/types/adventurer';
 import { QuestStoreState } from 'store/types/quest';
 import RoomWithAdventurer from './RoomWithAdventurer';
 import RoomEmpty from './RoomEmpty';
+import { TextManager } from 'global/TextManager';
 
 export interface Props {
     roomCount: number;
@@ -69,7 +70,7 @@ const RoomList = (props: Props) => {
 
     return (
         <div className="rooms">
-            <h2>Rooms</h2>
+            <h2>{TextManager.get("ui-structure-tavern-rooms")}</h2>
             { roomContent }
         </div>
     );

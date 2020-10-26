@@ -51,7 +51,7 @@ const RoomWithAdventurer = (props: Props) => {
                 />
                 <span key={ adventurer.id } onClick={() => onClick(adventurer)}>
                     {adventurer.name}
-                    {(onQuest) && TextManager.get("structure-tavern-on-a-quest") }
+                    {(onQuest) && TextManager.get("ui-structure-tavern-on-a-quest") }
                 </span>
             </div>
             { expanded && (

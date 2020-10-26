@@ -45,6 +45,7 @@ export interface WarehouseStructureDefinition extends StructureDefinition {
 
 export interface WarehouseStructureLevelDefinition extends StructureLevelDefinition {
     maxResources: ResourceStoreState;
+    maxStockpile: number;
 }
 
 // tslint:disable-next-line:no-empty-interface

@@ -17,6 +17,9 @@ import { launchQuest } from 'store/actions/quests';
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import UpgradeStructureButton from '../UpgradeStructureButton';
 import "./styles/tavernstructureview.scss";
+import UpgradeHelpModal from './UpgradeHelpModal';
+import { TooltipManager } from 'global/TooltipManager';
+import { ContextType } from 'constants/context';
 
 export interface StateProps {
     gold: number;
@@ -90,10 +93,19 @@ const TavernStructureView = () => {
         onLaunchQuest(selectedQuest!);
     };
 
+    const handleHelpClicked = (event: React.MouseEvent) => {
+        const origin = (event.currentTarget as HTMLElement);
+        const originRect = origin.getBoundingClientRect();
+        const content = <UpgradeHelpModal level={level} />;
+        TooltipManager.showContextTooltip(ContextType.component, content, originRect, "upgrade-structure-tooltip");
+
+        event.stopPropagation();
+    }
+
     return (
         <details open={true} className="tavernstructureview">
             <summary>{displayName}</summary>
-            <UpgradeStructureButton structure={Structure.tavern} />
+            <UpgradeStructureButton structure={Structure.tavern} onHelpClicked={handleHelpClicked}/>
             <section>
                 <RoomList
                     roomCount={levelDefinition.rooms}
