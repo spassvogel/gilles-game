@@ -286,6 +286,8 @@
 
     "ui-game-loaded": "Game loaded",
 
+    "ui-structure-help-upgrade-cost-gold": "{{gold}} {{resource:name 'gold'}}",
+    "ui-structure-help-upgrade-title": "Upgrade {{structure:name structure}}",
     "ui-structure-level": "Level: ",
     "ui-structure-upgrade": "Upgrade to level {{level}} ({{cost}} gold)",
     "ui-structure-upgrade-max": "Upgraded to max level",
@@ -295,6 +297,8 @@
     "ui-structure-production-crafting-time": " Crafting time: {{time}}",
     "ui-structure-production-studying": "Currently studying:",
     "ui-structure-production-workers": "Workers: ",
+    "ui-structure-warehouse-help-upgrade-header-capacity": "Capacity",
+    "ui-structure-warehouse-help-upgrade-header-level": "Level {{level}}",
 
     "ui-toast-type-achievement-unlocked": "Achievement unlocked!",
     "ui-toast-type-cheat": "Cheat activated!",
