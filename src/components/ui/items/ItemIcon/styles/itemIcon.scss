@@ -28,22 +28,44 @@
     border-color: $color-rarity-common;
 }
 
+// todo: support all sizes!
+@mixin iconSize($index) {
+    $rarityCount: 6;
+    // &.item-icon-size-smallest {
+    //     background-position-x: $index * -$item-size-smallest - 2;
+    //     background-size: $item-size-smallest * $rarityCount $item-size-smallest;
+    // }
+    // &.item-icon-size-small {
+    //     background-position-x: $index * -$item-size-small - 2;
+    //     background-size: $item-size-small * $rarityCount $item-size-small;
+    // }
+    //
+    &.item-icon-size-medium {
+        background-position-x: $index * -$item-size-medium ;
+        // background-size: $item-size-medium * $rarityCount $item-size-medium;
+    }
+    // &.item-icon-size-big {
+    //     background-position-x: $index * -$item-size-big - 2;
+    //     background-size: $item-size-big * $rarityCount $item-size-big;
+    // }
+}
+
 .item-icon-uncommon {
     border-color: $color-rarity-uncommon;
-    background-position-x: 1 * -$item-size-medium;
+    @include iconSize(1);
 }
 
 .item-icon-rare {
     border-color: $color-rarity-rare;
-    background-position-x: 2 * -$item-size-medium;
+    @include iconSize(2);
 }
 
 .item-icon-epic {
     border-color: $color-rarity-epic;
-    background-position-x: 3 * -$item-size-medium;
+    @include iconSize(3);
 }
 
 .item-icon-legendary {
     border-color: $color-rarity-legendary;
-    background-position-x: 4 * -$item-size-medium;
+    @include iconSize(4);
 }

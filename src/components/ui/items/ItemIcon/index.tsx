@@ -15,7 +15,7 @@ export interface Props {
 }
 
 const ItemIcon = (props: Props) => {
-    const {item} = props;
+    const { item, size } = props;
     const itemDefinition = getDefinition(item);
 
     if (!itemDefinition) {
@@ -36,7 +36,7 @@ const ItemIcon = (props: Props) => {
         }
     };
 
-    const className = `item-icon ${getIconClassName(itemDefinition.rarity)} `;
+    const className = `item-icon ${getIconClassName(itemDefinition.rarity)} ${sizeClassName(size)}`;
 
     return (
         <div className={className}>
@@ -66,4 +66,20 @@ const getIconClassName = (rarity?: Rarity): string => {
             return "item-icon-legendary";
     }
     return getIconClassName(Rarity.common);
+};
+
+const sizeClassName = (size?: IconSize): string => {
+    switch (size) {
+        case IconSize.smallest:
+            return "item-icon-size-smallest";
+        case IconSize.small:
+            return "sitem-icon-size-small";
+        case IconSize.medium:
+            return "item-icon-size-medium";
+        case IconSize.big:
+            return "item-icon-size-big";
+        case IconSize.biggest:
+            return "item-icon-size-biggest";
+    }
+    return sizeClassName(IconSize.medium);
 };
