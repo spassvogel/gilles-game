@@ -36,7 +36,7 @@ $arrow-size: 8px;
     }
 
     &.tooltip-top {
-        transform: translate(-50%, calc(-100% - $arrow-size));
+        transform: translate(-50%, calc(-100% - #{$arrow-size}));
     
         .tooltip-arrow {
             border-width: $arrow-size $arrow-size 0 $arrow-size;
