@@ -11,10 +11,10 @@ import { withWindow } from 'hoc/withWindow';
 import { Props as WindowProps } from "components/ui/window/Window";
 import { formatDuration } from 'utils/format/time';
 import Progressbar from 'components/ui/common/Progressbar';
-import ProductionStructureView from 'components/structures/ProductionStructureView';
+import ProductionStructureView from 'components/structures/production/ProductionStructureView';
 import WarehouseStructureView from 'components/structures/warehouse/WarehouseStructureView';
 import TavernStructureView from 'components/structures/tavern/TavernStructureView';
-import ResourceStructureView from 'components/structures/ResourceStructureView';
+import ResourceStructureView from 'components/structures/resource/ResourceStructureView';
 import "./styles/structuredetailsview.scss";
 
 export interface Props {

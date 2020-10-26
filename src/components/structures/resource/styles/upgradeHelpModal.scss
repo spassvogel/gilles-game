@@ -1,6 +1,6 @@
 @import 'components/styles/variables.scss';
 
-.warehouse-upgrade-help-modal {
+.resource-upgrade-help-modal {
     margin-bottom: 8px;
     max-width: 420px;
     right: 8px;
@@ -21,7 +21,7 @@
         }
     }
 
-    .storage-increase {
+    .generates-increase {
         display: grid;
         grid-template-columns: 32px auto 64px 16px 64px;
         margin: 32px 0 16px 16px;

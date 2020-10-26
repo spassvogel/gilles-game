@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import Button from 'components/ui/buttons/Button';
 import { Item } from "definitions/items/types";
 import { ProductionDefinition } from "definitions/production/types";
 import { getDefinition, Structure } from "definitions/structures";
@@ -22,12 +24,10 @@ import { increaseWorkers } from 'store/actions/structures';
 import { addItemToWarehouse } from 'store/actions/items';
 import { TaskType } from 'store/types/task';
 import { startTask } from 'store/actions/tasks';
-import { useDispatch } from 'react-redux';
-import Button from 'components/ui/buttons/Button';
 import ItemsBox from 'components/ui/items/ItemsBox';
 import ItemIcon from 'components/ui/items/ItemIcon';
-import StructureViewHeader from './StructureViewHeader';
-import UpgradeStructureButton from './UpgradeStructureButton';
+import StructureViewHeader from '../StructureViewHeader';
+import UpgradeStructureButton from '../UpgradeStructureButton';
 import { IconSize } from 'components/ui/common/Icon';
 import "./styles/productionStructureView.scss";
 

@@ -24,7 +24,7 @@ const garden: ResourceStructureDefinition = {
             gold: 30,
             time: ONE_MINUTE
         },
-        generates: { food: 2 },
+        generates: { food: 4 },
     }, {
         // level 3:
         displayName: "structure-garden-name",
@@ -33,7 +33,7 @@ const garden: ResourceStructureDefinition = {
             gold: 50,
             time: TWO_MINUTES
         },
-        generates: { food: 2 },
+        generates: { food: 8 },
     }],
 };
 

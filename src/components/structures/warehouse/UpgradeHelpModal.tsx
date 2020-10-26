@@ -34,7 +34,7 @@ const UpgradeHelpModal = (props: Props) => {
     }
 
     return (
-        <div className="upgrade-help-modal">
+        <div className="warehouse-upgrade-help-modal">
             <div className="top">
                 <h3>{TextManager.get("ui-structure-help-upgrade-title", { structure: Structure.warehouse} )}</h3>
                 <div className="cost">

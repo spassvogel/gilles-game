@@ -7,10 +7,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from 'store/types';
 import { selectFreeWorkers } from 'store/selectors/workers';
 import { decreaseWorkers, increaseWorkers } from 'store/actions/structures';
-import StructureViewHeader from './StructureViewHeader';
+import StructureViewHeader from '../StructureViewHeader';
 import { TextManager } from 'global/TextManager';
-import UpgradeStructureButton from './UpgradeStructureButton';
+import UpgradeStructureButton from '../UpgradeStructureButton';
 import './styles/resourceStructureView.scss';
+import { TooltipManager } from 'global/TooltipManager';
+import { ContextType } from 'constants/context';
+import UpgradeHelpModal from './UpgradeHelpModal';
 
 export interface Props  {
     structure: Structure;
@@ -81,13 +84,22 @@ const ResourceStructureView = (props: Props) => {
         </div>;
     };
 
+    const handleHelpClicked = (event: React.MouseEvent) => {
+        const origin = (event.currentTarget as HTMLElement);
+        const originRect = origin.getBoundingClientRect();
+        const content = <UpgradeHelpModal level={level} structure={structure} />;
+        TooltipManager.showContextTooltip(ContextType.component, content, originRect, "upgrade-structure-tooltip");
+
+        event.stopPropagation();
+    }
+
     return (
         <>
             <StructureViewHeader structure={props.structure} />
             <details open={true} className="resource-structure-view">
                 <section>
                     {createWorkersRow() }
-                    <UpgradeStructureButton structure={structure} />
+                    <UpgradeStructureButton structure={structure} onHelpClicked={handleHelpClicked}/>
                     {createGeneratesRow() }
                 </section>
             </details>
