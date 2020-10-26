@@ -13,7 +13,7 @@ export interface ResourceDefinition {
     iconImg: string;
 }
 
-export default {
+const all = {
     [Resource.wood]: {
         resource: Resource.wood,
         iconImg: "/img/resources/wood.png",
@@ -39,3 +39,5 @@ export default {
         iconImg: "/img/resources/food.png",
     },
 };
+
+export default all;

@@ -1,5 +1,3 @@
-// tslint:disable:object-literal-sort-keys
-
 import { Structure } from "../structures";
 import { Item, ItemDefinition, ItemType } from "./types";
 
@@ -23,7 +21,10 @@ export const deedForWeaponsmith: DeedDefinition = {
     iconImg: "/img/items/deeds/deed.png",
 };
 
-export default {
+const all = {
     deedForLumbermill,
     deedForWeaponsmith,
 };
+
+
+export default all;
