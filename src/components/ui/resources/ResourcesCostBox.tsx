@@ -6,6 +6,8 @@ import { TextManager } from "global/TextManager";
 import { useMemo } from 'react';
 import { useResourcesState } from 'hooks/store/resources';
 import Icon from 'components/ui/common/Icon';
+import { ContextType } from 'constants/context';
+import { TooltipManager } from 'global/TooltipManager';
 import "./styles/resourcesbox.scss";
 
 export interface Props {
@@ -13,16 +15,10 @@ export interface Props {
     resources: ResourceStoreState;
 }
 
-export interface StateProps {
-    sufficientResources?: Record<Resource, boolean>;
-}
-
-type AllProps = Props & StateProps;
-
 /**
  * The ResourcesBox displays a list of resources
  */
-const ResourcesCostBox = (props: AllProps) => {
+const ResourcesCostBox = (props: Props) => {
     const {
         resources,
     } = props;
@@ -35,17 +31,24 @@ const ResourcesCostBox = (props: AllProps) => {
         }, {});
     }, [resources, storeResources]);
 
-
     const className = (props.className || "") + " resourcesbox";
     const listItems = Object.keys(props.resources).map((resource: string) => {
         let listItemClass = "resource";
         if (sufficientResources && !sufficientResources[resource]) {
-             listItemClass += " insufficient";
+            listItemClass += " insufficient";
         }
         const resourceDescription = resourceDescriptions[resource];
         if (!resourceDescription) {
             throw new Error(`No resource description found for ${resource}`);
         }
+
+        const handleClick = (event: React.MouseEvent) => {
+
+            const origin = (event.currentTarget as HTMLElement);
+            const originRect = origin.getBoundingClientRect();
+            TooltipManager.showContextTooltip(ContextType.resource, resource, originRect);
+            event.stopPropagation();
+        };
 
         return (
             <li
@@ -55,6 +58,7 @@ const ResourcesCostBox = (props: AllProps) => {
                 <Icon
                     image={resourceDescription.iconImg}
                     size="smallest"
+                    onClick={handleClick}
                 />
                 <div className="name">
                     {TextManager.getResourceName(resource as Resource)}
