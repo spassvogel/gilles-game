@@ -9,7 +9,6 @@ export interface Props {
 // and InfoModal
 export const InfoWindow = (props: PropsWithChildren<Props> & ComponentProps<"div">) => {
     const { className, children, ...otherProps } = props;
-    console.log(className)
     return (
         <div
             {...otherProps}
