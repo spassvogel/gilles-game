@@ -92,7 +92,7 @@ const ProductionStructureView = (props: Props) => {
                         {craftingTasks.map((t) => (
                             <Progressbar
                                 key={`${t.name}${t.startTime}`}
-                                label={`${t.name} (${formatDuration(t.timeRemaining)})`}
+                                label={`${TextManager.getItemName(Item[t.name])} (${formatDuration(t.timeRemaining)})`}
                                 progress={t.progress}
                             />
                         ))}
