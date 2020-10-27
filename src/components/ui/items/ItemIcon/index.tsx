@@ -73,7 +73,7 @@ const sizeClassName = (size?: IconSize): string => {
         case IconSize.smallest:
             return "item-icon-size-smallest";
         case IconSize.small:
-            return "sitem-icon-size-small";
+            return "item-icon-size-small";
         case IconSize.medium:
             return "item-icon-size-medium";
         case IconSize.big:
