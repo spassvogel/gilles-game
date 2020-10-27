@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import useStockpileState from 'hooks/store/useStockpileState';
 import Button from 'components/ui/buttons/Button';
 import UpDownValue from 'components/ui/common/UpDownValue';
 import ItemsBox from 'components/ui/items/ItemsBox';
@@ -6,10 +8,8 @@ import ResourcesCostBox from 'components/ui/resources/ResourcesCostBox';
 import { Item } from 'definitions/items/types';
 import { TextManager } from 'global/TextManager';
 import { useResourcesState } from 'hooks/store/resources';
-import useStockpileState from 'hooks/store/useStockpileState';
 import { useWorkersFreeState } from 'hooks/store/useWorkersState';
 import { calculateProductionTime, MAX_WORKERS_CRAFTING } from 'mechanics/crafting';
-import { useDispatch } from 'react-redux';
 import { formatDuration } from 'utils/format/time';
 import { getDefinition as getProductionDefinition } from "definitions/production";
 import { ProductionDefinition } from 'definitions/production/types';
@@ -112,9 +112,9 @@ const CraftingDetails = (props: Props) => {
                             workersAssigned >= workersFree ||
                             workersAssigned >= MAX_WORKERS_CRAFTING
                         }
-                        downDisabled={ workersAssigned < 1 }
+                        downDisabled={workersAssigned < 1}
                     />
-                    { makeTimeString(produces.cost.time || 0) }
+                    { makeTimeString(produces.cost.time || 0)}
                 </div>
                 <div>
                     <Button

@@ -29,6 +29,7 @@ details.structureview {
 
     .crafting-area {
         display: flex;
+        margin-bottom: 16px;
     
         .vertical-tab-bar {
             list-style: none;
@@ -40,7 +41,7 @@ details.structureview {
                 display: flex;
                 margin: 0;
                 padding: 2px;
-                line-height: $item-size-small;
+                // line-height: $item-size-small;
                 cursor: var(--app-cursor-pointer);
 
                 &.selected {

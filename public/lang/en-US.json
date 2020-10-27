@@ -304,6 +304,7 @@
     "ui-structure-tavern-title-quest-board": "Quest board",
 
     "ui-structure-resource-help-upgrade-header-generates": "Generates",
+    "ui-structure-resource-next-generates": "Next {{amount}} {{resource:name resource}} produced in {{time}}",
 
     "ui-structure-warehouse-adventurers": "Adventurers",
     "ui-structure-warehouse-resources": "Resources",
