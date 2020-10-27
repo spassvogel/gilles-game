@@ -1,24 +1,39 @@
 import * as React from "react";
 import { useDelta } from 'hooks/store/engine';
+import { useRef } from 'react';
 import "./styles/progressbar.scss";
+
+export enum Direction {
+    increasing,
+    decreasing
+}
 
 export interface Props {
     progress?: number;     // between 0 and 1
     label?: string;
     className?: string;
+    direction?: Direction; // only used to prevent the bar from animating back to the start state
 }
 
 const Progressbar = (props: Props) => {
-    const { className = "" } = props;
+    const { className = "", direction } = props;
+    const previousProgress = useRef(0);
     const progress: number = clamp(props.progress || 0, 0, 1);
+    // We use the delta time since last tick to animate
     const delta = useDelta();
+
+    // If we have a direction defined and we're going the other direction, dont animate
+    // because we've basically reset the progress bar and we just want to animate in one direction
+    const reset = (direction === Direction.increasing && progress < previousProgress.current) ||
+        (direction === Direction.decreasing && progress > previousProgress.current);
+    previousProgress.current = progress;
 
     return (
         <div className={`progressbar ${className}`}>
             <div className="progressbar-label">{props.label}</div>
             <div className="progressbar-bar" style= {{
                 width: `${progress * 100}%`,
-                transition: `width ${delta}ms linear`
+                ...(!reset && {transition: `width ${delta}ms linear`})
             }}/>
         </div>
     );

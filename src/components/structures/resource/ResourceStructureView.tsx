@@ -17,7 +17,7 @@ import UpgradeHelpModal from './UpgradeHelpModal';
 import { useEngine } from 'hooks/store/engine';
 import { formatDuration } from 'utils/format/time';
 import { RESOURCE_INTERVAL } from 'constants/resources';
-import Progressbar from 'components/ui/common/Progressbar';
+import Progressbar, { Direction } from 'components/ui/common/Progressbar';
 import { Resource } from 'definitions/resources';
 
 export interface Props  {
@@ -110,6 +110,7 @@ const ResourceStructureView = (props: Props) => {
             </details>
             <Progressbar
                 className="generating"
+                direction={Direction.decreasing}
                 label={`${TextManager.get("ui-structure-resource-next-generates", {
                     amount: 2, // todo
                     resource: Resource.wood,
