@@ -14,8 +14,11 @@ export const engine: Reducer<EngineStoreState> = (state: EngineStoreState = init
             // Keep track of the last time resources were produced
             const resourcesToAdd = (action as GameTickAction).resources;
             const lastProducedUpdate = resourcesToAdd === null ? state.lastProducedUpdate : Date.now();
+            const previousTick = state.lastTick;
+
             return {
                 ...state,
+                previousTick,
                 lastProducedUpdate,
                 lastTick: Date.now(),
             };
