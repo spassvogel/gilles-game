@@ -157,7 +157,7 @@ Handlebars.registerHelper("item:name", (item: Item, article?: string) => {
 });
 
 Handlebars.registerHelper("structure:name", (structure: string) => {
-    const name = TextManager.get(`structure-${structure}-name`);
+    const name = TextManager.get(`structure-${toKebab(structure)}-name`);
     return new Handlebars.SafeString(name);
 });
 
