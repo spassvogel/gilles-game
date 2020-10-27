@@ -1,4 +1,5 @@
 import * as React from "react";
+import { AnyAction } from "redux";
 import { TextManager } from 'global/TextManager';
 import { subtractGold } from 'store/actions/gold';
 import { addLogText } from 'store/actions/log';
@@ -18,10 +19,15 @@ import { formatDuration } from 'utils/format/time';
 export interface Props {
     structure: Structure;
     onHelpClicked?: (e: React.MouseEvent) => void;
+    addUpgradeCallbacks?: (level: number) => AnyAction[]; // add custom actions after upgrade is done
 }
 
 const UpgradeStructureButton = (props: Props) => {
-    const {structure, onHelpClicked} = props;
+    const {
+        structure,
+        onHelpClicked,
+        addUpgradeCallbacks
+    } = props;
     const dispatch = useDispatch();
     const gold = useGoldState();
 
@@ -40,6 +46,7 @@ const UpgradeStructureButton = (props: Props) => {
         dispatch(subtractGold(cost));
 
         const callbacks = [
+            ...(addUpgradeCallbacks?.(level + 1) || []),
             upgradeStructure(structure),
             addLogText("log-town-upgrade-structure-complete", {
                 level: level + 1,
