@@ -1,3 +1,5 @@
+@import 'components/styles/variables.scss';
+
 .adventurer-equipment {
     display: grid;
     list-style: none;
@@ -16,6 +18,7 @@
         position: absolute;
         font-size: small;
         text-align: center;
+        width: $item-size-medium;
     }
 
     .head {
