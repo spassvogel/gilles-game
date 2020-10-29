@@ -43,7 +43,7 @@ const ProductionStructureView = (props: Props) => {
         event.stopPropagation();
     }
 
-    const handleAddUpgradeCallbacks = (nextLevel: number) => {
+    const handleUpgradeCallbacks = (nextLevel: number) => {
         const nextLevelDefinition = structureDefinition.levels[nextLevel];
         return nextLevelDefinition.unlocks.map(item => addItemToToProduces(structure, item));
     }
@@ -57,7 +57,7 @@ const ProductionStructureView = (props: Props) => {
                     <StructureLevel
                         structure={structure}
                         onHelpClicked={handleHelpClicked}
-                        addUpgradeCallbacks={handleAddUpgradeCallbacks}
+                        addUpgradeCallbacks={handleUpgradeCallbacks}
                     />
                     <CraftingArea structure={structure} />
                     <fieldset>

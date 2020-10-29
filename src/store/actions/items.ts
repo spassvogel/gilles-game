@@ -6,6 +6,7 @@ export enum ActionType {
     addItem = "addItem",
     moveItemInWarehouse = "moveItemInWarehouse",
     removeItem = "removeItem",
+    addStockpileSlots = "addStockpileSlots"
 }
 
 export interface MoveItemInWarehouseAction extends Action<ActionType> {
@@ -20,6 +21,9 @@ export interface AddAction extends Action {
 
 export interface RemoveItemFromWarehouseAction extends Action {
     fromSlot: number;
+}
+export interface AddStockpileSlotsAction extends Action {
+    slots: number;
 }
 
 // Adds one Item to the warehouse
@@ -44,5 +48,12 @@ export function removeItemFromWarehouse(fromSlot: number): RemoveItemFromWarehou
     return {
         type: ActionType.removeItem,
         fromSlot,
+    };
+}
+
+export function addStockpileSlots(slots: number): AddStockpileSlotsAction {
+    return {
+        type: ActionType.addStockpileSlots,
+        slots,
     };
 }

@@ -12,7 +12,7 @@ export enum ActionType {
     startBuildingStructure = "startBuildingStructure",
     finishBuildingStructure = "finishBuildingStructure",
     setStructureState = "setStructureState",
-    addItemToToProduces = "addItemToToProduces"
+    addItemToToProduces = "addItemToToProduces",
 }
 
 export interface StructureAction extends Action<ActionType> {

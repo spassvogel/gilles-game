@@ -4,7 +4,7 @@ import ResourcesBox from "components/ui/resources/ResourcesBox";
 import { DragSourceType } from "constants/dragging";
 import { Item } from "definitions/items/types";
 import { getDefinition, Structure } from "definitions/structures";
-import { StructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
+import { StructureDefinition, WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import usePrevious from "hooks/usePrevious";
 import { useEffect, useRef, useState } from "react";
 import { empty, ResourceStoreState } from "store/types/resources";
@@ -24,6 +24,7 @@ import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
 import UpgradeHelpModal from './UpgradeHelpModal';
 import { ContextType } from 'constants/context';
 import "./styles/warehouseStructureView.scss";
+import { addStockpileSlots } from 'store/actions/items';
 
 // tslint:disable-next-line: no-empty-interface
 export interface Props  {
@@ -31,7 +32,6 @@ export interface Props  {
 
 const WAREHOUSE = DragSourceType.warehouse;
 
-// todo 20191202: Resource update should happen at a set interval
 const WarehouseStructureView = () => {
 
     const adventurersInTown = useAdventurersInTown();
@@ -69,14 +69,13 @@ const WarehouseStructureView = () => {
         }, 200);
     }, [resourcesDelta]);
 
-    const structureDefinition = getDefinition<StructureDefinition>(Structure.warehouse);
+    const structureDefinition = getDefinition<WarehouseStructureDefinition>(Structure.warehouse);
     if (!structureDefinition) {
         throw new Error(`No definition found for structure ${Structure.warehouse} with type StructureDefinition.`);
     }
 
     const structureState = useStructureState(Structure.warehouse);
     const levelDefinition: WarehouseStructureLevelDefinition = structureDefinition.levels[structureState.level] as WarehouseStructureLevelDefinition;
-    const displayName = TextManager.getStructureName(Structure.warehouse);
 
     const handleDropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
         dropItemWarehouse(item, fromSlot, toSlot, sourceType, sourceId);
@@ -95,9 +94,18 @@ const WarehouseStructureView = () => {
         event.stopPropagation();
     }
 
+    const handleUpgradeCallbacks = (nextLevel: number) => {
+        const currentLevelDefinition = structureDefinition.levels[structureState.level];
+        const nextLevelDefinition = structureDefinition.levels[nextLevel];
+        const slots = nextLevelDefinition.maxStockpile - currentLevelDefinition.maxStockpile;
+        return [
+            addStockpileSlots(slots)
+        ]
+    }
+
     return (
         <div className="warehouse-structureview">
-            <StructureLevel structure={Structure.warehouse} onHelpClicked={handleHelpClicked}/>
+            <StructureLevel structure={Structure.warehouse} onHelpClicked={handleHelpClicked} addUpgradeCallbacks={handleUpgradeCallbacks}/>
             <fieldset className="resources" ref={resourcesRef}>
                 <legend>{TextManager.get("ui-structure-warehouse-resources")}</legend>
                 <ResourcesBox

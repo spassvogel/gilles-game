@@ -1,5 +1,5 @@
 
-import { ActionType, AddAction, MoveItemInWarehouseAction, RemoveItemFromWarehouseAction } from "store/actions/items";
+import { ActionType, AddAction, AddStockpileSlotsAction, MoveItemInWarehouseAction, RemoveItemFromWarehouseAction } from "store/actions/items";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { getDefinition, Structure } from 'definitions/structures';
@@ -65,6 +65,18 @@ export const items: Reducer<(Item|null)[]> = (state: (Item|null)[] = getTestStat
             const { fromSlot } = (action as RemoveItemFromWarehouseAction);
 
             return state.map((element, index) => index !== fromSlot ? element : null);
+        }
+
+        // Adds slots with 'null' to the end
+        case ActionType.addStockpileSlots: {
+            const {
+                slots,
+            } = (action as AddStockpileSlotsAction);
+
+            return [
+                ...state,
+                ...Array(slots).fill(null)
+            ];
         }
     }
 
