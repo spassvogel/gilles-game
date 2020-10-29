@@ -1,14 +1,8 @@
 @import 'components/styles/variables.scss';
 
 .warehouse-structureview {
-    .upgrade {
-        float: right;
-    }
-    .help {
-        float: right;
-        margin-right: 8px;
-    }
-    
+    padding: 16px;
+
     .adventurer-inventory {
         border: 1px solid $color-secondary;
         min-height: 100px;

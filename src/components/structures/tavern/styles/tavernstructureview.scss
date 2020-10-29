@@ -1,31 +1,25 @@
 @import 'components/styles/variables.scss';
 
-/** medium and large resolutions */
-@media only screen and (min-width: 576px) {
-    .tavernstructureview section {
-        display: flex;
-        width: 100%;
-    }
-}
 
-.tavernstructureview {
-    
-    .upgrade {
-        float: right;
-    }
-    .help {
-        float: right;
-        margin-right: 8px;
-    }
+.tavern-structure-view {
+    padding: 16px;
     
     .room-list {
         overflow: auto;
         flex: 1;
         margin: 8px;
     }
-
+    
     .quest-board {
         flex: 1;
+    }
+
+    /** medium and large resolutions */
+    @media only screen and (min-width: $max-width-small) {
+        section {
+            display: flex;
+            width: 100%;
+        }
     }
 }
 

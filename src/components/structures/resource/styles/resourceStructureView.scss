@@ -1,11 +1,22 @@
 .resource-structure-view {
     padding: 16px;
     
-    .upgrade {
-        float: right;
-    }
-    .help {
-        float: right;
-        margin-right: 8px;
+
+    .resource-generation-row {
+        display: flex;
+        margin-top: 32px;
+
+        .info {
+            flex: .4;
+            display: flex;
+
+            .icon {
+                margin-right: 4px;
+            }
+        }
+
+        .generating {
+            flex: .6;
+        }
     }
 }

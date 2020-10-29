@@ -8,7 +8,7 @@ import Progressbar from "components/ui/common/Progressbar";
 import useStructureState from 'hooks/store/useStructureState';
 import { useCraftingTasksStateByStructure, useStudyingTasksStateByStructure } from 'hooks/store/useTasksState';
 import StructureViewHeader from '../StructureViewHeader';
-import UpgradeStructureButton from '../UpgradeStructureButton';
+import StructureLevel from '../StructureLevel';
 import UpgradeHelpModal from './UpgradeHelpModal';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
@@ -52,13 +52,9 @@ const ProductionStructureView = (props: Props) => {
         // TODO: abstract some stuff to generic StructureView
         <>
             <StructureViewHeader structure={props.structure} />
-            <details
-                open={true}
-                className = "production-structure-view"
-            >
-                <summary>{displayName}</summary>
+            <div className = "production-structure-view">
                 <section>
-                    <UpgradeStructureButton
+                    <StructureLevel
                         structure={structure}
                         onHelpClicked={handleHelpClicked}
                         addUpgradeCallbacks={handleAddUpgradeCallbacks}
@@ -87,7 +83,7 @@ const ProductionStructureView = (props: Props) => {
                     </fieldset>
                     )}
                 </section>
-            </details>
+            </div>
         </>
     );
 }

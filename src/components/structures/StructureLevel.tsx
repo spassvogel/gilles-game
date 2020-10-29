@@ -15,6 +15,7 @@ import { TaskType } from 'store/types/task';
 import { useUpgradeTasksStateByStructure } from 'hooks/store/useTasksState';
 import Progressbar from 'components/ui/common/Progressbar';
 import { formatDuration } from 'utils/format/time';
+import "./styles/structureLevel.scss";
 
 export interface Props {
     structure: Structure;
@@ -22,7 +23,7 @@ export interface Props {
     addUpgradeCallbacks?: (level: number) => AnyAction[]; // add custom actions after upgrade is done
 }
 
-const UpgradeStructureButton = (props: Props) => {
+const StructureLevel = (props: Props) => {
     const {
         structure,
         onHelpClicked,
@@ -75,22 +76,24 @@ const UpgradeStructureButton = (props: Props) => {
     }
 
     return (
-        <div>
-            <label>{TextManager.get("ui-structure-level")}</label>
-            { `${(level + 1)} / ${structureDefinition.levels.length}` }
-            { nextLevel != null && (
-                <Button className="help" square={true} onClick={onHelpClicked}>
-                    ?
-                </Button>
-            )}
+        <div className="upgrade-stucture-button">
+            <label>
+                {TextManager.get("ui-structure-level")}
+                { level + 1 }
+            </label>
             <Button
                 className="upgrade"
                 onClick={() => {handleUpgrade(nextLevelCost)}}
                 disabled={!canUpgrade}>
                     { upgradeText }
             </Button>
+            { nextLevel != null && (
+                <Button className="help" square={true} onClick={onHelpClicked}>
+                    ?
+                </Button>
+            )}
         </div>
     );
 };
 
-export default UpgradeStructureButton;
+export default StructureLevel;

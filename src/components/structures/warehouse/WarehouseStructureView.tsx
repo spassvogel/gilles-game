@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
 import { useAdventurersInTown } from 'hooks/store/adventurers';
 import useItemDropActions from 'hooks/actions/useItemActions';
-import UpgradeStructureButton from '../UpgradeStructureButton';
+import StructureLevel from '../StructureLevel';
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
 import UpgradeHelpModal from './UpgradeHelpModal';
 import { ContextType } from 'constants/context';
@@ -96,9 +96,8 @@ const WarehouseStructureView = () => {
     }
 
     return (
-        <details open={true} className="warehouse-structureview">
-            <summary>{displayName}</summary>
-            <UpgradeStructureButton structure={Structure.warehouse} onHelpClicked={handleHelpClicked}/>
+        <div className="warehouse-structureview">
+            <StructureLevel structure={Structure.warehouse} onHelpClicked={handleHelpClicked}/>
             <fieldset className="resources" ref={resourcesRef}>
                 <legend>{TextManager.get("ui-structure-warehouse-resources")}</legend>
                 <ResourcesBox
@@ -133,7 +132,7 @@ const WarehouseStructureView = () => {
                     )}
                 </div>
             </div>
-        </details>
+        </div>
     );
 
 };

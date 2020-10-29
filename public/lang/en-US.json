@@ -282,6 +282,7 @@
     "ui-structure-help-upgrade-cost-gold": "{{gold}} {{resource:name 'gold'}}",
     "ui-structure-help-upgrade-title": "Upgrade {{structure:name structure}}",
     "ui-structure-help-upgrade-header-level": "Level {{level}}",
+    "ui-structure-help-upgrade-worker-capacity": "Worker capacity",
 
     "ui-structure-level": "Level: ",
     "ui-structure-upgrade": "Upgrade to level {{level}} ({{cost}} gold)",
@@ -303,8 +304,9 @@
     "ui-structure-tavern-rooms": "Rooms",
     "ui-structure-tavern-title-quest-board": "Quest board",
 
-    "ui-structure-resource-help-upgrade-header-generates": "Generates",
+    "ui-structure-resource-help-upgrade-resource-generates": "{{resource:name resource}} p/worker",
     "ui-structure-resource-next-generates": "Next {{amount}} {{resource:name resource}} produced in {{time}}",
+    "ui-structure-resource-generates": "{{resource:name resource}}: {{amount}} per worker",
 
     "ui-structure-warehouse-adventurers": "Adventurers",
     "ui-structure-warehouse-resources": "Resources",

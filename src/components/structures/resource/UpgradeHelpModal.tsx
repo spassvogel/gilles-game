@@ -26,7 +26,9 @@ const UpgradeHelpModal = (props: Props) => {
         return (
             <React.Fragment key={resource}>
                 <div><Icon image={resourceDescription.iconImg} size="smallest"/></div>
-                <div>{TextManager.getResourceName(resource)}</div>
+                <div>
+                   {TextManager.get("ui-structure-resource-help-upgrade-resource-generates", { resource })}
+                </div>
                 <div className="number">{currentLevel.generates[resource]}</div>
                 <div className="arrow">⟶</div>
                 <div className="number">{nextLevel.generates[resource]}</div>
@@ -45,11 +47,9 @@ const UpgradeHelpModal = (props: Props) => {
                     { nextLevel.cost.time && <section>{formatDuration(nextLevel.cost.time)}</section> }
                 </div>
             </div>
-            <div className="generates-increase">
+            <div className="grid generates-increase">
                 <div className="header"/>
-                <div className="header">
-                    {TextManager.get("ui-structure-resource-help-upgrade-header-generates")}
-                </div>
+                <div className="header"/>
                 <div className="header number">
                     {TextManager.get("ui-structure-help-upgrade-header-level", {
                         level: level + 1
@@ -61,6 +61,11 @@ const UpgradeHelpModal = (props: Props) => {
                         level: level + 2
                     })}
                 </div>
+                <div><Icon image={"/img/resources/worker.png"} size="smallest"/></div>
+                <div>{TextManager.get("ui-structure-help-upgrade-worker-capacity")}</div>
+                <div className="number">{currentLevel.workerCapacity}</div>
+                <div className="arrow">⟶</div>
+                <div className="number">{nextLevel.workerCapacity}</div>
                 {Object.keys(nextLevel.generates).map(res => renderRow(Resource[res]))}
             </div>
         </div>

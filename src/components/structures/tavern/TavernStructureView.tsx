@@ -15,7 +15,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from 'store/types';
 import { launchQuest } from 'store/actions/quests';
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
-import UpgradeStructureButton from '../UpgradeStructureButton';
+import StructureLevel from '../StructureLevel';
 import UpgradeHelpModal from './UpgradeHelpModal';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
@@ -91,9 +91,8 @@ const TavernStructureView = () => {
     }
 
     return (
-        <details open={true} className="tavernstructureview">
-            <summary>{displayName}</summary>
-            <UpgradeStructureButton structure={Structure.tavern} onHelpClicked={handleHelpClicked}/>
+        <div className="tavern-structure-view">
+            <StructureLevel structure={Structure.tavern} onHelpClicked={handleHelpClicked}/>
             <section>
                 <RoomList
                     roomCount={levelDefinition.rooms}
@@ -114,7 +113,7 @@ const TavernStructureView = () => {
                     onLaunchQuest={handleLaunchQuest}
                 />
             </section>
-        </details>
+        </div>
     );
 };
 
