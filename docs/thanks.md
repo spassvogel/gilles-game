@@ -3,3 +3,4 @@ TheLoomingBattle_0.ogg          Zefz                    https://opengameart.org/
 Button click.wav                brnck                   https://freesound.org/people/brnck/sounds/257357/
 ui-error.flac                   plasterbrain            https://freesound.org/people/plasterbrain/sounds/423169/
 cursor                          Jinn                    https://opengameart.org/content/dwarven-cursor
+loading spinner                 Mattroelle.com          http://mattroelle.com

@@ -3,6 +3,7 @@ import { SceneControllerManager } from 'global/SceneControllerManager';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { useStore } from 'react-redux';
 import { StoreState } from 'store/types';
+import LoadingSpinner from 'components/ui/loading/LoadingSpinner';
 
 export const SceneControllerContext = createContext<BaseSceneController<any> | null>(null);
 
@@ -43,7 +44,7 @@ const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
 
     if (controller && (!controller.dataLoaded || !loaded)) {
         return (
-            <div>loading...</div>
+            <LoadingSpinner />
         );
     }
     return (

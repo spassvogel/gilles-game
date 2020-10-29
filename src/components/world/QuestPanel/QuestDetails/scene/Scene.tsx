@@ -65,7 +65,7 @@ const Scene = (props: Props) => {
     }, [loadTilesets, mapData]);
 
     if (!loadComplete || !mapData || !scene) {
-        return <div>loading...</div>
+        return <div>loading...s</div>
     }
     const sceneWidth = mapData.width * mapData.tilewidth;
     const sceneHeight = mapData.height * mapData.tileheight;
