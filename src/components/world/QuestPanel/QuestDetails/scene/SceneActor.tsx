@@ -36,9 +36,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         children,
         ...rest
     } = props;
-    const tileWidth = controller.mapData?.tilewidth!;
-    const tileHeight = controller.mapData?.tileheight!;
-
+    const {tileWidth, tileHeight} = controller.getTileDimensions();
     const actorRef = useRef<PIXI.Container>(null);
     const previousAction = useRef<SceneAction>();
     const dispatch = useDispatch();

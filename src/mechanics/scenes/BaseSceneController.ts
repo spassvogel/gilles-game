@@ -106,6 +106,14 @@ export class BaseSceneController<TQuestVars> {
         // tslint:disable-next-line: no-empty
     }
 
+    // Convenience function returns an object with tileWidth and tileHeight properties
+    getTileDimensions() {
+        return {
+            tileWidth: this.mapData?.tilewidth || 0,
+            tileHeight: this.mapData?.tileheight || 0
+        }
+    }
+
     getActorSpritesheet(actorName: string): PIXI.Spritesheet {
         // todo: what about the non-adventurer actors (e.g the enemies)
         const path = this.getActorSpritesheetPath(actorName);
@@ -240,9 +248,9 @@ export class BaseSceneController<TQuestVars> {
         return this.findPath(from, to)?.length || 0;
     }
 
-    getRemainingAdventurerAp(adventurerId: string) {
+    getActorByAdventurerId(adventurerId: string) {
         const { scene } = this.getQuest();
-        return scene?.actors.find(a => a.name === adventurerId)?.ap;
+        return scene?.actors.find(a => a.name === adventurerId);
     }
 
     protected createAStar() {
