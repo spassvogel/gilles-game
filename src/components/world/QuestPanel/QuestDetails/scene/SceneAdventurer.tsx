@@ -24,7 +24,6 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
     const {tileWidth, tileHeight} = controller.getTileDimensions();
 
     const quest = useQuest(controller.questName);
-    const scene = quest.scene!;
 
     const adventurer = useAdventurerState(adventurerId);
 

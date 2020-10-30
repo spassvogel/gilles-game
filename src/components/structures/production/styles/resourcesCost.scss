@@ -1,0 +1,30 @@
+@import 'components/styles/variables.scss';
+
+.resources-cost {
+	padding: 0;
+	margin: 0;
+    list-style: none;
+    
+	.resource {
+        display: flex;
+        
+		.name {
+			width: 100px;
+			margin-left: 4px;
+		}
+        
+        .amount {
+			width: 40px;
+			text-align: right;
+		}        
+		
+		&.insufficient {
+	
+			.amount {
+				color: $color-invalid;
+			}
+		}
+	}
+
+}
+

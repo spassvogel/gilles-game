@@ -91,7 +91,7 @@ $border: 2px;
     */
     &.inventory-large {
         /** large screen */
-        grid-template-columns: repeat(19, $item-size-medium + 4px);
+        grid-template-columns: repeat(18, $item-size-medium + 4px);
     }
 
     @media only screen and (max-width: $max-width-medium) {

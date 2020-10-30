@@ -4,7 +4,7 @@ import useStockpileState from 'hooks/store/useStockpileState';
 import Button from 'components/ui/buttons/Button';
 import UpDownValue from 'components/ui/common/UpDownValue';
 import ItemsBox from 'components/ui/items/ItemsBox';
-import ResourcesCostBox from 'components/ui/resources/ResourcesCostBox';
+import ResourcesCost from 'components/structures/production/ResourcesCost';
 import { Item } from 'definitions/items/types';
 import { TextManager } from 'global/TextManager';
 import { useResourcesState } from 'hooks/store/resources';
@@ -95,7 +95,7 @@ const CraftingDetails = (props: Props) => {
             { TextManager.get("ui-structure-production-craft-a", {item}) }
             <div className="crafting-costs">
                 <fieldset>
-                    <ResourcesCostBox resources={costResources} />
+                    <ResourcesCost resources={costResources} />
                 </fieldset>
                 <fieldset>
                     {costMaterials && <ItemsBox items={costMaterials} />}

@@ -8,7 +8,7 @@ import { useResourcesState } from 'hooks/store/resources';
 import Icon from 'components/ui/common/Icon';
 import { ContextType } from 'constants/context';
 import { TooltipManager } from 'global/TooltipManager';
-import "./styles/resourcesbox.scss";
+import "./styles/resourcesCost.scss";
 
 export interface Props {
     className?: string;
@@ -16,9 +16,9 @@ export interface Props {
 }
 
 /**
- * The ResourcesBox displays a list of resources
+ * 
  */
-const ResourcesCostBox = (props: Props) => {
+const ResourcesCost = (props: Props) => {
     const {
         resources,
     } = props;
@@ -31,7 +31,7 @@ const ResourcesCostBox = (props: Props) => {
         }, {});
     }, [resources, storeResources]);
 
-    const className = (props.className || "") + " resourcesbox";
+    const className = (props.className || "") + " resources-cost";
     const listItems = Object.keys(props.resources).map((resource: string) => {
         let listItemClass = "resource";
         if (sufficientResources && !sufficientResources[resource]) {
@@ -77,4 +77,4 @@ const ResourcesCostBox = (props: Props) => {
     );
 };
 
-export default ResourcesCostBox;
+export default ResourcesCost;

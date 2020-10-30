@@ -312,6 +312,8 @@
     "ui-structure-warehouse-resources": "Resources",
     "ui-structure-warehouse-stockpile": "Stockpile",
     "ui-structure-warehouse-help-upgrade-header-capacity": "Capacity",
+    "ui-structure-warehouse-resources-source": "Source: {{structure:name structure}}",
+    
 
     "ui-toast-type-achievement-unlocked": "Achievement unlocked!",
     "ui-toast-type-cheat": "Cheat activated!",

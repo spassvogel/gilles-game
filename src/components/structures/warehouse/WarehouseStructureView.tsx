@@ -1,6 +1,6 @@
 import * as React from "react";
 import Inventory from "components/ui/inventory/Inventory";
-import ResourcesBox from "components/ui/resources/ResourcesBox";
+import ResourcesBox from "components/structures/warehouse/ResourcesBox";
 import { DragSourceType } from "constants/dragging";
 import { Item } from "definitions/items/types";
 import { getDefinition, Structure } from "definitions/structures";

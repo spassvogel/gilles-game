@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import useQuest from 'hooks/store/useQuest';
 import { deductActorAp, enqueueSceneAction } from 'store/actions/quests';
 import { SceneAction, SceneActionType } from 'store/types/scene';
