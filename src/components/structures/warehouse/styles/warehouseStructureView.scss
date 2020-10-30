@@ -1,0 +1,11 @@
+@import 'components/styles/variables.scss';
+
+.warehouse-structureview {
+    padding: 16px;
+
+    .adventurer-inventory {
+        border: 1px solid $color-secondary;
+        min-height: 100px;
+        padding-left: 20px;
+    }
+}
