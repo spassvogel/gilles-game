@@ -20,6 +20,7 @@ import Legenda from './Legenda';
 import "./styles/townView.scss"
 import TownStage from './TownStage';
 import { Viewport as PixiViewport } from "pixi-viewport";
+import Clouds from './Clouds';
 
 const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
@@ -157,7 +158,9 @@ const TownView = (props: Props & AppContextProps) => {
                 worldHeight={WORLD_HEIGHT}
                 ref={viewportRef}
             >
+                <Clouds worldWidth={canvasWidth} />
                 {renderStructures()}
+                <Clouds worldWidth={canvasWidth} />
             </TownStage>
             {/* { selectedStructure && (
                 <StructureDetailsView
