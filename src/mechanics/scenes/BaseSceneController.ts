@@ -20,6 +20,9 @@ import { addItemToInventory } from 'store/actions/adventurers';
 import { calculateInitialAp } from './actionPoints';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 
+/**
+ * This is a type of God class that knows pretty much everything about a scene
+ */
 export class BaseSceneController<TQuestVars> {
 
     public mapData?: TiledMapData;

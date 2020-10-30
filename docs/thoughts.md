@@ -308,13 +308,17 @@ Read more: https://www.thedarkfortress.co.uk/tech_reports/3_dice_rolls.php
 
 IMPLEMENTATION
 
-[ ] Scene controller can set 'combat = true' on scene. Then all actions of scene actors cost AP.
+[x] Scene controller can set 'combat = true' on scene. Then all actions of scene actors cost AP.
 [ ] Player has button to forgeit turn. Clears all AP on all player scene actors.
-[ ] Make useCombat hook to abstract logic 
+[ ] Make useCombat hook to abstract logic
+[ ]
 
 [ ] When player actors have no APs left aand there are *no* running secene actions 
     the AI selects one of their actors to make a move on. AI has different behaviour types,
     'berzeker', 'sniper', etc
+[ ] In combat, the adventurertabstrip is replaced by another component that shows *all* actors in the scene, their health and ap.
+    The adventurers are on the left, the monsters on the right. It also shows whose turn it is (those icons are larger)
+    Clicking on the adventurers shows their details
 
 APs can be spent in any order.
 

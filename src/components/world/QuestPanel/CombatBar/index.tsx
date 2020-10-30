@@ -28,7 +28,7 @@ const CombatBar = (props: Props) => {
                     <div key={a.id} className={`adventurer ${selectedAdventurerId === a.id ? "selected" : ""}`}>
                         <AdventurerAvatar adventurer={a} size={IconSize.smallest}/>
                         <div className="ap">
-                            {controller.getRemainingAdventurerAp(a.id)} AP
+                            {controller.getActorByAdventurerId(a.id)?.ap || 0} AP
                         </div>
                     </div>
                 ))}
