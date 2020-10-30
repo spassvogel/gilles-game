@@ -48,10 +48,10 @@ const Scene = (props: Props) => {
                     location={location}
                     // spritesheet={spritesheet}
                     controller={controller}
-                    name={name}
+                    adventurerId={name}
                     key={name}
                     selected={selectedActor?.name === name}
-                    setSelectedActor={props.setSelectedActor}
+                    setSelectedAdventurer={props.setSelectedActor}
                 />
             );
         }

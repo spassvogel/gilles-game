@@ -1,165 +1,62 @@
 import { Container, Graphics, Sprite } from '@inlet/react-pixi';
-import React, { useRef, useEffect, useState, memo } from 'react';
+import React, { useRef, useEffect, memo } from 'react';
 import SceneActor, { Props as SceneActorProps } from './SceneActor';
-import { useDispatch } from 'react-redux';
 import useQuest from 'hooks/store/useQuest';
-import { deductActorAp, enqueueSceneAction } from 'store/actions/quests';
-import { SceneAction, SceneActionType } from 'store/types/scene';
 import ActionPath, { RefActions } from './ActionPath';
 import { useAdventurerState } from 'hooks/store/adventurers';
 import ActionPoints, { RefActionPoints } from './ActionPoints';
+import useSceneAdventurerActions from 'hooks/actions/useSceneAdventurerActions';
 
 interface Props  {
-    name: string;
+    adventurerId: string;
     selected: boolean;
-    setSelectedActor: (actor: string) => void;
+    setSelectedAdventurer: (actor: string) => void;
 };
 
 // The adventurers avatar on the scene
-const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
+const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>) => {
     const {
         controller,
         location,
-        name,
+        adventurerId,
         selected,
     } = props;
-    const tileWidth = controller.mapData?.tilewidth!;
-    const tileHeight = controller.mapData?.tileheight!;
-    const dispatch = useDispatch();
+    const {tileWidth, tileHeight} = controller.getTileDimensions();
 
     const quest = useQuest(controller.questName);
     const scene = quest.scene!;
-    const {combat} = scene;
 
-    const adventurer = useAdventurerState(name);
+    const adventurer = useAdventurerState(adventurerId);
 
     // Draw a line to indicate the action to take
     const actionPathRef = useRef<RefActions>(null);
     const actionPointsRef = useRef<RefActionPoints>(null);
-    const [actionActive, setActionActive] = useState(false);
+    const {
+        adventurerStartDrag,
+        adventurerEndDrag,
+    } = useSceneAdventurerActions(adventurerId, controller, actionPathRef, actionPointsRef);
 
-    useEffect(() => {
-        if (!actionActive || !location /* || scene.actionQueue?.length*/) {
-            return;
-        }
-        const actionPath = actionPathRef.current;
-        const container = actionPath?.parent!;
-        const mouseMove = (event: PIXI.InteractionEvent) => {
-            if (actionActive && location && actionPath) {
-                // Find out if on a blocked tile
-                const destinationLocation = controller.pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
-                const blocked = controller.locationIsBlocked(destinationLocation);
-                let enoughAp = true;
-                const from = new PIXI.Point(location[0] * tileWidth + tileWidth / 2,
-                    location[1] * tileHeight + tileHeight / 2);
-
-                if (combat) {
-                    const ap = controller.calculateWalkApCosts(location, destinationLocation);
-                    if (ap > 0) {
-                        actionPointsRef.current?.drawAp(destinationLocation, ap);
-
-                        const remaining = controller.getRemainingAdventurerAp(name) || -1;
-                        enoughAp = remaining >= ap;
-                    } else {
-                        actionPointsRef.current?.clear();
-                    }
-                }
-
-                // Draw a line to the destination tile
-                actionPath.drawAction(from, event.data.global, !blocked && enoughAp);
-            }
-        }
-        container.on('pointermove', mouseMove);
-        return () => {
-           container.off('pointermove', mouseMove);
-        }
-    }, [actionActive, combat, controller, location, name, tileHeight, tileWidth]);
-
-    const handleActorStartDrag = () => {
-        setActionActive(true);
-        props.setSelectedActor(name);
+    const handleAdventurerStartDrag = () => {
+        adventurerStartDrag();
+        props.setSelectedAdventurer(adventurerId);
     }
 
-    // Queue actions
-    const handleActorEndDrag = (event: PIXI.InteractionEvent) => {
-        setActionActive(false);
-        const actionPath = actionPathRef.current;
-
-        setActionActive(false);
-        actionPath?.clear();
-        actionPointsRef.current?.clear();
-
-        if(scene.actionQueue?.length) {
-            return;
-        }
-
-        const endLocation = controller.pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
-        const blocked = controller.locationIsBlocked(endLocation);
-        if (blocked) {
-            return;
-        }
-        const target = controller.pointToSceneLocation(event.data.global);
-        if(target[0] < 0 || target[0] >= controller.mapData?.width! || target[1] < 0 || target[1] >= controller.mapData?.height!) {
-            // Released out of bounds
-            return;
-        }
-
-        // Find path to walk using aStar
-        const path = controller.findPath(location!, target);
-
-        if (combat) {
-            const remaining = controller.getRemainingAdventurerAp(name) || -1;
-            if (remaining < (path?.length || 0)){
-                return;
-            }
-        }
-
-        const movementDuration = 500; // time every tile movement takes
-        path?.forEach((l, index) => {
-            const sceneAction: SceneAction = {
-                actionType: SceneActionType.move,
-                actor: name,
-                target: l as [number, number],
-                endsAt: movementDuration * (index + 1) + performance.now()
-            };
-            dispatch(enqueueSceneAction(controller.questName, sceneAction));
-        });
-        dispatch(deductActorAp(controller.questName, name, path?.length || 0));
-
-        // if (DEBUG_ASTAR) {
-        //     const graphics = new PIXI.Graphics();
-        //     path?.forEach((tile) => {
-        //         const [x, y] = tile;
-        //         const stroke = 3;
-        //         graphics.beginFill(0xDE3249, 0.5);
-        //         graphics.lineStyle(stroke, 0xFF0000);
-        //         graphics.drawRect(x * tileWidth + stroke / 2,
-        //             y * tileHeight + stroke / 2,
-        //             tileWidth - stroke / 2,
-        //             tileHeight - stroke / 2);
-        //         graphics.endFill();
-        //     });
-        //     ref.current!.addChild(graphics);
-        //     setTimeout(() => {
-        //         ref.current?.removeChild(graphics)}
-        //     , 1000);
-        // }
-
+    const handleAdventurerEndDrag = (event: PIXI.InteractionEvent) => {
+        adventurerEndDrag(event);
     }
-
 
     return (
         <Container interactive={true}>
             <ActionPath ref={actionPathRef} />
             <ActionPoints ref={actionPointsRef} tileWidth={tileWidth} tileHeight={tileHeight} />
             <SceneActor
-                name={name}
+                name={adventurerId}
                 controller={controller}
                 location={location}
                 interactive={true}
-                pointerdown={handleActorStartDrag}
-                pointerup={handleActorEndDrag}
-                pointerupoutside={handleActorEndDrag}
+                pointerdown={handleAdventurerStartDrag}
+                pointerup={handleAdventurerEndDrag}
+                pointerupoutside={handleAdventurerEndDrag}
                 hitArea={new PIXI.Rectangle(location?.[0], location?.[1], tileWidth, tileHeight)}
                 idleAnimation={Math.random() < 0.5}
             >
@@ -185,10 +82,10 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'>) => {
                     y={-30}
                     image={`${process.env.PUBLIC_URL}/${adventurer.avatarImg}`}
                 />
-                { (selected && controller.actorCanInteract(name)) && (
+                { (selected && controller.actorCanInteract(adventurerId)) && (
                     <Container
                         interactive={true}
-                        pointerdown={() => {controller.actorInteract(name)}}
+                        pointerdown={() => {controller.actorInteract(adventurerId)}}
                     >
                         {/* <Graphics
                             draw={graphics => {
