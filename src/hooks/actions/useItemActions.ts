@@ -11,6 +11,12 @@ import useStockpileState from 'hooks/store/useStockpileState';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 
+/* Exposes
+- dropItemEquipment,
+- dropItemInventory,
+- dropItemWarehouse
+to use in various places in the UI when an item is dropped somewhere
+*/
 const useItemDropActions = () => {
     const dispatch = useDispatch();
     const sceneController = useContext(SceneControllerContext);  // is only available when in a scene
