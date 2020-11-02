@@ -29,7 +29,6 @@ export const adventurerFreeInventorySlots = (adventurer: AdventurerStoreState): 
 
 export const storeIsRehydrated = (store: StoreState): boolean => {
     // Returns a value indicating whether this store is fresh or rehydrated
-    // Probably I should find a more solid way to do this
-    return !!store.rngState;
+    return store?.engine.gameStarted !== undefined;
 };
 

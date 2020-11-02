@@ -9,7 +9,13 @@ import { EngineStoreState, initialState } from "store/types/engine";
  */
 export const engine: Reducer<EngineStoreState> = (state: EngineStoreState = initialState, action: AnyAction) => {
     switch (action.type) {
-        case GameActionType.gameTick:
+        case GameActionType.startGame: {
+            return {
+                ...state,
+                gameStarted: Date.now()
+            };
+        }
+        case GameActionType.gameTick: {
 
             // Keep track of the last time resources were produced
             const resourcesToAdd = (action as GameTickAction).resources;
@@ -22,6 +28,7 @@ export const engine: Reducer<EngineStoreState> = (state: EngineStoreState = init
                 lastProducedUpdate,
                 lastTick: Date.now(),
             };
+        }
     }
     return state;
 };

@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { Store, AnyAction } from "redux";
 import { Persistor } from "redux-persist";
 import localforage from 'localforage';
-import { gameTick } from "store/actions/game";
+import { gameTick, startGame } from "store/actions/game";
 import { addLogText } from "store/actions/log";
 import version from "./constants/version";
 import App from "./components/App";
@@ -55,11 +55,12 @@ const readPersistedStore = async () => {
  */
 const startNewGame = (store: any) => {
 console.log("STARTING NEW GAME")
+    store.dispatch(startGame());
     store.dispatch(addLogText("test-game-welcome"));
     // todo: here is a good place to launch a tutorial or something
 
     // tslint:disable-next-line:no-console
-    console.log(`Starting new GILLES-IDLE-GAME (version ${version})`);
+    console.log(`Starting new GAME (version ${version})`);
 };
 
 
@@ -69,7 +70,7 @@ console.log("STARTING NEW GAME")
  */
 const continueGame = (store: any) => {
     // tslint:disable-next-line:no-console
-    console.log(`Continuing existing GILLES-IDLE-GAME (version ${version})`);
+    console.log(`Continuing existing GAME (version ${version})`);
 };
 
 /**

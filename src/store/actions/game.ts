@@ -5,6 +5,7 @@ import { ResourceStoreState } from "store/types/resources";
 
 export enum ActionType {
     gameTick = "gameTick",
+    startGame = "startGame"
 }
 export interface GameTickAction extends Action<ActionType> {
     delta: number;
@@ -14,9 +15,12 @@ export interface GameTickAction extends Action<ActionType> {
     log: LogUpdate[];
 }
 
-// export type IncrementResource = IncrementResource // | others
+export function startGame(): Action {
+    return {
+        type: ActionType.startGame,
+    };
+}
 
-// tslint:disable: align
 export function gameTick(delta: number,
     rngState: seedrandomStateType | null,
     resources: ResourceStoreState | null,
