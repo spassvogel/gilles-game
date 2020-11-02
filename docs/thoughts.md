@@ -439,11 +439,14 @@ research fantasy concept art
 #### 02/04/2020 Make town come alive [+art]
 [x] Add animations
 [x] Add particle effects (fire, smoke)
-[ ] Add clouds 
+[x] Add clouds 
 
-#### 02/04/2020 Cool smoke shader [+art]
+#### 02/04/2020 Cool shader [+art]
 [ ] Can use this in some sort of menu or loader?
     https://codepen.io/davidhartley/pen/seEki
+[ ] Can use this in combat?
+    https://github.com/edankwan/The-Spirit
+
 
 
 #### 02/04/2020 Remove preloader [+ref]
