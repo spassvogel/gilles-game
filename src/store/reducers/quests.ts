@@ -208,7 +208,7 @@ const completeSceneAction = (state: QuestStoreState[], action: QuestAction) => {
             switch (sceneAction.actionType) {
                 case SceneActionType.move: {
                     scene.actors = scene.actors.map((a) => {
-                        if (a.name === sceneAction.actor) {
+                        if (a.id === sceneAction.actorId) {
                             return { ...a, location: sceneAction.target };
                         }
                         return a;
@@ -237,7 +237,7 @@ const deductActorAp = (state: QuestStoreState[], action: DeductActorApAction) =>
             if (!scene) throw new Error("Something broke. No scene");
 
             scene.actors = scene.actors.map(a => {
-                if (a.name === action.actor) {
+                if (a.id === action.actor) {
                     const ap = a.ap - action.ap;
                     return {
                         ...a,

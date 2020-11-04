@@ -23,17 +23,16 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
     } = props;
     const {tileWidth, tileHeight} = controller.getTileDimensions();
 
-    const quest = useQuest(controller.questName);
-
     const adventurer = useAdventurerState(adventurerId);
-
+    const ref = useRef<PIXI.Container>(null);
+    
     // Draw a line to indicate the action to take
     const actionPathRef = useRef<RefActions>(null);
     const actionPointsRef = useRef<RefActionPoints>(null);
     const {
         adventurerStartDrag,
         adventurerEndDrag,
-    } = useSceneAdventurerActions(adventurerId, controller, actionPathRef, actionPointsRef);
+    } = useSceneAdventurerActions(adventurerId, ref, controller, actionPointsRef);
 
     const handleAdventurerStartDrag = () => {
         adventurerStartDrag();
@@ -45,7 +44,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
     }
 
     return (
-        <Container interactive={true}>
+        <Container interactive={true} ref={ref}>
             <ActionPath ref={actionPathRef} />
             <ActionPoints ref={actionPointsRef} tileWidth={tileWidth} tileHeight={tileHeight} />
             <SceneActor

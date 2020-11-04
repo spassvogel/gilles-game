@@ -3,3 +3,9 @@
 @import '_items.scss';
 @import '_misc.scss';
 @import '_responsive';
+
+:export {
+    colorPrimary: $color-primary;
+    colorSecondary: $color-secondary;
+    colorTextLighter: $color-text-lighter;
+}

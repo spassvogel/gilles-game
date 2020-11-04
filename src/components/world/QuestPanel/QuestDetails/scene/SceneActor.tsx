@@ -47,7 +47,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
             if (!quest.scene!.actionQueue) {
                 return [];
             }
-            return quest.scene!.actionQueue.filter(a => a.actor === props.name);
+            return quest.scene!.actionQueue.filter(a => a.actorId === props.name);
         },
         [props.name, props.controller.questName]
     );

@@ -5,8 +5,8 @@ import { loadResource, loadResourceAsync } from 'utils/pixiJs';
 import { TiledMapData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'store/types/adventurer';
-import { setScene, setSceneName, exitEncounter } from 'store/actions/quests';
-import { SceneObject, ActorObject, LootCache } from 'store/types/scene';
+import { setScene, setSceneName, exitEncounter, enqueueSceneAction, deductActorAp } from 'store/actions/quests';
+import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLink } from 'utils/routing';
@@ -117,16 +117,16 @@ export class BaseSceneController<TQuestVars> {
         }
     }
 
-    getActorSpritesheet(actorName: string): PIXI.Spritesheet {
+    getActorSpritesheet(actorId: string): PIXI.Spritesheet {
         // todo: what about the non-adventurer actors (e.g the enemies)
-        const path = this.getActorSpritesheetPath(actorName);
+        const path = this.getActorSpritesheetPath(actorId);
         return this.spritesheetsMap[path];
     }
 
-    getActorSpritesheetPath(actorName: string): string {
+    getActorSpritesheetPath(actorId: string): string {
         // todo: what about the non-adventurer actors (e.g the enemies)
         const adventurers = this.getAdventurers();
-        const adventurer = adventurers.find(a => a.id === actorName)!;
+        const adventurer = adventurers.find(a => a.id === actorId)!;
         return adventurer.spritesheetPath;
     }
 
@@ -140,7 +140,7 @@ export class BaseSceneController<TQuestVars> {
                 this.store.dispatch(setSceneName(this.questName, object.ezProps.loadScene))
             } else {
                 // Or exit the encounter
-                const index = Math.floor(this.getQuest().progress) + 1;
+                const index = Math.floor(this.quest.progress) + 1;
                 const definition = getDefinition(this.questName);
                 const node = definition.nodes[index];
                 if (node.log) {
@@ -152,23 +152,23 @@ export class BaseSceneController<TQuestVars> {
         }
     }
 
-    actorCanInteract(actorName: string) {
-        const {scene} = this.getQuest();
-        const actor = scene?.actors.find(o => o.name === actorName)!;
+    actorCanInteract(actorId: string) {
+        const {scene} = this.quest;
+        const actor = scene?.actors.find(o => o.id === actorId)!;
         const object = this.tilemapObjects?.[`${actor.location[0]},${actor.location[1]}`];
 
         // todo: should we look for some specific property?
         return object && object.ezProps?.interactive;
     }
 
-    actorInteract(actorName: string) {
-        if (!this.actorCanInteract(actorName)) {
+    actorInteract(actorId: string) {
+        if (!this.actorCanInteract(actorId)) {
             // tslint:disable-next-line: no-console
             console.warn("Can't interact");
             return;
         }
-        const {scene} = this.getQuest();
-        const actor = scene?.actors.find(o => o.name === actorName)!;
+        const {scene} = this.quest;
+        const actor = scene?.actors.find(o => o.id === actorId)!;
         const object = scene?.objects
             .find(o => locationEquals(o.location, actor.location));
 
@@ -179,6 +179,44 @@ export class BaseSceneController<TQuestVars> {
         }
 
         this.interactWithObject(actor, object);
+    }
+
+    actorAttemptAction(actorId: string, type: SceneActionType, destination: [number, number]) {
+        // Tries to perform action on given actor
+
+        const actor = this.getSceneActor(actorId);
+        const {location} = actor;
+
+
+
+        switch (type) {
+            case SceneActionType.move: {
+                // Find path to move using aStar
+                const path = this.findPath(location!, destination);
+        
+                if (this.combat) {
+                    const remaining = actor.ap || -1;
+                    if (remaining < (path?.length || 0)) {
+                        return;
+                    }
+                }
+        
+                const movementDuration = 500; // time every tile movement takes
+                path?.forEach((l, index) => {
+                    const sceneAction: SceneAction = {
+                        actionType: SceneActionType.move,
+                        actorId,
+                        target: l as [number, number],
+                        endsAt: movementDuration * (index + 1) + performance.now()
+                    };
+                    this.dispatch(enqueueSceneAction(this.questName, sceneAction));
+                });
+                this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
+
+            }
+        }
+
+
     }
 
     interactWithObject(_actor: ActorObject, _object: SceneObject) {
@@ -252,8 +290,8 @@ export class BaseSceneController<TQuestVars> {
     }
 
     getActorByAdventurerId(adventurerId: string) {
-        const { scene } = this.getQuest();
-        return scene?.actors.find(a => a.name === adventurerId);
+        const { scene } = this.quest;
+        return scene?.actors.find(a => a.id === adventurerId);
     }
 
     protected createAStar() {
@@ -279,6 +317,7 @@ export class BaseSceneController<TQuestVars> {
 
     protected createActors(): ActorObject[] {
 
+        // todo: add the baddies
         if (!this.tilemapObjects) {
             throw new Error("No tilemapObjects");
         }
@@ -296,7 +335,7 @@ export class BaseSceneController<TQuestVars> {
             const ap = calculateInitialAp(value);
             acc.push({
                 location,
-                name: value.id,
+                id: value.id,
                 ap
             });
             return acc;
@@ -343,24 +382,37 @@ export class BaseSceneController<TQuestVars> {
     //         }, {});
     // }
 
-    protected getQuest() {
+    // Quest
+    protected get quest() {
         const storeState = this.store.getState();
         return storeState.quests.find(q => q.name === this.questName)!;
     }
 
-    protected getQuestVars(): TQuestVars {
-        return this.getQuest().questVars;
+    protected get questVars(): TQuestVars {
+        return this.quest.questVars;
+    }
+
+    // Scene
+    protected get combat() {
+        return !!this.quest.scene?.combat;
+    }
+
+    protected get sceneActors() {
+        return this.quest.scene?.actors || [];
+    }
+
+    protected getSceneActor(actorId: string) {
+        return this.sceneActors.find(sA => sA.id === actorId)!;
     }
 
     protected getAdventurers(): AdventurerStoreState[] {
         const storeState = this.store.getState();
-        const quest = this.getQuest();
-        return adventurersOnQuest(storeState.adventurers, quest);
+        return adventurersOnQuest(storeState.adventurers, this.quest);
     }
 
     protected getAdventurerByActor(actor: ActorObject) {
         const storeState = this.store.getState();
-        return storeState.adventurers.find(a => a.id === actor.name);
+        return storeState.adventurers.find(a => a.id === actor.id);
     }
 
     protected questUpdate(input: string | TextEntry, icon?: string, toast: boolean = false) : void {
@@ -369,6 +421,12 @@ export class BaseSceneController<TQuestVars> {
         if (toast) {
             ToastManager.addToast(title, Type.questUpdate, icon, getQuestLink(this.questName));
         }
-        this.store.dispatch(addLogEntry(textEntry, LogChannel.quest, this.questName));
+        this.dispatch(addLogEntry(textEntry, LogChannel.quest, this.questName));
     }
+
+    // Store
+    protected dispatch(action: AnyAction) {
+        this.store.dispatch(action)
+    }
+
 }

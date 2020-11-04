@@ -40,21 +40,20 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
     }
 
     sceneEntered() {
-        const vars = this.getQuestVars();
-        if (!vars.dungeon.entered) {
+        if (!this.questVars.dungeon.entered) {
             this.questUpdate("quest-kill10-boars-enter-dungeon-see-chest");
         }
     }
 
     getLootCache(name: string): LootCache | undefined {
-        return this.getQuestVars().dungeon.lootCaches[name];
+        return this.questVars.dungeon.lootCaches[name];
     }
 
     takeGoldFromCache(name: string) {
         super.takeGoldFromCache(name);  // first add gold to inventory
         const lootCache = this.getLootCache(name);
         if (lootCache){
-            const questVars = this.getQuestVars();
+            const questVars = this.questVars;
             questVars.dungeon.lootCaches[name].gold = 0;
             this.store.dispatch(updateQuestVars(this.questName, questVars));
         }
@@ -64,7 +63,7 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
         super.takeItemFromCache(itemIndex, name, adventurer, toSlot);
         const lootCache = this.getLootCache(name);
         if (lootCache){
-            const questVars = this.getQuestVars();
+            const questVars = this.questVars;
             const items = questVars.dungeon.lootCaches[name].items.filter((_: any, index: number) => index !== itemIndex);
             questVars.dungeon.lootCaches[name].items = items;
             this.store.dispatch(updateQuestVars(this.questName, questVars));
@@ -74,7 +73,7 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
     getSituation(situation: string, adventurerId?: string) {
         switch (situation) {
             case 'altar':
-                const questVars = this.getQuestVars();
+                const questVars = this.questVars;
                 if (questVars.dungeon.situations.altar.candleLit) {
                     return {
                         title: 'quest-kill10-boars-dungeonentrance-altar',
@@ -101,7 +100,7 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
             case 'altar': {
                 switch (option) {
                     case 'quest-kill10-boars-dungeonentrance-altar-lightcandle':
-                        const questVars = this.getQuestVars();
+                        const questVars = this.questVars;
                         questVars.dungeon.situations.altar.candleLit = true;
                         this.store.dispatch(updateQuestVars(this.questName, questVars));
                         break;

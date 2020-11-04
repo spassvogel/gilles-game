@@ -60,7 +60,7 @@ const QuestPanel = (props: Props) => {
                 <div className="quest-area">
                     <QuestDetails
                         questName={props.questName}
-                        selectedActor={selectedAdventurerId}
+                        selectedActorId={selectedAdventurerId}
                         setSelectedActor={handleAdventurerSelected}
                     />
                     { activeInteractionModal && activeInteractionModal.type === 'lootCache' && (

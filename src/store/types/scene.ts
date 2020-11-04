@@ -18,7 +18,7 @@ export interface SceneObject {
 };
 
 export type ActorObject = {
-    name: string;                   // todo: refactor to id
+    id: string;                   // todo: refactor to id
     location: [number, number];     // current location in the scene
     ap: number;                     // Remaining AP
 };
@@ -42,13 +42,15 @@ export interface LootCache {
 
 export interface SceneAction {
     actionType: SceneActionType;
-    actor: string;
+    actorId: string;
     target: [number, number];
     endsAt: number;
 }
 
 export enum SceneActionType {
-    move = "move"
+    move = "move",
+    inspect = "inspect",
+    attack = "attack"
     // todo: interact?
     // todo: attack?
 }

@@ -5,8 +5,8 @@ import OnTheRoad from './OnTheRoad';
 
 export interface Props {
     questName: string;
-    selectedActor: string;
-    setSelectedActor: (actor: string) => void;
+    selectedActorId: string;
+    setSelectedActor: (id: string) => void;
 }
 
 const QuestDetails = (props: Props) => {

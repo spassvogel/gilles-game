@@ -4,36 +4,56 @@ import { useDispatch } from 'react-redux';
 import useQuest from 'hooks/store/useQuest';
 import { deductActorAp, enqueueSceneAction } from 'store/actions/quests';
 import { SceneAction, SceneActionType } from 'store/types/scene';
-import { RefActions } from 'components/world/QuestPanel/QuestDetails/scene/ActionPath';
 import { RefActionPoints } from 'components/world/QuestPanel/QuestDetails/scene/ActionPoints';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
+import CombatActionDot from 'pixi/CombatActionsDot';
 
-const useSceneAdventurerActions = (adventurerId: string, controller: BaseSceneController<any>, actionPathRef: React.RefObject<RefActions>, actionPointsRef: React.RefObject<RefActionPoints>,) => {
+const useSceneAdventurerActions = (adventurerId: string, parent: React.RefObject<PIXI.Container>, controller: BaseSceneController<any>, actionPointsRef: React.RefObject<RefActionPoints>,) => {
     // todo: instead just provide a pixi container to draw on...
     const [actionActive, setActionActive] = useState(false);
-    const {tileWidth, tileHeight} = controller.getTileDimensions();
+    const { tileWidth, tileHeight } = controller.getTileDimensions();
     const scene = useQuest(controller.questName).scene!;
-    const {combat} = scene!;
+    const { combat } = scene!;
     const actor = controller.getActorByAdventurerId(adventurerId)!;
-    const {location} = actor;
+    const { location } = actor;
     const dispatch = useDispatch();
 
     useEffect(() => {
         // todo create canvas
-        console.log("combat on")
+        console.log("combat on", parent.current)
+
         return () => {
             console.log('combat off ');
         }
     }, [combat]);
 
     useEffect(() => {
-        if (!actionActive || !location /* || scene.actionQueue?.length*/) {
+        if (!actionActive || !location || !parent.current /* || scene.actionQueue?.length*/) {
             return;
         }
-        const actionPath = actionPathRef.current;
-        const container = actionPath?.parent!;
+
+        const { tileWidth, tileHeight } = controller.getTileDimensions();
+
+        const container = parent.current;
+        const actionContainer = new PIXI.Graphics();
+        container.addChild(actionContainer);
+
+        // todo: custom class?
+        const dot = new CombatActionDot(tileWidth, tileHeight);
+        container.addChild(dot);
+        dot.setActionTabs([{
+            action: SceneActionType.move,
+            icon: "walking-boot"
+        }, {
+            action: SceneActionType.inspect,
+            icon: "sunken-eye"
+        }, {
+            action: SceneActionType.attack,
+            icon: "crosshair"
+        }]);
+
         const mouseMove = (event: PIXI.InteractionEvent) => {
-            if (actionActive && location && actionPath) {
+            if (actionActive && location) {
                 // Find out if on a blocked tile
                 const destinationLocation = controller.pointToSceneLocation(new PIXI.Point(event.data.global.x, event.data.global.y));
                 const blocked = controller.locationIsBlocked(destinationLocation);
@@ -51,17 +71,34 @@ const useSceneAdventurerActions = (adventurerId: string, controller: BaseSceneCo
                     } else {
                         actionPointsRef.current?.clear();
                     }
+
+                    // Place the dot
+                    dot.x = destinationLocation[0] * tileWidth + tileWidth / 2;
+                    dot.y = destinationLocation[1] * tileHeight + tileHeight / 2;
                 }
 
+
+                // todo: draw the actual path to walk instead
+
                 // Draw a line to the destination tile
-                actionPath.drawAction(from, event.data.global, !blocked && enoughAp);
+                const to = event.data.global;
+                const allowed = !blocked && enoughAp;
+                const color = allowed ? 0x00FF00 : 0xFF3300;
+                actionContainer.clear()
+                    .lineStyle(3, color)
+                    .moveTo(from.x, from.y)
+                    .lineTo(to.x, to.y);
+
             }
         }
         container.on('pointermove', mouseMove);
         return () => {
-        container.off('pointermove', mouseMove);
+            console.log('clean')
+            container.off('pointermove', mouseMove);
+            parent.current?.removeChild(actionContainer);
+            //parent.current?.removeChild(dot);
         }
-    }, [actionActive, actionPathRef, actionPointsRef, actor.ap, combat, controller, location, tileHeight, tileWidth]);
+    }, [actionActive, actionPointsRef, actor.ap, combat, controller, location, tileHeight, tileWidth]);
 
     const adventurerStartDrag = () => {
         setActionActive(true);
@@ -70,13 +107,10 @@ const useSceneAdventurerActions = (adventurerId: string, controller: BaseSceneCo
     // Queue actions
     const adventurerEndDrag = (event: PIXI.InteractionEvent) => {
         setActionActive(false);
-        const actionPath = actionPathRef.current;
 
-        setActionActive(false);
-        actionPath?.clear();
         actionPointsRef.current?.clear();
 
-        if(scene.actionQueue?.length) {
+        if (scene.actionQueue?.length) {
             return;
         }
 
@@ -86,51 +120,31 @@ const useSceneAdventurerActions = (adventurerId: string, controller: BaseSceneCo
             return;
         }
         const target = controller.pointToSceneLocation(event.data.global);
-        if(target[0] < 0 || target[0] >= controller.mapData?.width! || target[1] < 0 || target[1] >= controller.mapData?.height!) {
+        if (target[0] < 0 || target[0] >= controller.mapData?.width! || target[1] < 0 || target[1] >= controller.mapData?.height!) {
             // Released out of bounds
             return;
         }
-
-        // Find path to walk using aStar
-        const path = controller.findPath(location!, target);
-
-        if (combat) {
-            const remaining = actor.ap || -1;
-            if (remaining < (path?.length || 0)){
-                return;
-            }
+        if (!combat) {
+            controller.actorAttemptAction(actor.id, SceneActionType.move, target);
         }
-
-        const movementDuration = 500; // time every tile movement takes
-        path?.forEach((l, index) => {
-            const sceneAction: SceneAction = {
-                actionType: SceneActionType.move,
-                actor: adventurerId,
-                target: l as [number, number],
-                endsAt: movementDuration * (index + 1) + performance.now()
-            };
-            dispatch(enqueueSceneAction(controller.questName, sceneAction));
-        });
-        dispatch(deductActorAp(controller.questName, adventurerId, path?.length || 0));
-
-    // if (DEBUG_ASTAR) {
-    //     const graphics = new PIXI.Graphics();
-    //     path?.forEach((tile) => {
-    //         const [x, y] = tile;
-    //         const stroke = 3;
-    //         graphics.beginFill(0xDE3249, 0.5);
-    //         graphics.lineStyle(stroke, 0xFF0000);
-    //         graphics.drawRect(x * tileWidth + stroke / 2,
-    //             y * tileHeight + stroke / 2,
-    //             tileWidth - stroke / 2,
-    //             tileHeight - stroke / 2);
-    //         graphics.endFill();
-    //     });
-    //     ref.current!.addChild(graphics);
-    //     setTimeout(() => {
-    //         ref.current?.removeChild(graphics)}
-    //     , 1000);
-    // }
+        // if (DEBUG_ASTAR) {
+        //     const graphics = new PIXI.Graphics();
+        //     path?.forEach((tile) => {
+        //         const [x, y] = tile;
+        //         const stroke = 3;
+        //         graphics.beginFill(0xDE3249, 0.5);
+        //         graphics.lineStyle(stroke, 0xFF0000);
+        //         graphics.drawRect(x * tileWidth + stroke / 2,
+        //             y * tileHeight + stroke / 2,
+        //             tileWidth - stroke / 2,
+        //             tileHeight - stroke / 2);
+        //         graphics.endFill();
+        //     });
+        //     ref.current!.addChild(graphics);
+        //     setTimeout(() => {
+        //         ref.current?.removeChild(graphics)}
+        //     , 1000);
+        // }
     }
     return {
         adventurerStartDrag,

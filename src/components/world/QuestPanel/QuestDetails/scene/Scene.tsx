@@ -8,6 +8,9 @@ import SceneAdventurer from './SceneAdventurer';
 import useTilesetsLoader from 'hooks/useTilesetsLoader';
 import renderObject from './renderObject';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
+import SceneUI from './ui/SceneUI';
+import CombatUIWidget from './ui/CombatUIWidget';
+import "./styles/scene.scss";
 
 import * as PIXI from 'pixi.js';
 window.PIXI = PIXI;
@@ -15,7 +18,7 @@ window.PIXI = PIXI;
 import 'pixi-tilemap'; // tilemap is not a real npm module :/
 
 export interface Props {
-    selectedActor: string;
+    selectedActorId: string;
     setSelectedActor: (actor: string) => void;
 }
 
@@ -32,25 +35,24 @@ const Scene = (props: Props) => {
         tileSpritesheets
     } = useTilesetsLoader(basePath);
 
-    const ref = useRef<PIXI.Container>(null);
+    const ref = useRef<HTMLDivElement>(null);
     const quest = useQuest(controller.questName);
     const scene = quest.scene!;
 
     const selectedActor = useMemo(() => {
-        return scene?.actors?.find(a => a.name === props.selectedActor) || null;
-    }, [scene, props.selectedActor]);
+        return scene?.actors?.find(a => a.id === props.selectedActorId) || null;
+    }, [scene, props.selectedActorId]);
 
     const renderActors = useCallback(() => {
         const renderActor = (actor: ActorObject) => {
-            const {name, location} = actor;
+            const {id, location} = actor;
             return (
                 <SceneAdventurer
                     location={location}
-                    // spritesheet={spritesheet}
                     controller={controller}
-                    adventurerId={name}
-                    key={name}
-                    selected={selectedActor?.name === name}
+                    adventurerId={id}
+                    key={id}
+                    selected={props.selectedActorId === id}
                     setSelectedAdventurer={props.setSelectedActor}
                 />
             );
@@ -64,17 +66,16 @@ const Scene = (props: Props) => {
         loadTilesets(mapData.tilesets);
     }, [loadTilesets, mapData]);
 
+
     if (!loadComplete || !mapData || !scene) {
-        return <div>loading...s</div>
+        return <div>loading...</div>
     }
     const sceneWidth = mapData.width * mapData.tilewidth;
     const sceneHeight = mapData.height * mapData.tileheight;
-
     return (
-        <>
-            <BridgedStage width={sceneWidth} height={sceneHeight}>
+        <div className="scene" ref={ref}>
+            <BridgedStage width={sceneWidth} height={sceneHeight} >
                 <Container
-                    ref={ref}
                     interactive={true}
                     hitArea={new PIXI.Rectangle(0, 0, sceneWidth, sceneHeight)}
                 >
@@ -97,7 +98,10 @@ const Scene = (props: Props) => {
                     </ul>
                 </div>
             )}
-        </>
+            <SceneUI>
+                <CombatUIWidget location={selectedActor?.location || [0, 0]} />
+            </SceneUI>
+        </div>
     );
 }
 
