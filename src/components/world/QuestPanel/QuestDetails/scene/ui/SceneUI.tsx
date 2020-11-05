@@ -1,3 +1,4 @@
+import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import React, { PropsWithChildren, useContext, useEffect, useRef } from 'react';
 import "./styles/sceneUI.scss";
 
@@ -8,6 +9,8 @@ export interface Props {
 const SceneUI = (props: PropsWithChildren<Props>) => {
     const {children} = props;
     const ref = useRef<HTMLDivElement>(null);
+    const scale = useRef(1);
+    const controller = useContext(SceneControllerContext)!;
 
     useEffect(() => {
         const handleResize = () => {
@@ -18,7 +21,8 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             const originalWidth = parseInt(canvas?.getAttribute("width") || "0");
             const originalHeight = parseInt(canvas?.getAttribute("height") || "0");
             const currentWidth = canvas?.clientWidth;
-            ref.current.style.transform = `scale(${currentWidth/originalWidth})`;
+            scale.current = currentWidth/originalWidth;
+            ref.current.style.transform = `scale(${scale.current})`;
             ref.current.style.width = `${originalWidth}px`;
             ref.current.style.height = `${originalHeight}px`;
         }
@@ -29,8 +33,17 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         };
     }, []);
 
+    const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        var rect = (e.target as any).getBoundingClientRect();
+        var x = (e.clientX - rect.left) / scale.current; 
+        var y = (e.clientY - rect.top) / scale.current; 
+        const location = controller.pointToSceneLocation(new PIXI.Point(x, y));
+        console.log(location);
+        //console.log("Left? : " + x + " ; Top? : " + y + ".");
+    }
+
     return (
-        <div ref={ref} className="scene-ui" >
+        <div ref={ref} className="scene-ui" onMouseMove={handleMove} >
             {children}
         </div>
     )

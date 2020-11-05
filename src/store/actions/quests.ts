@@ -13,9 +13,9 @@ export enum ActionType {
     setSceneName = "setSceneName",                          // Sets name of the current scene of a quest
     setScene = "setScene",                                  // Fills in the scene of a quest
     exitEncounter = "exitEncounter",                        // Encounter is complete, leave scene and continue on quest
-    updateQuests = "updateQuests",                          // unused! remove
     enqueueSceneAction = "enqueueSceneAction",
     completeSceneAction = "completeSceneAction",
+    setCombat = "setCombat",                                // Sets combat status
     deductActorAp = "deductActorAp",
     updateSceneObjectAction = "updateSceneObjectAction",    // Updates a tile object on the scene. Can update any property except 'id'
     setActiveSceneInteractionModal = "setActiveSceneInteractionModal",     // Sets the active  modal
@@ -48,6 +48,10 @@ export interface EnqueueSceneActionAction extends QuestAction {
 export interface DeductActorApAction extends QuestAction {
     actor: string;
     ap: number;
+}
+
+export interface SetCombatAction extends QuestAction {
+    combat: boolean;
 }
 
 export interface UpdateEncounterResultAction extends QuestAction {
@@ -123,6 +127,14 @@ export function completeSceneAction(quest: string): QuestAction {
     return {
         type: ActionType.completeSceneAction,
         questName: quest,
+    };
+}
+
+export function setCombat(quest: string, combat: boolean): SetCombatAction {
+    return {
+        type: ActionType.setCombat,
+        questName: quest,
+        combat
     };
 }
 

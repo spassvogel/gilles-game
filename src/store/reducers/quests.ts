@@ -10,7 +10,8 @@ import {
     SetSceneAction,
     UpdateSceneObjectAction,
     SetActiveSceneInteractionModalAction,
-    DeductActorApAction
+    DeductActorApAction,
+    SetCombatAction
 } from "store/actions/quests";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
@@ -82,6 +83,9 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
         case ActionType.completeSceneAction:
             return completeSceneAction(state, action as QuestAction);
+            
+        case ActionType.setCombat:
+            return setCombat(state, action as SetCombatAction);
 
         case ActionType.deductActorAp:
             return deductActorAp(state, action as DeductActorApAction);
@@ -221,6 +225,21 @@ const completeSceneAction = (state: QuestStoreState[], action: QuestAction) => {
                 ...scene.actionQueue!.slice(1)
             ];
 
+            return {
+                ...qss,
+                scene
+            };
+        }
+        return qss;
+    });
+};
+
+
+const setCombat = (state: QuestStoreState[], action: SetCombatAction) => {
+    const {combat} = action;
+    return state.map((qss) => {
+        if (qss.name === action.questName) {
+            const scene = { ...qss.scene!, combat };
             return {
                 ...qss,
                 scene

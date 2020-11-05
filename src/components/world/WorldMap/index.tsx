@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { Stage, Sprite } from '@inlet/react-pixi';
 import { Viewport as PixiViewport } from "pixi-viewport";
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import React, { useEffect, useRef, useCallback, useState } from "react";
 import { QuestStoreState } from "store/types/quest";
@@ -19,6 +19,8 @@ import { TextManager } from 'global/TextManager';
 import { getQuestLeader } from 'store/helpers/storeHelpers';
 import { StoreState } from 'store/types';
 import './styles/worldMap.scss';
+import useQuest from 'hooks/store/useQuest';
+import { setCombat } from 'store/actions/quests';
 
 window.PIXI = PIXI; // workaround for pixi-tilemap
 const FULL_HEIGHT = 1024;
@@ -40,6 +42,7 @@ const WorldMap = (props: Props) => {
         (state: StoreState) => state.quests.find((q) => q.name === props.selectedQuestName),
         [props.selectedQuestName]
     );
+    
     const selectedQuest = useSelector<StoreState, QuestStoreState | undefined>(questSelector);
     const adventurers = useSelector<StoreState, AdventurerStoreState[]>((store) => store.adventurers);
     const activeQuests = useSelector<StoreState, QuestStoreState[]>((store) => selectActiveQuests(store));
@@ -182,6 +185,7 @@ const WorldMap = (props: Props) => {
             {props.selectedQuestName && (
                 <div className="title">
                     <span>
+                        <DebugToggleCombat questName={props.selectedQuestName} />
                         {TextManager.getQuestTitle(props.selectedQuestName)}
                     </span>
                     <span onClick={() => handlePartyClick(props.selectedQuestName!)}>x</span>
@@ -224,4 +228,22 @@ const getPreviousPositions = (quest: QuestStoreState) => {
     const lastPosition = nodeLocationToPoint(getQuestWorldLocation(quest));
     positions.push(lastPosition);
     return positions;
+}
+
+
+// temporary
+const DebugToggleCombat = ({ questName }: {questName: string}) => {
+    const quest = useQuest(questName);
+    const dispatch = useDispatch();
+
+    if (quest.scene?.combat) {
+        return (
+            <button onClick={() => dispatch(setCombat(questName, false))}>combat: on</button>
+        );
+    }
+    return (
+        <button onClick={() => dispatch(setCombat(questName, true))}>
+            combat: off
+        </button>
+    )
 }
