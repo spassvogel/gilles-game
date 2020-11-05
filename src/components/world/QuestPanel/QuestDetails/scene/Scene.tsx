@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect, useContext, useCallback } from "react";
+import React, { useRef, useMemo, useEffect, useContext, useCallback, useState } from "react";
 import { Container } from '@inlet/react-pixi';
 import useQuest from 'hooks/store/useQuest';
 import Tilemap from './Tilemap';
@@ -38,6 +38,7 @@ const Scene = (props: Props) => {
     const ref = useRef<HTMLDivElement>(null);
     const quest = useQuest(controller.questName);
     const scene = quest.scene!;
+    const [combatUILocation, setCombatUILocation] = useState<[number, number]>([0, 0]);
 
     const selectedActor = useMemo(() => {
         return scene?.actors?.find(a => a.id === props.selectedActorId) || null;
@@ -54,6 +55,7 @@ const Scene = (props: Props) => {
                     key={id}
                     selected={props.selectedActorId === id}
                     setSelectedAdventurer={props.setSelectedActor}
+                    setCombatUILocation={setCombatUILocation}
                 />
             );
         }
@@ -99,7 +101,7 @@ const Scene = (props: Props) => {
                 </div>
             )}
             <SceneUI>
-                <CombatUIWidget location={selectedActor?.location || [0, 0]} />
+                <CombatUIWidget location={combatUILocation} />
             </SceneUI>
         </div>
     );

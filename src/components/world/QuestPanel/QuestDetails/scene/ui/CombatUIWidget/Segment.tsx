@@ -2,10 +2,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 interface Props {
     position: "w" | "sw" | "s" | "se" | "e";
+    icon?: string;
 }
 
 const Segment = (props: Props) => {
-
+    const {icon} = props;
     const segmentWidth = 32;
     const segmentHeight = 46;
     const tileWidth = 100;
@@ -19,7 +20,13 @@ const Segment = (props: Props) => {
             default: return 0;
         }
     }, [props.position]);
-    const transform = `translate(${segmentWidth}px, ${tileHeight/2 - segmentHeight/2}px) rotate(${rot}deg) translateX(44px)`;
+
+    const style = {
+        transform: `translate(${segmentWidth}px, ${tileHeight/2 - segmentHeight/2}px) rotate(${rot}deg) translateX(44px)`,
+        background: `url(${process.env.PUBLIC_URL}/img/scene/ui/combat/ring-segment.svg)`,
+        width: segmentWidth,
+        height: segmentHeight
+    }
 
     // const rotate = true;
     // useEffect(() => {
@@ -33,10 +40,15 @@ const Segment = (props: Props) => {
     // }, [rot]);
 
     return (
-        <img 
-            src={`${process.env.PUBLIC_URL}/img/scene/ui/combat/ring-segment.svg`}
-            style={{ transform }}
-        ></img>
+        <div style={style} onMouseUp={() => {console.log(icon)}}>
+            <img 
+                src={icon}
+                style={{ 
+                    transform: `rotate(-${rot}deg)`,
+                    width: segmentWidth - 4
+                }}
+            />
+        </div>
     )
 }
 

@@ -8,7 +8,7 @@ import { RefActionPoints } from 'components/world/QuestPanel/QuestDetails/scene/
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import CombatActionDot from 'pixi/CombatActionsDot';
 
-const useSceneAdventurerActions = (adventurerId: string, parent: React.RefObject<PIXI.Container>, controller: BaseSceneController<any>, actionPointsRef: React.RefObject<RefActionPoints>,) => {
+const useSceneAdventurerActions = (adventurerId: string, parent: React.RefObject<PIXI.Container>, controller: BaseSceneController<any>, actionPointsRef: React.RefObject<RefActionPoints>, placeCombatUI:  (location: [number, number]) => void) => {
     // todo: instead just provide a pixi container to draw on...
     const [actionActive, setActionActive] = useState(false);
     const { tileWidth, tileHeight } = controller.getTileDimensions();
@@ -16,7 +16,6 @@ const useSceneAdventurerActions = (adventurerId: string, parent: React.RefObject
     const { combat } = scene!;
     const actor = controller.getActorByAdventurerId(adventurerId)!;
     const { location } = actor;
-    const dispatch = useDispatch();
 
     useEffect(() => {
         // todo create canvas
@@ -39,18 +38,18 @@ const useSceneAdventurerActions = (adventurerId: string, parent: React.RefObject
         container.addChild(actionContainer);
 
         // todo: custom class?
-        const dot = new CombatActionDot(tileWidth, tileHeight);
-        container.addChild(dot);
-        dot.setActionTabs([{
-            action: SceneActionType.move,
-            icon: "walking-boot"
-        }, {
-            action: SceneActionType.inspect,
-            icon: "sunken-eye"
-        }, {
-            action: SceneActionType.attack,
-            icon: "crosshair"
-        }]);
+        // const dot = new CombatActionDot(tileWidth, tileHeight);
+        // container.addChild(dot);
+        // dot.setActionTabs([{
+        //     action: SceneActionType.move,
+        //     icon: "walking-boot"
+        // }, {
+        //     action: SceneActionType.inspect,
+        //     icon: "sunken-eye"
+        // }, {
+        //     action: SceneActionType.attack,
+        //     icon: "crosshair"
+        // }]);
 
         const mouseMove = (event: PIXI.InteractionEvent) => {
             if (actionActive && location) {
@@ -73,8 +72,9 @@ const useSceneAdventurerActions = (adventurerId: string, parent: React.RefObject
                     }
 
                     // Place the dot
-                    dot.x = destinationLocation[0] * tileWidth + tileWidth / 2;
-                    dot.y = destinationLocation[1] * tileHeight + tileHeight / 2;
+                    placeCombatUI(destinationLocation);
+                    //dot.x = destinationLocation[0] * tileWidth + tileWidth / 2;
+                    //dot.y = destinationLocation[1] * tileHeight + tileHeight / 2;
                 }
 
 

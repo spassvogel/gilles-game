@@ -1,5 +1,21 @@
+@import 'components/styles/variables.scss';
+
 .combat-ui-widget {
-    img {
+    div {
         position: absolute;
+        pointer-events: painted;
+
+        @include no-select;
+
+        img {
+            margin-top: 8px;
+            margin-left: 4px;
+            pointer-events: none;
+        
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+        
     }
 }

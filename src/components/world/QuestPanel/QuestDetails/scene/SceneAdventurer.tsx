@@ -11,6 +11,7 @@ interface Props  {
     adventurerId: string;
     selected: boolean;
     setSelectedAdventurer: (actor: string) => void;
+    setCombatUILocation: (location: [number, number]) => void
 };
 
 // The adventurers avatar on the scene
@@ -20,6 +21,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
         location,
         adventurerId,
         selected,
+        setCombatUILocation,
     } = props;
     const {tileWidth, tileHeight} = controller.getTileDimensions();
 
@@ -32,7 +34,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
     const {
         adventurerStartDrag,
         adventurerEndDrag,
-    } = useSceneAdventurerActions(adventurerId, ref, controller, actionPointsRef);
+    } = useSceneAdventurerActions(adventurerId, ref, controller, actionPointsRef, setCombatUILocation);
 
     const handleAdventurerStartDrag = () => {
         adventurerStartDrag();

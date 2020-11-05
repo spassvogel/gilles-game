@@ -31,11 +31,11 @@ const CombatUIWidget = (props: Props) => {
             className="combat-ui-widget" 
             style={{ transform }}
         >
-            <Segment position="w" />
-            <Segment position="sw" />
-            <Segment position="s" />
-            <Segment position="se" />
-            <Segment position="e" />
+            <Segment position="w" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/knife-thrust.svg`}/>
+            <Segment position="sw" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/high-shot.svg`}/>
+            <Segment position="s" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/walking-boot.svg`}/>
+            <Segment position="se" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/sunken-eye.svg`}/>
+            <Segment position="e" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/crosshair.svg`}/>
         </div>
     )
 }
