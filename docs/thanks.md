@@ -4,3 +4,4 @@ Button click.wav                brnck                   https://freesound.org/pe
 ui-error.flac                   plasterbrain            https://freesound.org/people/plasterbrain/sounds/423169/
 cursor                          Jinn                    https://opengameart.org/content/dwarven-cursor
 loading spinner                 Mattroelle.com          http://mattroelle.com
+various icons                   Lorc                    https://game-icons.net/
