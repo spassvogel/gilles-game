@@ -100,7 +100,7 @@ const Scene = (props: Props) => {
                     </ul>
                 </div>
             )}
-            <SceneUI>
+            <SceneUI sceneWidth={sceneWidth} sceneHeight={sceneHeight}>
                 <CombatUIWidget location={combatUILocation} />
             </SceneUI>
         </div>
