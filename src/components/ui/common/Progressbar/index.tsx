@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useDelta } from 'hooks/store/engine';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import "./styles/progressbar.scss";
 
 export enum Direction {
@@ -24,16 +24,24 @@ const Progressbar = (props: Props) => {
 
     // If we have a direction defined and we're going the other direction, dont animate
     // because we've basically reset the progress bar and we just want to animate in one direction
-    const reset = (direction === Direction.increasing && progress < previousProgress.current) ||
-        (direction === Direction.decreasing && progress > previousProgress.current);
-    previousProgress.current = progress;
+    const [animate, setAnimate] = useState(false);
 
+    useEffect(() => {
+        setAnimate(
+             direction === undefined ||
+            (direction === Direction.increasing && progress > previousProgress.current) ||
+            (direction === Direction.decreasing && progress < previousProgress.current)
+        );
+    }, [direction, progress]);
+
+
+    previousProgress.current = progress;
     return (
         <div className={`progressbar ${className}`}>
             <div className="progressbar-label">{props.label}</div>
             <div className="progressbar-bar" style= {{
                 width: `${progress * 100}%`,
-                ...(!reset && {transition: `width ${delta}ms linear`})
+                ...(animate && {transition: `width ${delta}ms linear`})
             }}/>
         </div>
     );
