@@ -117,4 +117,6 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
     )
 }
 
-export default memo(SceneAdventurer);
+//export default memo(SceneAdventurer);
+// disabled because of weak map key error
+export default SceneAdventurer;

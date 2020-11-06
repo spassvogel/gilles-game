@@ -3,9 +3,10 @@ import * as PIXI  from 'pixi.js';
 import { TiledTilesetData } from 'constants/tiledMapData';
 import { SceneObject } from 'store/types/scene';
 
-window.PIXI = PIXI;
+// window.PIXI = PIXI;
 // eslint-disable-next-line import/first
 import 'pixi-tilemap';
+
 
 
 interface Props  {
@@ -19,7 +20,7 @@ interface Props  {
 const ObjectTileLayer = PixiComponent<Props, any>("ObjectTileLayer", {
     create(props: Props) {
         // @ts-ignore
-        const tileLayer = new window.PIXI.tilemap.CompositeRectTileLayer(0, [props.texture]);
+        const tileLayer = new CompositeRectTileLayer(0, [props.texture]);
         return tileLayer;
     },
 
