@@ -54,10 +54,10 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
                 controller={controller}
                 location={location}
                 interactive={true}
-                pointerdown={handleAdventurerStartDrag}
-                pointerup={handleAdventurerEndDrag}
-                pointerupoutside={handleAdventurerEndDrag}
-                hitArea={new PIXI.Rectangle(location?.[0], location?.[1], tileWidth, tileHeight)}
+                // pointerdown={handleAdventurerStartDrag}
+                // pointerup={handleAdventurerEndDrag}
+                // pointerupoutside={handleAdventurerEndDrag}
+                // hitArea={new PIXI.Rectangle(location?.[0], location?.[1], tileWidth, tileHeight)}
                 idleAnimation={Math.random() < 0.5}
             >
                 {selected && (
@@ -117,6 +117,4 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
     )
 }
 
-//export default memo(SceneAdventurer);
-// disabled because of weak map key error
-export default SceneAdventurer;
+export default memo(SceneAdventurer);

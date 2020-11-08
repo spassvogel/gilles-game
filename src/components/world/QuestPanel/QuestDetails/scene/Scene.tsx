@@ -10,12 +10,9 @@ import renderObject from './renderObject';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
 import SceneUI from './ui/SceneUI';
 import CombatUIWidget from './ui/CombatUIWidget';
+import { locationEquals } from 'utils/tilemap';
+import DashedLine from 'components/pixi/DashedLine';
 import "./styles/scene.scss";
-
-import * as PIXI from 'pixi.js';
-window.PIXI = PIXI;
-// eslint-disable-next-line import/first
-import 'pixi-tilemap'; // tilemap is not a real npm module :/
 
 export interface Props {
     selectedActorId: string;
@@ -25,6 +22,7 @@ export interface Props {
 const DEBUG_ACTIONQUEUE = false;
 
 const Scene = (props: Props) => {
+    const {selectedActorId} = props;
     const controller = useContext(SceneControllerContext)!;
     const mapData = controller.mapData!;
     const basePath = controller.basePath!;
@@ -37,12 +35,26 @@ const Scene = (props: Props) => {
 
     const ref = useRef<HTMLDivElement>(null);
     const quest = useQuest(controller.questName);
+    const {tileWidth, tileHeight} = controller.getTileDimensions();
     const scene = quest.scene!;
     const [combatUILocation, setCombatUILocation] = useState<[number, number]>([0, 0]);
+    const [path, setPath] = useState<PIXI.Point[]>();
 
-    const selectedActor = useMemo(() => {
-        return scene?.actors?.find(a => a.id === props.selectedActorId) || null;
-    }, [scene, props.selectedActorId]);
+    const handleSetPath = (aStarPath?: number[][]) => {
+        if (!aStarPath) {
+            setPath(undefined);
+        }
+        else {
+
+            const convert = (p: number[]) => new PIXI.Point(p[0] * (tileWidth) + (tileWidth / 2), p[1] * (tileHeight) + (tileHeight / 2));
+            const start = controller.getActorByAdventurerId(selectedActorId)?.location!;
+            const converted = [
+                convert(start),
+                ...aStarPath.map(p => convert(p))
+            ];
+            setPath(converted);
+        }
+    }
 
     const renderActors = useCallback(() => {
         const renderActor = (actor: ActorObject) => {
@@ -61,17 +73,24 @@ const Scene = (props: Props) => {
         }
         return scene?.actors?.map((o) => renderActor(o));
 
-    }, [controller, props.setSelectedActor, scene, selectedActor])
+    }, [controller, props.selectedActorId, props.setSelectedActor, scene?.actors])
 
     useEffect(() => {
         if (!mapData) return;
         loadTilesets(mapData.tilesets);
     }, [loadTilesets, mapData]);
 
+    const handleUIMouseDown = (location: [number, number]) => {
+        const actor = scene.actors.find(a => locationEquals(a.location, location));
+        if (actor) {
+            props.setSelectedActor(actor.id);
+        }
+    }
 
     if (!loadComplete || !mapData || !scene) {
         return <div>loading...</div>
     }
+
     const sceneWidth = mapData.width * mapData.tilewidth;
     const sceneHeight = mapData.height * mapData.tileheight;
     return (
@@ -88,6 +107,18 @@ const Scene = (props: Props) => {
                     />
                     { scene.objects.map((o) => renderObject(o, controller, tileSpritesheets ))}
                     { renderActors()}
+                    { path && (<DashedLine
+                        points={path}
+                        dash={10}
+                        gap={15}
+                        speed={20}
+                        rotation={0}
+                        style={{
+                           width: 6,
+                           color: 0xffffff,
+                           alpha: 1,
+                       }}
+                     />)}
                 </Container>
             </BridgedStage>
             {DEBUG_ACTIONQUEUE && (
@@ -100,8 +131,16 @@ const Scene = (props: Props) => {
                     </ul>
                 </div>
             )}
-            <SceneUI sceneWidth={sceneWidth} sceneHeight={sceneHeight}>
-                <CombatUIWidget location={combatUILocation} />
+            <SceneUI
+                sceneWidth={sceneWidth}
+                sceneHeight={sceneHeight}
+                selectedActorId={selectedActorId}
+                onMouseDown={handleUIMouseDown}
+                onSetPath={handleSetPath}
+            >
+                {/* <CombatUIWidget
+                    location={combatUILocation}
+                /> */}
             </SceneUI>
         </div>
     );

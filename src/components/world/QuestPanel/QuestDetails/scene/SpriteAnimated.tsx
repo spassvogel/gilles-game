@@ -15,5 +15,6 @@ create: ({ textures }) => {
   },
 });
 
-export default memo(SpriteAnimated);
+// export default memo(SpriteAnimated);
+export default SpriteAnimated;
 

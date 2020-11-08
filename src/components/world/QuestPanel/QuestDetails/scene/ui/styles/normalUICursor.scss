@@ -1,0 +1,19 @@
+.normal-ui-cursor {
+    pointer-events: none;
+    // background-size: 0;
+        background-size: 80% 80%;
+        background-repeat: no-repeat;
+        background-position: center center;;
+}
+
+// .normal-ui-cursor:before {
+//     background-image: inherit;
+//     content: '';
+//     width: 100%;
+//     height: 100%;
+//     display: block;
+// }
+
+.normal-ui-cursor.invalid {
+    filter: brightness(0) saturate(100%) invert(7%) sepia(77%) saturate(4287%) hue-rotate(7deg) brightness(135%) contrast(123%);
+}

@@ -262,10 +262,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     )
 };
 
-//export default memo(SceneActor);
-// disabled because of weak map key error
-
-export default SceneActor;
+export default memo(SceneActor);
 
 const createColorReplaceFilter = (from: number[], to: number[]) => {
     const replacements = from.map((val, index) => {

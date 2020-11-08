@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { PropsWithChildren } from 'react';
 import "./styles/icon.scss";

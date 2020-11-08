@@ -193,14 +193,14 @@ export class BaseSceneController<TQuestVars> {
             case SceneActionType.move: {
                 // Find path to move using aStar
                 const path = this.findPath(location!, destination);
-        
+
                 if (this.combat) {
                     const remaining = actor.ap || -1;
                     if (remaining < (path?.length || 0)) {
                         return;
                     }
                 }
-        
+
                 const movementDuration = 500; // time every tile movement takes
                 path?.forEach((l, index) => {
                     const sceneAction: SceneAction = {
@@ -234,6 +234,13 @@ export class BaseSceneController<TQuestVars> {
     // Returns true if the tile is blocked
     locationIsBlocked(location: [number, number]){
         return this.blockedTiles.some((l) => locationEquals(l, location));
+    }
+
+    // Returns true
+    locationIsOutOfBounds(location: [number, number]){
+        return location[0] < 0 || location[1] < 0 ||
+            location[0] >= this.mapData!.width ||
+            location[1] >= this.mapData!.height;
     }
 
     // Should be overridden
@@ -311,7 +318,7 @@ export class BaseSceneController<TQuestVars> {
             },
             includeStartNode: false,
             heuristic: "Manhattan",
-            weight: 0,
+            weight: 0.2,
         });
     }
 
