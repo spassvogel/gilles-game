@@ -17,8 +17,8 @@ export enum ButtonColor {
 
 export type Props = PropsWithChildren<{
     text?: string;
-    color?: ButtonColor | "blue" | "purple" | "green"; // Can use enum or string
-    size?: ButtonSize | "auto" | "large" | "medium" | "small"; // Can use enum or string
+    color?: ButtonColor | keyof typeof ButtonColor; // Can use enum or string
+    size?: ButtonSize | keyof typeof ButtonSize; // Can use enum or string
     className?: string;
     disabled?: boolean;
     square?: boolean;

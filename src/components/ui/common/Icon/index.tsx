@@ -7,7 +7,7 @@ export interface Props {
     image: string;
     size?: IconSizeType;
     className?: string;
-    border?: Border | "none" | "gold";
+    border?: Border | keyof typeof Border;
 }
 
 export enum IconSize {
@@ -18,7 +18,7 @@ export enum IconSize {
     biggest = "biggest"
 }
 
-type IconSizeType = IconSize | "smallest" | "small" | "medium" | "big";
+type IconSizeType = IconSize | keyof typeof IconSize;
 
 export enum Border {
     none = "none",
