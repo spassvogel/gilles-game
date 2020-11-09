@@ -3,10 +3,12 @@ import React, { useEffect, useMemo, useState } from 'react';
 interface Props {
     position: "w" | "sw" | "s" | "se" | "e";
     icon?: string;
+    onActivate?: () => void;
+    onDeactivate?: () => void;
 }
 
 const Segment = (props: Props) => {
-    const {icon} = props;
+    const {icon, onActivate, onDeactivate} = props;
     const segmentWidth = 32;
     const segmentHeight = 46;
     const tileWidth = 100;
@@ -22,7 +24,7 @@ const Segment = (props: Props) => {
     }, [props.position]);
 
     const style = {
-        transform: `translate(${segmentWidth}px, ${tileHeight/2 - segmentHeight/2}px) rotate(${rot}deg) translateX(54px)`, //44
+        transform: `translate(${segmentWidth}px, ${tileHeight/2 - segmentHeight/2}px) rotate(${rot}deg) translateX(44px)`, //44
         background: `url(${process.env.PUBLIC_URL}/img/scene/ui/combat/ring-segment.svg)`,
         width: segmentWidth,
         height: segmentHeight
@@ -33,20 +35,26 @@ const Segment = (props: Props) => {
     //     if (rotate){
     //         setTimeout(() => {
     //             console.log(rot)
-    //             setRot(rot + 1)   
+    //             setRot(rot + 1)
     //         }, 3)
     //     }
 
     // }, [rot]);
 
     return (
-        <div style={style} onMouseUp={() => {console.log(icon)}} onMouseOut={() => {console.log("mouseout")}}>
-            <img 
+        <div
+            style={style}
+            className="segment"
+            onMouseOver={onActivate}
+            onMouseOut={onDeactivate}
+        >
+            <img
                 src={icon}
-                style={{ 
+                style={{
                     transform: `rotate(-${rot}deg)`,
                     width: segmentWidth - 4
                 }}
+                alt=""
             />
         </div>
     )

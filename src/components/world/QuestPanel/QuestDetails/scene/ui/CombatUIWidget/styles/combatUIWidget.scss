@@ -1,11 +1,26 @@
 @import 'components/styles/variables.scss';
 
 .combat-ui-widget {
-    div {
+    position: relative; 
+
+    &:before {
+        content: '';
+        width: 75px;
+        height: 75px;
+        display: block;
+        position: absolute;
+        border: 5px solid $color-highlighted;
+        border-radius: 50%;
+        left: 7px;
+        top: 7px;
+    }
+
+    .segment {
         position: absolute;
         pointer-events: painted;
 
         @include no-select;
+
 
         img {
             margin-top: 8px;
@@ -15,7 +30,19 @@
             &:hover {
                 opacity: 0.8;
             }
+        }   
+    }
+
+    &.collapsed {
+        .segment {
+            display: none;
         }
-        
+
+        &:before {
+            width: 50px;
+            height: 50px;
+            left: 18px;
+            top: 18px;
+        }
     }
 }

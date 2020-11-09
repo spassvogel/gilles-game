@@ -38,23 +38,7 @@ const Scene = (props: Props) => {
     const {tileWidth, tileHeight} = controller.getTileDimensions();
     const scene = quest.scene!;
     const [combatUILocation, setCombatUILocation] = useState<[number, number]>([0, 0]);
-    const [path, setPath] = useState<PIXI.Point[]>();
-
-    const handleSetPath = (aStarPath?: number[][]) => {
-        if (!aStarPath) {
-            setPath(undefined);
-        }
-        else {
-
-            const convert = (p: number[]) => new PIXI.Point(p[0] * (tileWidth) + (tileWidth / 2), p[1] * (tileHeight) + (tileHeight / 2));
-            const start = controller.getActorByAdventurerId(selectedActorId)?.location!;
-            const converted = [
-                convert(start),
-                ...aStarPath.map(p => convert(p))
-            ];
-            setPath(converted);
-        }
-    }
+    const [movePreview, setMovePreview] = useState<PIXI.Point[]>();
 
     const renderActors = useCallback(() => {
         const renderActor = (actor: ActorObject) => {
@@ -107,8 +91,8 @@ const Scene = (props: Props) => {
                     />
                     { scene.objects.map((o) => renderObject(o, controller, tileSpritesheets ))}
                     { renderActors()}
-                    { path && (<DashedLine
-                        points={path}
+                    { movePreview && (<DashedLine
+                        points={movePreview}
                         dash={10}
                         gap={15}
                         speed={20}
@@ -136,12 +120,8 @@ const Scene = (props: Props) => {
                 sceneHeight={sceneHeight}
                 selectedActorId={selectedActorId}
                 onMouseDown={handleUIMouseDown}
-                onSetPath={handleSetPath}
-            >
-                {/* <CombatUIWidget
-                    location={combatUILocation}
-                /> */}
-            </SceneUI>
+                onSetMovePath={setMovePreview}
+            />
         </div>
     );
 }

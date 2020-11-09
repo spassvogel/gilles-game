@@ -3,6 +3,7 @@ import useQuest from 'hooks/store/useQuest';
 import React, { PropsWithChildren, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
+import CombatUIWidget from './CombatUIWidget';
 import NormalUICursor from './NormalUICursor';
 import "./styles/sceneUI.scss";
 
@@ -12,7 +13,7 @@ export interface Props {
     selectedActorId: string;
 
     onMouseDown?: (location: [number, number]) => void;
-    onSetPath?: (path: number[][] | undefined) => void;
+    onSetMovePath?: (path: PIXI.Point[] | undefined) => void;
 }
 
 // This thing scales itself based on the canvas which should be a sibling of this component
@@ -23,15 +24,17 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         sceneWidth,
         sceneHeight,
         onMouseDown,
-        onSetPath
+        onSetMovePath // todo: maybe some generic 'set acion preview' with a config? 
     } = props;
     const ref = useRef<HTMLDivElement>(null);
     const mouseDown = useRef(false);
     const scale = useRef(1);
     const controller = useContext(SceneControllerContext)!;
+    const {tileWidth, tileHeight} = controller.getTileDimensions();
     const quest = useQuest(controller.questName);
     const scene = quest.scene!;
     const [cursorLocation, setCursorLocation] = useState<[number, number]>();
+    const [currentAction, setCurrentAction] = useState<SceneActionType>();
 
     useEffect(() => {
         const handleResize = () => {
@@ -58,14 +61,15 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
             if (controller.locationIsOutOfBounds(location)) {
                 setCursorLocation(undefined);
-                onSetPath?.(undefined);
+                onSetMovePath?.(undefined);
                 return;
             }
             if (!cursorLocation || !locationEquals(location, cursorLocation)){
                 setCursorLocation(location);
-                const selectedActorLocation = controller.getActorByAdventurerId(selectedActorId)!.location;
-                const path = controller.findPath(selectedActorLocation!, location);
-                onSetPath?.(path);
+
+                if (!scene.combat) {
+                    previewAction(SceneActionType.move, location);
+                }
             }
             // console.log(e.currentTarget, e.clientX, location);
         }
@@ -80,15 +84,45 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
         mouseDown.current = false;
 
+        setCursorLocation(undefined); //todo enable
+        onSetMovePath?.(undefined);
+console.log('current action is', currentAction)
+        if (!currentAction) {
+            return
+        }
         const selectedActorLocation = controller.getActorByAdventurerId(selectedActorId)!.location;
         if (selectedActorLocation && cursorLocation && !locationEquals(selectedActorLocation, cursorLocation)){
-            controller.actorAttemptAction(selectedActorId, SceneActionType.move, cursorLocation);
+            controller.actorAttemptAction(selectedActorId, currentAction, cursorLocation);
         }
+    }
 
+    const handleCombatActionChange = (action?: SceneActionType) => {
+        previewAction(action, cursorLocation!);
+    }
 
-        setCursorLocation(undefined);
-        onSetPath?.(undefined);
+    const previewAction = (action: SceneActionType | undefined, target: [number, number]) => {
+        setCurrentAction(action);
 
+        const selectedActorLocation = controller.getActorByAdventurerId(selectedActorId)!.location;
+
+        switch (action) {
+            case SceneActionType.move: {
+                const path = controller.findPath(selectedActorLocation!, target);
+                if (!path) return;
+                const convert = (p: number[]) => new PIXI.Point(p[0] * (tileWidth) + (tileWidth / 2), p[1] * (tileHeight) + (tileHeight / 2));
+                const start = controller.getActorByAdventurerId(selectedActorId)?.location!;
+                const converted = [
+                    convert(start),
+                    ...path.map(p => convert(p))
+                ];
+                onSetMovePath?.(converted);
+                break;
+            }
+
+            default: {
+                onSetMovePath?.(undefined);
+            }
+        }
     }
 
     const findLocation = (e: React.MouseEvent) => {
@@ -112,6 +146,12 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             {children}
             {!scene.combat && cursorLocation && (
                 <NormalUICursor location={cursorLocation} />
+            )}
+            {scene.combat && cursorLocation && (
+                <CombatUIWidget
+                    location={cursorLocation}
+                    onActionChange={handleCombatActionChange}
+                />
             )}
         </div>
     )
