@@ -187,8 +187,6 @@ export class BaseSceneController<TQuestVars> {
         const actor = this.getSceneActor(actorId);
         const {location} = actor;
 
-
-
         switch (type) {
             case SceneActionType.move: {
                 // Find path to move using aStar
@@ -197,8 +195,9 @@ export class BaseSceneController<TQuestVars> {
                 if (this.combat) {
                     const remaining = actor.ap || -1;
                     if (remaining < (path?.length || 0)) {
-                        return;
+                        // return;
                     }
+                    // this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
                 }
 
                 const movementDuration = 500; // time every tile movement takes
@@ -211,8 +210,36 @@ export class BaseSceneController<TQuestVars> {
                     };
                     this.dispatch(enqueueSceneAction(this.questName, sceneAction));
                 });
-                this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
+                break;
+            }
+            case SceneActionType.slash: {
+                // Find path to move towards the target
+                const path = this.findPath(location!, destination);
+                const target = path?.pop();
+                if (!path || !target) {
+                    // No path possible.. cant do anything now
+                    return;
+                }
 
+                // Walk towards the target
+                const movementDuration = 500; // time every tile movement takes
+                path?.forEach((l, index) => {
+                    const moveAction: SceneAction = {
+                        actionType: SceneActionType.move,
+                        actorId,
+                        target: l as [number, number],
+                        endsAt: movementDuration * (index + 1) + performance.now()
+                    };
+                    this.dispatch(enqueueSceneAction(this.questName, moveAction));
+                });
+                const meleeAction: SceneAction = {
+                    actionType: type,
+                    actorId,
+                    target,
+                    endsAt: movementDuration * (path.length + 1) + performance.now()
+                };
+                this.dispatch(enqueueSceneAction(this.questName, meleeAction));
+                // this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
             }
         }
 

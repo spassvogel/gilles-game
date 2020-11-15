@@ -200,7 +200,7 @@ const enqueueSceneAction = (state: QuestStoreState[], action: EnqueueSceneAction
     });
 };
 
-// Action on scene is completed
+// next action on scene is completed
 const completeSceneAction = (state: QuestStoreState[], action: QuestAction) => {
     return state.map((qss) => {
         if (qss.name === action.questName) {

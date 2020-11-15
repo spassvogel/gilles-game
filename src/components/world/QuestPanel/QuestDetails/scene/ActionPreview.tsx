@@ -14,7 +14,8 @@ const ActionPreview = (props: Props) => {
   const {actionIntent, tileWidth, tileHeight} = props;
 
   switch (actionIntent.action){
-    case SceneActionType.move: {
+    case SceneActionType.move:
+    case SceneActionType.slash: {
       if (!actionIntent.path){
         return null;
       }

@@ -66,14 +66,19 @@ const CombatUIWidget = (props: Props) => {
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
         >
-            <Segment position="w" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/knife-thrust.svg`}/>
+            <Segment
+                position="w"
+                icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/knife-thrust.svg`}
+                onActivate={() => handleSegmentActivate(SceneActionType.slash)}
+                onDeactivate={() => handleSegmentDeactivate(SceneActionType.slash)}
+            />
             <Segment position="sw" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/high-shot.svg`}/>
             <Segment
                 position="s"
                 icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/walking-boot.svg`}
                 onActivate={() => handleSegmentActivate(SceneActionType.move)}
                 onDeactivate={() => handleSegmentDeactivate(SceneActionType.move)}
-                />
+            />
             <Segment position="se" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/sunken-eye.svg`}/>
             <Segment position="e" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/crosshair.svg`}/>
             <div className="info" style={{ width: tileWidth }}>
@@ -97,6 +102,23 @@ const getText = (actionIntent?: ActionIntent) => {
             <>
             <span>
                 Move
+            </span>
+            <span className={`${(insufficient) ? "insufficient": ""}`}>
+                {` ${actionIntent.apCost}`}AP
+            </span>
+            </>
+        );
+    }
+    if (actionIntent.action === SceneActionType.slash) {
+        if (!actionIntent.path?.length) {
+            // no path possible
+            return null;
+        }
+        const insufficient = (actionIntent.actorAP || 0) < (actionIntent.apCost || 0);
+        return (
+            <>
+            <span>
+                Slash
             </span>
             <span className={`${(insufficient) ? "insufficient": ""}`}>
                 {` ${actionIntent.apCost}`}AP

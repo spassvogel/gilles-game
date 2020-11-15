@@ -24,7 +24,7 @@ const Segment = (props: Props) => {
     }, [props.position]);
 
     const style = {
-        transform: `translate(${segmentWidth}px, ${tileHeight/2 - segmentHeight/2}px) rotate(${rot}deg) translateX(44px)`, //44
+        transform: `translate(${segmentWidth}px, ${tileHeight/2 - segmentHeight/2}px) rotate(${rot}deg) translateX(44px)`,
         background: `url(${process.env.PUBLIC_URL}/img/scene/ui/combat/ring-segment.svg)`,
         width: segmentWidth,
         height: segmentHeight

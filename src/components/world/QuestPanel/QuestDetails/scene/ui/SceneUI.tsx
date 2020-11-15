@@ -18,7 +18,7 @@ export interface Props {
 }
 
 export interface ActionIntent {
-    action: SceneActionType.move;
+    action: SceneActionType.move | SceneActionType.slash;
     from: [number, number];
     to: [number, number];
     apCost?: number;
@@ -41,7 +41,6 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     const mouseDown = useRef(false);
     const scale = useRef(1);
     const controller = useContext(SceneControllerContext)!;
-    const {tileWidth, tileHeight} = controller.getTileDimensions();
     const quest = useQuest(controller.questName);
     const scene = quest.scene!;
     const [cursorLocation, setCursorLocation] = useState<[number, number]>();
@@ -114,7 +113,8 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         const to = cursorLocation!;
 
         switch (action){
-            case SceneActionType.move: {
+            case SceneActionType.move:
+            case SceneActionType.slash: {
                 const path = controller.findPath(from, to);
                 const apCost = controller.calculateWalkApCosts(from, to);
 

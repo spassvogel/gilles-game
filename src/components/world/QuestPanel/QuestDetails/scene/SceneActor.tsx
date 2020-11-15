@@ -63,9 +63,37 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         if (!actorRef) {
             return;
         }
+
+        // Determines orientation based on where the target is
+        const determineOrientation = () => {
+            if (location[0] === nextAction.target[0] && location[1] > nextAction.target[1]) {
+                setOrientation(Orientation.north);
+            }
+            else if (location[0] < nextAction.target[0] && location[1] > nextAction.target[1]) {
+                setOrientation(Orientation.northEast);
+            }
+            else if (location[0] < nextAction.target[0] && location[1] === nextAction.target[1]) {
+                setOrientation(Orientation.east);
+            }
+            else if (location[0] < nextAction.target[0] && location[1] < nextAction.target[1]) {
+                setOrientation(Orientation.southEast);
+            }
+            else if (location[0] === nextAction.target[0] && location[1] < nextAction.target[1]) {
+                setOrientation(Orientation.south);
+            }
+            else if (location[0] > nextAction.target[0] && location[1] < nextAction.target[1]) {
+                setOrientation(Orientation.southWest);
+            }
+            else if (location[0] > nextAction.target[0] && location[1] === nextAction.target[1]) {
+                setOrientation(Orientation.west);
+            }
+            else if (location[0] > nextAction.target[0] && location[1] > nextAction.target[1]) {
+                setOrientation(Orientation.northWest);
+            }
+        }
         const nextAction = actionQueue[0];
         if (nextAction) {
-            // console.log(`next action is ${nextAction.target}, \ncurrent location is: ${location.current}\nprev action was ${previousAction?.current?.target} `)
+            // console.log(`next action is ${nextAction.target} (${nextAction.actionType}), \ncurrent location is: ${location}\nprev action was ${previousAction?.current?.target} `)
             switch (nextAction.actionType) {
                 case SceneActionType.move: {
                     const moveComplete = () => {
@@ -78,30 +106,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                     }
 
                     // determine orientation
-                    if (location[0] === nextAction.target[0] && location[1] > nextAction.target[1]) {
-                        setOrientation(Orientation.north);
-                    }
-                    else if (location[0] < nextAction.target[0] && location[1] > nextAction.target[1]) {
-                        setOrientation(Orientation.northEast);
-                    }
-                    else if (location[0] < nextAction.target[0] && location[1] === nextAction.target[1]) {
-                        setOrientation(Orientation.east);
-                    }
-                    else if (location[0] < nextAction.target[0] && location[1] < nextAction.target[1]) {
-                        setOrientation(Orientation.southEast);
-                    }
-                    else if (location[0] === nextAction.target[0] && location[1] < nextAction.target[1]) {
-                        setOrientation(Orientation.south);
-                    }
-                    else if (location[0] > nextAction.target[0] && location[1] < nextAction.target[1]) {
-                        setOrientation(Orientation.southWest);
-                    }
-                    else if (location[0] > nextAction.target[0] && location[1] === nextAction.target[1]) {
-                        setOrientation(Orientation.west);
-                    }
-                    else if (location[0] > nextAction.target[0] && location[1] > nextAction.target[1]) {
-                        setOrientation(Orientation.northWest);
-                    }
+                    determineOrientation();
                     setAnimation("walk");
                     gsap.killTweensOf(actorRef.current);
                     gsap.to(actorRef.current, {
@@ -114,6 +119,16 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                         onComplete: moveComplete
                     });
                     break;
+                }
+                case SceneActionType.slash: {
+                    determineOrientation();
+                    setAnimation("attack");
+                    const attackComplete = () => {
+                        setAnimation("stand");
+                        dispatch(completeSceneAction(props.controller.questName));
+                        // props.controller.actorMoved(props.name, nextAction.target); todo
+                    }
+                    setTimeout(attackComplete, 1000);
                 }
             }
             previousAction.current = nextAction;
