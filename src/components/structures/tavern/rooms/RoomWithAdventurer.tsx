@@ -5,6 +5,9 @@ import AdventurerButton from './AdventurerButton';
 import { TextManager } from 'global/TextManager';
 import DraggableAdventurerAvatar from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
+import Button from 'components/ui/buttons/Button';
+import { renameAdventurer } from 'store/actions/adventurers';
+import { useDispatch } from 'react-redux';
 
 export interface Props {
     adventurer: AdventurerStoreState;
@@ -30,14 +33,16 @@ const RoomWithAdventurer = (props: Props) => {
         onAddAdventurer,
         onRemoveAdventurer
     } = props;
-    /*
-    <button
-        className="boot"
-        key={ `boot:${adventurer.id}` }
-    >
-        Boot
-    </button>,*/
+
+    const dispatch = useDispatch();
     const assigned = assignedAventurers.indexOf(adventurer) > -1; // assigned to a quest in the QuestBoard
+
+    const handleRename = () => {
+        const name = prompt("Enter new name", adventurer.name);
+        if (name && name !== adventurer.name) {
+            dispatch(renameAdventurer(adventurer.id, name));
+        }
+    };
 
     return (
         <>
@@ -60,6 +65,7 @@ const RoomWithAdventurer = (props: Props) => {
                      {(onQuest) && TextManager.get("ui-structure-tavern-on-a-quest") }
                     </section>
                 </div>
+                <Button text="rename" className="rename" onClick={handleRename}/>
             </div>
             { expanded && (
                 <div className="adventurer-details">
