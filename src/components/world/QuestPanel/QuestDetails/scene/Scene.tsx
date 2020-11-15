@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useEffect, useContext, useCallback, useState } from "react";
+import React, { useRef, useEffect, useContext, useCallback, useState } from "react";
 import { Container } from '@inlet/react-pixi';
 import useQuest from 'hooks/store/useQuest';
 import Tilemap from './Tilemap';
@@ -8,10 +8,9 @@ import SceneAdventurer from './SceneAdventurer';
 import useTilesetsLoader from 'hooks/useTilesetsLoader';
 import renderObject from './renderObject';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
-import SceneUI from './ui/SceneUI';
-import CombatUIWidget from './ui/CombatUIWidget';
+import SceneUI, { ActionIntent } from './ui/SceneUI';
 import { locationEquals } from 'utils/tilemap';
-import DashedLine from 'components/pixi/DashedLine';
+import ActionPreview from './ActionPreview';
 import "./styles/scene.scss";
 
 export interface Props {
@@ -37,8 +36,8 @@ const Scene = (props: Props) => {
     const quest = useQuest(controller.questName);
     const {tileWidth, tileHeight} = controller.getTileDimensions();
     const scene = quest.scene!;
-    const [combatUILocation, setCombatUILocation] = useState<[number, number]>([0, 0]);
-    const [movePreview, setMovePreview] = useState<PIXI.Point[]>();
+    const [currentActionIntent, setCurrentActionIntent] = useState<ActionIntent>();
+
 
     const renderActors = useCallback(() => {
         const renderActor = (actor: ActorObject) => {
@@ -51,7 +50,6 @@ const Scene = (props: Props) => {
                     key={id}
                     selected={props.selectedActorId === id}
                     setSelectedAdventurer={props.setSelectedActor}
-                    setCombatUILocation={setCombatUILocation}
                 />
             );
         }
@@ -91,18 +89,7 @@ const Scene = (props: Props) => {
                     />
                     { scene.objects.map((o) => renderObject(o, controller, tileSpritesheets ))}
                     { renderActors()}
-                    { movePreview && (<DashedLine
-                        points={movePreview}
-                        dash={10}
-                        gap={15}
-                        speed={20}
-                        rotation={0}
-                        style={{
-                           width: 6,
-                           color: 0xffffff,
-                           alpha: 1,
-                       }}
-                     />)}
+                    { currentActionIntent && (<ActionPreview actionIntent={currentActionIntent} tileWidth={tileWidth} tileHeight={tileHeight}/>)}
                 </Container>
             </BridgedStage>
             {DEBUG_ACTIONQUEUE && (
@@ -119,8 +106,9 @@ const Scene = (props: Props) => {
                 sceneWidth={sceneWidth}
                 sceneHeight={sceneHeight}
                 selectedActorId={selectedActorId}
+                actionIntent={currentActionIntent}
                 onMouseDown={handleUIMouseDown}
-                onSetMovePath={setMovePreview}
+                onSetActionIntent={setCurrentActionIntent}
             />
         </div>
     );

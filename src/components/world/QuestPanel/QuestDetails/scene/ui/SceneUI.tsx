@@ -1,6 +1,6 @@
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import useQuest from 'hooks/store/useQuest';
-import React, { PropsWithChildren, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { PropsWithChildren, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
 import CombatUIWidget from './CombatUIWidget';
@@ -11,9 +11,19 @@ export interface Props {
     sceneWidth: number;
     sceneHeight: number;
     selectedActorId: string;
+    actionIntent?: ActionIntent;
 
     onMouseDown?: (location: [number, number]) => void;
-    onSetMovePath?: (path: PIXI.Point[] | undefined) => void;
+    onSetActionIntent: (intent?: ActionIntent) => void;
+}
+
+export interface ActionIntent {
+    action: SceneActionType.move;
+    from: [number, number];
+    to: [number, number];
+    apCost?: number;
+    actorAP?: number;
+    path?: [number, number][];  // is undefined when path is invalid
 }
 
 // This thing scales itself based on the canvas which should be a sibling of this component
@@ -21,10 +31,11 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     const {
         children,
         selectedActorId,
+        actionIntent,
         sceneWidth,
         sceneHeight,
         onMouseDown,
-        onSetMovePath // todo: maybe some generic 'set acion preview' with a config? 
+        onSetActionIntent
     } = props;
     const ref = useRef<HTMLDivElement>(null);
     const mouseDown = useRef(false);
@@ -34,13 +45,13 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     const quest = useQuest(controller.questName);
     const scene = quest.scene!;
     const [cursorLocation, setCursorLocation] = useState<[number, number]>();
-    const [currentAction, setCurrentAction] = useState<SceneActionType>();
 
     useEffect(() => {
+        // Scale the html element together with the sibling canvas
         const handleResize = () => {
             if (!ref.current) return;
             const canvas = ref.current.parentNode?.querySelector("canvas");
-            if (!canvas) return;
+            if (!canvas) throw Error("No canvas found as sibling of SceneUI");
 
             const currentWidth = canvas?.clientWidth;
             scale.current = currentWidth/sceneWidth;
@@ -61,17 +72,12 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
             if (controller.locationIsOutOfBounds(location)) {
                 setCursorLocation(undefined);
-                onSetMovePath?.(undefined);
+                onSetActionIntent(undefined);
                 return;
             }
             if (!cursorLocation || !locationEquals(location, cursorLocation)){
                 setCursorLocation(location);
-
-                if (!scene.combat) {
-                    previewAction(SceneActionType.move, location);
-                }
             }
-            // console.log(e.currentTarget, e.clientX, location);
         }
     }
 
@@ -84,46 +90,76 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
         mouseDown.current = false;
 
-        setCursorLocation(undefined); //todo enable
-        onSetMovePath?.(undefined);
-console.log('current action is', currentAction)
-        if (!currentAction) {
+        setCursorLocation(undefined);
+        if (!actionIntent) {
             return
         }
         const selectedActorLocation = controller.getActorByAdventurerId(selectedActorId)!.location;
         if (selectedActorLocation && cursorLocation && !locationEquals(selectedActorLocation, cursorLocation)){
-            controller.actorAttemptAction(selectedActorId, currentAction, cursorLocation);
+            controller.actorAttemptAction(selectedActorId, actionIntent.action, actionIntent.to);
         }
+        onSetActionIntent?.(undefined);
     }
 
-    const handleCombatActionChange = (action?: SceneActionType) => {
-        previewAction(action, cursorLocation!);
-    }
+    const handleCombatActionChange = useCallback((action?: SceneActionType) => { //todo: beter name, not just combat
+        if (!action) {
+            onSetActionIntent(undefined);
+            return;
+        }
 
-    const previewAction = (action: SceneActionType | undefined, target: [number, number]) => {
-        setCurrentAction(action);
+        const {
+            location: from,
+            ap: actorAP,
+        } = controller.getActorByAdventurerId(selectedActorId)!;
+        const to = cursorLocation!;
 
-        const selectedActorLocation = controller.getActorByAdventurerId(selectedActorId)!.location;
-
-        switch (action) {
+        switch (action){
             case SceneActionType.move: {
-                const path = controller.findPath(selectedActorLocation!, target);
-                if (!path) return;
-                const convert = (p: number[]) => new PIXI.Point(p[0] * (tileWidth) + (tileWidth / 2), p[1] * (tileHeight) + (tileHeight / 2));
-                const start = controller.getActorByAdventurerId(selectedActorId)?.location!;
-                const converted = [
-                    convert(start),
-                    ...path.map(p => convert(p))
-                ];
-                onSetMovePath?.(converted);
-                break;
-            }
+                const path = controller.findPath(from, to);
+                const apCost = controller.calculateWalkApCosts(from, to);
 
-            default: {
-                onSetMovePath?.(undefined);
+                onSetActionIntent({
+                    action,
+                    from,
+                    to,
+                    apCost,
+                    actorAP,
+                    path,
+                })
             }
         }
-    }
+    }, [controller, cursorLocation, onSetActionIntent, selectedActorId]);
+
+    useEffect(() => {
+        if (!scene.combat && cursorLocation !== undefined) {
+            handleCombatActionChange(SceneActionType.move);
+        }
+    }, [cursorLocation, handleCombatActionChange, scene.combat])
+
+
+    // const previewAction = (action: SceneActionType | undefined, target: [number, number]) => {
+
+    //     const selectedActorLocation = controller.getActorByAdventurerId(selectedActorId)!.location;
+
+    //     switch (action) {
+    //         case SceneActionType.move: {
+    //             const path = controller.findPath(selectedActorLocation!, target);
+    //             if (!path) return;
+    //             const convert = (p: number[]) => new PIXI.Point(p[0] * (tileWidth) + (tileWidth / 2), p[1] * (tileHeight) + (tileHeight / 2));
+    //             const start = controller.getActorByAdventurerId(selectedActorId)?.location!;
+    //             const converted = [
+    //                 convert(start),
+    //                 ...path.map(p => convert(p))
+    //             ];
+    //             onSetMovePath?.(converted);
+    //             break;
+    //         }
+
+    //         default: {
+    //             onSetMovePath?.(undefined);
+    //         }
+    //     }
+    // }
 
     const findLocation = (e: React.MouseEvent) => {
         if (e.target instanceof Element){
@@ -150,6 +186,7 @@ console.log('current action is', currentAction)
             {scene.combat && cursorLocation && (
                 <CombatUIWidget
                     location={cursorLocation}
+                    actionIntent={actionIntent}
                     onActionChange={handleCombatActionChange}
                 />
             )}

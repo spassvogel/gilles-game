@@ -11,7 +11,7 @@ interface Props  {
     adventurerId: string;
     selected: boolean;
     setSelectedAdventurer: (actor: string) => void;
-    setCombatUILocation: (location: [number, number]) => void
+    // setCombatUILocation: (location: [number, number]) => void
 };
 
 // The adventurers avatar on the scene
@@ -21,7 +21,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
         location,
         adventurerId,
         selected,
-        setCombatUILocation,
+        // setCombatUILocation,
     } = props;
     const {tileWidth, tileHeight} = controller.getTileDimensions();
 
@@ -31,19 +31,19 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
     // Draw a line to indicate the action to take
     const actionPathRef = useRef<RefActions>(null);
     const actionPointsRef = useRef<RefActionPoints>(null);
-    const {
-        adventurerStartDrag,
-        adventurerEndDrag,
-    } = useSceneAdventurerActions(adventurerId, ref, controller, actionPointsRef, setCombatUILocation);
+    // const {
+    //     adventurerStartDrag,
+    //     adventurerEndDrag,
+    // } = useSceneAdventurerActions(adventurerId, ref, controller, actionPointsRef, setCombatUILocation);
 
-    const handleAdventurerStartDrag = () => {
-        adventurerStartDrag();
-        props.setSelectedAdventurer(adventurerId);
-    }
+    // const handleAdventurerStartDrag = () => {
+    //     adventurerStartDrag();
+    //     props.setSelectedAdventurer(adventurerId);
+    // }
 
-    const handleAdventurerEndDrag = (event: PIXI.InteractionEvent) => {
-        adventurerEndDrag(event);
-    }
+    // const handleAdventurerEndDrag = (event: PIXI.InteractionEvent) => {
+    //     adventurerEndDrag(event);
+    // }
 
     return (
         <Container interactive={true} ref={ref}>

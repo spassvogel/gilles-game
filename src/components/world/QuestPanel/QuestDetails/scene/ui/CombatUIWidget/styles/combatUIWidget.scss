@@ -3,16 +3,31 @@
 .combat-ui-widget {
     position: relative; 
 
+    .info {
+        z-index: 2;
+        position: absolute;
+        text-align: center;
+        color: $color-text-lighter;
+        text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5), 0 0 2px rgba(0, 0, 0, 0.5);
+        font-size: x-large;
+        top: -22px;
+        white-space: nowrap;
+
+        .insufficient {
+            color: $color-invalid;
+        }
+    }
+
     &:before {
         content: '';
         width: 75px;
         height: 75px;
         display: block;
         position: absolute;
-        border: 5px solid $color-highlighted;
+        border: 8px solid $color-highlighted;
         border-radius: 50%;
-        left: 7px;
-        top: 7px;
+        left: 5px;
+        top: 5px;
     }
 
     .segment {
@@ -41,8 +56,8 @@
         &:before {
             width: 50px;
             height: 50px;
-            left: 18px;
-            top: 18px;
+            left: 15px;
+            top: 15px;
         }
     }
 }

@@ -280,13 +280,13 @@ export class BaseSceneController<TQuestVars> {
      * @param target
      */
     findPath(origin: [number, number], target: [number, number]) {
-        const convertLocation = (l: [number, number]) => {
-            // This is the format AStarFind works with
-            return { x: l[0], y: l[1] }
-        }
-        return this.aStar?.findPath(
-            convertLocation(origin), convertLocation(target)
-        );
+        // This is the format AStarFind works with
+        const convertIn = (l: [number, number]) => ({ x: l[0], y: l[1] });
+        const convertOut = (input: number[]): [number, number] => [input[0], input[1]];
+
+        return this
+            .aStar?.findPath(convertIn(origin), convertIn(target))
+            .map(convertOut);
     }
 
     /**

@@ -8,6 +8,7 @@ import { RefActionPoints } from 'components/world/QuestPanel/QuestDetails/scene/
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import CombatActionDot from 'pixi/CombatActionsDot';
 
+// todo: deprecated
 const useSceneAdventurerActions = (adventurerId: string, parent: React.RefObject<PIXI.Container>, controller: BaseSceneController<any>, actionPointsRef: React.RefObject<RefActionPoints>, placeCombatUI:  (location: [number, number]) => void) => {
     // todo: instead just provide a pixi container to draw on...
     const [actionActive, setActionActive] = useState(false);

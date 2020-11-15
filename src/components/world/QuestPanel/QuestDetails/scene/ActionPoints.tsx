@@ -1,6 +1,7 @@
 import React, { useRef, forwardRef, useImperativeHandle } from "react";
 import { Text } from '@inlet/react-pixi';
 
+// deprecated!
 // tslint:disable-next-line: no-empty-interface
 interface Props {
     tileWidth: number;
