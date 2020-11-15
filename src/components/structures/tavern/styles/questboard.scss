@@ -1,17 +1,17 @@
 @import 'components/styles/variables.scss';
 
 .quest-board {
-    margin: 8px;
+	margin: 8px;
 	margin-left: 0;
 
-    .quest-list {
-        padding: 0;
+	.quest-list {
+		padding: 0;
 
-        .quest {
-            display: flex;
-            cursor: var(--app-cursor-pointer);
+		.quest {
+			display: flex;
+			cursor: var(--app-cursor-pointer);
 
-            .icon {
+			.icon {
 				height: 32px;
 				width: 26px;
 				display: inline-block;
@@ -21,23 +21,23 @@
 				background-size: contain;
 			}
 
-            .title {
+			.title {
 				flex: 1;
 				line-height: 32px;
 				margin-left: 10px;
 			}
 		}
 
-        .quest.selected {
-            background-color: $color-primary;
+		.quest.selected {
+			background-color: $color-secondary;
 
-            .title {
-                color: $color-text-lighter;
+			.title {
+				color: $color-text-lighter;
 			}
 		}
 	}
 
-    .quest-details {
+	.quest-details {
 		border: 1px solid grey;
 		padding: 5px;
 		display: flex;

@@ -1,25 +1,27 @@
+@import 'components/styles/variables.scss';
+
 .items-box {
 	padding: 0;
 	margin: 0;
 	list-style: none;
 
-    .item {
+	.item {
 		display: flex;
 
-        .name {
+		.name {
 			width: 100px;
 			margin-left: 4px;
 		}
 	}
 
-    .item.missing {
+	.item.missing {
 
-        .icon {
+		.icon {
 			opacity: 0.5;
 		}
 
-        .name {
-			color: red;
+		.name {
+			color: $color-invalid;
 		}
 	}
 }

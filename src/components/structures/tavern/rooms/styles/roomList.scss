@@ -21,7 +21,7 @@
         display: flex;
     
         &.expanded {
-            background-color: $color-primary;
+            background-color: $color-secondary;
             color: $color-text-lighter;
         }
         
@@ -39,6 +39,12 @@
 
         .rename {
             margin-left: auto;
+            color: $color-link;
+			cursor: var(--app-cursor-pointer);
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 }

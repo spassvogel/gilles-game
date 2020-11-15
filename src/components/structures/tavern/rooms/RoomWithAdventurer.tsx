@@ -65,7 +65,7 @@ const RoomWithAdventurer = (props: Props) => {
                      {(onQuest) && TextManager.get("ui-structure-tavern-on-a-quest") }
                     </section>
                 </div>
-                <Button text="rename" className="rename" onClick={handleRename}/>
+                <span className="rename" onClick={handleRename}>rename</span>
             </div>
             { expanded && (
                 <div className="adventurer-details">
