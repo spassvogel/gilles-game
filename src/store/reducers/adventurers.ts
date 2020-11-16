@@ -53,7 +53,7 @@ const testState: AdventurerStoreState[] = [{
     name: "Ximena Maddox",
     traits: [Trait.houseMaddox, Trait.gloomy],
     avatarImg: `${avatarImgBasePath}/female/f_14.png`,
-    spritesheetPath: `${spritesheetBasePath}archer.json`,
+    spritesheetPath: `${spritesheetBasePath}axethrower.json`,
     skills: {
         [WeaponType.crossbow]: 10,
         [WeaponType.bow]: 10
