@@ -643,3 +643,6 @@ https://css-tricks.com/sticky-smooth-active-nav/
 
 ### 24/10/2020 Outline on tooltip arrow
 [ ] https://web.archive.org/web/20190215131142/https://www.jhaurawachsman.com/2013/css-triangles-border-stroke/
+
+### Use pixi-sound [+ref]
+[ ] Refactor to use pixi-soundπ

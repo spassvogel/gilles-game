@@ -11,7 +11,6 @@ import {Sound, SoundManager} from "global/SoundManager";
 import {TextManager} from "global/TextManager";
 import {Structure} from "definitions/structures";
 import debounce from "debounce";
-import Preloader, {MediaItem, MediaType} from "../preloading/Preloader";
 import TownView from 'components/town/TownView';
 import Toasts from 'components/ui/toasts/Toasts';
 import Topbar from 'components/ui/topbar/Topbar';
@@ -57,7 +56,7 @@ type AllProps = Props & StateProps & DispatchProps;
 const App = (props: AllProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const [media, setMedia] = useState<MediaItem[]>([]);
+    // const [media, setMedia] = useState<MediaItem[]>([]);
     const [activeWindows, setActiveWindows] = useState<React.ReactElement[]>([]);
 
     const handleViewButtonClick = () => {
@@ -123,24 +122,24 @@ const App = (props: AllProps) => {
         return element;
     };
 
-    const handleMediaLoadComplete = (mediaItems: MediaItem[]) => {
-        const sounds = mediaItems.filter((m) => m.mediaType === MediaType.sound);
-        SoundManager.loadMedia(sounds);
+    // const handleMediaLoadComplete = (mediaItems: MediaItem[]) => {
+    //     const sounds = mediaItems.filter((m) => m.mediaType === MediaType.sound);
+    //     SoundManager.loadMedia(sounds);
 
-        // todo: refactor manifest stuff
-        SoundManager.addSounds({
-            [Sound.buttonClick]: "sound/fx/button-click.ogg",
-            [Sound.error]: "sound/fx/error.ogg",
-            [Sound.toast]: "sound/fx/toast.ogg"
-            // add more sounds here
-        });
+    //     // todo: refactor manifest stuff
+    //     SoundManager.addSounds({
+    //         [Sound.buttonClick]: "sound/fx/button-click.ogg",
+    //         [Sound.error]: "sound/fx/error.ogg",
+    //         [Sound.toast]: "sound/fx/toast.ogg"
+    //         // add more sounds here
+    //     });
 
-        setMedia(mediaItems);
+    //     setMedia(mediaItems);
 
-        // todo: temporary!
-        // const window = <CombatView/>;
-        // handleWindowOpened(window);
-    };
+    //     // todo: temporary!
+    //     // const window = <CombatView/>;
+    //     // handleWindowOpened(window);
+    // };
 
     const handleAppClick = () => {
         TooltipManager.clear();
@@ -180,7 +179,6 @@ const App = (props: AllProps) => {
 
     return (
         <AppContext.Provider value={{
-            media,
             onOpenWindow: handleWindowOpened,
             onCloseWindow: handleWindowClose,
         }} >
@@ -195,39 +193,34 @@ const App = (props: AllProps) => {
             >
                 <DndProvider backend={HTML5Backend}>
                 <HashRouter>
-                    <Preloader
-                        manifest={manifest}
-                        onLoadComplete={handleMediaLoadComplete}
-                    >
-                        <Topbar persistor={props.persistor} />
-                        <div style={{ margin: "4px 0 0 8px"}}>
-                            <Switch>
-                                <Route path="/" exact={true} >
-                                    <Redirect from="/" to={getWorldLink()} />
-                                </Route>
-                                <Route path={getWorldLink()}>
-                                    <Link to={getTownLink()}>
-                                        <Button onClick={() => handleViewButtonClick()} color="green"> {TextManager.get(`ui-view-button-town`)} </Button>
-                                    </Link>
-                                </Route>
-                                <Route path={getTownLink()}>
-                                    <Link to={getWorldLink()}>
-                                        <Button onClick={() => handleViewButtonClick()}  > {TextManager.get(`ui-view-button-world`)} </Button>
-                                    </Link>
-                                </Route>
-                            </Switch>
-                            {` | `}
-                            <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} > Restart! </Button>
-                        </div>
+                    <Topbar persistor={props.persistor} />
+                    <div style={{ margin: "4px 0 0 8px"}}>
                         <Switch>
-                            <Route path={getTownLink()} render={renderTownView} />
-                            <Route path={getWorldLink()} render={renderWorldView} />
+                            <Route path="/" exact={true} >
+                                <Redirect from="/" to={getWorldLink()} />
+                            </Route>
+                            <Route path={getWorldLink()}>
+                                <Link to={getTownLink()}>
+                                    <Button onClick={() => handleViewButtonClick()} color="green"> {TextManager.get(`ui-view-button-town`)} </Button>
+                                </Link>
+                            </Route>
+                            <Route path={getTownLink()}>
+                                <Link to={getWorldLink()}>
+                                    <Button onClick={() => handleViewButtonClick()}  > {TextManager.get(`ui-view-button-world`)} </Button>
+                                </Link>
+                            </Route>
                         </Switch>
-                        <SimpleLog/>
-                        {renderWindow()}
-                        <ContextTooltip />
-                        <Toasts />
-                    </Preloader>
+                        {` | `}
+                        <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} > Restart! </Button>
+                    </div>
+                    <Switch>
+                        <Route path={getTownLink()} render={renderTownView} />
+                        <Route path={getWorldLink()} render={renderWorldView} />
+                    </Switch>
+                    <SimpleLog/>
+                    {renderWindow()}
+                    <ContextTooltip />
+                    <Toasts />
                 </HashRouter>
                 </DndProvider>
             </div>

@@ -1,6 +1,6 @@
 import { MediaItem } from "components/preloading/Preloader";
-import { Howl } from "howler";
 import localforage from 'localforage';
+import "pixi-sound";
 
 export enum MusicTrack {
     town,
@@ -15,10 +15,10 @@ export enum Sound {
 
 let media: MediaItem[];
 
-const musicTracks: { [key: number]: Howl; } = {};
+const musicTracks: { [key: number]: PIXI.sound.Sound; } = {};
 let currentMusicTrack: MusicTrack|null = null;
 
-const sounds: { [key: number]: Howl; } = {};
+const sounds: { [key: number]: PIXI.sound.Sound; } = {};
 const DEFAULT_MUSIC_VOLUME = 0;
 const STORAGE_KEY_MUSIC_VOLUME = "musicVolume";
 const DEFAULT_SOUND_VOLUME = 1;
@@ -33,8 +33,6 @@ export class SoundManager {
         // Attempt to fetch volumes from storage. If not set, revert to defaults
         this._musicVolume = await localforage.getItem(STORAGE_KEY_MUSIC_VOLUME) || DEFAULT_MUSIC_VOLUME;
         this._soundVolume = await localforage.getItem(STORAGE_KEY_SOUND_VOLUME) || DEFAULT_SOUND_VOLUME;
-        // if (this._soundVolume === null) this._soundVolume = DEFAULT_SOUND_VOLUME;
-        // if (this._musicVolume === null) this._musicVolume = DEFAULT_MUSIC_VOLUME;
 
         this._initialized = true;
     }
@@ -51,9 +49,9 @@ export class SoundManager {
     }
 
     public static playSound(sound: Sound) {
-        const howl = sounds[sound];
-        howl.volume(this.soundVolume);
-        howl.play();
+        const pixiSound = sounds[sound];
+        pixiSound.volume = this.soundVolume;
+        pixiSound.play();
     }
 
     public static async addMusicTrack(track: MusicTrack, url: string) {
@@ -67,7 +65,7 @@ export class SoundManager {
             throw new Error(`No sound found at ${url}`);
         }
         if (!musicTracks.hasOwnProperty(track)) {
-            musicTracks[track] = sound.content as Howl;
+            //musicTracks[track] = sound.content;
         }
     }
 
@@ -82,15 +80,15 @@ export class SoundManager {
         }
 
         if (currentMusicTrack !== null) {
-            const currentMusic: Howl = musicTracks[currentMusicTrack];
-            currentMusic.fade(SoundManager.musicVolume, 0, 500);
+            //const currentMusic: Howl = musicTracks[currentMusicTrack];
+            //currentMusic.fade(SoundManager.musicVolume, 0, 500);
         }
         const nextMusic = musicTracks[track];
-        if (!nextMusic.playing()) {
+        /*if (!nextMusic.playing()) {
             nextMusic.loop(true);
             nextMusic.play();
         }
-        nextMusic.fade(0, SoundManager.musicVolume, 500);
+        nextMusic.fade(0, SoundManager.musicVolume, 500);*/
 
         currentMusicTrack = track;
     }
@@ -106,7 +104,7 @@ export class SoundManager {
 
     static set musicVolume(volume: number) {
         if (currentMusicTrack) {
-            musicTracks[currentMusicTrack].volume(volume);
+            //musicTracks[currentMusicTrack].volume(volume);
         }
         this._musicVolume = volume;
         localforage.setItem(STORAGE_KEY_MUSIC_VOLUME, volume);

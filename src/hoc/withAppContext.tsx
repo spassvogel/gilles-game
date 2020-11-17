@@ -1,5 +1,4 @@
 import { AppContext } from "components/App";
-import { MediaItem } from "components/preloading/Preloader";
 import * as React from "react";
 import { Component, ComponentType } from 'react';
 
@@ -7,7 +6,6 @@ import { Component, ComponentType } from 'react';
 export interface AppContextProps {
     onOpenWindow: (window: React.ReactElement) => void;
     onCloseWindow: () => void;
-    media: MediaItem[] | null;
 }
 
 export const withAppContext = <TWrappedComponentProps extends AppContextProps>(WrappedComponent: ComponentType<TWrappedComponentProps>) => {

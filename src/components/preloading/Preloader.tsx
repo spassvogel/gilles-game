@@ -4,6 +4,7 @@ import Indicator from "./Indicator";
 import { useState, useEffect, PropsWithChildren } from 'react';
 
 // https://medium.com/@jchiam/publishing-a-typescript-react-component-to-npm-d3cc15b8d0a2
+// todo: unused
 export type Props = PropsWithChildren<{
     manifest: string[];
     onLoadComplete?: (mediaItems: MediaItem[]) => void;
@@ -17,7 +18,7 @@ export enum MediaType {
 export interface MediaItem {
     url: string;
     mediaType: MediaType;
-    content?: HTMLImageElement | Howl;
+    content?: HTMLImageElement | PIXI.sound.Sound;
     sound?: Howl;
 }
 
@@ -64,8 +65,8 @@ const Preloader = (props: Props) => {
                 url,
             } ;
         }
-        if (mediaType === MediaType.sound) {
-            const value = new Howl({
+        /*if (mediaType === MediaType.sound) {
+            const value = new PIXI.sound.Sound({
                 src: [ `${process.env.PUBLIC_URL}/${url}` ],
             });
             item = {
@@ -73,7 +74,7 @@ const Preloader = (props: Props) => {
                 mediaType,
                 url,
             };
-        }
+        }*/
         if (item) {
             media.push(item);
             setItemsLoaded(itemsLoaded + 1);
