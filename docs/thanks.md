@@ -5,3 +5,4 @@ ui-error.flac                   plasterbrain            https://freesound.org/pe
 cursor                          Jinn                    https://opengameart.org/content/dwarven-cursor
 loading spinner                 Mattroelle.com          http://mattroelle.com
 various icons                   Lorc                    https://game-icons.net/
+weapon sounds                   garionek                https://freesound.org/people/garionek

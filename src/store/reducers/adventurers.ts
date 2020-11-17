@@ -72,7 +72,7 @@ const testState: AdventurerStoreState[] = [{
     baseAP: 6,
     room: 1,
     avatarImg: `${avatarImgBasePath}/male/m_05.png`,
-    spritesheetPath: `${spritesheetBasePath}footman.json`,
+    spritesheetPath: `${spritesheetBasePath}troll-sword.json`,
     traits: [Trait.houseHouston],
     skills: {
         [WeaponType.crossbow]: 12,
@@ -157,7 +157,7 @@ const testState: AdventurerStoreState[] = [{
     baseAP: 5,
     room: 3,
     avatarImg: `${avatarImgBasePath}/female/f_16.png`,
-    spritesheetPath: `${spritesheetBasePath}footman.json`,
+    spritesheetPath: `${spritesheetBasePath}troll-sword.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
     skills: {
         [WeaponType.axe]: 10

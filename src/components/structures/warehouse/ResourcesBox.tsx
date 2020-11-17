@@ -58,7 +58,7 @@ const ResourcesBox = (props: Props & AppContextProps) => {
                     }
                     const full = amount >= props.maxResources[resource];
                     return (
-                        <>
+                        <React.Fragment key={resource}>
                             <Icon image={resourceDescription.iconImg} size="smallest"/>
                             <div className="name">
                                 { TextManager.getResourceName(resource as Resource) }
@@ -81,7 +81,7 @@ const ResourcesBox = (props: Props & AppContextProps) => {
                                     TextManager.get("ui-structure-warehouse-resources-source", {structure})
                                 )}
                             </div>
-                        </>
+                        </React.Fragment>
                     )
                 })
             }
