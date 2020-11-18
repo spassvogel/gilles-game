@@ -6,3 +6,4 @@ cursor                          Jinn                    https://opengameart.org/
 loading spinner                 Mattroelle.com          http://mattroelle.com
 various icons                   Lorc                    https://game-icons.net/
 weapon sounds                   garionek                https://freesound.org/people/garionek
+sounds                          hybrid_5                https://freesound.org/people/Hybrid_V/sounds/319590/

@@ -24,7 +24,12 @@ export type Sound =
     "ui/error" |
     "ui/toast" |
     "music/town" |
-    "music/world"
+    "music/world" |
+    "scene/bow" |
+    "scene/meleeHit" |
+    "scene/metalBash" |
+    "scene/shieldBash" |
+    "scene/swish"
     // todo: scene ssounds!
 ;
 

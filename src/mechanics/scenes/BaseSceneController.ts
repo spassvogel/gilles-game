@@ -19,6 +19,7 @@ import { addGold } from 'store/actions/gold';
 import { addItemToInventory } from 'store/actions/adventurers';
 import { calculateInitialAp } from './actionPoints';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
+import { Sound, SoundManager } from 'global/SoundManager';
 
 /**
  * This is a type of God class that knows pretty much everything about a scene
@@ -59,7 +60,26 @@ export class BaseSceneController<TQuestVars> {
             throw new Error("No jsonPath defined!");
         }
 
-        loadResource(`${process.env.PUBLIC_URL}/${this.jsonPath}`, async (resource) => {
+        // load sounds
+        const loadSound = async (sound: Sound, files: string[]): Promise<PIXI.sound.Sound[]> => {
+            return new Promise((resolve, reject) => {
+                SoundManager.addSound(sound, files, (sounds) => {
+                    resolve(sounds);
+                })
+            });
+        }
+
+        const promises = [
+            loadSound("scene/bow", ["sound/scene/bow-01.mp3", "sound/scene/bow-02.mp3"]),
+            loadSound("scene/meleeHit", ["sound/scene/melee-hit-01.mp3", "sound/scene/melee-hit-02.mp3", "sound/scene/melee-hit-03.mp3"]),
+            loadSound("scene/metalBash", ["sound/scene/metal-bash-01.mp3", "sound/scene/metal-bash-02.mp3", "sound/scene/metal-bash-03.mp3"]),
+            loadSound("scene/shieldBash", ["sound/scene/shield-bash-impact.mp3"]),
+            loadSound("scene/swish", ["sound/scene/swish-01.mp3", "sound/scene/swish-02.mp3", "sound/scene/swish-03.mp3", "sound/scene/swish-04.mp3"]),
+            loadResourceAsync(`${process.env.PUBLIC_URL}/${this.jsonPath}`)
+        ] as const;
+
+        Promise.all(promises).then(async () => {
+            const resource = PIXI.Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
             this.mapData = resource.data;
             this.tilemapObjects = getExtendedTilemapObjects(resource.data);
             this.mapData!.layers.filter(layer => layer.visible).forEach(layer => {
@@ -67,7 +87,6 @@ export class BaseSceneController<TQuestVars> {
                     addAllTilesInLayerToList(this.blockedTiles, layer, layer.width);
                 }
             });
-
 
             const adventurers = this.getAdventurers();
             const spritesheets = Array.from(new Set<string>(adventurers.map(a => a.spritesheetPath)));
@@ -79,7 +98,6 @@ export class BaseSceneController<TQuestVars> {
                 // Object.keys(spritesheet!.textures).forEach((key: string) => {
                 //     Texture.removeFromCache(spritesheet!.textures[key]); //or just 'key' will work in that case
                 // });
-                console.log('done loading ', path, spritesheet)
             }
             // PIXI.utils.clearTextureCache()
             // Create aStar based on blocked tiles
