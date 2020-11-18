@@ -5,7 +5,6 @@ import AdventurerButton from './AdventurerButton';
 import { TextManager } from 'global/TextManager';
 import DraggableAdventurerAvatar from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
-import Button from 'components/ui/buttons/Button';
 import { renameAdventurer } from 'store/actions/adventurers';
 import { useDispatch } from 'react-redux';
 

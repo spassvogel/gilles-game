@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Structure } from 'definitions/structures';
 import { StructuresStoreState } from 'store/types/structures';
-import { SoundManager, MusicTrack } from 'global/SoundManager';
+import { SoundManager, Channel, MixMode } from 'global/SoundManager';
 import { useRouteMatch } from 'react-router';
 import {OutlineFilter} from '@pixi/filter-outline';
 import { getTownLink } from 'utils/routing';
@@ -40,8 +40,9 @@ const TownView = (props: Props & AppContextProps) => {
     const dragging = useRef(false);
 
     useEffect(() => {
-        SoundManager.addMusicTrack(MusicTrack.town, "sound/music/Soliloquy.mp3");
-        SoundManager.playMusicTrack(MusicTrack.town);
+        SoundManager.addSound("music/town", "sound/music/Soliloquy.mp3", () => {
+            SoundManager.playSound("music/town", Channel.music, true, MixMode.fade, true);
+        })
     }, []);
 
     useEffect(() => {

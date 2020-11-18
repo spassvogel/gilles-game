@@ -1,6 +1,6 @@
 import WorldMap from "components/world/WorldMap";
 import React, { useEffect, useRef } from "react";
-import { MusicTrack, SoundManager, Sound } from "global/SoundManager";
+import { Channel, MixMode, SoundManager } from "global/SoundManager";
 import QuestPanel from './QuestPanel';
 import { useRouteMatch, useHistory } from 'react-router';
 import { getQuestLink, getWorldLink } from 'utils/routing';
@@ -22,8 +22,12 @@ const WorldView = () => {
     const history = useHistory();
 
     useEffect(() => {
-        SoundManager.addMusicTrack(MusicTrack.world, "sound/music/TheLoomingBattle.ogg");
-        SoundManager.playMusicTrack(MusicTrack.world);
+        SoundManager.addSound("music/world", "sound/music/TheLoomingBattle.ogg", () => {
+            SoundManager.playSound("music/world", Channel.music, true, MixMode.fade, true);
+        })
+        // SoundManager.addMusicTrack(Music.world, "sound/music/TheLoomingBattle.ogg");
+        // SoundManager.playMusicTrack(Music.world);
+
     }, []);
 
     // console.log(params.questname);
@@ -48,7 +52,7 @@ const WorldView = () => {
         } else {
             history.push(getQuestLink(questName));
         }
-        SoundManager.playSound(Sound.buttonClick);
+        SoundManager.playSound("ui/buttonClick");
     };
 
     const handleRetrieveWorldViewRef = () => {

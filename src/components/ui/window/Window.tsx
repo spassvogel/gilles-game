@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SoundManager, Sound } from 'global/SoundManager';
+import { SoundManager} from 'global/SoundManager';
 import Button from '../buttons/Button';
 
 // todo: refactor using WindowManager [30/03/2020]
@@ -22,7 +22,7 @@ const Window: React.FunctionComponent<AllProps> = (props) => {
         if (props.onClose) {
             props?.onClose();
 
-            SoundManager.playSound(Sound.buttonClick);
+            SoundManager.playSound("ui/buttonClick");
         }
     };
 
@@ -30,7 +30,7 @@ const Window: React.FunctionComponent<AllProps> = (props) => {
         if (props.onBack) {
             props?.onBack();
 
-            SoundManager.playSound(Sound.buttonClick);
+            SoundManager.playSound("ui/buttonClick");
         }
     };
 

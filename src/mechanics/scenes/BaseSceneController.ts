@@ -78,9 +78,8 @@ export class BaseSceneController<TQuestVars> {
 
                 // Object.keys(spritesheet!.textures).forEach((key: string) => {
                 //     Texture.removeFromCache(spritesheet!.textures[key]); //or just 'key' will work in that case
-                //     // baseTex = spaceship.textures[key].baseTexture; //they all have same base texture
                 // });
-                // console.log('done loading ', path, spritesheet)
+                console.log('done loading ', path, spritesheet)
             }
             // PIXI.utils.clearTextureCache()
             // Create aStar based on blocked tiles

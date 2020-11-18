@@ -150,6 +150,10 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     useEffect(() => {
         if (!spritesheetPath) return;
 
+        if (!PIXI.Loader.shared.resources[spritesheetPath]?.textures){
+            console.log(PIXI.Loader.shared.resources)
+            throw new Error(`No textures for ${spritesheetPath}`);
+        }
         const allFrames = Object.keys(PIXI.Loader.shared.resources[spritesheetPath].textures!);
         const indexed = allFrames.reduce((acc: any, frame: string) => {
             // frames are in the format of: 'stand-n', 'walk0-ne', 'walk1-ne' etc

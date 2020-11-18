@@ -1,6 +1,6 @@
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import useQuest from 'hooks/store/useQuest';
-import React, { PropsWithChildren, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { PropsWithChildren, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
 import CombatUIWidget from './CombatUIWidget';

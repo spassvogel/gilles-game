@@ -1,5 +1,5 @@
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { SceneActionType } from 'store/types/scene';
 import { ActionIntent } from '../SceneUI';
 import Segment from './Segment';

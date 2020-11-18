@@ -60,7 +60,7 @@ const App = (props: AllProps) => {
     const [activeWindows, setActiveWindows] = useState<React.ReactElement[]>([]);
 
     const handleViewButtonClick = () => {
-        SoundManager.playSound(Sound.buttonClick);
+        SoundManager.playSound("ui/buttonClick");
     };
 
     const handleRestartClick = () => {
@@ -75,7 +75,7 @@ const App = (props: AllProps) => {
             const window = <StructureDetailsView structure={structure} title={displayName} />;
             handleWindowOpened(window);
 
-            SoundManager.playSound(Sound.buttonClick);
+            SoundManager.playSound("ui/buttonClick");
        }
     };
 
@@ -122,24 +122,17 @@ const App = (props: AllProps) => {
         return element;
     };
 
-    // const handleMediaLoadComplete = (mediaItems: MediaItem[]) => {
-    //     const sounds = mediaItems.filter((m) => m.mediaType === MediaType.sound);
-    //     SoundManager.loadMedia(sounds);
-
-    //     // todo: refactor manifest stuff
-    //     SoundManager.addSounds({
-    //         [Sound.buttonClick]: "sound/fx/button-click.ogg",
-    //         [Sound.error]: "sound/fx/error.ogg",
-    //         [Sound.toast]: "sound/fx/toast.ogg"
-    //         // add more sounds here
-    //     });
-
-    //     setMedia(mediaItems);
-
-    //     // todo: temporary!
-    //     // const window = <CombatView/>;
-    //     // handleWindowOpened(window);
-    // };
+    useEffect(() => {
+        SoundManager.addSound("ui/buttonClick", "sound/fx/button-click.ogg");
+        SoundManager.addSound("ui/error", "sound/fx/error.ogg");
+        SoundManager.addSound("ui/toast", "sound/fx/toast.ogg");
+        // SoundManager.addSound("ui/buttonClick", ["sound/fx/button-click.ogg", "sound/fx/error.ogg", "sound/fx/toast.ogg"]);
+            //         ["ui/buttonClick"]: "sound/fx/button-click.ogg",
+            //         [Sound.error]: "sound/fx/error.ogg",
+            //         [Sound.toast]: "sound/fx/toast.ogg"
+            //         // add more sounds here
+            //     });
+    }, []);
 
     const handleAppClick = () => {
         TooltipManager.clear();

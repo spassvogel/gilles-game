@@ -1,7 +1,7 @@
 import { FIVE_SECONDS } from 'utils/format/time';
 import { Type } from 'components/ui/toasts/Toast';
 import EventEmitter from './EventEmitter';
-import { SoundManager, Sound } from './SoundManager';
+import { SoundManager} from './SoundManager';
 
 export interface ToastConfig {
     time: number;
@@ -30,7 +30,7 @@ export abstract class ToastManager extends EventEmitter<ToastConfig[]>() {
 
         this.emit(this.EVENT_TOASTS_UPDATED, this.stack);
 
-        SoundManager.playSound(Sound.toast);
+        SoundManager.playSound("ui/toast");
 
         setTimeout(() => {
             // Remove all popups that have expired

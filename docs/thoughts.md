@@ -450,10 +450,10 @@ research fantasy concept art
 
 
 #### 02/04/2020 Remove preloader [+ref]
-[ ] Remove preloader
+[x] Remove preloader
     Preloading is not needed for images.
-[ ] Figure out if needed for sound?
-[ ] If needed, preloader for pixi can be implemented as such
+[x] Figure out if needed for sound?
+[x] If needed, preloader for pixi can be implemented as such
     https://www.youtube.com/watch?v=KwVszq2RjX4
 
 
@@ -645,4 +645,6 @@ https://css-tricks.com/sticky-smooth-active-nav/
 [ ] https://web.archive.org/web/20190215131142/https://www.jhaurawachsman.com/2013/css-triangles-border-stroke/
 
 ### Use pixi-sound [+ref]
-[ ] Refactor to use pixi-soundπ
+[x] Refactor to use pixi-sound
+[ ] Use a filter on music when menu is opened
+[ ] Continue playing music when scene changes. When 

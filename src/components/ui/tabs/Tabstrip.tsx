@@ -1,6 +1,6 @@
 import React from "react";
 import { Props as TabProps } from "./Tab";
-import { SoundManager, Sound } from 'global/SoundManager';
+import { SoundManager} from 'global/SoundManager';
 import "./styles/tabstrip.scss";
 
 export interface Props {
@@ -33,7 +33,7 @@ const Tabstrip = (props: Props) => {
     };
 
     const handleClick = (e: React.MouseEvent<Element>) => {
-        SoundManager.playSound(Sound.buttonClick);
+        SoundManager.playSound("ui/buttonClick");
         if (props.onClick) {
             props.onClick(e);
         }
