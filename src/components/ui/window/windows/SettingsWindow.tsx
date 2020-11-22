@@ -1,82 +1,56 @@
 import { withWindow } from "hoc/withWindow";
 import * as React from "react";
 import { compose } from "redux";
-import { ChangeEvent, useRef } from 'react';
-import { SoundManager } from 'global/SoundManager';
-import "./styles/settings.scss";
+import { ChangeEvent } from 'react';
+import { Channel, SoundManager } from 'global/SoundManager';
 import gsap from 'gsap';
+import "./styles/settings.scss";
 
 const SettingsWindow = () => {
 
-    const soundSlider = useRef<HTMLInputElement>(null);
-    const musicSlider = useRef<HTMLInputElement>(null);
+    const getChannelControls = (channel: Channel) => {
+        const handleVolumeChange = (e: ChangeEvent<HTMLInputElement>) => {
+            const linear = parseFloat(e.target.value);
+            const log = Math.pow(linear, 2);
+            SoundManager.setChannelVolume(channel, log);
+        };
+        const handleMuteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+            const slider = (e.currentTarget as HTMLButtonElement).parentNode!.lastChild;
+            gsap.to(slider, {
+                duration: .5,
+                value: 0,
+                onComplete: () => {
+                    SoundManager.setChannelVolume(channel, 0);
+                }
+            });
+        }
 
-    const handleSoundMuteClick = () => {
-        gsap.to(soundSlider.current, {
-            duration: .5,
-            value: 0,
-            onComplete: () => {
-                SoundManager.soundVolume = 0;
-            }
-        });
+        return (
+            <p>
+                <label>{Channel[channel]}</label>
+                <button onClick={handleMuteClick}>
+                    <span role="img" aria-label="Mute">🔇</span>
+                </button>
+                <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    onChange={handleVolumeChange}
+                    defaultValue={`${Math.sqrt(SoundManager.getChannelVolume(channel))}`}
+                />
+            </p>
+        )
     }
-    const handleMusicMuteClick = () => {
-        gsap.to(musicSlider.current, {
-            duration: .5,
-            value: 0,
-            onComplete: () => {
-                SoundManager.musicVolume = 0;
-            }
-        });
-    }
-
-    const handleSoundChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const linear = parseFloat(e.target.value);
-        const log = Math.pow(linear, 2);
-        SoundManager.soundVolume = log;
-    };
-
-    const handleMusicChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const linear = parseFloat(e.target.value);
-        const log = Math.pow(linear, 2);
-        SoundManager.musicVolume = log;
-    };
 
     return (
         <div className="settings-window">
             <details open = { true } className="sound" >
-                <summary>Sound</summary>
+                <summary>Sound volume</summary>
                 <section>
-                    <p>
-                        <label>Sound</label>
-                        <button onClick={handleSoundMuteClick}>
-                            <span role="img" aria-label="Mute">🔇</span>
-                        </button>
-                        <input
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.05"
-                            ref={soundSlider}
-                            onChange={handleSoundChange}
-                            defaultValue={`${Math.sqrt(SoundManager.soundVolume)}`}
-                        />
-                    </p>
-                    <p>
-                        <label>Music</label>
-                        <button onClick={handleMusicMuteClick}>
-                            <span role="img" aria-label="Mute">🔇</span>
-                        </button>
-                        <input
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.05"
-                            ref={musicSlider}
-                            onChange={handleMusicChange}
-                            defaultValue={`${Math.sqrt(SoundManager.musicVolume)}`}
-                        />
-                    </p>
+                    {getChannelControls(Channel.ui)}
+                    {getChannelControls(Channel.scene)}
+                    {getChannelControls(Channel.music)}
                 </section>
             </details>
         </div>

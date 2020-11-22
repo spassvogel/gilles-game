@@ -19,7 +19,6 @@ const ActionPath = forwardRef((props: Props, ref: React.Ref<RefActions>) => {
     const graphicsRef = useRef<PIXI.Graphics>(null);
 
     useImperativeHandle(ref, () => {
-        // console.log(graphicsRef.current.parent)
         return {
             drawAction: (from: PIXI.Point, to: PIXI.Point, allowed: boolean = true)=> {
                 const grfx = graphicsRef.current;

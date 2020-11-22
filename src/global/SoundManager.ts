@@ -39,25 +39,26 @@ type SoundInfo = {
     storePosition?: boolean;
 }
 
-const DEFAULT_MUSIC_VOLUME = 0;
-const STORAGE_KEY_MUSIC_VOLUME = "musicVolume";
-const DEFAULT_SOUND_VOLUME = 1;
-const STORAGE_KEY_SOUND_VOLUME = "soundVolume";
+const DEFAULT_MUSIC_VOLUME = 0.2;
+const DEFAULT_UI_VOLUME = 1;
+const DEFAULT_SCENE_VOLUME = 1;
+const STORAGE_KEY_VOLUME = "channelVolume";
 
 export class SoundManager {
     private static _sounds: { [key: string]: PIXI.sound.Sound[] } = {};
     private static _currentSound: { [key: number]: SoundInfo } = {};    // per channel
     private static _storedPositions: { [key: string]: number } = {};
 
-    private static _musicVolume: number = DEFAULT_MUSIC_VOLUME;
-    private static _soundVolume: number = DEFAULT_SOUND_VOLUME;
+    private static _channelVolume: {[key: number]: number} = {};
     private static _initialized = false;
 
     public static async init() {
         // Attempt to fetch volumes from storage. If not set, revert to defaults
-        this._musicVolume = await localforage.getItem(STORAGE_KEY_MUSIC_VOLUME) || DEFAULT_MUSIC_VOLUME;
-        this._soundVolume = await localforage.getItem(STORAGE_KEY_SOUND_VOLUME) || DEFAULT_SOUND_VOLUME;
-
+        this._channelVolume = {
+            [(Channel.music)]: await localforage.getItem(`${STORAGE_KEY_VOLUME}-${Channel.music}`) ?? DEFAULT_MUSIC_VOLUME,
+            [(Channel.ui)]: await localforage.getItem(`${STORAGE_KEY_VOLUME}-${Channel.ui}`) ?? DEFAULT_UI_VOLUME,
+            [(Channel.scene)]: await localforage.getItem(`${STORAGE_KEY_VOLUME}-${Channel.scene}`) ?? DEFAULT_SCENE_VOLUME,
+        }
         this._initialized = true;
     }
 
@@ -95,8 +96,9 @@ export class SoundManager {
             await this.init();
         }
         const pixiSound = this.getSound(sound);
-        pixiSound.volume = this.soundVolume;
+        pixiSound.volume = this._channelVolume[channel];
         pixiSound.loop = loop;
+
         if (this._currentSound[channel]?.storePosition) {
             // Did we have to store the position of the current sound?
             const oldSoundInfo = this._currentSound[channel];
@@ -141,24 +143,15 @@ export class SoundManager {
         }
      }
 
-    static set soundVolume(volume: number) {
-        this._soundVolume = volume;
-        localforage.setItem(STORAGE_KEY_SOUND_VOLUME, volume);
+    static getChannelVolume(channel: Channel): number {
+        return this._channelVolume[channel];
     }
 
-    static get soundVolume(): number {
-        return this._soundVolume;
-    }
-
-    static set musicVolume(volume: number) {
-        // if (currentMusicTrack) {
-        //     //musicTracks[currentMusicTrack].volume(volume);
-        // }
-        this._musicVolume = volume;
-        localforage.setItem(STORAGE_KEY_MUSIC_VOLUME, volume);
-    }
-
-    static get musicVolume() : number {
-        return this._musicVolume;
+    static setChannelVolume(channel: Channel, volume:number) {
+        this._channelVolume[channel] = volume;
+        if(this._currentSound[channel]?.instance) {
+            this._currentSound[channel].instance.volume = volume;
+        }
+        localforage.setItem(`${STORAGE_KEY_VOLUME}-${channel}`, volume);
     }
 }

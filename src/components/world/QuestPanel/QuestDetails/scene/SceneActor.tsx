@@ -1,13 +1,14 @@
 import React, { useMemo,  useEffect, useRef, useCallback, PropsWithChildren, useState, memo } from 'react';
+import { gsap } from 'gsap';
 import { Container } from '@inlet/react-pixi';
 import { MultiColorReplaceFilter } from 'pixi-filters';
 import { SceneActionType, SceneAction } from 'store/types/scene';
 import { useDispatch, useSelector } from 'react-redux';
 import { completeSceneAction } from 'store/actions/quests';
 import { StoreState } from 'store/types';
-import { gsap } from 'gsap';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import SpriteAnimated from './SpriteAnimated';
+import { SoundManager } from 'global/SoundManager';
 
 export interface Props  {
     name: string;
@@ -123,6 +124,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                 case SceneActionType.slash: {
                     determineOrientation();
                     setAnimation("attack");
+                    SoundManager.playSound("scene/swish");
                     const attackComplete = () => {
                         setAnimation("stand");
                         dispatch(completeSceneAction(props.controller.questName));

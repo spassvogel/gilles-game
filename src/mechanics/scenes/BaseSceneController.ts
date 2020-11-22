@@ -1,11 +1,11 @@
 import { Store, AnyAction } from "redux";
 import { getExtendedTilemapObjects, ExtendedTiledObjectData, addAllTilesInLayerToList, locationEquals, TiledObjectType } from 'utils/tilemap';
 import { StoreState } from 'store/types';
-import { loadResource, loadResourceAsync } from 'utils/pixiJs';
+import { loadResourceAsync } from 'utils/pixiJs';
 import { TiledMapData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'store/types/adventurer';
-import { setScene, setSceneName, exitEncounter, enqueueSceneAction, deductActorAp } from 'store/actions/quests';
+import { setScene, setSceneName, exitEncounter, enqueueSceneAction } from 'store/actions/quests';
 import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
