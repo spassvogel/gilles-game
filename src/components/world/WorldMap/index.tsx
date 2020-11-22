@@ -18,9 +18,11 @@ import { getDefinition } from 'definitions/quests';
 import { TextManager } from 'global/TextManager';
 import { getQuestLeader } from 'store/helpers/storeHelpers';
 import { StoreState } from 'store/types';
-import './styles/worldMap.scss';
 import useQuest from 'hooks/store/useQuest';
 import { setCombat } from 'store/actions/quests';
+import { useHistory } from 'react-router-dom';
+import { getWorldLink } from 'utils/routing';
+import './styles/worldMap.scss';
 
 window.PIXI = PIXI; // workaround for pixi-tilemap
 const FULL_HEIGHT = 1024;
@@ -42,14 +44,19 @@ const WorldMap = (props: Props) => {
         (state: StoreState) => state.quests.find((q) => q.name === props.selectedQuestName),
         [props.selectedQuestName]
     );
-    
+
     const selectedQuest = useSelector<StoreState, QuestStoreState | undefined>(questSelector);
     const adventurers = useSelector<StoreState, AdventurerStoreState[]>((store) => store.adventurers);
     const activeQuests = useSelector<StoreState, QuestStoreState[]>((store) => selectActiveQuests(store));
+    const history = useHistory();
 
     const handlePartyClick = (name: string) => {
         props.onPartyClick(name);
     };
+
+    const handleClose = () => {
+        history.push(getWorldLink());
+    }
 
     // useEffect(() => {
     //     const onScroll = (e: WheelEvent) => {
@@ -98,6 +105,10 @@ const WorldMap = (props: Props) => {
     useEffect(() => {
         if (selectedQuest) {
             focusOnQuestingParty(selectedQuest);
+        } else {
+            const viewport = viewportRef.current!;
+            const point = nodeLocationToPoint({ x: 0, y: 0 });
+            viewport.moveCenter(point.x, point.y); 
         }
     }, [selectedQuest, canvasHeight])
 
@@ -188,7 +199,7 @@ const WorldMap = (props: Props) => {
                         <DebugToggleCombat questName={props.selectedQuestName} />
                         {TextManager.getQuestTitle(props.selectedQuestName)}
                     </span>
-                    <span onClick={() => handlePartyClick(props.selectedQuestName!)}>x</span>
+                    <span onClick={handleClose} className="close">x</span>
                 </div>
             )}
         </div>

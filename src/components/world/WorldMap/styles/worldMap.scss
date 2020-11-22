@@ -15,5 +15,11 @@
         padding: 0 8px;
         justify-content: space-between;
         box-sizing: border-box;
+
+        .close {
+            display: inline-block;
+            text-align: center;
+            width: 16px;
+        }
     }
 }

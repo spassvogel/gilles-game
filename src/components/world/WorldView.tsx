@@ -47,11 +47,12 @@ const WorldView = () => {
     // };
 
     const handlePartyClick = (questName: string) => {
-        if (questName === selectedQuestName) {
-            history.push(getWorldLink());
-        } else {
+        console.log('handlePartyClick', questName);
+        // if (questName === selectedQuestName) {
+        //     history.push(getWorldLink());
+        // } else {
             history.push(getQuestLink(questName));
-        }
+        // }
         SoundManager.playSound("ui/buttonClick");
     };
 
