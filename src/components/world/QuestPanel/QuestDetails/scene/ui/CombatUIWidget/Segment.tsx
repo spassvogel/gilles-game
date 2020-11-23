@@ -3,12 +3,13 @@ import React, { useEffect, useMemo, useState } from 'react';
 interface Props {
     position: "w" | "sw" | "s" | "se" | "e";
     icon?: string;
+    activated: boolean;
     onActivate?: () => void;
     onDeactivate?: () => void;
 }
 
 const Segment = (props: Props) => {
-    const {icon, onActivate, onDeactivate} = props;
+    const {icon, onActivate, onDeactivate, activated} = props;
     const segmentWidth = 32;
     const segmentHeight = 46;
     const tileWidth = 100;
@@ -23,13 +24,14 @@ const Segment = (props: Props) => {
         }
     }, [props.position]);
 
+    const scale = activated ? 'scale(1.2)' : '';
     const style = {
-        transform: `translate(${segmentWidth}px, ${tileHeight/2 - segmentHeight/2}px) rotate(${rot}deg) translateX(44px)`,
+        transform: `translate(${segmentWidth}px, ${tileHeight/2 - segmentHeight/2}px) ${scale} rotate(${rot}deg) translateX(${activated ? 36 : 44}px)`,
         background: `url(${process.env.PUBLIC_URL}/img/scene/ui/combat/ring-segment.svg)`,
         width: segmentWidth,
-        height: segmentHeight
+        height: segmentHeight,
+        zIndex: activated ? "2" : "initial"
     }
-
     // const rotate = true;
     // useEffect(() => {
     //     if (rotate){
@@ -43,6 +45,7 @@ const Segment = (props: Props) => {
 
     return (
         <div
+            // @ts-ignore (todo: zIndex typing error?)
             style={style}
             className="segment"
             onMouseOver={onActivate}

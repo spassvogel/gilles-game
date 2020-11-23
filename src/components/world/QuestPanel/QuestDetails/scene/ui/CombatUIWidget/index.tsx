@@ -54,10 +54,10 @@ const CombatUIWidget = (props: Props) => {
 
     const handleSegmentDeactivate = (_action: SceneActionType) => {
         onActionChange(undefined);
-        //setText("") // todo enablee
+        // setText("") // todo enablee
     }
 
-    
+
     return (
         <div
             className={`combat-ui-widget ${collapsed ? "collapsed" : "expanded"}`}
@@ -71,16 +71,22 @@ const CombatUIWidget = (props: Props) => {
                 icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/knife-thrust.svg`}
                 onActivate={() => handleSegmentActivate(SceneActionType.slash)}
                 onDeactivate={() => handleSegmentDeactivate(SceneActionType.slash)}
+                activated={actionIntent?.action === SceneActionType.slash}
             />
-            <Segment position="sw" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/high-shot.svg`}/>
+            <Segment
+                position="sw"
+                icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/high-shot.svg`}
+                activated={false}
+            />
             <Segment
                 position="s"
                 icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/walking-boot.svg`}
                 onActivate={() => handleSegmentActivate(SceneActionType.move)}
                 onDeactivate={() => handleSegmentDeactivate(SceneActionType.move)}
+                activated={actionIntent?.action === SceneActionType.move}
             />
-            <Segment position="se" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/sunken-eye.svg`}/>
-            <Segment position="e" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/crosshair.svg`}/>
+            <Segment position="se" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/sunken-eye.svg`} activated={false}/>
+            <Segment position="e" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/crosshair.svg`} activated={false}/>
             <div className="info" style={{ width: tileWidth }}>
                 {getText(actionIntent)}
             </div>
