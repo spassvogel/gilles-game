@@ -12,7 +12,7 @@ import {
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
-import { AdventurerStoreState, BasicAttributesStoreState } from "store/types/adventurer";
+import { AdventurerColor, AdventurerStoreState, BasicAttributesStoreState } from "store/types/adventurer";
 import { Trait } from 'definitions/traits/types';
 import { WeaponType } from 'definitions/items/weapons';
 
@@ -53,7 +53,8 @@ const testState: AdventurerStoreState[] = [{
     name: "Ximena Maddox",
     traits: [Trait.houseMaddox, Trait.gloomy],
     avatarImg: `${avatarImgBasePath}/female/f_14.png`,
-    spritesheetPath: `${spritesheetBasePath}axethrower.json`,
+    spritesheetPath: `${spritesheetBasePath}archer.json`,
+    color: AdventurerColor.purple,
     skills: {
         [WeaponType.crossbow]: 10,
         [WeaponType.bow]: 10
@@ -73,6 +74,7 @@ const testState: AdventurerStoreState[] = [{
     room: 1,
     avatarImg: `${avatarImgBasePath}/male/m_05.png`,
     spritesheetPath: `${spritesheetBasePath}troll-sword.json`,
+    color: AdventurerColor.teal,
     traits: [Trait.houseHouston],
     skills: {
         [WeaponType.crossbow]: 12,
@@ -99,6 +101,7 @@ const testState: AdventurerStoreState[] = [{
     },
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
     spritesheetPath: `${spritesheetBasePath}skeleton.json`,
+    color: AdventurerColor.black,
     inventory: [ Item.greatswordOfGwai, null, null, null, Item.berserkerShield ],
 }, {
     id: "d299f98a",
@@ -110,7 +113,7 @@ const testState: AdventurerStoreState[] = [{
     baseAP: 6,
     room: 4,
     avatarImg: `${avatarImgBasePath}/male/m_19.png`,
-    spritesheetPath: `${spritesheetBasePath}grunt.json`,
+    spritesheetPath: `${spritesheetBasePath}footman.json`,
     traits: [Trait.arrowFinder],
     skills: {
         [WeaponType.sword]: 13

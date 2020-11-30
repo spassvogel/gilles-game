@@ -10,7 +10,6 @@ import "./styles/worldView.scss";
 export interface Props {
 }
 
-
 /**
  * WorldView shows the map and QuestPanel
  * @param props

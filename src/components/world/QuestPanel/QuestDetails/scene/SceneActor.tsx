@@ -8,10 +8,13 @@ import { completeSceneAction } from 'store/actions/quests';
 import { StoreState } from 'store/types';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import SpriteAnimated from './SpriteAnimated';
-import { SoundManager } from 'global/SoundManager';
+import { Channel, MixMode, SoundManager } from 'global/SoundManager';
+import { AdventurerColor } from 'store/types/adventurer';
+import useQuest from 'hooks/store/useQuest';
 
 export interface Props  {
     name: string;
+    color?: AdventurerColor;
     controller: BaseSceneController<any>;
     location?: [number, number]; // tile coordinate space
     idleAnimation?: boolean;
@@ -34,6 +37,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         location = [0, 0],
         controller,
         idleAnimation,
+        color,
         children,
         ...rest
     } = props;
@@ -41,17 +45,14 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     const actorRef = useRef<PIXI.Container>(null);
     const previousAction = useRef<SceneAction>();
     const dispatch = useDispatch();
-
-    const actionQueueSelector = useCallback(
-        (state: StoreState) => {
-            const quest = state.quests.find((q) => q.name === props.controller.questName)!;
-            if (!quest.scene!.actionQueue) {
-                return [];
-            }
-            return quest.scene!.actionQueue.filter(a => a.actorId === props.name);
-        },
-        [props.name, props.controller.questName]
-    );
+    const quest = useQuest(props.controller.questName);
+    const actionQueueSelector = useCallback(() => {
+        if (!quest.scene?.actionQueue) {
+            return [];
+        }
+        return quest.scene!.actionQueue.filter(a => a.actorId === props.name);
+    },
+    [quest.scene, props.name]);
     const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
     const [animation, setAnimation] = useState("stand");
 
@@ -64,7 +65,6 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         if (!actorRef) {
             return;
         }
-
         // Determines orientation based on where the target is
         const determineOrientation = () => {
             if (location[0] === nextAction.target[0] && location[1] > nextAction.target[1]) {
@@ -93,8 +93,8 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
             }
         }
         const nextAction = actionQueue[0];
-        if (nextAction) {
-            // console.log(`next action is ${nextAction.target} (${nextAction.actionType}), \ncurrent location is: ${location}\nprev action was ${previousAction?.current?.target} `)
+        if (nextAction && nextAction !== previousAction.current) {
+            //console.log(`next action is ${nextAction.target} (${nextAction.actionType}), \ncurrent location is: ${location}\nprev action was ${previousAction?.current?.target} `)
             switch (nextAction.actionType) {
                 case SceneActionType.move: {
                     const moveComplete = () => {
@@ -124,7 +124,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                 case SceneActionType.slash: {
                     determineOrientation();
                     setAnimation("attack");
-                    SoundManager.playSound("scene/swish");
+                    SoundManager.playSound("scene/swish", Channel.scene, false, MixMode.singleInstance);
                     const attackComplete = () => {
                         setAnimation("stand");
                         dispatch(completeSceneAction(props.controller.questName));
@@ -153,7 +153,6 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         if (!spritesheetPath) return;
 
         if (!PIXI.Loader.shared.resources[spritesheetPath]?.textures){
-            console.log(PIXI.Loader.shared.resources)
             throw new Error(`No textures for ${spritesheetPath}`);
         }
         const allFrames = Object.keys(PIXI.Loader.shared.resources[spritesheetPath].textures!);
@@ -260,6 +259,29 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         }
     }, [animation, orientation]);
 
+    const filters = useMemo<PIXI.Filter[]>(() => {
+        switch (color) {
+            case AdventurerColor.black:
+                return [createColorReplaceFilter(BLUES, BLACK)];
+            case AdventurerColor.orange:
+                return [createColorReplaceFilter(BLUES, ORANGE)];
+            case AdventurerColor.purple:
+                return [createColorReplaceFilter(BLUES, PURPLE)];
+            case AdventurerColor.red:
+                return [createColorReplaceFilter(BLUES, REDS)];
+            case AdventurerColor.teal:
+                return [createColorReplaceFilter(BLUES, TEALS)];
+            case AdventurerColor.white:
+                return [createColorReplaceFilter(BLUES, WHITE)];
+            case AdventurerColor.yellow:
+                return [createColorReplaceFilter(BLUES, YELLOW)];
+
+            case AdventurerColor.blue:
+            default:
+                return [];
+        }
+    }, [color])
+
     return (
         <Container x={x} y={y} ref={actorRef} {...rest}>
             { spritesheetPath && frames && (
@@ -273,9 +295,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                     scale={[(flipped.current ? -1 : 1), 1]}
                     anchor={[.5, .5]}
                     pivot={[0, 0]}
-                    filters={[
-                        createColorReplaceFilter(BLUES, PURPLE)
-                    ]}
+                    filters={filters}
                 />
             )}
             {children}

@@ -89,7 +89,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
         mouseDown.current = false;
 
-        // setCursorLocation(undefined);
+        // setCursorLocation(undefined); // todo: uncomment to debug
         if (!actionIntent) {
             return
         }

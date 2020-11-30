@@ -6,6 +6,7 @@ export interface AdventurerStoreState {
     name: string;
     avatarImg: string;
     spritesheetPath: string;            // Path to JSON of spritesheet to use in scenes
+    color?: AdventurerColor;
     traits?: Trait[];
     health: number;                     // When this reaches zero, the adventurer is dead
     xp: number;
@@ -16,6 +17,17 @@ export interface AdventurerStoreState {
     basicAttributes: BasicAttributesStoreState;
     skills: SkillsStoreState;           // 
     room: number;                       // Adventurer is lodged in this room in the tavern
+}
+
+export enum AdventurerColor {
+    blue,
+    red,
+    teal,
+    purple,
+    orange,
+    black,
+    white,
+    yellow
 }
 
 export interface EquipmentStoreState {
