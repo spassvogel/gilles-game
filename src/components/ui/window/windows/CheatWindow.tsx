@@ -1,5 +1,6 @@
 import * as React from "react";
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
+import Select from 'react-select';
 import { getDefinition } from "definitions/items";
 import { Item, ItemType } from "definitions/items/types";
 import { getDefinition as getStructureDefinition, Structure } from "definitions/structures";
@@ -21,6 +22,8 @@ import { addItemToWarehouse } from 'store/actions/items';
 import { withWindow } from 'hoc/withWindow';
 import { addWorkers } from 'store/actions';
 import { getTimeMultiplier, setCheatTimeMultiplier, TimeType } from 'mechanics/time';
+import ItemIcon from "components/ui/items/ItemIcon";
+import { IconSize } from "components/ui/common/Icon";
 import "./styles/cheat.scss";
 
 
@@ -30,12 +33,13 @@ export interface Props {
 
 const CheatWindow = (props: Props) => {
 
-    const itemSelectRef = useRef<HTMLSelectElement>(null);
+    const itemSelectRef = useRef(null);
     const [cheats, setCheats] = useState({
         gold: 50,
         resources: 50,
         workers: 10,
     });
+    const [selectedItem, setSelectedItem] = useState<string|null>();
     const dispatch = useDispatch();
     const [timeMultiplier, setTimeMultiplier] = useState(getTimeMultiplier(TimeType.cheat));
 
@@ -96,32 +100,6 @@ const CheatWindow = (props: Props) => {
         );
     };
 
-    const getItemTypeOptions = (type: ItemType) => {
-        return Object.keys(Item)
-            // eslint-disable-next-line eqeqeq
-            // tslint:disable-next-line: triple-equals
-            .filter((item: string) => getDefinition(item as Item).itemType == type)
-            .map((item: string) => getItemOption(item as Item));
-    };
-
-    const getItemOption = (item: Item) => {
-        return (
-            <option value={item} key={item}>
-                { TextManager.getItemName(item)}
-            </option>
-        );
-    };
-
-    const items = Object.keys(ItemType)
-        .filter((val: any) => !isNaN(val))
-        .map((type: string) => {
-            return (
-                <optgroup label={ItemType[type]} key={type}>
-                    { getItemTypeOptions(type as unknown as ItemType)}
-                </optgroup>
-            );
-        });
-
     const handleCheatGold = (evt: React.MouseEvent<HTMLButtonElement>) => {
         const amount = cheats.gold;
         onCheatGold(amount);
@@ -146,7 +124,7 @@ const CheatWindow = (props: Props) => {
     }
 
     const handleCheatItem = (evt: React.MouseEvent<HTMLButtonElement>) => {
-        const item = itemSelectRef.current!.value as Item;
+        const item = selectedItem as Item;
         onCheatItem(item);
 
         const text = TextManager.get("common-cheat-item-added", { item });
@@ -193,6 +171,24 @@ const CheatWindow = (props: Props) => {
         setCheatTimeMultiplier(value);
     }
 
+    const items = useMemo(() => (Object.keys(ItemType)
+        .filter((val: any) => !isNaN(val))
+        .map((type: string) => {
+            return {
+                label: ItemType[type],
+                value: "",
+                subtext: "",
+                options: Object.keys(Item)
+                    .filter((item: string) => ItemType[getDefinition(item as Item).itemType] === ItemType[type])
+                    .map((item: string) => ({
+                        value: item,
+                        label: TextManager.getItemName(Item[item]),
+                        subtext: TextManager.getItemSubtext(Item[item]),
+                    }))
+            }
+        })
+    ), []);
+
     return (
         <div className="cheat-window">
             <div className="label-numberbox-button">
@@ -221,9 +217,35 @@ const CheatWindow = (props: Props) => {
             </div>
             <div className="label-numberbox-button">
                 <label>Items</label>
-                <select style={{ width: "150px" }} ref={itemSelectRef}>
-                    {items}
-                </select>
+                <Select
+                    ref={itemSelectRef}
+                    styles={{
+                        container: (provided, state) => ({
+                            ...provided,
+                            flex: 1
+                        }),
+                        option: (provided, state) => ({
+                            ...provided,
+                            padding: '4px 12px'
+                        })
+                    }}
+                    onChange={(e) => setSelectedItem(e?.value)}
+                    formatGroupLabel={(data) => (
+                        <div className="item-group">
+                            <div className="item-group-label">{data.label}</div>
+                            <div className="item-group-count">{data.options.length} items</div>
+                        </div>
+                    )}
+                    formatOptionLabel={option => (
+                        <div className="item-option">
+                            <ItemIcon item={option.value as Item} size={IconSize.smallest} />
+                            <div className="item-label">
+                                {option.label}
+                                <span>{option.subtext}</span>
+                            </div>
+                        </div>
+                    )}
+                    options={items} />
                 <button onClick={handleCheatItem}>Add</button>
             </div>
             <div className="label-range-value">
@@ -244,3 +266,4 @@ const CheatWindow = (props: Props) => {
 }
 
 export default withWindow(CheatWindow);
+

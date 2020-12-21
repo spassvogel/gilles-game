@@ -5,7 +5,7 @@ import { Item, ItemType } from "./types";
 const itemType = ItemType.material;
 const basePath = "/img/items/materials/";
 
-export default {
+const all = {
     [Item.arrowheads]: {
         item: Item.arrowheads,
         itemType,
@@ -87,3 +87,5 @@ export default {
         iconImg: `${basePath}thread.png`,
     },
 };
+
+export default all;
