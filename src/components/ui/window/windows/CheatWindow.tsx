@@ -33,7 +33,6 @@ export interface Props {
 
 const CheatWindow = (props: Props) => {
 
-    const itemSelectRef = useRef(null);
     const [cheats, setCheats] = useState({
         gold: 50,
         resources: 50,
@@ -218,7 +217,7 @@ const CheatWindow = (props: Props) => {
             <div className="label-numberbox-button">
                 <label>Items</label>
                 <Select
-                    ref={itemSelectRef}
+                    placeholder={"Find item in any category..."}
                     styles={{
                         container: (provided, state) => ({
                             ...provided,
