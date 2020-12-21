@@ -27,9 +27,10 @@ const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
     }, [questName, sceneName, store]);
 
     useEffect(() => {
+        setLoaded(false);
         if (sceneName && controller) {
-            setLoaded(false);
             const loadingComplete = () => {
+                console.log('load complete')
                 setLoaded(true);
 
                 // If the store has no scene for this quest yet, create and store it!

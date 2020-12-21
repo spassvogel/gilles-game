@@ -66,7 +66,7 @@
                 {
                  "height":100,
                  "id":5,
-                 "name":"",
+                 "name":"start1",
                  "rotation":0,
                  "type":"adventurerStart",
                  "visible":true,
@@ -77,7 +77,7 @@
                 {
                  "height":100,
                  "id":6,
-                 "name":"",
+                 "name":"start2",
                  "rotation":0,
                  "type":"adventurerStart",
                  "visible":true,
@@ -88,7 +88,7 @@
                 {
                  "height":100,
                  "id":7,
-                 "name":"",
+                 "name":"start5",
                  "rotation":0,
                  "type":"adventurerStart",
                  "visible":true,
@@ -99,7 +99,7 @@
                 {
                  "height":100,
                  "id":8,
-                 "name":"",
+                 "name":"start4",
                  "rotation":0,
                  "type":"adventurerStart",
                  "visible":true,
@@ -110,7 +110,7 @@
                 {
                  "height":100,
                  "id":9,
-                 "name":"",
+                 "name":"start3",
                  "rotation":0,
                  "type":"adventurerStart",
                  "visible":true,
@@ -128,6 +128,16 @@
                          "name":"interactive",
                          "type":"bool",
                          "value":true
+                        }, 
+                        {
+                         "name":"items",
+                         "type":"string",
+                         "value":"nomadHelmet,teeth, poisonVial,fedora,tophat"
+                        }, 
+                        {
+                         "name":"title",
+                         "type":"string",
+                         "value":"encounter-dungeon-caches-chest"
                         }],
                  "rotation":0,
                  "type":"lootCache",
@@ -153,6 +163,39 @@
                  "width":100,
                  "x":400,
                  "y":600
+                }, 
+                {
+                 "height":100,
+                 "id":16,
+                 "name":"enemy3",
+                 "rotation":0,
+                 "type":"enemySpawn",
+                 "visible":true,
+                 "width":100,
+                 "x":500,
+                 "y":100
+                }, 
+                {
+                 "height":100,
+                 "id":17,
+                 "name":"enemy1",
+                 "rotation":0,
+                 "type":"enemySpawn",
+                 "visible":true,
+                 "width":100,
+                 "x":300,
+                 "y":100
+                }, 
+                {
+                 "height":100,
+                 "id":18,
+                 "name":"enemy2",
+                 "rotation":0,
+                 "type":"enemySpawn",
+                 "visible":true,
+                 "width":100,
+                 "x":400,
+                 "y":100
                 }],
          "opacity":1,
          "properties":[
@@ -167,7 +210,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":16,
+ "nextobjectid":19,
  "orientation":"orthogonal",
  "properties":[
         {
@@ -176,7 +219,7 @@
          "value":"level2"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.4.1",
+ "tiledversion":"1.4.3",
  "tileheight":100,
  "tilesets":[
         {

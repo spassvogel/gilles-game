@@ -73,7 +73,7 @@ const testState: AdventurerStoreState[] = [{
     baseAP: 6,
     room: 1,
     avatarImg: `${avatarImgBasePath}/male/m_05.png`,
-    spritesheetPath: `${spritesheetBasePath}troll-sword.json`,
+    spritesheetPath: `${spritesheetBasePath}archer.json`,
     color: AdventurerColor.teal,
     traits: [Trait.houseHouston],
     skills: {
