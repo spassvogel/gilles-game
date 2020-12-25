@@ -1,4 +1,4 @@
-// Utilities for routing 
+// Utilities for routing
 
 import { Structure } from 'definitions/structures';
 

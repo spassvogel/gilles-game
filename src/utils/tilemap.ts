@@ -1,4 +1,4 @@
-import { TiledMapData, TiledObjectData, TiledLayerType, TiledProperty, TiledLayerData } from 'constants/tiledMapData';
+import { TiledMapData, TiledObjectData, TiledLayerType, TiledProperty, TiledLayerData, TiledTilesetData } from 'constants/tiledMapData';
 
 /* Tiled doesnt export the tile location of an Object. This function calculates it based on x and y.
 * Also returns a convenience object with all properties
@@ -23,16 +23,17 @@ export const getExtendedTilemapObjects = (tilemapData: TiledMapData) => {
                 ezProps,
                 ...value
             };
-            acc[`${location[0]},${location[1]}`] = extended; // todo: what if object alraedy exists at this location?
+            acc[`${location[0]},${location[1]}`] = extended; // todo: what if object already exists at this location?
             return acc;
         }, objects);
     });
+    console.log(objects)
     return objects;
 }
 
 // Unpack array of properties into key/value object for fast retrieval
-const parseProperties = (properties?: TiledProperty[]) => {
-    if (!properties) return;
+export const parseProperties = (properties?: TiledProperty[]) => {
+    if (!properties) return {};
     return properties.reduce((acc: {[key: string]: any}, value: TiledProperty) => {
         acc[value.name] = value.value;
         return acc;
@@ -49,6 +50,17 @@ export enum TiledObjectType {
     exit = "exit"
 }
 
+// finds tileset based on gid
+export const findTileset = (gid: number, tilesets: TiledTilesetData[]) => {
+    let tileset;
+    for (let i = tilesets.length - 1; i >= 0; i--) {
+        tileset = tilesets[i];
+        if (tileset.firstgid <= gid) {
+            break;
+        }
+    }
+    return tileset;
+}
 /** Add tiles in this layer to list */
 export const addAllTilesInLayerToList = (list: [number, number][], layer: TiledLayerData, columns: number) => {
     layer.data.reduce((acc: [number, number][], tile, index) => {

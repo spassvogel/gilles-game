@@ -46,7 +46,6 @@ const WorldView = () => {
     // };
 
     const handlePartyClick = (questName: string) => {
-        console.log('handlePartyClick', questName);
         // if (questName === selectedQuestName) {
         //     history.push(getWorldLink());
         // } else {

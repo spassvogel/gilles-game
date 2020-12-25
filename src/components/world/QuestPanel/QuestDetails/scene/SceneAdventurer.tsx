@@ -27,7 +27,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
 
     const adventurer = useAdventurerState(adventurerId);
     const ref = useRef<PIXI.Container>(null);
-    
+
     // Draw a line to indicate the action to take
     const actionPathRef = useRef<RefActions>(null);
     const actionPointsRef = useRef<RefActionPoints>(null);
@@ -72,16 +72,12 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
                     />
                 )}
                 {/* <Sprite
-                    y={-80}
-                    image={`${process.env.PUBLIC_URL}/img/scene/actors/wizard.png`}
-                /> */}
-                <Sprite
                     scale={.1}
                     anchor={.5}
                     x={tileWidth / 2}
                     y={-30}
                     image={`${process.env.PUBLIC_URL}/${adventurer.avatarImg}`}
-                />
+                /> */}
                 { (selected && controller.actorCanInteract(adventurerId)) && (
                     <Container
                         interactive={true}

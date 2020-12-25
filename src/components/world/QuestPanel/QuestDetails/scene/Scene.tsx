@@ -6,7 +6,6 @@ import { ActorObject } from 'store/types/scene';
 import BridgedStage from 'components/pixi/util/BridgedStage';
 import SceneAdventurer from './SceneAdventurer';
 import useTilesetsLoader from 'hooks/useTilesetsLoader';
-import renderObject from './renderObject';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
 import SceneUI, { ActionIntent } from './ui/SceneUI';
 import { locationEquals } from 'utils/tilemap';
@@ -21,7 +20,7 @@ export interface Props {
 const DEBUG_ACTIONQUEUE = false;
 
 const Scene = (props: Props) => {
-    const {selectedActorId} = props;
+    const {selectedActorId, setSelectedActor } = props;
     const controller = useContext(SceneControllerContext)!;
     const mapData = controller.mapData!;
     const basePath = controller.basePath!;
@@ -37,25 +36,6 @@ const Scene = (props: Props) => {
     const {tileWidth, tileHeight} = controller.getTileDimensions();
     const scene = quest.scene!;
     const [currentActionIntent, setCurrentActionIntent] = useState<ActionIntent>();
-
-
-    const renderActors = useCallback(() => {
-        const renderActor = (actor: ActorObject) => {
-            const {id, location} = actor;
-            return (
-                <SceneAdventurer
-                    location={location}
-                    controller={controller}
-                    adventurerId={id}
-                    key={id}
-                    selected={props.selectedActorId === id}
-                    setSelectedAdventurer={props.setSelectedActor}
-                />
-            );
-        }
-        return scene?.actors?.map((o) => renderActor(o));
-
-    }, [controller, props.selectedActorId, props.setSelectedActor, scene?.actors])
 
     useEffect(() => {
         if (!mapData) return;
@@ -86,9 +66,11 @@ const Scene = (props: Props) => {
                         basePath={basePath}
                         data={mapData}
                         spritesheets={tileSpritesheets}
+                        objects={scene.objects}
+                        controller={controller}
+                        selectedActorId={selectedActorId}
+                        setSelectedActor={setSelectedActor}
                     />
-                    { scene.objects.map((o) => renderObject(o, controller, tileSpritesheets ))}
-                    { renderActors()}
                     { currentActionIntent && (<ActionPreview actionIntent={currentActionIntent} tileWidth={tileWidth} tileHeight={tileHeight}/>)}
                 </Container>
             </BridgedStage>

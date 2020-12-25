@@ -15,7 +15,7 @@ export interface AdventurerStoreState {
     equipment: EquipmentStoreState;     // equipment
     inventory: (null | Item)[];
     basicAttributes: BasicAttributesStoreState;
-    skills: SkillsStoreState;           // 
+    skills: SkillsStoreState;           //
     room: number;                       // Adventurer is lodged in this room in the tavern
 }
 

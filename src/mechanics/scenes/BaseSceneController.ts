@@ -1,8 +1,8 @@
 import { Store, AnyAction } from "redux";
-import { getExtendedTilemapObjects, ExtendedTiledObjectData, addAllTilesInLayerToList, locationEquals, TiledObjectType } from 'utils/tilemap';
+import { getExtendedTilemapObjects, ExtendedTiledObjectData, addAllTilesInLayerToList, locationEquals, TiledObjectType, parseProperties } from 'utils/tilemap';
 import { StoreState } from 'store/types';
 import { loadResourceAsync } from 'utils/pixiJs';
-import { TiledMapData } from 'constants/tiledMapData';
+import { TiledLayerType, TiledMapData, TiledObjectData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { setScene, setSceneName, exitEncounter, enqueueSceneAction } from 'store/actions/quests';
@@ -26,10 +26,11 @@ import { Sound, SoundManager } from 'global/SoundManager';
  */
 export class BaseSceneController<TQuestVars> {
 
+    public questName: string;
     public mapData?: TiledMapData;
     public aStar?: AStarFinder;
-    public questName: string;
-    public tilemapObjects?: {[location: string]: ExtendedTiledObjectData};
+    // public tilemapObjects?: {[location: string]: ExtendedTiledObjectData};
+    public objects?: ExtendedTiledObjectData[];
 
     protected jsonPath?: string;
     protected store: Store<StoreState, AnyAction>;
@@ -81,7 +82,7 @@ export class BaseSceneController<TQuestVars> {
         Promise.all(promises).then(async () => {
             const resource = PIXI.Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
             this.mapData = resource.data;
-            this.tilemapObjects = getExtendedTilemapObjects(resource.data);
+            // this.objecs = getExtendedTilemapObjects(resource.data);
             this.mapData!.layers.filter(layer => layer.visible).forEach(layer => {
                 if (layer.properties && layer.properties.some(p => p.name === 'blocksMovement' && p.value === true)){
                     addAllTilesInLayerToList(this.blockedTiles, layer, layer.width);
@@ -148,7 +149,10 @@ export class BaseSceneController<TQuestVars> {
     }
 
     actorMoved(actor: string, location: [number, number]) {
-        const object = this.tilemapObjects![`${location[0]},${location[1]}`];
+        // const object = this.tilemapObjects![`${location[0]},${location[1]}`];
+        // todo!!
+        const object = this.objects![0];
+
         if (!object) return;
 
         if (object.type === "exit") {
@@ -172,10 +176,11 @@ export class BaseSceneController<TQuestVars> {
     actorCanInteract(actorId: string) {
         const {scene} = this.quest;
         const actor = scene?.actors.find(o => o.id === actorId)!;
-        const object = this.tilemapObjects?.[`${actor.location[0]},${actor.location[1]}`];
+        const object = null;
+        // const object = this.tilemapObjects?.[`${actor.location[0]},${actor.location[1]}`];
 
         // todo: should we look for some specific property?
-        return object && object.ezProps?.interactive;
+        return object;// && object.ezProps?.interactive;
     }
 
     actorInteract(actorId: string) {
@@ -186,8 +191,10 @@ export class BaseSceneController<TQuestVars> {
         }
         const {scene} = this.quest;
         const actor = scene?.actors.find(o => o.id === actorId)!;
-        const object = scene?.objects
-            .find(o => locationEquals(o.location, actor.location));
+        const object = null;
+        // todo!!
+        //const object = scene?.objects
+        //    .find(o => locationEquals(o.location, actor.location));
 
         if (!object) {
             // tslint:disable-next-line: no-console
@@ -369,68 +376,77 @@ export class BaseSceneController<TQuestVars> {
     protected createActors(): ActorObject[] {
 
         // todo: add the baddies
-        if (!this.tilemapObjects) {
-            throw new Error("No tilemapObjects");
-        }
+        // todo!!!
+        return [];
+        // const adventurers = this.getAdventurers();
 
-        const adventurers = this.getAdventurers();
-
-        const startLocations = Object.values(this.tilemapObjects)
-            .filter(o => o.type === "adventurerStart")
-            .map(o => o.location);
-        if (adventurers.length > startLocations.length) {
-            throw new Error("Not enough objects with 'adventurerStart' property set to true");
-        }
-        return adventurers.reduce((acc: ActorObject[], value: AdventurerStoreState, index: number) => {
-            const location = startLocations[index];
-            const ap = calculateInitialAp(value);
-            acc.push({
-                location,
-                id: value.id,
-                ap
-            });
-            return acc;
-        }, []);
+        // const startLocations = Object.values(this.tilemapObjects)
+        //     .filter(o => o.type === "adventurerStart")
+        //     .map(o => o.location);
+        // if (adventurers.length > startLocations.length) {
+        //     throw new Error("Not enough objects with 'adventurerStart' property set to true");
+        // }
+        // return adventurers.reduce((acc: ActorObject[], value: AdventurerStoreState, index: number) => {
+        //     const location = startLocations[index];
+        //     const ap = calculateInitialAp(value);
+        //     acc.push({
+        //         location,
+        //         id: value.id,
+        //         ap
+        //     });
+        //     return acc;
+        // }, []);
     }
 
     // These objects are saved in store
     protected createObjects(): SceneObject[] {
-        if (!this.tilemapObjects) {
-            throw new Error("No tilemapObjects");
+        if (!this.mapData) {
+            throw new Error("No mapData");
         }
+        const objectLayers = this.mapData.layers.filter(layer => layer.type === TiledLayerType.objectgroup);
+        const objects: SceneObject[] = [];
+        const adventurers = this.getAdventurers();
+        objectLayers.forEach(objectLayer => {
+            objectLayer.objects.reduce((acc:  SceneObject[], value: TiledObjectData) => {
 
-        return Object.values(this.tilemapObjects)
-            .map(o => this.createObject(o))
-            .filter((o): o is SceneObject => o !== null);   // filter out null values
+                // reduce the props array into an object with key/values
+                const properties = parseProperties(value.properties);
+                const location: [number, number] = [
+                    value.x / (this.mapData?.tilewidth || 1),
+                    value.y / (this.mapData?.tileheight || 1)
+                ];
+
+                const object = {
+                    ...value,
+                    layerId: objectLayer.id,
+                    properties,
+                    location
+                };
+
+                if (object.type === "adventurerStart") {
+                    const adventurer = adventurers.pop();
+                    if (adventurer) {
+                        object.type = "adventurer";
+                        object.name = adventurer.id;
+                        object.properties.adventurerId = adventurer.id;
+                        object.properties.isSprite = true;
+                    }
+                }
+                acc.push(object);
+                return acc;
+            }, objects);
+        });
+        return objects;
     }
 
-    protected createObject(config: ExtendedTiledObjectData): SceneObject | null {
-        switch (config.type) {
-            case TiledObjectType.adventurerStart:
-            case TiledObjectType.exit:
-                return null;
-            default:
-                return config;
-        }
-    }
-
-    // protected createCaches(): { [name: string]: LootCache } {
-    //     return Object.values(this.tilemapObjects!)
-    //         .filter(o => o.type === "lootCache")
-    //         .reduce((acc: { [name: string]: LootCache }, value) => {
-    //             // serialize comma separated string to array of Item
-    //             const items = value.ezProps?.items?.split(",").map((v:string) => {
-    //                 const item = Item[v.trim()];
-    //                 if (item) {
-    //                     return item;
-    //                 }
-    //             }).filter(Boolean);
-    //             acc[value.name] = {
-    //                 title: value.ezProps?.title,
-    //                 items
-    //             }
-    //             return acc;
-    //         }, {});
+    // protected createObject(config: ExtendedTiledObjectData): SceneObject | null {
+    //     switch (config.type) {
+    //         case TiledObjectType.adventurerStart:
+    //         case TiledObjectType.exit:
+    //             return null;
+    //         default:
+    //             return config;
+    //     }
     // }
 
     // Quest
@@ -481,3 +497,4 @@ export class BaseSceneController<TQuestVars> {
     }
 
 }
+

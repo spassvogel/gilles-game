@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="8" height="10" tilewidth="100" tileheight="100" infinite="0" backgroundcolor="#21ff80" nextlayerid="9" nextobjectid="19">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="8" height="10" tilewidth="100" tileheight="100" infinite="0" backgroundcolor="#000000" nextlayerid="12" nextobjectid="21">
  <editorsettings>
   <export target="ork-dungeon-level1.json" format="json"/>
  </editorsettings>
@@ -8,18 +8,21 @@
  </properties>
  <tileset firstgid="1" source="tilesets/ork-dungeon.tsx"/>
  <tileset firstgid="121" source="tilesets/tavern.tsx"/>
+ <tileset firstgid="221" name="interior-walls" tilewidth="100" tileheight="100" tilecount="30" columns="5">
+  <image source="tilesets/interior-walls.png" width="500" height="600"/>
+ </tileset>
  <layer id="2" name="floor" width="8" height="10">
   <data encoding="csv">
-5,7,4,4,4,8,4,105,
-2,5,5,4,105,105,103,6,
-105,4,8,4,83,5,83,2,
-2,105,6,3,21,22,5,6,
+5,2,3,4,4,8,4,0,
+2,2,3,4,105,105,103,0,
+105,4,8,4,83,5,83,3,
+2,105,6,3,3,3,5,6,
 83,5,83,103,105,6,5,105,
 4,105,3,2,103,2,7,6,
-2,3,4,3,105,3,106,7,
-3,2,5,3,4,105,3,83,
-5,7,5,6,2,7,103,4,
-6,7,2,2,2,7,6,3
+2,102,4,3,105,3,4,7,
+0,2,5,3,4,105,3,83,
+0,7,5,6,2,7,103,4,
+0,2,2,2,2,7,6,3
 </data>
  </layer>
  <layer id="1" name="block" width="8" height="10">
@@ -27,28 +30,39 @@
    <property name="blocksMovement" type="bool" value="true"/>
   </properties>
   <data encoding="csv">
-0,14,37,51,53,0,0,9,
-0,24,0,0,0,0,0,0,
-0,0,0,0,11,12,13,53,
-0,88,89,0,0,0,23,51,
-0,98,99,0,31,32,0,53,
-0,0,0,0,0,0,0,52,
-0,0,0,0,0,58,59,49,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+14,0,0,0,0,0,0,0,
+24,0,0,0,0,0,0,51,
+15,0,0,0,0,0,0,53,
+25,0,0,0,0,0,0,52,
+0,0,0,0,0,0,0,49,
 0,0,0,0,0,0,0,53,
 0,0,0,0,0,0,60,51,
-0,65,0,65,0,0,0,52
+0,0,0,0,0,0,0,52
 </data>
  </layer>
- <objectgroup id="7" name="objects">
-  <properties>
-   <property name="type" value="chest"/>
-  </properties>
-  <object id="4" type="exit" x="700" y="100" width="100" height="100">
+ <layer id="9" name="walls-lower" width="8" height="10">
+  <data encoding="csv">
+221,222,223,222,222,222,223,225,
+226,227,228,227,227,227,228,230,
+231,0,0,0,0,0,0,0,
+231,0,0,0,0,0,0,234,
+231,0,0,0,0,0,0,234,
+231,0,0,0,0,0,244,239,
+0,0,0,0,0,0,235,222,
+0,231,0,0,0,0,240,227,
+0,231,0,0,0,0,0,0,
+0,246,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="7" name="OBJECTS">
+  <object id="4" type="exit" x="700" y="200" width="100" height="100">
    <properties>
     <property name="loadScene" value="dungeon.hallway"/>
    </properties>
   </object>
-  <object id="5" name="start1" type="adventurerStart" x="0" y="900" width="100" height="100"/>
+  <object id="5" name="start1" type="adventurerStart" x="300" y="900" width="100" height="100"/>
   <object id="6" name="start2" type="adventurerStart" x="200" y="900" width="100" height="100"/>
   <object id="7" name="start5" type="adventurerStart" x="600" y="900" width="100" height="100"/>
   <object id="8" name="start4" type="adventurerStart" x="500" y="900" width="100" height="100"/>
@@ -65,8 +79,29 @@
     <property name="interactive" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="16" name="enemy3" type="enemySpawn" x="500" y="100" width="100" height="100"/>
-  <object id="17" name="enemy1" type="enemySpawn" x="300" y="100" width="100" height="100"/>
-  <object id="18" name="enemy2" type="enemySpawn" x="400" y="100" width="100" height="100"/>
+  <object id="16" name="enemy3" type="enemySpawn" x="500" y="200" width="100" height="100"/>
+  <object id="17" name="enemy1" type="enemySpawn" x="300" y="200" width="100" height="100"/>
+  <object id="18" name="enemy2" type="enemySpawn" x="400" y="200" width="100" height="100"/>
  </objectgroup>
+ <objectgroup id="10" name="doodads">
+  <object id="19" gid="63" x="100" y="241" width="100" height="100"/>
+  <object id="20" gid="64" x="200" y="241" width="100" height="100"/>
+ </objectgroup>
+ <layer id="11" name="walls-upper" width="8" height="10">
+  <properties>
+   <property name="blocksMovement" type="bool" value="true"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,242,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+236,241,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0
+</data>
+ </layer>
 </map>

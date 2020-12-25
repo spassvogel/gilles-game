@@ -1,4 +1,6 @@
+import { TiledObjectData } from 'constants/tiledMapData';
 import { Item } from 'definitions/items/types';
+import { Overwrite } from 'utils/typescript';
 
 
 export interface SceneStoreState {
@@ -9,13 +11,11 @@ export interface SceneStoreState {
     combat: boolean;
 }
 
-export interface SceneObject {
-    id: number;
-    name?: string;
-    type: string;
-    gid?: number;
-    location: [number, number];
-};
+export type SceneObject = Overwrite<TiledObjectData, {
+    layerId: number;
+    properties: { [key: string]: any};
+    location?: [number, number];
+}>;
 
 export type ActorObject = {
     id: string;                   // todo: refactor to id

@@ -2,10 +2,10 @@ import { PixiComponent } from "@inlet/react-pixi";
 import * as PIXI  from 'pixi.js';
 import { TiledLayerData, TiledTilesetData } from 'constants/tiledMapData';
 import { CompositeRectTileLayer } from 'pixi-tilemap';
+import { findTileset } from "utils/tilemap";
 
 
 interface Props  {
-    // texture: PIXI.Texture;
     horizontalTiles: number;
     layer: TiledLayerData;
     tilesets: TiledTilesetData[];
@@ -45,14 +45,3 @@ const RectTileLayer = PixiComponent<Props, any>("RectTileLayer", {
 export default RectTileLayer;
 
 
-// finds tileset based on gid
-const findTileset = (gid: number, tilesets: TiledTilesetData[]) => {
-    let tileset;
-    for (let i = tilesets.length - 1; i >= 0; i--) {
-        tileset = tilesets[i];
-        if (tileset.firstgid <= gid) {
-            break;
-        }
-    }
-    return tileset;
-}
