@@ -14,7 +14,7 @@ import "./styles/scene.scss";
 
 export interface Props {
     selectedActorId: string;
-    setSelectedActor: (actor: string) => void;
+    setSelectedActor: (id: string) => void;
 }
 
 const DEBUG_ACTIONQUEUE = false;
@@ -43,9 +43,11 @@ const Scene = (props: Props) => {
     }, [loadTilesets, mapData]);
 
     const handleUIMouseDown = (location: [number, number]) => {
-        const actor = scene.actors.find(a => locationEquals(a.location, location));
+        const actor = controller.getObjectAtLocation(location);
+        console.log(controller.sceneActors);
+        console.log(actor)
         if (actor) {
-            props.setSelectedActor(actor.id);
+            props.setSelectedActor(actor.name!);
         }
     }
 

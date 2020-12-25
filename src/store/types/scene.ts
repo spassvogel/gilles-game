@@ -1,11 +1,11 @@
 import { TiledObjectData } from 'constants/tiledMapData';
 import { Item } from 'definitions/items/types';
+import { TiledObjectType } from 'utils/tilemap';
 import { Overwrite } from 'utils/typescript';
 
 
 export interface SceneStoreState {
     objects: SceneObject[];
-    actors: ActorObject[];
     actionQueue?: SceneAction[];
     activeInteractionModal?: SceneInteractionModal;
     combat: boolean;
@@ -17,11 +17,13 @@ export type SceneObject = Overwrite<TiledObjectData, {
     location?: [number, number];
 }>;
 
-export type ActorObject = {
-    id: string;                   // todo: refactor to id
-    location: [number, number];     // current location in the scene
+export type ActorObject = SceneObject & {
     ap: number;                     // Remaining AP
 };
+
+export const isActorObject = (object: SceneObject): object is ActorObject => {
+    return object.type === TiledObjectType.actor;
+}
 
  // export type Actor = SceneObject & {
 //     type: "actor";

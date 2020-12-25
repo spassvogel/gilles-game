@@ -4,11 +4,11 @@ import { SceneObject } from "store/types/scene";
 import { SceneControllerContext } from "../../context/SceneControllerContext";
 import SceneAdventurer from "./SceneAdventurer";
 import { BaseSceneController } from "mechanics/scenes/BaseSceneController";
-import { Props as SceneProps } from "./Scene";
 
-interface Props extends SceneProps {
+interface Props {
   objects: SceneObject[];
   controller: BaseSceneController<any>;
+  selectedActorId: string;
 };
 
 const ObjectSpriteLayer = (props: Props) => {
@@ -26,7 +26,6 @@ const ObjectSpriteLayer = (props: Props) => {
                         adventurerId={adventurerId}
                         key={adventurerId}
                         selected={props.selectedActorId === name }
-                        setSelectedAdventurer={props.setSelectedActor}
                     />
                 )
             })}

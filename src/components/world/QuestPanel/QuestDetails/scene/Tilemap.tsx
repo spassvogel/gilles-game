@@ -42,7 +42,6 @@ const Tilemap = (props: PropsWithChildren<Props>) => {
                                         objects={spriteObjects}
                                         controller={controller}
                                         selectedActorId={selectedActorId}
-                                        setSelectedActor={setSelectedActor}
                                     />
                                 )}
                             </React.Fragment>

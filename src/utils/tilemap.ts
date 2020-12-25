@@ -47,7 +47,8 @@ export type ExtendedTiledObjectData = TiledObjectData & {
 
 export enum TiledObjectType {
     adventurerStart = "adventurerStart",
-    exit = "exit"
+    exit = "exit",
+    actor = "actor"
 }
 
 // finds tileset based on gid

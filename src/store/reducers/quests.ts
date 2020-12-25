@@ -211,12 +211,13 @@ const completeSceneAction = (state: QuestStoreState[], action: QuestAction) => {
 
             switch (sceneAction.actionType) {
                 case SceneActionType.move: {
-                    scene.actors = scene.actors.map((a) => {
-                        if (a.id === sceneAction.actorId) {
-                            return { ...a, location: sceneAction.target };
-                        }
-                        return a;
-                    })
+                    // todo!
+                    // scene.actors = scene.actors.map((a) => {
+                    //     if (a.id === sceneAction.actorId) {
+                    //         return { ...a, location: sceneAction.target };
+                    //     }
+                    //     return a;
+                    // })
                 }
             }
 
@@ -255,16 +256,17 @@ const deductActorAp = (state: QuestStoreState[], action: DeductActorApAction) =>
             const scene = qss.scene;
             if (!scene) throw new Error("Something broke. No scene");
 
-            scene.actors = scene.actors.map(a => {
-                if (a.id === action.actor) {
-                    const ap = a.ap - action.ap;
-                    return {
-                        ...a,
-                        ap
-                    };
-                }
-                return a;
-            })
+            // todo!!
+            // scene.actors = scene.actors.map(a => {
+            //     if (a.id === action.actor) {
+            //         const ap = a.ap - action.ap;
+            //         return {
+            //             ...a,
+            //             ap
+            //         };
+            //     }
+            //     return a;
+            // })
 
             return {
                 ...qss,

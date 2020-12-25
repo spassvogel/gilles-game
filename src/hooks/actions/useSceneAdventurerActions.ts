@@ -1,12 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 import useQuest from 'hooks/store/useQuest';
-import { deductActorAp, enqueueSceneAction } from 'store/actions/quests';
-import { SceneAction, SceneActionType } from 'store/types/scene';
+import { SceneActionType } from 'store/types/scene';
 import { RefActionPoints } from 'components/world/QuestPanel/QuestDetails/scene/ActionPoints';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
-import CombatActionDot from 'pixi/CombatActionsDot';
 
 // todo: deprecated
 const useSceneAdventurerActions = (adventurerId: string, parent: React.RefObject<PIXI.Container>, controller: BaseSceneController<any>, actionPointsRef: React.RefObject<RefActionPoints>, placeCombatUI:  (location: [number, number]) => void) => {
@@ -15,7 +12,7 @@ const useSceneAdventurerActions = (adventurerId: string, parent: React.RefObject
     const { tileWidth, tileHeight } = controller.getTileDimensions();
     const scene = useQuest(controller.questName).scene!;
     const { combat } = scene!;
-    const actor = controller.getActorByAdventurerId(adventurerId)!;
+    const actor = controller.getSceneActor(adventurerId)!;
     const { location } = actor;
 
     useEffect(() => {
@@ -126,7 +123,7 @@ const useSceneAdventurerActions = (adventurerId: string, parent: React.RefObject
             return;
         }
         if (!combat) {
-            controller.actorAttemptAction(actor.id, SceneActionType.move, target);
+            controller.actorAttemptAction(actor.name!, SceneActionType.move, target);
         }
         // if (DEBUG_ASTAR) {
         //     const graphics = new PIXI.Graphics();

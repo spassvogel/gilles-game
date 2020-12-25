@@ -6,7 +6,7 @@ import { TiledLayerType, TiledMapData, TiledObjectData } from 'constants/tiledMa
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { setScene, setSceneName, exitEncounter, enqueueSceneAction } from 'store/actions/quests';
-import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction } from 'store/types/scene';
+import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction, isActorObject } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLink } from 'utils/routing';
@@ -20,6 +20,7 @@ import { addItemToInventory } from 'store/actions/adventurers';
 import { calculateInitialAp } from './actionPoints';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { Sound, SoundManager } from 'global/SoundManager';
+import SceneActor from "components/world/QuestPanel/QuestDetails/scene/SceneActor";
 
 /**
  * This is a type of God class that knows pretty much everything about a scene
@@ -30,7 +31,6 @@ export class BaseSceneController<TQuestVars> {
     public mapData?: TiledMapData;
     public aStar?: AStarFinder;
     // public tilemapObjects?: {[location: string]: ExtendedTiledObjectData};
-    public objects?: ExtendedTiledObjectData[];
 
     protected jsonPath?: string;
     protected store: Store<StoreState, AnyAction>;
@@ -111,13 +111,11 @@ export class BaseSceneController<TQuestVars> {
     // Constructs the scene and dispatches it to be saved to the store
     createScene() {
         const objects = this.createObjects();
-        const actors = this.createActors();
         const combat = true;
 
         // todo: perhaps this should be a class such that stuff that repeats for every scene can be done in a base class
         const scene = {
             objects,
-            actors,
             combat
         }
         this.store.dispatch(setScene(this.questName, scene));
@@ -151,14 +149,14 @@ export class BaseSceneController<TQuestVars> {
     actorMoved(actor: string, location: [number, number]) {
         // const object = this.tilemapObjects![`${location[0]},${location[1]}`];
         // todo!!
-        const object = this.objects![0];
+        //const object = this.objects![0];
+        const destination = this.getObjectAtLocation(location);
+        if (!destination) return;
 
-        if (!object) return;
-
-        if (object.type === "exit") {
+        if (destination.type === TiledObjectType.exit) {
             // We've hit the exit. Should we load another scene?
-            if (object.ezProps?.loadScene) {
-                this.store.dispatch(setSceneName(this.questName, object.ezProps.loadScene))
+            if (destination.properties.loadScene) {
+                this.store.dispatch(setSceneName(this.questName, destination.properties.loadScene))
             } else {
                 // Or exit the encounter
                 const index = Math.floor(this.quest.progress) + 1;
@@ -175,12 +173,12 @@ export class BaseSceneController<TQuestVars> {
 
     actorCanInteract(actorId: string) {
         const {scene} = this.quest;
-        const actor = scene?.actors.find(o => o.id === actorId)!;
-        const object = null;
+        return false;
+        // const actor = scene?.actors.find(o => o.id === actorId)!;
         // const object = this.tilemapObjects?.[`${actor.location[0]},${actor.location[1]}`];
 
         // todo: should we look for some specific property?
-        return object;// && object.ezProps?.interactive;
+        // return object;// && object.ezProps?.interactive;
     }
 
     actorInteract(actorId: string) {
@@ -190,7 +188,7 @@ export class BaseSceneController<TQuestVars> {
             return;
         }
         const {scene} = this.quest;
-        const actor = scene?.actors.find(o => o.id === actorId)!;
+        const actor = this.getSceneActor(actorId)
         const object = null;
         // todo!!
         //const object = scene?.objects
@@ -347,9 +345,12 @@ export class BaseSceneController<TQuestVars> {
         return this.findPath(from, to)?.length || 0;
     }
 
-    getActorByAdventurerId(adventurerId: string) {
-        const { scene } = this.quest;
-        return scene?.actors.find(a => a.id === adventurerId);
+    public getSceneActor(actorId: string): ActorObject {
+        return this.sceneActors.find(sA => sA.name === actorId)!;
+    }
+
+    public getObjectAtLocation(location: [number, number]) {
+        return this.quest.scene?.objects?.find(o => o.location && locationEquals(o.location, location))
     }
 
     protected createAStar() {
@@ -372,32 +373,7 @@ export class BaseSceneController<TQuestVars> {
             weight: 0.2,
         });
     }
-
-    protected createActors(): ActorObject[] {
-
-        // todo: add the baddies
-        // todo!!!
-        return [];
-        // const adventurers = this.getAdventurers();
-
-        // const startLocations = Object.values(this.tilemapObjects)
-        //     .filter(o => o.type === "adventurerStart")
-        //     .map(o => o.location);
-        // if (adventurers.length > startLocations.length) {
-        //     throw new Error("Not enough objects with 'adventurerStart' property set to true");
-        // }
-        // return adventurers.reduce((acc: ActorObject[], value: AdventurerStoreState, index: number) => {
-        //     const location = startLocations[index];
-        //     const ap = calculateInitialAp(value);
-        //     acc.push({
-        //         location,
-        //         id: value.id,
-        //         ap
-        //     });
-        //     return acc;
-        // }, []);
-    }
-
+    
     // These objects are saved in store
     protected createObjects(): SceneObject[] {
         if (!this.mapData) {
@@ -426,7 +402,7 @@ export class BaseSceneController<TQuestVars> {
                 if (object.type === "adventurerStart") {
                     const adventurer = adventurers.pop();
                     if (adventurer) {
-                        object.type = "adventurer";
+                        object.type = TiledObjectType.actor;
                         object.name = adventurer.id;
                         object.properties.adventurerId = adventurer.id;
                         object.properties.isSprite = true;
@@ -464,12 +440,8 @@ export class BaseSceneController<TQuestVars> {
         return !!this.quest.scene?.combat;
     }
 
-    protected get sceneActors() {
-        return this.quest.scene?.actors || [];
-    }
-
-    protected getSceneActor(actorId: string) {
-        return this.sceneActors.find(sA => sA.id === actorId)!;
+    public get sceneActors(): ActorObject[]  {
+        return this.quest.scene?.objects.filter<ActorObject>(isActorObject) || [];
     }
 
     protected getAdventurers(): AdventurerStoreState[] {
@@ -479,7 +451,7 @@ export class BaseSceneController<TQuestVars> {
 
     protected getAdventurerByActor(actor: ActorObject) {
         const storeState = this.store.getState();
-        return storeState.adventurers.find(a => a.id === actor.id);
+        return storeState.adventurers.find(a => a.id === actor.name);
     }
 
     protected questUpdate(input: string | TextEntry, icon?: string, toast: boolean = false) : void {

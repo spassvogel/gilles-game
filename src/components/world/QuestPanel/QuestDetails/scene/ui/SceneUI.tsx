@@ -93,7 +93,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         if (!actionIntent) {
             return
         }
-        const selectedActorLocation = controller.getActorByAdventurerId(selectedActorId)!.location;
+        const selectedActorLocation = controller.getSceneActor(selectedActorId)!.location;
         if (selectedActorLocation && cursorLocation && !locationEquals(selectedActorLocation, cursorLocation)){
             controller.actorAttemptAction(selectedActorId, actionIntent.action, actionIntent.to);
         }
@@ -105,11 +105,12 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             onSetActionIntent(undefined);
             return;
         }
-
+        console.log(controller.sceneActors)
+        console.log(controller.getSceneActor(selectedActorId))
         const {
-            location: from,
+            location: from = [0, 0],
             ap: actorAP,
-        } = controller.getActorByAdventurerId(selectedActorId)!;
+        } = controller.getSceneActor(selectedActorId)!;
         const to = cursorLocation!;
 
         switch (action){

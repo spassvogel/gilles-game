@@ -18,7 +18,7 @@ const ApIndicator = (props: Props) => {
 
     const ap = useMemo(() => {
         if (!controller) return null;
-        return controller.getActorByAdventurerId(props.adventurer.id)?.ap || null;
+        return controller.getSceneActor(props.adventurer.id)?.ap || null;
     }, [controller, props.adventurer.id]);
 
     if (!quest?.scene?.combat) {
