@@ -1,14 +1,11 @@
-import React, { useRef, useEffect, useContext, useCallback, useState } from "react";
+import React, { useRef, useEffect, useContext, useState } from "react";
 import { Container } from '@inlet/react-pixi';
 import useQuest from 'hooks/store/useQuest';
 import Tilemap from './Tilemap';
-import { ActorObject } from 'store/types/scene';
 import BridgedStage from 'components/pixi/util/BridgedStage';
-import SceneAdventurer from './SceneAdventurer';
 import useTilesetsLoader from 'hooks/useTilesetsLoader';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
 import SceneUI, { ActionIntent } from './ui/SceneUI';
-import { locationEquals } from 'utils/tilemap';
 import ActionPreview from './ActionPreview';
 import "./styles/scene.scss";
 
@@ -44,8 +41,6 @@ const Scene = (props: Props) => {
 
     const handleUIMouseDown = (location: [number, number]) => {
         const actor = controller.getObjectAtLocation(location);
-        console.log(controller.sceneActors);
-        console.log(actor)
         if (actor) {
             props.setSelectedActor(actor.name!);
         }

@@ -647,4 +647,4 @@ https://css-tricks.com/sticky-smooth-active-nav/
 ### Use pixi-sound [+ref]
 [x] Refactor to use pixi-sound
 [ ] Use a filter on music when menu is opened
-[ ] Continue playing music when scene changes. When 
+[x] Continue playing music when scene changes. When 

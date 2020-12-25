@@ -213,10 +213,10 @@ const completeSceneAction = (state: QuestStoreState[], action: QuestAction) => {
                 case SceneActionType.move: {
                     scene.objects = scene.objects.map((a) => {
                         if (isActorObject(a) && a.name === sceneAction.actorId) {
-                            console.log('completing movement', a)
                             return {
                                 ...a,
-                                location: sceneAction.target };
+                                location: sceneAction.target
+                            };
                         }
                         return a;
                     })

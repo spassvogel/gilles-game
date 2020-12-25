@@ -89,7 +89,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
         mouseDown.current = false;
 
-        // setCursorLocation(undefined); // todo: uncomment to debug
+        setCursorLocation(undefined); // todo: uncomment to debug
         if (!actionIntent) {
             return
         }
@@ -105,8 +105,6 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             onSetActionIntent(undefined);
             return;
         }
-        console.log(controller.sceneActors)
-        console.log(controller.getSceneActor(selectedActorId))
         const {
             location: from = [0, 0],
             ap: actorAP,

@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Container } from "@inlet/react-pixi";
 import { SceneObject } from "store/types/scene";
-import { SceneControllerContext } from "../../context/SceneControllerContext";
 import SceneAdventurer from "./SceneAdventurer";
 import { BaseSceneController } from "mechanics/scenes/BaseSceneController";
 
