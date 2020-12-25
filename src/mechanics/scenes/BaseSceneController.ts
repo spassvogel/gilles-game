@@ -148,8 +148,6 @@ export class BaseSceneController<TQuestVars> {
 
     actorMoved(actor: string, location: [number, number]) {
         // const object = this.tilemapObjects![`${location[0]},${location[1]}`];
-        // todo!!
-        //const object = this.objects![0];
         const destination = this.getObjectAtLocation(location);
         if (!destination) return;
 

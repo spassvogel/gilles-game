@@ -16,7 +16,7 @@ import {
 import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "store/types/quest";
-import { SceneActionType } from 'store/types/scene';
+import { isActorObject, SceneActionType } from 'store/types/scene';
 import { QuestDefinition } from 'definitions/quests/types';
 import { getDefinition } from 'definitions/quests';
 import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars';
@@ -211,13 +211,15 @@ const completeSceneAction = (state: QuestStoreState[], action: QuestAction) => {
 
             switch (sceneAction.actionType) {
                 case SceneActionType.move: {
-                    // todo!
-                    // scene.actors = scene.actors.map((a) => {
-                    //     if (a.id === sceneAction.actorId) {
-                    //         return { ...a, location: sceneAction.target };
-                    //     }
-                    //     return a;
-                    // })
+                    scene.objects = scene.objects.map((a) => {
+                        if (isActorObject(a) && a.name === sceneAction.actorId) {
+                            console.log('completing movement', a)
+                            return {
+                                ...a,
+                                location: sceneAction.target };
+                        }
+                        return a;
+                    })
                 }
             }
 
