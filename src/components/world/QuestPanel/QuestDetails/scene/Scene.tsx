@@ -41,8 +41,13 @@ const Scene = (props: Props) => {
 
     const handleUIMouseDown = (location: [number, number]) => {
         const actor = controller.getObjectAtLocation(location);
-        if (actor) {
-            props.setSelectedActor(actor.name!);
+        if (actor?.name) {
+            props.setSelectedActor(actor.name);
+
+            if (controller.actorCanInteract(actor.name)){
+                controller.actorInteract(actor.name);
+                setCurrentActionIntent(undefined)
+            }
         }
     }
 

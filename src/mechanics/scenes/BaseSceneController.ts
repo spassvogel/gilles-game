@@ -170,27 +170,27 @@ export class BaseSceneController<TQuestVars> {
     }
 
     actorCanInteract(actorId: string) {
-        const {scene} = this.quest;
-        return false;
-        // const actor = scene?.actors.find(o => o.id === actorId)!;
-        // const object = this.tilemapObjects?.[`${actor.location[0]},${actor.location[1]}`];
-
-        // todo: should we look for some specific property?
-        // return object;// && object.ezProps?.interactive;
+        const actor = this.getSceneActor(actorId);
+        if (!actor.location) return false;
+        const object = this.quest.scene?.objects?.find(o =>
+            !isActorObject(o) &&
+            o.location &&
+            locationEquals(o.location, actor.location!))
+        return object && object.properties.interactive;
     }
 
     actorInteract(actorId: string) {
+        console.log(actorId)
         if (!this.actorCanInteract(actorId)) {
             // tslint:disable-next-line: no-console
             console.warn("Can't interact");
             return;
         }
-        const {scene} = this.quest;
         const actor = this.getSceneActor(actorId)
-        const object = null;
-        // todo!!
-        //const object = scene?.objects
-        //    .find(o => locationEquals(o.location, actor.location));
+        const object = this.quest.scene?.objects?.find(o =>
+            !isActorObject(o) &&
+            o.location &&
+            locationEquals(o.location, actor.location!))
 
         if (!object) {
             // tslint:disable-next-line: no-console
@@ -371,7 +371,7 @@ export class BaseSceneController<TQuestVars> {
             weight: 0.2,
         });
     }
-    
+
     // These objects are saved in store
     protected createObjects(): SceneObject[] {
         if (!this.mapData) {
@@ -387,7 +387,7 @@ export class BaseSceneController<TQuestVars> {
                 const properties = parseProperties(value.properties);
                 const location: [number, number] = [
                     value.x / (this.mapData?.tilewidth || 1),
-                    value.y / (this.mapData?.tileheight || 1)
+                    (value.y - (value.gid ? value.height : 0)) / (this.mapData?.tileheight || 1)
                 ];
 
                 const object = {

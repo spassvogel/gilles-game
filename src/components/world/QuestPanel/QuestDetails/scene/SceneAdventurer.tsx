@@ -7,7 +7,6 @@ import ActionPoints, { RefActionPoints } from './ActionPoints';
 interface Props  {
     adventurerId: string;
     selected: boolean;
-    // setCombatUILocation: (location: [number, number]) => void
 };
 
 // The adventurers avatar on the scene
@@ -17,7 +16,6 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
         location,
         adventurerId,
         selected,
-        // setCombatUILocation,
     } = props;
     const {tileWidth, tileHeight} = controller.getTileDimensions();
 
@@ -58,10 +56,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
                     image={`${process.env.PUBLIC_URL}/${adventurer.avatarImg}`}
                 /> */}
                 { (selected && controller.actorCanInteract(adventurerId)) && (
-                    <Container
-                        interactive={true}
-                        pointerdown={() => {controller.actorInteract(adventurerId)}}
-                    >
+                    <Container >
                         {/* <Graphics
                             draw={graphics => {
                                 graphics.beginFill(0xDE3249);

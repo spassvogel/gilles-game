@@ -27,7 +27,6 @@ export const getExtendedTilemapObjects = (tilemapData: TiledMapData) => {
             return acc;
         }, objects);
     });
-    console.log(objects)
     return objects;
 }
 
