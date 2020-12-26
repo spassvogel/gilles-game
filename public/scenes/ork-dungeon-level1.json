@@ -73,8 +73,43 @@
         }, 
         {
          "draworder":"topdown",
+         "id":10,
+         "name":"doodads",
+         "objects":[
+                {
+                 "gid":63,
+                 "height":100,
+                 "id":19,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":100,
+                 "y":241
+                }, 
+                {
+                 "gid":64,
+                 "height":100,
+                 "id":20,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":200,
+                 "y":241
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":7,
-         "name":"OBJECTS",
+         "name":"actors",
          "objects":[
                 {
                  "height":100,
@@ -226,41 +261,6 @@
                  "width":100,
                  "x":400,
                  "y":200
-                }],
-         "opacity":1,
-         "type":"objectgroup",
-         "visible":true,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "draworder":"topdown",
-         "id":10,
-         "name":"doodads",
-         "objects":[
-                {
-                 "gid":63,
-                 "height":100,
-                 "id":19,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":100,
-                 "x":100,
-                 "y":241
-                }, 
-                {
-                 "gid":64,
-                 "height":100,
-                 "id":20,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":100,
-                 "x":200,
-                 "y":241
                 }],
          "opacity":1,
          "type":"objectgroup",
