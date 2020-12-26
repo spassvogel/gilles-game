@@ -8,6 +8,8 @@ import { SceneControllerContext } from '../../context/SceneControllerContext';
 import SceneUI, { ActionIntent } from './ui/SceneUI';
 import ActionPreview from './ActionPreview';
 import "./styles/scene.scss";
+import { isActorObject, isAdventurer } from "store/types/scene";
+import { Allegiance } from "store/types/combat";
 
 export interface Props {
     selectedActorId: string;
@@ -41,7 +43,8 @@ const Scene = (props: Props) => {
 
     const handleUIMouseDown = (location: [number, number]) => {
         const actor = controller.getObjectAtLocation(location);
-        if (actor?.name) {
+        if (actor && isAdventurer(actor) && actor?.name) {
+            // We can click on adventurers
             props.setSelectedActor(actor.name);
 
             if (controller.actorCanInteract(actor.name)){

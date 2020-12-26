@@ -14,6 +14,7 @@ import useQuest from 'hooks/store/useQuest';
 
 export interface Props  {
     name: string;
+    spritesheetPath: string;
     color?: AdventurerColor;
     controller: BaseSceneController<any>;
     location?: [number, number]; // tile coordinate space
@@ -39,6 +40,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         idleAnimation,
         color,
         children,
+        spritesheetPath,
         ...rest
     } = props;
     const {tileWidth, tileHeight} = controller.getTileDimensions();
@@ -55,10 +57,6 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     [quest.scene, props.name]);
     const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
     const [animation, setAnimation] = useState("stand");
-
-    const spritesheetPath = useMemo(() => {
-        return controller.getActorSpritesheetPath(props.name);
-    }, [controller, props.name]);
 
     // Handle actions
     useEffect(() => {
@@ -287,7 +285,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
             { spritesheetPath && frames && (
                 <SpriteAnimated
                     animationSpeed={0.1}
-                    name="footman"
+                    name="sprite"
                     isPlaying={true}
                     textures={frames[getFrames()]}
                     x={50}

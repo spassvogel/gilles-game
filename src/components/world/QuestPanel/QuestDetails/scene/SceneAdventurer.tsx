@@ -7,6 +7,7 @@ import ActionPoints, { RefActionPoints } from './ActionPoints';
 interface Props  {
     adventurerId: string;
     selected: boolean;
+    spritesheetPath: string;
 };
 
 // The adventurers avatar on the scene
@@ -16,6 +17,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
         location,
         adventurerId,
         selected,
+        spritesheetPath,
     } = props;
     const {tileWidth, tileHeight} = controller.getTileDimensions();
 
@@ -26,15 +28,14 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
     const actionPointsRef = useRef<RefActionPoints>(null);
 
     return (
-        <Container interactive={true} ref={ref}>
+        <Container ref={ref}>
             <ActionPath ref={actionPathRef} />
             <ActionPoints ref={actionPointsRef} tileWidth={tileWidth} tileHeight={tileHeight} />
             <SceneActor
                 name={adventurerId}
                 controller={controller}
+                spritesheetPath={spritesheetPath}
                 location={location}
-                interactive={true}
-                hitArea={new PIXI.Rectangle(location?.[0], location?.[1], tileWidth, tileHeight)}
                 idleAnimation={Math.random() < 0.5}
             >
                 {selected && (

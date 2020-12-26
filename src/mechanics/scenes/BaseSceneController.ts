@@ -1,12 +1,12 @@
 import { Store, AnyAction } from "redux";
-import { getExtendedTilemapObjects, ExtendedTiledObjectData, addAllTilesInLayerToList, locationEquals, TiledObjectType, parseProperties } from 'utils/tilemap';
+import { addAllTilesInLayerToList, locationEquals, TiledObjectType, parseProperties } from 'utils/tilemap';
 import { StoreState } from 'store/types';
 import { loadResourceAsync } from 'utils/pixiJs';
 import { TiledLayerType, TiledMapData, TiledObjectData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { setScene, setSceneName, exitEncounter, enqueueSceneAction } from 'store/actions/quests';
-import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction, isActorObject } from 'store/types/scene';
+import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction, isActorObject, getSpritesheetPaths } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLink } from 'utils/routing';
@@ -21,6 +21,9 @@ import { calculateInitialAp } from './actionPoints';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { Sound, SoundManager } from 'global/SoundManager';
 import SceneActor from "components/world/QuestPanel/QuestDetails/scene/SceneActor";
+import { Allegiance } from "store/types/combat";
+
+const spritesheetBasePath = "img/scene/actors/";
 
 /**
  * This is a type of God class that knows pretty much everything about a scene
@@ -36,7 +39,7 @@ export class BaseSceneController<TQuestVars> {
     protected store: Store<StoreState, AnyAction>;
     protected blockedTiles: [number, number][] = [];
 
-    protected spritesheetsMap: {[key: string]: PIXI.Spritesheet} = {} // Various spritesheets, e.g for actors
+    //protected spritesheetsMap: {[key: string]: PIXI.Spritesheet} = {} // Various spritesheets, e.g for actors
 
     constructor(store: Store<StoreState, AnyAction>, questName: string) {
         this.store = store;
@@ -89,13 +92,9 @@ export class BaseSceneController<TQuestVars> {
                 }
             });
 
-            const adventurers = this.getAdventurers();
-            const spritesheets = Array.from(new Set<string>(adventurers.map(a => a.spritesheetPath)));
-
+            const spritesheets = getSpritesheetPaths(this.sceneObjects);
             for(const path of spritesheets) {
-                const {spritesheet} = await loadResourceAsync(path);
-                this.spritesheetsMap[path] = spritesheet!;
-
+                await loadResourceAsync(path);
                 // Object.keys(spritesheet!.textures).forEach((key: string) => {
                 //     Texture.removeFromCache(spritesheet!.textures[key]); //or just 'key' will work in that case
                 // });
@@ -133,19 +132,6 @@ export class BaseSceneController<TQuestVars> {
         }
     }
 
-    getActorSpritesheet(actorId: string): PIXI.Spritesheet {
-        // todo: what about the non-adventurer actors (e.g the enemies)
-        const path = this.getActorSpritesheetPath(actorId);
-        return this.spritesheetsMap[path];
-    }
-
-    getActorSpritesheetPath(actorId: string): string {
-        // todo: what about the non-adventurer actors (e.g the enemies)
-        const adventurers = this.getAdventurers();
-        const adventurer = adventurers.find(a => a.id === actorId)!;
-        return adventurer.spritesheetPath;
-    }
-
     actorMoved(actor: string, location: [number, number]) {
         // const object = this.tilemapObjects![`${location[0]},${location[1]}`];
         const destination = this.getObjectAtLocation(location);
@@ -172,7 +158,7 @@ export class BaseSceneController<TQuestVars> {
     actorCanInteract(actorId: string) {
         const actor = this.getSceneActor(actorId);
         if (!actor.location) return false;
-        const object = this.quest.scene?.objects?.find(o =>
+        const object = this.sceneObjects.find(o =>
             !isActorObject(o) &&
             o.location &&
             locationEquals(o.location, actor.location!))
@@ -180,14 +166,13 @@ export class BaseSceneController<TQuestVars> {
     }
 
     actorInteract(actorId: string) {
-        console.log(actorId)
         if (!this.actorCanInteract(actorId)) {
             // tslint:disable-next-line: no-console
             console.warn("Can't interact");
             return;
         }
         const actor = this.getSceneActor(actorId)
-        const object = this.quest.scene?.objects?.find(o =>
+        const object = this.sceneObjects.find(o =>
             !isActorObject(o) &&
             o.location &&
             locationEquals(o.location, actor.location!))
@@ -390,29 +375,54 @@ export class BaseSceneController<TQuestVars> {
                     (value.y - (value.gid ? value.height : 0)) / (this.mapData?.tileheight || 1)
                 ];
 
-                const object = {
+                let object: SceneObject | null = {
                     ...value,
                     layerId: objectLayer.id,
                     properties,
                     location
                 };
 
-                if (object.type === "adventurerStart") {
+                if (object.type === TiledObjectType.adventurerStart) {
                     const adventurer = adventurers.pop();
                     if (adventurer) {
                         object.type = TiledObjectType.actor;
-                        object.name = adventurer.id;
-                        object.properties.adventurerId = adventurer.id;
-                        object.properties.isSprite = true;
+                        if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
+                            object.name = adventurer.id;
+                            object.allegiance = Allegiance.player;
+                            object.properties.adventurerId = adventurer.id;
+                            object.properties.isSprite = true;
+                            object.properties.spritesheet = adventurer.spritesheetPath;
+                        }
+                    } else {
+                        // Unused player spawn location, dont add
+                        object = null;
                     }
+                } else if (object.type === TiledObjectType.enemySpawn) {
+                    object.type = TiledObjectType.actor;
+                    if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
+                        object.allegiance = Allegiance.enemy;
+                        object.properties.isSprite = true;
+                        object.properties.spritesheet = `${spritesheetBasePath}troll-sword.json`;
+                    }
+
                 }
-                acc.push(object);
+
+                if (object) {
+                    acc.push(object);
+                }
                 return acc;
             }, objects);
         });
         return objects;
     }
 
+    public get sceneObjects(): SceneObject[]  {
+        return this.quest.scene?.objects || [];
+    }
+
+    public get sceneActors(): ActorObject[] {
+        return this.sceneObjects.filter<ActorObject>(isActorObject);
+    }
     // protected createObject(config: ExtendedTiledObjectData): SceneObject | null {
     //     switch (config.type) {
     //         case TiledObjectType.adventurerStart:
@@ -438,9 +448,6 @@ export class BaseSceneController<TQuestVars> {
         return !!this.quest.scene?.combat;
     }
 
-    public get sceneActors(): ActorObject[]  {
-        return this.quest.scene?.objects.filter<ActorObject>(isActorObject) || [];
-    }
 
     protected getAdventurers(): AdventurerStoreState[] {
         const storeState = this.store.getState();

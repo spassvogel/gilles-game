@@ -2,6 +2,7 @@ import { TiledObjectData } from 'constants/tiledMapData';
 import { Item } from 'definitions/items/types';
 import { TiledObjectType } from 'utils/tilemap';
 import { Overwrite } from 'utils/typescript';
+import { Allegiance } from './combat';
 
 
 export interface SceneStoreState {
@@ -19,10 +20,16 @@ export type SceneObject = Overwrite<TiledObjectData, {
 
 export type ActorObject = SceneObject & {
     ap: number;                     // Remaining AP
+    health: number;
+    allegiance: Allegiance;
 };
 
 export const isActorObject = (object: SceneObject): object is ActorObject => {
     return object.type === TiledObjectType.actor;
+}
+
+export const isAdventurer = (object: SceneObject): boolean => {
+    return isActorObject(object) && object.allegiance === Allegiance.player;
 }
 
  // export type Actor = SceneObject & {
@@ -54,4 +61,13 @@ export enum SceneActionType {
     inspect = "inspect",
     attack = "attack",
     slash = "slash"
+}
+
+export const getSpritesheetPaths = (objects: SceneObject[]) => {
+    return Array.from(
+        new Set<string>(
+            objects.filter(o => o.properties.isSprite)
+                .map(o => o.properties.spritesheet)
+        )
+    );
 }
