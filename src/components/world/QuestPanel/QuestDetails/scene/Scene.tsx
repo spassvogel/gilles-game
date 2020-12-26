@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useContext, useState } from "react";
-import { Container } from '@inlet/react-pixi';
+import { Container, Graphics } from '@inlet/react-pixi';
 import useQuest from 'hooks/store/useQuest';
 import Tilemap from './Tilemap';
 import BridgedStage from 'components/pixi/util/BridgedStage';
@@ -7,9 +7,8 @@ import useTilesetsLoader from 'hooks/useTilesetsLoader';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
 import SceneUI, { ActionIntent } from './ui/SceneUI';
 import ActionPreview from './ActionPreview';
+import { isAdventurer } from "store/types/scene";
 import "./styles/scene.scss";
-import { isActorObject, isAdventurer } from "store/types/scene";
-import { Allegiance } from "store/types/combat";
 
 export interface Props {
     selectedActorId: string;
@@ -17,6 +16,7 @@ export interface Props {
 }
 
 const DEBUG_ACTIONQUEUE = false;
+const DEBUG_BLOCKEDTILES = false;
 
 const Scene = (props: Props) => {
     const {selectedActorId, setSelectedActor } = props;
@@ -77,6 +77,27 @@ const Scene = (props: Props) => {
                         setSelectedActor={setSelectedActor}
                     />
                     { currentActionIntent && (<ActionPreview actionIntent={currentActionIntent} tileWidth={tileWidth} tileHeight={tileHeight}/>)}
+                    {DEBUG_BLOCKEDTILES && (
+                        <Graphics
+                            name="selectioncircle"
+                            draw={graphics => {
+                                const line = 3;
+                                for (let y = 0; y < mapData.height; y++) {
+                                    for (let x = 0; x < mapData.width; x++) {
+                                        const blocked = controller.locationIsBlocked([x, y]);
+
+                                        if (blocked) {
+                                            graphics.lineStyle(line, 0xFF0000);
+                                        } else {
+                                            graphics.lineStyle(line, 0xFFFFFF);
+                                        }
+                                        graphics.drawRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+                                        graphics.endFill();
+                                    }
+                                }
+                            }}
+                        />
+                    )}
                 </Container>
             </BridgedStage>
             {DEBUG_ACTIONQUEUE && (

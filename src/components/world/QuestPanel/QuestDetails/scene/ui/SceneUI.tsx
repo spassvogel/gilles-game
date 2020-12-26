@@ -89,7 +89,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
         mouseDown.current = false;
 
-        // setCursorLocation(undefined); // todo: uncomment to debug
+        setCursorLocation(undefined); // todo: uncomment to debug
         if (!actionIntent) {
             return
         }
@@ -115,7 +115,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             case SceneActionType.move:
             case SceneActionType.slash: {
                 const path = controller.findPath(from, to);
-                const apCost = controller.calculateWalkApCosts(from, to);
+                const apCost = scene.combat ? controller.calculateWalkApCosts(from, to) : undefined;
 
                 onSetActionIntent({
                     action,
