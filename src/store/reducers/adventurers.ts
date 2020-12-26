@@ -53,7 +53,7 @@ const testState: AdventurerStoreState[] = [{
     name: "Ximena Maddox",
     traits: [Trait.houseMaddox, Trait.gloomy],
     avatarImg: `${avatarImgBasePath}/female/f_14.png`,
-    spritesheetPath: `${spritesheetBasePath}archer.json`,
+    spritesheetPath: `${spritesheetBasePath}elf-bow.json`,
     color: AdventurerColor.purple,
     skills: {
         [WeaponType.crossbow]: 10,
@@ -73,7 +73,7 @@ const testState: AdventurerStoreState[] = [{
     baseAP: 6,
     room: 1,
     avatarImg: `${avatarImgBasePath}/male/m_05.png`,
-    spritesheetPath: `${spritesheetBasePath}archer.json`,
+    spritesheetPath: `${spritesheetBasePath}elf-bow.json`,
     color: AdventurerColor.teal,
     traits: [Trait.houseHouston],
     skills: {
@@ -113,7 +113,7 @@ const testState: AdventurerStoreState[] = [{
     baseAP: 6,
     room: 4,
     avatarImg: `${avatarImgBasePath}/male/m_19.png`,
-    spritesheetPath: `${spritesheetBasePath}footman.json`,
+    spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
     traits: [Trait.arrowFinder],
     skills: {
         [WeaponType.sword]: 13
@@ -129,7 +129,7 @@ const testState: AdventurerStoreState[] = [{
     baseAP: 4,
     room: 5,
     avatarImg: `${avatarImgBasePath}/male/m_08.png`,
-    spritesheetPath: `${spritesheetBasePath}grunt.json`,
+    spritesheetPath: `${spritesheetBasePath}orc-axe.json`,
     traits: [Trait.houseMonroe, Trait.arrowFinder],
     skills: {
         [WeaponType.axe]: 12
@@ -145,7 +145,7 @@ const testState: AdventurerStoreState[] = [{
     baseAP: 5,
     room: 9,
     avatarImg: `${avatarImgBasePath}/female/f_10.png`,
-    spritesheetPath: `${spritesheetBasePath}footman.json`,
+    spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
     inventory: [ null, null, null, null, null ],
     skills: {
         [WeaponType.axe]: 10
@@ -175,7 +175,7 @@ const testState: AdventurerStoreState[] = [{
     baseAP: 5,
     room: 8,
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
-    spritesheetPath: `${spritesheetBasePath}footman.json`,
+    spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
     inventory: [ null, null, null, null, null ],
     skills: {
         [WeaponType.axe]: 13
@@ -191,7 +191,7 @@ const testState: AdventurerStoreState[] = [{
 
     room: 6,
     avatarImg: `${avatarImgBasePath}/male/m_26.png`,
-    spritesheetPath: `${spritesheetBasePath}footman.json`,
+    spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null, Item.shoulders1, Item.fedora, Item.greaves2 ],
     skills: {
         [WeaponType.axe]: 3
@@ -206,7 +206,7 @@ const testState: AdventurerStoreState[] = [{
     baseAP: 6,
     room: 7,
     avatarImg: `${avatarImgBasePath}/male/m_33.png`,
-    spritesheetPath: `${spritesheetBasePath}footman.json`,
+    spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
     inventory: [ Item.greatswordOfGwai, null, null, null ],
     skills: {
         [WeaponType.axe]: 10
