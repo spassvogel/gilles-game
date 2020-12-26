@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-down" width="8" height="10" tilewidth="100" tileheight="100" infinite="0" nextlayerid="4" nextobjectid="8">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="8" height="10" tilewidth="100" tileheight="100" infinite="0" nextlayerid="8" nextobjectid="15">
  <editorsettings>
   <export target="ork-dungeon-level2.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" source="tilesets/ork-dungeon.tsx"/>
+ <tileset firstgid="121" source="tilesets/interior-walls.tsx"/>
  <layer id="1" name="floor" width="8" height="10">
   <data encoding="csv">
 2,4,4,83,83,5,83,83,
@@ -43,4 +44,40 @@
   <object id="6" type="adventurerStart" x="500" y="900" width="100" height="100"/>
   <object id="7" type="exit" x="400" y="700" width="100" height="100"/>
  </objectgroup>
+ <layer id="4" name="walls" width="8" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,144,0,141,0,0,0,
+0,0,144,0,141,0,0,0,
+121,122,125,0,155,122,122,122,
+131,132,135,133,165,132,132,132,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="7" name="Object Layer 2">
+  <object id="9" gid="177" x="417.987" y="1002.25" width="100" height="100"/>
+  <object id="10" gid="176" x="317.607" y="1000.9" width="100" height="100"/>
+  <object id="11" gid="166" x="314.894" y="900.515" width="100" height="100"/>
+  <object id="12" gid="167" x="415.274" y="901.872" width="100" height="100"/>
+  <object id="13" gid="168" x="510.228" y="900.515" width="100" height="100"/>
+  <object id="14" gid="178" x="512.941" y="1000.9" width="100" height="100"/>
+ </objectgroup>
+ <layer id="6" name="door" width="8" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,144,0,0,0,
+0,0,0,0,144,0,0,0,
+0,0,166,167,168,0,0,0,
+0,0,176,177,178,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0
+</data>
+ </layer>
 </map>

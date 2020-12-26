@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="8" height="10" tilewidth="100" tileheight="100" infinite="0" backgroundcolor="#000000" nextlayerid="12" nextobjectid="21">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="8" height="10" tilewidth="100" tileheight="100" infinite="0" backgroundcolor="#000000" nextlayerid="13" nextobjectid="21">
  <editorsettings>
   <export target="ork-dungeon-level1.json" format="json"/>
  </editorsettings>
@@ -8,9 +8,7 @@
  </properties>
  <tileset firstgid="1" source="tilesets/ork-dungeon.tsx"/>
  <tileset firstgid="121" source="tilesets/tavern.tsx"/>
- <tileset firstgid="221" name="interior-walls" tilewidth="100" tileheight="100" tilecount="30" columns="5">
-  <image source="tilesets/interior-walls.png" width="500" height="600"/>
- </tileset>
+ <tileset firstgid="221" source="tilesets/interior-walls.tsx"/>
  <layer id="2" name="floor" width="8" height="10">
   <data encoding="csv">
 5,2,3,4,4,8,4,0,
@@ -45,15 +43,15 @@
  <layer id="9" name="walls-lower" width="8" height="10">
   <data encoding="csv">
 221,222,223,222,222,222,223,225,
-226,227,228,227,227,227,228,230,
-231,0,0,0,0,0,0,0,
-231,0,0,0,0,0,0,234,
-231,0,0,0,0,0,0,234,
-231,0,0,0,0,0,244,239,
-0,0,0,0,0,0,235,222,
-0,231,0,0,0,0,240,227,
-0,231,0,0,0,0,0,0,
-0,246,0,0,0,0,0,0
+231,232,233,232,232,232,233,235,
+241,0,0,0,0,0,0,0,
+241,0,0,0,0,0,0,244,
+241,0,0,0,0,0,0,244,
+241,0,0,0,0,0,264,254,
+0,0,0,0,0,0,255,222,
+0,241,0,0,0,0,265,232,
+0,241,0,0,0,0,0,0,
+0,271,0,0,0,0,0,0
 </data>
  </layer>
  <objectgroup id="7" name="OBJECTS">
@@ -87,6 +85,20 @@
   <object id="19" gid="63" x="100" y="241" width="100" height="100"/>
   <object id="20" gid="64" x="200" y="241" width="100" height="100"/>
  </objectgroup>
+ <layer id="12" name="shadows" width="8" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,243,243,243,243,243,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,275,243,
+0,0,0,0,0,0,0,0
+</data>
+ </layer>
  <layer id="11" name="walls-upper" width="8" height="10">
   <properties>
    <property name="blocksMovement" type="bool" value="true"/>
@@ -94,11 +106,11 @@
   <data encoding="csv">
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,242,
+0,0,0,0,0,0,0,262,
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
-236,241,0,0,0,0,0,0,
+251,261,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0
