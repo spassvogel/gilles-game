@@ -18,7 +18,8 @@ export interface Props  {
     color?: AdventurerColor;
     controller: BaseSceneController<any>;
     location?: [number, number]; // tile coordinate space
-    idleAnimation?: boolean;
+    lookAt?: [number, number];
+    idleAnimation?: boolean;    // Only when lookAt is undefined, will randomly turn around
 };
 
 enum Orientation {
@@ -41,6 +42,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         color,
         children,
         spritesheetPath,
+        lookAt,
         ...rest
     } = props;
     const {tileWidth, tileHeight} = controller.getTileDimensions();
@@ -176,11 +178,19 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     }
 
     useEffect(() => {
+        if (lookAt !== undefined) {
+            const bearing = calculateBearing(location, lookAt);
+            setOrientation(bearing);
+        }
+    }, [location, lookAt])
+
+    useEffect(() => {
         setFlipped(orientation === Orientation.southWest || orientation === Orientation.west || orientation === Orientation.northWest)
     }, [orientation]);
 
     useEffect(() => {
-        if (!idleAnimation) return;
+        // Todo: move to custom hook
+        if (!idleAnimation || !!lookAt) return;
 
         // Idle animation
         // Randomly turn left or right
@@ -240,7 +250,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         const duration = minDuration + Math.random() * maxDuration;
         const interval = setInterval(randomOrientation, duration);
         return () => clearInterval(interval);
-    }, [animation, idleAnimation, orientation])
+    }, [animation, idleAnimation, orientation, lookAt])
 
     const getFrames = useCallback(() => {
         const prefix = '';
@@ -302,6 +312,14 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
 };
 
 export default memo(SceneActor);
+
+// Calculates an orientation that origin would be in if it was looking at destination
+const calculateBearing = (origin: [number, number], destination: [number, number]) => {
+    const angle = Math.atan2(destination[1] - origin[1], destination[0] - origin[0]);
+    const result = Math.round((angle / (2 * Math.PI / 8) + 8) % 8);
+    const orientations = [Orientation.east, Orientation.southEast, Orientation.south, Orientation.southWest, Orientation.west, Orientation.northWest, Orientation.north, Orientation.northEast];
+    return orientations[result];
+}
 
 const createColorReplaceFilter = (from: number[], to: number[]) => {
     const replacements = from.map((val, index) => {
