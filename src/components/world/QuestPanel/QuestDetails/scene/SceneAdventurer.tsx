@@ -1,8 +1,6 @@
-import { Container, Graphics, Sprite } from '@inlet/react-pixi';
+import { Container, Graphics } from '@inlet/react-pixi';
 import React, { useRef, memo } from 'react';
 import SceneActor, { Props as SceneActorProps } from './SceneActor';
-import ActionPath, { RefActions } from './ActionPath';
-import ActionPoints, { RefActionPoints } from './ActionPoints';
 
 interface Props  {
     adventurerId: string;
@@ -23,14 +21,8 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
 
     const ref = useRef<PIXI.Container>(null);
 
-    // Draw a line to indicate the action to take
-    const actionPathRef = useRef<RefActions>(null);
-    const actionPointsRef = useRef<RefActionPoints>(null);
-
     return (
         <Container ref={ref}>
-            <ActionPath ref={actionPathRef} />
-            <ActionPoints ref={actionPointsRef} tileWidth={tileWidth} tileHeight={tileHeight} />
             <SceneActor
                 name={adventurerId}
                 controller={controller}
@@ -48,40 +40,6 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
                             graphics.endFill();
                         }}
                     />
-                )}
-                {/* <Sprite
-                    scale={.1}
-                    anchor={.5}
-                    x={tileWidth / 2}
-                    y={-30}
-                    image={`${process.env.PUBLIC_URL}/${adventurer.avatarImg}`}
-                /> */}
-                { (selected && controller.actorCanInteract(adventurerId)) && (
-                    <Container >
-                        {/* <Graphics
-                            draw={graphics => {
-                                graphics.beginFill(0xDE3249);
-                                graphics.drawCircle(tileWidth / 2, tileHeight, tileWidth / 4);
-                                graphics.endFill();
-                            }}
-                        /> */}
-                        <Sprite
-                            image={`${process.env.PUBLIC_URL}/img/scene/ui/background.png`}
-                            width={tileWidth / 2}
-                            height={tileWidth / 2}
-                            y={tileHeight}
-                            x={tileWidth/2}
-                            anchor={.5}
-                        />
-                        <Sprite
-                            image={`${process.env.PUBLIC_URL}/img/scene/ui/interact.png`}
-                            width={tileWidth / 2}
-                            height={tileWidth / 2}
-                            y={tileHeight}
-                            x={tileWidth/2}
-                            anchor={.5}
-                        />
-                    </Container>
                 )}
             </SceneActor>
         </Container>

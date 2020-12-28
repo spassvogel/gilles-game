@@ -94,7 +94,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         }
         const nextAction = actionQueue[0];
         if (nextAction && nextAction !== previousAction.current) {
-            //console.log(`next action is ${nextAction.target} (${nextAction.actionType}), \ncurrent location is: ${location}\nprev action was ${previousAction?.current?.target} `)
+            // console.log(`next action is ${nextAction.target} (${nextAction.actionType}), \ncurrent location is: ${location}\nprev action was ${previousAction?.current?.target} `)
             switch (nextAction.actionType) {
                 case SceneActionType.move: {
                     const moveComplete = () => {
@@ -128,15 +128,20 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                     const attackComplete = () => {
                         setAnimation("stand");
                         dispatch(completeSceneAction(props.controller.questName));
-                        // props.controller.actorMoved(props.name, nextAction.target); todo
                     }
                     setTimeout(attackComplete, 1000);
+                    break;
+                }
+                case SceneActionType.interact: {
+                    controller.actorInteract(props.name, nextAction.target);
+                    dispatch(completeSceneAction(props.controller.questName));
+                    break;
                 }
             }
             previousAction.current = nextAction;
         }
 
-    }, [dispatch, tileWidth, tileHeight, actionQueue, props.controller, props.name, location]);
+    }, [dispatch, tileWidth, tileHeight, actionQueue, props.controller, props.name, location, controller]);
 
     const {x, y} = useMemo(() => {
         setAnimation("stand")

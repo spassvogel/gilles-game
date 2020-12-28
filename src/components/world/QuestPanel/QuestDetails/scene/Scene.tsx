@@ -46,16 +46,11 @@ const Scene = (props: Props) => {
         if (actor && isAdventurer(actor) && actor?.name) {
             // We can click on adventurers
             props.setSelectedActor(actor.name);
-
-            if (controller.actorCanInteract(actor.name)){
-                controller.actorInteract(actor.name);
-                setCurrentActionIntent(undefined)
-            }
         }
     }
 
-    if (!loadComplete || !mapData || !scene) {
-        return <div>loading...</div>
+    if (!loadComplete || !mapData) {
+        return <div>loading scene...</div>
     }
 
     const sceneWidth = mapData.width * mapData.tilewidth;

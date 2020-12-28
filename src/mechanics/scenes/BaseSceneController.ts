@@ -24,6 +24,7 @@ import SceneActor from "components/world/QuestPanel/QuestDetails/scene/SceneActo
 import { Allegiance } from "store/types/combat";
 
 const spritesheetBasePath = "img/scene/actors/";
+const movementDuration = 500; // time every tile movement takes
 
 /**
  * This is a type of God class that knows pretty much everything about a scene
@@ -94,7 +95,10 @@ export class BaseSceneController<TQuestVars> {
 
             const spritesheets = getSpritesheetPaths(this.sceneObjects);
             for(const path of spritesheets) {
+                console.log(`loading ${path}`)
                 await loadResourceAsync(path);
+                console.log(`done loading ${path}`)
+
                 // Object.keys(spritesheet!.textures).forEach((key: string) => {
                 //     Texture.removeFromCache(spritesheet!.textures[key]); //or just 'key' will work in that case
                 // });
@@ -102,6 +106,7 @@ export class BaseSceneController<TQuestVars> {
             // PIXI.utils.clearTextureCache()
             // Create aStar based on blocked tiles
             this.aStar = this.createAStar();
+            console.log(`callback!`)
 
             callback();
         });
@@ -155,6 +160,7 @@ export class BaseSceneController<TQuestVars> {
         }
     }
 
+    // not needed?
     actorCanInteract(actorId: string) {
         const actor = this.getSceneActor(actorId);
         if (!actor.location) return false;
@@ -165,17 +171,10 @@ export class BaseSceneController<TQuestVars> {
         return object && object.properties.interactive;
     }
 
-    actorInteract(actorId: string) {
-        if (!this.actorCanInteract(actorId)) {
-            // tslint:disable-next-line: no-console
-            console.warn("Can't interact");
-            return;
-        }
-        const actor = this.getSceneActor(actorId)
-        const object = this.sceneObjects.find(o =>
-            !isActorObject(o) &&
-            o.location &&
-            locationEquals(o.location, actor.location!))
+    actorInteract(actorId: string, location: [number, number]) {
+        console.log(actorId);
+        const actor = this.getSceneActor(actorId);
+        const object = this.getObjectAtLocation(location);
 
         if (!object) {
             // tslint:disable-next-line: no-console
@@ -205,7 +204,6 @@ export class BaseSceneController<TQuestVars> {
                     // this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
                 }
 
-                const movementDuration = 500; // time every tile movement takes
                 path?.forEach((l, index) => {
                     const sceneAction: SceneAction = {
                         actionType: SceneActionType.move,
@@ -215,6 +213,27 @@ export class BaseSceneController<TQuestVars> {
                     };
                     this.dispatch(enqueueSceneAction(this.questName, sceneAction));
                 });
+                break;
+            }
+            case SceneActionType.interact: {
+                const path = this.findPathNearest(location!, destination);
+                path?.forEach((l, index) => {
+                    const moveAction: SceneAction = {
+                        actionType: SceneActionType.move,
+                        actorId,
+                        target: l as [number, number],
+                        endsAt: movementDuration * (index + 1) + performance.now()
+                    };
+                    this.dispatch(enqueueSceneAction(this.questName, moveAction));
+                });
+
+                const interactAction: SceneAction = {
+                    actionType: SceneActionType.interact,
+                    actorId,
+                    target: destination,
+                    endsAt: movementDuration * path.length + performance.now()
+                };
+                this.dispatch(enqueueSceneAction(this.questName, interactAction));
                 break;
             }
             case SceneActionType.slash: {
@@ -227,7 +246,6 @@ export class BaseSceneController<TQuestVars> {
                 }
 
                 // Walk towards the target
-                const movementDuration = 500; // time every tile movement takes
                 path?.forEach((l, index) => {
                     const moveAction: SceneAction = {
                         actionType: SceneActionType.move,
@@ -312,13 +330,36 @@ export class BaseSceneController<TQuestVars> {
      * @param target
      */
     findPath(origin: [number, number], target: [number, number]) {
-        // This is the format AStarFind works with
-        const convertIn = (l: [number, number]) => ({ x: l[0], y: l[1] });
-        const convertOut = (input: number[]): [number, number] => [input[0], input[1]];
 
         return this
             .aStar?.findPath(convertIn(origin), convertIn(target))
             .map(convertOut);
+    }
+
+    /**
+     * Finds a path from origin to a tile next to target (closest from origin)
+     * It doesn't matter if target is unpathable
+     * @param origin
+     * @param target
+     */
+    public findPathNearest(origin: [number, number], target: [number, number], includeLast: boolean = false) {
+        // todo; shortcut, if already neighbour, return early
+        const grid = this.aStar?.getGridClone();
+        if (!grid) return [];
+        const matrix = grid.map(r => r.map(c => (c.getIsWalkable() ? 0 : 1)));
+        matrix[target[0]][target[1]] = 0; // make target pathable
+        const tempAStar = new AStarFinder({
+            grid: {
+                matrix
+            },
+            includeStartNode: false,
+            heuristic: "Manhattan",
+            weight: 0.2,
+        });
+        return tempAStar.findPath
+            (convertIn(origin), convertIn(target))
+            .map(convertOut)
+            .slice(0, includeLast ? undefined : -1);
     }
 
     /**
@@ -475,3 +516,6 @@ export class BaseSceneController<TQuestVars> {
 
 }
 
+// This is the format AStarFind works with
+const convertIn = (l: [number, number]) => ({ x: l[0], y: l[1] });
+const convertOut = (input: number[]): [number, number] => [input[0], input[1]];

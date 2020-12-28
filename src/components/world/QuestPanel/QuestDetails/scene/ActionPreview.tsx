@@ -1,7 +1,6 @@
 import DashedLine from 'components/pixi/DashedLine';
-import React, { useContext } from 'react';
+import React from 'react';
 import { SceneActionType } from 'store/types/scene';
-import { SceneControllerContext } from '../../context/SceneControllerContext';
 import { ActionIntent } from './ui/SceneUI'
 
 export interface Props {
@@ -15,6 +14,7 @@ const ActionPreview = (props: Props) => {
 
   switch (actionIntent.action){
     case SceneActionType.move:
+    case SceneActionType.interact:
     case SceneActionType.slash: {
       if (!actionIntent.path){
         return null;
@@ -25,6 +25,7 @@ const ActionPreview = (props: Props) => {
           ...actionIntent.path.map(p => convert(p))
       ];
       const valid = (!actionIntent.apCost) || actionIntent.apCost <= (actionIntent.actorAP || 0);
+
       return (
         <DashedLine
           points={converted}

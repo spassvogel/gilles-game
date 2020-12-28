@@ -58,7 +58,7 @@ export interface SceneAction {
 
 export enum SceneActionType {
     move = "move",
-    inspect = "inspect",
+    interact = "interact",
     attack = "attack",
     slash = "slash"
 }

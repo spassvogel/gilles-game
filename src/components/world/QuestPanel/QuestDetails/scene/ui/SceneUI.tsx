@@ -18,7 +18,7 @@ export interface Props {
 }
 
 export interface ActionIntent {
-    action: SceneActionType.move | SceneActionType.slash;
+    action: SceneActionType.move | SceneActionType.slash | SceneActionType.interact;
     from: [number, number];
     to: [number, number];
     apCost?: number;
@@ -43,6 +43,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     const controller = useContext(SceneControllerContext)!;
     const quest = useQuest(controller.questName);
     const scene = quest.scene!;
+    const {combat} = scene;
     const [cursorLocation, setCursorLocation] = useState<[number, number]>();
 
     useEffect(() => {
@@ -100,7 +101,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         onSetActionIntent?.(undefined);
     }
 
-    const handleCombatActionChange = useCallback((action?: SceneActionType) => { //todo: beter name, not just combat
+    const handleCombatActionChange = useCallback((action?: SceneActionType) => { // todo: beter name, not just combat
         if (!action) {
             onSetActionIntent(undefined);
             return;
@@ -115,8 +116,20 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             case SceneActionType.move:
             case SceneActionType.slash: {
                 const path = controller.findPath(from, to);
-                const apCost = scene.combat ? controller.calculateWalkApCosts(from, to) : undefined;
-
+                const apCost = combat ? controller.calculateWalkApCosts(from, to) : undefined;
+                onSetActionIntent({
+                    action,
+                    from,
+                    to,
+                    apCost,
+                    actorAP,
+                    path,
+                })
+            }
+            break;
+            case SceneActionType.interact: {
+                const path = controller.findPathNearest(from, to, true);
+                const apCost = 0; // can only inspect out of combat?
                 onSetActionIntent({
                     action,
                     from,
@@ -127,38 +140,21 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
                 })
             }
         }
-    }, [controller, cursorLocation, onSetActionIntent, selectedActorId]);
+    }, [combat, controller, cursorLocation, onSetActionIntent, selectedActorId]);
 
     useEffect(() => {
-        if (!scene.combat && cursorLocation !== undefined) {
-            handleCombatActionChange(SceneActionType.move);
+        if (!combat && cursorLocation !== undefined) {
+            // Handle change of cursor when not in combat
+            let action = SceneActionType.move;
+            const object = controller.getObjectAtLocation(cursorLocation);
+            if(!!object?.properties.interactive){
+                // We're at an interactive object
+                action = SceneActionType.interact;
+            }
+            handleCombatActionChange(action);
         }
-    }, [cursorLocation, handleCombatActionChange, scene.combat])
+    }, [cursorLocation, handleCombatActionChange, combat, controller])
 
-
-    // const previewAction = (action: SceneActionType | undefined, target: [number, number]) => {
-
-    //     const selectedActorLocation = controller.getActorByAdventurerId(selectedActorId)!.location;
-
-    //     switch (action) {
-    //         case SceneActionType.move: {
-    //             const path = controller.findPath(selectedActorLocation!, target);
-    //             if (!path) return;
-    //             const convert = (p: number[]) => new PIXI.Point(p[0] * (tileWidth) + (tileWidth / 2), p[1] * (tileHeight) + (tileHeight / 2));
-    //             const start = controller.getActorByAdventurerId(selectedActorId)?.location!;
-    //             const converted = [
-    //                 convert(start),
-    //                 ...path.map(p => convert(p))
-    //             ];
-    //             onSetMovePath?.(converted);
-    //             break;
-    //         }
-
-    //         default: {
-    //             onSetMovePath?.(undefined);
-    //         }
-    //     }
-    // }
 
     const findLocation = (e: React.MouseEvent) => {
         if (e.target instanceof Element){
