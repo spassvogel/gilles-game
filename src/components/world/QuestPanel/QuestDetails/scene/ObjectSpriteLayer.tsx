@@ -43,6 +43,7 @@ const ObjectSpriteLayer = (props: Props) => {
                                         controller={controller}
                                         spritesheetPath={object.properties.spritesheet}
                                         location={location}
+                                        key={object.name}
                                         idleAnimation={Math.random() < 0.5}
                                         lookAt={[4, 3]}
                                     />
