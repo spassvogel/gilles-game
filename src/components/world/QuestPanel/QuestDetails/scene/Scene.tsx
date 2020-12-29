@@ -9,6 +9,7 @@ import SceneUI, { ActionIntent } from './ui/SceneUI';
 import ActionPreview from './ActionPreview';
 import { isAdventurer } from "store/types/scene";
 import "./styles/scene.scss";
+import SceneLog from "./SceneLog";
 
 export interface Props {
     selectedActorId: string;
@@ -113,6 +114,7 @@ const Scene = (props: Props) => {
                 onMouseDown={handleUIMouseDown}
                 onSetActionIntent={setCurrentActionIntent}
             />
+            <SceneLog questId={controller.questName} />
         </div>
     );
 }

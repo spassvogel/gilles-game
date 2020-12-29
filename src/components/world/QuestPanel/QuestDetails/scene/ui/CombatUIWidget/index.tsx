@@ -21,16 +21,6 @@ const CombatUIWidget = (props: Props) => {
     const {tileWidth, tileHeight} = controller.getTileDimensions();
     const transform = `translate(${tileWidth * location[0]}px, ${tileHeight * location[1]}px)`;
     const [collapsed, setCollapsed] = useState(true);
-    // const rotate = true;
-    // useEffect(() => {
-    //     if (rotate){
-    //         setTimeout(() => {
-    //             console.log(rot)
-    //             setRot(rot + 1)
-    //         }, 3)
-    //     }
-
-    // }, [rot]);
 
     const handleMouseMove = (e: React.MouseEvent) => {
         e.preventDefault();

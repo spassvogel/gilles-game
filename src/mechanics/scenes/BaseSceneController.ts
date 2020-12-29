@@ -172,9 +172,11 @@ export class BaseSceneController<TQuestVars> {
     }
 
     actorInteract(actorId: string, location: [number, number]) {
-        console.log(actorId);
         const actor = this.getSceneActor(actorId);
         const object = this.getObjectAtLocation(location);
+
+        // todo!!: delete
+        this.questUpdate("test-game-welcome" + Date.now(), undefined, false); // temp! 
 
         if (!object) {
             // tslint:disable-next-line: no-console

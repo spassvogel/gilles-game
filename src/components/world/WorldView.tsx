@@ -29,7 +29,6 @@ const WorldView = () => {
 
     }, []);
 
-    // console.log(params.questname);
     // const handleMapMove = (distance: number, angle: number) => {
     //     const compassEl = compassRef!.current!;
     //     const compassTextEl = compassEl.firstElementChild! as HTMLElement;
