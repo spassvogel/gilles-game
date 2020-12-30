@@ -23,6 +23,7 @@ import Background from 'components/Background';
 import { restartGame } from 'index';
 import Button, { ButtonColor } from 'components/ui/buttons/Button';
 import StructureDetailsView from 'components/town/StructureDetailsView';
+import QuestRepaintTester from "./QuestRepaintTester";
 import "./styles/app.scss";
 
 PixiPlugin.registerPIXI(PIXI);
@@ -55,7 +56,6 @@ type AllProps = Props & StateProps & DispatchProps;
 const App = (props: AllProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // const [media, setMedia] = useState<MediaItem[]>([]);
     const [activeWindows, setActiveWindows] = useState<React.ReactElement[]>([]);
 
     const handleViewButtonClick = () => {
@@ -125,12 +125,6 @@ const App = (props: AllProps) => {
         SoundManager.addSound("ui/buttonClick", "sound/fx/button-click.ogg");
         SoundManager.addSound("ui/error", "sound/fx/error.ogg");
         SoundManager.addSound("ui/toast", "sound/fx/toast.ogg");
-        // SoundManager.addSound("ui/buttonClick", ["sound/fx/button-click.ogg", "sound/fx/error.ogg", "sound/fx/toast.ogg"]);
-            //         ["ui/buttonClick"]: "sound/fx/button-click.ogg",
-            //         [Sound.error]: "sound/fx/error.ogg",
-            //         [Sound.toast]: "sound/fx/toast.ogg"
-            //         // add more sounds here
-            //     });
     }, []);
 
     const handleAppClick = () => {
@@ -148,26 +142,6 @@ const App = (props: AllProps) => {
             window.removeEventListener("wheel", handleScroll);
         };
     }, []);
-    // const handleResize = () => {
-    //     if (containerRef.current) {
-    //         if (window.innerHeight < resolution.height) {
-    //            // containerRef.current.style.transform = `scale(${Math.min(window.innerWidth / resolution.width, 1)}) translateX(-50%)`;
-    //         } else {
-    //             //containerRef.current.style.transform = `scale(1) translateX(-50%)`;
-    //         }
-    //         //const parentBox = containerRef.current.getBoundingClientRect();
-    //         //setContainerRect(parentBox);
-    //    }
-    // };
-
-    // useEffect(() => {
-    //     // todo: see if we can disable this;
-    //     window.addEventListener("resize", handleResize);
-    //     handleResize();
-    //     return () => {
-    //         window.removeEventListener("resize", handleResize);
-    //     };
-    // }, []);
 
     return (
         <AppContext.Provider value={{
@@ -183,10 +157,11 @@ const App = (props: AllProps) => {
                 }}
                 onClick={handleAppClick}
             >
+                <QuestRepaintTester />
                 <DndProvider backend={HTML5Backend}>
                 <HashRouter>
                     <Topbar persistor={props.persistor} />
-                    <div style={{ margin: "4px 0 0 8px"}}>
+                    <div className="control-bar">
                         <Switch>
                             <Route path="/" exact={true} >
                                 <Redirect from="/" to={getWorldLink()} />

@@ -1,11 +1,5 @@
 @import 'components/styles/variables.scss';
 
-.app {
-    // todo: 08/05/2020  Use variables for cursor
-    --app-cursor-default: url("./img/cursors/dwarven_gauntlet_extra_4.png"), auto;
-    --app-cursor-pointer: url("./img/cursors/dwarven_gauntlet_extra_6.png"), auto;
-    --app-cursor-down: url("./img/cursors/dwarven_gauntlet_extra_3.png"), auto;
-}
 
 @font-face {
     font-family: 'Gabriela';
@@ -18,14 +12,22 @@
     left: 50%;
     transform: translateX(-50%);
     min-height: 100vh;
+    
+    // todo: 08/05/2020  Use variables for cursor
+    --app-cursor-default: url("./img/cursors/dwarven_gauntlet_extra_4.png"), auto;
+    --app-cursor-pointer: url("./img/cursors/dwarven_gauntlet_extra_6.png"), auto;
+    --app-cursor-down: url("./img/cursors/dwarven_gauntlet_extra_3.png"), auto;
 
     cursor: var(--app-cursor-default);
     font-family: $font-normal;
-}
 
+    button {
+        cursor: var(--app-cursor-pointer);
+    }
 
-.app button {
-    cursor: var(--app-cursor-pointer);
+    .control-bar {
+        margin: 4px 0 0 8px;
+    }
 }
 
 /** Small resolutions */
