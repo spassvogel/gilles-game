@@ -3,15 +3,14 @@ import { ActionType as GameActionType } from "store/actions/game";
 import {  ActionType, AddAction} from "store/actions/tasks";
 import { AnyAction, Reducer } from "redux";
 import { TaskStoreState } from "store/types/task";
-import { initialState, TasksStoreState } from "store/types/tasks";
+import {  TasksStoreState } from "store/types/tasks";
 
 /**
  * Tasks reducer
  * @param state
  * @param action
  */
-export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initialState,
-                                                action: AnyAction ) => {
+export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initialTasksState, action: AnyAction ) => {
     switch (action.type) {
         case ActionType.start: {
         // Adds a new task to the running tasks
@@ -66,4 +65,9 @@ const createTask = (action: AddAction): TaskStoreState => {
         lastTick: Date.now(),
         progress: 0,
     };
+};
+
+export const initialTasksState: TasksStoreState = {
+    completed: [],
+    running: [],
 };

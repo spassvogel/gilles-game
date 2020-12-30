@@ -1,14 +1,14 @@
 import { ActionType as GameActionType, GameTickAction } from "store/actions/game";
 import { AnyAction, Reducer } from "redux";
 import { ActionType, AddResources } from "store/actions/resources";
-import { initialState, ResourceStoreState } from "store/types/resources";
+import { ResourceStoreState } from "store/types/resources";
 
 /**
  * reducer
  * @param state
  * @param action
  */
-export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState = initialState,
+export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState = initialResourcesState,
                                                        action: AnyAction | GameTickAction) => {
 
     const addResources = (resourcesToAdd: ResourceStoreState) => {
@@ -41,4 +41,13 @@ export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState
         }
     }
     return state;
+};
+
+export const initialResourcesState: ResourceStoreState = {
+    fabric: 0,
+    food: 0,
+    iron: 10,
+    leather: 0,
+    stone: 0,
+    wood: 10,
 };

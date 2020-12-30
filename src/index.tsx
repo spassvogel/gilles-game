@@ -2,7 +2,7 @@ import updateCombat from "mechanics/gameTick/combat";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { Store, AnyAction } from "redux";
+import { Store, AnyAction, DeepPartial } from "redux";
 import { Persistor } from "redux-persist";
 import localforage from 'localforage';
 import { gameTick, startGame } from "store/actions/game";
@@ -19,8 +19,9 @@ import { TextManager } from "./global/TextManager";
 import { loadResourceAsync } from 'utils/pixiJs';
 import { processCompletedTasks } from 'mechanics/gameTick/tasks';
 import { StoreState } from 'store/types';
+import { getTownLink, getWorldLink } from "utils/routing";
+import { createInitialStore } from "store/reducers";
 import "./index.css";
-import { getTownLink } from "utils/routing";
 
 // Todo: Refactor into class
 const TICK_INTERVAL = 2500;
@@ -31,14 +32,14 @@ const initGame = async () => {
     TextManager.init(texts.data);
     Random.init("GILLESROX2");
 
-    readPersistedStore();
+    setupStore();
 };
 
 /**
  * Attemps to read persisted store state. Calls `runGame`
  */
-const readPersistedStore = async () => {
-    const storeConfiguration = await configureStore();
+const setupStore = async (initial: DeepPartial<StoreState> = {}) => {
+    const storeConfiguration = await configureStore(initial);
     const { store, isHydrated } = storeConfiguration;
     persistor = storeConfiguration.persistor;
 
@@ -84,7 +85,7 @@ const loadGame = async (state: StoreState) => {
 
     // We have to cause the page to reinitialize and all react components to remount
     // eslint-disable-next-line no-restricted-globals
-    location.href = '#/world/'; // todo: load path from metadata '#/world/kill10Boars';
+    location.href = `#${getWorldLink()}`; // todo: load path from metadata '#/world/kill10Boars';
 }
 
 const restartGame = () => {
@@ -94,15 +95,12 @@ const restartGame = () => {
         persistor.purge();
         localforage.clear();
 
-        readPersistedStore();
+        setupStore(createInitialStore());
         // eslint-disable-next-line no-restricted-globals
-        location.href = getTownLink();
+        location.href = `#${getTownLink()}`;
     }
 }
 
-// const stopGame = () => {
-//     clearTimeout(interval);
-// };
 
 let interval: NodeJS.Timeout;
 const runGame = (store: Store<StoreState, AnyAction>) => {
@@ -131,8 +129,6 @@ const runGame = (store: Store<StoreState, AnyAction>) => {
         store.dispatch(gameTick(delta, rngState, resourcesUpdates, questUpdates, logs));
 
         processCompletedTasks(state.tasks, store.dispatch);
-
-        // store.dispatch(addLogEntry("test-you-have-found-an-item", LogChannel.common, { item: Item.teeth }));
     };
 
     interval = setInterval(gameLoop, TICK_INTERVAL);

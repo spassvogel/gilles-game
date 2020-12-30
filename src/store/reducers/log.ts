@@ -9,7 +9,7 @@ import { LogEntry } from "store/types/logEntry";
  * @param state
  * @param action
  */
-export const log: Reducer<LogEntry[]> = (state: LogEntry[] = [], action: AnyAction) => {
+export const log: Reducer<LogEntry[]> = (state: LogEntry[] = initialLogState, action: AnyAction) => {
     switch (action.type) {
         case ActionType.addLogEntry:
             const {entry, channel, channelContext} = (action as AddLogEntryAction);
@@ -30,6 +30,8 @@ export const log: Reducer<LogEntry[]> = (state: LogEntry[] = [], action: AnyActi
     }
     return state;
 };
+
+export const initialLogState = [];
 
 const gameTick = (state: LogEntry[], action: GameTickAction): LogEntry[] => {
     if (!action.log.length) {

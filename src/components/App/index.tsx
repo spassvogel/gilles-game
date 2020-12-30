@@ -157,7 +157,7 @@ const App = (props: AllProps) => {
                 }}
                 onClick={handleAppClick}
             >
-                <QuestRepaintTester />
+                {/* <QuestRepaintTester /> */}
                 <DndProvider backend={HTML5Backend}>
                 <HashRouter>
                     <Topbar persistor={props.persistor} />

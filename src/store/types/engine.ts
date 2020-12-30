@@ -6,10 +6,3 @@ export interface EngineStoreState {
     lastTick: number;
     lastProducedUpdate: number;
 }
-
-export const initialState: EngineStoreState = {
-    gameStarted: undefined,
-    previousTick: Date.now(),
-    lastTick: Date.now(),
-    lastProducedUpdate: Date.now()
-};

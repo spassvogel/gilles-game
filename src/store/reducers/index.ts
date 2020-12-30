@@ -1,17 +1,18 @@
 import { combineReducers } from "redux";
 import { StoreState } from "store/types"
-import { adventurers } from "./adventurers";
+import { barBrawl } from "store/types/combat";
+import { adventurers, initialAdventurers } from "./adventurers";
 import { combat } from "./combat";
-import { engine } from "./engine";
-import { gold } from "./gold";
-import { items } from "./items";
-import { log } from "./log";
-import { quests } from "./quests";
-import { resources } from "./resources";
-import { rngState } from "./rngState";
-import { structures } from "./structures";
-import { tasks } from "./tasks";
-import { workers } from "./workers";
+import { engine, getInitialEngineState } from "./engine";
+import { gold, initialGoldState } from "./gold";
+import { getItemsInitialState, items } from "./items";
+import { initialLogState, log } from "./log";
+import { initialQuestState, quests } from "./quests";
+import { initialResourcesState, resources } from "./resources";
+import { initialRngState, rngState } from "./rngState";
+import { initialStructuresState, structures } from "./structures";
+import { initialTasksState, tasks } from "./tasks";
+import { initialWorkersState, workers } from "./workers";
 
 export default combineReducers<StoreState>({
     adventurers,
@@ -27,3 +28,18 @@ export default combineReducers<StoreState>({
     tasks,
     workers,
 });
+
+export const createInitialStore = () => ({
+    adventurers: initialAdventurers,
+    combat: barBrawl,
+    engine: getInitialEngineState(),
+    gold: initialGoldState,
+    stockpile: getItemsInitialState(),
+    log: initialLogState,
+    quests: initialQuestState,
+    resources: initialResourcesState,
+    rngState: initialRngState,
+    structures: initialStructuresState,
+    tasks: initialTasksState,
+    workers: initialWorkersState
+})

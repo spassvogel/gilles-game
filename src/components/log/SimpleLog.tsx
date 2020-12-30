@@ -38,6 +38,7 @@ const SimpleLog = () => {
     const logEntries = useLog();
     const activeQuestNames = useActiveQuestNames();
     const location = useLocation<{pathname: string}>();
+
     useEffect(() => {
         if (location.pathname === getTownLink()){
             setSelectedTabId("town");
@@ -48,7 +49,7 @@ const SimpleLog = () => {
                 setSelectedTabId(`quest-${q}`);
             }
         })
-    }, [activeQuestNames, location])
+    }, [activeQuestNames, location]);
 
     const channels: ChannelDefinition[]=[{
         label: TextManager.get("ui-log-tab-all"),

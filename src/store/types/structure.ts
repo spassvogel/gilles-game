@@ -12,12 +12,6 @@ export interface StructureStoreState {
     state: StructureState;
 }
 
-export const initialState: StructureStoreState = {
-    level: 0,
-    state: StructureState.NotBuilt,
-    workers: 0,
-};
-
 export interface ProductionStructureStoreState extends StructureStoreState {
     produces: Item[];
 }

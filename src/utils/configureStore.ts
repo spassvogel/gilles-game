@@ -25,6 +25,7 @@ interface ConfigureStoreResult {
  */
 const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<ConfigureStoreResult> => {
     return new Promise((resolve, reject) => {
+        console.log('creating store', initial)
         const store = createStore<StoreState & PersistPartial, AnyAction, any, StoreState>(
             persistedReducer,
             initial,

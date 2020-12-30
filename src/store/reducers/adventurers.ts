@@ -34,7 +34,7 @@ const avatarImgBasePath = "img/avatars";
 const spritesheetBasePath = "img/scene/actors/";
 
 // Create a bunch of guys for debugging
-const testState: AdventurerStoreState[] = [{
+export const initialAdventurers: AdventurerStoreState[] = [{
     id: "c4a5d270",
     equipment: {
         head: Item.cowl,
@@ -216,7 +216,7 @@ const testState: AdventurerStoreState[] = [{
 // TODO: To generate a random 11 digit number, use: Math.random().toString(36).substring(2)
 
 export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
-    state: AdventurerStoreState[] = testState, action: AnyAction) => {
+    state: AdventurerStoreState[] = initialAdventurers, action: AnyAction) => {
 
     switch (action.type) {
         // Moves an  item from one inventory slot to another

@@ -22,7 +22,7 @@ import { getDefinition } from 'definitions/quests';
 import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars';
 
 // tslint:disable:object-literal-sort-keys
-const initialState: QuestStoreState[] = [{
+export const initialQuestState: QuestStoreState[] = [{
     name: "kill10Boars",
     status: QuestStatus.active,
     party: [
@@ -54,7 +54,7 @@ const initialState: QuestStoreState[] = [{
  * @param state
  * @param action
  */
-export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialState, action: AnyAction ) => {
+export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialQuestState, action: AnyAction ) => {
     switch (action.type) {
         case ActionType.launchQuest:
             return launchQuest(state, action as QuestLaunchAction);
@@ -83,7 +83,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
         case ActionType.completeSceneAction:
             return completeSceneAction(state, action as QuestAction);
-            
+
         case ActionType.setCombat:
             return setCombat(state, action as SetCombatAction);
 
@@ -310,7 +310,7 @@ const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
     if (!questsToUpdate.length) {
         return state;
     }
-
+console.log(questsToUpdate);
     return state.map((qss) => {
         const questToUpdate = questsToUpdate.find((q) => q.name === qss.name);
         if (questToUpdate) {

@@ -6,7 +6,8 @@ import { getDefinition, Structure } from 'definitions/structures';
 import { WarehouseStructureDefinition } from 'definitions/structures/types';
 
 // Items in warehouse
-const getTestState = () => {
+export const getItemsInitialState = () => {
+    // Generate some random stuff
     const result = [];
     const { maxStockpile } = getDefinition<WarehouseStructureDefinition>(Structure.warehouse).levels[0];
     for (let i = 0; i < maxStockpile; i++) {
@@ -31,8 +32,7 @@ const randomEnum = <T>(anEnum: T): T[keyof T] => {
  * @param state
  * @param action
  */
-export const items: Reducer<(Item|null)[]> = (state: (Item|null)[] = getTestState(),
-                                                 action: AnyAction) => {
+export const items: Reducer<(Item|null)[]> = (state: (Item|null)[] = getItemsInitialState(), action: AnyAction) => {
     switch (action.type) {
         case ActionType.addItem: {
             // toSlot is optional
