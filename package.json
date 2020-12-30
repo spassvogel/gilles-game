@@ -64,6 +64,7 @@
   "devDependencies": {
     "@types/deep-equal": "^1.0.1",
     "@types/howler": "^2.2.1",
+    "@types/jest": "^26.0.19",
     "@types/moment-duration-format": "^2.2.2",
     "@types/node": "^14.14.6",
     "@types/react-dom": "^16.9.9",
