@@ -38,7 +38,6 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
     const log: LogUpdate[] = [];
     const quests: QuestUpdate[] = [];
     const state: StoreState = store.getState();
-
     // Moves the quest line progress. Only if currently at a 'nothing' node
     // Otherwise the player has to do something to move the quest along
     state.quests.forEach((quest: QuestStoreState) => {
@@ -49,19 +48,15 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
         const currentProgress = quest.progress;
         const currentNodeIndex = Math.floor(currentProgress);
         const currentNode = questDefinition.nodes[currentNodeIndex];
-
         if (currentNode.type === QuestNodeType.nothing) {
             // Currently at a 'nothing' node
             const progressIncrease = (delta / (MS_PER_MINUTE / timeMultiplier)) * speed;
             // todo: [15/07/2019] speed could be different for each party
-            const nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
+            let nextProgress = Math.min(currentProgress + progressIncrease, questDefinition.nodes.length - 1);
             const nodesPassed = Math.floor(nextProgress) - currentNodeIndex;
-
-            // console.log(nextProgress, nodesPassed)
             for (let i = 1; i <= nodesPassed; i++) {
                 // Loop through all the nodes we've passed since last tick
                 const nextNode = questDefinition.nodes[currentNodeIndex + i];
-//                console.log(`next node: ${QuestNodeType[nextNode.type]}`)
                 if (nextNode.type === QuestNodeType.encounter) {
                     // We've hit an encounter node. set the progress to here and stop looking at other nodes
 
@@ -79,6 +74,8 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
                             key: nextNode.log,
                         });
                     }
+                    // Dont overshoot the encounter node
+                    nextProgress = currentProgress + i;
 
                     break;
                 } else if (nextNode.type === QuestNodeType.nothing) {
