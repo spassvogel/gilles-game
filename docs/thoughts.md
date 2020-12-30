@@ -547,7 +547,7 @@ https://github.com/DragonBones/DragonBonesJS
 [ ] Use craco and react-scoped-css for scoping https://dev.to/viclafouch/how-to-scope-your-css-scss-in-react-js-271a
 
 #### Item rarity/quality [+art] [+design]
-[ ] background on items. gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary
+[x] background on items. gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary
 https://wow.gamepedia.com/Quality
 
 #### Remove unused or little used packages 

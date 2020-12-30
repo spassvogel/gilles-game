@@ -1,9 +1,9 @@
-import { withWindow } from "hoc/withWindow";
 import * as React from "react";
 import { compose } from "redux";
 import { ChangeEvent } from 'react';
-import { Channel, SoundManager } from 'global/SoundManager';
 import gsap from 'gsap';
+import { Channel, SoundManager } from 'global/SoundManager';
+import { withWindow } from "hoc/withWindow";
 import "./styles/settings.scss";
 
 const SettingsWindow = () => {

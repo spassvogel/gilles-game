@@ -24,9 +24,6 @@ const WorldView = () => {
         SoundManager.addSound("music/world", "sound/music/TheLoomingBattle.ogg", () => {
             SoundManager.playSound("music/world", Channel.music, true, MixMode.fade, true);
         })
-        // SoundManager.addMusicTrack(Music.world, "sound/music/TheLoomingBattle.ogg");
-        // SoundManager.playMusicTrack(Music.world);
-
     }, []);
 
     // const handleMapMove = (distance: number, angle: number) => {

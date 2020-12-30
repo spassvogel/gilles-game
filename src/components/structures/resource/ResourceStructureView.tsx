@@ -9,13 +9,13 @@ import { decreaseWorkers, increaseWorkers } from 'store/actions/structures';
 import StructureViewHeader from '../StructureViewHeader';
 import { TextManager } from 'global/TextManager';
 import StructureLevel from '../StructureLevel';
-import './styles/resourceStructureView.scss';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
 import UpgradeHelpModal from './UpgradeHelpModal';
 import useStructureState from 'hooks/store/useStructureState';
 import ResourceGenerationRow from './ResourceGenerationRow';
 import { Resource } from 'definitions/resources';
+import './styles/resourceStructureView.scss';
 
 
 export interface Props  {

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import { loadResource } from "utils/pixiJs";
 import { TiledTilesetData } from 'constants/tiledMapData';
 import { SpritesheetData, SpriteData } from 'constants/spritesheetData';

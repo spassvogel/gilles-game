@@ -1,4 +1,3 @@
-import updateCombat from "mechanics/gameTick/combat";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -8,6 +7,7 @@ import localforage from 'localforage';
 import { gameTick, startGame } from "store/actions/game";
 import { addLogText } from "store/actions/log";
 import version from "./constants/version";
+import updateCombat from "mechanics/gameTick/combat";
 import App from "./components/App";
 import getProducedResources from "./mechanics/gameTick/producedResources";
 import getQuestUpdates, { LogUpdate } from "./mechanics/gameTick/quests";

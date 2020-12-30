@@ -310,7 +310,7 @@ const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
     if (!questsToUpdate.length) {
         return state;
     }
-console.log(questsToUpdate);
+
     return state.map((qss) => {
         const questToUpdate = questsToUpdate.find((q) => q.name === qss.name);
         if (questToUpdate) {

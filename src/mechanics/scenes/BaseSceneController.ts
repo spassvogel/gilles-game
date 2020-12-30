@@ -17,10 +17,8 @@ import { getDefinition } from 'definitions/quests';
 import { LogChannel } from 'store/types/logEntry';
 import { addGold } from 'store/actions/gold';
 import { addItemToInventory } from 'store/actions/adventurers';
-import { calculateInitialAp } from './actionPoints';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { Sound, SoundManager } from 'global/SoundManager';
-import SceneActor from "components/world/QuestPanel/QuestDetails/scene/SceneActor";
 import { Allegiance } from "store/types/combat";
 
 const spritesheetBasePath = "img/scene/actors/";
@@ -34,13 +32,11 @@ export class BaseSceneController<TQuestVars> {
     public questName: string;
     public mapData?: TiledMapData;
     public aStar?: AStarFinder;
-    // public tilemapObjects?: {[location: string]: ExtendedTiledObjectData};
+    public dataLoaded: boolean = false;
 
     protected jsonPath?: string;
     protected store: Store<StoreState, AnyAction>;
     protected blockedTiles: [number, number][] = [];
-
-    //protected spritesheetsMap: {[key: string]: PIXI.Spritesheet} = {} // Various spritesheets, e.g for actors
 
     constructor(store: Store<StoreState, AnyAction>, questName: string) {
         this.store = store;
@@ -52,9 +48,6 @@ export class BaseSceneController<TQuestVars> {
         return `${process.env.PUBLIC_URL}/${this.jsonPath.substr(0, this.jsonPath.lastIndexOf('/'))}`;
     }
 
-    get dataLoaded(): boolean {
-        return !!this.mapData;
-    }
 
     // Loads tiles from json, loads all scene assets
     loadData(callback: () => void) {
@@ -86,27 +79,21 @@ export class BaseSceneController<TQuestVars> {
         Promise.all(promises).then(async () => {
             const resource = PIXI.Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
             this.mapData = resource.data;
-            // this.objecs = getExtendedTilemapObjects(resource.data);
             this.mapData!.layers.filter(layer => layer.visible).forEach(layer => {
                 if (layer.properties && layer.properties.some(p => p.name === 'blocksMovement' && p.value === true)){
                     addAllTilesInLayerToList(this.blockedTiles, layer, layer.width);
                 }
             });
 
-            const spritesheets = getSpritesheetPaths(this.sceneObjects);
+            // In the case a scene is just created, we dont have this.sceneObjects yet
+            const spritesheets = getSpritesheetPaths(this.sceneObjects.length ? this.sceneObjects : this.createObjects());
             for(const path of spritesheets) {
-                console.log(`loading ${path}`)
                 await loadResourceAsync(path);
-                console.log(`done loading ${path}`)
-
-                // Object.keys(spritesheet!.textures).forEach((key: string) => {
-                //     Texture.removeFromCache(spritesheet!.textures[key]); //or just 'key' will work in that case
-                // });
             }
             // PIXI.utils.clearTextureCache()
             // Create aStar based on blocked tiles
             this.aStar = this.createAStar();
-
+            this.dataLoaded = true;
             callback();
         });
     }
@@ -399,7 +386,7 @@ export class BaseSceneController<TQuestVars> {
         });
     }
 
-    // These objects are saved in store
+    // Create SceneObject from this.mapData
     protected createObjects(): SceneObject[] {
         if (!this.mapData) {
             throw new Error("No mapData");
@@ -446,7 +433,6 @@ export class BaseSceneController<TQuestVars> {
                         object.properties.isSprite = true;
                         object.properties.spritesheet = `${spritesheetBasePath}troll-sword.json`;
                     }
-
                 }
 
                 if (object) {

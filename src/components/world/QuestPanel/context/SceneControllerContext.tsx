@@ -1,7 +1,7 @@
 import React, { createContext, PropsWithChildren, useState, useMemo, useEffect } from 'react';
+import { useStore } from 'react-redux';
 import { SceneControllerManager } from 'global/SceneControllerManager';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
-import { useStore } from 'react-redux';
 import { StoreState } from 'store/types';
 import LoadingSpinner from 'components/ui/loading/LoadingSpinner';
 
@@ -30,7 +30,6 @@ const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
         setLoaded(false);
         if (sceneName && controller) {
             const loadingComplete = () => {
-                console.log('load complete')
                 setLoaded(true);
 
                 // If the store has no scene for this quest yet, create and store it!

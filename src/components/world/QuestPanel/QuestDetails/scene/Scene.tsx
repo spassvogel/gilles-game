@@ -8,8 +8,8 @@ import { SceneControllerContext } from '../../context/SceneControllerContext';
 import SceneUI, { ActionIntent } from './ui/SceneUI';
 import ActionPreview from './ActionPreview';
 import { isAdventurer } from "store/types/scene";
-import "./styles/scene.scss";
 import SceneLog from "./SceneLog";
+import "./styles/scene.scss";
 
 export interface Props {
     selectedActorId: string;

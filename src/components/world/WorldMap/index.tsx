@@ -1,9 +1,8 @@
 import * as PIXI from 'pixi.js';
+import React, { useEffect, useRef, useCallback, useState } from "react";
 import { Stage, Sprite } from '@inlet/react-pixi';
 import { Viewport as PixiViewport } from "pixi-viewport";
 import { useDispatch, useSelector } from 'react-redux'
-
-import React, { useEffect, useRef, useCallback, useState } from "react";
 import { QuestStoreState } from "store/types/quest";
 import { lerpLocation } from 'utils/pixiJs';
 import { QuestDefinition, QuestNodeType, QuestNode } from "definitions/quests/types";

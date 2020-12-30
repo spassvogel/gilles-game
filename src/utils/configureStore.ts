@@ -1,8 +1,8 @@
-import rootReducer from "store/reducers/index";
 import { createStore, DeepPartial, AnyAction } from "redux";
 import { Persistor, persistReducer, persistStore } from "redux-persist";
 import localForage from 'localforage';
 import { PersistPartial } from 'redux-persist/lib/persistReducer';
+import rootReducer from "store/reducers/index";
 import { asInt } from "constants/version";
 import { storeIsRehydrated } from 'store/helpers/storeHelpers';
 import { StoreState } from 'store/types';
@@ -25,7 +25,6 @@ interface ConfigureStoreResult {
  */
 const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<ConfigureStoreResult> => {
     return new Promise((resolve, reject) => {
-        console.log('creating store', initial)
         const store = createStore<StoreState & PersistPartial, AnyAction, any, StoreState>(
             persistedReducer,
             initial,
