@@ -2,7 +2,6 @@ import * as React from "react";
 import { getDefinition, Structure  } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition } from "definitions/structures/types";
 import UpDownValue from "components/ui/common/UpDownValue";
-import { StructureStoreState } from 'store/types/structure';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from 'store/types';
 import { selectFreeWorkers } from 'store/selectors/workers';

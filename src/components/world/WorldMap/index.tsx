@@ -13,12 +13,11 @@ import QuestMarker from './QuestMarker';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import QuestLine from './QuestLine';
 import { MAX_WIDTH as WIDTH } from 'components/App';
-import { selectActiveQuests } from 'store/selectors/quests';
 import { getDefinition } from 'definitions/quests';
 import { TextManager } from 'global/TextManager';
 import { getQuestLeader } from 'store/helpers/storeHelpers';
 import { StoreState } from 'store/types';
-import useQuest from 'hooks/store/useQuest';
+import { useActiveQuests, useQuest } from 'hooks/store/quests';
 import { setCombat } from 'store/actions/quests';
 import { useHistory } from 'react-router-dom';
 import { getWorldLink } from 'utils/routing';
@@ -47,7 +46,7 @@ const WorldMap = (props: Props) => {
 
     const selectedQuest = useSelector<StoreState, QuestStoreState | undefined>(questSelector);
     const adventurers = useSelector<StoreState, AdventurerStoreState[]>((store) => store.adventurers);
-    const activeQuests = useSelector<StoreState, QuestStoreState[]>((store) => selectActiveQuests(store));
+    const activeQuests = useActiveQuests();
     const history = useHistory();
 
     const handlePartyClick = (name: string) => {

@@ -17,7 +17,7 @@ const Tabstrip = (props: Props) => {
     if (!activeTab && props.children && props.children) {
         activeTab = props.children[0].props.id;
     }
-    const className = `${props.className} ${(props.disabled ? "disabled" : "")}`;
+    const className = `${props.className}${(props.disabled ? " disabled" : "")}`;
     const children = React.Children.map(props.children, (child: React.ReactElement<TabProps>) => {
         const clone: React.ReactElement<TabProps> = React.cloneElement(child, {
             active: child.props.id === activeTab,

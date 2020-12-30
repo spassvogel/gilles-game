@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useContext, useState } from "react";
 import { Container, Graphics } from '@inlet/react-pixi';
-import useQuest from 'hooks/store/useQuest';
+import { useQuest } from 'hooks/store/quests';
 import Tilemap from './Tilemap';
 import BridgedStage from 'components/pixi/util/BridgedStage';
 import useTilesetsLoader from 'hooks/useTilesetsLoader';
@@ -50,7 +50,7 @@ const Scene = (props: Props) => {
         }
     }
 
-    if (!loadComplete || !mapData) {
+    if (!loadComplete || !mapData || !scene) {
         return <div>loading scene...</div>
     }
 

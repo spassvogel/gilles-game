@@ -89,7 +89,7 @@ const testState: AdventurerStoreState[] = [{
         offHand: Item.aegisOfValor
     },
     basicAttributes: generateRandomAttributes(),
-    name: "Zackary 'bone bag' Morris",
+    name: "Zackary \"bone bag\" Morris",
     health: Math.random() * 100,
     xp: Math.random() * 100,
     baseAP: 5,

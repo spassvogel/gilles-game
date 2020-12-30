@@ -10,7 +10,7 @@ import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import SpriteAnimated from '../../../../pixi/tile/SpriteAnimated';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import { AdventurerColor } from 'store/types/adventurer';
-import useQuest from 'hooks/store/useQuest';
+import { useQuest } from 'hooks/store/quests';
 
 export interface Props  {
     name: string;

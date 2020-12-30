@@ -18,7 +18,7 @@ interface Props extends SceneProps {
 }
 
 const Tilemap = (props: PropsWithChildren<Props>) => {
-    const { data, objects, controller, spritesheets, selectedActorId, setSelectedActor } = props;
+    const { data, objects, controller, spritesheets, selectedActorId } = props;
 
     return (
         <Container >

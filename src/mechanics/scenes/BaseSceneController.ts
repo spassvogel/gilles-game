@@ -106,7 +106,6 @@ export class BaseSceneController<TQuestVars> {
             // PIXI.utils.clearTextureCache()
             // Create aStar based on blocked tiles
             this.aStar = this.createAStar();
-            console.log(`callback!`)
 
             callback();
         });

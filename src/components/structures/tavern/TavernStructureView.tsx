@@ -34,7 +34,6 @@ const TavernStructureView = () => {
 
     const structureDefinition = getDefinition<TavernStructureDefinition>(Structure.tavern);
     const levelDefinition: TavernStructureLevelDefinition = structureDefinition.levels[level];
-    const displayName = TextManager.getStructureName(Structure.tavern);
 
     const dispatch = useDispatch();
 

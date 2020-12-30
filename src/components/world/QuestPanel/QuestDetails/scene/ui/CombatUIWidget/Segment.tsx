@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
 interface Props {
     position: "w" | "sw" | "s" | "se" | "e";
@@ -12,7 +12,6 @@ const Segment = (props: Props) => {
     const {icon, onActivate, onDeactivate, activated} = props;
     const segmentWidth = 32;
     const segmentHeight = 46;
-    const tileWidth = 100;
     const tileHeight = 100;
     const rot = useMemo(() => {
         switch (props.position) {

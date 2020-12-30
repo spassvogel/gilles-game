@@ -6,7 +6,7 @@ import QuestDetails from './QuestDetails';
 import { useHistory } from 'react-router';
 import { getWorldLink } from 'utils/routing';
 import LootCache from './modals/LootCache';
-import useQuest from 'hooks/store/useQuest';
+import { useQuest } from 'hooks/store/quests';
 import { setActiveSceneInteractionModal } from 'store/actions/quests';
 import Situation from './modals/Situation';
 import SceneControllerContextProvider from './context/SceneControllerContext';

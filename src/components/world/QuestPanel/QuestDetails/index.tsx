@@ -1,6 +1,6 @@
 import React from 'react';
 import Scene from 'components/world/QuestPanel/QuestDetails/scene/Scene';
-import useQuest from 'hooks/store/useQuest';
+import { useQuest } from 'hooks/store/quests';
 import OnTheRoad from './OnTheRoad';
 
 export interface Props {

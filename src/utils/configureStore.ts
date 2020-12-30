@@ -23,7 +23,7 @@ interface ConfigureStoreResult {
 /**
  * Configures the redux store
  */
-export default async (initial: DeepPartial<StoreState> = {}): Promise<ConfigureStoreResult> => {
+const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<ConfigureStoreResult> => {
     return new Promise((resolve, reject) => {
         const store = createStore<StoreState & PersistPartial, AnyAction, any, StoreState>(
             persistedReducer,
@@ -36,3 +36,5 @@ export default async (initial: DeepPartial<StoreState> = {}): Promise<ConfigureS
         });
     });
 };
+
+export default configureStore;

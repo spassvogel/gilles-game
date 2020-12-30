@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Container } from "@inlet/react-pixi";
 import { isActorObject, SceneObject } from "store/types/scene";
 import SceneAdventurer from "./SceneAdventurer";

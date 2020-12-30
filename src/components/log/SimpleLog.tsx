@@ -3,12 +3,12 @@ import Tabstrip from "components/ui/tabs/Tabstrip";
 import * as React from "react";
 import {LogChannel, LogEntry} from "store/types/logEntry";
 import {TextManager} from "global/TextManager";
-import {useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useEffect, useState} from 'react';
 import Button from 'components/ui/buttons/Button';
-import { StoreState } from 'store/types';
-import { QuestStoreState } from 'store/types/quest';
-import { selectActiveQuests } from 'store/selectors/quests';
+import { useLog } from "hooks/store/useLog";
+import { useActiveQuestNames } from "hooks/store/quests";
+import { useLocation } from "react-router-dom";
+import { getQuestLink, getTownLink } from "utils/routing";
 import "./styles/simplelog.scss";
 
 // tslint:disable-next-line:no-empty-interface
@@ -28,14 +28,27 @@ interface ChannelDefinition {
     channelContext?: string;
 }
 
-const SimpleLog = (props: Props) => {
+// const activeQuestNames: string[] = [];
+
+const SimpleLog = () => {
 
     const [expanded, setExpanded] = useState(false);
-    const [selectedTabId, setSelectedTabId] = useState("all");
+    const [selectedTabId, setSelectedTabId] = useState<"all" | "town" | string>("all");
 
-    const logEntries = useSelector<StoreState, LogEntry[]>((store) => store.log);
-    const activeQuests = useSelector<StoreState, QuestStoreState[]>((store) => selectActiveQuests(store));
-
+    const logEntries = useLog();
+    const activeQuestNames = useActiveQuestNames();
+    const location = useLocation<{pathname: string}>();
+    useEffect(() => {
+        if (location.pathname === getTownLink()){
+            setSelectedTabId("town");
+            return;
+        }
+        activeQuestNames.forEach(q => {
+            if (location.pathname === getQuestLink(q)){
+                setSelectedTabId(`quest-${q}`);
+            }
+        })
+    }, [activeQuestNames, location])
 
     const channels: ChannelDefinition[]=[{
         label: TextManager.get("ui-log-tab-all"),
@@ -55,8 +68,7 @@ const SimpleLog = (props: Props) => {
         setExpanded(!expanded);
     }
 
-    activeQuests.forEach((quest) => {
-        const questName = quest.name;
+    activeQuestNames.forEach((questName) => {
         channels.push({
             channelContext: questName,
             label: TextManager.getQuestTitle(questName),
@@ -83,7 +95,7 @@ const SimpleLog = (props: Props) => {
             // Only the selected quest
             displayEntries = logEntries.filter((lE) => lE.channel === LogChannel.quest && lE.channelContext === currentTab.channelContext);
             break;
-}
+    }
 
     const getLogEntryRow = (logEntry: LogEntry) => {
         const text = TextManager.get(logEntry.key, logEntry.context);
@@ -95,7 +107,7 @@ const SimpleLog = (props: Props) => {
     };
 
     return (
-        <div className={`log ${expanded ? "expanded" : ""}`}>
+        <div className={`log${expanded ? " expanded" : ""}`}>
             <div className="tab-bar">
                 <Tabstrip className="tabs" onTabSelected={handleTabSelected} activeTab={selectedTabId}>
                     {channels.map((tab) => {

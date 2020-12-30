@@ -1,5 +1,5 @@
 import React from 'react';
-import useQuest from 'hooks/store/useQuest';
+import { useQuest } from 'hooks/store/quests';
 import { getDefinition } from 'definitions/quests';
 import { QuestDefinition } from 'definitions/quests/types';
 import { TextManager } from 'global/TextManager';

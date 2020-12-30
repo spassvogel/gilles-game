@@ -20,6 +20,7 @@ import { loadResourceAsync } from 'utils/pixiJs';
 import { processCompletedTasks } from 'mechanics/gameTick/tasks';
 import { StoreState } from 'store/types';
 import "./index.css";
+import { getTownLink } from "utils/routing";
 
 // Todo: Refactor into class
 const TICK_INTERVAL = 2500;
@@ -95,7 +96,7 @@ const restartGame = () => {
 
         readPersistedStore();
         // eslint-disable-next-line no-restricted-globals
-        location.href = "#/town"
+        location.href = getTownLink();
     }
 }
 

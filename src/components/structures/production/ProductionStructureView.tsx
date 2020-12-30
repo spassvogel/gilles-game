@@ -13,8 +13,8 @@ import UpgradeHelpModal from './UpgradeHelpModal';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
 import CraftingArea from './CraftingArea';
-import "./styles/productionStructureView.scss";
 import { addItemToToProduces } from 'store/actions/structures';
+import "./styles/productionStructureView.scss";
 
 export interface Props {
     structure: Structure;
@@ -32,7 +32,6 @@ const ProductionStructureView = (props: Props) => {
         throw new Error(`No definition found for structure ${props.structure}
             with type ProductionStructureDefinition.`);
     }
-    const displayName = TextManager.getStructureName(props.structure);
 
     const handleHelpClicked = (event: React.MouseEvent) => {
         const origin = (event.currentTarget as HTMLElement);

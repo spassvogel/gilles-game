@@ -1,5 +1,5 @@
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
-import useQuest from 'hooks/store/useQuest';
+import { useQuest } from 'hooks/store/quests';
 import React, { PropsWithChildren, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';

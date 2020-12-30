@@ -4,7 +4,7 @@ import ResourcesBox from "components/structures/warehouse/ResourcesBox";
 import { DragSourceType } from "constants/dragging";
 import { Item } from "definitions/items/types";
 import { getDefinition, Structure } from "definitions/structures";
-import { StructureDefinition, WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
+import { WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import usePrevious from "hooks/usePrevious";
 import { useEffect, useRef, useState } from "react";
 import { empty, ResourceStoreState } from "store/types/resources";

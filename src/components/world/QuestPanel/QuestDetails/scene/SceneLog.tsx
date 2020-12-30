@@ -11,7 +11,7 @@ const SceneLog = (props: Props) => {
         // console.log('log updated', log)
         const lastLog = log.shift();
         if ((lastLog?.time || 0) > Date.now() - 1000) {
-            console.log(lastLog?.key)
+            // console.log(lastLog?.key)
         }
     }, [log]);
     return null;
