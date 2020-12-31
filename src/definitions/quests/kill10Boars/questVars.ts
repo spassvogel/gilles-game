@@ -7,6 +7,7 @@ export interface Kill10BoarsQuestVars {
         lootCaches: {
             chest: LootCache,
             altar: LootCache,
+            hallwayChest: LootCache,
         },
         situations: {
             altar: {
@@ -36,6 +37,10 @@ export const initialQuestVars: Kill10BoarsQuestVars = {
                     Item.bolts,
                     Item.letters
                 ]
+            },
+            hallwayChest: {
+                title: "encounter-dungeon-caches-chest",
+                items: [ Item.key ]
             }
         },
         situations: {

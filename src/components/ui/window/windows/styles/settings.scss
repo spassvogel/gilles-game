@@ -2,7 +2,19 @@
     background: white;
     padding: 8px;
 
-    .sound input {
-        margin-bottom: -8px
+    .sound {
+
+        p {
+            display: flex;
+        
+            input {
+                margin-bottom: -8px;
+            }
+
+            label {
+                width: 90px;
+                display: block;
+            }
+        }
     }
 }

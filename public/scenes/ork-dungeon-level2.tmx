@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="8" height="10" tilewidth="100" tileheight="100" infinite="0" nextlayerid="8" nextobjectid="15">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="8" height="10" tilewidth="100" tileheight="100" infinite="0" nextlayerid="11" nextobjectid="20">
  <editorsettings>
   <export target="ork-dungeon-level2.json" format="json"/>
  </editorsettings>
@@ -9,13 +9,13 @@
   <data encoding="csv">
 2,4,4,83,83,5,83,83,
 3,10,5,83,5,6,83,4,
-7,2,10,7,3,3,105,2,
-105,6,6,103,4,103,105,3,
+7,4,2,7,3,3,105,2,
+105,5,6,103,4,103,105,3,
 7,102,105,105,103,2,4,6,
 4,101,5,2,2,5,5,3,
-3,103,84,85,3,103,4,3,
+3,103,2,4,3,103,4,3,
 83,2,83,3,103,3,105,10,
-10,106,104,10,3,103,10,4,
+10,2,4,10,3,103,10,4,
 3,83,6,4,6,83,5,2
 </data>
  </layer>
@@ -24,56 +24,87 @@
    <property name="blocksMovement" type="bool" value="true"/>
   </properties>
   <data encoding="csv">
-0,0,0,0,0,82,82,0,
-0,0,0,0,0,92,92,0,
-0,44,45,18,0,0,0,0,
-0,54,55,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,93,95,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,78,
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,109,0,
-0,93,94,95,0,0,0,0,
+0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="3" name="objects">
-  <object id="1" type="adventurerStart" x="200" y="900" width="100" height="100"/>
-  <object id="3" type="adventurerStart" x="300" y="900" width="100" height="100"/>
-  <object id="4" type="adventurerStart" x="400" y="900" width="100" height="100"/>
-  <object id="5" type="adventurerStart" x="600" y="900" width="100" height="100"/>
-  <object id="6" type="adventurerStart" x="500" y="900" width="100" height="100"/>
+ <layer id="4" name="walls" width="8" height="10">
+  <properties>
+   <property name="blocksMovement" type="bool" value="true"/>
+  </properties>
+  <data encoding="csv">
+0,0,151,0,202,132,133,135,
+123,124,171,0,213,0,0,145,
+133,134,181,0,0,0,0,155,
+0,0,0,0,193,0,0,155,
+121,122,171,0,203,153,153,215,
+131,132,181,0,185,134,133,135,
+141,0,0,0,0,0,0,145,
+151,0,0,0,0,0,0,155,
+151,0,0,0,0,0,0,155,
+161,162,164,162,163,164,163,165
+</data>
+ </layer>
+ <layer id="6" name="door" width="8" height="10" visible="0">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,144,0,0,0,
+0,0,0,0,144,0,0,0,
+0,0,206,207,208,0,0,0,
+0,0,216,217,218,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="8" name="shadow" width="8" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,143,143,0,
+0,0,0,0,0,0,0,0,
+143,143,143,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,
+0,142,143,0,143,143,143,0,
+0,152,0,0,0,0,0,0,
+0,152,0,0,0,0,0,0,
+0,152,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="10" name="doodads">
+  <object id="15" name="hallwayChest" type="lootCache" gid="33" x="300" y="900" width="100" height="100">
+   <properties>
+    <property name="interactive" type="bool" value="true"/>
+    <property name="title" value="encounter-dungeon-caches-chest"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="actors">
+  <object id="1" name="start1" type="adventurerStart" x="0" y="300" width="100" height="100"/>
+  <object id="3" name="start2" type="adventurerStart" x="100" y="300" width="100" height="100"/>
+  <object id="4" name="start3" type="adventurerStart" x="200" y="300" width="100" height="100"/>
+  <object id="5" name="start5" type="adventurerStart" x="300" y="200" width="100" height="100"/>
+  <object id="6" name="start4" type="adventurerStart" x="300" y="300" width="100" height="100"/>
   <object id="7" type="exit" x="400" y="700" width="100" height="100"/>
  </objectgroup>
- <layer id="4" name="walls" width="8" height="10">
+ <layer id="9" name="walls-top" width="8" height="10">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
-0,0,144,0,141,0,0,0,
-0,0,144,0,141,0,0,0,
-121,122,125,0,155,122,122,122,
-131,132,135,133,165,132,132,132,
+0,0,0,0,183,0,0,0,
+162,162,191,0,0,0,0,0,
+0,0,0,0,0,154,153,0,
 0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0
-</data>
- </layer>
- <objectgroup id="7" name="Object Layer 2">
-  <object id="9" gid="177" x="417.987" y="1002.25" width="100" height="100"/>
-  <object id="10" gid="176" x="317.607" y="1000.9" width="100" height="100"/>
-  <object id="11" gid="166" x="314.894" y="900.515" width="100" height="100"/>
-  <object id="12" gid="167" x="415.274" y="901.872" width="100" height="100"/>
-  <object id="13" gid="168" x="510.228" y="900.515" width="100" height="100"/>
-  <object id="14" gid="178" x="512.941" y="1000.9" width="100" height="100"/>
- </objectgroup>
- <layer id="6" name="door" width="8" height="10">
-  <data encoding="csv">
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,144,0,0,0,
-0,0,0,0,144,0,0,0,
-0,0,166,167,168,0,0,0,
-0,0,176,177,178,0,0,0,
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,

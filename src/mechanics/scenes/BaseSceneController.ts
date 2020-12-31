@@ -100,10 +100,10 @@ export class BaseSceneController<TQuestVars> {
 
     // Constructs the scene and dispatches it to be saved to the store
     createScene() {
+        console.log('creating scene');
         const objects = this.createObjects();
         const combat = true;
 
-        // todo: perhaps this should be a class such that stuff that repeats for every scene can be done in a base class
         const scene = {
             objects,
             combat
@@ -162,7 +162,7 @@ export class BaseSceneController<TQuestVars> {
         const object = this.getObjectAtLocation(location);
 
         // todo!!: delete
-        this.questUpdate("test-game-welcome" + Date.now(), undefined, false); // temp! 
+        // this.questUpdate("test-game-welcome" + Date.now(), undefined, false); // temp! 
 
         if (!object) {
             // tslint:disable-next-line: no-console

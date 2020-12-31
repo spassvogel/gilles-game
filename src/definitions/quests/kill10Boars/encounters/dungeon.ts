@@ -9,7 +9,34 @@ import { AdventurerStoreState } from 'store/types/adventurer';
 const TILE_CHEST_CLOSED = 33; // todo: take this from json?
 const TILE_CHEST_OPEN = 34; // todo: take this from json?
 
-export class DungeonEntranceSceneController extends BaseSceneController<Kill10BoarsQuestVars> {
+class DungeonEncounterSceneController extends BaseSceneController<Kill10BoarsQuestVars>  {
+
+    getLootCache(name: string): LootCache | undefined {
+        return this.questVars.dungeon.lootCaches[name];
+    }
+
+    takeGoldFromCache(name: string) {
+        super.takeGoldFromCache(name);  // first add gold to inventory
+        const lootCache = this.getLootCache(name);
+        if (lootCache){
+            const questVars = this.questVars;
+            questVars.dungeon.lootCaches[name].gold = 0;
+            this.store.dispatch(updateQuestVars(this.questName, questVars));
+        }
+    }
+
+    takeItemFromCache(itemIndex: number, name: string, adventurer: AdventurerStoreState, toSlot?: number) {
+        super.takeItemFromCache(itemIndex, name, adventurer, toSlot);
+        const lootCache = this.getLootCache(name);
+        if (lootCache){
+            const questVars = this.questVars;
+            const items = questVars.dungeon.lootCaches[name].items.filter((_: any, index: number) => index !== itemIndex);
+            questVars.dungeon.lootCaches[name].items = items;
+            this.store.dispatch(updateQuestVars(this.questName, questVars));
+        }
+    }
+}
+export class DungeonEntranceSceneController extends DungeonEncounterSceneController {
     jsonPath = "scenes/ork-dungeon-level1.json";
 
     interactWithObject(actor: ActorObject, object: SceneObject) {
@@ -45,30 +72,6 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
         }
     }
 
-    getLootCache(name: string): LootCache | undefined {
-        return this.questVars.dungeon.lootCaches[name];
-    }
-
-    takeGoldFromCache(name: string) {
-        super.takeGoldFromCache(name);  // first add gold to inventory
-        const lootCache = this.getLootCache(name);
-        if (lootCache){
-            const questVars = this.questVars;
-            questVars.dungeon.lootCaches[name].gold = 0;
-            this.store.dispatch(updateQuestVars(this.questName, questVars));
-        }
-    }
-
-    takeItemFromCache(itemIndex: number, name: string, adventurer: AdventurerStoreState, toSlot?: number) {
-        super.takeItemFromCache(itemIndex, name, adventurer, toSlot);
-        const lootCache = this.getLootCache(name);
-        if (lootCache){
-            const questVars = this.questVars;
-            const items = questVars.dungeon.lootCaches[name].items.filter((_: any, index: number) => index !== itemIndex);
-            questVars.dungeon.lootCaches[name].items = items;
-            this.store.dispatch(updateQuestVars(this.questName, questVars));
-        }
-    }
 
     getSituation(situation: string, adventurerId?: string) {
         switch (situation) {
@@ -118,8 +121,31 @@ export class DungeonEntranceSceneController extends BaseSceneController<Kill10Bo
     }
 }
 
-export class DungeonHallwaySceneController extends BaseSceneController<Kill10BoarsQuestVars> {
+export class DungeonHallwaySceneController extends DungeonEncounterSceneController {
     jsonPath = "scenes/ork-dungeon-level2.json";
+
+    interactWithObject(actor: ActorObject, object: SceneObject) {
+        console.log(object);
+        switch (object.name) {
+            // todo: I want to share this common stuff with other SceneControllers
+            case "hallwayChest":
+                if (object.gid === TILE_CHEST_CLOSED) {
+                    const adventurer = this.getAdventurerByActor(actor)?.name;
+                    const textEntry = { key: "quest-common-adventurer-opened-chest", context: { adventurer } };
+                    this.questUpdate(textEntry, "/img/items/misc/chest-02.png");
+                    this.store.dispatch(updateSceneObject(this.questName, object.id, { gid: TILE_CHEST_OPEN }));
+                }
+                // display loot modal!
+                this.store.dispatch(setActiveSceneInteractionModal(this.questName, {
+                    type: 'lootCache',
+                    lootCache: object.name
+                }));
+                break;
+        }
+        super.interactWithObject(actor, object);
+    }
+
+
 }
 
 SceneControllerManager.registerSceneController("kill10Boars", "dungeon.entrance", DungeonEntranceSceneController as any);

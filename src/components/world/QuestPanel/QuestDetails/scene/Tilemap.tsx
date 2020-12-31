@@ -29,17 +29,17 @@ const Tilemap = (props: PropsWithChildren<Props>) => {
                         const { tileObjects, spriteObjects} = getLayerObjects(objects, layer);
                         return (
                             <React.Fragment key={layer.name}>
-                                { tileObjects.length && (
+                                { !!tileObjects.length && (
                                     <ObjectTileLayer
                                         objects={tileObjects}
-                                        tilesets={data.tilesets}
+                                        tilesets={data.tilesets || []}
                                         spritesheets={spritesheets}
                                     />
                                 )}
-                                { spriteObjects.length && (
+                                { !!spriteObjects.length && (
                                     <ObjectSpriteLayer
                                         key={layer.name}
-                                        objects={spriteObjects}
+                                        objects={spriteObjects || []}
                                         controller={controller}
                                         selectedActorId={selectedActorId}
                                     />
