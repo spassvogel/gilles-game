@@ -172,7 +172,7 @@ for (var i = 0; i < 30; i++) {
 [ ] We need cursors for move inventory item and not-allowed
 [x] Need cursors in pixi context. Why isn't it working? (https://codesandbox.io/s/autumn-waterfall-ng6gb)
     https://pixijs.io/examples/#/interaction/custom-mouse-icon.js
-    Fixed! Path needed {process.env.PUBLIC_URL}
+    Fixed! Path needed {process.env.PUBLIC_URL}npm 
 
 #### 29/07/2019 EQUIP GEAR
 [x] Can equip gear from the players inventory
@@ -186,7 +186,7 @@ for (var i = 0; i < 30; i++) {
 #### 31/07/2019 THREE.js
 Because I'm not an artist and I want to use unity3d assets
 [x] First check if components dont get remounted too much. If yes, find out why and resolve issue!     
-[ ] Find cool fantasy town assets
+[-] Find cool fantasy town assets
 [x] Check if can be loaded in threejs (seperate project)
 [-] Implement in town
 [-] It would be cool to have the town scrollable. (see: 23/08/2019 WORLD MAP)
@@ -330,7 +330,7 @@ APs can be spent in any order.
 
 [ ] All scenecontroller stuff has to go through basecontroller to aplpy game logic. 
     e.g. the 'arrow finder' trait logic needs to be in the BaseSceneController. 
-[ ] Might need to seperate this stuff into different files. Find out if Typescript can do that.
+[-] Might need to seperate this stuff into different files. Find out if Typescript can do that. Answer: no it cant
 
 ### 23/8/2019 ADVENTURER STATS
 
@@ -426,6 +426,7 @@ research fantasy concept art
 [x] Would be cool to see the path that a party took
     https://stackoverflow.com/questions/7054272/how-to-draw-smooth-curve-through-n-points-using-javascript-html5-canvas
 [ ] Best would be to have a dotted line..    
+[ ] Also for debugging I would like to show the entire quest path
 
 
 #### 02/04/2020 Toasts [+tech]
@@ -510,7 +511,7 @@ https://gamedev.stackexchange.com/questions/115982/industry-standard-json-format
 [-] Implement tmx loader (see tiled-pixi-react: https://www.npmjs.com/package/tiled-pixi-react)
     (no. use json!)
 
-[x] Shit. pixi-tilemap doesn't export as npm module.    
+[x] Shit. pixi-tilemap doesn't export as npm module.   See: https://github.com/pixijs/pixi-tilemap/pull/105 
 
 The static part of the scene is not stored in store. The dynamic part is created by Oracle.createSceneState() and stored in redux. After that, any changes (actors moving, stuff getting added/removed) are also persisted to redux.
 
@@ -648,3 +649,7 @@ https://css-tricks.com/sticky-smooth-active-nav/
 [x] Refactor to use pixi-sound
 [ ] Use a filter on music when menu is opened
 [x] Continue playing music when scene changes. When 
+
+### Adventurers
+[ ] Adventurers need to have a definition file
+[ ] Then when an adventurer is added to the game (how?) it gets saved in the redux store
