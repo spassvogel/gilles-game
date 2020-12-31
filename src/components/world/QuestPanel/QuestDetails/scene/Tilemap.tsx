@@ -36,7 +36,7 @@ const Tilemap = (props: PropsWithChildren<Props>) => {
                                         spritesheets={spritesheets}
                                     />
                                 )}
-                                { tileObjects.length && (
+                                { spriteObjects.length && (
                                     <ObjectSpriteLayer
                                         key={layer.name}
                                         objects={spriteObjects}
@@ -61,7 +61,6 @@ const Tilemap = (props: PropsWithChildren<Props>) => {
                     return null;
                 })
             }
-
         </Container>
     );
 }
