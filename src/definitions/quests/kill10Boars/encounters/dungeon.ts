@@ -97,7 +97,7 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
         }
     }
 
-    handleSituationOptionClick(situation: string, option: string) {
+    handleSituationOptionClick(situation: string, option: string, adventurerId: string) {
         // @ts-ignore
         switch (situation) {
             case 'altar': {
@@ -145,6 +145,9 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
         super.interactWithObject(actor, object);
     }
 
+    handleSituationOptionClick(situation: string, option: string, adventurerId: string) {
+        this.getAdventurerByActor()
+    }
 
 }
 

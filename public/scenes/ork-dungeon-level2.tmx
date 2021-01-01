@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="8" height="10" tilewidth="100" tileheight="100" infinite="0" nextlayerid="11" nextobjectid="20">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="8" height="10" tilewidth="100" tileheight="100" infinite="0" nextlayerid="11" nextobjectid="22">
  <editorsettings>
   <export target="ork-dungeon-level2.json" format="json"/>
  </editorsettings>
@@ -41,9 +41,9 @@
    <property name="blocksMovement" type="bool" value="true"/>
   </properties>
   <data encoding="csv">
-0,0,151,0,202,132,133,135,
-123,124,171,0,213,0,0,145,
-133,134,181,0,0,0,0,155,
+123,124,171,0,202,132,133,135,
+133,134,181,0,213,0,0,145,
+0,0,0,0,0,0,0,155,
 0,0,0,0,193,0,0,155,
 121,122,171,0,203,153,153,215,
 131,132,181,0,185,134,133,135,
@@ -53,10 +53,10 @@
 161,162,164,162,163,164,163,165
 </data>
  </layer>
- <layer id="6" name="door" width="8" height="10" visible="0">
+ <layer id="6" name="door" width="8" height="10">
   <data encoding="csv">
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
+0,0,206,0,208,0,0,0,
+0,0,216,0,218,0,0,0,
 0,0,0,0,144,0,0,0,
 0,0,0,0,144,0,0,0,
 0,0,206,207,208,0,0,0,
@@ -88,11 +88,18 @@
     <property name="title" value="encounter-dungeon-caches-chest"/>
    </properties>
   </object>
+  <object id="20" name="door1" type="door" gid="217" x="300" y="200" width="100" height="100">
+   <properties>
+    <property name="blocksMovement" type="bool" value="true"/>
+    <property name="interactive" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="21" name="door1" type="door" gid="207" x="300" y="100" width="100" height="100"/>
  </objectgroup>
  <objectgroup id="3" name="actors">
-  <object id="1" name="start1" type="adventurerStart" x="0" y="300" width="100" height="100"/>
-  <object id="3" name="start2" type="adventurerStart" x="100" y="300" width="100" height="100"/>
-  <object id="4" name="start3" type="adventurerStart" x="200" y="300" width="100" height="100"/>
+  <object id="1" name="start1" type="adventurerStart" x="0" y="200" width="100" height="100"/>
+  <object id="3" name="start2" type="adventurerStart" x="100" y="200" width="100" height="100"/>
+  <object id="4" name="start3" type="adventurerStart" x="200" y="200" width="100" height="100"/>
   <object id="5" name="start5" type="adventurerStart" x="300" y="200" width="100" height="100"/>
   <object id="6" name="start4" type="adventurerStart" x="300" y="300" width="100" height="100"/>
   <object id="7" type="exit" x="400" y="700" width="100" height="100"/>
@@ -101,8 +108,8 @@
   <data encoding="csv">
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
-0,0,0,0,183,0,0,0,
-162,162,191,0,0,0,0,0,
+163,163,191,0,183,0,0,0,
+0,0,151,0,0,0,0,0,
 0,0,0,0,0,154,153,0,
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,

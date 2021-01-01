@@ -20,9 +20,8 @@ const Situation = (props: Props) => {
     const { title, choices } = situation;
 
     const handleChoiceClick = (e: MouseEvent<HTMLButtonElement>) => {
-        //choice: string
         const choice = e.currentTarget.getAttribute('data-option')!;
-        controller.handleSituationOptionClick(props.situation, choice);
+        controller.handleSituationOptionClick(props.situation, choice, props.adventurerId);
         e.stopPropagation();
     }
 

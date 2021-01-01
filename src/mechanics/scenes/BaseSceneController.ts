@@ -308,7 +308,7 @@ export class BaseSceneController<TQuestVars> {
          return undefined;
     }
 
-    handleSituationOptionClick(situation: string, option: string) {
+    handleSituationOptionClick(situation: string, option: string, adventurerId: string) {
         // @ts-ignore
     }
 
