@@ -17,8 +17,7 @@ const Situation = (props: Props) => {
     const situation = controller.getSituation(props.situation, props.adventurerId);
     if (!situation) return null;
 
-    const { title, choices } = situation;
-
+    const { title, choices, text } = situation;
     const handleChoiceClick = (e: MouseEvent<HTMLButtonElement>) => {
         const choice = e.currentTarget.getAttribute('data-option')!;
         controller.handleSituationOptionClick(props.situation, choice, props.adventurerId);
@@ -37,13 +36,12 @@ const Situation = (props: Props) => {
                 </div>
                 <div className="close" onClick={handleClose} />
             </div>
-             { choices.length > 0 && (
-                <div className="content">
-                    {choices.map(choice => (
-                        <Button key={choice} data-option={choice} onClick={handleChoiceClick}>{TextManager.get(choice)}</Button>
-                    ))}
-                </div>
-            )}
+            <div className="content">
+            { text && (<div className="text">{text}</div>)}
+            { choices?.map(choice => (
+                <Button key={choice} data-option={choice} onClick={handleChoiceClick}>{TextManager.get(choice)}</Button>
+            ))}
+        </div>
         </div>
     )
 }

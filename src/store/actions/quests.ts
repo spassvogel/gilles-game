@@ -2,6 +2,7 @@ import { Action } from "redux";
 import { AdventurerStoreState } from "store/types/adventurer";
 import { SceneAction, SceneStoreState, SceneObject, SceneInteractionModal } from "store/types/scene";
 import { Item } from 'definitions/items/types';
+import { PartialDeep } from "type-fest";
 
 // tslint:disable:object-literal-sort-keys
 
@@ -26,7 +27,7 @@ export interface QuestAction extends Action<ActionType> {
 }
 
 export interface QuestVarsAction extends QuestAction {
-    vars: any;
+    vars: PartialDeep<any>;
 }
 
 export interface QuestLaunchAction extends QuestAction {
@@ -89,7 +90,7 @@ export function exitEncounter(quest: string): QuestAction {
     };
 }
 
-export function updateQuestVars(quest: string, vars: any): QuestVarsAction {
+export function updateQuestVars(quest: string, vars: PartialDeep<any>): QuestVarsAction {
     return {
         type: ActionType.updateQuestVars,
         questName: quest,

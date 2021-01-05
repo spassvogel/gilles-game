@@ -9,8 +9,10 @@
     "@pixi/filter-outline": "^3.1.1",
     "@types/debounce": "^1.2.0",
     "astar-typescript": "^1.2.5",
+    "clone-deep": "^4.0.1",
     "debounce": "^1.2.0",
     "deep-equal": "^2.0.5",
+    "deepmerge": "^4.2.2",
     "gsap": "^3.5.1",
     "handlebars": "^4.7.6",
     "localforage": "^1.9.0",
@@ -35,6 +37,7 @@
     "simple-encryptor": "^4.0.0",
     "string-arrays-equal": "^0.2.4",
     "text-param-case": "^1.0.2",
+    "type-fest": "^0.20.2",
     "typescript": "^3.9.7",
     "use-trace-update": "^1.3.0"
   },
@@ -62,6 +65,7 @@
     ]
   },
   "devDependencies": {
+    "@types/clone-deep": "^4.0.1",
     "@types/deep-equal": "^1.0.1",
     "@types/howler": "^2.2.1",
     "@types/jest": "^26.0.19",

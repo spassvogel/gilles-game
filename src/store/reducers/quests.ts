@@ -20,6 +20,7 @@ import { isActorObject, SceneActionType } from 'store/types/scene';
 import { QuestDefinition } from 'definitions/quests/types';
 import { getDefinition } from 'definitions/quests';
 import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars';
+import deepmerge from "deepmerge";
 
 // tslint:disable:object-literal-sort-keys
 export const initialQuestState: QuestStoreState[] = [{
@@ -330,10 +331,9 @@ const gameTick = (state: QuestStoreState[], action: GameTickAction) => {
 const updateQuestVars = (state: QuestStoreState[], action: QuestVarsAction)  => {
     return state.map((qss) => {
         if (qss.name === action.questName) {
-            const questVars = Object.assign({}, qss.questVars, action.vars);
             return {
                 ...qss,
-                questVars,
+                questVars: deepmerge(qss.questVars, action.vars, { arrayMerge: overwriteMerge })
             };
         }
         return qss;
@@ -422,3 +422,5 @@ const setActiveSceneInteractionModal = (state: QuestStoreState[], action: SetAct
 //             return log;
 //     }
 // }
+
+const overwriteMerge = (destinationArray: any[], sourceArray: any[]) => sourceArray

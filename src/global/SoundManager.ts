@@ -39,7 +39,7 @@ type SoundInfo = {
     storePosition?: boolean;
 }
 
-const DEFAULT_MUSIC_VOLUME = 0.2;
+const DEFAULT_MUSIC_VOLUME = 0;
 const DEFAULT_UI_VOLUME = 1;
 const DEFAULT_SCENE_VOLUME = 1;
 const STORAGE_KEY_VOLUME = "channelVolume";

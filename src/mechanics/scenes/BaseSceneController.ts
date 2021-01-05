@@ -5,7 +5,7 @@ import { loadResourceAsync } from 'utils/pixiJs';
 import { TiledLayerType, TiledMapData, TiledObjectData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'store/types/adventurer';
-import { setScene, setSceneName, exitEncounter, enqueueSceneAction } from 'store/actions/quests';
+import { setScene, setSceneName, exitEncounter, enqueueSceneAction, updateQuestVars } from 'store/actions/quests';
 import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction, isActorObject, getSpritesheetPaths } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
@@ -20,6 +20,7 @@ import { addItemToInventory } from 'store/actions/adventurers';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { Sound, SoundManager } from 'global/SoundManager';
 import { Allegiance } from "store/types/combat";
+import { PartialDeep } from "type-fest";
 
 const spritesheetBasePath = "img/scene/actors/";
 const movementDuration = 500; // time every tile movement takes
@@ -66,7 +67,7 @@ export class BaseSceneController<TQuestVars> {
                 })
             });
         }
-
+console.log('loaddata')
         const promises = [
             loadSound("scene/bow", ["sound/scene/bow-01.mp3", "sound/scene/bow-02.mp3"]),
             loadSound("scene/meleeHit", ["sound/scene/melee-hit-01.mp3", "sound/scene/melee-hit-02.mp3", "sound/scene/melee-hit-03.mp3"]),
@@ -79,11 +80,17 @@ export class BaseSceneController<TQuestVars> {
         Promise.all(promises).then(async () => {
             const resource = PIXI.Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
             this.mapData = resource.data;
+            console.log(this.mapData)
             this.mapData!.layers.filter(layer => layer.visible).forEach(layer => {
                 if (layer.properties && layer.properties.some(p => p.name === 'blocksMovement' && p.value === true)){
                     addAllTilesInLayerToList(this.blockedTiles, layer, layer.width);
                 }
             });
+            this.sceneObjects.forEach(o => {
+                if(o.properties.blocksMovement === true && o.location){
+                    this.blockedTiles.push(o.location);
+                }
+            })
 
             // In the case a scene is just created, we dont have this.sceneObjects yet
             const spritesheets = getSpritesheetPaths(this.sceneObjects.length ? this.sceneObjects : this.createObjects());
@@ -103,12 +110,16 @@ export class BaseSceneController<TQuestVars> {
         console.log('creating scene');
         const objects = this.createObjects();
         const combat = true;
+        this.updateScene(objects, combat)
+    }
 
+    updateScene(objects: SceneObject[] = this.sceneObjects, combat: boolean = this.combat) {
         const scene = {
+            ...this.quest.scene,
             objects,
             combat
         }
-        this.store.dispatch(setScene(this.questName, scene));
+        this.dispatch(setScene(this.questName, scene));
     }
 
     sceneEntered() {
@@ -131,7 +142,7 @@ export class BaseSceneController<TQuestVars> {
         if (destination.type === TiledObjectType.exit) {
             // We've hit the exit. Should we load another scene?
             if (destination.properties.loadScene) {
-                this.store.dispatch(setSceneName(this.questName, destination.properties.loadScene))
+                this.dispatch(setSceneName(this.questName, destination.properties.loadScene))
             } else {
                 // Or exit the encounter
                 const index = Math.floor(this.quest.progress) + 1;
@@ -139,30 +150,16 @@ export class BaseSceneController<TQuestVars> {
                 const node = definition.nodes[index];
                 if (node.log) {
                     // If the next node has a log entry, add it
-                    this.store.dispatch(addLogText(node.log, null, LogChannel.quest, this.questName));
+                    this.dispatch(addLogText(node.log, null, LogChannel.quest, this.questName));
                 }
-                this.store.dispatch(exitEncounter(this.questName));
+                this.dispatch(exitEncounter(this.questName));
             }
         }
-    }
-
-    // not needed?
-    actorCanInteract(actorId: string) {
-        const actor = this.getSceneActor(actorId);
-        if (!actor.location) return false;
-        const object = this.sceneObjects.find(o =>
-            !isActorObject(o) &&
-            o.location &&
-            locationEquals(o.location, actor.location!))
-        return object && object.properties.interactive;
     }
 
     actorInteract(actorId: string, location: [number, number]) {
         const actor = this.getSceneActor(actorId);
         const object = this.getObjectAtLocation(location);
-
-        // todo!!: delete
-        // this.questUpdate("test-game-welcome" + Date.now(), undefined, false); // temp! 
 
         if (!object) {
             // tslint:disable-next-line: no-console
@@ -253,8 +250,6 @@ export class BaseSceneController<TQuestVars> {
                 // this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
             }
         }
-
-
     }
 
     interactWithObject(_actor: ActorObject, _object: SceneObject) {
@@ -291,7 +286,7 @@ export class BaseSceneController<TQuestVars> {
         // Override this to remove gold from questvars
         const lootCache = this.getLootCache(name);
         if (lootCache){
-            this.store.dispatch(addGold(lootCache.gold || 0));
+            this.dispatch(addGold(lootCache.gold || 0));
         }
     }
 
@@ -301,10 +296,12 @@ export class BaseSceneController<TQuestVars> {
         if (!lootCache) return;
 
         const item = lootCache.items[itemIndex];
-        this.store.dispatch(addItemToInventory(adventurer.id, item, toSlot))
+        this.dispatch(addItemToInventory(adventurer.id, item, toSlot))
     }
 
-    getSituation(situation: string, adventurerId?: string) : { title: string, choices: string[]} | undefined {
+    discardItem()
+
+    getSituation(situation: string, adventurerId?: string) : Situation | undefined {
          return undefined;
     }
 
@@ -444,6 +441,11 @@ export class BaseSceneController<TQuestVars> {
         return objects;
     }
 
+    // Scene
+    protected get combat() {
+        return !!this.quest.scene?.combat;
+    }
+
     public get sceneObjects(): SceneObject[]  {
         return this.quest.scene?.objects || [];
     }
@@ -451,15 +453,6 @@ export class BaseSceneController<TQuestVars> {
     public get sceneActors(): ActorObject[] {
         return this.sceneObjects.filter<ActorObject>(isActorObject);
     }
-    // protected createObject(config: ExtendedTiledObjectData): SceneObject | null {
-    //     switch (config.type) {
-    //         case TiledObjectType.adventurerStart:
-    //         case TiledObjectType.exit:
-    //             return null;
-    //         default:
-    //             return config;
-    //     }
-    // }
 
     // Quest
     protected get quest() {
@@ -471,11 +464,10 @@ export class BaseSceneController<TQuestVars> {
         return this.quest.questVars;
     }
 
-    // Scene
-    protected get combat() {
-        return !!this.quest.scene?.combat;
+    // Provide questvars to update
+    protected updateQuestVars(updated: PartialDeep<TQuestVars>) {
+        this.dispatch(updateQuestVars(this.questName, updated));
     }
-
 
     protected getAdventurers(): AdventurerStoreState[] {
         const storeState = this.store.getState();
@@ -485,6 +477,11 @@ export class BaseSceneController<TQuestVars> {
     protected getAdventurerByActor(actor: ActorObject) {
         const storeState = this.store.getState();
         return storeState.adventurers.find(a => a.id === actor.name);
+    }
+
+    protected getAdventurerById(id: string) {
+        const storeState = this.store.getState();
+        return storeState.adventurers.find(a => a.id === id);
     }
 
     protected questUpdate(input: string | TextEntry, icon?: string, toast: boolean = false) : void {
@@ -500,7 +497,12 @@ export class BaseSceneController<TQuestVars> {
     protected dispatch(action: AnyAction) {
         this.store.dispatch(action)
     }
+}
 
+export interface Situation {
+    title: string;
+    choices?: string[];
+    text?: string;
 }
 
 // This is the format AStarFind works with

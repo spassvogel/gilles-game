@@ -173,6 +173,7 @@
     "quest-common-loot-cache-gold": "{{gold}} gold pieces",
     "quest-common-loot-cache-take": "take",
     "quest-common-loot-cache-take-all": "take all",
+    "quest-common-scenerio-door-open": "Open door",
     "quest-kill10-boars-description": "A horde of rampaging boars have been a pestilence upon the farmers. Kill no less than 10 of the beasts and return for your just reward.",
     "quest-kill10-boars-enter-dungeon": "The party enters the dungeon",
     "quest-kill10-boars-enter-dungeon-see-chest": "The party notices a chest in the middle of the room",
@@ -183,7 +184,7 @@
     "quest-kill10-boars-title": "The boar hunt",
     "quest-kill10-boars-dungeonentrance-altar": "An old altar",
     "quest-kill10-boars-dungeonentrance-altar-lightcandle": "Light the candle",
-    "quest-kill10-boars-dungeonentrance-altar-rummagedrawers": "Rummage through drawers",
+    "quest-kill10-boars-dungeonentrance-door": "A huge locked door",
     "quest-retrieve-magic-amulet-description": "Some air headed princess left her magic amulet when she took it off to make some pics for her insta. Find and retrieve.",
     "quest-retrieve-magic-amulet-title": "The quest for the magic amulet",
 

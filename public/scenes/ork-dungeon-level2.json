@@ -91,7 +91,7 @@
                  "gid":33,
                  "height":100,
                  "id":15,
-                 "name":"hallwayChest",
+                 "name":"chest",
                  "properties":[
                         {
                          "name":"interactive",

@@ -1,7 +1,7 @@
 import { TiledObjectData } from 'constants/tiledMapData';
 import { Item } from 'definitions/items/types';
+import { Merge } from 'type-fest';
 import { TiledObjectType } from 'utils/tilemap';
-import { Overwrite } from 'utils/typescript';
 import { Allegiance } from './combat';
 
 
@@ -12,7 +12,7 @@ export interface SceneStoreState {
     combat: boolean;
 }
 
-export type SceneObject = Overwrite<TiledObjectData, {
+export type SceneObject = Merge<TiledObjectData, {
     layerId: number;
     properties: { [key: string]: any};
     location?: [number, number];
@@ -47,6 +47,7 @@ export interface LootCache {
     title: string;
     items: Item[];
     gold?: number;
+    open?: boolean;
 }
 
 export interface SceneAction {

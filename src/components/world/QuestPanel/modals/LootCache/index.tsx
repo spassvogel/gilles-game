@@ -55,7 +55,7 @@ const LootCache = (props: Props) => {
             }
         });
     }
-
+    // todo: take all has a bug
     return (
         <div className={`interaction-modal loot-cache`} ref={ref}>
             <div className="header">

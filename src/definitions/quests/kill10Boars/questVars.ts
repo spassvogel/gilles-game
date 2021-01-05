@@ -4,23 +4,28 @@ import { LootCache } from 'store/types/scene';
 export interface Kill10BoarsQuestVars {
     dungeon: {
         entered: boolean,
-        lootCaches: {
+        entrance: {
+            chestOpen: boolean,
             chest: LootCache,
-            altar: LootCache,
-            hallwayChest: LootCache,
-        },
-        situations: {
-            altar: {
-                candleLit: boolean
-            }
         }
+        hallway: {
+            doorOpen: boolean,
+            chestOpen: boolean,
+            chest: LootCache,
+        }
+        // situations: {
+        //     altar: {
+        //         candleLit: boolean
+        //     },
+        // }
     }
 }
 
 export const initialQuestVars: Kill10BoarsQuestVars = {
     dungeon: {
         entered: false,
-        lootCaches: {
+        entrance: {
+            chestOpen: false,
             chest: {
                 title: "encounter-dungeon-caches-chest",
                 items: [
@@ -31,22 +36,21 @@ export const initialQuestVars: Kill10BoarsQuestVars = {
                 ],
                 gold: 100
             },
-            altar: {
-                title: "quest-kill10-boars-dungeonentrance-altar",
-                items: [
-                    Item.bolts,
-                    Item.letters
-                ]
-            },
-            hallwayChest: {
+            // altar: {
+            //     title: "quest-kill10-boars-dungeonentrance-altar",
+            //     items: [
+            //         Item.bolts,
+            //         Item.letters
+            //     ]
+            // },
+        },
+        hallway: {
+            chest: {
                 title: "encounter-dungeon-caches-chest",
                 items: [ Item.key ]
-            }
-        },
-        situations: {
-            altar: {
-                candleLit: false
-            }
+            },
+            chestOpen: false,
+            doorOpen: false
         }
     }
 }
