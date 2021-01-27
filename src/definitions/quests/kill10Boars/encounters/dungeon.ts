@@ -1,14 +1,18 @@
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { SceneControllerManager } from 'global/SceneControllerManager';
 import { SceneObject, ActorObject, LootCache } from 'store/types/scene';
-import { updateSceneObject, setActiveSceneInteractionModal } from 'store/actions/quests';
+import { setActiveSceneInteractionModal } from 'store/actions/quests';
 import { Kill10BoarsQuestVars } from '../questVars';
-import { AdventurerStoreState } from 'store/types/adventurer';
 import { Item } from 'definitions/items/types';
+import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 // tslint:disable: max-classes-per-file
 
 const TILE_CHEST_CLOSED = 33; // todo: take this from json?
 const TILE_CHEST_OPEN = 34; // todo: take this from json?
+const TILE_DOOR_UPPER_CLOSED = 121 + 131;
+const TILE_DOOR_LOWER_CLOSED = 121 + 143;
+const TILE_DOOR_UPPER_OPEN = 121 + 107;
+const TILE_DOOR_LOWER_OPEN = 121 + 119;
 
 class DungeonEncounterSceneController extends BaseSceneController<Kill10BoarsQuestVars>  {
 
@@ -51,8 +55,8 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
         });
     }
 
-    takeItemFromCache(itemIndex: number, name: string, adventurer: AdventurerStoreState, toSlot?: number) {
-        super.takeItemFromCache(itemIndex, name, adventurer, toSlot);
+    takeItemFromCache(itemIndex: number, name: string, adventurerId: string, toSlot?: number) {
+        super.takeItemFromCache(itemIndex, name, adventurerId, toSlot);
         const lootCache = this.getLootCache(name);
         if (lootCache){
             const items = lootCache.items.filter((_: any, index: number) => index !== itemIndex);
@@ -124,7 +128,7 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
             //             choices: [
             //                 "quest-kill10-boars-dungeonentrance-altar-rummagedrawers"
             //             ]
-            //         }
+            //         }f
             //     }
             //     return {
             //         title: 'quest-kill10-boars-dungeonentrance-altar',
@@ -170,9 +174,8 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
     }
 
     sceneEntered() {
-        console.log("ENTERED THE HALLWAy")
+        // console.log("ENTERED THE HALLWAy")
     }
-
 
     interactWithObject(actor: ActorObject, object: SceneObject) {
         switch (object.name) {
@@ -212,7 +215,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
                     // Adventurer has key
                     return {
                         title: 'quest-kill10-boars-dungeonentrance-door',
-                        text: 'This door is locked',
+                        text: 'This door is locked', // todo key
                         choices: [
                             "quest-common-scenerio-door-open"
                         ]
@@ -220,7 +223,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
                 }
                 return {
                     title: 'quest-kill10-boars-dungeonentrance-door',
-                    text: 'This door is locked',
+                    text: 'This door is locked', // todo key
                 }
                 default:
                     return super.getSituation(situation, adventurerId);
@@ -235,10 +238,17 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
                 this.updateQuestVars({
                     dungeon: { hallway: { doorOpen: true }}
                 });
-                
+
+                SoundManager.playSound("scene/doorOpen", Channel.scene, false, MixMode.singleInstance);
+
+                this.discardItem(Item.key, adventurerId);
+                const adventurer = this.getAdventurerById(adventurerId)?.name;
+                const textEntry = { key: "quest-common-adventurer-opened-door", context: { adventurer } };
+                this.questUpdate(textEntry, "/img/items/misc/chest-02.png");
             }
         }
     }
+
     updateScene(objects: SceneObject[] = this.sceneObjects, combat: boolean = this.combat) {
         objects = objects.map(o => {
             switch(o.name) {
@@ -248,13 +258,26 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
                         gid: this.questVars.dungeon.hallway.chestOpen ? TILE_CHEST_OPEN : TILE_CHEST_CLOSED,
                     }
                 }
+                case "door1": {
+                    if ( this.questVars.dungeon.hallway.doorOpen) {
+                        if (o.properties.part === 'upper') {
+                            return { ...o, gid: TILE_DOOR_UPPER_OPEN };
+                        } else {
+                            return { ...o, gid: TILE_DOOR_LOWER_OPEN };
+                        }
+                    } else {
+                        if (o.properties.part === 'upper') {
+                            return { ...o, gid: TILE_DOOR_UPPER_CLOSED };
+                        } else {
+                            return { ...o, gid: TILE_DOOR_LOWER_CLOSED };
+                        }
+                    }
+                }
             }
             return o;
         });
         super.updateScene(objects, combat);
     }
-
-
 }
 
 SceneControllerManager.registerSceneController("kill10Boars", "dungeon.entrance", DungeonEntranceSceneController as any);

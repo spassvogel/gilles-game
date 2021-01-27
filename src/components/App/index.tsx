@@ -23,7 +23,6 @@ import Background from 'components/Background';
 import { restartGame } from 'index';
 import Button, { ButtonColor } from 'components/ui/buttons/Button';
 import StructureDetailsView from 'components/town/StructureDetailsView';
-import QuestRepaintTester from "./QuestRepaintTester";
 import "./styles/app.scss";
 
 PixiPlugin.registerPIXI(PIXI);

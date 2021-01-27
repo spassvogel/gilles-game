@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="8" height="10" tilewidth="100" tileheight="100" infinite="0" nextlayerid="11" nextobjectid="22">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="8" height="10" tilewidth="100" tileheight="100" infinite="0" nextlayerid="11" nextobjectid="24">
  <editorsettings>
   <export target="ork-dungeon-level2.json" format="json"/>
  </editorsettings>
@@ -41,26 +41,26 @@
    <property name="blocksMovement" type="bool" value="true"/>
   </properties>
   <data encoding="csv">
-123,124,171,0,202,132,133,135,
-133,134,181,0,213,0,0,145,
-0,0,0,0,0,0,0,155,
-0,0,0,0,193,0,0,155,
-121,122,171,0,203,153,153,215,
-131,132,181,0,185,134,133,135,
-141,0,0,0,0,0,0,145,
-151,0,0,0,0,0,0,155,
-151,0,0,0,0,0,0,155,
-161,162,164,162,163,164,163,165
+123,124,181,0,218,134,135,137,
+135,136,193,0,231,0,0,149,
+0,0,0,0,0,0,0,161,
+0,0,0,0,207,0,0,161,
+121,122,181,0,219,159,159,233,
+133,134,193,0,197,136,135,137,
+145,0,0,0,0,0,0,149,
+157,0,0,0,0,0,0,161,
+157,0,0,0,0,0,0,161,
+169,170,172,170,171,172,171,173
 </data>
  </layer>
  <layer id="6" name="door" width="8" height="10">
   <data encoding="csv">
-0,0,206,0,208,0,0,0,
-0,0,216,0,218,0,0,0,
-0,0,0,0,144,0,0,0,
-0,0,0,0,144,0,0,0,
-0,0,206,207,208,0,0,0,
-0,0,216,217,218,0,0,0,
+0,0,251,0,204,0,0,0,
+0,0,263,0,216,0,0,0,
+0,0,0,0,148,0,0,0,
+0,0,0,0,148,0,0,0,
+0,0,251,228,204,0,0,0,
+0,0,263,240,215,0,0,0,
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
@@ -70,15 +70,15 @@
  <layer id="8" name="shadow" width="8" height="10">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,
-0,0,0,0,0,143,143,0,
+0,0,0,0,0,147,147,0,
 0,0,0,0,0,0,0,0,
-143,143,143,0,0,0,0,0,
+147,147,147,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
-0,142,143,0,143,143,143,0,
-0,152,0,0,0,0,0,0,
-0,152,0,0,0,0,0,0,
-0,152,0,0,0,0,0,0
+0,146,147,0,147,147,147,0,
+0,158,0,0,0,0,0,0,
+0,158,0,0,0,0,0,0,
+0,158,0,0,0,0,0,0
 </data>
  </layer>
  <objectgroup id="10" name="doodads">
@@ -88,13 +88,18 @@
     <property name="title" value="encounter-dungeon-caches-chest"/>
    </properties>
   </object>
-  <object id="20" name="door1" type="door" gid="217" x="300" y="200" width="100" height="100">
+  <object id="22" name="door1" type="door" gid="264" x="300" y="200" width="100" height="100">
    <properties>
     <property name="blocksMovement" type="bool" value="true"/>
     <property name="interactive" type="bool" value="true"/>
+    <property name="part" value="lower"/>
    </properties>
   </object>
-  <object id="21" name="door1" type="door" gid="207" x="300" y="100" width="100" height="100"/>
+  <object id="23" name="door1" type="door" gid="252" x="300" y="100" width="100" height="100">
+   <properties>
+    <property name="part" value="upper"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="3" name="actors">
   <object id="1" name="start1" type="adventurerStart" x="0" y="200" width="100" height="100"/>
@@ -108,9 +113,9 @@
   <data encoding="csv">
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
-163,163,191,0,183,0,0,0,
-0,0,151,0,0,0,0,0,
-0,0,0,0,0,154,153,0,
+171,171,205,0,195,0,0,0,
+0,0,157,0,0,0,0,0,
+0,0,0,0,0,160,159,0,
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,

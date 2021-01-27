@@ -30,7 +30,7 @@ const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
 
     useEffect(() => {
         setLoaded(false);
-        if (sceneName && controller) {
+        if (sceneName && controller && !controller.dataLoading) {
             const loadingComplete = () => {
                 setLoaded(true);
 
@@ -40,7 +40,6 @@ const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
                     controller.sceneEntered();
                 }
             }
-            console.log('loading...')
             controller.loadData(loadingComplete);
         }
     }, [controller, questName, scene, sceneName]);
@@ -48,12 +47,10 @@ const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
     useEffect(() => {
         if (questVars !== previousQuestVars && controller) {
             controller.updateScene();
-            console.log('go')
         }
-        console.log("Questvars updated!", questVars, previousQuestVars, questVars === previousQuestVars)
     }, [controller, previousQuestVars, questVars]);
 
-    if (controller && (!controller.dataLoaded || !loaded)) {
+    if (controller && (controller.dataLoading || !loaded)) {
         return (
             <LoadingSpinner />
         );

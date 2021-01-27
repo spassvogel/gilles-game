@@ -125,7 +125,7 @@ const useItemDropActions = () => {
             case DragSourceType.lootCache: {
                 if (sceneController && sourceId) {
                     // Let the scene controller handle this action
-                    sceneController.takeItemFromCache(fromSlot, sourceId, adventurer, toSlot);
+                    sceneController.takeItemFromCache(fromSlot, sourceId, adventurer.id, toSlot);
                 }
             }
         }

@@ -75,12 +75,10 @@ const TownView = (props: Props & AppContextProps) => {
             props.onStructureClick(structure);
         }
     }
-    // console.log('rendering town');
 
     const structures = useSelector<StoreState, StructuresStoreState>((state: StoreState) => {
         return state.structures;
     });
-
 
     const renderStructures = () => {
         const orderedStructures = [

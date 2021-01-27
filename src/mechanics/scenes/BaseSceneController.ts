@@ -16,11 +16,12 @@ import { addLogText, addLogEntry } from 'store/actions/log';
 import { getDefinition } from 'definitions/quests';
 import { LogChannel } from 'store/types/logEntry';
 import { addGold } from 'store/actions/gold';
-import { addItemToInventory } from 'store/actions/adventurers';
+import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { Sound, SoundManager } from 'global/SoundManager';
 import { Allegiance } from "store/types/combat";
 import { PartialDeep } from "type-fest";
+import { Item } from "definitions/items/types";
 
 const spritesheetBasePath = "img/scene/actors/";
 const movementDuration = 500; // time every tile movement takes
@@ -33,7 +34,8 @@ export class BaseSceneController<TQuestVars> {
     public questName: string;
     public mapData?: TiledMapData;
     public aStar?: AStarFinder;
-    public dataLoaded: boolean = false;
+    public dataLoading: boolean = false;
+    public dataLoadComplete: boolean = false;
 
     protected jsonPath?: string;
     protected store: Store<StoreState, AnyAction>;
@@ -52,13 +54,13 @@ export class BaseSceneController<TQuestVars> {
 
     // Loads tiles from json, loads all scene assets
     loadData(callback: () => void) {
-        if (this.dataLoaded) {
+        if (this.dataLoadComplete) {
             return callback();
         }
         if (!this.jsonPath) {
             throw new Error("No jsonPath defined!");
         }
-
+        this.dataLoading = true;
         // load sounds
         const loadSound = async (sound: Sound, files: string[]): Promise<PIXI.sound.Sound[]> => {
             return new Promise((resolve, reject) => {
@@ -67,20 +69,19 @@ export class BaseSceneController<TQuestVars> {
                 })
             });
         }
-console.log('loaddata')
         const promises = [
             loadSound("scene/bow", ["sound/scene/bow-01.mp3", "sound/scene/bow-02.mp3"]),
             loadSound("scene/meleeHit", ["sound/scene/melee-hit-01.mp3", "sound/scene/melee-hit-02.mp3", "sound/scene/melee-hit-03.mp3"]),
             loadSound("scene/metalBash", ["sound/scene/metal-bash-01.mp3", "sound/scene/metal-bash-02.mp3", "sound/scene/metal-bash-03.mp3"]),
             loadSound("scene/shieldBash", ["sound/scene/shield-bash-impact.mp3"]),
             loadSound("scene/swish", ["sound/scene/swish-01.mp3", "sound/scene/swish-02.mp3", "sound/scene/swish-03.mp3", "sound/scene/swish-04.mp3"]),
+            loadSound("scene/doorOpen", ["sound/scene/door-open.mp3"]),
             loadResourceAsync(`${process.env.PUBLIC_URL}/${this.jsonPath}`)
         ] as const;
 
         Promise.all(promises).then(async () => {
             const resource = PIXI.Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
             this.mapData = resource.data;
-            console.log(this.mapData)
             this.mapData!.layers.filter(layer => layer.visible).forEach(layer => {
                 if (layer.properties && layer.properties.some(p => p.name === 'blocksMovement' && p.value === true)){
                     addAllTilesInLayerToList(this.blockedTiles, layer, layer.width);
@@ -100,16 +101,16 @@ console.log('loaddata')
             // PIXI.utils.clearTextureCache()
             // Create aStar based on blocked tiles
             this.aStar = this.createAStar();
-            this.dataLoaded = true;
+            this.dataLoadComplete = true;
+            this.dataLoading = false;
             callback();
         });
     }
 
     // Constructs the scene and dispatches it to be saved to the store
     createScene() {
-        console.log('creating scene');
         const objects = this.createObjects();
-        const combat = true;
+        const combat = false;
         this.updateScene(objects, combat)
     }
 
@@ -290,16 +291,22 @@ console.log('loaddata')
         }
     }
 
-    takeItemFromCache(itemIndex: number, name: string, adventurer: AdventurerStoreState, toSlot?: number) {
+    takeItemFromCache(itemIndex: number, name: string, adventurerId: string, toSlot?: number) {
         // Override this to remove items from questvars
         const lootCache = this.getLootCache(name);
         if (!lootCache) return;
 
         const item = lootCache.items[itemIndex];
-        this.dispatch(addItemToInventory(adventurer.id, item, toSlot))
+        this.dispatch(addItemToInventory(adventurerId, item, toSlot))
     }
 
-    discardItem()
+    discardItem(item: Item, adventurerId: string) {
+        const adventurer = this.getAdventurerById(adventurerId);
+        const itemIndex = adventurer?.inventory.indexOf(item);
+        if (itemIndex !== undefined) {
+            this.dispatch(removeItemFromInventory(adventurerId, itemIndex));
+        }
+    }
 
     getSituation(situation: string, adventurerId?: string) : Situation | undefined {
          return undefined;

@@ -50,7 +50,7 @@ const LootCache = (props: Props) => {
             },
             onComplete: () => {
                 for (let i = 0; i < freeSlots; i++) {
-                    controller.takeItemFromCache(0, props.cacheName, adventurer);
+                    controller.takeItemFromCache(0, props.cacheName, props.adventurerId);
                 }
             }
         });

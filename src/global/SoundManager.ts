@@ -26,11 +26,11 @@ export type Sound =
     "music/town" |
     "music/world" |
     "scene/bow" |
+    "scene/doorOpen" |
     "scene/meleeHit" |
     "scene/metalBash" |
     "scene/shieldBash" |
     "scene/swish"
-    // todo: scene ssounds!
 ;
 
 type SoundInfo = {
