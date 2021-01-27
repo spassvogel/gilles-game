@@ -28,7 +28,7 @@ const TICK_INTERVAL = 2500;
 let persistor: Persistor;
 
 const initGame = async () => {
-    const texts = await loadResourceAsync(`${process.env.PUBLIC_URL}/lang/en-US.json`);
+    const texts = await loadResourceAsync(`${process.env.PUBLIC_URL}/lang/en.json`);
     TextManager.init(texts.data);
     Random.init("GILLESROX2");
 
