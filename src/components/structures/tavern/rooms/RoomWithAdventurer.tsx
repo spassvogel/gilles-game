@@ -36,7 +36,8 @@ const RoomWithAdventurer = (props: Props) => {
     const dispatch = useDispatch();
     const assigned = assignedAventurers.indexOf(adventurer) > -1; // assigned to a quest in the QuestBoard
 
-    const handleRename = () => {
+    const handleRename = (e: React.MouseEvent<HTMLSpanElement>) => {
+        e.stopPropagation();
         const name = prompt("Enter new name", adventurer.name);
         if (name && name !== adventurer.name) {
             dispatch(renameAdventurer(adventurer.id, name));
@@ -45,7 +46,10 @@ const RoomWithAdventurer = (props: Props) => {
 
     return (
         <>
-            <div className={`room ${expanded ? "expanded" : ""}`}>
+            <div 
+                className={`room ${expanded ? "expanded" : ""}`}
+                onClick={() => onClick(adventurer)}
+            >
                 <DraggableAdventurerAvatar
                     disabled={assigned || onQuest}
                     adventurer={adventurer}
@@ -53,10 +57,7 @@ const RoomWithAdventurer = (props: Props) => {
                     sourceId={SOURCE_ID}
                     key={`avatar:${adventurer.id}`}
                 />
-                <div
-                    key={adventurer.id}
-                    onClick={() => onClick(adventurer)}
-                >
+                <div>
                     <section>
                         {adventurer.name}
                     </section>
