@@ -1,6 +1,7 @@
 import localforage from 'localforage';
-import "pixi-sound";
+import sound from 'pixi-sound';
 import {gsap } from 'gsap';
+import { Loader } from 'pixi.js';
 
 export enum Channel {
     music,
@@ -19,7 +20,7 @@ export enum Music {
     world,
 }
 
-export type Sound =
+export type GameSound =
     "ui/buttonClick" |
     "ui/error" |
     "ui/toast" |
@@ -34,8 +35,9 @@ export type Sound =
 ;
 
 type SoundInfo = {
-    instance: PIXI.sound.IMediaInstance;
-    sound: Sound;
+    instance: sound.IMediaInstance;
+    gameSound: GameSound;
+    pixiSound: sound.Sound;
     storePosition?: boolean;
 }
 
@@ -45,12 +47,13 @@ const DEFAULT_SCENE_VOLUME = 1;
 const STORAGE_KEY_VOLUME = "channelVolume";
 
 export class SoundManager {
-    private static _sounds: { [key: string]: PIXI.sound.Sound[] } = {};
+    private static _sounds: { [key: string]: sound.Sound[] } = {};
     private static _currentSound: { [key: number]: SoundInfo } = {};    // per channel
     private static _storedPositions: { [key: string]: number } = {};
-
+    
     private static _channelVolume: {[key: number]: number} = {};
     private static _initialized = false;
+    private static _filter = new sound.filters.TelephoneFilter() 
 
     public static async init() {
         // Attempt to fetch volumes from storage. If not set, revert to defaults
@@ -63,7 +66,7 @@ export class SoundManager {
     }
 
 
-    public static async addSound(sound: Sound, files: string[] | string, complete?: (sounds: PIXI.sound.Sound[]) => void) {
+    public static async addSound(sound: GameSound, files: string[] | string, complete?: (sounds: sound.Sound[]) => void) {
         if (typeof files === "string") {
             files = [files];
         }
@@ -73,7 +76,7 @@ export class SoundManager {
             return;
         }
 
-        const loader = new PIXI.Loader();
+        const loader = new Loader();
         files.map((file) => loader.add(file));
         loader.load((_, resources) => {
             if (resources) {
@@ -85,17 +88,20 @@ export class SoundManager {
 
     /**
      * Plays a sound. The sound needs to be loaded through `addSound` first!
-     * @param sound the sound
+     * @param gameSound the GameSound to play
      * @param channel channel to play the sound on
      * @param loop true to make the sound repeat
      * @param mixMode how to mix in the new sound into the channel
      * @param storePosition Store position of current sound on this channel in order to resume
      */
-    public static async playSound(sound: Sound, channel: Channel = Channel.ui, loop: boolean = false, mixMode: MixMode = MixMode.singleInstance, storePosition: boolean = false) {
+    public static async playSound(gameSound: GameSound, channel: Channel = Channel.ui, loop: boolean = false, mixMode: MixMode = MixMode.singleInstance, storePosition: boolean = false) {
         if (!this._initialized) {
             await this.init();
         }
-        const pixiSound = this.getSound(sound);
+
+       // 
+
+        const pixiSound = this.getSound(gameSound);
         pixiSound.volume = this._channelVolume[channel];
         pixiSound.loop = loop;
 
@@ -104,10 +110,10 @@ export class SoundManager {
             const oldSoundInfo = this._currentSound[channel];
             // @ts-ignore
             oldSoundInfo.instance.once('progress', (progress: number , duration: number) => {
-                this._storedPositions[oldSoundInfo.sound] = progress * duration;
+                this._storedPositions[oldSoundInfo.gameSound] = progress * duration;
             });
         }
-        const start = this._storedPositions[sound] ?? 0;
+        const start = this._storedPositions[gameSound] ?? 0;
         const instance = await pixiSound.play({ start });
 
         if (this._currentSound[channel]) {
@@ -124,14 +130,14 @@ export class SoundManager {
                 this._currentSound[channel].instance.stop();
             }
         }
-        this._currentSound[channel] = { instance, sound, storePosition };
+        this._currentSound[channel] = { instance, gameSound, pixiSound, storePosition };
         instance.on('end', () => {
             this._currentSound[channel].instance.destroy();
             delete this._currentSound[channel];
         });
     }
 
-    protected static getSound(sound: Sound) {
+    protected static getSound(sound: GameSound): sound.Sound {
         if (!this._sounds[sound]?.length) {
             throw new Error(`No sound found for ${sound}`);
         }
@@ -141,7 +147,13 @@ export class SoundManager {
         else {
             return this._sounds[sound][Math.floor(Math.random() * this._sounds[sound].length)];
         }
-     }
+    }
+
+    public static set musicFiltered(value: boolean) {
+        if(this._currentSound[Channel.music]) {
+            this._currentSound[Channel.music].pixiSound.filters = value ? [ this._filter ] : []
+        }
+    }
 
     static getChannelVolume(channel: Channel): number {
         return this._channelVolume[channel];
