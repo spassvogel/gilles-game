@@ -8,4 +8,11 @@ $misc-max-width: 960px; // app width
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
+}
+
+@mixin popupText() {
+    color: $color-secondary;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-underline-offset: 2px;
+}

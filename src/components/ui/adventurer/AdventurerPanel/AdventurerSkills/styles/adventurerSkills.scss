@@ -11,9 +11,8 @@
             flex: .5;
         }
         
-        span.skill {            
-            color: $color-secondary;
-            text-decoration: underline;
+        span.skill {   
+            @include popupText();
         }
     }
 }
