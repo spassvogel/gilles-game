@@ -22,6 +22,7 @@ export enum Music {
 
 export type GameSound =
     "ui/buttonClick" |
+    "ui/equip" |
     "ui/error" |
     "ui/toast" |
     "music/town" |

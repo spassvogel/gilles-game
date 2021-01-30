@@ -10,6 +10,7 @@ import { AdventurerStoreState } from 'store/types/adventurer';
 import useStockpileState from 'hooks/store/useStockpileState';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
+import { SoundManager } from 'global/SoundManager';
 
 /* Exposes
 - dropItemEquipment,
@@ -27,6 +28,8 @@ const useItemDropActions = () => {
         const item = dragInfo.item;
         const actions: Action[] = [];
 
+        SoundManager.playSound("ui/equip");
+        
         switch (dragInfo.sourceType) {
             // Dragged from inventory
             case DragSourceType.adventurerInventory: {
