@@ -6,12 +6,13 @@
 	padding-left: 10px;
 	margin: 0;
 	flex: 1;
-    display: flex;
+	display: flex;
     
 	.tabstrip-tab {
 		max-width: 150px;
 		display: inline-block;
 		margin-left: 4px;
+		margin-bottom: -2px;
 		border: 2px solid $color-secondary;
 		border-bottom: 0;
 		background: lightgray;
@@ -20,7 +21,7 @@
 		white-space: nowrap;
 		cursor: var(--app-cursor-pointer);
 		align-self: flex-end;
-    }
+	}
     
 	.tabstrip-tab.active {
 		background: white;

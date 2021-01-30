@@ -9,9 +9,14 @@
 
     .tab-bar {
         display: flex;
-        background: rgba(0, 0, 0, .5);
-        
+        background: $color-background-dark;
+        padding-top: 2px;
+
         .expand-button {
+            transform: scale(0.8);
+            margin-bottom: -6px;
+            margin-top: -4px;
+            margin-right: -4px;
         }
     
         .tabs {
@@ -30,11 +35,11 @@
     .log-entries {
         height: 60px;
         overflow: auto;
-        border: 1px solid green;
+        border: 1px solid $color-secondary;
         box-sizing: border-box;
 
-        background: rgba(0, 0, 0, .75);
-        color: white;
+        background: $color-background-dark;
+        color: $color-text-lighter;
         padding: 8px;
     }
 

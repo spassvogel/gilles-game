@@ -119,7 +119,7 @@ const SimpleLog = () => {
                     className="expand-button"
                     onClick={handleToggleExpand}
                     square={true}
-                    size="small"
+                    size="medium"
                     text={expanded ? "▼" : "▲"}
                 />
             </div>

@@ -55,12 +55,11 @@ const LootCache = (props: Props) => {
             }
         });
     }
-    // todo: take all has a bug
     return (
         <div className={`interaction-modal loot-cache`} ref={ref}>
             <div className="header">
                 <div className="title">
-                    {TextManager.get(cache.title)}
+                    {TextManager.get(cache.title, { adventurer: adventurer.name })}
                 </div>
                 <div className="close" onClick={props.onClose} />
             </div>
