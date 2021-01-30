@@ -13,7 +13,7 @@
     "debounce": "^1.2.0",
     "deep-equal": "^2.0.5",
     "deepmerge": "^4.2.2",
-    "gsap": "^3.5.1",
+    "gsap": "^3.6.0",
     "handlebars": "^4.7.6",
     "localforage": "^1.9.0",
     "node-sass": "^4.14.1",
