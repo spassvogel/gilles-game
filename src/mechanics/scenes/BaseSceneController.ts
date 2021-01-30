@@ -82,16 +82,6 @@ export class BaseSceneController<TQuestVars> {
         Promise.all(promises).then(async () => {
             const resource = PIXI.Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
             this.mapData = resource.data;
-            this.mapData!.layers.filter(layer => layer.visible).forEach(layer => {
-                if (layer.properties && layer.properties.some(p => p.name === 'blocksMovement' && p.value === true)){
-                    addAllTilesInLayerToList(this.blockedTiles, layer, layer.width);
-                }
-            });
-            this.sceneObjects.forEach(o => {
-                if(o.properties.blocksMovement === true && o.location){
-                    this.blockedTiles.push(o.location);
-                }
-            })
 
             // In the case a scene is just created, we dont have this.sceneObjects yet
             const spritesheets = getSpritesheetPaths(this.sceneObjects.length ? this.sceneObjects : this.createObjects());
@@ -99,11 +89,25 @@ export class BaseSceneController<TQuestVars> {
                 await loadResourceAsync(path);
             }
             // PIXI.utils.clearTextureCache()
-            // Create aStar based on blocked tiles
-            this.aStar = this.createAStar();
             this.dataLoadComplete = true;
             this.dataLoading = false;
             callback();
+        });
+    }
+
+    createBlockedTiles(objects: SceneObject[]) {
+        this.blockedTiles = [];
+        if(this.mapData) {
+            this.mapData.layers.filter(layer => layer.visible).forEach(layer => {
+                if (layer.properties && layer.properties.some(p => p.name === 'blocksMovement' && p.value === true)){
+                    addAllTilesInLayerToList(this.blockedTiles, layer, layer.width);
+                }
+            });
+        }
+        objects.forEach(o => {
+            if(o.properties.blocksMovement === true && o.location){
+                this.blockedTiles.push(o.location);
+            }
         });
     }
 
@@ -121,6 +125,12 @@ export class BaseSceneController<TQuestVars> {
             combat
         }
         this.dispatch(setScene(this.questName, scene));
+
+        this.createBlockedTiles(objects);
+        // Create aStar based on blocked tiles
+        if (this.mapData) {
+            this.aStar = this.createAStar();
+        }
     }
 
     sceneEntered() {
@@ -371,14 +381,16 @@ export class BaseSceneController<TQuestVars> {
 
     protected createAStar() {
         const matrix: number[][] = [];
-        for (let y = 0; y < this.mapData!.height; y++) {
-            const row: number[] = [];
-            for (let x = 0; x < this.mapData!.width; x++) {
-                const location: [number, number] = [x, y];
-                const blocked = this.locationIsBlocked(location);
-                row.push(blocked ? 1 : 0);
+        if (this.mapData){
+            for (let y = 0; y < this.mapData.height; y++) {
+                const row: number[] = [];
+                for (let x = 0; x < this.mapData.width; x++) {
+                    const location: [number, number] = [x, y];
+                    const blocked = this.locationIsBlocked(location);
+                    row.push(blocked ? 1 : 0);
+                }
+                matrix.push(row);
             }
-            matrix.push(row);
         }
         return new AStarFinder({
             grid: {

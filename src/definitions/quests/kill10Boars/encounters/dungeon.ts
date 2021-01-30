@@ -203,7 +203,8 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
                         situation: 'door'
                     }));
                 }
-                break;        }
+                break;
+        }
         super.interactWithObject(actor, object);
     }
 
@@ -249,6 +250,18 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
         }
     }
 
+    // Todo: figure out 
+    takeItemFromCache(itemIndex: number, name: string, adventurerId: string, toSlot?: number) {
+        super.takeItemFromCache(itemIndex, name, adventurerId, toSlot);
+        const lootCache = this.getLootCache(name);
+        if (lootCache){
+            const items = lootCache.items.filter((_: any, index: number) => index !== itemIndex);
+            this.updateQuestVars({
+                dungeon: { hallway: { chest: { items }}}
+            });
+        }
+    }
+
     updateScene(objects: SceneObject[] = this.sceneObjects, combat: boolean = this.combat) {
         objects = objects.map(o => {
             switch(o.name) {
@@ -260,10 +273,11 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
                 }
                 case "door1": {
                     if ( this.questVars.dungeon.hallway.doorOpen) {
+                        const properties = { ...o.properties, blocksMovement: false, interactive: false };
                         if (o.properties.part === 'upper') {
-                            return { ...o, gid: TILE_DOOR_UPPER_OPEN };
+                            return { ...o, gid: TILE_DOOR_UPPER_OPEN, properties};
                         } else {
-                            return { ...o, gid: TILE_DOOR_LOWER_OPEN };
+                            return { ...o, gid: TILE_DOOR_LOWER_OPEN, properties};
                         }
                     } else {
                         if (o.properties.part === 'upper') {
