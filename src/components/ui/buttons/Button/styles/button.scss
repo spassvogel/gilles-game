@@ -73,6 +73,7 @@ $small-margin: 10px;
             font-size: medium;
             background-position: 0 -$medium-height;
             margin: 0 $medium-margin;
+            height: $medium-height;
         }
 
         &:before {
@@ -154,6 +155,7 @@ $small-margin: 10px;
                 background-position: 0 -$small-height;
                 font-size: smaller;
                 margin: 0 $small-margin;
+                height: $small-height;
             }
     
             &:before {
