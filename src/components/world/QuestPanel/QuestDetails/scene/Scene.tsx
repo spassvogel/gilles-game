@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useContext, useState } from "react";
 import { Container, Graphics } from '@inlet/react-pixi';
-import { useQuest } from 'hooks/store/quests';
+import { useQuest, useQuestScene } from 'hooks/store/quests';
 import Tilemap from './Tilemap';
 import BridgedStage from 'components/pixi/util/BridgedStage';
 import useTilesetsLoader from 'hooks/useTilesetsLoader';
@@ -32,9 +32,8 @@ const Scene = (props: Props) => {
     } = useTilesetsLoader(basePath);
 
     const ref = useRef<HTMLDivElement>(null);
-    const quest = useQuest(controller.questName);
+    const scene = useQuestScene(controller.questName);
     const {tileWidth, tileHeight} = controller.getTileDimensions();
-    const scene = quest.scene!;
     const [currentActionIntent, setCurrentActionIntent] = useState<ActionIntent>();
 
     useEffect(() => {

@@ -97,7 +97,10 @@ const restartGame = () => {
 
         setupStore(createInitialStore());
         // eslint-disable-next-line no-restricted-globals
-        location.href = `#${getTownLink()}`;
+        location.reload();
+        // location.href = `#${getTownLink()}`;
+        // tslint:disable-next-line: no-console
+        console.clear();
     }
 }
 
