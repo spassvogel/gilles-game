@@ -155,6 +155,106 @@
                  "width":100,
                  "x":300,
                  "y":100
+                }, 
+                {
+                 "height":0,
+                 "id":24,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":353.333333333333,
+                 "y":160
+                }, 
+                {
+                 "height":0,
+                 "id":26,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":349.333333333333,
+                 "y":156
+                }, 
+                {
+                 "height":0,
+                 "id":27,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":326.666666666667,
+                 "y":184
+                }, 
+                {
+                 "height":0,
+                 "id":28,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":366.666666666667,
+                 "y":96
+                }, 
+                {
+                 "height":100,
+                 "id":31,
+                 "name":"latrine",
+                 "properties":[
+                        {
+                         "name":"interactive",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":500,
+                 "y":100
+                }, 
+                {
+                 "height":0,
+                 "id":32,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":697.333333333333,
+                 "y":646.666666666667
+                }, 
+                {
+                 "height":0,
+                 "id":33,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":353.333333333333,
+                 "y":848
+                }, 
+                {
+                 "height":100,
+                 "id":36,
+                 "name":"latrine",
+                 "properties":[
+                        {
+                         "name":"interactive",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":100,
+                 "x":600,
+                 "y":100
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -252,7 +352,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":24,
+ "nextobjectid":37,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.3",

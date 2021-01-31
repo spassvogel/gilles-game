@@ -37,7 +37,7 @@ const Situation = (props: Props) => {
                 <div className="close" onClick={handleClose} />
             </div>
             <div className="content">
-            { text && (<div className="text">{text}</div>)}
+            { text && (<div className="text">{TextManager.get(text)}</div>)}
             { choices?.map(choice => (
                 <Button key={choice} data-option={choice} onClick={handleChoiceClick}>{TextManager.get(choice)}</Button>
             ))}

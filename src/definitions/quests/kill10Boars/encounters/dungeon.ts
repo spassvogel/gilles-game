@@ -204,6 +204,9 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
                     }));
                 }
                 break;
+            case "latrine":
+                this.questUpdate("quest-kill10-boars-dungeonentrance-latrine");
+                break;
         }
         super.interactWithObject(actor, object);
     }
@@ -216,7 +219,6 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
                     // Adventurer has key
                     return {
                         title: 'quest-kill10-boars-dungeonentrance-door',
-                        text: 'This door is locked', // todo key
                         choices: [
                             "quest-common-scenerio-door-open"
                         ]
@@ -224,7 +226,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
                 }
                 return {
                     title: 'quest-kill10-boars-dungeonentrance-door',
-                    text: 'This door is locked', // todo key
+                    text: 'quest-kill10-boars-dungeonentrance-door-needs-key',
                 }
                 default:
                     return super.getSituation(situation, adventurerId);
@@ -246,11 +248,13 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
                 const adventurer = this.getAdventurerById(adventurerId)?.name;
                 const textEntry = { key: "quest-common-adventurer-opened-door", context: { adventurer } };
                 this.questUpdate(textEntry, "/img/items/misc/chest-02.png");
+
+                this.dispatch(setActiveSceneInteractionModal(this.questName));
             }
         }
     }
 
-    // Todo: figure out 
+    // Todo: figure out an easier way to do this
     takeItemFromCache(itemIndex: number, name: string, adventurerId: string, toSlot?: number) {
         super.takeItemFromCache(itemIndex, name, adventurerId, toSlot);
         const lootCache = this.getLootCache(name);

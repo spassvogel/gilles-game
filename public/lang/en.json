@@ -26,7 +26,7 @@
     "common-time-year-plural": " years",
 
     "encounter-backstabbed-description": "A group of rogues emerges from the bushes, knives drawn.",
-    "encounter-dungeon-caches-chest": "{{adventurer}} is rummaging through an old chest",
+    "encounter-dungeon-caches-chest": "{{adventurer}} rummages through an old chest",
     "encounter-goblin-house-hallway-descriptx2ion": "The party stands inside the hallway",
     "encounter-goblin-house-outside-description": "As the party makes their way along the forest they notice a small house just of the road, smoke rises from the chimney",
     "encounter-thebigtree-description": "A huge tree blocks the way",
@@ -186,6 +186,8 @@
     "quest-kill10-boars-dungeonentrance-altar": "An old altar",
     "quest-kill10-boars-dungeonentrance-altar-lightcandle": "Light the candle",
     "quest-kill10-boars-dungeonentrance-door": "A huge locked door",
+    "quest-kill10-boars-dungeonentrance-door-needs-key": "It needs a key",
+    "quest-kill10-boars-dungeonentrance-latrine": "A smelly latrine. Yeagh.",
     "quest-retrieve-magic-amulet-description": "Some air headed princess left her magic amulet when she took it off to make some pics for her insta. Find and retrieve.",
     "quest-retrieve-magic-amulet-title": "The quest for the magic amulet",
 
