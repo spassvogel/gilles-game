@@ -59,6 +59,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     [quest.scene, props.name]);
     const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
     const [animation, setAnimation] = useState("stand");
+    const tween = useRef<gsap.core.Tween>();
 
     // Handle actions
     useEffect(() => {
@@ -110,7 +111,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                     determineOrientation();
                     setAnimation("walk");
                     gsap.killTweensOf(actorRef.current);
-                    gsap.to(actorRef.current, {
+                    tween.current = gsap.to(actorRef.current, {
                         duration,
                         ease: "linear",
                         pixi: {
@@ -140,8 +141,13 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
             }
             previousAction.current = nextAction;
         }
-
     }, [dispatch, tileWidth, tileHeight, actionQueue, props.controller, props.name, location, controller]);
+
+    useEffect(() => {
+        return () => {
+            tween.current?.kill();
+        }
+    }, []);
 
     const {x, y} = useMemo(() => {
         setAnimation("stand")
