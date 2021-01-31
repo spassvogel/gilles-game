@@ -1,6 +1,7 @@
 import * as React from "react";
 import { SoundManager} from 'global/SoundManager';
 import Button from '../buttons/Button';
+import { useEffect } from "react";
 
 // todo: refactor using WindowManager [30/03/2020]
 export interface Props {
@@ -33,6 +34,13 @@ const Window: React.FunctionComponent<AllProps> = (props) => {
             SoundManager.playSound("ui/buttonClick");
         }
     };
+
+    useEffect(() => {
+        SoundManager.musicFiltered = true;
+        return () => {
+            SoundManager.musicFiltered = false;
+        }
+    })
 
     return (
         <div className = "window">

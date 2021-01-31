@@ -34,7 +34,7 @@ const RoomList = (props: Props) => {
         });
     };
 
-    const handleAdventurerNameClick = (adventurer: AdventurerStoreState) => {
+    const handleAdventurerClick = (adventurer: AdventurerStoreState) => {
         if (selectedAdventurer === adventurer.id) {
             setSelectedAdventurer(undefined);
         } else {
@@ -62,7 +62,7 @@ const RoomList = (props: Props) => {
                 expanded={selectedAdventurer === adventurer.id}
                 onQuest={onQuest}
 
-                onClick={handleAdventurerNameClick}
+                onClick={handleAdventurerClick}
                 onAddAdventurer={onAddAdventurer}
                 onRemoveAdventurer={onRemoveAdventurer}
             />

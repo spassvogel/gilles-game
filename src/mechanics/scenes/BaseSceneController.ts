@@ -18,7 +18,7 @@ import { LogChannel } from 'store/types/logEntry';
 import { addGold } from 'store/actions/gold';
 import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
-import { Sound, SoundManager } from 'global/SoundManager';
+import { GameSound, SoundManager } from 'global/SoundManager';
 import { Allegiance } from "store/types/combat";
 import { PartialDeep } from "type-fest";
 import { Item } from "definitions/items/types";
@@ -62,7 +62,7 @@ export class BaseSceneController<TQuestVars> {
         }
         this.dataLoading = true;
         // load sounds
-        const loadSound = async (sound: Sound, files: string[]): Promise<PIXI.sound.Sound[]> => {
+        const loadSound = async (sound: GameSound, files: string[]): Promise<PIXI.sound.Sound[]> => {
             return new Promise((resolve, reject) => {
                 SoundManager.addSound(sound, files, (sounds) => {
                     resolve(sounds);

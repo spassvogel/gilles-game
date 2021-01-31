@@ -1,6 +1,5 @@
 import * as React from "react";
-import { useMemo, useRef, useState } from 'react';
-import Select from 'react-select';
+import { useMemo,  useState } from 'react';
 import { getDefinition } from "definitions/items";
 import { Item, ItemType } from "definitions/items/types";
 import { getDefinition as getStructureDefinition, Structure } from "definitions/structures";
@@ -24,7 +23,9 @@ import { addWorkers } from 'store/actions';
 import { getTimeMultiplier, setCheatTimeMultiplier, TimeType } from 'mechanics/time';
 import ItemIcon from "components/ui/items/ItemIcon";
 import { IconSize } from "components/ui/common/Icon";
+import Button from "components/ui/buttons/Button";
 import "./styles/cheat.scss";
+import Select from "components/ui/common/Select";
 
 
 // tslint:disable-next-line:no-empty-interface
@@ -183,7 +184,8 @@ const CheatWindow = (props: Props) => {
                         value: item,
                         label: TextManager.getItemName(Item[item]),
                         subtext: TextManager.getItemSubtext(Item[item]),
-                    }))
+                    })
+                )
             }
         })
     ), []);
@@ -217,17 +219,7 @@ const CheatWindow = (props: Props) => {
             <div className="label-numberbox-button">
                 <label>Items</label>
                 <Select
-                    placeholder={"Find item in any category..."}
-                    styles={{
-                        container: (provided, state) => ({
-                            ...provided,
-                            flex: 1
-                        }),
-                        option: (provided, state) => ({
-                            ...provided,
-                            padding: '4px 12px'
-                        })
-                    }}
+                    placeholder={"Find item in any category..."}                   
                     onChange={(e) => setSelectedItem(e?.value)}
                     formatGroupLabel={(data) => (
                         <div className="item-group">
@@ -240,12 +232,12 @@ const CheatWindow = (props: Props) => {
                             <ItemIcon item={option.value as Item} size={IconSize.smallest} />
                             <div className="item-label">
                                 {option.label}
-                                <span>{option.subtext}</span>
+                                <span>{(option as any).subtext}</span>
                             </div>
                         </div>
                     )}
                     options={items} />
-                <button onClick={handleCheatItem}>Add</button>
+                <Button onClick={handleCheatItem}>Add</Button>
             </div>
             <div className="label-range-value">
                 <label>Speed</label>

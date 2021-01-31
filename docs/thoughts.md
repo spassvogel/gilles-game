@@ -631,6 +631,8 @@ Studies are tasks like `{structure_name}.study` with a callback that adds the it
 
 ### 30/8/2020 Quest / Adventurer definitions
 Quests and adventurers dont need to be stored in the store when not active
+[ ] Adventurers need to have a definition file
+[ ] Then when an adventurer is added to the game (how?) it gets saved in the redux store
 
 ### 31/8/2020 Skills
 [ ] Implement list of skills of adventurers
@@ -647,9 +649,6 @@ https://css-tricks.com/sticky-smooth-active-nav/
 
 ### Use pixi-sound [+ref]
 [x] Refactor to use pixi-sound
-[ ] Use a filter on music when menu is opened
+[x] Use a filter on music when menu is opened
 [x] Continue playing music when scene changes. When 
 
-### Adventurers
-[ ] Adventurers need to have a definition file
-[ ] Then when an adventurer is added to the game (how?) it gets saved in the redux store

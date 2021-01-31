@@ -13,16 +13,15 @@ import { useState } from 'react';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { TextManager } from 'global/TextManager';
-import { createEncryptor } from 'simple-encryptor';
-import "./styles/menu.scss";
 import Button from 'components/ui/buttons/Button';
+import { decryptSavedGame, saveGame } from "utils/game";
+import "./styles/menu.scss";
 
 // tslint:disable-next-line:no-empty-interface
 export interface Props {
     persistor: Persistor;
 }
 
-const key = "P5mw}jD>5c6Y]yqy";
 type AllProps = Props & WindowProps;
 const Menu = (props: AllProps & AppContextProps) => {
 
@@ -40,14 +39,7 @@ const Menu = (props: AllProps & AppContextProps) => {
     };
 
     const handleClickSave = () => {
-        const encryptor = createEncryptor(key);
-        const a = document.createElement('a');
-        const text = JSON.stringify(storeState);
-        const encrypted = encryptor.encrypt(text);
-        const filename = "Gidletown save.json";
-        a.setAttribute('href', 'data:text/json;cccharset=utf-8,' + encodeURIComponent(encrypted));
-        a.setAttribute('download', filename);
-        a.click();
+       saveGame(storeState as StoreState);
     }
 
     const handleClickLoad = async () => {
@@ -61,13 +53,12 @@ const Menu = (props: AllProps & AppContextProps) => {
     }
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const encryptor = createEncryptor(key);
         const fileReader = new FileReader();
         fileReader.onload = () => {
             const encrypted = fileReader.result! as string;
-            const text = encryptor.decrypt(encrypted);
-            const obj: StoreState = JSON.parse(text);
-            setLoadedStore(obj);
+            const state =  decryptSavedGame(encrypted)
+
+            setLoadedStore(state);
         }
         fileReader.readAsText(e.target.files![0]);
     }
