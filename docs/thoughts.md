@@ -652,3 +652,5 @@ https://css-tricks.com/sticky-smooth-active-nav/
 [x] Use a filter on music when menu is opened
 [x] Continue playing music when scene changes. When 
 
+### Animated xp bar
+[ ] xp bar animates when switching adventurer

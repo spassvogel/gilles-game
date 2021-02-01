@@ -9,24 +9,31 @@
         }
     }
 
+    .right {
+        padding-top: 16px; 
+    }
+    
     &.horizontal {
         display: flex;
-
+        
         .right {
             padding: 16px;
         }
     }
-
+    
     @media only screen and (max-width: $max-width-small) {
         &.horizontal {
             /** small screen horizontal layout */
             flex-direction: column;
-
+            
             .left {
                 padding-right: 16px;
             }
         }
-
+                
+        .right {
+            padding-left: 16px;
+        }
     }
     
 }

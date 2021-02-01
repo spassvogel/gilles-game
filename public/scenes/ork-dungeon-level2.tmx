@@ -84,6 +84,7 @@
  <objectgroup id="10" name="doodads">
   <object id="15" name="chest" type="lootCache" gid="33" x="300" y="900" width="100" height="100">
    <properties>
+    <property name="blocksMovement" type="bool" value="true"/>
     <property name="interactive" type="bool" value="true"/>
     <property name="title" value="encounter-dungeon-caches-chest"/>
    </properties>

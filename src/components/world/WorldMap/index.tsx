@@ -106,7 +106,7 @@ const WorldMap = (props: Props) => {
         } else {
             const viewport = viewportRef.current!;
             const point = nodeLocationToPoint({ x: 0, y: 0 });
-            viewport.moveCenter(point.x, point.y); 
+            viewport.moveCenter(point.x, point.y);
         }
     }, [selectedQuest, canvasHeight])
 

@@ -15,12 +15,12 @@ const NormalUICursor = (props: Props) => {
     let blocked = controller.locationIsBlocked(location);
     let action = SceneActionType.move;
     if (blocked) {
+        // todo: can we have interactive tiles that are NOT blocking?
         const object = controller.getObjectAtLocation(location);
         if(!!object?.properties.interactive){
             // We're at an interactive object
             action = SceneActionType.interact;
             blocked = false;
-//            console.log(controller.findPathNearest([3, 9], location))
         }
     }
     const {tileWidth, tileHeight} = controller.getTileDimensions();
@@ -41,5 +41,4 @@ export default NormalUICursor;
 const images = {
     [SceneActionType.move]:  `url(${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/walking-boot.svg)`,
     [SceneActionType.interact]: `url(${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/sunken-eye.svg)`
-
 }

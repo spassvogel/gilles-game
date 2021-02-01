@@ -83,6 +83,10 @@ export class BaseSceneController<TQuestVars> {
             const resource = PIXI.Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
             this.mapData = resource.data;
 
+            // Create aStar based on blocked tiles
+            this.createBlockedTiles();
+            this.aStar = this.createAStar();
+
             // In the case a scene is just created, we dont have this.sceneObjects yet
             const spritesheets = getSpritesheetPaths(this.sceneObjects.length ? this.sceneObjects : this.createObjects());
             for(const path of spritesheets) {
@@ -95,16 +99,14 @@ export class BaseSceneController<TQuestVars> {
         });
     }
 
-    createBlockedTiles(objects: SceneObject[]) {
+    createBlockedTiles(objects?: SceneObject[]) {
         this.blockedTiles = [];
-        if(this.mapData) {
-            this.mapData.layers.filter(layer => layer.visible).forEach(layer => {
-                if (layer.properties && layer.properties.some(p => p.name === 'blocksMovement' && p.value === true)){
-                    addAllTilesInLayerToList(this.blockedTiles, layer, layer.width);
-                }
-            });
-        }
-        objects.forEach(o => {
+        this.mapData?.layers.filter(layer => layer.visible).forEach(layer => {
+            if (layer.properties && layer.properties.some(p => p.name === 'blocksMovement' && p.value === true)){
+                addAllTilesInLayerToList(this.blockedTiles, layer, layer.width);
+            }
+        });
+        objects?.forEach(o => {
             if(o.properties.blocksMovement === true && o.location){
                 this.blockedTiles.push(o.location);
             }
@@ -127,6 +129,7 @@ export class BaseSceneController<TQuestVars> {
         this.dispatch(setScene(this.questName, scene));
 
         this.createBlockedTiles(objects);
+
         // Create aStar based on blocked tiles
         if (this.mapData) {
             this.aStar = this.createAStar();
@@ -332,7 +335,6 @@ export class BaseSceneController<TQuestVars> {
      * @param target
      */
     findPath(origin: [number, number], target: [number, number]) {
-
         return this
             .aStar?.findPath(convertIn(origin), convertIn(target))
             .map(convertOut);
@@ -346,10 +348,10 @@ export class BaseSceneController<TQuestVars> {
      */
     public findPathNearest(origin: [number, number], target: [number, number], includeLast: boolean = false) {
         // todo; shortcut, if already neighbour, return early
-        const grid = this.aStar?.getGridClone();
+        const grid = this.aStar?.getGrid().getGridNodes();
         if (!grid) return [];
         const matrix = grid.map(r => r.map(c => (c.getIsWalkable() ? 0 : 1)));
-        matrix[target[0]][target[1]] = 0; // make target pathable
+        matrix[target[1]][target[0]] = 0; // make target pathable
         const tempAStar = new AStarFinder({
             grid: {
                 matrix

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useContext, useState } from "react";
 import { Container, Graphics } from '@inlet/react-pixi';
-import { useQuest, useQuestScene } from 'hooks/store/quests';
+import { useQuestScene } from 'hooks/store/quests';
 import Tilemap from './Tilemap';
 import BridgedStage from 'components/pixi/util/BridgedStage';
 import useTilesetsLoader from 'hooks/useTilesetsLoader';
