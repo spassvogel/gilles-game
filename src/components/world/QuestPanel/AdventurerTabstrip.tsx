@@ -23,7 +23,7 @@ const AdventurerTabstrip = (props: Props) => {
 
     const renderAdventurerTab = (adventurer: AdventurerStoreState) => (
         <Tab id={adventurer.id} key={adventurer.id}>
-            <AdventurerAvatar adventurer={adventurer} size={IconSize.small}/>
+            <AdventurerAvatar adventurer={adventurer} size={IconSize.medium}/>
         </Tab>
     );
     return (

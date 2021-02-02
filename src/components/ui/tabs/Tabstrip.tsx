@@ -5,11 +5,11 @@ import "./styles/tabstrip.scss";
 
 export interface Props {
     className?: string;
-    onClick?: React.MouseEventHandler<Element>;
-    onTabSelected?: (tabId: string) => void;
     children: React.ReactElement<TabProps>[] |  React.ReactElement<TabProps>;
     activeTab?: string;
     disabled?: boolean;
+    onClick?: React.MouseEventHandler<Element>;
+    onTabSelected?: (tabId: string) => void;
 }
 
 const Tabstrip = (props: Props) => {
@@ -40,7 +40,7 @@ const Tabstrip = (props: Props) => {
     };
 
     return (
-        <ul className={`tabstrip ${className}`} onClick={handleClick}>
+        <ul className={`tabstrip ${className ?? ""}`} onClick={handleClick}>
             {children}
         </ul>
     );
