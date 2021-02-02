@@ -75,7 +75,7 @@ export class BaseSceneController<TQuestVars> {
             loadSound("scene/metalBash", ["sound/scene/metal-bash-01.mp3", "sound/scene/metal-bash-02.mp3", "sound/scene/metal-bash-03.mp3"]),
             loadSound("scene/shieldBash", ["sound/scene/shield-bash-impact.mp3"]),
             loadSound("scene/swish", ["sound/scene/swish-01.mp3", "sound/scene/swish-02.mp3", "sound/scene/swish-03.mp3", "sound/scene/swish-04.mp3"]),
-            loadSound("scene/doorOpen", ["sound/scene/door-open.mp3"]),
+            loadSound("scene/doorOpen", ["sound/scene/door.ogg"]),
             loadResourceAsync(`${process.env.PUBLIC_URL}/${this.jsonPath}`)
         ] as const;
 
