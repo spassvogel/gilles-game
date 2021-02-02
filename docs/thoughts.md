@@ -106,6 +106,9 @@ backlog of ideas
 [ ] Weapons can either be repaired ?  OR : just disassembled for a fraction of the crafting cost
 
 
+### weapons
+https://forum.rpg.net/index.php?threads/what-are-the-advantages-if-these-various-medieval-weapons-armor.734562/
+
 #### 13/07/2019 EQUIPMENT REQUIREMENTS
 [ ] Equipment (=apparel+weapons) can have stats requirements (e.g. a minimum amount of STR)
 
@@ -369,7 +372,7 @@ research fantasy concept art
           https://barkofthebyte.azurewebsites.net/post/2014/05/05/three-js-projecting-mouse-clicks-to-a-3d-scene-how-to-do-it-and-how-it-works
 
 
-#### THREEJS examples (MIGHT IS RIGHT):
+#### THREEJS examples
 [ ] http://server1.lazy-kitty.com/tests/
 [x]   check achievements (http://server1.lazy-kitty.com/tests/achievements_2019_08_11/)
     
