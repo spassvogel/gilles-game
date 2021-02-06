@@ -124,6 +124,7 @@ const App = (props: AllProps) => {
         SoundManager.addSound("ui/buttonClick", "sound/ui/button-click.ogg");
         SoundManager.addSound("ui/equip", "sound/ui/equip.mp3");
         SoundManager.addSound("ui/error", "sound/ui/error.ogg");
+        SoundManager.addSound("ui/levelUp", "sound/ui/level-up.ogg");
         SoundManager.addSound("ui/toast", "sound/ui/toast.ogg");
     }, []);
 

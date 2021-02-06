@@ -24,6 +24,7 @@ export type GameSound =
     "ui/buttonClick" |
     "ui/equip" |
     "ui/error" |
+    "ui/levelUp" |
     "ui/toast" |
     "music/town" |
     "music/world" |
@@ -67,13 +68,13 @@ export class SoundManager {
     }
 
 
-    public static async addSound(sound: GameSound, files: string[] | string, complete?: (sounds: sound.Sound[]) => void) {
+    public static async addSound(gameSound: GameSound, files: string[] | string, complete?: (sounds: sound.Sound[]) => void) {
         if (typeof files === "string") {
             files = [files];
         }
-        if(this._sounds[sound]) {
+        if(this._sounds[gameSound]) {
             // Sound already loaded. Great.
-            complete?.(this._sounds[sound]);
+            complete?.(this._sounds[gameSound]);
             return;
         }
 
@@ -81,8 +82,8 @@ export class SoundManager {
         files.map((file) => loader.add(file));
         loader.load((_, resources) => {
             if (resources) {
-                this._sounds[sound] = Object.values(resources!).filter(rss => !!rss).map(r => r?.sound!);
-                complete?.(this._sounds[sound]);
+                this._sounds[gameSound] = Object.values(resources!).filter(rss => !!rss).map(r => r?.sound!);
+                complete?.(this._sounds[gameSound]);
             }
         });
     }
