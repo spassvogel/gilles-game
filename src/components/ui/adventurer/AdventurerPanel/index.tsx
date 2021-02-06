@@ -64,7 +64,7 @@ const AdventurerPanel = (props: Props) => {
                             {questName && <ApIndicator questName={questName} adventurer={adventurer} />}
                         </div>
                     )}
-                    { levelBar && <Level xp={adventurer.xp} /> }
+                    { levelBar && <Level adventurerId={adventurer.id}/> }
 
                     { traits && <AdventurerTraits adventurerId={adventurer.id}/> }
                     { skills && <AdventurerSkills adventurerId={adventurer.id}/> }

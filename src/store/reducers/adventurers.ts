@@ -1,6 +1,7 @@
 // tslint:disable:object-literal-sort-keys
 import {
     ActionType,
+    AddXPAction,
     AssignEquipmentAction,
     InventoryAction,
     MoveItemInInventoryAction,
@@ -15,6 +16,7 @@ import { AnyAction, Reducer } from "redux";
 import { AdventurerColor, AdventurerStoreState, BasicAttributesStoreState } from "store/types/adventurer";
 import { Trait } from 'definitions/traits/types';
 import { WeaponType } from 'definitions/items/weapons';
+import { levelToXp } from "mechanics/adventurers/levels";
 
 /**
  * reducer
@@ -47,7 +49,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     },
     basicAttributes: generateRandomAttributes(),
     health: Math.random() * 100,
-    xp: Math.random() * 100,
+    xp: levelToXp(1),
     baseAP: 6,
     room: 0,
     name: "Ximena Maddox",
@@ -356,6 +358,19 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
                     return {
                         ...adventurer,
                         name
+                    };
+                }
+                return adventurer;
+            });
+        }
+        case ActionType.addXP: {
+            // Adds xp
+            const { xp } = action as AddXPAction;
+            return state.map((adventurer: AdventurerStoreState) => {
+                if (adventurer.id === action.adventurerId) {
+                    return {
+                        ...adventurer,
+                        xp: adventurer.xp + xp
                     };
                 }
                 return adventurer;

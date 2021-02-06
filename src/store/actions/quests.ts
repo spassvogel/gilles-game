@@ -148,14 +148,14 @@ export function deductActorAp(quest: string, actor: string, ap: number): DeductA
     };
 }
 
-export const updateSceneObject = (questName: string, id: number, object: Partial<Omit<SceneObject, 'id'>>): UpdateSceneObjectAction => {
-    return {
-        type: ActionType.updateSceneObjectAction,
-        questName,
-        id,
-        object
-    };
-}
+// export const updateSceneObject = (questName: string, id: number, object: Partial<Omit<SceneObject, 'id'>>): UpdateSceneObjectAction => {
+//     return {
+//         type: ActionType.updateSceneObjectAction,
+//         questName,
+//         id,
+//         object
+//     };
+// }
 
 export function updateEncounterResult(quest: string, nodeIndex: number, result: string): UpdateEncounterResultAction {
     return {

@@ -265,6 +265,7 @@
 
     "ui-adventurer-info-skills-title": "Skills",
     "ui-adventurer-info-traits-title": "Traits",
+    "ui-adventurer-info-xp-level-up": "Level up!",
     "ui-adventurer-info-xp-progress": "{{xp}}/{{next}} xp to next level",
     "ui-adventurer-info-ap-remaining": " ({{ap}} AP remaining)",
 

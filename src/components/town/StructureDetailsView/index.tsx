@@ -10,7 +10,7 @@ import useStructureState from 'hooks/store/useStructureState';
 import { withWindow } from 'hoc/withWindow';
 import { Props as WindowProps } from "components/ui/window/Window";
 import { formatDuration } from 'utils/format/time';
-import Progressbar from 'components/ui/common/Progressbar';
+import { TickingProgressbar } from 'components/ui/common/progress';
 import ProductionStructureView from 'components/structures/production/ProductionStructureView';
 import WarehouseStructureView from 'components/structures/warehouse/WarehouseStructureView';
 import TavernStructureView from 'components/structures/tavern/TavernStructureView';
@@ -32,7 +32,7 @@ const StructureDetailsView = (props: Props & WindowProps) => {
             if (!buildTask) return null;
             return (
                 <div className="building">
-                    <Progressbar
+                    <TickingProgressbar
                         progress={buildTask.progress}
                         label={`Building... (${formatDuration(buildTask.timeRemaining)})`}
                     />

@@ -4,12 +4,13 @@ import { TextManager } from 'global/TextManager';
 import { useEngine } from 'hooks/store/engine';
 import { formatDuration } from 'utils/format/time';
 import { RESOURCE_INTERVAL } from 'constants/resources';
-import Progressbar, { Direction } from 'components/ui/common/Progressbar';
+import  { Direction } from 'components/ui/common/progress/PlainProgressbar';
 import { Resource } from 'definitions/resources';
 import useStructureState from 'hooks/store/useStructureState';
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition } from 'definitions/structures/types';
 import Icon from 'components/ui/common/Icon';
 import resourceDescriptions from "definitions/resources";
+import TickingProgressbar from 'components/ui/common/progress/TickingProgressbar';
 
 interface Props {
     structure: Structure;
@@ -40,7 +41,7 @@ const ResourceGenerationRow = (props: Props) => {
                     })}
                 </div>
             </div>
-            <Progressbar
+            <TickingProgressbar
                 className="generating"
                 direction={Direction.decreasing}
                 label={`${TextManager.get("ui-structure-resource-next-generates", {

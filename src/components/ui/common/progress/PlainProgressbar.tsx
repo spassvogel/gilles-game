@@ -13,27 +13,13 @@ export interface Props {
     label?: string;
     className?: string;
     direction?: Direction; // only used to prevent the bar from animating back to the start state
+    animationTime?: number;
 }
 
-const Progressbar = (props: Props) => {
-    const { className = "", direction } = props;
+const PlainProgressbar = (props: Props) => {
+    const { className = "", animationTime } = props;
     const previousProgress = useRef(0);
     const progress: number = clamp(props.progress || 0, 0, 1);
-    // We use the delta time since last tick to animate
-    const delta = useDelta();
-
-    // If we have a direction defined and we're going the other direction, dont animate
-    // because we've basically reset the progress bar and we just want to animate in one direction
-    const [animate, setAnimate] = useState(false);
-
-    useEffect(() => {
-        setAnimate(
-             direction === undefined ||
-            (direction === Direction.increasing && progress > previousProgress.current) ||
-            (direction === Direction.decreasing && progress < previousProgress.current)
-        );
-    }, [direction, progress]);
-
 
     previousProgress.current = progress;
     return (
@@ -41,13 +27,13 @@ const Progressbar = (props: Props) => {
             <div className="progressbar-label">{props.label}</div>
             <div className="progressbar-bar" style= {{
                 width: `${progress * 100}%`,
-                ...(animate && {transition: `width ${delta}ms linear`})
+                ...(animationTime && {transition: `width ${animationTime}ms linear`})
             }}/>
         </div>
     );
 };
 
-export default Progressbar;
+export default PlainProgressbar;
 
 function clamp(val: number, min: number, max: number): number {
     return val > max ? max : val < min ? min : val;

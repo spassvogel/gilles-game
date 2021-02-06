@@ -12,6 +12,7 @@ export enum ActionType {
     assignEquipment = "assignEquipment",
     removeEquipment = "removeEquipment",
     renameAdventurer = "renameAdventurer",
+    addXP = "addXP",
 }
 
 export interface AdventurerAction extends Action<ActionType> {
@@ -48,6 +49,10 @@ export interface RemoveEquipmentAction extends AdventurerAction {
 
 export interface RenameAdventurerAction extends AdventurerAction {
     name: string;
+}
+
+export interface AddXPAction extends AdventurerAction {
+    xp: number;
 }
 
 export function moveItemInInventory(adventurerId: string, fromSlot: number, toSlot: number):
@@ -118,5 +123,13 @@ export function renameAdventurer(adventurerId: string, name: string): RenameAdve
         type: ActionType.renameAdventurer,
         adventurerId,
         name,
+    };
+}
+
+export function addXp(adventurerId: string, xp: number): AddXPAction {
+    return {
+        type: ActionType.addXP,
+        adventurerId,
+        xp,
     };
 }

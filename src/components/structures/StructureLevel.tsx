@@ -13,9 +13,9 @@ import Button from 'components/ui/buttons/Button';
 import { startTask } from 'store/actions/tasks';
 import { TaskType } from 'store/types/task';
 import { useUpgradeTasksStateByStructure } from 'hooks/store/useTasksState';
-import Progressbar from 'components/ui/common/Progressbar';
 import { formatDuration } from 'utils/format/time';
 import "./styles/structureLevel.scss";
+import { TickingProgressbar } from "components/ui/common/progress";
 
 export interface Props {
     structure: Structure;
@@ -66,7 +66,7 @@ const StructureLevel = (props: Props) => {
     if (upgradeTasks.length) {
         const t = upgradeTasks[0];
         return (
-            <Progressbar
+            <TickingProgressbar
                 key={`${t.name}${t.startTime}`}
                 className="upgrading" // todo: margin: 8
                 label={`${TextManager.get("structure-upgrade-button-upgrading")} (${formatDuration(t.timeRemaining)})`}

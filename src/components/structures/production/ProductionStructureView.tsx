@@ -4,7 +4,7 @@ import { getDefinition, Structure } from "definitions/structures";
 import { ProductionStructureDefinition } from "definitions/structures/types";
 import { TextManager } from "global/TextManager";
 import { formatDuration } from "utils/format/time";
-import Progressbar from "components/ui/common/Progressbar";
+import { TickingProgressbar } from 'components/ui/common/progress';
 import useStructureState from 'hooks/store/useStructureState';
 import { useCraftingTasksStateByStructure, useStudyingTasksStateByStructure } from 'hooks/store/useTasksState';
 import StructureViewHeader from '../StructureViewHeader';
@@ -62,7 +62,7 @@ const ProductionStructureView = (props: Props) => {
                     <fieldset>
                         <legend>{TextManager.get("ui-structure-production-crafting")}</legend>
                         {craftingTasks.map((t) => (
-                            <Progressbar
+                            <TickingProgressbar
                                 key={`${t.name}${t.startTime}`}
                                 label={`${TextManager.getItemName(Item[t.name])} (${formatDuration(t.timeRemaining)})`}
                                 progress={t.progress}
@@ -73,7 +73,7 @@ const ProductionStructureView = (props: Props) => {
                     <fieldset>
                         <legend>{TextManager.get("ui-structure-production-studying")}</legend>
                         {studyingTasks.map((t) => (
-                            <Progressbar
+                            <TickingProgressbar
                                 key={`${t.name}${t.startTime}`}
                                 label={`${TextManager.getItemName(Item[t.name])} (${formatDuration(t.timeRemaining)})`}
                                 progress={t.progress}

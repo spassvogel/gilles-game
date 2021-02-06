@@ -16,7 +16,7 @@ import { addLogText, addLogEntry } from 'store/actions/log';
 import { getDefinition } from 'definitions/quests';
 import { LogChannel } from 'store/types/logEntry';
 import { addGold } from 'store/actions/gold';
-import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
+import { addItemToInventory, addXp, removeItemFromInventory } from 'store/actions/adventurers';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { GameSound, SoundManager } from 'global/SoundManager';
 import { Allegiance } from "store/types/combat";
@@ -202,6 +202,7 @@ export class BaseSceneController<TQuestVars> {
                     }
                     // this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
                 }
+                this.dispatch(addXp(actorId, 10));
 
                 path?.forEach((l, index) => {
                     const sceneAction: SceneAction = {
