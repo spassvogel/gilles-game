@@ -5,7 +5,7 @@ import { DragType } from "constants/dragging";
 import { getDefinition } from "definitions/items";
 import { ApparelDefinition } from "definitions/items/apparel";
 import { Item, ItemType } from "definitions/items/types";
-import { WeaponDefinition, typeClassifications, WeaponClassification } from 'definitions/items/weapons';
+import { WeaponDefinition, WeaponTypeDefinition, WeaponClassification } from 'definitions/items/weapons';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import "./styles/equipmentslot.scss";
 
@@ -46,8 +46,8 @@ export const itemAndEquipmentSlotMatch = (item: Item, equipmentSlotType: Equipme
             if (itemDefinition.itemType !== ItemType.weapon) {
                 return false;
             }
-            const weaponClassification: WeaponClassification = typeClassifications[itemDefinition.weaponType];
-            switch (weaponClassification) {
+            const { classification } = WeaponTypeDefinition[itemDefinition.weaponType];
+            switch (classification) {
                 case WeaponClassification.oneHanded:
                     return true;
                 case WeaponClassification.mainHand:

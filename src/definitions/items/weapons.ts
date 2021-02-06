@@ -20,6 +20,17 @@ export enum WeaponType {
     poleArm = "poleArm",
 }
 
+export enum WeaponAbility {
+    aimedShot,
+    swing,
+    block,
+    cut,
+    cleave,
+    shoot,
+    slash,
+    parry,
+}
+
 export enum WeaponClassification {
     oneHanded,  // Can be used in main hand or off hand
     mainHand,   // Can only be used in main hand
@@ -29,21 +40,56 @@ export enum WeaponClassification {
     // add 'ranged'?
 }
 
-export const typeClassifications = {
-    [WeaponType.axe]: WeaponClassification.oneHanded,
-    [WeaponType.bow]: WeaponClassification.oneHanded,
-    [WeaponType.club]: WeaponClassification.oneHanded,
-    [WeaponType.crossbow]: WeaponClassification.mainHand,
-    [WeaponType.fist]: WeaponClassification.oneHanded,
-    [WeaponType.flail]: WeaponClassification.mainHand,
-    [WeaponType.hammer]: WeaponClassification.oneHanded,
-    [WeaponType.knife]: WeaponClassification.oneHanded,
-    [WeaponType.staff]: WeaponClassification.twoHanded,
-    [WeaponType.sword]: WeaponClassification.oneHanded,
-    [WeaponType.poleArm]: WeaponClassification.twoHanded,
-    [WeaponType.shield]: WeaponClassification.shield
+export const WeaponTypeDefinition = {
+    [WeaponType.axe]: {
+        classification: WeaponClassification.oneHanded,
+        abilities: [WeaponAbility.cut],
+    },
+    [WeaponType.bow]: {
+        classification: WeaponClassification.oneHanded,
+        abilities: [WeaponAbility.shoot]
+    },
+    [WeaponType.club]: {
+        classification: WeaponClassification.oneHanded,
+        abilities: [WeaponAbility.swing, WeaponAbility.parry]
+    },
+    [WeaponType.crossbow]: {
+        classification: WeaponClassification.mainHand,
+        abilities: [WeaponAbility.aimedShot, WeaponAbility.shoot]
+    },
+    [WeaponType.fist]: {
+        classification: WeaponClassification.oneHanded,
+        abilities: [WeaponAbility.swing]
+    },
+    [WeaponType.flail]: {
+        classification: WeaponClassification.mainHand,
+        abilities: [WeaponAbility.swing, WeaponAbility.parry]
+    },
+    [WeaponType.hammer]: {
+        classification: WeaponClassification.oneHanded,
+        abilities: [WeaponAbility.swing, WeaponAbility.parry]
+    },
+    [WeaponType.knife]: {
+        classification: WeaponClassification.oneHanded,
+        abilities: [WeaponAbility.cut, WeaponAbility.parry]
+    },
+    [WeaponType.staff]: {
+        classification: WeaponClassification.twoHanded,
+        abilities: [WeaponAbility.swing, WeaponAbility.parry]
+    },
+    [WeaponType.sword]: {
+        classification: WeaponClassification.oneHanded,
+        abilities: [WeaponAbility.swing, WeaponAbility.parry]
+    },
+    [WeaponType.poleArm]: {
+        classification: WeaponClassification.twoHanded,
+        abilities: [WeaponAbility.swing, WeaponAbility.parry]
+    },
+    [WeaponType.shield]: {
+        classification: WeaponClassification.shield,
+        abilities: [WeaponAbility.block]
+    }
 }
-
 
 export enum DamageType {
     kinetic = "kinetic",
