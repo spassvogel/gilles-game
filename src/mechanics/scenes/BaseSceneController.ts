@@ -202,8 +202,6 @@ export class BaseSceneController<TQuestVars> {
                     }
                     // this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
                 }
-                this.dispatch(addXp(actorId, 10));
-
                 path?.forEach((l, index) => {
                     const sceneAction: SceneAction = {
                         actionType: SceneActionType.move,
