@@ -311,6 +311,7 @@
 
     "ui-structure-resource-help-upgrade-resource-generates": "{{resource:name resource}} p/worker",
     "ui-structure-resource-next-generates": "Next {{amount}} {{resource:name resource}} produced in {{time}}",
+    "ui-structure-resource-no-workers": "No workers assigned to this building",
     "ui-structure-resource-generates": "{{resource:name resource}}: {{amount}} per worker",
 
     "ui-structure-warehouse-adventurers": "Adventurers",

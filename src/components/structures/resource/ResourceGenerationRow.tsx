@@ -41,6 +41,7 @@ const ResourceGenerationRow = (props: Props) => {
                     })}
                 </div>
             </div>
+            { workers > 0 &&
             <TickingProgressbar
                 className="generating"
                 direction={Direction.decreasing}
@@ -50,7 +51,8 @@ const ResourceGenerationRow = (props: Props) => {
                     time: formatDuration(delta)
                 })}`}
                 progress={delta / RESOURCE_INTERVAL}
-            />
+            />}
+            { !workers && TextManager.get("ui-structure-resource-no-workers")}
         </div>
     )
 }
