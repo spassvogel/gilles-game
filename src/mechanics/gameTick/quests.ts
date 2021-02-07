@@ -1,5 +1,5 @@
 import { TextEntry } from "constants/text";
-import questDefinitions, { getDefinition } from "definitions/quests";
+import { getDefinition } from "definitions/quests";
 import { QuestDefinition, QuestNodeType } from 'definitions/quests/types';
 
 import { Store } from "redux";

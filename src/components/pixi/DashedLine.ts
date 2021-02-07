@@ -7,8 +7,12 @@ interface Props  {
     dash?: number;
     gap?: number;
     speed?: number; // positive to move forward, negative to move backward, 0 to not move at all
-};
+}
 
+interface InternalDashedLine {
+    _destroy: boolean;
+    _raf: number;
+}
 
 /**
  * Draws a dashed line along a path
@@ -33,7 +37,7 @@ const DashedLine = PixiComponent<React.ComponentProps<typeof Graphics> & Props, 
         instance.clear();
 
         const draw = () => {
-            if((this as any)._destroy){
+            if((this as unknown as InternalDashedLine)._destroy){
                 return;
             }
 
@@ -100,15 +104,15 @@ const DashedLine = PixiComponent<React.ComponentProps<typeof Graphics> & Props, 
                 }
             }
             if (speed !== 0) {
-                (this as any)._raf = requestAnimationFrame(draw);
+                (this as unknown as InternalDashedLine)._raf = requestAnimationFrame(draw);
             }
         }
         draw();
     },
 
     willUnmount() {
-        (this as any)._destroy = true;
-        cancelAnimationFrame((this as any)._raf);
+        (this as unknown as InternalDashedLine)._destroy = true;
+        cancelAnimationFrame((this as unknown as InternalDashedLine)._raf);
     }
 });
 

@@ -1,4 +1,4 @@
-export const formatNumber = (input: number, digits: number = 1): string => {
+export const formatNumber = (input: number, digits = 1): string => {
     const SI_SYMBOL = ["", "k", "M", "G", "T", "P", "E"];
 
     // what tier? (determines SI symbol)

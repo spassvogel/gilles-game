@@ -4,7 +4,7 @@ import * as PIXI from 'pixi.js';
 export default class HitAreaShapes {
     public shapes: PIXI.Polygon[];
 
-    constructor(shapes = {}, sprite: string = "0") {
+    constructor(shapes = {}, sprite = "0") {
       // @ts-ignore
       this.shapes = shapes[sprite].map((definition: { shape: number[]; }) => {
           const shape: number[] = definition.shape;

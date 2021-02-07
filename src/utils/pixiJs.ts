@@ -16,25 +16,29 @@ export const lerpLocation = (point1: Location, point2: Location, alpha: number):
 /**
  * Uses the shared pixi loader to load a resource
  */
-export async function loadResourceAsync(path: string) {
+export async function loadResourceAsync(path: string): Promise<LoaderResource|undefined> {
     const loader = PIXI.Loader.shared;
-    return new Promise<LoaderResource>((resolve, reject) => {
+    return new Promise<LoaderResource|undefined>((resolve, reject) => {
         if (loader.resources[path]) {
             resolve(loader.resources[path]);
         }
         else {
             loader.add(path).load((_, resources) => {
-                resolve(resources[path]!);
+                if (!resources[path]) {
+                    reject()
+                } else {
+                    resolve(resources[path]);
+                }                
             });
         }
     });
 }
 
-export const loadResource = (path: string, callback: (resource: LoaderResource) => void) => {
+export const loadResource = (path: string, callback: (resource: LoaderResource|undefined) => void): void => {
     const loader = PIXI.Loader.shared;
     if (loader.resources[path]) {
         callback(loader.resources[path]);
         return;
     }
-    loader.add(path).load((_, resources) => { callback(resources[path]!)});
+    loader.add(path).load((_, resources) => { callback(resources[path])});
 }

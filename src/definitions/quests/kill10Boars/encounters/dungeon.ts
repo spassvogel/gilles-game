@@ -59,7 +59,7 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
         super.takeItemFromCache(itemIndex, name, adventurerId, toSlot);
         const lootCache = this.getLootCache(name);
         if (lootCache){
-            const items = lootCache.items.filter((_: any, index: number) => index !== itemIndex);
+            const items = lootCache.items.filter((_:Item, index: number) => index !== itemIndex);
             this.updateQuestVars({
                 dungeon: { entrance: { chest: { items }}}
             });
@@ -144,7 +144,7 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
 
     handleSituationOptionClick(situation: string, option: string, adventurerId: string) {
         // @ts-ignore
-        switch (situation) {
+        // switch (situation) {
             // case 'altar': {
             //     switch (option) {
             //         case 'quest-kill10-boars-dungeonentrance-altar-lightcandle':
@@ -162,7 +162,7 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
             //             break;
             //     }
             // }
-        }
+        // }
     }
 }
 

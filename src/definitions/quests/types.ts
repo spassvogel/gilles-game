@@ -8,7 +8,7 @@ export enum QuestNodeType {
     // boss = 3,
 }
 
-export interface QuestDefinition<TQuestVars = any> {
+export interface QuestDefinition<TQuestVars> {
     nodes: QuestNode[];
     requiredItems?: Item[];
     getQuestVars: (questStoreState: QuestStoreState) => TQuestVars;

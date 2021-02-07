@@ -18,6 +18,6 @@ export interface SpriteData {
     sourceSize?: Size;
 }
 
-interface Position { x: number, y: number };
-interface Size { w: number; h: number };
+interface Position { x: number, y: number }
+interface Size { w: number; h: number }
 type Frame = Size & Position;

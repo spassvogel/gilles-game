@@ -36,7 +36,7 @@ export const convertSemVerToInt = (semVer: string): number => {
  * @param  {number} version Numeric version
  * @return {string}   SemVer string
  */
-export const convertIntToSemVer = (version: number) => {
+export const convertIntToSemVer = (version: number): string => {
     // Works by shifting the numeric version to the right and then masking it
     // with 0b1111111111 (or 1023 in decimal).
     // eslint-disable-next-line no-mixed-operators

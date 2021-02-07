@@ -51,7 +51,7 @@ export function upgradeStructure(structure: Structure): StructureAction {
 }
 
 // Increases workers used by given structure by given amount
-export function increaseWorkers(structure: Structure, workers: number = 1): WorkerCountAction {
+export function increaseWorkers(structure: Structure, workers = 1): WorkerCountAction {
     return {
         type: ActionType.increaseWorkers,
         structure,
@@ -60,7 +60,7 @@ export function increaseWorkers(structure: Structure, workers: number = 1): Work
 }
 
 // Decreases workers used by given structure by given amount
-export function decreaseWorkers(structure: Structure, workers: number = 1): WorkerCountAction {
+export function decreaseWorkers(structure: Structure, workers = 1): WorkerCountAction {
     return {
         type: ActionType.decreaseWorkers,
         structure,

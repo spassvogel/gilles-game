@@ -2,7 +2,7 @@ import { TiledProperty, TiledLayerData, TiledTilesetData } from 'constants/tiled
 
 
 // Unpack array of properties into key/value object for fast retrieval
-export const parseProperties = (properties?: TiledProperty[]) => {
+export const parseProperties = (properties?: TiledProperty[]): {[key: string]: any } => {
     if (!properties) return {};
     return properties.reduce((acc: {[key: string]: any}, value: TiledProperty) => {
         acc[value.name] = value.value;
@@ -18,7 +18,7 @@ export enum TiledObjectType {
 }
 
 // finds tileset based on gid
-export const findTileset = (gid: number, tilesets: TiledTilesetData[]) => {
+export const findTileset = (gid: number, tilesets: TiledTilesetData[]): TiledTilesetData | undefined => {
     let tileset;
     for (let i = tilesets.length - 1; i >= 0; i--) {
         tileset = tilesets[i];
@@ -29,7 +29,7 @@ export const findTileset = (gid: number, tilesets: TiledTilesetData[]) => {
     return tileset;
 }
 /** Add tiles in this layer to list */
-export const addAllTilesInLayerToList = (list: [number, number][], layer: TiledLayerData, columns: number) => {
+export const addAllTilesInLayerToList = (list: [number, number][], layer: TiledLayerData, columns: number): void => {
     layer.data.reduce((acc: [number, number][], tile, index) => {
         if (tile > 0) {
             const x = (index % columns);
@@ -40,6 +40,6 @@ export const addAllTilesInLayerToList = (list: [number, number][], layer: TiledL
     }, list);
 }
 
-export const locationEquals = (a: [number, number], b: [number, number]) => {
+export const locationEquals = (a: [number, number], b: [number, number]): boolean => {
     return a[0] === b[0] && a[1] === b[1];
 }

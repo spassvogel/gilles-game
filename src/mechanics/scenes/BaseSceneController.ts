@@ -16,7 +16,7 @@ import { addLogText, addLogEntry } from 'store/actions/log';
 import { getDefinition } from 'definitions/quests';
 import { LogChannel } from 'store/types/logEntry';
 import { addGold } from 'store/actions/gold';
-import { addItemToInventory, addXp, removeItemFromInventory } from 'store/actions/adventurers';
+import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { GameSound, SoundManager } from 'global/SoundManager';
 import { Allegiance } from "store/types/combat";
@@ -34,8 +34,8 @@ export class BaseSceneController<TQuestVars> {
     public questName: string;
     public mapData?: TiledMapData;
     public aStar?: AStarFinder;
-    public dataLoading: boolean = false;
-    public dataLoadComplete: boolean = false;
+    public dataLoading = false;
+    public dataLoadComplete = false;
 
     protected jsonPath?: string;
     protected store: Store<StoreState, AnyAction>;
@@ -63,7 +63,7 @@ export class BaseSceneController<TQuestVars> {
         this.dataLoading = true;
         // load sounds
         const loadSound = async (sound: GameSound, files: string[]): Promise<PIXI.sound.Sound[]> => {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve, _reject) => {
                 SoundManager.addSound(sound, files, (sounds) => {
                     resolve(sounds);
                 })
@@ -148,7 +148,7 @@ export class BaseSceneController<TQuestVars> {
         }
     }
 
-    actorMoved(actor: string, location: [number, number]) {
+    actorMoved(_actor: string, location: [number, number]) {
         // const object = this.tilemapObjects![`${location[0]},${location[1]}`];
         const destination = this.getObjectAtLocation(location);
         if (!destination) return;
@@ -282,15 +282,17 @@ export class BaseSceneController<TQuestVars> {
         return this.blockedTiles.some((l) => locationEquals(l, location));
     }
 
-    // Returns true
-    locationIsOutOfBounds(location: [number, number]){
+    // Returns true if outsie of the bounds of the map
+    locationIsOutOfBounds(location: [number, number]) {
+        if (!this.mapData) return true;
+
         return location[0] < 0 || location[1] < 0 ||
-            location[0] >= this.mapData!.width ||
-            location[1] >= this.mapData!.height;
+            location[0] >= this.mapData.width ||
+            location[1] >= this.mapData.height;
     }
 
     // Should be overridden
-    getLootCache(name: string): LootCache | undefined {
+    getLootCache(_name: string): LootCache | undefined {
         // Override this to retrieve LootCache from questvars
         return;
     }
@@ -320,11 +322,11 @@ export class BaseSceneController<TQuestVars> {
         }
     }
 
-    getSituation(situation: string, adventurerId?: string) : Situation | undefined {
+    getSituation(_situation: string, _adventurerId?: string) : Situation | undefined {
          return undefined;
     }
 
-    handleSituationOptionClick(situation: string, option: string, adventurerId: string) {
+    handleSituationOptionClick(_situation: string, _option: string, _adventurerId: string) {
         // @ts-ignore
     }
 
@@ -345,7 +347,7 @@ export class BaseSceneController<TQuestVars> {
      * @param origin
      * @param target
      */
-    public findPathNearest(origin: [number, number], target: [number, number], includeLast: boolean = false) {
+    public findPathNearest(origin: [number, number], target: [number, number], includeLast = false) {
         // todo; shortcut, if already neighbour, return early
         const grid = this.aStar?.getGrid().getGridNodes();
         if (!grid) return [];
@@ -359,8 +361,7 @@ export class BaseSceneController<TQuestVars> {
             heuristic: "Manhattan",
             weight: 0.2,
         });
-        return tempAStar.findPath
-            (convertIn(origin), convertIn(target))
+        return tempAStar.findPath(convertIn(origin), convertIn(target))
             .map(convertOut)
             .slice(0, includeLast ? undefined : -1);
     }
@@ -504,7 +505,7 @@ export class BaseSceneController<TQuestVars> {
         return storeState.adventurers.find(a => a.id === id);
     }
 
-    protected questUpdate(input: string | TextEntry, icon?: string, toast: boolean = false) : void {
+    protected questUpdate(input: string | TextEntry, icon?: string, toast = false) : void {
         const textEntry: TextEntry = isTextEntry(input) ? input : {key: input};
         const title = TextManager.getTextEntry(textEntry);
         if (toast) {

@@ -1,6 +1,6 @@
 import { paramCase as toKebab} from "text-param-case";
 import { TextEntry } from "constants/text";
-import itemDefinitions, { getDefinition } from "definitions/items";
+import { getDefinition } from "definitions/items";
 import { Item, ItemType } from "definitions/items/types";
 import { Resource } from "definitions/resources";
 import { Structure } from "definitions/structures";

@@ -13,12 +13,13 @@ export const processCompletedTasks = (tasks: TasksStoreState, dispatch: Dispatch
         task.callbacks.forEach((action) => dispatch(action));
 
         switch (task.type) {
-            case TaskType.craftItem:
+            case TaskType.craftItem: {
                 const item = task.name as Item;
                 const title = TextManager.get("common-item-crafted", { item });
                 const definition = getDefinition(item);
                 ToastManager.addToast(title, Type.itemCrafted, definition.iconImg);
                 break;
+            }
         }
     };
 

@@ -5,7 +5,7 @@ import { initialQuestVars, Kill10BoarsQuestVars } from './questVars';
 
 const kill10Boars: QuestDefinition<Kill10BoarsQuestVars> = {
     getQuestVars: (questStore: QuestStoreState) => questStore.questVars as Kill10BoarsQuestVars,
-    getInitialQuestVars: (questStore: QuestStoreState) => {
+    getInitialQuestVars: (_questStore: QuestStoreState) => {
         return initialQuestVars;
     },
     nodes: [{

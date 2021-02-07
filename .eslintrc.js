@@ -20,5 +20,13 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": [2, {"args": "after-used", "argsIgnorePattern": "^_"}]
+    },
+    "settings": {
+        "react": {
+          "version": "detect", // React version. "detect" automatically picks the version you have installed.
+        },
     }
 };

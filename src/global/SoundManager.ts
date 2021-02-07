@@ -96,7 +96,7 @@ export class SoundManager {
      * @param mixMode how to mix in the new sound into the channel
      * @param storePosition Store position of current sound on this channel in order to resume
      */
-    public static async playSound(gameSound: GameSound, channel: Channel = Channel.ui, loop: boolean = false, mixMode: MixMode = MixMode.singleInstance, storePosition: boolean = false) {
+    public static async playSound(gameSound: GameSound, channel: Channel = Channel.ui, loop = false, mixMode: MixMode = MixMode.singleInstance, storePosition = false) {
         if (!this._initialized) {
             await this.init();
         }
@@ -110,7 +110,8 @@ export class SoundManager {
         if (this._currentSound[channel]?.storePosition) {
             // Did we have to store the position of the current sound?
             const oldSoundInfo = this._currentSound[channel];
-            // @ts-ignore
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore https://github.com/pixijs/pixi-sound/issues/111
             oldSoundInfo.instance.once('progress', (progress: number , duration: number) => {
                 this._storedPositions[oldSoundInfo.gameSound] = progress * duration;
             });
