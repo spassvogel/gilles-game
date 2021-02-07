@@ -1,6 +1,6 @@
 function eventEmitter<TEventType>() {
     abstract class EventEmitter {
-        static events = {};
+        static events: any = {};
 
         static addEventListener (eventName: string, listener: (event: TEventType) => void) {
             this.events[eventName] = this.events[eventName] || [];

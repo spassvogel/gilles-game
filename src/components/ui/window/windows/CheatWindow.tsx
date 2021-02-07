@@ -24,8 +24,8 @@ import { getTimeMultiplier, setCheatTimeMultiplier, TimeType } from 'mechanics/t
 import ItemIcon from "components/ui/items/ItemIcon";
 import { IconSize } from "components/ui/common/Icon";
 import Button from "components/ui/buttons/Button";
-import "./styles/cheat.scss";
 import Select from "components/ui/common/Select";
+import "./styles/cheat.scss";
 
 
 // tslint:disable-next-line:no-empty-interface
@@ -175,15 +175,15 @@ const CheatWindow = (props: Props) => {
         .filter((val: any) => !isNaN(val))
         .map((type: string) => {
             return {
-                label: ItemType[type],
+                label: type as unknown as ItemType,
                 value: "",
                 subtext: "",
                 options: Object.keys(Item)
-                    .filter((item: string) => ItemType[getDefinition(item as Item).itemType] === ItemType[type])
+                    .filter((item: string) => getDefinition(item as Item).itemType === type as unknown as ItemType)
                     .map((item: string) => ({
                         value: item,
-                        label: TextManager.getItemName(Item[item]),
-                        subtext: TextManager.getItemSubtext(Item[item]),
+                        label: TextManager.getItemName(item as Item),
+                        subtext: TextManager.getItemSubtext(item as Item),
                     })
                 )
             }

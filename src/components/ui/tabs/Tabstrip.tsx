@@ -15,7 +15,7 @@ export interface Props {
 const Tabstrip = (props: Props) => {
     let {activeTab = null} = props;
     if (!activeTab && props.children && props.children) {
-        activeTab = props.children[0].props.id;
+        //activeTab = props.children[0].props.id;
     }
     const className = `${props.className}${(props.disabled ? " disabled" : "")}`;
     const children = React.Children.map(props.children, (child: React.ReactElement<TabProps>) => {

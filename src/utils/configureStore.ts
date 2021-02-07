@@ -20,6 +20,7 @@ interface ConfigureStoreResult {
     persistor: Persistor;
     isHydrated: boolean;
 }
+
 /**
  * Configures the redux store
  */
@@ -27,6 +28,7 @@ const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<Co
     return new Promise((resolve, reject) => {
         const store = createStore<StoreState & PersistPartial, AnyAction, any, StoreState>(
             persistedReducer,
+            // @ts-ignore
             initial,
             (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
         );

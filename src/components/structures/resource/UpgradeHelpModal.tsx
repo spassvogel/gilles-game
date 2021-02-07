@@ -66,7 +66,7 @@ const UpgradeHelpModal = (props: Props) => {
                 <div className="number">{currentLevel.workerCapacity}</div>
                 <div className="arrow">⟶</div>
                 <div className="number">{nextLevel.workerCapacity}</div>
-                {Object.keys(nextLevel.generates).map(res => renderRow(Resource[res]))}
+                {Object.keys(nextLevel.generates).map(res => renderRow(res as Resource))}
             </div>
         </div>
     )

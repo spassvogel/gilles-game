@@ -24,6 +24,7 @@ export type ActorObject = SceneObject & {
     allegiance: Allegiance;
 };
 
+// Type guard
 export const isActorObject = (object: SceneObject): object is ActorObject => {
     return object.type === TiledObjectType.actor;
 }

@@ -50,7 +50,7 @@ const Resourcebar = () => {
 
     const resources = resourceOrder.map((resource) => {
         const resourceDescription = resourceDescriptions[resource];
-        return createItem(resourceDescription.iconImg, storeResources[resource as string], resource);
+        return createItem(resourceDescription.iconImg, storeResources[resource]!, resource);
     });
 
     resources.push(

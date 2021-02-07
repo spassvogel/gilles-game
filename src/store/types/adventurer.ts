@@ -1,3 +1,4 @@
+import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { Item } from "definitions/items/types";
 import { Trait } from 'definitions/traits/types';
 
@@ -31,15 +32,15 @@ export enum AdventurerColor {
 }
 
 export interface EquipmentStoreState {
-    head?: Item;
-    shoulders?: Item;
-    chest?: Item;
-    hands?: Item;
-    legs?: Item;
-    feet?: Item;
-    mainHand?: Item;
-    offHand?: Item;
-    sideArm?: Item;
+    [EquipmentSlotType.head]?: Item;
+    [EquipmentSlotType.shoulders]?: Item;
+    [EquipmentSlotType.chest]?: Item;
+    [EquipmentSlotType.hands]?: Item;
+    [EquipmentSlotType.legs]?: Item;
+    [EquipmentSlotType.feet]?: Item;
+    [EquipmentSlotType.mainHand]?: Item;
+    [EquipmentSlotType.offHand]?: Item;
+    // [EquipmentSlotType.sideArm]?: Item;
 }
 
 export interface BasicAttributesStoreState {

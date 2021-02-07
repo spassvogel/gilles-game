@@ -18,3 +18,14 @@ export const empty: ResourceStoreState = {
     stone: 0,
     wood: 0,
 };
+
+// export type ResourceStoreState = Map<Resource, number>;
+
+// export const empty: ResourceStoreState = new Map([
+//     [Resource.fabric, 0],
+//     [Resource.food, 0],
+//     [Resource.iron, 0],
+//     [Resource.leather, 0],
+//     [Resource.stone, 0],
+//     [Resource.wood, 0],
+// ]);

@@ -15,3 +15,11 @@ export interface StructuresStoreState {
     [Structure.weaver]: StructureStoreState;
     [Structure.workshop]: ProductionStructureStoreState;
 }
+
+// Type guard
+export const isProductionStructure = (structure: Structure) => {
+    return structure === Structure.alchemist ||
+        structure === Structure.armoursmith ||
+        structure === Structure.weaponsmith ||
+        structure === Structure.workshop;
+}

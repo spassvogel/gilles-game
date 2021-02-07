@@ -19,6 +19,7 @@ import { increaseWorkers } from 'store/actions/structures';
 import { startTask } from 'store/actions/tasks';
 import { TaskType } from 'store/types/task';
 import { Structure } from 'definitions/structures';
+import { Resource } from 'definitions/resources';
 
 export interface Props {
     item: Item;
@@ -36,7 +37,7 @@ const CraftingDetails = (props: Props) => {
     const produces = getProductionDefinition(item)!;
     const costResources = produces.cost.resources!;
     const missingAtLeastOneResource = Object.keys(costResources)
-        .some((resource) => costResources[resource] > resourcesState[resource]);
+        .some((key) => { const resource:Resource = key as Resource; return costResources[resource]! > resourcesState[resource]! });
 
     let missingAtLeastOneItem = false;
     const costMaterials = produces.cost.materials;

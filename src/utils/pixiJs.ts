@@ -24,7 +24,7 @@ export async function loadResourceAsync(path: string) {
         }
         else {
             loader.add(path).load((_, resources) => {
-                resolve(resources[path]);
+                resolve(resources[path]!);
             });
         }
     });

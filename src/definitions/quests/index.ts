@@ -26,5 +26,6 @@ const all = {
 export default all;
 
 export function getDefinition<T>(questName: string): QuestDefinition<T> {
+    // @ts-ignore
     return all[questName];
 }

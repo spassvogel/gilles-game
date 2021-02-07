@@ -30,7 +30,7 @@ const ResourceContext = (props: Props) => {
     const maxResources = useMaxResourcesState();
 
     const renderProducedBy = () => {
-        const structure = getStructureByResource(Resource[resource]);
+        const structure = getStructureByResource(resource as Resource);
         const structureState: StructureStoreState = structureStates[structure];
         if (structureState.state !== StructureState.Built) {
             return (
@@ -43,7 +43,7 @@ const ResourceContext = (props: Props) => {
         }
         const structureDefinition = getDefinition<ResourceStructureDefinition>(structure);
         const levelDefinition: ResourceStructureLevelDefinition = structureDefinition.levels[structureState.level];
-        const amount = levelDefinition.generates[resource];
+        const amount = levelDefinition.generates[resource as Resource];
         // Split the string at {{structure}}
         const split = TextManager.get("ui-tooltip-resource-produce-row", {
             structure: "%SPLIT%",

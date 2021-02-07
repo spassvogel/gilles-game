@@ -23,8 +23,9 @@ import StructureLevel from '../StructureLevel';
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
 import UpgradeHelpModal from './UpgradeHelpModal';
 import { ContextType } from 'constants/context';
-import "./styles/warehouseStructureView.scss";
 import { addStockpileSlots } from 'store/actions/items';
+import { Resource } from "definitions/resources";
+import "./styles/warehouseStructureView.scss";
 
 // tslint:disable-next-line: no-empty-interface
 export interface Props  {
@@ -46,9 +47,10 @@ const WarehouseStructureView = () => {
 
     useEffect(() => {
         // Calculate delta
-        const delta = Object.keys(resources).reduce((acc, value) => {
-            if (previousResources && previousResources[value]) {
-                acc[value] = resources[value] - previousResources[value];
+        const delta = Object.keys(resources).reduce<ResourceStoreState>((acc, value) => {
+            const resource = value as Resource;
+            if (previousResources && previousResources[resource]) {
+                acc[resource] = resources[resource]! - previousResources[resource]!;
             }
             return acc;
         }, {});

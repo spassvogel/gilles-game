@@ -25,14 +25,16 @@ const ResourcesCost = (props: Props) => {
 
     const storeResources = useResourcesState();
     const sufficientResources = useMemo(() => {
-        return Object.keys(resources).reduce((acc, value) => {
-            acc[value] = storeResources[value] >= resources[value];
+        return Object.keys(resources).reduce<{[key: string]: boolean}>((acc, value) => {
+            const resource = value as Resource;
+            acc[value] = storeResources[resource]! >= resources[resource]!;
             return acc;
         }, {});
     }, [resources, storeResources]);
 
     const className = (props.className || "") + " resources-cost";
-    const listItems = Object.keys(props.resources).map((resource: string) => {
+    const listItems = Object.keys(props.resources).map((key: string) => {
+        const resource = key as Resource;
         let listItemClass = "resource";
         if (sufficientResources && !sufficientResources[resource]) {
             listItemClass += " insufficient";

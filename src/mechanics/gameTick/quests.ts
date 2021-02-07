@@ -1,5 +1,5 @@
 import { TextEntry } from "constants/text";
-import questDefinitions from "definitions/quests";
+import questDefinitions, { getDefinition } from "definitions/quests";
 import { QuestDefinition, QuestNodeType } from 'definitions/quests/types';
 
 import { Store } from "redux";
@@ -44,7 +44,7 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
         if (quest.status !== QuestStatus.active) {
             return;
         }
-        const questDefinition: QuestDefinition = questDefinitions[quest.name];
+        const questDefinition: QuestDefinition = getDefinition(quest.name);
         const currentProgress = quest.progress;
         const currentNodeIndex = Math.floor(currentProgress);
         const currentNode = questDefinition.nodes[currentNodeIndex];

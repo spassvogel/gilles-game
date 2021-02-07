@@ -2,7 +2,6 @@ import { Structure } from "../structures";
 import { Item, ItemDefinition, ItemType } from "./types";
 
 const itemType = ItemType.deed;
-
 export interface DeedDefinition extends ItemDefinition {
     structure: Structure;
 }

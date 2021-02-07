@@ -73,7 +73,7 @@ const ResourceStructureView = (props: Props) => {
                         onDown={handleWorkersDown}
                         onUp={handleWorkersUp}
                     />
-                    { Object.keys(levelDefinition.generates).map(r => <ResourceGenerationRow structure={structure} resource={Resource[r]} key={r} />)}
+                    { Object.keys(levelDefinition.generates).map(r => <ResourceGenerationRow structure={structure} resource={r as Resource} key={r} />)}
                 </section>
             </div>
 

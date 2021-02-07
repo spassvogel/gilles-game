@@ -122,7 +122,7 @@ const TownView = (props: Props & AppContextProps) => {
         if (selectedStructure && viewportRef.current) {
             const viewport = viewportRef.current;
             viewport.zoomPercent(0);
-            const position = getStructurePosition(Structure[selectedStructure]);
+            const position = getStructurePosition(selectedStructure as Structure);
             viewport.moveCenter(position);
         }
     }, [selectedStructure]);

@@ -139,7 +139,7 @@ export abstract class TextManager {
 }
 
 Handlebars.registerHelper("item:name", (item: Item, article?: string) => {
-    if (!itemDefinitions[item]) {
+    if (!getDefinition(item)) {
         return new Handlebars.SafeString(`<<ITEM DEFINITION NOT FOUND: ${item}>>`);
     }
     switch (article) {

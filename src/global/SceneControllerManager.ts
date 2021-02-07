@@ -4,7 +4,7 @@ import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 
 export abstract class SceneControllerManager {
     static store: { [key: string]: BaseSceneController<any> } = {};
-    static controllerTypes = {};
+    static controllerTypes: {[key: string]: typeof BaseSceneController} = {};
 
     static registerSceneController(questName: string, sceneName: string, controllerType: typeof BaseSceneController) {
         this.controllerTypes[`${questName}.${sceneName}`] = controllerType;

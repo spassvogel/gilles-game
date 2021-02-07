@@ -64,7 +64,7 @@ const ProductionStructureView = (props: Props) => {
                         {craftingTasks.map((t) => (
                             <TickingProgressbar
                                 key={`${t.name}${t.startTime}`}
-                                label={`${TextManager.getItemName(Item[t.name])} (${formatDuration(t.timeRemaining)})`}
+                                label={`${TextManager.getItemName(t.name as Item)} (${formatDuration(t.timeRemaining)})`}
                                 progress={t.progress}
                             />
                         ))}
@@ -75,7 +75,7 @@ const ProductionStructureView = (props: Props) => {
                         {studyingTasks.map((t) => (
                             <TickingProgressbar
                                 key={`${t.name}${t.startTime}`}
-                                label={`${TextManager.getItemName(Item[t.name])} (${formatDuration(t.timeRemaining)})`}
+                                label={`${TextManager.getItemName(t.name as Item)} (${formatDuration(t.timeRemaining)})`}
                                 progress={t.progress}
                             />
                         ))}

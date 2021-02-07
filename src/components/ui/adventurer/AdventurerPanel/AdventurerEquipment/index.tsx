@@ -20,7 +20,7 @@ const AdventurerEquipment = (props: Props) => {
 
     const getEquipmentSlot = (slotType: EquipmentSlotType) => {
         // returns EquipmentSlot
-        const item: Item | undefined = adventurer.equipment[EquipmentSlotType[slotType]];
+        const item: Item | undefined = adventurer.equipment[slotType];
 
         return (
             <li className={EquipmentSlotType[slotType]}>

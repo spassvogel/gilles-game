@@ -1,5 +1,5 @@
 import * as React from "react";
-import itemsDescription from "definitions/items";
+import itemsDescription, { getDefinition } from "definitions/items";
 import { Item } from "definitions/items/types";
 import { TextManager } from "global/TextManager";
 import useStockpileState from 'hooks/store/useStockpileState';
@@ -21,12 +21,12 @@ export interface Props {
 const ItemsBox = (props: Props) => {
     const { items } = props;
     const className = (props.className || "") + " items-box";
-    const aggregate = items.reduce((accumulator: object, current: Item) => {
-        if (!accumulator[current]) {
-            accumulator[current] = 0;
+    const aggregate = items.reduce<{[key: string]: number}>((acc, value) => {
+        if (!acc[value]) {
+            acc[value] = 0;
         }
-        accumulator[current]++;
-        return accumulator;
+        acc[value]++;
+        return acc;
     }, {});
 
     const stockpile = useStockpileState();
@@ -57,7 +57,7 @@ const ItemsBox = (props: Props) => {
         if (amount > amountInInventory) {
             listItemClass += " missing";
         }
-        const itemDescription = itemsDescription[item];
+        const itemDescription = getDefinition(item);
         return (
             <li className={listItemClass} key={item}>
                 <Icon

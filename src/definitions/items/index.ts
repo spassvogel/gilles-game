@@ -18,5 +18,6 @@ const all = {
 export default all;
 
 export function getDefinition(item: Item): ItemDefinition {
+    // @ts-ignore
     return all[item];
 }

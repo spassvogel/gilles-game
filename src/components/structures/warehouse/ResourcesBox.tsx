@@ -37,8 +37,9 @@ const ResourcesBox = (props: Props & AppContextProps) => {
     return (
         <div className={className}>
             {
-                Object.keys(resources).map((resource: string) => {
-                    const resourceDescription=resourceDescriptions[resource];
+                Object.keys(resources).map((value: string) => {
+                    const resource = value as Resource;
+                    const resourceDescription = resourceDescriptions[resource];
                     const amount = props.resources[resource]!;
                     if (!resourceDescription) {
                         throw new Error(`No resource description found for ${resource}`);
@@ -56,7 +57,7 @@ const ResourcesBox = (props: Props & AppContextProps) => {
                     const handleStructureClick=() => {
                         props.onCloseWindow();
                     }
-                    const full = amount >= props.maxResources[resource];
+                    const full = amount >= props.maxResources[resource]!;
                     return (
                         <React.Fragment key={resource}>
                             <Icon image={resourceDescription.iconImg} size="smallest"/>

@@ -2,6 +2,7 @@ import { ActionType as GameActionType, GameTickAction } from "store/actions/game
 import { AnyAction, Reducer } from "redux";
 import { ActionType, AddResources } from "store/actions/resources";
 import { ResourceStoreState } from "store/types/resources";
+import { Resource } from "definitions/resources";
 
 /**
  * reducer
@@ -13,9 +14,10 @@ export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState
 
     const addResources = (resourcesToAdd: ResourceStoreState) => {
         // todo: Check if warehouse can hold it
-        return Object.keys(state).reduce((accumulator: object, current: string) => {
-            accumulator[current] = state[current] + (resourcesToAdd[current] || 0);
-            return accumulator;
+        return Object.keys(state).reduce<ResourceStoreState>((acc, value) => {
+            const resource = value as Resource;
+            acc[resource] = state[resource]! + (resourcesToAdd[resource] || 0);
+            return acc;
         }, {});
     };
 
@@ -26,9 +28,10 @@ export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState
         }
         case ActionType.removeResources: {
             const resourcesToRemove = (action as AddResources).resources;
-            return Object.keys(state).reduce((accumulator: object, current: string) => {
-                accumulator[current] = state[current] - (resourcesToRemove[current] || 0);
-                return accumulator;
+            return Object.keys(state).reduce<ResourceStoreState>((acc, value) => {
+                const resource = value as Resource;
+                acc[resource] = state[resource]! - (resourcesToRemove[resource] || 0);
+                return acc;
             }, {});
         }
 

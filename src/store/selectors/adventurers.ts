@@ -14,11 +14,11 @@ const groupAdventurersByQuest = (adventurers: AdventurerStoreState[], quests: Qu
     const foundInParty: AdventurerStoreState[] = []; // store the adventurers in parties in a temp array
 
 
-    const groupedAdventurers = Object.values(quests).reduce((acc, val: QuestStoreState) => {
-        const foundAdventurers = adventurersOnQuest(adventurers, val);
-        if (val.status === QuestStatus.active) {
+    const groupedAdventurers = Object.values(quests).reduce<{[key: string]: AdventurerStoreState[]}>((acc, value) => {
+        const foundAdventurers = adventurersOnQuest(adventurers, value);
+        if (value.status === QuestStatus.active) {
             // Only active quests
-            acc[val.name] = foundAdventurers;
+            acc[value.name] = foundAdventurers;
         }
         foundInParty.push(...foundAdventurers);
         return acc;

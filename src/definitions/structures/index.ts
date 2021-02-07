@@ -48,6 +48,7 @@ const all = {
 export default all;
 
 export function getDefinition<T extends StructureDefinition>(structure: string): T {
+    // @ts-ignore
     return all[structure] as T;
 }
 

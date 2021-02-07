@@ -8,6 +8,7 @@ export enum Resource {
     food = "food",
 }
 
+
 export interface ResourceDefinition {
     resource: Resource;
     iconImg: string;

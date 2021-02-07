@@ -35,17 +35,19 @@ const generateRandomAttributes = (): BasicAttributesStoreState => {
 const avatarImgBasePath = "img/avatars";
 const spritesheetBasePath = "img/scene/actors/";
 
+// offHand]: Item.indomitableCarapace
+
 // Create a bunch of guys for debugging
 export const initialAdventurers: AdventurerStoreState[] = [{
     id: "c4a5d270",
     equipment: {
-        head: Item.cowl,
-        chest: Item.chest,
-        hands: Item.clothGloves,
-        shoulders: Item.shoulders2,
-        legs: Item.pants2,
-        feet: Item.boots3,
-        offHand: Item.indomitableCarapace
+        [EquipmentSlotType.head]: Item.cowl,
+        [EquipmentSlotType.chest]: Item.chest,
+        [EquipmentSlotType.hands]: Item.clothGloves,
+        [EquipmentSlotType.shoulders]: Item.shoulders2,
+        [EquipmentSlotType.legs]: Item.pants2,
+        [EquipmentSlotType.feet]: Item.boots3
+        // offHand: Item.indomitableCarapace
     },
     basicAttributes: generateRandomAttributes(),
     health: Math.random() * 100,
@@ -66,7 +68,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 }, {
     id: "2e655832",
     equipment: {
-        feet: Item.boots2
+        [EquipmentSlotType.feet]: Item.boots2
     },
     basicAttributes: generateRandomAttributes(),
     name: "Donte Houston",
@@ -87,8 +89,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 }, {
     id: "ec6f1050",
     equipment: {
-        feet: Item.boots3,
-        offHand: Item.aegisOfValor
+        [EquipmentSlotType.feet]: Item.boots3
+        // offHand: Item.aegisOfValor
     },
     basicAttributes: generateRandomAttributes(),
     name: "Zackary \"bone bag\" Morris",

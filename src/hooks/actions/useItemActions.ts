@@ -40,7 +40,7 @@ const useItemDropActions = () => {
                     assignEquipment(adventurer.id, slotType, item),
                 );
 
-                const existingEquipment = adventurer.equipment[EquipmentSlotType[slotType]];
+                const existingEquipment = adventurer.equipment[slotType as EquipmentSlotType];
                 if (existingEquipment) {
                     // There is already an item in this slot. Place in inventory
                     actions.push(addItemToInventory(adventurer.id, existingEquipment, dragInfo.inventorySlot!));
@@ -54,7 +54,7 @@ const useItemDropActions = () => {
                     assignEquipment(adventurer.id, slotType, item),
                 );
 
-                const existingEquipment = adventurer.equipment[EquipmentSlotType[slotType]];
+                const existingEquipment = adventurer.equipment[slotType as EquipmentSlotType];
                 if (existingEquipment) {
                     // There is already an item in this slot. Place in warehouse
                     actions.push(addItemToWarehouse(existingEquipment, dragInfo.inventorySlot!));
@@ -68,7 +68,7 @@ const useItemDropActions = () => {
                     assignEquipment(adventurer.id, slotType, item)
                 );
 
-                const existingEquipment = adventurer.equipment[EquipmentSlotType[slotType]];
+                const existingEquipment = adventurer.equipment[slotType as EquipmentSlotType];
                 const fromSlot = dragInfo.inventorySlot!;
                 if (existingEquipment) {
                     // Another weapon was there, switch them

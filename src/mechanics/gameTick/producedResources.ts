@@ -1,5 +1,6 @@
 import { RESOURCE_INTERVAL } from 'constants/resources';
-import { getDefinition } from "definitions/structures";
+import { Resource } from 'definitions/resources';
+import { getDefinition, Structure } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureType } from "definitions/structures/types";
 import { getTimeMultiplier, TimeType } from 'mechanics/time';
 import { selectMaxResources } from 'store/selectors/resources';
@@ -27,12 +28,14 @@ const getProducedResources = (lastProducedUpdate: number, store: StoreState): Re
 
         if (structureDefinition.type === StructureType.resource) {
             const resourceStructureDefinition = structureDefinition as ResourceStructureDefinition;
-            const level: number = structures[structure].level;
+            const level: number = structures[structure as Structure].level;
             const levelDefinition: ResourceStructureLevelDefinition = resourceStructureDefinition.levels[level];
 
             // Store all the resources that this structure will generate this tick into `result`
-            Object.keys(levelDefinition.generates).reduce((accumulator: ResourceStoreState, resource: string) => {
-                const amount: number = levelDefinition.generates[resource] * structures[structure].workers * factor;
+            Object.keys(levelDefinition.generates).reduce((accumulator: ResourceStoreState, key: string) => {
+                const resource = key as Resource;
+
+                const amount: number = levelDefinition.generates[resource]! * structures[structure as Structure].workers * factor;
                 accumulator[resource] = (accumulator[resource] || 0) + amount;
                 return accumulator;
             }, result);
@@ -46,7 +49,8 @@ const getProducedResources = (lastProducedUpdate: number, store: StoreState): Re
     Object.keys(structures).forEach((structure) => handleStructure(structure));
 
     // Check if the warehouse can actually hold it
-    Object.keys(result).forEach((resource: string) => {
+    Object.keys(result).forEach((key: string) => {
+        const resource = key as Resource;
         if (result[resource]) {
             if (store.resources[resource]! + result[resource]! >= maxResources[resource]!) {
                 result[resource] = maxResources[resource]! - (store.resources[resource]!);

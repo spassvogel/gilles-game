@@ -45,7 +45,7 @@ export const useAdventurerState = (adventurerId: string) => {
 export const useAdventurerDamageReduction = (adventurerId: string): { [key: string]: number } => {
     const adventurer = useAdventurerState(adventurerId);
     const findDR = (type: EquipmentSlotType) => {
-        const item: Item = adventurer.equipment[EquipmentSlotType[type]];
+        const item: Item|undefined = adventurer.equipment[type as EquipmentSlotType];
         if (!item) return 0;
         return getDefinition(item).damageReduction || 0;
     }
