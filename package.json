@@ -7,16 +7,12 @@
   "dependencies": {
     "@inlet/react-pixi": "^6.0.9",
     "@pixi/filter-outline": "^3.2.0",
-    "@types/debounce": "^1.2.0",
     "astar-typescript": "^1.2.5",
-    "clone-deep": "^4.0.1",
     "debounce": "^1.2.0",
-    "deep-equal": "^2.0.5",
-    "deepmerge": "^4.2.2",
     "gsap": "^3.6.0",
     "handlebars": "^4.7.6",
     "localforage": "^1.9.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "pixi-filters": "^3.2.2",
     "pixi-particles": "^4.3.0",
     "pixi-sound": "^3.0.5",
@@ -28,18 +24,18 @@
     "react-dnd-html5-backend": "^11.1.3",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
+    "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.0",
-    "react-select": "^3.2.0",
+    "react-scripts": "4.0.2",
+    "react-select": "^4.0.2",
     "redux-persist": "^6.0.0",
     "reselect": "^4.0.0",
     "seedrandom": "^3.0.5",
     "simple-encryptor": "^4.0.0",
     "string-arrays-equal": "^0.2.4",
     "text-param-case": "^1.0.2",
-    "type-fest": "^0.20.2",
-    "typescript": "^3.9.7",
-    "use-trace-update": "^1.3.0"
+    "typescript": "^4.1.3",
+    "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -50,7 +46,10 @@
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -65,17 +64,11 @@
     ]
   },
   "devDependencies": {
-    "@types/clone-deep": "^4.0.1",
+    "@types/debounce": "^1.2.0",
     "@types/deep-equal": "^1.0.1",
-    "@types/howler": "^2.2.1",
-    "@types/jest": "^26.0.20",
-    "@types/moment-duration-format": "^2.2.2",
-    "@types/node": "^14.14.22",
-    "@types/react-dom": "^16.9.10",
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
-    "@types/react-select": "^3.1.2",
-    "@types/seedrandom": "^2.4.28",
-    "gh-pages": "^3.1.0"
+    "@types/react-select": "^4.0.13",
+    "@types/seedrandom": "^2.4.28"
   }
 }
