@@ -1,5 +1,3 @@
-// tslint:disable:no-bitwise
-
 /**
  * Convert a sematic versioning string into an 32-bit integer.
  *
