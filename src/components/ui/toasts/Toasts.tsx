@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ToastManager, ToastConfig } from 'global/ToastManager';
+import { ToastManager, ToastConfig, EVENT_TOASTS_UPDATED } from 'global/ToastManager';
 import Toast from './Toast';
 import './styles/toasts.scss';
 
@@ -15,9 +15,9 @@ const Toasts = () => {
     }
 
     useEffect(() => {
-        ToastManager.addEventListener(ToastManager.EVENT_TOASTS_UPDATED, toastsUpdated);
+        ToastManager.instance.addListener(EVENT_TOASTS_UPDATED, toastsUpdated);
         return () => {
-            ToastManager.removeEventListener(ToastManager.EVENT_TOASTS_UPDATED, toastsUpdated);
+            ToastManager.instance.removeListener(EVENT_TOASTS_UPDATED, toastsUpdated);
         }
     }, []);
 

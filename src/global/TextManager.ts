@@ -12,8 +12,6 @@ import { WeaponType, WeaponClassification } from 'definitions/items/weapons';
 
 export abstract class TextManager {
 
-
-
     public static init(texts: {[key: string]: string}, precompile = true) {
         this.texts = texts;
         this.templates = {};

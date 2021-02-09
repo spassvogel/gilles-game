@@ -1,6 +1,7 @@
 import { FIVE_SECONDS } from 'utils/format/time';
 import { Type } from 'components/ui/toasts/Toast';
-import EventEmitter from './EventEmitter';
+import EventEmitter from "events";
+import TypedEmitter from "typed-emitter";
 import { SoundManager} from './SoundManager';
 
 export interface ToastConfig {
@@ -11,12 +12,16 @@ export interface ToastConfig {
     link?: string;
 }
 
-export abstract class ToastManager extends EventEmitter<ToastConfig[]>() {
+export const EVENT_TOASTS_UPDATED = "toast";
+interface ToastEvents {
+    [EVENT_TOASTS_UPDATED]: (context: ToastConfig[] | undefined) => void;
+}
+export class ToastManager extends (EventEmitter as new () => TypedEmitter<ToastEvents>) {
+    private static _instance = new ToastManager();
 
     private static stack: ToastConfig[] = [];
     private static lifeTime = FIVE_SECONDS; // Time each toast lives
                                             // also update CSS animation!
-    static EVENT_TOASTS_UPDATED = "toast";
 
     static addToast(title: string, type?: Type, icon?: string, link?: string) {
 
@@ -28,7 +33,7 @@ export abstract class ToastManager extends EventEmitter<ToastConfig[]>() {
             link
         }];
 
-        this.emit(this.EVENT_TOASTS_UPDATED, this.stack);
+        this.instance.emit(EVENT_TOASTS_UPDATED, this.stack);
 
         SoundManager.playSound("ui/toast");
 
@@ -37,8 +42,12 @@ export abstract class ToastManager extends EventEmitter<ToastConfig[]>() {
             this.stack = this.stack.filter((toast) => {
                 return Date.now() - toast.time < this.lifeTime
             });
-            this.emit(this.EVENT_TOASTS_UPDATED, this.stack);
+            this.instance.emit(EVENT_TOASTS_UPDATED, this.stack);
 
         }, this.lifeTime);
+    }
+
+    static get instance() {
+        return this._instance;
     }
 }

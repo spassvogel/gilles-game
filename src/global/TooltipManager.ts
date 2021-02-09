@@ -1,7 +1,7 @@
 import { ContextInfo, ContextType } from 'constants/context';
 import deepEquals from 'deep-equal';
-import EventEmitter from './EventEmitter';
-
+import EventEmitter from "events";
+import TypedEmitter from "typed-emitter";
 export interface Context {
     type: ContextType;
     info: ContextInfo;
@@ -9,9 +9,13 @@ export interface Context {
     className?: string;
 }
 
-export class TooltipManager extends EventEmitter<Context>() {
+export const EVENT_CONTEXT_UPDATED = "tooltipContextUpdated";
+interface TooltipEvents {
+    [EVENT_CONTEXT_UPDATED]: (context: Context | undefined) => void;
+}
 
-    static EVENT_CONTEXT_UPDATED = "tooltipContextUpdated";
+export class TooltipManager extends (EventEmitter as new () => TypedEmitter<TooltipEvents>) {
+    private static _instance = new TooltipManager();
     private static lastContext: Context | undefined;
 
     static showContextTooltip (type: ContextType, info: ContextInfo, originRect: ClientRect, className?: string) {
@@ -20,13 +24,17 @@ export class TooltipManager extends EventEmitter<Context>() {
         if(deepEquals(context, this.lastContext)) {
             this.clear();
         } else {
-            this.emit(this.EVENT_CONTEXT_UPDATED, context);
+            this.instance.emit(EVENT_CONTEXT_UPDATED, context);
             this.lastContext = context;
         }
     }
 
     static clear() {
-        this.emit(this.EVENT_CONTEXT_UPDATED, undefined);
+        this.instance.emit(EVENT_CONTEXT_UPDATED, undefined);
         this.lastContext = undefined;
+    }
+
+    static get instance() {
+        return this._instance;
     }
 }

@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { ContextType } from 'constants/context';
-import { TooltipManager, Context } from 'global/TooltipManager';
+import { TooltipManager, Context, EVENT_CONTEXT_UPDATED } from 'global/TooltipManager';
 import { TextManager } from 'global/TextManager';
 import ItemContext from './context/ItemContext';
 import { ItemDefinition } from 'definitions/items/types';
@@ -23,9 +23,9 @@ const ContextTooltip = () => {
         setSelectedContext(context);
     }
     useEffect(() => {
-        TooltipManager.addEventListener(TooltipManager.EVENT_CONTEXT_UPDATED, tooltipUpdated);
+        TooltipManager.instance.addListener(EVENT_CONTEXT_UPDATED, tooltipUpdated);
         return () => {
-            TooltipManager.removeEventListener(TooltipManager.EVENT_CONTEXT_UPDATED, tooltipUpdated);
+            TooltipManager.instance.removeListener(EVENT_CONTEXT_UPDATED, tooltipUpdated);
         }
     }, []);
     if (!selectedContext) { return null; }
