@@ -9,7 +9,7 @@ export interface Context {
     className?: string;
 }
 
-export abstract class TooltipManager extends EventEmitter<Context>() {
+export class TooltipManager extends EventEmitter<Context>() {
 
     static EVENT_CONTEXT_UPDATED = "tooltipContextUpdated";
     private static lastContext: Context | undefined;

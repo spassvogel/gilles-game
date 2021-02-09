@@ -26,9 +26,10 @@ const ItemContext = (props: Props) => {
         case ItemType.apparel:
             return <ApparelContent info={info as ApparelDefinition} />;
 
-        default:
+        default: {
             const subtext = TextManager.getItemSubtext(info.item);
-            return (subtext && (<p className="subtext">"{subtext}"</p>)) || null;
+            return (subtext && (<p className="subtext">{`"${subtext}"`}</p>)) || null;
+        }
     }
 }
 export default ItemContext;

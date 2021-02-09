@@ -11,7 +11,7 @@ import { LogEntry } from "store/types/logEntry";
  */
 export const log: Reducer<LogEntry[]> = (state: LogEntry[] = initialLogState, action: AnyAction) => {
     switch (action.type) {
-        case ActionType.addLogEntry:
+        case ActionType.addLogEntry: {
             const {entry, channel, channelContext} = (action as AddLogEntryAction);
             const {key, context} = entry;
             const time = Date.now();
@@ -24,7 +24,7 @@ export const log: Reducer<LogEntry[]> = (state: LogEntry[] = initialLogState, ac
                 },
                 ...state,
             ];
-
+        }
         case GameActionType.gameTick:
             return gameTick(state, action as GameTickAction);
     }

@@ -44,7 +44,7 @@ const DeedContent = (props: Props) => {
     }
     return (
         <div>
-            { subtext && (<p className="subtext">"{subtext}"</p>)}
+            { subtext && (<p className="subtext">{`"${subtext}"`}</p>)}
             <Button
                 disabled={disabled}
                 size="small"

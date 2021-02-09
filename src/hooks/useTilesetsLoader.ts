@@ -19,6 +19,7 @@ const useTilesetsLoader = (basePath: string) => {
         const tilesetName = nextTileset.name;
 
         loadResource(`${basePath}/${nextTileset.image}`, (resource) => {
+            if (!resource) return;
             if (resource.error) {
                 throw new Error(`Loading ${basePath}\n${resource.error}`);
             }

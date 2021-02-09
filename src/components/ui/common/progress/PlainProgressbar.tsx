@@ -1,6 +1,4 @@
-import * as React from "react";
-import { useDelta } from 'hooks/store/engine';
-import { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import "./styles/progressbar.scss";
 
 export enum Direction {

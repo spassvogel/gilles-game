@@ -1,6 +1,5 @@
 import { PixiComponent, applyDefaultProps, AnimatedSprite } from '@inlet/react-pixi';
 import * as PIXI from 'pixi.js';
-import { memo } from 'react';
 
 const SpriteAnimated = PixiComponent<React.ComponentProps<typeof AnimatedSprite>, PIXI.AnimatedSprite>('SpriteAnimated', {
 create: ({ textures }) => {

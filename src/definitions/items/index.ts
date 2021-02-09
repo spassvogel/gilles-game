@@ -18,6 +18,8 @@ const all = {
 export default all;
 
 export function getDefinition(item: Item): ItemDefinition {
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return all[item];
 }

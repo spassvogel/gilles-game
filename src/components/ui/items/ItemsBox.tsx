@@ -1,5 +1,5 @@
 import * as React from "react";
-import itemsDescription, { getDefinition } from "definitions/items";
+import { getDefinition } from "definitions/items";
 import { Item } from "definitions/items/types";
 import { TextManager } from "global/TextManager";
 import useStockpileState from 'hooks/store/useStockpileState';

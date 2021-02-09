@@ -6,7 +6,7 @@ interface Props  {
     adventurerId: string;
     selected: boolean;
     spritesheetPath: string;
-};
+}
 
 // The adventurers avatar on the scene
 const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>) => {

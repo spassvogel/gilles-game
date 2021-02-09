@@ -13,7 +13,6 @@ import {
     DeductActorApAction,
     SetCombatAction
 } from "store/actions/quests";
-import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "store/types/quest";
 import { isActorObject, SceneActionType } from 'store/types/scene';
@@ -21,6 +20,7 @@ import { QuestDefinition } from 'definitions/quests/types';
 import { getDefinition } from 'definitions/quests';
 import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars';
 import deepmerge from "deepmerge";
+import { QuestVars } from "definitions/quests/questVars";
 
 // tslint:disable:object-literal-sort-keys
 export const initialQuestState: QuestStoreState[] = [{
@@ -36,18 +36,18 @@ export const initialQuestState: QuestStoreState[] = [{
     questVars: initialQuestVars,
     encounterResults: [],
     icon: "sigil1.png",
-}, {
-    name: "retrieveMagicAmulet",
-    party: [],
-    status: QuestStatus.available,
-    progress: 0,
-    questVars: {},
-    encounterResults: [],
-    icon: "sigil2.png",
-    reward: {
-        gold: 4,
-        items: [ Item.deedForWeaponsmith ],
-    },
+// }, {
+//     name: "retrieveMagicAmulet",
+//     party: [],
+//     status: QuestStatus.available,
+//     progress: 0,
+//     questVars: {},
+//     encounterResults: [],
+//     icon: "sigil2.png",
+//     reward: {
+//         gold: 4,
+//         items: [ Item.deedForWeaponsmith ],
+//     },
 }];
 
 /**
@@ -55,7 +55,7 @@ export const initialQuestState: QuestStoreState[] = [{
  * @param state
  * @param action
  */
-export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialQuestState, action: AnyAction ) => {
+export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialQuestState, action: AnyAction ): QuestStoreState[] => {
     switch (action.type) {
         case ActionType.launchQuest:
             return launchQuest(state, action as QuestLaunchAction);
@@ -112,7 +112,7 @@ const launchQuest = (questStoreState: QuestStoreState[], action: QuestLaunchActi
 
     return questStoreState.map((qss) => {
         if (qss.name === action.questName) {
-            const questDefinition: QuestDefinition = getDefinition(action.questName);
+            const questDefinition: QuestDefinition = getDefinition<QuestVars>(action.questName);
             const questVars = questDefinition.getInitialQuestVars(qss);
 
             return {
@@ -333,6 +333,9 @@ const updateQuestVars = (state: QuestStoreState[], action: QuestVarsAction)  => 
         if (qss.name === action.questName) {
             return {
                 ...qss,
+                // todo: sort this out
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 questVars: deepmerge(qss.questVars, action.vars, { arrayMerge: overwriteMerge })
             };
         }

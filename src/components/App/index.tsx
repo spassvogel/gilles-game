@@ -19,7 +19,6 @@ import SimpleLog from 'components/log/SimpleLog';
 import ContextTooltip from 'components/ui/tooltip/ContextTooltip';
 import {TooltipManager } from 'global/TooltipManager';
 import {getWorldLink, getTownLink } from 'utils/routing';
-import Background from 'components/Background';
 import { restartGame } from 'index';
 import Button, { ButtonColor } from 'components/ui/buttons/Button';
 import StructureDetailsView from 'components/town/StructureDetailsView';
@@ -27,15 +26,6 @@ import "./styles/app.scss";
 
 PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);
-
-
-// tslint:disable-next-line:no-empty-interface
-export interface StateProps {
-}
-
-// tslint:disable-next-line:no-empty-interface
-export interface DispatchProps {
-}
 
 export enum View {
     Town,
@@ -49,10 +39,9 @@ export interface Props {
 
 export const MAX_WIDTH = 960;
 export const AppContext = createContext<AppContextProps | null>(null);
-type AllProps = Props & StateProps & DispatchProps;
 
 
-const App = (props: AllProps) => {
+const App = (props: Props) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     const [activeWindows, setActiveWindows] = useState<React.ReactElement[]>([]);
@@ -149,7 +138,6 @@ const App = (props: AllProps) => {
             onOpenWindow: handleWindowOpened,
             onCloseWindow: handleWindowClose,
         }} >
-            <Background />
             <div
                 className="app"
                 ref={containerRef}

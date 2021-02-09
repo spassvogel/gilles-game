@@ -28,11 +28,8 @@ import Select from "components/ui/common/Select";
 import "./styles/cheat.scss";
 
 
-// tslint:disable-next-line:no-empty-interface
-export interface Props {
-}
 
-const CheatWindow = (props: Props) => {
+const CheatWindow = () => {
 
     const [cheats, setCheats] = useState({
         gold: 50,
@@ -100,7 +97,7 @@ const CheatWindow = (props: Props) => {
         );
     };
 
-    const handleCheatGold = (evt: React.MouseEvent<HTMLButtonElement>) => {
+    const handleCheatGold = (_evt: React.MouseEvent<HTMLButtonElement>) => {
         const amount = cheats.gold;
         onCheatGold(amount);
 
@@ -109,7 +106,7 @@ const CheatWindow = (props: Props) => {
         ToastManager.addToast(text, Type.cheat, icon);
     }
 
-    const handleCheatWorkers = (evt: React.MouseEvent<HTMLButtonElement>) => {
+    const handleCheatWorkers = (_evt: React.MouseEvent<HTMLButtonElement>) => {
         const amount = cheats.workers;
         onCheatWorkers(amount);
         const text = TextManager.get("common-cheat-workers-added", { amount });
@@ -117,13 +114,13 @@ const CheatWindow = (props: Props) => {
         ToastManager.addToast(text, Type.cheat, icon);
     }
 
-    const handleCheatResources = (evt: React.MouseEvent<HTMLButtonElement>) => {
+    const handleCheatResources = (_evt: React.MouseEvent<HTMLButtonElement>) => {
         onCheatResources(cheats.resources);
         const text = TextManager.get("common-cheat-resources-added", { amount: cheats.resources });
         ToastManager.addToast(text, Type.cheat);
     }
 
-    const handleCheatItem = (evt: React.MouseEvent<HTMLButtonElement>) => {
+    const handleCheatItem = (_evt: React.MouseEvent<HTMLButtonElement>) => {
         const item = selectedItem as Item;
         onCheatItem(item);
 

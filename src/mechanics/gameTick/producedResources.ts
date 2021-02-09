@@ -24,7 +24,7 @@ const getProducedResources = (lastProducedUpdate: number, store: StoreState): Re
     const maxResources = selectMaxResources(store);
 
     const handleStructure = (structure: string) => {
-        const structureDefinition = getDefinition(structure);
+        const structureDefinition = getDefinition(structure as Structure);
 
         if (structureDefinition.type === StructureType.resource) {
             const resourceStructureDefinition = structureDefinition as ResourceStructureDefinition;

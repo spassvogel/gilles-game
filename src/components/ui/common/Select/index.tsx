@@ -2,7 +2,7 @@ import React from 'react';
 import Select, { Props} from 'react-select';
 
 
-export default function (props: Props) {
+const DefaultSelect = (props: Props) => {
     return <Select
         styles={{
             control: (provided, state) => ({
@@ -15,7 +15,7 @@ export default function (props: Props) {
                     border: '1px solid orange'
                 }             
             }),
-            container: (provided, state) => ({
+            container: (provided, _state) => ({
                 ...provided,
                 flex: 1
             }),
@@ -44,3 +44,6 @@ export default function (props: Props) {
         {...props}
     />
 }
+DefaultSelect.displayName = "DefaultSelect";
+
+export default DefaultSelect;

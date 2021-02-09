@@ -104,7 +104,7 @@ const TownView = (props: Props & AppContextProps) => {
 
             const StructureComponent = getStructure(structure);
             const position = getStructurePosition(structure);
-            const hitAreaShapes = new HitAreaShapes(polygons, structure);
+            const hitAreaShapes = new HitAreaShapes(polygons, structure as string);
             return (
                 <StructureComponent
                     position={position}

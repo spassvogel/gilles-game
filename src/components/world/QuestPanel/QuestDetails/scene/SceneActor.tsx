@@ -11,16 +11,17 @@ import SpriteAnimated from '../../../../pixi/tile/SpriteAnimated';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import { AdventurerColor } from 'store/types/adventurer';
 import { useQuest } from 'hooks/store/quests';
+import { QuestVars } from 'definitions/quests/questVars';
 
 export interface Props  {
     name: string;
     spritesheetPath: string;
     color?: AdventurerColor;
-    controller: BaseSceneController<any>;
+    controller: BaseSceneController<QuestVars>;
     location?: [number, number]; // tile coordinate space
     lookAt?: [number, number];
     idleAnimation?: boolean;    // Only when lookAt is undefined, will randomly turn around
-};
+}
 
 enum Orientation {
     north = "n",

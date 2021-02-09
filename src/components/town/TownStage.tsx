@@ -14,7 +14,7 @@ export interface Props {
 }
 
 
-const TownStage = forwardRef<any, PropsWithChildren<Props>>((props, ref: React.Ref<PixiViewport>) => {
+const TownStage = forwardRef<any, PropsWithChildren<Props>>((props: PropsWithChildren<Props>, ref: React.Ref<PixiViewport>) => {
     const {
         children,
         screenWidth,
@@ -38,7 +38,7 @@ const TownStage = forwardRef<any, PropsWithChildren<Props>>((props, ref: React.R
             viewport.on("moved", () => {
                 const horizontalFactor = gsap.utils.normalize(viewport.screenWidth, worldWidth, viewport.right);
                 const verticalFactor = gsap.utils.normalize(worldHeight, viewport.screenHeight, viewport.bottom);
-                const factor = Math.max(horizontalFactor * verticalFactor - .4, 0);;
+                const factor = Math.max(horizontalFactor * verticalFactor - .4, 0);
 
                 godray.gain =  factor;
                 godray.lacunarity = 2.4;
@@ -76,6 +76,7 @@ const TownStage = forwardRef<any, PropsWithChildren<Props>>((props, ref: React.R
 
     )
 });
+TownStage.displayName = "TownStage";
 
 export default TownStage;
 

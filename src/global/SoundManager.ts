@@ -82,7 +82,8 @@ export class SoundManager {
         files.map((file) => loader.add(file));
         loader.load((_, resources) => {
             if (resources) {
-                this._sounds[gameSound] = Object.values(resources!).filter(rss => !!rss).map(r => r?.sound!);
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                this._sounds[gameSound] = Object.values(resources!).filter(Boolean).map(r => r!.sound!)!;
                 complete?.(this._sounds[gameSound]);
             }
         });
@@ -123,7 +124,7 @@ export class SoundManager {
             if (mixMode === MixMode.fade) {
                 // Fade out current sound on this channel and fade in new sound
                 const oldSoundInfo = this._currentSound[channel];
-                gsap.to(oldSoundInfo.instance, { volume: 0, duration: .75, onComplete: (a) => {
+                gsap.to(oldSoundInfo.instance, { volume: 0, duration: .75, onComplete: () => {
                     oldSoundInfo.instance.destroy();
                 }});
                 // Fade in the new sound

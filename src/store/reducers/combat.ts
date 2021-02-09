@@ -9,7 +9,7 @@ import { barBrawl, CombatStoreState } from "store/types/combat";
  */
 export const combat: Reducer<CombatStoreState> = (state: CombatStoreState = barBrawl, action: AnyAction) => {
     switch (action.type) {
-        case ActionType.startCombatAction:
+        case ActionType.startCombatAction: {
             const addAction = action as AddCombatActionAction;
 
             return {
@@ -21,8 +21,8 @@ export const combat: Reducer<CombatStoreState> = (state: CombatStoreState = barB
                     type: addAction.combatType,
                 },
             };
-
-        case ActionType.moveActor:
+        }
+        case ActionType.moveActor: {
             const moveAction = action as MoveActorAction;
 
             // Moves an actor to another position
@@ -40,13 +40,14 @@ export const combat: Reducer<CombatStoreState> = (state: CombatStoreState = barB
                 ...state,
                 actors,
             };
-
-            case ActionType.clearCombatAction:
+        }
+        case ActionType.clearCombatAction: {
             // Clears current combat action
             return {
                 ...state,
                 action: undefined,
             };
+        }
     }
     return state;
 };

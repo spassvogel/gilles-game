@@ -25,9 +25,10 @@ interface ConfigureStoreResult {
  * Configures the redux store
  */
 const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<ConfigureStoreResult> => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _reject) => {
         const store = createStore<StoreState & PersistPartial, AnyAction, any, StoreState>(
             persistedReducer,
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             initial,
             (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),

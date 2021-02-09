@@ -13,7 +13,7 @@ interface Props {
 const Topbar = (props: Props) => {
     const context = useContext(AppContext)!;
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const handleClick = (_e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         const window = <Menu title = "Menu" persistor={props.persistor} />;
         context.onOpenWindow(window);
     };

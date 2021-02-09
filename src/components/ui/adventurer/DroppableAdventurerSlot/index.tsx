@@ -1,19 +1,20 @@
 import { DragType } from "constants/dragging";
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
+import { AdventurerAvatarDragInfo } from "../DraggableAdventurerAvatar";
 import "./styles/droppableadventurerslot.scss";
 
 const dropTarget: DropTargetSpec<Props> = {
     drop(props: Props, monitor: DropTargetMonitor) {
         props.onDrop(monitor.getItem());
     },
-    canDrop(props: Props, monitor: DropTargetMonitor)  {
+    canDrop(_props: Props, _monitor: DropTargetMonitor)  {
         return true; // todo: can't drop on yourself
     },
 };
 
 export interface Props {
-    onDrop: (item: any) => void;
+    onDrop: (item: AdventurerAvatarDragInfo) => void;
 }
 
 export interface DropSourceProps {

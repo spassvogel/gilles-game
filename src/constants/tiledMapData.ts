@@ -70,7 +70,7 @@ export enum TiledLayerType {
 export interface TiledProperty {
     name: string,
     type: string,
-    value: any
+    value: string | number | boolean;
 }
 
 enum Orientation {

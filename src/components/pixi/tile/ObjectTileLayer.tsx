@@ -6,7 +6,6 @@ import { CompositeRectTileLayer } from 'pixi-tilemap';
 import { findTileset } from "utils/tilemap";
 
 // window.PIXI = PIXI;
-// eslint-disable-next-line import/first
 import 'pixi-tilemap';
 
 
@@ -15,12 +14,11 @@ interface Props  {
     objects: SceneObject[];
     tilesets: TiledTilesetData[];
     spritesheets: {[key: string]: PIXI.Spritesheet}
-};
+}
 
 // unused at the moment
 const ObjectTileLayer = PixiComponent<Props, any>("ObjectTileLayer", {
-    create(props: Props) {
-        // @ts-ignore
+    create(_props: Props) {
         const tileLayer = new CompositeRectTileLayer();
         return tileLayer;
     },
@@ -38,8 +36,6 @@ const ObjectTileLayer = PixiComponent<Props, any>("ObjectTileLayer", {
             const tileset = findTileset(object.gid, tilesets);
             if (!tileset) return;
 
-            const w = tileset.tilewidth;
-            const h = tileset.tileheight;
             const x = object.x;
             const y = object.y - tileset.tileheight;
             const spritesheet = spritesheets[tileset.name];

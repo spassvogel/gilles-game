@@ -13,7 +13,7 @@ export interface Props {
 }
 
 const Tabstrip = (props: Props) => {
-    let {activeTab = null} = props;
+    const {activeTab = null} = props;
     if (!activeTab && props.children && props.children) {
         //activeTab = props.children[0].props.id;
     }

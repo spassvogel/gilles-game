@@ -29,7 +29,7 @@ const Segment = (props: Props) => {
         background: `url(${process.env.PUBLIC_URL}/img/scene/ui/combat/ring-segment.svg)`,
         width: segmentWidth,
         height: segmentHeight,
-        zIndex: activated ? "2" : "initial"
+        ...(activated && { zIndex: 2})
     }
     // const rotate = true;
     // useEffect(() => {
@@ -44,7 +44,6 @@ const Segment = (props: Props) => {
 
     return (
         <div
-            // @ts-ignore (todo: zIndex typing error?)
             style={style}
             className="segment"
             onMouseOver={onActivate}

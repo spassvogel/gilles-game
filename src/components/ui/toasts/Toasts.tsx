@@ -10,8 +10,8 @@ const Toasts = () => {
 
     const [activeToasts, setActiveToasts] = useState<ToastConfig[]>([]);
 
-    const toastsUpdated = (stack: ToastConfig[]) => {
-        setActiveToasts(stack);
+    const toastsUpdated = (stack?: ToastConfig[]) => {
+        if (stack) setActiveToasts(stack);
     }
 
     useEffect(() => {

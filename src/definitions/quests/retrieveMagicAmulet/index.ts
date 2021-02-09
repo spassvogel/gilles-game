@@ -9,7 +9,7 @@ export interface RetrieveMagicAmuletQuestVars {
 
 const retrieveMagicAmulet: QuestDefinition<RetrieveMagicAmuletQuestVars> = {
     getQuestVars: (questStore: QuestStoreState) => questStore.questVars as RetrieveMagicAmuletQuestVars,
-    getInitialQuestVars: (questStore: QuestStoreState) => {
+    getInitialQuestVars: (_questStore: QuestStoreState) => {
         const vars: RetrieveMagicAmuletQuestVars = {
             baz: false,
             zux: 13

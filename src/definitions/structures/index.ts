@@ -47,9 +47,8 @@ const all = {
 
 export default all;
 
-export function getDefinition<T extends StructureDefinition>(structure: string): T {
-    // @ts-ignore
-    return all[structure] as T;
+export function getDefinition<T extends StructureDefinition>(structure: Structure): T {
+    return all[structure] as unknown as T;
 }
 
 export function getStructureByResource(resource: Resource) : Structure {

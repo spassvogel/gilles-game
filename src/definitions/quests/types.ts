@@ -1,5 +1,6 @@
 import { QuestStoreState } from 'store/types/quest';
 import { Item } from 'definitions/items/types';
+import { QuestVars } from './questVars';
 
 export enum QuestNodeType {
     nothing = 0,    // Nothing much going on here
@@ -8,7 +9,8 @@ export enum QuestNodeType {
     // boss = 3,
 }
 
-export interface QuestDefinition<TQuestVars> {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export interface QuestDefinition<TQuestVars = QuestVars> {
     nodes: QuestNode[];
     requiredItems?: Item[];
     getQuestVars: (questStoreState: QuestStoreState) => TQuestVars;

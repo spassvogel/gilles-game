@@ -15,8 +15,6 @@ interface Props {
 // CombatUIWidget shows a circle
 const CombatUIWidget = (props: Props) => {
     const {location, actionIntent, onActionChange} = props;
-    const segmentWidth = 32;
-    const segmentHeight = 46;
     const controller = useContext(SceneControllerContext)!;
     const {tileWidth, tileHeight} = controller.getTileDimensions();
     const transform = `translate(${tileWidth * location[0]}px, ${tileHeight * location[1]}px)`;

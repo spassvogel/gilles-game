@@ -12,6 +12,7 @@ import Button from 'components/ui/buttons/Button';
 import ItemsBox from 'components/ui/items/ItemsBox';
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import "./styles/questboard.scss";
+// import { QuestVars } from "definitions/quests/questVars";
 
 export const AVAILABLE_SLOTS = 5;
 const minimumCountAdventurers = 3;  // we need this many adventurers to start the quest

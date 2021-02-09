@@ -87,7 +87,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         mouseDown.current = true;
     }
 
-    const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleMouseUp = (_e: React.MouseEvent<HTMLDivElement>) => {
         mouseDown.current = false;
 
         setCursorLocation(undefined); // todo: uncomment to debug
@@ -147,7 +147,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             // Handle change of cursor when not in combat
             let action = SceneActionType.move;
             const object = controller.getObjectAtLocation(cursorLocation);
-            if(!!object?.properties.interactive){
+            if(object?.properties.interactive){
                 // We're at an interactive object
                 action = SceneActionType.interact;
             }

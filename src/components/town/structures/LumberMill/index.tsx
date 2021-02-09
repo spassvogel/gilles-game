@@ -27,7 +27,9 @@ const LumberMill = (props: Props) => {
 
     useEffect(() => {
         loadResource(atlas, (resource) => {
-            setTextures(resource.textures);
+            if (resource) {
+                setTextures(resource.textures);
+            }
         })
     }, [app, app.loader, atlas]);
 

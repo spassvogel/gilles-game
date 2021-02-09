@@ -12,6 +12,7 @@ import { getQuestLink, getTownLink } from "utils/routing";
 import "./styles/simplelog.scss";
 
 // tslint:disable-next-line:no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props {
 }
 
@@ -79,7 +80,7 @@ const SimpleLog = () => {
     });
 
     let displayEntries: LogEntry[] = [];
-    const currentTab=channels.find((t) => t.tabId === selectedTabId)!;
+    const currentTab = channels.find((t) => t.tabId === selectedTabId)!;
 
     switch (currentTab.tabType) {
         case ChannelType.all:

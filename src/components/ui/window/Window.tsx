@@ -1,7 +1,7 @@
 import * as React from "react";
 import { SoundManager} from 'global/SoundManager';
 import Button from '../buttons/Button';
-import { useEffect } from "react";
+import { PropsWithChildren, useEffect } from "react";
 
 // todo: refactor using WindowManager [30/03/2020]
 export interface Props {
@@ -12,14 +12,12 @@ export interface Props {
     onBack?: () => void;
 }
 
-type AllProps = Props;
-
 /**
  *
  */
-const Window: React.FunctionComponent<AllProps> = (props) => {
+const Window = (props: PropsWithChildren<Props>) => {
 
-    const handleClose = (e: React.MouseEvent) => {
+    const handleClose = (_e: React.MouseEvent) => {
         if (props.onClose) {
             props?.onClose();
 
@@ -27,7 +25,7 @@ const Window: React.FunctionComponent<AllProps> = (props) => {
         }
     };
 
-    const handleBack = (e: React.MouseEvent) => {
+    const handleBack = (_e: React.MouseEvent) => {
         if (props.onBack) {
             props?.onBack();
 

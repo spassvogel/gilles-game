@@ -7,7 +7,7 @@ import { QuestStoreState } from "store/types/quest";
 import { lerpLocation } from 'utils/pixiJs';
 import { QuestDefinition, QuestNodeType, QuestNode } from "definitions/quests/types";
 import Viewport from '../../pixi/Viewport';
-import MapGrid from './MapGrid';
+// import MapGrid from './MapGrid';
 import QuestMarker from './QuestMarker';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import QuestLine from './QuestLine';

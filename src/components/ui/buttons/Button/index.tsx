@@ -27,7 +27,7 @@ export type Props = PropsWithChildren<{
 
 
 const Button = (props: React.ComponentProps<'button'> & Props) => {
-    const { color, size, square, text, ...otherProps } = props;
+    const { color, square, text, ...otherProps } = props;
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         props.onClick?.(e)

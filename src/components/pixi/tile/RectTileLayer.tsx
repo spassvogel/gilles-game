@@ -13,8 +13,7 @@ interface Props  {
 }
 
 const RectTileLayer = PixiComponent<Props, any>("RectTileLayer", {
-    create(props: Props) {
-        // @ts-ignore
+    create(_props: Props) {
         const tileLayer = new CompositeRectTileLayer();
         return tileLayer;
     },

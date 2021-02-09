@@ -142,8 +142,7 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
         }
     }
 
-    handleSituationOptionClick(situation: string, option: string, adventurerId: string) {
-        // @ts-ignore
+    handleSituationOptionClick(_situation: string, _option: string, _adventurerId: string) {
         // switch (situation) {
             // case 'altar': {
             //     switch (option) {
@@ -213,7 +212,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
 
     getSituation(situation: string, adventurerId?: string) {
         switch (situation) {
-            case 'door':
+            case 'door': {
                 const adventurer = this.getAdventurerById(adventurerId!);
                 if (adventurer && adventurer.inventory.some(i => i === Item.key)) {
                     // Adventurer has key
@@ -228,12 +227,15 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
                     title: 'quest-kill10-boars-dungeonentrance-door',
                     text: 'quest-kill10-boars-dungeonentrance-door-needs-key',
                 }
-                default:
-                    return super.getSituation(situation, adventurerId);
+            }
+            default:
+                return super.getSituation(situation, adventurerId);
         }
     }
+    
 
     handleSituationOptionClick(situation: string, option: string, adventurerId: string) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         switch (situation) {
             case 'door': {

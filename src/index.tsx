@@ -19,7 +19,7 @@ import { TextManager } from "./global/TextManager";
 import { loadResourceAsync } from 'utils/pixiJs';
 import { processCompletedTasks } from 'mechanics/gameTick/tasks';
 import { StoreState } from 'store/types';
-import { getTownLink, getWorldLink } from "utils/routing";
+import { getWorldLink } from "utils/routing";
 import { createInitialStore } from "store/reducers";
 import "./index.css";
 
@@ -29,7 +29,9 @@ let persistor: Persistor;
 
 const initGame = async () => {
     const texts = await loadResourceAsync(`${process.env.PUBLIC_URL}/lang/en.json`);
-    TextManager.init(texts.data);
+    if (texts) {
+        TextManager.init(texts.data);
+    }
     Random.init("GILLESROX2");
 
     setupStore();
@@ -46,7 +48,7 @@ const setupStore = async (initial: DeepPartial<StoreState> = {}) => {
     if (!isHydrated) {
         startNewGame(store);
     } else {
-        continueGame(store);
+        continueGame();
     }
     runGame(store);
 }
@@ -69,7 +71,7 @@ const startNewGame = (store: any) => {
  * Continue playing earlier persisted store
  * @param store
  */
-const continueGame = (store: any) => {
+const continueGame = () => {
     // tslint:disable-next-line:no-console
     console.log(`Continuing existing GAME (version ${version})`);
 };

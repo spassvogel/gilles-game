@@ -15,7 +15,7 @@ const ApparelContent = (props: Props) => {
     return (
         <>
             <div>{`${equipmentSlot}`}</div>
-            { subtext && (<p className="subtext">"{subtext}"</p>)}
+            { subtext && (<p className="subtext">{`"${subtext}"`}</p>)}
             { damageReduction && <p> { TextManager.get("ui-tooltip-damage-reduction", { damageReduction}) } </p> }
             <ProduceOrStudy item={info.item} />
         </>

@@ -20,8 +20,9 @@ import { addItemToInventory, removeItemFromInventory } from 'store/actions/adven
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { GameSound, SoundManager } from 'global/SoundManager';
 import { Allegiance } from "store/types/combat";
-import { PartialDeep } from "type-fest";
 import { Item } from "definitions/items/types";
+import { PartialObjectDeep } from "type-fest/source/partial-deep";
+import { QuestVars } from "definitions/quests/questVars";
 
 const spritesheetBasePath = "img/scene/actors/";
 const movementDuration = 500; // time every tile movement takes
@@ -326,8 +327,8 @@ export class BaseSceneController<TQuestVars> {
          return undefined;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     handleSituationOptionClick(_situation: string, _option: string, _adventurerId: string) {
-        // @ts-ignore
     }
 
     /**
@@ -482,11 +483,11 @@ export class BaseSceneController<TQuestVars> {
     }
 
     protected get questVars(): TQuestVars {
-        return this.quest.questVars;
+        return this.quest.questVars as unknown as TQuestVars;
     }
 
     // Provide questvars to update
-    protected updateQuestVars(updated: PartialDeep<TQuestVars>) {
+    protected updateQuestVars(updated: PartialObjectDeep<QuestVars>) {
         this.dispatch(updateQuestVars(this.questName, updated));
     }
 

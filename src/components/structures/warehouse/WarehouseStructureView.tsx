@@ -27,7 +27,7 @@ import { addStockpileSlots } from 'store/actions/items';
 import { Resource } from "definitions/resources";
 import "./styles/warehouseStructureView.scss";
 
-// tslint:disable-next-line: no-empty-interface
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props  {
 }
 

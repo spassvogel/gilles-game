@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { TooltipManager } from 'global/TooltipManager';
 import { InfoWindow } from 'components/ui/modals/InfoWindow';
 import './styles/tooltip.scss';
@@ -9,7 +9,6 @@ const PADDING = 8;
 export interface Props {
     referenceRect: ClientRect;  // place tooltip in reference to this rect
     placement?: Placement;
-    children?: any;
     className?: string;
 }
 
@@ -20,7 +19,7 @@ export enum Placement {
     right,
 }
 
-export const Tooltip = (props: Props) => {
+export const Tooltip = (props: PropsWithChildren<Props>) => {
     const { children, referenceRect } = props;
     let { className = "" } = props;
     const ref = useRef<HTMLDivElement>(null);
@@ -83,8 +82,8 @@ export const Tooltip = (props: Props) => {
     }, []);
 
 
-    let x: number = 0;
-    let y: number = 0;
+    let x = 0;
+    let y = 0;
 
     if (containerRect) {
         switch (placement) {

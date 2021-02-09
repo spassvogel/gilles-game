@@ -41,7 +41,7 @@ export const itemAndEquipmentSlotMatch = (item: Item, equipmentSlotType: Equipme
         case EquipmentSlotType.legs:
             return checkEquipment(item, equipmentSlotType);
         case EquipmentSlotType.mainHand:
-        case EquipmentSlotType.offHand:
+        case EquipmentSlotType.offHand: {
             const itemDefinition: WeaponDefinition = getDefinition(item) as WeaponDefinition;
             if (itemDefinition.itemType !== ItemType.weapon) {
                 return false;
@@ -59,6 +59,7 @@ export const itemAndEquipmentSlotMatch = (item: Item, equipmentSlotType: Equipme
 
             // todo: prevent shields to be equipped in main hand
             return true;
+        }
         default:
             return false;
     }

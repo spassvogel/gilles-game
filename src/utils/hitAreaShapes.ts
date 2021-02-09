@@ -4,14 +4,14 @@ import * as PIXI from 'pixi.js';
 export default class HitAreaShapes {
     public shapes: PIXI.Polygon[];
 
-    constructor(shapes = {}, sprite = "0") {
-      // @ts-ignore
+    constructor(shapes: { [key: string]: { shape: number[]}[] } = {}, sprite = "0") {
+      
       this.shapes = shapes[sprite].map((definition: { shape: number[]; }) => {
-          const shape: number[] = definition.shape;
-          return new PIXI.Polygon(shape);
+        const shape: number[] = definition.shape;
+        return new PIXI.Polygon(shape);
       });
     }
-
+    
     /**
      * Called by hitArea
      * @param {number} x
@@ -19,7 +19,7 @@ export default class HitAreaShapes {
      */
     contains(x = 0, y = 0) {
       return (!this.shapes || this.shapes.length === 0)
-        ? false
-        : this.shapes.some(shape => shape.contains(x, y));
+      ? false
+      : this.shapes.some(shape => shape.contains(x, y));
     }
-  }
+}

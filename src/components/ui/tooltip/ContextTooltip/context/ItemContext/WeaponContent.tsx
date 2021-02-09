@@ -19,7 +19,7 @@ const WeaponContent = (props: Props) => {
             <div>{weaponType}
               {info.weaponType !== WeaponType.shield && (` (${classificationText})`)}
             </div>
-            { subtext && (<p className="subtext">"{subtext}"</p>)}
+            { subtext && (<p className="subtext">{`"${subtext}"`}</p>)}
             { info.damage && <p> damage: { info.damage[DamageType.kinetic] } </p>}
             <ProduceOrStudy item={info.item} />
         </>

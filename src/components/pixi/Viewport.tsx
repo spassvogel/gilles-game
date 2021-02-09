@@ -25,6 +25,7 @@ const Viewport = forwardRef<PixiViewport, any>((props, ref) => {
   }
   return <PixiComponentViewport app={app} {...props} ref={ref} />;
 })
+Viewport.displayName = 'DisplayName';
 
 interface PixiComponentProps {
     app: PIXI.Application;

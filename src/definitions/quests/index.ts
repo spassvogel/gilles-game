@@ -1,4 +1,5 @@
 import kill10Boars from './kill10Boars';
+import { QuestVars } from './questVars';
 import retrieveMagicAmulet from './retrieveMagicAmulet';
 import { QuestDefinition } from './types';
 
@@ -25,7 +26,9 @@ const all = {
 
 export default all;
 
-export function getDefinition<T>(questName: string): QuestDefinition<T> {
+export function getDefinition<T = QuestVars>(questName: string): QuestDefinition<T> {
+    
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return all[questName];
 }
