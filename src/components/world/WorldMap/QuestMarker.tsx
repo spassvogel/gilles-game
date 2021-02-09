@@ -21,7 +21,7 @@ const QuestMarker = (props: Props) => {
     const avatar = useRef<PIXI.Sprite>(null);
     // Mask has to be a child of the avatar in order to move with it
     useEffect(() => {
-        const sprite = avatar.current as any as PIXI.Sprite;
+        const sprite = avatar.current as PIXI.Sprite;
 
         const maskGraphics = new PIXI.Graphics();
         maskGraphics.beginFill(0xBADA55);

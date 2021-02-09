@@ -3,7 +3,6 @@ import { AdventurerStoreState } from "store/types/adventurer";
 import { SceneAction, SceneStoreState, SceneObject, SceneInteractionModal } from "store/types/scene";
 import { Item } from 'definitions/items/types';
 import { PartialDeep } from "type-fest";
-import { QuestVars } from "definitions/quests/questVars";
 
 // tslint:disable:object-literal-sort-keys
 
@@ -91,7 +90,7 @@ export function exitEncounter(quest: string): QuestAction {
     };
 }
 
-export function updateQuestVars(quest: string, vars: PartialDeep<QuestVars>): QuestVarsAction {
+export function updateQuestVars(quest: string, vars: PartialDeep<unknown>): QuestVarsAction {
     return {
         type: ActionType.updateQuestVars,
         questName: quest,

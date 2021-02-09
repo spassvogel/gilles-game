@@ -15,14 +15,16 @@ const SettingsWindow = () => {
             SoundManager.setChannelVolume(channel, log);
         };
         const handleMuteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-            const slider = (e.currentTarget as HTMLButtonElement).parentNode!.lastChild;
-            gsap.to(slider, {
-                duration: .5,
-                value: 0,
-                onComplete: () => {
-                    SoundManager.setChannelVolume(channel, 0);
-                }
-            });
+            const slider = (e.currentTarget as HTMLButtonElement).parentNode?.lastChild;
+            if (slider) {
+                gsap.to(slider, {
+                    duration: .5,
+                    value: 0,
+                    onComplete: () => {
+                        SoundManager.setChannelVolume(channel, 0);
+                    }
+                });
+            }
         }
 
         return (

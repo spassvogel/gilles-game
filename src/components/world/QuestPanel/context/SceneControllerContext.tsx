@@ -6,7 +6,7 @@ import { StoreState } from 'store/types';
 import LoadingSpinner from 'components/ui/loading/LoadingSpinner';
 import usePrevious from 'hooks/usePrevious';
 
-export const SceneControllerContext = createContext<BaseSceneController<any> | null>(null);
+export const SceneControllerContext = createContext<BaseSceneController<unknown> | null>(null);
 
 export interface Props {
     questName: string;

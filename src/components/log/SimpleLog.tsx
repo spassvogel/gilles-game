@@ -80,9 +80,9 @@ const SimpleLog = () => {
     });
 
     let displayEntries: LogEntry[] = [];
-    const currentTab = channels.find((t) => t.tabId === selectedTabId)!;
+    const currentTab = channels.find((t) => t.tabId === selectedTabId);
 
-    switch (currentTab.tabType) {
+    switch (currentTab?.tabType) {
         case ChannelType.all:
             // All the things
             displayEntries = logEntries;

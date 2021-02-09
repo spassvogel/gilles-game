@@ -14,7 +14,7 @@ interface Props extends SceneProps {
     data: TiledMapData;
     spritesheets: {[key: string]: PIXI.Spritesheet}
     objects: SceneObject[];
-    controller: BaseSceneController<any>;
+    controller: BaseSceneController<unknown>;
 }
 
 const Tilemap = (props: PropsWithChildren<Props>) => {

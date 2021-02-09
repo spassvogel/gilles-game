@@ -6,11 +6,10 @@ import { BaseSceneController } from "mechanics/scenes/BaseSceneController";
 import { TiledObjectType } from "utils/tilemap";
 import { Allegiance } from "store/types/combat";
 import SceneActor from "./SceneActor";
-import { QuestVars } from "definitions/quests/questVars";
 
 interface Props {
   objects: SceneObject[];
-  controller: BaseSceneController<QuestVars>;
+  controller: BaseSceneController<unknown>;
   selectedActorId: string;
 }
 

@@ -2,9 +2,9 @@ import { TiledProperty, TiledLayerData, TiledTilesetData } from 'constants/tiled
 
 
 // Unpack array of properties into key/value object for fast retrieval
-export const parseProperties = (properties?: TiledProperty[]): {[key: string]: any } => {
+export const parseProperties = (properties?: TiledProperty[]): {[key: string]: string | boolean | number } => {
     if (!properties) return {};
-    return properties.reduce((acc: {[key: string]: any}, value: TiledProperty) => {
+    return properties.reduce((acc: {[key: string]: string | boolean | number}, value: TiledProperty) => {
         acc[value.name] = value.value;
         return acc;
     }, {});

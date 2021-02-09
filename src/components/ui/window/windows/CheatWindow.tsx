@@ -169,14 +169,15 @@ const CheatWindow = () => {
     }
 
     const items = useMemo(() => (Object.keys(ItemType)
-        .filter((val: any) => !isNaN(val))
-        .map((type: string) => {
+        .filter(k => !isNaN(parseInt(k))) // such a weird way to unumerate an enum.. sigh
+        .map((typeKey: string) => {
+            const type = ItemType[typeKey as unknown as number] as unknown as ItemType;
             return {
                 label: type as unknown as ItemType,
                 value: "",
                 subtext: "",
                 options: Object.keys(Item)
-                    .filter((item: string) => getDefinition(item as Item).itemType === type as unknown as ItemType)
+                    .filter((item: string) => getDefinition(item as Item).itemType as unknown as string == typeKey)
                     .map((item: string) => ({
                         value: item,
                         label: TextManager.getItemName(item as Item),
@@ -229,7 +230,7 @@ const CheatWindow = () => {
                             <ItemIcon item={option.value as Item} size={IconSize.smallest} />
                             <div className="item-label">
                                 {option.label}
-                                <span>{(option as any).subtext}</span>
+                                <span>{(option as unknown as { subtext: string}).subtext}</span>
                             </div>
                         </div>
                     )}

@@ -54,7 +54,7 @@ const StructureLevel = (props: Props) => {
                 structure,
             }, LogChannel.town)
         ];
-        const time = nextLevel.cost.time!;
+        const time = nextLevel.cost.time ?? 0;
         const start = startTask(TaskType.upgradeStructure,
             `${structure}.upgrade`,
             "town",

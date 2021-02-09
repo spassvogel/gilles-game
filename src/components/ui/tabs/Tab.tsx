@@ -5,12 +5,10 @@ export interface Props {
     className?: string;
     onClick?: React.MouseEventHandler<Element>;
     active?: boolean;
-    children?: any;
 }
 
-type AllProps = Props;
 
-const Tab = (props: AllProps) => {
+const Tab = (props: React.PropsWithChildren<Props>) => {
     const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
         if (props.onClick) {
             props.onClick(e);

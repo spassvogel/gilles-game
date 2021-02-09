@@ -34,9 +34,12 @@ const CraftingDetails = (props: Props) => {
     const workersFree = useWorkersFreeState();
     const [workersAssigned, setWorkersAssigned] = useState<number>(0);
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const produces = getProductionDefinition(item)!;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const costResources = produces.cost.resources!;
     const missingAtLeastOneResource = Object.keys(costResources)
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         .some((key) => { const resource:Resource = key as Resource; return costResources[resource]! > resourcesState[resource]! });
 
     let missingAtLeastOneItem = false;

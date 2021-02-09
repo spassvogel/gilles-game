@@ -1,6 +1,6 @@
 export interface TextEntry {
     key: string;
-    context?: any;
+    context?: unknown;
 }
 
 export function isTextEntry(test: any): test is TextEntry {

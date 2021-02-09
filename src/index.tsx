@@ -57,7 +57,7 @@ const setupStore = async (initial: DeepPartial<StoreState> = {}) => {
  * Gets called when a player starts a new game
  * @param store
  */
-const startNewGame = (store: any) => {
+const startNewGame = (store: Store<StoreState, AnyAction>) => {
     store.dispatch(startGame());
     store.dispatch(addLogText("test-game-welcome"));
     // todo: here is a good place to launch a tutorial or something

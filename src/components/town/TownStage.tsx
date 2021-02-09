@@ -14,7 +14,7 @@ export interface Props {
 }
 
 
-const TownStage = forwardRef<any, PropsWithChildren<Props>>((props: PropsWithChildren<Props>, ref: React.Ref<PixiViewport>) => {
+const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props: PropsWithChildren<Props>, ref: React.Ref<PixiViewport>) => {
     const {
         children,
         screenWidth,
@@ -26,6 +26,7 @@ const TownStage = forwardRef<any, PropsWithChildren<Props>>((props: PropsWithChi
     const innerRef = useRef<PixiViewport>(null);
 
     useImperativeHandle(ref, () => {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return innerRef.current!
     });
 

@@ -12,7 +12,6 @@ import Button from 'components/ui/buttons/Button';
 import ItemsBox from 'components/ui/items/ItemsBox';
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import "./styles/questboard.scss";
-// import { QuestVars } from "definitions/quests/questVars";
 
 export const AVAILABLE_SLOTS = 5;
 const minimumCountAdventurers = 3;  // we need this many adventurers to start the quest
@@ -79,8 +78,8 @@ const QuestBoard = (props: Props) => {
             return true;
         }
         return questDefinition.requiredItems.every((item: Item) => {
-            const amountRequired = (questDefinition.requiredItems)!.filter((i) => i === item).length;
-            return items.filter((i) => i === item).length >= amountRequired;
+            const amountRequired = (questDefinition.requiredItems)?.filter((i) => i === item).length;
+            return items.filter((i) => i === item).length >= (amountRequired ?? 0);
         });
     }
 

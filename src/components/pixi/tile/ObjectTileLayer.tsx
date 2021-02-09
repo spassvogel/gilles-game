@@ -1,5 +1,5 @@
 import { PixiComponent } from "@inlet/react-pixi";
-import * as PIXI  from 'pixi.js';
+import * as PIXI from 'pixi.js';
 import { TiledTilesetData } from 'constants/tiledMapData';
 import { SceneObject } from 'store/types/scene';
 import { CompositeRectTileLayer } from 'pixi-tilemap';
@@ -16,14 +16,15 @@ interface Props  {
     spritesheets: {[key: string]: PIXI.Spritesheet}
 }
 
-// unused at the moment
+// cant get this to work with pixi-tilemap :/
+// eslint-disable-next-line @typescript-eslint/no-explicit-any 
 const ObjectTileLayer = PixiComponent<Props, any>("ObjectTileLayer", {
     create(_props: Props) {
         const tileLayer = new CompositeRectTileLayer();
         return tileLayer;
     },
 
-    applyProps(instance, oldProps: Props, props: Props) {
+    applyProps(instance, _oldProps: Props, props: Props) {
         const {objects, tilesets, spritesheets} = props;
         if (!objects.length) {
             return;
@@ -41,21 +42,9 @@ const ObjectTileLayer = PixiComponent<Props, any>("ObjectTileLayer", {
             const spritesheet = spritesheets[tileset.name];
 
             // todo: add sprites!
-            // if () {
-                const spriteId = `${tileset.name}-${object.gid}`;
-                instance.addFrame(spritesheet.textures[spriteId], x, y);
-            // }
-            // const w = tileset.tilewidth;
-            // const h = tileset.tileheight;
-            // // const x = object.location[0] * w;
-            // // const y = object.location[1] * h;
-            // const x = object.x;
-            // const y = object.y;
-
-            // if (object.gid !== undefined) {
-            //     const spriteId = `${tileset.name}-${(object).gid}`;
-            //     instance.addFrame(spritesheet.textures[spriteId], x, y);
-            // }
+            const spriteId = `${tileset.name}-${object.gid}`;
+            instance.addFrame(spritesheet.textures[spriteId], x, y);
+      
         });
     }
 });

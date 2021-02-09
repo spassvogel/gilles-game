@@ -22,7 +22,7 @@ export abstract class TextManager {
     }
 
 //    public static addTexts(texts: Record<string, string>)
-    public static get(key: string, context?: any): string {
+    public static get(key: string, context?: unknown): string {
         const result = this.getDefault(key, context);
         if (result === null) {
             // tslint:disable-next-line: no-console
@@ -34,7 +34,7 @@ export abstract class TextManager {
     }
 
     // Will return `null` when no text found, otherwise will return the text
-    public static getDefault(key: string, context?: any): string|null {
+    public static getDefault(key: string, context?: unknown): string|null {
         if (!this.initialized) {
             throw new Error(`Error ${this} not initialized!`);
         }
@@ -122,7 +122,7 @@ export abstract class TextManager {
 
     private static initialized = false;
     private static texts: Record<string, string>;
-    private static templates: Record<string, Handlebars.TemplateDelegate<any>>;
+    private static templates: Record<string, Handlebars.TemplateDelegate<unknown>>;
 
     private static compileAll() {
         Object.keys(this.texts).forEach((key: string) =>  {

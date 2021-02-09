@@ -22,7 +22,7 @@ const dropTarget: DropTargetSpec<Props> = {
 
 export interface Props {
     item: Item | null;
-    onDrop: (item: any) => void;
+    onDrop: (info: InventoryItemDragInfo) => void;
     size?: IconSize;
 }
 

@@ -20,7 +20,6 @@ import { QuestDefinition } from 'definitions/quests/types';
 import { getDefinition } from 'definitions/quests';
 import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars';
 import deepmerge from "deepmerge";
-import { QuestVars } from "definitions/quests/questVars";
 
 // tslint:disable:object-literal-sort-keys
 export const initialQuestState: QuestStoreState[] = [{
@@ -112,7 +111,7 @@ const launchQuest = (questStoreState: QuestStoreState[], action: QuestLaunchActi
 
     return questStoreState.map((qss) => {
         if (qss.name === action.questName) {
-            const questDefinition: QuestDefinition = getDefinition<QuestVars>(action.questName);
+            const questDefinition: QuestDefinition = getDefinition(action.questName);
             const questVars = questDefinition.getInitialQuestVars(qss);
 
             return {

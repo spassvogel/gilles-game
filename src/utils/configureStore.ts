@@ -1,4 +1,4 @@
-import { createStore, DeepPartial, AnyAction } from "redux";
+import { createStore, DeepPartial, AnyAction, Store } from "redux";
 import { Persistor, persistReducer, persistStore } from "redux-persist";
 import localForage from 'localforage';
 import { PersistPartial } from 'redux-persist/lib/persistReducer';
@@ -16,7 +16,7 @@ const persistConfig = {
 const persistedReducer = persistReducer<StoreState, AnyAction>(persistConfig, rootReducer);
 
 interface ConfigureStoreResult {
-    store: any;
+    store: Store;
     persistor: Persistor;
     isHydrated: boolean;
 }

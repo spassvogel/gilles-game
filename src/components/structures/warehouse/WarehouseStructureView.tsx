@@ -50,6 +50,7 @@ const WarehouseStructureView = () => {
         const delta = Object.keys(resources).reduce<ResourceStoreState>((acc, value) => {
             const resource = value as Resource;
             if (previousResources && previousResources[resource]) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 acc[resource] = resources[resource]! - previousResources[resource]!;
             }
             return acc;

@@ -1,4 +1,4 @@
-import { Store, AnyAction } from "redux";
+import { Store, AnyAction, DeepPartial } from "redux";
 import { addAllTilesInLayerToList, locationEquals, TiledObjectType, parseProperties } from 'utils/tilemap';
 import { StoreState } from 'store/types';
 import { loadResourceAsync } from 'utils/pixiJs';
@@ -21,8 +21,6 @@ import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { GameSound, SoundManager } from 'global/SoundManager';
 import { Allegiance } from "store/types/combat";
 import { Item } from "definitions/items/types";
-import { PartialObjectDeep } from "type-fest/source/partial-deep";
-import { QuestVars } from "definitions/quests/questVars";
 
 const spritesheetBasePath = "img/scene/actors/";
 const movementDuration = 500; // time every tile movement takes
@@ -487,7 +485,7 @@ export class BaseSceneController<TQuestVars> {
     }
 
     // Provide questvars to update
-    protected updateQuestVars(updated: PartialObjectDeep<QuestVars>) {
+    protected updateQuestVars(updated: DeepPartial<TQuestVars>) {
         this.dispatch(updateQuestVars(this.questName, updated));
     }
 

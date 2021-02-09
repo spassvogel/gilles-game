@@ -27,6 +27,7 @@ const ResourcesCost = (props: Props) => {
     const sufficientResources = useMemo(() => {
         return Object.keys(resources).reduce<{[key: string]: boolean}>((acc, value) => {
             const resource = value as Resource;
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             acc[value] = storeResources[resource]! >= resources[resource]!;
             return acc;
         }, {});

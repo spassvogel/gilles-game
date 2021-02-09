@@ -1,5 +1,4 @@
 import { Item } from "definitions/items/types";
-import { QuestVars } from "definitions/quests/questVars";
 import { SceneStoreState } from './scene';
 
 export enum QuestStatus {
@@ -20,7 +19,7 @@ export interface QuestStoreState {
     status: QuestStatus;
     party: string[];                // list of adventurer ids
     progress: number;               // Which questnode the party is at currently
-    questVars: QuestVars;           // 
+    questVars: unknown;           // 
     encounterResults: string[];     // Store what option the place chose during an encounter // OBSOLETE
     icon: string;
 

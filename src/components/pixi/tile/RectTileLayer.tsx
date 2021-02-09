@@ -12,6 +12,8 @@ interface Props  {
     spritesheets: {[key: string]: PIXI.Spritesheet}
 }
 
+// cant get this to work with pixi-tilemap :/
+// eslint-disable-next-line @typescript-eslint/no-explicit-any 
 const RectTileLayer = PixiComponent<Props, any>("RectTileLayer", {
     create(_props: Props) {
         const tileLayer = new CompositeRectTileLayer();
