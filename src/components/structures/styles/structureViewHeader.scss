@@ -2,28 +2,57 @@
     height: 128px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     background-position: center;
     background-repeat: no-repeat;
+
+    &::after {
+        height: 100px;
+        content: "";
+        display: block;
+        margin-left: 32px;
+        width: 100px;
+        z-index: 22;
+        position: absolute;
+        background-size: 100% 100%;
+
+        filter: drop-shadow(5px 3px 4px rgba(0, 0, 0, 1));
+    }
 }
 
 .structureview-header-alchemist {
     background-image: url("./images/alchemist/banner.png");
     background-position: center -188px;
+
+    &::after {
+        background-image: url("./images/alchemist/icon.png");
+    }
 }
 
 .structureview-header-armoursmith {
     background-image: url("./images/armoursmith/banner.png");
     background-position: center -219px;
+
+    &::after {
+        background-image: url("./images/armoursmith/icon.png");
+    }
 }
 
 .structureview-header-mine {
     background-image: url("./images/mine/banner.png");
+
+    &::after {
+        background-image: url("./images/mine/icon.png");
+    }
 }
 
 .structureview-header-lumberMill {
     background-image: url("./images/lumberMill/banner.png");
     background-position: center -194px;
+
+    &::after {
+        background-image: url("./images/lumberMill/icon.png");
+    }
 }
 
 .structureview-header-garden {
@@ -34,6 +63,10 @@
 .structureview-header-weaver {
     background-image: url("./images/weaver/banner.png");
     background-position: center -247px;
+
+    &::after {
+        background-image: url("./images/weaver/icon.png");
+    }
 }
 
 .structureview-header-workshop {
@@ -43,11 +76,19 @@
 
 .structureview-header-tannery {
     background-image: url("./images/tannery/banner.png");
+
+    &::after {
+        background-image: url("./images/tannery/icon.png");
+    }
 }
 
 .structureview-header-weaponsmith {
     background-image: url("./images/weaponsmith/banner.png");
     background-position: center -280px;
+
+    &::after {
+        background-image: url("./images/weaponsmith/icon.png");
+    }
 } 
 
 .structureview-header-quarry {
