@@ -40,7 +40,6 @@ export interface EquipmentStoreState {
     [EquipmentSlotType.feet]?: Item;
     [EquipmentSlotType.mainHand]?: Item;
     [EquipmentSlotType.offHand]?: Item;
-    // [EquipmentSlotType.sideArm]?: Item;
 }
 
 export interface BasicAttributesStoreState {

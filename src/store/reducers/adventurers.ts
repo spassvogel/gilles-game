@@ -321,14 +321,15 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
 
         case ActionType.assignEquipment: {
             // Assigns equipment to an adventurer
-            const { equipmentSlot, item } = action as AssignEquipmentAction;
+            const { equipmentSlot, item, } = action as AssignEquipmentAction;
             return state.map((adventurer: AdventurerStoreState) => {
                 if (adventurer.id === action.adventurerId) {
+                    console.log('assigning', item, equipmentSlot, EquipmentSlotType[equipmentSlot], adventurer.equipment)
                     return {
                         ...adventurer,
                         equipment: {
                             ...adventurer.equipment,
-                            [EquipmentSlotType[equipmentSlot]]: item,
+                            [equipmentSlot]: item,
                         },
                     };
                 }
@@ -345,7 +346,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
                         ...adventurer,
                         equipment: {
                             ...adventurer.equipment,
-                            [EquipmentSlotType[equipmentSlot]]: null,
+                            [equipmentSlot]: null,
                         },
                     };
                 }
