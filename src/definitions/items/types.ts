@@ -115,6 +115,7 @@ export enum Item {
     goldenShield = "goldenShield",
     greatswordOfGwai = "greatswordOfGwai",
     halbert = "halbert",
+    huntingBow = "huntingBow",
     indomitableCarapace = "indomitableCarapace",
     javelin = "javelin",
     khopesh = "khopesh",

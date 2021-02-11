@@ -216,6 +216,14 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 12 },
     },
+    [Item.huntingBow]: {
+        item: Item.huntingBow,
+        itemType,
+        weaponType: WeaponType.bow,
+        iconImg: `${basePath}hunting-bow.png`,
+        rarity: Rarity.common,
+        damage: { [DamageType.kinetic]: 3 },
+    },
     [Item.indomitableCarapace]: {
         item: Item.indomitableCarapace,
         itemType,
