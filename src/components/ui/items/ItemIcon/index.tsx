@@ -20,8 +20,8 @@ const ItemIcon = (props: Props) => {
 
     if (!itemDefinition) {
         // tslint:disable-next-line: no-console
-        console.warn(`could not find definition for ${item}`);
-    }     // todo: [10/07/2019] assert
+        throw (`could not find definition for ${item}`);
+    }
 
     const handleClick = (event: React.MouseEvent) => {
         if (props.showContext !== false) {

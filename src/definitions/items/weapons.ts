@@ -200,6 +200,14 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         rarity: Rarity.legendary,
         damage: { [DamageType.kinetic]: 25 },
     },
+    [Item.halbert]: {
+        item: Item.halbert,
+        itemType,
+        weaponType: WeaponType.poleArm,
+        iconImg: `${basePath}halbert.png`,
+        rarity: Rarity.rare,
+        damage: { [DamageType.kinetic]: 12 },
+    },
     [Item.indomitableCarapace]: {
         item: Item.indomitableCarapace,
         itemType,
@@ -223,6 +231,14 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         iconImg: `${basePath}khopesh.png`,
         rarity: Rarity.epic,
         damage: { [DamageType.kinetic]: 15 },
+    },
+    [Item.legionnaireSword]: {
+        item: Item.legionnaireSword,
+        itemType,
+        weaponType: WeaponType.sword,
+        iconImg: `${basePath}legionnaire-sword.png`,
+        rarity: Rarity.rare,
+        damage: { [DamageType.kinetic]: 8 },
     },
     [Item.longbow]: {
         item: Item.longbow,
@@ -262,6 +278,14 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         rarity: Rarity.epic,
         damage: { [DamageType.kinetic]: 12 },
     },
+    [Item.pikeStaff]: {
+        item: Item.pikeStaff,
+        itemType,
+        weaponType: WeaponType.poleArm,
+        iconImg: `${basePath}pike-staff.png`,
+        rarity: Rarity.uncommon,
+        damage: { [DamageType.kinetic]: 22 },
+    },
     [Item.ravenStaff]: {
         item: Item.ravenStaff,
         itemType,
@@ -269,6 +293,14 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         iconImg: `${basePath}raven-staff.png`,
         rarity: Rarity.epic,
         damage: { [DamageType.kinetic]: 13 },
+    },
+    [Item.scythe]: {
+        item: Item.scythe,
+        itemType,
+        weaponType: WeaponType.poleArm,
+        iconImg: `${basePath}scythe.png`,
+        rarity: Rarity.common,
+        damage: { [DamageType.kinetic]: 5 },
     },
     [Item.savageStaff]: {
         item: Item.savageStaff,
@@ -301,11 +333,11 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         rarity: Rarity.rare,
         iconImg: `${basePath}steel-shield.png`,
     },
-    [Item.sword]: {
-        item: Item.sword,
+    [Item.steelSword]: {
+        item: Item.steelSword,
         itemType,
         weaponType: WeaponType.sword,
-        iconImg: `${basePath}sword.png`,
+        iconImg: `${basePath}steel-sword.png`,
         rarity: Rarity.uncommon,
         damage: { [DamageType.kinetic]: 14 },
     },

@@ -657,3 +657,7 @@ https://css-tricks.com/sticky-smooth-active-nav/
 
 ### Animated xp bar
 - [ ] xp bar animates when switching adventurer
+
+### Improve structure UI 
+- [ ] Add music/sound
+- [ ] add rpg professional badge
