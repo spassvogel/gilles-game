@@ -23,7 +23,7 @@ const Segment = (props: Props) => {
         }
     }, [props.position]);
 
-    const scale = activated ? 'scale(1.2)' : '';
+    const scale = activated ? 'scale(2)' : 'scale(1.5)';
     const style = {
         transform: `translate(${segmentWidth}px, ${tileHeight/2 - segmentHeight/2}px) ${scale} rotate(${rot}deg) translateX(${activated ? 36 : 44}px)`,
         background: `url(${process.env.PUBLIC_URL}/img/scene/ui/combat/ring-segment.svg)`,
@@ -31,16 +31,7 @@ const Segment = (props: Props) => {
         height: segmentHeight,
         ...(activated && { zIndex: 2})
     }
-    // const rotate = true;
-    // useEffect(() => {
-    //     if (rotate){
-    //         setTimeout(() => {
-    //             console.log(rot)
-    //             setRot(rot + 1)
-    //         }, 3)
-    //     }
-
-    // }, [rot]);
+   
 
     return (
         <div

@@ -85,6 +85,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         const location = findLocation(e);
         onMouseDown?.(location);
         mouseDown.current = true;
+        e.preventDefault();
     }
 
     const handleMouseUp = (_e: React.MouseEvent<HTMLDivElement>) => {
