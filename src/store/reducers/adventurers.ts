@@ -324,7 +324,6 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
             const { equipmentSlot, item, } = action as AssignEquipmentAction;
             return state.map((adventurer: AdventurerStoreState) => {
                 if (adventurer.id === action.adventurerId) {
-                    console.log('assigning', item, equipmentSlot, EquipmentSlotType[equipmentSlot], adventurer.equipment)
                     return {
                         ...adventurer,
                         equipment: {
