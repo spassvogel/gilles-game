@@ -176,6 +176,14 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         rarity: Rarity.uncommon,
         damage: { [DamageType.kinetic]: 8 },
     },
+    [Item.falchion]: {
+        item: Item.flail,
+        itemType,
+        weaponType: WeaponType.sword,
+        iconImg: `${basePath}falchion.png`,
+        rarity: Rarity.rare,
+        damage: { [DamageType.kinetic]: 12 },
+    },
     [Item.flail]: {
         item: Item.flail,
         itemType,

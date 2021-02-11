@@ -110,6 +110,7 @@ export enum Item {
     cleaver = "cleaver",
     club = "club",
     dagger = "dagger",
+    falchion = "falchion",
     flail = "flail",
     goldenShield = "goldenShield",
     greatswordOfGwai = "greatswordOfGwai",
