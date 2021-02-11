@@ -14,7 +14,7 @@ export interface SceneStoreState {
 
 export type SceneObject = Merge<TiledObjectData, {
     layerId: number;
-    properties: { [key: string]: any};
+    properties: { [key: string]: string | boolean | number };
     location?: [number, number];
 }>;
 
@@ -69,7 +69,7 @@ export const getSpritesheetPaths = (objects: SceneObject[]) => {
     return Array.from(
         new Set<string>(
             objects.filter(o => o.properties.isSprite)
-                .map(o => o.properties.spritesheet)
+                .map(o => o.properties.spritesheet as string)
         )
     );
 }

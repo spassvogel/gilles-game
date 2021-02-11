@@ -155,7 +155,7 @@ export class BaseSceneController<TQuestVars> {
         if (destination.type === TiledObjectType.exit) {
             // We've hit the exit. Should we load another scene?
             if (destination.properties.loadScene) {
-                this.dispatch(setSceneName(this.questName, destination.properties.loadScene))
+                this.dispatch(setSceneName(this.questName, destination.properties.loadScene as string))
             } else {
                 // Or exit the encounter
                 const index = Math.floor(this.quest.progress) + 1;
