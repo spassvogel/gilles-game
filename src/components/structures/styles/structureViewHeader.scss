@@ -58,6 +58,10 @@
 .structureview-header-garden {
     background-image: url("./images/garden/banner.png");
     background-position: center -492px;
+
+    &::after {
+        background-image: url("./images/garden/icon.png");
+    }
 }
 
 .structureview-header-weaver {
