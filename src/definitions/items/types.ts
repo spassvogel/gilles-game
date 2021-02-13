@@ -119,6 +119,7 @@ export enum Item {
     halbert = "halbert",
     huntingBow = "huntingBow",
     indomitableCarapace = "indomitableCarapace",
+    jaggedBlade = "jaggedBlade",
     javelin = "javelin",
     khopesh = "khopesh",
     legionnaireSword = "legionnaireSword",

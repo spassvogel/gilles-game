@@ -248,6 +248,13 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         unique: true,
         iconImg: `${basePath}indomitable-carapace.png`,
     },
+    [Item.jaggedBlade]: {
+        item: Item.jaggedBlade,
+        itemType,
+        weaponType: WeaponType.knife,
+        rarity: Rarity.epic,
+        iconImg: `${basePath}jagged-blade.png`,
+    },
     [Item.javelin]: {
         item: Item.javelin,
         itemType,
