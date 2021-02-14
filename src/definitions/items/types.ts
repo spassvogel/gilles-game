@@ -1,8 +1,9 @@
 import { Rarity } from 'constants/items';
 
 export enum ItemType {
-    deed,
     apparel,
+    deed,
+    herb,
     material,
     questItem,
     trinket,
@@ -51,6 +52,32 @@ export enum Item {
     shoulders2 = "shoulders2",
     shoulders3 = "shoulders3",
     vest = "vest",
+
+    // herbs 
+    angelicasSorrow = "angelicasSorrow",
+    bansheeReeds = "bansheeReeds",
+    blissflower = "blissflower",
+    bloodLotus = "bloodLotus",
+    bogroot = "bogroot",
+    ceviorise = "ceviorise",
+    chicory = "chicory",
+    dragonroot = "dragonroot",
+    heartsVine = "heartsVine",
+    hyacinthus = "hyacinthus",
+    jaboticaba = "jaboticaba",
+    kingsrose = "kingsrose",
+    lastSupper = "lastSupper",
+    mistagold = "mistagold",
+    monksweed = "monksweed",
+    moonFlower = "moonFlower",
+    mountainGrass = "mountainGrass",
+    oakLeaf = "oakLeaf",
+    patricksroot = "patricksroot",
+    sunleaf = "sunleaf",
+    trollsFeast = "trollsFeast",
+    uwolic = "uwolic",
+    winterWeed = "winterWeed",
+    wizardsBane = "wizardsBane",
 
     // materials
     arrowheads = "arrowheads",
