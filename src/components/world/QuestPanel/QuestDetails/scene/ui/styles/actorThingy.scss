@@ -1,0 +1,16 @@
+.actor-thingy {
+    position: absolute;
+    margin-top: -32px;
+
+    .healthbar {
+        height: 12px;
+        background: orange;
+        border: 4px solid orange;
+        box-sizing: border-box;
+
+        .track {
+            height: 100%;
+            background: green;
+        }
+    }
+}
