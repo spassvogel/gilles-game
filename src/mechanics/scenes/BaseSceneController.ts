@@ -434,6 +434,7 @@ export class BaseSceneController<TQuestVars> {
                         object.type = TiledObjectType.actor;
                         if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
                             object.name = adventurer.id;
+                            object.health = adventurer.health;
                             object.allegiance = Allegiance.player;
                             object.properties.adventurerId = adventurer.id;
                             object.properties.isSprite = true;
@@ -446,6 +447,7 @@ export class BaseSceneController<TQuestVars> {
                 } else if (object.type === TiledObjectType.enemySpawn) {
                     object.type = TiledObjectType.actor;
                     if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
+                        object.health = Math.random() * 100;
                         object.allegiance = Allegiance.enemy;
                         object.properties.isSprite = true;
                         object.properties.spritesheet = `${spritesheetBasePath}troll-sword.json`;

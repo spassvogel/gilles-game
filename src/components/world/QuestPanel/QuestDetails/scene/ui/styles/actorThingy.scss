@@ -1,6 +1,19 @@
+@import 'components/styles/variables.scss';
+
 .actor-thingy {
     position: absolute;
-    margin-top: -32px;
+    margin-top: -46px;
+
+    .name {
+        height: 16px;
+        margin-bottom: 4px;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        text-align: center;
+        color: $color-text-lighter;
+    }
 
     .healthbar {
         height: 12px;
