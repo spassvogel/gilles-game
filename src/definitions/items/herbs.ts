@@ -116,6 +116,11 @@ const all = {
         itemType,
         iconImg: `${basePath}uwolic.png`,
     },
+    [Item.wyrmvine]: {
+        item: Item.wyrmvine,
+        itemType,
+        iconImg: `${basePath}wyrmvine.png`,
+    },
     [Item.winterWeed]: {
         item: Item.winterWeed,
         itemType,

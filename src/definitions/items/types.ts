@@ -76,6 +76,7 @@ export enum Item {
     sunleaf = "sunleaf",
     trollsFeast = "trollsFeast",
     uwolic = "uwolic",
+    wyrmvine = "wyrmvine",
     winterWeed = "winterWeed",
     wizardsBane = "wizardsBane",
 
