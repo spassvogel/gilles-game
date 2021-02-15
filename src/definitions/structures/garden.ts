@@ -1,4 +1,5 @@
 // tslint:disable:object-literal-sort-keys
+import { Item } from 'definitions/items/types';
 import { ONE_MINUTE, TWO_MINUTES } from 'utils/format/time';
 import { ResourceStructureDefinition, StructureType } from "./types";
 
@@ -16,6 +17,13 @@ const garden: ResourceStructureDefinition = {
             gold: 0,
         },
         generates: { food: 2 },
+        harvest: {
+            amount: 3,
+            lootTable: {
+                [Item.bogroot]: 2,
+                [Item.winterWeed]: 1
+            }
+        }
     }, {
         displayName: "structure-garden-name",
         // level 2:

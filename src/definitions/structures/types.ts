@@ -27,8 +27,14 @@ export interface ResourceStructureDefinition extends StructureDefinition {
     levels: ResourceStructureLevelDefinition[];
 }
 
+interface HarvestDefinition {
+    amount: number;
+    lootTable: Partial<Record<Item, number>>;
+}
+
 export interface ResourceStructureLevelDefinition extends StructureLevelDefinition {
     generates: ResourceStoreState;
+    harvest?: HarvestDefinition;
 }
 
 export interface ProductionStructureDefinition extends StructureDefinition {

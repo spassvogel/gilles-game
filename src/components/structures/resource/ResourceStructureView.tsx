@@ -16,6 +16,8 @@ import useStructureState from 'hooks/store/useStructureState';
 import ResourceGenerationRow from './ResourceGenerationRow';
 import { Resource } from 'definitions/resources';
 import './styles/resourceStructureView.scss';
+import Button from "components/ui/buttons/Button";
+import { pick } from "mechanics/lootTable";
 
 
 export interface Props  {
@@ -73,10 +75,12 @@ const ResourceStructureView = (props: Props) => {
                         onDown={handleWorkersDown}
                         onUp={handleWorkersUp}
                     />
+                    { /** Generates this resource */}
                     { Object.keys(levelDefinition.generates).map(r => <ResourceGenerationRow structure={structure} resource={r as Resource} key={r} />)}
+                    { /** Generates these items */}
+                    { levelDefinition.harvest && <Button onClick={() => { console.log(pick(levelDefinition.harvest!.lootTable))}}>harvest!</Button> }
                 </section>
             </div>
-
         </>
     );
 };
