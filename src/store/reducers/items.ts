@@ -4,6 +4,7 @@ import { AnyAction, Reducer } from "redux";
 import { getDefinition, Structure } from 'definitions/structures';
 import { WarehouseStructureDefinition } from 'definitions/structures/types';
 import { Item } from "definitions/items/types";
+import allItems from "definitions/items";
 
 // Items in warehouse
 export const getItemsInitialState = (): (Item|null)[] => {
@@ -15,6 +16,7 @@ export const getItemsInitialState = (): (Item|null)[] => {
             result.push(null)
         } else {
             const randomItem = getRandomItem();
+            console.log(randomItem)
             result.push(randomItem);
         }
     }
@@ -22,11 +24,9 @@ export const getItemsInitialState = (): (Item|null)[] => {
 }
 
 const getRandomItem = (): Item => {
-    return "weapon/arbalest"
-    // const enumValues = (Object.values(keyof Item) as unknown) as T[keyof T][];
-    // const randomIndex = Math.floor(Math.random() * enumValues.length);
-    // return enumValues[randomIndex];
-  
+    const all = Object.keys(allItems)
+    const randomIndex = Math.floor(Math.random() * all.length);
+    return all[randomIndex] as Item; 
 }
 
 /**
