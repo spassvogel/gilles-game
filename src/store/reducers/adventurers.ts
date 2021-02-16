@@ -63,7 +63,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
         [WeaponType.bow]: 10
     },
     // tslint:disable-next-line:max-line-length
-    inventory: [ "deed/deedForLumbermill", null, "weapon/simpleCrossbow", "weapon/dagger", "weapon/khopesh", null, "weapon/steelSword", null,  null,  null,  null,  "weapon/steelShield",  null,  null,  null,  null],
+    inventory: [ "deed/lumbermill", null, "weapon/simpleCrossbow", "weapon/dagger", "weapon/khopesh", null, "weapon/steelSword", null,  null,  null,  null,  "weapon/steelShield",  null,  null,  null,  null],
 }, {
     id: "2e655832",
     equipment: {

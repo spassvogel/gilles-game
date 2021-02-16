@@ -4,19 +4,19 @@ import { Item, ItemDefinition, ItemType } from "./types";
 type Prefix = "deed/";
 const PREFIX = "deed/";
 const itemType = ItemType.deed;
-const basePath = "/img/items/deed/";
+const basePath = "/img/items/deeds/";
 
 export interface DeedDefinition extends ItemDefinition {
     structure: Structure;
 }
 
 const deeds = {
-    deedForLumbermill: {
+    lumbermill: {
         structure: Structure.lumberMill,
         itemType,
         iconImg: `${basePath}deed.png`,
     },
-    deedForWeaponsmith: {
+    weaponsmith: {
         structure: Structure.weaponsmith,
         itemType,
         iconImg: `${basePath}deed.png`,
