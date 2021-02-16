@@ -1,6 +1,4 @@
-// tslint:disable:object-literal-sort-keys
 import { ProductionStructureDefinition, StructureType } from "./types";
-import { Item } from 'definitions/items/types';
 import { ONE_MINUTE, THREE_MINUTES, TWO_MINUTES } from 'utils/format/time';
 
 const weaponsmith: ProductionStructureDefinition = {
@@ -44,7 +42,7 @@ const weaponsmith: ProductionStructureDefinition = {
             gold: 50,
             time: THREE_MINUTES
         },
-        unlocks: [Item.poisonedDagger],
+        unlocks: ["weapon/poisonedDagger"],
     }],
 };
 export default weaponsmith;

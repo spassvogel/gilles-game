@@ -1,184 +1,183 @@
-// tslint:disable:object-literal-sort-keys
 
+import { Weapon } from "definitions/items/weapons";
 import * as time from "utils/format/time";
-import { Item } from "../items/types";
 import { ProductionDefinition } from "./types";
 
-const weaponsmithProduction: {[key: string]: ProductionDefinition} = {
-    [Item.aegisOfValor]: {
-        item: Item.aegisOfValor,
+const weaponsmithProduction: {[key in Weapon]?: ProductionDefinition} = {
+    "weapon/aegisOfValor": {
+        item: "weapon/aegisOfValor",
         levelRequired: 3,
         cost: {
             resources: { wood: 20, iron: 5 },
             time: time.HALF_HOUR,
         },
     },
-    [Item.arbalest]: {
-        item: Item.arbalest,
+    "weapon/arbalest": {
+        item: "weapon/arbalest",
         cost: {
             resources: { wood: 20, iron: 5 },
             time: time.HALF_HOUR,
         },
     },
-    [Item.battleAxe]: {
-        item: Item.battleAxe,
+    "weapon/battleAxe": {
+        item: "weapon/battleAxe",
         cost: {
             resources: { wood: 20, iron: 5 },
             time: time.HALF_HOUR,
         },
     },
-    [Item.berserkerShield]: {
-        item: Item.berserkerShield,
+    "weapon/berserkerShield": {
+        item: "weapon/berserkerShield",
         levelRequired: 2,
         cost: {
             resources: { wood: 20, iron: 5 },
             time: time.HALF_HOUR,
         },
     },
-    [Item.brassKnuckles]: {
-        item: Item.brassKnuckles,
+    "weapon/brassKnuckles": {
+        item: "weapon/brassKnuckles",
         cost: {
             resources: { wood: 20, iron: 5 },
             time: time.HALF_HOUR,
         },
     },
-    [Item.simpleCrossbow]: {
-        item: Item.simpleCrossbow,
+    "weapon/simpleCrossbow": {
+        item: "weapon/simpleCrossbow",
         cost: {
             resources: { wood: 20, iron: 5 },
             time: time.HALF_HOUR,
         },
     },
-    [Item.cleaver]: {
-        item: Item.cleaver,
+    "weapon/cleaver": {
+        item: "weapon/cleaver",
         cost: {
             resources: { wood: 10, iron: 15 },
             time: time.HALF_HOUR,
         },
     },
-    [Item.club]: {
-        item: Item.club,
+    "weapon/club": {
+        item: "weapon/club",
         cost: {
             resources: { wood: 30,},
             time: time.HALF_HOUR,
         },
     },
-    [Item.dagger]: {
-        item: Item.dagger,
+    "weapon/dagger": {
+        item: "weapon/dagger",
         cost: {
             resources: { wood: 10, iron: 10},
             time: time.ONE_HOUR,
         },
     },
-    [Item.flail]: {
-        item: Item.flail,
+    "weapon/flail": {
+        item: "weapon/flail",
         cost: {
             resources: { wood: 10, iron: 10},
             time: time.ONE_HOUR,
         },
     },
-    [Item.goldenShield]: {
-        item: Item.goldenShield,
+    "weapon/goldenShield": {
+        item: "weapon/goldenShield",
         levelRequired: 2,
         cost: {
             resources: { wood: 20, iron: 5 },
             time: time.HALF_HOUR,
         },
     },
-    [Item.javelin]: {
-        item: Item.javelin,
+    "weapon/javelin": {
+        item: "weapon/javelin",
         cost: {
             resources: { wood: 20, iron: 10},
             time: time.ONE_HOUR + time.HALF_HOUR,
         },
     },
-    [Item.khopesh]: {
-        item: Item.khopesh,
+    "weapon/khopesh": {
+        item: "weapon/khopesh",
         cost: {
             resources: { wood: 15, iron: 40},
             time:  time.TWO_MINUTES,
         },
     },
-    [Item.longbow]: {
-        item: Item.longbow,
+    "weapon/longbow": {
+        item: "weapon/longbow",
         cost: {
             resources: { wood: 40, iron: 5},
             time: time.ONE_HOUR,
         },
     },
-    [Item.mace]: {
-        item: Item.mace,
+    "weapon/mace": {
+        item: "weapon/mace",
         cost: {
             resources: { wood: 15, iron: 10},
             time: time.ONE_HOUR,
         },
     },
-    [Item.morningStar]: {
-        item: Item.morningStar,
+    "weapon/morningStar": {
+        item: "weapon/morningStar",
         cost: {
             resources: { wood: 15, iron: 15},
             time: time.ONE_HOUR,
         },
     },
-    [Item.paintedBuckler]: {
-        item: Item.paintedBuckler,
+    "weapon/paintedBuckler": {
+        item: "weapon/paintedBuckler",
         cost: {
             resources: { wood: 20, iron: 10},
             time: time.ONE_HOUR + time.HALF_HOUR,
         },
     },
-    [Item.poisonedDagger]: {
-        item: Item.poisonedDagger,
+    "weapon/poisonedDagger": {
+        item: "weapon/poisonedDagger",
         cost: {
             resources: { wood: 50, iron: 15},
-            materials: [ Item.poisonVial ],
+            materials: [ "material/poisonVial" ],
             time: time.ONE_HOUR,
         },
     },
-    [Item.ravenStaff]: {
-        item: Item.ravenStaff,
+    "weapon/ravenStaff": {
+        item: "weapon/ravenStaff",
         cost: {
             resources: { wood: 15, iron: 10, food: 5},
             time: time.ONE_HOUR,
         },
     },
-    [Item.savageStaff]: {
-        item: Item.savageStaff,
+    "weapon/savageStaff": {
+        item: "weapon/savageStaff",
         cost: {
             resources: { wood: 15, iron: 10, food: 5},
             time: time.ONE_HOUR,
         },
     },
-    [Item.spear]: {
-        item: Item.spear,
+    "weapon/spear": {
+        item: "weapon/spear",
         cost: {
             resources: { wood: 15, iron: 15},
             time: time.ONE_HOUR,
         },
     },
-    [Item.steelShield]: {
-        item: Item.steelShield,
+    "weapon/steelShield": {
+        item: "weapon/steelShield",
         cost: {
             resources: { wood: 15, iron: 15},
             time: time.ONE_HOUR,
         },
     },
-    [Item.steelSword]: {
-        item: Item.steelSword,
+    "weapon/steelSword": {
+        item: "weapon/steelSword",
         cost: {
             resources: { wood: 10, iron: 30},
             time:  time.ONE_HOUR,
         },
     },
-    [Item.warhammer]: {
-        item: Item.warhammer,
+    "weapon/warhammer": {
+        item: "weapon/warhammer",
         cost: {
             resources: { wood: 10, iron: 30},
             time:  time.ONE_HOUR,
         },
     },
-    [Item.woodenBulwark]: {
-        item: Item.woodenBulwark,
+    "weapon/woodenBulwark": {
+        item: "weapon/woodenBulwark",
         cost: {
             resources: { wood: 10, iron: 30},
             time:  time.ONE_HOUR,
@@ -187,6 +186,6 @@ const weaponsmithProduction: {[key: string]: ProductionDefinition} = {
 };
 export default weaponsmithProduction;
 
-export function getDefinition(item: Item) {
+export function getDefinition(item: Weapon) {
     return weaponsmithProduction[item];
 }

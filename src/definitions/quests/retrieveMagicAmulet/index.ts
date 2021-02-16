@@ -1,5 +1,4 @@
 import { QuestStoreState } from 'store/types/quest';
-import { Item } from 'definitions/items/types';
 import { QuestDefinition, QuestNodeType } from '../types';
 
 export interface RetrieveMagicAmuletQuestVars {
@@ -17,11 +16,11 @@ const retrieveMagicAmulet: QuestDefinition<RetrieveMagicAmuletQuestVars> = {
         return vars;
     },
     requiredItems: [
-        Item.torch,
-        Item.torch,
-        Item.torch,
-        Item.sandwich,
-        Item.sandwich,
+        "questItem/torch",
+        "questItem/torch",
+        "questItem/torch",
+        "questItem/sandwich",
+        "questItem/sandwich",
     ],
     nodes: [{
         x: 0,

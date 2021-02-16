@@ -1,5 +1,3 @@
-// tslint:disable:object-literal-sort-keys
-import { Item } from 'definitions/items/types';
 import { ONE_MINUTE, TWO_MINUTES } from 'utils/format/time';
 import { ResourceStructureDefinition, StructureType } from "./types";
 
@@ -20,8 +18,8 @@ const garden: ResourceStructureDefinition = {
         harvest: {
             amount: 3,
             lootTable: {
-                [Item.bogroot]: 2,
-                [Item.winterWeed]: 1
+                "herb/bogroot": 2,
+                "herb/winterWeed": 1
             }
         }
     }, {

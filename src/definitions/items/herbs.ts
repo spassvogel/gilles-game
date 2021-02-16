@@ -1,136 +1,121 @@
-// tslint:disable:object-literal-sort-keys
+import { Item, ItemDefinition, ItemType } from "./types";
 
-import { Item, ItemType } from "./types";
-
+type Prefix = "herb/";
+const PREFIX = "herb/";
 const itemType = ItemType.herb;
 const basePath = "/img/items/herbs/";
 
 const all = {
-    [Item.angelicasSorrow]: {
-        item: Item.angelicasSorrow,
+    angelicasSorrow: {
         itemType,
         iconImg: `${basePath}angelicas-sorrow.png`,
     },
-    [Item.bansheeReeds]: {
-        item: Item.bansheeReeds,
+    bansheeReeds: {
         itemType,
         iconImg: `${basePath}banshee-reeds.png`,
     },
-    [Item.blissflower]: {
-        item: Item.blissflower,
+    blissflower: {
         itemType,
         iconImg: `${basePath}blissflower.png`,
     },
-    [Item.bloodLotus]: {
-        item: Item.bloodLotus,
+    bloodLotus: {
         itemType,
         iconImg: `${basePath}blood-lotus.png`,
     },
-    [Item.bogroot]: {
-        item: Item.bogroot,
+    bogroot: {
         itemType,
         iconImg: `${basePath}bogroot.png`,
     },
-    [Item.ceviorise]: {
-        item: Item.ceviorise,
+    ceviorise: {
         itemType,
         iconImg: `${basePath}ceviorise.png`,
     },
-    [Item.chicory]: {
-        item: Item.chicory,
+    chicory: {
         itemType,
         iconImg: `${basePath}chicory.png`,
     },
-    [Item.dragonroot]: {
-        item: Item.dragonroot,
+    dragonroot: {
         itemType,
         iconImg: `${basePath}dragonroot.png`,
     },
-    [Item.heartsVine]: {
-        item: Item.heartsVine,
+    heartsVine: {
         itemType,
         iconImg: `${basePath}hearts-vine.png`,
     },
-    [Item.hyacinthus]: {
-        item: Item.hyacinthus,
+    hyacinthus: {
         itemType,
         iconImg: `${basePath}hyacinthus.png`,
     },
-    [Item.jaboticaba]: {
-        item: Item.jaboticaba,
+    jaboticaba: {
         itemType,
         iconImg: `${basePath}jaboticaba.png`,
     },
-    [Item.kingsrose]: {
-        item: Item.kingsrose,
+    kingsrose: {
         itemType,
         iconImg: `${basePath}kingsrose.png`,
     },
-    [Item.lastSupper]: {
-        item: Item.lastSupper,
+    lastSupper: {
         itemType,
         iconImg: `${basePath}last-supper.png`,
     },
-    [Item.mistagold]: {
-        item: Item.mistagold,
+    mistagold: {
         itemType,
         iconImg: `${basePath}mistagold.png`,
     },
-    [Item.monksweed]: {
-        item: Item.monksweed,
+    monksweed: {
         itemType,
         iconImg: `${basePath}monksweed.png`,
     },
-    [Item.moonFlower]: {
-        item: Item.moonFlower,
+    moonFlower: {
         itemType,
         iconImg: `${basePath}moon-flower.png`,
     },
-    [Item.mountainGrass]: {
-        item: Item.mountainGrass,
+    mountainGrass: {
         itemType,
         iconImg: `${basePath}mountain-grass.png`,
     },
-    [Item.oakLeaf]: {
-        item: Item.oakLeaf,
+    oakLeaf: {
         itemType,
         iconImg: `${basePath}mountain-grass.png`,
     },
-    [Item.patricksroot]: {
-        item: Item.patricksroot,
+    patricksroot: {
         itemType,
         iconImg: `${basePath}patricksroot.png`,
     },
-    [Item.sunleaf]: {
-        item: Item.sunleaf,
+    sunleaf: {
         itemType,
         iconImg: `${basePath}sunleaf.png`,
     },
-    [Item.trollsFeast]: {
-        item: Item.trollsFeast,
+    trollsFeast: {
         itemType,
         iconImg: `${basePath}trolls-feast.png`,
     },
-    [Item.uwolic]: {
-        item: Item.uwolic,
+    uwolic: {
         itemType,
         iconImg: `${basePath}uwolic.png`,
     },
-    [Item.wyrmvine]: {
-        item: Item.wyrmvine,
+    wyrmvine: {
         itemType,
         iconImg: `${basePath}wyrmvine.png`,
     },
-    [Item.winterWeed]: {
-        item: Item.winterWeed,
+    winterWeed: {
         itemType,
         iconImg: `${basePath}winter-weed.png`,
     },
-    [Item.wizardsBane]: {
-        item: Item.wizardsBane,
+    wizardsBane: {
         itemType,
         iconImg: `${basePath}wizards-bane.png`,
     },
 };
 
+
 export default all;
+export type Herb = `${Prefix}${keyof typeof all}`;
+
+export function getDefinition(herb: Herb): ItemDefinition {
+    return all[herb.substring((PREFIX).length) as keyof typeof all];
+}
+
+export const isHerb = (item: Item): item is Herb => {
+    return item.substring(PREFIX.length) === PREFIX;
+}

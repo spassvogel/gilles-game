@@ -1,6 +1,7 @@
+import { Item } from "definitions/items/types";
 import { ResourceStoreState } from "store/types/resources";
+import { ProducableItem } from "store/types/structure";
 import { CostStoreState } from "../production/types";
-import { Item } from 'definitions/items/types';
 
 export enum StructureType {
     resource,
@@ -29,7 +30,7 @@ export interface ResourceStructureDefinition extends StructureDefinition {
 
 interface HarvestDefinition {
     amount: number;
-    lootTable: Partial<Record<Item, number>>;
+    lootTable: {[key in Item]?: number};
 }
 
 export interface ResourceStructureLevelDefinition extends StructureLevelDefinition {
@@ -42,7 +43,7 @@ export interface ProductionStructureDefinition extends StructureDefinition {
 }
 
 export interface ProductionStructureLevelDefinition extends StructureLevelDefinition {
-    unlocks: Item[];
+    unlocks: ProducableItem[];
 }
 
 export interface WarehouseStructureDefinition extends StructureDefinition {

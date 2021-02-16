@@ -1,9 +1,6 @@
-// tslint:disable:object-literal-sort-keys
-
 import { Structure } from "definitions/structures";
 import { Action } from "redux";
-import { StructureState } from "store/types/structure";
-import { Item } from 'definitions/items/types';
+import { ProducableItem, StructureState } from "store/types/structure";
 
 export enum ActionType {
     upgradeStructure = "upgradeStructure",
@@ -22,7 +19,7 @@ export interface StructureStateAction extends StructureAction {
     state: StructureState;
 }
 export interface AddItemToProducesAction extends StructureAction {
-    item: Item;
+    item: ProducableItem;
 }
 
 export interface WorkerCountAction extends StructureAction {
@@ -76,7 +73,7 @@ export function setStructureState(structure: Structure, state: StructureState): 
     };
 }
 
-export function addItemToToProduces(structure: Structure, item: Item): AddItemToProducesAction {
+export function addItemToToProduces(structure: Structure, item: ProducableItem): AddItemToProducesAction {
     return {
         type: ActionType.addItemToToProduces,
         structure,

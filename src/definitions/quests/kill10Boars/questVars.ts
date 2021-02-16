@@ -1,4 +1,3 @@
-import { Item } from 'definitions/items/types';
 import { LootCache } from 'store/types/scene';
 
 export interface Kill10BoarsQuestVars {
@@ -29,10 +28,10 @@ export const initialQuestVars: Kill10BoarsQuestVars = {
             chest: {
                 title: "encounter-dungeon-caches-chest",
                 items: [
-                    Item.nomadHelmet,
-                    Item.teeth,
-                    Item.poisonVial,
-                    Item.fedora,
+                    "apparel/nomadHelmet",
+                    "questItem/teeth",
+                    "material/poisonVial",
+                    "apparel/fedora",
                 ],
                 gold: 100
             },
@@ -47,7 +46,7 @@ export const initialQuestVars: Kill10BoarsQuestVars = {
         hallway: {
             chest: {
                 title: "encounter-dungeon-caches-chest",
-                items: [ Item.key ]
+                items: [ "questItem/key" ]
             },
             chestOpen: false,
             doorOpen: false

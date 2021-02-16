@@ -1,91 +1,82 @@
-// tslint:disable:object-literal-sort-keys
+import { Item, ItemDefinition, ItemType } from "./types";
 
-import { Item, ItemType } from "./types";
-
+type Prefix = "material/";
+const PREFIX = "material/";
 const itemType = ItemType.material;
 const basePath = "/img/items/materials/";
 
+
 const all = {
-    [Item.arrowheads]: {
-        item: Item.arrowheads,
+    arrowheads: {
         itemType,
         iconImg: `${basePath}arrowheads.png`,
     },
-    [Item.bolts]: {
-        item: Item.bolts,
+    bolts: {
         itemType,
         iconImg: `${basePath}bolts.png`,
     },
-    [Item.buckle]: {
-        item: Item.buckle,
+    buckle: {
         itemType,
         iconImg: `${basePath}buckle.png`,
     },
-    [Item.chain]: {
-        item: Item.chain,
+    chain: {
         itemType,
         iconImg: `${basePath}chain.png`,
     },
-    [Item.cogs]: {
-        item: Item.cogs,
+    cogs: {
         itemType,
         iconImg: `${basePath}cogs.png`,
     },
-    [Item.gem]: {
-        item: Item.gem,
+    gem: {
         itemType,
         iconImg: `${basePath}gem.png`,
     },
-    [Item.ingot]: {
-        item: Item.ingot,
-        itemType,
-        iconImg: `${basePath}ingot.png`,
-    },
-    [Item.nails]: {
-        item: Item.nails,
-        itemType,
-        iconImg: `${basePath}nails.png`,
-    },
-    [Item.poisonVial]: {
-        item: Item.poisonVial,
-        itemType,
-        iconImg: `${basePath}poison-vial.png`,
-    },
-    [Item.ribbon]: {
-        item: Item.ribbon,
-        itemType,
-        iconImg: `${basePath}ribbon.png`,
-    },
-    [Item.rope]: {
-        item: Item.rope,
-        itemType,
-        iconImg: `${basePath}rope.png`,
-    },
-    [Item.gem]: {
-        item: Item.gem,
-        itemType,
-        iconImg: `${basePath}gem.png`,
-    },
-    [Item.gunpowder]: {
-        item: Item.gunpowder,
+    gunpowder: {
         itemType,
         iconImg: `${basePath}gunpowder.png`,
     },
-    [Item.scales]: {
-        item: Item.scales,
+    ingot: {
+        itemType,
+        iconImg: `${basePath}ingot.png`,
+    },
+    nails: {
+        itemType,
+        iconImg: `${basePath}nails.png`,
+    },
+    poisonVial: {
+        itemType,
+        iconImg: `${basePath}poison-vial.png`,
+    },
+    ribbon: {
+        itemType,
+        iconImg: `${basePath}ribbon.png`,
+    },
+    rope: {
+        itemType,
+        iconImg: `${basePath}rope.png`,
+    },
+    scales: {
         itemType,
         iconImg: `${basePath}scales.png`,
     },
-    [Item.spring]: {
-        item: Item.spring,
+    spring: {
         itemType,
         iconImg: `${basePath}spring.png`,
     },
-    [Item.thread]: {
-        item: Item.thread,
+    thread: {
         itemType,
         iconImg: `${basePath}thread.png`,
     },
 };
 
+
 export default all;
+export type Material = `${Prefix}${keyof typeof all}`;
+
+export function getDefinition(material: Material): ItemDefinition {
+    return all[material.substring((PREFIX).length) as keyof typeof all];
+}
+
+export const isMaterial = (item: Item): item is Material => {
+    return item.substring(PREFIX.length) === PREFIX;
+}

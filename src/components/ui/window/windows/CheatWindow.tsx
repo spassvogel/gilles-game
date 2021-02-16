@@ -176,7 +176,7 @@ const CheatWindow = () => {
                 label: type as unknown as ItemType,
                 value: "",
                 subtext: "",
-                options: Object.keys(Item)
+                options: Object.keys({}) // todo: items
                     .filter((item: string) => getDefinition(item as Item).itemType as unknown as string == typeKey)
                     .map((item: string) => ({
                         value: item,

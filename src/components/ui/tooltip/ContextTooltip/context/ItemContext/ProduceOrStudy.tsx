@@ -3,7 +3,7 @@ import { Item } from 'definitions/items/types';
 import { getDefinition as getProductionDefinition, getProductionStructureForItem } from 'definitions/production';
 import useStructureState from 'hooks/store/useStructureState';
 import { Structure } from 'definitions/structures';
-import { ProductionStructureStoreState, StructureState } from 'store/types/structure';
+import { ProducableItem, ProductionStructureStoreState, StructureState } from 'store/types/structure';
 import { getDefinition as getItemDefinition } from 'definitions/items';
 import { Link } from 'react-router-dom';
 import { getStructureLink } from 'utils/routing';
@@ -18,7 +18,7 @@ import { STUDY_TIME } from 'mechanics/studying';
 import Button from 'components/ui/buttons/Button';
 
 interface Props {
-    item: Item;
+    item: ProducableItem;
 }
 
 const ProduceOrStudy = (props: Props) => {

@@ -2,6 +2,8 @@
 import { Item, ItemDefinition, ItemType } from "./types";
 import { Rarity } from 'constants/items';
 
+type Prefix = "weapon/";
+const PREFIX = "weapon/";
 const itemType = ItemType.weapon;
 const basePath = "/img/items/weapons/";
 
@@ -106,117 +108,102 @@ export interface WeaponDefinition extends ItemDefinition {
     damage?: DamageDefinition;
 }
 
-const weaponDefinitions: Record<string, WeaponDefinition> = {
-    [Item.aegisOfValor]: {
-        item: Item.aegisOfValor,
+const all = {
+    aegisOfValor: {
         itemType,
         weaponType: WeaponType.shield,
         rarity: Rarity.legendary,
         iconImg: `${basePath}aegis-of-valor.png`,
     },
-    [Item.arbalest]: {
-        item: Item.arbalest,
+    arbalest: {
         itemType,
         weaponType: WeaponType.crossbow,
         rarity: Rarity.epic,
         iconImg: `${basePath}arbalest.png`,
         damage: { [DamageType.kinetic]: 40 },
     },
-    [Item.battleAxe]: {
-        item: Item.battleAxe,
+    battleAxe: {
         itemType,
         weaponType: WeaponType.axe,
         rarity: Rarity.common,
         iconImg: `${basePath}battle-axe.png`,
         damage: { [DamageType.kinetic]: 20 },
     },
-    [Item.berserkerShield]: {
-        item: Item.berserkerShield,
+    berserkerShield: {
         itemType,
         weaponType: WeaponType.shield,
         rarity: Rarity.epic,
         iconImg: `${basePath}berserker-shield.png`,
     },
-    [Item.brassKnuckles]: {
-        item: Item.brassKnuckles,
+    brassKnuckles: {
         itemType,
         weaponType: WeaponType.fist,
         iconImg: `${basePath}brass-knuckles.png`,
         rarity: Rarity.common,
         damage: { [DamageType.kinetic]: 10 },
     },
-    [Item.bronzeDagger]: {
-        item: Item.bronzeDagger,
+    bronzeDagger: {
         itemType,
         weaponType: WeaponType.knife,
         iconImg: `${basePath}bronze-dagger.png`,
         rarity: Rarity.common,
         damage: { [DamageType.kinetic]: 8 },
     },
-    [Item.buckler]: {
-        item: Item.buckler,
+    buckler: {
         itemType,
         weaponType: WeaponType.shield,
         rarity: Rarity.common,
         iconImg: `${basePath}buckler.png`,
     },
-    [Item.cleaver]: {
-        item: Item.cleaver,
+    cleaver: {
         itemType,
         weaponType: WeaponType.knife,
         iconImg: `${basePath}cleaver.png`,
         rarity: Rarity.common,
         damage: { [DamageType.kinetic]: 5 },
     },
-    [Item.club]: {
-        item: Item.club,
+    club: {
         itemType,
         weaponType: WeaponType.club,
         iconImg: `${basePath}club.png`,
         rarity: Rarity.common,
         damage: { [DamageType.kinetic]: 8 },
     },
-    [Item.dagger]: {
-        item: Item.dagger,
+    dagger: {
         itemType,
         weaponType: WeaponType.knife,
         iconImg: `${basePath}dagger.png`,
         rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 10 },
     },
-    [Item.dirk]: {
-        item: Item.dirk,
+    dirk: {
         itemType,
         weaponType: WeaponType.knife,
         iconImg: `${basePath}dirk.png`,
         rarity: Rarity.uncommon,
         damage: { [DamageType.kinetic]: 10 },
     },
-    [Item.falchion]: {
-        item: Item.flail,
+    falchion: {
         itemType,
         weaponType: WeaponType.sword,
         iconImg: `${basePath}falchion.png`,
         rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 12 },
     },
-    [Item.flail]: {
-        item: Item.flail,
+    flail: {
         itemType,
         weaponType: WeaponType.flail,
         iconImg: `${basePath}flail.png`,
         rarity: Rarity.uncommon,
         damage: { [DamageType.kinetic]: 15 },
     },
-    [Item.goldenShield]: {
-        item: Item.goldenShield,
+    goldenShield: {
         itemType,
         weaponType: WeaponType.shield,
         rarity: Rarity.rare,
         iconImg: `${basePath}golden-shield.png`,
     },
-    [Item.greatswordOfGwai]: {
-        item: Item.greatswordOfGwai,
+    greatswordOfGwai: {
         itemType,
         weaponType: WeaponType.sword,
         iconImg: `${basePath}greatsword-gwai.png`,
@@ -224,180 +211,164 @@ const weaponDefinitions: Record<string, WeaponDefinition> = {
         rarity: Rarity.legendary,
         damage: { [DamageType.kinetic]: 25 },
     },
-    [Item.halbert]: {
-        item: Item.halbert,
+    halbert: {
         itemType,
         weaponType: WeaponType.poleArm,
         iconImg: `${basePath}halbert.png`,
         rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 12 },
     },
-    [Item.huntingBow]: {
-        item: Item.huntingBow,
+    huntingBow: {
         itemType,
         weaponType: WeaponType.bow,
         iconImg: `${basePath}hunting-bow.png`,
         rarity: Rarity.common,
         damage: { [DamageType.kinetic]: 3 },
     },
-    [Item.indomitableCarapace]: {
-        item: Item.indomitableCarapace,
+    indomitableCarapace: {
         itemType,
         weaponType: WeaponType.shield,
         rarity: Rarity.epic,
         unique: true,
         iconImg: `${basePath}indomitable-carapace.png`,
     },
-    [Item.jaggedBlade]: {
-        item: Item.jaggedBlade,
+    jaggedBlade: {
         itemType,
         weaponType: WeaponType.knife,
         rarity: Rarity.epic,
         iconImg: `${basePath}jagged-blade.png`,
     },
-    [Item.javelin]: {
-        item: Item.javelin,
+    javelin: {
         itemType,
         weaponType: WeaponType.poleArm,
         iconImg: `${basePath}javelin.png`,
         rarity: Rarity.epic,
         damage: { [DamageType.kinetic]: 25 },
     },
-    [Item.khopesh]: {
-        item: Item.khopesh,
+    khopesh: {
         itemType,
         weaponType: WeaponType.sword,
         iconImg: `${basePath}khopesh.png`,
         rarity: Rarity.epic,
         damage: { [DamageType.kinetic]: 15 },
     },
-    [Item.legionnaireSword]: {
-        item: Item.legionnaireSword,
+    legionnaireSword: {
         itemType,
         weaponType: WeaponType.sword,
         iconImg: `${basePath}legionnaire-sword.png`,
         rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 8 },
     },
-    [Item.longbow]: {
-        item: Item.longbow,
+    longbow: {
         itemType,
         weaponType: WeaponType.bow,
         iconImg: `${basePath}longbow.png`,
         rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 2 },
     },
-    [Item.mace]: {
-        item: Item.mace,
+    mace: {
         itemType,
         weaponType: WeaponType.club,
         iconImg: `${basePath}mace.png`,
         rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 15 },
     },
-    [Item.morningStar]: {
-        item: Item.morningStar,
+    morningStar: {
         itemType,
         weaponType: WeaponType.club,
         iconImg: `${basePath}morning-star.png`,
         rarity: Rarity.uncommon,
         damage: { [DamageType.kinetic]: 13 },
     },
-    [Item.paintedBuckler]: {
-        item: Item.paintedBuckler,
+    paintedBuckler: {
         itemType,
         weaponType: WeaponType.shield,
         iconImg: `${basePath}painted-buckler.png`,
     },
-    [Item.poisonedDagger]: {
-        item: Item.poisonedDagger,
+    poisonedDagger: {
         itemType,
         weaponType: WeaponType.knife,
         iconImg: `${basePath}poisoned-dagger.png`,
         rarity: Rarity.epic,
         damage: { [DamageType.kinetic]: 12 },
     },
-    [Item.pikeStaff]: {
-        item: Item.pikeStaff,
+    pikeStaff: {
         itemType,
         weaponType: WeaponType.poleArm,
         iconImg: `${basePath}pike-staff.png`,
         rarity: Rarity.uncommon,
         damage: { [DamageType.kinetic]: 22 },
     },
-    [Item.ravenStaff]: {
-        item: Item.ravenStaff,
+    ravenStaff: {
         itemType,
         weaponType: WeaponType.staff,
         iconImg: `${basePath}raven-staff.png`,
         rarity: Rarity.epic,
         damage: { [DamageType.kinetic]: 13 },
     },
-    [Item.scythe]: {
-        item: Item.scythe,
+    scythe: {
         itemType,
         weaponType: WeaponType.poleArm,
         iconImg: `${basePath}scythe.png`,
         rarity: Rarity.common,
         damage: { [DamageType.kinetic]: 5 },
     },
-    [Item.savageStaff]: {
-        item: Item.savageStaff,
+    savageStaff: {
         itemType,
         weaponType: WeaponType.staff,
         iconImg: `${basePath}savage-staff.png`,
         rarity: Rarity.epic,
         damage: { [DamageType.kinetic]: 8 },
     },
-    [Item.simpleCrossbow]: {
-        item: Item.simpleCrossbow,
+    simpleCrossbow: {
         itemType,
         weaponType: WeaponType.crossbow,
         iconImg: `${basePath}crossbow.png`,
         rarity: Rarity.common,
         damage: { [DamageType.kinetic]: 3 },
     },
-    [Item.spear]: {
-        item: Item.spear,
+    spear: {
         itemType,
         weaponType: WeaponType.poleArm,
         iconImg: `${basePath}sword.png`,
         rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 10 },
     },
-    [Item.steelShield]: {
-        item: Item.steelShield,
+    steelShield: {
         itemType,
         weaponType: WeaponType.shield,
         rarity: Rarity.rare,
         iconImg: `${basePath}steel-shield.png`,
     },
-    [Item.steelSword]: {
-        item: Item.steelSword,
+    steelSword: {
         itemType,
         weaponType: WeaponType.sword,
         iconImg: `${basePath}steel-sword.png`,
         rarity: Rarity.uncommon,
         damage: { [DamageType.kinetic]: 14 },
     },
-    [Item.warhammer]: {
-        item: Item.warhammer,
+    warhammer: {
         itemType,
         weaponType: WeaponType.hammer,
         iconImg: `${basePath}warhammer.png`,
         rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 16 },
     },
-    [Item.woodenBulwark]: {
-        item: Item.woodenBulwark,
+    woodenBulwark: {
         itemType,
         weaponType: WeaponType.shield,
         rarity: Rarity.common,
         iconImg: `${basePath}wooden-bulwark.png`,
     },
 };
-export default weaponDefinitions;
 
-export function getDefinition<T extends WeaponDefinition>(weapon: string): T {
-    return weaponDefinitions[weapon] as T;
+export default all;
+export type Weapon = `${Prefix}${keyof typeof all}`;
+
+export function getDefinition(weapon: Weapon): WeaponDefinition {
+    return all[weapon.substring((PREFIX).length) as keyof typeof all];
+}
+
+export const isWeapon = (item: Item): item is Weapon => {
+    return item.substring(PREFIX.length) === PREFIX;
 }

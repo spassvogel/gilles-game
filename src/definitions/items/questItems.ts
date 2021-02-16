@@ -1,136 +1,122 @@
-// tslint:disable:object-literal-sort-keys
-
 import { Item, ItemDefinition, ItemType } from "./types";
 
+// type Prefix = "questItem/";
+const PREFIX = "questItem/";
 const itemType = ItemType.questItem;
 const basePath = "/img/items/quest-items/";
 
-const questItemDefinitions: Record<string, ItemDefinition> = {
-    [Item.blueprints]: {
-        item: Item.blueprints,
+
+const all = {
+    blueprints: {
         itemType,
         iconImg: `${basePath}blueprints.png`,
     },
-    [Item.crate]: {
-        item: Item.crate,
+    crate: {
         itemType,
         iconImg: `${basePath}crate.png`,
     },
-    [Item.dynamite]: {
-        item: Item.dynamite,
+    dynamite: {
         itemType,
         iconImg: `${basePath}dynamite.png`,
     },
-    [Item.dragonEye]: {
-        item: Item.dragonEye,
+    dragonEye: {
         itemType,
         iconImg: `${basePath}dragon-eye.png`,
     },
-    [Item.eye]: {
-        item: Item.eye,
+    eye: {
         itemType,
         iconImg: `${basePath}eye.png`,
     },
-    [Item.feather]: {
-        item: Item.feather,
+    feather: {
         itemType,
         iconImg: `${basePath}feather.png`,
     },
-    [Item.food]: {
-        item: Item.food,
+    food: {
         itemType,
         iconImg: `${basePath}food.png`,
     },
-    [Item.heart]: {
-        item: Item.heart,
+    heart: {
         itemType,
         iconImg: `${basePath}heart.png`,
     },
-    [Item.horn]: {
-        item: Item.horn,
+    horn: {
         itemType,
         iconImg: `${basePath}horn.png`,
     },
-    [Item.key]: {
-        item: Item.key,
+    key: {
         itemType,
         iconImg: `${basePath}key.png`,
     },
-    [Item.letters]: {
-        item: Item.letters,
+    letters: {
         itemType,
         iconImg: `${basePath}letters.png`,
     },
-    [Item.lockPicks]: {
-        item: Item.lockPicks,
+    lockPicks: {
         itemType,
         iconImg: `${basePath}lock-picks.png`,
     },
-    [Item.oil]: {
-        item: Item.oil,
+    oil: {
         itemType,
         iconImg: `${basePath}oil.png`,
     },
-    [Item.orcFinger]: {
-        item: Item.orcFinger,
+    orcFinger: {
         itemType,
         iconImg: `${basePath}orc-finger.png`,
     },
-    [Item.plans]: {
-        item: Item.plans,
+    plans: {
         itemType,
         iconImg: `${basePath}plans.png`,
     },
-    [Item.purpleGems]: {
-        item: Item.purpleGems,
+    purpleGems: {
         itemType,
         iconImg: `${basePath}purple-gems.png`,
     },
-    [Item.runestone]: {
-        item: Item.runestone,
+    runestone: {
         itemType,
         iconImg: `${basePath}runestone.png`,
     },
-    [Item.sandwich]: {
-        item: Item.sandwich,
+    sandwich: {
         itemType,
         iconImg: `${basePath}sandwich.png`,
     },
-    [Item.teeth]: {
-        item: Item.teeth,
+    teeth: {
         itemType,
         iconImg: `${basePath}teeth.png`,
     },
-    [Item.tooth]: {
-        item: Item.tooth,
+    tooth: {
         itemType,
         iconImg: `${basePath}tooth.png`,
     },
-    [Item.torch]: {
-        item: Item.torch,
+    torch: {
         itemType,
         iconImg: `${basePath}torch.png`,
     },
-    [Item.tusk]: {
-        item: Item.tusk,
+    tusk: {
         itemType,
         iconImg: `${basePath}tusk.png`,
     },
-    [Item.vase]: {
-        item: Item.vase,
+    vase: {
         itemType,
         iconImg: `${basePath}vase.png`,
     },
-    [Item.vial]: {
-        item: Item.vial,
+    vial: {
         itemType,
         iconImg: `${basePath}vial.png`,
     },
-    [Item.weeds]: {
-        item: Item.weeds,
+    weeds: {
         itemType,
         iconImg: `${basePath}weeds.png`,
     },
 };
 
-export default questItemDefinitions;
+
+export default all;
+export type QuestItem = `questItem/${keyof typeof all}`;
+
+export function getDefinition(questItem: QuestItem): ItemDefinition {
+    return all[questItem.substring((PREFIX).length) as keyof typeof all];
+}
+
+export const isQuestItem = (item: Item): item is QuestItem => {
+    return item.substring(PREFIX.length) === PREFIX;
+}

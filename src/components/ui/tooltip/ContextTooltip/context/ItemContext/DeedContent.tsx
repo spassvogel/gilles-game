@@ -5,7 +5,7 @@ import { subtractGold } from 'store/actions/gold';
 import { startBuildingStructure, finishBuildingStructure } from 'store/actions/structures';
 import { startTask } from 'store/actions/tasks';
 import { TaskType } from 'store/types/task';
-import { DeedDefinition } from 'definitions/items/deeds';
+import { Deed, getDefinition as getDeedDefinition} from 'definitions/items/deeds';
 import useGoldState from 'hooks/store/useGoldState';
 import useStructureState from 'hooks/store/useStructureState';
 import { StructureState } from 'store/types/structure';
@@ -13,20 +13,21 @@ import { TextManager } from 'global/TextManager';
 import Button from 'components/ui/buttons/Button';
 
 interface Props {
-    info: DeedDefinition;
+    item: Deed;
 }
 
 const DeedContent = (props: Props) => {
-    const { info } = props;
+    const { item } = props;
+    const definition = getDeedDefinition(item)
     const dispatch = useDispatch();
 
     const gold = useGoldState();
-    const structureDefinition = getDefinition(info.structure);
+    const structureDefinition = getDefinition(definition.structure);
     const enoughGold = structureDefinition.cost.gold || 0 <= gold;
-    const structureStoreState = useStructureState(info.structure);
+    const structureStoreState = useStructureState(definition.structure);
     const canBeBuilt = structureStoreState.state === StructureState.NotBuilt;
     const disabled = !canBeBuilt || !enoughGold;
-    const subtext = TextManager.getItemSubtext(info.item);
+    const subtext = TextManager.getItemSubtext(item);
 
     const handleStartConstruction = (structure: Structure) => {
 
@@ -48,7 +49,7 @@ const DeedContent = (props: Props) => {
             <Button
                 disabled={disabled}
                 size="small"
-                onClick={() => handleStartConstruction(info.structure)}
+                onClick={() => handleStartConstruction(definition.structure)}
             >
                 Start construction ({ structureDefinition.cost.gold } gold)
             </Button>

@@ -1,30 +1,32 @@
 
 import { ActionType, AddAction, AddStockpileSlotsAction, MoveItemInWarehouseAction, RemoveItemFromWarehouseAction } from "store/actions/items";
-import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { getDefinition, Structure } from 'definitions/structures';
 import { WarehouseStructureDefinition } from 'definitions/structures/types';
+import { Item } from "definitions/items/types";
 
 // Items in warehouse
-export const getItemsInitialState = () => {
+export const getItemsInitialState = (): (Item|null)[] => {
     // Generate some random stuff
-    const result = [];
+    const result: (Item|null)[] = [];
     const { maxStockpile } = getDefinition<WarehouseStructureDefinition>(Structure.warehouse).levels[0];
     for (let i = 0; i < maxStockpile; i++) {
         if (Math.random() < .5) {
             result.push(null)
         } else {
-            const randomItem = randomEnum(Item);
+            const randomItem = getRandomItem();
             result.push(randomItem);
         }
     }
     return result;
 }
 
-const randomEnum = <T>(anEnum: T): T[keyof T] => {
-    const enumValues = (Object.values(anEnum) as unknown) as T[keyof T][];
-    const randomIndex = Math.floor(Math.random() * enumValues.length);
-    return enumValues[randomIndex];
+const getRandomItem = (): Item => {
+    return "weapon/arbalest"
+    // const enumValues = (Object.values(keyof Item) as unknown) as T[keyof T][];
+    // const randomIndex = Math.floor(Math.random() * enumValues.length);
+    // return enumValues[randomIndex];
+  
 }
 
 /**

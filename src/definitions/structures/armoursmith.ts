@@ -1,7 +1,6 @@
 // tslint:disable:object-literal-sort-keys
 
 import { ProductionStructureDefinition, StructureType } from "./types";
-import { Item } from 'definitions/items/types';
 import { ONE_MINUTE, TWO_MINUTES } from 'utils/format/time';
 
 const armoursmith: ProductionStructureDefinition = {
@@ -17,7 +16,7 @@ const armoursmith: ProductionStructureDefinition = {
         cost: {
             gold: 0,
         },
-        unlocks: [Item.boots1 ],
+        unlocks: ["apparel/boots1" ],
     }, {
         // level 2:
         displayName: "structure-armoursmith-name",
@@ -26,7 +25,7 @@ const armoursmith: ProductionStructureDefinition = {
             gold: 30,
             time: ONE_MINUTE
         },
-        unlocks: [Item.chest ],
+        unlocks: ["apparel/chest" ],
     }, {
         // level 3:
         displayName: "structure-armoursmith-name",
@@ -35,7 +34,7 @@ const armoursmith: ProductionStructureDefinition = {
             gold: 50,
             time: TWO_MINUTES
         },
-        unlocks: [Item.cowl],
+        unlocks: ["apparel/cowl"],
     }],
 };
 export default armoursmith;

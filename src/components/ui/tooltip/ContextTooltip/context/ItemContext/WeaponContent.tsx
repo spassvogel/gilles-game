@@ -1,27 +1,29 @@
 import * as React from "react";
-import { WeaponDefinition, DamageType, WeaponTypeDefinition, WeaponType } from 'definitions/items/weapons';
+import { getDefinition as getWeaponDefinition, DamageType, WeaponTypeDefinition, WeaponType, Weapon } from 'definitions/items/weapons';
 import { TextManager } from 'global/TextManager';
 import ProduceOrStudy from './ProduceOrStudy';
 
 interface Props {
-    info: WeaponDefinition;
+    item: Weapon;
 }
 
 const WeaponContent = (props: Props) => {
-    const { info } = props;
-    const subtext = TextManager.getItemSubtext(info.item);
-    const weaponType = TextManager.getWeaponType(info.weaponType);
-    const { classification } = WeaponTypeDefinition[info.weaponType];
+    const { item } = props;
+    const definition = getWeaponDefinition(item)
+
+    const subtext = TextManager.getItemSubtext(item);
+    const weaponType = TextManager.getWeaponType(definition.weaponType);
+    const { classification } = WeaponTypeDefinition[definition.weaponType];
     const classificationText = TextManager.getWeaponClassification(classification);
 
     return (
         <>
             <div>{weaponType}
-              {info.weaponType !== WeaponType.shield && (` (${classificationText})`)}
+              {definition.weaponType !== WeaponType.shield && (` (${classificationText})`)}
             </div>
             { subtext && (<p className="subtext">{`"${subtext}"`}</p>)}
-            { info.damage && <p> damage: { info.damage[DamageType.kinetic] } </p>}
-            <ProduceOrStudy item={info.item} />
+            { definition.damage && <p> damage: { definition.damage[DamageType.kinetic] } </p>}
+            <ProduceOrStudy item={item} />
         </>
     );
 

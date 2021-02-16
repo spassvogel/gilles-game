@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { IconSize } from 'components/ui/common/Icon';
 import ItemIcon from 'components/ui/items/ItemIcon';
-import { Item } from 'definitions/items/types';
 import { Structure } from 'definitions/structures';
-import { ProductionStructureStoreState } from 'store/types/structure';
+import { ProducableItem, ProductionStructureStoreState } from 'store/types/structure';
 import useStructureState from 'hooks/store/useStructureState';
 import { TextManager } from 'global/TextManager';
 import CraftingDetails from './CraftingDetails';
@@ -14,10 +13,10 @@ export interface Props {
 
 const CraftingArea = (props: Props) => {
     const {structure} = props;
-    const [selectedItem, setSelectedItem] = useState<Item>();
+    const [selectedItem, setSelectedItem] = useState<ProducableItem>();
 
     const storeState: ProductionStructureStoreState = useStructureState(structure) as ProductionStructureStoreState;
-    const handleSelectCraftingItem = (item: Item) => {
+    const handleSelectCraftingItem = (item: ProducableItem) => {
         setSelectedItem(item);
     };
 

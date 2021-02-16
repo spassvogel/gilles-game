@@ -1,13 +1,13 @@
 // tslint:disable:object-literal-sort-keys
 
+import { Apparel } from "definitions/items/apparel";
 import * as time from "utils/format/time";
-import {    Item} from "../items/types";
 import {  ProductionDefinition } from "./types";
 
 // todo: real values for costs
-const armoursmithProduction: { [key: string]: ProductionDefinition } = {
-    [Item.boots1]: {
-        item: Item.boots1,
+const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
+    "apparel/boots1": {
+        item: "apparel/boots1",
         cost: {
             resources: {
                 wood: 10,
@@ -16,8 +16,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         },
     },
-    [Item.boots2]: {
-        item: Item.boots2,
+    "apparel/boots2": {
+        item: "apparel/boots2",
         cost: {
             resources: {
                 wood: 10,
@@ -27,8 +27,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
         },
         levelRequired: 2
     },
-    [Item.boots3]: {
-        item: Item.boots3,
+    "apparel/boots3": {
+        item: "apparel/boots3",
         cost: {
             resources: {
                 wood: 10,
@@ -38,8 +38,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
         },
         levelRequired: 3
     },
-    [Item.chainmailHood]: {
-        item: Item.chainmailHood,
+    "apparel/chainmailHood": {
+        item: "apparel/chainmailHood",
         cost: {
             resources: {
                 wood: 10,
@@ -48,8 +48,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.chest]: {
-        item: Item.chest,
+    "apparel/chest": {
+        item: "apparel/chest",
         cost: {
             resources: {
                 wood: 10,
@@ -58,8 +58,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.clothGloves]: {
-        item: Item.clothGloves,
+    "apparel/clothGloves": {
+        item: "apparel/clothGloves",
         cost: {
             resources: {
                 wood: 10,
@@ -68,8 +68,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         },
     },
-    [Item.cowl]: {
-        item: Item.cowl,
+    "apparel/cowl": {
+        item: "apparel/cowl",
         cost: {
             resources: {
                 wood: 10,
@@ -78,19 +78,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.druidChest]: {
-        item: Item.druidHands,
-        cost: {
-            resources: {
-                wood: 10,
-                iron: 45
-            },
-            time: time.ONE_HOUR,
-        },
-        levelRequired: 2
-    },
-    [Item.druidFeet]: {
-        item: Item.druidFeet,
+    "apparel/druidChest": {
+        item: "apparel/druidHands",
         cost: {
             resources: {
                 wood: 10,
@@ -100,8 +89,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
         },
         levelRequired: 2
     },
-    [Item.druidHands]: {
-        item: Item.druidHands,
+    "apparel/druidFeet": {
+        item: "apparel/druidFeet",
         cost: {
             resources: {
                 wood: 10,
@@ -111,8 +100,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
         },
         levelRequired: 2
     },
-    [Item.druidHead]: {
-        item: Item.druidHead,
+    "apparel/druidHands": {
+        item: "apparel/druidHands",
         cost: {
             resources: {
                 wood: 10,
@@ -122,8 +111,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
         },
         levelRequired: 2
     },
-    [Item.druidLegs]: {
-        item: Item.druidLegs,
+    "apparel/druidHead": {
+        item: "apparel/druidHead",
         cost: {
             resources: {
                 wood: 10,
@@ -133,8 +122,19 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
         },
         levelRequired: 2
     },
-    [Item.fedora]: {
-        item: Item.fedora,
+    "apparel/druidLegs": {
+        item: "apparel/druidLegs",
+        cost: {
+            resources: {
+                wood: 10,
+                iron: 45
+            },
+            time: time.ONE_HOUR,
+        },
+        levelRequired: 2
+    },
+    "apparel/fedora": {
+        item: "apparel/fedora",
         cost: {
             resources: {
                 wood: 10,
@@ -143,8 +143,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.greaves1]: {
-        item: Item.greaves1,
+    "apparel/greaves1": {
+        item: "apparel/greaves1",
         cost: {
             resources: {
                 wood: 10,
@@ -153,8 +153,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.greaves2]: {
-        item: Item.greaves2,
+    "apparel/greaves2": {
+        item: "apparel/greaves2",
         cost: {
             resources: {
                 wood: 10,
@@ -163,8 +163,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.hornedHelmet]: {
-        item: Item.hornedHelmet,
+    "apparel/hornedHelmet": {
+        item: "apparel/hornedHelmet",
         cost: {
             resources: {
                 wood: 10,
@@ -173,8 +173,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.leatherGloves]: {
-        item: Item.leatherGloves,
+    "apparel/leatherGloves": {
+        item: "apparel/leatherGloves",
         cost: {
             resources: {
                 wood: 10,
@@ -183,8 +183,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.nomadHelmet]: {
-        item: Item.nomadHelmet,
+    "apparel/nomadHelmet": {
+        item: "apparel/nomadHelmet",
         cost: {
             resources: {
                 wood: 10,
@@ -193,8 +193,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.pants1]: {
-        item: Item.pants1,
+    "apparel/pants1": {
+        item: "apparel/pants1",
         cost: {
             resources: {
                 wood: 10,
@@ -203,8 +203,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.pants2]: {
-        item: Item.pants2,
+    "apparel/pants2": {
+        item: "apparel/pants2",
         cost: {
             resources: {
                 wood: 10,
@@ -213,8 +213,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.plateChest1]: {
-        item: Item.plateChest1,
+    "apparel/plateChest1": {
+        item: "apparel/plateChest1",
         cost: {
             resources: {
                 wood: 10,
@@ -223,8 +223,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.plateChest2]: {
-        item: Item.plateChest2,
+    "apparel/plateChest2": {
+        item: "apparel/plateChest2",
         cost: {
             resources: {
                 wood: 10,
@@ -233,8 +233,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.plateChest3]: {
-        item: Item.plateChest3,
+    "apparel/plateChest3": {
+        item: "apparel/plateChest3",
         cost: {
             resources: {
                 wood: 10,
@@ -243,8 +243,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.plateChest4]: {
-        item: Item.plateChest4,
+    "apparel/plateChest4": {
+        item: "apparel/plateChest4",
         cost: {
             resources: {
                 wood: 10,
@@ -253,8 +253,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.plateGloves1]: {
-        item: Item.plateGloves1,
+    "apparel/plateGloves1": {
+        item: "apparel/plateGloves1",
         cost: {
             resources: {
                 wood: 10,
@@ -263,8 +263,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.plateGloves2]: {
-        item: Item.plateGloves2,
+    "apparel/plateGloves2": {
+        item: "apparel/plateGloves2",
         cost: {
             resources: {
                 wood: 10,
@@ -273,8 +273,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.plateHelmet]: {
-        item: Item.plateHelmet,
+    "apparel/plateHelmet": {
+        item: "apparel/plateHelmet",
         cost: {
             resources: {
                 wood: 10,
@@ -283,8 +283,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.platePants]: {
-        item: Item.platePants,
+    "apparel/platePants": {
+        item: "apparel/platePants",
         cost: {
             resources: {
                 wood: 10,
@@ -293,8 +293,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.plateShoulders1]: {
-        item: Item.plateShoulders1,
+    "apparel/plateShoulders1": {
+        item: "apparel/plateShoulders1",
         cost: {
             resources: {
                 wood: 10,
@@ -303,8 +303,8 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         }
     },
-    [Item.plateShoulders2]: {
-        item: Item.plateShoulders2,
+    "apparel/plateShoulders2": {
+        item: "apparel/plateShoulders2",
         cost: {
             resources: {
                 wood: 10,
@@ -313,39 +313,39 @@ const armoursmithProduction: { [key: string]: ProductionDefinition } = {
             time: time.ONE_HOUR,
         },
     },
-    [Item.robe]: {
-        item: Item.robe,
+    "apparel/robe": {
+        item: "apparel/robe",
         cost: {
             resources: { wood: 10, iron: 45},
             time: time.ONE_HOUR,
         }
     },
-    [Item.shoulders1]: {
-        item: Item.shoulders1,
-        cost: {
-            resources: { wood: 10, iron: 45},
-            time: time.ONE_HOUR,
-        }
-
-    },
-    [Item.shoulders2]: {
-        item: Item.shoulders2,
+    "apparel/shoulders1": {
+        item: "apparel/shoulders1",
         cost: {
             resources: { wood: 10, iron: 45},
             time: time.ONE_HOUR,
         }
 
     },
-    [Item.shoulders3]: {
-        item: Item.shoulders3,
+    "apparel/shoulders2": {
+        item: "apparel/shoulders2",
         cost: {
             resources: { wood: 10, iron: 45},
             time: time.ONE_HOUR,
         }
 
     },
-    [Item.vest]: {
-        item: Item.vest,
+    "apparel/shoulders3": {
+        item: "apparel/shoulders3",
+        cost: {
+            resources: { wood: 10, iron: 45},
+            time: time.ONE_HOUR,
+        }
+
+    },
+    "apparel/vest": {
+        item: "apparel/vest",
         cost: {
             resources: { wood: 10, iron: 45},
             time: time.ONE_HOUR,

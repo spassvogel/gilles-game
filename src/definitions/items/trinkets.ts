@@ -1,21 +1,30 @@
-// tslint:disable:object-literal-sort-keys
+import {  Item, ItemDefinition, ItemType } from "./types";
 
-import { Item, ItemDefinition, ItemType } from "./types";
-
+type Prefix = "trinket/";
+const PREFIX = "trinket/";
 const itemType = ItemType.trinket;
 const basePath = "/img/items/trinkets/";
 
-const trinketDefinitions: Record<string, ItemDefinition> = {
-    [Item.magicAmulet]: {
-        item: Item.magicAmulet,
+const all = {
+    magicAmulet: {
         itemType,
         iconImg: `${basePath}magic_amulet.png`,
     },
-    [Item.ring]: {
-        item: Item.ring,
+    ring: {
         itemType,
         iconImg: `${basePath}ring.png`,
     },
 };
 
-export default trinketDefinitions;
+
+
+export default all;
+export type Trinket = `${Prefix}${keyof typeof all}`;
+
+export function getDefinition(trinket: Trinket): ItemDefinition {
+    return all[trinket.substring((PREFIX).length) as keyof typeof all];
+}
+
+export const isTrinket = (item: Item): item is Trinket => {
+    return item.substring(PREFIX.length) === PREFIX;
+}

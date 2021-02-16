@@ -4,8 +4,7 @@ import { StoreState } from 'store/types';
 import { useSelector } from 'react-redux';
 import { useMemo, useCallback } from 'react';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
-import { Item } from 'definitions/items/types';
-import { getDefinition } from 'definitions/items/apparel';
+import { Apparel, getDefinition } from 'definitions/items/apparel';
 
 const getAdventurersInTown = (adventurers: AdventurerStoreState[], quests: QuestStoreState[]): AdventurerStoreState[] => {
     // Get an array of all adventurer ids on any active quest
@@ -45,7 +44,7 @@ export const useAdventurerState = (adventurerId: string) => {
 export const useAdventurerDamageReduction = (adventurerId: string): { [key: string]: number } => {
     const adventurer = useAdventurerState(adventurerId);
     const findDR = (type: EquipmentSlotType) => {
-        const item: Item|undefined = adventurer.equipment[type as EquipmentSlotType];
+        const item: Apparel|undefined = adventurer.equipment[type as EquipmentSlotType] as Apparel;
         if (!item) return 0;
         return getDefinition(item).damageReduction || 0;
     }

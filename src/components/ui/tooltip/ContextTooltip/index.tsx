@@ -3,7 +3,7 @@ import { ContextType } from 'constants/context';
 import { TooltipManager, Context, EVENT_CONTEXT_UPDATED } from 'global/TooltipManager';
 import { TextManager } from 'global/TextManager';
 import ItemContext from './context/ItemContext';
-import { ItemDefinition } from 'definitions/items/types';
+import { Item, ItemDefinition } from 'definitions/items/types';
 import { Resource } from 'definitions/resources';
 import ResourceContext from './context/ResourceContext';
 import Tooltip from '../Tooltip';
@@ -12,6 +12,7 @@ import TraitContext from './context/TraitContext';
 import { WeaponType } from 'definitions/items/weapons';
 import { Rarity } from 'constants/items';
 import './styles/contextTooltip.scss';
+import { getDefinition } from 'definitions/items';
 
 // A contextual popup showing what you just clicked.
 // Can be an Item, Resource, Trait, skill
@@ -43,12 +44,13 @@ const ContextTooltip = () => {
                 );
             }
             case ContextType.item: {
-                const name = TextManager.getItemName((info as ItemDefinition).item);
-                const itemDefinition = info as ItemDefinition;
+                const item = info as Item;
+                const name = TextManager.getItemName(item);
+                const itemDefinition = getDefinition(item) as ItemDefinition;
                 return (
                     <>
                         <div className={`name item ${getItemNameClassName(itemDefinition)}`}>{name}</div>
-                        <ItemContext info={itemDefinition} />
+                        <ItemContext item={item} />
                     </>
                 );
             }

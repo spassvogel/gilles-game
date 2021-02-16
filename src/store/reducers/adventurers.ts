@@ -11,7 +11,6 @@ import {
     RenameAdventurerAction
 } from "store/actions/adventurers";
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
-import { Item } from "definitions/items/types";
 import { AnyAction, Reducer } from "redux";
 import { AdventurerColor, AdventurerStoreState, BasicAttributesStoreState } from "store/types/adventurer";
 import { Trait } from 'definitions/traits/types';
@@ -41,12 +40,12 @@ const spritesheetBasePath = "img/scene/actors/";
 export const initialAdventurers: AdventurerStoreState[] = [{
     id: "c4a5d270",
     equipment: {
-        [EquipmentSlotType.head]: Item.cowl,
-        [EquipmentSlotType.chest]: Item.chest,
-        [EquipmentSlotType.hands]: Item.clothGloves,
-        [EquipmentSlotType.shoulders]: Item.shoulders2,
-        [EquipmentSlotType.legs]: Item.pants2,
-        [EquipmentSlotType.feet]: Item.boots3
+        [EquipmentSlotType.head]: "apparel/cowl",
+        [EquipmentSlotType.chest]: "apparel/chest",
+        [EquipmentSlotType.hands]: "apparel/clothGloves",
+        [EquipmentSlotType.shoulders]: "apparel/shoulders2",
+        [EquipmentSlotType.legs]: "apparel/pants2",
+        [EquipmentSlotType.feet]: "apparel/boots3"
         // offHand: Item.indomitableCarapace
     },
     basicAttributes: generateRandomAttributes(),
@@ -64,11 +63,11 @@ export const initialAdventurers: AdventurerStoreState[] = [{
         [WeaponType.bow]: 10
     },
     // tslint:disable-next-line:max-line-length
-    inventory: [ Item.deedForLumbermill, null, Item.simpleCrossbow, Item.dagger, Item.khopesh, null, Item.steelSword, null,  null,  null,  null,  Item.steelShield,  null,  null,  null,  null],
+    inventory: [ "deed/deedForLumbermill", null, "weapon/simpleCrossbow", "weapon/dagger", "weapon/khopesh", null, "weapon/steelSword", null,  null,  null,  null,  "weapon/steelShield",  null,  null,  null,  null],
 }, {
     id: "2e655832",
     equipment: {
-        [EquipmentSlotType.feet]: Item.boots2
+        [EquipmentSlotType.feet]: "apparel/boots2"
     },
     basicAttributes: generateRandomAttributes(),
     name: "Donte Houston",
@@ -85,11 +84,11 @@ export const initialAdventurers: AdventurerStoreState[] = [{
         [WeaponType.staff]: 13
     },
     // tslint:disable-next-line:max-line-length
-    inventory: [ Item.simpleCrossbow, null, null, null, null, Item.boots1, Item.chainmailHood, Item.nomadHelmet, Item.plateChest4, null, Item.buckler, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, Item.plateHelmet, Item.cowl],
+    inventory: [ "weapon/simpleCrossbow", null, null, null, null, "apparel/boots1", "apparel/chainmailHood", "apparel/nomadHelmet", "apparel/plateChest4", null, "weapon/buckler", null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, "apparel/plateHelmet", "apparel/cowl"],
 }, {
     id: "ec6f1050",
     equipment: {
-        [EquipmentSlotType.feet]: Item.boots3
+        [EquipmentSlotType.feet]: "apparel/boots3"
         // offHand: Item.aegisOfValor
     },
     basicAttributes: generateRandomAttributes(),
@@ -106,7 +105,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
     spritesheetPath: `${spritesheetBasePath}skeleton.json`,
     color: AdventurerColor.black,
-    inventory: [ Item.greatswordOfGwai, null, null, null, Item.berserkerShield ],
+    inventory: [ "weapon/greatswordOfGwai", null, null, null, "weapon/berserkerShield" ],
 }, {
     id: "d299f98a",
     basicAttributes: generateRandomAttributes(),
@@ -122,7 +121,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     skills: {
         [WeaponType.sword]: 13
     },
-    inventory: [ null, null, null, null, Item.khopesh, Item.hornedHelmet, Item.woodenBulwark ],
+    inventory: [ null, null, null, null, "weapon/khopesh", "apparel/hornedHelmet", "weapon/woodenBulwark" ],
 }, {
     id: "96c686c3",
     equipment: {},
@@ -138,7 +137,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     skills: {
         [WeaponType.axe]: 12
     },
-    inventory: [ null, null, null, Item.goldenShield ],
+    inventory: [ null, null, null, "weapon/goldenShield" ],
 }, {
     id: "250d1a9d",
     basicAttributes: generateRandomAttributes(),
@@ -165,7 +164,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     room: 3,
     avatarImg: `${avatarImgBasePath}/female/f_16.png`,
     spritesheetPath: `${spritesheetBasePath}troll-sword.json`,
-    inventory: [ Item.greatswordOfGwai, null, null, null ],
+    inventory: [ "weapon/greatswordOfGwai", null, null, null ],
     skills: {
         [WeaponType.axe]: 10
     },
@@ -196,7 +195,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     room: 6,
     avatarImg: `${avatarImgBasePath}/male/m_26.png`,
     spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
-    inventory: [ Item.greatswordOfGwai, null, null, null, Item.shoulders1, Item.fedora, Item.greaves2 ],
+    inventory: [ "weapon/greatswordOfGwai", null, null, null, "apparel/shoulders1", "apparel/fedora", "apparel/greaves2" ],
     skills: {
         [WeaponType.axe]: 3
     },
@@ -211,7 +210,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     room: 7,
     avatarImg: `${avatarImgBasePath}/male/m_33.png`,
     spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
-    inventory: [ Item.greatswordOfGwai, null, null, null ],
+    inventory: [ "weapon/greatswordOfGwai", null, null, null ],
     skills: {
         [WeaponType.axe]: 10
     },

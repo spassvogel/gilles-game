@@ -1,4 +1,4 @@
-import { Item } from "../items/types";
+import { Item } from 'definitions/items/types';
 import { ResourceStoreState } from 'store/types/resources';
 
 

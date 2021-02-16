@@ -3,8 +3,8 @@ import { SceneControllerManager } from 'global/SceneControllerManager';
 import { SceneObject, ActorObject, LootCache } from 'store/types/scene';
 import { setActiveSceneInteractionModal } from 'store/actions/quests';
 import { Kill10BoarsQuestVars } from '../questVars';
-import { Item } from 'definitions/items/types';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
+import { Item } from 'definitions/items/types';
 // tslint:disable: max-classes-per-file
 
 const TILE_CHEST_CLOSED = 33; // todo: take this from json?
@@ -214,7 +214,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
         switch (situation) {
             case 'door': {
                 const adventurer = this.getAdventurerById(adventurerId!);
-                if (adventurer && adventurer.inventory.some(i => i === Item.key)) {
+                if (adventurer && adventurer.inventory.some(i => i === "questItem/key")) {
                     // Adventurer has key
                     return {
                         title: 'quest-kill10-boars-dungeonentrance-door',
@@ -246,7 +246,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
 
                 SoundManager.playSound("scene/doorOpen", Channel.scene, false, MixMode.singleInstance);
 
-                this.discardItem(Item.key, adventurerId);
+                this.discardItem("questItem/key", adventurerId);
                 const adventurer = this.getAdventurerById(adventurerId)?.name;
                 const textEntry = { key: "quest-common-adventurer-opened-door", context: { adventurer } };
                 this.questUpdate(textEntry, "/img/items/misc/chest-02.png");

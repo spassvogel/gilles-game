@@ -4,8 +4,8 @@ import { formatDuration } from 'utils/format/time';
 import { ProductionStructureDefinition } from 'definitions/structures/types';
 import { IconSize } from 'components/ui/common/Icon';
 import { TextManager } from 'global/TextManager';
-import { Item } from 'definitions/items/types';
 import ItemIcon from 'components/ui/items/ItemIcon';
+import { Item } from "definitions/items/types";
 import "./styles/upgradeHelpModal.scss"
 
 export interface Props  {
@@ -36,7 +36,7 @@ const UpgradeHelpModal = (props: Props) => {
                 </div>
             </div>
             <div className="unlocks">
-                {nextLevel.unlocks.map(item => renderRow(Item[item]))}
+                {nextLevel.unlocks.map(item => renderRow(item))}
             </div>
         </div>
     )

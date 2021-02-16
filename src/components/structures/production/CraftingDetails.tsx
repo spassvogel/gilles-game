@@ -20,9 +20,10 @@ import { startTask } from 'store/actions/tasks';
 import { TaskType } from 'store/types/task';
 import { Structure } from 'definitions/structures';
 import { Resource } from 'definitions/resources';
+import { ProducableItem } from 'store/types/structure';
 
 export interface Props {
-    item: Item;
+    item: ProducableItem;
     structure: Structure;
 }
 
@@ -34,9 +35,7 @@ const CraftingDetails = (props: Props) => {
     const workersFree = useWorkersFreeState();
     const [workersAssigned, setWorkersAssigned] = useState<number>(0);
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const produces = getProductionDefinition(item)!;
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const costResources = produces.cost.resources!;
     const missingAtLeastOneResource = Object.keys(costResources)
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

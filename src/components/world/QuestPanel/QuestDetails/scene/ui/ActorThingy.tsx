@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { ActorObject } from "store/types/scene";
-import "./styles/actorThingy.scss"
 import { useAdventurerState } from 'hooks/store/adventurers';
+import "./styles/actorThingy.scss"
 
 // Sorry for this stupid name.
 export interface Props {

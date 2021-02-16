@@ -3,7 +3,6 @@ import { ActionType, StructureStateAction, WorkerCountAction, AddItemToProducesA
 import { Structure } from "definitions/structures";
 import { ProductionStructureStoreState, StructureState, StructureStoreState } from "store/types/structure";
 import { isProductionStructure, StructuresStoreState } from "store/types/structures";
-import { Item } from "definitions/items/types";
 
 /**
  * reducer
@@ -118,7 +117,7 @@ export const structureInitialState: StructureStoreState = {
 
 export const initialStructuresState: StructuresStoreState = {
     [Structure.alchemist]:  { ...structureInitialState, produces: [ ] },
-    [Structure.armoursmith]: { ...structureInitialState, produces: [ Item.boots1 ] },
+    [Structure.armoursmith]: { ...structureInitialState, produces: [ "apparel/boots1" ] },
     [Structure.garden]: { level: 0, workers: 0, state: StructureState.Built  }, // TODO: change back to NotBuilt
     [Structure.lumberMill]: structureInitialState,
     [Structure.mine]: { level: 0, workers: 0, state: StructureState.NotBuilt  },
@@ -126,7 +125,7 @@ export const initialStructuresState: StructuresStoreState = {
     [Structure.tavern]: { level: 0, workers: 0, state: StructureState.Built },
     [Structure.tannery]: structureInitialState,
     [Structure.warehouse]: { level: 0, workers: 0, state: StructureState.Built},
-    [Structure.weaponsmith]:  { ...structureInitialState, produces: [ Item.simpleCrossbow, Item.dagger ] },
+    [Structure.weaponsmith]:  { ...structureInitialState, produces: [ "weapon/simpleCrossbow", "weapon/dagger" ] },
     [Structure.weaver]: structureInitialState,
-    [Structure.workshop]:  { ...structureInitialState, produces: [ Item.torch, Item.sandwich ] },
+    [Structure.workshop]:  { ...structureInitialState, produces: [ "questItem/torch", "questItem/sandwich" ] },
 };
