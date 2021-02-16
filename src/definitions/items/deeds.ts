@@ -10,7 +10,7 @@ export interface DeedDefinition extends ItemDefinition {
     structure: Structure;
 }
 
-const all = {
+const deeds = {
     deedForLumbermill: {
         structure: Structure.lumberMill,
         itemType,
@@ -23,13 +23,17 @@ const all = {
     }
 }
 
+export type Deed = `${Prefix}${keyof typeof deeds}`;
+const all = Object.entries(deeds).reduce<{[key: string]: DeedDefinition}>((acc, [key, value]) => {
+    acc[`${PREFIX}${key}`] = value;
+    return acc;    
+}, {}) as Record<Deed, DeedDefinition>;
 export default all;
-export type Deed = `${Prefix}${keyof typeof all}`;
 
 export function getDefinition(deed: Deed): DeedDefinition {
-    return all[deed.substring((PREFIX).length) as keyof typeof all];
+    return all[deed];
 }
 
 export const isDeed = (item: Item): item is Deed => {
-    return item.substring(PREFIX.length) === PREFIX;
+    return !!all[item as Deed];
 }

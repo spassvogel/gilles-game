@@ -25,6 +25,7 @@ import ItemIcon from "components/ui/items/ItemIcon";
 import { IconSize } from "components/ui/common/Icon";
 import Button from "components/ui/buttons/Button";
 import Select from "components/ui/common/Select";
+import allItems from "definitions/items";
 import "./styles/cheat.scss";
 
 
@@ -176,7 +177,7 @@ const CheatWindow = () => {
                 label: type as unknown as ItemType,
                 value: "",
                 subtext: "",
-                options: Object.keys({}) // todo: items
+                options: Object.keys(allItems) 
                     .filter((item: string) => getDefinition(item as Item).itemType as unknown as string == typeKey)
                     .map((item: string) => ({
                         value: item,

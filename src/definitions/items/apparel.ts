@@ -20,7 +20,7 @@ export interface ApparelDefinition extends ItemDefinition {
     damageReduction?: number;
 }
 
-const all = {
+const apparel = {
     boots1: {
         equipmentType: EquipmentSlotType.feet,
         itemType,
@@ -208,13 +208,17 @@ const all = {
     },
 };
 
+export type Apparel = `${Prefix}${keyof typeof apparel}`;
+const all = Object.entries(apparel).reduce<{[key: string]: ApparelDefinition}>((acc, [key, value]) => {
+    acc[`${PREFIX}${key}`] = value;
+    return acc;    
+}, {}) as Record<Apparel, ApparelDefinition>;
 export default all;
-export type Apparel = `${Prefix}${keyof typeof all}`;
 
 export function getDefinition(apparel: Apparel): ApparelDefinition {
-    return all[apparel.substring((PREFIX).length) as keyof typeof all];
+    return all[apparel];
 }
 
 export const isApparel = (item: Item): item is Apparel => {
-    return item.substring(PREFIX.length) === PREFIX;
+    return !!all[item as Apparel];
 }

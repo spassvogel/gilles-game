@@ -5,7 +5,7 @@ const PREFIX = "herb/";
 const itemType = ItemType.herb;
 const basePath = "/img/items/herbs/";
 
-const all = {
+const herbs = {
     angelicasSorrow: {
         itemType,
         iconImg: `${basePath}angelicas-sorrow.png`,
@@ -108,14 +108,17 @@ const all = {
     },
 };
 
-
+export type Herb = `${Prefix}${keyof typeof herbs}`;
+const all = Object.entries(herbs).reduce<{[key: string]: ItemDefinition}>((acc, [key, value]) => {
+    acc[`${PREFIX}${key}`] = value;
+    return acc;    
+}, {}) as Record<Herb, ItemDefinition>;
 export default all;
-export type Herb = `${Prefix}${keyof typeof all}`;
 
 export function getDefinition(herb: Herb): ItemDefinition {
-    return all[herb.substring((PREFIX).length) as keyof typeof all];
+    return all[herb];
 }
 
 export const isHerb = (item: Item): item is Herb => {
-    return item.substring(PREFIX.length) === PREFIX;
+    return !!all[item as Herb];
 }

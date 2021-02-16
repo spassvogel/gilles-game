@@ -8,7 +8,6 @@ export function pick(table: {[key in Item]?: number}) : Item {
 
     let weight = 0;
     const entries = Object.entries(table);
-    // entries.filter(Boolean)
     for(let i = 0; i < entries.length; i++) {
         weight += entries[i][1]!;
         if (randomNumber <= weight) {

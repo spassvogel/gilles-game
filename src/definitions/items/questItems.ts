@@ -1,12 +1,12 @@
 import { Item, ItemDefinition, ItemType } from "./types";
 
-// type Prefix = "questItem/";
+type Prefix = "questItem/";
 const PREFIX = "questItem/";
 const itemType = ItemType.questItem;
 const basePath = "/img/items/quest-items/";
 
 
-const all = {
+const questItems = {
     blueprints: {
         itemType,
         iconImg: `${basePath}blueprints.png`,
@@ -110,13 +110,17 @@ const all = {
 };
 
 
+export type QuestItem = `${Prefix}${keyof typeof questItems}`;
+const all = Object.entries(questItems).reduce<{[key: string]: ItemDefinition}>((acc, [key, value]) => {
+    acc[`${PREFIX}${key}`] = value;
+    return acc;    
+}, {}) as Record<QuestItem, ItemDefinition>;
 export default all;
-export type QuestItem = `questItem/${keyof typeof all}`;
 
 export function getDefinition(questItem: QuestItem): ItemDefinition {
-    return all[questItem.substring((PREFIX).length) as keyof typeof all];
+    return all[questItem];
 }
 
 export const isQuestItem = (item: Item): item is QuestItem => {
-    return item.substring(PREFIX.length) === PREFIX;
+    return !!all[item as QuestItem];
 }

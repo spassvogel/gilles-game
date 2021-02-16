@@ -108,7 +108,7 @@ export interface WeaponDefinition extends ItemDefinition {
     damage?: DamageDefinition;
 }
 
-const all = {
+const weapons = {
     aegisOfValor: {
         itemType,
         weaponType: WeaponType.shield,
@@ -362,13 +362,18 @@ const all = {
     },
 };
 
+
+export type Weapon = `${Prefix}${keyof typeof weapons}`;
+const all = Object.entries(weapons).reduce<{[key: string]: WeaponDefinition}>((acc, [key, value]) => {
+    acc[`${PREFIX}${key}`] = value;
+    return acc;    
+}, {}) as Record<Weapon, WeaponDefinition>;
 export default all;
-export type Weapon = `${Prefix}${keyof typeof all}`;
 
 export function getDefinition(weapon: Weapon): WeaponDefinition {
-    return all[weapon.substring((PREFIX).length) as keyof typeof all];
+    return all[weapon];
 }
 
 export const isWeapon = (item: Item): item is Weapon => {
-    return item.substring(PREFIX.length) === PREFIX;
+    return !!all[item as Weapon];
 }

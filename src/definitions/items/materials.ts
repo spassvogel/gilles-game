@@ -6,7 +6,7 @@ const itemType = ItemType.material;
 const basePath = "/img/items/materials/";
 
 
-const all = {
+const materials = {
     arrowheads: {
         itemType,
         iconImg: `${basePath}arrowheads.png`,
@@ -70,13 +70,17 @@ const all = {
 };
 
 
+export type Material = `${Prefix}${keyof typeof materials}`;
+const all = Object.entries(materials).reduce<{[key: string]: ItemDefinition}>((acc, [key, value]) => {
+    acc[`${PREFIX}${key}`] = value;
+    return acc;    
+}, {}) as Record<Material, ItemDefinition>;
 export default all;
-export type Material = `${Prefix}${keyof typeof all}`;
 
 export function getDefinition(material: Material): ItemDefinition {
-    return all[material.substring((PREFIX).length) as keyof typeof all];
+    return all[material];
 }
 
 export const isMaterial = (item: Item): item is Material => {
-    return item.substring(PREFIX.length) === PREFIX;
+    return !!all[item as Material];
 }
