@@ -27,7 +27,7 @@ const ItemIcon = (props: Props) => {
         if (props.showContext !== false) {
             const origin = (event.currentTarget as HTMLElement);
             const originRect = origin.getBoundingClientRect();
-            TooltipManager.showContextTooltip(ContextType.item, getDefinition(item), originRect);
+            TooltipManager.showContextTooltip(ContextType.item, item, originRect);
             event.stopPropagation();
         }
 

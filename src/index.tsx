@@ -23,7 +23,6 @@ import { getWorldLink } from "utils/routing";
 import { createInitialStore } from "store/reducers";
 import "./index.css";
 
-// Todo: Refactor into class
 const TICK_INTERVAL = 2500;
 let persistor: Persistor;
 

@@ -16,7 +16,6 @@ export const getItemsInitialState = (): (Item|null)[] => {
             result.push(null)
         } else {
             const randomItem = getRandomItem();
-            console.log(randomItem)
             result.push(randomItem);
         }
     }

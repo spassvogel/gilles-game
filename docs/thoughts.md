@@ -343,7 +343,7 @@ base and (secondary stats) are:
 - AGIlity (dodge, amount of AP)
 - INTelligence (perception?)
 
-- [x] todo: find GURPS basic set: characters
+- [x] find GURPS basic set: characters
 
 - [ ] each weapon / armour has a STR requirement
 - [ ] shields and weapons have a integrity property (1-0) when it reaches 0 it breaks
