@@ -31,7 +31,7 @@ const generateRandomAttributes = (): BasicAttributesStoreState => {
     };
 };
 
-const avatarImgBasePath = "img/avatars";
+const avatarImgBasePath = "/img/avatars";
 const spritesheetBasePath = "img/scene/actors/";
 
 // offHand]: Item.indomitableCarapace
