@@ -34,7 +34,7 @@ const LumberMill = (props: Props) => {
     }, [app, app.loader, atlas]);
 
     const [rotation, setRotation] = useState(0);
-    useTick((delta:number | undefined) => setRotation(r => r + (BLADE_ROTATION_SPEED * delta!)));
+    useTick((delta:number | undefined) => setRotation(r => r + (BLADE_ROTATION_SPEED * (delta ?? 0))));
 
 
     if (!textures) return null;

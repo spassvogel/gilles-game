@@ -74,10 +74,12 @@ const TavernStructureView = () => {
     };
 
     const handleLaunchQuest = (): void => {
-        const questTitle = TextManager.getQuestTitle(selectedQuest!);
+        if (!selectedQuest) return;
+
+        const questTitle = TextManager.getQuestTitle(selectedQuest);
         const leader = assignedAventurers[0];
-        ToastManager.addToast(questTitle, Type.questLaunched, leader?.avatarImg, getQuestLink(selectedQuest!));
-        onLaunchQuest(selectedQuest!);
+        ToastManager.addToast(questTitle, Type.questLaunched, leader?.avatarImg, getQuestLink(selectedQuest));
+        onLaunchQuest(selectedQuest);
     };
 
     const handleHelpClicked = (event: React.MouseEvent) => {

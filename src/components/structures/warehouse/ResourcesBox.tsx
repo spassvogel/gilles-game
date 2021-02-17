@@ -40,7 +40,7 @@ const ResourcesBox = (props: Props & AppContextProps) => {
                 Object.keys(resources).map((value: string) => {
                     const resource = value as Resource;
                     const resourceDescription = resourceDescriptions[resource];
-                    const amount = props.resources[resource]!;
+                    const amount = props.resources[resource] || 0;
                     if (!resourceDescription) {
                         throw new Error(`No resource description found for ${resource}`);
                     }

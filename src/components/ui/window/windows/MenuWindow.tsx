@@ -55,12 +55,14 @@ const Menu = (props: AllProps & AppContextProps) => {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const fileReader = new FileReader();
         fileReader.onload = () => {
-            const encrypted = fileReader.result! as string;
+            const encrypted = fileReader.result as string;
             const state =  decryptSavedGame(encrypted)
 
             setLoadedStore(state);
         }
-        fileReader.readAsText(e.target.files![0]);
+        if (e.target.files){
+            fileReader.readAsText(e.target.files[0]);
+        }
     }
 
 

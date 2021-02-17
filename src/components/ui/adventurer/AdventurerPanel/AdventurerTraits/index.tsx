@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
 import { useAdventurerState } from 'hooks/store/adventurers';
 import { Trait } from 'definitions/traits/types';
-import './styles/adventurerTraits.scss';
 import { getDefinition } from 'definitions/traits';
 import { TextManager } from 'global/TextManager';
 import { ContextType } from 'constants/context';
 import { TooltipManager } from 'global/TooltipManager';
+import './styles/adventurerTraits.scss';
 
 interface Props {
     adventurerId: string;
@@ -39,7 +39,7 @@ const AdventurerTraits = (props: Props) => {
         <>
             <p>{TextManager.get("ui-adventurer-info-traits-title")}</p>
             <ul className="adventurer-traits">
-                {adventurer.traits.map((t, i)=> renderTrait(t, i === adventurer.traits!.length -1))}
+                {adventurer.traits && adventurer.traits.map((t, i, a)=> renderTrait(t, i === a.length -1))}
             </ul>
         </>
     )

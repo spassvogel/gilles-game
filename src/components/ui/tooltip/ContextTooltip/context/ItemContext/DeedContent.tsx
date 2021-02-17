@@ -35,11 +35,11 @@ const DeedContent = (props: Props) => {
         dispatch(startBuildingStructure(structure));
 
         const callbacks = [ finishBuildingStructure(structure) ];
-        const time = structureDefinition.cost.time!;
+        const time = structureDefinition.cost.time;
         const start = startTask(TaskType.buildStructure,
             `${structure}.build`,
             "town",
-            time,
+            time ?? 0,
             callbacks);
         dispatch(start);
     }
