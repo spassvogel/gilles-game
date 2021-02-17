@@ -3,7 +3,6 @@ import { useQuest } from 'hooks/store/quests';
 import React, { PropsWithChildren, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
-import ActorThingy from './ActorThingy';
 import CombatUIWidget from './CombatUIWidget';
 import NormalUICursor from './NormalUICursor';
 import "./styles/sceneUI.scss";
@@ -177,9 +176,6 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             onMouseUp={handleMouseUp}
         >
             {children}
-            {scene.combat && controller.sceneActors.map(a => (
-                <ActorThingy key={a.id} actor={a} />
-            ))}
             {!scene.combat && cursorLocation && (
                 <NormalUICursor location={cursorLocation} />
             )}
