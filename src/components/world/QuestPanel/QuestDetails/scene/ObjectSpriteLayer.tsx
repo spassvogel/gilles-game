@@ -29,7 +29,7 @@ const ObjectSpriteLayer = (props: Props) => {
                                     <SceneAdventurer
                                         location={location}
                                         controller={controller}
-                                        adventurerId={adventurerId}
+                                        actor={object}
                                         key={adventurerId}
                                         spritesheetPath={spritesheet}
                                         selected={props.selectedActorId === name }
@@ -39,7 +39,7 @@ const ObjectSpriteLayer = (props: Props) => {
                             else if (object.allegiance === Allegiance.enemy) {
                                 return (
                                     <SceneActor
-                                        name={object.name || ""}
+                                        actor={object}
                                         controller={controller}
                                         spritesheetPath={spritesheet}
                                         location={location}

@@ -74,7 +74,7 @@ const Scene = (props: Props) => {
                     { currentActionIntent && (<ActionPreview actionIntent={currentActionIntent} tileWidth={tileWidth} tileHeight={tileHeight}/>)}
                     {DEBUG_BLOCKEDTILES && (
                         <Graphics
-                            name="selectioncircle"
+                            name="blocked-tiles"
                             draw={graphics => {
                                 const line = 3;
                                 for (let y = 0; y < mapData.height; y++) {

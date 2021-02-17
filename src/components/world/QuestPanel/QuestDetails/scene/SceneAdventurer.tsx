@@ -1,9 +1,10 @@
 import { Container, Graphics } from '@inlet/react-pixi';
 import React, { useRef, memo } from 'react';
+import { ActorObject } from 'store/types/scene';
 import SceneActor, { Props as SceneActorProps } from './SceneActor';
 
 interface Props  {
-    adventurerId: string;
+    actor: ActorObject;
     selected: boolean;
     spritesheetPath: string;
 }
@@ -13,7 +14,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
     const {
         controller,
         location,
-        adventurerId,
+        actor,
         selected,
         spritesheetPath,
     } = props;
@@ -24,7 +25,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
     return (
         <Container ref={ref}>
             <SceneActor
-                name={adventurerId}
+                actor={actor}
                 controller={controller}
                 spritesheetPath={spritesheetPath}
                 location={location}

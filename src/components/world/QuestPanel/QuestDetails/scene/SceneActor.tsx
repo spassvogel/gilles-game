@@ -2,18 +2,19 @@ import React, { useMemo,  useEffect, useRef, useCallback, PropsWithChildren, use
 import { gsap } from 'gsap';
 import { Container } from '@inlet/react-pixi';
 import { MultiColorReplaceFilter } from 'pixi-filters';
-import { SceneActionType, SceneAction } from 'store/types/scene';
+import { SceneActionType, SceneAction, ActorObject } from 'store/types/scene';
 import { useDispatch, useSelector } from 'react-redux';
 import { completeSceneAction } from 'store/actions/quests';
 import { StoreState } from 'store/types';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
-import SpriteAnimated from '../../../../pixi/tile/SpriteAnimated';
+import SpriteAnimated from 'components/pixi/tile/SpriteAnimated';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import { AdventurerColor } from 'store/types/adventurer';
 import { useQuest } from 'hooks/store/quests';
+import ActorThingy from './ActorThingy';
 
 export interface Props  {
-    name: string;
+    actor: ActorObject;
     spritesheetPath: string;
     color?: AdventurerColor;
     controller: BaseSceneController<unknown>;
@@ -43,9 +44,10 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         children,
         spritesheetPath,
         lookAt,
+        actor,
         ...rest
     } = props;
-    const {tileWidth, tileHeight} = controller.getTileDimensions();
+    const { tileWidth, tileHeight } = controller.getTileDimensions();
     const actorRef = useRef<PIXI.Container>(null);
     const previousAction = useRef<SceneAction>();
     const dispatch = useDispatch();
@@ -54,9 +56,9 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         if (!quest.scene?.actionQueue) {
             return [];
         }
-        return quest.scene!.actionQueue.filter(a => a.actorId === props.name);
-    },
-    [quest.scene, props.name]);
+        return quest.scene!.actionQueue.filter(a => a.actorId === actor.name);
+    }, [quest.scene, actor.name]);
+    
     const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
     const [animation, setAnimation] = useState("stand");
     const tween = useRef<gsap.core.Tween>();
@@ -100,7 +102,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                 case SceneActionType.move: {
                     const moveComplete = () => {
                         dispatch(completeSceneAction(props.controller.questName));
-                        props.controller.actorMoved(props.name, nextAction.target);
+                        props.controller.actorMoved(actor.name, nextAction.target);
                     }
                     const duration = (nextAction.endsAt - performance.now()) / 1000;
                     if (duration < 0) {
@@ -134,7 +136,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                     break;
                 }
                 case SceneActionType.interact: {
-                    controller.actorInteract(props.name, nextAction.target);
+                    controller.actorInteract(actor.name, nextAction.target);
                     dispatch(completeSceneAction(props.controller.questName));
                     break;
                 }
@@ -175,7 +177,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
             if (!acc[key]) {
               acc[key] = [];
             }
-            acc[key].push(PIXI.Loader.shared.resources[spritesheetPath].textures![frame]);
+            acc[key].push(PIXI.Loader.shared.resources[spritesheetPath].textures?.[frame]);
             return acc;
         }, {});
         setFrames(indexed);
@@ -300,7 +302,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                 return [];
         }
     }, [color])
-
+    const showThingy = !!quest.scene?.combat;
     return (
         <Container x={x} y={y} ref={actorRef} {...rest}>
             { spritesheetPath && frames && (
@@ -315,9 +317,12 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                     anchor={[.5, .5]}
                     pivot={[0, 0]}
                     filters={filters}
-                />
-            )}
+                    />
+                    )}
             {children}
+            {showThingy && (
+                <ActorThingy tileWidth={tileWidth} actor={actor} />
+            )}
         </Container>
     )
 };

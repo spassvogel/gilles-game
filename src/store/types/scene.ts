@@ -19,6 +19,7 @@ export type SceneObject = Merge<TiledObjectData, {
 }>;
 
 export type ActorObject = SceneObject & {
+    name: string;
     ap: number;                     // Remaining AP
     health: number;
     allegiance: Allegiance;
