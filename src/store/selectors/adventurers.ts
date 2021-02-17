@@ -53,7 +53,8 @@ export const selectAdventurersGroupedByQuest = createSelector([
 /** Returns a selector keyed by active quests whose value is a list of AdventurerStoreState */
 export const createSelectAdventurersOnQuest = (questName: string) => {
     const getAdventurersOnQuest = (adventurers: AdventurerStoreState[], quests: QuestStoreState[]): AdventurerStoreState[] => {
-        const quest = quests.find(q => q.name === questName)!;
+        const quest = quests.find(q => q.name === questName);
+        if (!quest) throw new Error(`No quest named ${questName}`)
         return adventurersOnQuest(adventurers, quest);
     };
 
