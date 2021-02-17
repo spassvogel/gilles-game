@@ -50,7 +50,7 @@ const QuestMarker = (props: Props) => {
         >
             { leader && (
             <Sprite
-                image={`${process.env.PUBLIC_URL}/${leader.avatarImg}`}
+                image={`${process.env.PUBLIC_URL}${leader.avatarImg}`}
                 name="avatar"
                 anchor={new PIXI.Point(0.5, 0.5)}
                 x={0}
