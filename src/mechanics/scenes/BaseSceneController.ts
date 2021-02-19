@@ -5,7 +5,7 @@ import { loadResourceAsync } from 'utils/pixiJs';
 import { TiledLayerType, TiledMapData, TiledObjectData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'store/types/adventurer';
-import { setScene, setSceneName, exitEncounter, enqueueSceneAction, updateQuestVars } from 'store/actions/quests';
+import { setScene, setSceneName, exitEncounter, enqueueSceneAction, updateQuestVars, deductActorAp } from 'store/actions/quests';
 import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction, isActorObject, getSpritesheetPaths } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
@@ -199,7 +199,7 @@ export class BaseSceneController<TQuestVars> {
                     if (remaining < (path?.length || 0)) {
                         // return;
                     }
-                    // this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
+                    this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
                 }
                 path?.forEach((l, index) => {
                     const sceneAction: SceneAction = {
@@ -259,7 +259,7 @@ export class BaseSceneController<TQuestVars> {
                     endsAt: movementDuration * (path.length + 1) + performance.now()
                 };
                 this.dispatch(enqueueSceneAction(this.questName, meleeAction));
-                // this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
+                this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
             }
         }
     }
@@ -434,6 +434,7 @@ export class BaseSceneController<TQuestVars> {
                         object.type = TiledObjectType.actor;
                         if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
                             object.name = adventurer.id;
+                            object.ap = 10;
                             object.health = adventurer.health;
                             object.allegiance = Allegiance.player;
                             object.properties.adventurerId = adventurer.id;
@@ -448,6 +449,8 @@ export class BaseSceneController<TQuestVars> {
                     object.type = TiledObjectType.actor;
                     if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
                         object.health = Math.random() * 100;
+                        object.ap = 8;
+                        object.name = object.properties.name as string;
                         object.allegiance = Allegiance.enemy;
                         object.properties.isSprite = true;
                         object.properties.spritesheet = `${spritesheetBasePath}troll-sword.json`;

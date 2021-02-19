@@ -1,6 +1,7 @@
 import { Container, Graphics, Text } from "@inlet/react-pixi";
 import { useAdventurerState } from "hooks/store/adventurers";
-import React, { useRef } from "react";
+import React from "react";
+import { Allegiance } from "store/types/combat";
 import { ActorObject } from "store/types/scene";
 
 interface Props {
@@ -10,31 +11,42 @@ interface Props {
 
 const MARGIN = 4;
 
+const useActorThingyInfo = (actor: ActorObject) => {
+    const adventurer = useAdventurerState(actor.name); // is possibly null
+    if (actor.allegiance === Allegiance.player) {
+        return adventurer.name;
+    }
+    return actor.name; // enemy name
+}
+
 const ActorThingy = (props: Props) => {
     const { tileWidth, actor } = props;
-    const adventurer = useAdventurerState(actor.name);
     
-    const mask = useRef<PIXI.Graphics>(null);
+    // const mask = useRef<PIXI.Graphics>(null);
+    const name = useActorThingyInfo(actor);
 
     return (
         <Container y={-40}>
             <Text 
-                y={-30}
+                y={-10}
                 x={MARGIN}
-                text={adventurer?.name}
+                anchor={[0, 1]}
+                text={name}
                 style={{
                     fontFamily : 'Gabriela', 
                     fontSize: 18, 
                     fill : 0xffffff, 
-                    align : 'center',     
+                    align : 'center',
+                    wordWrap: true,
+                    wordWrapWidth: tileWidth,
                     dropShadow: true,
                     dropShadowAngle: 0.9,
                     dropShadowBlur: 10,
                     dropShadowDistance: 0
                 }}
-                mask={mask.current}
+                // mask={mask.current}
             />
-            <Graphics
+            {/* <Graphics
                 name="mask"
                 ref={mask}
                 draw={mask => {
@@ -42,7 +54,7 @@ const ActorThingy = (props: Props) => {
                     mask.drawRect(MARGIN, -30, tileWidth - 2 * MARGIN, 22);
                     mask.endFill();
                 }}
-            />
+            /> */}
             <Graphics
                 name="background"
                 draw={graphics => {

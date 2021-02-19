@@ -97,9 +97,21 @@
     <property name="interactive" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="16" name="enemy3" type="enemySpawn" x="500" y="200" width="100" height="100"/>
-  <object id="17" name="enemy1" type="enemySpawn" x="300" y="200" width="100" height="100"/>
-  <object id="18" name="enemy2" type="enemySpawn" x="400" y="200" width="100" height="100"/>
+  <object id="16" name="enemy3" type="enemySpawn" x="500" y="200" width="100" height="100">
+   <properties>
+    <property name="name" value="Troll Developer"/>
+   </properties>
+  </object>
+  <object id="17" name="enemy1" type="enemySpawn" x="300" y="200" width="100" height="100">
+   <properties>
+    <property name="name" value="Troll accountant"/>
+   </properties>
+  </object>
+  <object id="18" name="enemy2" type="enemySpawn" x="400" y="200" width="100" height="100">
+   <properties>
+    <property name="name" value="Troll manager"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer id="11" name="walls-upper" width="8" height="10">
   <data encoding="csv">

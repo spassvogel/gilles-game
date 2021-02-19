@@ -318,7 +318,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                     pivot={[0, 0]}
                     filters={filters}
                     />
-                    )}
+                )}
             {children}
             {showThingy && (
                 <ActorThingy tileWidth={tileWidth} actor={actor} />
