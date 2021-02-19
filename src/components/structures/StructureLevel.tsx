@@ -14,8 +14,8 @@ import { startTask } from 'store/actions/tasks';
 import { TaskType } from 'store/types/task';
 import { useUpgradeTasksStateByStructure } from 'hooks/store/useTasksState';
 import { formatDuration } from 'utils/format/time';
-import "./styles/structureLevel.scss";
 import { TickingProgressbar } from "components/ui/common/progress";
+import "./styles/structureLevel.scss";
 
 export interface Props {
     structure: Structure;

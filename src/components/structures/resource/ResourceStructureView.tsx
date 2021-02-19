@@ -15,10 +15,10 @@ import UpgradeHelpModal from './UpgradeHelpModal';
 import useStructureState from 'hooks/store/useStructureState';
 import ResourceGenerationRow from './ResourceGenerationRow';
 import { Resource } from 'definitions/resources';
-import './styles/resourceStructureView.scss';
 import Button from "components/ui/buttons/Button";
+import './styles/resourceStructureView.scss';
 // import { pick } from "mechanics/lootTable";
-
+// todo:  2021-02-19 Generate items at resource structures
 
 export interface Props  {
     structure: Structure;

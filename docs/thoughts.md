@@ -661,3 +661,14 @@ https://css-tricks.com/sticky-smooth-active-nav/
 ### Improve structure UI 
 - [ ] Add music/sound
 - [ ] add rpg professional badge
+
+### 2021-02-19 Generate items at resource structures
+Resource structures will generate not just resources but also items over a long period of time (e.g 3 hrs).
+Each structure level has a number of slots and a weighed loot table of items that it generates
+
+
+### 2021-02-20 AI Manager
+When combat is started an AI manager is created, gets fed scenecontroller.
+Subscribes to the store and can dispatch events
+
+https://redux.js.org/api/store#subscribelistener
