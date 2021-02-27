@@ -31,7 +31,7 @@ const ActorThingy = (props: Props) => {
                 y={-10}
                 x={MARGIN}
                 anchor={[0, 1]}
-                text={name}
+                text={`${name} (${actor.ap})`}
                 style={{
                     fontFamily : 'Gabriela', 
                     fontSize: 18, 

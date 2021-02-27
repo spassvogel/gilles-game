@@ -33,8 +33,18 @@ const Scene = (props: Props) => {
 
     const ref = useRef<HTMLDivElement>(null);
     const scene = useQuestScene(controller.questName);
+    const combat = scene?.combat === true;
     const {tileWidth, tileHeight} = controller.getTileDimensions();
     const [currentActionIntent, setCurrentActionIntent] = useState<ActionIntent>();
+
+    useEffect(() => {
+        if (combat) {
+            console.log('combat on!')
+        }
+        return () => { 
+            console.log('combat off')
+        }
+    }, [combat]);
 
     useEffect(() => {
         if (!mapData) return;

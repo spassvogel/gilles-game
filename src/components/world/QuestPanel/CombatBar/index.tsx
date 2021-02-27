@@ -33,7 +33,7 @@ const CombatBar = (props: Props) => {
                     </div>
                 ))}
             </div>
-            <Button size="small">End turn</Button>
+            <Button size="small" onClick={() => controller.endTurn()}>End turn</Button>
         </div>
     )
 }

@@ -9,8 +9,7 @@ import { Resource } from "definitions/resources";
  * @param state
  * @param action
  */
-export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState = initialResourcesState,
-                                                       action: AnyAction | GameTickAction) => {
+export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState = initialResourcesState, action: AnyAction | GameTickAction) => {
 
     const addResources = (resourcesToAdd: ResourceStoreState) => {
         // todo: Check if warehouse can hold it

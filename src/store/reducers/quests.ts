@@ -11,7 +11,7 @@ import {
     UpdateSceneObjectAction,
     SetActiveSceneInteractionModalAction,
     DeductActorApAction,
-    SetCombatAction
+    SetCombatAction,
 } from "store/actions/quests";
 import { AnyAction, Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "store/types/quest";
@@ -86,6 +86,9 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
         case ActionType.setCombat:
             return setCombat(state, action as SetCombatAction);
+
+        case ActionType.endPlayerTurn:
+            return endPlayerTurn(state, action as QuestAction);
 
         case ActionType.deductActorAp:
             return deductActorAp(state, action as DeductActorApAction);
@@ -252,13 +255,37 @@ const setCombat = (state: QuestStoreState[], action: SetCombatAction) => {
     });
 };
 
-const deductActorAp = (state: QuestStoreState[], action: DeductActorApAction) => {
+const endPlayerTurn = (state: QuestStoreState[], action: QuestAction) => {
     return state.map((qss) => {
         if (qss.name === action.questName) {
             const scene = qss.scene;
             if (!scene) throw new Error("Something broke. No scene");
 
-            // todo!!
+            scene.objects = scene.objects.map(o => {
+                if (isActorObject(o)) {
+                    const ap = 0;
+                    return {
+                        ...o,
+                        ap
+                    };
+                }
+                return o;
+            })
+
+            return {
+                ...qss,
+                scene
+            };
+        }
+        return qss;
+    });
+}
+
+const deductActorAp = (state: QuestStoreState[], action: DeductActorApAction) => {
+    return state.map((qss) => {
+        if (qss.name === action.questName) {
+            const scene = qss.scene;
+            if (!scene) throw new Error("Something broke. No scene");
 
             scene.objects = scene.objects.map(o => {
                 if (isActorObject(o) && o.name === action.actor) {

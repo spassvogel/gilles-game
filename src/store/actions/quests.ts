@@ -17,6 +17,7 @@ export enum ActionType {
     enqueueSceneAction = "enqueueSceneAction",
     completeSceneAction = "completeSceneAction",
     setCombat = "setCombat",                                // Sets combat status
+    endPlayerTurn = "endPlayerTurn",                        // Forfeits all player AP
     deductActorAp = "deductActorAp",
     updateSceneObjectAction = "updateSceneObjectAction",    // Updates a tile object on the scene. Can update any property except 'id'
     setActiveSceneInteractionModal = "setActiveSceneInteractionModal",     // Sets the active  modal
@@ -136,6 +137,12 @@ export function setCombat(quest: string, combat: boolean): SetCombatAction {
         type: ActionType.setCombat,
         questName: quest,
         combat
+    };
+}
+export function endPlayerTurn(quest: string): QuestAction {
+    return {
+        type: ActionType.endPlayerTurn,
+        questName: quest,
     };
 }
 

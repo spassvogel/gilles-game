@@ -5,7 +5,7 @@ import { loadResourceAsync } from 'utils/pixiJs';
 import { TiledLayerType, TiledMapData, TiledObjectData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'store/types/adventurer';
-import { setScene, setSceneName, exitEncounter, enqueueSceneAction, updateQuestVars, deductActorAp } from 'store/actions/quests';
+import { setScene, setSceneName, exitEncounter, enqueueSceneAction, updateQuestVars, deductActorAp, endPlayerTurn } from 'store/actions/quests';
 import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction, isActorObject, getSpritesheetPaths } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
@@ -370,6 +370,13 @@ export class BaseSceneController<TQuestVars> {
      */
     calculateWalkApCosts(from: [number, number], to: [number, number]) {
         return this.findPath(from, to)?.length || 0;
+    }
+
+    /**
+     * Forfeits all player ap
+     */
+    public endTurn() {
+        this.dispatch(endPlayerTurn(this.questName));
     }
 
     public getSceneActor(actorId: string): ActorObject {
