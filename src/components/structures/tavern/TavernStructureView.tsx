@@ -5,6 +5,8 @@ import { AdventurerStoreState} from "store/types/adventurer";
 import { QuestStatus, QuestStoreState} from "store/types/quest";
 import { TextManager} from "global/TextManager";
 import { ToastManager} from 'global/ToastManager';
+import { TooltipManager } from 'global/TooltipManager';
+import { ContextType } from 'constants/context';
 import { Type} from 'components/ui/toasts/Toast';
 import { getQuestLink} from 'utils/routing';
 import RoomList from './rooms/RoomList';
@@ -17,8 +19,7 @@ import { launchQuest } from 'store/actions/quests';
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import StructureLevel from '../StructureLevel';
 import UpgradeHelpModal from './UpgradeHelpModal';
-import { TooltipManager } from 'global/TooltipManager';
-import { ContextType } from 'constants/context';
+import StructureViewHeader from "../StructureViewHeader";
 import "./styles/tavernStructureView.scss";
 
 export const SOURCE_ID = "tavern";
@@ -92,29 +93,32 @@ const TavernStructureView = () => {
     }
 
     return (
-        <div className="tavern-structure-view">
-            <StructureLevel structure={Structure.tavern} onHelpClicked={handleHelpClicked}/>
-            <section>
-                <RoomList
-                    roomCount={levelDefinition.rooms}
-                    adventurers={adventurers}
-                    assignedAventurers={assignedAventurers}
-                    quests={quests}
-                    selectedQuestName={selectedQuest}
-                    onAddAdventurer={handleAddAdventurer}
-                    onRemoveAdventurer={handleRemoveAdventurer}
-                />
-                <QuestBoard
-                    availableQuests={getAvailableQuests}
-                    selectedQuestName={selectedQuest}
-                    assignedAventurers={assignedAventurers}
-                    onQuestClick={(name: string) => handleQuestClick(name)}
-                    onAdventurerDropped={handleAdventurerDropped}
-                    onRemoveAdventurer={handleRemoveAdventurer}
-                    onLaunchQuest={handleLaunchQuest}
-                />
-            </section>
-        </div>
+        <>
+            <StructureViewHeader structure={Structure.tavern} />
+            <div className="tavern-structure-view">
+                <StructureLevel structure={Structure.tavern} onHelpClicked={handleHelpClicked}/>
+                <section>
+                    <RoomList
+                        roomCount={levelDefinition.rooms}
+                        adventurers={adventurers}
+                        assignedAventurers={assignedAventurers}
+                        quests={quests}
+                        selectedQuestName={selectedQuest}
+                        onAddAdventurer={handleAddAdventurer}
+                        onRemoveAdventurer={handleRemoveAdventurer}
+                    />
+                    <QuestBoard
+                        availableQuests={getAvailableQuests}
+                        selectedQuestName={selectedQuest}
+                        assignedAventurers={assignedAventurers}
+                        onQuestClick={(name: string) => handleQuestClick(name)}
+                        onAdventurerDropped={handleAdventurerDropped}
+                        onRemoveAdventurer={handleRemoveAdventurer}
+                        onLaunchQuest={handleLaunchQuest}
+                    />
+                </section>
+            </div>
+        </>
     );
 };
 

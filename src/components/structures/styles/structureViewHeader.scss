@@ -86,6 +86,14 @@
     }
 }
 
+.structureview-header-tavern {
+    background-image: url("./images/tavern/banner.png");
+
+    &::after {
+        background-image: url("./images/tavern/icon.png");
+    }
+}
+
 .structureview-header-weaponsmith {
     background-image: url("./images/weaponsmith/banner.png");
     background-position: center -280px;
