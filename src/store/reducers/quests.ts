@@ -259,16 +259,17 @@ const deductActorAp = (state: QuestStoreState[], action: DeductActorApAction) =>
             if (!scene) throw new Error("Something broke. No scene");
 
             // todo!!
-            // scene.actors = scene.actors.map(a => {
-            //     if (a.id === action.actor) {
-            //         const ap = a.ap - action.ap;
-            //         return {
-            //             ...a,
-            //             ap
-            //         };
-            //     }
-            //     return a;
-            // })
+
+            scene.objects = scene.objects.map(o => {
+                if (isActorObject(o) && o.name === action.actor) {
+                    const ap = o.ap - action.ap;
+                    return {
+                        ...o,
+                        ap
+                    };
+                }
+                return o;
+            })
 
             return {
                 ...qss,
