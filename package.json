@@ -28,6 +28,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
     "react-select": "^4.1.0",
+    "react-spring": "^9.0.0-rc.3",
     "redux-persist": "^6.0.0",
     "reselect": "^4.0.0",
     "seedrandom": "^3.0.5",
