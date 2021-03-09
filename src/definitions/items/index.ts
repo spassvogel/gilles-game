@@ -2,6 +2,7 @@ import apparel from "./apparel";
 import deeds from "./deeds";
 import herbs from "./herbs";
 import materials from "./materials";
+import potions from "./potions";
 import questItems from "./questItems";
 import trinkets from "./trinkets";
 import { Item, ItemDefinition } from "./types";
@@ -12,6 +13,7 @@ const all = {
     ...deeds,
     ...herbs,
     ...materials,
+    ...potions,
     ...questItems,
     ...trinkets,
     ...weapons,
