@@ -3,7 +3,7 @@ import { Item, ItemDefinition, ItemType } from "./types";
 type Prefix = "potion/";
 const PREFIX = "potion/";
 const itemType = ItemType.potion;
-const basePath = "/img/items/deeds/";
+const basePath = "/img/items/potions/";
 
 export type PotionCategory = "health" | "soma" | "mana"
 export interface PotionDefinition extends ItemDefinition {
