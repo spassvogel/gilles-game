@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useMemo,  useState } from 'react';
+import { useEffect, useMemo,  useState } from 'react';
 import { getDefinition } from "definitions/items";
 import { Item, ItemType } from "definitions/items/types";
 import { getDefinition as getStructureDefinition, Structure } from "definitions/structures";
@@ -188,6 +188,12 @@ const CheatWindow = () => {
             }
         })
     ), []);
+
+    useEffect(() => {
+        if (process.env.NODE_ENV !== 'production') {
+            TextManager.printNotFounds();
+        }
+    }, [])
 
     return (
         <div className="cheat-window">

@@ -15,6 +15,8 @@ export abstract class TextManager {
     public static init(texts: {[key: string]: string}, precompile = true) {
         this.texts = texts;
         this.templates = {};
+        this.notFound = [];
+
         if (precompile) {
             this.compileAll();
         }
@@ -25,6 +27,10 @@ export abstract class TextManager {
     public static get(key: string, context?: unknown): string {
         const result = this.getDefault(key, context);
         if (result === null) {
+            if (process.env.NODE_ENV === 'development') {
+                this.notFound.push(key)
+            }
+    
             // tslint:disable-next-line: no-console
             console.error(`Key '${key}' not found in TextManager`);
             return `<<'${key}' missing>>`;
@@ -114,13 +120,21 @@ export abstract class TextManager {
         return this.get(`skill-${toKebab(WeaponType[type])}-info`);
     }
 
-    static getWeaponClassification(weaponClass: WeaponClassification) {
+    public static getWeaponClassification(weaponClass: WeaponClassification) {
         return this.get(`ui-weapon-class-${toKebab(WeaponClassification[weaponClass])}`);
+    }
+
+    public static printNotFounds() {
+        if (this.notFound.length) {
+            console.log("TextManager strings not found:")
+            console.log(this.notFound.join('\n'))
+        }
     }
 
     private static initialized = false;
     private static texts: Record<string, string>;
     private static templates: Record<string, Handlebars.TemplateDelegate<unknown>>;
+    private static notFound: string[];
 
     private static compileAll() {
         Object.keys(this.texts).forEach((key: string) =>  {
