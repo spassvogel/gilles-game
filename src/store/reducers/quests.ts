@@ -10,7 +10,7 @@ import {
     SetSceneAction,
     UpdateSceneObjectAction,
     SetActiveSceneInteractionModalAction,
-    DeductActorApAction,
+    ActorApAction,
     SetCombatAction,
 } from "store/actions/quests";
 import { AnyAction, Reducer } from "redux";
@@ -90,8 +90,11 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
         case ActionType.endPlayerTurn:
             return endPlayerTurn(state, action as QuestAction);
 
+        case ActionType.setActorAp:
+            return setActorAp(state, action as ActorApAction);
+
         case ActionType.deductActorAp:
-            return deductActorAp(state, action as DeductActorApAction);
+            return deductActorAp(state, action as ActorApAction);
 
         case ActionType.updateSceneObjectAction:
             return updateSceneObjectAction(state, action as UpdateSceneObjectAction);
@@ -281,7 +284,33 @@ const endPlayerTurn = (state: QuestStoreState[], action: QuestAction) => {
     });
 }
 
-const deductActorAp = (state: QuestStoreState[], action: DeductActorApAction) => {
+const setActorAp = (state: QuestStoreState[], action: ActorApAction) => {
+    return state.map((qss) => {
+        if (qss.name === action.questName) {
+            const scene = qss.scene;
+            if (!scene) throw new Error("Something broke. No scene");
+
+            scene.objects = scene.objects.map(o => {
+                if (isActorObject(o) && o.name === action.actor) {
+                    const ap = action.ap;
+                    return {
+                        ...o,
+                        ap
+                    };
+                }
+                return o;
+            })
+
+            return {
+                ...qss,
+                scene
+            };
+        }
+        return qss;
+    });
+}
+
+const deductActorAp = (state: QuestStoreState[], action: ActorApAction) => {
     return state.map((qss) => {
         if (qss.name === action.questName) {
             const scene = qss.scene;

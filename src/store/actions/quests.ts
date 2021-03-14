@@ -18,6 +18,7 @@ export enum ActionType {
     completeSceneAction = "completeSceneAction",
     setCombat = "setCombat",                                // Sets combat status
     endPlayerTurn = "endPlayerTurn",                        // Forfeits all player AP
+    setActorAp = "setActorAp",
     deductActorAp = "deductActorAp",
     updateSceneObjectAction = "updateSceneObjectAction",    // Updates a tile object on the scene. Can update any property except 'id'
     setActiveSceneInteractionModal = "setActiveSceneInteractionModal",     // Sets the active  modal
@@ -47,7 +48,7 @@ export interface EnqueueSceneActionAction extends QuestAction {
     sceneAction: SceneAction;
 }
 
-export interface DeductActorApAction extends QuestAction {
+export interface ActorApAction extends QuestAction {
     actor: string;
     ap: number;
 }
@@ -146,7 +147,16 @@ export function endPlayerTurn(quest: string): QuestAction {
     };
 }
 
-export function deductActorAp(quest: string, actor: string, ap: number): DeductActorApAction {
+export function deductActorAp(quest: string, actor: string, ap: number): ActorApAction {
+    return {
+        type: ActionType.deductActorAp,
+        questName: quest,
+        actor,
+        ap
+    };
+}
+
+export function setActorAp(quest: string, actor: string, ap: number): ActorApAction {
     return {
         type: ActionType.deductActorAp,
         questName: quest,

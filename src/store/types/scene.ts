@@ -10,6 +10,7 @@ export interface SceneStoreState {
     actionQueue?: SceneAction[];
     activeInteractionModal?: SceneInteractionModal;
     combat: boolean;
+    turn?: Allegiance;
 }
 
 export type SceneObject = Merge<TiledObjectData, {
@@ -30,8 +31,12 @@ export const isActorObject = (object: SceneObject): object is ActorObject => {
     return object.type === TiledObjectType.actor;
 }
 
-export const isAdventurer = (object: SceneObject): boolean => {
+export const isAdventurer = (object: SceneObject): object is ActorObject => {
     return isActorObject(object) && object.allegiance === Allegiance.player;
+}
+
+export const isEnemy = (object: SceneObject): object is ActorObject => {
+    return isActorObject(object) && object.allegiance === Allegiance.enemy;
 }
 
  // export type Actor = SceneObject & {

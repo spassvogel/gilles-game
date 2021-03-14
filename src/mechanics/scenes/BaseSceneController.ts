@@ -6,7 +6,7 @@ import { TiledLayerType, TiledMapData, TiledObjectData } from 'constants/tiledMa
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { setScene, setSceneName, exitEncounter, enqueueSceneAction, updateQuestVars, deductActorAp, endPlayerTurn } from 'store/actions/quests';
-import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction, isActorObject, getSpritesheetPaths } from 'store/types/scene';
+import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction, isActorObject, getSpritesheetPaths, isAdventurer, isEnemy } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLink } from 'utils/routing';
@@ -35,9 +35,9 @@ export class BaseSceneController<TQuestVars> {
     public aStar?: AStarFinder;
     public dataLoading = false;
     public dataLoadComplete = false;
+    public store: Store<StoreState, AnyAction>;
 
     protected jsonPath?: string;
-    protected store: Store<StoreState, AnyAction>;
     protected blockedTiles: [number, number][] = [];
 
     constructor(store: Store<StoreState, AnyAction>, questName: string) {
@@ -123,7 +123,7 @@ export class BaseSceneController<TQuestVars> {
         const scene = {
             ...this.quest.scene,
             objects,
-            combat
+            combat,
         }
         this.dispatch(setScene(this.questName, scene));
 
@@ -456,7 +456,7 @@ export class BaseSceneController<TQuestVars> {
                     object.type = TiledObjectType.actor;
                     if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
                         object.health = Math.random() * 100;
-                        object.ap = 8;
+                        object.ap = 0;
                         object.name = object.properties.name as string;
                         object.allegiance = Allegiance.enemy;
                         object.properties.isSprite = true;
@@ -486,8 +486,16 @@ export class BaseSceneController<TQuestVars> {
         return this.sceneObjects.filter<ActorObject>(isActorObject);
     }
 
+    public get sceneAdventurers(): ActorObject[] {
+        return this.sceneObjects.filter<ActorObject>(isAdventurer);
+    }
+
+    public get sceneEnemies(): ActorObject[] {
+        return this.sceneObjects.filter<ActorObject>(isEnemy);
+    }
+
     // Quest
-    protected get quest() {
+    public get quest() {
         const storeState = this.store.getState();
         return storeState.quests.find(q => q.name === this.questName)!;
     }

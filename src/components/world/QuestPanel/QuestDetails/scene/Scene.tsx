@@ -10,6 +10,7 @@ import ActionPreview from './ActionPreview';
 import { isAdventurer } from "store/types/scene";
 import SceneLog from "./SceneLog";
 import "./styles/scene.scss";
+import { CombatController } from "mechanics/scenes/CombatController";
 
 export interface Props {
     selectedActorId: string;
@@ -40,9 +41,11 @@ const Scene = (props: Props) => {
     useEffect(() => {
         if (combat) {
             console.log('combat on!')
+            CombatController.initialize(controller)
         }
         return () => { 
             console.log('combat off')
+            CombatController.destroy();
         }
     }, [combat]);
 
