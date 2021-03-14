@@ -65,11 +65,12 @@ const WarehouseStructureView = () => {
         }
         const ref = resourcesRef.current as unknown as HTMLFieldSetElement;
         ref.classList.remove("animate");
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
             if (resourcesRef) {
                 ref.classList.add("animate");
             }
         }, 200);
+        return () => { clearTimeout(timeout); }
     }, [resourcesDelta]);
 
     const structureDefinition = getDefinition<WarehouseStructureDefinition>(Structure.warehouse);

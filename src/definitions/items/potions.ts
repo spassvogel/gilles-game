@@ -76,7 +76,6 @@ const potions = {
 export type Potion = `${Prefix}${keyof typeof potions}`;
 const all = Object.entries(potions).reduce<{[key: string]: PotionDefinition}>((acc, [key, value]) => {
     acc[`${PREFIX}${key}`] = value as PotionDefinition;
-    console.log(key)
     return acc;    
 }, {}) as Record<Potion, PotionDefinition>;
 export default all;
@@ -85,6 +84,6 @@ export function getDefinition(potion: Potion): PotionDefinition {
     return all[potion];
 }
 
-export const isPotioin = (item: Item): item is Potion => {
+export const isPotion = (item: Item): item is Potion => {
     return !!all[item as Potion];
 }

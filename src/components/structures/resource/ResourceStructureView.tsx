@@ -18,7 +18,7 @@ import { Resource } from 'definitions/resources';
 import Button from "components/ui/buttons/Button";
 import './styles/resourceStructureView.scss';
 // import { pick } from "mechanics/lootTable";
-// todo:  2021-02-19 Generate items at resource structures
+// todo: 2021-02-19 Generate items at resource structures
 
 export interface Props  {
     structure: Structure;

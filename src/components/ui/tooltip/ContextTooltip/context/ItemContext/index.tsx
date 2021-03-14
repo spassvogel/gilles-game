@@ -8,6 +8,8 @@ import WeaponContent from './WeaponContent';
 import ApparelContent from './ApparelContent';
 import { TextManager } from 'global/TextManager';
 import "./styles/itemContext.scss";
+import { isPotion } from "definitions/items/potions";
+import PotionContent from "./PotionContent";
 
 export interface Props {
     item: Item;
@@ -26,6 +28,9 @@ const ItemContext = (props: Props) => {
     }
     if (isApparel(item)) {
         return <ApparelContent item={item} />;
+    }
+    if (isPotion(item)) {
+        return <PotionContent item={item} />;
     }
     const subtext = TextManager.getItemSubtext(item);
     return (subtext && (<p className="subtext">{`"${subtext}"`}</p>)) || null;
