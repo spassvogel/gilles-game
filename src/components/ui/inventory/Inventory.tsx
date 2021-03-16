@@ -29,7 +29,7 @@ const Inventory = (props: Props) => {
                 // TODO: Swap items?!
                 return;
             }
-            if (props.onDropItem && dragInfo.inventorySlot) {
+            if (props.onDropItem && dragInfo.inventorySlot !== undefined) {
                 const {inventorySlot: fromSlot} = dragInfo;
                 props.onDropItem(dragInfo.item, fromSlot, i, dragInfo.sourceType, dragInfo.sourceId);
            }
