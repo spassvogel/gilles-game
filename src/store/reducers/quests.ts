@@ -1,5 +1,3 @@
-import { GameAction } from "store/actions/game";
-import { QuestAction } from "store/actions/quests";
 import { Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "store/types/quest";
 import { isActorObject, SceneActionType } from 'store/types/scene';
@@ -7,6 +5,7 @@ import { QuestDefinition } from 'definitions/quests/types';
 import { getDefinition } from 'definitions/quests';
 import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars';
 import deepmerge from "deepmerge";
+import { Action } from "store/actions";
 
 // tslint:disable:object-literal-sort-keys
 export const initialQuestState: QuestStoreState[] = [{
@@ -41,7 +40,7 @@ export const initialQuestState: QuestStoreState[] = [{
  * @param state
  * @param action
  */
-export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialQuestState, action: GameAction | QuestAction): QuestStoreState[] => {
+export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialQuestState, action: Action): QuestStoreState[] => {
     switch (action.type) {
         // Launches quest. Sets state to active, assigns adventurers
         case "launchQuest": {

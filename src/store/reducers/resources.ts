@@ -1,11 +1,10 @@
-import { GameAction } from "store/actions/game";
 import { Reducer } from "redux";
-import { ResourcesAction } from "store/actions/resources";
 import { ResourceStoreState } from "store/types/resources";
 import { Resource } from "definitions/resources";
+import { Action } from "store/actions";
 
 
-export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState = initialResourcesState, action: ResourcesAction | GameAction) => {
+export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState = initialResourcesState, action: Action) => {
 
     const addResources = (resourcesToAdd: ResourceStoreState) => {
         // todo: Check if warehouse can hold it

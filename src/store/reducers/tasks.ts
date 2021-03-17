@@ -1,16 +1,16 @@
 
-import { GameAction } from "store/actions/game";
 import { TaskAction } from "store/actions/tasks";
 import { Reducer } from "redux";
 import { TaskStoreState } from "store/types/task";
 import { TasksStoreState } from "store/types/tasks";
+import { Action } from "store/actions";
 
 /**
  * Tasks reducer
  * @param state
  * @param action
  */
-export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initialTasksState, action: GameAction | TaskAction) => {
+export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initialTasksState, action: Action) => {
     switch (action.type) {
         case "start": {
         // Adds a new task to the running tasks

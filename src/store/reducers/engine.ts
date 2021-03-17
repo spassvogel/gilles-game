@@ -1,13 +1,13 @@
-import { GameAction } from "store/actions/game";
 import { Reducer } from "redux";
 import { EngineStoreState } from "store/types/engine";
+import { Action } from "store/actions";
 
 /**
  * reducer
  * @param state
  * @param action
  */
-export const engine: Reducer<EngineStoreState> = (state: EngineStoreState = getInitialEngineState(), action: GameAction) => {
+export const engine: Reducer<EngineStoreState> = (state: EngineStoreState = getInitialEngineState(), action: Action) => {
     switch (action.type) {
         case "startGame": {
             return {
@@ -30,6 +30,7 @@ export const engine: Reducer<EngineStoreState> = (state: EngineStoreState = getI
             };
         }
     }
+    return state
 };
 
 export const getInitialEngineState = () => {

@@ -207,8 +207,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 
 // TODO: To generate a random 11 digit number, use: Math.random().toString(36).substring(2)
 
-export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (
-    state: AdventurerStoreState[] = initialAdventurers, action: AdventurerAction) => {
+export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (state: AdventurerStoreState[] = initialAdventurers, action: AdventurerAction) => {
 
     switch (action.type) {
         // Moves an  item from one inventory slot to another
@@ -360,7 +359,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (
         }
 
     }
-
+    return state
     // debug: this will auto-increase the levels of every adventurer at every tick
     // return state.map((adventurer: AdventurerStoreState) => {
     //     return {
