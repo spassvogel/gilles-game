@@ -1,18 +1,17 @@
-import { ActionType, ModifyGoldAction } from "store/actions/gold";
-import { AnyAction, Reducer } from "redux";
+import { GoldAction } from "store/actions/gold";
+import { Reducer } from "redux";
 
 /**
  * reducer
  * @param state
  * @param action
  */
-export const gold: Reducer<number> = (state: number = initialGoldState, action: AnyAction) => {
+export const gold: Reducer<number, GoldAction> = (state: number = initialGoldState, action: GoldAction) => {
     switch (action.type) {
-        case ActionType.addGold:
+        case "addGold":
             // Adds (or subtract, if negative) gold from the players gold supply
-            return state + (action as ModifyGoldAction).amount;
+            return state + action.amount;
     }
-    return state;
 };
 
 export const initialGoldState = 40;
