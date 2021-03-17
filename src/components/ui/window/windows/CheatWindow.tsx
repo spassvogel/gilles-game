@@ -19,16 +19,14 @@ import { StoreState } from 'store/types';
 import { addGold } from 'store/actions/gold';
 import { addItemToWarehouse } from 'store/actions/items';
 import { withWindow } from 'hoc/withWindow';
-import { addWorkers } from 'store/actions';
 import { getTimeMultiplier, setCheatTimeMultiplier, TimeType } from 'mechanics/time';
 import ItemIcon from "components/ui/items/ItemIcon";
 import { IconSize } from "components/ui/common/Icon";
 import Button from "components/ui/buttons/Button";
 import Select from "components/ui/common/Select";
 import allItems from "definitions/items";
+import { addWorkers } from "store/actions/workers";
 import "./styles/cheat.scss";
-
-
 
 const CheatWindow = () => {
 

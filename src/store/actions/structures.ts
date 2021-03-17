@@ -2,6 +2,7 @@ import { Structure } from "definitions/structures";
 import { Action } from "redux";
 import { ProducableItem, StructureState } from "store/types/structure";
 
+// todo: refactor using discriminatd union
 export enum ActionType {
     upgradeStructure = "upgradeStructure",
     increaseWorkers = "increaseWorkers",

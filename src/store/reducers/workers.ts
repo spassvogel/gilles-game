@@ -1,16 +1,16 @@
-import { AnyAction, Reducer } from "redux";
-import { ActionType, ModifyWorkersAction } from 'store/actions';
+import { Reducer } from "redux";
+import { WorkersAction } from "store/actions/workers";
 
 /**
  * reducer
  * @param state
  * @param action
  */
-export const workers: Reducer<number> = (state: number = initialWorkersState, action: AnyAction) => {
+export const workers: Reducer<number, WorkersAction> = (state: number = initialWorkersState, action: WorkersAction) => {
     switch (action.type) {
-        case ActionType.addWorkers:
+        case "addWorkers":
             // Adds (or subtract, if negative) from the players workers
-            return state + (action as ModifyWorkersAction).value;
+            return state + action.value;
     }
     return state;
 };

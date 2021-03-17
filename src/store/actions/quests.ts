@@ -2,9 +2,6 @@ import { AdventurerStoreState } from "store/types/adventurer";
 import { SceneAction, SceneStoreState, SceneInteractionModal } from "store/types/scene";
 import { PartialDeep } from "type-fest";
 
-// tslint:disable:object-literal-sort-keys
-
-
 export type QuestAction = 
     { type: "launchQuest", questName: string, assignedAventurers: AdventurerStoreState[] }
  |  { type: "exitEncounter", questName: string }

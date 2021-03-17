@@ -1,7 +1,7 @@
 import { Item } from "definitions/items/types";
 import { Action } from "redux";
 
-// tslint:disable:object-literal-sort-keys
+// todo: refactor using discriminatd union
 export enum ActionType {
     addItem = "addItem",
     moveItemInWarehouse = "moveItemInWarehouse",
