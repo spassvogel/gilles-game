@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ContextType } from "constants/context";
-import { Rarity } from "constants/items";
+import { ItemSource, Rarity } from "constants/items";
 import { getDefinition } from "definitions/items";
 import { Item } from "definitions/items/types";
 import { TooltipManager } from 'global/TooltipManager';
@@ -12,10 +12,11 @@ export interface Props {
     onClick?: (event: React.MouseEvent) => void;
     size?: IconSize;
     showContext?: boolean;
+    source?: ItemSource;
 }
 
 const ItemIcon = (props: Props) => {
-    const { item, size } = props;
+    const { item, size, source } = props;
     const itemDefinition = getDefinition(item);
 
     if (!itemDefinition) {
@@ -27,7 +28,7 @@ const ItemIcon = (props: Props) => {
         if (props.showContext !== false) {
             const origin = (event.currentTarget as HTMLElement);
             const originRect = origin.getBoundingClientRect();
-            TooltipManager.showContextTooltip(ContextType.item, item, originRect);
+            TooltipManager.showContextTooltip(ContextType.item, item, originRect, undefined, source);
             event.stopPropagation();
         }
 

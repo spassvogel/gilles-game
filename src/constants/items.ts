@@ -1,3 +1,4 @@
+import { DragSourceType } from "./dragging";
 
 export enum Rarity {
     // gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary
@@ -6,4 +7,11 @@ export enum Rarity {
     rare,
     epic,
     legendary
+}
+
+// Information about where an item is found
+export interface ItemSource {
+    origin: DragSourceType;
+    id?: string;    // eg: adventurerId
+    slot?: number;  // slot in the inventory
 }

@@ -11,8 +11,8 @@ import { TraitDefinition } from 'definitions/traits/types';
 import TraitContext from './context/TraitContext';
 import { WeaponType } from 'definitions/items/weapons';
 import { Rarity } from 'constants/items';
-import './styles/contextTooltip.scss';
 import { getDefinition } from 'definitions/items';
+import './styles/contextTooltip.scss';
 
 // A contextual popup showing what you just clicked.
 // Can be an Item, Resource, Trait, skill
@@ -31,7 +31,7 @@ const ContextTooltip = () => {
     }, []);
     if (!selectedContext) { return null; }
 
-    const { info, type, className } = selectedContext;
+    const { info, type, className, source } = selectedContext;
     const renderContent = () => {
         switch (type) {
             case ContextType.resource: {
@@ -50,7 +50,7 @@ const ContextTooltip = () => {
                 return (
                     <>
                         <div className={`name item ${getItemNameClassName(itemDefinition)}`}>{name}</div>
-                        <ItemContext item={item} />
+                        <ItemContext item={item} source={source} />
                     </>
                 );
             }

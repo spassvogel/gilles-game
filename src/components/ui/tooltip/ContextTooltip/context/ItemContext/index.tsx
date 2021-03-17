@@ -7,16 +7,18 @@ import DeedContent from './DeedContent';
 import WeaponContent from './WeaponContent';
 import ApparelContent from './ApparelContent';
 import { TextManager } from 'global/TextManager';
-import "./styles/itemContext.scss";
 import { isPotion } from "definitions/items/potions";
 import PotionContent from "./PotionContent";
+import { ItemSource } from "constants/items";
+import "./styles/itemContext.scss";
 
 export interface Props {
     item: Item;
+    source?: ItemSource;
 }
 
 const ItemContext = (props: Props) => {
-    const { item } = props;
+    const { item, source } = props;
     if (isDeed(item)) {
         return <DeedContent item={item} />;
     }
@@ -30,7 +32,7 @@ const ItemContext = (props: Props) => {
         return <ApparelContent item={item} />;
     }
     if (isPotion(item)) {
-        return <PotionContent item={item} />;
+        return <PotionContent item={item} source={source} />;
     }
     const subtext = TextManager.getItemSubtext(item);
     return (subtext && (<p className="subtext">{`"${subtext}"`}</p>)) || null;

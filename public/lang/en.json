@@ -1,4 +1,6 @@
 {
+    "adventurer-drink-potion": "{{adventurer}} drinks {{item:name item \"aA\"}}",
+
     "common-article-defined": "the {{noun}}",
     "common-article-undefined": "a {{noun}}",
 
@@ -372,7 +374,6 @@
     "ui-structure-warehouse-help-upgrade-header-capacity": "Capacity",
     "ui-structure-warehouse-resources-source": "Source: {{structure:name structure}}",
     
-
     "ui-toast-type-achievement-unlocked": "Achievement unlocked!",
     "ui-toast-type-cheat": "Cheat activated!",
     "ui-toast-type-game": "Game",

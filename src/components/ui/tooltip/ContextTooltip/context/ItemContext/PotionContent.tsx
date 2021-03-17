@@ -1,48 +1,51 @@
 import * as React from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TextManager } from 'global/TextManager';
 import Button from 'components/ui/buttons/Button';
-import { Potion, getDefinition } from "definitions/items/potions";
+import { Potion } from "definitions/items/potions";
+import { ItemSource } from "constants/items";
+import { DragSourceType } from "constants/dragging";
+import { drinkPotion } from "store/actions/adventurers";
+import { addLogText } from "store/actions/log";
+import { LogChannel } from "store/types/logEntry";
+import { StoreState } from "store/types";
+import { AdventurerStoreState } from "store/types/adventurer";
 
 interface Props {
     item: Potion;
+    source?: ItemSource;
 }
 
 const DeedContent = (props: Props) => {
-    const { item } = props;
-
-    // const gold = useGoldState();
-    // const structureDefinition = getDefinition(definition.structure);
-    // const enoughGold = structureDefinition.cost.gold || 0 <= gold;
-    // const structureStoreState = useStructureState(definition.structure);
-    // const canBeBuilt = structureStoreState.state === StructureState.NotBuilt;
-    // const disabled = !canBeBuilt || !enoughGold;
+    const { item, source } = props;
+    const dispatch = useDispatch();
     const subtext = TextManager.getItemSubtext(item);
+    const adventurers = useSelector<StoreState, AdventurerStoreState[]>(store => store.adventurers);
 
     const handleDrink = () => {
+        if (!source?.id || !source?.slot) return
+        dispatch(drinkPotion(source.id, source.slot));
 
-    //     dispatch(subtractGold(structureDefinition.cost.gold || 0));
-    //     dispatch(startBuildingStructure(structure));
-
-    //     const callbacks = [ finishBuildingStructure(structure) ];
-    //     const time = structureDefinition.cost.time;
-    //     const start = startTask(TaskType.buildStructure,
-    //         `${structure}.build`,
-    //         "town",
-    //         time ?? 0,
-    //         callbacks);
-    //     dispatch(start);
+        // Add log entry
+        const adventurer = adventurers.find(a => a.id === source.id)?.name
+        if (adventurer) {
+            dispatch(addLogText("adventurer-drink-potion", { item, adventurer }, LogChannel.common));
+        }        
     }
+
+    const onAnAdventurer = source && source.origin === DragSourceType.adventurerInventory;
     return (
         <div>
             { subtext && (<p className="subtext">{`"${subtext}"`}</p>)}
-            <Button
-                disabled={false}
-                size="small"
-                onClick={() => handleDrink()}
-            >
-                Drink potion
-            </Button>
+            {onAnAdventurer && (
+                <Button
+                    disabled={false}
+                    size="small"
+                    onClick={() => handleDrink()}
+                >
+                    Drink potion
+                </Button>
+            )}
         </div>
     );
 

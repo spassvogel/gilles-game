@@ -86,6 +86,7 @@ const useItemDropActions = () => {
     // When an item gets dropped on an adventurer inventory
     const dropItemInventory = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, adventurer: AdventurerStoreState, sourceId?: string): void => {
         const actions: Action[] = [];
+
         switch (sourceType) {
             // Drag from one inventory slot to another
             case DragSourceType.adventurerInventory:
@@ -94,6 +95,7 @@ const useItemDropActions = () => {
 
             // Dragged from warehouse
             case DragSourceType.warehouse: {
+
                 actions.push(
                     removeItemFromWarehouse(fromSlot),
                     addItemToInventory(adventurer.id, item, toSlot),

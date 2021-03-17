@@ -5,6 +5,8 @@ import { AdventurerColor, AdventurerStoreState, BasicAttributesStoreState } from
 import { Trait } from 'definitions/traits/types';
 import { WeaponType } from 'definitions/items/weapons';
 import { levelToXp } from "mechanics/adventurers/levels";
+import { Action } from "store/actions";
+import { getDefinition, isPotion } from "definitions/items/potions";
 
 /**
  * reducer
@@ -52,7 +54,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
         [WeaponType.bow]: 10
     },
     // tslint:disable-next-line:max-line-length
-    inventory: [ "deed/lumbermill", null, "weapon/simpleCrossbow", "weapon/dagger", "weapon/khopesh", null, "weapon/steelSword", null,  null,  null,  null,  "weapon/steelShield",  null,  null,  null,  null],
+    inventory: [ "deed/lumbermill", null, "weapon/simpleCrossbow", "weapon/dagger", "weapon/khopesh", null, "weapon/steelSword", null,  "potion/greaterMana",  "potion/majorHealth",  null,  "weapon/steelShield",  null,  null,  null,  null],
 }, {
     id: "2e655832",
     equipment: {
@@ -207,13 +209,51 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 
 // TODO: To generate a random 11 digit number, use: Math.random().toString(36).substring(2)
 
-export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (state: AdventurerStoreState[] = initialAdventurers, action: AdventurerAction) => {
+export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (state: AdventurerStoreState[] = initialAdventurers, action: Action) => {
 
     switch (action.type) {
         // Moves an  item from one inventory slot to another
+        case "drinkPotion": {
+            const { adventurerId, fromSlot } = action;
+            const adventurer = state.find((a) => a.id === adventurerId);
+            if (!adventurer) {
+                throw new Error(`No adventurer ${adventurerId} found`)
+            }
+            const potion = adventurer.inventory[fromSlot];
+            if (!potion || !isPotion(potion)) {
+                throw new Error(`No potion found at index ${fromSlot} `)
+            }
+            const definition = getDefinition(potion);
+            switch (definition.category) {
+                case "health":
+                    console.log(`${adventurer.name} drinks a health potion`);
+                    break;
+                case "soma":
+                    console.log(`${adventurer.name} drinks a soma potion`);
+                    break;                
+                case "mana":
+                    console.log(`${adventurer.name} drinks a mana potion`);
+                    break;
+            }
+            const inventory = adventurer.inventory.map((element, index) => index !== fromSlot ? element : null);
+
+            return state.map((element: AdventurerStoreState) => {
+                if (element === adventurer) {
+                    return {
+                        ...element,
+                        inventory,
+                    };
+                }
+                return element;
+            });
+        }
+        // Moves an  item from one inventory slot to another
         case "moveItemInInventory": {
             const { adventurerId, fromSlot, toSlot } = action;
-            const adventurer = state.find((a) => a.id === adventurerId)!;
+            const adventurer = state.find((a) => a.id === adventurerId);
+            if (!adventurer) {
+                throw new Error(`No adventurer ${adventurerId} found`)
+            }
             const inventory = adventurer.inventory.map((element, index) => {
                 if (index === fromSlot) { return adventurer.inventory[toSlot]; }
                 if (index === toSlot) { return adventurer.inventory[fromSlot]; }
