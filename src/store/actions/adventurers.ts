@@ -1,69 +1,23 @@
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { Item } from "definitions/items/types";
-import { Action } from "redux";
 
-// tslint:disable:object-literal-sort-keys
-export enum ActionType {
-    moveItemInInventory = "moveItemInInventory",
-    moveItemToOtherAdventurer = "moveItemToOtherAdventurer",
-    moveItemFromWarehouseToAdventurer = "moveItemFromWarehouseToAdventurer",
-    addItemToInventory = "addItemToInventory",
-    removeItemFromInventory = "removeItemFromInventory",
-    assignEquipment = "assignEquipment",
-    removeEquipment = "removeEquipment",
-    renameAdventurer = "renameAdventurer",
-    addXP = "addXP",
-}
+export type AdventurerAction = 
+    { type: "moveItemInInventory", adventurerId: string, fromSlot: number, toSlot: number }
+ |  { type: "moveItemToOtherAdventurer", adventurerId: string, fromSlot: number, toSlot?: number, toAdventurerId: string }
+ |  { type: "addItemToInventory", adventurerId: string, item: Item, toSlot?: number }
+ |  { type: "removeItemFromInventory", adventurerId: string, fromSlot: number }
+ |  { type: "assignEquipment", adventurerId: string, item: Item, equipmentSlot: EquipmentSlotType }
+ |  { type: "removeEquipment", adventurerId: string, equipmentSlot: EquipmentSlotType }
+ |  { type: "renameAdventurer", adventurerId: string, name: string }
+ |  { type: "addXP", adventurerId: string, xp: number; }
+//drinkPotion
 
-export interface AdventurerAction extends Action<ActionType> {
-    adventurerId: string;
-}
-
-export interface InventoryAction extends AdventurerAction {
-    item: Item;
-    toSlot?: number;
-}
-
-export interface MoveItemInInventoryAction extends AdventurerAction {
-    fromSlot: number;
-    toSlot: number;
-}
-
-export interface RemoveItemFromInventoryAction extends AdventurerAction {
-    fromSlot: number;
-}
-
-export interface MoveItemToOtherAdventurerAction extends AdventurerAction {
-    fromSlot: number;
-    toSlot?: number;
-    toAdventurerId: string;
-}
-
-export interface AssignEquipmentAction extends AdventurerAction {
-    item: Item;
-    equipmentSlot: EquipmentSlotType;
-}
-export interface RemoveEquipmentAction extends AdventurerAction {
-    equipmentSlot: EquipmentSlotType;
-}
-
-export interface RenameAdventurerAction extends AdventurerAction {
-    name: string;
-}
-
-export interface AddXPAction extends AdventurerAction {
-    xp: number;
-}
-
-export function moveItemInInventory(adventurerId: string, fromSlot: number, toSlot: number):
-    MoveItemInInventoryAction {
-    return {
-        type: ActionType.moveItemInInventory,
-        adventurerId,
-        fromSlot,
-        toSlot,
-    };
-}
+export const moveItemInInventory = (adventurerId: string, fromSlot: number, toSlot: number): AdventurerAction => ({
+    type: "moveItemInInventory",
+    adventurerId,
+    fromSlot,
+    toSlot,
+})
 
 /**
  * Moves the an item from one adventurers' inventory to another
@@ -71,65 +25,49 @@ export function moveItemInInventory(adventurerId: string, fromSlot: number, toSl
  * @param fromSlot index of the inventory item
  * @param toAdventurerId player who to give the item to
  */
-export function moveItemToOtherAdventurer(fromAdventurerId: string,
-                                          fromSlot: number,
-                                          toAdventurerId: string, toSlot?: number): MoveItemToOtherAdventurerAction {
-    return {
-        type: ActionType.moveItemToOtherAdventurer,
-        adventurerId: fromAdventurerId,
-        fromSlot,
-        toAdventurerId,
-        toSlot,
-    };
-}
+export const moveItemToOtherAdventurer = (fromAdventurerId: string, fromSlot: number, toAdventurerId: string, toSlot?: number): AdventurerAction => ({
+    type: "moveItemToOtherAdventurer",
+    adventurerId: fromAdventurerId,
+    fromSlot,
+    toAdventurerId,
+    toSlot,
+})
 
 // If slot is not provided, will take the first empty slot
-export function addItemToInventory(adventurerId: string, item: Item, toSlot?: number): InventoryAction {
-    return {
-        type: ActionType.addItemToInventory,
-        adventurerId,
-        item,
-        toSlot,
-    };
-}
+export const addItemToInventory = (adventurerId: string, item: Item, toSlot?: number): AdventurerAction => ({
+    type: "addItemToInventory",
+    adventurerId,
+    item,
+    toSlot,
+})
 
-export function removeItemFromInventory(adventurerId: string, fromSlot: number): RemoveItemFromInventoryAction {
-    return {
-        type: ActionType.removeItemFromInventory,
-        adventurerId,
-        fromSlot,
-    };
-}
+export const removeItemFromInventory = (adventurerId: string, fromSlot: number): AdventurerAction => ({
+    type: "removeItemFromInventory",
+    adventurerId,
+    fromSlot,
+})
 
-export function assignEquipment(adventurerId: string, equipmentSlot: EquipmentSlotType, item: Item): AssignEquipmentAction {
-    return {
-        type: ActionType.assignEquipment,
-        adventurerId,
-        item,
-        equipmentSlot,
-    };
-}
+export const assignEquipment = (adventurerId: string, equipmentSlot: EquipmentSlotType, item: Item): AdventurerAction => ({
+    type: "assignEquipment",
+    adventurerId,
+    item,
+    equipmentSlot,
+})
 
-export function removeEquipment(adventurerId: string, equipmentSlot: EquipmentSlotType): RemoveEquipmentAction {
-    return {
-        type: ActionType.removeEquipment,
-        adventurerId,
-        equipmentSlot,
-    };
-}
+export const removeEquipment = (adventurerId: string, equipmentSlot: EquipmentSlotType): AdventurerAction => ({
+    type: "removeEquipment",
+    adventurerId,
+    equipmentSlot,
+})
 
-export function renameAdventurer(adventurerId: string, name: string): RenameAdventurerAction {
-    return {
-        type: ActionType.renameAdventurer,
-        adventurerId,
-        name,
-    };
-}
+export const renameAdventurer = (adventurerId: string, name: string): AdventurerAction => ({
+    type: "renameAdventurer",
+    adventurerId,
+    name,
+})
 
-export function addXp(adventurerId: string, xp: number): AddXPAction {
-    return {
-        type: ActionType.addXP,
-        adventurerId,
-        xp,
-    };
-}
+export const addXp = (adventurerId: string, xp: number): AdventurerAction => ({
+    type: "addXP",
+    adventurerId,
+    xp,
+})

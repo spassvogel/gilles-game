@@ -1,17 +1,6 @@
-// tslint:disable:object-literal-sort-keys
-import {
-    ActionType,
-    AddXPAction,
-    AssignEquipmentAction,
-    InventoryAction,
-    MoveItemInInventoryAction,
-    MoveItemToOtherAdventurerAction,
-    RemoveEquipmentAction,
-    RemoveItemFromInventoryAction,
-    RenameAdventurerAction
-} from "store/actions/adventurers";
+import { AdventurerAction } from "store/actions/adventurers";
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
-import { AnyAction, Reducer } from "redux";
+import { Reducer } from "redux";
 import { AdventurerColor, AdventurerStoreState, BasicAttributesStoreState } from "store/types/adventurer";
 import { Trait } from 'definitions/traits/types';
 import { WeaponType } from 'definitions/items/weapons';
@@ -218,17 +207,13 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 
 // TODO: To generate a random 11 digit number, use: Math.random().toString(36).substring(2)
 
-export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
-    state: AdventurerStoreState[] = initialAdventurers, action: AnyAction) => {
+export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (
+    state: AdventurerStoreState[] = initialAdventurers, action: AdventurerAction) => {
 
     switch (action.type) {
         // Moves an  item from one inventory slot to another
-        case ActionType.moveItemInInventory: {
-            const {
-                adventurerId,
-                fromSlot,
-                toSlot,
-            } = (action as MoveItemInInventoryAction);
+        case "moveItemInInventory": {
+            const { adventurerId, fromSlot, toSlot } = action;
             const adventurer = state.find((a) => a.id === adventurerId)!;
             const inventory = adventurer.inventory.map((element, index) => {
                 if (index === fromSlot) { return adventurer.inventory[toSlot]; }
@@ -247,14 +232,9 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
             });
         }
 
-        case ActionType.moveItemToOtherAdventurer: {
+        case "moveItemToOtherAdventurer": {
             // Moves an item from one adventurer to another
-            const {
-                adventurerId: fromAdventurerId,
-                fromSlot,
-                toAdventurerId,
-            } = (action as MoveItemToOtherAdventurerAction);
-
+            const { adventurerId: fromAdventurerId, fromSlot, toAdventurerId } = action;
             const fromAdventurer = state.find((a) => a.id === fromAdventurerId)!;
             const item = fromAdventurer.inventory[fromSlot];
 
@@ -282,13 +262,13 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
             });
         }
 
-        case ActionType.addItemToInventory: {
-            const { item } = action as InventoryAction;
+        case "addItemToInventory": {
+            const { item } = action;
+            let { toSlot } = action;
 
             return state.map((element: AdventurerStoreState) => {
                 if (element.id === action.adventurerId) {
                     const inventory = element.inventory.concat();
-                    let toSlot = (action as InventoryAction).toSlot;
                     if (toSlot === null || toSlot === undefined) {
                         toSlot = inventory.findIndex((val) => (val === null || val === undefined));
                     }
@@ -303,8 +283,8 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
             });
         }
 
-        case ActionType.removeItemFromInventory: {
-            const { fromSlot } = action as RemoveItemFromInventoryAction;
+        case "removeItemFromInventory": {
+            const { fromSlot } = action;
 
             return state.map((adventurer: AdventurerStoreState) => {
                 if (adventurer.id === action.adventurerId) {
@@ -318,9 +298,9 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
             });
         }
 
-        case ActionType.assignEquipment: {
+        case "assignEquipment": {
             // Assigns equipment to an adventurer
-            const { equipmentSlot, item, } = action as AssignEquipmentAction;
+            const { equipmentSlot, item, } = action;
             return state.map((adventurer: AdventurerStoreState) => {
                 if (adventurer.id === action.adventurerId) {
                     return {
@@ -335,9 +315,10 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
             });
         }
 
-        case ActionType.removeEquipment: {
+        case "removeEquipment": {
             // Assigns equipment to an adventurer
-            const { equipmentSlot } = action as RemoveEquipmentAction;
+            const { equipmentSlot } = action;
+
             return state.map((adventurer: AdventurerStoreState) => {
                 if (adventurer.id === action.adventurerId) {
                     return {
@@ -351,9 +332,9 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
                 return adventurer;
             });
         }
-        case ActionType.renameAdventurer: {
+        case "renameAdventurer": {
             // Rename adventurer
-            const { name } = action as RenameAdventurerAction;
+            const { name } = action;
             return state.map((adventurer: AdventurerStoreState) => {
                 if (adventurer.id === action.adventurerId) {
                     return {
@@ -364,9 +345,9 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
                 return adventurer;
             });
         }
-        case ActionType.addXP: {
+        case "addXP": {
             // Adds xp
-            const { xp } = action as AddXPAction;
+            const { xp } = action;
             return state.map((adventurer: AdventurerStoreState) => {
                 if (adventurer.id === action.adventurerId) {
                     return {
@@ -387,6 +368,4 @@ export const adventurers: Reducer<AdventurerStoreState[], AnyAction> = (
     //         xp: adventurer.xp + 1
     //     };
     // });
-
-    return state;
 };
