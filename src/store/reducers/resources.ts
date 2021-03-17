@@ -1,41 +1,37 @@
-import { ActionType as GameActionType, GameTickAction } from "store/actions/game";
-import { AnyAction, Reducer } from "redux";
-import { ActionType, AddResources } from "store/actions/resources";
+import { GameAction } from "store/actions/game";
+import { Reducer } from "redux";
+import { ResourcesAction } from "store/actions/resources";
 import { ResourceStoreState } from "store/types/resources";
 import { Resource } from "definitions/resources";
 
-/**
- * reducer
- * @param state
- * @param action
- */
-export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState = initialResourcesState, action: AnyAction | GameTickAction) => {
+
+export const resources: Reducer<ResourceStoreState> = (state: ResourceStoreState = initialResourcesState, action: ResourcesAction | GameAction) => {
 
     const addResources = (resourcesToAdd: ResourceStoreState) => {
         // todo: Check if warehouse can hold it
         return Object.keys(state).reduce<ResourceStoreState>((acc, value) => {
             const resource = value as Resource;
-            acc[resource] = state[resource]! + (resourcesToAdd[resource] || 0);
+            acc[resource] = (state[resource] ?? 0) + (resourcesToAdd[resource] || 0);
             return acc;
         }, {});
     };
 
     switch (action.type) {
-        case ActionType.addResources: {
-            const resourcesToAdd = (action as AddResources).resources;
+        case "addResources": {
+            const resourcesToAdd = action.resources;
             return addResources(resourcesToAdd);
         }
-        case ActionType.removeResources: {
-            const resourcesToRemove = (action as AddResources).resources;
+        case "removeResources": {
+            const resourcesToRemove = action.resources;
             return Object.keys(state).reduce<ResourceStoreState>((acc, value) => {
                 const resource = value as Resource;
-                acc[resource] = state[resource]! - (resourcesToRemove[resource] || 0);
+                acc[resource] = (state[resource] ?? 0) - (resourcesToRemove[resource] || 0);
                 return acc;
             }, {});
         }
 
-        case GameActionType.gameTick: {
-            const resourcesToAdd = (action as GameTickAction).resources;
+        case "gameTick": {
+            const resourcesToAdd = action.resources;
             if (resourcesToAdd === null) {
                 return state;
             }

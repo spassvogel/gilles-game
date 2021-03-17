@@ -1,27 +1,27 @@
 
-import { ActionType as GameActionType } from "store/actions/game";
-import {  ActionType, AddAction} from "store/actions/tasks";
-import { AnyAction, Reducer } from "redux";
+import { GameAction } from "store/actions/game";
+import { TaskAction } from "store/actions/tasks";
+import { Reducer } from "redux";
 import { TaskStoreState } from "store/types/task";
-import {  TasksStoreState } from "store/types/tasks";
+import { TasksStoreState } from "store/types/tasks";
 
 /**
  * Tasks reducer
  * @param state
  * @param action
  */
-export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initialTasksState, action: AnyAction ) => {
+export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initialTasksState, action: GameAction | TaskAction) => {
     switch (action.type) {
-        case ActionType.start: {
+        case "start": {
         // Adds a new task to the running tasks
-            const task: TaskStoreState = createTask(action as AddAction);
+            const task: TaskStoreState = createTask(action);
             const running = state.running.concat(task);
             return {
                 ...state,
                 running,
             };
         }
-        case GameActionType.gameTick: {
+        case "gameTick": {
             // Will update all tasks in `running`. If a running task expires it is placed in `complete`
             // Note that completed tasks must be handled BEFORE the next call to ActionType.update, because
             // this list is recreated every time
@@ -54,7 +54,7 @@ export const tasks: Reducer<TasksStoreState> = (state: TasksStoreState = initial
     return state;
 };
 
-const createTask = (action: AddAction): TaskStoreState => {
+const createTask = (action: TaskAction): TaskStoreState => {
     return {
         name: action.name,
         origin: action.origin,

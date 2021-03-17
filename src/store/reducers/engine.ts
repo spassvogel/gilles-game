@@ -1,5 +1,5 @@
-import { ActionType as GameActionType, GameTickAction } from "store/actions/game";
-import { AnyAction, Reducer } from "redux";
+import { GameAction } from "store/actions/game";
+import { Reducer } from "redux";
 import { EngineStoreState } from "store/types/engine";
 
 /**
@@ -7,18 +7,18 @@ import { EngineStoreState } from "store/types/engine";
  * @param state
  * @param action
  */
-export const engine: Reducer<EngineStoreState> = (state: EngineStoreState = getInitialEngineState(), action: AnyAction) => {
+export const engine: Reducer<EngineStoreState> = (state: EngineStoreState = getInitialEngineState(), action: GameAction) => {
     switch (action.type) {
-        case GameActionType.startGame: {
+        case "startGame": {
             return {
                 ...state,
                 gameStarted: Date.now()
             };
         }
-        case GameActionType.gameTick: {
+        case "gameTick": {
 
             // Keep track of the last time resources were produced
-            const resourcesToAdd = (action as GameTickAction).resources;
+            const resourcesToAdd = action.resources;
             const lastProducedUpdate = resourcesToAdd === null ? state.lastProducedUpdate : Date.now();
             const previousTick = state.lastTick;
 
@@ -30,7 +30,6 @@ export const engine: Reducer<EngineStoreState> = (state: EngineStoreState = getI
             };
         }
     }
-    return state;
 };
 
 export const getInitialEngineState = () => {

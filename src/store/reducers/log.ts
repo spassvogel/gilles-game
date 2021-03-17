@@ -1,7 +1,7 @@
-import { ActionType as GameActionType, GameTickAction } from "store/actions/game";
-import { ActionType, AddLogEntryAction } from "store/actions/log";
+import { GameAction } from "store/actions/game";
+import {  LogAction } from "store/actions/log";
 import { LogUpdate } from "mechanics/gameTick/quests";
-import { AnyAction, Reducer } from "redux";
+import { Reducer } from "redux";
 import { LogEntry } from "store/types/logEntry";
 
 /**
@@ -9,10 +9,10 @@ import { LogEntry } from "store/types/logEntry";
  * @param state
  * @param action
  */
-export const log: Reducer<LogEntry[]> = (state: LogEntry[] = initialLogState, action: AnyAction) => {
+export const log: Reducer<LogEntry[]> = (state: LogEntry[] = initialLogState, action: GameAction | LogAction) => {
     switch (action.type) {
-        case ActionType.addLogEntry: {
-            const {entry, channel, channelContext} = (action as AddLogEntryAction);
+        case "addLogEntry": {
+            const {entry, channel, channelContext} = action;
             const {key, context} = entry;
             const time = Date.now();
             return [{
@@ -25,28 +25,25 @@ export const log: Reducer<LogEntry[]> = (state: LogEntry[] = initialLogState, ac
                 ...state,
             ];
         }
-        case GameActionType.gameTick:
-            return gameTick(state, action as GameTickAction);
+        case "gameTick": {
+            if (!action.log.length) {
+                return state;
+            }
+        
+            // Add log entries
+            const logEntries = action.log.map((lU: LogUpdate): LogEntry => {
+                return {
+                    ...lU,
+                    time: Date.now(),
+                };
+            });
+            return [
+                ...logEntries,
+                ...state,
+            ];
+        }
     }
     return state;
 };
 
 export const initialLogState = [];
-
-const gameTick = (state: LogEntry[], action: GameTickAction): LogEntry[] => {
-    if (!action.log.length) {
-        return state;
-    }
-
-    // Add log entries
-    const logEntries = action.log.map((lU: LogUpdate): LogEntry => {
-        return {
-            ...lU,
-            time: Date.now(),
-        };
-    });
-    return [
-        ...logEntries,
-        ...state,
-    ];
-};

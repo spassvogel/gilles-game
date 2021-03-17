@@ -1,32 +1,22 @@
-// tslint:disable:object-literal-sort-keys
-import { Action } from "redux";
 import { ResourceStoreState } from "store/types/resources";
 
-export enum ActionType {
-    addResources = "addResources",
-    removeResources = "removeResources",
-}
+export type ResourcesAction = 
+    { type: "addResources", resources: ResourceStoreState }
+ |  { type: "removeResources", resources: ResourceStoreState }
 
-export interface AddResources extends Action<ActionType> {
-    resources: ResourceStoreState;
-}
 
-export function addResource(resource: string, value: number): AddResources {
+export const addResource = (resource: string, value: number): ResourcesAction => {
     return addResources({
         [resource]: value,
     });
 }
 
-export function addResources(resources: ResourceStoreState): AddResources {
-    return {
-        type: ActionType.addResources,
-        resources,
-    };
-}
+export const addResources = (resources: ResourceStoreState): ResourcesAction => ({
+    type: "addResources",
+    resources,
+})
 
-export function removeResources(resources: ResourceStoreState): AddResources {
-    return {
-        type: ActionType.removeResources,
-        resources,
-    };
-}
+export const removeResources = (resources: ResourceStoreState): ResourcesAction => ({
+    type: "removeResources",
+    resources,
+})
