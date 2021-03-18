@@ -27,7 +27,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.2",
-    "react-select": "^4.1.0",
+    "react-select": "^4.2.1",
     "react-spring": "^9.0.0-rc.3",
     "redux-persist": "^6.0.0",
     "reselect": "^4.0.0",
@@ -35,8 +35,7 @@
     "simple-encryptor": "^4.0.0",
     "string-arrays-equal": "^0.2.4",
     "text-param-case": "^1.0.2",
-    "typescript": "^4.2.2",
-    "web-vitals": "^1.0.1"
+    "typescript": "^4.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
