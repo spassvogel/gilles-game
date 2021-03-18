@@ -1,4 +1,4 @@
-// https://github.com/react-dnd/react-dnd/pull/1244
+// todo: refactor hooks https://github.com/react-dnd/react-dnd/pull/1244
 import * as React from "react";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
 import { DragType } from "constants/dragging";
@@ -14,7 +14,7 @@ const dropTarget: DropTargetSpec<Props> = {
         props.onDrop(monitor.getItem());
     },
     canDrop(props: Props, monitor: DropTargetMonitor)  {
-        const item = monitor.getItem().item;
+        const item = monitor.getItem<InventoryItemDragInfo>().item;
 
         return itemAndEquipmentSlotMatch(item, props.type);
     },
