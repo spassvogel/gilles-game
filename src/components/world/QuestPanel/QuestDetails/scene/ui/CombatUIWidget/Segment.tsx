@@ -4,15 +4,16 @@ interface Props {
     position: "w" | "sw" | "s" | "se" | "e";
     icon?: string;
     activated: boolean;
+    tileHeight: number;
+
     onActivate?: () => void;
     onDeactivate?: () => void;
 }
 
 const Segment = (props: Props) => {
-    const {icon, onActivate, onDeactivate, activated} = props;
+    const {icon, onActivate, onDeactivate, tileHeight, activated} = props;
     const segmentWidth = 32;
     const segmentHeight = 46;
-    const tileHeight = 100;
     const rot = useMemo(() => {
         switch (props.position) {
             case "w": return 180;

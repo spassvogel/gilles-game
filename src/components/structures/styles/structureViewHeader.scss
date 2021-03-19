@@ -8,10 +8,10 @@
 
     &::after {
         height: 100px;
+        width: 100px;
         content: "";
         display: block;
         margin-left: 32px;
-        width: 100px;
         z-index: 22;
         position: absolute;
         background-size: 100% 100%;
