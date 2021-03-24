@@ -26,13 +26,12 @@ const Segment = (props: Props) => {
 
     const scale = activated ? 'scale(2)' : 'scale(1.5)';
     const style = {
-        transform: `translate(${segmentWidth}px, ${tileHeight/2 - segmentHeight/2}px) ${scale} rotate(${rot}deg) translateX(${activated ? 36 : 44}px)`,
+        transform: `translate(${segmentWidth/2}px, ${tileHeight/2 - segmentHeight/2}px) ${scale} rotate(${rot}deg) translateX(${activated ? 27 : 35}px)`,
         background: `url(${process.env.PUBLIC_URL}/img/scene/ui/combat/ring-segment.svg)`,
         width: segmentWidth,
         height: segmentHeight,
         ...(activated && { zIndex: 2})
     }
-   
 
     return (
         <div
@@ -45,7 +44,7 @@ const Segment = (props: Props) => {
                 src={icon}
                 style={{
                     transform: `rotate(-${rot}deg)`,
-                    width: segmentWidth - 4
+                    width: segmentWidth - 8
                 }}
                 alt=""
             />

@@ -76,12 +76,18 @@ const CombatUIWidget = (props: Props) => {
                 onDeactivate={() => handleSegmentDeactivate(SceneActionType.move)}
                 activated={actionIntent?.action === SceneActionType.move}
             />
-            <Segment position="se" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/sunken-eye.svg`} 
-                            tileHeight={tileHeight}
-                            activated={false}/>
-            <Segment position="e" icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/crosshair.svg`} 
-                            tileHeight={tileHeight}
-                            activated={false}/>
+            <Segment 
+                position="se" 
+                icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/sunken-eye.svg`} 
+                tileHeight={tileHeight}
+                activated={false}
+            />
+            <Segment 
+                position="e" 
+                icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/crosshair.svg`} 
+                tileHeight={tileHeight}
+                activated={false}
+            />
             <div className="info" style={{ width: tileWidth }}>
                 {getText(actionIntent)}
             </div>

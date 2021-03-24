@@ -34,6 +34,8 @@ enum Orientation {
     northWest = "nw"
 }
 
+const SPRITE_WIDTH = 142;
+
 // This is a wrapper that exposes a location property. Will set x and y on children
 const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeof Container>) => {
     const {
@@ -311,8 +313,8 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                     name="sprite"
                     isPlaying={true}
                     textures={frames[getFrames()]}
-                    x={50}
-                    y={30}
+                    x={SPRITE_WIDTH/4}
+                    y={20}
                     scale={[(flipped.current ? -1 : 1), 1]}
                     anchor={[.5, .5]}
                     pivot={[0, 0]}

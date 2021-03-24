@@ -42,7 +42,7 @@ class DungeonEncounterSceneController extends BaseSceneController<Kill10BoarsQue
     // }
 }
 export class DungeonEntranceSceneController extends DungeonEncounterSceneController {
-    jsonPath = "scenes/ork-dungeon-level1.json";
+    jsonPath = "scenes/dungeon-entry-64.json";
 
     getLootCache(_: string): LootCache | undefined {
         return this.questVars.dungeon.entrance.chest;
