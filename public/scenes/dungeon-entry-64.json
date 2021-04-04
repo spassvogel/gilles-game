@@ -161,8 +161,8 @@
                  "type":"enemySpawn",
                  "visible":true,
                  "width":64,
-                 "x":127.333,
-                 "y":128.667
+                 "x":128,
+                 "y":128
                 }, 
                 {
                  "height":64,

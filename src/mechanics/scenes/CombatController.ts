@@ -14,7 +14,7 @@ export class CombatController {
   static initialize(sceneController: BaseSceneController<unknown>) {
     this.sceneController = sceneController;
 
-    const storeChange = this.storeChange.bind(this)
+    const storeChange = this.handleStoreChange.bind(this)
     this.unsubscriber = sceneController.store.subscribe(storeChange);
     // const selectQuest = createSelector(
     //   [getQuests],
@@ -26,7 +26,7 @@ export class CombatController {
     this.unsubscriber?.()
   }
 
-  static storeChange() {
+  static handleStoreChange() {
     const questState = this.getQuestStoreState()
     const adventurers = this.sceneController?.sceneAdventurers;
     const enemies = this.sceneController?.sceneEnemies;
@@ -41,7 +41,7 @@ export class CombatController {
         this.sceneController?.store.dispatch(startTurn(quest.name, Allegiance.enemy));
 
       }
-      console.log(totalAdventurerAp, totalEnemiesAp, quest.scene.turn )
+      // console.log(totalAdventurerAp, totalEnemiesAp, quest.scene.turn )
     }
     // if (questState) {
     //   console.log(questState)
@@ -51,7 +51,26 @@ export class CombatController {
 
   static getQuestStoreState() {
     return this.sceneController?.store.getState().quests.find(q => q.name === this.sceneController?.questName)
+  }
 
-    // return selectQuestLogEntries;
+  static findNearestActor(from: [number, number], allegiance?: Allegiance) {
+    // const qss = this.getQuestStoreState();
+    // qss?.scene.
+    if (!this.sceneController) return undefined;
+    const actors = this.sceneController.sceneActors;
+    let distance = Number.MAX_VALUE;
+    let actor;
+    actors?.forEach(a => {
+      if (!a.location || !this.sceneController) return
+      console.log(`lets try ${a.name}, ${a.location}`)
+      const steps = this.sceneController.findPath(from, a.location)?.length;
+      if (steps !== undefined && steps < distance) {
+        if (allegiance === undefined || a.allegiance === allegiance) {
+          distance = steps;
+          actor = a
+        }
+      }
+    })
+    return actor
   }
 }
