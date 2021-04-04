@@ -134,7 +134,7 @@ const WorldMap = (props: Props) => {
         return activeQuests.map((quest) => {
             const location = getQuestWorldLocation(quest);
             const currentPosition = nodeLocationToPoint(location);
-            const leader = getQuestLeader(adventurers, quest)!;
+            const leader = getQuestLeader(adventurers, quest) ?? adventurers[0];
             const questDefinition: QuestDefinition = getDefinition(quest.name);
             const progress: number = Math.floor(quest.progress);
             const questNode: QuestNode = questDefinition.nodes[progress];

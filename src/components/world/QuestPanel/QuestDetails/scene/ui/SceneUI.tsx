@@ -40,10 +40,10 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     const ref = useRef<HTMLDivElement>(null);
     const mouseDown = useRef(false);
     const scale = useRef(1);
-    const controller = useContext(SceneControllerContext)!;
-    const quest = useQuest(controller.questName);
-    const scene = quest.scene!;
-    const {combat} = scene;
+    const controller = useContext(SceneControllerContext);
+    const quest = useQuest(controller?.questName ?? "");
+    const scene = quest.scene;
+    const {combat} = scene ?? {};
     const [cursorLocation, setCursorLocation] = useState<[number, number]>();
 
     useEffect(() => {
@@ -68,9 +68,9 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (mouseDown.current) {
-            const location = findLocation(e);
+            const location = findLocation(e) ?? [0, 0];
 
-            if (controller.locationIsOutOfBounds(location)) {
+            if (controller?.locationIsOutOfBounds(location)) {
                 setCursorLocation(undefined);
                 onSetActionIntent(undefined);
                 return;
@@ -83,7 +83,8 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         const location = findLocation(e);
-        onMouseDown?.(location);
+        if (location) onMouseDown?.(location);
+
         mouseDown.current = true;
         e.preventDefault();
     }
@@ -95,9 +96,9 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         if (!actionIntent) {
             return
         }
-        const selectedActorLocation = controller.getSceneActor(selectedActorId)!.location;
+        const selectedActorLocation = controller?.getSceneActor(selectedActorId)?.location;
         if (selectedActorLocation && cursorLocation && !locationEquals(selectedActorLocation, cursorLocation)){
-            controller.actorAttemptAction(selectedActorId, actionIntent.action, actionIntent.to);
+            controller?.actorAttemptAction(selectedActorId, actionIntent.action, actionIntent.to);
         }
         onSetActionIntent?.(undefined);
     }
@@ -110,14 +111,14 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         const {
             location: from = [0, 0],
             ap: actorAP,
-        } = controller.getSceneActor(selectedActorId)!;
-        const to = cursorLocation!;
+        } = controller?.getSceneActor(selectedActorId) ?? {};
+        const to = cursorLocation ?? [0, 0];
 
         switch (action){
             case SceneActionType.move:
             case SceneActionType.slash: {
-                const path = controller.findPath(from, to);
-                const apCost = combat ? controller.calculateWalkApCosts(from, to) : undefined;
+                const path = controller?.findPath(from, to);
+                const apCost = combat ? controller?.calculateWalkApCosts(from, to) : undefined;
                 onSetActionIntent({
                     action,
                     from,
@@ -129,7 +130,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             }
             break;
             case SceneActionType.interact: {
-                const path = controller.findPathNearest(from, to, true);
+                const path = controller?.findPathNearest(from, to, true);
                 const apCost = 0; // can only inspect out of combat?
                 onSetActionIntent({
                     action,
@@ -147,7 +148,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         if (!combat && cursorLocation !== undefined) {
             // Handle change of cursor when not in combat
             let action = SceneActionType.move;
-            const object = controller.getObjectAtLocation(cursorLocation);
+            const object = controller?.getObjectAtLocation(cursorLocation);
             if(object?.properties.interactive){
                 // We're at an interactive object
                 action = SceneActionType.interact;
@@ -162,7 +163,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             const rect = (e.target).getBoundingClientRect();
             const x = (e.clientX - rect.left) / scale.current;
             const y = (e.clientY - rect.top) / scale.current;
-            return controller.pointToSceneLocation(new PIXI.Point(x, y));
+            return controller?.pointToSceneLocation(new PIXI.Point(x, y));
         }
         throw new Error("You didnt give me the correct event")
     }
@@ -176,10 +177,10 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             onMouseUp={handleMouseUp}
         >
             {children}
-            {!scene.combat && cursorLocation && (
+            {!scene?.combat && cursorLocation && (
                 <NormalUICursor location={cursorLocation} />
             )}
-            {scene.combat && cursorLocation && (
+            {scene?.combat && cursorLocation && (
                 <CombatUIWidget
                     location={cursorLocation}
                     actionIntent={actionIntent}
