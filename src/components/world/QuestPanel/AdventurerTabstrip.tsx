@@ -17,8 +17,8 @@ const AdventurerTabstrip = (props: Props) => {
     const {adventurers, onAdventurerTabSelected} = props;
 
     const handleAdventurerTabSelected = (adventurerId: string) => {
-        const adventurer = props.adventurers.find(a => a.id === adventurerId)!;
-        onAdventurerTabSelected(adventurer.id);
+        const adventurer = props.adventurers.find(a => a.id === adventurerId);
+        if (adventurer) onAdventurerTabSelected(adventurer.id);
     }
 
     const renderAdventurerTab = (adventurer: AdventurerStoreState) => (

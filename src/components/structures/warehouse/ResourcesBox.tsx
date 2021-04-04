@@ -48,7 +48,7 @@ const ResourcesBox = (props: Props & AppContextProps) => {
                     let delta;
                     if (deltaResources[resource]) {
                         delta = <span className="animate-up">
-                            { `+ ${deltaResources[resource]!.toFixed(2)}`  }
+                            { `+ ${deltaResources[resource]?.toFixed(2)}`  }
                         </span>;
                     }
 
@@ -57,7 +57,7 @@ const ResourcesBox = (props: Props & AppContextProps) => {
                     const handleStructureClick=() => {
                         props.onCloseWindow();
                     }
-                    const full = amount >= props.maxResources[resource]!;
+                    const full = amount >= (props.maxResources?.[resource] ?? 0);
                     return (
                         <React.Fragment key={resource}>
                             <Icon image={resourceDescription.iconImg} size="smallest"/>

@@ -12,6 +12,7 @@ import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import { AdventurerColor } from 'store/types/adventurer';
 import { useQuest } from 'hooks/store/quests';
 import ActorThingy from './ActorThingy';
+import { Texture } from 'pixi.js';
 
 export interface Props  {
     actor: ActorObject;
@@ -58,7 +59,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         if (!quest.scene?.actionQueue) {
             return [];
         }
-        return quest.scene!.actionQueue.filter(a => a.actorId === actor.name);
+        return quest.scene.actionQueue.filter(a => a.actorId === actor.name);
     }, [quest.scene, actor.name]);
     
     const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
@@ -170,8 +171,8 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         if (!PIXI.Loader.shared.resources[spritesheetPath]?.textures){
             throw new Error(`No textures for ${spritesheetPath}`);
         }
-        const allFrames = Object.keys(PIXI.Loader.shared.resources[spritesheetPath].textures!);
-        const indexed = allFrames.reduce((acc: any, frame: string) => {
+        const allFrames = Object.keys(PIXI.Loader.shared.resources[spritesheetPath].textures ?? {});
+        const indexed = allFrames.reduce((acc: {[key: string]: Texture[] }, frame: string) => {
             // frames are in the format of: 'stand-n', 'walk0-ne', 'walk1-ne' etc
             // create a mapping with arrays keyed by the part without the number,
             // eg: 'stand-n': [TEXTURE:stand-n] and 'walk-ne': [TEXTURE:walk0-ne, TEXTURE:walk1-ne]
@@ -179,7 +180,8 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
             if (!acc[key]) {
               acc[key] = [];
             }
-            acc[key].push(PIXI.Loader.shared.resources[spritesheetPath].textures?.[frame]);
+            const texture = PIXI.Loader.shared.resources[spritesheetPath].textures?.[frame];
+            if (texture) acc[key].push(texture);
             return acc;
         }, {});
         setFrames(indexed);

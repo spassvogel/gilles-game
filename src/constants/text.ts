@@ -3,6 +3,6 @@ export interface TextEntry {
     context?: unknown;
 }
 
-export function isTextEntry(test: any): test is TextEntry {
-    return typeof test.key === 'string';
+export function isTextEntry(test: string | TextEntry): test is TextEntry {
+    return typeof test !== "string";
 }

@@ -60,7 +60,7 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
                 if (nextNode.type === QuestNodeType.encounter) {
                     // We've hit an encounter node. set the progress to here and stop looking at other nodes
 
-                    store.dispatch(setSceneName(quest.name, nextNode.startScene!));
+                    store.dispatch(setSceneName(quest.name, nextNode.startScene));
 
                     const questTitle = TextManager.getQuestTitle(quest.name);
                     const leader = getQuestLeader(state.adventurers, quest);
