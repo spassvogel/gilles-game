@@ -1,11 +1,9 @@
-import { createSelector } from "reselect";
 import { startTurn } from "store/actions/quests";
 import { StoreState } from "store/types";
 import { Allegiance } from "store/types/combat";
-import { QuestStoreState } from "store/types/quest";
+import { locationEquals } from "utils/tilemap";
 import { BaseSceneController } from "./BaseSceneController";
 
-const getQuests = (state: StoreState) => state.quests;
 
 export class CombatController {
   static sceneController?: BaseSceneController<unknown>;
@@ -27,7 +25,7 @@ export class CombatController {
   }
 
   static handleStoreChange() {
-    const questState = this.getQuestStoreState()
+    // const questState = this.getQuestStoreState()
     const adventurers = this.sceneController?.sceneAdventurers;
     const enemies = this.sceneController?.sceneEnemies;
     const quest = this.sceneController?.quest;
@@ -53,6 +51,7 @@ export class CombatController {
     return this.sceneController?.store.getState().quests.find(q => q.name === this.sceneController?.questName)
   }
 
+  /** Finds the actor nearest to `from`, but not ON from */
   static findNearestActor(from: [number, number], allegiance?: Allegiance) {
     // const qss = this.getQuestStoreState();
     // qss?.scene.
@@ -61,7 +60,7 @@ export class CombatController {
     let distance = Number.MAX_VALUE;
     let actor;
     actors?.forEach(a => {
-      if (!a.location || !this.sceneController) return
+      if (!a.location || !this.sceneController || locationEquals(a.location, from)) return
       console.log(`lets try ${a.name}, ${a.location}`)
       const steps = this.sceneController.findPath(from, a.location)?.length;
       if (steps !== undefined && steps < distance) {
