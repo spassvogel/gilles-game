@@ -16,7 +16,7 @@ interface Props {
 const CombatBar = (props: Props) => {
     const {selectedAdventurerId} = props;
     const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));
-    const controller = useContext(SceneControllerContext)!;
+    const controller = useContext(SceneControllerContext);
 
     return (
         <div className="combat-bar">
@@ -28,12 +28,12 @@ const CombatBar = (props: Props) => {
                     <div key={a.id} className={`adventurer ${selectedAdventurerId === a.id ? "selected" : ""}`}>
                         <AdventurerAvatar adventurer={a} size={IconSize.smallest}/>
                         <div className="ap">
-                            {controller.getSceneActor(a.id)?.ap || 0} AP
+                            {controller?.getSceneActor(a.id)?.ap || 0} AP
                         </div>
                     </div>
                 ))}
             </div>
-            <Button size="small" onClick={() => controller.endTurn()}>End turn</Button>
+            <Button size="small" onClick={() => controller?.endTurn()}>End turn</Button>
         </div>
     )
 }

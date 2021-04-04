@@ -22,7 +22,7 @@ export interface QuestUpdate {
 export interface LogUpdate extends TextEntry {
     key: string;
     channel: LogChannel;
-    channelContext?: any;
+    channelContext?: string;
 }
 
 interface QuestGameTickResponse {

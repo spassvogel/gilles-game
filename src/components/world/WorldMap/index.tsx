@@ -105,9 +105,9 @@ const WorldMap = (props: Props) => {
         if (selectedQuest) {
             focusOnQuestingParty(selectedQuest);
         } else {
-            const viewport = viewportRef.current!;
+            const viewport = viewportRef.current;
             const point = nodeLocationToPoint({ x: 0, y: 0 });
-            viewport.moveCenter(point.x, point.y);
+            viewport?.moveCenter(point.x, point.y);
         }
     }, [selectedQuest, canvasHeight])
 

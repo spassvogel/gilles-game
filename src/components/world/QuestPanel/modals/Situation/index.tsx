@@ -12,14 +12,15 @@ interface Props {
 }
 
 const Situation = (props: Props) => {
-    const controller = useContext(SceneControllerContext)!;
+    const controller = useContext(SceneControllerContext);
     const ref = useRef<HTMLDivElement>(null);
-    const situation = controller.getSituation(props.situation, props.adventurerId);
+    const situation = controller?.getSituation(props.situation, props.adventurerId);
     if (!situation) return null;
 
     const { title, choices, text } = situation;
     const handleChoiceClick = (e: MouseEvent<HTMLButtonElement>) => {
-        const choice = e.currentTarget.getAttribute('data-option')!;
+        const choice = e.currentTarget.getAttribute('data-option');
+        if (!choice || !controller) return
         controller.handleSituationOptionClick(props.situation, choice, props.adventurerId);
         e.stopPropagation();
     }

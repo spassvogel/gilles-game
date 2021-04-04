@@ -30,7 +30,9 @@ const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<Co
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             initial,
-            (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
         );
         const persistor = persistStore(store, undefined, () => {
             const isHydrated = storeIsRehydrated(store.getState());

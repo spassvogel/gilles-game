@@ -10,20 +10,20 @@ interface Props {
 
 const NormalUICursor = (props: Props) => {
     const {location} = props;
-    const controller = useContext(SceneControllerContext)!;
+    const controller = useContext(SceneControllerContext);
 
-    let blocked = controller.locationIsBlocked(location);
+    let blocked = controller?.locationIsBlocked(location) ?? false;
     let action = SceneActionType.move;
     if (blocked) {
         // todo: can we have interactive tiles that are NOT blocking?
-        const object = controller.getObjectAtLocation(location);
+        const object = controller?.getObjectAtLocation(location);
         if (object?.properties.interactive){
             // We're at an interactive object
             action = SceneActionType.interact;
             blocked = false;
         }
     }
-    const {tileWidth, tileHeight} = controller.getTileDimensions();
+    const {tileWidth, tileHeight} = controller?.getTileDimensions() ?? { tileWidth: 64, tileHeight: 64 };
     const transform = `translate(${tileWidth * location[0]}px, ${tileHeight * location[1]}px)`;
     const backgroundImage = images[action];
     const width = tileWidth;
