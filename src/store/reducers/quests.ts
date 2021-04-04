@@ -6,6 +6,7 @@ import { getDefinition } from 'definitions/quests';
 import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars';
 import deepmerge from "deepmerge";
 import { Action } from "store/actions";
+import { Allegiance } from "store/types/combat";
 
 // tslint:disable:object-literal-sort-keys
 export const initialQuestState: QuestStoreState[] = [{
@@ -153,8 +154,8 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
             return state.map((qss) => {
                 if (qss.name === action.questName) {
                     const scene = qss.scene;
-                    if (!scene) throw new Error("Something broke. No scene");
-                    const sceneAction = scene.actionQueue![0];
+                    if (!scene || !scene.actionQueue) throw new Error("Something broke. No scene");
+                    const sceneAction = scene.actionQueue[0];
                     if (!sceneAction) return qss;
 
                     switch (sceneAction.actionType) {
@@ -173,7 +174,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
                     // pop first action of the stack
                     scene.actionQueue = [
-                        ...scene.actionQueue!.slice(1)
+                        ...scene.actionQueue.slice(1)
                     ];
 
                     return {
@@ -188,8 +189,12 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
         case "setCombat": {
             const { combat } = action;
             return state.map((qss) => {
-                if (qss.name === action.questName) {
-                    const scene = { ...qss.scene!, combat };
+                if (qss.name === action.questName && qss.scene) {
+                    const scene = { 
+                        ...qss.scene, 
+                        combat,
+                        turn: combat ? Allegiance.player : undefined,
+                    };
                     return {
                         ...qss,
                         scene
@@ -219,6 +224,24 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
                     return {
                         ...qss,
                         scene
+                    };
+                }
+                return qss;
+            });
+        }
+
+        case "startTurn": {
+            return state.map((qss) => {
+                if (qss.name === action.questName) {
+                    // const scene = qss.scene;
+                    if (!qss.scene) throw new Error("Something broke. No scene");
+                    const { turn } = action;
+                    return {
+                        ...qss,
+                        scene: {
+                            ...qss.scene,
+                            turn
+                        }
                     };
                 }
                 return qss;

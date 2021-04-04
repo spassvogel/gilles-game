@@ -1,4 +1,5 @@
 import { AdventurerStoreState } from "store/types/adventurer";
+import { Allegiance } from "store/types/combat";
 import { SceneAction, SceneStoreState, SceneInteractionModal } from "store/types/scene";
 import { PartialDeep } from "type-fest";
 
@@ -12,6 +13,7 @@ export type QuestAction =
  |  { type: "completeSceneAction", questName: string }
  |  { type: "setCombat", questName: string, combat: boolean }
  |  { type: "endPlayerTurn", questName: string }
+ |  { type: "startTurn", questName: string, turn: Allegiance }
  |  { type: "deductActorAp", questName: string,  actor: string, ap: number }
  |  { type: "setActorAp", questName: string, actor: string, ap: number }
 //  |  { type: "updateEncounterResult", questName: string, nodeIndex: number, result: string }
@@ -77,6 +79,12 @@ export const setCombat = (questName: string, combat: boolean): QuestAction => ({
 export const endPlayerTurn = (questName: string): QuestAction => ({
     type: "endPlayerTurn",
     questName,
+})
+
+export const startTurn = (questName: string, turn: Allegiance): QuestAction => ({
+    type: "startTurn",
+    questName,
+    turn,
 })
 
 export const deductActorAp = (questName: string, actor: string, ap: number): QuestAction => ({

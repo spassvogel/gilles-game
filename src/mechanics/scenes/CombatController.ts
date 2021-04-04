@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import { startTurn } from "store/actions/quests";
 import { StoreState } from "store/types";
 import { Allegiance } from "store/types/combat";
 import { QuestStoreState } from "store/types/quest";
@@ -34,8 +35,13 @@ export class CombatController {
     if (adventurers && enemies && quest && quest.scene){
       const totalAdventurerAp = adventurers.reduce((acc, value) => acc + value.ap, 0)
       const totalEnemiesAp = enemies.reduce((acc, value) => acc + value.ap, 0)
-      if (totalAdventurerAp === 0 && quest.scene.turn === Allegiance.player)
-      console.log(totalAdventurerAp, totalEnemiesAp)
+      if (totalAdventurerAp === 0 && quest.scene.turn === Allegiance.player) {
+        
+        console.log("END TURN", totalAdventurerAp, totalEnemiesAp)
+        this.sceneController?.store.dispatch(startTurn(quest.name, Allegiance.enemy));
+
+      }
+      console.log(totalAdventurerAp, totalEnemiesAp, quest.scene.turn )
     }
     // if (questState) {
     //   console.log(questState)

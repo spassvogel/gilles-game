@@ -21,6 +21,7 @@ import { setCombat } from 'store/actions/quests';
 import { useHistory } from 'react-router-dom';
 import { getWorldLink } from 'utils/routing';
 import './styles/worldMap.scss';
+import { Allegiance } from 'store/types/combat';
 
 window.PIXI = PIXI; // workaround for pixi-tilemap
 const FULL_HEIGHT = 1024;
@@ -245,9 +246,11 @@ const DebugToggleCombat = ({ questName }: {questName: string}) => {
     const quest = useQuest(questName);
     const dispatch = useDispatch();
 
-    if (quest.scene?.combat) {
+    if (quest.scene?.combat && quest.scene.turn !== undefined) {
         return (
-            <button onClick={() => dispatch(setCombat(questName, false))}>combat: on</button>
+            <button onClick={() => dispatch(setCombat(questName, false))}>
+                combat: on ({Allegiance[quest.scene.turn]})
+            </button>
         );
     }
     return (
