@@ -9,7 +9,7 @@
     "@pixi/filter-outline": "^3.2.0",
     "astar-typescript": "^1.2.5",
     "debounce": "^1.2.1",
-    "gsap": "^3.6.0",
+    "gsap": "^3.6.1",
     "handlebars": "^4.7.7",
     "localforage": "^1.9.0",
     "node-sass": "^5.0.0",
