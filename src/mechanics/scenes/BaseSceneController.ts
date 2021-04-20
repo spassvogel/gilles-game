@@ -23,7 +23,7 @@ import { Allegiance } from "store/types/combat";
 import { Item } from "definitions/items/types";
 
 const spritesheetBasePath = "img/scene/actors/";
-const movementDuration = 500; // time every tile movement takes
+export const movementDuration = 500; // time every tile movement takes
 
 /**
  * This is a type of God class that knows pretty much everything about a scene
@@ -179,25 +179,28 @@ export class BaseSceneController<TQuestVars> {
             console.warn("No object found");
             return;
         }
-
-        this.interactWithObject(actor, object);
+        if (actor) {
+            this.interactWithObject(actor, object);
+        }
     }
 
     actorAttemptAction(actorId: string, type: SceneActionType, destination: [number, number]) {
         // Tries to perform action on given actor
 
         const actor = this.getSceneActor(actorId);
+        if (!actor) return
         const {location} = actor;
+        if (!location) throw new Error("No location found!")
 
         switch (type) {
             case SceneActionType.move: {
                 // Find path to move using aStar
-                const path = this.findPath(location!, destination);
+                const path = this.findPath(location, destination);
 
                 if (this.combat) {
                     const remaining = actor.ap || -1;
                     if (remaining < (path?.length || 0)) {
-                        // return;
+                        return;
                     }
                     this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
                 }
@@ -213,7 +216,7 @@ export class BaseSceneController<TQuestVars> {
                 break;
             }
             case SceneActionType.interact: {
-                const path = this.findPathNearest(location!, destination);
+                const path = this.findPathNearest(location, destination);
                 path?.forEach((l, index) => {
                     const moveAction: SceneAction = {
                         actionType: SceneActionType.move,
@@ -235,7 +238,7 @@ export class BaseSceneController<TQuestVars> {
             }
             case SceneActionType.slash: {
                 // Find path to move towards the target
-                const path = this.findPath(location!, destination);
+                const path = this.findPath(location, destination);
                 const target = path?.pop();
                 if (!path || !target) {
                     // No path possible.. cant do anything now
@@ -379,8 +382,10 @@ export class BaseSceneController<TQuestVars> {
         this.dispatch(endPlayerTurn(this.questName));
     }
 
-    public getSceneActor(actorId: string): ActorObject {
-        return this.sceneActors.find(sA => sA.name === actorId)!;
+    public getSceneActor(actorId: string): ActorObject | undefined {
+        const actor = this.sceneActors.find(sA => sA.name === actorId);
+        // if (!actor) throw new Error (`No actor found with id ${actorId}`);
+        return actor;
     }
 
     public getObjectAtLocation(location: [number, number]) {
@@ -441,7 +446,7 @@ export class BaseSceneController<TQuestVars> {
                         object.type = TiledObjectType.actor;
                         if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
                             object.name = adventurer.id;
-                            object.ap = Math.floor(Math.random() * 3);
+                            object.ap = adventurer.id === 'c4a5d270' ? 2 : 0
                             object.health = adventurer.health;
                             object.allegiance = Allegiance.player;
                             object.properties.adventurerId = adventurer.id;
@@ -456,7 +461,7 @@ export class BaseSceneController<TQuestVars> {
                     object.type = TiledObjectType.actor;
                     if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
                         object.health = Math.random() * 100;
-                        object.ap = 0;
+                        object.ap = 6;
                         object.name = object.properties.name as string;
                         object.allegiance = Allegiance.enemy;
                         object.properties.isSprite = true;
@@ -497,7 +502,9 @@ export class BaseSceneController<TQuestVars> {
     // Quest
     public get quest() {
         const storeState = this.store.getState();
-        return storeState.quests.find(q => q.name === this.questName)!;
+        const quest = storeState.quests.find(q => q.name === this.questName);
+        if (!quest) throw new Error("No quest :(")
+        return quest;
     }
 
     protected get questVars(): TQuestVars {

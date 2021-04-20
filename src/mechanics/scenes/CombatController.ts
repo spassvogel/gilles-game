@@ -1,8 +1,10 @@
-import { startTurn } from "store/actions/quests";
+import { deductActorAp, enqueueSceneAction, startTurn } from "store/actions/quests";
 import { StoreState } from "store/types";
+import { Store, AnyAction, DeepPartial } from "redux";
 import { Allegiance } from "store/types/combat";
+import { ActorObject, SceneAction, SceneActionType } from "store/types/scene";
 import { locationEquals } from "utils/tilemap";
-import { BaseSceneController } from "./BaseSceneController";
+import { BaseSceneController, movementDuration } from "./BaseSceneController";
 
 
 export class CombatController {
@@ -25,18 +27,64 @@ export class CombatController {
   }
 
   static handleStoreChange() {
+    if (!this.sceneController) return
     // const questState = this.getQuestStoreState()
-    const adventurers = this.sceneController?.sceneAdventurers;
-    const enemies = this.sceneController?.sceneEnemies;
-    const quest = this.sceneController?.quest;
+    const adventurers = this.sceneController.sceneAdventurers;
+    const enemies = this.sceneController.sceneEnemies;
+    const quest = this.sceneController.quest;
     // const { adventurers, enemies, quest } = this.sceneController ?? {};
     if (adventurers && enemies && quest && quest.scene){
       const totalAdventurerAp = adventurers.reduce((acc, value) => acc + value.ap, 0)
-      const totalEnemiesAp = enemies.reduce((acc, value) => acc + value.ap, 0)
-      if (totalAdventurerAp === 0 && quest.scene.turn === Allegiance.player) {
+      const { scene } = quest;
+      const { turn } = scene;
+      // No AP for the player left, switch to enemy turn
+      if (totalAdventurerAp === 0 && turn === Allegiance.player) {
         
-        console.log("END TURN", totalAdventurerAp, totalEnemiesAp)
-        this.sceneController?.store.dispatch(startTurn(quest.name, Allegiance.enemy));
+        // console.log("END TURN", totalAdventurerAp, totalEnemiesAp)
+        this.dispatch(startTurn(quest.name, Allegiance.enemy));
+        return
+      }
+      
+      
+      if (turn === Allegiance.enemy && !scene.actionQueue?.length) {
+        const totalEnemiesAp = enemies.reduce((acc, value) => acc + value.ap, 0)
+
+        if (totalEnemiesAp === 0) {
+          // No more AP left for the enemy, player turn
+          this.dispatch(startTurn(quest.name, Allegiance.player));
+          return
+        }
+
+
+        console.log("total enemy ap: ", totalEnemiesAp)
+        const enemy = this.findEnemyWithAp()
+        console.log("do smt with: ", enemy)
+        if (enemy && enemy.location) {
+          const target = this.findNearestActor(enemy.location, Allegiance.player);
+          if (!target || !target.location) return // no target? did everyone die?
+          console.log('attack ', target)
+          const path = this.sceneController.findPath(enemy.location, target.location);
+
+          this.dispatch(deductActorAp(quest.name, enemy.name, path?.length || 0));
+
+          // if (this.combat) {
+          //     const remaining = actor.ap || -1;
+          //     if (remaining < (path?.length || 0)) {
+          //         // return;
+          //     }
+          //     this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
+          // }
+          path?.forEach((l, index) => {
+              const sceneAction: SceneAction = {
+                  actionType: SceneActionType.move,
+                  actorId: enemy.name,
+                  target: l as [number, number],
+                  endsAt: movementDuration * (index + 1) + performance.now()
+              };
+              this.dispatch(enqueueSceneAction(quest.name, sceneAction));
+          });
+          // break;
+        }
 
       }
       // console.log(totalAdventurerAp, totalEnemiesAp, quest.scene.turn )
@@ -58,10 +106,9 @@ export class CombatController {
     if (!this.sceneController) return undefined;
     const actors = this.sceneController.sceneActors;
     let distance = Number.MAX_VALUE;
-    let actor;
+    let actor: ActorObject | undefined;
     actors?.forEach(a => {
       if (!a.location || !this.sceneController || locationEquals(a.location, from)) return
-      console.log(`lets try ${a.name}, ${a.location}`)
       const steps = this.sceneController.findPath(from, a.location)?.length;
       if (steps !== undefined && steps < distance) {
         if (allegiance === undefined || a.allegiance === allegiance) {
@@ -71,5 +118,16 @@ export class CombatController {
       }
     })
     return actor
+  }
+
+  /** Find next enemy with ap */
+  static findEnemyWithAp() {
+    if (!this.sceneController) return undefined;
+    const actors = this.sceneController.sceneActors;
+    return actors?.find(a => a.allegiance === Allegiance.enemy && a.ap > 0)
+  }
+
+  static dispatch(action: AnyAction) {
+    this.sceneController?.store.dispatch(action);
   }
 }
