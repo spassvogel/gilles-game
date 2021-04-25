@@ -286,20 +286,20 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
 
     const filters = useMemo<Filter[]>(() => {
         switch (color) {
-            // case AdventurerColor.black:
-            //     return [createColorReplaceFilter(BLUES, BLACK)];
-            // case AdventurerColor.orange:
-            //     return [createColorReplaceFilter(BLUES, ORANGE)];
-            // case AdventurerColor.purple:
-            //     return [createColorReplaceFilter(BLUES, PURPLE)];
-            // case AdventurerColor.red:
-            //     return [createColorReplaceFilter(BLUES, REDS)];
-            // case AdventurerColor.teal:
-            //     return [createColorReplaceFilter(BLUES, TEALS)];
-            // case AdventurerColor.white:
-            //     return [createColorReplaceFilter(BLUES, WHITE)];
-            // case AdventurerColor.yellow:
-            //     return [createColorReplaceFilter(BLUES, YELLOW)];
+            case AdventurerColor.black:
+                return [createColorReplaceFilter(BLUES, BLACK)];
+            case AdventurerColor.orange:
+                return [createColorReplaceFilter(BLUES, ORANGE)];
+            case AdventurerColor.purple:
+                return [createColorReplaceFilter(BLUES, PURPLE)];
+            case AdventurerColor.red:
+                return [createColorReplaceFilter(BLUES, REDS)];
+            case AdventurerColor.teal:
+                return [createColorReplaceFilter(BLUES, TEALS)];
+            case AdventurerColor.white:
+                return [createColorReplaceFilter(BLUES, WHITE)];
+            case AdventurerColor.yellow:
+                return [createColorReplaceFilter(BLUES, YELLOW)];
 
             // case AdventurerColor.blue:
             default:
@@ -342,14 +342,13 @@ const calculateBearing = (origin: [number, number], destination: [number, number
 }
 
 const createColorReplaceFilter = (from: number[], to: number[]) => {
-    const replacements = from.map((val, index) => {
+    const replacements: [number, number][] = from.map((val, index) => {
         return [
             from[index], to[index]
         ]
     });
     // todo!!
-    return null
-    // return new MultiColorReplaceFilter(replacements, 0.15);
+    return new MultiColorReplaceFilter(replacements, 0.15);
 }
 
 const BLUES = [
