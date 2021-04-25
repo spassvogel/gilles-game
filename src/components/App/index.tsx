@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PIXI from 'pixi.js';
 import {AppContextProps} from "hoc/withAppContext";
 import {useRef, useState, createContext, useEffect } from "react";
 import {DndProvider } from "react-dnd";
@@ -23,12 +24,6 @@ import { restartGame } from 'index';
 import Button, { ButtonColor } from 'components/ui/buttons/Button';
 import StructureDetailsView from 'components/town/StructureDetailsView';
 import "./styles/app.scss";
-
-declare global {
-interface Window { PIXI: any; }
-}
-
-window.PIXI = PIXI;
 
 PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);

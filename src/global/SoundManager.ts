@@ -80,11 +80,9 @@ export class SoundManager {
 
         const loader = new Loader();
         files.map((file) => loader.add(file));
-        loader.load((_, resources) => {
+        loader.load((_, resources: PIXI.LoaderResource) => {
             if (resources) {
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                // todo!!refactor
-                // this._sounds[gameSound] = Object.values(resources!).filter(Boolean).map(r => r!.sound!)!;
+                this._sounds[gameSound] = Object.values(resources).filter(Boolean).map(r => r.sound);
                 complete?.(this._sounds[gameSound]);
             }
         });
