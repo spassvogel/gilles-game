@@ -1,8 +1,9 @@
 import React from "react";
 import { Graphics } from '@inlet/react-pixi';
+import { Point } from "pixi.js";
 
 interface Props {
-    positions: PIXI.Point[];
+    positions: Point[];
 }
 
 const QuestLine = (props: Props) => {

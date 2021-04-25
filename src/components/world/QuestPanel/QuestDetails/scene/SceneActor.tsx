@@ -1,7 +1,6 @@
 import React, { useMemo,  useEffect, useRef, useCallback, PropsWithChildren, useState, memo } from 'react';
 import { gsap } from 'gsap';
 import { Container } from '@inlet/react-pixi';
-import { MultiColorReplaceFilter } from 'pixi-filters';
 import { SceneActionType, SceneAction, ActorObject } from 'store/types/scene';
 import { useDispatch, useSelector } from 'react-redux';
 import { completeSceneAction } from 'store/actions/quests';
@@ -12,7 +11,8 @@ import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import { AdventurerColor } from 'store/types/adventurer';
 import { useQuest } from 'hooks/store/quests';
 import ActorThingy from './ActorThingy';
-import { Texture } from 'pixi.js';
+import { Filter, Loader, Texture, Container as PixiContainer } from 'pixi.js';
+import { MultiColorReplaceFilter } from '@pixi/filter-multi-color-replace';
 
 export interface Props  {
     actor: ActorObject;
@@ -51,7 +51,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         ...rest
     } = props;
     const { tileWidth, tileHeight } = controller.getTileDimensions();
-    const actorRef = useRef<PIXI.Container>(null);
+    const actorRef = useRef<PixiContainer>(null);
     const previousAction = useRef<SceneAction>();
     const dispatch = useDispatch();
     const quest = useQuest(props.controller.questName);
@@ -163,15 +163,15 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         };
     }, [location, tileWidth, tileHeight]);
 
-    const [frames, setFrames] = useState<{ [key: string]: PIXI.Texture[]}|null>(null);
+    const [frames, setFrames] = useState<{ [key: string]: Texture[]}|null>(null);
 
     useEffect(() => {
         if (!spritesheetPath) return;
 
-        if (!PIXI.Loader.shared.resources[spritesheetPath]?.textures){
+        if (!Loader.shared.resources[spritesheetPath]?.textures){
             throw new Error(`No textures for ${spritesheetPath}`);
         }
-        const allFrames = Object.keys(PIXI.Loader.shared.resources[spritesheetPath].textures ?? {});
+        const allFrames = Object.keys(Loader.shared.resources[spritesheetPath].textures ?? {});
         const indexed = allFrames.reduce((acc: {[key: string]: Texture[] }, frame: string) => {
             // frames are in the format of: 'stand-n', 'walk0-ne', 'walk1-ne' etc
             // create a mapping with arrays keyed by the part without the number,
@@ -180,7 +180,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
             if (!acc[key]) {
               acc[key] = [];
             }
-            const texture = PIXI.Loader.shared.resources[spritesheetPath].textures?.[frame];
+            const texture = Loader.shared.resources[spritesheetPath].textures?.[frame];
             if (texture) acc[key].push(texture);
             return acc;
         }, {});
@@ -284,24 +284,24 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         }
     }, [animation, orientation]);
 
-    const filters = useMemo<PIXI.Filter[]>(() => {
+    const filters = useMemo<Filter[]>(() => {
         switch (color) {
-            case AdventurerColor.black:
-                return [createColorReplaceFilter(BLUES, BLACK)];
-            case AdventurerColor.orange:
-                return [createColorReplaceFilter(BLUES, ORANGE)];
-            case AdventurerColor.purple:
-                return [createColorReplaceFilter(BLUES, PURPLE)];
-            case AdventurerColor.red:
-                return [createColorReplaceFilter(BLUES, REDS)];
-            case AdventurerColor.teal:
-                return [createColorReplaceFilter(BLUES, TEALS)];
-            case AdventurerColor.white:
-                return [createColorReplaceFilter(BLUES, WHITE)];
-            case AdventurerColor.yellow:
-                return [createColorReplaceFilter(BLUES, YELLOW)];
+            // case AdventurerColor.black:
+            //     return [createColorReplaceFilter(BLUES, BLACK)];
+            // case AdventurerColor.orange:
+            //     return [createColorReplaceFilter(BLUES, ORANGE)];
+            // case AdventurerColor.purple:
+            //     return [createColorReplaceFilter(BLUES, PURPLE)];
+            // case AdventurerColor.red:
+            //     return [createColorReplaceFilter(BLUES, REDS)];
+            // case AdventurerColor.teal:
+            //     return [createColorReplaceFilter(BLUES, TEALS)];
+            // case AdventurerColor.white:
+            //     return [createColorReplaceFilter(BLUES, WHITE)];
+            // case AdventurerColor.yellow:
+            //     return [createColorReplaceFilter(BLUES, YELLOW)];
 
-            case AdventurerColor.blue:
+            // case AdventurerColor.blue:
             default:
                 return [];
         }
@@ -347,7 +347,9 @@ const createColorReplaceFilter = (from: number[], to: number[]) => {
             from[index], to[index]
         ]
     });
-    return new MultiColorReplaceFilter(replacements, 0.15);
+    // todo!!
+    return null
+    // return new MultiColorReplaceFilter(replacements, 0.15);
 }
 
 const BLUES = [

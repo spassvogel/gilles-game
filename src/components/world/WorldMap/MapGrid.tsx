@@ -48,7 +48,7 @@ const MapGrid = PixiComponent('Rectangle', {
         instance.addChild(point);
 
         const { gridWidth, worldWidth, worldHeight } = instance as any;
-        parent.addListener("clicked", (event: { world: PIXI.Point }) => {
+        parent.addListener("clicked", (event: { world: Point }) => {
             const nearestX = Math.round(event.world.x / gridWidth) * gridWidth;
             const nearestY = Math.round(event.world.y / gridWidth) * gridWidth;
 

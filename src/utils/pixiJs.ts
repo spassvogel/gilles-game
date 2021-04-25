@@ -1,6 +1,5 @@
-import { LoaderResource } from 'pixi.js';
-import { lerp } from './math';
-
+import { Loader } from "pixi.js";
+//todo: any
 interface Location {
     x: number;
     y: number;
@@ -12,33 +11,30 @@ export const lerpLocation = (point1: Location, point2: Location, alpha: number):
     return { x, y };
 }
 
+const lerp = (n1: number,  n2: number,  alpha: number) =>  {
+    return n1 + alpha * (n2 - n1);
+}
 
-/**
- * Uses the shared pixi loader to load a resource
- */
-export async function loadResourceAsync(path: string): Promise<LoaderResource|undefined> {
-    const loader = PIXI.Loader.shared;
-    return new Promise<LoaderResource|undefined>((resolve, reject) => {
-        if (loader.resources[path]) {
+// Uses the shared pixi loader to load a resource
+export async function loadResourceAsync(path: string) { 
+    const loader = Loader.shared;
+    return new Promise<any>((resolve, reject) => {
+    if (loader.resources[path]) {
             resolve(loader.resources[path]);
         }
         else {
             loader.add(path).load((_, resources) => {
-                if (!resources[path]) {
-                    reject()
-                } else {
-                    resolve(resources[path]);
-                }                
+                resolve(resources[path]);
             });
         }
     });
 }
 
-export const loadResource = (path: string, callback: (resource: LoaderResource|undefined) => void): void => {
-    const loader = PIXI.Loader.shared;
+export const loadResource = (path: string, callback: (resource: any) => void) => { 
+    const loader = Loader.shared;
     if (loader.resources[path]) {
         callback(loader.resources[path]);
         return;
     }
-    loader.add(path).load((_, resources) => { callback(resources[path])});
+    loader.add(path).load((_, resources) => { callback(resources[path]!)});
 }

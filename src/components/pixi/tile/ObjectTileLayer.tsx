@@ -2,13 +2,8 @@ import { PixiComponent } from "@inlet/react-pixi";
 import * as PIXI from 'pixi.js';
 import { TiledTilesetData } from 'constants/tiledMapData';
 import { SceneObject } from 'store/types/scene';
-import { CompositeRectTileLayer } from 'pixi-tilemap';
 import { findTileset } from "utils/tilemap";
-
-// window.PIXI = PIXI;
-import 'pixi-tilemap';
-
-
+import { CompositeRectTileLayer } from "@pixi/tilemap";
 
 interface Props  {
     objects: SceneObject[];
@@ -16,7 +11,6 @@ interface Props  {
     spritesheets: {[key: string]: PIXI.Spritesheet}
 }
 
-// cant get this to work with pixi-tilemap :/
 // eslint-disable-next-line @typescript-eslint/no-explicit-any 
 const ObjectTileLayer = PixiComponent<Props, any>("ObjectTileLayer", {
     create(_props: Props) {

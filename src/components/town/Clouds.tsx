@@ -25,7 +25,7 @@ const Clouds = (props: Props) => {
 
     return (
         <Sprite
-            name={`cloud ${cloud}`}
+            // name={`cloud ${cloud}`}
             image={image}
             alpha={0.8}
             x={x}

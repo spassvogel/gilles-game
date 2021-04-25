@@ -6,7 +6,7 @@ export interface SpritesheetData {
     meta: {
         image: string;
         size: Size;
-        scale: number;
+        scale: string;
     }
 }
 

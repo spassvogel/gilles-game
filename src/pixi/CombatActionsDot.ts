@@ -1,3 +1,4 @@
+import { Circle, Container, Graphics, Sprite, Text } from 'pixi.js';
 import { SceneActionType } from 'store/types/scene';
 
 interface ActionTabConfig {
@@ -5,24 +6,24 @@ interface ActionTabConfig {
     icon: string
 }
 
-class CombatActionDot extends PIXI.Container {
-    tabContainer: PIXI.Container;
-    ring: PIXI.Graphics = new PIXI.Graphics();
+class CombatActionDot extends Container {
+    tabContainer: Container;
+    ring: Graphics = new Graphics();
     ringDiameter: number;
-    text: PIXI.Text;
+    text: Text;
     activeAction?: SceneActionType;
 
     constructor(tileWidth: number, tileHeight: number) {
         super();
 
-        this.tabContainer = new PIXI.Container();
+        this.tabContainer = new Container();
         this.addChild(this.tabContainer);
         this.ringDiameter = Math.sqrt(tileWidth * tileHeight) / 2; // diameter of the ring is twice as small as the tile
         this.drawRingNormal();
         
         //ring.anchor.set(0.5);
         this.interactive = true;
-        this.ring.hitArea = new PIXI.Circle(0, 0, 25);
+        this.ring.hitArea = new Circle(0, 0, 25);
         this.on('pointerover', () => {
             this.drawRingHover();
         });
@@ -30,14 +31,15 @@ class CombatActionDot extends PIXI.Container {
             this.drawRingNormal();
         });
         
-        const highlight = new PIXI.Graphics();
+        const highlight = new Graphics();
         highlight.beginFill(0xffffff, 0.2);
         highlight.drawCircle(0, 0, 25);
         highlight.alpha = 0;
         this.addChild(this.ring);
         this.addChild(highlight);
 
-        this.text = new PIXI.Text("", {fontFamily : 'Gabriela', fontSize: 22, fill : 0xffffff, align : 'center',     
+        this.text = new Text("", {
+            fontFamily : 'Gabriela', fontSize: 22, fill : 0xffffff, align : 'center',
             dropShadow: true,
             dropShadowAngle: 0.9,
             dropShadowBlur: 10,
@@ -60,7 +62,7 @@ class CombatActionDot extends PIXI.Container {
         ]
         tabs.forEach((val, index) => {
             
-            const tab = PIXI.Sprite.from(`${process.env.PUBLIC_URL}/img/scene/ui/combat/tab.png`);
+            const tab = Sprite.from(`${process.env.PUBLIC_URL}/img/scene/ui/combat/tab.png`);
             tab.interactive = true;
 
             //  tab.y = 50;
@@ -68,7 +70,7 @@ class CombatActionDot extends PIXI.Container {
             this.tabContainer.addChild(tab);
             tab.rotation = rotations[tabs.length][index];
             
-            const icon = PIXI.Sprite.from(`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/${val.icon}.svg`);
+            const icon = Sprite.from(`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/${val.icon}.svg`);
             icon.anchor.set(0.5);
             icon.x = 40;
             icon.width = icon.height = 28;
@@ -85,7 +87,7 @@ class CombatActionDot extends PIXI.Container {
                 this.activeAction = undefined;
             })
         })
-        // const icon = PIXI.Sprite.from(`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/crosshair.svg`);
+        // const icon = Sprite.from(`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/crosshair.svg`);
         
     }
     

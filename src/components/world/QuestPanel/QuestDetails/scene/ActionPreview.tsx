@@ -1,4 +1,5 @@
 import DashedLine from 'components/pixi/DashedLine';
+import { Point } from 'pixi.js';
 import React from 'react';
 import { SceneActionType } from 'store/types/scene';
 import { ActionIntent } from './ui/SceneUI'
@@ -19,7 +20,7 @@ const ActionPreview = (props: Props) => {
       if (!actionIntent.path){
         return null;
       }
-      const convert = (p: number[]) => new PIXI.Point(p[0] * (tileWidth) + (tileWidth / 2), p[1] * (tileHeight) + (tileHeight / 2));
+      const convert = (p: number[]) => new Point(p[0] * (tileWidth) + (tileWidth / 2), p[1] * (tileHeight) + (tileHeight / 2));
       const converted = [
           convert(actionIntent.from),
           ...actionIntent.path.map(p => convert(p))

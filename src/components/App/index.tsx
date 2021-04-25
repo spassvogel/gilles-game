@@ -24,6 +24,12 @@ import Button, { ButtonColor } from 'components/ui/buttons/Button';
 import StructureDetailsView from 'components/town/StructureDetailsView';
 import "./styles/app.scss";
 
+declare global {
+interface Window { PIXI: any; }
+}
+
+window.PIXI = PIXI;
+
 PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);
 

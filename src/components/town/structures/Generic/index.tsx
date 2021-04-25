@@ -3,10 +3,11 @@ import { Structure } from 'definitions/structures';
 import { Sprite } from '@inlet/react-pixi';
 import HitAreaShapes from 'utils/hitAreaShapes';
 import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView';
+import { Point } from 'pixi.js';
 
 export interface Props {
     onStructureClick: (structure: Structure | null) => void;
-    position: PIXI.Point;
+    position: Point;
     selected?: boolean;
     structure: Structure;
     hitAreaShapes: HitAreaShapes;

@@ -1,8 +1,9 @@
 import { PixiComponent, applyDefaultProps, Graphics } from "@inlet/react-pixi";
 import * as PIXI  from 'pixi.js';
+import { Point } from "pixi.js";
 
 interface Props  {
-    points?: PIXI.Point[];
+    points?: Point[];
     style?:  Partial<PIXI.LineStyle>;
     dash?: number;
     gap?: number;
@@ -42,7 +43,7 @@ const DashedLine = PixiComponent<React.ComponentProps<typeof Graphics> & Props, 
             }
 
             instance.clear();
-            instance.lineStyle(style?.width, style?.color, style?.alpha, style?.alignment, style?.native);
+            instance.lineStyle(style?.width ?? 10, style?.color, style?.alpha, style?.alignment, style?.native);
             const offsetPercentage = (Date.now() % (10000/speed) + 1) / Math.abs(10000/speed);
 
             let dashLeft = 0;

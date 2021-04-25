@@ -3,10 +3,11 @@ import { Sprite } from '@inlet/react-pixi';
 import * as PIXI from 'pixi.js';
 import { QuestStoreState } from 'store/types/quest';
 import { AdventurerStoreState } from 'store/types/adventurer';
+import { Point } from 'pixi.js';
 
 interface Props {
     quest: QuestStoreState;
-    position: PIXI.Point;
+    position: Point;
     selected?: boolean;
     encounterActive?: boolean;
     onClick?: (quest: QuestStoreState) => void;
@@ -40,8 +41,8 @@ const QuestMarker = (props: Props) => {
             y={position.y}
             interactive={true}
             buttonMode={true}
-            scale={new PIXI.Point(0.1, 0.1)}
-            anchor={new PIXI.Point(0.5, 1)}
+            scale={new Point(0.1, 0.1)}
+            anchor={new Point(0.5, 1)}
             pointerdown={() => {
                 if(onClick) {
                     onClick(quest);
@@ -52,20 +53,20 @@ const QuestMarker = (props: Props) => {
             <Sprite
                 image={`${process.env.PUBLIC_URL}${leader.avatarImg}`}
                 name="avatar"
-                anchor={new PIXI.Point(0.5, 0.5)}
+                anchor={new Point(0.5, 0.5)}
                 x={0}
                 y={-396}
-                scale={new PIXI.Point(0.66, 0.66)}
+                scale={new Point(0.66, 0.66)}
                 ref={avatar}
             />)}
             {encounterActive && (
             <Sprite
                 image={`${process.env.PUBLIC_URL}/img/world/quest-alert.png`}
                 name="quest-alert"
-                anchor={new PIXI.Point(0.5, 1)}
+                anchor={new Point(0.5, 1)}
                 x={180}
                 y={-396}
-                scale={new PIXI.Point(2, 2)}
+                scale={new Point(2, 2)}
             />
             )}
         </Sprite>

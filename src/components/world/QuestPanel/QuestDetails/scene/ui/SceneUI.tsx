@@ -1,5 +1,6 @@
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { useQuest } from 'hooks/store/quests';
+import { Point } from 'pixi.js';
 import React, { PropsWithChildren, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
@@ -119,6 +120,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             case SceneActionType.slash: {
                 const path = controller?.findPath(from, to);
                 const apCost = combat ? controller?.calculateWalkApCosts(from, to) : undefined;
+
                 onSetActionIntent({
                     action,
                     from,
@@ -132,6 +134,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             case SceneActionType.interact: {
                 const path = controller?.findPathNearest(from, to, true);
                 const apCost = 0; // can only inspect out of combat?
+
                 onSetActionIntent({
                     action,
                     from,
@@ -163,7 +166,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             const rect = (e.target).getBoundingClientRect();
             const x = (e.clientX - rect.left) / scale.current;
             const y = (e.clientY - rect.top) / scale.current;
-            return controller?.pointToSceneLocation(new PIXI.Point(x, y));
+            return controller?.pointToSceneLocation(new Point(x, y));
         }
         throw new Error("You didnt give me the correct event")
     }

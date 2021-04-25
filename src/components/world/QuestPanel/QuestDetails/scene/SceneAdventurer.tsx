@@ -2,6 +2,7 @@ import { Container, Graphics } from '@inlet/react-pixi';
 import React, { useRef, memo } from 'react';
 import { ActorObject } from 'store/types/scene';
 import SceneActor, { Props as SceneActorProps } from './SceneActor';
+import { Container as PixiContainer } from 'pixi.js';
 
 interface Props  {
     actor: ActorObject;
@@ -20,7 +21,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
     } = props;
     const {tileWidth, tileHeight} = controller.getTileDimensions();
 
-    const ref = useRef<PIXI.Container>(null);
+    const ref = useRef<PixiContainer>(null);
 
     return (
         <Container ref={ref}>

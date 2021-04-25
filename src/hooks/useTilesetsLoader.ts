@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { loadResource } from "utils/pixiJs";
 import { TiledTilesetData } from 'constants/tiledMapData';
 import { SpritesheetData, SpriteData } from 'constants/spritesheetData';
+import { Spritesheet } from "pixi.js";
 
 const useTilesetsLoader = (basePath: string) => {
-    const [tileSpritesheets, setTilesets] = useState<{[key: string]: PIXI.Spritesheet}>({});
+    const [tileSpritesheets, setTilesets] = useState<{[key: string]: Spritesheet}>({});
     const [data, setData] = useState<TiledTilesetData[]>();
 
     const loadTilesets = (value: TiledTilesetData[]) => {
@@ -24,7 +25,7 @@ const useTilesetsLoader = (basePath: string) => {
                 throw new Error(`Loading ${basePath}\n${resource.error}`);
             }
             const spritesheetData = parseSpritesheetData(nextTileset);
-            const spritesheet = new PIXI.Spritesheet(resource.texture, spritesheetData);
+            const spritesheet = new Spritesheet(resource.texture, spritesheetData);
 
             spritesheet.parse(() => {
                 const newTilesets = {
@@ -48,7 +49,7 @@ const useTilesetsLoader = (basePath: string) => {
 export default useTilesetsLoader;
 
 // Returns a TiledTilesetData that has not been loaded into tilesetsTextures yet
-const nextTilesetToload = (tilesets: TiledTilesetData[], tilesetsTextures: {[key: string]: PIXI.Spritesheet}) => {
+const nextTilesetToload = (tilesets: TiledTilesetData[], tilesetsTextures: {[key: string]: Spritesheet}) => {
     return tilesets.find((t) => {
         return !tilesetsTextures[t.name];
     })
@@ -80,7 +81,7 @@ const parseSpritesheetData = (tileset: TiledTilesetData): SpritesheetData => {
         meta: {
             image,
             size,
-            scale: 1
+            scale: "1"
         }
     };
 }

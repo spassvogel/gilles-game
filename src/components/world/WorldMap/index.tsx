@@ -20,10 +20,10 @@ import { useActiveQuests, useQuest } from 'hooks/store/quests';
 import { setCombat } from 'store/actions/quests';
 import { useHistory } from 'react-router-dom';
 import { getWorldLink } from 'utils/routing';
-import './styles/worldMap.scss';
 import { Allegiance } from 'store/types/combat';
+import { Point } from 'pixi.js';
+import './styles/worldMap.scss';
 
-window.PIXI = PIXI; // workaround for pixi-tilemap
 const FULL_HEIGHT = 1024;
 const SMALL_HEIGHT = 64;   // Used when QuestPanel is open
 const WORLD_WIDTH = 1500;
@@ -225,11 +225,11 @@ const getQuestWorldLocation = (quest: QuestStoreState): { x: number; y: number; 
 const nodeLocationToPoint = (location: { x: number; y: number; }) => {
     const x = location.x * GRID_WIDTH + WORLD_WIDTH / 2;
     const y = location.y * GRID_WIDTH + WORLD_HEIGHT / 2;
-    return new PIXI.Point(x, y);
+    return new Point(x, y);
 }
 
 const getPreviousPositions = (quest: QuestStoreState) => {
-    const positions: PIXI.Point[] = [];
+    const positions: Point[] = [];
     const questDefinition = getDefinition(quest.name);
 
     for (let i = 0; i < quest.progress; i++) {

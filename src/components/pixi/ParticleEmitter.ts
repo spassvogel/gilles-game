@@ -14,7 +14,7 @@ interface InternalParticleEmitter {
 
 const ParticleEmitter = PixiComponent<Props & React.ComponentProps<typeof Container>, PIXI.ParticleContainer>("ParticleEmitter", {
     create() {
-      return new PIXI.ParticleContainer();
+      return new PIXI.ParticleContainer(256, {});
     },
 
     applyProps(instance, oldProps: Props, newProps: Props) {

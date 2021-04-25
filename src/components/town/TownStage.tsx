@@ -2,9 +2,9 @@
 import React, { useRef, useEffect, PropsWithChildren, forwardRef, useImperativeHandle } from "react";
 import { Sprite, Stage } from '@inlet/react-pixi';
 import { Viewport as PixiViewport} from 'pixi-viewport';
-import { GodrayFilter } from 'pixi-filters';
 import Viewport from 'components/pixi/Viewport';
 import { gsap } from 'gsap';
+import { GodrayFilter } from "@pixi/filter-godray";
 
 export interface Props {
     screenWidth: number;

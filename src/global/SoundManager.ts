@@ -83,7 +83,8 @@ export class SoundManager {
         loader.load((_, resources) => {
             if (resources) {
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                this._sounds[gameSound] = Object.values(resources!).filter(Boolean).map(r => r!.sound!)!;
+                // todo!!refactor
+                // this._sounds[gameSound] = Object.values(resources!).filter(Boolean).map(r => r!.sound!)!;
                 complete?.(this._sounds[gameSound]);
             }
         });

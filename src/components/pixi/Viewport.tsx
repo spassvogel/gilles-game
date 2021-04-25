@@ -1,10 +1,11 @@
 import React, { forwardRef, PropsWithChildren } from "react";
-import { Viewport as PixiViewport, ClickEventData } from "pixi-viewport";
+import { Viewport as PixiViewport } from "pixi-viewport";
 import { PixiComponent, useApp } from "@inlet/react-pixi";
 import gauntlet from "components/App/styles/img/cursors/dwarven_gauntlet_extra_6.png";
+import { Application, DisplayObject, InteractionEvent } from "pixi.js";
 
 interface Props {
-  onClick?(event: ClickEventData): void;
+  onClick?(event: InteractionEvent): void;
   screenWidth: number,
   screenHeight: number,
   worldWidth: number,
@@ -28,7 +29,7 @@ const Viewport = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref)
 Viewport.displayName = 'DisplayName';
 
 interface PixiComponentProps {
-    app: PIXI.Application;
+    app: Application;
 }
 
 const PixiComponentViewport = PixiComponent("Viewport", {
@@ -57,7 +58,7 @@ const PixiComponentViewport = PixiComponent("Viewport", {
       .clampZoom({ minScale, maxScale })
       .decelerate();
 
-    return viewport;
+    return viewport as unknown as PixiViewport;
   }
 });
 export default Viewport;

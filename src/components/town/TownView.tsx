@@ -21,6 +21,7 @@ import "./styles/townView.scss"
 import TownStage from './TownStage';
 import { Viewport as PixiViewport } from "pixi-viewport";
 import Clouds from './Clouds';
+import { Point } from "pixi.js";
 
 const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
@@ -64,7 +65,7 @@ const TownView = (props: Props & AppContextProps) => {
             const viewport = viewportRef.current;
             viewport.on("drag-start", (e) => {
                 dragging.current = true;
-                e.event.stopPropagation();
+                e.stopPropagation();
             });
             viewport.on("drag-end", () => { dragging.current = false; });
         }
@@ -247,5 +248,5 @@ const getStructurePosition = (structure: Structure) => {
             y = 333;
             break;
     }
-    return new PIXI.Point(x, y);
+    return new Point(x, y);
 }

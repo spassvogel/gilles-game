@@ -11,6 +11,7 @@ import { isAdventurer } from "store/types/scene";
 import SceneLog from "./SceneLog";
 import "./styles/scene.scss";
 import { CombatController } from "mechanics/scenes/CombatController";
+import { Rectangle } from "pixi.js";
 
 export interface Props {
     selectedActorId: string;
@@ -73,7 +74,7 @@ const Scene = (props: Props) => {
             <BridgedStage width={sceneWidth} height={sceneHeight} >
                 <Container
                     interactive={true}
-                    hitArea={new PIXI.Rectangle(0, 0, sceneWidth, sceneHeight)}
+                    hitArea={new Rectangle(0, 0, sceneWidth, sceneHeight)}
                 >
                     <Tilemap
                         basePath={basePath}

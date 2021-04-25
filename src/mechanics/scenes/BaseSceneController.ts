@@ -21,6 +21,7 @@ import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { GameSound, SoundManager } from 'global/SoundManager';
 import { Allegiance } from "store/types/combat";
 import { Item } from "definitions/items/types";
+import { Loader, Point } from "pixi.js";
 
 const spritesheetBasePath = "img/scene/actors/";
 export const movementDuration = 500; // time every tile movement takes
@@ -79,7 +80,7 @@ export class BaseSceneController<TQuestVars> {
         ] as const;
 
         Promise.all(promises).then(async () => {
-            const resource = PIXI.Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
+            const resource = Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
             this.mapData = resource.data;
 
             // Create aStar based on blocked tiles
@@ -272,7 +273,7 @@ export class BaseSceneController<TQuestVars> {
     }
 
     // Converts pixel coordinate to scene location
-    pointToSceneLocation (point: PIXI.Point): [number, number] {
+    pointToSceneLocation (point: Point): [number, number] {
         if (!this.mapData?.tilewidth || !this.mapData?.tileheight) {
             return [0, 0];
         }
