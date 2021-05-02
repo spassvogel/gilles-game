@@ -1,7 +1,14 @@
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { useQuest } from 'hooks/store/quests';
 import { Point } from 'pixi.js';
-import React, { PropsWithChildren, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, {
+    PropsWithChildren,
+    useCallback,
+    useContext,
+    useEffect,
+    useRef,
+    useState
+} from 'react';
 import { SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
 import CombatUIWidget from './CombatUIWidget';
@@ -23,6 +30,7 @@ export interface ActionIntent {
     from: [number, number];
     to: [number, number];
     apCost?: number;
+    actor: string;
     actorAP?: number;
     path?: [number, number][];  // is undefined when path is invalid
 }
@@ -114,10 +122,9 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             ap: actorAP,
         } = controller?.getSceneActor(selectedActorId) ?? {};
         const to = cursorLocation ?? [0, 0];
-
         switch (action){
             case SceneActionType.move:
-            case SceneActionType.slash: {
+                case SceneActionType.slash: {
                 const path = controller?.findPath(from, to);
                 const apCost = combat ? controller?.calculateWalkApCosts(from, to) : undefined;
 
@@ -126,6 +133,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
                     from,
                     to,
                     apCost,
+                    actor: selectedActorId,
                     actorAP,
                     path,
                 })
@@ -140,6 +148,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
                     from,
                     to,
                     apCost,
+                    actor: selectedActorId,
                     actorAP,
                     path,
                 })
@@ -186,6 +195,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
             {scene?.combat && cursorLocation && (
                 <CombatUIWidget
                     location={cursorLocation}
+                    selectedActorId={selectedActorId}
                     actionIntent={actionIntent}
                     onActionChange={handleCombatActionChange}
                 />

@@ -1,6 +1,6 @@
 import { deductActorAp, enqueueSceneAction, startTurn } from "store/actions/quests";
 import { StoreState } from "store/types";
-import { Store, AnyAction, DeepPartial } from "redux";
+import { Store, AnyAction } from "redux";
 import { Allegiance } from "store/types/combat";
 import { ActorObject, SceneAction, SceneActionType } from "store/types/scene";
 import { locationEquals } from "utils/tilemap";
@@ -58,14 +58,14 @@ export class CombatController {
 
         console.log("total enemy ap: ", totalEnemiesAp)
         const enemy = this.findEnemyWithAp()
-        console.log("do smt with: ", enemy)
+        console.log(new Date().getTime(), "do smt with: ", enemy, scene, scene.actionQueue)
         if (enemy && enemy.location) {
           const target = this.findNearestActor(enemy.location, Allegiance.player);
           if (!target || !target.location) return // no target? did everyone die?
           console.log('attack ', target)
           const path = this.sceneController.findPath(enemy.location, target.location);
 
-          this.dispatch(deductActorAp(quest.name, enemy.name, path?.length || 0));
+          // this.dispatch(deductActorAp(quest.name, enemy.name, path?.length || 0));
 
           // if (this.combat) {
           //     const remaining = actor.ap || -1;
@@ -79,7 +79,7 @@ export class CombatController {
                   actionType: SceneActionType.move,
                   actorId: enemy.name,
                   target: l as [number, number],
-                  endsAt: movementDuration * (index + 1) + performance.now()
+                  endsAt: movementDuration * 10 * (index + 1) + performance.now()
               };
               this.dispatch(enqueueSceneAction(quest.name, sceneAction));
           });

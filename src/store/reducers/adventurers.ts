@@ -274,7 +274,8 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
         case "moveItemToOtherAdventurer": {
             // Moves an item from one adventurer to another
             const { adventurerId: fromAdventurerId, fromSlot, toAdventurerId } = action;
-            const fromAdventurer = state.find((a) => a.id === fromAdventurerId)!;
+            const fromAdventurer = state.find((a) => a.id === fromAdventurerId);
+            if (!fromAdventurer) return state
             const item = fromAdventurer.inventory[fromSlot];
 
             return state.map((element: AdventurerStoreState) => {
@@ -311,7 +312,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
                     if (toSlot === null || toSlot === undefined) {
                         toSlot = inventory.findIndex((val) => (val === null || val === undefined));
                     }
-                    inventory[toSlot!] = item;
+                    inventory[toSlot] = item;
                     // todo: check if no space
                     return {
                         ...element,

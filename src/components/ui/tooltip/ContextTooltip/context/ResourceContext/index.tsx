@@ -68,7 +68,7 @@ const ResourceContext = (props: Props) => {
         case Resource.stone:
         case Resource.wood: {
             const amount = formatNumber(resourcesState[resource] ?? 0, 0);
-            const full = resourcesState[resource]! >= maxResources[resource]!;
+            const full = (resourcesState[resource] ?? 0) >= (maxResources?.[resource] ?? 0);
             return (
                 <div className="resource-context">
                     <div className="info">

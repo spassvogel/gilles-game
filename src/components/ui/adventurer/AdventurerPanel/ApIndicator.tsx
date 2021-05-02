@@ -13,8 +13,8 @@ export interface Props {
  * todo: move outside of /world
  */
 const ApIndicator = (props: Props) => {
-    const quest = useQuest(props.questName!);
-    const controller = useContext(SceneControllerContext)!;
+    const quest = useQuest(props.questName ?? "");
+    const controller = useContext(SceneControllerContext);
 
     const ap = useMemo(() => {
         if (!controller) return null;

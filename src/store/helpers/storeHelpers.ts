@@ -8,6 +8,7 @@ import { QuestStoreState } from "store/types/quest";
 // };
 
 export const adventurersOnQuest = (adventurers: AdventurerStoreState[], quest: QuestStoreState): AdventurerStoreState[] => {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return quest.party.map((id: string) => findAdventurerById(adventurers, id)!);
 };
 
