@@ -98,6 +98,42 @@ const apparel = {
         iconImg: `${basePath}dark_prince_vest.png`,
         damageReduction: 2,
     },
+    dreadnoughtBoots: {
+        equipmentType: EquipmentSlotType.feet,
+        itemType,
+        iconImg: `${basePath}dreadnought_boots.png`,
+        damageReduction: 8,
+    },
+    dreadnoughtChest: {
+        equipmentType: EquipmentSlotType.chest,
+        itemType,
+        iconImg: `${basePath}dreadnought_chest.png`,
+        damageReduction: 8,
+    },
+    dreadnoughtGauntlets: {
+        equipmentType: EquipmentSlotType.hands,
+        itemType,
+        iconImg: `${basePath}dreadnought_gauntlets.png`,
+        damageReduction: 8,
+    },
+    dreadnoughtHelm: {
+        equipmentType: EquipmentSlotType.head,
+        itemType,
+        iconImg: `${basePath}dreadnought_helm.png`,
+        damageReduction: 8,
+    },
+    dreadnoughtLegplates: {
+        equipmentType: EquipmentSlotType.legs,
+        itemType,
+        iconImg: `${basePath}dreadnought_legplates.png`,
+        damageReduction: 8,
+    },
+    dreadnoughtPauldrons: {
+        equipmentType: EquipmentSlotType.shoulders,
+        itemType,
+        iconImg: `${basePath}dreadnought_pauldrons.png`,
+        damageReduction: 8,
+    },
     druidChest: {
         equipmentType: EquipmentSlotType.chest,
         itemType,
