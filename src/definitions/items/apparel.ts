@@ -298,6 +298,11 @@ const apparel = {
         itemType,
         iconImg: `${basePath}shoulders_3.png`,
     },
+    studdedLeatherShoulderguards: {
+        equipmentType: EquipmentSlotType.shoulders,
+        itemType,
+        iconImg: `${basePath}studded_leather_shoulderguards.png`,
+    },
     sunchaserBritches: {
         equipmentType: EquipmentSlotType.legs,
         itemType,
