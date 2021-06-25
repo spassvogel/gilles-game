@@ -237,6 +237,36 @@ const apparel = {
         itemType,
         iconImg: `${basePath}shoulders_3.png`,
     },
+    templeGuardChestplate: {
+        equipmentType: EquipmentSlotType.chest,
+        itemType,
+        iconImg: `${basePath}temple_guard_chestplate.png`,
+    },
+    templeGuardGloves: {
+        equipmentType: EquipmentSlotType.hands,
+        itemType,
+        iconImg: `${basePath}temple_guard_gloves.png`,
+    },
+    templeGuardGreaves: {
+        equipmentType: EquipmentSlotType.shoulders,
+        itemType,
+        iconImg: `${basePath}temple_guard_greaves.png`,
+    },
+    templeGuardHelm: {
+        equipmentType: EquipmentSlotType.head,
+        itemType,
+        iconImg: `${basePath}temple_guard_helm.png`,
+    },
+    templeGuardLegplates: {
+        equipmentType: EquipmentSlotType.legs,
+        itemType,
+        iconImg: `${basePath}temple_guard_legplates.png`,
+    },
+    templeGuardPauldrons: {
+        equipmentType: EquipmentSlotType.shoulders,
+        itemType,
+        iconImg: `${basePath}temple_guard_pauldrons.png`,
+    },
     vest: {
         equipmentType: EquipmentSlotType.chest,
         itemType,
