@@ -185,6 +185,31 @@ const apparel = {
         itemType,
         iconImg: `${basePath}leather_gloves.png`,
     },
+    naturalistsCape: {
+        equipmentType: EquipmentSlotType.shoulders,
+        itemType,
+        iconImg: `${basePath}naturalists_cape.png`,
+    },
+    naturalistsCowl: {
+        equipmentType: EquipmentSlotType.head,
+        itemType,
+        iconImg: `${basePath}naturalists_cowl.png`,
+    },
+    naturalistsFootwraps: {
+        equipmentType: EquipmentSlotType.feet,
+        itemType,
+        iconImg: `${basePath}naturalists_footwraps.png`,
+    },
+    naturalistsVambraces: {
+        equipmentType: EquipmentSlotType.hands,
+        itemType,
+        iconImg: `${basePath}naturalists_vambraces.png`,
+    },
+    naturalistsVest: {
+        equipmentType: EquipmentSlotType.chest,
+        itemType,
+        iconImg: `${basePath}naturalists_vest.png`,
+    },
     nomadHelmet: {
         equipmentType: EquipmentSlotType.head,
         itemType,
