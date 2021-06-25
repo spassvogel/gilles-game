@@ -127,7 +127,7 @@ export abstract class TextManager {
     public static printNotFounds() {
         if (this.notFound.length) {
             console.log("TextManager strings not found:")
-            console.log(this.notFound.join('\n'))
+            console.log("\"" + this.notFound.join('": "",\n"') + '": ""')
         }
     }
 
