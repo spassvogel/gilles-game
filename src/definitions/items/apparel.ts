@@ -298,6 +298,36 @@ const apparel = {
         itemType,
         iconImg: `${basePath}shoulders_3.png`,
     },
+    sunchaserBritches: {
+        equipmentType: EquipmentSlotType.legs,
+        itemType,
+        iconImg: `${basePath}sunchaser_britches.png`,
+    },
+    sunchaserGloves: {
+        equipmentType: EquipmentSlotType.hands,
+        itemType,
+        iconImg: `${basePath}sunchaser_gloves.png`,
+    },
+    sunchaserHelm: {
+        equipmentType: EquipmentSlotType.head,
+        itemType,
+        iconImg: `${basePath}sunchaser_helm.png`,
+    },
+    sunchaserMantle: {
+        equipmentType: EquipmentSlotType.shoulders,
+        itemType,
+        iconImg: `${basePath}sunchaser_mantle.png`,
+    },
+    sunchaserMoccasins: {
+        equipmentType: EquipmentSlotType.feet,
+        itemType,
+        iconImg: `${basePath}sunchaser_moccasins.png`,
+    },
+    sunchaserTunic: {
+        equipmentType: EquipmentSlotType.chest,
+        itemType,
+        iconImg: `${basePath}sunchaser_tunic.png`,
+    },
     templeGuardChestplate: {
         equipmentType: EquipmentSlotType.chest,
         itemType,
