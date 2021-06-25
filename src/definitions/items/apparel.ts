@@ -62,6 +62,42 @@ const apparel = {
         iconImg: `${basePath}cowl.png`,
         damageReduction: 2,
     },
+    darkPrinceBracers: {
+        equipmentType: EquipmentSlotType.hands,
+        itemType,
+        iconImg: `${basePath}dark_prince_bracers.png`,
+        damageReduction: 2,
+    },
+    darkPrinceCape: {
+        equipmentType: EquipmentSlotType.shoulders,
+        itemType,
+        iconImg: `${basePath}dark_prince_cape.png`,
+        damageReduction: 2,
+    },
+    darkPrinceHood: {
+        equipmentType: EquipmentSlotType.head,
+        itemType,
+        iconImg: `${basePath}dark_prince_hood.png`,
+        damageReduction: 2,
+    },
+    darkPrinceSarong: {
+        equipmentType: EquipmentSlotType.legs,
+        itemType,
+        iconImg: `${basePath}dark_prince_sarong.png`,
+        damageReduction: 2,
+    },
+    darkPrinceSlippers: {
+        equipmentType: EquipmentSlotType.feet,
+        itemType,
+        iconImg: `${basePath}dark_prince_slippers.png`,
+        damageReduction: 2,
+    },
+    darkPrinceVest: {
+        equipmentType: EquipmentSlotType.chest,
+        itemType,
+        iconImg: `${basePath}dark_prince_vest.png`,
+        damageReduction: 2,
+    },
     druidChest: {
         equipmentType: EquipmentSlotType.chest,
         itemType,
