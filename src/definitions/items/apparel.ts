@@ -68,6 +68,42 @@ const apparel = {
         iconImg: `${basePath}cultist_boots.png`,
         damageReduction: 2,
     },
+    crimsonRogueBoots: {
+        equipmentType: EquipmentSlotType.feet,
+        itemType,
+        iconImg: `${basePath}crimson_rogue_boots.png`,
+        damageReduction: 2,
+    },
+    crimsonRogueBritches: {
+        equipmentType: EquipmentSlotType.legs,
+        itemType,
+        iconImg: `${basePath}crimson_rogue_britches.png`,
+        damageReduction: 2,
+    },
+    crimsonRogueCoif: {
+        equipmentType: EquipmentSlotType.head,
+        itemType,
+        iconImg: `${basePath}crimson_rogue_coif.png`,
+        damageReduction: 2,
+    },
+    crimsonRogueGrips: {
+        equipmentType: EquipmentSlotType.hands,
+        itemType,
+        iconImg: `${basePath}crimson_rogue_grips.png`,
+        damageReduction: 2,
+    },
+    crimsonRogueSpaulders: {
+        equipmentType: EquipmentSlotType.shoulders,
+        itemType,
+        iconImg: `${basePath}crimson_rogue_spaulders.png`,
+        damageReduction: 2,
+    },
+    crimsonRogueTunic: {
+        equipmentType: EquipmentSlotType.chest,
+        itemType,
+        iconImg: `${basePath}crimson_rogue_tunic.png`,
+        damageReduction: 2,
+    },
     cultistGloves: {
         equipmentType: EquipmentSlotType.hands,
         itemType,
