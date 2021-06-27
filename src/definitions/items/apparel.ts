@@ -62,6 +62,36 @@ const apparel = {
         iconImg: `${basePath}cowl.png`,
         damageReduction: 2,
     },
+    cultistBoots: {
+        equipmentType: EquipmentSlotType.feet,
+        itemType,
+        iconImg: `${basePath}cultist_boots.png`,
+        damageReduction: 2,
+    },
+    cultistGloves: {
+        equipmentType: EquipmentSlotType.hands,
+        itemType,
+        iconImg: `${basePath}cultist_gloves.png`,
+        damageReduction: 2,
+    },
+    cultistPants: {
+        equipmentType: EquipmentSlotType.legs,
+        itemType,
+        iconImg: `${basePath}cultist_pants.png`,
+        damageReduction: 2,
+    },
+    cultistRobe: {
+        equipmentType: EquipmentSlotType.chest,
+        itemType,
+        iconImg: `${basePath}cultist_robe.png`,
+        damageReduction: 2,
+    },
+    cultistShoulderwraps: {
+        equipmentType: EquipmentSlotType.shoulders,
+        itemType,
+        iconImg: `${basePath}cultist_shoulderwraps.png`,
+        damageReduction: 2,
+    },
     darkPrinceBracers: {
         equipmentType: EquipmentSlotType.hands,
         itemType,
@@ -72,6 +102,12 @@ const apparel = {
         equipmentType: EquipmentSlotType.shoulders,
         itemType,
         iconImg: `${basePath}dark_prince_cape.png`,
+        damageReduction: 2,
+    },
+    darkPrinceCuirass: {
+        equipmentType: EquipmentSlotType.chest,
+        itemType,
+        iconImg: `${basePath}dark_prince_cuirass.png`,
         damageReduction: 2,
     },
     darkPrinceHood: {
@@ -90,12 +126,6 @@ const apparel = {
         equipmentType: EquipmentSlotType.feet,
         itemType,
         iconImg: `${basePath}dark_prince_slippers.png`,
-        damageReduction: 2,
-    },
-    darkPrinceVest: {
-        equipmentType: EquipmentSlotType.chest,
-        itemType,
-        iconImg: `${basePath}dark_prince_vest.png`,
         damageReduction: 2,
     },
     dreadnoughtBoots: {
