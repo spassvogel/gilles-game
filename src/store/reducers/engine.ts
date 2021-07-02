@@ -38,6 +38,7 @@ export const getInitialEngineState = () => {
         gameStarted: undefined,
         previousTick: Date.now(),
         lastTick: Date.now(),
-        lastProducedUpdate: Date.now()
+        lastProducedUpdate: Date.now(),
+        lastHarvest: Date.now()
     }
 };

@@ -31,6 +31,15 @@ const garden: ResourceStructureDefinition = {
             time: ONE_MINUTE
         },
         generates: { food: 4 },
+        harvest: {
+            amount: 3,
+            lootTable: {
+                "herb/bogroot": 2,
+                "herb/winterWeed": 1,
+                "herb/hyacinthus": 1, 
+                "herb/bloodLotus": 1, 
+            }
+        }
     }, {
         // level 3:
         displayName: "structure-garden-name",

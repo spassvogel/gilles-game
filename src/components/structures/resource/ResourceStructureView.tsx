@@ -17,7 +17,7 @@ import ResourceGenerationRow from './ResourceGenerationRow';
 import { Resource } from 'definitions/resources';
 import Button from "components/ui/buttons/Button";
 import './styles/resourceStructureView.scss';
-// import { pick } from "mechanics/lootTable";
+import { pick } from "mechanics/lootTable";
 // todo: 2021-02-19 Generate items at resource structures
 
 export interface Props  {
@@ -78,7 +78,7 @@ const ResourceStructureView = (props: Props) => {
                     { /** Generates this resource */}
                     { Object.keys(levelDefinition.generates).map(r => <ResourceGenerationRow structure={structure} resource={r as Resource} key={r} />)}
                     { /** Generates these items */}
-                    { levelDefinition.harvest && <Button onClick={() => { /*console.log(pick(levelDefinition.harvest!.lootTable))*/}}>harvest!</Button> }
+                    { levelDefinition.harvest && <Button onClick={() => { console.log(pick(levelDefinition.harvest!.lootTable))}}>harvest!</Button> }
                 </section>
             </div>
         </>

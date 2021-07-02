@@ -21,6 +21,7 @@ import { processCompletedTasks } from 'mechanics/gameTick/tasks';
 import { StoreState } from 'store/types';
 import { getWorldLink } from "utils/routing";
 import { createInitialStore } from "store/reducers";
+import getHarvest from "mechanics/gameTick/harvest";
 import "./index.css";
 
 const TICK_INTERVAL = 2500;
@@ -125,6 +126,7 @@ const runGame = (store: Store<StoreState, AnyAction>) => {
 
         const logs: LogUpdate[] = [];
         const resourcesUpdates = getProducedResources(state.engine.lastProducedUpdate, state);
+        const harvest = getHarvest(state);
         const rngState = getRngState();
         updateCombat(delta, store);
         const { questUpdates, logUpdates } = getQuestUpdates(delta, store);
