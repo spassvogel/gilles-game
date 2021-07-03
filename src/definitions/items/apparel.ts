@@ -230,6 +230,36 @@ const apparel = {
         itemType,
         iconImg: `${basePath}fedora.png`,
     },
+    footmanBoots: {
+        equipmentType: EquipmentSlotType.feet,
+        itemType,
+        iconImg: `${basePath}footman_boots.png`,
+    },
+    footmanBreastplate: {
+        equipmentType: EquipmentSlotType.chest,
+        itemType,
+        iconImg: `${basePath}footman_breastplate.png`,
+    },
+    footmanFaceguard: {
+        equipmentType: EquipmentSlotType.head,
+        itemType,
+        iconImg: `${basePath}footman_faceguard.png`,
+    },
+    footmanFists: {
+        equipmentType: EquipmentSlotType.hands,
+        itemType,
+        iconImg: `${basePath}footman_fists.png`,
+    },
+    footmanLegplates: {
+        equipmentType: EquipmentSlotType.legs,
+        itemType,
+        iconImg: `${basePath}footman_legplates.png`,
+    },
+    footmanPauldrons: {
+        equipmentType: EquipmentSlotType.shoulders,
+        itemType,
+        iconImg: `${basePath}footman_pauldrons.png`,
+    },
     greaves1: {
         equipmentType: EquipmentSlotType.feet,
         itemType,
