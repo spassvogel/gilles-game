@@ -1,37 +1,81 @@
-import { AnyAction, Reducer } from "redux";
-import { ActionType, StructureStateAction, WorkerCountAction, AddItemToProducesAction, StructureAction } from "store/actions/structures";
+import { Reducer } from "redux";
 import { Structure } from "definitions/structures";
 import { ProductionStructureStoreState, StructureState, StructureStoreState } from "store/types/structure";
 import { isProductionStructure, StructuresStoreState } from "store/types/structures";
+import { Action } from "store/actions";
 
 /**
  * reducer
  * @param state
  * @param action
  */
-export const structures: Reducer<StructuresStoreState, AnyAction> = (state: StructuresStoreState = initialStructuresState, action: AnyAction) => {
+export const structures: Reducer<StructuresStoreState, Action> = (state: StructuresStoreState = initialStructuresState, action: Action) => {
     switch (action.type) {
-        case ActionType.startBuildingStructure: {
+        case "startBuildingStructure": {
             return updateStructureState(state, action.structure, StructureState.Building);
         }
-        case ActionType.finishBuildingStructure: {
+        case "finishBuildingStructure": {
             return updateStructureState(state, action.structure, StructureState.Built);
         }
-        case ActionType.upgradeStructure: {
-            return upgradeStructureState(state, action as StructureAction);
+        case "upgradeStructure": {
+            // Upgrade to next level
+            const level = state[action.structure].level + 1;
+            const structureStore: StructureStoreState = {
+                ...state[action.structure],
+                level,
+            };
+            return {
+                ...state,
+                [action.structure]: structureStore,
+            };
         }
-        case ActionType.increaseWorkers: {
-            return increaseWorkers(state, action as WorkerCountAction);
+        case "increaseWorkers": {
+            const { workers: workersToAdd } = action;
+            const workers = state[action.structure].workers + workersToAdd;
+            const structureStore: StructureStoreState = {
+                ...state[action.structure],
+                workers,
+            };
+            return {
+                ...state,
+                [action.structure]: structureStore,
+            };
         }
-        case ActionType.decreaseWorkers: {
-            return decreaseWorkers(state, action as WorkerCountAction);
+        case "decreaseWorkers": {
+            const { workers: workersToRemove } = action;
+            const workers = state[action.structure].workers - workersToRemove;
+            const structureStore: StructureStoreState = {
+                ...state[action.structure],
+                workers,
+            };
+            return {
+                ...state,
+                [action.structure]: structureStore,
+            };
         }
-        case ActionType.setStructureState: {
-            const { state: structureState } = action as StructureStateAction;
+        case "setStructureState": {
+            const { state: structureState } = action;
             return updateStructureState(state, action.structure, structureState);
         }
-        case ActionType.addItemToToProduces: {
-            return addItemToToProduces(state, action as AddItemToProducesAction)
+        case "addItemToToProduces": {
+            // Adds given item to a structures' `produces` list
+            if (isProductionStructure(action.structure)){
+                return state;
+            }
+
+            const { item } = action;
+            const produces = [
+                ...(state[action.structure] as ProductionStructureStoreState).produces,
+                item
+            ];
+            const structureStore: ProductionStructureStoreState = {
+                ...state[action.structure],
+                produces,
+            };
+            return {
+                ...state,
+                [action.structure]: structureStore,
+            };
         }
     }
     return state;
@@ -48,66 +92,6 @@ const updateStructureState = (state: StructuresStoreState, structure: Structure,
     };
 };
 
-const upgradeStructureState = (state: StructuresStoreState, action: StructureAction) => {
-    const level = state[action.structure].level + 1;
-    const structureStore: StructureStoreState = {
-        ...state[action.structure],
-        level,
-    };
-    return {
-        ...state,
-        [action.structure]: structureStore,
-    };
-
-};
-
-const increaseWorkers = (state: StructuresStoreState, action: WorkerCountAction) => {
-    const { workers: workersToAdd } = action;
-    const workers = state[action.structure].workers + workersToAdd;
-    const structureStore: StructureStoreState = {
-        ...state[action.structure],
-        workers,
-    };
-    return {
-        ...state,
-        [action.structure]: structureStore,
-    };
-}
-
-const decreaseWorkers = (state: StructuresStoreState, action: WorkerCountAction) => {
-    const { workers: workersToRemove } = action;
-    const workers = state[action.structure].workers - workersToRemove;
-    const structureStore: StructureStoreState = {
-        ...state[action.structure],
-        workers,
-    };
-    return {
-        ...state,
-        [action.structure]: structureStore,
-    };
-}
-
-const addItemToToProduces = (state: StructuresStoreState, action: AddItemToProducesAction) => {
-    // Adds given item to a structures' `produces` list
-    if (isProductionStructure(action.structure)){
-        return state;
-    }
-
-    const { item } = action;
-    const produces = [
-        ...(state[action.structure] as ProductionStructureStoreState).produces,
-        item
-    ];
-    const structureStore: ProductionStructureStoreState = {
-        ...state[action.structure],
-        produces,
-    };
-    return {
-        ...state,
-        [action.structure]: structureStore,
-    };
-
-}
 
 export const structureInitialState: StructureStoreState = {
     level: 0,
