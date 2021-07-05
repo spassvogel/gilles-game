@@ -9,7 +9,7 @@
     "@pixi/filter-godray": "^4.0.0",
     "@pixi/filter-multi-color-replace": "^4.0.0",
     "@pixi/filter-outline": "^4.0.0",
-    "@pixi/tilemap": "^3.2.0",
+    "@pixi/tilemap": "^3.2.1",
     "astar-typescript": "^1.2.5",
     "debounce": "^1.2.1",
     "gsap": "^3.6.1",
