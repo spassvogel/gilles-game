@@ -68,10 +68,10 @@
   "devDependencies": {
     "@types/debounce": "^1.2.0",
     "@types/deep-equal": "^1.0.1",
-    "@types/react-redux": "^7.1.16",
-    "@types/react-router-dom": "^5.1.7",
+    "@types/react-redux": "^7.1.17",
+    "@types/react-router-dom": "^5.1.8",
     "@types/react-select": "^4.0.15",
-    "@types/seedrandom": "^2.4.28",
+    "@types/seedrandom": "^2.4.30",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "eslint": "^7.30.0",
