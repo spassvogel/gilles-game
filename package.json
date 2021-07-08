@@ -36,7 +36,7 @@
     "simple-encryptor": "^4.0.0",
     "string-arrays-equal": "^0.2.4",
     "text-param-case": "^1.0.2",
-    "typescript": "^4.2.2"
+    "typescript": "^4.3.5"
   },
   "scripts": {
     "start": "react-scripts start",
