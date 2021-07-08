@@ -126,13 +126,13 @@ const runGame = (store: Store<StoreState, AnyAction>) => {
 
         const logs: LogUpdate[] = [];
         const resourcesUpdates = getProducedResources(state.engine.lastProducedUpdate, state);
-        const harvest = getHarvest(state);
+        const harvestUpdates = getHarvest(state);
         const rngState = getRngState();
         updateCombat(delta, store);
         const { questUpdates, logUpdates } = getQuestUpdates(delta, store);
         logs.push(...logUpdates);
 
-        store.dispatch(gameTick(delta, rngState, resourcesUpdates, questUpdates, logs));
+        store.dispatch(gameTick(delta, rngState, resourcesUpdates, questUpdates, harvestUpdates, logs));
 
         processCompletedTasks(state.tasks, store.dispatch);
     };

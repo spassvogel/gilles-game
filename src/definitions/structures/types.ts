@@ -55,7 +55,6 @@ export interface WarehouseStructureLevelDefinition extends StructureLevelDefinit
     maxStockpile: number;
 }
 
-// tslint:disable-next-line:no-empty-interface
 export interface TavernStructureDefinition extends StructureDefinition {
     levels: TavernStructureLevelDefinition[];
 }

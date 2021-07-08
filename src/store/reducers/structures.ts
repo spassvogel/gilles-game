@@ -77,6 +77,10 @@ export const structures: Reducer<StructuresStoreState, Action> = (state: Structu
                 [action.structure]: structureStore,
             };
         }
+        case "gameTick": {
+            return state;
+            // todo: harvest
+        }
     }
     return state;
 };
