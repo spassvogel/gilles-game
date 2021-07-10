@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
-import { Structure } from "definitions/structures";
+import { ResourceStructure, Structure } from "definitions/structures";
 import { ProductionStructureStoreState, StructureState, StructureStoreState } from "store/types/structure";
-import { isProductionStructure, StructuresStoreState } from "store/types/structures";
+import { isProductionStructure, isResourceStructure, StructuresStoreState } from "store/types/structures";
 import { Action } from "store/actions";
 
 /**
@@ -78,7 +78,28 @@ export const structures: Reducer<StructuresStoreState, Action> = (state: Structu
             };
         }
         case "gameTick": {
-            return state;
+            if (!action.harvest || !Object.keys(action.harvest)?.length) {
+                return state;
+            }
+            return Object.keys(state).reduce<StructuresStoreState>((acc, structureAsString) => {
+                const structure = structureAsString as Structure;
+                if (isResourceStructure(structure) && action.harvest?.[structure]?.length){
+                    const harvest = action.harvest[structure]
+                    acc[structure as ResourceStructure].harvest = harvest
+                }
+                return acc;
+            }, state);
+            // const copy = { 
+            //     ...state,
+            // }
+            // Object.entries(action.harvest).forEach(([structure, harvest]) => {
+            //     if (isResourceStructure(structure as Structure) && harvest.length){
+            //         console.log("the harves is", harvest)
+            //         copy[structure as ResourceStructure].harvest = harvest;
+            //     }
+            // });
+            // console.log("copy", copy)
+            // return copy
             // todo: harvest
         }
     }

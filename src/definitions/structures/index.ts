@@ -15,6 +15,7 @@ import weaver from "./weaver";
 import workshop from "./workshop";
 import { Resource } from 'definitions/resources';
 
+// todo: 2021-07-10 refactor using types. 
 export enum Structure {
     alchemist = "alchemist",
     armoursmith = "armoursmith",
@@ -29,6 +30,16 @@ export enum Structure {
     weaver = "weaver",
     workshop = "workshop",
 }
+
+export type ResourceStructure = "garden" | "lumberMill" | "mine" | "quarry" | "tannery" | "weaver";
+// export enum ResourceStructure {
+//     garden = "garden",
+//     lumberMill = "lumberMill",
+//     mine = "mine",
+//     quarry = "quarry",
+//     tannery = "tannery",
+//     weaver = "weaver",
+// }
 
 const all = {
     alchemist,
