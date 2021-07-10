@@ -65,7 +65,8 @@ const TownView = (props: Props & AppContextProps) => {
             const viewport = viewportRef.current;
             viewport.on("drag-start", (e) => {
                 dragging.current = true;
-                e.stopPropagation();
+                console.log(e)
+                e.event.stopPropagation();
             });
             viewport.on("drag-end", () => { dragging.current = false; });
         }
