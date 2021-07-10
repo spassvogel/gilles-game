@@ -330,7 +330,7 @@ const weapons = {
     spear: {
         itemType,
         weaponType: WeaponType.poleArm,
-        iconImg: `${basePath}sword.png`,
+        iconImg: `${basePath}spear.png`,
         rarity: Rarity.rare,
         damage: { [DamageType.kinetic]: 10 },
     },
