@@ -4,7 +4,7 @@ import { Sprite, useApp, useTick } from '@inlet/react-pixi';
 import HitAreaShapes from 'utils/hitAreaShapes';
 import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView';
 import { loadResource } from 'utils/pixiJs';
-import { ILoaderResource, Point } from 'pixi.js';
+import { Point, Texture } from 'pixi.js';
 
 const BLADE_ROTATION_SPEED = 0.01;
 
@@ -19,7 +19,7 @@ const LumberMill = (props: Props) => {
     const {hitAreaShapes} = props;
     const structure = Structure.lumberMill;
     const atlas = `${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.json`;
-    const [textures, setTextures] = useState<{[name: string]: ILoaderResource}>();
+    const [textures, setTextures] = useState<{[name: string]: Texture}>();
     const filters = props.selected ? [STRUCTURE_HIGHLIGHT_FILTER] : [];
 
     const app = useApp();
@@ -48,11 +48,11 @@ const LumberMill = (props: Props) => {
             }}
             hitArea={hitAreaShapes}
             filters={filters}
-            texture={textures["structure.png"].texture}
+            texture={textures["structure.png"]}
         >
             <Sprite
                 name="blades"
-                texture={textures["blades.png"].texture}
+                texture={textures["blades.png"]}
                 anchor={new Point(0.5, 0.5)}
                 x={15}
                 y={10}
