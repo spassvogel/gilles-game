@@ -1,4 +1,3 @@
-// tslint:disable:object-literal-sort-keys
 import { ONE_MINUTE, THREE_MINUTES, TWO_MINUTES } from 'utils/format/time';
 import { ProductionStructureDefinition, StructureType } from "./types";
 

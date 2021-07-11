@@ -11,7 +11,6 @@ import { useLocation } from "react-router-dom";
 import { getQuestLink, getTownLink } from "utils/routing";
 import "./styles/simplelog.scss";
 
-// tslint:disable-next-line:no-empty-interface
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props {
 }

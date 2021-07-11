@@ -17,8 +17,6 @@ export const AVAILABLE_SLOTS = 5;
 const minimumCountAdventurers = 3;  // we need this many adventurers to start the quest
 
 
-// tslint:disable-next-line: no-empty-interface
-
 export interface Props {
     availableQuests: QuestStoreState[];
     selectedQuestName?: string;       // name of selected quest

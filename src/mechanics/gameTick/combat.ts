@@ -3,7 +3,6 @@ import { Store } from "redux";
 import { StoreState } from "store/types";
 import { Allegiance, CombatAction, CombatActionType } from "store/types/combat";
 
-// tslint:disable-next-line: no-empty-interface
 export interface CombatUpdate  {
     // todo: maybe this is not needed
     action: CombatAction | null;

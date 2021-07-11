@@ -1,5 +1,3 @@
-// tslint:disable:object-literal-sort-keys
-
 import { Apparel } from "definitions/items/apparel";
 import * as time from "utils/format/time";
 import {  ProductionDefinition } from "./types";

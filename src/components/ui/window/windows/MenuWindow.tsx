@@ -17,7 +17,6 @@ import Button from 'components/ui/buttons/Button';
 import { decryptSavedGame, saveGame } from "utils/game";
 import "./styles/menu.scss";
 
-// tslint:disable-next-line:no-empty-interface
 export interface Props {
     persistor: Persistor;
 }

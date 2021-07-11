@@ -1,5 +1,3 @@
-// tslint:disable:object-literal-sort-keys
-
 import { QuestItem } from "definitions/items/questItems";
 import * as time from "utils/format/time";
 import { ProductionDefinition } from "./types";

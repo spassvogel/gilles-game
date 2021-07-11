@@ -2,9 +2,6 @@ import kill10Boars from './kill10Boars';
 import retrieveMagicAmulet from './retrieveMagicAmulet';
 import { QuestDefinition } from './types';
 
-// tslint:disable:object-literal-sort-keys
-
-
 
 
 

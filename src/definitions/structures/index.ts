@@ -1,5 +1,3 @@
-// tslint:disable:object-literal-sort-keys
-
 import alchemist from "./alchemist";
 import armoursmith from "./armoursmith";
 import garden from "./garden";

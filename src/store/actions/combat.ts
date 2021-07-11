@@ -1,4 +1,3 @@
-// tslint:disable:object-literal-sort-keys
 import { Action } from "redux";
 import { CombatActionType } from "store/types/combat";
 

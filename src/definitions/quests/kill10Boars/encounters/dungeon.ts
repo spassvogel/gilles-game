@@ -5,7 +5,6 @@ import { setActiveSceneInteractionModal } from 'store/actions/quests';
 import { Kill10BoarsQuestVars } from '../questVars';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import { Item } from 'definitions/items/types';
-// tslint:disable: max-classes-per-file
 
 const TILE_CHEST_CLOSED = 33; // todo: take this from json?
 const TILE_CHEST_OPEN = 34; // todo: take this from json?

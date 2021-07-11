@@ -23,7 +23,6 @@ export abstract class TextManager {
         this.initialized = true;
     }
 
-//    public static addTexts(texts: Record<string, string>)
     public static get(key: string, context?: unknown): string {
         const result = this.getDefault(key, context);
         if (result === null) {
@@ -31,7 +30,6 @@ export abstract class TextManager {
                 this.notFound.push(key)
             }
     
-            // tslint:disable-next-line: no-console
             console.error(`Key '${key}' not found in TextManager`);
             return `<<'${key}' missing>>`;
         } else {

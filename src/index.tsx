@@ -62,7 +62,6 @@ const startNewGame = (store: Store<StoreState, AnyAction>) => {
     store.dispatch(addLogText("test-game-welcome"));
     // todo: here is a good place to launch a tutorial or something
 
-    // tslint:disable-next-line:no-console
     console.log(`Starting new GAME (version ${version})`);
 };
 
@@ -72,7 +71,6 @@ const startNewGame = (store: Store<StoreState, AnyAction>) => {
  * @param store
  */
 const continueGame = () => {
-    // tslint:disable-next-line:no-console
     console.log(`Continuing existing GAME (version ${version})`);
 };
 
@@ -101,7 +99,6 @@ const restartGame = () => {
         // eslint-disable-next-line no-restricted-globals
         location.reload();
         // location.href = `#${getTownLink()}`;
-        // tslint:disable-next-line: no-console
         console.clear();
     }
 }

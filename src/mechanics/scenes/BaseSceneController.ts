@@ -136,8 +136,9 @@ export class BaseSceneController<TQuestVars> {
         }
     }
 
+
     sceneEntered() {
-        // tslint:disable-next-line: no-empty
+        return;
     }
 
     // Convenience function returns an object with tileWidth and tileHeight properties
@@ -176,7 +177,6 @@ export class BaseSceneController<TQuestVars> {
         const object = this.getObjectAtLocation(location);
 
         if (!object) {
-            // tslint:disable-next-line: no-console
             console.warn("No object found");
             return;
         }

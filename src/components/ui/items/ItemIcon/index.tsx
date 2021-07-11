@@ -20,8 +20,7 @@ const ItemIcon = (props: Props) => {
     const itemDefinition = getDefinition(item);
 
     if (!itemDefinition) {
-        // tslint:disable-next-line: no-console
-        throw (`could not find definition for ${item}`);
+        throw `could not find definition for ${item}`;
     }
 
     const handleClick = (event: React.MouseEvent) => {

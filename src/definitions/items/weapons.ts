@@ -1,4 +1,3 @@
-// tslint:disable:object-literal-sort-keys
 import { Item, ItemDefinition, ItemType } from "./types";
 import { Rarity } from 'constants/items';
 
@@ -102,7 +101,6 @@ export interface DamageDefinition {
 }
 
 
-// tslint:disable-next-line:no-empty-interface
 export interface WeaponDefinition extends ItemDefinition {
     weaponType: WeaponType;
     damage?: DamageDefinition;

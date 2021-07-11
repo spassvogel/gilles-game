@@ -53,7 +53,6 @@ export const initialAdventurers: AdventurerStoreState[] = [{
         [WeaponType.crossbow]: 10,
         [WeaponType.bow]: 10
     },
-    // tslint:disable-next-line:max-line-length
     inventory: [ "deed/lumbermill", null, "weapon/simpleCrossbow", "weapon/dagger", "weapon/khopesh", null, "weapon/steelSword", null,  "potion/greaterMana",  "potion/majorHealth",  null,  "weapon/steelShield",  null,  null,  null,  null],
 }, {
     id: "2e655832",
@@ -74,7 +73,6 @@ export const initialAdventurers: AdventurerStoreState[] = [{
         [WeaponType.crossbow]: 12,
         [WeaponType.staff]: 13
     },
-    // tslint:disable-next-line:max-line-length
     inventory: [ "weapon/simpleCrossbow", null, null, null, null, "apparel/boots1", "apparel/chainmailHood", "apparel/nomadHelmet", "apparel/plateChest4", null, "weapon/buckler", null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, "apparel/plateHelmet", "apparel/cowl"],
 }, {
     id: "ec6f1050",
