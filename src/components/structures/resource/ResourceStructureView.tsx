@@ -79,16 +79,21 @@ const ResourceStructureView = (props: Props) => {
                     { /** Generates this resource */}
                     <h3>Generates</h3>
                     { Object.keys(levelDefinition.generates).map(r => <ResourceGenerationRow structure={structure} resource={r as Resource} key={r} />)}
-                    { /** Generates these items */}
-                    <h3>Harvest</h3>
+    
+                    { levelDefinition.harvest && (
+                        <>
+                            { /** Generates these items */}
+                            <h3>Harvest</h3>
 
-                    <HarvestProgress structure={structure} /> 
-                    <DraggableItemsList
-                        items={harvest}
-                        sourceType={DragSourceType.resourceStructure}
-                        sourceId={structure}
-                        slots={levelDefinition.harvest?.amount}
-                    />
+                            <HarvestProgress structure={structure} /> 
+                            <DraggableItemsList
+                                items={harvest}
+                                sourceType={DragSourceType.resourceStructure}
+                                sourceId={structure}
+                                slots={levelDefinition.harvest?.amount}
+                            />
+                        </>
+                    )}
                 </section>
             </div>
         </>

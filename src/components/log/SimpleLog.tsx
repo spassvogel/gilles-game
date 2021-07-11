@@ -1,6 +1,6 @@
+import * as React from "react";
 import Tab from "components/ui/tabs/Tab";
 import Tabstrip from "components/ui/tabs/Tabstrip";
-import * as React from "react";
 import {LogChannel, LogEntry} from "store/types/logEntry";
 import {TextManager} from "global/TextManager";
 import {useEffect, useState} from 'react';

@@ -46,7 +46,7 @@ const LumberMill = (props: Props) => {
             pointertap={() => {
                 props.onStructureClick(structure);
             }}
-            hitArea={hitAreaShapes}
+            // hitArea={hitAreaShapes}
             filters={filters}
             texture={textures["structure.png"]}
         >
