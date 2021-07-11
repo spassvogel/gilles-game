@@ -8,7 +8,7 @@ import { getDefinition, Structure } from 'definitions/structures';
 import useGoldState from 'hooks/store/useGoldState';
 import { useDispatch } from 'react-redux';
 import { upgradeStructure } from 'store/actions/structures';
-import useStructureState from 'hooks/store/useStructureState';
+import { useStructureState } from 'hooks/store/structures';
 import Button from 'components/ui/buttons/Button';
 import { startTask } from 'store/actions/tasks';
 import { TaskType } from 'store/types/task';

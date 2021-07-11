@@ -15,7 +15,7 @@ export type HarvestUpdate = {
     [key in Structure]?: Item[]
 }
 
-const HARVEST_INTERVAL = ONE_MINUTE; // every minute constitutes a resource tick.
+export const HARVEST_INTERVAL = ONE_MINUTE; // every minute constitutes a harvest tick.
 
 
 const getHarvest = (state: StoreState): HarvestUpdate|null => {

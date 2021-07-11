@@ -12,7 +12,7 @@ import { getQuestLink} from 'utils/routing';
 import RoomList from './rooms/RoomList';
 import { useState} from 'react';
 import QuestBoard from './QuestBoard';
-import useStructureState from 'hooks/store/useStructureState';
+import { useStructureState } from 'hooks/store/structures';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from 'store/types';
 import { launchQuest } from 'store/actions/quests';
@@ -33,6 +33,7 @@ const TavernStructureView = () => {
     const [assignedAventurers, setAassignedAdventurers] = useState<AdventurerStoreState[]>([]);
     const [selectedQuest, setSelectedQuest] = useState<string>();
 
+    // 2021-07-11 refactor to use hooks
     const structureDefinition = getDefinition<TavernStructureDefinition>(Structure.tavern);
     const levelDefinition: TavernStructureLevelDefinition = structureDefinition.levels[level];
 

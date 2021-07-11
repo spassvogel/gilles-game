@@ -7,7 +7,7 @@ import { startTask } from 'store/actions/tasks';
 import { TaskType } from 'store/types/task';
 import { Deed, getDefinition as getDeedDefinition} from 'definitions/items/deeds';
 import useGoldState from 'hooks/store/useGoldState';
-import useStructureState from 'hooks/store/useStructureState';
+import { useStructureState } from 'hooks/store/structures';
 import { StructureState } from 'store/types/structure';
 import { TextManager } from 'global/TextManager';
 import Button from 'components/ui/buttons/Button';

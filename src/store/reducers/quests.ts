@@ -8,7 +8,6 @@ import deepmerge from "deepmerge";
 import { Action } from "store/actions";
 import { Allegiance } from "store/types/combat";
 
-// tslint:disable:object-literal-sort-keys
 export const initialQuestState: QuestStoreState[] = [{
     name: "kill10Boars",
     status: QuestStatus.active,
@@ -359,102 +358,5 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
     return state;
 };
 
-
-
-
-// const startEncounter = (state: QuestStoreState[], action: StartEncounterAction) => {
-//     const {scene} = action;
-//     return state.map((qss) => {
-//         if (qss.name === action.questName) {
-//             return {
-//                 ...qss,
-//                 scene
-//             };
-//         }
-//         return qss;
-//     });
-// };
-
-
-
-
-
-
-
-
-
-// const updateEncounterResult = (state: QuestStoreState[], action: UpdateEncounterResultAction)  => {
-//     return state.map((qss: QuestStoreState) => {
-//         if (qss.name === action.questName) {
-//             const encounterResults = qss.encounterResults.concat();
-//             encounterResults[action.nodeIndex] = action.result;
-//             return {
-//                 ...qss,
-//                 encounterResults,
-//             };
-//         }
-//         return qss;
-//     });
-// };
-
-
-// const takeGoldFromCache = (state: QuestStoreState[], action: TakeGoldFromCacheAction) => {
-//     return state.map((qss: QuestStoreState) => {
-//         if (qss.name === action.questName && qss.scene) {
-//             const lootCaches = {
-//                 ...qss.scene?.caches,
-//                 [action.cacheName]: {
-//                     ...qss.scene?.caches[action.cacheName],
-//                     gold: 0
-//                 }
-//             }
-//             qss.scene.caches = lootCaches;
-//         }
-//         return qss;
-//     });
-// }
-
-// const takeItemFromCache = (state: QuestStoreState[], action: TakeItemFromCacheAction) => {
-//     return state.map((qss: QuestStoreState) => {
-//         if (qss.name === action.questName && qss.scene) {
-//             const cache = qss.scene.caches[action.cacheName];
-//             const index = cache.items.indexOf(action.item);
-//             if (index > -1 ) {
-//                 qss.scene.caches[action.cacheName].items = [
-//                     ...cache.items.slice(0, index),
-//                     ...cache.items.slice(index + 1)
-//                 ]
-//             }
-//         }
-//         return qss;
-//     });
-// }
-
-// // Call this when the quest has progressed a node. Will return either `log` or a new array
-// // with all values of `log` and a new value appended
-// const addLogMessage = (log: string[],
-//                        currentNode: QuestNode, nextNode: QuestNode, quest: QuestStoreState): string[] => {
-//     if (currentNode.type === QuestNodeType.nothing && nextNode.type === QuestNodeType.nothing) {
-//         // Moved from a 'nothing' node to a 'nothing' node
-//         // There is no need to flood the log with unimportant messages
-//         return log;
-//     }
-//     switch (nextNode.type) {
-//         case QuestNodeType.nothing:
-//             return [
-//                 ...log,
-//                 "The party trrrudges on",
-//             ];
-//         case QuestNodeType.encounter:
-//             const encounter = nextNode.encounter!;
-//             console.log(encounter.getDescription(oracle))
-//             //return log;
-//             return [
-//                 ...log,
-//                 encounter.getDescription(oracle),
-//             ]
-//         default:
-//             return log;
-//     }
-// }
+const overwriteMerge = (_: [], sourceArray: []) => sourceArray
 

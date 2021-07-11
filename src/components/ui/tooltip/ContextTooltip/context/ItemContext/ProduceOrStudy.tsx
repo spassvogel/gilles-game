@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Item } from 'definitions/items/types';
 import { getDefinition as getProductionDefinition, getProductionStructureForItem } from 'definitions/production';
-import useStructureState from 'hooks/store/useStructureState';
+import { useStructureState } from 'hooks/store/structures';
 import { Structure } from 'definitions/structures';
 import { ProducableItem, ProductionStructureStoreState, StructureState } from 'store/types/structure';
 import { getDefinition as getItemDefinition } from 'definitions/items';

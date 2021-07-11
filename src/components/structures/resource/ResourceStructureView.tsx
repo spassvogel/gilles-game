@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getDefinition, Structure  } from "definitions/structures";
+import { getDefinition, ResourceStructure, Structure  } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition } from "definitions/structures/types";
 import UpDownValue from "components/ui/common/UpDownValue";
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,12 +12,16 @@ import StructureLevel from '../StructureLevel';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
 import UpgradeHelpModal from './UpgradeHelpModal';
-import useStructureState from 'hooks/store/useStructureState';
+import { useStructureLevel, useStructureState } from 'hooks/store/structures';
 import ResourceGenerationRow from './ResourceGenerationRow';
 import { Resource } from 'definitions/resources';
 import Button from "components/ui/buttons/Button";
 import './styles/resourceStructureView.scss';
 import { pick } from "mechanics/lootTable";
+import DraggableItemsList from "components/ui/items/DraggableItemsList";
+import { Item } from "definitions/items/types";
+import { DragSourceType } from "constants/dragging";
+import HarvestProgress from "./HarvestProgress";
 // todo: 2021-02-19 Generate items at resource structures
 
 export interface Props  {
@@ -30,13 +34,10 @@ const ResourceStructureView = (props: Props) => {
 
     // Fetch needed values from store
     const {level, workers} = useStructureState(structure);
-    const structureDefinition = getDefinition<ResourceStructureDefinition>(props.structure);
-    if (!structureDefinition) {
-        throw new Error(`No definition found for structure ${props.structure} with type ResourceStructureDefinition.`);
-    }
-    const levelDefinition: ResourceStructureLevelDefinition = structureDefinition.levels[level];
     const workersFree = useSelector<StoreState, number>((store) => selectFreeWorkers(store));
-
+    const harvest = useSelector<StoreState, Item[]>((store) => selectHarvest(store, structure as ResourceStructure));
+    const levelDefinition = useStructureLevel<ResourceStructureLevelDefinition>(structure);
+    
     // Reducer dispatch
     const dispatch = useDispatch();
     const handleWorkersDown = () => {
@@ -76,9 +77,18 @@ const ResourceStructureView = (props: Props) => {
                         onUp={handleWorkersUp}
                     />
                     { /** Generates this resource */}
+                    <h3>Generates</h3>
                     { Object.keys(levelDefinition.generates).map(r => <ResourceGenerationRow structure={structure} resource={r as Resource} key={r} />)}
                     { /** Generates these items */}
-                    { levelDefinition.harvest && <Button onClick={() => { console.log(pick(levelDefinition.harvest!.lootTable))}}>harvest!</Button> }
+                    <h3>Harvest</h3>
+
+                    <HarvestProgress structure={structure} /> 
+                    <DraggableItemsList
+                        items={harvest}
+                        sourceType={DragSourceType.resourceStructure}
+                        sourceId={structure}
+                        slots={levelDefinition.harvest?.amount}
+                    />
                 </section>
             </div>
         </>
@@ -86,3 +96,7 @@ const ResourceStructureView = (props: Props) => {
 };
 
 export default ResourceStructureView;
+
+const selectHarvest = (store: StoreState, structure: ResourceStructure): Item[] => {
+    return store.structures[structure].harvest ?? [];
+}

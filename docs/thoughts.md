@@ -689,3 +689,6 @@ https://redux.js.org/api/store#subscribelistener
 ### 2021-07-10 refactor Structure to types.
 - [ ] Instead of enum, use literal types
 - [ ] Enforce type safety on type guards 
+
+### 2021-07-11 refactor structure
+- [ ] Use hooks useStructureDefinition and useStructureLevel

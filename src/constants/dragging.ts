@@ -11,5 +11,6 @@ export enum DragSourceType {
     warehouse,
     tavern,
     adventurerEquipment,
-    lootCache
+    lootCache,
+    resourceStructure // harvest
 }

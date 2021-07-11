@@ -1,4 +1,5 @@
 @import 'components/styles/variables.scss';
+$border: 2px;
 
 .items-list {
 	display: flex;
@@ -6,8 +7,31 @@
 	padding: 0;
 	margin: 0;
 
-    .item {
+    .item-row {
 		display: flex;
+		position: relative;
+		margin-bottom: 6px;
+		height: $item-size-medium + $border;
+		padding-left: $item-size-medium + $border + 6px;
+
+		.item-placeholder {
+			position: absolute;
+			left: 0;
+			background: #4d4d4d75;
+	
+			border: $border solid $color-secondary;
+			box-sizing: content-box;
+			width: $item-size-medium + $border;
+			height: $item-size-medium + $border;
+			margin-left: -$border;
+			margin-top: -$border;
+		}
+
+		div[draggable="true"] {
+			// Such that when draggin the text doesnt go left
+			position: absolute;
+			left: 0;
+		}
 
         .text {
 			p {

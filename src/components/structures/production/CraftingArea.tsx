@@ -3,7 +3,7 @@ import { IconSize } from 'components/ui/common/Icon';
 import ItemIcon from 'components/ui/items/ItemIcon';
 import { Structure } from 'definitions/structures';
 import { ProducableItem, ProductionStructureStoreState } from 'store/types/structure';
-import useStructureState from 'hooks/store/useStructureState';
+import { useStructureState } from 'hooks/store/structures';
 import { TextManager } from 'global/TextManager';
 import CraftingDetails from './CraftingDetails';
 

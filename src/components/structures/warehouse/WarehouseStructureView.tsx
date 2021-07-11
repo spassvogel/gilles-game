@@ -12,7 +12,7 @@ import { StructuresStoreState } from "store/types/structures";
 import { TextManager } from "global/TextManager";
 import { TooltipManager } from 'global/TooltipManager';
 import AdventurerTabstrip from 'components/world/QuestPanel/AdventurerTabstrip';
-import useStructureState from 'hooks/store/useStructureState';
+import { useStructureState } from 'hooks/store/structures';
 import { useResourcesState } from 'hooks/store/resources';
 import useStockpileState from 'hooks/store/useStockpileState';
 import { useSelector } from 'react-redux';
@@ -73,11 +73,13 @@ const WarehouseStructureView = () => {
         return () => { clearTimeout(timeout); }
     }, [resourcesDelta]);
 
+    // refactor to use useStructureDefinition
     const structureDefinition = getDefinition<WarehouseStructureDefinition>(Structure.warehouse);
     if (!structureDefinition) {
         throw new Error(`No definition found for structure ${Structure.warehouse} with type StructureDefinition.`);
     }
 
+    // 2021-07-11  refactor to use hooks
     const structureState = useStructureState(Structure.warehouse);
     const levelDefinition: WarehouseStructureLevelDefinition = structureDefinition.levels[structureState.level] as WarehouseStructureLevelDefinition;
 

@@ -6,7 +6,7 @@ import { StructureState } from "store/types/structure";
 import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
 import { TasksStoreState } from 'store/types/tasks';
-import useStructureState from 'hooks/store/useStructureState';
+import { useStructureState } from 'hooks/store/structures';
 import { withWindow } from 'hoc/withWindow';
 import { Props as WindowProps } from "components/ui/window/Window";
 import { formatDuration } from 'utils/format/time';
