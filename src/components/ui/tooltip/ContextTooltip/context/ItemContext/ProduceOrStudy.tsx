@@ -36,7 +36,7 @@ const ProduceOrStudy = (props: Props) => {
         <ProducedAtStructure item={props.item} structure={structure} />
     )
 }
-
+// refactor 2021-02-19 becomes 'CraftedAtStructure'
 const ProducedAtStructure = (props: Props & { structure: Structure}) => {
     const {structure} = props;
     const structureStore: ProductionStructureStoreState = useStructureState(structure);
@@ -102,6 +102,10 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
             <Button onClick={startStudy} size="small">
                 {TextManager.get("ui-tooltip-study-start-study")}
             </Button>
+            Start studying this item at {' '}
+            <Link to={getStructureLink(structure)} >
+                { TextManager.getStructureName(structure) }
+            </Link>
         </p>
     );
 }
