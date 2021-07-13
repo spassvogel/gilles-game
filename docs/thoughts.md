@@ -699,4 +699,4 @@ https://redux.js.org/api/store#subscribelistener
 - [ ] Enforce type safety on type guards 
 
 ### 2021-07-11 refactor structure
-- [ ] Use hooks useStructureDefinition and useStructureLevel
+- [x] Use hooks useStructureDefinition and useStructureLevel

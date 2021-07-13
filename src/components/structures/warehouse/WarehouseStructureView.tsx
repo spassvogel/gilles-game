@@ -3,7 +3,7 @@ import Inventory from "components/ui/inventory/Inventory";
 import ResourcesBox from "components/structures/warehouse/ResourcesBox";
 import { DragSourceType } from "constants/dragging";
 import { Item } from "definitions/items/types";
-import { getDefinition, Structure } from "definitions/structures";
+import { Structure } from "definitions/structures";
 import { WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import usePrevious from "hooks/usePrevious";
 import { useEffect, useRef, useState } from "react";
@@ -12,7 +12,7 @@ import { StructuresStoreState } from "store/types/structures";
 import { TextManager } from "global/TextManager";
 import { TooltipManager } from 'global/TooltipManager';
 import AdventurerTabstrip from 'components/world/QuestPanel/AdventurerTabstrip';
-import { useStructureState } from 'hooks/store/structures';
+import { useStructureDefinition, useStructureLevel, useStructureState } from 'hooks/store/structures';
 import { useResourcesState } from 'hooks/store/resources';
 import useStockpileState from 'hooks/store/useStockpileState';
 import { useSelector } from 'react-redux';
@@ -73,16 +73,10 @@ const WarehouseStructureView = () => {
         return () => { clearTimeout(timeout); }
     }, [resourcesDelta]);
 
-    // refactor to use useStructureDefinition
-    const structureDefinition = getDefinition<WarehouseStructureDefinition>(Structure.warehouse);
-    if (!structureDefinition) {
-        throw new Error(`No definition found for structure ${Structure.warehouse} with type StructureDefinition.`);
-    }
-
-    // 2021-07-11  refactor to use hooks
+    const structureDefinition = useStructureDefinition<WarehouseStructureDefinition>(Structure.warehouse);
     const structureState = useStructureState(Structure.warehouse);
-    const levelDefinition: WarehouseStructureLevelDefinition = structureDefinition.levels[structureState.level] as WarehouseStructureLevelDefinition;
-
+    const levelDefinition = useStructureLevel<WarehouseStructureLevelDefinition>(Structure.warehouse);
+    
     const handleDropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
         dropItemWarehouse(item, fromSlot, toSlot, sourceType, sourceId);
     }

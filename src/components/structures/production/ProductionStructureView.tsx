@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Item } from "definitions/items/types";
-import { getDefinition, Structure } from "definitions/structures";
+import { Structure } from "definitions/structures";
 import { ProductionStructureDefinition } from "definitions/structures/types";
 import { TextManager } from "global/TextManager";
 import { formatDuration } from "utils/format/time";
 import { TickingProgressbar } from 'components/ui/common/progress';
-import { useStructureState } from 'hooks/store/structures';
+import { useStructureDefinition, useStructureState } from 'hooks/store/structures';
 import { useCraftingTasksStateByStructure, useStudyingTasksStateByStructure } from 'hooks/store/useTasksState';
 import StructureViewHeader from '../StructureViewHeader';
 import StructureLevel from '../StructureLevel';
@@ -26,13 +26,7 @@ const ProductionStructureView = (props: Props) => {
 
     const craftingTasks = useCraftingTasksStateByStructure(structure);
     const studyingTasks = useStudyingTasksStateByStructure(structure);
-
-    // refactor to use useStructureDefinition
-    const structureDefinition = getDefinition<ProductionStructureDefinition>(props.structure);
-    if (!structureDefinition) {
-        throw new Error(`No definition found for structure ${props.structure}
-            with type ProductionStructureDefinition.`);
-    }
+    const structureDefinition = useStructureDefinition<ProductionStructureDefinition>(props.structure);
 
     const handleHelpClicked = (event: React.MouseEvent) => {
         const origin = (event.currentTarget as HTMLElement);
