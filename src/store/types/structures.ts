@@ -1,6 +1,8 @@
+import { Structure } from "definitions/structures";
 import { ProductionStructureStoreState, ResourceStructureState, StructureStoreState } from "./structure";
 
-export type StructuresStoreState = { // todo: enforce keys are from Structure
+// See: https://stackoverflow.com/questions/51829842/how-to-force-interface-to-implement-keys-of-enum-in-typescript-3-0
+class Temp implements Record<Structure, ResourceStructureState> {
     "alchemist": ProductionStructureStoreState;
     "armoursmith": ProductionStructureStoreState;
     "garden": ResourceStructureState;
@@ -14,4 +16,5 @@ export type StructuresStoreState = { // todo: enforce keys are from Structure
     "weaver": ResourceStructureState;
     "workshop": ProductionStructureStoreState;
 }
-
+ 
+export interface StructuresStoreState extends Temp {}
