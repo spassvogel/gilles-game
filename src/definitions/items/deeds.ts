@@ -12,12 +12,12 @@ export interface DeedDefinition extends ItemDefinition {
 
 const deeds = {
     lumbermill: {
-        structure: Structure.lumberMill,
+        structure: "lumberMill" as const,
         itemType,
         iconImg: `${basePath}deed.png`,
     },
     weaponsmith: {
-        structure: Structure.weaponsmith,
+        structure: "weaponsmith" as const,
         itemType,
         iconImg: `${basePath}deed.png`,
     }
@@ -31,7 +31,7 @@ const all = Object.entries(deeds).reduce<{[key: string]: DeedDefinition}>((acc, 
 export default all;
 
 export function getDefinition(deed: Deed): DeedDefinition {
-    return all[deed];
+    return all[deed] as unknown as DeedDefinition;
 }
 
 export const isDeed = (item: Item): item is Deed => {

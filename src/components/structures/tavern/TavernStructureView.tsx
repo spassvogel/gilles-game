@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getDefinition, Structure} from "definitions/structures";
+import { getDefinition } from "definitions/structures";
 import { TavernStructureDefinition, TavernStructureLevelDefinition} from "definitions/structures/types";
 import { AdventurerStoreState} from "store/types/adventurer";
 import { QuestStatus, QuestStoreState} from "store/types/quest";
@@ -26,7 +26,7 @@ export const SOURCE_ID = "tavern";
 
 // The UI for the tavern
 const TavernStructureView = () => {
-    const level = useStructureState(Structure.tavern).level;
+    const level = useStructureState("tavern").level;
     const adventurers = useSelector<StoreState, AdventurerStoreState[]>(store => store.adventurers);
     const quests = useSelector<StoreState, QuestStoreState[]>(store => store.quests);
 
@@ -34,7 +34,7 @@ const TavernStructureView = () => {
     const [selectedQuest, setSelectedQuest] = useState<string>();
 
     // 2021-07-11 refactor to use hooks
-    const structureDefinition = getDefinition<TavernStructureDefinition>(Structure.tavern);
+    const structureDefinition = getDefinition<TavernStructureDefinition>("tavern");
     const levelDefinition: TavernStructureLevelDefinition = structureDefinition.levels[level];
 
     const dispatch = useDispatch();
@@ -95,9 +95,9 @@ const TavernStructureView = () => {
 
     return (
         <>
-            <StructureViewHeader structure={Structure.tavern} />
+            <StructureViewHeader structure={"tavern"} />
             <div className="tavern-structure-view">
-                <StructureLevel structure={Structure.tavern} onHelpClicked={handleHelpClicked}/>
+                <StructureLevel structure={"tavern"} onHelpClicked={handleHelpClicked}/>
                 <section>
                     <RoomList
                         roomCount={levelDefinition.rooms}

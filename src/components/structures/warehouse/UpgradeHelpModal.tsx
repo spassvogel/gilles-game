@@ -14,7 +14,7 @@ export interface Props  {
 
 const UpgradeHelpModal = (props: Props) => {
     const { level } = props;
-    const structureDefinition: WarehouseStructureDefinition = getDefinition(Structure.warehouse);
+    const structureDefinition: WarehouseStructureDefinition = getDefinition("warehouse");
 
     const currentLevel = structureDefinition.levels[level];
     const nextLevel = structureDefinition.levels[level + 1];
@@ -36,7 +36,7 @@ const UpgradeHelpModal = (props: Props) => {
     return (
         <div className="warehouse-upgrade-help-modal">
             <div className="top">
-                <h3>{TextManager.get("ui-structure-help-upgrade-title", { structure: Structure.warehouse} )}</h3>
+                <h3>{TextManager.get("ui-structure-help-upgrade-title", { structure: "warehouse"} )}</h3>
                 <div className="cost">
                     <section>
                         {TextManager.get("ui-structure-help-upgrade-cost-gold", { gold: nextLevel.cost.gold})}

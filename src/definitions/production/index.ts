@@ -15,13 +15,13 @@ export const getProductionStructureForItem = (item: ProducableItem): Structure |
     //     return Structure.alchemist;
     // }
     if (isApparel(item) && armoursmithProduction[item]){
-        return Structure.armoursmith;
+        return "armoursmith";
     }
     if (isWeapon(item) && weaponsmithProduction[item]){
-        return Structure.weaponsmith;
+        return "weaponsmith";
     }
     if (isQuestItem(item) && workshopProduction[item]){
-        return Structure.workshop;
+        return "workshop";
     }
     return null;
 }

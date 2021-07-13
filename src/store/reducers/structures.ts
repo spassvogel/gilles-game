@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
-import { ResourceStructure, Structure } from "definitions/structures";
+import { isProductionStructure, isResourceStructure, ResourceStructure, Structure } from "definitions/structures";
 import { ProductionStructureStoreState, StructureState, StructureStoreState } from "store/types/structure";
-import { isProductionStructure, isResourceStructure, StructuresStoreState } from "store/types/structures";
+import { StructuresStoreState } from "store/types/structures";
 import { Action } from "store/actions";
 
 /**
@@ -118,23 +118,23 @@ const updateStructureState = (state: StructuresStoreState, structure: Structure,
 };
 
 
-export const structureInitialState: StructureStoreState = {
+const structureInitialState: StructureStoreState = {
     level: 0,
     state: StructureState.NotBuilt,
     workers: 0,
 };
 
 export const initialStructuresState: StructuresStoreState = {
-    [Structure.alchemist]:  { ...structureInitialState, produces: [ ] },
-    [Structure.armoursmith]: { ...structureInitialState, produces: [ "apparel/boots1" ] },
-    [Structure.garden]: { level: 0, workers: 0, state: StructureState.Built  }, // TODO: change back to NotBuilt
-    [Structure.lumberMill]: structureInitialState,
-    [Structure.mine]: { level: 0, workers: 0, state: StructureState.NotBuilt  },
-    [Structure.quarry]: structureInitialState,
-    [Structure.tavern]: { level: 0, workers: 0, state: StructureState.Built },
-    [Structure.tannery]: structureInitialState,
-    [Structure.warehouse]: { level: 0, workers: 0, state: StructureState.Built},
-    [Structure.weaponsmith]:  { ...structureInitialState, produces: [ "weapon/simpleCrossbow", "weapon/dagger" ] },
-    [Structure.weaver]: structureInitialState,
-    [Structure.workshop]:  { ...structureInitialState, produces: [ "questItem/torch", "questItem/sandwich" ] },
+    alchemist: { ...structureInitialState, produces: [ ] },
+    armoursmith: { ...structureInitialState, produces: [ "apparel/boots1" ] },
+    garden: { level: 0, workers: 0, state: StructureState.Built  }, // TODO: change back to NotBuilt
+    lumberMill: structureInitialState,
+    mine: { level: 0, workers: 0, state: StructureState.NotBuilt  },
+    quarry: structureInitialState,
+    tavern: { level: 0, workers: 0, state: StructureState.Built },
+    tannery: structureInitialState,
+    warehouse: { level: 0, workers: 0, state: StructureState.Built},
+    weaponsmith:  { ...structureInitialState, produces: [ "weapon/simpleCrossbow", "weapon/dagger" ] },
+    weaver: structureInitialState,
+    workshop: { ...structureInitialState, produces: [ "questItem/torch", "questItem/sandwich" ] },
 };

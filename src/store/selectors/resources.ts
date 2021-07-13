@@ -1,15 +1,15 @@
-import { getDefinition, Structure } from "definitions/structures";
+import { getDefinition } from "definitions/structures";
 import { WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import { createSelector } from 'reselect';
 import { StoreState } from "store/types";
 
 const getWarehouseLevel = (state: StoreState) => {
-    return state.structures[Structure.warehouse].level;
+    return state.structures["warehouse"].level;
 }
 
 
 const maxResources = (level: number) => {
-    const structureDefinition = getDefinition<WarehouseStructureDefinition>(Structure.warehouse);
+    const structureDefinition = getDefinition<WarehouseStructureDefinition>("warehouse");
     const levelDefinition: WarehouseStructureLevelDefinition = structureDefinition.levels[level];
     return levelDefinition.maxResources;
 }

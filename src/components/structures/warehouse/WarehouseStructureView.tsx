@@ -3,7 +3,6 @@ import Inventory from "components/ui/inventory/Inventory";
 import ResourcesBox from "components/structures/warehouse/ResourcesBox";
 import { DragSourceType } from "constants/dragging";
 import { Item } from "definitions/items/types";
-import { Structure } from "definitions/structures";
 import { WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import usePrevious from "hooks/usePrevious";
 import { useEffect, useRef, useState } from "react";
@@ -73,9 +72,9 @@ const WarehouseStructureView = () => {
         return () => { clearTimeout(timeout); }
     }, [resourcesDelta]);
 
-    const structureDefinition = useStructureDefinition<WarehouseStructureDefinition>(Structure.warehouse);
-    const structureState = useStructureState(Structure.warehouse);
-    const levelDefinition = useStructureLevel<WarehouseStructureLevelDefinition>(Structure.warehouse);
+    const structureDefinition = useStructureDefinition<WarehouseStructureDefinition>("warehouse");
+    const structureState = useStructureState("warehouse");
+    const levelDefinition = useStructureLevel<WarehouseStructureLevelDefinition>("warehouse");
     
     const handleDropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
         dropItemWarehouse(item, fromSlot, toSlot, sourceType, sourceId);
@@ -105,7 +104,7 @@ const WarehouseStructureView = () => {
 
     return (
         <div className="warehouse-structureview">
-            <StructureLevel structure={Structure.warehouse} onHelpClicked={handleHelpClicked} addUpgradeCallbacks={handleUpgradeCallbacks}/>
+            <StructureLevel structure={"warehouse"} onHelpClicked={handleHelpClicked} addUpgradeCallbacks={handleUpgradeCallbacks}/>
             <fieldset className="resources" ref={resourcesRef}>
                 <legend>{TextManager.get("ui-structure-warehouse-resources")}</legend>
                 <ResourcesBox

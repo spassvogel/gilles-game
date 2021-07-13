@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getDefinition, Structure } from 'definitions/structures';
+import { getDefinition } from 'definitions/structures';
 import { formatDuration } from 'utils/format/time';
 import { TavernStructureDefinition } from 'definitions/structures/types';
 import Icon from 'components/ui/common/Icon';
@@ -12,7 +12,7 @@ export interface Props  {
 
 const UpgradeHelpModal = (props: Props) => {
     const { level } = props;
-    const structureDefinition: TavernStructureDefinition = getDefinition(Structure.tavern);
+    const structureDefinition: TavernStructureDefinition = getDefinition("tavern");
 
     const currentLevel = structureDefinition.levels[level];
     const nextLevel = structureDefinition.levels[level + 1];
@@ -21,7 +21,7 @@ const UpgradeHelpModal = (props: Props) => {
     return (
         <div className="tavern-upgrade-help-modal">
             <div className="top">
-                <h3>{TextManager.get("ui-structure-help-upgrade-title", { structure: Structure.tavern} )}</h3>
+                <h3>{TextManager.get("ui-structure-help-upgrade-title", { structure: "tavern"} )}</h3>
                 <div className="cost">
                     <section>
                         {TextManager.get("ui-structure-help-upgrade-cost-gold", { gold: nextLevel.cost.gold})}
@@ -32,7 +32,7 @@ const UpgradeHelpModal = (props: Props) => {
             <div className="rooms-increase">
                 <div className="header"/>
                 <div className="header">
-                    {TextManager.getStructureName(Structure.tavern)}
+                    {TextManager.getStructureName("tavern")}
                 </div>
                 <div className="header number">
                     {TextManager.get("ui-structure-help-upgrade-header-level", {

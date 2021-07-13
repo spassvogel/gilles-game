@@ -16,7 +16,7 @@ export interface Props {
 
 const Tavern = (props: Props) => {
     const {hitAreaShapes, position} = props;
-    const structure = Structure.tavern;
+    const structure: Structure = "tavern";
     const filters = props.selected ? [STRUCTURE_HIGHLIGHT_FILTER] : [];
 
     return (

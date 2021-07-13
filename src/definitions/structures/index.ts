@@ -13,32 +13,40 @@ import weaver from "./weaver";
 import workshop from "./workshop";
 import { Resource } from 'definitions/resources';
 
-// todo: 2021-07-10 refactor using types. 
-export enum Structure {
-    alchemist = "alchemist",
-    armoursmith = "armoursmith",
-    garden = "garden",
-    lumberMill = "lumberMill",
-    mine = "mine",
-    quarry = "quarry",
-    tavern = "tavern",
-    tannery = "tannery",
-    warehouse = "warehouse",
-    weaponsmith = "weaponsmith",
-    weaver = "weaver",
-    workshop = "workshop",
-}
+export type Structure = 
+    "alchemist" |
+    "armoursmith" |
+    "garden" |
+    "lumberMill" |
+    "mine" |
+    "quarry" |
+    "tavern" |
+    "tannery" |
+    "warehouse" |
+    "weaponsmith" |
+    "weaver" |
+    "workshop";
 
+
+export type ProductionStructure = "alchemist" | "armoursmith" | "weaponsmith" | "workshop";
 export type ResourceStructure = "garden" | "lumberMill" | "mine" | "quarry" | "tannery" | "weaver";
-// export enum ResourceStructure {
-//     garden = "garden",
-//     lumberMill = "lumberMill",
-//     mine = "mine",
-//     quarry = "quarry",
-//     tannery = "tannery",
-//     weaver = "weaver",
-// }
 
+// Type guard
+export const isProductionStructure = (structure: Structure): structure is ProductionStructure => {
+    return structure === "alchemist" ||
+        structure === "armoursmith" ||
+        structure === "weaponsmith" ||
+        structure === "workshop";
+}
+// Type guard
+export const isResourceStructure = (structure: Structure): structure is ResourceStructure => {
+    return structure === "garden" ||
+        structure === "lumberMill" ||
+        structure === "mine" ||
+        structure === "quarry" ||
+        structure === "tannery" ||
+        structure === "weaver";
+}
 const all = {
     alchemist,
     armoursmith,
@@ -60,19 +68,21 @@ export function getDefinition<T extends StructureDefinition>(structure: Structur
     return all[structure] as unknown as T;
 }
 
+
+
 export function getStructureByResource(resource: Resource) : Structure {
     switch (resource) {
         case Resource.fabric:
-            return Structure.weaver;
+            return "weaver";
         case Resource.food:
-            return Structure.garden;
+            return "garden";
         case Resource.iron:
-            return Structure.mine;
+            return "mine";
         case Resource.leather:
-            return Structure.tannery;
+            return "tannery";
         case Resource.stone:
-            return Structure.quarry;
+            return "quarry";
         case Resource.wood:
-            return Structure.lumberMill;
+            return "lumberMill";
     }
 }

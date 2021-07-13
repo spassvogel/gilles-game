@@ -1,7 +1,7 @@
 
 import { ActionType, AddAction, AddStockpileSlotsAction, MoveItemInWarehouseAction, RemoveItemFromWarehouseAction } from "store/actions/items";
 import { AnyAction, Reducer } from "redux";
-import { getDefinition, Structure } from 'definitions/structures';
+import { getDefinition } from 'definitions/structures';
 import { WarehouseStructureDefinition } from 'definitions/structures/types';
 import { Item } from "definitions/items/types";
 import allItems from "definitions/items";
@@ -10,7 +10,7 @@ import allItems from "definitions/items";
 export const getItemsInitialState = (): (Item|null)[] => {
     // Generate some random stuff
     const result: (Item|null)[] = [];
-    const { maxStockpile } = getDefinition<WarehouseStructureDefinition>(Structure.warehouse).levels[0];
+    const { maxStockpile } = getDefinition<WarehouseStructureDefinition>("warehouse").levels[0];
     for (let i = 0; i < maxStockpile; i++) {
         if (Math.random() < .5) {
             result.push(null)

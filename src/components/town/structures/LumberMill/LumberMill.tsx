@@ -17,7 +17,7 @@ export interface Props {
 
 const LumberMill = (props: Props) => {
     const {hitAreaShapes} = props;
-    const structure = Structure.lumberMill;
+    const structure: Structure = "lumberMill";
     const atlas = `${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.json`;
     const [textures, setTextures] = useState<{[name: string]: Texture}>();
     const filters = props.selected ? [STRUCTURE_HIGHLIGHT_FILTER] : [];

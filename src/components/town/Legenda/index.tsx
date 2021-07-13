@@ -15,19 +15,19 @@ interface Props {
 // Legenda with clickable names of structures
 const Legenda = (props: Props) => {
     const {structures} = props;
-    const orderedStructures = [
-        Structure.workshop,
-        Structure.quarry,
-        Structure.tavern,
-        Structure.tannery,
-        Structure.alchemist,
-        Structure.garden,
-        Structure.weaponsmith,
-        Structure.armoursmith,
-        Structure.warehouse,
-        Structure.mine,
-        Structure.lumberMill,
-        Structure.weaver,
+    const orderedStructures: Structure[] = [
+        "workshop",
+        "quarry",
+        "tavern",
+        "tannery",
+        "alchemist",
+        "garden",
+        "weaponsmith",
+        "armoursmith",
+        "warehouse",
+        "mine",
+        "lumberMill",
+        "weaver",
     ];
     const match = useRouteMatch<{structure: string}>(`${getTownLink()}/:structure`);
 

@@ -83,19 +83,19 @@ const TownView = (props: Props & AppContextProps) => {
     });
 
     const renderStructures = () => {
-        const orderedStructures = [
-            Structure.workshop,
-            Structure.quarry,
-            Structure.tavern,
-            Structure.tannery,
-            Structure.alchemist,
-            Structure.garden,
-            Structure.weaponsmith,
-            Structure.armoursmith,
-            Structure.warehouse,
-            Structure.mine,
-            Structure.lumberMill,
-            Structure.weaver,
+        const orderedStructures: Structure[] = [
+            "workshop",
+            "quarry",
+            "tavern",
+            "tannery",
+            "alchemist",
+            "garden",
+            "weaponsmith",
+            "armoursmith",
+            "warehouse",
+            "mine",
+            "lumberMill",
+            "weaver",
         ]
         return orderedStructures.reverse().map((structure) => {
             const structureStore: StructureStoreState = structures[structure];
@@ -178,20 +178,20 @@ export default withAppContext(TownView);
 
 const getStructure = (structure: Structure) => {
     switch (structure) {
-        case Structure.workshop:
-        case Structure.quarry:
-        case Structure.tannery:
-        case Structure.alchemist:
-        case Structure.garden:
-        case Structure.weaponsmith:
-        case Structure.armoursmith:
-        case Structure.warehouse:
-        case Structure.mine:
-        case Structure.weaver:
+        case "workshop":
+        case "quarry":
+        case "tannery":
+        case "alchemist":
+        case "garden":
+        case "weaponsmith":
+        case "armoursmith":
+        case "warehouse":
+        case "mine":
+        case "weaver":
             return Generic;
-        case Structure.lumberMill:
+        case "lumberMill":
             return LumberMill;
-        case Structure.tavern:
+        case "tavern":
             return Tavern;
     }
 }
@@ -200,51 +200,51 @@ const getStructurePosition = (structure: Structure) => {
     let x;
     let y;
     switch (structure) {
-        case Structure.workshop:
+        case "workshop":
             x = 373;
             y = 610;
             break;
-        case Structure.quarry:
+        case "quarry":
             x = 632;
             y = 633;
             break;
-        case Structure.tannery:
+        case "tannery":
             x = 372;
             y = 460;
             break;
-        case Structure.tavern:
+        case "tavern":
             x = 500;
             y = 469;
             break;
-        case Structure.alchemist:
+        case "alchemist":
             x = 411;
             y = 371;
             break;
-        case Structure.garden:
+        case "garden":
             x = 822;
             y = 689;
             break;
-        case Structure.weaponsmith:
+        case "weaponsmith":
             x = 449;
             y = 460;
             break;
-        case Structure.armoursmith:
+        case "armoursmith":
             x = 473;
             y = 442;
             break;
-        case Structure.warehouse:
+        case "warehouse":
             x = 471;
             y = 130;
             break;
-        case Structure.lumberMill:
+        case "lumberMill":
             x = 403;
             y = 320;
             break;
-        case Structure.mine:
+        case "mine":
             x = 183;
             y = 527;
             break;
-        case Structure.weaver:
+        case "weaver":
             x = 484;
             y = 333;
             break;
