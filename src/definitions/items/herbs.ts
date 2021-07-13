@@ -76,7 +76,7 @@ const herbs = {
     },
     oakLeaf: {
         itemType,
-        iconImg: `${basePath}mountain-grass.png`,
+        iconImg: `${basePath}oak-leaf.png`,
     },
     patricksroot: {
         itemType,

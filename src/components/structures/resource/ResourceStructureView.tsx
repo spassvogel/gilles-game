@@ -84,7 +84,7 @@ const ResourceStructureView = (props: Props) => {
                         <>
                             { /** Generates these items */}
                             <h3>Harvest</h3>
-
+                            <p>{TextManager.get(`ui-structure-resource-harvest-${structure}`)}</p>
                             <HarvestProgress structure={structure} /> 
                             <DraggableItemsList
                                 items={harvest}

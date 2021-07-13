@@ -6,7 +6,7 @@ import { getDefinition, Structure  } from "definitions/structures";
 import { StructureDefinition, StructureLevelDefinition } from 'definitions/structures/types';
 
 // Returns the structure state from redux store
-export function useStructureState<T extends StructureStoreState>(structure: Structure): T {
+export const useStructureState = <T extends StructureStoreState>(structure: Structure): T => {
     const structureSelector = useCallback(
         (state: StoreState) => state.structures[structure] as T,
         [structure]
@@ -14,7 +14,7 @@ export function useStructureState<T extends StructureStoreState>(structure: Stru
     return useSelector<StoreState, T>(structureSelector);
 }
 
-export function useStructureDefinition<T extends StructureDefinition>(structure: Structure): T {
+export const useStructureDefinition = <T extends StructureDefinition>(structure: Structure): T => {
     const structureDefinition = getDefinition<T>(structure);
     if (!structureDefinition) {
         throw new Error(`No definition found for structure ${structure}.`);
@@ -22,7 +22,7 @@ export function useStructureDefinition<T extends StructureDefinition>(structure:
     return structureDefinition
 } 
  
-export function useStructureLevel<T extends StructureLevelDefinition>(structure: Structure): T {
+export const useStructureLevel = <T extends StructureLevelDefinition>(structure: Structure): T => {
     const { level } = useStructureState(structure);
     const structureDefinition = useStructureDefinition(structure)
     return structureDefinition.levels[level] as T;
