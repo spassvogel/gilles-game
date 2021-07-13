@@ -27,10 +27,6 @@ const materials = {
         itemType,
         iconImg: `${basePath}cogs.png`,
     },
-    gem: {
-        itemType,
-        iconImg: `${basePath}gem.png`,
-    },
     gunpowder: {
         itemType,
         iconImg: `${basePath}gunpowder.png`,

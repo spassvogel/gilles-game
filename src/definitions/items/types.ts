@@ -3,6 +3,7 @@ import { Apparel } from './apparel';
 import { Deed } from './deeds';
 import { Herb } from './herbs';
 import { Material } from './materials';
+import { Mineral } from './minerals';
 import { Potion } from './potions';
 import { QuestItem } from './questItems';
 import { Trinket } from './trinkets';
@@ -13,13 +14,14 @@ export enum ItemType {
     deed,
     herb,
     material,
+    mineral,
     potion,
     questItem,
     trinket,
     weapon,
 }
 
-export type Item = Apparel | Deed | Herb | Material | Potion | QuestItem | Trinket | Weapon;
+export type Item = Apparel | Deed | Herb | Material | Mineral | Potion | QuestItem | Trinket | Weapon;
 
 export interface ItemDefinition {
     itemType: ItemType;
