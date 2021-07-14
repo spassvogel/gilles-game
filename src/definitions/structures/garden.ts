@@ -32,7 +32,7 @@ const garden: ResourceStructureDefinition = {
         },
         generates: { food: 4 },
         harvest: {
-            amount: 3,
+            amount: 5,
             lootTable: {
                 "herb/bogroot": 2,
                 "herb/winterWeed": 1,
