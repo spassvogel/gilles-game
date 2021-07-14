@@ -36,7 +36,13 @@
 	
 	.structure {
 		padding-left: 15px;
-		// width: 160px;
+		overflow: hidden;
+
+		p {
+			margin: 0;
+			overflow: hidden;
+			white-space: nowrap;
+		}
 	}
 	
 	.delta {

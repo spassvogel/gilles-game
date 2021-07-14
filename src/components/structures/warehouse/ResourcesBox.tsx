@@ -14,6 +14,7 @@ import { StructureState } from 'store/types/structure';
 import { formatNumber } from 'utils/format/number';
 import Icon from '../../ui/common/Icon';
 import "./styles/resourcesBox.scss";
+import ReactMarkdown from "react-markdown";
 
 export interface Props {
     className?: string;
@@ -58,6 +59,7 @@ const ResourcesBox = (props: Props & AppContextProps) => {
                         props.onCloseWindow();
                     }
                     const full = amount >= (props.maxResources?.[resource] ?? 0);
+                    const structureText = TextManager.get(structures[structure].state === StructureState.Built ? "ui-structure-warehouse-resources-source" : "ui-structure-warehouse-resources-source-unbuilt", {structure}) 
                     return (
                         <React.Fragment key={resource}>
                             <Icon image={resourceDescription.iconImg} size="smallest"/>
@@ -74,13 +76,7 @@ const ResourcesBox = (props: Props & AppContextProps) => {
                                 { delta }
                             </div>
                             <div className="structure">
-                                { structures[structure].state === StructureState.Built ? (
-                                    <Link to={getStructureLink(structure)} onClick={handleStructureClick}>
-                                        { TextManager.get("ui-structure-warehouse-resources-source", {structure}) }
-                                    </Link>
-                                ) : (
-                                    TextManager.get("ui-structure-warehouse-resources-source", {structure})
-                                )}
+                                <ReactMarkdown>{structureText}</ReactMarkdown>
                             </div>
                         </React.Fragment>
                     )

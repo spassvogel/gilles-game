@@ -9,6 +9,7 @@ import { Trait } from 'definitions/traits/types';
 import { Type } from 'components/ui/toasts/Toast';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { WeaponType, WeaponClassification } from 'definitions/items/weapons';
+import { getStructureLink } from "utils/routing";
 
 export abstract class TextManager {
 
@@ -164,9 +165,15 @@ Handlebars.registerHelper("item:name", (item: Item, article?: string) => {
     }
 });
 
-Handlebars.registerHelper("structure:name", (structure: string) => {
+Handlebars.registerHelper("structure:name", (structure: Structure) => {
     const name = TextManager.get(`structure-${toKebab(structure)}-name`);
     return new Handlebars.SafeString(name);
+});
+
+Handlebars.registerHelper("structure:link", (structure: Structure) => {
+    const name = TextManager.get(`structure-${toKebab(structure)}-name`);
+    const link = getStructureLink(structure)
+    return new Handlebars.SafeString( `[${name}](#${link})`);
 });
 
 Handlebars.registerHelper("resource:name", (resource: string) => {

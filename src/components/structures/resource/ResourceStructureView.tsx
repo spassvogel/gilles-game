@@ -15,13 +15,12 @@ import UpgradeHelpModal from './UpgradeHelpModal';
 import { useStructureLevel, useStructureState } from 'hooks/store/structures';
 import ResourceGenerationRow from './ResourceGenerationRow';
 import { Resource } from 'definitions/resources';
-import Button from "components/ui/buttons/Button";
 import './styles/resourceStructureView.scss';
-import { pick } from "mechanics/lootTable";
 import DraggableItemsList from "components/ui/items/DraggableItemsList";
 import { Item } from "definitions/items/types";
 import { DragSourceType } from "constants/dragging";
 import HarvestProgress from "./HarvestProgress";
+import ReactMarkdown from "react-markdown";
 // todo: 2021-02-19 Generate items at resource structures
 
 export interface Props  {
@@ -84,7 +83,9 @@ const ResourceStructureView = (props: Props) => {
                         <>
                             { /** Generates these items */}
                             <h3>Harvest</h3>
-                            <p>{TextManager.get(`ui-structure-resource-harvest-${structure}`)}</p>
+                            <ReactMarkdown>
+                                {TextManager.get(`ui-structure-resource-harvest-${structure}`)}
+                            </ReactMarkdown>
                             <HarvestProgress structure={structure} /> 
                             <DraggableItemsList
                                 items={harvest}
