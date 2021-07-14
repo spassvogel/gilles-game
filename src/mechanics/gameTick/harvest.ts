@@ -5,7 +5,7 @@ import { getTimeMultiplier, TimeType } from 'mechanics/time';
 import { StoreState } from "store/types";
 import { StructuresStoreState } from "store/types/structures";
 import { pick } from "mechanics/lootTable";
-import { ONE_MINUTE } from 'utils/format/time';
+import { ONE_HOUR, ONE_MINUTE } from 'utils/format/time';
 import { ResourceStructureState } from 'store/types/structure';
 
 
@@ -15,7 +15,7 @@ export type HarvestUpdate = {
     [key in Structure]?: Item[]
 }
 
-export const HARVEST_INTERVAL = ONE_MINUTE; // every minute constitutes a harvest tick.
+export const HARVEST_INTERVAL = ONE_HOUR * 3; // every three hours constitutes a harvest tick.
 
 
 const getHarvest = (state: StoreState): HarvestUpdate|null => {
