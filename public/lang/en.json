@@ -150,7 +150,7 @@
     "item-herb-wizards-bane-name": "Wizards bane",
         
     "item-material-arrowheads-name": "arrow heads",
-    "item-material-beam-name": "arrow heads",
+    "item-material-beam-name": "beam",
     "item-material-bolts-name": "bolts",
     "item-material-buckle-name": "buckle",
     "item-material-chain-name": "chain",
@@ -158,6 +158,7 @@
     "item-material-gunpowder-name": "gunpowder",
     "item-material-ingot-name": "ingot",
     "item-material-nails-name": "nails",
+    "item-material-pile-name": "pile",
     "item-material-planks-name": "planks",
     "item-material-poison-vial-name": "poison vial",
     "item-material-ribbon-name": "ribbon",

@@ -43,6 +43,10 @@ const materials = {
         itemType,
         iconImg: `${basePath}nails.png`,
     },
+    pile: {
+        itemType,
+        iconImg: `${basePath}pile.png`,
+    },
     planks: {
         itemType,
         iconImg: `${basePath}planks.png`,
