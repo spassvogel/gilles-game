@@ -75,6 +75,10 @@ const materials = {
         itemType,
         iconImg: `${basePath}spring.png`,
     },
+    stake: {
+        itemType,
+        iconImg: `${basePath}stake.png`,
+    },
     thread: {
         itemType,
         iconImg: `${basePath}thread.png`,
