@@ -83,6 +83,10 @@ const materials = {
         itemType,
         iconImg: `${basePath}thread.png`,
     },
+    woodenMask: {
+        itemType,
+        iconImg: `${basePath}wooden-mask.png`,
+    },
 };
 
 
