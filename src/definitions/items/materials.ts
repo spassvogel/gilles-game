@@ -83,6 +83,10 @@ const materials = {
         itemType,
         iconImg: `${basePath}stake.png`,
     },
+    stick: {
+        itemType,
+        iconImg: `${basePath}stick.png`,
+    },
     thread: {
         itemType,
         iconImg: `${basePath}thread.png`,
