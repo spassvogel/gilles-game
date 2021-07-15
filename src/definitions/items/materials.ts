@@ -67,6 +67,10 @@ const materials = {
         itemType,
         iconImg: `${basePath}rope.png`,
     },
+    rjneCarvedPlank: {
+        itemType,
+        iconImg: `${basePath}rune-carved-plank.png`,
+    },
     scales: {
         itemType,
         iconImg: `${basePath}scales.png`,
