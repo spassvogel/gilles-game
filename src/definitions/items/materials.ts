@@ -55,6 +55,10 @@ const materials = {
         itemType,
         iconImg: `${basePath}poison-vial.png`,
     },
+    pulley: {
+        itemType,
+        iconImg: `${basePath}pulley.png`,
+    },
     ribbon: {
         itemType,
         iconImg: `${basePath}ribbon.png`,
