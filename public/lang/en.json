@@ -154,7 +154,6 @@
     "item-material-buckle-name": "buckle",
     "item-material-chain-name": "chain",
     "item-material-cogs-name": "cogs",
-    "item-material-gem-name": "gem",
     "item-material-gunpowder-name": "gunpowder",
     "item-material-ingot-name": "ingot",
     "item-material-nails-name": "nails",
@@ -223,6 +222,16 @@
 
     "item-trinket-magic-amulet-name": "magic amulet",
     "item-trinket-ring-name": "ring",
+
+    "item-type-apparel": "apparel",
+    "item-type-deed": "deed",
+    "item-type-herb": "herb",
+    "item-type-material": "material",
+    "item-type-mineral": "mineral",
+    "item-type-potion": "potion",
+    "item-type-quest-item": "quest item",
+    "item-type-trinket": "trinket",
+    "item-type-weapon": "weapon",
 
     "item-weapon-aegis-of-valor-name": "Aegis of Valor",
     "item-weapon-arbalest-name": "arbalest",

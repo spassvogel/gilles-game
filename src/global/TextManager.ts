@@ -1,7 +1,7 @@
 import { paramCase as toKebab} from "text-param-case";
 import { TextEntry } from "constants/text";
 import { getDefinition } from "definitions/items";
-import { Item } from "definitions/items/types";
+import { Item, ItemType } from "definitions/items/types";
 import { Resource } from "definitions/resources";
 import { Structure } from "definitions/structures";
 import * as Handlebars from "handlebars";
@@ -83,6 +83,10 @@ export abstract class TextManager {
     public static getItemName(item: Item): string {
         return this.get(`item-${toKebab(item)}-name`);
     }
+    public static getItemType(itemType: ItemType): string {
+        return this.get(`item-type-${toKebab(ItemType[itemType])}`);
+    }
+
     public static getItemSubtext(item: Item): string|null {
         return this.getDefault(`item-${toKebab(item)}-subtext`);
     }
