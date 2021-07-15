@@ -11,6 +11,10 @@ const materials = {
         itemType,
         iconImg: `${basePath}arrowheads.png`,
     },
+    borderClassName: {
+        itemType,
+        iconImg: `${basePath}beam.png`,
+    },
     bolts: {
         itemType,
         iconImg: `${basePath}bolts.png`,
