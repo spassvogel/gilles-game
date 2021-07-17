@@ -23,6 +23,7 @@ import HarvestProgress from "./HarvestProgress";
 import IconButton from "components/ui/buttons/IconButton";
 import warehouseIcon from "components/structures/styles/images/warehouse/icon.png"
 import './styles/resourceStructureView.scss';
+import { addItemToWarehouse } from "store/actions/items";
 
 export interface Props  {
     structure: Structure;
@@ -63,7 +64,7 @@ const ResourceStructureView = (props: Props) => {
 
     const handleItemTake = (item: Item, index: number) => {
         dispatch(removeItemFromHarvest(structure, index));
-        // todo: add to warehouse
+        dispatch(addItemToWarehouse(item))
     }
 
     return (

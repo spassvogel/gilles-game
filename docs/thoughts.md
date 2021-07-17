@@ -704,3 +704,7 @@ https://redux.js.org/api/store#subscribelistener
 
 
  replace tavern icon
+
+### 2021-07-17 Speedpot
+- [ ] Figure out a way to decrease the time of various tasks, both for cheats and as an in-game mechanics
+- [ ] harvest (interval)

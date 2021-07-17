@@ -138,7 +138,7 @@ const useItemDropActions = () => {
     };
 
     // When an item gets dropped on the warehouse inventory
-    const dropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
+    const dropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId = ""): void => {
         const actions: Action[] = [];
 
         switch (sourceType) {
@@ -150,7 +150,7 @@ const useItemDropActions = () => {
                 const otherItem = stockpile[toSlot];
                 if (otherItem) {
                     actions.push(
-                        addItemToInventory(sourceId!, otherItem, fromSlot)
+                        addItemToInventory(sourceId, otherItem, fromSlot)
                     )
                 }
                 break;
@@ -158,13 +158,13 @@ const useItemDropActions = () => {
             // Dragged from an adventurer inventory
             case DragSourceType.adventurerInventory: {
                 actions.push(
-                    removeItemFromInventory(sourceId!, fromSlot),
+                    removeItemFromInventory(sourceId, fromSlot),
                     addItemToWarehouse(item, toSlot)
                 )
                 const otherItem = stockpile[toSlot];
                 if (otherItem) {
                     actions.push(
-                        addItemToInventory(sourceId!, otherItem, fromSlot)
+                        addItemToInventory(sourceId, otherItem, fromSlot)
                     )
                 }
                 break;
