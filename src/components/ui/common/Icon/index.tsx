@@ -17,7 +17,7 @@ export enum IconSize {
     biggest = "biggest"
 }
 
-type IconSizeType = IconSize | keyof typeof IconSize;
+export type IconSizeType = IconSize | keyof typeof IconSize;
 
 export enum Border {
     none = "none",

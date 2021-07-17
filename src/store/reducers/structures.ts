@@ -77,6 +77,7 @@ export const structures: Reducer<StructuresStoreState, Action> = (state: Structu
                 [action.structure]: structureStore,
             };
         }
+
         case "gameTick": {
             if (!action.harvest || !Object.keys(action.harvest)?.length) {
                 return state;
@@ -89,18 +90,6 @@ export const structures: Reducer<StructuresStoreState, Action> = (state: Structu
                 }
                 return acc;
             }, state);
-            // const copy = { 
-            //     ...state,
-            // }
-            // Object.entries(action.harvest).forEach(([structure, harvest]) => {
-            //     if (isResourceStructure(structure as Structure) && harvest.length){
-            //         console.log("the harves is", harvest)
-            //         copy[structure as ResourceStructure].harvest = harvest;
-            //     }
-            // });
-            // console.log("copy", copy)
-            // return copy
-            // todo: harvest
         }
     }
     return state;

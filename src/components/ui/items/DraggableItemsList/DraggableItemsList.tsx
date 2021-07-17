@@ -1,10 +1,10 @@
-import { Item } from "definitions/items/types";
 import * as React from "react";
-import { TextManager } from "global/TextManager";
+import { Item } from "definitions/items/types";
 import { DragSourceType } from 'constants/dragging';
 import DraggableItemIcon from '../DraggableItemIcon';
 import ItemText from "./ItemText";
 import "./styles/itemsList.scss";
+import { ReactNode } from "react";
 
 export interface Props {
     className?: string;
@@ -12,19 +12,21 @@ export interface Props {
     sourceType: DragSourceType;
     sourceId?: string;
     slots?: number; // optionally always show this amount of slots
+    renderButton?: (item: Item, index: number) => ReactNode
 }
 
 /**
  * The ItemsList displays a list of items vertically. Shows icon and description
  */
 const DraggableItemsList = (props: Props) => {
+    const { renderButton, items } = props;
     const className = `items-list ${props.className ?? ''}`;
-    const slots = props.slots ?? props.items.length;
+    const slots = props.slots ?? items.length;
 
     return (
         <ul className={className} >
             {[...Array(slots)].map((_, index )=> {
-                const item = props.items[index]; 
+                const item = items[index]; 
                 return (
                     <li
                         key={`${item}${index}`}
@@ -42,6 +44,7 @@ const DraggableItemsList = (props: Props) => {
                                 <ItemText item={item} />
                             </>
                         )}
+                        { (item && renderButton) && renderButton(item, index) }
                     </li>
                 )
             })}

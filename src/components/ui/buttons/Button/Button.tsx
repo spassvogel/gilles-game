@@ -33,17 +33,18 @@ const Button = (props: React.ComponentProps<'button'> & Props) => {
         props.onClick?.(e)
     };
 
-    const className = `button
-        ${props.className || ""}
-        button-${typeof color === "string" ? color : ButtonColor[color ?? ButtonColor.blue]}
-        button-${typeof props.size === "string" ? props.size : ButtonSize[props.size ?? ButtonSize.auto]}
-        ${square ? "button-square" : ""}
-    `.replace(/\n\s*/g, " ");
+    const className = [
+        'button',
+        (props.className ?? ""),
+        `button-${typeof color === "string" ? color : ButtonColor[color ?? ButtonColor.blue]}`,
+        `button-${typeof props.size === "string" ? props.size : ButtonSize[props.size ?? ButtonSize.auto]}`,
+        `${square ? "button-square" : ''}`
+    ]
 
     return (
         <button
             {...otherProps}
-            className={className}
+            className={className.join(' ')}
             onClick={handleClick}
         >
             <span>

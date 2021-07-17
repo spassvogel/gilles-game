@@ -10,6 +10,7 @@ export type StructuresAction =
  |  { type: "finishBuildingStructure", structure: Structure }
  |  { type: "setStructureState",  structure: Structure, state: StructureState }
  |  { type: "addItemToToProduces",  structure: Structure, item: ProducableItem }
+ |  { type: "takeItemFromHarvest",  structure: Structure, index: number }
 
 
 
@@ -54,4 +55,11 @@ export const addItemToToProduces = (structure: Structure, item: ProducableItem):
     type: "addItemToToProduces",
     structure,
     item
+})
+
+// Take item at specified index
+export const takeItemFromHarvest = (structure: Structure, index: number): StructuresAction => ({
+    type: "takeItemFromHarvest",
+    structure,
+    index
 })

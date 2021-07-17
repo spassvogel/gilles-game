@@ -441,9 +441,10 @@
     "ui-structure-tavern-on-a-quest": " (on a quest)",
     "ui-structure-tavern-quest-launched": "Quest started!",
     "ui-structure-tavern-rooms": "Rooms",
+    
     "ui-structure-tavern-title-quest-board": "Quest board",
 
-    "ui-structure-resource-harvest-garden": "Besides growing vegetables, fruits and small livestock, used for nourishment, the herbalists also cultivate a number of rare flowers and weeds. These plants are not for direct consumption but instead can be used as reagents in various potions and elixirs at the Alchemist. \n\nCheck the garden every 3 hours for a new harvest.",
+    "ui-structure-resource-harvest-garden": "Besides growing vegetables, fruits and small livestock, used for nourishment, the herbalists also cultivate a number of rare flowers and weeds. These plants are not for direct consumption but instead can be used as reagents in various potions and elixirs at the {{structure:link 'alchemist';}}. \n\nCheck the garden every 3 hours for a new harvest.",
     "ui-structure-resource-harvest-lumber-mill": "After work the labourers at the mill hone their craft by carving small idols and other widgets from spare wood. The workshop van take these bits and bobs and use them for parts in various contraptions. \n\nCome back every three hours.",
     "ui-structure-resource-harvest-mine": "Every once in a while a miner finds a rare mineral in the sediment. The skilled artisans at the weaponsmith and armoursmith use these to imbue their creations with magical powers. \n\nEvery three hours these minerals are collected and sent to the surface.",
     "ui-structure-resource-help-upgrade-resource-generates": "{{resource:name resource}} p/worker",

@@ -699,5 +699,8 @@ https://redux.js.org/api/store#subscribelistener
 - [x] Use hooks useStructureDefinition and useStructureLevel
 
 ### 2021-07-13 TextManager can return JSX
- [ ] TexManager should be able to return JSX [ ] Links
- [ ] Bulleted lists
+ [x] TexManager should be able to return JSX [x] Links
+ [x] Bulleted lists
+
+
+ replace tavern icon

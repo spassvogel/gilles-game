@@ -3,9 +3,10 @@ import { getDefinition, ResourceStructure, Structure  } from "definitions/struct
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition } from "definitions/structures/types";
 import UpDownValue from "components/ui/common/UpDownValue";
 import { useSelector, useDispatch } from 'react-redux';
+import ReactMarkdown from "react-markdown";
 import { StoreState } from 'store/types';
 import { selectFreeWorkers } from 'store/selectors/workers';
-import { decreaseWorkers, increaseWorkers } from 'store/actions/structures';
+import { decreaseWorkers, increaseWorkers, takeItemFromHarvest } from 'store/actions/structures';
 import StructureViewHeader from '../StructureViewHeader';
 import { TextManager } from 'global/TextManager';
 import StructureLevel from '../StructureLevel';
@@ -15,12 +16,14 @@ import UpgradeHelpModal from './UpgradeHelpModal';
 import { useStructureLevel, useStructureState } from 'hooks/store/structures';
 import ResourceGenerationRow from './ResourceGenerationRow';
 import { Resource } from 'definitions/resources';
-import './styles/resourceStructureView.scss';
 import DraggableItemsList from "components/ui/items/DraggableItemsList";
 import { Item } from "definitions/items/types";
 import { DragSourceType } from "constants/dragging";
 import HarvestProgress from "./HarvestProgress";
-import ReactMarkdown from "react-markdown";
+import IconButton from "components/ui/buttons/IconButton";
+import warehouseIcon from "components/structures/styles/images/warehouse/icon.png"
+import './styles/resourceStructureView.scss';
+
 // todo: 2021-02-19 Generate items at resource structures
 
 export interface Props  {
@@ -60,6 +63,10 @@ const ResourceStructureView = (props: Props) => {
         event.stopPropagation();
     }
 
+    const handleItemTake = (item: Item, index: number) => {
+        dispatch(takeItemFromHarvest(structure, index))
+    }
+
     return (
         <>
             <StructureViewHeader structure={props.structure} />
@@ -92,7 +99,9 @@ const ResourceStructureView = (props: Props) => {
                                 sourceType={DragSourceType.resourceStructure}
                                 sourceId={structure}
                                 slots={levelDefinition.harvest?.amount}
+                                renderButton={(item: Item, index: number) => (<IconButton iconImg={warehouseIcon} onClick={() => handleItemTake(item, index)} >Take</IconButton>)}
                             />
+                           
                         </>
                     )}
                 </section>
