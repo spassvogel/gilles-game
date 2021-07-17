@@ -14,6 +14,7 @@ import { formatNumber } from 'utils/format/number';
 import useGoldState from 'hooks/store/useGoldState';
 import { useWorkersFreeState, useWorkersState } from 'hooks/store/useWorkersState';
 import './resourceContext.scss';
+import ReactMarkdown from "react-markdown";
 
 export interface Props {
     info: string;
@@ -44,18 +45,15 @@ const ResourceContext = (props: Props) => {
         const structureDefinition = getDefinition<ResourceStructureDefinition>(structure);
         const levelDefinition: ResourceStructureLevelDefinition = structureDefinition.levels[structureState.level];
         const amount = levelDefinition.generates[resource as Resource];
-        // Split the string at {{structure}}
-        const split = TextManager.get("ui-tooltip-resource-produce-row", {
-            structure: "%SPLIT%",
-            amount
-        }).split("%SPLIT%");
+
         return (
             <span className="produced">
-                {split[0]}
-                <Link to={getStructureLink(structure)} >
-                    { TextManager.getStructureName(structure) }
-                </Link>
-                {split[1]}
+                <ReactMarkdown>
+                    {TextManager.get("ui-tooltip-resource-produce-row", {
+                        structure,
+                        amount
+                    })}
+                </ReactMarkdown>
             </span>
         )
     }
