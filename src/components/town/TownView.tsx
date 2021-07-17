@@ -2,9 +2,9 @@ import React, { useRef, useEffect, useState } from "react";
 import { Structure } from 'definitions/structures';
 import { StructuresStoreState } from 'store/types/structures';
 import { SoundManager, Channel, MixMode } from 'global/SoundManager';
-import { useRouteMatch } from 'react-router';
+import { Route, Switch, useHistory, useRouteMatch } from 'react-router';
 import {OutlineFilter} from '@pixi/filter-outline';
-import { getTownLink } from 'utils/routing';
+import { getStructureLink, getTownLink } from 'utils/routing';
 import { StructureState, StructureStoreState } from 'store/types/structure';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
@@ -17,28 +17,28 @@ import Tavern from './structures/Tavern';
 import { withAppContext, AppContextProps } from 'hoc/withAppContext';
 import Generic from './structures/Generic';
 import Legenda from './Legenda';
-import "./styles/townView.scss"
 import TownStage from './TownStage';
 import { Viewport as PixiViewport } from "pixi-viewport";
 import Clouds from './Clouds';
 import { Point } from "pixi.js";
+import { RoutedStructureDetailsView } from "./StructureDetailsView";
+import "./styles/townView.scss"
 
 const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
 const WORLD_HEIGHT = 1600;
 
-export interface Props {
-    onStructureClick: (structure: Structure | null) => void;
-}
+
 
 export const STRUCTURE_HIGHLIGHT_FILTER = new OutlineFilter(8, 0xffcc00);
 
-const TownView = (props: Props & AppContextProps) => {
+const TownView = () => {
     const match = useRouteMatch<{structure: string}>(`${getTownLink()}/:structure`);
     const selectedStructure = match?.params.structure;
     const ref = useRef<HTMLDivElement>(null);
     const viewportRef = useRef<PixiViewport>(null);
     const dragging = useRef(false);
+    const history = useHistory();
 
     useEffect(() => {
         SoundManager.addSound("music/town", "sound/music/Soliloquy.mp3", () => {
@@ -73,8 +73,9 @@ const TownView = (props: Props & AppContextProps) => {
     }, []);
 
     const handleStructureClick = (structure: Structure | null) => {
-        if (!dragging.current) {
-            props.onStructureClick(structure);
+        if (!dragging.current && structure) {
+            SoundManager.playSound("ui/buttonClick");
+            history.push(getStructureLink(structure))
         }
     }
 
@@ -163,13 +164,11 @@ const TownView = (props: Props & AppContextProps) => {
                 {renderStructures()}
                 <Clouds worldWidth={canvasWidth} />
             </TownStage>
-            {/* { selectedStructure && (
-                <StructureDetailsView
-                    structure={selectedStructure}
-                    title={TextManager.getStructureName(selectedStructure)}
-                    onClose={() => handleStructureClick(null)}
-                />
-            )} */}
+            <Switch>
+                <Route path="/town/:structure/view" >
+                    <RoutedStructureDetailsView />
+                </Route>
+            </Switch>
         </div>
     );
 }

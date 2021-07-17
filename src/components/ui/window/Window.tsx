@@ -41,8 +41,8 @@ const Window = (props: PropsWithChildren<Props>) => {
     })
 
     return (
-        <div className = "window">
-            <div className = "header">
+        <div className="window">
+            <div className="header">
                 { props.backEnabled !== false && (
                     <Button
                         className="back-button"

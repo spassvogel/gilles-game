@@ -15,7 +15,12 @@ import ProductionStructureView from 'components/structures/production/Production
 import WarehouseStructureView from 'components/structures/warehouse/WarehouseStructureView';
 import TavernStructureView from 'components/structures/tavern/TavernStructureView';
 import ResourceStructureView from 'components/structures/resource/ResourceStructureView';
+import { Link, useParams } from "react-router-dom";
+import Window from "components/ui/window/Window";
+import { TextManager } from "global/TextManager";
 import "./styles/structuredetailsview.scss";
+import Button from "components/ui/buttons/Button";
+import { getStructureLink, getTownLink } from "utils/routing";
 
 export interface Props {
     structure: Structure;
@@ -68,4 +73,28 @@ const StructureDetailsView = (props: Props & WindowProps) => {
     );
 };
 
-export default withWindow(StructureDetailsView);
+export default StructureDetailsView
+export const StructureDetailsWindow = withWindow(StructureDetailsView);
+
+export const RoutedStructureDetailsView = () => {
+    const { structure } = useParams<{structure: Structure}>();
+    const title = TextManager.getStructureName(structure)
+    return (
+        <div className="structure-details-window ">
+            <div className="header">
+                <h3>{ title }</h3>
+                <Link to={getStructureLink(structure, true)}>
+                    <Button
+                        className="close-button"
+                        // onClick={handleClose}
+                        square={true}
+                        size={"medium"}
+                        color="purple"
+                        text="x"
+                    />
+                </Link>
+            </div>
+            <StructureDetailsView structure={structure} title={title}  />
+        </div>
+    )
+}

@@ -22,7 +22,7 @@ import {TooltipManager } from 'global/TooltipManager';
 import {getWorldLink, getTownLink } from 'utils/routing';
 import { restartGame } from 'index';
 import Button, { ButtonColor } from 'components/ui/buttons/Button';
-import StructureDetailsView from 'components/town/StructureDetailsView';
+import { StructureDetailsWindow } from 'components/town/StructureDetailsView';
 import "./styles/app.scss";
 
 PixiPlugin.registerPIXI(PIXI);
@@ -56,18 +56,7 @@ const App = (props: Props) => {
 
     };
 
-    const selectStructure = (structure: Structure | null) => {
-        if (structure) {
-            const displayName = TextManager.getStructureName(structure);
-
-            const window = <StructureDetailsView structure={structure} title={displayName} />;
-            handleWindowOpened(window);
-
-            SoundManager.playSound("ui/buttonClick");
-       }
-    };
-
-    const renderTownView = () => <TownView onStructureClick={selectStructure} />;
+    const renderTownView = () => <TownView />;
     const renderWorldView = () => <WorldView />;
 
     const handleWindowOpened = (window: React.ReactElement) => {
