@@ -77,16 +77,31 @@ export const structures: Reducer<StructuresStoreState, Action> = (state: Structu
                 [action.structure]: structureStore,
             };
         }
-
+        case "removeItemFromHarvest": {
+            // Should always be false but typescript doesnt know that
+            if (!isResourceStructure(action.structure)) return state;
+            const harvest = state[action.structure].harvest?.filter((h, i) => (i !== action.index));
+            return { 
+                ...state,
+                [action.structure]: {
+                    ...state[action.structure],
+                    harvest
+                }
+            }
+        }
         case "gameTick": {
             if (!action.harvest || !Object.keys(action.harvest)?.length) {
                 return state;
             }
+            // Copies harvest from harvest into structure
             return Object.keys(state).reduce<StructuresStoreState>((acc, structureAsString) => {
                 const structure = structureAsString as Structure;
                 if (isResourceStructure(structure) && action.harvest?.[structure]?.length){
                     const harvest = action.harvest[structure]
-                    acc[structure as ResourceStructure].harvest = harvest
+                    acc[structure as ResourceStructure].harvest = [
+                        ...(acc[structure as ResourceStructure].harvest ?? []), 
+                        ...harvest ?? []
+                    ]
                 }
                 return acc;
             }, state);

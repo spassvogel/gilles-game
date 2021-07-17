@@ -5,7 +5,7 @@ import { getTimeMultiplier, TimeType } from 'mechanics/time';
 import { StoreState } from "store/types";
 import { StructuresStoreState } from "store/types/structures";
 import { pick } from "mechanics/lootTable";
-import { ONE_HOUR, ONE_MINUTE } from 'utils/format/time';
+import { ONE_HOUR } from 'utils/format/time';
 import { ResourceStructureState } from 'store/types/structure';
 
 
@@ -33,26 +33,26 @@ const getHarvest = (state: StoreState): HarvestUpdate|null => {
             const level: number = structures[structure as Structure].level;
             const levelDefinition: ResourceStructureLevelDefinition = resourceStructureDefinition.levels[level];
             
-            if (Date.now() - lastHarvest > HARVEST_INTERVAL){
-                if (levelDefinition.harvest?.lootTable){
-                    const state = structures[structure] as ResourceStructureState;
-                    let itemCount = state.harvest?.length ?? 0;
-                    const items: Item[] = [];
-                    while (itemCount < levelDefinition.harvest.amount) {
-                        items.push(pick(levelDefinition.harvest.lootTable))
-                        itemCount ++;
-                    }
-
-                    result[structure] = items
+            if (levelDefinition.harvest?.lootTable){
+                const state = structures[structure] as ResourceStructureState;
+                let itemCount = state.harvest?.length ?? 0;
+                const items: Item[] = [];
+                while (itemCount < levelDefinition.harvest.amount) {
+                    items.push(pick(levelDefinition.harvest.lootTable))
+                    itemCount ++;
                 }
+
+                result[structure] = items
             }
+            
         }
     };
 
 
     // Calculate what each structure generates. Stores in `result`.
-    Object.keys(structures).forEach((structure) => handleStructure(structure as Structure));
-
+    if (Date.now() - lastHarvest > HARVEST_INTERVAL){
+        Object.keys(structures).forEach((structure) => handleStructure(structure as Structure));
+    }
     return result;
 };
 

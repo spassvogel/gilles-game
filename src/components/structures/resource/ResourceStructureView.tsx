@@ -1,12 +1,12 @@
 import * as React from "react";
-import { getDefinition, ResourceStructure, Structure  } from "definitions/structures";
-import { ResourceStructureDefinition, ResourceStructureLevelDefinition } from "definitions/structures/types";
+import { ResourceStructure, Structure  } from "definitions/structures";
+import { ResourceStructureLevelDefinition } from "definitions/structures/types";
 import UpDownValue from "components/ui/common/UpDownValue";
 import { useSelector, useDispatch } from 'react-redux';
 import ReactMarkdown from "react-markdown";
 import { StoreState } from 'store/types';
 import { selectFreeWorkers } from 'store/selectors/workers';
-import { decreaseWorkers, increaseWorkers, takeItemFromHarvest } from 'store/actions/structures';
+import { decreaseWorkers, increaseWorkers, removeItemFromHarvest } from 'store/actions/structures';
 import StructureViewHeader from '../StructureViewHeader';
 import { TextManager } from 'global/TextManager';
 import StructureLevel from '../StructureLevel';
@@ -23,8 +23,6 @@ import HarvestProgress from "./HarvestProgress";
 import IconButton from "components/ui/buttons/IconButton";
 import warehouseIcon from "components/structures/styles/images/warehouse/icon.png"
 import './styles/resourceStructureView.scss';
-
-// todo: 2021-02-19 Generate items at resource structures
 
 export interface Props  {
     structure: Structure;
@@ -64,7 +62,8 @@ const ResourceStructureView = (props: Props) => {
     }
 
     const handleItemTake = (item: Item, index: number) => {
-        dispatch(takeItemFromHarvest(structure, index))
+        dispatch(removeItemFromHarvest(structure, index));
+        // todo: add to warehouse
     }
 
     return (

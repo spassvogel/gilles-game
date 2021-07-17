@@ -14,7 +14,7 @@ interface Props {
 const HarvestProgress = (props: Props) => {
     const engine = useEngine();
 
-    const delta = HARVEST_INTERVAL - (Date.now() - engine.lastProducedUpdate);
+    const delta = HARVEST_INTERVAL - (Date.now() - engine.lastHarvest);
 
     return (
          <TickingProgressbar
