@@ -709,3 +709,5 @@ https://redux.js.org/api/store#subscribelistener
 - [ ] Figure out a way to decrease the time of various tasks, both for cheats and as an in-game mechanics
 - [ ] harvest (interval)
 
+### 2021-07-18 Full warehouse indication in resource structure
+

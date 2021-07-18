@@ -1,6 +1,8 @@
 import { Reducer } from "redux";
 import { EngineStoreState } from "store/types/engine";
 import { Action } from "store/actions";
+import { formatDuration } from "utils/format/time";
+import { HARVEST_INTERVAL } from "mechanics/gameTick/harvest";
 
 /**
  * reducer
@@ -34,13 +36,17 @@ export const engine: Reducer<EngineStoreState> = (state: EngineStoreState = getI
                 lastHarvest
             };
         }
-        
+
         case "reduceTime": {
+            console.log(action.percentage)
             if (action.percentage < 0 || action.percentage > 100) return state;
             switch (action.time) { 
                 case "harvest": {
-                    const timeLeft = Date.now() - state.lastHarvest;
+                    const timeLeft = HARVEST_INTERVAL - (Date.now() - state.lastHarvest);
+
+                    console.log('time left', formatDuration(timeLeft));
                     const delta = timeLeft * (action.percentage / 100);
+                    console.log('delta', formatDuration(delta));
                     return {
                         ...state,
                         lastHarvest: state.lastHarvest - delta

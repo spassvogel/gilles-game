@@ -24,7 +24,7 @@ export const gameTick = (delta: number, rngState: seedrandomStateType | null, re
     log,
 })
 
-export const reduceTime = (delta: number, percentage: number, time: Time): GameAction => ({
+export const reduceTime = (percentage: number, time: Time): GameAction => ({
     type: "reduceTime",
     percentage,
     time
