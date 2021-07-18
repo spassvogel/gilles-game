@@ -1,12 +1,12 @@
 import { resourceOrder } from "constants/resources";
-import resourceDescriptions from "definitions/resources";
+import resourceDescriptions, { Resource } from "definitions/resources";
 import * as React from "react";
 import { ResourceStoreState } from "store/types/resources";
 import { formatNumber } from 'utils/format/number';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
 import useGoldState from 'hooks/store/useGoldState';
-import { useResourcesState } from 'hooks/store/resources';
+import { useMaxResourcesState, useResourcesState } from 'hooks/store/resources';
 import { useWorkersFreeState } from 'hooks/store/useWorkersState';
 import Icon from 'components/ui/common/Icon';
 import "./styles/resourcebar.scss";
@@ -24,8 +24,10 @@ const Resourcebar = () => {
     const goldState = useGoldState();
     const storeResources = useResourcesState();
     const workersFree = useWorkersFreeState();
+    const maxResources = useMaxResourcesState();
 
-    const createItem = (icon: string, amount: number, type: string) => {
+    const createItem = (icon: string, amount: number, type: Resource | "workers" | "gold") => {
+        const full = type !== "workers" && type !== "gold" && (amount ?? 0) >= (maxResources?.[type] ?? 0);
 
         const handleClick = (event: React.MouseEvent) => {
 
@@ -41,7 +43,7 @@ const Resourcebar = () => {
                     image={icon}
                     size="smallest"
                 />
-                <div className="amount">
+                <div className={`amount ${full ? "full" : ""}`}>
                     { formatNumber(amount, 0) }
                 </div>
             </li>

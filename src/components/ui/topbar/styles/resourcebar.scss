@@ -20,6 +20,10 @@ $padding: 4px;
         .amount {
             padding-left: 3px;
             line-height: $misc-topbar-height - $padding;
+
+            &.full {
+                color: $color-invalid;
+            }
         }
 
         @media only screen and (max-width: 376px) {

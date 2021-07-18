@@ -6,8 +6,6 @@ import { StructuresStoreState } from 'store/types/structures';
 import { Resource } from 'definitions/resources';
 import { getStructureByResource, getDefinition } from 'definitions/structures';
 import { StructureState, StructureStoreState } from 'store/types/structure';
-import { getStructureLink } from 'utils/routing';
-import { Link } from 'react-router-dom';
 import { ResourceStructureLevelDefinition, ResourceStructureDefinition } from 'definitions/structures/types';
 import { useMaxResourcesState, useResourcesState } from 'hooks/store/resources';
 import { formatNumber } from 'utils/format/number';
