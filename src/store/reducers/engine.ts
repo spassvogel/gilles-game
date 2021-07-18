@@ -34,8 +34,23 @@ export const engine: Reducer<EngineStoreState> = (state: EngineStoreState = getI
                 lastHarvest
             };
         }
+        
+        case "reduceTime": {
+            if (action.percentage < 0 || action.percentage > 100) return state;
+            switch (action.time) { 
+                case "harvest": {
+                    const timeLeft = Date.now() - state.lastHarvest;
+                    const delta = timeLeft * (action.percentage / 100);
+                    return {
+                        ...state,
+                        lastHarvest: state.lastHarvest - delta
+                    }
+                }
+            }
+            return state;
+        }
     }
-    return state
+    return state;
 };
 
 export const getInitialEngineState = () => {
