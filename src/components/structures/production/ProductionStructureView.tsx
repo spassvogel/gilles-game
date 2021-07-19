@@ -9,12 +9,13 @@ import { useStructureDefinition, useStructureState } from 'hooks/store/structure
 import { useCraftingTasksStateByStructure, useStudyingTasksStateByStructure } from 'hooks/store/useTasksState';
 import StructureViewHeader from '../StructureViewHeader';
 import StructureLevel from '../StructureLevel';
-import UpgradeHelpModal from './UpgradeHelpModal';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
 import CraftingArea from './CraftingArea';
 import { addItemToToProduces } from 'store/actions/structures';
 import "./styles/productionStructureView.scss";
+import UpgradeHelpModal from "../UpgradeHelpModal";
+import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
 
 export interface Props {
     structure: Structure;
@@ -31,7 +32,11 @@ const ProductionStructureView = (props: Props) => {
     const handleHelpClicked = (event: React.MouseEvent) => {
         const origin = (event.currentTarget as HTMLElement);
         const originRect = origin.getBoundingClientRect();
-        const content = <UpgradeHelpModal level={level} structure={structure} />;
+        const content = (
+            <UpgradeHelpModal level={level} structure={structure}>
+                <UpgradeHelpModalContent level={level} structure={structure}/>
+            </UpgradeHelpModal>
+        );
         TooltipManager.showContextTooltip(ContextType.component, content, originRect, "upgrade-structure-tooltip");
 
         event.stopPropagation();

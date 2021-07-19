@@ -1,19 +1,18 @@
 import * as React from "react";
 import { getDefinition, Structure } from 'definitions/structures';
-import { formatDuration } from 'utils/format/time';
 import resourceDescriptions from "definitions/resources";
 import { ResourceStructureDefinition } from 'definitions/structures/types';
 import { Resource } from 'definitions/resources';
 import Icon from 'components/ui/common/Icon';
 import { TextManager } from 'global/TextManager';
-import "./styles/upgradeHelpModal.scss"
+import "./styles/upgradeHelpModalContent.scss"
 
 export interface Props  {
     structure: Structure;
     level: number;
 }
 
-const UpgradeHelpModal = (props: Props) => {
+const UpgradeHelpModalContent = (props: Props) => {
     const { level, structure } = props;
     const structureDefinition: ResourceStructureDefinition = getDefinition(structure);
 
@@ -37,16 +36,7 @@ const UpgradeHelpModal = (props: Props) => {
     }
 
     return (
-        <div className="resource-upgrade-help-modal">
-            <div className="top">
-                <h3>{TextManager.get("ui-structure-help-upgrade-title", { structure } )}</h3>
-                <div className="cost">
-                    <section>
-                        {TextManager.get("ui-structure-help-upgrade-cost-gold", { gold: nextLevel.cost.gold})}
-                    </section>
-                    { nextLevel.cost.time && <section>{formatDuration(nextLevel.cost.time)}</section> }
-                </div>
-            </div>
+        <div className="upgrade-help-model-content-resource">
             <div className="grid generates-increase">
                 <div className="header"/>
                 <div className="header"/>
@@ -72,4 +62,4 @@ const UpgradeHelpModal = (props: Props) => {
     )
 }
 
-export default UpgradeHelpModal;
+export default UpgradeHelpModalContent;

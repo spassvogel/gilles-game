@@ -12,7 +12,6 @@ import { TextManager } from 'global/TextManager';
 import StructureLevel from '../StructureLevel';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
-import UpgradeHelpModal from './UpgradeHelpModal';
 import { useStructureLevel, useStructureState } from 'hooks/store/structures';
 import ResourceGenerationRow from './ResourceGenerationRow';
 import { Resource } from 'definitions/resources';
@@ -22,8 +21,10 @@ import { DragSourceType } from "constants/dragging";
 import HarvestProgress from "./HarvestProgress";
 import IconButton from "components/ui/buttons/IconButton";
 import warehouseIcon from "components/structures/styles/images/warehouse/icon.png"
-import './styles/resourceStructureView.scss';
 import { addItemToWarehouse } from "store/actions/items";
+import './styles/resourceStructureView.scss';
+import UpgradeHelpModal from "../UpgradeHelpModal";
+import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
 
 export interface Props  {
     structure: Structure;
@@ -56,7 +57,11 @@ const ResourceStructureView = (props: Props) => {
     const handleHelpClicked = (event: React.MouseEvent) => {
         const origin = (event.currentTarget as HTMLElement);
         const originRect = origin.getBoundingClientRect();
-        const content = <UpgradeHelpModal level={level} structure={structure} />;
+        const content = (
+            <UpgradeHelpModal level={level} structure={structure}>
+                <UpgradeHelpModalContent level={level} structure={structure}/>
+            </UpgradeHelpModal>
+        );
         TooltipManager.showContextTooltip(ContextType.component, content, originRect, "upgrade-structure-tooltip");
 
         event.stopPropagation();

@@ -18,9 +18,10 @@ import { StoreState } from 'store/types';
 import { launchQuest } from 'store/actions/quests';
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import StructureLevel from '../StructureLevel';
-import UpgradeHelpModal from './UpgradeHelpModal';
 import StructureViewHeader from "../StructureViewHeader";
+import UpgradeHelpModal from "../UpgradeHelpModal";
 import "./styles/tavernStructureView.scss";
+import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
 
 export const SOURCE_ID = "tavern";
 
@@ -87,7 +88,11 @@ const TavernStructureView = () => {
     const handleHelpClicked = (event: React.MouseEvent) => {
         const origin = (event.currentTarget as HTMLElement);
         const originRect = origin.getBoundingClientRect();
-        const content = <UpgradeHelpModal level={level} />;
+        const content = (
+            <UpgradeHelpModal level={level} structure={"tavern"}>
+                <UpgradeHelpModalContent level={level} />
+            </UpgradeHelpModal>
+        );
         TooltipManager.showContextTooltip(ContextType.component, content, originRect, "upgrade-structure-tooltip");
 
         event.stopPropagation();

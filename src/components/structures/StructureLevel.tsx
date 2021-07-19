@@ -37,9 +37,9 @@ const StructureLevel = (props: Props) => {
     const structureDefinition = getDefinition(props.structure);
 
     const nextLevel = structureDefinition.levels[level + 1];
-    const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
-    const canUpgrade = nextLevel != null && gold >= nextLevelCost;
-    const upgradeText = nextLevel == null ? TextManager.get("ui-structure-upgrade-max") : TextManager.get("ui-structure-upgrade", { cost: nextLevelCost, level: level + 2 });
+    // const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
+    // const canUpgrade = nextLevel != null && gold >= nextLevelCost;
+    const upgradeText = nextLevel == null ? TextManager.get("ui-structure-upgrade-max") : TextManager.get("ui-structure-upgrade", { level: level + 2 });
 
     const upgradeTasks = useUpgradeTasksStateByStructure(structure);
 
@@ -83,15 +83,11 @@ const StructureLevel = (props: Props) => {
             </label>
             <Button
                 className="upgrade"
-                onClick={() => {handleUpgrade(nextLevelCost)}}
-                disabled={!canUpgrade}>
-                    { upgradeText }
+                onClick={onHelpClicked}
+                disabled={nextLevel == null}
+            >
+                { upgradeText }
             </Button>
-            { nextLevel != null && (
-                <Button className="help" square={true} onClick={onHelpClicked}>
-                    ?
-                </Button>
-            )}
         </div>
     );
 };

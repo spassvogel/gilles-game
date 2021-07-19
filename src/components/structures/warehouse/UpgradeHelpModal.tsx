@@ -37,12 +37,17 @@ const UpgradeHelpModal = (props: Props) => {
         <div className="warehouse-upgrade-help-modal">
             <div className="top">
                 <h3>{TextManager.get("ui-structure-help-upgrade-title", { structure: "warehouse"} )}</h3>
-                <div className="cost">
+                <div className="level">
+                    {TextManager.get("ui-structure-help-upgrade-header-level", {
+                        level: level + 2
+                    })}
+                </div>
+                                {/* <div className="cost">
                     <section>
                         {TextManager.get("ui-structure-help-upgrade-cost-gold", { gold: nextLevel.cost.gold})}
                     </section>
                     { nextLevel.cost.time && <section>{formatDuration(nextLevel.cost.time)}</section> }
-                </div>
+                </div> */}
             </div>
             <div className="storage-increase">
                 <div className="header"/>

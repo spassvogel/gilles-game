@@ -1,6 +1,6 @@
 @import 'components/styles/variables.scss';
 
-.production-upgrade-help-modal {
+.structure-upgrade-help-modal {
     margin-bottom: 8px;
     max-width: 420px;
     right: 8px;
@@ -14,15 +14,11 @@
             padding-left: 16px;
         }
 
-        .cost {
+        .level   {
             color: $color-text-darker;
             margin: 16px 16px 0 0;
             text-align: right;
         }
-    }
-
-    .unlocks {
-        display: flex;
     }
 }
 

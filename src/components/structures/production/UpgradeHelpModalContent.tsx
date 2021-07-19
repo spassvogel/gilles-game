@@ -1,19 +1,17 @@
 import * as React from "react";
 import { getDefinition, Structure } from 'definitions/structures';
-import { formatDuration } from 'utils/format/time';
 import { ProductionStructureDefinition } from 'definitions/structures/types';
 import { IconSize } from 'components/ui/common/Icon';
-import { TextManager } from 'global/TextManager';
 import ItemIcon from 'components/ui/items/ItemIcon';
 import { Item } from "definitions/items/types";
-import "./styles/upgradeHelpModal.scss"
+import "./styles/upgradeHelpModalContent.scss"
 
 export interface Props  {
     structure: Structure;
     level: number;
 }
 
-const UpgradeHelpModal = (props: Props) => {
+const UpgradeHelpModalContent = (props: Props) => {
     const { level, structure } = props;
     const structureDefinition: ProductionStructureDefinition = getDefinition(structure);
     const nextLevel = structureDefinition.levels[level + 1];
@@ -24,17 +22,8 @@ const UpgradeHelpModal = (props: Props) => {
         )
     }
 
-    return (
-        <div className="production-upgrade-help-modal">
-            <div className="top">
-                <h3>{TextManager.get("ui-structure-help-upgrade-title", { structure } )}</h3>
-                <div className="cost">
-                    <section>
-                        {TextManager.get("ui-structure-help-upgrade-cost-gold", { gold: nextLevel.cost.gold})}
-                    </section>
-                    { nextLevel.cost.time && <section>{formatDuration(nextLevel.cost.time)}</section> }
-                </div>
-            </div>
+    return (   
+        <div className="upgrade-help-model-content-production">
             <div className="unlocks">
                 {nextLevel.unlocks.map(item => renderRow(item))}
             </div>
@@ -42,4 +31,4 @@ const UpgradeHelpModal = (props: Props) => {
     )
 }
 
-export default UpgradeHelpModal;
+export default UpgradeHelpModalContent;
