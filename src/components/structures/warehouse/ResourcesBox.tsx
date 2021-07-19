@@ -3,10 +3,9 @@ import { Resource } from "definitions/resources";
 import resourceDescriptions from "definitions/resources";
 import { ResourceStoreState } from "store/types/resources";
 import { TextManager } from "global/TextManager";
+import ReactMarkdown from "react-markdown";
 import { StructuresStoreState } from 'store/types/structures';
 import { getStructureByResource } from 'definitions/structures';
-import { Link } from 'react-router-dom';
-import { getStructureLink } from 'utils/routing';
 import { withAppContext, AppContextProps } from 'hoc/withAppContext';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
@@ -14,7 +13,6 @@ import { StructureState } from 'store/types/structure';
 import { formatNumber } from 'utils/format/number';
 import Icon from '../../ui/common/Icon';
 import "./styles/resourcesBox.scss";
-import ReactMarkdown from "react-markdown";
 
 export interface Props {
     className?: string;
@@ -55,9 +53,6 @@ const ResourcesBox = (props: Props & AppContextProps) => {
 
                     const structure = getStructureByResource(Resource[resource]);
 
-                    const handleStructureClick=() => {
-                        props.onCloseWindow();
-                    }
                     const full = amount >= (props.maxResources?.[resource] ?? 0);
                     const structureText = TextManager.get(structures[structure].state === StructureState.Built ? "ui-structure-warehouse-resources-source" : "ui-structure-warehouse-resources-source-unbuilt", {structure}) 
                     return (

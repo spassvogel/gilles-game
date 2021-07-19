@@ -710,4 +710,5 @@ https://redux.js.org/api/store#subscribelistener
 - [ ] harvest (interval)
 
 ### 2021-07-18 Full warehouse indication in resource structure
+- [x] Show in ResourceGenerationRow
 

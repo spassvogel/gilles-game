@@ -65,7 +65,6 @@ const TownView = () => {
             const viewport = viewportRef.current;
             viewport.on("drag-start", (e) => {
                 dragging.current = true;
-                console.log(e)
                 e.event.stopPropagation();
             });
             viewport.on("drag-end", () => { dragging.current = false; });

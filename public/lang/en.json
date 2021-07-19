@@ -446,12 +446,13 @@
 
     "ui-structure-resource-harvest-garden": "Besides growing vegetables, fruits and small livestock, used for nourishment, the herbalists also cultivate a number of rare flowers and weeds. These plants are not for direct consumption but instead can be used as reagents in various potions and elixirs at the {{structure:link 'alchemist';}}. \n\nCheck the garden every 3 hours for a new harvest.",
     "ui-structure-resource-harvest-lumber-mill": "After work the labourers at the mill hone their craft by carving small idols and other widgets from spare wood. The workshop van take these bits and bobs and use them for parts in various contraptions. \n\nCome back every three hours.",
-    "ui-structure-resource-harvest-mine": "Every once in a while a miner finds a rare mineral in the sediment. The skilled artisans at the weaponsmith and armoursmith use these to imbue their creations with magical powers. \n\nEvery three hours these minerals are collected and sent to the surface.",
+    "ui-structure-resource-harvest-mine": "Every once in a while a miner finds a rare mineral in the sediment. The skilled artisans at the {{ structure:link 'weaponsmith' }} and armoursmith use these to imbue their creations with magical powers. \n\nEvery three hours these minerals are collected and sent to the surface.",
     "ui-structure-resource-help-upgrade-resource-generates": "{{resource:name resource}} p/worker",
     "ui-structure-resource-next-generates": "Next {{amount}} {{resource:name resource}} produced in {{time}}",
     "ui-structure-resource-next-harvest": "Next harvest in {{time}}",
     "ui-structure-resource-no-workers": "No workers assigned to this building",
     "ui-structure-resource-generates": "{{resource:name resource}}: {{amount}} per worker",
+    "ui-structure-resource-warehouse-full": "The {{structure:link 'warehouse'}} is full of {{resource:name resource}}, the {{ structure:name structure }} cannot produce more at this moment. Upgrade the warehouse to store more.",
 
     "ui-structure-warehouse-adventurers": "Adventurers",
     "ui-structure-warehouse-resources": "Resources",

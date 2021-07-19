@@ -1,4 +1,5 @@
 import * as React from "react";
+import ReactMarkdown from "react-markdown";
 import { Structure } from 'definitions/structures';
 import { TextManager } from 'global/TextManager';
 import { useEngine } from 'hooks/store/engine';
@@ -11,6 +12,7 @@ import { ResourceStructureLevelDefinition } from 'definitions/structures/types';
 import Icon from 'components/ui/common/Icon';
 import resourceDescriptions from "definitions/resources";
 import TickingProgressbar from 'components/ui/common/progress/TickingProgressbar';
+import { useMaxResourcesState, useResourcesState } from "hooks/store/resources";
 
 interface Props {
     structure: Structure;
@@ -26,11 +28,25 @@ const ResourceGenerationRow = (props: Props) => {
     const generates = levelDefinition.generates[resource] || 0;
     const delta = RESOURCE_INTERVAL - (Date.now() - engine.lastProducedUpdate);
     const resourceDescription = resourceDescriptions[resource];
+    const resources = useResourcesState();
+    const maxResources = useMaxResourcesState();
 
+    const full = resources[resource] ?? 0 >= (maxResources?.[resource] ?? 0);
+    if (full) {
+        return (
+            <div className="resource-generation-row">
+                <div className="error-full">
+                <ReactMarkdown>
+                    {TextManager.get("ui-structure-resource-warehouse-full", { structure, resource })}
+                </ReactMarkdown>
+                </div>
+            </div>
+        )
+    }
     return (
         <div className="resource-generation-row">
             <div className="info">
-                <Icon image={resourceDescription.iconImg}  size="smallest"/>
+                <Icon image={resourceDescription.iconImg} size="smallest"/>
                 <div>
                     {TextManager.get("ui-structure-resource-generates", {
                         amount: generates,
@@ -38,6 +54,7 @@ const ResourceGenerationRow = (props: Props) => {
                     })}
                 </div>
             </div>
+            {full}
             { workers > 0 &&
             <TickingProgressbar
                 className="generating"

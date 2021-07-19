@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { ResourceStoreState } from 'store/types/resources';
 import { selectMaxResources } from 'store/selectors/resources';
 
-// Returns the resources from redux store
+// Returns the resources from the warehouse
 export const useResourcesState = () => {
     return useSelector<StoreState, ResourceStoreState>(store => store.resources);
 }
