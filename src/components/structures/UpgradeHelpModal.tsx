@@ -22,6 +22,9 @@ const UpgradeHelpModal = (props: PropsWithChildren<Props>) => {
                     })}
                 </div>
             </div>
+            <div className="cost">
+                
+            </div>
             {children}
         </div>
     )

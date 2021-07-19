@@ -29,6 +29,11 @@ const warehouse: WarehouseStructureDefinition = {
         workerCapacity: 5,
         cost: {
             gold: 13,
+            resources: {
+                wood: 100,
+                iron: 100,
+                stone: 100
+            },
             time: FOUR_MINUTES
         },
         maxResources: {

@@ -28,6 +28,11 @@ const mine: ResourceStructureDefinition = {
         workerCapacity: 5,
         cost: {
             gold: 30,
+            resources: {
+                wood: 100,
+                iron: 100,
+                stone: 100
+            },
             time: ONE_MINUTE
         },
         generates: { iron: 2 },
