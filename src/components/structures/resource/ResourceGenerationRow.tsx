@@ -30,8 +30,7 @@ const ResourceGenerationRow = (props: Props) => {
     const resourceDescription = resourceDescriptions[resource];
     const resources = useResourcesState();
     const maxResources = useMaxResourcesState();
-
-    const full = resources[resource] ?? 0 >= (maxResources?.[resource] ?? 0);
+    const full = (resources[resource] ?? 0) >= (maxResources?.[resource] ?? 0);
     if (full) {
         return (
             <div className="resource-generation-row">
