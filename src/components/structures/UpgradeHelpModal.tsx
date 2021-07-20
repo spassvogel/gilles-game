@@ -8,7 +8,6 @@ import { ResourceStructureDefinition } from "definitions/structures/types";
 import { useStructureDefinition } from "hooks/store/structures";
 import { Resource } from "definitions/resources";
 import { useResourcesState } from "hooks/store/resources";
-import "./styles/upgradeHelpModal.scss"
 import { useDispatch } from "react-redux";
 import { subtractGold } from "store/actions/gold";
 import { addLogText } from "store/actions/log";
@@ -18,6 +17,8 @@ import { LogChannel } from "store/types/logEntry";
 import { TaskType } from "store/types/task";
 import Button from "components/ui/buttons/Button";
 import { removeResources } from "store/actions/resources";
+import { formatDuration } from "utils/format/time";
+import "./styles/upgradeHelpModal.scss"
 
 export interface Props  {
     structure: Structure;
@@ -30,6 +31,8 @@ const UpgradeHelpModal = (props: PropsWithChildren<Props>) => {
     const structureDefinition: ResourceStructureDefinition = useStructureDefinition(structure);
     const nextLevel = structureDefinition.levels[level + 1];
     
+    const { time } = nextLevel.cost;
+
     const gold = useGoldState()
     const goldCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
     const missingGold = goldCost > gold;
@@ -42,7 +45,6 @@ const UpgradeHelpModal = (props: PropsWithChildren<Props>) => {
             return (costResources[resource] ?? 0) > (resourcesState?.[resource] ?? 0) 
         });
 
-    console.log(costResources)
     const canUpgrade = nextLevel != null && !missingGold && !missingAtLeastOneResource
 
     const handleUpgrade = () => {
@@ -85,7 +87,9 @@ const UpgradeHelpModal = (props: PropsWithChildren<Props>) => {
                 onClick={handleUpgrade}
                 disabled={!canUpgrade}
             >
-                { TextManager.get("ui-structure-help-upgrade-start") }
+                { TextManager.get("ui-structure-help-upgrade-start", {
+                    time: formatDuration(time ?? 0)
+                })}
             </Button>
             {children}
         </div>
