@@ -20,11 +20,12 @@ import { useAdventurersInTown } from 'hooks/store/adventurers';
 import useItemDropActions from 'hooks/actions/useItemActions';
 import StructureLevel from '../StructureLevel';
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
-import UpgradeHelpModal from './UpgradeHelpModal';
 import { ContextType } from 'constants/context';
 import { addStockpileSlots } from 'store/actions/items';
 import { Resource } from "definitions/resources";
 import "./styles/warehouseStructureView.scss";
+import UpgradeHelpModal from "../UpgradeHelpModal";
+import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props  {
@@ -74,6 +75,7 @@ const WarehouseStructureView = () => {
 
     const structureDefinition = useStructureDefinition<WarehouseStructureDefinition>("warehouse");
     const structureState = useStructureState("warehouse");
+    const { level } = structureState;
     const levelDefinition = useStructureLevel<WarehouseStructureLevelDefinition>("warehouse");
     
     const handleDropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
@@ -87,7 +89,11 @@ const WarehouseStructureView = () => {
     const handleHelpClicked = (event: React.MouseEvent) => {
         const origin = (event.currentTarget as HTMLElement);
         const originRect = origin.getBoundingClientRect();
-        const content = <UpgradeHelpModal level={structureState.level} />;
+        const content = (
+            <UpgradeHelpModal level={level} structure={"warehouse"}>
+                <UpgradeHelpModalContent level={level} />
+            </UpgradeHelpModal>
+        );
         TooltipManager.showContextTooltip(ContextType.component, content, originRect, "upgrade-structure-tooltip");
 
         event.stopPropagation();

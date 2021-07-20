@@ -1,6 +1,9 @@
 @import 'components/styles/variables.scss';
 
 .upgrade-help-model-content-production {
+    h3 { 
+        margin-left: 0.5rem;
+    }
     .unlocks {
         display: flex;
     }

@@ -1,26 +1,10 @@
 @import 'components/styles/variables.scss';
 
-.warehouse-upgrade-help-modal {
-    margin-bottom: 8px;
-    max-width: 420px;
-    right: 8px;
-
-    .top {
-        display: flex;
-        flex-direction: row;
-
-        h3 {
-            flex: 1;
-            padding-left: 16px;
-        }
-
-        .cost {
-            color: $color-text-darker;
-            margin: 16px 16px 0 0;
-            text-align: right;
-        }
+.upgrade-help-model-content-warehouse {
+    h3 { 
+        margin-left: 0.5rem;
     }
-
+    
     .storage-increase {
         display: grid;
         grid-template-columns: 32px auto 64px 16px 64px;
@@ -47,8 +31,4 @@
             color: $color-text-darker;
         }
     }
-}
-
-.upgrade-structure-tooltip .context-tooltip {
-    width: 320px !important;
 }

@@ -1,8 +1,10 @@
 import * as React from "react";
 import { TextManager } from 'global/TextManager';
 import { PropsWithChildren } from "react";
-import { Structure } from "definitions/structures";
+import { getDefinition, Structure } from "definitions/structures";
 import "./styles/upgradeHelpModal.scss"
+import ResourcesCost from "./production/ResourcesCost";
+import { ResourceStructureDefinition } from "definitions/structures/types";
 
 export interface Props  {
     structure: Structure;
@@ -11,7 +13,8 @@ export interface Props  {
 
 const UpgradeHelpModal = (props: PropsWithChildren<Props>) => {
     const { structure, level, children } = props;
-
+    const structureDefinition: ResourceStructureDefinition = getDefinition(structure);
+    const nextLevel = structureDefinition.levels[level + 1];
     return (
         <div className="structure-upgrade-help-modal">
             <div className="top">
@@ -23,7 +26,8 @@ const UpgradeHelpModal = (props: PropsWithChildren<Props>) => {
                 </div>
             </div>
             <div className="cost">
-                
+                <h3>Costs</h3>
+                { nextLevel.cost.resources && <ResourcesCost resources={nextLevel.cost.resources} gold={nextLevel.cost.gold} className="wrap" /> }
             </div>
             {children}
         </div>

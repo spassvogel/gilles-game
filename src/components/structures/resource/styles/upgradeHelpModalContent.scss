@@ -1,7 +1,9 @@
 @import 'components/styles/variables.scss';
 
 .upgrade-help-model-content-resource {
- 
+    h3 {
+        padding-left: 0.5rem;
+    }
     .grid {
         display: grid;
         grid-template-columns: 32px auto 64px 16px 64px;

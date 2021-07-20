@@ -6,13 +6,13 @@ import { WarehouseStructureDefinition } from 'definitions/structures/types';
 import { Resource } from 'definitions/resources';
 import Icon from 'components/ui/common/Icon';
 import { TextManager } from 'global/TextManager';
-import "./styles/upgradeHelpModal.scss"
+import "./styles/upgradeHelpModalContent.scss"
 
 export interface Props  {
     level: number;
 }
 
-const UpgradeHelpModal = (props: Props) => {
+const UpgradeHelpModalContent = (props: Props) => {
     const { level } = props;
     const structureDefinition: WarehouseStructureDefinition = getDefinition("warehouse");
 
@@ -34,21 +34,8 @@ const UpgradeHelpModal = (props: Props) => {
     }
 
     return (
-        <div className="warehouse-upgrade-help-modal">
-            <div className="top">
-                <h3>{TextManager.get("ui-structure-help-upgrade-title", { structure: "warehouse"} )}</h3>
-                <div className="level">
-                    {TextManager.get("ui-structure-help-upgrade-header-level", {
-                        level: level + 2
-                    })}
-                </div>
-                                {/* <div className="cost">
-                    <section>
-                        {TextManager.get("ui-structure-help-upgrade-cost-gold", { gold: nextLevel.cost.gold})}
-                    </section>
-                    { nextLevel.cost.time && <section>{formatDuration(nextLevel.cost.time)}</section> }
-                </div> */}
-            </div>
+        <div className="upgrade-help-model-content-warehouse">
+            <h3>Improvements</h3>
             <div className="storage-increase">
                 <div className="header"/>
                 <div className="header">
@@ -71,4 +58,4 @@ const UpgradeHelpModal = (props: Props) => {
     )
 }
 
-export default UpgradeHelpModal;
+export default UpgradeHelpModalContent;

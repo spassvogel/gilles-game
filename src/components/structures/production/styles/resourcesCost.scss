@@ -3,10 +3,10 @@
 .resources-cost {
 	padding: 0;
 	margin: 0;
-  list-style: none;
+    list-style: none;
     
-	.resource {
-    display: flex;
+	li {
+    	display: flex;
         
 		.name {
 			width: 100px;
@@ -23,6 +23,18 @@
 			.amount {
 				color: $color-invalid;
 			}
+		}
+	}
+
+	&.wrap {
+		// Use this class to display resource cost as 2 column
+		display: flex;
+		flex-wrap: wrap;
+		margin-right: -2rem;
+
+		li {
+			margin-right: 2rem;
+			width: calc(50% - 2rem);
 		}
 	}
 

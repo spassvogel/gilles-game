@@ -24,6 +24,7 @@ const UpgradeHelpModalContent = (props: Props) => {
 
     return (   
         <div className="upgrade-help-model-content-production">
+            <h3>Unlocks crafting of these items</h3>
             <div className="unlocks">
                 {nextLevel.unlocks.map(item => renderRow(item))}
             </div>

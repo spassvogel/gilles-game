@@ -9,10 +9,12 @@ import Icon from 'components/ui/common/Icon';
 import { ContextType } from 'constants/context';
 import { TooltipManager } from 'global/TooltipManager';
 import "./styles/resourcesCost.scss";
+import useGoldState from "hooks/store/useGoldState";
 
 export interface Props {
     className?: string;
     resources: ResourceStoreState;
+    gold?: number;
 }
 
 /**
@@ -21,9 +23,11 @@ export interface Props {
 const ResourcesCost = (props: Props) => {
     const {
         resources,
+        gold
     } = props;
 
     const storeResources = useResourcesState();
+    
     const sufficientResources = useMemo(() => {
         return Object.keys(resources).reduce<{[key: string]: boolean}>((acc, value) => {
             const resource = value as Resource;
@@ -32,6 +36,8 @@ const ResourcesCost = (props: Props) => {
             return acc;
         }, {});
     }, [resources, storeResources]);
+    const availableGold = useGoldState();
+    const sufficientGold = gold === undefined || availableGold >= gold;
 
     const className = (props.className || "") + " resources-cost";
     const listItems = Object.keys(props.resources).map((key: string) => {
@@ -76,6 +82,20 @@ const ResourcesCost = (props: Props) => {
     return (
         <ul className={className}>
             {listItems}
+            {gold && (
+                <li className={["gold", ...(sufficientGold ? [] : ["insufficient"])].join(" ")}>
+                    <Icon
+                        image="img/resources/gold.png"
+                        size="smallest"
+                    />
+                    <div className="name">
+                        {TextManager.get("resource-gold-name")}
+                    </div>
+                    <div className="amount" >
+                        { gold }
+                    </div>
+                </li>
+            )}
         </ul>
     );
 };
