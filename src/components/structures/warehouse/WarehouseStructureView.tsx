@@ -21,11 +21,10 @@ import useItemDropActions from 'hooks/actions/useItemActions';
 import StructureLevel from '../StructureLevel';
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
 import { ContextType } from 'constants/context';
-import { addStockpileSlots } from 'store/actions/items';
 import { Resource } from "definitions/resources";
-import "./styles/warehouseStructureView.scss";
 import UpgradeHelpModal from "../UpgradeHelpModal";
 import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
+import "./styles/warehouseStructureView.scss";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props  {
@@ -104,7 +103,7 @@ const WarehouseStructureView = () => {
         const nextLevelDefinition = structureDefinition.levels[nextLevel];
         const slots = nextLevelDefinition.maxStockpile - currentLevelDefinition.maxStockpile;
         return [
-            addStockpileSlots(slots)
+            // addStockpileSlots(slots)
         ]
     }
 

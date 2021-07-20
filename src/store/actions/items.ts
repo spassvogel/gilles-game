@@ -1,59 +1,47 @@
 import { Item } from "definitions/items/types";
 import { Action } from "redux";
 
-// todo: refactor using discriminatd union
-export enum ActionType {
-    addItem = "addItem",
-    moveItemInWarehouse = "moveItemInWarehouse",
-    removeItem = "removeItem",
-    addStockpileSlots = "addStockpileSlots"
-}
+export type ItemAction =
+    { type: "addItem", item: Item, toSlot?: number }
+ |  { type: "moveItemInWarehouse", fromSlot: number, toSlot: number }
+ |  { type: "removeItem", fromSlot: number }
+//  |  { type: "addStockpileSlots"
 
-export interface MoveItemInWarehouseAction extends Action<ActionType> {
-    fromSlot: number;
-    toSlot: number;
-}
 
-export interface AddAction extends Action {
-    item: Item;
-    toSlot?: number;
-}
 
-export interface RemoveItemFromWarehouseAction extends Action {
-    fromSlot: number;
-}
 export interface AddStockpileSlotsAction extends Action {
     slots: number;
 }
 
 // Adds one Item to the warehouse
 // slot is optional, will take the first empty slot if not provided
-export function addItemToWarehouse(item: Item, toSlot?: number): AddAction {
+export const addItemToWarehouse = (item: Item, toSlot?: number): ItemAction => {
     return {
-        type: ActionType.addItem,
+        type: "addItem",
         item,
         toSlot,
     };
 }
 
 // When an Item is moved from one slot to the other in the warehouse
-export function moveItemInWarehouse(fromSlot: number, toSlot: number): MoveItemInWarehouseAction {
+export const moveItemInWarehouse = (fromSlot: number, toSlot: number): ItemAction => {
     return {
-        type: ActionType.moveItemInWarehouse,
+        type: "moveItemInWarehouse",
         fromSlot,
         toSlot,
     };
 }
-export function removeItemFromWarehouse(fromSlot: number): RemoveItemFromWarehouseAction {
+
+export const removeItemFromWarehouse = (fromSlot: number): ItemAction => {
     return {
-        type: ActionType.removeItem,
+        type: "removeItem",
         fromSlot,
     };
 }
 
-export function addStockpileSlots(slots: number): AddStockpileSlotsAction {
-    return {
-        type: ActionType.addStockpileSlots,
-        slots,
-    };
-}
+// export function addStockpileSlots(slots: number): AddStockpileSlotsAction {
+//     return {
+//         type: ActionType.addStockpileSlots,
+//         slots,
+//     };
+// }

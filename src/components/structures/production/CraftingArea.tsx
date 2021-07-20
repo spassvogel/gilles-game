@@ -22,7 +22,7 @@ const CraftingArea = (props: Props) => {
 
     return (
         <>
-            <div>craft:</div>
+            <div> { TextManager.get("ui-structure-production-craft") }</div>
             <div className="crafting-area">
                 <ul className="vertical-tab-bar">
                     {storeState.produces.map((item) => (

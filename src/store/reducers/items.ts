@@ -1,6 +1,6 @@
 
-import { ActionType, AddAction, AddStockpileSlotsAction, MoveItemInWarehouseAction, RemoveItemFromWarehouseAction } from "store/actions/items";
-import { AnyAction, Reducer } from "redux";
+import { ItemAction } from "store/actions/items";
+import { Reducer } from "redux";
 import { getDefinition } from 'definitions/structures';
 import { WarehouseStructureDefinition } from 'definitions/structures/types';
 import { Item } from "definitions/items/types";
@@ -33,12 +33,12 @@ const getRandomItem = (): Item => {
  * @param state
  * @param action
  */
-export const items: Reducer<(Item|null)[]> = (state: (Item|null)[] = getItemsInitialState(), action: AnyAction) => {
+export const items: Reducer<(Item|null)[], ItemAction> = (state: (Item|null)[] = getItemsInitialState(), action: ItemAction) => {
     switch (action.type) {
-        case ActionType.addItem: {
+        case "addItem": {
             // toSlot is optional
-            const { item } = (action as AddAction);
-            let { toSlot } = (action as AddAction);
+            const { item } = action;
+            let { toSlot } = (action);
             if (toSlot === undefined) {
                 toSlot = state.findIndex((slot) => slot === null);  // find first empty element
                 if (toSlot === -1) {
@@ -50,11 +50,11 @@ export const items: Reducer<(Item|null)[]> = (state: (Item|null)[] = getItemsIni
             return state.map((element, index) => index === toSlot ? item : element);
         }
 
-        case ActionType.moveItemInWarehouse: {
+        case "moveItemInWarehouse": {
             const {
                 fromSlot,
                 toSlot,
-            } = (action as MoveItemInWarehouseAction);
+            } = action;
 
             return state.map((element, index) => {
                 if (index === fromSlot) { return state[toSlot]; }
@@ -62,23 +62,23 @@ export const items: Reducer<(Item|null)[]> = (state: (Item|null)[] = getItemsIni
                 return element;
             });
         }
-        case ActionType.removeItem: {
-            const { fromSlot } = (action as RemoveItemFromWarehouseAction);
+        case "removeItem": {
+            const { fromSlot } = action;
 
             return state.map((element, index) => index !== fromSlot ? element : null);
         }
 
-        // Adds slots with 'null' to the end
-        case ActionType.addStockpileSlots: {
-            const {
-                slots,
-            } = (action as AddStockpileSlotsAction);
+        // // Adds slots with 'null' to the end
+        // case ActionType.addStockpileSlots: {
+        //     const {
+        //         slots,
+        //     } = (action as AddStockpileSlotsAction);
 
-            return [
-                ...state,
-                ...Array(slots).fill(null)
-            ];
-        }
+        //     return [
+        //         ...state,
+        //         ...Array(slots).fill(null)
+        //     ];
+        // }
     }
 
     return state;
