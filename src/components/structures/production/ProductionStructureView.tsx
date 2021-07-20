@@ -13,9 +13,9 @@ import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
 import CraftingArea from './CraftingArea';
 import { addItemToToProduces } from 'store/actions/structures';
-import "./styles/productionStructureView.scss";
 import UpgradeHelpModal from "../UpgradeHelpModal";
 import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
+import "./styles/productionStructureView.scss";
 
 export interface Props {
     structure: Structure;

@@ -419,8 +419,10 @@
     "ui-game-loaded": "Game loaded",
 
     "ui-structure-help-upgrade-cost-gold": "{{gold}} {{resource:name 'gold'}}",
+    "ui-structure-help-upgrade-start": "Start upgrade",
     "ui-structure-help-upgrade-title": "Upgrade {{structure:name structure}}",
     "ui-structure-help-upgrade-header-level": "Level {{level}}",
+    "ui-structure-help-upgrade-improvements": "Improvements",
     "ui-structure-help-upgrade-worker-capacity": "Worker capacity",
 
     "ui-structure-level": "Level: ",

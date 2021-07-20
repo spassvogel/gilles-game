@@ -1,17 +1,9 @@
 import * as React from "react";
 import { AnyAction } from "redux";
 import { TextManager } from 'global/TextManager';
-import { subtractGold } from 'store/actions/gold';
-import { addLogText } from 'store/actions/log';
-import { LogChannel } from 'store/types/logEntry';
 import { getDefinition, Structure } from 'definitions/structures';
-import useGoldState from 'hooks/store/useGoldState';
-import { useDispatch } from 'react-redux';
-import { upgradeStructure } from 'store/actions/structures';
 import { useStructureState } from 'hooks/store/structures';
 import Button from 'components/ui/buttons/Button';
-import { startTask } from 'store/actions/tasks';
-import { TaskType } from 'store/types/task';
 import { useUpgradeTasksStateByStructure } from 'hooks/store/useTasksState';
 import { formatDuration } from 'utils/format/time';
 import { TickingProgressbar } from "components/ui/common/progress";
@@ -29,8 +21,6 @@ const StructureLevel = (props: Props) => {
         onHelpClicked,
         addUpgradeCallbacks
     } = props;
-    const dispatch = useDispatch();
-    const gold = useGoldState();
 
     const structureState = useStructureState(structure);
     const level: number = structureState.level;
@@ -43,25 +33,7 @@ const StructureLevel = (props: Props) => {
 
     const upgradeTasks = useUpgradeTasksStateByStructure(structure);
 
-    const handleUpgrade = (cost: number) => {
-        dispatch(subtractGold(cost));
 
-        const callbacks = [
-            ...(addUpgradeCallbacks?.(level + 1) || []),
-            upgradeStructure(structure),
-            addLogText("log-town-upgrade-structure-complete", {
-                level: level + 1,
-                structure,
-            }, LogChannel.town)
-        ];
-        const time = nextLevel.cost.time ?? 0;
-        const start = startTask(TaskType.upgradeStructure,
-            `${structure}.upgrade`,
-            "town",
-            time,
-            callbacks);
-        dispatch(start);
-    }
 
     if (upgradeTasks.length) {
         const t = upgradeTasks[0];

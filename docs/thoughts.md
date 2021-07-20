@@ -713,6 +713,6 @@ https://redux.js.org/api/store#subscribelistener
 - [x] Show in ResourceGenerationRow
 
 ### 2021-07-18 Change upgrade structure for
-- [ ] Now has to work through popup. Remove '?' button and add 'Start' button underneath 
-- [ ] 
+- [x] Now has to work through popup. Remove '?' button and add 'Start' button underneath 
+- [x] Had resource requirements 
 

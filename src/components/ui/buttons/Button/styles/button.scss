@@ -28,9 +28,9 @@ $small-margin: 10px;
     }
 
     &:disabled {
-        filter: grayscale(1) brightness(2.5);
+        filter: grayscale(1);
         span {
-            color: rgb(87, 87, 87) !important;
+            color: rgb(134, 134, 134) !important;
         }
     }
 

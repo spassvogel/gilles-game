@@ -15,7 +15,7 @@ const CraftingArea = (props: Props) => {
     const {structure} = props;
     const [selectedItem, setSelectedItem] = useState<ProducableItem>();
 
-    const storeState: ProductionStructureStoreState = useStructureState(structure) as ProductionStructureStoreState;
+    const storeState = useStructureState<ProductionStructureStoreState>(structure);
     const handleSelectCraftingItem = (item: ProducableItem) => {
         setSelectedItem(item);
     };

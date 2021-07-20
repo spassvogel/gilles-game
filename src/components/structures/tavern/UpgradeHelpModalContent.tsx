@@ -19,6 +19,7 @@ const UpgradeHelpModalContent = (props: Props) => {
 
     return (
         <div className="upgrade-help-model-content-tavern">
+            <h3>{TextManager.get("ui-structure-help-upgrade-improvements")}</h3>
 
             <div className="rooms-increase">
                 <div className="header"/>

@@ -11,7 +11,7 @@ const materials = {
         itemType,
         iconImg: `${basePath}arrowheads.png`,
     },
-    borderClassName: {
+    beam: {
         itemType,
         iconImg: `${basePath}beam.png`,
     },
@@ -67,7 +67,7 @@ const materials = {
         itemType,
         iconImg: `${basePath}rope.png`,
     },
-    rjneCarvedPlank: {
+    runeCarvedPlank: {
         itemType,
         iconImg: `${basePath}rune-carved-plank.png`,
     },
