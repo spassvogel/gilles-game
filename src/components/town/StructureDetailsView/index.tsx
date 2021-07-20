@@ -1,7 +1,6 @@
-
+import * as React from "react";
 import { getDefinition, Structure } from "definitions/structures";
 import { StructureDefinition, StructureType } from "definitions/structures/types";
-import * as React from "react";
 import { StructureState } from "store/types/structure";
 import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
@@ -16,11 +15,10 @@ import WarehouseStructureView from 'components/structures/warehouse/WarehouseStr
 import TavernStructureView from 'components/structures/tavern/TavernStructureView';
 import ResourceStructureView from 'components/structures/resource/ResourceStructureView';
 import { Link, useParams } from "react-router-dom";
-import Window from "components/ui/window/Window";
 import { TextManager } from "global/TextManager";
-import "./styles/structuredetailsview.scss";
 import Button from "components/ui/buttons/Button";
-import { getStructureLink, getTownLink } from "utils/routing";
+import { getStructureLink } from "utils/routing";
+import "./styles/structuredetailsview.scss";
 
 export interface Props {
     structure: Structure;
@@ -86,7 +84,6 @@ export const RoutedStructureDetailsView = () => {
                 <Link to={getStructureLink(structure, true)}>
                     <Button
                         className="close-button"
-                        // onClick={handleClose}
                         square={true}
                         size={"medium"}
                         color="purple"
