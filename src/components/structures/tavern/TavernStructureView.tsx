@@ -1,5 +1,4 @@
 import * as React from "react";
-import { getDefinition } from "definitions/structures";
 import { TavernStructureDefinition, TavernStructureLevelDefinition} from "definitions/structures/types";
 import { AdventurerStoreState} from "store/types/adventurer";
 import { QuestStatus, QuestStoreState} from "store/types/quest";
@@ -12,7 +11,7 @@ import { getQuestLink} from 'utils/routing';
 import RoomList from './rooms/RoomList';
 import { useState} from 'react';
 import QuestBoard from './QuestBoard';
-import { useStructureState } from 'hooks/store/structures';
+import { useStructureDefinition, useStructureState } from 'hooks/store/structures';
 import { useSelector, useDispatch } from 'react-redux';
 import { StoreState } from 'store/types';
 import { launchQuest } from 'store/actions/quests';
@@ -20,8 +19,8 @@ import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdve
 import StructureLevel from '../StructureLevel';
 import StructureViewHeader from "../StructureViewHeader";
 import UpgradeHelpModal from "../UpgradeHelpModal";
-import "./styles/tavernStructureView.scss";
 import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
+import "./styles/tavernStructureView.scss";
 
 export const SOURCE_ID = "tavern";
 
@@ -34,8 +33,7 @@ const TavernStructureView = () => {
     const [assignedAventurers, setAassignedAdventurers] = useState<AdventurerStoreState[]>([]);
     const [selectedQuest, setSelectedQuest] = useState<string>();
 
-    // 2021-07-11 refactor to use hooks
-    const structureDefinition = getDefinition<TavernStructureDefinition>("tavern");
+    const structureDefinition = useStructureDefinition<TavernStructureDefinition>("tavern");
     const levelDefinition: TavernStructureLevelDefinition = structureDefinition.levels[level];
 
     const dispatch = useDispatch();

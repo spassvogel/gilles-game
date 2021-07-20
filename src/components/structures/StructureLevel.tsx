@@ -1,8 +1,8 @@
 import * as React from "react";
 import { AnyAction } from "redux";
 import { TextManager } from 'global/TextManager';
-import { getDefinition, Structure } from 'definitions/structures';
-import { useStructureState } from 'hooks/store/structures';
+import { Structure } from 'definitions/structures';
+import { useStructureDefinition, useStructureState } from 'hooks/store/structures';
 import Button from 'components/ui/buttons/Button';
 import { useUpgradeTasksStateByStructure } from 'hooks/store/useTasksState';
 import { formatDuration } from 'utils/format/time';
@@ -24,7 +24,7 @@ const StructureLevel = (props: Props) => {
 
     const structureState = useStructureState(structure);
     const level: number = structureState.level;
-    const structureDefinition = getDefinition(props.structure);
+    const structureDefinition = useStructureDefinition(structure);
 
     const nextLevel = structureDefinition.levels[level + 1];
     // const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);

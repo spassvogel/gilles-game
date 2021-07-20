@@ -1,13 +1,13 @@
 import * as React from "react";
 import { useDispatch } from 'react-redux';
-import { Structure, getDefinition } from 'definitions/structures';
+import { Structure } from 'definitions/structures';
 import { subtractGold } from 'store/actions/gold';
 import { startBuildingStructure, finishBuildingStructure } from 'store/actions/structures';
 import { startTask } from 'store/actions/tasks';
 import { TaskType } from 'store/types/task';
 import { Deed, getDefinition as getDeedDefinition} from 'definitions/items/deeds';
 import useGoldState from 'hooks/store/useGoldState';
-import { useStructureState } from 'hooks/store/structures';
+import { useStructureDefinition, useStructureState } from 'hooks/store/structures';
 import { StructureState } from 'store/types/structure';
 import { TextManager } from 'global/TextManager';
 import Button from 'components/ui/buttons/Button';
@@ -22,7 +22,7 @@ const DeedContent = (props: Props) => {
     const dispatch = useDispatch();
 
     const gold = useGoldState();
-    const structureDefinition = getDefinition(definition.structure);
+    const structureDefinition = useStructureDefinition(definition.structure);
     const enoughGold = structureDefinition.cost.gold || 0 <= gold;
     const structureStoreState = useStructureState(definition.structure);
     const canBeBuilt = structureStoreState.state === StructureState.NotBuilt;

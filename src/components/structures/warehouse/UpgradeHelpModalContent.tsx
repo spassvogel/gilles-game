@@ -1,11 +1,10 @@
 import * as React from "react";
-import { getDefinition, Structure } from 'definitions/structures';
-import { formatDuration } from 'utils/format/time';
 import resourceDescriptions from "definitions/resources";
 import { WarehouseStructureDefinition } from 'definitions/structures/types';
 import { Resource } from 'definitions/resources';
 import Icon from 'components/ui/common/Icon';
 import { TextManager } from 'global/TextManager';
+import { useStructureDefinition } from "hooks/store/structures";
 import "./styles/upgradeHelpModalContent.scss"
 
 export interface Props  {
@@ -14,7 +13,7 @@ export interface Props  {
 
 const UpgradeHelpModalContent = (props: Props) => {
     const { level } = props;
-    const structureDefinition: WarehouseStructureDefinition = getDefinition("warehouse");
+    const structureDefinition = useStructureDefinition<WarehouseStructureDefinition>("warehouse");
 
     const currentLevel = structureDefinition.levels[level];
     const nextLevel = structureDefinition.levels[level + 1];
