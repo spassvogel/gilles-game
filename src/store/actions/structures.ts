@@ -7,10 +7,9 @@ export type StructuresAction =
  |  { type: "decreaseWorkers", structure: Structure, workers: number}
  |  { type: "startBuildingStructure", structure: Structure }
  |  { type: "finishBuildingStructure", structure: Structure }
- |  { type: "setStructureState",  structure: Structure, state: StructureState }
- |  { type: "addItemToToProduces",  structure: Structure, item: ProducableItem }
- |  { type: "removeItemFromHarvest",  structure: Structure, index: number }
-
+ |  { type: "setStructureState", structure: Structure, state: StructureState }
+ |  { type: "addItemToToProduces", structure: Structure, item: ProducableItem }
+ |  { type: "removeItemFromHarvest", structure: Structure, index: number }
 
 
 export const startBuildingStructure = (structure: Structure): StructuresAction => ({

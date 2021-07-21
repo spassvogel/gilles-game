@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import useStockpileState from 'hooks/store/useStockpileState';
 import Button from 'components/ui/buttons/Button';
 import UpDownValue from 'components/ui/common/UpDownValue';
 import ItemsBox from 'components/ui/items/ItemsBox';
@@ -21,6 +20,7 @@ import { TaskType } from 'store/types/task';
 import { Structure } from 'definitions/structures';
 import { Resource } from 'definitions/resources';
 import { ProducableItem } from 'store/types/structure';
+import { useStockpileStateFlat } from 'hooks/store/stockpile';
 
 export interface Props {
     item: ProducableItem;
@@ -31,7 +31,7 @@ const CraftingDetails = (props: Props) => {
     const { item, structure } = props;
     const dispatch = useDispatch();
     const resourcesState = useResourcesState();
-    const stockpileState = useStockpileState();
+    const stockpileState = useStockpileStateFlat();
     const workersFree = useWorkersFreeState();
     const [workersAssigned, setWorkersAssigned] = useState<number>(0);
 

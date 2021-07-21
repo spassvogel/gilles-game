@@ -2,10 +2,10 @@ import * as React from "react";
 import { getDefinition } from "definitions/items";
 import { Item } from "definitions/items/types";
 import { TextManager } from "global/TextManager";
-import useStockpileState from 'hooks/store/useStockpileState';
 import { useMemo } from 'react';
 import Icon from 'components/ui/common/Icon';
 import "./styles/itemsBox.scss";
+import { useStockpileStateFlat } from "hooks/store/stockpile";
 
 export interface Props {
     className?: string;
@@ -29,7 +29,7 @@ const ItemsBox = (props: Props) => {
         return acc;
     }, {});
 
-    const stockpile = useStockpileState();
+    const stockpile = useStockpileStateFlat();
     const itemsInInventory: Item[] = useMemo(() => {
         const tmpWarehouse = [ ...stockpile];
         const tmpItems: Item[] = [];

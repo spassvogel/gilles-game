@@ -13,7 +13,6 @@ import { TooltipManager } from 'global/TooltipManager';
 import AdventurerTabstrip from 'components/world/QuestPanel/AdventurerTabstrip';
 import { useStructureDefinition, useStructureLevel, useStructureState } from 'hooks/store/structures';
 import { useResourcesState } from 'hooks/store/resources';
-import useStockpileState from 'hooks/store/useStockpileState';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
 import { useAdventurersInTown } from 'hooks/store/adventurers';
@@ -24,6 +23,7 @@ import { ContextType } from 'constants/context';
 import { Resource } from "definitions/resources";
 import UpgradeHelpModal from "../UpgradeHelpModal";
 import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
+import { useStockpileStateFlat } from "hooks/store/stockpile";
 import "./styles/warehouseStructureView.scss";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -40,7 +40,7 @@ const WarehouseStructureView = () => {
     const [resourcesDelta, setResourcesDelta] = useState<ResourceStoreState>(empty);    // updating this will trigger animation
     const previousResources = usePrevious(resources);
     const resourcesRef = useRef<HTMLFieldSetElement>(null);
-    const stockpileState = useStockpileState();
+    const stockpileState = useStockpileStateFlat();
     const structuresState = useSelector<StoreState, StructuresStoreState>(store => store.structures);
     const {dropItemWarehouse} = useItemDropActions();
 

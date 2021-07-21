@@ -4,13 +4,13 @@ import { Action } from "redux";
 import { removeItemFromInventory, assignEquipment, addItemToInventory, removeEquipment, moveItemInInventory } from 'store/actions/adventurers';
 import { removeItemFromWarehouse, addItemToWarehouse, moveItemInWarehouse } from 'store/actions/items';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
-import { Item } from 'definitions/items/types';
+import { Item, ItemType } from 'definitions/items/types';
 import { DragSourceType } from 'constants/dragging';
 import { AdventurerStoreState } from 'store/types/adventurer';
-import useStockpileState from 'hooks/store/useStockpileState';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import { SoundManager } from 'global/SoundManager';
+import { useStockpileStateFlat } from 'hooks/store/stockpile';
 
 /* Exposes
 - dropItemEquipment,
@@ -21,7 +21,7 @@ to use in various places in the UI when an item is dropped somewhere
 const useItemDropActions = () => {
     const dispatch = useDispatch();
     const sceneController = useContext(SceneControllerContext);  // is only available when in a scene
-    const stockpile = useStockpileState();
+    const stockpile = useStockpileStateFlat();
 
     // When an item gets dropped on equipment slot
     const dropItemEquipment = (dragInfo: InventoryItemDragInfo, slotType: EquipmentSlotType, adventurer: AdventurerStoreState) => {
@@ -35,7 +35,7 @@ const useItemDropActions = () => {
             case DragSourceType.adventurerInventory: {
                 actions.push(
                     // Item gets removed from inventory
-                    removeItemFromInventory(adventurer.id, dragInfo.inventorySlot!),
+                    removeItemFromInventory(adventurer.id, dragInfo.inventorySlot ?? -1),
                     // Item gets assigned to an equipment slot
                     assignEquipment(adventurer.id, slotType, item),
                 );
@@ -43,21 +43,23 @@ const useItemDropActions = () => {
                 const existingEquipment = adventurer.equipment[slotType as EquipmentSlotType];
                 if (existingEquipment) {
                     // There is already an item in this slot. Place in inventory
-                    actions.push(addItemToInventory(adventurer.id, existingEquipment, dragInfo.inventorySlot!));
+                    actions.push(addItemToInventory(adventurer.id, existingEquipment, dragInfo.inventorySlot ?? -1));
                 }
                 break;
             }
             // Dragged from warehouse.
             case DragSourceType.warehouse: {
+                // const definition = getDefinition()
+                console.log(dragInfo.sourceId)
                 actions.push(
-                    removeItemFromWarehouse(dragInfo.inventorySlot!),
+                    removeItemFromWarehouse(ItemType.weapon, dragInfo.inventorySlot ?? -1),
                     assignEquipment(adventurer.id, slotType, item),
                 );
 
                 const existingEquipment = adventurer.equipment[slotType as EquipmentSlotType];
                 if (existingEquipment) {
                     // There is already an item in this slot. Place in warehouse
-                    actions.push(addItemToWarehouse(existingEquipment, dragInfo.inventorySlot!));
+                    actions.push(addItemToWarehouse(existingEquipment, dragInfo.inventorySlot ?? -1));
                 }
                 break;
             }
@@ -95,9 +97,9 @@ const useItemDropActions = () => {
 
             // Dragged from warehouse
             case DragSourceType.warehouse: {
-
+                console.log(sourceId)
                 actions.push(
-                    removeItemFromWarehouse(fromSlot),
+                    removeItemFromWarehouse(ItemType.trinket, fromSlot),
                     addItemToInventory(adventurer.id, item, toSlot),
                 )
                 const otherItem = adventurer.inventory[toSlot];
@@ -144,8 +146,9 @@ const useItemDropActions = () => {
         switch (sourceType) {
             // Dragged from the warehouse itself
             case DragSourceType.warehouse: {
+                console.log(sourceId)
                 actions.push(
-                    moveItemInWarehouse(fromSlot, toSlot)
+                    moveItemInWarehouse(ItemType.trinket, fromSlot, toSlot)
                 )
                 const otherItem = stockpile[toSlot];
                 if (otherItem) {

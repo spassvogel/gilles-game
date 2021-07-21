@@ -5,7 +5,7 @@ import { adventurers, initialAdventurers } from "./adventurers";
 import { combat } from "./combat";
 import { engine, getInitialEngineState } from "./engine";
 import { gold, initialGoldState } from "./gold";
-import { getItemsInitialState, items } from "./items";
+import { getInitialStockpile, stockpile } from "./stockpile";
 import { initialLogState, log } from "./log";
 import { initialQuestState, quests } from "./quests";
 import { initialResourcesState, resources } from "./resources";
@@ -19,7 +19,7 @@ export default combineReducers<StoreState>({
     combat,
     engine,
     gold,
-    stockpile: items,
+    stockpile,
     log,
     quests,
     resources,
@@ -34,7 +34,7 @@ export const createInitialStore = () => ({
     combat: barBrawl,
     engine: getInitialEngineState(),
     gold: initialGoldState,
-    stockpile: getItemsInitialState(),
+    stockpile: getInitialStockpile(),
     log: initialLogState,
     quests: initialQuestState,
     resources: initialResourcesState,

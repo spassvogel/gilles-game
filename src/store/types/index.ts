@@ -1,4 +1,3 @@
-import { Item } from "definitions/items/types";
 import { State as seedrandomStateType } from "seedrandom";
 import { AdventurerStoreState } from "./adventurer";
 import { CombatStoreState } from "./combat";
@@ -6,6 +5,7 @@ import { EngineStoreState } from "./engine";
 import { LogEntry } from "./logEntry";
 import { QuestStoreState } from "./quest";
 import { ResourceStoreState } from "./resources";
+import { StockpileStoreState } from "./stockpile";
 import { StructuresStoreState } from "./structures";
 import { TasksStoreState } from "./tasks";
 
@@ -14,7 +14,7 @@ export interface StoreState {
     combat: CombatStoreState;   // todo: deprecate?
     engine: EngineStoreState;
     gold: number;
-    stockpile: (null|Item)[];    // items in warehouse
+    stockpile: StockpileStoreState;    // items in warehouse
     log: LogEntry[];
     quests: QuestStoreState[];
     workers: number;

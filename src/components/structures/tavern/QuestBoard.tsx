@@ -12,6 +12,8 @@ import Button from 'components/ui/buttons/Button';
 import ItemsBox from 'components/ui/items/ItemsBox';
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import "./styles/questboard.scss";
+import { StockpileStoreState } from "store/types/stockpile";
+import { useStockpileStateFlat } from "hooks/store/stockpile";
 
 export const AVAILABLE_SLOTS = 5;
 const minimumCountAdventurers = 3;  // we need this many adventurers to start the quest
@@ -30,8 +32,7 @@ export interface Props {
 
 const QuestBoard = (props: Props) => {
 
-    const items = useSelector<StoreState, (null|Item)[]>(state => state.stockpile);
-
+    const items = useStockpileStateFlat();
     const getQuestDetails = () => {
         if (!props.selectedQuestName) {
             return null;
