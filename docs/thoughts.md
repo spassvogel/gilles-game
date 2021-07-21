@@ -713,3 +713,5 @@ s
 - [x] Now has to work through popup. Remove '?' button and add 'Start' button underneath 
 - [x] Had resource requirements 
 
+### 2021-07-22 Tabstrip mobile mode 
+- [ ] Needs to collapse into a type of dropdown select
