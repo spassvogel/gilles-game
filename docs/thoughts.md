@@ -701,10 +701,7 @@ https://redux.js.org/api/store#subscribelistener
 ### 2021-07-13 TextManager can return JSX
  [x] TexManager should be able to return JSX [x] Links
  [x] Bulleted lists
-
-
- replace tavern icon
-
+s
 ### 2021-07-17 Speedpot
 - [ ] Figure out a way to decrease the time of various tasks, both for cheats and as an in-game mechanics
 - [ ] harvest (interval)
