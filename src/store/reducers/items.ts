@@ -1,5 +1,5 @@
 
-import { ItemAction } from "store/actions/items";
+import { StockpileAction } from "store/actions/stockpile";
 import { Reducer } from "redux";
 import { getDefinition } from 'definitions/structures';
 import { WarehouseStructureDefinition } from 'definitions/structures/types';
@@ -33,7 +33,7 @@ const getRandomItem = (): Item => {
  * @param state
  * @param action
  */
-export const items: Reducer<(Item|null)[], ItemAction> = (state: (Item|null)[] = getItemsInitialState(), action: ItemAction) => {
+export const items: Reducer<(Item|null)[], StockpileAction> = (state: (Item|null)[] = getItemsInitialState(), action: StockpileAction) => {
     switch (action.type) {
         case "addItem": {
             // toSlot is optional

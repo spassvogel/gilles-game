@@ -14,7 +14,7 @@ import HitAreaShapes from 'utils/hitAreaShapes';
 import polygons from './hitAreas.json';
 import LumberMill from './structures/LumberMill';
 import Tavern from './structures/Tavern';
-import { withAppContext, AppContextProps } from 'hoc/withAppContext';
+import { withAppContext } from 'hoc/withAppContext';
 import Generic from './structures/Generic';
 import Legenda from './Legenda';
 import TownStage from './TownStage';

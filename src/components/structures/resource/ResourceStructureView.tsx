@@ -21,7 +21,7 @@ import { DragSourceType } from "constants/dragging";
 import HarvestProgress from "./HarvestProgress";
 import IconButton from "components/ui/buttons/IconButton";
 import warehouseIcon from "components/structures/styles/images/warehouse/icon.png"
-import { addItemToWarehouse } from "store/actions/items";
+import { addItemToWarehouse } from "store/actions/stockpile";
 import './styles/resourceStructureView.scss';
 import UpgradeHelpModal from "../UpgradeHelpModal";
 import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
