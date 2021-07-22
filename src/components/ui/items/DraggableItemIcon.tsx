@@ -59,9 +59,7 @@ const DraggableItemIcon = (props: Props & CollectedProps) => {
 
     const { item, onClick, isDragging, connectDragSource, size, index, sourceType, sourceId } = props;
     const handleClick = (event: React.MouseEvent) => {
-        if (onClick) {
-            onClick(event);
-        }
+        onClick?.(event);
     };
     if (isDragging) {
         // TODO: can show some sort of empty state?

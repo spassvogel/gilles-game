@@ -9,6 +9,8 @@ import { useMemo, useState } from "react";
 import Tab from "components/ui/tabs/Tab";
 import { StockpileStoreState } from "store/types/stockpile";
 import { TextManager } from "global/TextManager";
+import { InventoryItemDragInfo } from "components/ui/items/DraggableItemIcon";
+import { getDefinition } from "definitions/items";
 import "./styles/stockpile.scss"
 
 const WAREHOUSE = DragSourceType.warehouse;
@@ -20,6 +22,12 @@ const Stockpile = () => {
 
     const handleDropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
         dropItemWarehouse(item, fromSlot, toSlot, sourceType, sourceId);
+    }
+
+    const handleCheckDropItem = (dragInfo: InventoryItemDragInfo) => {
+        // can only drop on the appropriate category
+        const definition = getDefinition(dragInfo.item)
+        return (definition.itemType === ItemType[selectedItemType as keyof typeof ItemType])
     }
 
     const items = useMemo(() => {
@@ -34,13 +42,15 @@ const Stockpile = () => {
                         <Tab id={itemType} key={itemType}>
                             {TextManager.getItemType(ItemType[itemType as keyof typeof ItemType])}
                         </Tab>);
-                })}
+                    }
+                )}
             </Tabstrip>
             <Inventory
                 sourceType={WAREHOUSE}
                 className="inventory-large"
                 items={items}
                 onDropItem={handleDropItemWarehouse}
+                canDropHere={handleCheckDropItem}
             />
         </div>
     )

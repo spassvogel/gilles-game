@@ -28,7 +28,7 @@ $border: 2px;
 		}
 
 		div[draggable="true"] {
-			// Such that when draggin the text doesnt go left
+			// So that when draggin the text doesnt go left
 			position: absolute;
 			left: 0;
 		}
