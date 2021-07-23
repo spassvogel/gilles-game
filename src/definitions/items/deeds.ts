@@ -11,13 +11,33 @@ export interface DeedDefinition extends ItemDefinition {
 }
 
 const deeds = {
+    alchemist: {
+        structure: "alchemist" as const,
+        itemType,
+        iconImg: `${basePath}deed.png`,
+    },
+    armoursmith: {
+        structure: "armoursmith" as const,
+        itemType,
+        iconImg: `${basePath}deed.png`,
+    },
     lumbermill: {
         structure: "lumberMill" as const,
         itemType,
         iconImg: `${basePath}deed.png`,
     },
+    tavern: {
+        structure: "tavern" as const,
+        itemType,
+        iconImg: `${basePath}deed.png`,
+    },
     weaponsmith: {
         structure: "weaponsmith" as const,
+        itemType,
+        iconImg: `${basePath}deed.png`,
+    },
+    workshop: {
+        structure: "workshop" as const,
         itemType,
         iconImg: `${basePath}deed.png`,
     }
