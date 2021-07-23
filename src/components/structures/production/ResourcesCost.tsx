@@ -8,8 +8,8 @@ import { useResourcesState } from 'hooks/store/resources';
 import Icon from 'components/ui/common/Icon';
 import { ContextType } from 'constants/context';
 import { TooltipManager } from 'global/TooltipManager';
-import "./styles/resourcesCost.scss";
 import useGoldState from "hooks/store/useGoldState";
+import "./styles/resourcesCost.scss";
 
 export interface Props {
     className?: string;

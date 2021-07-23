@@ -17,7 +17,7 @@ import { addResources } from 'store/actions/resources';
 import { setStructureState } from 'store/actions/structures';
 import { StoreState } from 'store/types';
 import { addGold } from 'store/actions/gold';
-import { addItemToWarehouse } from 'store/actions/items';
+import { addItemToWarehouse } from 'store/actions/stockpile';
 import { withWindow } from 'hoc/withWindow';
 import { getTimeMultiplier, setCheatTimeMultiplier, TimeType } from 'mechanics/time';
 import ItemIcon from "components/ui/items/ItemIcon";

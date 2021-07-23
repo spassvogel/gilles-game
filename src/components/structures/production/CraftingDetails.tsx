@@ -12,7 +12,7 @@ import { calculateProductionTime, MAX_WORKERS_CRAFTING } from 'mechanics/craftin
 import { formatDuration } from 'utils/format/time';
 import { getDefinition as getProductionDefinition } from "definitions/production";
 import { ProductionDefinition } from 'definitions/production/types';
-import { addItemToWarehouse } from 'store/actions/items';
+import { addItemToWarehouse } from 'store/actions/stockpile';
 import { removeResources } from 'store/actions/resources';
 import { increaseWorkers } from 'store/actions/structures';
 import { startTask } from 'store/actions/tasks';

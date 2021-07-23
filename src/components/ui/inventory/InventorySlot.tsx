@@ -16,14 +16,15 @@ const dropTarget: DropTargetSpec<Props> = {
         if (dragInfo.sourceType === DragSourceType.adventurerEquipment && dragInfo.inventorySlot !== undefined) {
             return props.item == null || itemAndEquipmentSlotMatch(props.item, dragInfo.inventorySlot);
         }
-        return true;
+        return props.canDropHere ? props.canDropHere(dragInfo) : true;
     },
 };
 
 export interface Props {
     item: Item | null;
-    onDrop: (info: InventoryItemDragInfo) => void;
     size?: IconSize;
+    onDrop: (info: InventoryItemDragInfo) => void;
+    canDropHere?: ( dragInfo: InventoryItemDragInfo ) => boolean;
 }
 
 export interface DropSourceProps {
@@ -51,13 +52,10 @@ const InventorySlot = (props: PropsWithChildren<Props> & DropSourceProps) => {
 
     const classNames = [
         "inventory-item",
+        ...(isActive ? ["drop-active"] : []),
+        ...(!isActive && canDrop ? ["drop-possible"] : [])
     ];
 
-    if (isActive) {
-        classNames.push("drop-active");
-    } else if (canDrop) {
-        classNames.push("drop-possible");
-    }
 
     return connectDropTarget(
         <div className={classNames.join(" ")}>

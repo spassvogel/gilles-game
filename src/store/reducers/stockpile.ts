@@ -1,10 +1,11 @@
 
-import { ItemAction } from "store/actions/items";
+import { StockpileAction } from "store/actions/stockpile";
 import { Reducer } from "redux";
 import { Item, ItemType } from "definitions/items/types";
 import allItems, { getAllItemsByType } from "definitions/items";
 import { StockpileStoreState } from "store/types/stockpile";
 import { getDefinition } from "definitions/structures";
+import { getDefinition as getItemDefinition } from "definitions/items";
 import { WarehouseStructureDefinition } from "definitions/structures/types";
 
 // Items in warehouse
@@ -36,6 +37,7 @@ export const getInitialStockpile = (): StockpileStoreState => {
     return result;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getRandomItem = (): Item => {
     const all = Object.keys(allItems)
     const randomIndex = Math.floor(Math.random() * all.length);
@@ -53,53 +55,74 @@ const getRandomItemOfType = (itemType: ItemType): Item => {
  * @param state
  * @param action
  */
-export const stockpile: Reducer<StockpileStoreState, ItemAction> = (state = getInitialStockpile(), action: ItemAction) => {
-    // switch (action.type) {
-    //     case "addItem": {
-    //         // // toSlot is optional
-    //         // const { item } = action;
-    //         // let { toSlot } = (action);
-    //         // if (toSlot === undefined) {
-    //         //     toSlot = state.findIndex((slot) => slot === null);  // find first empty element
-    //         //     if (toSlot === -1) {
-    //         //         // Still not found. Add at end
-    //         //         // todo: [07/07/2019] GAME DESIGN
-    //         //         return [ ...state, item ];
-    //         //     }
-    //         // }
-    //         // return state.map((element, index) => index === toSlot ? item : element);
-    //     }
+export const stockpile: Reducer<StockpileStoreState, StockpileAction> = (state = getInitialStockpile(), action: StockpileAction) => {
+    switch (action.type) {
+        case "addItem": {
+            const definition = getItemDefinition(action.item)
+            // toSlot is optional
+            const { item } = action;
+            let { toSlot } = (action);
+            const stockpileCategory = ItemType[definition.itemType] as keyof StockpileStoreState
 
-    //     case "moveItemInWarehouse": {
-    //         // const {
-    //         //     fromSlot,
-    //         //     toSlot,
-    //         // } = action;
+            if (toSlot === undefined) {
+                toSlot = state[stockpileCategory].findIndex((slot) => slot === null);  // find first empty element
+                if (toSlot === -1) {
+                    // Still not found. Add at end
+                    // todo: [07/07/2019] GAME DESIGN
+                    return {
+                        ...state,
+                        [stockpileCategory]: [
+                            ...state[stockpileCategory],
+                            item
+                        ]
+                    };
+                }
+            }
+            return {
+                ...state,
+                [stockpileCategory]: state[stockpileCategory].map((element, index) => index === toSlot ? item : element)
+            };
+        }
 
-    //         // return state.map((element, index) => {
-    //         //     if (index === fromSlot) { return state[toSlot]; }
-    //         //     if (index === toSlot) { return state[fromSlot]; }
-    //         //     return element;
-    //         // });
-    //     }
-    //     case "removeItem": {
-    //         // const { fromSlot } = action;
+        case "moveItemInWarehouse": {
+            const {
+                itemType,
+                fromSlot,
+                toSlot,
+            } = action;
+            const stockpileCategory = ItemType[itemType] as keyof StockpileStoreState
 
-    //         // return state.map((element, index) => index !== fromSlot ? element : null);
-    //     }
+            return {
+                ...state,
+                [stockpileCategory]: state[stockpileCategory].map((element, index) => {
+                    if (index === fromSlot) { return state[stockpileCategory][toSlot]; }
+                    if (index === toSlot) { return state[stockpileCategory][fromSlot]; }
+                    return element;
+                })
+            };
+        }
+        case "removeItem": {
+            const { itemType, fromSlot } = action;
+            const stockpileCategory = ItemType[itemType] as keyof StockpileStoreState
 
-    //     // // Adds slots with 'null' to the end
-    //     // case ActionType.addStockpileSlots: {
-    //     //     const {
-    //     //         slots,
-    //     //     } = (action as AddStockpileSlotsAction);
+                return {
+                ...state,
+                [stockpileCategory]: state[stockpileCategory].map((element, index) => index !== fromSlot ? element : null)
+            };
+        }
 
-    //     //     return [
-    //     //         ...state,
-    //     //         ...Array(slots).fill(null)
-    //     //     ];
-    //     // }
-    // }
+        // // Adds slots with 'null' to the end
+        // case ActionType.addStockpileSlots: {
+        //     const {
+        //         slots,
+        //     } = (action as AddStockpileSlotsAction);
+
+        //     return [
+        //         ...state,
+        //         ...Array(slots).fill(null)
+        //     ];
+        // }
+    }
 
     return state;
 };

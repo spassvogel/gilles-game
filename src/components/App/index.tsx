@@ -10,7 +10,6 @@ import {PixiPlugin } from 'gsap/all';
 import {gsap } from 'gsap';
 import {SoundManager} from "global/SoundManager";
 import {TextManager} from "global/TextManager";
-import {Structure} from "definitions/structures";
 import debounce from "debounce";
 import TownView from 'components/town/TownView';
 import Toasts from 'components/ui/toasts/Toasts';
@@ -22,7 +21,6 @@ import {TooltipManager } from 'global/TooltipManager';
 import {getWorldLink, getTownLink } from 'utils/routing';
 import { restartGame } from 'index';
 import Button, { ButtonColor } from 'components/ui/buttons/Button';
-import { StructureDetailsWindow } from 'components/town/StructureDetailsView';
 import "./styles/app.scss";
 
 PixiPlugin.registerPIXI(PIXI);

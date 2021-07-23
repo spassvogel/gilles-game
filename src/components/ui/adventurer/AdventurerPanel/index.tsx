@@ -22,6 +22,8 @@ export interface Props {
     levelBar?: boolean; // whether to show the level bar
     traits?: boolean; // whether to show traits
     skills?: boolean; // whether to show skills
+
+    onStartInventoryItemDrag?: (item: Item, fromSlot: number) => void;
 }
 
 /** Vertical panel showing adventurer info
@@ -34,7 +36,8 @@ const AdventurerPanel = (props: Props) => {
         name = true,
         levelBar = true,
         traits = true,
-        skills = true
+        skills = true,
+        onStartInventoryItemDrag
     } = props;
     const adventurer = useAdventurerState(adventurerId);
     // const renderAttributes = () => Object.keys(adventurer.stats).map((stat) => {
@@ -87,6 +90,7 @@ const AdventurerPanel = (props: Props) => {
                     items={adventurer.inventory}
                     className="inventory-small"
                     onDropItem={handleDropItemInventory}
+                    onStartDrag={onStartInventoryItemDrag}
                 />
             </div>
         </div>

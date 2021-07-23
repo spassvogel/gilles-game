@@ -3,16 +3,18 @@ import { DragSourceType } from "constants/dragging";
 import {Item} from "definitions/items/types";
 import InventorySlot from "./InventorySlot";
 import DraggableItemIcon, { InventoryItemDragInfo } from '../items/DraggableItemIcon';
-import "./styles/inventory.scss";
 import { IconSize } from '../common/Icon';
+import "./styles/inventory.scss";
 
 export interface Props {
     items: (Item|null)[];
     sourceId?: string;   // who does this inventory belong to?
     sourceType: DragSourceType;
     iconSize?: IconSize;
-    onDropItem: (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string) => void;
     className?: string;
+    onDropItem: (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string) => void;
+    onStartDrag?: (item: Item, fromSlot: number) => void;
+    canDropHere?: (dragInfo: InventoryItemDragInfo) => boolean;
 }
 
 /**
@@ -20,13 +22,13 @@ export interface Props {
  * @param props
  */
 const Inventory = (props: Props) => {
+    const { items, canDropHere, onStartDrag } = props;
     const slots = [];
-    for (let i = 0; i < props.items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
         let contents;
-        const item = props.items[i];
+        const item = items[i];
         const handleDrop = (dragInfo: InventoryItemDragInfo) => {
             if (dragInfo.inventorySlot === i && dragInfo.sourceType === props.sourceType && dragInfo.sourceId === props.sourceId) {
-                // TODO: Swap items?!
                 return;
             }
             if (props.onDropItem && dragInfo.inventorySlot !== undefined) {
@@ -35,6 +37,16 @@ const Inventory = (props: Props) => {
            }
         };
 
+        const handleCheckDrop = (dragInfo: InventoryItemDragInfo) => {
+            return canDropHere ? canDropHere(dragInfo) : true;
+        }
+
+        const handleStartDrag = () => {
+            if (item) {
+                onStartDrag?.(item, i);
+            }
+        }
+
         if (item) {
             contents = (
                 <DraggableItemIcon
@@ -42,6 +54,7 @@ const Inventory = (props: Props) => {
                     sourceId={props.sourceId}
                     sourceType={props.sourceType}
                     item={item}
+                    onStartDrag={handleStartDrag}
                 />
             );
        }
@@ -52,6 +65,7 @@ const Inventory = (props: Props) => {
                 item={item}
                 size={props.iconSize}
                 onDrop={handleDrop}
+                canDropHere={handleCheckDrop}
             >
                 {contents}
             </InventorySlot>

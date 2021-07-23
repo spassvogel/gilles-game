@@ -1,8 +1,5 @@
 import * as React from "react";
-import Inventory from "components/ui/inventory/Inventory";
 import ResourcesBox from "components/structures/warehouse/ResourcesBox";
-import { DragSourceType } from "constants/dragging";
-import { Item } from "definitions/items/types";
 import { WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import usePrevious from "hooks/usePrevious";
 import { useEffect, useRef, useState } from "react";
@@ -16,21 +13,16 @@ import { useResourcesState } from 'hooks/store/resources';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
 import { useAdventurersInTown } from 'hooks/store/adventurers';
-import useItemDropActions from 'hooks/actions/useItemActions';
 import StructureLevel from '../StructureLevel';
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
 import { ContextType } from 'constants/context';
 import { Resource } from "definitions/resources";
 import UpgradeHelpModal from "../UpgradeHelpModal";
 import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
-import { useStockpileStateFlat } from "hooks/store/stockpile";
+import Stockpile from "./Stockpile";
 import "./styles/warehouseStructureView.scss";
+import { Item } from "definitions/items/types";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Props  {
-}
-
-const WAREHOUSE = DragSourceType.warehouse;
 
 const WarehouseStructureView = () => {
 
@@ -40,9 +32,7 @@ const WarehouseStructureView = () => {
     const [resourcesDelta, setResourcesDelta] = useState<ResourceStoreState>(empty);    // updating this will trigger animation
     const previousResources = usePrevious(resources);
     const resourcesRef = useRef<HTMLFieldSetElement>(null);
-    const stockpileState = useStockpileStateFlat();
     const structuresState = useSelector<StoreState, StructuresStoreState>(store => store.structures);
-    const {dropItemWarehouse} = useItemDropActions();
 
     useEffect(() => {
         // Calculate delta
@@ -77,9 +67,6 @@ const WarehouseStructureView = () => {
     const { level } = structureState;
     const levelDefinition = useStructureLevel<WarehouseStructureLevelDefinition>("warehouse");
     
-    const handleDropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
-        dropItemWarehouse(item, fromSlot, toSlot, sourceType, sourceId);
-    }
 
     const handleAdventurerTabSelected = (tabId: string) => {
         setSelectedAdventurer(tabId);
@@ -107,6 +94,10 @@ const WarehouseStructureView = () => {
         ]
     }
 
+    const handleAdventurerInventoryItemStartDrag = (item: Item, fromSlot: number) => {
+        console.log(item)
+    }
+
     return (
         <div className="warehouse-structureview">
             <StructureLevel structure={"warehouse"} onHelpClicked={handleHelpClicked} addUpgradeCallbacks={handleUpgradeCallbacks}/>
@@ -120,12 +111,7 @@ const WarehouseStructureView = () => {
                 />
             </fieldset>
             <h3>{TextManager.get("ui-structure-warehouse-stockpile")}</h3>
-            <Inventory
-                sourceType={WAREHOUSE}
-                className="inventory-large"
-                items={stockpileState}
-                onDropItem={handleDropItemWarehouse}
-            />
+            <Stockpile />
             <h3>{TextManager.get("ui-structure-warehouse-adventurers")}</h3>
             <div>
                 <AdventurerTabstrip
@@ -140,6 +126,7 @@ const WarehouseStructureView = () => {
                             horizontalMode={true}
                             traits={false}
                             skills={false}
+                            onStartInventoryItemDrag={handleAdventurerInventoryItemStartDrag}
                         />
                     )}
                 </div>

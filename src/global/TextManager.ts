@@ -83,6 +83,7 @@ export abstract class TextManager {
     public static getItemName(item: Item): string {
         return this.get(`item-${toKebab(item)}-name`);
     }
+    
     public static getItemType(itemType: ItemType): string {
         return this.get(`item-type-${toKebab(ItemType[itemType])}`);
     }

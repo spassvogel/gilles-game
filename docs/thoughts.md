@@ -689,7 +689,7 @@ https://redux.js.org/api/store#subscribelistener
 ### 2021-07-08 Split up stockpile
 
 - [x] Refactor items store to stockpile
-- [ ] I want to split the stockpile into different lists, based on item types
+- [x] I want to split the stockpile into different lists, based on item types
 
 ### 2021-07-10 refactor Structure to types.
 - [x] Instead of enum, use literal types
@@ -713,3 +713,5 @@ s
 - [x] Now has to work through popup. Remove '?' button and add 'Start' button underneath 
 - [x] Had resource requirements 
 
+### 2021-07-22 Tabstrip mobile mode 
+- [ ] Needs to collapse into a type of dropdown select

@@ -30,7 +30,6 @@ export const getDefinition = (item: Item): ItemDefinition => {
 export const getAllItemsByType = (itemType: ItemType): Item[] => {
     switch (itemType) {
         case ItemType.apparel:
-            console.log('its apparal')
             return Object.keys(apparel) as Apparel[];
         case ItemType.deed:
             return Object.keys(deeds) as Deed[];

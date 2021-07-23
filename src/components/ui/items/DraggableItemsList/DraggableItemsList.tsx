@@ -3,8 +3,8 @@ import { Item } from "definitions/items/types";
 import { DragSourceType } from 'constants/dragging';
 import DraggableItemIcon from '../DraggableItemIcon';
 import ItemText from "./ItemText";
-import "./styles/itemsList.scss";
 import { ReactNode } from "react";
+import "./styles/itemsList.scss";
 
 export interface Props {
     className?: string;

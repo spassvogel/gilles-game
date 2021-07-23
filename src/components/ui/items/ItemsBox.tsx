@@ -4,8 +4,8 @@ import { Item } from "definitions/items/types";
 import { TextManager } from "global/TextManager";
 import { useMemo } from 'react';
 import Icon from 'components/ui/common/Icon';
-import "./styles/itemsBox.scss";
 import { useStockpileStateFlat } from "hooks/store/stockpile";
+import "./styles/itemsBox.scss";
 
 export interface Props {
     className?: string;
