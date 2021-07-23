@@ -16,6 +16,12 @@
         line-height: 2rem;
         color: $color-text-lighter;
         text-decoration: none;
+        
+        img {
+            max-width: 75%;
+            max-height: 75%;
+            margin-top: 4px;
+        }
 
         &.active {
             background: black;

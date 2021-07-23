@@ -1,7 +1,11 @@
+import React, { useEffect, useRef } from "react";
 import debounce from "debounce";
 import { TextManager } from "global/TextManager";
-import React, { useEffect, useRef } from "react";
 import { HashLink } from 'react-router-hash-link';
+import iconPerson from './styles/images/icon-person.png';
+import iconHelmet from './styles/images/icon-helmet.png';
+import iconCrosshair from './styles/images/icon-crosshair.png';
+import iconSword from './styles/images/icon-sword.png';
 import "./styles/adventurerSectionSelection.scss"
 
 const AdventurerSectionSelection = () => {
@@ -22,7 +26,7 @@ const AdventurerSectionSelection = () => {
                     link.classList.remove("active");
                 }
             });
-        }, 250);
+        }, 50);
         sectionParent?.addEventListener("scroll", onScroll);
         return () => {
             sectionParent?.removeEventListener("scroll", onScroll);
@@ -33,22 +37,22 @@ const AdventurerSectionSelection = () => {
         <ul className="adventurer-section-selection" ref={ref}>
             <li title={TextManager.get("ui-adventurer-info-general-title")}>
                 <HashLink smooth to="#common" className="active">  
-                    {TextManager.get("ui-adventurer-info-general-title")[0]}
+                    <img src={iconPerson} />
                 </HashLink>
             </li>
             <li title={TextManager.get("ui-adventurer-info-skills-title")}>
                 <HashLink smooth to="#skills">  
-                    {TextManager.get("ui-adventurer-info-skills-title")[0]}
+                    <img src={iconCrosshair} />
                 </HashLink>
             </li>
             <li title={TextManager.get("ui-adventurer-info-equipment-title")}>
                 <HashLink smooth to="#equipment">  
-                    {TextManager.get("ui-adventurer-info-equipment-title")[0]}
+                    <img src={iconHelmet} />
                 </HashLink>
             </li>
             <li title={TextManager.get("ui-adventurer-info-inventory-title")}>
                 <HashLink smooth to={"#inventory" }>  
-                    {TextManager.get("ui-adventurer-info-inventory-title")[0]}
+                    <img src={iconSword} />
                 </HashLink>
             </li>
         </ul>
