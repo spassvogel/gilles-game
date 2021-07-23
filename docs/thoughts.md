@@ -645,6 +645,7 @@ Quests and adventurers dont need to be stored in the store when not active
 ### Group adventurer sections
 Adventurer panel can contain quite a lot of information and player has to be able to navigate quickly
 https://css-tricks.com/sticky-smooth-active-nav/
+https://www.codehim.com/demo/bootstrap-vertical-tabs-with-icons/
 
 
 ### 24/10/2020 Outline on tooltip arrow

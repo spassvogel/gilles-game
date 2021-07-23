@@ -58,17 +58,17 @@
                     border-bottom: none;
                     margin-bottom: -2px;
                 }
-            }
-            
-            .tabstrip-tab.active {
-                margin-bottom: -2px;
-                border-color: $color-highlighted;
-                border-bottom: 0;
-                
-                .avatar {
-                    border: 2px solid $color-highlighted;
-                    border-bottom: none;
-                    margin-bottom: 0;
+
+                &.active {
+                    margin-bottom: -2px;
+                    border-color: $color-highlighted;
+                    border-bottom: 0;
+                    
+                    .avatar {
+                        border: 2px solid $color-highlighted;
+                        border-bottom: none;
+                        margin-bottom: 0;
+                    }
                 }
             }
         }
@@ -104,13 +104,35 @@
 @media only screen and (min-width: $max-width-small) {
     /** medium screen, horizontal layout */
 	.quest-panel.quest-panel-auto {
-		flex-direction: row;
+        display: table;
+        position: relative;
 
         .quest-area {
 			overflow: hidden;
-			justify-content: center;
-			align-items: baseline;
+            display: table-cell;
+            width: 50%;
 		}
+
+        .party-area {
+            display: table-cell;
+            height: 100%;
+            overflow: hidden;
+            position: absolute;
+            width: calc(50% - 4px);
+            padding-left: 0;
+        }
+
+        .adventurer-details {
+            overflow: scroll;
+            height: calc(100% - 32px);
+
+            .adventurer-panel {
+                overflow: hidden;
+                position: relative;
+                padding: 8px;
+                margin-right: 40px;
+            }
+        }
 	}
 }
 @media only screen and (max-width: $max-width-small) {

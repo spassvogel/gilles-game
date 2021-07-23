@@ -44,7 +44,7 @@
     }
 
     &.expanded {
-        height: calc(100vh - #{$misc-topbar-height});
+        height: calc(100vh - #{$misc-topbar-height + 12px});
     
         .log-entries{
             height: 100%;
