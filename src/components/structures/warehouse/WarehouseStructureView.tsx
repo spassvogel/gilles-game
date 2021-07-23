@@ -1,7 +1,5 @@
 import * as React from "react";
 import ResourcesBox from "components/structures/warehouse/ResourcesBox";
-import { DragSourceType } from "constants/dragging";
-import { Item } from "definitions/items/types";
 import { WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import usePrevious from "hooks/usePrevious";
 import { useEffect, useRef, useState } from "react";
@@ -23,6 +21,7 @@ import UpgradeHelpModal from "../UpgradeHelpModal";
 import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
 import Stockpile from "./Stockpile";
 import "./styles/warehouseStructureView.scss";
+import { Item } from "definitions/items/types";
 
 
 const WarehouseStructureView = () => {
@@ -95,6 +94,10 @@ const WarehouseStructureView = () => {
         ]
     }
 
+    const handleAdventurerInventoryItemStartDrag = (item: Item, fromSlot: number) => {
+        console.log(item)
+    }
+
     return (
         <div className="warehouse-structureview">
             <StructureLevel structure={"warehouse"} onHelpClicked={handleHelpClicked} addUpgradeCallbacks={handleUpgradeCallbacks}/>
@@ -123,6 +126,7 @@ const WarehouseStructureView = () => {
                             horizontalMode={true}
                             traits={false}
                             skills={false}
+                            onStartInventoryItemDrag={handleAdventurerInventoryItemStartDrag}
                         />
                     )}
                 </div>

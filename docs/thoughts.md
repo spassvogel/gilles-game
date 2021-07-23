@@ -689,7 +689,7 @@ https://redux.js.org/api/store#subscribelistener
 ### 2021-07-08 Split up stockpile
 
 - [x] Refactor items store to stockpile
-- [ ] I want to split the stockpile into different lists, based on item types
+- [x] I want to split the stockpile into different lists, based on item types
 
 ### 2021-07-10 refactor Structure to types.
 - [x] Instead of enum, use literal types

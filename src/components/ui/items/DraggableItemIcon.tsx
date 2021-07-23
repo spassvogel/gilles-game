@@ -14,6 +14,7 @@ export interface Props {
     sourceId?: string;
     size?: IconSize;
 
+    onStartDrag?: () => void;
     onClick?: (event: React.MouseEvent) => void;
 }
 
@@ -35,12 +36,21 @@ export interface InventoryItemDragInfo {
  */
 const source: DragSourceSpec<Props, InventoryItemDragInfo> = {
     beginDrag(props: Props) {
+        const { 
+            onStartDrag,
+            index,
+            item,
+            sourceId,
+            sourceType
+        } = props;
+        onStartDrag?.();
+
         // Return the data describing the dragged item
         return {
-            inventorySlot: props.index,
-            item: props.item,
-            sourceId: props.sourceId,
-            sourceType: props.sourceType,
+            inventorySlot: index,
+            item,
+            sourceId,
+            sourceType,
         };
     },
 };
