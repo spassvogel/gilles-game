@@ -401,6 +401,9 @@
     "trait-house-monroe-description": "A proud member of House Monroe",
     "trait-house-monroe-name": "House Monroe",
 
+    "ui-adventurer-info-equipment-title": "Equipment",
+    "ui-adventurer-info-general-title": "General",
+    "ui-adventurer-info-inventory-title": "Inventory",
     "ui-adventurer-info-skills-title": "Skills",
     "ui-adventurer-info-traits-title": "Traits",
     "ui-adventurer-info-xp-level-up": "Level up!",

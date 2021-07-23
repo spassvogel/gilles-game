@@ -125,12 +125,21 @@
         .adventurer-details {
             overflow: scroll;
             height: calc(100% - 32px);
+            position: relative;
 
             .adventurer-panel {
                 overflow: hidden;
                 position: relative;
-                padding: 8px;
                 margin-right: 40px;
+                
+                section {
+                    padding: 8px;
+                    margin-bottom: 3rem;
+
+                    &:last-child {
+                        min-height: calc(100vh - 300px);
+                    }
+                }
             }
         }
 	}

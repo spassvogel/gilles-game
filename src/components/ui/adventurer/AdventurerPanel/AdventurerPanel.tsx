@@ -12,6 +12,7 @@ import ApIndicator from './ApIndicator';
 import AdventurerTraits from './AdventurerTraits';
 import AdventurerEquipment from './AdventurerEquipment';
 import "./styles/adventurerPanel.scss";
+import { TextManager } from "global/TextManager";
 
 export interface Props {
     adventurerId: string;
@@ -59,31 +60,35 @@ const AdventurerPanel = (props: Props) => {
 
     return (
         <div className={`adventurer-panel${(horizontalMode ? " horizontal" : "")}`}>
-            <div className="left">
-                <div className="info">
-                    { name && (
-                        <div className="name">
-                            {adventurer.name}
-                            {questName && <ApIndicator questName={questName} adventurer={adventurer} />}
-                        </div>
-                    )}
-                    { levelBar && <Level adventurerId={adventurer.id}/> }
-
-                    { traits && <AdventurerTraits adventurerId={adventurer.id}/> }
-                    { skills && <AdventurerSkills adventurerId={adventurer.id}/> }
-                    {/* <div className="renderAttributes">
-                        {renderAttributes()}
-                    </div> */}
+           <section id="common">
+               <div className="info">
+               { name && (
+                    <div className="name">
+                        {adventurer.name}
+                        {questName && <ApIndicator questName={questName} adventurer={adventurer} />}
+                    </div>
+                )}
+                { levelBar && <Level adventurerId={adventurer.id}/> }
+                { traits && <AdventurerTraits adventurerId={adventurer.id}/> }
                 </div>
+            </section>
+            <section id="skills">
+                { skills && <AdventurerSkills adventurerId={adventurer.id}/> }
+                {/* <div className="renderAttributes">
+                    {renderAttributes()}
+                </div> */}
+            </section>
+            <section id="equipment">
                 <div className="equipment">
+                    <p>{TextManager.get("ui-adventurer-info-equipment-title")}</p>
                     <AdventurerEquipment
                         adventurer={adventurer}
                         onDropItemEquipment={handleDropItemEquipment}
                     />
                 </div>
-
-            </div>
-            <div className="right">
+            </section>
+            <section id="inventory">
+            <p>{TextManager.get("ui-adventurer-info-inventory-title")}</p>
                 <Inventory
                     sourceType={DragSourceType.adventurerInventory}
                     sourceId={adventurer.id}
@@ -92,7 +97,7 @@ const AdventurerPanel = (props: Props) => {
                     onDropItem={handleDropItemInventory}
                     onStartDrag={onStartInventoryItemDrag}
                 />
-            </div>
+            </section>
         </div>
     )
 }

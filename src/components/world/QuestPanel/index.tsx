@@ -12,6 +12,7 @@ import Situation from './modals/Situation';
 import SceneControllerContextProvider from './context/SceneControllerContext';
 import CombatBar from './CombatBar';
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
+import { AdventurerSectionSelection } from "components/ui/adventurer/AdventurerPanel";
 import "./styles/questPanel.scss";
 
 enum Layout {
@@ -90,6 +91,7 @@ const QuestPanel = (props: Props) => {
                         disabled={activeInteractionModal !== undefined}
                     />
                     <div className="adventurer-details">
+                        <AdventurerSectionSelection />
                         { selectedAdventurerId && (
                             <AdventurerPanel
                                 adventurerId={selectedAdventurerId}
