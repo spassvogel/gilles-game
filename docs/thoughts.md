@@ -548,7 +548,7 @@ https://github.com/DragonBones/DragonBonesJS
 - [x] Try to implement sass again (https://www.google.com/search?q=sass+create+react+app)
 - [ ] Use variables for cursor
 - [x] Convert existing css to sass: http://beautifytools.com/css-to-scss-converter.php
-- [ ] Use craco and react-scoped-css for scoping https://dev.to/viclafouch/how-to-scope-your-css-scss-in-react-js-271a
+- [-] Use craco and react-scoped-css for scoping https://dev.to/viclafouch/how-to-scope-your-css-scss-in-react-js-271a
 
 #### Item rarity/quality [+art] [+design]
 - [x] background on items. gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary
@@ -657,7 +657,7 @@ https://www.codehim.com/demo/bootstrap-vertical-tabs-with-icons/
 - [x] Continue playing music when scene changes. When 
 
 ### Animated xp bar
-- [ ] xp bar animates when switching adventurer
+- [x] xp bar animates when switching adventurer
 
 ### Improve structure UI 
 - [ ] Add music/sound
@@ -702,10 +702,10 @@ https://redux.js.org/api/store#subscribelistener
 ### 2021-07-13 TextManager can return JSX
  [x] TexManager should be able to return JSX [x] Links
  [x] Bulleted lists
-s
+
 ### 2021-07-17 Speedpot
-- [ ] Figure out a way to decrease the time of various tasks, both for cheats and as an in-game mechanics
-- [ ] harvest (interval)
+- [x] Figure out a way to decrease the time of various tasks, both for cheats and as an in-game mechanics
+- [x] harvest (interval)
 
 ### 2021-07-18 Full warehouse indication in resource structure
 - [x] Show in ResourceGenerationRow
