@@ -94,10 +94,6 @@ const WarehouseStructureView = () => {
         ]
     }
 
-    const handleAdventurerInventoryItemStartDrag = (item: Item, fromSlot: number) => {
-        console.log(item)
-    }
-
     return (
         <div className="warehouse-structureview">
             <StructureLevel structure={"warehouse"} onHelpClicked={handleHelpClicked} addUpgradeCallbacks={handleUpgradeCallbacks}/>
@@ -126,7 +122,6 @@ const WarehouseStructureView = () => {
                             horizontalMode={true}
                             traits={false}
                             skills={false}
-                            onStartInventoryItemDrag={handleAdventurerInventoryItemStartDrag}
                         />
                     )}
                 </div>
