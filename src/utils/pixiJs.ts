@@ -30,11 +30,11 @@ export async function loadResourceAsync(path: string) {
     });
 }
 
-export const loadResource = (path: string, callback: (resource: any) => void) => { 
+export const loadResource = (path: string, callback: (resource: ILoaderResource) => void) => { 
     const loader = Loader.shared;
     if (loader.resources[path]) {
         callback(loader.resources[path]);
         return;
     }
-    loader.add(path).load((_, resources) => { callback(resources[path]!)});
+    loader.add(path).load((_, resources) => { callback(resources[path])});
 }

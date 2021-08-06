@@ -21,7 +21,6 @@ import UpgradeHelpModal from "../UpgradeHelpModal";
 import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
 import Stockpile from "./Stockpile";
 import "./styles/warehouseStructureView.scss";
-import { Item } from "definitions/items/types";
 
 
 const WarehouseStructureView = () => {
@@ -62,7 +61,6 @@ const WarehouseStructureView = () => {
         return () => { clearTimeout(timeout); }
     }, [resourcesDelta]);
 
-    const structureDefinition = useStructureDefinition<WarehouseStructureDefinition>("warehouse");
     const structureState = useStructureState("warehouse");
     const { level } = structureState;
     const levelDefinition = useStructureLevel<WarehouseStructureLevelDefinition>("warehouse");
@@ -85,18 +83,9 @@ const WarehouseStructureView = () => {
         event.stopPropagation();
     }
 
-    const handleUpgradeCallbacks = (nextLevel: number) => {
-        const currentLevelDefinition = structureDefinition.levels[structureState.level];
-        const nextLevelDefinition = structureDefinition.levels[nextLevel];
-        const slots = nextLevelDefinition.maxStockpile - currentLevelDefinition.maxStockpile;
-        return [
-            // addStockpileSlots(slots)
-        ]
-    }
-
     return (
         <div className="warehouse-structureview">
-            <StructureLevel structure={"warehouse"} onHelpClicked={handleHelpClicked} addUpgradeCallbacks={handleUpgradeCallbacks}/>
+            <StructureLevel structure={"warehouse"} onHelpClicked={handleHelpClicked} />
             <fieldset className="resources" ref={resourcesRef}>
                 <legend>{TextManager.get("ui-structure-warehouse-resources")}</legend>
                 <ResourcesBox

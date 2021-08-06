@@ -25,6 +25,7 @@ const useTilesetsLoader = (basePath: string) => {
                 throw new Error(`Loading ${basePath}\n${resource.error}`);
             }
             const spritesheetData = parseSpritesheetData(nextTileset);
+            if (!resource.texture) throw new Error(`No texure found ${basePath}/${nextTileset.image}`)
             const spritesheet = new Spritesheet(resource.texture, spritesheetData);
 
             spritesheet.parse(() => {

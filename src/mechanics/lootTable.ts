@@ -9,7 +9,7 @@ export function pick(table: {[key in Item]?: number}) : Item {
     let weight = 0;
     const entries = Object.entries(table);
     for(let i = 0; i < entries.length; i++) {
-        weight += entries[i][1]!;
+        weight += entries[i][1];
         if (randomNumber <= weight) {
             return entries[i][0] as unknown as Item
         }
@@ -26,10 +26,7 @@ export const test = () => {
     const result: {[key in Item]?: number} = {}
     for(let i = 0; i < 500; i++) {
         const picked = pick(lootTable);
-        if (!result[picked]) {
-            result[picked] = 0
-        }
-        result[picked]!++;
+        result[picked] = (result[picked] ?? 0) + 1;
     }
     console.log(result)
 }
