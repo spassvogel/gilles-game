@@ -22,6 +22,7 @@ import { GameSound, SoundManager } from 'global/SoundManager';
 import { Allegiance } from "store/types/combat";
 import { Item } from "definitions/items/types";
 import { Loader, Point } from "pixi.js";
+import { Sound } from "@pixi/sound";
 
 const spritesheetBasePath = "img/scene/actors/";
 export const movementDuration = 500; // time every tile movement takes
@@ -62,7 +63,7 @@ export class BaseSceneController<TQuestVars> {
         }
         this.dataLoading = true;
         // load sounds
-        const loadSound = async (sound: GameSound, files: string[]): Promise<PIXI.sound.Sound[]> => {
+        const loadSound = async (sound: GameSound, files: string[]): Promise<Sound[]> => {
             return new Promise((resolve, _reject) => {
                 SoundManager.addSound(sound, files, (sounds) => {
                     resolve(sounds);

@@ -2,7 +2,7 @@ import React, { forwardRef, PropsWithChildren } from "react";
 import { Viewport as PixiViewport } from "pixi-viewport";
 import { PixiComponent, useApp } from "@inlet/react-pixi";
 import gauntlet from "components/App/styles/img/cursors/dwarven_gauntlet_extra_6.png";
-import { Application, InteractionEvent } from "pixi.js";
+import { Application, InteractionEvent, Ticker } from "pixi.js";
 
 interface Props {
   onClick?(event: InteractionEvent): void;
@@ -39,7 +39,7 @@ const PixiComponentViewport = PixiComponent("Viewport", {
       screenHeight: props.screenHeight,
       worldWidth: props.worldWidth,
       worldHeight: props.worldHeight,
-      ticker: props.app.ticker,
+      ticker: Ticker.shared,
       interaction: props.app.renderer.plugins.interaction,
       // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
     });
@@ -59,6 +59,6 @@ const PixiComponentViewport = PixiComponent("Viewport", {
       .decelerate();
 
     return viewport as unknown as PixiViewport;
-  }
+  },
 });
 export default Viewport;

@@ -1,5 +1,5 @@
 import localforage from 'localforage';
-import sound from 'pixi-sound';
+import { Sound, IMediaInstance, filters } from '@pixi/sound';
 import {gsap } from 'gsap';
 import { Loader } from 'pixi.js';
 
@@ -37,9 +37,9 @@ export type GameSound =
 ;
 
 type SoundInfo = {
-    instance: sound.IMediaInstance;
+    instance: IMediaInstance;
     gameSound: GameSound;
-    pixiSound: sound.Sound;
+    pixiSound: Sound;
     storePosition?: boolean;
 }
 
@@ -49,13 +49,13 @@ const DEFAULT_SCENE_VOLUME = 1;
 const STORAGE_KEY_VOLUME = "channelVolume";
 
 export class SoundManager {
-    private static _sounds: { [key: string]: sound.Sound[] } = {};
+    private static _sounds: { [key: string]: Sound[] } = {};
     private static _currentSound: { [key: number]: SoundInfo } = {};    // per channel
     private static _storedPositions: { [key: string]: number } = {};
     
     private static _channelVolume: {[key: number]: number} = {};
     private static _initialized = false;
-    private static _filter = new sound.filters.TelephoneFilter() 
+    private static _filter = new filters.TelephoneFilter() 
 
     public static async init() {
         // Attempt to fetch volumes from storage. If not set, revert to defaults
@@ -68,7 +68,7 @@ export class SoundManager {
     }
 
 
-    public static async addSound(gameSound: GameSound, files: string[] | string, complete?: (sounds: sound.Sound[]) => void) {
+    public static async addSound(gameSound: GameSound, files: string[] | string, complete?: (sounds: Sound[]) => void) {
         if (typeof files === "string") {
             files = [files];
         }
@@ -80,8 +80,10 @@ export class SoundManager {
 
         const loader = new Loader();
         files.map((file) => loader.add(file));
-        loader.load((_, resources: PIXI.LoaderResource) => {
+        loader.load((_, resources) => {
             if (resources) {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore no 'sound' property on LoaderResource 
                 this._sounds[gameSound] = Object.values(resources).filter(Boolean).map(r => r.sound);
                 complete?.(this._sounds[gameSound]);
             }
@@ -140,7 +142,7 @@ export class SoundManager {
         });
     }
 
-    protected static getSound(sound: GameSound): sound.Sound {
+    protected static getSound(sound: GameSound): Sound {
         if (!this._sounds[sound]?.length) {
             throw new Error(`No sound found for ${sound}`);
         }
