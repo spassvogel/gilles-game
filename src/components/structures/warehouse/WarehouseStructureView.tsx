@@ -1,6 +1,6 @@
 import * as React from "react";
 import ResourcesBox from "components/structures/warehouse/ResourcesBox";
-import { WarehouseStructureDefinition, WarehouseStructureLevelDefinition } from "definitions/structures/types";
+import { WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import usePrevious from "hooks/usePrevious";
 import { useEffect, useRef, useState } from "react";
 import { empty, ResourceStoreState } from "store/types/resources";
@@ -8,7 +8,7 @@ import { StructuresStoreState } from "store/types/structures";
 import { TextManager } from "global/TextManager";
 import { TooltipManager } from 'global/TooltipManager';
 import AdventurerTabstrip from 'components/world/QuestPanel/AdventurerTabstrip';
-import { useStructureDefinition, useStructureLevel, useStructureState } from 'hooks/store/structures';
+import { useStructureLevel, useStructureState } from 'hooks/store/structures';
 import { useResourcesState } from 'hooks/store/resources';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
