@@ -137,7 +137,10 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
                 if (qss.name === action.questName) {
                     const scene = qss.scene;
                     if (!scene) throw new Error("Something broke. No scene");
-                    scene.actionQueue = [...scene.actionQueue || [], action.sceneAction];
+                    scene.actionQueue = [
+                        ...scene.actionQueue ?? [], 
+                        action.sceneAction
+                    ];
 
                     return {
                         ...qss,
