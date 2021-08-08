@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.5.0" name="forest-floor-64" tilewidth="64" tileheight="64" tilecount="256" columns="16">
+<tileset version="1.5" tiledversion="1.7.1" name="forest-floor-64" tilewidth="64" tileheight="64" tilecount="256" columns="16">
  <image source="forest-floor-64.png" width="1024" height="1024"/>
  <wangsets>
   <wangset name="Unnamed Set" type="corner" tile="-1">
@@ -44,6 +44,10 @@
    <wangtile tileid="169" wangid="0,4,0,2,0,2,0,2"/>
    <wangtile tileid="170" wangid="0,4,0,2,0,2,0,4"/>
    <wangtile tileid="171" wangid="0,2,0,2,0,2,0,4"/>
+   <wangtile tileid="172" wangid="0,4,0,1,0,4,0,4"/>
+   <wangtile tileid="173" wangid="0,4,0,4,0,1,0,4"/>
+   <wangtile tileid="188" wangid="0,1,0,4,0,4,0,4"/>
+   <wangtile tileid="189" wangid="0,4,0,4,0,4,0,1"/>
    <wangtile tileid="192" wangid="0,0,0,3,0,0,0,0"/>
    <wangtile tileid="193" wangid="0,0,0,3,0,3,0,0"/>
    <wangtile tileid="194" wangid="0,0,0,0,0,3,0,0"/>
