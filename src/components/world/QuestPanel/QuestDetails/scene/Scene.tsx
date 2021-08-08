@@ -9,9 +9,9 @@ import SceneUI, { ActionIntent } from './ui/SceneUI';
 import ActionPreview from './ActionPreview';
 import { isAdventurer } from "store/types/scene";
 import SceneLog from "./SceneLog";
-import "./styles/scene.scss";
 import { CombatController } from "mechanics/scenes/CombatController";
 import { Rectangle } from "pixi.js";
+import "./styles/scene.scss";
 
 export interface Props {
     selectedActorId: string;
