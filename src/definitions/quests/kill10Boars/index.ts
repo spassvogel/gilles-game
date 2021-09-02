@@ -11,25 +11,21 @@ const kill10Boars: QuestDefinition<Kill10BoarsQuestVars> = {
     nodes: [{
         x: 0,
         y: 1,
-        type: QuestNodeType.nothing,
-        log: "quest-kill10-boars-node0",
+        type: QuestNodeType.encounter,
+        startScene: "dungeon.entrance",
     }, {
-    //     x: 0,
-    //     y: 2,
-    //     type: QuestNodeType.nothing,
-    // }, {
-    //     x: 0,
-    //     y: 3,
-    //     type: QuestNodeType.nothing,
-    // }, {
-    //     x: 0,
-    //     y: 4,
-    //     type: QuestNodeType.nothing,
-    // }, {
+        x: 0,
+        y: 2,
+        log: "quest-kill10-boars-enter-dungeon",
+        type: QuestNodeType.nothing,
+    }, {
+        x: 0,
+        y: 3,
+        type: QuestNodeType.nothing,
+    }, {
         x: 0,
         y: 3,
         type: QuestNodeType.encounter,
-        // log: "quest-kill10-boars-enter-dungeon",
         startScene: "dungeon.entrance"
     }, {
         x: 1,

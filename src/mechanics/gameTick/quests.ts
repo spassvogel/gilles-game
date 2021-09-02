@@ -38,6 +38,17 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
     const log: LogUpdate[] = [];
     const quests: QuestUpdate[] = [];
     const state: StoreState = store.getState();
+
+    // Will set the scene name on the given quest
+    // SceneControllerContextProvider will detect this and load the scene data
+    const initializeScene = (quest: QuestStoreState, sceneName: string) => {
+        store.dispatch(setSceneName(quest.name, sceneName));
+
+        const questTitle = TextManager.getQuestTitle(quest.name);
+        const leader = getQuestLeader(state.adventurers, quest);
+        ToastManager.addToast(questTitle, Type.questEncounter, leader?.avatarImg, getQuestLink(quest.name));
+    }
+
     // Moves the quest line progress. Only if currently at a 'nothing' node
     // Otherwise the player has to do something to move the quest along
     state.quests.forEach((quest: QuestStoreState) => {
@@ -48,6 +59,13 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
         const currentProgress = quest.progress;
         const currentNodeIndex = Math.floor(currentProgress);
         const currentNode = questDefinition.nodes[currentNodeIndex];
+
+        if (currentNode.type === QuestNodeType.encounter) {
+            if (quest.sceneName === undefined) {
+                // This happens when the first node is an encounter. Initialize it right away
+                initializeScene(quest, currentNode.startScene)
+            }
+        }
         if (currentNode.type === QuestNodeType.nothing) {
             // Currently at a 'nothing' node
             const progressIncrease = (delta / (MS_PER_MINUTE / timeMultiplier)) * speed;
@@ -59,12 +77,8 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
                 const nextNode = questDefinition.nodes[currentNodeIndex + i];
                 if (nextNode.type === QuestNodeType.encounter) {
                     // We've hit an encounter node. set the progress to here and stop looking at other nodes
-
-                    store.dispatch(setSceneName(quest.name, nextNode.startScene));
-
-                    const questTitle = TextManager.getQuestTitle(quest.name);
-                    const leader = getQuestLeader(state.adventurers, quest);
-                    ToastManager.addToast(questTitle, Type.questEncounter, leader?.avatarImg, getQuestLink(quest.name));
+window.stop(); // todo REMOVE THIS!
+                    initializeScene(quest, nextNode.startScene);
 
                     // Add quest to log
                     if (nextNode.log) {
