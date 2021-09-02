@@ -270,8 +270,10 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
     }, [animation, idleAnimation, orientation, lookAt])
 
     const getFrames = useCallback(() => {
-        const prefix = '';
-        // const prefix = `${spritesheet.data.meta.image}-`;
+        const spritesheet = Loader.shared.resources[spritesheetPath];
+        // Prefix all animations with the name of the image (without the extension) and a hyphen
+        // So `orc-axe-walk0-n`, `skeleton-attack1-e`
+        const prefix = `${spritesheet.data.meta.image.substring(0, spritesheet.data.meta.image.lastIndexOf('.'))}-`;
         switch (orientation) {
             case Orientation.northWest:
                 return `${prefix}${animation}-${Orientation.northEast}`;

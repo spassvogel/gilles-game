@@ -1,6 +1,6 @@
 {
     "frames": {
-        "stand-n": {
+        "elf-bow-stand-n": {
             "frame": {
                 "x": 0,
                 "y": 0,
@@ -8,7 +8,7 @@
                 "h": 142
             }
         },
-        "stand-ne": {
+        "elf-bow-stand-ne": {
             "frame": {
                 "x": 142,
                 "y": 0,
@@ -16,7 +16,7 @@
                 "h": 142
             }
         },
-        "stand-e": {
+        "elf-bow-stand-e": {
             "frame": {
                 "x": 284,
                 "y": 0,
@@ -24,7 +24,7 @@
                 "h": 142
             }
         },
-        "stand-se": {
+        "elf-bow-stand-se": {
             "frame": {
                 "x": 426,
                 "y": 0,
@@ -32,7 +32,7 @@
                 "h": 142
             }
         },
-        "stand-s": {
+        "elf-bow-stand-s": {
             "frame": {
                 "x": 568,
                 "y": 0,
@@ -40,7 +40,7 @@
                 "h": 142
             }
         },
-        "walk0-n": {
+        "elf-bow-walk0-n": {
             "frame": {
                 "x": 0,
                 "y": 142,
@@ -48,7 +48,7 @@
                 "h": 142
             }
         },
-        "walk0-ne": {
+        "elf-bow-walk0-ne": {
             "frame": {
                 "x": 142,
                 "y": 142,
@@ -56,7 +56,7 @@
                 "h": 142
             }
         },
-        "walk0-e": {
+        "elf-bow-walk0-e": {
             "frame": {
                 "x": 284,
                 "y": 142,
@@ -64,7 +64,7 @@
                 "h": 142
             }
         },
-        "walk0-se": {
+        "elf-bow-walk0-se": {
             "frame": {
                 "x": 426,
                 "y": 142,
@@ -72,7 +72,7 @@
                 "h": 142
             }
         },
-        "walk0-s": {
+        "elf-bow-walk0-s": {
             "frame": {
                 "x": 568,
                 "y": 142,
@@ -80,7 +80,7 @@
                 "h": 142
             }
         },
-        "walk1-n": {
+        "elf-bow-walk1-n": {
             "frame": {
                 "x": 0,
                 "y": 284,
@@ -88,7 +88,7 @@
                 "h": 142
             }
         },
-        "walk1-ne": {
+        "elf-bow-walk1-ne": {
             "frame": {
                 "x": 142,
                 "y": 284,
@@ -96,7 +96,7 @@
                 "h": 142
             }
         },
-        "walk1-e": {
+        "elf-bow-walk1-e": {
             "frame": {
                 "x": 284,
                 "y": 284,
@@ -104,7 +104,7 @@
                 "h": 142
             }
         },
-        "walk1-se": {
+        "elf-bow-walk1-se": {
             "frame": {
                 "x": 426,
                 "y": 284,
@@ -112,7 +112,7 @@
                 "h": 142
             }
         },
-        "walk1-s": {
+        "elf-bow-walk1-s": {
             "frame": {
                 "x": 568,
                 "y": 284,
@@ -120,7 +120,7 @@
                 "h": 142
             }
         },
-        "walk2-n": {
+        "elf-bow-walk2-n": {
             "frame": {
                 "x": 0,
                 "y": 426,
@@ -128,7 +128,7 @@
                 "h": 142
             }
         },
-        "walk2-ne": {
+        "elf-bow-walk2-ne": {
             "frame": {
                 "x": 142,
                 "y": 426,
@@ -136,7 +136,7 @@
                 "h": 142
             }
         },
-        "walk2-e": {
+        "elf-bow-walk2-e": {
             "frame": {
                 "x": 284,
                 "y": 426,
@@ -144,7 +144,7 @@
                 "h": 142
             }
         },
-        "walk2-se": {
+        "elf-bow-walk2-se": {
             "frame": {
                 "x": 426,
                 "y": 426,
@@ -152,7 +152,7 @@
                 "h": 142
             }
         },
-        "walk2-s": {
+        "elf-bow-walk2-s": {
             "frame": {
                 "x": 568,
                 "y": 426,
@@ -160,7 +160,7 @@
                 "h": 142
             }
         },
-        "walk3-n": {
+        "elf-bow-walk3-n": {
             "frame": {
                 "x": 0,
                 "y": 568,
@@ -168,7 +168,7 @@
                 "h": 142
             }
         },
-        "walk3-ne": {
+        "elf-bow-walk3-ne": {
             "frame": {
                 "x": 142,
                 "y": 568,
@@ -176,7 +176,7 @@
                 "h": 142
             }
         },
-        "walk3-e": {
+        "elf-bow-walk3-e": {
             "frame": {
                 "x": 284,
                 "y": 568,
@@ -184,7 +184,7 @@
                 "h": 142
             }
         },
-        "walk3-se": {
+        "elf-bow-walk3-se": {
             "frame": {
                 "x": 426,
                 "y": 568,
@@ -192,7 +192,7 @@
                 "h": 142
             }
         },
-        "walk3-s": {
+        "elf-bow-walk3-s": {
             "frame": {
                 "x": 568,
                 "y": 568,
@@ -200,7 +200,7 @@
                 "h": 142
             }
         },
-        "attack0-n": {
+        "elf-bow-attack0-n": {
             "frame": {
                 "x": 0,
                 "y": 1110,
@@ -208,7 +208,7 @@
                 "h": 142
             }
         },
-        "attack0-ne": {
+        "elf-bow-attack0-ne": {
             "frame": {
                 "x": 142,
                 "y": 1110,
@@ -216,7 +216,7 @@
                 "h": 142
             }
         },
-        "attack0-e": {
+        "elf-bow-attack0-e": {
             "frame": {
                 "x": 284,
                 "y": 1110,
@@ -224,7 +224,7 @@
                 "h": 142
             }
         },
-        "attack0-se": {
+        "elf-bow-attack0-se": {
             "frame": {
                 "x": 426,
                 "y": 1110,
@@ -232,7 +232,7 @@
                 "h": 142
             }
         },
-        "attack0-s": {
+        "elf-bow-attack0-s": {
             "frame": {
                 "x": 568,
                 "y": 1110,
@@ -240,7 +240,7 @@
                 "h": 142
             }
         },
-        "attack1-n": {
+        "elf-bow-attack1-n": {
             "frame": {
                 "x": 0,
                 "y": 1332,
@@ -248,7 +248,7 @@
                 "h": 142
             }
         },
-        "attack1-ne": {
+        "elf-bow-attack1-ne": {
             "frame": {
                 "x": 142,
                 "y": 1332,
@@ -256,7 +256,7 @@
                 "h": 142
             }
         },
-        "attack1-e": {
+        "elf-bow-attack1-e": {
             "frame": {
                 "x": 284,
                 "y": 1332,
@@ -264,7 +264,7 @@
                 "h": 142
             }
         },
-        "attack1-se": {
+        "elf-bow-attack1-se": {
             "frame": {
                 "x": 426,
                 "y": 1332,
@@ -272,7 +272,7 @@
                 "h": 142
             }
         },
-        "attack1-s": {
+        "elf-bow-attack1-s": {
             "frame": {
                 "x": 568,
                 "y": 1332,
