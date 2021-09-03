@@ -1,6 +1,5 @@
-import { deductActorAp, enqueueSceneAction, startTurn } from "store/actions/quests";
-import { StoreState } from "store/types";
-import { Store, AnyAction } from "redux";
+import { enqueueSceneAction, startTurn } from "store/actions/quests";
+import { AnyAction } from "redux";
 import { Allegiance } from "store/types/combat";
 import { ActorObject, SceneAction, SceneActionType } from "store/types/scene";
 import { locationEquals } from "utils/tilemap";
@@ -46,7 +45,7 @@ export class CombatController {
       }
       
       
-      if (turn === Allegiance.enemy && !scene.actionQueue?.length) {
+      if (turn === Allegiance.enemy && scene.actionQueue?.length === 0) {
         const totalEnemiesAp = enemies.reduce((acc, value) => acc + value.ap, 0)
 
         if (totalEnemiesAp === 0) {
@@ -55,44 +54,25 @@ export class CombatController {
           return
         }
 
-
-        console.log("total enemy ap: ", totalEnemiesAp)
         const enemy = this.findEnemyWithAp()
-        console.log(new Date().getTime(), "do smt with: ", enemy, scene, scene.actionQueue)
         if (enemy && enemy.location) {
           const target = this.findNearestActor(enemy.location, Allegiance.player);
           if (!target || !target.location) return // no target? did everyone die?
-          console.log('attack ', target)
           const path = this.sceneController.findPath(enemy.location, target.location);
 
-          // this.dispatch(deductActorAp(quest.name, enemy.name, path?.length || 0));
-
-          // if (this.combat) {
-          //     const remaining = actor.ap || -1;
-          //     if (remaining < (path?.length || 0)) {
-          //         // return;
-          //     }
-          //     this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
-          // }
           path?.forEach((l, index) => {
               const sceneAction: SceneAction = {
                   actionType: SceneActionType.move,
                   actorId: enemy.name,
                   target: l as [number, number],
-                  endsAt: movementDuration * 10 * (index + 1) + performance.now()
+                  endsAt: movementDuration * (index + 1) + performance.now()
               };
               this.dispatch(enqueueSceneAction(quest.name, sceneAction));
           });
-          // break;
         }
 
       }
-      // console.log(totalAdventurerAp, totalEnemiesAp, quest.scene.turn )
     }
-    // if (questState) {
-    //   console.log(questState)
-    //   console.log()
-    // }
   }
 
   static getQuestStoreState() {
@@ -101,8 +81,6 @@ export class CombatController {
 
   /** Finds the actor nearest to `from`, but not ON from */
   static findNearestActor(from: [number, number], allegiance?: Allegiance) {
-    // const qss = this.getQuestStoreState();
-    // qss?.scene.
     if (!this.sceneController) return undefined;
     const actors = this.sceneController.sceneActors;
     let distance = Number.MAX_VALUE;
@@ -113,7 +91,7 @@ export class CombatController {
       if (steps !== undefined && steps < distance) {
         if (allegiance === undefined || a.allegiance === allegiance) {
           distance = steps;
-          actor = a
+          actor = a;
         }
       }
     })

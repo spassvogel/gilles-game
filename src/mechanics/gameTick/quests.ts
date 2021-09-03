@@ -77,7 +77,7 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
                 const nextNode = questDefinition.nodes[currentNodeIndex + i];
                 if (nextNode.type === QuestNodeType.encounter) {
                     // We've hit an encounter node. set the progress to here and stop looking at other nodes
-window.stop(); // todo REMOVE THIS!
+window.stop(); // todo REMOVE THIS! this stops the timer
                     initializeScene(quest, nextNode.startScene);
 
                     // Add quest to log

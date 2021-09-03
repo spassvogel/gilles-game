@@ -23,9 +23,11 @@ import { Allegiance } from "store/types/combat";
 import { Item } from "definitions/items/types";
 import { Loader, Point } from "pixi.js";
 import { Sound } from "@pixi/sound";
+import { AP_COST_MOVE } from "mechanics/combat";
 
 const spritesheetBasePath = "img/scene/actors/";
-export const movementDuration = 500; // time every tile movement takes
+export const movementDuration = 1500; // time every tile movement takes TODO: set back to 500
+ 
 
 /**
  * This is a type of God class that knows pretty much everything about a scene
@@ -155,6 +157,11 @@ export class BaseSceneController<TQuestVars> {
         const destination = this.getObjectAtLocation(location);
         if (!destination) return;
 
+        if (this.combat) {
+            // Take away AP
+            this.dispatch(deductActorAp(this.questName, _actor, AP_COST_MOVE));
+        }
+
         if (destination.type === TiledObjectType.exit) {
             // We've hit the exit. Should we load another scene?
             if (destination.properties.loadScene) {
@@ -204,9 +211,9 @@ export class BaseSceneController<TQuestVars> {
                     if (remaining < (path?.length || 0)) {
                         return;
                     }
-                    this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
                 }
                 path?.forEach((l, index) => {
+                    // Queue up all the steps
                     const sceneAction: SceneAction = {
                         actionType: SceneActionType.move,
                         actorId,
@@ -264,7 +271,7 @@ export class BaseSceneController<TQuestVars> {
                     endsAt: movementDuration * (path.length + 1) + performance.now()
                 };
                 this.dispatch(enqueueSceneAction(this.questName, meleeAction));
-                this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
+                // this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
             }
         }
     }

@@ -175,9 +175,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
                     }
 
                     // pop first action of the stack
-                    scene.actionQueue = [
-                        ...scene.actionQueue.slice(1)
-                    ];
+                    scene.actionQueue = scene.actionQueue.filter((_, i) => i > 0);
 
                     return {
                         ...qss,
