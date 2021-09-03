@@ -11,8 +11,9 @@ import Level from 'components/ui/adventurer/AdventurerPanel/Level';
 import ApIndicator from './ApIndicator';
 import AdventurerTraits from './AdventurerTraits';
 import AdventurerEquipment from './AdventurerEquipment';
-import "./styles/adventurerPanel.scss";
 import { TextManager } from "global/TextManager";
+import "./styles/adventurerPanel.scss";
+import ReactMarkdown from "react-markdown";
 
 export interface Props {
     adventurerId: string;
@@ -69,6 +70,13 @@ const AdventurerPanel = (props: Props) => {
                     </div>
                 )}
                 { levelBar && <Level adventurerId={adventurer.id}/> }
+                { adventurer.flavor && (
+                    <span className="flavor">
+                        <ReactMarkdown>
+                            {TextManager.getAdventurerFlavor(adventurer.id)}
+                        </ReactMarkdown>
+                    </span>
+                )}
                 { traits && <AdventurerTraits adventurerId={adventurer.id}/> }
                 </div>
             </section>

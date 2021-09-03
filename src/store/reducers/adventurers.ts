@@ -44,7 +44,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     xp: levelToXp(1),
     baseAP: 6,
     room: 0,
-    name: "Ximena Maddox",
+    name: "Sasha Falcon",
+    flavor: true,
     traits: [Trait.houseMaddox, Trait.gloomy],
     avatarImg: `${avatarImgBasePath}/female/f_14.png`,
     spritesheetPath: `${spritesheetBasePath}elf-bow.json`,
@@ -60,7 +61,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
         [EquipmentSlotType.feet]: "apparel/boots2"
     },
     basicAttributes: generateRandomAttributes(),
-    name: "Donte Houston",
+    name: "Addison Chilson",
+    flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
     baseAP: 6,
@@ -82,6 +84,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     },
     basicAttributes: generateRandomAttributes(),
     name: "Zackary \"bone bag\" Morris",
+    flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
     baseAP: 5,
@@ -100,6 +103,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     basicAttributes: generateRandomAttributes(),
     equipment: {},
     name: "Mike Keith",
+    flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
     baseAP: 6,
@@ -116,6 +120,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     equipment: {},
     basicAttributes: generateRandomAttributes(),
     name: "Wayne Monroe",
+    flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
     baseAP: 4,
@@ -132,6 +137,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     basicAttributes: generateRandomAttributes(),
     equipment: {},
     name: "Alexis Ortiz ",
+    flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
     baseAP: 5,
@@ -147,6 +153,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     equipment: {},
     basicAttributes: generateRandomAttributes(),
     name: "Karlee Nolan",
+    flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
     baseAP: 5,
@@ -222,6 +229,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
                 throw new Error(`No potion found at index ${fromSlot} `)
             }
             const definition = getDefinition(potion);
+            // todo: 2021-09-02 Drink potions
             switch (definition.category) {
                 case "health":
                     console.log(`${adventurer.name} drinks a health potion`);

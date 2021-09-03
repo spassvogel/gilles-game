@@ -3,9 +3,14 @@
 .adventurer-panel {
     
     .info {
-
         .name {
             font-weight: bold;
+        }
+
+        .flavor {
+            font-size: smaller;
+            font-style: italic;
+            color: $color-secondary;
         }
     }
 

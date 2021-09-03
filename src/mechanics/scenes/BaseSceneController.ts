@@ -455,7 +455,7 @@ export class BaseSceneController<TQuestVars> {
                         object.type = TiledObjectType.actor;
                         if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
                             object.name = adventurer.id;
-                            object.ap = adventurer.id === 'c4a5d270' ? 5 : 0
+                            object.ap = adventurer.id === 'c4a5d270' ? 3 : 0
                             object.health = adventurer.health;
                             object.allegiance = Allegiance.player;
                             object.properties.adventurerId = adventurer.id;

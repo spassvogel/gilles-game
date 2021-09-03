@@ -6,7 +6,8 @@ import { Trait } from 'definitions/traits/types';
 
 export interface AdventurerStoreState {
     id: string;
-    name: string;
+    name?: string;
+    flavor?: boolean;                   // Has lore text, language key: `adventurer-{id}-flavor
     avatarImg: string;
     spritesheetPath: string;            // Path to JSON of spritesheet to use in scenes
     color?: AdventurerColor;

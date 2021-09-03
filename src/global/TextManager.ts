@@ -64,6 +64,14 @@ export abstract class TextManager {
         return template;
     }
 
+    public static getAdventurerName(adventurerId: string) {
+        return this.get(`adventurer-${adventurerId}-name`);
+    }
+
+    public static getAdventurerFlavor(adventurerId: string) {
+        return this.get(`adventurer-${adventurerId}-flavor`);
+    }
+
     public static getEquipmentSlot(slotType: EquipmentSlotType) {
         return this.get(`ui-equipmentslot-${toKebab(EquipmentSlotType[slotType])}`);
     }

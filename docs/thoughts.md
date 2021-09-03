@@ -635,6 +635,7 @@ Studies are tasks like `{structure_name}.study` with a callback that adds the it
 ### 30/8/2020 Quest / Adventurer definitions
 Quests and adventurers dont need to be stored in the store when not active
 - [ ] Adventurers need to have a definition file
+- [ ] Adventurers take name from translation file. Can be renamed afterwards
 - [ ] Then when an adventurer is added to the game (how?) it gets saved in the redux store
 
 ### 31/8/2020 Skills
@@ -716,3 +717,6 @@ https://redux.js.org/api/store#subscribelistener
 
 ### 2021-07-22 Tabstrip mobile mode 
 - [ ] Needs to collapse into a type of dropdown select
+
+### 2021-09-02 Drink potions
+- [ ] Need the ability for adventurers to drink potions
