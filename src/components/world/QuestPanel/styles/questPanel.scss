@@ -3,9 +3,10 @@
 
 .quest-panel {
 	display: flex;
-	background: white;
+	background: $color-background-dark;
     flex: 1;
-    
+    color: $color-text-lighter;
+
     /** on the left. grow as needed */
 	.quest-area {
 		flex: .6;

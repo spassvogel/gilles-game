@@ -9,7 +9,7 @@
 
     .tab-bar {
         display: flex;
-        background: $color-background-dark;
+        background: $color-background-overlay;
         padding-top: 2px;
 
         .expand-button {
@@ -38,7 +38,7 @@
         border: 1px solid $color-secondary;
         box-sizing: border-box;
 
-        background: $color-background-dark;
+        background: $color-background-overlay;
         color: $color-text-lighter;
         padding: 8px;
     }

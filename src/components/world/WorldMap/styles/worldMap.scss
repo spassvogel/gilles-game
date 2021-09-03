@@ -4,10 +4,10 @@
     margin-bottom: -32px;
 
     .title {
-        background: rgba(0, 0, 0, 0.8);
+        background: $color-background-overlay;
         color: $color-text-lighter;
         height: 32px;
-        top: -32px;
+        top: -36px;
         position: relative;
         width: 100%;
         display: flex;
