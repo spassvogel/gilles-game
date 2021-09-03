@@ -26,7 +26,7 @@ import { Sound } from "@pixi/sound";
 import { AP_COST_MOVE } from "mechanics/combat";
 
 const spritesheetBasePath = "img/scene/actors/";
-export const movementDuration = 1500; // time every tile movement takes TODO: set back to 500
+export const movementDuration = 500; // time every tile movement takes TODO: set back to 500
  
 
 /**
@@ -158,8 +158,9 @@ export class BaseSceneController<TQuestVars> {
         if (!destination) return;
 
         if (this.combat) {
-            // Take away AP
+            // Take away AP for moving
             this.dispatch(deductActorAp(this.questName, _actor, AP_COST_MOVE));
+            console.log(_actor, " moved")
         }
 
         if (destination.type === TiledObjectType.exit) {

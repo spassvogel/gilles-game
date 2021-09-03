@@ -61,13 +61,14 @@ export class CombatController {
           const path = this.sceneController.findPath(enemy.location, target.location);
 
           path?.forEach((l, index) => {
-              const sceneAction: SceneAction = {
-                  actionType: SceneActionType.move,
-                  actorId: enemy.name,
-                  target: l as [number, number],
-                  endsAt: movementDuration * (index + 1) + performance.now()
-              };
-              this.dispatch(enqueueSceneAction(quest.name, sceneAction));
+            if (index >= enemy.ap - 1) return;
+            const sceneAction: SceneAction = {
+              actionType: SceneActionType.move,
+              actorId: enemy.name,
+              target: l as [number, number],
+              endsAt: movementDuration * (index + 1) + performance.now()
+            };
+            this.dispatch(enqueueSceneAction(quest.name, sceneAction));
           });
         }
 
