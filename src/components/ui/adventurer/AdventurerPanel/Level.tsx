@@ -46,14 +46,14 @@ const Level = (props: Props) => {
     return (
         <div className="level">
             Level {currentLevel}
-            {<PlainProgressbar
+            <PlainProgressbar
                 progress={progress}
                 animationTime={lastAdventurer === adventurerId && !lastDingAnimationRunning ? 300 : 0}
                 label={dingAnimationRunning ?  TextManager.get("ui-adventurer-info-xp-level-up") : TextManager.get("ui-adventurer-info-xp-progress", {
                     xp: Math.floor(xp - currentLevelXp),
                     next: nextLevelXp - currentLevelXp
                 })}
-            />}
+            />
         </div>
     )
 }

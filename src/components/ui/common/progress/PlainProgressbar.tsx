@@ -12,18 +12,19 @@ export interface Props {
     className?: string;
     direction?: Direction; // only used to prevent the bar from animating back to the start state
     animationTime?: number;
+    variation?: "normal" | "health"
 }
 
 const PlainProgressbar = (props: Props) => {
-    const { className = "", animationTime } = props;
+    const { className = "", animationTime, variation = "normal" } = props;
     const previousProgress = useRef(0);
     const progress: number = clamp(props.progress || 0, 0, 1);
 
     previousProgress.current = progress;
     return (
-        <div className={`progressbar ${className}`}>
+        <div className={`progressbar progressbar--variation-${variation} ${className}`}>
             <div className="progressbar-label">{props.label}</div>
-            <div className="progressbar-bar" style= {{
+            <div className="progressbar-bar" style={{
                 width: `${progress * 100}%`,
                 ...(animationTime && {transition: `width ${animationTime}ms linear`})
             }}/>
