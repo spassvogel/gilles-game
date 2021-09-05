@@ -31,7 +31,6 @@ export class CombatController {
     const adventurers = this.sceneController.sceneAdventurers;
     const enemies = this.sceneController.sceneEnemies;
     const quest = this.sceneController.quest;
-    // const { adventurers, enemies, quest } = this.sceneController ?? {};
     if (adventurers && enemies && quest && quest.scene && !quest.scene.actionQueue?.length){
       const totalAdventurerAp = adventurers.reduce((acc, value) => acc + value.ap, 0)
       const { scene } = quest;

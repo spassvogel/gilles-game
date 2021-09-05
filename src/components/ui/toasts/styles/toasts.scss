@@ -1,7 +1,7 @@
 @import 'components/styles/variables.scss';
 
 .toasts {
-    z-index: 4;
+	z-index: 4;
 	position: absolute;
 	bottom: 105px;
 	left: 0;
@@ -10,8 +10,8 @@
 	flex-direction: column;
 	pointer-events: none;
 
-    .toast {
-        height: 58px;
+	.toast {
+		height: 58px;
 		position: relative;
 		box-sizing: border-box;
 		display: flex;
@@ -20,7 +20,7 @@
 		background-image: radial-gradient(ellipse at top, rgba(0, 0, 0, 0.84) 0, transparent 73%), radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.45) 0, transparent 50%);
 		animation: pop 0.5s ease-out 1, fadeout 1s linear 4s;
 
-        &:after {
+		&:after {
 			top: 0;
 			left: 115px;
 			position: absolute;
@@ -38,9 +38,9 @@
 			border-right-width: 0;
 		}
 
-        .title {
+		.title {
 			flex: 1;
-            color: $color-text-lighter;
+			color: $color-text-lighter;
 			text-align: center;
 			text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5), 0 0 2px rgba(0, 0, 0, 0.5);
 			font-size: x-large;
@@ -50,12 +50,12 @@
 			text-overflow: ellipsis;
 		}
 
-        .background {
-            background: none;
+		.background {
+			background: none;
 		}
 
-        .banner {
-            z-index: 1;
+		.banner {
+			z-index: 1;
 			right: 0;
 			top: -13px;
 			position: absolute;
@@ -66,7 +66,7 @@
 			background-position: center;
 			background-repeat: no-repeat;
 
-            &::after {
+			&::after {
 				right: 12.5px;
 				top: 10px;
 				position: absolute;
@@ -81,7 +81,7 @@
 			}
 		}
 
-        .type {
+		.type {
 			z-index: 0;
 			left: 0;
 			top: -22px;
@@ -90,7 +90,7 @@
 			position: absolute;
 			line-height: 22px;
 			font-size: 16px;
-			color: #E7AA40;
+			color: $color-primary;
 			text-shadow: 0 0 2px rgba(0, 0, 0, 0.5), 1px 1px 1px black;
 			background-image: radial-gradient(ellipse at bottom, rgba(0, 0, 0, 0.35) 0, transparent 73%);
 			border-image-source: url("./img/border-top.png");

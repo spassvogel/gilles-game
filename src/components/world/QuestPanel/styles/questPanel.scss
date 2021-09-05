@@ -36,6 +36,12 @@
 			height: auto !important;
             flex: 1;
             max-width: 100%;
+
+            border-image-source: url("./img/border-gold-64.png");
+            border-image-slice: 3 3 3 3;
+            border-image-repeat: stretch;
+            border-width: 3px;
+            border-style: solid;
 		}
 
     }
