@@ -68,8 +68,8 @@ export abstract class TextManager {
         return this.get(`adventurer-${adventurerId}-name`);
     }
 
-    public static getAdventurerFlavor(adventurerId: string) {
-        return this.get(`adventurer-${adventurerId}-flavor`);
+    public static getAdventurerFlavor(adventurerId: string, adventurerName?: string) {
+        return this.get(`adventurer-${adventurerId}-flavor`, { name: adventurerName });
     }
 
     public static getEquipmentSlot(slotType: EquipmentSlotType) {

@@ -74,7 +74,7 @@ const AdventurerPanel = (props: Props) => {
                 { adventurer.flavor && (
                     <span className="flavor">
                         <ReactMarkdown>
-                            {TextManager.getAdventurerFlavor(adventurer.id)}
+                            {TextManager.getAdventurerFlavor(adventurer.id, adventurer.name)}
                         </ReactMarkdown>
                     </span>
                 )}
