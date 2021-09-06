@@ -144,7 +144,7 @@ export class SoundManager {
 
     protected static getSound(sound: GameSound): Sound {
         if (!this._sounds[sound]?.length) {
-            throw new Error(`No sound found for ${sound}`);
+            console.error(`No sound found for ${sound}`);
         }
         if (this._sounds[sound].length === 1) {
             return this._sounds[sound][0];
