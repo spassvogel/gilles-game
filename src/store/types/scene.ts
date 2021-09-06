@@ -31,10 +31,12 @@ export const isActorObject = (object: SceneObject): object is ActorObject => {
     return object.type === TiledObjectType.actor;
 }
 
+// Returns true if given scene Object is an Adventurer (player controlled Actor)
 export const isAdventurer = (object: SceneObject): object is ActorObject => {
     return isActorObject(object) && object.allegiance === Allegiance.player;
 }
 
+// Returns true if given scene Object is an Enemy (AI controlled Actor)
 export const isEnemy = (object: SceneObject): object is ActorObject => {
     return isActorObject(object) && object.allegiance === Allegiance.enemy;
 }

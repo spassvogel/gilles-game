@@ -23,7 +23,7 @@ import { Allegiance } from "store/types/combat";
 import { Item } from "definitions/items/types";
 import { Loader, Point } from "pixi.js";
 import { Sound } from "@pixi/sound";
-import { AP_COST_MOVE } from "mechanics/combat";
+import { AP_COST_MOVE, ENEMY_BASE_AP } from "mechanics/combat";
 
 const spritesheetBasePath = "img/scene/actors/";
 export const movementDuration = 500; // time every tile movement takes TODO: set back to 500
@@ -471,7 +471,7 @@ export class BaseSceneController<TQuestVars> {
                     object.type = TiledObjectType.actor;
                     if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
                         object.health = Math.random() * 100;
-                        object.ap = 6;
+                        object.ap = ENEMY_BASE_AP;
                         object.name = object.properties.name as string;
                         object.allegiance = Allegiance.enemy;
                         object.properties.isSprite = true;
@@ -526,7 +526,7 @@ export class BaseSceneController<TQuestVars> {
         this.dispatch(updateQuestVars(this.questName, updated));
     }
 
-    protected getAdventurers(): AdventurerStoreState[] {
+    public getAdventurers(): AdventurerStoreState[] {
         const storeState = this.store.getState();
         return adventurersOnQuest(storeState.adventurers, this.quest);
     }

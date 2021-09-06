@@ -1,12 +1,13 @@
 import { Reducer } from "redux";
 import { QuestStatus, QuestStoreState } from "store/types/quest";
-import { isActorObject, SceneActionType } from 'store/types/scene';
+import { isActorObject, isAdventurer, isEnemy, SceneActionType } from 'store/types/scene';
 import { QuestDefinition } from 'definitions/quests/types';
 import { getDefinition } from 'definitions/quests';
 import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars';
 import deepmerge from "deepmerge";
 import { Action } from "store/actions";
 import { Allegiance } from "store/types/combat";
+import { ENEMY_BASE_AP } from "mechanics/combat";
 
 export const initialQuestState: QuestStoreState[] = [{
     name: "kill10Boars",
@@ -231,15 +232,45 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
         }
 
         case "startTurn": {
+            // Starts a combat turn, either for Player or Enemy
             return state.map((qss) => {
                 if (qss.name === action.questName) {
-                    // const scene = qss.scene;
                     if (!qss.scene) throw new Error("Something broke. No scene");
                     const { turn } = action;
+                    const scene = qss.scene;
+
+                    if (turn === Allegiance.player) {
+                        scene.objects = scene.objects.map(o => {
+                            if (isAdventurer(o)) {
+                                const adventurerInStore = action.adventurers?.find(a => a.id === o.name)
+                                if (adventurerInStore){
+                                    const ap = adventurerInStore.baseAP;
+                                    return {
+                                        ...o,
+                                        ap
+                                    };
+                                }
+                                return o;
+                            }
+                            return o;
+                        })
+                    } else if (turn === Allegiance.enemy) {
+                        scene.objects = scene.objects.map(o => {
+                            if (isEnemy(o)) {
+                                const ap = ENEMY_BASE_AP;
+                                return {
+                                    ...o,
+                                    ap
+                                };
+                            }
+                            return o;
+                        })
+                    }
+
                     return {
                         ...qss,
                         scene: {
-                            ...qss.scene,
+                            ...scene,
                             turn
                         }
                     };

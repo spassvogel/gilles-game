@@ -35,10 +35,10 @@ export class CombatController {
       const totalAdventurerAp = adventurers.reduce((acc, value) => acc + value.ap, 0)
       const { scene } = quest;
       const { turn } = scene;
+
       // No AP for the player left, switch to enemy turn
       if (totalAdventurerAp === 0 && turn === Allegiance.player) {
         
-        // console.log("END TURN", totalAdventurerAp, totalEnemiesAp)
         this.dispatch(startTurn(quest.name, Allegiance.enemy));
         return
       }
@@ -49,7 +49,7 @@ export class CombatController {
 
         if (totalEnemiesAp === 0) {
           // No more AP left for the enemy, player turn
-          this.dispatch(startTurn(quest.name, Allegiance.player));
+          this.dispatch(startTurn(quest.name, Allegiance.player, this.sceneController.getAdventurers()));
           return
         }
 
@@ -70,7 +70,6 @@ export class CombatController {
             this.dispatch(enqueueSceneAction(quest.name, sceneAction));
           });
         }
-
       }
     }
   }

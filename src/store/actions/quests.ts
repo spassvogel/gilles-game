@@ -13,7 +13,7 @@ export type QuestAction =
  |  { type: "completeSceneAction", questName: string }
  |  { type: "setCombat", questName: string, combat: boolean }
  |  { type: "endPlayerTurn", questName: string }
- |  { type: "startTurn", questName: string, turn: Allegiance }
+ |  { type: "startTurn", questName: string, turn: Allegiance, adventurers?: AdventurerStoreState[] }
  |  { type: "deductActorAp", questName: string,  actor: string, ap: number }
  |  { type: "setActorAp", questName: string, actor: string, ap: number }
 //  |  { type: "updateEncounterResult", questName: string, nodeIndex: number, result: string }
@@ -81,10 +81,11 @@ export const endPlayerTurn = (questName: string): QuestAction => ({
     questName,
 })
 
-export const startTurn = (questName: string, turn: Allegiance): QuestAction => ({
+export const startTurn = (questName: string, turn: Allegiance, adventurers?: AdventurerStoreState[]): QuestAction => ({
     type: "startTurn",
     questName,
     turn,
+    adventurers
 })
 
 export const deductActorAp = (questName: string, actor: string, ap: number): QuestAction => ({
