@@ -15,6 +15,7 @@ import { TextManager } from "global/TextManager";
 import "./styles/adventurerPanel.scss";
 import ReactMarkdown from "react-markdown";
 import Health from "./Health";
+import Attributes from "./Attributes";
 
 export interface Props {
     adventurerId: string;
@@ -81,6 +82,7 @@ const AdventurerPanel = (props: Props) => {
                 <Health adventurerId={adventurer.id}/> 
                 { traits && <AdventurerTraits adventurerId={adventurer.id}/> }
                 </div>
+                <Attributes adventurerId={adventurer.id}/> 
             </section>
             <section id="skills">
                 { skills && <AdventurerSkills adventurerId={adventurer.id}/> }

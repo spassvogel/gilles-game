@@ -1,7 +1,7 @@
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { Apparel } from "definitions/items/apparel";
 import { Item } from "definitions/items/types";
-import { Weapon } from "definitions/items/weapons";
+import { Weapon, WeaponType } from "definitions/items/weapons";
 import { Trait } from 'definitions/traits/types';
 
 export interface AdventurerStoreState {
@@ -51,6 +51,8 @@ export interface BasicAttributesStoreState {
     hlt: number;
 }
 
-export interface SkillsStoreState {
-    [key: string]: number
+export type BasicAttribute = keyof BasicAttributesStoreState;
+
+export type SkillsStoreState = {
+    [key in WeaponType]?: number
 }

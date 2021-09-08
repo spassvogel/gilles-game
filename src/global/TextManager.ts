@@ -10,6 +10,7 @@ import { Type } from 'components/ui/toasts/Toast';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { WeaponType, WeaponClassification } from 'definitions/items/weapons';
 import { getStructureLink } from "utils/routing";
+import { BasicAttribute } from "store/types/adventurer";
 
 export abstract class TextManager {
 
@@ -70,6 +71,14 @@ export abstract class TextManager {
 
     public static getAdventurerFlavor(adventurerId: string, adventurerName?: string) {
         return this.get(`adventurer-${adventurerId}-flavor`, { name: adventurerName });
+    }
+
+    public static getAttributeName(attribute: BasicAttribute): string {
+        return this.get(`common-attribute-${attribute}-name`);
+    }
+
+    public static getAttributeDescription(attribute: BasicAttribute): string {
+        return this.get(`common-attribute-${attribute}-description`);
     }
 
     public static getEquipmentSlot(slotType: EquipmentSlotType) {
