@@ -23,7 +23,8 @@ import { Allegiance } from "store/types/combat";
 import { Item } from "definitions/items/types";
 import { Loader, Point } from "pixi.js";
 import { Sound } from "@pixi/sound";
-import { AP_COST_MOVE, ENEMY_BASE_AP } from "mechanics/combat";
+import { AP_COST_MOVE, calculateInitialAP, ENEMY_BASE_AP } from "mechanics/combat";
+import { xpToLevel } from "mechanics/adventurers/levels";
 
 const spritesheetBasePath = "img/scene/actors/";
 export const movementDuration = 500; // time every tile movement takes TODO: set back to 500
@@ -456,7 +457,9 @@ export class BaseSceneController<TQuestVars> {
                         object.type = TiledObjectType.actor;
                         if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
                             object.name = adventurer.id;
-                            object.ap = adventurer.id === 'c4a5d270' ? 3 : 0
+                            // object.ap = adventurer.id === 'c4a5d270' ? 3 : 0
+                            const level = xpToLevel(adventurer.xp);
+                            object.ap = calculateInitialAP(adventurer.basicAttributes.dex, level);
                             object.health = adventurer.health;
                             object.allegiance = Allegiance.player;
                             object.properties.adventurerId = adventurer.id;

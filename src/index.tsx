@@ -23,6 +23,7 @@ import { getWorldLink } from "utils/routing";
 import { createInitialStore } from "store/reducers";
 import getHarvest from "mechanics/gameTick/harvest";
 import "./index.css";
+import { calculateInitialAP } from "mechanics/combat";
 
 const TICK_INTERVAL = 2500;
 let persistor: Persistor;

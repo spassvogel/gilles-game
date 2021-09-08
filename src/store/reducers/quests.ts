@@ -7,7 +7,8 @@ import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars';
 import deepmerge from "deepmerge";
 import { Action } from "store/actions";
 import { Allegiance } from "store/types/combat";
-import { ENEMY_BASE_AP } from "mechanics/combat";
+import { calculateInitialAP, ENEMY_BASE_AP } from "mechanics/combat";
+import { xpToLevel } from "mechanics/adventurers/levels";
 
 export const initialQuestState: QuestStoreState[] = [{
     name: "kill10Boars",
@@ -244,7 +245,8 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
                             if (isAdventurer(o)) {
                                 const adventurerInStore = action.adventurers?.find(a => a.id === o.name)
                                 if (adventurerInStore){
-                                    const ap = adventurerInStore.baseAP;
+                                    const level = xpToLevel(adventurerInStore.xp);
+                                    const ap = calculateInitialAP(adventurerInStore.basicAttributes.dex, level);
                                     return {
                                         ...o,
                                         ap

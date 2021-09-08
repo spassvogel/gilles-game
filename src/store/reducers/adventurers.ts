@@ -15,10 +15,10 @@ import { getDefinition, isPotion } from "definitions/items/potions";
  */
 const generateRandomAttributes = (): BasicAttributesStoreState => {
     return {
-        strength: Math.floor(Math.random() * 3) + 9,
-        dexterity: Math.floor(Math.random() * 3) + 9,
-        intelligence: Math.floor(Math.random() * 3) + 9,
-        health: Math.floor(Math.random() * 3) + 9
+        str: Math.floor(Math.random() * 3) + 9,
+        dex: Math.floor(Math.random() * 3) + 9,
+        int: Math.floor(Math.random() * 3) + 9,
+        hlt: Math.floor(Math.random() * 3) + 9
     };
 };
 
@@ -42,7 +42,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     basicAttributes: generateRandomAttributes(),
     health: Math.random() * 100,
     xp: levelToXp(1),
-    baseAP: 6,
+    
     room: 0,
     name: "Sasha Falcon",
     flavor: true,
@@ -65,7 +65,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    baseAP: 6,
+    
     room: 1,
     avatarImg: `${avatarImgBasePath}/male/m_05.png`,
     spritesheetPath: `${spritesheetBasePath}elf-bow.json`,
@@ -87,7 +87,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    baseAP: 5,
+    
     room: 2,
     traits: [Trait.gloomy],
     skills: {
@@ -106,7 +106,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    baseAP: 6,
+    
     room: 4,
     avatarImg: `${avatarImgBasePath}/male/m_19.png`,
     spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
@@ -123,7 +123,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    baseAP: 4,
+    
     room: 5,
     avatarImg: `${avatarImgBasePath}/male/m_08.png`,
     spritesheetPath: `${spritesheetBasePath}orc-axe.json`,
@@ -140,7 +140,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    baseAP: 5,
+    
     room: 9,
     avatarImg: `${avatarImgBasePath}/female/f_10.png`,
     spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
@@ -156,7 +156,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    baseAP: 5,
+    
     room: 3,
     avatarImg: `${avatarImgBasePath}/female/f_16.png`,
     spritesheetPath: `${spritesheetBasePath}troll-sword.json`,
@@ -171,7 +171,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     name: "Gylbarde the Earnest",
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    baseAP: 5,
+    
     room: 8,
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
     spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
@@ -186,7 +186,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     name: "Lanslet of the Water",
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    baseAP: 6,
+    
 
     room: 6,
     avatarImg: `${avatarImgBasePath}/male/m_26.png`,
@@ -202,7 +202,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     name: "Tedric the Bold",
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    baseAP: 6,
+    
     room: 7,
     avatarImg: `${avatarImgBasePath}/male/m_33.png`,
     spritesheetPath: `${spritesheetBasePath}knight-sword.json`,

@@ -14,7 +14,6 @@ export interface AdventurerStoreState {
     traits?: Trait[];
     health: number;                     // When this reaches zero, the adventurer is dead
     xp: number;
-    baseAP: number;                     // Amount of AP this adventurer has
 
     equipment: EquipmentStoreState;     // equipment
     inventory: (null | Item)[];
@@ -46,10 +45,10 @@ export interface EquipmentStoreState {
 }
 
 export interface BasicAttributesStoreState {
-    strength: number;
-    dexterity: number;
-    intelligence: number;
-    health: number;
+    str: number;
+    dex: number;
+    int: number;
+    hlt: number;
 }
 
 export interface SkillsStoreState {
