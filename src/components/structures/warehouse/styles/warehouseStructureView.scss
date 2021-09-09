@@ -3,6 +3,10 @@
 .warehouse-structureview {
     padding: 16px;
 
+    .resources {
+        @include border-grey-sm;
+    }
+
     .adventurer-inventory {
         border: 1px solid $color-secondary;
         min-height: 100px;

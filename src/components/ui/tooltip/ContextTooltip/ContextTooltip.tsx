@@ -13,9 +13,11 @@ import { WeaponType } from 'definitions/items/weapons';
 import { Rarity } from 'constants/items';
 import { getDefinition } from 'definitions/items';
 import './styles/contextTooltip.scss';
+import { BasicAttribute } from 'store/types/adventurer';
+import AttributeContext from './context/AttributeContext';
 
 // A contextual popup showing what you just clicked.
-// Can be an Item, Resource, Trait, skill
+// Can be an Item, Resource, Trait, skill, etc
 const ContextTooltip = () => {
 
     const [selectedContext, setSelectedContext] = useState<Context | undefined>();
@@ -34,6 +36,16 @@ const ContextTooltip = () => {
     const { info, type, className, source } = selectedContext;
     const renderContent = () => {
         switch (type) {
+            case ContextType.attribute: {
+                const attribute = info as BasicAttribute;
+                const name = TextManager.getAttributeName(attribute);
+                return (
+                    <>
+                        <div className="name resource">{name}</div>
+                        <AttributeContext attribute={attribute} />
+                    </>
+                );
+            }
             case ContextType.resource: {
                 const name = TextManager.getResourceName(info as Resource);
                 return (

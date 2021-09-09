@@ -13,7 +13,7 @@
     }
     
     .room {
-        border: 1px solid gray;
+        @include border-grey-sm;
         margin-bottom: 4px;
         padding: 4px;
         height: $item-size-medium + 10px;

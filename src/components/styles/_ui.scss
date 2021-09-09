@@ -1,0 +1,16 @@
+
+@mixin border-grey-sm {
+  border-image-source: url("./assets/img/border-grey-64.png");
+  border-image-slice: 1 1 1 1;
+  border-image-repeat: stretch;
+  border-width: 1px;
+  border-style: solid;
+}
+
+@mixin border-grey {
+  border-image-source: url("./assets/img/border-grey-64.png");
+  border-image-slice: 2 2 2 2;
+  border-image-repeat: stretch;
+  border-width: 2px;
+  border-style: solid;
+}
