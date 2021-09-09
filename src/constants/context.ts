@@ -2,9 +2,11 @@ import { ReactNode } from 'react';
 import { Item } from "definitions/items/types";
 import { WeaponType } from 'definitions/items/weapons';
 import { TraitDefinition } from 'definitions/traits/types';
+import { BasicAttribute } from 'store/types/adventurer';
 
 // Things that can be shown on the ContextPopup
 export enum ContextType {
+    attribute,
     item,
     trait,
     resource,
@@ -12,4 +14,4 @@ export enum ContextType {
     component
 }
 
-export type ContextInfo = Item | TraitDefinition | WeaponType | string | ReactNode;
+export type ContextInfo = Item | TraitDefinition | WeaponType | string | ReactNode | BasicAttribute;
