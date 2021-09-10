@@ -7,7 +7,7 @@ const ARROW_SIZE = 8; // warning: sync to tooltip.css var
 const PADDING = 8;
 
 export interface Props {
-    referenceRect: ClientRect;  // place tooltip in reference to this rect
+    referenceRect: DOMRect;  // place tooltip in reference to this rect
     placement?: Placement;
     className?: string;
 }
@@ -25,7 +25,7 @@ export const Tooltip = (props: PropsWithChildren<Props>) => {
     const ref = useRef<HTMLDivElement>(null);
     const [placement, setPlacement] = useState<Placement>(props.placement || Placement.bottom);
 
-    const [containerRect, setContainerRect] = useState<ClientRect>(); // This is the
+    const [containerRect, setContainerRect] = useState<DOMRect>(); // This is the
 
     useEffect(() => {
         // Reposition if needed

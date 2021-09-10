@@ -16,7 +16,6 @@ export interface AddStockpileSlotsAction extends Action {
 // Adds one Item to the warehouse
 // slot is optional, will take the first empty slot if not provided
 export const addItemToWarehouse = (item: Item, toSlot?: number): StockpileAction => {
-    console.log('add item to warehouse')
     return {
         type: "addItem",
         item,
