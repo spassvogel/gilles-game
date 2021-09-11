@@ -92,15 +92,17 @@ const EquipmentSlot = (props: React.PropsWithChildren<Props & DropSourceProps>) 
         connectDropTarget,
     } = props;
     const isActive = isOver && canDrop;
-    let borderColor = "grey";
+    const className = ["equipment-slot"]
     if (isActive) {
-        borderColor = "green";
+        className.push("active");
     } else if (canDrop) {
-        borderColor = "orange";
+        className.push("highlight");
+    } else {
+        className.push("normal")
     }
 
     return connectDropTarget(
-        <div className = "equipment-slot" style = { { borderColor }} title={EquipmentSlotType[props.type]}>
+        <div className={className.join(' ')} title={EquipmentSlotType[props.type]}>
             { props.children }
         </div>,
     );

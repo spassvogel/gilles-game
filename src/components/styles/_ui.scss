@@ -1,16 +1,38 @@
-
-@mixin border-grey-sm {
-  border-image-source: url("./assets/img/border-grey-64.png");
-  border-image-slice: 1 1 1 1;
+@mixin border($color, $size) {
+  border-image-source: url("./assets/img/border-#{$color}-64.png");
+  border-image-slice: $size $size $size $size;
   border-image-repeat: stretch;
-  border-width: 1px;
+  border-width: #{$size}px;
   border-style: solid;
 }
 
-@mixin border-grey {
-  border-image-source: url("./assets/img/border-grey-64.png");
-  border-image-slice: 2 2 2 2;
-  border-image-repeat: stretch;
-  border-width: 2px;
-  border-style: solid;
+@mixin border-grey-sm {
+  // 1px border grey
+  @include border('grey', 1);
+}
+
+@mixin border-grey-md {
+  // 2px border grey
+  @include border('grey', 2);
+}
+
+@mixin border-green-sm {
+  // 1px border green
+  @include border('green', 1);
+
+}
+
+@mixin border-green-md {
+  // 2px border green
+  @include border('green', 2);
+}
+
+@mixin border-gold-sm {
+  // 1px border gold
+  @include border('gold', 1);
+}
+
+@mixin border-gold-md {
+  // 2px border gold
+  @include border('gold', 2);
 }
