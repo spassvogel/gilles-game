@@ -2,7 +2,10 @@ import { PixiComponent, applyDefaultProps, AnimatedSprite } from '@inlet/react-p
 import * as PIXI from 'pixi.js';
 
 const SpriteAnimated = PixiComponent<React.ComponentProps<typeof AnimatedSprite>, PIXI.AnimatedSprite>('SpriteAnimated', {
-create: ({ textures }) => {
+  create: ({ textures, name }) => {
+    if (!textures?.[0]) {
+      console.warn(`Something went wrong with ${name}`)
+    }
     const animatedSprite = new PIXI.AnimatedSprite(textures || [], true);
     return animatedSprite;
   },

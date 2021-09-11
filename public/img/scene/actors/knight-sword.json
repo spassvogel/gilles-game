@@ -203,7 +203,7 @@
         "knight-sword-attack0-n": {
             "frame": {
                 "x": 0,
-                "y": 1110,
+                "y": 710,
                 "w": 142,
                 "h": 142
             }
@@ -211,7 +211,7 @@
         "knight-sword-attack0-ne": {
             "frame": {
                 "x": 142,
-                "y": 1110,
+                "y": 710,
                 "w": 142,
                 "h": 142
             }
@@ -219,7 +219,7 @@
         "knight-sword-attack0-e": {
             "frame": {
                 "x": 284,
-                "y": 1110,
+                "y": 710,
                 "w": 142,
                 "h": 142
             }
@@ -227,7 +227,7 @@
         "knight-sword-attack0-se": {
             "frame": {
                 "x": 426,
-                "y": 1110,
+                "y": 710,
                 "w": 142,
                 "h": 142
             }
@@ -235,7 +235,7 @@
         "knight-sword-attack0-s": {
             "frame": {
                 "x": 568,
-                "y": 1110,
+                "y": 710,
                 "w": 142,
                 "h": 142
             }
@@ -243,7 +243,7 @@
         "knight-sword-attack1-n": {
             "frame": {
                 "x": 0,
-                "y": 1332,
+                "y": 852,
                 "w": 142,
                 "h": 142
             }
@@ -251,7 +251,7 @@
         "knight-sword-attack1-ne": {
             "frame": {
                 "x": 142,
-                "y": 1332,
+                "y": 852,
                 "w": 142,
                 "h": 142
             }
@@ -259,7 +259,7 @@
         "knight-sword-attack1-e": {
             "frame": {
                 "x": 284,
-                "y": 1332,
+                "y": 852,
                 "w": 142,
                 "h": 142
             }
@@ -267,7 +267,7 @@
         "knight-sword-attack1-se": {
             "frame": {
                 "x": 426,
-                "y": 1332,
+                "y": 852,
                 "w": 142,
                 "h": 142
             }
@@ -275,7 +275,167 @@
         "knight-sword-attack1-s": {
             "frame": {
                 "x": 568,
-                "y": 1332,
+                "y": 852,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-attack2-n": {
+            "frame": {
+                "x": 0,
+                "y": 994,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-attack2-ne": {
+            "frame": {
+                "x": 142,
+                "y": 994,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-attack2-e": {
+            "frame": {
+                "x": 284,
+                "y": 994,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-attack2-se": {
+            "frame": {
+                "x": 426,
+                "y": 994,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-attack2-s": {
+            "frame": {
+                "x": 568,
+                "y": 994,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-attack3-n": {
+            "frame": {
+                "x": 0,
+                "y": 1136,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-attack3-ne": {
+            "frame": {
+                "x": 142,
+                "y": 1136,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-attack3-e": {
+            "frame": {
+                "x": 284,
+                "y": 1136,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-attack3-se": {
+            "frame": {
+                "x": 426,
+                "y": 1136,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-attack3-s": {
+            "frame": {
+                "x": 568,
+                "y": 1136,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-die1-n": {
+            "frame": {
+                "x": 0,
+                "y": 1278,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-die1-ne": {
+            "frame": {
+                "x": 142,
+                "y": 1278,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-die1-e": {
+            "frame": {
+                "x": 284,
+                "y": 1278,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-die1-se": {
+            "frame": {
+                "x": 426,
+                "y": 1278,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-die1-s": {
+            "frame": {
+                "x": 568,
+                "y": 1278,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-die2-n": {
+            "frame": {
+                "x": 0,
+                "y": 1420,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-die2-ne": {
+            "frame": {
+                "x": 142,
+                "y": 1420,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-die2-e": {
+            "frame": {
+                "x": 284,
+                "y": 1420,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-die2-se": {
+            "frame": {
+                "x": 426,
+                "y": 1420,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-sword-die2-s": {
+            "frame": {
+                "x": 568,
+                "y": 1420,
                 "w": 142,
                 "h": 142
             }

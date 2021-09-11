@@ -314,7 +314,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
             { spritesheetPath && frames && (
                 <SpriteAnimated
                     animationSpeed={0.1}
-                    name="sprite"
+                    name={`${actor.id}-sprite`}
                     isPlaying={true}
                     textures={frames[getFrames()]}
                     x={SPRITE_WIDTH/4}
@@ -323,8 +323,8 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
                     anchor={[.5, .5]}
                     pivot={[0, 0]}
                     filters={filters}
-                    />
-                )}
+                />
+            )}
             {children}
             {showThingy && (
                 <ActorThingy tileWidth={tileWidth} actor={actor} />
