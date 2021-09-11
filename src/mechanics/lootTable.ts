@@ -28,6 +28,6 @@ export const test = () => {
         const picked = pick(lootTable);
         result[picked] = (result[picked] ?? 0) + 1;
     }
-    console.log(result)
+    // console.log(result)
 }
 // */

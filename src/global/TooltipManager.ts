@@ -3,11 +3,12 @@ import { ItemSource } from 'constants/items';
 import deepEquals from 'deep-equal';
 import EventEmitter from "events";
 import TypedEmitter from "typed-emitter";
+
 export interface Context {
     type: ContextType;
     info: ContextInfo;
     source?: ItemSource;
-    referenceRect: ClientRect;
+    referenceRect: DOMRect;
     className?: string;
 }
 
@@ -20,7 +21,9 @@ export class TooltipManager extends (EventEmitter as new () => TypedEmitter<Tool
     private static _instance = new TooltipManager();
     private static lastContext: Context | undefined;
 
-    static showContextTooltip (type: ContextType, info: ContextInfo, originRect: ClientRect, className?: string, source?: ItemSource) {
+    // Note you probably want to call event.stopPropagation() after callin this
+
+    static showContextTooltip (type: ContextType, info: ContextInfo, originRect: DOMRect, className?: string, source?: ItemSource) {
         const context = { type, info, referenceRect: originRect, className, source };
 
         if(deepEquals(context, this.lastContext)) {

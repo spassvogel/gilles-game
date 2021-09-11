@@ -4,13 +4,13 @@ import { BasicAttribute } from "store/types/adventurer";
 import { TextManager } from "global/TextManager";
 import { TooltipManager } from "global/TooltipManager";
 import { ContextType } from "constants/context";
-import "./styles/attributes.scss"
+// import "./styles/attributes.scss"
 
 export interface Props {
     adventurerId: string;
 }
 
-const Attributes = (props: Props) => {
+const UseItem = (props: Props) => {
     const { adventurerId } = props;
     const { basicAttributes } = useAdventurerState(adventurerId);
 
@@ -49,4 +49,4 @@ const Attributes = (props: Props) => {
         </div>
     )
 }
-export default Attributes;
+export default UseItem;
