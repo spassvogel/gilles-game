@@ -11,12 +11,12 @@ export interface ConsumableDefinition extends ItemDefinition {
 }
 
 const consumables = {
-    minorHealth: {
+    minorHealthPotion: {
         category: 'health',
         itemType,
         iconImg: `${basePath}minor-health-potion.png`,
     },
-    minorMana: {
+    minorManaPotion: {
         category: 'mana',
         itemType,
         iconImg: `${basePath}minor-mana-potion.png`,
@@ -26,12 +26,12 @@ const consumables = {
         itemType,
         iconImg: `${basePath}minor-soma.png`,
     },
-    lesserHealth: {
+    lesserHealthPotion: {
         category: 'health',
         itemType,
         iconImg: `${basePath}lesser-health-potion.png`,
     },
-    lesserMana: {
+    lesserManaPotion: {
         category: 'mana',
         itemType,
         iconImg: `${basePath}lesser-mana-potion.png`,
@@ -41,12 +41,12 @@ const consumables = {
         itemType,
         iconImg: `${basePath}lesser-soma.png`,
     },
-    majorHealth: {
+    majorHealthPotion: {
         category: 'health',
         itemType,
         iconImg: `${basePath}major-health-potion.png`,
     },
-    majorMana: {
+    majorManaPotion: {
         category: 'mana',
         itemType,
         iconImg: `${basePath}major-mana-potion.png`,
@@ -56,12 +56,12 @@ const consumables = {
         itemType,
         iconImg: `${basePath}major-soma.png`,
     },
-    greaterHealth: {
+    greaterHealthPotion: {
         category: 'health',
         itemType,
         iconImg: `${basePath}greater-health-potion.png`,
     },
-    greaterMana: {
+    greaterManaPotion: {
         category: 'mana',
         itemType,
         iconImg: `${basePath}greater-mana-potion.png`,

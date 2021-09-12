@@ -54,7 +54,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
         [WeaponType.crossbow]: 10,
         [WeaponType.bow]: 10
     },
-    inventory: [ "deed/lumbermill", null, "weapon/simpleCrossbow", "weapon/dagger", "weapon/khopesh", null, "weapon/steelSword", null,  "consumable/greaterMana",  "consumable/majorHealth",  null,  "weapon/steelShield",  null,  null,  null,  null],
+    inventory: [ "deed/lumbermill", null, "weapon/simpleCrossbow", "weapon/dagger", "weapon/khopesh", null, "weapon/steelSword", null,  "consumable/greaterManaPotion",  "consumable/majorHealthPotion",  null,  "weapon/steelShield",  null,  null,  null,  null],
 }, {
     id: "2e655832",
     equipment: {
