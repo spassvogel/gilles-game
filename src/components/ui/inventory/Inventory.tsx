@@ -12,6 +12,8 @@ export interface Props {
     sourceType: DragSourceType;
     iconSize?: IconSize;
     className?: string;
+    disabledIndex?: number;
+
     onDropItem: (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string) => void;
     onStartDrag?: (item: Item, fromSlot: number) => void;
     canDropHere?: (dragInfo: InventoryItemDragInfo) => boolean;
@@ -22,7 +24,7 @@ export interface Props {
  * @param props
  */
 const Inventory = (props: Props) => {
-    const { items, canDropHere, onStartDrag } = props;
+    const { items, disabledIndex, canDropHere, onStartDrag } = props;
     const slots = [];
     for (let i = 0; i < items.length; i++) {
         let contents;
@@ -64,6 +66,7 @@ const Inventory = (props: Props) => {
                 key={`inventory-slot-${i}`}
                 item={item}
                 size={props.iconSize}
+                disabled={disabledIndex === i}
                 onDrop={handleDrop}
                 canDropHere={handleCheckDrop}
             >

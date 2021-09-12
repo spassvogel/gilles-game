@@ -23,6 +23,7 @@ const dropTarget: DropTargetSpec<Props> = {
 export interface Props {
     item: Item | null;
     size?: IconSize;
+    disabled?: boolean;
     onDrop: (info: InventoryItemDragInfo) => void;
     canDropHere?: ( dragInfo: InventoryItemDragInfo ) => boolean;
 }
@@ -46,12 +47,14 @@ const InventorySlot = (props: PropsWithChildren<Props> & DropSourceProps) => {
     const {
         isOver,
         canDrop,
+        disabled,
         connectDropTarget,
     } = props;
     const isActive = isOver && canDrop;
 
     const classNames = [
         "inventory-item",
+        ...(disabled ? ["disabled"]: []),
         ...(isActive ? ["drop-active"] : []),
         ...(!isActive && canDrop ? ["drop-possible"] : [])
     ];
