@@ -263,11 +263,11 @@
     "item-trinket-ring-name": "ring",
 
     "item-type-apparel": "apparel",
+    "item-type-consumable": "consumabe",
     "item-type-deed": "deed",
     "item-type-herb": "herb",
     "item-type-material": "material",
     "item-type-mineral": "mineral",
-    "item-type-potion": "potion",
     "item-type-quest-item": "quest item",
     "item-type-trinket": "trinket",
     "item-type-weapon": "weapon",
