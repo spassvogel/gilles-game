@@ -45,7 +45,7 @@ const Level = (props: Props) => {
 
     return (
         <div className="level">
-            Level {currentLevel}
+            {TextManager.get("ui-adventurer-info-level", { level: currentLevel })}
             <PlainProgressbar
                 progress={progress}
                 animationTime={lastAdventurer === adventurerId && !lastDingAnimationRunning ? 300 : 0}
