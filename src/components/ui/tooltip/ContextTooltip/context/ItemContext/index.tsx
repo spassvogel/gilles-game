@@ -7,8 +7,8 @@ import DeedContent from './DeedContent';
 import WeaponContent from './WeaponContent';
 import ApparelContent from './ApparelContent';
 import { TextManager } from 'global/TextManager';
-import { isPotion } from "definitions/items/potions";
-import PotionContent from "./PotionContent";
+import { isConsumable } from "definitions/items/consumables";
+import ConsumableContent from "./ConsumableContent";
 import { ItemSource } from "constants/items";
 import "./styles/itemContext.scss";
 
@@ -31,8 +31,8 @@ const ItemContext = (props: Props) => {
     if (isApparel(item)) {
         return <ApparelContent item={item} />;
     }
-    if (isPotion(item)) {
-        return <PotionContent item={item} source={source} />;
+    if (isConsumable(item)) {
+        return <ConsumableContent item={item} source={source} />;
     }
     const subtext = TextManager.getItemSubtext(item);
     return (subtext && (<p className="subtext">{`"${subtext}"`}</p>)) || null;

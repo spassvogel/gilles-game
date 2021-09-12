@@ -2,7 +2,7 @@ import * as React from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { TextManager } from 'global/TextManager';
 import Button from 'components/ui/buttons/Button';
-import { Potion } from "definitions/items/potions";
+import { Consumable } from "definitions/items/consumables";
 import { ItemSource } from "constants/items";
 import { DragSourceType } from "constants/dragging";
 import { drinkPotion } from "store/actions/adventurers";
@@ -12,11 +12,11 @@ import { StoreState } from "store/types";
 import { AdventurerStoreState } from "store/types/adventurer";
 
 interface Props {
-    item: Potion;
+    item: Consumable;
     source?: ItemSource;
 }
 
-const DeedContent = (props: Props) => {
+const ConsumableContent = (props: Props) => {
     const { item, source } = props;
     const dispatch = useDispatch();
     const subtext = TextManager.getItemSubtext(item);
@@ -51,4 +51,4 @@ const DeedContent = (props: Props) => {
 
 }
 
-export default DeedContent;
+export default ConsumableContent;

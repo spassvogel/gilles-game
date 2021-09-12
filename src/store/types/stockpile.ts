@@ -1,3 +1,4 @@
+import { Consumable } from "definitions/items/consumables";
 import { Item } from "definitions/items/types";
 
 export interface StockpileStoreState {
@@ -6,7 +7,7 @@ export interface StockpileStoreState {
     "herb": (Item|null)[],
     "material": (Item|null)[],
     "mineral": (Item|null)[],
-    "potion": (Item|null)[],
+    "consumable": (Consumable|null)[],
     "questItem": (Item|null)[],
     "trinket": (Item|null)[],
     "weapon": (Item|null)[],

@@ -3,7 +3,7 @@ import deeds, { Deed } from "./deeds";
 import herbs, { Herb } from "./herbs";
 import materials, { Material } from "./materials";
 import minerals, { Mineral } from "./minerals";
-import potions, { Potion } from "./potions";
+import consumables, { Consumable } from "./consumables";
 import questItems, { QuestItem } from "./questItems";
 import trinkets, { Trinket } from "./trinkets";
 import { Item, ItemDefinition, ItemType } from "./types";
@@ -11,11 +11,11 @@ import weapons, { Weapon } from "./weapons";
 
 const all = {
     ...apparel,
+    ...consumables,
     ...deeds,
     ...herbs,
     ...materials,
     ...minerals,
-    ...potions,
     ...questItems,
     ...trinkets,
     ...weapons,
@@ -39,8 +39,8 @@ export const getAllItemsByType = (itemType: ItemType): Item[] => {
             return Object.keys(materials) as Material[];
         case ItemType.mineral:
             return Object.keys(minerals) as Mineral[];
-        case ItemType.potion:
-            return Object.keys(potions) as Potion[];
+        case ItemType.consumable:
+            return Object.keys(consumables) as Consumable[];
         case ItemType.questItem:
             return Object.keys(questItems) as QuestItem[];
         case ItemType.trinket:

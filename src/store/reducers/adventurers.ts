@@ -6,7 +6,7 @@ import { Trait } from 'definitions/traits/types';
 import { WeaponType } from 'definitions/items/weapons';
 import { levelToXp } from "mechanics/adventurers/levels";
 import { Action } from "store/actions";
-import { getDefinition, isPotion } from "definitions/items/potions";
+import { getDefinition, isConsumable } from "definitions/items/consumables";
 
 /**
  * reducer
@@ -54,7 +54,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
         [WeaponType.crossbow]: 10,
         [WeaponType.bow]: 10
     },
-    inventory: [ "deed/lumbermill", null, "weapon/simpleCrossbow", "weapon/dagger", "weapon/khopesh", null, "weapon/steelSword", null,  "potion/greaterMana",  "potion/majorHealth",  null,  "weapon/steelShield",  null,  null,  null,  null],
+    inventory: [ "deed/lumbermill", null, "weapon/simpleCrossbow", "weapon/dagger", "weapon/khopesh", null, "weapon/steelSword", null,  "consumable/greaterMana",  "consumable/majorHealth",  null,  "weapon/steelShield",  null,  null,  null,  null],
 }, {
     id: "2e655832",
     equipment: {
@@ -224,11 +224,11 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
             if (!adventurer) {
                 throw new Error(`No adventurer ${adventurerId} found`)
             }
-            const potion = adventurer.inventory[fromSlot];
-            if (!potion || !isPotion(potion)) {
+            const consumable = adventurer.inventory[fromSlot];
+            if (!consumable || !isConsumable(consumable)) {
                 throw new Error(`No potion found at index ${fromSlot} `)
             }
-            const definition = getDefinition(potion);
+            const definition = getDefinition(consumable);
             // todo: 2021-09-02 Drink potions
             switch (definition.category) {
                 case "health":

@@ -17,7 +17,7 @@ export const getInitialStockpile = (): StockpileStoreState => {
         "herb": [],
         "material": [],
         "mineral": [],
-        "potion": [],
+        "consumable": [],
         "questItem": [],
         "trinket": [],
         "weapon": [],
@@ -30,7 +30,7 @@ export const getInitialStockpile = (): StockpileStoreState => {
                 result[itemTypeName as keyof typeof result].push(null)
             } else {
                 const randomItem = getRandomItemOfType(itemType);
-                result[itemTypeName as keyof typeof result].push(randomItem);
+                result[itemTypeName as keyof typeof result].push(randomItem as any);
             }
         }
     })
