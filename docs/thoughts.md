@@ -719,4 +719,7 @@ https://redux.js.org/api/store#subscribelistener
 - [ ] Needs to collapse into a type of dropdown select
 
 ### 2021-09-02 Drink potions
-- [ ] Need the ability for adventurers to drink potions
+- [x] Need the ability for adventurers to drink potions
+- [ ] Implement all actions for dragging and dropping between inventory and ConsumeItem
+- [ ] Implement AP cost
+- [ ] Implement actual beneficial effectsg
