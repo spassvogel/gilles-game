@@ -56,7 +56,12 @@ const AdventurerPanel = (props: Props) => {
     };
 
     const handleDropItemInventory = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string) => {
-        dropItemInventory(item, fromSlot, toSlot, sourceType, adventurer, sourceId);
+        console.log(sourceType)
+        if (sourceType === DragSourceType.adventurerConsumeItem) {
+          setConsumeItemIndex(undefined)
+        } else {
+          dropItemInventory(item, fromSlot, toSlot, sourceType, adventurer, sourceId);
+        }
     }
 
     const [consumeItemIndex, setConsumeItemIndex] = useState<number>()
