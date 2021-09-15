@@ -36,3 +36,13 @@
   // 2px border gold
   @include border('gold', 2);
 }
+
+@mixin border-primary-sm {
+  // 1px border primary
+  @include border('primary', 1);
+}
+
+@mixin border-primary-md {
+  // 2px border primary
+  @include border('primary', 2);
+}

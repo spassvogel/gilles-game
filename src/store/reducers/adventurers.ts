@@ -42,7 +42,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     basicAttributes: generateRandomAttributes(),
     health: Math.random() * 100,
     xp: levelToXp(1),
-    
+
     room: 0,
     name: "Sasha Falcon",
     flavor: true,
@@ -65,7 +65,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    
+
     room: 1,
     avatarImg: `${avatarImgBasePath}/male/m_05.png`,
     spritesheetPath: `${spritesheetBasePath}elf-bow.json`,
@@ -87,7 +87,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    
+
     room: 2,
     traits: [Trait.gloomy],
     skills: {
@@ -106,7 +106,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    
+
     room: 4,
     avatarImg: `${avatarImgBasePath}/male/m_19.png`,
     spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
@@ -123,7 +123,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    
+
     room: 5,
     avatarImg: `${avatarImgBasePath}/male/m_08.png`,
     spritesheetPath: `${spritesheetBasePath}orc-axe.json`,
@@ -140,7 +140,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    
+
     room: 9,
     avatarImg: `${avatarImgBasePath}/female/f_10.png`,
     spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
@@ -156,7 +156,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     flavor: true,
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    
+
     room: 3,
     avatarImg: `${avatarImgBasePath}/female/f_16.png`,
     spritesheetPath: `${spritesheetBasePath}troll-sword.json`,
@@ -171,7 +171,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     name: "Gylbarde the Earnest",
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    
+
     room: 8,
     avatarImg: `${avatarImgBasePath}/male/m_09.png`,
     spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
@@ -186,7 +186,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     name: "Lanslet of the Water",
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    
+
 
     room: 6,
     avatarImg: `${avatarImgBasePath}/male/m_26.png`,
@@ -202,7 +202,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     name: "Tedric the Bold",
     health: Math.random() * 100,
     xp: Math.random() * 100,
-    
+
     room: 7,
     avatarImg: `${avatarImgBasePath}/male/m_33.png`,
     spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
@@ -218,7 +218,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
 
     switch (action.type) {
         // Moves an  item from one inventory slot to another
-        case "drinkPotion": {
+        case "consumeItem": {
             const { adventurerId, fromSlot } = action;
             const adventurer = state.find((a) => a.id === adventurerId);
             if (!adventurer) {
@@ -236,7 +236,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
                     break;
                 case "soma":
                     console.log(`${adventurer.name} drinks a soma potion`);
-                    break;                
+                    break;
                 case "mana":
                     console.log(`${adventurer.name} drinks a mana potion`);
                     break;

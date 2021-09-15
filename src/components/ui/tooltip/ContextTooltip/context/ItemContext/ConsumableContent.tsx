@@ -5,7 +5,7 @@ import Button from 'components/ui/buttons/Button';
 import { Consumable } from "definitions/items/consumables";
 import { ItemSource } from "constants/items";
 import { DragSourceType } from "constants/dragging";
-import { drinkPotion } from "store/actions/adventurers";
+import { consumeItem } from "store/actions/adventurers";
 import { addLogText } from "store/actions/log";
 import { LogChannel } from "store/types/logEntry";
 import { StoreState } from "store/types";
@@ -22,22 +22,22 @@ const ConsumableContent = (props: Props) => {
     const subtext = TextManager.getItemSubtext(item);
     const adventurers = useSelector<StoreState, AdventurerStoreState[]>(store => store.adventurers);
 
-    const handleDrink = () => {
-        if (!source?.id || !source?.slot) return
-        dispatch(drinkPotion(source.id, source.slot));
+    // const handleDrink = () => {
+    //     if (!source?.id || !source?.slot) return
+    //     dispatch(consumeItem(source.id, source.slot));
 
-        // Add log entry
-        const adventurer = adventurers.find(a => a.id === source.id)?.name
-        if (adventurer) {
-            dispatch(addLogText("adventurer-drink-potion", { item, adventurer }, LogChannel.common));
-        }        
-    }
+    //     // Add log entry
+    //     const adventurer = adventurers.find(a => a.id === source.id)?.name
+    //     if (adventurer) {
+    //         dispatch(addLogText("adventurer-drink-potion", { item, adventurer }, LogChannel.common));
+    //     }
+    // }
 
-    const onAnAdventurer = source && source.origin === DragSourceType.adventurerInventory;
+    // const onAnAdventurer = source && source.origin === DragSourceType.adventurerInventory;
     return (
         <div>
             { subtext && (<p className="subtext">{`"${subtext}"`}</p>)}
-            {onAnAdventurer && (
+            {/* {onAnAdventurer && (
                 <Button
                     disabled={false}
                     size="small"
@@ -45,7 +45,7 @@ const ConsumableContent = (props: Props) => {
                 >
                     Drink potion
                 </Button>
-            )}
+            )} */}
         </div>
     );
 

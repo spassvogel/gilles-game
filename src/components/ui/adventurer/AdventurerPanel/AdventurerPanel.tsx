@@ -1,4 +1,4 @@
-import React, {  } from "react";
+import React, { useState } from "react";
 import { DragSourceType } from 'constants/dragging';
 import Inventory from 'components/ui/inventory/Inventory';
 import useItemDropActions from 'hooks/actions/useItemActions';
@@ -12,10 +12,11 @@ import ApIndicator from './ApIndicator';
 import AdventurerTraits from './AdventurerTraits';
 import AdventurerEquipment from './AdventurerEquipment';
 import { TextManager } from "global/TextManager";
-import "./styles/adventurerPanel.scss";
 import ReactMarkdown from "react-markdown";
 import Health from "./Health";
 import Attributes from "./Attributes";
+import ConsumeItem from "./ConsumeItem";
+import "./styles/adventurerPanel.scss";
 
 export interface Props {
     adventurerId: string;
@@ -44,10 +45,6 @@ const AdventurerPanel = (props: Props) => {
         onStartInventoryItemDrag
     } = props;
     const adventurer = useAdventurerState(adventurerId);
-    // const renderAttributes = () => Object.keys(adventurer.stats).map((stat) => {
-    //     const value: number = adventurer.stats[stat];
-    //     return <div key={`${adventurer.id}-${stat}`} > <b>{stat}</b>: {value.toFixed(1)} </div>;
-    // });
 
     const {
         dropItemEquipment,
@@ -57,8 +54,18 @@ const AdventurerPanel = (props: Props) => {
     const handleDropItemEquipment = (dragInfo: InventoryItemDragInfo, slotType: EquipmentSlotType) => {
         dropItemEquipment(dragInfo, slotType, adventurer);
     };
+
     const handleDropItemInventory = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string) => {
         dropItemInventory(item, fromSlot, toSlot, sourceType, adventurer, sourceId);
+    }
+
+    const [consumeItemIndex, setConsumeItemIndex] = useState<number>()
+    const handleDropConsumeItem = (fromSlot: number) => {
+        setConsumeItemIndex(fromSlot)
+    }
+
+    const handleItemConsumed = () => {
+      setConsumeItemIndex(undefined);
     }
 
     return (
@@ -79,16 +86,13 @@ const AdventurerPanel = (props: Props) => {
                         </ReactMarkdown>
                     </span>
                 )}
-                <Health adventurerId={adventurer.id}/> 
+                <Health adventurerId={adventurer.id}/>
                 { traits && <AdventurerTraits adventurerId={adventurer.id}/> }
                 </div>
-                <Attributes adventurerId={adventurer.id}/> 
+                <Attributes adventurerId={adventurer.id}/>
             </section>
             <section id="skills">
                 { skills && <AdventurerSkills adventurerId={adventurer.id}/> }
-                {/* <div className="renderAttributes">
-                    {renderAttributes()}
-                </div> */}
             </section>
             <section id="equipment">
                 <div className="equipment">
@@ -104,10 +108,17 @@ const AdventurerPanel = (props: Props) => {
                 <Inventory
                     sourceType={DragSourceType.adventurerInventory}
                     sourceId={adventurer.id}
+                    disabledIndex={consumeItemIndex}
                     items={adventurer.inventory}
                     className="inventory-small"
                     onDropItem={handleDropItemInventory}
                     onStartDrag={onStartInventoryItemDrag}
+                />
+                <ConsumeItem
+                  adventurerId={adventurer.id}
+                  fromSlot={consumeItemIndex}
+                  onDrop={handleDropConsumeItem}
+                  onConsumed={handleItemConsumed}
                 />
             </section>
         </div>

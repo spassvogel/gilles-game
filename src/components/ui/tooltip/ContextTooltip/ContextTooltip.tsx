@@ -12,9 +12,9 @@ import TraitContext from './context/TraitContext';
 import { WeaponType } from 'definitions/items/weapons';
 import { Rarity } from 'constants/items';
 import { getDefinition } from 'definitions/items';
-import './styles/contextTooltip.scss';
 import { BasicAttribute } from 'store/types/adventurer';
 import AttributeContext from './context/AttributeContext';
+import './styles/contextTooltip.scss';
 
 // A contextual popup showing what you just clicked.
 // Can be an Item, Resource, Trait, skill, etc

@@ -1,8 +1,8 @@
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { Item } from "definitions/items/types";
 
-export type AdventurerAction = 
-    { type: "drinkPotion", adventurerId: string, fromSlot: number }
+export type AdventurerAction =
+    { type: "consumeItem", adventurerId: string, fromSlot: number }
  |  { type: "moveItemInInventory", adventurerId: string, fromSlot: number, toSlot: number }
  |  { type: "moveItemToOtherAdventurer", adventurerId: string, fromSlot: number, toSlot?: number, toAdventurerId: string }
  |  { type: "addItemToInventory", adventurerId: string, item: Item, toSlot?: number }
@@ -12,8 +12,8 @@ export type AdventurerAction =
  |  { type: "renameAdventurer", adventurerId: string, name: string }
  |  { type: "addXP", adventurerId: string, xp: number; }
 
-export const drinkPotion = (adventurerId: string, fromSlot: number): AdventurerAction => ({
-    type: "drinkPotion",
+export const consumeItem = (adventurerId: string, fromSlot: number): AdventurerAction => ({
+    type: "consumeItem",
     adventurerId,
     fromSlot,
 })

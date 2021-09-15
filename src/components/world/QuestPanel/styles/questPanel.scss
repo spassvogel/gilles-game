@@ -13,7 +13,7 @@
 		padding: 8px;
 		display: flex;
         position: relative;
-        
+
 		.modal {
 			background: rgba(0, 0, 0, 0.75);
 			position: absolute;
@@ -23,30 +23,30 @@
 			bottom: 8px;
 			display: flex;
 			justify-content: center;
-            align-items: baseline;
+      align-items: baseline;
 
-            &>div {
-                margin-top: 50%;
-            }
-		}
-        
-        /** scene canvas */
-        canvas {
-			width: 100%;
-			height: auto !important;
-            flex: 1;
-            max-width: 100%;
-
-            @include border-grey-sm;
+      &>div {
+        margin-top: 50%;
+      }
 		}
 
-    }
+      /** scene canvas */
+    canvas {
+    width: 100%;
+    height: auto !important;
+    flex: 1;
+    max-width: 100%;
+
+    @include border-grey-sm;
+  }
+
+}
 
     /** on the right. party party */
     .party-area {
 		flex: .4;
         padding: 8px;
-        
+
         .tabstrip.adventurers-tabstrip {
             .tabstrip-tab {
                 margin-bottom: -2px;
@@ -66,7 +66,7 @@
                     margin-bottom: -2px;
                     border-color: $color-highlighted;
                     border-bottom: 0;
-                    
+
                     .avatar {
                         border: 2px solid $color-highlighted;
                         border-bottom: none;
@@ -75,7 +75,7 @@
                 }
             }
         }
-                
+
         .adventurer-details {
             border-top: 2px solid $color-highlighted;
         }
@@ -134,7 +134,7 @@
                 overflow: hidden;
                 position: relative;
                 margin-right: 40px;
-                
+
                 section {
                     padding: 8px;
                     margin-bottom: 3rem;
@@ -152,15 +152,15 @@
 
     .quest-panel.quest-panel-auto {
 		flex-direction: column;
-    
+
         .quest-area {
 			flex: 0 1;
 		}
-    
+
         .adventurer-panel {
 			display: flex;
 			overflow: auto;
-    
+
             .info {
 				margin-right: 8px;
 				flex: 1;

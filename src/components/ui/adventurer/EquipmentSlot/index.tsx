@@ -94,12 +94,10 @@ const EquipmentSlot = (props: React.PropsWithChildren<Props & DropSourceProps>) 
     const isActive = isOver && canDrop;
     const className = ["equipment-slot"]
     if (isActive) {
-        className.push("active");
+        className.push("drop-active");
     } else if (canDrop) {
-        className.push("highlight");
-    } else {
-        className.push("normal")
-    }
+        className.push("drop-possible");
+    } 
 
     return connectDropTarget(
         <div className={className.join(' ')} title={EquipmentSlotType[props.type]}>

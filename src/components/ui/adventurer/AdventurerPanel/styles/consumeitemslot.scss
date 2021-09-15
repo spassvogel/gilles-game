@@ -1,11 +1,11 @@
 @import 'components/styles/variables.scss';
 
-.equipment-slot { 
-    width: 48px;
-    height: 48px;
+.consume-item-slot {
+    width: $item-size-small;
+    height: $item-size-small;
     background-size: contain;
-    background-repeat: no-repeat;    
-    @include border-grey-md;
+    background-repeat: no-repeat;
+    @include border-primary-md;
 
     &.drop-possible {
         @include border-gold-md;
