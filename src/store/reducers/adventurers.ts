@@ -75,7 +75,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
         [WeaponType.crossbow]: 12,
         [WeaponType.staff]: 13
     },
-    inventory: [ "weapon/simpleCrossbow", null, null, null, null, "apparel/boots1", "apparel/chainmailHood", "apparel/nomadHelmet", "apparel/plateChest4", null, "weapon/buckler", null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, "apparel/plateHelmet", "apparel/cowl"],
+    inventory: [ "weapon/simpleCrossbow", null, "consumable/greaterSoma", null, null, null, "apparel/boots1", "apparel/chainmailHood", "apparel/nomadHelmet", "apparel/plateChest4", null, "weapon/buckler", null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, "apparel/plateHelmet", "apparel/cowl"],
 }, {
     id: "ec6f1050",
     equipment: {

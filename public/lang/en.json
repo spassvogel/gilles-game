@@ -18,7 +18,7 @@
     "adventurer-ec6f1050-name": "Zackary \"bone bag\" Morris",
     "adventurer-ec6f1050-flavor": "This guy is a friggin' skeleton",
     "adventurer-f22d66cb-name": "Gylbarde the Earnest",
-    
+
     "common-article-defined": "the {{noun}}",
     "common-article-undefined": "a {{noun}}",
 
@@ -153,7 +153,7 @@
     "item-deed-workshop-name": "deed for a workshop",
     "item-deed-weaponsmith-name": "deed for a weapon smith",
     "item-deed-weaponsmith-subtext": "It allows for the construction of a weaponsmith",
-    
+
     "item-herb-angelicas-sorrow-name": "Angelica's sorrow",
     "item-herb-banshee-reeds-name": "Banshee reeds",
     "item-herb-blissflower-name": "Blissflower",
@@ -179,7 +179,7 @@
     "item-herb-wyrmvine-name": "wyrmvine",
     "item-herb-winter-weed-name": "Winter weed",
     "item-herb-wizards-bane-name": "Wizards bane",
-        
+
     "item-material-arrowheads-name": "arrow heads",
     "item-material-beam-name": "beam",
     "item-material-bolts-name": "bolts",
@@ -437,6 +437,7 @@
     "ui-adventurer-info-skills-title": "Skills",
     "ui-adventurer-info-traits-title": "Traits",
     "ui-adventurer-info-use-item": "Use item",
+    "ui-adventurer-info-use-item-ap-cost": "({{ap}} AP)",
     "ui-adventurer-info-xp-level-up": "Level up!",
     "ui-adventurer-info-xp-progress": "{{xp}}/{{next}} xp to next level",
 
@@ -466,7 +467,7 @@
     "ui-structure-level": "Level: ",
     "ui-structure-upgrade": "Upgrade to level {{level}}",
     "ui-structure-upgrade-max": "Upgraded to max level",
-    
+
     "ui-structure-production-craft": "Craft",
     "ui-structure-production-craft-a": "Craft {{item:name item \"aA\"}}",
     "ui-structure-production-crafting": "Currently crafting:",
@@ -481,7 +482,7 @@
     "ui-structure-tavern-on-a-quest": " (on a quest)",
     "ui-structure-tavern-quest-launched": "Quest started!",
     "ui-structure-tavern-rooms": "Rooms",
-    
+
     "ui-structure-tavern-title-quest-board": "Quest board",
 
     "ui-structure-resource-harvest-garden": "Besides growing vegetables, fruits and small livestock, used for nourishment, the herbalists also cultivate a number of rare flowers and weeds. These plants are not for direct consumption but instead can be used as reagents in various potions and elixirs at the {{structure:link 'alchemist' }}. \n\nCheck the garden every 3 hours for a new harvest.",
@@ -500,7 +501,7 @@
     "ui-structure-warehouse-help-upgrade-header-capacity": "Capacity",
     "ui-structure-warehouse-resources-source": "Source: {{structure:link structure}}",
     "ui-structure-warehouse-resources-source-unbuilt": "Source: {{structure:name structure}} (not built yet)",
-    
+
     "ui-toast-type-achievement-unlocked": "Achievement unlocked!",
     "ui-toast-type-cheat": "Cheat activated!",
     "ui-toast-type-game": "Game",
@@ -521,7 +522,7 @@
     "ui-tooltip-type-skill": "Skill: ",
     "ui-tooltip-type-trait": "Trait: ",
     "ui-tooltip-workers-quantity": "Quantity: {{free}} free ({{total}} total)",
-    
+
     "ui-view-button-town": "Town",
     "ui-view-button-world": "World",
 

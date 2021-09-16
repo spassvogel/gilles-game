@@ -11,10 +11,15 @@ import { consumeItem } from "store/actions/adventurers";
 import { useDispatch } from "react-redux";
 import { addLogText } from "store/actions/log";
 import { LogChannel } from "store/types/logEntry";
+import { useQuest } from "hooks/store/quests";
+import { getAdventurer } from "store/types/scene";
+import { AP_COST_CONSUME } from "mechanics/combat";
 import "./styles/consumeitem.scss";
+import { deductActorAp } from "store/actions/quests";
 
 export interface Props {
     adventurerId: string;
+    questName?: string;
     fromSlot?: number;
 
     onDrop?: (index: number) => void;
@@ -22,9 +27,16 @@ export interface Props {
 }
 
 const ConsumeItem = (props: Props) => {
-    const { adventurerId, fromSlot, onDrop, onConsumed } = props;
+    const { adventurerId, questName, fromSlot, onDrop, onConsumed } = props;
     const adventurer = useAdventurerState(adventurerId);
+    const quest = useQuest(questName ?? "");
     const dispatch = useDispatch();
+    const combat = !!quest?.scene?.combat; // if in combat mode, you have to pay AP to consume an item
+    const ap = useMemo(() => {
+      return getAdventurer(quest?.scene?.objects ?? [], adventurerId)?.ap ?? 0
+    }, [quest, adventurerId]);
+
+    const enoughAp = ap >= AP_COST_CONSUME;
 
     const handleDrop = (dragInfo: InventoryItemDragInfo) => {
         if (dragInfo.inventorySlot !== undefined){
@@ -39,6 +51,11 @@ const ConsumeItem = (props: Props) => {
 
     const handleConsumeItem = () => {
       if (!adventurerId || !fromSlot) return
+      if (combat) {
+        if (!questName) return
+        // Deduct AP from adventurer if in combat
+        dispatch(deductActorAp(questName , adventurerId, AP_COST_CONSUME));
+      }
       dispatch(consumeItem(adventurerId, fromSlot));
       onConsumed?.();
 
@@ -66,9 +83,10 @@ const ConsumeItem = (props: Props) => {
                 <Button
                     className="consume-button"
                     onClick={handleConsumeItem}
-                    disabled={!item}
+                    disabled={!item || (combat && !enoughAp)}
                 >
                     {TextManager.get("ui-adventurer-info-use-item")}
+                    {combat && " " + TextManager.get("ui-adventurer-info-use-item-ap-cost", { ap: AP_COST_CONSUME })}
                 </Button>
             </div>
         </fieldset>

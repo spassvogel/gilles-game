@@ -720,6 +720,7 @@ https://redux.js.org/api/store#subscribelistener
 
 ### 2021-09-02 Drink potions
 - [x] Need the ability for adventurers to drink potions
-- [ ] Implement all actions for dragging and dropping between inventory and ConsumeItem
-- [ ] Implement AP cost
+- [x] Implement all actions for dragging and dropping between inventory and ConsumeItem
+- [x] Implement AP cost
 - [ ] Implement actual beneficial effectsg
+- [ ] Play sound!

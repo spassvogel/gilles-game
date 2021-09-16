@@ -1,5 +1,5 @@
-export const AP_COST_MOVE = 1; // amount of AP to deduct for each tile moved 
-
+export const AP_COST_MOVE = 1; // amount of AP to deduct for each tile moved
+export const AP_COST_CONSUME = 2; // amount of AP to deduct for consuming an item
 export const ENEMY_BASE_AP = 6;
 
 export const calculateInitialAP = (dex: number, level: number) => {

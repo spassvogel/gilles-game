@@ -26,7 +26,7 @@ export type ActorObject = SceneObject & {
     allegiance: Allegiance;
 };
 
-// Type guard
+// Type guard for ActorObject
 export const isActorObject = (object: SceneObject): object is ActorObject => {
     return object.type === TiledObjectType.actor;
 }
@@ -40,6 +40,12 @@ export const isAdventurer = (object: SceneObject): object is ActorObject => {
 export const isEnemy = (object: SceneObject): object is ActorObject => {
     return isActorObject(object) && object.allegiance === Allegiance.enemy;
 }
+
+// Returns the ActorObject belonging to given adventurerId
+export const getAdventurer = (objects: SceneObject[], adventurerId: string): ActorObject | undefined => {
+  return objects.find(o => isAdventurer(o) && o.name === adventurerId) as ActorObject;
+}
+
 
  // export type Actor = SceneObject & {
 //     type: "actor";

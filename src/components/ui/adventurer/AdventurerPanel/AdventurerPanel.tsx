@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { DragSourceType } from 'constants/dragging';
 import Inventory from 'components/ui/inventory/Inventory';
 import useItemDropActions from 'hooks/actions/useItemActions';
@@ -17,6 +17,8 @@ import Health from "./Health";
 import Attributes from "./Attributes";
 import ConsumeItem from "./ConsumeItem";
 import "./styles/adventurerPanel.scss";
+import { SceneControllerContext } from "components/world/QuestPanel/context/SceneControllerContext";
+import { useQuest } from "hooks/store/quests";
 
 export interface Props {
     adventurerId: string;
@@ -56,7 +58,6 @@ const AdventurerPanel = (props: Props) => {
     };
 
     const handleDropItemInventory = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string) => {
-        console.log(sourceType)
         if (sourceType === DragSourceType.adventurerConsumeItem) {
           setConsumeItemIndex(undefined)
         } else {
@@ -121,6 +122,7 @@ const AdventurerPanel = (props: Props) => {
                 />
                 <ConsumeItem
                   adventurerId={adventurer.id}
+                  questName={questName}
                   fromSlot={consumeItemIndex}
                   onDrop={handleDropConsumeItem}
                   onConsumed={handleItemConsumed}
