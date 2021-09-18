@@ -16,6 +16,7 @@ import { getAdventurer } from "store/types/scene";
 import { AP_COST_CONSUME } from "mechanics/combat";
 import "./styles/consumeitem.scss";
 import { deductActorAp } from "store/actions/quests";
+import { Channel, SoundManager } from "global/SoundManager";
 
 export interface Props {
     adventurerId: string;
@@ -57,6 +58,7 @@ const ConsumeItem = (props: Props) => {
         dispatch(deductActorAp(questName , adventurerId, AP_COST_CONSUME));
       }
       dispatch(consumeItem(adventurerId, fromSlot));
+      SoundManager.playSound("scene/drinking", Channel.scene);
       onConsumed?.();
 
       // Add log entry

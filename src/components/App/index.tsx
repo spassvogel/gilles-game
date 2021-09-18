@@ -103,6 +103,8 @@ const App = (props: Props) => {
         SoundManager.addSound("ui/error", "sound/ui/error.ogg");
         SoundManager.addSound("ui/levelUp", "sound/ui/level-up.ogg");
         SoundManager.addSound("ui/toast", "sound/ui/toast.ogg");
+
+        SoundManager.addSound("scene/drinking", "sound/scene/drinking.ogg");
     }, []);
 
     const handleAppClick = () => {

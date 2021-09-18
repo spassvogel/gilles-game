@@ -8,3 +8,4 @@ various icons                   Lorc                    https://game-icons.net/
 weapon sounds                   garionek                https://freesound.org/people/garionek
 sounds                          hybrid_5                https://freesound.org/people/Hybrid_V/sounds/319590/
 07114 hindu fail ding           Robinhood76             https://freesound.org/people/Robinhood76/sounds/436826/
+drinking-and-swallow.wav         dersuperanton           https://freesound.org/people/dersuperanton/sounds/433645/
