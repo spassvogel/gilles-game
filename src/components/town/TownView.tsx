@@ -22,6 +22,7 @@ import { Viewport as PixiViewport } from "pixi-viewport";
 import Clouds from './Clouds';
 import { Point } from "pixi.js";
 import { RoutedStructureDetailsView } from "./StructureDetailsView";
+import StructureLabels from "./StructureLabels";
 import "./styles/townView.scss"
 
 const HEIGHT = 1079;
@@ -151,7 +152,7 @@ const TownView = () => {
 
     return (
         <div className="town-view" ref={ref}>
-            <Legenda structures={structures} />
+            {/* <Legenda structures={structures} /> */}
             <TownStage
                 screenWidth={canvasWidth}
                 screenHeight={canvasHeight}
@@ -162,6 +163,7 @@ const TownView = () => {
                 <Clouds worldWidth={canvasWidth} />
                 {renderStructures()}
                 <Clouds worldWidth={canvasWidth} />
+                <StructureLabels />
             </TownStage>
             <Switch>
                 <Route path="/town/:structure/view" >

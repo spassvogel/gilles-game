@@ -1,10 +1,11 @@
 
 import React, { useRef, useEffect, PropsWithChildren, forwardRef, useImperativeHandle } from "react";
-import { Sprite, Stage } from '@inlet/react-pixi';
+import { Sprite } from '@inlet/react-pixi';
 import { Viewport as PixiViewport} from 'pixi-viewport';
 import Viewport from 'components/pixi/Viewport';
 import { gsap } from 'gsap';
 import { GodrayFilter } from "@pixi/filter-godray";
+import BridgedStage from "components/pixi/util/BridgedStage";
 
 export interface Props {
     screenWidth: number;
@@ -58,7 +59,7 @@ const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props: Pro
     }, [worldHeight, worldWidth]);
 
     return (
-        <Stage width={screenWidth} height={screenHeight} options={options} >
+        <BridgedStage width={screenWidth} height={screenHeight} options={options} >
             <Viewport
                 screenWidth={screenWidth}
                 screenHeight={screenHeight}
@@ -73,7 +74,7 @@ const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props: Pro
                     {children}
                 </Sprite>
             </Viewport>
-        </Stage>
+        </BridgedStage>
 
     )
 });
