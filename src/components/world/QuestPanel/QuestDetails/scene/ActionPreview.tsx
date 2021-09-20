@@ -3,6 +3,7 @@ import DashedLine from 'components/pixi/DashedLine';
 import { Point } from 'pixi.js';
 import { SceneActionType } from 'store/types/scene';
 import { ActionIntent } from './ui/SceneUI'
+import { Graphics } from '@inlet/react-pixi';
 
 export interface Props {
   actionIntent: ActionIntent;
@@ -43,23 +44,18 @@ const ActionPreview = (props: Props) => {
       )
     }
     case SceneActionType.rangedAttack: {
-
+      // draw arrow: https://math.stackexchange.com/questions/1314006/drawing-an-arrow
       const valid = (!actionIntent.apCost) || actionIntent.apCost <= (actionIntent.actorAP || 0);
-      const converted = [
-        convert(actionIntent.from),
-        convert(actionIntent.to),
-      ];
+      const from = convert(actionIntent.from);
+      const to = convert(actionIntent.to);
       return (
-        <DashedLine
-          points={converted}
-          dash={10}
-          gap={1}
-          speed={20}
-          rotation={0}
-          style={{
-            width: 4,
-            color: valid ? 0xcb8c06 : 0x8b0000,
-            alpha: 1,
+        <Graphics
+          name="line"
+          draw={graphics => {
+            graphics.lineStyle(4, valid ? 0xcb8c06 : 0x8b0000, 1)
+            graphics.moveTo(from.x, from.y)
+            graphics.lineTo(to.x, to.y);
+            graphics.endFill();
           }}
         />
       )
