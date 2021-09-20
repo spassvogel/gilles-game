@@ -1,6 +1,6 @@
+import React from 'react';
 import DashedLine from 'components/pixi/DashedLine';
 import { Point } from 'pixi.js';
-import React from 'react';
 import { SceneActionType } from 'store/types/scene';
 import { ActionIntent } from './ui/SceneUI'
 
@@ -12,6 +12,7 @@ export interface Props {
 
 const ActionPreview = (props: Props) => {
   const {actionIntent, tileWidth, tileHeight} = props;
+  const convert = (p: number[]) => new Point(p[0] * (tileWidth) + (tileWidth / 2), p[1] * (tileHeight) + (tileHeight / 2));
 
   switch (actionIntent.action){
     case SceneActionType.move:
@@ -20,10 +21,9 @@ const ActionPreview = (props: Props) => {
       if (!actionIntent.path){
         return null;
       }
-      const convert = (p: number[]) => new Point(p[0] * (tileWidth) + (tileWidth / 2), p[1] * (tileHeight) + (tileHeight / 2));
       const converted = [
-          convert(actionIntent.from),
-          ...actionIntent.path.map(p => convert(p))
+        convert(actionIntent.from),
+        ...actionIntent.path.map(p => convert(p))
       ];
       const valid = (!actionIntent.apCost) || actionIntent.apCost <= (actionIntent.actorAP || 0);
 
@@ -39,7 +39,30 @@ const ActionPreview = (props: Props) => {
             color: valid ? 0xffffff : 0x8b0000,
             alpha: 1,
           }}
-        />)
+        />
+      )
+    }
+    case SceneActionType.rangedAttack: {
+
+      const valid = (!actionIntent.apCost) || actionIntent.apCost <= (actionIntent.actorAP || 0);
+      const converted = [
+        convert(actionIntent.from),
+        convert(actionIntent.to),
+      ];
+      return (
+        <DashedLine
+          points={converted}
+          dash={10}
+          gap={1}
+          speed={20}
+          rotation={0}
+          style={{
+            width: 4,
+            color: valid ? 0xcb8c06 : 0x8b0000,
+            alpha: 1,
+          }}
+        />
+      )
     }
     default:
       return null;

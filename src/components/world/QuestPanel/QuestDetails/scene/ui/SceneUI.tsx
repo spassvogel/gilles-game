@@ -1,5 +1,6 @@
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { useQuest } from 'hooks/store/quests';
+import { AP_COST_RANGED_ATTACK } from 'mechanics/combat';
 import { Point } from 'pixi.js';
 import React, {
     PropsWithChildren,
@@ -26,7 +27,7 @@ export interface Props {
 }
 
 export interface ActionIntent {
-    action: SceneActionType.move | SceneActionType.slash | SceneActionType.interact;
+    action: SceneActionType.move | SceneActionType.slash | SceneActionType.interact | SceneActionType.rangedAttack;
     from: [number, number];
     to: [number, number];
     apCost?: number;
@@ -151,6 +152,19 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
                     actor: selectedActorId,
                     actorAP,
                     path,
+                })
+            }
+            break;
+            case SceneActionType.rangedAttack: {
+                const apCost = AP_COST_RANGED_ATTACK; // can only inspect out of combat?
+
+                onSetActionIntent({
+                    action,
+                    from,
+                    to,
+                    apCost,
+                    actor: selectedActorId,
+                    actorAP,
                 })
             }
         }
