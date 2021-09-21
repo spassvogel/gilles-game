@@ -14,7 +14,7 @@ const StructureLabels = () => {
 
   if (!fontLoaded) return null
   return (
-    <Container>
+    <Container name="structure-labels">
       <StructureLabel structure={"tavern"} x={645} y={535} />
       <StructureLabel structure={"warehouse"} x={430} y={130} />
       <StructureLabel structure={"lumberMill"} x={235} y={410} />
