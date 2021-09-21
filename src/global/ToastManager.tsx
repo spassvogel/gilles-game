@@ -20,7 +20,7 @@ export class ToastManager extends (EventEmitter as new () => TypedEmitter<ToastE
     private static _instance = new ToastManager();
 
     private static stack: ToastConfig[] = [];
-    private static lifeTime = FIVE_SECONDS; // Time each toast lives
+    private static lifeTime = FIVE_SECONDS * 444; // Time each toast lives
                                             // also update CSS animation!
 
     static addToast(title: string, type?: Type, icon?: string, link?: string) {
