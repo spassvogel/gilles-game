@@ -2,7 +2,7 @@ import React, { forwardRef, PropsWithChildren } from "react";
 import { Viewport as PixiViewport } from "pixi-viewport";
 import { PixiComponent, useApp } from "@inlet/react-pixi";
 import gauntlet from "components/App/styles/img/cursors/dwarven_gauntlet_extra_6.png";
-import { Application, InteractionEvent, Ticker } from "pixi.js";
+import { InteractionEvent, Application, Ticker } from "pixi.js";
 
 interface Props {
   onClick?(event: InteractionEvent): void;
