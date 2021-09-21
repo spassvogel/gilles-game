@@ -722,5 +722,16 @@ https://redux.js.org/api/store#subscribelistener
 - [x] Need the ability for adventurers to drink potions
 - [x] Implement all actions for dragging and dropping between inventory and ConsumeItem
 - [x] Implement AP cost
-- [ ] Implement actual beneficial effectsg
-- [ ] Play sound!
+- [ ] Implement actual beneficial effects
+- [x] Play sound!
+
+### 2021-09-20 Pixijs inspector
+
+https://github.com/MatsMaker/example-of-migration-pixijs-imspector-to-5v/blob/gh-pages/src/app.js
+
+### 2021-09-21 Context of actor
+- [ ] Make a context content for actors (adventurers/enemies)
+
+### 2021-09-21 Town structure names
+- [x] Show structure labels on the Town
+- [ ] Show level + emblem for structure label
