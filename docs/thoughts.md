@@ -726,7 +726,7 @@ https://redux.js.org/api/store#subscribelistener
 - [x] Play sound!
 
 ### 2021-09-20 Pixijs inspector
-
+- [x] Make it work again
 https://github.com/MatsMaker/example-of-migration-pixijs-imspector-to-5v/blob/gh-pages/src/app.js
 
 ### 2021-09-21 Context of actor

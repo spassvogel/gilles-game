@@ -23,8 +23,19 @@ import { restartGame } from 'index';
 import Button, { ButtonColor } from 'components/ui/buttons/Button';
 import "./styles/app.scss";
 
+
 PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);
+
+
+declare global {
+  interface Window { __PIXI_INSPECTOR_GLOBAL_HOOK__: { register: (x: { PIXI: typeof PIXI }) => void }; }
+}
+if (process.env.NODE_ENV === "development") {
+  // Register pixi inspector chrome plugin
+  // https://chrome.google.com/webstore/detail/pixijs-devtools/aamddddknhcagpehecnhphigffljadon
+  window.__PIXI_INSPECTOR_GLOBAL_HOOK__?.register({ PIXI: PIXI });
+}
 
 export enum View {
     Town,
