@@ -2,6 +2,8 @@ import * as React from "react";
 import { useAdventurerState } from "hooks/store/adventurers";
 import { ActorObject } from "store/types/scene";
 import Attributes from "components/ui/adventurer/AdventurerPanel/Attributes";
+import { calculateInitialAP } from "mechanics/combat";
+import { xpToLevel } from "mechanics/adventurers/levels";
 
 interface Props {
   actorObject: ActorObject
@@ -9,12 +11,13 @@ interface Props {
 
 const AdventurerContext = (props: Props) => {
   const { actorObject } = props;
-  const adventurerState = useAdventurerState(actorObject.name);
+  const { name, id, xp, basicAttributes } = useAdventurerState(actorObject.name);
+  const level = xpToLevel(xp);
   return (
     <div>
-      {adventurerState.name}
-      <Attributes adventurerId={adventurerState.id}/>
-
+      {name}
+      <Attributes adventurerId={id}/>
+      AP each turn: {calculateInitialAP(basicAttributes, level)}
     </div>
   )
 }
