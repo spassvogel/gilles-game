@@ -466,7 +466,7 @@ export class BaseSceneController<TQuestVars> {
               object.name = adventurer.id;
               // object.ap = adventurer.id === 'c4a5d270' ? 3 : 0
               const level = xpToLevel(adventurer.xp);
-              object.ap = calculateInitialAP(adventurer.basicAttributes.dex, level);
+              object.ap = calculateInitialAP(adventurer.basicAttributes, level);
               object.health = adventurer.health;
               object.allegiance = Allegiance.player;
               object.properties.adventurerId = adventurer.id;

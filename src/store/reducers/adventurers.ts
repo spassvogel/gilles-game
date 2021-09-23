@@ -16,7 +16,7 @@ import { getDefinition, isConsumable } from "definitions/items/consumables";
 const generateRandomAttributes = (): BasicAttributesStoreState => {
     return {
         str: Math.floor(Math.random() * 3) + 9,
-        dex: Math.floor(Math.random() * 3) + 9,
+        for: Math.floor(Math.random() * 3) + 9,
         int: Math.floor(Math.random() * 3) + 9,
         agi: Math.floor(Math.random() * 3) + 9
     };

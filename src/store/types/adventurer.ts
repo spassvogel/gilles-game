@@ -46,7 +46,7 @@ export interface EquipmentStoreState {
 
 export interface BasicAttributesStoreState {
     str: number;
-    dex: number;
+    for: number;
     int: number;
     agi: number;
 }

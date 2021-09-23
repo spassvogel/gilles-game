@@ -72,7 +72,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
                     const progress = qss.progress + 1;
                     // const questDefinition: QuestDefinition = questDefinitions[qss.name];
                     // const nextNode = questDefinition.nodes[Math.floor(progress)];
-        
+
                     return {
                         ...qss,
                         progress,
@@ -140,7 +140,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
                     const scene = qss.scene;
                     if (!scene) throw new Error("Something broke. No scene");
                     scene.actionQueue = [
-                        ...scene.actionQueue ?? [], 
+                        ...scene.actionQueue ?? [],
                         action.sceneAction
                     ];
 
@@ -192,8 +192,8 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
             const { combat } = action;
             return state.map((qss) => {
                 if (qss.name === action.questName && qss.scene) {
-                    const scene = { 
-                        ...qss.scene, 
+                    const scene = {
+                        ...qss.scene,
                         combat,
                         turn: combat ? Allegiance.player : undefined,
                     };
@@ -211,7 +211,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
                 if (qss.name === action.questName) {
                     const scene = qss.scene;
                     if (!scene) throw new Error("Something broke. No scene");
-        
+
                     scene.objects = scene.objects.map(o => {
                         if (isActorObject(o)) {
                             const ap = 0;
@@ -222,7 +222,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
                         }
                         return o;
                     })
-        
+
                     return {
                         ...qss,
                         scene
@@ -246,7 +246,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
                                 const adventurerInStore = action.adventurers?.find(a => a.id === o.name)
                                 if (adventurerInStore){
                                     const level = xpToLevel(adventurerInStore.xp);
-                                    const ap = calculateInitialAP(adventurerInStore.basicAttributes.dex, level);
+                                    const ap = calculateInitialAP(adventurerInStore.basicAttributes, level);
                                     return {
                                         ...o,
                                         ap
@@ -286,7 +286,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
                 if (qss.name === action.questName) {
                     const scene = qss.scene;
                     if (!scene) throw new Error("Something broke. No scene");
-        
+
                     scene.objects = scene.objects.map(o => {
                         if (isActorObject(o) && o.name === action.actor) {
                             const ap = action.ap;
@@ -297,7 +297,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
                         }
                         return o;
                     })
-        
+
                     return {
                         ...qss,
                         scene
@@ -312,7 +312,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
                 if (qss.name === action.questName) {
                     const scene = qss.scene;
                     if (!scene) throw new Error("Something broke. No scene");
-        
+
                     scene.objects = scene.objects.map(o => {
                         if (isActorObject(o) && o.name === action.actor) {
                             const ap = o.ap - action.ap;
@@ -323,7 +323,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
                         }
                         return o;
                     })
-        
+
                     return {
                         ...qss,
                         scene
@@ -338,7 +338,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
         //         if (qss.name === action.questName) {
         //             const scene = qss.scene;
         //             if (!scene) throw new Error("Something broke. No scene");
-        
+
         //             scene.objects = scene.objects.map(tO => {
         //                 if (tO.id === action.id) {
         //                     return {
@@ -348,7 +348,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
         //                 }
         //                 return tO;
         //             })
-        
+
         //             return {
         //                 ...qss,
         //                 scene
@@ -372,13 +372,13 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
             if (!questsToUpdate.length) {
                 return state;
             }
-        
+
             return state.map((qss) => {
                 const questToUpdate = questsToUpdate.find((q) => q.name === qss.name);
                 if (questToUpdate) {
                     const progress = questToUpdate.progress;
                     // const currentEncounter = questToUpdate.currentEncounter;
-        
+
                     return {
                         ...qss,
                         progress,

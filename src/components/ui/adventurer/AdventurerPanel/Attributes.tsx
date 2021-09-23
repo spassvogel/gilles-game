@@ -41,7 +41,7 @@ const Attributes = (props: Props) => {
       {/* todo: use css grid */}
       <ul className="attribute-list">
         {renderRow("str")}
-        {renderRow("dex")}
+        {renderRow("for")}
         {renderRow("int")}
         {renderRow("agi")}
       </ul>
