@@ -16,6 +16,9 @@ const TraitContext = (props: Props) => {
       <div className="description">
         {TextManager.getAttributeDescription(attribute)}
       </div>
+      <div className="mechanics">
+        {TextManager.getAttributeMechanics(attribute)}
+      </div>
     </div>
   )
 }

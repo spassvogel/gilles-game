@@ -31,7 +31,7 @@ export abstract class TextManager {
             if (process.env.NODE_ENV === 'development') {
                 this.notFound.push(key)
             }
-    
+
             console.error(`Key '${key}' not found in TextManager`);
             return `<<'${key}' missing>>`;
         } else {
@@ -81,6 +81,10 @@ export abstract class TextManager {
         return this.get(`common-attribute-${attribute}-description`);
     }
 
+    public static getAttributeMechanics(attribute: BasicAttribute): string {
+        return this.get(`common-attribute-${attribute}-mechanics`);
+    }
+
     public static getEquipmentSlot(slotType: EquipmentSlotType) {
         return this.get(`ui-equipmentslot-${toKebab(EquipmentSlotType[slotType])}`);
     }
@@ -100,7 +104,7 @@ export abstract class TextManager {
     public static getItemName(item: Item): string {
         return this.get(`item-${toKebab(item)}-name`);
     }
-    
+
     public static getItemType(itemType: ItemType): string {
         return this.get(`item-type-${toKebab(ItemType[itemType])}`);
     }
