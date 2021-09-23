@@ -48,7 +48,7 @@ export interface BasicAttributesStoreState {
     str: number;
     dex: number;
     int: number;
-    hlt: number;
+    agi: number;
 }
 
 export type BasicAttribute = keyof BasicAttributesStoreState;

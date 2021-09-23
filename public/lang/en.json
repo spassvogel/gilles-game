@@ -28,8 +28,8 @@
     "common-attribute-dex-description": "a measure of a combination of agility, coordination, and fine motor ability. ",
     "common-attribute-int-name": "Intelligence",
     "common-attribute-int-description": "broadly measures brainpower, including creativity, intuition, memory, perception, reason, sanity, and willpower. ",
-    "common-attribute-hlt-name": "Health",
-    "common-attribute-hlt-description": " measure of energy and vitality representing stamina, resistance (to poison, disease, radiation, etc.), and basic “grit.” ",
+    "common-attribute-agi-name": "Agility",
+    "common-attribute-agi-description": " the power of moving quickly and easily",
 
     "common-cheat-gold-added": "Added {{amount}} gold.",
     "common-cheat-item-added": "Added {{item:name item \"aA\"}} to stockpile.",

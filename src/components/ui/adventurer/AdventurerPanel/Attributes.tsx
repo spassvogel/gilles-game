@@ -7,46 +7,45 @@ import { ContextType } from "constants/context";
 import "./styles/attributes.scss"
 
 export interface Props {
-    adventurerId: string;
+  adventurerId: string;
 }
 
 const Attributes = (props: Props) => {
-    const { adventurerId } = props;
-    const { basicAttributes } = useAdventurerState(adventurerId);
+  const { adventurerId } = props;
+  const { basicAttributes } = useAdventurerState(adventurerId);
 
+  const renderRow = (attribute: BasicAttribute) => {
+    const handleClick = (event: React.MouseEvent) => {
+      const origin = (event.currentTarget as HTMLElement);
+      const originRect = origin.getBoundingClientRect();
 
-    const renderRow = (attribute: BasicAttribute) => {
-        const handleClick = (event: React.MouseEvent) => {
-            const origin = (event.currentTarget as HTMLElement);
-            const originRect = origin.getBoundingClientRect();
-    
-            TooltipManager.showContextTooltip(ContextType.attribute, attribute, originRect);
-            event.stopPropagation();
-        }
-        return (
-            <li >
-                <div className="attribute-name">
-                    <span onClick={handleClick}>
-                        {TextManager.getAttributeName(attribute)}
-                    </span>
-                </div>
-                <div className="attribute-value">
-                    {basicAttributes[attribute]}
-                </div>
-            </li>
-        );
+      TooltipManager.showContextTooltip(ContextType.attribute, attribute, originRect);
+      event.stopPropagation();
     }
-
     return (
-        <div className="basic-attributes">
-            {/* todo: use css grid */}
-            <ul className="attribute-list">
-                {renderRow("str")}
-                {renderRow("dex")}
-                {renderRow("int")}
-                {renderRow("hlt")}
-            </ul>
+      <li >
+        <div className="attribute-name">
+          <span onClick={handleClick}>
+            {TextManager.getAttributeName(attribute)}
+          </span>
         </div>
-    )
+        <div className="attribute-value">
+          {basicAttributes[attribute]}
+        </div>
+      </li>
+    );
+  }
+
+  return (
+    <div className="basic-attributes">
+      {/* todo: use css grid */}
+      <ul className="attribute-list">
+        {renderRow("str")}
+        {renderRow("dex")}
+        {renderRow("int")}
+        {renderRow("agi")}
+      </ul>
+    </div>
+  )
 }
 export default Attributes;

@@ -18,7 +18,7 @@ const generateRandomAttributes = (): BasicAttributesStoreState => {
         str: Math.floor(Math.random() * 3) + 9,
         dex: Math.floor(Math.random() * 3) + 9,
         int: Math.floor(Math.random() * 3) + 9,
-        hlt: Math.floor(Math.random() * 3) + 9
+        agi: Math.floor(Math.random() * 3) + 9
     };
 };
 

@@ -6,10 +6,13 @@ import AdventurerContext from "./AdventurerContext";
 import EnemyContext from "./EnemyContext";
 // import './styles/attributeContext.scss';
 
+
 interface Props {
   actorObject: ActorObject
 }
 
+
+// Shows stuff relevant for combat
 const ActorContext = (props: Props) => {
   const { actorObject } = props;
   return (
