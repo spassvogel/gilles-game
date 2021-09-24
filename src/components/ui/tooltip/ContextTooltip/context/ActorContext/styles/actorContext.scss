@@ -1,0 +1,15 @@
+@import 'components/styles/variables.scss';
+
+.actor-context {
+  .name-and-level {
+    display: flex;
+
+    .name {
+      flex: 1;
+    }
+
+    .level {
+      color: $color-secondary;
+    }
+  }
+}

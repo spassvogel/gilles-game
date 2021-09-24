@@ -14,6 +14,7 @@ import { TextEntry, isTextEntry } from 'constants/text';
 import { TextManager } from 'global/TextManager';
 import { addLogText, addLogEntry } from 'store/actions/log';
 import { getDefinition } from 'definitions/quests';
+import { getDefinition as getEnemyDefinition } from 'definitions/enemies';
 import { LogChannel } from 'store/types/logEntry';
 import { addGold } from 'store/actions/gold';
 import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
@@ -25,6 +26,7 @@ import { Loader, Point } from "pixi.js";
 import { Sound } from "@pixi/sound";
 import { AP_COST_MOVE, AP_COST_SLASH, calculateInitialAP, ENEMY_BASE_AP } from "mechanics/combat";
 import { xpToLevel } from "mechanics/adventurers/levels";
+import { EnemyType } from "definitions/enemies/types";
 
 const spritesheetBasePath = "img/scene/actors/";
 export const movementDuration = 500; // time every tile movement takes TODO: set back to 500
@@ -480,9 +482,12 @@ export class BaseSceneController<TQuestVars> {
         } else if (object.type === TiledObjectType.enemySpawn) {
           object.type = TiledObjectType.actor;
           if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
+            const definition = getEnemyDefinition(object.properties.name as EnemyType)
+            const level = object.properties.level as number ?? 1;
             object.health = Math.random() * 100;
-            object.ap = ENEMY_BASE_AP;
+            object.ap = calculateInitialAP(definition.attributes, level)
             object.name = object.properties.name as string;
+            object.level = level;
             object.allegiance = Allegiance.enemy;
             object.properties.isSprite = true;
             object.properties.spritesheet = `${spritesheetBasePath}troll-sword.json`;

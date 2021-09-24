@@ -22,6 +22,7 @@ export type SceneObject = Merge<TiledObjectData, {
 export type ActorObject = SceneObject & {
     name: string;
     ap: number;                     // Remaining AP
+    level?: number;                 // Only for enemy, for adventurers we look at the adventurers store
     health: number;
     allegiance: Allegiance;
 };

@@ -519,6 +519,7 @@
     "ui-toast-type-quest-launched": "Quest started!",
     "ui-toast-type-quest-update": "Quest update!",
 
+    "ui-tooltip-actor-level": "Lvl {{level}}",
     "ui-tooltip-damage-reduction": "Damage reduction: {{damageReduction}}",
     "ui-tooltip-study-requires-structure-level": "Study: Requires {{structure:name structure}} level {{level}}",
     "ui-tooltip-resource-produce-row": "Produced at {{structure:link structure}} ({{amount}}/minute)",

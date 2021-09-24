@@ -95,7 +95,7 @@ const AdventurerPanel = (props: Props) => {
                 <Health adventurerId={adventurer.id}/>
                 { traits && <AdventurerTraits adventurerId={adventurer.id}/> }
                 </div>
-                <Attributes adventurerId={adventurer.id}/>
+                <Attributes basicAttributes={adventurer.basicAttributes} />
             </section>
             <section id="skills">
                 { skills && <AdventurerSkills adventurerId={adventurer.id}/> }

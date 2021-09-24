@@ -4,7 +4,7 @@ import { ActorObject } from "store/types/scene";
 import { Allegiance } from "store/types/combat";
 import AdventurerContext from "./AdventurerContext";
 import EnemyContext from "./EnemyContext";
-// import './styles/attributeContext.scss';
+import './styles/actorContext.scss';
 
 
 interface Props {
