@@ -114,17 +114,17 @@
   <object id="5" name="start3" type="adventurerStart" x="192" y="960" width="64" height="64"/>
   <object id="6" name="enemy3" type="enemySpawn" x="256" y="128" width="64" height="64">
    <properties>
-    <property name="name" value="Troll Developer"/>
+    <property name="name" value="troll-developer"/>
    </properties>
   </object>
   <object id="7" name="enemy1" type="enemySpawn" x="127.333" y="128.667" width="64" height="64">
    <properties>
-    <property name="name" value="Troll accountant"/>
+    <property name="name" value="troll-accountant"/>
    </properties>
   </object>
   <object id="8" name="enemy2" type="enemySpawn" x="192" y="128" width="64" height="64">
    <properties>
-    <property name="name" value="Troll manager"/>
+    <property name="name" value="troll-manager"/>
    </properties>
   </object>
  </objectgroup>

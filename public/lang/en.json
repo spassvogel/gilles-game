@@ -64,6 +64,10 @@
     "encounter-goblin-house-outside-description": "As the party makes their way along the forest they notice a small house just of the road, smoke rises from the chimney",
     "encounter-thebigtree-description": "A huge tree blocks the way",
 
+    "enemy-troll-accountant-name": "Troll accountant",
+    "enemy-troll-developer-name": "Troll developer",
+    "enemy-troll-manager-name": "Troll manager",
+
     "item-apparel-boots1-name": "leather boots",
     "item-apparel-boots1-subtext": "These boots are made for questin'",
     "item-apparel-boots2-name": "boots II",

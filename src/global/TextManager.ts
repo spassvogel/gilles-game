@@ -11,6 +11,7 @@ import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { WeaponType, WeaponClassification } from 'definitions/items/weapons';
 import { getStructureLink } from "utils/routing";
 import { BasicAttribute } from "store/types/adventurer";
+import { EnemyType } from "definitions/enemies/types";
 
 export abstract class TextManager {
 
@@ -84,6 +85,10 @@ export abstract class TextManager {
     public static getAttributeMechanics(attribute: BasicAttribute): string {
         return this.get(`common-attribute-${attribute}-mechanics`);
     }
+
+    public static getEnemyName(enemyType: EnemyType) {
+      return this.get(`enemy-${enemyType}-name`);
+  }
 
     public static getEquipmentSlot(slotType: EquipmentSlotType) {
         return this.get(`ui-equipmentslot-${toKebab(EquipmentSlotType[slotType])}`);
