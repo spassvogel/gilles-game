@@ -38,7 +38,7 @@
 - [x] have a helper for 'capital' Capitalise
 
 
-#### 28/04/2019 Tavern [+design]
+#### 28/04/2019 Tavern and quests [+design]
 - [x] The tavern has a limited number of vacancies (rooms). Upgrading the tavern upgrades this number.
 - [ ] Periodically new adventurers will take residence
     The tavern will only accept new adventurers when there are rooms free.
@@ -46,6 +46,8 @@
 - [ ] You can kick out an adventurer that's not on a quest. Freeing the room. 
 - [x] Quests are launched from the 'quest board' in the tavern. 
 - [ ] You can train workers/citizens to become adventurers
+- [ ] Quest maps are non-linear, use a hub-and-spoke design
+- [ ] Quests can be repeated indefinitely
 
 
 #### 02/05/2019 Traits [+design]
@@ -309,12 +311,12 @@ About 3D6
 Read more: https://www.thedarkfortress.co.uk/tech_reports/3_dice_rolls.php
 
 
+
 IMPLEMENTATION
 
 - [x] Scene controller can set 'combat = true' on scene. Then all actions of scene actors cost AP.
 - [ ] Player has button to forgeit turn. Clears all AP on all player scene actors.
 - [ ] Make useCombat hook to abstract logic
-- [ ]
 
 - [ ] When player actors have no APs left aand there are *no* running secene actions 
     the AI selects one of their actors to make a move on. AI has different behaviour types,
@@ -334,12 +336,13 @@ APs can be spent in any order.
 - [ ] All scenecontroller stuff has to go through basecontroller to aplpy game logic. 
     e.g. the 'arrow finder' trait logic needs to be in the BaseSceneController. 
 - [x] Might need to seperate this stuff into different files. Find out if Typescript can do that. Answer: no it cant
+- [ ] Store enemy definitions in definition file
 
 ### 23/8/2019 ADVENTURER STATS
 
 base and (secondary stats) are:
-- STRength (melee attack)
-- STAmina (carry, hitpoints)
+- STRength (melee attack, carry)
+- FORtitude (ability to withstand dmg, hitpoints)
 - AGIlity (dodge, amount of AP)
 - INTelligence (perception?)
 

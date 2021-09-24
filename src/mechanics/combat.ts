@@ -16,3 +16,10 @@ export const calculateInitialAP = (attributes: BasicAttributesStoreState, level:
   //     console.log(`lvl 10, dx ${dx}: ${calculateInitialAP(dx, 10)}`)
   // }
 }
+
+// Calculates base dodge %. Note that there should be a modifier applied for
+// relative difference in levels
+export const calculateDodge = (attributes: BasicAttributesStoreState) => {
+  const { agi } = attributes;
+  return agi * 3;
+}
