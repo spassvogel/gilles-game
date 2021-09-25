@@ -2,7 +2,6 @@ import * as React from "react";
 import { useAdventurerState } from "hooks/store/adventurers";
 import { ActorObject } from "store/types/scene";
 import Attributes from "components/ui/adventurer/AdventurerPanel/Attributes";
-import { calculateDodge, calculateInitialAP } from "mechanics/combat";
 import { xpToLevel } from "mechanics/adventurers/levels";
 import { TextManager } from "global/TextManager";
 import CombatAttributes from "./CombatAttributes";
