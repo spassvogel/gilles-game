@@ -15,7 +15,7 @@ const CombatAttributes = (props: Props) => {
         AP each turn: {calculateInitialAP(basicAttributes, level)}
       </div>
       <div>
-          Dodge: {calculateDodge(basicAttributes)}
+          Dodge: {calculateDodge(basicAttributes)}%
       </div>
     </>
   )

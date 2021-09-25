@@ -17,8 +17,6 @@ import Health from "./Health";
 import Attributes from "./Attributes";
 import ConsumeItem from "./ConsumeItem";
 import "./styles/adventurerPanel.scss";
-import { SceneControllerContext } from "components/world/QuestPanel/context/SceneControllerContext";
-import { useQuest } from "hooks/store/quests";
 
 export interface Props {
     adventurerId: string;

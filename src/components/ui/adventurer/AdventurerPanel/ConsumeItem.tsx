@@ -14,9 +14,9 @@ import { LogChannel } from "store/types/logEntry";
 import { useQuest } from "hooks/store/quests";
 import { getAdventurer } from "store/types/scene";
 import { AP_COST_CONSUME } from "mechanics/combat";
-import "./styles/consumeitem.scss";
 import { deductActorAp } from "store/actions/quests";
 import { Channel, SoundManager } from "global/SoundManager";
+import "./styles/consumeitem.scss";
 
 export interface Props {
     adventurerId: string;

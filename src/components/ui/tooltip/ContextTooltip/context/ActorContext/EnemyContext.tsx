@@ -4,7 +4,6 @@ import { getDefinition } from "definitions/enemies";
 import { EnemyType } from "definitions/enemies/types";
 import { TextManager } from "global/TextManager";
 import Attributes from "components/ui/adventurer/AdventurerPanel/Attributes";
-import { calculateDodge, calculateInitialAP } from "mechanics/combat";
 import CombatAttributes from "./CombatAttributes";
 
 interface Props {

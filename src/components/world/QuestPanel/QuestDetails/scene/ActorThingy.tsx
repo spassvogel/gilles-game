@@ -1,6 +1,6 @@
+import React from "react";
 import { Container, Graphics, Text } from "@inlet/react-pixi";
 import { useAdventurerState } from "hooks/store/adventurers";
-import React from "react";
 import { Allegiance } from "store/types/combat";
 import { ActorObject } from "store/types/scene";
 
@@ -21,21 +21,21 @@ const useActorThingyInfo = (actor: ActorObject) => {
 
 const ActorThingy = (props: Props) => {
     const { tileWidth, actor } = props;
-    
+
     // const mask = useRef<PIXI.Graphics>(null);
     const name = useActorThingyInfo(actor);
 
     return (
         <Container y={-40}>
-            <Text 
+            <Text
                 y={-10}
                 x={MARGIN}
                 anchor={[0, 1]}
                 text={`${name} (${actor.ap})`}
                 style={{
-                    fontFamily : 'Gabriela', 
-                    fontSize: 18, 
-                    fill : 0xffffff, 
+                    fontFamily : 'Gabriela',
+                    fontSize: 18,
+                    fill : 0xffffff,
                     align : 'center',
                     wordWrap: true,
                     wordWrapWidth: tileWidth,

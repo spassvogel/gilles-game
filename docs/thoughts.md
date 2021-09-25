@@ -733,7 +733,7 @@ https://redux.js.org/api/store#subscribelistener
 https://github.com/MatsMaker/example-of-migration-pixijs-imspector-to-5v/blob/gh-pages/src/app.js
 
 ### 2021-09-21 Context of actor
-- [ ] Make a context content for actors (adventurers/enemies)
+- [x] Make a context content for actors (adventurers/enemies)
 
 ### 2021-09-21 Town structure names
 - [x] Show structure labels on the Town

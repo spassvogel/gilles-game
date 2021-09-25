@@ -1,4 +1,4 @@
-import { EnemyDefinition, EnemyType } from "./types";
+import { EnemyDefinition } from "./types";
 
 type TrollDefinition = {
   [key: string]: EnemyDefinition
