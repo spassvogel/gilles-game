@@ -1,6 +1,6 @@
 @import 'components/styles/variables.scss';
 
-.item-icon { 
+.item-icon {
     background-image: url(images/item-rarity-background.png);
     position: relative;
     border: 1px solid;
@@ -28,7 +28,7 @@
 
 @mixin iconSize($index) {
     $rarityCount: 6;
-    
+
     &.item-icon-size-smallest {
         height: $item-size-smallest;
         background-position-x: $index * -($item-size-smallest + 5); // no idea what this 5 is lol
@@ -45,14 +45,14 @@
         background-position-x: $index * -($item-size-medium + 11);
         background-size: $item-size-medium * $rarityCount $item-size-medium;
     }
-    
+
     // todo: support all sizes!
     // &.item-icon-size-big {
         //     background-position-x: $index * -$item-size-big - 2;
         //     background-size: $item-size-big * $rarityCount $item-size-big;
         // }
-    }
-    
+}
+
 .item-icon-common {
     border-color: $color-rarity-common;
     @include iconSize(0);

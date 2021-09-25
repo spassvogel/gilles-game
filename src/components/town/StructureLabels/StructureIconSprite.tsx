@@ -12,7 +12,7 @@ import tavern from "components/structures/styles/images/tavern/icon.png"
 import warehouse from "components/structures/styles/images/warehouse/icon.png"
 import weaponsmith from "components/structures/styles/images/weaponsmith/icon.png"
 import weaver from "components/structures/styles/images/weaver/icon.png"
-import workshop from "components/structures/styles/images/workshop/banner.png" // todo!
+import workshop from "components/structures/styles/images/workshop/icon.png"
 import { Structure } from "definitions/structures";
 
 interface Props {

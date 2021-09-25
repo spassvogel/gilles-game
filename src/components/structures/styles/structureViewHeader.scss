@@ -1,109 +1,80 @@
 .structureview-header {
-    height: 128px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    background-position: center;
-    background-repeat: no-repeat;
+  height: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-position: center;
+  background-repeat: no-repeat;
 
-    &::after {
-        height: 100px;
-        width: 100px;
-        content: "";
-        display: block;
-        margin-left: 32px;
-        z-index: 22;
-        position: absolute;
-        background-size: 100% 100%;
+  &::after {
+    height: 100px;
+    width: 100px;
+    content: "";
+    display: block;
+    margin-left: 32px;
+    z-index: 22;
+    position: absolute;
+    background-size: 100% 100%;
 
-        filter: drop-shadow(5px 3px 4px rgba(0, 0, 0, 1));
-    }
+    filter: drop-shadow(5px 3px 4px rgba(0, 0, 0, 1));
+  }
+}
+
+@mixin structureHeader($structure) {
+  background-image: url("./images/#{$structure}/banner.png");
+  &::after {
+    background-image: url("./images/#{$structure}/icon.png");
+  }
 }
 
 .structureview-header-alchemist {
-    background-image: url("./images/alchemist/banner.png");
-    background-position: center -188px;
-
-    &::after {
-        background-image: url("./images/alchemist/icon.png");
-    }
+  @include structureHeader("alchemist");
+  background-position: center -188px;
 }
 
 .structureview-header-armoursmith {
-    background-image: url("./images/armoursmith/banner.png");
-    background-position: center -219px;
-
-    &::after {
-        background-image: url("./images/armoursmith/icon.png");
-    }
+  @include structureHeader("armoursmith");
+  background-position: center -219px;
 }
 
 .structureview-header-mine {
-    background-image: url("./images/mine/banner.png");
-
-    &::after {
-        background-image: url("./images/mine/icon.png");
-    }
+  @include structureHeader("mine");
 }
 
 .structureview-header-lumberMill {
-    background-image: url("./images/lumberMill/banner.png");
-    background-position: center -194px;
-
-    &::after {
-        background-image: url("./images/lumberMill/icon.png");
-    }
+  @include structureHeader("lumberMill");
+  background-position: center -194px;
 }
 
 .structureview-header-garden {
-    background-image: url("./images/garden/banner.png");
-    background-position: center -492px;
-
-    &::after {
-        background-image: url("./images/garden/icon.png");
-    }
+  @include structureHeader("garden");
+  background-position: center -492px;
 }
 
 .structureview-header-weaver {
-    background-image: url("./images/weaver/banner.png");
-    background-position: center -247px;
-
-    &::after {
-        background-image: url("./images/weaver/icon.png");
-    }
+  @include structureHeader("weaver");
+  background-position: center -247px;
 }
 
 .structureview-header-workshop {
-    background-image: url("./images/workshop/banner.png");
-    background-position: center -247px;
+  @include structureHeader("workshop");
+  background-position: center -247px;
 }
 
 .structureview-header-tannery {
-    background-image: url("./images/tannery/banner.png");
-
-    &::after {
-        background-image: url("./images/tannery/icon.png");
-    }
+  @include structureHeader("tannery");
 }
 
 .structureview-header-tavern {
-    background-image: url("./images/tavern/banner.png");
-
-    &::after {
-        background-image: url("./images/tavern/icon.png");
-    }
+  @include structureHeader("tavern");
 }
 
 .structureview-header-weaponsmith {
-    background-image: url("./images/weaponsmith/banner.png");
-    background-position: center -280px;
-
-    &::after {
-        background-image: url("./images/weaponsmith/icon.png");
-    }
-} 
+  @include structureHeader("weaponsmith");
+  background-position: center -280px;
+}
 
 .structureview-header-quarry {
-    background-image: url("./images/quarry/banner.png");
+  @include structureHeader("quarry");
 }
 
