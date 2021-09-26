@@ -78,7 +78,7 @@ export enum SceneActionType {
     interact = "interact",
     attack = "attack",
     slash = "slash",
-    rangedAttack = "rangedAttack"
+    shoot = "shoot"
 }
 
 export const getSpritesheetPaths = (objects: SceneObject[]) => {

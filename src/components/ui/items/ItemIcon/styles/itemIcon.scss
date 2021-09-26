@@ -1,79 +1,79 @@
 @import 'components/styles/variables.scss';
 
 .item-icon {
-    background-image: url(images/item-rarity-background.png);
-    position: relative;
-    border: 1px solid;
-    display: block;
+  background-image: url(images/item-rarity-background.png);
+  position: relative;
+  border: 1px solid;
+  display: block;
 
-    img {
-        width: 100%;
-        height: 100%;
-    }
+  img {
+    width: 100%;
+    height: 100%;
+  }
 
-    &::after {
-        content: '';
-        position: absolute;
-        pointer-events: none;
-        width: 100%;
-        height: 100%;
-        border: 1px solid black;
-        left: 0;
-        top: 0;
-        opacity: 0.5;
-        box-sizing: border-box;
-    }
+  &::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    left: 0;
+    top: 0;
+    opacity: 0.5;
+    box-sizing: border-box;
+  }
 }
 
 
 @mixin iconSize($index) {
-    $rarityCount: 6;
+  $rarityCount: 6;
 
-    &.item-icon-size-smallest {
-        height: $item-size-smallest;
-        background-position-x: $index * -($item-size-smallest + 5); // no idea what this 5 is lol
-        background-size: $item-size-smallest * $rarityCount $item-size-smallest;
-    }
-    &.item-icon-size-small {
-        height: $item-size-small;
-        background-position-x: $index * -($item-size-small + 7); // no idea what this 7 is
-        background-size: $item-size-small * $rarityCount $item-size-small;
-    }
-    //
-    &.item-icon-size-medium {
-        height: $item-size-medium;
-        background-position-x: $index * -($item-size-medium + 11);
-        background-size: $item-size-medium * $rarityCount $item-size-medium;
-    }
+  &.item-icon-size-smallest {
+    height: $item-size-smallest;
+    background-position-x: $index * -($item-size-smallest + 5); // no idea what this 5 is lol
+    background-size: $item-size-smallest * $rarityCount $item-size-smallest;
+  }
+  &.item-icon-size-small {
+    height: $item-size-small;
+    background-position-x: $index * -($item-size-small + 7); // no idea what this 7 is
+    background-size: $item-size-small * $rarityCount $item-size-small;
+  }
+  //
+  &.item-icon-size-medium {
+    height: $item-size-medium;
+    background-position-x: $index * -($item-size-medium + 11);
+    background-size: $item-size-medium * $rarityCount $item-size-medium;
+  }
 
-    // todo: support all sizes!
-    // &.item-icon-size-big {
-        //     background-position-x: $index * -$item-size-big - 2;
-        //     background-size: $item-size-big * $rarityCount $item-size-big;
-        // }
+  // todo: support all sizes!
+  // &.item-icon-size-big {
+    //   background-position-x: $index * -$item-size-big - 2;
+    //   background-size: $item-size-big * $rarityCount $item-size-big;
+    // }
 }
 
 .item-icon-common {
-    border-color: $color-rarity-common;
-    @include iconSize(0);
+  border-color: $color-rarity-common;
+  @include iconSize(0);
 }
 
 .item-icon-uncommon {
-    border-color: $color-rarity-uncommon;
-    @include iconSize(1);
+  border-color: $color-rarity-uncommon;
+  @include iconSize(1);
 }
 
 .item-icon-rare {
-    border-color: $color-rarity-rare;
-    @include iconSize(2);
+  border-color: $color-rarity-rare;
+  @include iconSize(2);
 }
 
 .item-icon-epic {
-    border-color: $color-rarity-epic;
-    @include iconSize(3);
+  border-color: $color-rarity-epic;
+  @include iconSize(3);
 }
 
 .item-icon-legendary {
-    border-color: $color-rarity-legendary;
-    @include iconSize(4);
+  border-color: $color-rarity-legendary;
+  @include iconSize(4);
 }

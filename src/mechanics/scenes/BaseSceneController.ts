@@ -282,7 +282,17 @@ export class BaseSceneController<TQuestVars> {
           endsAt: movementDuration * (path.length + 1) + performance.now()
         };
         this.dispatch(enqueueSceneAction(this.questName, meleeAction));
-        // this.dispatch(deductActorAp(this.questName, actorId, path?.length || 0));
+        break;
+      }
+      case SceneActionType.shoot: {
+
+        const shootAction: SceneAction = {
+          actionType: type,
+          actorId,
+          target: destination,
+          endsAt: 500 + performance.now()
+        };
+        this.dispatch(enqueueSceneAction(this.questName, shootAction));
       }
     }
   }

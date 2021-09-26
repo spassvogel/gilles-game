@@ -43,7 +43,7 @@ const ActionPreview = (props: Props) => {
         />
       )
     }
-    case SceneActionType.rangedAttack: {
+    case SceneActionType.shoot: {
       // draw arrow: https://math.stackexchange.com/questions/1314006/drawing-an-arrow
       const valid = (!actionIntent.apCost) || actionIntent.apCost <= (actionIntent.actorAP || 0);
       const from = convert(actionIntent.from);

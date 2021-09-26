@@ -29,7 +29,7 @@ export interface Props {
 }
 
 export interface ActionIntent {
-  action: SceneActionType.move | SceneActionType.slash | SceneActionType.interact | SceneActionType.rangedAttack;
+  action: SceneActionType.move | SceneActionType.slash | SceneActionType.interact | SceneActionType.shoot;
   from: [number, number];
   to: [number, number];
   apCost?: number;
@@ -175,7 +175,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         })
       }
       break;
-      case SceneActionType.rangedAttack: {
+      case SceneActionType.shoot: {
         const apCost = AP_COST_RANGED_ATTACK; // can only inspect out of combat?
 
         onSetActionIntent({

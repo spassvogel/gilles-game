@@ -645,6 +645,7 @@ Quests and adventurers dont need to be stored in the store when not active
 - [ ] Implement list of skills of adventurers
 - [ ] We just need combat skills for the time being
     https://gurps.fandom.com/wiki/List_of_Skills
+- [ ] The weapon skills determine chance to hit
 
 ### Group adventurer sections
 Adventurer panel can contain quite a lot of information and player has to be able to navigate quickly

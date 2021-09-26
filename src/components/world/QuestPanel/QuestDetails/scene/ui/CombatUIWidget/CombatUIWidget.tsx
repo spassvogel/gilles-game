@@ -74,9 +74,9 @@ const CombatUIWidget = (props: Props) => {
         position="sw"
         tileHeight={tileHeight}
         icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/high-shot.svg`}
-        onActivate={() => handleSegmentActivate(SceneActionType.rangedAttack)}
-        onDeactivate={() => handleSegmentDeactivate(SceneActionType.rangedAttack)}
-        activated={actionIntent?.action === SceneActionType.rangedAttack}
+        onActivate={() => handleSegmentActivate(SceneActionType.shoot)}
+        onDeactivate={() => handleSegmentDeactivate(SceneActionType.shoot)}
+        activated={actionIntent?.action === SceneActionType.shoot}
       />
       <Segment
         position="s"
@@ -143,7 +143,7 @@ const getText = (actionIntent?: ActionIntent) => {
       </>
     );
   }
-  if (actionIntent.action === SceneActionType.rangedAttack) {
+  if (actionIntent.action === SceneActionType.shoot) {
     // todo: check range!
     const insufficient = (actionIntent.actorAP || 0) < (actionIntent.apCost || 0);
     return (

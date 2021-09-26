@@ -1,3 +1,4 @@
+// This is not used
 export interface CombatStoreState {
     actors: Actor[];
     turn: Allegiance;

@@ -139,6 +139,18 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
           setTimeout(attackComplete, 1000);
           break;
         }
+        case SceneActionType.shoot: {
+          determineOrientation();
+          setAnimation("attack");
+          SoundManager.playSound("scene/bow", Channel.scene, false, MixMode.singleInstance);
+          const attackComplete = () => {
+            setAnimation("stand");
+            dispatch(completeSceneAction(props.controller.questName));
+            props.controller.actorSlashed(actor.name, nextAction.target);
+          }
+          setTimeout(attackComplete, 500);
+          break;
+        }
         case SceneActionType.interact: {
           controller.actorInteract(actor.name, nextAction.target);
           dispatch(completeSceneAction(props.controller.questName));

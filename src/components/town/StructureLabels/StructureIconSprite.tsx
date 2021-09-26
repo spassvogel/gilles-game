@@ -1,6 +1,5 @@
-import React, { ComponentProps, useRef } from "react";
-import { Container, Graphics, Sprite, Text } from "@inlet/react-pixi"
-
+import React, { ComponentProps } from "react";
+import { Sprite } from "@inlet/react-pixi"
 import alchemist from "components/structures/styles/images/alchemist/icon.png"
 import armoursmith from "components/structures/styles/images/armoursmith/icon.png"
 import garden from "components/structures/styles/images/garden/icon.png"
