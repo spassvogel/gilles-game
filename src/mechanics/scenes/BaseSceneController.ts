@@ -24,7 +24,7 @@ import { Allegiance } from "store/types/combat";
 import { Item } from "definitions/items/types";
 import { Loader, Point } from "pixi.js";
 import { Sound } from "@pixi/sound";
-import { AP_COST_MOVE, AP_COST_SLASH, calculateInitialAP, ENEMY_BASE_AP } from "mechanics/combat";
+import { AP_COST_MOVE, AP_COST_SHOOT, AP_COST_SLASH, calculateInitialAP } from "mechanics/combat";
 import { xpToLevel } from "mechanics/adventurers/levels";
 import { EnemyType } from "definitions/enemies/types";
 
@@ -186,6 +186,15 @@ export class BaseSceneController<TQuestVars> {
     if (this.combat) {
       // Take away AP for moving
       this.dispatch(deductActorAp(this.questName, actor, AP_COST_SLASH));
+    }
+
+    // todo: process the hit, take away any HP?
+  }
+
+  actorShot(actor: string, location: [number, number]) {
+    if (this.combat) {
+      // Take away AP for shooting
+      this.dispatch(deductActorAp(this.questName, actor, AP_COST_SHOOT));
     }
 
     // todo: process the hit, take away any HP?

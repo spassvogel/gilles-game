@@ -2,7 +2,7 @@ import { SceneControllerContext } from 'components/world/QuestPanel/context/Scen
 import { ContextType } from 'constants/context';
 import { TooltipManager } from 'global/TooltipManager';
 import { useQuest } from 'hooks/store/quests';
-import { AP_COST_RANGED_ATTACK } from 'mechanics/combat';
+import { AP_COST_SHOOT } from 'mechanics/combat';
 import { Point } from 'pixi.js';
 import React, {
   PropsWithChildren,
@@ -176,7 +176,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       }
       break;
       case SceneActionType.shoot: {
-        const apCost = AP_COST_RANGED_ATTACK; // can only inspect out of combat?
+        const apCost = AP_COST_SHOOT;
 
         onSetActionIntent({
           action,
