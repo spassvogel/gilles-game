@@ -182,12 +182,12 @@ export class BaseSceneController<TQuestVars> {
     }
   }
 
-  actorSlashed(actor: string, location: [number, number]) {
-    if (this.combat) {
-      // Take away AP for moving
-      this.dispatch(deductActorAp(this.questName, actor, AP_COST_SLASH));
-    }
-
+  actorSlashed(actorId: string, location: [number, number]) {
+    this.dispatch(deductActorAp(this.questName, actorId, AP_COST_SLASH));
+    const actor = this.getSceneActor(actorId)
+    if (!actor) throw new Error("No actor found");
+    const skills = this.getActorSkills(actor);
+    // todo: see if slash misses
     // todo: process the hit, take away any HP?
   }
 
@@ -509,7 +509,7 @@ export class BaseSceneController<TQuestVars> {
             object.level = level;
             object.allegiance = Allegiance.enemy;
             object.properties.isSprite = true;
-            object.properties.spritesheet = `${spritesheetBasePath}troll-sword.json`;
+            object.properties.spritesheet = `${spritesheetBasePath}troll-sword.json`; // todo: take from enemy def
           }
         }
 
@@ -569,10 +569,23 @@ export class BaseSceneController<TQuestVars> {
     const storeState = this.store.getState();
     return storeState.adventurers.find(a => a.id === actor.name);
   }
+  protected getEnemyByActor(actor: ActorObject) {
+    return getEnemyDefinition(actor.name);
+  }
 
   protected getAdventurerById(id: string) {
     const storeState = this.store.getState();
     return storeState.adventurers.find(a => a.id === id);
+  }
+
+  protected getActorSkills(actor: ActorObject) {
+    if (isAdventurer(actor)) {
+      const adventurer = this.getAdventurerByActor(actor);
+      if (!adventurer) throw new Error("No adventurer found")
+      return adventurer.skills;
+    }
+    const enemy = this.getEnemyByActor(actor);
+    return enemy.skills;
   }
 
   protected questUpdate(input: string | TextEntry, icon?: string, toast = false) : void {

@@ -146,7 +146,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
           const attackComplete = () => {
             setAnimation("stand");
             dispatch(completeSceneAction(props.controller.questName));
-            props.controller.actorSlashed(actor.name, nextAction.target);
+            props.controller.actorShot(actor.name, nextAction.target);
           }
           setTimeout(attackComplete, 500);
           break;

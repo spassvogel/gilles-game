@@ -1,3 +1,4 @@
+import { WeaponType } from "definitions/items/weapons";
 import { EnemyDefinition } from "./types";
 
 type TrollDefinition = {
@@ -10,6 +11,9 @@ const trolls: TrollDefinition = {
       for: 5,
       int: 16,
       agi: 8
+    },
+    skills: {
+      [WeaponType.sword]: 12,
     }
   },
   'troll-manager': {
@@ -18,6 +22,9 @@ const trolls: TrollDefinition = {
       for: 7,
       int: 12,
       agi: 10
+    },
+    skills: {
+      [WeaponType.axe]: 12,
     }
   },
   'troll-accountant': {
@@ -26,6 +33,9 @@ const trolls: TrollDefinition = {
       for: 7,
       int: 12,
       agi: 10
+    },
+    skills: {
+      [WeaponType.axe]: 12,
     }
   }
 }
