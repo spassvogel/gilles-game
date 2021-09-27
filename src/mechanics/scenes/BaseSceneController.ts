@@ -80,6 +80,7 @@ export class BaseSceneController<TQuestVars> {
     const promises = [
       loadSound("scene/bow", ["sound/scene/bow-01.mp3", "sound/scene/bow-02.mp3"]),
       loadSound("scene/crossbow", ["sound/scene/crossbow-01.mp3", "sound/scene/crossbow-02.mp3", "sound/scene/crossbow-03.mp3", "sound/scene/crossbow-04.mp3"]),
+      loadSound("scene/daggerSwish", ["sound/scene/dagger-swish.ogg"]),
       loadSound("scene/meleeHit", ["sound/scene/melee-hit-01.mp3", "sound/scene/melee-hit-02.mp3", "sound/scene/melee-hit-03.mp3"]),
       loadSound("scene/metalBash", ["sound/scene/metal-bash-01.mp3", "sound/scene/metal-bash-02.mp3", "sound/scene/metal-bash-03.mp3"]),
       loadSound("scene/parry", ["sound/scene/parry-01.ogg", "sound/scene/parry-02.ogg"]),
@@ -188,6 +189,21 @@ export class BaseSceneController<TQuestVars> {
 
   actorSlashing(actorId: string, location: [number, number]) {
     SoundManager.playSound("scene/swish", Channel.scene, false, MixMode.singleInstance);
+    const actor = this.getSceneActor(actorId);
+    if (!actor) throw new Error("No actor found");
+    const weapon = this.getActorMainhandItem(actor);
+    if (!weapon) throw new Error("No weapon found");
+    const definition = getWeaponDefinition(weapon);
+    switch(definition.weaponType) {
+      case WeaponType.knife: {
+        SoundManager.playSound("scene/daggerSwish", Channel.scene, false, MixMode.singleInstance);
+        break;
+      }
+      default: {
+        SoundManager.playSound("scene/swish", Channel.scene, false, MixMode.singleInstance);
+        break;
+      }
+    }
   }
 
   actorSlashed(actorId: string, location: [number, number]) {

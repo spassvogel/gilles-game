@@ -30,6 +30,7 @@ export type GameSound =
     "music/world" |
     "scene/bow" |
     "scene/crossbow" |
+    "scene/daggerSwish" |
     "scene/doorOpen" |
     "scene/drinking" |
     "scene/meleeHit" |
