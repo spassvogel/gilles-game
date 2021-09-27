@@ -14,7 +14,8 @@ const trolls: TrollDefinition = {
     },
     skills: {
       [WeaponType.sword]: 12,
-    }
+    },
+    mainHand: "weapon/steelSword"
   },
   'troll-manager': {
     attributes: {
@@ -25,7 +26,8 @@ const trolls: TrollDefinition = {
     },
     skills: {
       [WeaponType.axe]: 12,
-    }
+    },
+    mainHand: "weapon/battleAxe"
   },
   'troll-accountant': {
     attributes: {
@@ -36,7 +38,8 @@ const trolls: TrollDefinition = {
     },
     skills: {
       [WeaponType.axe]: 12,
-    }
+    },
+    mainHand: "weapon/battleAxe"
   }
 }
 

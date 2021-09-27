@@ -36,7 +36,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
         [EquipmentSlotType.hands]: "apparel/clothGloves",
         [EquipmentSlotType.shoulders]: "apparel/shoulders2",
         [EquipmentSlotType.legs]: "apparel/pants2",
-        [EquipmentSlotType.feet]: "apparel/boots3"
+        [EquipmentSlotType.feet]: "apparel/boots3",
+        [EquipmentSlotType.mainHand]: "weapon/longbow"
         // offHand: Item.indomitableCarapace
     },
     basicAttributes: generateRandomAttributes(),
@@ -58,7 +59,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 }, {
     id: "2e655832",
     equipment: {
-        [EquipmentSlotType.feet]: "apparel/boots2"
+        [EquipmentSlotType.feet]: "apparel/boots2",
+        [EquipmentSlotType.mainHand]: "weapon/simpleCrossbow"
     },
     basicAttributes: generateRandomAttributes(),
     name: "Addison Chilson",

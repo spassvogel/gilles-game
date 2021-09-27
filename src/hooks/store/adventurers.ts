@@ -58,5 +58,7 @@ export const useAdventurerDamageReduction = (adventurerId: string): { [key: stri
     }
 }
 
-
-
+export const useAdventurerMainhandItem = (adventurerId: string) => {
+  const adventurer = useAdventurerState(adventurerId);
+  return adventurer.equipment[EquipmentSlotType.mainHand];
+}

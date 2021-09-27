@@ -15,6 +15,7 @@ import { TextManager } from 'global/TextManager';
 import { addLogText, addLogEntry } from 'store/actions/log';
 import { getDefinition } from 'definitions/quests';
 import { getDefinition as getEnemyDefinition } from 'definitions/enemies';
+import { getDefinition as getWeaponDefinition, WeaponType } from 'definitions/items/weapons';
 import { LogChannel } from 'store/types/logEntry';
 import { addGold } from 'store/actions/gold';
 import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
@@ -27,6 +28,7 @@ import { Sound } from "@pixi/sound";
 import { AP_COST_MOVE, AP_COST_SHOOT, AP_COST_SLASH, calculateInitialAP } from "mechanics/combat";
 import { xpToLevel } from "mechanics/adventurers/levels";
 import { EnemyType } from "definitions/enemies/types";
+import EquipmentSlot, { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 
 const spritesheetBasePath = "img/scene/actors/";
 export const movementDuration = 500; // time every tile movement takes TODO: set back to 500
@@ -197,7 +199,21 @@ export class BaseSceneController<TQuestVars> {
   }
 
   actorShooting(actorId: string, location: [number, number]) {
-    SoundManager.playSound("scene/bow", Channel.scene, false, MixMode.singleInstance);
+    const actor = this.getSceneActor(actorId);
+    if (!actor) throw new Error("No actor found");
+    const weapon = this.getActorMainhandItem(actor);
+    if (!weapon) throw new Error("No weapon found");
+    const definition = getWeaponDefinition(weapon)
+    switch(definition.weaponType) {
+      case WeaponType.bow: {
+        SoundManager.playSound("scene/bow", Channel.scene, false, MixMode.singleInstance);
+      }
+      break;
+      case WeaponType.crossbow: {
+        SoundManager.playSound("scene/crossbow", Channel.scene, false, MixMode.singleInstance);
+      }
+      break;
+    }
   }
 
   actorShot(actor: string, location: [number, number]) {
@@ -595,6 +611,16 @@ export class BaseSceneController<TQuestVars> {
     }
     const enemy = this.getEnemyByActor(actor);
     return enemy.skills;
+  }
+
+  protected getActorMainhandItem(actor: ActorObject) {
+    if (isAdventurer(actor)) {
+      const adventurer = this.getAdventurerByActor(actor);
+      if (!adventurer) throw new Error("No adventurer found")
+      return adventurer.equipment[EquipmentSlotType.mainHand];
+    }
+    const enemy = this.getEnemyByActor(actor);
+    return enemy.mainHand;
   }
 
   protected questUpdate(input: string | TextEntry, icon?: string, toast = false) : void {
