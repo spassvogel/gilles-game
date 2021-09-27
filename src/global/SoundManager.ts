@@ -34,6 +34,7 @@ export type GameSound =
     "scene/drinking" |
     "scene/meleeHit" |
     "scene/metalBash" |
+    "scene/parry" |
     "scene/shieldBash" |
     "scene/swish"
 ;

@@ -82,6 +82,7 @@ export class BaseSceneController<TQuestVars> {
       loadSound("scene/crossbow", ["sound/scene/crossbow-01.mp3", "sound/scene/crossbow-02.mp3", "sound/scene/crossbow-03.mp3", "sound/scene/crossbow-04.mp3"]),
       loadSound("scene/meleeHit", ["sound/scene/melee-hit-01.mp3", "sound/scene/melee-hit-02.mp3", "sound/scene/melee-hit-03.mp3"]),
       loadSound("scene/metalBash", ["sound/scene/metal-bash-01.mp3", "sound/scene/metal-bash-02.mp3", "sound/scene/metal-bash-03.mp3"]),
+      loadSound("scene/parry", ["sound/scene/parry-01.ogg", "sound/scene/parry-02.ogg"]),
       loadSound("scene/shieldBash", ["sound/scene/shield-bash-impact.mp3"]),
       loadSound("scene/swish", ["sound/scene/swish-01.mp3", "sound/scene/swish-02.mp3", "sound/scene/swish-03.mp3", "sound/scene/swish-04.mp3"]),
       loadSound("scene/doorOpen", ["sound/scene/door.ogg"]),

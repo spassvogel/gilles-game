@@ -10,3 +10,4 @@ sounds                          hybrid_5                https://freesound.org/pe
 07114 hindu fail ding           Robinhood76             https://freesound.org/people/Robinhood76/sounds/436826/
 drinking-and-swallow.wav        dersuperanton           https://freesound.org/people/dersuperanton/sounds/433645/
 Arrow.mp3                       thecrow_br              https://freesound.org/people/thecrow_br/sounds/574044/
+01dagger01, 01dagger02          lostchocolatelab        https://freesound.org/people/lostchocolatelab/sounds/1469/
