@@ -29,6 +29,7 @@ export type GameSound =
     "music/town" |
     "music/world" |
     "scene/bow" |
+    "scene/crossbow" |
     "scene/doorOpen" |
     "scene/drinking" |
     "scene/meleeHit" |

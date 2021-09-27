@@ -19,7 +19,7 @@ import { LogChannel } from 'store/types/logEntry';
 import { addGold } from 'store/actions/gold';
 import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
-import { GameSound, SoundManager } from 'global/SoundManager';
+import { Channel, GameSound, MixMode, SoundManager } from 'global/SoundManager';
 import { Allegiance } from "store/types/combat";
 import { Item } from "definitions/items/types";
 import { Loader, Point } from "pixi.js";
@@ -77,6 +77,7 @@ export class BaseSceneController<TQuestVars> {
     }
     const promises = [
       loadSound("scene/bow", ["sound/scene/bow-01.mp3", "sound/scene/bow-02.mp3"]),
+      loadSound("scene/crossbow", ["sound/scene/crossbow-01.mp3", "sound/scene/crossbow-02.mp3", "sound/scene/crossbow-03.mp3", "sound/scene/crossbow-04.mp3"]),
       loadSound("scene/meleeHit", ["sound/scene/melee-hit-01.mp3", "sound/scene/melee-hit-02.mp3", "sound/scene/melee-hit-03.mp3"]),
       loadSound("scene/metalBash", ["sound/scene/metal-bash-01.mp3", "sound/scene/metal-bash-02.mp3", "sound/scene/metal-bash-03.mp3"]),
       loadSound("scene/shieldBash", ["sound/scene/shield-bash-impact.mp3"]),
@@ -182,6 +183,10 @@ export class BaseSceneController<TQuestVars> {
     }
   }
 
+  actorSlashing(actorId: string, location: [number, number]) {
+    SoundManager.playSound("scene/swish", Channel.scene, false, MixMode.singleInstance);
+  }
+
   actorSlashed(actorId: string, location: [number, number]) {
     this.dispatch(deductActorAp(this.questName, actorId, AP_COST_SLASH));
     const actor = this.getSceneActor(actorId)
@@ -189,6 +194,10 @@ export class BaseSceneController<TQuestVars> {
     const skills = this.getActorSkills(actor);
     // todo: see if slash misses
     // todo: process the hit, take away any HP?
+  }
+
+  actorShooting(actorId: string, location: [number, number]) {
+    SoundManager.playSound("scene/bow", Channel.scene, false, MixMode.singleInstance);
   }
 
   actorShot(actor: string, location: [number, number]) {

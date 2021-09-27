@@ -130,7 +130,8 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         case SceneActionType.slash: {
           determineOrientation();
           setAnimation("attack");
-          SoundManager.playSound("scene/swish", Channel.scene, false, MixMode.singleInstance);
+          props.controller.actorSlashing(actor.name, nextAction.target);
+
           const attackComplete = () => {
             setAnimation("stand");
             dispatch(completeSceneAction(props.controller.questName));
@@ -142,7 +143,8 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
         case SceneActionType.shoot: {
           determineOrientation();
           setAnimation("attack");
-          SoundManager.playSound("scene/bow", Channel.scene, false, MixMode.singleInstance);
+          props.controller.actorShooting(actor.name, nextAction.target);
+
           const attackComplete = () => {
             setAnimation("stand");
             dispatch(completeSceneAction(props.controller.questName));
