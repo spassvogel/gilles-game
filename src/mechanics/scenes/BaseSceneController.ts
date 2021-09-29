@@ -59,9 +59,8 @@ export class BaseSceneController<TQuestVars> {
     return `${process.env.PUBLIC_URL}/${this.jsonPath.substr(0, this.jsonPath.lastIndexOf('/'))}`;
   }
 
-
   // Loads tiles from json, loads all scene assets
-  loadData(callback: () => void) {
+  async loadData(callback: () => void) {
     if (this.dataLoadComplete) {
       return callback();
     }
@@ -69,45 +68,41 @@ export class BaseSceneController<TQuestVars> {
       throw new Error("No jsonPath defined!");
     }
     this.dataLoading = true;
+
+    await loadResourceAsync(`${process.env.PUBLIC_URL}/${this.jsonPath}`);
+
     // load sounds
-    const loadSound = async (sound: GameSound, files: string[]): Promise<Sound[]> => {
-      return new Promise((resolve, _reject) => {
-        SoundManager.addSound(sound, files, (sounds) => {
-          resolve(sounds);
-        })
-      });
-    }
     const promises = [
-      loadSound("scene/bow", ["sound/scene/bow-01.mp3", "sound/scene/bow-02.mp3"]),
-      loadSound("scene/crossbow", ["sound/scene/crossbow-01.mp3", "sound/scene/crossbow-02.mp3", "sound/scene/crossbow-03.mp3", "sound/scene/crossbow-04.mp3"]),
-      loadSound("scene/daggerSwish", ["sound/scene/dagger-swish.ogg"]),
-      loadSound("scene/meleeHit", ["sound/scene/melee-hit-01.mp3", "sound/scene/melee-hit-02.mp3", "sound/scene/melee-hit-03.mp3"]),
-      loadSound("scene/metalBash", ["sound/scene/metal-bash-01.mp3", "sound/scene/metal-bash-02.mp3", "sound/scene/metal-bash-03.mp3"]),
-      loadSound("scene/parry", ["sound/scene/parry-01.ogg", "sound/scene/parry-02.ogg"]),
-      loadSound("scene/shieldBash", ["sound/scene/shield-bash-impact.mp3"]),
-      loadSound("scene/swish", ["sound/scene/swish-01.mp3", "sound/scene/swish-02.mp3", "sound/scene/swish-03.mp3", "sound/scene/swish-04.mp3"]),
-      loadSound("scene/doorOpen", ["sound/scene/door.ogg"]),
-      loadResourceAsync(`${process.env.PUBLIC_URL}/${this.jsonPath}`)
-    ] as const;
+      SoundManager.addSound("scene/bow", ["sound/scene/bow-01.mp3", "sound/scene/bow-02.mp3"]),
+      SoundManager.addSound("scene/crossbow", ["sound/scene/crossbow-01.mp3", "sound/scene/crossbow-02.mp3", "sound/scene/crossbow-03.mp3", "sound/scene/crossbow-04.mp3"]),
+      SoundManager.addSound("scene/daggerSwish", ["sound/scene/dagger-swish.ogg"]),
+      SoundManager.addSound("scene/meleeHit", ["sound/scene/melee-hit-01.mp3", "sound/scene/melee-hit-02.mp3", "sound/scene/melee-hit-03.mp3"]),
+      SoundManager.addSound("scene/metalBash", ["sound/scene/metal-bash-01.mp3", "sound/scene/metal-bash-02.mp3", "sound/scene/metal-bash-03.mp3"]),
+      SoundManager.addSound("scene/parry", ["sound/scene/parry-01.ogg", "sound/scene/parry-02.ogg"]),
+      SoundManager.addSound("scene/shieldBash", ["sound/scene/shield-bash-impact.mp3"]),
+      SoundManager.addSound("scene/swish", ["sound/scene/swish-01.mp3", "sound/scene/swish-02.mp3", "sound/scene/swish-03.mp3", "sound/scene/swish-04.mp3"]),
+      SoundManager.addSound("scene/doorOpen", ["sound/scene/door.ogg"]),
+    ];
 
-    Promise.all(promises).then(async () => {
-      const resource = Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
-      this.mapData = resource.data;
+    // Promise.all(promises).then(async () => {
+    await Promise.all(promises);
 
-      // Create aStar based on blocked tiles
-      this.createBlockedTiles();
-      this.aStar = this.createAStar();
+    const resource = Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
+    this.mapData = resource.data;
 
-      // In the case a scene is just created, we dont have this.sceneObjects yet
-      const spritesheets = getSpritesheetPaths(this.sceneObjects.length ? this.sceneObjects : this.createObjects());
-      for(const path of spritesheets) {
-        await loadResourceAsync(path);
-      }
-      // PIXI.utils.clearTextureCache()
-      this.dataLoadComplete = true;
-      this.dataLoading = false;
-      callback();
-    });
+    // Create aStar based on blocked tiles
+    this.createBlockedTiles();
+    this.aStar = this.createAStar();
+
+    // In the case a scene is just created, we dont have this.sceneObjects yet
+    const spritesheets = getSpritesheetPaths(this.sceneObjects.length ? this.sceneObjects : this.createObjects());
+    for(const path of spritesheets) {
+      await loadResourceAsync(path);
+    }
+    // PIXI.utils.clearTextureCache()
+    this.dataLoadComplete = true;
+    this.dataLoading = false;
+    callback();
   }
 
   createBlockedTiles(objects?: SceneObject[]) {
@@ -149,6 +144,10 @@ export class BaseSceneController<TQuestVars> {
 
 
   sceneEntered() {
+    return;
+  }
+
+  sceneExited() {
     return;
   }
 
