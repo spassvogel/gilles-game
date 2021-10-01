@@ -81,7 +81,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 }, {
     id: "ec6f1050",
     equipment: {
-        [EquipmentSlotType.feet]: "apparel/boots3"
+        [EquipmentSlotType.feet]: "apparel/boots3",
+        [EquipmentSlotType.mainHand]: "weapon/warhammer"
         // offHand: Item.aegisOfValor
     },
     basicAttributes: generateRandomAttributes(),
@@ -103,7 +104,9 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 }, {
     id: "d299f98a",
     basicAttributes: generateRandomAttributes(),
-    equipment: {},
+    equipment: {
+      [EquipmentSlotType.mainHand]: "weapon/steelSword"
+    },
     name: "Mike Keith",
     flavor: true,
     health: Math.random() * 100,

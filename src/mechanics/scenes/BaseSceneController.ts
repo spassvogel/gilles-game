@@ -193,6 +193,7 @@ export class BaseSceneController<TQuestVars> {
     const weapon = this.getActorMainhandItem(actor);
     if (!weapon) throw new Error("No weapon found");
     const definition = getWeaponDefinition(weapon);
+
     switch(definition.weaponType) {
       case WeaponType.knife: {
         SoundManager.playSound("scene/daggerSwish", Channel.scene, false, MixMode.singleInstance);
@@ -203,13 +204,18 @@ export class BaseSceneController<TQuestVars> {
         break;
       }
     }
+    console.log()
   }
 
   actorSlashed(actorId: string, location: [number, number]) {
     this.dispatch(deductActorAp(this.questName, actorId, AP_COST_SLASH));
-    const actor = this.getSceneActor(actorId)
+    const actor = this.getSceneActor(actorId);
     if (!actor) throw new Error("No actor found");
+    const weapon = this.getActorMainhandItem(actor);
+    if (!weapon) throw new Error("No weapon found");
+    const definition = getWeaponDefinition(weapon)
     const skills = this.getActorSkills(actor);
+    console.log(`skill in ${definition.weaponType} ${skills[definition.weaponType]}`)
     // todo: see if slash misses
     // todo: process the hit, take away any HP?
   }

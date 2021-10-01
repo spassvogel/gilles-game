@@ -14,122 +14,122 @@ import { Rectangle } from "pixi.js";
 import "./styles/scene.scss";
 
 export interface Props {
-    selectedActorId: string;
-    setSelectedActor: (id: string) => void;
+  selectedActorId: string;
+  setSelectedActor: (id: string) => void;
 }
 
 const DEBUG_ACTIONQUEUE = false;
 const DEBUG_BLOCKEDTILES = false;
 
 const Scene = (props: Props) => {
-    const {selectedActorId, setSelectedActor } = props;
-    const controller = useContext(SceneControllerContext)!;
-    const mapData = controller.mapData!;
-    const basePath = controller.basePath!;
+  const {selectedActorId, setSelectedActor } = props;
+  const controller = useContext(SceneControllerContext);
+  if (!controller) throw new Error("No controller found")
+  const mapData = controller.mapData;
+  const basePath = controller.basePath;
+  if (!basePath) throw new Error("No basePath found")
 
-    const {
-        loadComplete,
-        loadTilesets,
-        tileSpritesheets
-    } = useTilesetsLoader(basePath);
+  const {
+    loadComplete,
+    loadTilesets,
+    tileSpritesheets
+  } = useTilesetsLoader(basePath);
 
-    const ref = useRef<HTMLDivElement>(null);
-    const scene = useQuestScene(controller.questName);
-    const combat = scene?.combat === true;
-    const {tileWidth, tileHeight} = controller.getTileDimensions();
-    const [currentActionIntent, setCurrentActionIntent] = useState<ActionIntent>();
+  const ref = useRef<HTMLDivElement>(null);
+  const scene = useQuestScene(controller.questName);
+  const combat = scene?.combat === true;
+  const {tileWidth, tileHeight} = controller.getTileDimensions();
+  const [currentActionIntent, setCurrentActionIntent] = useState<ActionIntent>();
 
-    useEffect(() => {
-        if (combat) {
-            console.log('combat on!')
-            CombatController.initialize(controller)
-        }
-        return () => { 
-            console.log('combat off')
-            CombatController.destroy();
-        }
-    }, [combat]);
-
-    useEffect(() => {
-        if (!mapData) return;
-        loadTilesets(mapData.tilesets);
-    }, [loadTilesets, mapData]);
-
-    const handleUIMouseDown = (location: [number, number]) => {
-        const actor = controller.getObjectAtLocation(location);
-        if (actor && isAdventurer(actor) && actor?.name) {
-            // We can click on adventurers
-            props.setSelectedActor(actor.name);
-        }
+  useEffect(() => {
+    if (combat) {
+      CombatController.initialize(controller)
     }
-
-    if (!loadComplete || !mapData || !scene) {
-        return <div>loading scene...</div>
+    return () => {
+      CombatController.destroy();
     }
+  }, [combat]);
 
-    const sceneWidth = mapData.width * mapData.tilewidth;
-    const sceneHeight = mapData.height * mapData.tileheight;
-    return (
-        <div className="scene" ref={ref}>
-            <BridgedStage width={sceneWidth} height={sceneHeight} >
-                <Container
-                    interactive={true}
-                    hitArea={new Rectangle(0, 0, sceneWidth, sceneHeight)}
-                >
-                    <Tilemap
-                        basePath={basePath}
-                        data={mapData}
-                        spritesheets={tileSpritesheets}
-                        objects={scene.objects}
-                        controller={controller}
-                        selectedActorId={selectedActorId}
-                        setSelectedActor={setSelectedActor}
-                    />
-                    { currentActionIntent && (<ActionPreview actionIntent={currentActionIntent} tileWidth={tileWidth} tileHeight={tileHeight}/>)}
-                    {DEBUG_BLOCKEDTILES && (
-                        <Graphics
-                            name="blocked-tiles"
-                            draw={graphics => {
-                                const line = 3;
-                                for (let y = 0; y < mapData.height; y++) {
-                                    for (let x = 0; x < mapData.width; x++) {
-                                        const blocked = controller.locationIsBlocked([x, y]);
+  useEffect(() => {
+    if (!mapData) return;
+    loadTilesets(mapData.tilesets);
+  }, [loadTilesets, mapData]);
 
-                                        if (blocked) {
-                                            graphics.lineStyle(line, 0xFF0000);
-                                        } else {
-                                            graphics.lineStyle(line, 0xFFFFFF);
-                                        }
-                                        graphics.drawRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
-                                        graphics.endFill();
-                                    }
-                                }
-                            }}
-                        />
-                    )}
-                </Container>
-            </BridgedStage>
-            {DEBUG_ACTIONQUEUE && (
-                <div style={{ position: 'absolute', bottom: 0}}>
-                    <h2>ActionQueue</h2>
-                    <ul>
-                        {scene.actionQueue && scene.actionQueue.map((action) => (
-                            <li key={JSON.stringify(action)}>{JSON.stringify(action)}</li>
-                        ))}
-                    </ul>
-                </div>
-            )}
-            <SceneUI
-                sceneWidth={sceneWidth}
-                sceneHeight={sceneHeight}
-                selectedActorId={selectedActorId}
-                actionIntent={currentActionIntent}
-                onMouseDown={handleUIMouseDown}
-                onSetActionIntent={setCurrentActionIntent}
+  const handleUIMouseDown = (location: [number, number]) => {
+    const actor = controller.getObjectAtLocation(location);
+    if (actor && isAdventurer(actor) && actor?.name) {
+      // We can click on adventurers
+      props.setSelectedActor(actor.name);
+    }
+  }
+
+  if (!loadComplete || !mapData || !scene) {
+    return <div>loading scene...</div>
+  }
+
+  const sceneWidth = mapData.width * mapData.tilewidth;
+  const sceneHeight = mapData.height * mapData.tileheight;
+  return (
+    <div className="scene" ref={ref}>
+      <BridgedStage width={sceneWidth} height={sceneHeight} >
+        <Container
+          interactive={true}
+          hitArea={new Rectangle(0, 0, sceneWidth, sceneHeight)}
+        >
+          <Tilemap
+            basePath={basePath}
+            data={mapData}
+            spritesheets={tileSpritesheets}
+            objects={scene.objects}
+            controller={controller}
+            selectedActorId={selectedActorId}
+            setSelectedActor={setSelectedActor}
+          />
+          { currentActionIntent && (<ActionPreview actionIntent={currentActionIntent} tileWidth={tileWidth} tileHeight={tileHeight}/>)}
+          {DEBUG_BLOCKEDTILES && (
+            <Graphics
+              name="blocked-tiles"
+              draw={graphics => {
+                const line = 3;
+                for (let y = 0; y < mapData.height; y++) {
+                  for (let x = 0; x < mapData.width; x++) {
+                    const blocked = controller.locationIsBlocked([x, y]);
+
+                    if (blocked) {
+                      graphics.lineStyle(line, 0xFF0000);
+                    } else {
+                      graphics.lineStyle(line, 0xFFFFFF);
+                    }
+                    graphics.drawRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+                    graphics.endFill();
+                  }
+                }
+              }}
             />
-            <SceneLog questId={controller.questName} />
+          )}
+        </Container>
+      </BridgedStage>
+      {DEBUG_ACTIONQUEUE && (
+        <div style={{ position: 'absolute', bottom: 0}}>
+          <h2>ActionQueue</h2>
+          <ul>
+            {scene.actionQueue && scene.actionQueue.map((action) => (
+              <li key={JSON.stringify(action)}>{JSON.stringify(action)}</li>
+            ))}
+          </ul>
         </div>
-    );
+      )}
+      <SceneUI
+        sceneWidth={sceneWidth}
+        sceneHeight={sceneHeight}
+        selectedActorId={selectedActorId}
+        actionIntent={currentActionIntent}
+        onMouseDown={handleUIMouseDown}
+        onSetActionIntent={setCurrentActionIntent}
+      />
+      <SceneLog questId={controller.questName} />
+    </div>
+  );
 }
 
 export default Scene;
