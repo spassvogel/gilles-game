@@ -268,9 +268,11 @@ COMBAT SEQUENCE
 See [GURPS Combat Example (Basic)](https://www.youtube.com/watch?v=-G0l_n9rEYk)
 https://www.youtube.com/watch?v=LO8BHmnIrVU
 - [ ] When attacking, first roll to hit. Weapon skill determines hit or miss. For ranged, a distance penalty applies. Also cover bonus can be in effect.
-- [ ] research: how does weapon skill work? does it include STR?
+- [x] research: how does weapon skill work? does it include STR?
     can it increasy by time?
     let's assume for now we fix it to a value
+- [ ] When slashing, look at weapon type. Then take associated weapon skill.
+    Roll 3d6 and if result is higher than weapon skill, it's a miss
 
 - [ ] Defender rolls to dodge. Dodge% is in effect at equal level. Otherwise penalty applies, eg 10% per level difference
 
@@ -315,7 +317,7 @@ Read more: https://www.thedarkfortress.co.uk/tech_reports/3_dice_rolls.php
 IMPLEMENTATION
 
 - [x] Scene controller can set 'combat = true' on scene. Then all actions of scene actors cost AP.
-- [ ] Player has button to forgeit turn. Clears all AP on all player scene actors.
+- [x] Player has button to forgeit turn. Clears all AP on all player scene actors.
 - [ ] Make useCombat hook to abstract logic
 
 - [ ] When player actors have no APs left aand there are *no* running secene actions 
@@ -336,7 +338,7 @@ APs can be spent in any order.
 - [ ] All scenecontroller stuff has to go through basecontroller to aplpy game logic. 
     e.g. the 'arrow finder' trait logic needs to be in the BaseSceneController. 
 - [x] Might need to seperate this stuff into different files. Find out if Typescript can do that. Answer: no it cant
-- [ ] Store enemy definitions in definition file
+- [x] Store enemy definitions in definition file
 
 ### 23/8/2019 ADVENTURER STATS
 
@@ -450,9 +452,9 @@ research fantasy concept art
 
 #### 02/04/2020 Cool shader [+art]
 - [ ] Can use this in some sort of menu or loader?
-    https://codepen.io/davidhartley/pen/seEki
+      https://codepen.io/davidhartley/pen/seEki
 - [ ] Can use this in combat?
-    https://github.com/edankwan/The-Spirit
+      https://github.com/edankwan/The-Spirit
 
 
 
@@ -485,11 +487,9 @@ An editor that could help in designing quests on the world map. Draws a list of 
 Map marker needs to show there is an encounter going on. 
 - [x] Maybe exclamation mark? 
 
-
 #### 10/10/2020 Make structureviews responsive 
 - [x] Tavern
 - [x] Warehouse
-
 
 #### 10/10/2020 Make legenda for town 
 - [x] Clicking on it will scroll the structure into view and after brief delay, open window
@@ -643,14 +643,16 @@ Quests and adventurers dont need to be stored in the store when not active
 
 ### 31/8/2020 Skills
 - [ ] Implement list of skills of adventurers
-- [ ] We just need combat skills for the time being
-    https://gurps.fandom.com/wiki/List_of_Skills
+- [ ] We just need weapon combat skills for the time being
+      https://gurps.fandom.com/wiki/List_of_Skills
 - [ ] The weapon skills determine chance to hit
+- [ ] Weapon skill could be a skill that can be levelled up, but 
+
 
 ### Group adventurer sections
-Adventurer panel can contain quite a lot of information and player has to be able to navigate quickly
-https://css-tricks.com/sticky-smooth-active-nav/
-https://www.codehim.com/demo/bootstrap-vertical-tabs-with-icons/
+- [x] Adventurer panel can contain quite a lot of information and player has to be able to navigate quickly
+      https://css-tricks.com/sticky-smooth-active-nav/
+      https://www.codehim.com/demo/bootstrap-vertical-tabs-with-icons/
 
 
 ### 24/10/2020 Outline on tooltip arrow

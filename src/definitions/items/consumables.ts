@@ -76,7 +76,7 @@ const consumables = {
 export type Consumable = `${Prefix}${keyof typeof consumables}`;
 const all = Object.entries(consumables).reduce<{[key: string]: ConsumableDefinition}>((acc, [key, value]) => {
     acc[`${PREFIX}${key}`] = value as ConsumableDefinition;
-    return acc;    
+    return acc;
 }, {}) as Record<Consumable, ConsumableDefinition>;
 export default all;
 
