@@ -2,14 +2,14 @@ import seedrandom from "seedrandom";
 
 let generator: seedrandom.prng;
 export const init = (seed: string): void => {
-    dirty = true;
-    generator = seedrandom(seed, {state: true});
+  dirty = true;
+  generator = seedrandom(seed, {state: true});
 }
 
 export function random(): number {
-    if (!generator) { throw new Error("Call init() before random()"); }
-    dirty = true;
-    return generator();
+  if (!generator) { throw new Error("Call init() before random()"); }
+  dirty = true;
+  return generator();
 }
 
 /**
@@ -19,14 +19,18 @@ export function random(): number {
  * lower than max if max isn't an integer).
  */
 export const randomInt = (min = 0, max = 10): number => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(random() * (max - min + 1)) + min;
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(random() * (max - min + 1)) + min;
+}
+
+export const roll3D6 = (): number =>  {
+  return randomInt(1, 6) + randomInt(1, 6) + randomInt(1, 6)
 }
 
 export const state = (): seedrandom.State => {
-    dirty = false;
-    return generator.state();
+  dirty = false;
+  return generator.state();
 }
 
 export let dirty = false;

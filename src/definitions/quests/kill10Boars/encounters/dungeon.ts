@@ -115,7 +115,7 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
 
   sceneEntered() {
     if (!this.questVars.dungeon.entered) {
-      this.questUpdate("quest-kill10-boars-enter-dungeon-see-chest");
+      // this.questUpdate("quest-kill10-boars-enter-dungeon-see-chest");
     }
     this.previousMusic = SoundManager.getCurrentlyPlaying(Channel.music);
     SoundManager.addSound("music/violettesElficSong", ["sound/music/ViolettesElficSongForLamentandHope.ogg"], () => {

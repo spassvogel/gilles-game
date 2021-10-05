@@ -270,6 +270,7 @@ https://www.youtube.com/watch?v=LO8BHmnIrVU
 - [ ] When attacking, first roll to hit. Weapon skill determines hit or miss. For ranged, a distance penalty applies. Also cover bonus can be in effect.
 - [x] research: how does weapon skill work? does it include STR?
     can it increasy by time?
+    Weapon skill could be a skill that can be levelled up, but it would have to be rare
     let's assume for now we fix it to a value
 - [ ] When slashing, look at weapon type. Then take associated weapon skill.
     Roll 3d6 and if result is higher than weapon skill, it's a miss

@@ -12,7 +12,7 @@ import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLink } from 'utils/routing';
 import { TextEntry, isTextEntry } from 'constants/text';
 import { TextManager } from 'global/TextManager';
-import { addLogText, addLogEntry } from 'store/actions/log';
+import { addLogEntry } from 'store/actions/log';
 import { getDefinition } from 'definitions/quests';
 import { getDefinition as getEnemyDefinition } from 'definitions/enemies';
 import { getDefinition as getWeaponDefinition, WeaponType } from 'definitions/items/weapons';
@@ -20,15 +20,15 @@ import { LogChannel } from 'store/types/logEntry';
 import { addGold } from 'store/actions/gold';
 import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
-import { Channel, GameSound, MixMode, SoundManager } from 'global/SoundManager';
+import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import { Allegiance } from "store/types/combat";
 import { Item } from "definitions/items/types";
 import { Loader, Point } from "pixi.js";
-import { Sound } from "@pixi/sound";
 import { AP_COST_MOVE, AP_COST_SHOOT, AP_COST_SLASH, calculateInitialAP } from "mechanics/combat";
 import { xpToLevel } from "mechanics/adventurers/levels";
 import { EnemyType } from "definitions/enemies/types";
-import EquipmentSlot, { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
+import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
+import { roll3D6 } from "utils/random";
 
 const spritesheetBasePath = "img/scene/actors/";
 export const movementDuration = 500; // time every tile movement takes TODO: set back to 500
@@ -179,7 +179,7 @@ export class BaseSceneController<TQuestVars> {
         const node = definition.nodes[index];
         if (node.log) {
           // If the next node has a log entry, add it
-          this.dispatch(addLogText(node.log, null, LogChannel.quest, this.questName));
+          this.log(node.log)
         }
         this.dispatch(exitEncounter(this.questName));
       }
@@ -204,7 +204,6 @@ export class BaseSceneController<TQuestVars> {
         break;
       }
     }
-    console.log()
   }
 
   actorSlashed(actorId: string, location: [number, number]) {
@@ -215,7 +214,13 @@ export class BaseSceneController<TQuestVars> {
     if (!weapon) throw new Error("No weapon found");
     const definition = getWeaponDefinition(weapon)
     const skills = this.getActorSkills(actor);
-    console.log(`skill in ${definition.weaponType} ${skills[definition.weaponType]}`)
+    const roll = roll3D6();
+    if (roll <= (skills[definition.weaponType] ?? 0)) {
+      console.log("HIT");
+
+    } else {
+      this.log({ key: "scene-combat-attack-slash-missed", context: { actor, weapon }});
+    }
     // todo: see if slash misses
     // todo: process the hit, take away any HP?
   }
@@ -651,6 +656,11 @@ export class BaseSceneController<TQuestVars> {
     if (toast) {
       ToastManager.addToast(title, Type.questUpdate, icon, getQuestLink(this.questName));
     }
+    this.log(textEntry);
+  }
+
+  protected log(input: string | TextEntry) : void {
+    const textEntry: TextEntry = isTextEntry(input) ? input : {key: input};
     this.dispatch(addLogEntry(textEntry, LogChannel.quest, this.questName));
   }
 

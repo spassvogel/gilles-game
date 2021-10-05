@@ -2,7 +2,7 @@ import { TiledObjectData } from 'constants/tiledMapData';
 import { Item } from 'definitions/items/types';
 import { Merge } from 'type-fest';
 import { TiledObjectType } from 'utils/tilemap';
-import { Allegiance } from './combat';
+import { Actor, Allegiance } from './combat';
 
 
 export interface SceneStoreState {
@@ -46,7 +46,6 @@ export const isEnemy = (object: SceneObject): object is ActorObject => {
 export const getAdventurer = (objects: SceneObject[], adventurerId: string): ActorObject | undefined => {
   return objects.find(o => isAdventurer(o) && o.name === adventurerId) as ActorObject;
 }
-
 
  // export type Actor = SceneObject & {
 //     type: "actor";
