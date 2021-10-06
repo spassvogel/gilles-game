@@ -216,7 +216,7 @@ export class BaseSceneController<TQuestVars> {
     const skills = this.getActorSkills(actor);
     const roll = roll3D6();
     if (roll <= (skills[definition.weaponType] ?? 0)) {
-      console.log("HIT");
+      console.log("HIT at ", location);
 
     } else {
       this.log({ key: "scene-combat-attack-slash-missed", context: { actor, weapon }});
@@ -243,12 +243,24 @@ export class BaseSceneController<TQuestVars> {
     }
   }
 
-  actorShot(actor: string, location: [number, number]) {
+  actorShot(actorId: string, location: [number, number]) {
     if (this.combat) {
       // Take away AP for shooting
-      this.dispatch(deductActorAp(this.questName, actor, AP_COST_SHOOT));
+      this.dispatch(deductActorAp(this.questName, actorId, AP_COST_SHOOT));
     }
+    const actor = this.getSceneActor(actorId);
+    if (!actor) throw new Error("No actor found");
+    const weapon = this.getActorMainhandItem(actor);
+    if (!weapon) throw new Error("No weapon found");
+    const definition = getWeaponDefinition(weapon)
+    const skills = this.getActorSkills(actor);
+    const roll = roll3D6();
+    if (roll <= (skills[definition.weaponType] ?? 0)) {
+      console.log("HIT at ", location);
 
+    } else {
+      this.log({ key: "scene-combat-attack-shoot-missed", context: { actor, weapon }});
+    }
     // todo: process the hit, take away any HP?
   }
 

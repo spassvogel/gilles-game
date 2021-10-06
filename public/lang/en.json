@@ -381,6 +381,7 @@
     "resource-workers-info": "Your workforce",
     "resource-workers-name": "workers",
 
+    "scene-combat-attack-shoot-missed": "{{actor:name actor}} shoots with {{item:name weapon \"aA\"}} but missed!",
     "scene-combat-attack-slash-missed": "{{actor:name actor}} slashes with {{item:name weapon \"aA\"}} but missed!",
 
     "structure-alchemist-name": "alchemist",
