@@ -1,7 +1,6 @@
 import { enqueueSceneAction, startTurn } from "store/actions/quests";
 import { AnyAction } from "redux";
-import { Allegiance } from "store/types/combat";
-import { ActorObject, SceneAction, SceneActionType } from "store/types/scene";
+import { ActorObject, Allegiance, SceneAction, SceneActionType } from "store/types/scene";
 import { locationEquals } from "utils/tilemap";
 import { BaseSceneController, movementDuration } from "./BaseSceneController";
 
@@ -38,12 +37,12 @@ export class CombatController {
 
       // No AP for the player left, switch to enemy turn
       if (totalAdventurerAp === 0 && turn === Allegiance.player) {
-        
+
         this.dispatch(startTurn(quest.name, Allegiance.enemy));
         return
       }
-      
-      
+
+
       if (turn === Allegiance.enemy && scene.actionQueue?.length === 0) {
         const totalEnemiesAp = enemies.reduce((acc, value) => acc + value.ap, 0)
 

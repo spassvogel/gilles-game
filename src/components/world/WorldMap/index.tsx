@@ -20,9 +20,9 @@ import { useActiveQuests, useQuest } from 'hooks/store/quests';
 import { setCombat } from 'store/actions/quests';
 import { useHistory } from 'react-router-dom';
 import { getWorldLink } from 'utils/routing';
-import { Allegiance } from 'store/types/combat';
 import { Point } from 'pixi.js';
 import './styles/worldMap.scss';
+import { Allegiance } from 'store/types/scene';
 
 const FULL_HEIGHT = 1024;
 const SMALL_HEIGHT = 64;   // Used when QuestPanel is open

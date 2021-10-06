@@ -1,8 +1,7 @@
 import React from "react";
 import { Container, Graphics, Text } from "@inlet/react-pixi";
 import { useAdventurerState } from "hooks/store/adventurers";
-import { Allegiance } from "store/types/combat";
-import { ActorObject } from "store/types/scene";
+import { ActorObject, Allegiance } from "store/types/scene";
 
 interface Props {
   actor: ActorObject;

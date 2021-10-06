@@ -1,10 +1,9 @@
 import React from "react";
 import { Container } from "@inlet/react-pixi";
-import { isActorObject, SceneObject } from "store/types/scene";
+import { Allegiance, isActorObject, SceneObject } from "store/types/scene";
 import SceneAdventurer from "./SceneAdventurer";
 import { BaseSceneController } from "mechanics/scenes/BaseSceneController";
 import { TiledObjectType } from "utils/tilemap";
-import { Allegiance } from "store/types/combat";
 import SceneActor from "./SceneActor";
 
 interface Props {

@@ -1,7 +1,6 @@
 import * as React from "react";
 import { TextManager } from 'global/TextManager';
-import { ActorObject } from "store/types/scene";
-import { Allegiance } from "store/types/combat";
+import { ActorObject, Allegiance } from "store/types/scene";
 import AdventurerContext from "./AdventurerContext";
 import EnemyContext from "./EnemyContext";
 import './styles/actorContext.scss';

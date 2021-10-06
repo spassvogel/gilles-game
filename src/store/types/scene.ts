@@ -2,7 +2,6 @@ import { TiledObjectData } from 'constants/tiledMapData';
 import { Item } from 'definitions/items/types';
 import { Merge } from 'type-fest';
 import { TiledObjectType } from 'utils/tilemap';
-import { Actor, Allegiance } from './combat';
 
 
 export interface SceneStoreState {
@@ -11,6 +10,11 @@ export interface SceneStoreState {
     activeInteractionModal?: SceneInteractionModal;
     combat: boolean;
     turn?: Allegiance;
+}
+
+export enum Allegiance {
+  player,
+  enemy,
 }
 
 export type SceneObject = Merge<TiledObjectData, {

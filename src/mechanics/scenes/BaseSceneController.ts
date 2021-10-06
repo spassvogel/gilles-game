@@ -6,7 +6,7 @@ import { TiledLayerType, TiledMapData, TiledObjectData } from 'constants/tiledMa
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { setScene, setSceneName, exitEncounter, enqueueSceneAction, updateQuestVars, deductActorAp, endPlayerTurn } from 'store/actions/quests';
-import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction, isActorObject, getSpritesheetPaths, isAdventurer, isEnemy } from 'store/types/scene';
+import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction, isActorObject, getSpritesheetPaths, isAdventurer, isEnemy, Allegiance } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLink } from 'utils/routing';
@@ -21,7 +21,6 @@ import { addGold } from 'store/actions/gold';
 import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
-import { Allegiance } from "store/types/combat";
 import { Item } from "definitions/items/types";
 import { Loader, Point } from "pixi.js";
 import { AP_COST_MOVE, AP_COST_SHOOT, AP_COST_SLASH, calculateInitialAP } from "mechanics/combat";
