@@ -10,40 +10,40 @@ import { LogEntry } from "store/types/logEntry";
  * @param action
  */
 export const log: Reducer<LogEntry[]> = (state: LogEntry[] = initialLogState, action: GameAction | LogAction) => {
-    switch (action.type) {
-        case "addLogEntry": {
-            const {entry, channel, channelContext} = action;
-            const {key, context} = entry;
-            const time = Date.now();
-            return [{
-                    channel,
-                    channelContext,
-                    context,
-                    key,
-                    time,
-                },
-                ...state,
-            ];
-        }
-        case "gameTick": {
-            if (!action.log.length) {
-                return state;
-            }
-        
-            // Add log entries
-            const logEntries = action.log.map((lU: LogUpdate): LogEntry => {
-                return {
-                    ...lU,
-                    time: Date.now(),
-                };
-            });
-            return [
-                ...logEntries,
-                ...state,
-            ];
-        }
+  switch (action.type) {
+    case "addLogEntry": {
+      const {entry, channel, channelContext} = action;
+      const {key, context} = entry;
+      const time = Date.now();
+      return [{
+          channel,
+          channelContext,
+          context,
+          key,
+          time,
+        },
+        ...state,
+      ];
     }
-    return state;
+    case "gameTick": {
+      if (!action.log.length) {
+        return state;
+      }
+
+      // Add log entries
+      const logEntries = action.log.map((lU: LogUpdate): LogEntry => {
+        return {
+          ...lU,
+          time: Date.now(),
+        };
+      });
+      return [
+        ...logEntries,
+        ...state,
+      ];
+    }
+  }
+  return state;
 };
 
 export const initialLogState = [];

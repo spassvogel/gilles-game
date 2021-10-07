@@ -8,6 +8,7 @@ import { initialLogState, log } from "./log";
 import { initialQuestState, quests } from "./quests";
 import { initialResourcesState, resources } from "./resources";
 import { initialRngState, rngState } from "./rngState";
+import { initialSettingsState, settings } from "./settings";
 import { initialStructuresState, structures } from "./structures";
 import { initialTasksState, tasks } from "./tasks";
 import { initialWorkersState, workers } from "./workers";
@@ -21,6 +22,7 @@ export default combineReducers<StoreState>({
   quests,
   resources,
   rngState,
+  settings,
   structures,
   tasks,
   workers,
@@ -35,6 +37,7 @@ export const createInitialStore = () => ({
   quests: initialQuestState,
   resources: initialResourcesState,
   rngState: initialRngState,
+  settings: initialSettingsState,
   structures: initialStructuresState,
   tasks: initialTasksState,
   workers: initialWorkersState

@@ -1,67 +1,66 @@
 import { Reducer } from "redux";
 import { EngineStoreState } from "store/types/engine";
-import { Action } from "store/actions";
-import { formatDuration } from "utils/format/time";
 import { HARVEST_INTERVAL } from "mechanics/gameTick/harvest";
+import { GameAction } from "store/actions/game";
 
 /**
  * reducer
  * @param state
  * @param action
  */
-export const engine: Reducer<EngineStoreState> = (state: EngineStoreState = getInitialEngineState(), action: Action) => {
-    switch (action.type) {
-        case "startGame": {
-            return {
-                ...state,
-                gameStarted: Date.now()
-            };
-        }
-        case "gameTick": {
-
-            // Keep track of the last time resources were produced
-            const resourcesToAdd = action.resources;
-            const lastProducedUpdate = resourcesToAdd === null ? state.lastProducedUpdate : Date.now();
-
-            // Keep track of last harvest
-            const lastHarvest = action.harvest === null || !Object.keys(action.harvest).length ? state.lastHarvest : Date.now();
-
-            const previousTick = state.lastTick;
-
-            return {
-                ...state,
-                previousTick,
-                lastProducedUpdate,
-                lastTick: Date.now(),
-                lastHarvest
-            };
-        }
-
-        case "reduceTime": {
-            if (action.percentage < 0 || action.percentage > 100) return state;
-            switch (action.time) { 
-                case "harvest": {
-                    const timeLeft = HARVEST_INTERVAL - (Date.now() - state.lastHarvest);
-
-                    const delta = timeLeft * (action.percentage / 100);
-                    return {
-                        ...state,
-                        lastHarvest: state.lastHarvest - delta
-                    }
-                }
-            }
-            return state;
-        }
+export const engine: Reducer<EngineStoreState, GameAction> = (state = getInitialEngineState(), action) => {
+  switch (action.type) {
+    case "startGame": {
+      return {
+        ...state,
+        gameStarted: Date.now()
+      };
     }
-    return state;
+    case "gameTick": {
+
+      // Keep track of the last time resources were produced
+      const resourcesToAdd = action.resources;
+      const lastProducedUpdate = resourcesToAdd === null ? state.lastProducedUpdate : Date.now();
+
+      // Keep track of last harvest
+      const lastHarvest = action.harvest === null || !Object.keys(action.harvest).length ? state.lastHarvest : Date.now();
+
+      const previousTick = state.lastTick;
+
+      return {
+        ...state,
+        previousTick,
+        lastProducedUpdate,
+        lastTick: Date.now(),
+        lastHarvest
+      };
+    }
+
+    case "reduceTime": {
+      if (action.percentage < 0 || action.percentage > 100) return state;
+      switch (action.time) {
+        case "harvest": {
+          const timeLeft = HARVEST_INTERVAL - (Date.now() - state.lastHarvest);
+
+          const delta = timeLeft * (action.percentage / 100);
+          return {
+            ...state,
+            lastHarvest: state.lastHarvest - delta
+          }
+        }
+      }
+      return state;
+    }
+  }
+  return state;
 };
 
 export const getInitialEngineState = () => {
-    return {
-        gameStarted: undefined,
-        previousTick: Date.now(),
-        lastTick: Date.now(),
-        lastProducedUpdate: Date.now(),
-        lastHarvest: Date.now()
-    }
+  return {
+    gameStarted: undefined,
+    previousTick: Date.now(),
+    lastTick: Date.now(),
+    lastProducedUpdate: Date.now(),
+    lastHarvest: Date.now()
+  }
 };

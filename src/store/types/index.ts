@@ -4,6 +4,7 @@ import { EngineStoreState } from "./engine";
 import { LogEntry } from "./logEntry";
 import { QuestStoreState } from "./quest";
 import { ResourceStoreState } from "./resources";
+import { SettingsState } from "./settings";
 import { StockpileStoreState } from "./stockpile";
 import { StructuresStoreState } from "./structures";
 import { TasksStoreState } from "./tasks";
@@ -18,6 +19,7 @@ export interface StoreState {
   workers: number;
   resources: ResourceStoreState;
   rngState: seedrandomStateType;
+  settings: SettingsState;
   structures: StructuresStoreState;
   tasks: TasksStoreState;
 }
