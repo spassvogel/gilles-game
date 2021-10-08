@@ -206,7 +206,8 @@ export class BaseSceneController<TQuestVars> {
   }
 
   actorSlashed(actorId: string, location: [number, number]) {
-    this.dispatch(deductActorAp(this.questName, actorId, AP_COST_SLASH));
+    const ap = AP_COST_SLASH;
+    this.dispatch(deductActorAp(this.questName, actorId, ap));
     const actor = this.getSceneActor(actorId);
     if (!actor) throw new Error("No actor found");
     const weapon = this.getActorMainhandItem(actor);
@@ -218,7 +219,18 @@ export class BaseSceneController<TQuestVars> {
       console.log("HIT at ", location);
 
     } else {
-      this.log({ key: "scene-combat-attack-slash-missed", context: { actor, weapon }});
+      if (this.settings.verboseCombatLog) {
+        this.log({ key: "scene-combat-attack-slash-missed-verbose", context: {
+          actor,
+          weapon,
+          ap,
+          roll,
+          weaponType: definition.weaponType,
+          skill: skills[definition.weaponType]
+        }});
+      } else {
+        this.log({ key: "scene-combat-attack-slash-missed", context: { actor, weapon }});
+      }
     }
     // todo: see if slash misses
     // todo: process the hit, take away any HP?
@@ -243,10 +255,9 @@ export class BaseSceneController<TQuestVars> {
   }
 
   actorShot(actorId: string, location: [number, number]) {
-    if (this.combat) {
-      // Take away AP for shooting
-      this.dispatch(deductActorAp(this.questName, actorId, AP_COST_SHOOT));
-    }
+    const ap = AP_COST_SHOOT;
+    // Take away AP for shooting
+    this.dispatch(deductActorAp(this.questName, actorId, ap));
     const actor = this.getSceneActor(actorId);
     if (!actor) throw new Error("No actor found");
     const weapon = this.getActorMainhandItem(actor);
@@ -258,7 +269,18 @@ export class BaseSceneController<TQuestVars> {
       console.log("HIT at ", location);
 
     } else {
-      this.log({ key: "scene-combat-attack-shoot-missed", context: { actor, weapon }});
+         if (this.settings.verboseCombatLog) {
+          this.log({ key: "scene-combat-attack-shoot-missed-verbose", context: {
+            actor,
+            weapon,
+            ap,
+            roll,
+            weaponType: definition.weaponType,
+            skill: skills[definition.weaponType]
+          }});
+        } else {
+          this.log({ key: "scene-combat-attack-shoot-missed", context: { actor, weapon }});
+        }
     }
     // todo: process the hit, take away any HP?
   }
@@ -616,6 +638,10 @@ export class BaseSceneController<TQuestVars> {
 
   protected get questVars(): TQuestVars {
     return this.quest.questVars as unknown as TQuestVars;
+  }
+
+  public get settings() {
+    return this.store.getState().settings;
   }
 
   // Provide questvars to update

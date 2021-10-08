@@ -382,7 +382,9 @@
     "resource-workers-name": "workers",
 
     "scene-combat-attack-shoot-missed": "{{actor:name actor}} shoots with {{item:name weapon \"aA\"}} but missed!",
+    "scene-combat-attack-shoot-missed-verbose": "{{actor:name actor}} shoots with {{item:name weapon \"aA\"}} but missed!",
     "scene-combat-attack-slash-missed": "{{actor:name actor}} slashes with {{item:name weapon \"aA\"}} but missed!",
+    "scene-combat-attack-slash-missed-verbose": "{{actor:name actor}} slashes (-{{ap}}AP) with {{item:name weapon \"aA\"}} but missed! (rolled {{roll}} against {{skill}} ({{weaponType}} skill))",
 
     "structure-alchemist-name": "alchemist",
     "structure-armoursmith-name": "armoursmith",
