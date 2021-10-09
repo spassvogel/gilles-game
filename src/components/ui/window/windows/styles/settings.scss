@@ -1,20 +1,50 @@
+@import 'components/styles/variables.scss';
+
 .settings-window {
-    background: white;
-    padding: 8px;
+  background: white;
+  padding: 8px;
 
-    .sound {
+  .settings-section {
+    padding: 0 16px;
+    flex: 1;
 
-        p {
-            display: flex;
-        
-            input {
-                margin-bottom: -8px;
-            }
-
-            label {
-                width: 90px;
-                display: block;
-            }
-        }
+    p {
+      min-width: 80px;
+      max-width: 400px;
+      width: 100%;
     }
+  }
+
+  .combat {
+    p {
+      display: flex;
+    }
+
+    label {
+      flex: 1
+    }
+  }
+
+  .sound {
+    p {
+      display: flex;
+
+      input {
+        margin-bottom: -8px;
+        width: 100%;
+      }
+
+      label {
+        width: 90px;
+        display: block;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $max-width-small) {
+  .settings-window {
+    display: flex;
+    flex-direction: row;
+  }
 }

@@ -1,64 +1,88 @@
 import * as React from "react";
 import { compose } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ChangeEvent } from 'react';
 import gsap from 'gsap';
 import { Channel, SoundManager } from 'global/SoundManager';
 import { withWindow } from "hoc/withWindow";
 import "./styles/settings.scss";
+import { StoreState } from "store/types";
+import { SettingsState } from "store/types/settings";
+import { setVerboseCombatLog } from "store/actions/settings";
 
 const SettingsWindow = () => {
+  const settings = useSelector<StoreState, SettingsState>(state => state.settings);
+  const dispatch = useDispatch();
 
-    const getChannelControls = (channel: Channel) => {
-        const handleVolumeChange = (e: ChangeEvent<HTMLInputElement>) => {
-            const linear = parseFloat(e.target.value);
-            const log = Math.pow(linear, 2);
-            SoundManager.setChannelVolume(channel, log);
-        };
-        const handleMuteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-            const slider = (e.currentTarget as HTMLButtonElement).parentNode?.lastChild;
-            if (slider) {
-                gsap.to(slider, {
-                    duration: .5,
-                    value: 0,
-                    onComplete: () => {
-                        SoundManager.setChannelVolume(channel, 0);
-                    }
-                });
-            }
-        }
+  const getChannelControls = (channel: Channel) => {
+    const handleVolumeChange = (e: ChangeEvent<HTMLInputElement>) => {
+      const linear = parseFloat(e.target.value);
+      const log = Math.pow(linear, 2);
+      SoundManager.setChannelVolume(channel, log);
+    };
 
-        return (
-            <p>
-                <label>{Channel[channel]}</label>
-                <button onClick={handleMuteClick}>
-                    <span role="img" aria-label="Mute">🔇</span>
-                </button>
-                <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.05"
-                    onChange={handleVolumeChange}
-                    defaultValue={`${Math.sqrt(SoundManager.getChannelVolume(channel))}`}
-                />
-            </p>
-        )
+    const handleMuteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      const slider = (e.currentTarget as HTMLButtonElement).parentNode?.lastChild;
+      if (slider) {
+        gsap.to(slider, {
+          duration: .5,
+          value: 0,
+          onComplete: () => {
+            SoundManager.setChannelVolume(channel, 0);
+          }
+        });
+      }
     }
 
     return (
-        <div className="settings-window">
-            <details open = { true } className="sound" >
-                <summary>Sound volume</summary>
-                <section>
-                    {getChannelControls(Channel.ui)}
-                    {getChannelControls(Channel.scene)}
-                    {getChannelControls(Channel.music)}
-                </section>
-            </details>
-        </div>
-    );
+      <p>
+        <label>{Channel[channel]}</label>
+        <button onClick={handleMuteClick}>
+          <span role="img" aria-label="Mute">🔇</span>
+        </button>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.05"
+          onChange={handleVolumeChange}
+          defaultValue={`${Math.sqrt(SoundManager.getChannelVolume(channel))}`}
+        />
+      </p>
+    )
+  }
+
+  const handleVerboseCombatLogChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setVerboseCombatLog(e.currentTarget.checked));
+  }
+
+  return (
+    <div className="settings-window">
+      <details open className="settings-section sound" >
+        <summary>Sound volume</summary>
+        <section>
+          {getChannelControls(Channel.ui)}
+          {getChannelControls(Channel.scene)}
+          {getChannelControls(Channel.music)}
+        </section>
+      </details>
+      <details open className="settings-section combat" >
+        <summary>Combat</summary>
+        <section>
+          <p>
+          <label>Verbose combat log</label>
+          <input
+            type="checkbox"
+            checked={settings.verboseCombatLog}
+            onChange={handleVerboseCombatLogChange}
+          />
+        </p>
+        </section>
+      </details>
+    </div>
+  );
 }
 
 export default compose(
-    withWindow,
+  withWindow,
 )(SettingsWindow);

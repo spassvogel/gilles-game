@@ -1,23 +1,27 @@
+@import 'components/styles/variables.scss';
+
 .menu {
-    input[type=file] {
-        color: white;
+  input[type=file] {
+    color: white;
+  }
+
+  p {
+    margin: 8px;
+  }
+
+  fieldset {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border-color: $color-primary;
+
+    .button {
+      float: right;
     }
 
-    p {
-        margin: 8px;
+    section {
+      margin-top: 20px;
     }
-
-    fieldset {
-        color: white;
-        display: flex;
-        flex-direction: column;
-
-        .button {
-            float: right;
-        }
-        
-        section {
-            margin-top: 20px;
-        }
-    }
+  }
 }
