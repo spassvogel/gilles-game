@@ -41,7 +41,7 @@ abstract class DungeonEncounterSceneController extends BaseSceneController<Kill1
   // }
 }
 export class DungeonEntranceSceneController extends DungeonEncounterSceneController {
-  jsonPath = "scenes/dungeon-entry-64.json";
+  jsonPath = "scenes/canyon-64.json";
   previousMusic?: GameSound;
   // jsonPath = "scenes/ork-dungeon-level1.json";
 
@@ -182,7 +182,8 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
 }
 
 export class DungeonHallwaySceneController extends DungeonEncounterSceneController {
-  jsonPath = "scenes/ork-dungeon-level2.json";
+  // jsonPath = "scenes/ork-dungeon-level2.json";
+  jsonPath = "scenes/dungeon-entry-64.json";
 
   getLootCache(_: string): LootCache | undefined {
     return this.questVars.dungeon.hallway.chest;
