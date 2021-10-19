@@ -1,9 +1,13 @@
+import { SettingsState } from "store/types/settings";
+
 export type SettingsAction = {
-  type: "setVerboseCombatLog",
-  enabled: boolean
+  type: "setSetting",
+  setting: keyof SettingsState
+  value: unknown
 }
 
-export const setVerboseCombatLog = (enabled: boolean): SettingsAction => ({
-  type: "setVerboseCombatLog",
-  enabled,
+export const setSetting = (setting: keyof SettingsState, value: unknown): SettingsAction => ({
+  type: "setSetting",
+  setting,
+  value
 });

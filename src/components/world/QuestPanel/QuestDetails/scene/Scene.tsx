@@ -11,6 +11,7 @@ import { isAdventurer } from "store/types/scene";
 import SceneLog from "./SceneLog";
 import { CombatController } from "mechanics/scenes/CombatController";
 import { Rectangle } from "pixi.js";
+import { useSettings } from "hooks/store/settings";
 import "./styles/scene.scss";
 
 export interface Props {
@@ -19,9 +20,9 @@ export interface Props {
 }
 
 const DEBUG_ACTIONQUEUE = false;
-const DEBUG_BLOCKEDTILES = false;
 
 const Scene = (props: Props) => {
+  const settings = useSettings();
   const {selectedActorId, setSelectedActor } = props;
   const controller = useContext(SceneControllerContext);
   if (!controller) throw new Error("No controller found")
@@ -86,7 +87,7 @@ const Scene = (props: Props) => {
             setSelectedActor={setSelectedActor}
           />
           { currentActionIntent && (<ActionPreview actionIntent={currentActionIntent} tileWidth={tileWidth} tileHeight={tileHeight}/>)}
-          {DEBUG_BLOCKEDTILES && (
+          {settings.debugSceneShowPathable && (
             <Graphics
               name="blocked-tiles"
               draw={graphics => {

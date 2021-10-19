@@ -9,9 +9,10 @@ import { SettingsState } from "store/types/settings";
  */
 export const settings: Reducer<SettingsState, SettingsAction> = (state = initialSettingsState, action) => {
   switch (action.type) {
-    case "setVerboseCombatLog": {
+    case "setSetting": {
       return {
-        verboseCombatLog: action.enabled
+        ...state,
+        [action.setting]: action.value
       }
     }
   }
@@ -19,5 +20,6 @@ export const settings: Reducer<SettingsState, SettingsAction> = (state = initial
 };
 
 export const initialSettingsState = {
-  verboseCombatLog: false
+  verboseCombatLog: false,
+  debugSceneShowPathable: false
 };

@@ -1,17 +1,16 @@
 import * as React from "react";
 import { compose } from "redux";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ChangeEvent } from 'react';
 import gsap from 'gsap';
 import { Channel, SoundManager } from 'global/SoundManager';
 import { withWindow } from "hoc/withWindow";
+import { setSetting } from "store/actions/settings";
+import { useSettings } from "hooks/store/settings";
 import "./styles/settings.scss";
-import { StoreState } from "store/types";
-import { SettingsState } from "store/types/settings";
-import { setVerboseCombatLog } from "store/actions/settings";
 
 const SettingsWindow = () => {
-  const settings = useSelector<StoreState, SettingsState>(state => state.settings);
+  const settings = useSettings();
   const dispatch = useDispatch();
 
   const getChannelControls = (channel: Channel) => {
@@ -53,7 +52,10 @@ const SettingsWindow = () => {
   }
 
   const handleVerboseCombatLogChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setVerboseCombatLog(e.currentTarget.checked));
+    dispatch(setSetting("verboseCombatLog", e.currentTarget.checked));
+  }
+  const handleDebugSceneShowPathableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSetting("debugSceneShowPathable", e.currentTarget.checked));
   }
 
   return (
@@ -75,6 +77,19 @@ const SettingsWindow = () => {
             type="checkbox"
             checked={settings.verboseCombatLog}
             onChange={handleVerboseCombatLogChange}
+          />
+        </p>
+        </section>
+      </details>
+      <details open className="settings-section debug" >
+        <summary>Debug</summary>
+        <section>
+          <p>
+          <label>Show pathable tiles in scene</label>
+          <input
+            type="checkbox"
+            checked={settings.debugSceneShowPathable}
+            onChange={handleDebugSceneShowPathableChange}
           />
         </p>
         </section>
