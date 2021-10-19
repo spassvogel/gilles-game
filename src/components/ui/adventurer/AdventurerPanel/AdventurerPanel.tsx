@@ -85,6 +85,7 @@ const AdventurerPanel = (props: Props) => {
                 { levelBar && <Level adventurerId={adventurer.id}/> }
                 { adventurer.flavor && (
                     <span className="flavor">
+                        <img className="portrait" src={adventurer.avatarImg} />
                         <ReactMarkdown>
                             {TextManager.getAdventurerFlavor(adventurer.id, adventurer.name)}
                         </ReactMarkdown>
