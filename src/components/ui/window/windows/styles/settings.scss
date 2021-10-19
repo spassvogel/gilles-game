@@ -4,6 +4,11 @@
   background: white;
   padding: 8px;
 
+  p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .settings-section {
     padding: 0 16px;
     flex: 1;
@@ -16,6 +21,7 @@
   }
 
   .combat {
+    grid-area: combat;
     p {
       display: flex;
     }
@@ -26,6 +32,7 @@
   }
 
   .sound {
+    grid-area: sound;
     p {
       display: flex;
 
@@ -40,11 +47,24 @@
       }
     }
   }
+
+  .debug {
+    grid-area: debug;
+    p {
+      display: flex;
+    }
+
+    label {
+      flex: 1
+    }
+  }
 }
 
 @media only screen and (min-width: $max-width-small) {
   .settings-window {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "sound combat"
+                         "sound debug"
   }
 }
