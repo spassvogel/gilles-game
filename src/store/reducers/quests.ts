@@ -113,6 +113,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
           return {
             ...qss,
             sceneName: action.sceneName,
+            sceneNamePrev: qss.sceneName,
             scene: undefined
           };
         }
