@@ -12,7 +12,7 @@ const kill10Boars: QuestDefinition<Kill10BoarsQuestVars> = {
         x: 0,
         y: 1,
         type: QuestNodeType.encounter,
-        startScene: "dungeon.entrance",
+        startScene: "dungeon.canyon",
     }, {
         x: 0,
         y: 2,

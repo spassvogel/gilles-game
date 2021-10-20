@@ -54,8 +54,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   get basePath(): string | null {
-    if (!this.jsonPath) return null;
-    return `${process.env.PUBLIC_URL}/${this.jsonPath.substr(0, this.jsonPath.lastIndexOf('/'))}`;
+    return `${process.env.PUBLIC_URL}/scenes`;
   }
 
   // Loads tiles from json, loads all scene assets
@@ -477,6 +476,7 @@ export class BaseSceneController<TQuestVars> {
     // todo; shortcut, if already neighbour, return early
     const grid = this.aStar?.getGrid().getGridNodes();
     if (!grid) return [];
+
     const matrix = grid.map(r => r.map(c => (c.getIsWalkable() ? 0 : 1)));
     matrix[target[1]][target[0]] = 0; // make target pathable
     const tempAStar = new AStarFinder({
@@ -487,9 +487,86 @@ export class BaseSceneController<TQuestVars> {
       heuristic: "Manhattan",
       weight: 0.2,
     });
+
     return tempAStar.findPath(convertIn(origin), convertIn(target))
       .map(convertOut)
       .slice(0, includeLast ? undefined : -1);
+  }
+
+  /**
+   * Searches around @param origin to find empty, pathable locations
+   * @param origin location to search around
+   * @param amount of locations to find
+   */
+  public findEmptyLocationsAround(origin: [number, number], amount: number) {
+    const results: [number, number][] = [];
+    let radius = 1;
+
+    const getTop = (radius: number): [number, number][] => {
+      const y = -radius;
+      const result = [];
+      for (let x = -radius; x <= radius; x++) {
+        result.push([x, y] as [number, number])
+      }
+      return result;
+    }
+    const getRight = (radius: number) => {
+      const x = radius;
+      const result = [];
+      for (let y = -radius + 1; y <= radius - 1; y++) {
+        result.push([x, y] as [number, number])
+      }
+      return result;
+    }
+    const getBottom = (radius: number) => {
+      const y = radius;
+      const result = [];
+      for (let x = -radius; x <= radius; x++) {
+        result.push([x, y] as [number, number])
+      }
+      return result;
+    }
+    const getLeft = (radius: number) => {
+      const x = -radius;
+      const result = [];
+      for (let y = -radius + 1; y <= radius - 1; y++) {
+        result.push([x, y] as [number, number])
+      }
+      return result;
+    }
+
+    const notOutside = (location: [number, number]) => {
+      if (!this.mapData) return false
+      return location[0] >= 0 && location[0] < this.mapData.width
+        && location[1] >= 1 && location[1] < this.mapData.height
+    }
+
+    while (radius < (this.mapData?.width ?? 2)) {
+
+      // top row
+      // const top = getTop(radius);
+      // top.forEach(c => console.log(`radius ${radius} top: [${c[0]}, ${c[1]}]`))
+      // const right = getRight(radius);
+      // right.forEach(c => console.log(`radius ${radius} right: [${c[0]}, ${c[1]}]`))
+      // const bottom = getBottom(radius);
+      // bottom.forEach(c => console.log(`radius ${radius} bottom: [${c[0]}, ${c[1]}]`))
+      // const left = getLeft(radius);
+      // left.forEach(c => console.log(`radius ${radius} left: [${c[0]}, ${c[1]}]`))
+
+      // determine locations in square radius
+      const square: [number, number][] = [
+        ...getTop(radius),
+        ...getRight(radius),
+        ...getBottom(radius),
+        ...getLeft(radius)
+      ]
+      const filtered = square.filter(l => notOutside(l) && !this.locationIsBlocked(l));
+      results.push(...filtered.slice(0, amount - results.length))
+      if (results.length === amount) break;
+      // console.log(`radius ${radius}`, filtered)
+      radius++;
+    }
+    console.log('the results', results)
   }
 
   /**
@@ -517,6 +594,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   protected createAStar() {
+    if (!this.mapData) return
     const matrix: number[][] = [];
     if (this.mapData){
       for (let y = 0; y < this.mapData.height; y++) {
@@ -529,6 +607,7 @@ export class BaseSceneController<TQuestVars> {
         matrix.push(row);
       }
     }
+    console.log(this.mapData, matrix)
     return new AStarFinder({
       grid: {
         matrix
@@ -716,3 +795,4 @@ export interface Situation {
 // This is the format AStarFind works with
 const convertIn = (l: [number, number]) => ({ x: l[0], y: l[1] });
 const convertOut = (input: number[]): [number, number] => [input[0], input[1]];
+

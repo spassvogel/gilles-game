@@ -6,7 +6,8 @@ export abstract class SceneControllerManager {
     static store: { [key: string]: BaseSceneController<unknown> } = {};
     static controllerTypes: {[key: string]: typeof BaseSceneController} = {};
 
-    static registerSceneController(questName: string, sceneName: string, controllerType: typeof BaseSceneController) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    static registerSceneController(questName: string, sceneName: string, controllerType: any) {
         this.controllerTypes[`${questName}.${sceneName}`] = controllerType;
     }
 

@@ -40,10 +40,13 @@ abstract class DungeonEncounterSceneController extends BaseSceneController<Kill1
   //   }
   // }
 }
+
+export class DungeonCanyonSceneController extends DungeonEncounterSceneController {
+  jsonPath = "scenes/dungeon/canyon-64.json";
+}
 export class DungeonEntranceSceneController extends DungeonEncounterSceneController {
-  jsonPath = "scenes/canyon-64.json";
   previousMusic?: GameSound;
-  // jsonPath = "scenes/ork-dungeon-level1.json";
+  jsonPath = "scenes/dungeon/ork-dungeon-level1.json";
 
 
   getLootCache(_: string): LootCache | undefined {
@@ -183,7 +186,7 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
 
 export class DungeonHallwaySceneController extends DungeonEncounterSceneController {
   // jsonPath = "scenes/ork-dungeon-level2.json";
-  jsonPath = "scenes/dungeon-entry-64.json";
+  jsonPath = "scenes/dungeon/dungeon-entry-64.json";
 
   getLootCache(_: string): LootCache | undefined {
     return this.questVars.dungeon.hallway.chest;
@@ -318,5 +321,6 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
   }
 }
 
-SceneControllerManager.registerSceneController("kill10Boars", "dungeon.entrance", DungeonEntranceSceneController as any);
-SceneControllerManager.registerSceneController("kill10Boars", "dungeon.hallway", DungeonHallwaySceneController as any);
+SceneControllerManager.registerSceneController("kill10Boars", "dungeon.canyon", DungeonCanyonSceneController);
+SceneControllerManager.registerSceneController("kill10Boars", "dungeon.entrance", DungeonEntranceSceneController);
+SceneControllerManager.registerSceneController("kill10Boars", "dungeon.hallway", DungeonHallwaySceneController);
