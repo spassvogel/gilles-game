@@ -6,7 +6,7 @@ import { TiledLayerType, TiledMapData, TiledObjectData } from 'constants/tiledMa
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { setScene, setSceneName, exitEncounter, enqueueSceneAction, updateQuestVars, deductActorAp, endPlayerTurn } from 'store/actions/quests';
-import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction, isActorObject, getSpritesheetPaths, isAdventurer, isEnemy, Allegiance } from 'store/types/scene';
+import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction, isActorObject, isAdventurer, isEnemy, Allegiance } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLink } from 'utils/routing';
@@ -92,8 +92,7 @@ export class BaseSceneController<TQuestVars> {
     this.createBlockedTiles();
     this.aStar = this.createAStar();
 
-    // In the case a scene is just created, we dont have this.sceneObjects yet
-    const spritesheets = getSpritesheetPaths(this.sceneObjects.length ? this.sceneObjects : this.createObjects());
+    const spritesheets = this.spritesheetPaths;
     for(const path of spritesheets) {
       await loadResourceAsync(path);
     }
@@ -139,7 +138,6 @@ export class BaseSceneController<TQuestVars> {
       this.aStar = this.createAStar();
     }
   }
-
 
   sceneEntered() {
     return;
@@ -503,33 +501,33 @@ export class BaseSceneController<TQuestVars> {
     let radius = 1;
 
     const getTop = (radius: number): [number, number][] => {
-      const y = -radius;
+      const y = -radius + origin[1];
       const result = [];
-      for (let x = -radius; x <= radius; x++) {
+      for (let x = -radius + origin[0]; x <= radius + origin[0]; x++) {
         result.push([x, y] as [number, number])
       }
       return result;
     }
     const getRight = (radius: number) => {
-      const x = radius;
+      const x = radius + origin[0];
       const result = [];
-      for (let y = -radius + 1; y <= radius - 1; y++) {
+      for (let y = -radius + 1 + origin[1]; y <= radius - 1 + origin[1]; y++) {
         result.push([x, y] as [number, number])
       }
       return result;
     }
     const getBottom = (radius: number) => {
-      const y = radius;
+      const y = radius + origin[1];
       const result = [];
-      for (let x = -radius; x <= radius; x++) {
+      for (let x = -radius + origin[0]; x <= radius + origin[0]; x++) {
         result.push([x, y] as [number, number])
       }
       return result;
     }
     const getLeft = (radius: number) => {
-      const x = -radius;
+      const x = -radius + origin[0];
       const result = [];
-      for (let y = -radius + 1; y <= radius - 1; y++) {
+      for (let y = -radius + 1 + origin[1]; y <= radius - 1 + origin[1]; y++) {
         result.push([x, y] as [number, number])
       }
       return result;
@@ -563,10 +561,9 @@ export class BaseSceneController<TQuestVars> {
       const filtered = square.filter(l => notOutside(l) && !this.locationIsBlocked(l));
       results.push(...filtered.slice(0, amount - results.length))
       if (results.length === amount) break;
-      // console.log(`radius ${radius}`, filtered)
       radius++;
     }
-    console.log('the results', results)
+    return results;
   }
 
   /**
@@ -607,7 +604,7 @@ export class BaseSceneController<TQuestVars> {
         matrix.push(row);
       }
     }
-    console.log(this.mapData, matrix)
+
     return new AStarFinder({
       grid: {
         matrix
@@ -623,9 +620,9 @@ export class BaseSceneController<TQuestVars> {
     if (!this.mapData) {
       throw new Error("No mapData");
     }
+
     const objectLayers = this.mapData.layers.filter(layer => layer.type === TiledLayerType.objectgroup);
     const objects: SceneObject[] = [];
-    const adventurers = this.getAdventurers();
     objectLayers.forEach(objectLayer => {
       objectLayer.objects.reduce((acc:  SceneObject[], value: TiledObjectData) => {
 
@@ -643,39 +640,75 @@ export class BaseSceneController<TQuestVars> {
           location
         };
 
-        if (object.type === TiledObjectType.adventurerStart) {
-          const adventurer = adventurers.pop();
-          if (adventurer) {
-            object.type = TiledObjectType.actor;
-            if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
-              object.name = adventurer.id;
-              // object.ap = adventurer.id === 'c4a5d270' ? 3 : 0
+        if (object.type === TiledObjectType.portal) {
+          if ((!object.properties.to && !this.quest.sceneNamePrev) || object.properties.to === this.quest.sceneNamePrev) {
+            // todo: instead store location in var and spawn adventurers at the end
+            const adventurers = this.getAdventurers();
+            const { width, height, layerId } = object;
+            const locations = [
+              location,
+              ...this.findEmptyLocationsAround(location, adventurers.length - 1)
+            ];
+
+            adventurers.forEach((adventurer, i) => {
+              if (!object) throw new Error();
+
               const level = xpToLevel(adventurer.xp);
-              object.ap = calculateInitialAP(adventurer.basicAttributes, level);
-              object.health = adventurer.health;
-              object.allegiance = Allegiance.player;
-              object.properties.adventurerId = adventurer.id;
-              object.properties.isSprite = true;
-              object.properties.spritesheet = adventurer.spritesheetPath;
-            }
-          } else {
-            // Unused player spawn location, dont add
-            object = null;
+              const adventurerObject: ActorObject = {
+                name: adventurer.id,
+                id: object.id,
+                x: object.x,
+                y: object.y,
+                location: locations[i],
+                width,
+                height,
+                layerId,
+                visible: true,
+                type: TiledObjectType.actor,
+                ap: calculateInitialAP(adventurer.basicAttributes, level),
+                health: adventurer.health,
+                allegiance: Allegiance.player,
+                properties: {
+                  adventurerId: adventurer.id,
+                  isSprite: true,
+                  spritesheet: adventurer.spritesheetPath
+                }
+              }
+              acc.push(adventurerObject);
+            });
           }
-        } else if (object.type === TiledObjectType.enemySpawn) {
-          object.type = TiledObjectType.actor;
-          if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
-            const definition = getEnemyDefinition(object.properties.name as EnemyType)
-            const level = object.properties.level as number ?? 1;
-            object.health = Math.random() * 100;
-            object.ap = calculateInitialAP(definition.attributes, level)
-            object.name = object.properties.name as string;
-            object.level = level;
-            object.allegiance = Allegiance.enemy;
-            object.properties.isSprite = true;
-            object.properties.spritesheet = `${spritesheetBasePath}troll-sword.json`; // todo: take from enemy def
-          }
+          object = null;
+            // if (object) {
+            //   object.type = TiledObjectType.actor;
+            //   if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
+            //     object.name = adventurer.id;
+            //     const level = xpToLevel(adventurer.xp);
+            //     object.ap = calculateInitialAP(adventurer.basicAttributes, level);
+            //     object.health = adventurer.health;
+            //     object.allegiance = Allegiance.player;
+            //     object.properties.adventurerId = adventurer.id;
+            //     object.properties.isSprite = true;
+            //     object.properties.spritesheet = adventurer.spritesheetPath;
+            //   }
+            // } else {
+            //   // Unused player spawn location, dont add
+            //   object = null;
+            // }
         }
+        // else if (object.type === TiledObjectType.enemySpawn) {
+        //   object.type = TiledObjectType.actor;
+        //   if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
+        //     const definition = getEnemyDefinition(object.properties.name as EnemyType)
+        //     const level = object.properties.level as number ?? 1;
+        //     object.health = Math.random() * 100;
+        //     object.ap = calculateInitialAP(definition.attributes, level)
+        //     object.name = object.properties.name as string;
+        //     object.level = level;
+        //     object.allegiance = Allegiance.enemy;
+        //     object.properties.isSprite = true;
+        //     object.properties.spritesheet = `${spritesheetBasePath}troll-sword.json`; // todo: take from enemy def
+        //   }
+        // }
 
         if (object) {
           acc.push(object);
@@ -717,6 +750,23 @@ export class BaseSceneController<TQuestVars> {
 
   protected get questVars(): TQuestVars {
     return this.quest.questVars as unknown as TQuestVars;
+  }
+
+  protected get spritesheetPaths(): string[] {
+    const adventurers = this.getAdventurers();
+    return [
+      ...adventurers.map(a => a.spritesheetPath),
+      `${spritesheetBasePath}troll-sword.json`
+    ]
+
+    return [];
+
+  //   // return Array.from(
+  //   //     new Set<string>(
+  //   //         objects.filter(o => o.properties.isSprite)
+  //   //             .map(o => o.properties.spritesheet as string)
+  //   //     )
+  //   // );
   }
 
   public get settings() {

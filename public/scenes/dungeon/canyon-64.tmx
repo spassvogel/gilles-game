@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="10" height="14" tilewidth="64" tileheight="64" infinite="0" nextlayerid="12" nextobjectid="13">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="10" height="14" tilewidth="64" tileheight="64" infinite="0" nextlayerid="12" nextobjectid="15">
  <editorsettings>
   <export target="canyon-64.json" format="json"/>
  </editorsettings>
@@ -83,13 +83,14 @@
   <object id="1" name="start1" type="adventurerStart" x="64" y="704" width="64" height="64"/>
   <object id="2" name="start2" type="adventurerStart" x="0" y="768" width="64" height="64"/>
   <object id="3" name="start5" type="adventurerStart" x="64" y="768" width="64" height="64"/>
-  <object id="4" name="start4" type="adventurerStart" x="0" y="704" width="64" height="64"/>
+  <object id="4" name="start4" type="adventurerStart" x="64" y="640" width="64" height="64"/>
   <object id="5" name="start3" type="adventurerStart" x="0" y="640" width="64" height="64"/>
-  <object id="7" type="exit" x="64" y="0" width="64" height="64">
+  <object id="13" name="portal to entry" type="portal" x="64" y="0" width="64" height="64">
    <properties>
-    <property name="loadScene" value="dungeon.entry"/>
+    <property name="to" value="dungeon.entry"/>
    </properties>
   </object>
+  <object id="14" name="start portal" type="portal" x="0" y="704" width="62" height="64"/>
  </objectgroup>
  <layer id="4" name="trees" width="10" height="14">
   <properties>

@@ -18,14 +18,14 @@ const useTilesetsLoader = (basePath: string) => {
     if (!nextTileset) return;
 
     const tilesetName = nextTileset.name;
-
-    loadResource(`${basePath}/${nextTileset.image}`, (resource) => {
+    const image = nextTileset.image.substring(nextTileset.image.indexOf("/"))
+    loadResource(`${basePath}/${image}`, (resource) => {
       if (!resource) return;
       if (resource.error) {
-        throw new Error(`Loading ${basePath}\n${resource.error}`);
+        throw new Error(`Loading ${basePath}/${image}\n${resource.error}`);
       }
       const spritesheetData = parseSpritesheetData(nextTileset);
-      if (!resource.texture) throw new Error(`No texure found ${basePath}/${nextTileset.image}`)
+      if (!resource.texture) throw new Error(`No texure found ${basePath}/${image}`)
       const spritesheet = new Spritesheet(resource.texture, spritesheetData);
 
       spritesheet.parse(() => {

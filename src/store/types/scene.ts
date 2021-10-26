@@ -84,11 +84,3 @@ export enum SceneActionType {
     shoot = "shoot"
 }
 
-export const getSpritesheetPaths = (objects: SceneObject[]) => {
-    return Array.from(
-        new Set<string>(
-            objects.filter(o => o.properties.isSprite)
-                .map(o => o.properties.spritesheet as string)
-        )
-    );
-}

@@ -156,7 +156,7 @@
                  "visible":true,
                  "width":64,
                  "x":192,
-                 "y":896
+                 "y":960
                 }, 
                 {
                  "height":64,
@@ -223,10 +223,21 @@
                  "width":64,
                  "x":192,
                  "y":128
-                }, 
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":10,
+         "name":"portals",
+         "objects":[
                 {
                  "height":64,
-                 "id":11,
+                 "id":12,
                  "name":"portal to canyon",
                  "properties":[
                         {
@@ -238,8 +249,25 @@
                  "type":"portal",
                  "visible":true,
                  "width":64,
-                 "x":256,
+                 "x":192,
                  "y":960
+                }, 
+                {
+                 "height":64,
+                 "id":13,
+                 "name":"portal to hub1",
+                 "properties":[
+                        {
+                         "name":"to",
+                         "type":"string",
+                         "value":"dungeon.hub1"
+                        }],
+                 "rotation":0,
+                 "type":"portal",
+                 "visible":true,
+                 "width":64,
+                 "x":640,
+                 "y":191
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -259,8 +287,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":10,
- "nextobjectid":12,
+ "nextlayerid":11,
+ "nextobjectid":14,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

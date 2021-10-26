@@ -13,51 +13,51 @@ interface Props {
 }
 
 const ObjectSpriteLayer = (props: Props) => {
-    const { objects, controller } = props;
+  const { objects, controller } = props;
 
-    return (
-        <Container>
-            {objects.map((object) => {
-                const { location, name } = object;
-                const { adventurerId, spritesheet } = object.properties as { [key: string]: string};
-                switch (object.type) {
-                    case TiledObjectType.actor: {
-                        if (isActorObject(object)) {
-                            if (object.allegiance === Allegiance.player) {
-                                return (
-                                    <SceneAdventurer
-                                        location={location}
-                                        controller={controller}
-                                        actor={object}
-                                        key={adventurerId}
-                                        spritesheetPath={spritesheet}
-                                        selected={props.selectedActorId === name }
-                                    />
-                                )
-                            }
-                            else if (object.allegiance === Allegiance.enemy) {
-                                return (
-                                    <SceneActor
-                                        actor={object}
-                                        controller={controller}
-                                        spritesheetPath={spritesheet}
-                                        location={location}
-                                        key={object.name}
-                                        idleAnimation={Math.random() < 0.5}
-                                        lookAt={[4, 3]}
-                                    />
-                                );
-                            }
-                        }
-                        break;
-                    }
-                    default:
-                        return null;
-                }
-                return null;
-            })}
-        </Container>
-    )
+  return (
+    <Container>
+      {objects.map((object) => {
+        const { location, name } = object;
+        const { adventurerId, spritesheet } = object.properties as { [key: string]: string};
+        switch (object.type) {
+          case TiledObjectType.actor: {
+            if (isActorObject(object)) {
+              if (object.allegiance === Allegiance.player) {
+                return (
+                  <SceneAdventurer
+                    location={location}
+                    controller={controller}
+                    actor={object}
+                    key={adventurerId}
+                    spritesheetPath={spritesheet}
+                    selected={props.selectedActorId === name }
+                  />
+                )
+              }
+              else if (object.allegiance === Allegiance.enemy) {
+                return (
+                  <SceneActor
+                    actor={object}
+                    controller={controller}
+                    spritesheetPath={spritesheet}
+                    location={location}
+                    key={object.name}
+                    idleAnimation={Math.random() < 0.5}
+                    lookAt={[4, 3]}
+                  />
+                );
+              }
+            }
+            break;
+          }
+          default:
+            return null;
+        }
+        return null;
+      })}
+    </Container>
+  )
 }
 
 export default ObjectSpriteLayer;
