@@ -678,37 +678,21 @@ export class BaseSceneController<TQuestVars> {
             });
           }
           object = null;
-            // if (object) {
-            //   object.type = TiledObjectType.actor;
-            //   if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
-            //     object.name = adventurer.id;
-            //     const level = xpToLevel(adventurer.xp);
-            //     object.ap = calculateInitialAP(adventurer.basicAttributes, level);
-            //     object.health = adventurer.health;
-            //     object.allegiance = Allegiance.player;
-            //     object.properties.adventurerId = adventurer.id;
-            //     object.properties.isSprite = true;
-            //     object.properties.spritesheet = adventurer.spritesheetPath;
-            //   }
-            // } else {
-            //   // Unused player spawn location, dont add
-            //   object = null;
-            // }
         }
-        // else if (object.type === TiledObjectType.enemySpawn) {
-        //   object.type = TiledObjectType.actor;
-        //   if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
-        //     const definition = getEnemyDefinition(object.properties.name as EnemyType)
-        //     const level = object.properties.level as number ?? 1;
-        //     object.health = Math.random() * 100;
-        //     object.ap = calculateInitialAP(definition.attributes, level)
-        //     object.name = object.properties.name as string;
-        //     object.level = level;
-        //     object.allegiance = Allegiance.enemy;
-        //     object.properties.isSprite = true;
-        //     object.properties.spritesheet = `${spritesheetBasePath}troll-sword.json`; // todo: take from enemy def
-        //   }
-        // }
+        else if (object.type === TiledObjectType.enemySpawn) {
+          object.type = TiledObjectType.actor;
+          if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
+            const definition = getEnemyDefinition(object.properties.name as EnemyType)
+            const level = object.properties.level as number ?? 1;
+            object.health = Math.random() * 100;
+            object.ap = calculateInitialAP(definition.attributes, level)
+            object.name = object.properties.name as string;
+            object.level = level;
+            object.allegiance = Allegiance.enemy;
+            object.properties.isSprite = true;
+            object.properties.spritesheet = `${spritesheetBasePath}troll-sword.json`; // todo: take from enemy def
+          }
+        }
 
         if (object) {
           acc.push(object);

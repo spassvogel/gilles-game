@@ -7,14 +7,13 @@ import { Item } from 'definitions/items/types';
 
 // Returns the stockpile of items grouped into ItemType
 export const useStockpileState = () => {
-    return useSelector<StoreState, StockpileStoreState>(state => state.stockpile);
+  return useSelector<StoreState, StockpileStoreState>(state => state.stockpile);
 }
 
 export const useStockpileStateFlat = (): Item[] => {
-    const stockpile = useStockpileState();
-    return useMemo(() => {
-        const all = Object.values(stockpile).flat()
-        return all;
-    }, [stockpile])
+  const stockpile = useStockpileState();
+  return useMemo(() => {
+    const all = Object.values(stockpile).flat()
+    return all;
+  }, [stockpile])
 }
- 

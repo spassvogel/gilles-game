@@ -136,7 +136,4 @@ const runGame = (store: Store<StoreState, AnyAction>) => {
 };
 export {runGame, restartGame, loadGame};
 
-window.stop = () => { // for debugging
-  clearTimeout(interval);
-}
 initGame();

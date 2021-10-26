@@ -7,7 +7,6 @@ import { completeSceneAction } from 'store/actions/quests';
 import { StoreState } from 'store/types';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import SpriteAnimated from 'components/pixi/tile/SpriteAnimated';
-import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import { AdventurerColor } from 'store/types/adventurer';
 import { useQuest } from 'hooks/store/quests';
 import ActorThingy from './ActorThingy';

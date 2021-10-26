@@ -22,6 +22,7 @@ export const getInitialStockpile = (): StockpileStoreState => {
     "trinket": [],
     "weapon": [],
   };
+
   const { maxStockpile } = getDefinition<WarehouseStructureDefinition>("warehouse").levels[0];
   Object.keys(result).forEach((itemTypeName: string) => {
     const itemType = ItemType[itemTypeName as keyof typeof ItemType];
@@ -30,7 +31,8 @@ export const getInitialStockpile = (): StockpileStoreState => {
         result[itemTypeName as keyof typeof result].push(null)
       } else {
         const randomItem = getRandomItemOfType(itemType);
-        result[itemTypeName as keyof typeof result].push(randomItem as any);
+        const category = result[itemTypeName as keyof typeof result] as Item[];
+        category.push(randomItem as Item);
       }
     }
   })
