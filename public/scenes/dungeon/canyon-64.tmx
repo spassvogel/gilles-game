@@ -80,11 +80,6 @@
 </data>
  </layer>
  <objectgroup id="8" name="actors">
-  <object id="1" name="start1" type="adventurerStart" x="64" y="704" width="64" height="64"/>
-  <object id="2" name="start2" type="adventurerStart" x="0" y="768" width="64" height="64"/>
-  <object id="3" name="start5" type="adventurerStart" x="64" y="768" width="64" height="64"/>
-  <object id="4" name="start4" type="adventurerStart" x="64" y="640" width="64" height="64"/>
-  <object id="5" name="start3" type="adventurerStart" x="0" y="640" width="64" height="64"/>
   <object id="13" name="portal to entry" type="portal" x="64" y="0" width="64" height="64">
    <properties>
     <property name="to" value="dungeon.entry"/>

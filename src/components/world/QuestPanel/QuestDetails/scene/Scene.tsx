@@ -58,6 +58,7 @@ const Scene = (props: Props) => {
 
   const handleUIMouseDown = (location: [number, number]) => {
     const actor = controller.getObjectAtLocation(location);
+    console.log(actor, isAdventurer(actor!) , (actor as any).allegiance)
     if (actor && isAdventurer(actor) && actor?.name) {
       // We can click on adventurers
       props.setSelectedActor(actor.name);

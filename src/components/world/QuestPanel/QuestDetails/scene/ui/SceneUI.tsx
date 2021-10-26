@@ -107,6 +107,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     const object = controller.getObjectAtLocation(location);
     if (!object || object.type !== "actor") return;
 
+    // Show context tooltip
     const { tileWidth, tileHeight } = controller.getTileDimensions()
     const width = tileWidth * scale.current;
     const height = tileHeight * scale.current;

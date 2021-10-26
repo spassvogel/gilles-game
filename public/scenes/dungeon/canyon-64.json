@@ -63,61 +63,6 @@
          "objects":[
                 {
                  "height":64,
-                 "id":1,
-                 "name":"start1",
-                 "rotation":0,
-                 "type":"adventurerStart",
-                 "visible":true,
-                 "width":64,
-                 "x":64,
-                 "y":704
-                }, 
-                {
-                 "height":64,
-                 "id":2,
-                 "name":"start2",
-                 "rotation":0,
-                 "type":"adventurerStart",
-                 "visible":true,
-                 "width":64,
-                 "x":0,
-                 "y":768
-                }, 
-                {
-                 "height":64,
-                 "id":3,
-                 "name":"start5",
-                 "rotation":0,
-                 "type":"adventurerStart",
-                 "visible":true,
-                 "width":64,
-                 "x":64,
-                 "y":768
-                }, 
-                {
-                 "height":64,
-                 "id":4,
-                 "name":"start4",
-                 "rotation":0,
-                 "type":"adventurerStart",
-                 "visible":true,
-                 "width":64,
-                 "x":64,
-                 "y":640
-                }, 
-                {
-                 "height":64,
-                 "id":5,
-                 "name":"start3",
-                 "rotation":0,
-                 "type":"adventurerStart",
-                 "visible":true,
-                 "width":64,
-                 "x":0,
-                 "y":640
-                }, 
-                {
-                 "height":64,
                  "id":13,
                  "name":"portal to entry",
                  "properties":[

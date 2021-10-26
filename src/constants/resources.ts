@@ -5,10 +5,10 @@ export const RESOURCE_INTERVAL = ONE_MINUTE; // every minute constitutes a resou
 
 // Whenever a list of resource is shown, use this order
 export const resourceOrder = [
-    Resource.food,
-    Resource.wood,
-    Resource.iron,
-    Resource.stone,
-    Resource.fabric,
-    Resource.leather,
+  Resource.food,
+  Resource.wood,
+  Resource.iron,
+  Resource.stone,
+  Resource.fabric,
+  Resource.leather,
 ];
