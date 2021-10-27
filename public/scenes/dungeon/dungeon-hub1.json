@@ -69,7 +69,7 @@
                  "type":"portal",
                  "visible":true,
                  "width":64,
-                 "x":318,
+                 "x":320,
                  "y":960
                 }, 
                 {
@@ -86,8 +86,8 @@
                  "type":"portal",
                  "visible":true,
                  "width":64,
-                 "x":-7.10543e-14,
-                 "y":255
+                 "x":63.9999999999999,
+                 "y":256
                 }],
          "opacity":1,
          "type":"objectgroup",

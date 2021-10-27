@@ -230,6 +230,23 @@
                  "width":64,
                  "x":640,
                  "y":256
+                }, 
+                {
+                 "height":64,
+                 "id":16,
+                 "name":"portal to hub1",
+                 "properties":[
+                        {
+                         "name":"to",
+                         "type":"string",
+                         "value":"dungeon.hub1"
+                        }],
+                 "rotation":0,
+                 "type":"portal",
+                 "visible":true,
+                 "width":64,
+                 "x":640,
+                 "y":192
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -250,7 +267,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":16,
+ "nextobjectid":17,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

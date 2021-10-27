@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="11" height="16" tilewidth="64" tileheight="64" infinite="0" nextlayerid="11" nextobjectid="16">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="11" height="16" tilewidth="64" tileheight="64" infinite="0" nextlayerid="11" nextobjectid="17">
  <editorsettings>
   <export target="dungeon-entrance-64.json" format="json"/>
  </editorsettings>
@@ -170,6 +170,11 @@
    </properties>
   </object>
   <object id="15" name="portal to hub1" type="portal" x="640" y="256" width="64" height="64">
+   <properties>
+    <property name="to" value="dungeon.hub1"/>
+   </properties>
+  </object>
+  <object id="16" name="portal to hub1" type="portal" x="640" y="192" width="64" height="64">
    <properties>
     <property name="to" value="dungeon.hub1"/>
    </properties>

@@ -468,6 +468,7 @@ export class BaseSceneController<TQuestVars> {
    * @param target
    */
   findPath(origin: [number, number], target: [number, number]) {
+    console.log('findpath', origin, target)
     return this
       .aStar?.findPath(convertIn(origin), convertIn(target))
       .map(convertOut);
@@ -667,11 +668,11 @@ export class BaseSceneController<TQuestVars> {
 
             adventurers.forEach((adventurer, i) => {
               if (!object) throw new Error();
-
+console.log(object.x)
               const level = xpToLevel(adventurer.xp);
               const adventurerObject: ActorObject = {
                 name: adventurer.id,
-                id: object.id,
+                id: adventurer.id,
                 x: object.x,
                 y: object.y,
                 location: locations[i],
