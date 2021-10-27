@@ -5,11 +5,11 @@ import { TiledObjectType } from 'utils/tilemap';
 
 
 export interface SceneStoreState {
-    objects: SceneObject[];
-    actionQueue?: SceneAction[];
-    activeInteractionModal?: SceneInteractionModal;
-    combat: boolean;
-    turn?: Allegiance;
+  objects: SceneObject[];
+  actionQueue?: SceneAction[];
+  activeInteractionModal?: SceneInteractionModal;
+  combat: boolean;
+  turn?: Allegiance;
 }
 
 export enum Allegiance {
@@ -18,32 +18,32 @@ export enum Allegiance {
 }
 
 export type SceneObject = Merge<TiledObjectData, {
-    layerId: number;
-    properties: { [key: string]: string | boolean | number };
-    location?: [number, number];
+  layerId: number;
+  properties: { [key: string]: string | boolean | number };
+  location?: [number, number];
 }>;
 
 export type ActorObject = SceneObject & {
-    name: string;
-    ap: number;                     // Remaining AP
-    level?: number;                 // Only for enemy, for adventurers we look at the adventurers store
-    health: number;
-    allegiance: Allegiance;
+  name: string;
+  ap: number;           // Remaining AP
+  level?: number;         // Only for enemy, for adventurers we look at the adventurers store
+  health: number;
+  allegiance: Allegiance;
 };
 
 // Type guard for ActorObject
 export const isActorObject = (object: SceneObject): object is ActorObject => {
-    return object.type === TiledObjectType.actor;
+  return object.type === TiledObjectType.actor;
 }
 
 // Returns true if given scene Object is an Adventurer (player controlled Actor)
 export const isAdventurer = (object: SceneObject): object is ActorObject => {
-    return isActorObject(object) && object.allegiance === Allegiance.player;
+  return isActorObject(object) && object.allegiance === Allegiance.player;
 }
 
 // Returns true if given scene Object is an Enemy (AI controlled Actor)
 export const isEnemy = (object: SceneObject): object is ActorObject => {
-    return isActorObject(object) && object.allegiance === Allegiance.enemy;
+  return isActorObject(object) && object.allegiance === Allegiance.enemy;
 }
 
 // Returns the ActorObject belonging to given adventurerId
@@ -52,10 +52,10 @@ export const getAdventurer = (objects: SceneObject[], adventurerId: string): Act
 }
 
  // export type Actor = SceneObject & {
-//     type: "actor";
-//     //allegiance: Allegiance;
-//     health: number;
-//     //remainingAP: number;
+//   type: "actor";
+//   //allegiance: Allegiance;
+//   health: number;
+//   //remainingAP: number;
 // }
 
 export type SceneInteractionModal =
@@ -63,24 +63,24 @@ export type SceneInteractionModal =
 | { type: 'situation', situation: string }
 
 export interface LootCache {
-    title: string;
-    items: Item[];
-    gold?: number;
-    open?: boolean;
+  title: string;
+  items: Item[];
+  gold?: number;
+  open?: boolean;
 }
 
 export interface SceneAction {
-    actionType: SceneActionType;
-    actorId: string;
-    target: [number, number];
-    endsAt: number;
+  actionType: SceneActionType;
+  actorId: string;
+  target: [number, number];
+  endsAt: number;
 }
 
 export enum SceneActionType {
-    move = "move",
-    interact = "interact",
-    attack = "attack",
-    slash = "slash",
-    shoot = "shoot"
+  move = "move",
+  interact = "interact",
+  attack = "attack",
+  slash = "slash",
+  shoot = "shoot"
 }
 

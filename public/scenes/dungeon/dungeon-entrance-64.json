@@ -105,61 +105,6 @@
          "objects":[
                 {
                  "height":64,
-                 "id":1,
-                 "name":"start1",
-                 "rotation":0,
-                 "type":"adventurerStart",
-                 "visible":true,
-                 "width":64,
-                 "x":128,
-                 "y":896
-                }, 
-                {
-                 "height":64,
-                 "id":2,
-                 "name":"start2",
-                 "rotation":0,
-                 "type":"adventurerStart",
-                 "visible":true,
-                 "width":64,
-                 "x":64,
-                 "y":896
-                }, 
-                {
-                 "height":64,
-                 "id":3,
-                 "name":"start5",
-                 "rotation":0,
-                 "type":"adventurerStart",
-                 "visible":true,
-                 "width":64,
-                 "x":320,
-                 "y":896
-                }, 
-                {
-                 "height":64,
-                 "id":4,
-                 "name":"start4",
-                 "rotation":0,
-                 "type":"adventurerStart",
-                 "visible":true,
-                 "width":64,
-                 "x":256,
-                 "y":896
-                }, 
-                {
-                 "height":64,
-                 "id":5,
-                 "name":"start3",
-                 "rotation":0,
-                 "type":"adventurerStart",
-                 "visible":true,
-                 "width":64,
-                 "x":192,
-                 "y":960
-                }, 
-                {
-                 "height":64,
                  "id":6,
                  "name":"enemy3",
                  "properties":[
@@ -267,7 +212,24 @@
                  "visible":true,
                  "width":64,
                  "x":640,
-                 "y":191
+                 "y":128
+                }, 
+                {
+                 "height":64,
+                 "id":15,
+                 "name":"portal to hub1",
+                 "properties":[
+                        {
+                         "name":"to",
+                         "type":"string",
+                         "value":"dungeon.hub1"
+                        }],
+                 "rotation":0,
+                 "type":"portal",
+                 "visible":true,
+                 "width":64,
+                 "x":640,
+                 "y":256
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -288,7 +250,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":14,
+ "nextobjectid":16,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

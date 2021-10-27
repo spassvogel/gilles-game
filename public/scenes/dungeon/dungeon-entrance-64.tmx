@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="11" height="16" tilewidth="64" tileheight="64" infinite="0" nextlayerid="11" nextobjectid="14">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="11" height="16" tilewidth="64" tileheight="64" infinite="0" nextlayerid="11" nextobjectid="16">
  <editorsettings>
-  <export target="dungeon-entry-64.json" format="json"/>
+  <export target="dungeon-entrance-64.json" format="json"/>
  </editorsettings>
  <tileset firstgid="1" source="../tilesets/dungeon-floor-64.tsx"/>
  <tileset firstgid="121" source="../tilesets/interior-walls-64.tsx"/>
@@ -139,11 +139,6 @@
 </data>
  </layer>
  <objectgroup id="3" name="actor">
-  <object id="1" name="start1" type="adventurerStart" x="128" y="896" width="64" height="64"/>
-  <object id="2" name="start2" type="adventurerStart" x="64" y="896" width="64" height="64"/>
-  <object id="3" name="start5" type="adventurerStart" x="320" y="896" width="64" height="64"/>
-  <object id="4" name="start4" type="adventurerStart" x="256" y="896" width="64" height="64"/>
-  <object id="5" name="start3" type="adventurerStart" x="192" y="960" width="64" height="64"/>
   <object id="6" name="enemy3" type="enemySpawn" x="256" y="128" width="64" height="64">
    <properties>
     <property name="level" type="int" value="3"/>
@@ -169,7 +164,12 @@
     <property name="to" value="dungeon.canyon"/>
    </properties>
   </object>
-  <object id="13" name="portal to hub1" type="portal" x="640" y="191" width="64" height="64">
+  <object id="13" name="portal to hub1" type="portal" x="640" y="128" width="64" height="64">
+   <properties>
+    <property name="to" value="dungeon.hub1"/>
+   </properties>
+  </object>
+  <object id="15" name="portal to hub1" type="portal" x="640" y="256" width="64" height="64">
    <properties>
     <property name="to" value="dungeon.hub1"/>
    </properties>

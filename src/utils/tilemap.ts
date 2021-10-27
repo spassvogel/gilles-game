@@ -11,7 +11,6 @@ export const parseProperties = (properties?: TiledProperty[]): {[key: string]: s
 }
 
 export enum TiledObjectType {
-  exit = "exit",
   actor = "actor",
   enemySpawn = "enemySpawn",
   portal = "portal",

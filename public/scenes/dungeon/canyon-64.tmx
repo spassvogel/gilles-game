@@ -82,7 +82,7 @@
  <objectgroup id="8" name="actors">
   <object id="13" name="portal to entry" type="portal" x="64" y="0" width="64" height="64">
    <properties>
-    <property name="to" value="dungeon.entry"/>
+    <property name="to" value="dungeon.entrance"/>
    </properties>
   </object>
   <object id="14" name="start portal" type="portal" x="0" y="704" width="62" height="64"/>

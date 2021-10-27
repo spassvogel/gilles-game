@@ -69,7 +69,7 @@
                         {
                          "name":"to",
                          "type":"string",
-                         "value":"dungeon.entry"
+                         "value":"dungeon.entrance"
                         }],
                  "rotation":0,
                  "type":"portal",

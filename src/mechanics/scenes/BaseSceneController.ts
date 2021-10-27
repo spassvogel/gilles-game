@@ -86,6 +86,9 @@ export class BaseSceneController<TQuestVars> {
     await Promise.all(promises);
 
     const resource = Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
+    if (!resource.data) {
+      throw new Error(`No map data found at ${process.env.PUBLIC_URL}/${this.jsonPath}`)
+    }
     this.mapData = resource.data;
 
     // Create aStar based on blocked tiles
@@ -156,7 +159,9 @@ export class BaseSceneController<TQuestVars> {
   }
 
   actorMoved(actor: string, location: [number, number]) {
-    const destination = this.getObjectAtLocation(location);
+    const isNotAnActor = (object: SceneObject) => !isActorObject(object);
+    const destination = this.getObjectAtLocation(location, isNotAnActor);
+    console.log(location, destination)
     if (!destination) return;
 
     if (this.combat) {
@@ -164,12 +169,12 @@ export class BaseSceneController<TQuestVars> {
       this.dispatch(deductActorAp(this.questName, actor, AP_COST_MOVE));
     }
 
-    if (destination.type === TiledObjectType.exit) {
-      // We've hit the exit. Should we load another scene?
-      if (destination.properties.loadScene) {
-        this.dispatch(setSceneName(this.questName, destination.properties.loadScene as string))
-      } else {
-        // Or exit the encounter
+    if (destination.type === TiledObjectType.portal) {
+      console.log('portal hit')
+
+      // We've hit a portal
+      if (destination.properties.exit) {
+        // Exit the encounter
         const index = Math.floor(this.quest.progress) + 1;
         const definition = getDefinition(this.questName);
         const node = definition.nodes[index];
@@ -178,6 +183,10 @@ export class BaseSceneController<TQuestVars> {
           this.log(node.log)
         }
         this.dispatch(exitEncounter(this.questName));
+      }
+      else if (destination.properties.to) {
+        // Load another scene
+        this.dispatch(setSceneName(this.questName, destination.properties.to as string))
       }
     }
   }
@@ -586,8 +595,14 @@ export class BaseSceneController<TQuestVars> {
     return actor;
   }
 
-  public getObjectAtLocation(location: [number, number]) {
-    return this.quest.scene?.objects?.find(o => o.location && locationEquals(o.location, location))
+  /**
+   *
+   * @param location
+   * @param additionalFilter can specifiy an additional filter
+   * @returns
+   */
+  public getObjectAtLocation(location: [number, number], additionalFilter: (object: SceneObject) => boolean = () => true) {
+    return this.quest.scene?.objects?.find(o => o.location && locationEquals(o.location, location) && additionalFilter(o))
   }
 
   protected createAStar() {
@@ -633,7 +648,7 @@ export class BaseSceneController<TQuestVars> {
           (value.y - (value.gid ? value.height : 0)) / (this.mapData?.tileheight || 1)
         ];
 
-        let object: SceneObject | null = {
+        const object: SceneObject | null = {
           ...value,
           layerId: objectLayer.id,
           properties,
@@ -677,7 +692,7 @@ export class BaseSceneController<TQuestVars> {
               acc.push(adventurerObject);
             });
           }
-          object = null;
+          // object = null;
         }
         else if (object.type === TiledObjectType.enemySpawn) {
           object.type = TiledObjectType.actor;

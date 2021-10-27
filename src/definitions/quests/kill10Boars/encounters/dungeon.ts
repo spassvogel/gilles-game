@@ -46,7 +46,7 @@ export class DungeonCanyonSceneController extends DungeonEncounterSceneControlle
 }
 export class DungeonEntranceSceneController extends DungeonEncounterSceneController {
   previousMusic?: GameSound;
-  jsonPath = "scenes/dungeon/ork-dungeon-level1.json";
+  jsonPath = "scenes/dungeon/dungeon-entrance-64.json";
 
 
   getLootCache(_: string): LootCache | undefined {
@@ -321,6 +321,11 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
   }
 }
 
+export class DungeonHub1Controller extends DungeonEncounterSceneController {
+  jsonPath = "scenes/dungeon/dungeon-hub1.json";
+}
+
 SceneControllerManager.registerSceneController("kill10Boars", "dungeon.canyon", DungeonCanyonSceneController);
 SceneControllerManager.registerSceneController("kill10Boars", "dungeon.entrance", DungeonEntranceSceneController);
+SceneControllerManager.registerSceneController("kill10Boars", "dungeon.hub1", DungeonHub1Controller);
 SceneControllerManager.registerSceneController("kill10Boars", "dungeon.hallway", DungeonHallwaySceneController);

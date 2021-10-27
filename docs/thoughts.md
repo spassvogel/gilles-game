@@ -569,6 +569,8 @@ https://wow.gamepedia.com/Quality
     possible properties: 
     - interactive: (boolean) will show interaction icon when an adventurer is on this tile. needs to be implemented in Controller.interactWithObject
 
+    (UPDATE)
+
 
     type: "exit"
     Exit the scene. If a property called `loadScene: string` is present, will load that scene. If not, the encounter will be exited
