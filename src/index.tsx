@@ -109,7 +109,7 @@ const runGame = (store: Store<StoreState, AnyAction>) => {
 
   ReactDOM.render((
     <Provider store={store}>
-      <App persistor={persistor} />
+      <App />
     </Provider>
     ),
     document.getElementById("root") as HTMLElement,
@@ -134,6 +134,7 @@ const runGame = (store: Store<StoreState, AnyAction>) => {
 
   interval = setInterval(gameLoop, TICK_INTERVAL);
 };
+
 export {runGame, restartGame, loadGame};
 
 initGame();

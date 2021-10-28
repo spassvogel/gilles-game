@@ -1,5 +1,4 @@
 import * as React from "react";
-import { TextManager } from 'global/TextManager';
 import { ActorObject, Allegiance } from "store/types/scene";
 import AdventurerContext from "./AdventurerContext";
 import EnemyContext from "./EnemyContext";
@@ -9,7 +8,6 @@ import './styles/actorContext.scss';
 interface Props {
   actorObject: ActorObject
 }
-
 
 // Shows stuff relevant for combat
 const ActorContext = (props: Props) => {

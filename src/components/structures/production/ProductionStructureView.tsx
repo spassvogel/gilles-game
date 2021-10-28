@@ -18,73 +18,73 @@ import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
 import "./styles/productionStructureView.scss";
 
 export interface Props {
-    structure: Structure;
+  structure: Structure;
 }
 
 const ProductionStructureView = (props: Props) => {
-    const {structure} = props;
-    const level = useStructureState(structure).level;
+  const {structure} = props;
+  const level = useStructureState(structure).level;
 
-    const craftingTasks = useCraftingTasksStateByStructure(structure);
-    const studyingTasks = useStudyingTasksStateByStructure(structure);
-    const structureDefinition = useStructureDefinition<ProductionStructureDefinition>(props.structure);
+  const craftingTasks = useCraftingTasksStateByStructure(structure);
+  const studyingTasks = useStudyingTasksStateByStructure(structure);
+  const structureDefinition = useStructureDefinition<ProductionStructureDefinition>(props.structure);
 
-    const handleHelpClicked = (event: React.MouseEvent) => {
-        const origin = (event.currentTarget as HTMLElement);
-        const originRect = origin.getBoundingClientRect();
-        const content = (
-            <UpgradeHelpModal level={level} structure={structure}>
-                <UpgradeHelpModalContent level={level} structure={structure}/>
-            </UpgradeHelpModal>
-        );
-        TooltipManager.showContextTooltip(ContextType.component, content, originRect, "upgrade-structure-tooltip");
-
-        event.stopPropagation();
-    }
-
-    const handleUpgradeCallbacks = (nextLevel: number) => {
-        const nextLevelDefinition = structureDefinition.levels[nextLevel];
-        return nextLevelDefinition.unlocks.map(item => addItemToToProduces(structure, item));
-    }
-
-    return (
-        // TODO: abstract some stuff to generic StructureView
-        <>
-            <StructureViewHeader structure={props.structure} />
-            <div className = "production-structure-view">
-                <section>
-                    <StructureLevel
-                        structure={structure}
-                        onHelpClicked={handleHelpClicked}
-                        addUpgradeCallbacks={handleUpgradeCallbacks}
-                    />
-                    <CraftingArea structure={structure} />
-                    <fieldset>
-                        <legend>{TextManager.get("ui-structure-production-crafting")}</legend>
-                        {craftingTasks.map((t) => (
-                            <TickingProgressbar
-                                key={`${t.name}${t.startTime}`}
-                                label={`${TextManager.getItemName(t.name as Item)} (${formatDuration(t.timeRemaining)})`}
-                                progress={t.progress}
-                            />
-                        ))}
-                    </fieldset>
-                    {studyingTasks.length > 0 && (
-                    <fieldset>
-                        <legend>{TextManager.get("ui-structure-production-studying")}</legend>
-                        {studyingTasks.map((t) => (
-                            <TickingProgressbar
-                                key={`${t.name}${t.startTime}`}
-                                label={`${TextManager.getItemName(t.name as Item)} (${formatDuration(t.timeRemaining)})`}
-                                progress={t.progress}
-                            />
-                        ))}
-                    </fieldset>
-                    )}
-                </section>
-            </div>
-        </>
+  const handleHelpClicked = (event: React.MouseEvent) => {
+    const origin = (event.currentTarget as HTMLElement);
+    const originRect = origin.getBoundingClientRect();
+    const content = (
+      <UpgradeHelpModal level={level} structure={structure}>
+        <UpgradeHelpModalContent level={level} structure={structure}/>
+      </UpgradeHelpModal>
     );
+    TooltipManager.showContextTooltip(ContextType.component, content, originRect, "upgrade-structure-tooltip");
+
+    event.stopPropagation();
+  }
+
+  const handleUpgradeCallbacks = (nextLevel: number) => {
+    const nextLevelDefinition = structureDefinition.levels[nextLevel];
+    return nextLevelDefinition.unlocks.map(item => addItemToToProduces(structure, item));
+  }
+
+  return (
+    // TODO: abstract some stuff to generic StructureView
+    <>
+      <StructureViewHeader structure={props.structure} />
+      <div className = "production-structure-view">
+        <section>
+          <StructureLevel
+            structure={structure}
+            onHelpClicked={handleHelpClicked}
+            addUpgradeCallbacks={handleUpgradeCallbacks}
+          />
+          <CraftingArea structure={structure} />
+          <fieldset>
+            <legend>{TextManager.get("ui-structure-production-crafting")}</legend>
+            {craftingTasks.map((t) => (
+              <TickingProgressbar
+                key={`${t.name}${t.startTime}`}
+                label={`${TextManager.getItemName(t.name as Item)} (${formatDuration(t.timeRemaining)})`}
+                progress={t.progress}
+              />
+            ))}
+          </fieldset>
+          {studyingTasks.length > 0 && (
+          <fieldset>
+            <legend>{TextManager.get("ui-structure-production-studying")}</legend>
+            {studyingTasks.map((t) => (
+              <TickingProgressbar
+                key={`${t.name}${t.startTime}`}
+                label={`${TextManager.getItemName(t.name as Item)} (${formatDuration(t.timeRemaining)})`}
+                progress={t.progress}
+              />
+            ))}
+          </fieldset>
+          )}
+        </section>
+      </div>
+    </>
+  );
 }
 
 export default ProductionStructureView;

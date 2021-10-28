@@ -22,8 +22,6 @@ const getHarvest = (state: StoreState): HarvestUpdate|null => {
     const { lastHarvest } = state.engine;
     const structures: StructuresStoreState = state.structures;
     const result: HarvestUpdate = {};
-    const timeMultiplier = getTimeMultiplier(TimeType.resourceGeneration);
-
 
     const handleStructure = (structure: Structure) => {
         const structureDefinition = getDefinition(structure);
@@ -32,7 +30,7 @@ const getHarvest = (state: StoreState): HarvestUpdate|null => {
             const resourceStructureDefinition = structureDefinition as ResourceStructureDefinition;
             const level: number = structures[structure as Structure].level;
             const levelDefinition: ResourceStructureLevelDefinition = resourceStructureDefinition.levels[level];
-            
+
             if (levelDefinition.harvest?.lootTable){
                 const state = structures[structure] as ResourceStructureState;
                 let itemCount = state.harvest?.length ?? 0;
@@ -44,7 +42,7 @@ const getHarvest = (state: StoreState): HarvestUpdate|null => {
 
                 result[structure] = items
             }
-            
+
         }
     };
 

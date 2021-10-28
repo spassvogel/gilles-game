@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Container, Graphics, Sprite, Text } from "@inlet/react-pixi"
 import { Structure } from "definitions/structures";
 import { useStructureState } from "hooks/store/structures";
@@ -8,7 +8,6 @@ import { TextMetrics, TextStyle } from "@pixi/text";
 import { Texture } from "@pixi/core";
 import { BlurFilter } from "@pixi/filter-blur";
 import StructureIconSprite from "./StructureIconSprite";
-
 
 interface Props {
   structure: Structure;
@@ -97,14 +96,14 @@ const StructureLabel = (props: Props) => {
 
 export default StructureLabel;
 
-function gradient(from: string, to: string) {
-  const c = document.createElement("canvas");
-  const ctx = c.getContext("2d");
-  if (!ctx) throw Error();
-  const grd = ctx.createLinearGradient(0,0,100,100);
-  grd.addColorStop(0, from);
-  grd.addColorStop(1, to);
-  ctx.fillStyle = grd;
-  ctx.fillRect(0,0,100,100);
-  return Texture.from(c);
-}
+// function gradient(from: string, to: string) {
+//   const c = document.createElement("canvas");
+//   const ctx = c.getContext("2d");
+//   if (!ctx) throw Error();
+//   const grd = ctx.createLinearGradient(0,0,100,100);
+//   grd.addColorStop(0, from);
+//   grd.addColorStop(1, to);
+//   ctx.fillStyle = grd;
+//   ctx.fillRect(0,0,100,100);
+//   return Texture.from(c);
+// }

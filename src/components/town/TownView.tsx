@@ -16,7 +16,6 @@ import LumberMill from './structures/LumberMill';
 import Tavern from './structures/Tavern';
 import { withAppContext } from 'hoc/withAppContext';
 import Generic from './structures/Generic';
-import Legenda from './Legenda';
 import TownStage from './TownStage';
 import { Viewport as PixiViewport } from "pixi-viewport";
 import Clouds from './Clouds';
@@ -28,7 +27,6 @@ import "./styles/townView.scss"
 const HEIGHT = 1079;
 const WORLD_WIDTH = 1024;
 const WORLD_HEIGHT = 1600;
-
 
 
 export const STRUCTURE_HIGHLIGHT_FILTER = new OutlineFilter(8, 0xffcc00);

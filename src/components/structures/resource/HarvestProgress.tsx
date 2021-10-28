@@ -12,31 +12,33 @@ import { reduceTime } from 'store/actions/game';
 import "./styles/harvestProgress.scss"
 
 interface Props {
-    structure: Structure;
+  structure: Structure;
 }
 
 const HarvestProgress = (props: Props) => {
-    const engine = useEngine();
-    const dispatch = useDispatch();
-    const delta = HARVEST_INTERVAL - (Date.now() - engine.lastHarvest);
+  const engine = useEngine();
+  const dispatch = useDispatch();
+  const delta = HARVEST_INTERVAL - (Date.now() - engine.lastHarvest);
 
-    const handleReduceTime50 = () => {
-        dispatch(reduceTime(50, "harvest"))
-    }
+  console.log(props.structure); // todo: we ever need this?
 
-    return (
-        <div className="harvest-progress">
-            <TickingProgressbar
-               className="harvest-progress"
-               direction={Direction.decreasing}
-               label={`${TextManager.get("ui-structure-resource-next-harvest", {
-                   time: formatDuration(delta)
-               })}`}
-               progress={delta / HARVEST_INTERVAL}
-            />
-            <IconButton iconImg="/img/ui/misc/clock.png" size="smallest" onClick={handleReduceTime50}> 50%</IconButton>
-        </div>
-    )
+  const handleReduceTime50 = () => {
+    dispatch(reduceTime(50, "harvest"))
+  }
+
+  return (
+    <div className="harvest-progress">
+      <TickingProgressbar
+         className="harvest-progress"
+         direction={Direction.decreasing}
+         label={`${TextManager.get("ui-structure-resource-next-harvest", {
+           time: formatDuration(delta)
+         })}`}
+         progress={delta / HARVEST_INTERVAL}
+      />
+      <IconButton iconImg="/img/ui/misc/clock.png" size="smallest" onClick={handleReduceTime50}> 50%</IconButton>
+    </div>
+  )
 }
 
 export default HarvestProgress;
