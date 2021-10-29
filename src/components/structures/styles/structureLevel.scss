@@ -6,3 +6,12 @@
         font-size: larger;
     }
 }
+
+.upgrade-progress-container {
+  display: flex;
+
+  .upgrading {
+    flex: 1;
+    margin-right: 0.5rem;
+  }
+}

@@ -15,9 +15,11 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameAc
     case "startBuildingStructure": {
       return updateStructureState(state, action.structure, StructureState.Building);
     }
+
     case "finishBuildingStructure": {
       return updateStructureState(state, action.structure, StructureState.Built);
     }
+
     case "upgradeStructure": {
       // Upgrade to next level
       const level = state[action.structure].level + 1;
@@ -30,6 +32,7 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameAc
         [action.structure]: structureStore,
       };
     }
+
     case "increaseWorkers": {
       const { workers: workersToAdd } = action;
       const workers = state[action.structure].workers + workersToAdd;
@@ -42,6 +45,7 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameAc
         [action.structure]: structureStore,
       };
     }
+
     case "decreaseWorkers": {
       const { workers: workersToRemove } = action;
       const workers = state[action.structure].workers - workersToRemove;
@@ -54,16 +58,17 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameAc
         [action.structure]: structureStore,
       };
     }
+
     case "setStructureState": {
       const { state: structureState } = action;
       return updateStructureState(state, action.structure, structureState);
     }
+
     case "addItemToToProduces": {
       // Adds given item to a structures' `produces` list
-      if (isProductionStructure(action.structure)){
+      if (!isProductionStructure(action.structure)){
         return state;
       }
-
       const { item } = action;
       const produces = [
         ...(state[action.structure] as ProductionStructureStoreState).produces,
@@ -78,6 +83,7 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameAc
         [action.structure]: structureStore,
       };
     }
+
     case "removeItemFromHarvest": {
       // Should always be false but typescript doesnt know that
       if (!isResourceStructure(action.structure)) return state;
@@ -90,6 +96,7 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameAc
         }
       }
     }
+
     case "gameTick": {
       if (!action.harvest || !Object.keys(action.harvest)?.length) {
         return state;

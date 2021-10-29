@@ -6,10 +6,10 @@ import Button from 'components/ui/buttons/Button';
 import { useUpgradeTasksStateByStructure } from 'hooks/store/useTasksState';
 import { formatDuration } from 'utils/format/time';
 import { TickingProgressbar } from "components/ui/common/progress";
-import "./styles/structureLevel.scss";
 import { reduceTime } from "store/actions/game";
 import { useDispatch } from "react-redux";
 import IconButton from "components/ui/buttons/IconButton";
+import "./styles/structureLevel.scss";
 
 export interface Props {
   structure: Structure;
@@ -27,8 +27,6 @@ const StructureLevel = (props: Props) => {
   const structureDefinition = useStructureDefinition(structure);
 
   const nextLevel = structureDefinition.levels[level + 1];
-  // const nextLevelCost = (nextLevel != null ? nextLevel.cost.gold || 0 : -1);
-  // const canUpgrade = nextLevel != null && gold >= nextLevelCost;
   const upgradeText = nextLevel == null ? TextManager.get("ui-structure-upgrade-max") : TextManager.get("ui-structure-upgrade", { level: level + 2 });
 
   const upgradeTasks = useUpgradeTasksStateByStructure(structure);
@@ -41,15 +39,15 @@ console.log(upgradeTasks)
   if (upgradeTasks.length) {
     const t = upgradeTasks[0];
     return (
-      <>
+      <div className="upgrade-progress-container">
         <TickingProgressbar
           key={`${t.name}${t.startTime}`}
-          className="upgrading" // todo: margin: 8
+          className="upgrading"
           label={`${TextManager.get("structure-upgrade-button-upgrading")} (${formatDuration(t.timeRemaining)})`}
           progress={t.progress}
         />
-        <IconButton iconImg="/img/ui/misc/clock.png" size="smallest" onClick={handleReduceTime50}> 50%</IconButton>
-      </>
+        <IconButton iconImg="/img/ui/misc/clock.png" size="smallest" onClick={handleReduceTime50}>50%</IconButton>
+      </div>
     )
   }
 

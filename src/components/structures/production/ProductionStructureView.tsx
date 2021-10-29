@@ -33,7 +33,11 @@ const ProductionStructureView = (props: Props) => {
     const origin = (event.currentTarget as HTMLElement);
     const originRect = origin.getBoundingClientRect();
     const content = (
-      <UpgradeHelpModal level={level} structure={structure}>
+      <UpgradeHelpModal
+        level={level}
+        structure={structure}
+        addUpgradeCallbacks={handleUpgradeCallbacks}
+      >
         <UpgradeHelpModalContent level={level} structure={structure}/>
       </UpgradeHelpModal>
     );
@@ -56,7 +60,6 @@ const ProductionStructureView = (props: Props) => {
           <StructureLevel
             structure={structure}
             onHelpClicked={handleHelpClicked}
-            addUpgradeCallbacks={handleUpgradeCallbacks}
           />
           <CraftingArea structure={structure} />
           <fieldset>

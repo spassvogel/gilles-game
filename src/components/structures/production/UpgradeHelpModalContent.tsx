@@ -9,29 +9,29 @@ import { TextManager } from "global/TextManager";
 import "./styles/upgradeHelpModalContent.scss"
 
 export interface Props  {
-    structure: Structure;
-    level: number;
+  structure: Structure;
+  level: number;
 }
 
 const UpgradeHelpModalContent = (props: Props) => {
-    const { level, structure } = props;
-    const structureDefinition = useStructureDefinition<ProductionStructureDefinition>(structure);
-    const nextLevel = structureDefinition.levels[level + 1];
+  const { level, structure } = props;
+  const structureDefinition = useStructureDefinition<ProductionStructureDefinition>(structure);
+  const nextLevel = structureDefinition.levels[level + 1];
 
-    const renderRow = (item: Item) => {
-        return (
-            <ItemIcon key={item} item={item} size={IconSize.small} />
-        )
-    }
-
-    return (   
-        <div className="upgrade-help-model-content-production">
-            <h3>{TextManager.get("ui-structure-help-upgrade-unlocks-crafting")}</h3>
-            <div className="unlocks">
-                {nextLevel.unlocks.map(item => renderRow(item))}
-            </div>
-        </div>
+  const renderRow = (item: Item) => {
+    return (
+      <ItemIcon key={item} item={item} size={IconSize.small} />
     )
+  }
+
+  return (
+    <div className="upgrade-help-model-content-production">
+      <h3>{TextManager.get("ui-structure-help-upgrade-unlocks-crafting")}</h3>
+      <div className="unlocks">
+        {nextLevel.unlocks.map(item => renderRow(item))}
+      </div>
+    </div>
+  )
 }
 
 export default UpgradeHelpModalContent;
