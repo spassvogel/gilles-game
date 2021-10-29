@@ -16,14 +16,13 @@ interface Props {
 }
 
 const HarvestProgress = (props: Props) => {
+  const { structure } = props;
   const engine = useEngine();
   const dispatch = useDispatch();
   const delta = HARVEST_INTERVAL - (Date.now() - engine.lastHarvest);
 
-  console.log(props.structure); // todo: we ever need this?
-
   const handleReduceTime50 = () => {
-    dispatch(reduceTime(50, "harvest"))
+    dispatch(reduceTime(50, "harvest", structure))
   }
 
   return (

@@ -50,6 +50,29 @@ export const tasks: Reducer<TasksStoreState, TaskAction | GameAction> = (state: 
         completed,
       };
     }
+    case "reduceTime": {
+      if (action.percentage < 0 || action.percentage > 100) return state;
+      if (action.time === "task") {
+        const running: TaskStoreState[] = [];
+        state.running.forEach((t) => {
+          const timeRemaining = t.timeRemaining / 100 * action.percentage;
+          if (t.name === action.what) {
+            const task = {
+              ...t,
+              timeRemaining,
+            };
+            running.push(task);
+          } else {
+            running.push(t);
+          }
+        });
+        return {
+          ...state,
+          running,
+        };
+      }
+      return state;
+    }
   }
   return state;
 };
