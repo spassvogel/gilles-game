@@ -92,7 +92,7 @@
     <property name="to" value=""/>
    </properties>
   </object>
-  <object id="4" name="portal to entry" type="portal" x="64" y="256" width="64" height="64">
+  <object id="4" name="portal to entry" type="portal" x="0" y="256" width="64" height="64">
    <properties>
     <property name="to" value="dungeon.entrance"/>
    </properties>

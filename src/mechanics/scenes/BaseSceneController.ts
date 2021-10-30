@@ -161,7 +161,6 @@ export class BaseSceneController<TQuestVars> {
   actorMoved(actor: string, location: [number, number]) {
     const isNotAnActor = (object: SceneObject) => !isActorObject(object);
     const destination = this.getObjectAtLocation(location, isNotAnActor);
-    console.log(location, destination)
     if (!destination) return;
 
     if (this.combat) {
@@ -170,7 +169,6 @@ export class BaseSceneController<TQuestVars> {
     }
 
     if (destination.type === TiledObjectType.portal) {
-      console.log('portal hit')
 
       // We've hit a portal
       if (destination.properties.exit) {
@@ -468,7 +466,6 @@ export class BaseSceneController<TQuestVars> {
    * @param target
    */
   findPath(origin: [number, number], target: [number, number]) {
-    console.log('findpath', origin, target)
     return this
       .aStar?.findPath(convertIn(origin), convertIn(target))
       .map(convertOut);
@@ -550,17 +547,6 @@ export class BaseSceneController<TQuestVars> {
     }
 
     while (radius < (this.mapData?.width ?? 2)) {
-
-      // top row
-      // const top = getTop(radius);
-      // top.forEach(c => console.log(`radius ${radius} top: [${c[0]}, ${c[1]}]`))
-      // const right = getRight(radius);
-      // right.forEach(c => console.log(`radius ${radius} right: [${c[0]}, ${c[1]}]`))
-      // const bottom = getBottom(radius);
-      // bottom.forEach(c => console.log(`radius ${radius} bottom: [${c[0]}, ${c[1]}]`))
-      // const left = getLeft(radius);
-      // left.forEach(c => console.log(`radius ${radius} left: [${c[0]}, ${c[1]}]`))
-
       // determine locations in square radius
       const square: [number, number][] = [
         ...getTop(radius),
@@ -668,13 +654,15 @@ export class BaseSceneController<TQuestVars> {
 
             adventurers.forEach((adventurer, i) => {
               if (!object) throw new Error();
-console.log(object.x)
+
+              const x = Math.round(object.x);
+              const y = Math.round(object.y);
               const level = xpToLevel(adventurer.xp);
               const adventurerObject: ActorObject = {
                 name: adventurer.id,
                 id: adventurer.id,
-                x: object.x,
-                y: object.y,
+                x,
+                y,
                 location: locations[i],
                 width,
                 height,
