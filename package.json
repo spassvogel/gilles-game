@@ -27,6 +27,7 @@
     "fontfaceobserver": "^2.1.0",
     "gsap": "^3.7.1",
     "handlebars": "^4.7.7",
+    "html-entities": "^2.3.2",
     "localforage": "^1.9.0",
     "node-sass": "^5.0.0",
     "pixi-particles": "^4.3.1",

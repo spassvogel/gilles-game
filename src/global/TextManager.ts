@@ -1,4 +1,5 @@
 import { paramCase as toKebab} from "text-param-case";
+import { decode } from 'html-entities';
 import { TextEntry } from "constants/text";
 import { getDefinition } from "definitions/items";
 import { Item, ItemType } from "definitions/items/types";
@@ -37,7 +38,7 @@ export abstract class TextManager {
       console.error(`Key '${key}' not found in TextManager`);
       return `<<'${key}' missing>>`;
     } else {
-      return result;
+      return decode(result);
     }
   }
 
