@@ -10,25 +10,25 @@ import { Trinket } from './trinkets';
 import { Weapon } from './weapons';
 
 export enum ItemType {
-    apparel,
-    consumable,
-    deed,
-    herb,
-    material,
-    mineral,
-    questItem,
-    trinket,
-    weapon,
+  apparel,
+  consumable,
+  deed,
+  herb,
+  material,
+  mineral,
+  questItem,
+  trinket,
+  weapon,
 }
 
 export type Item = Apparel | Deed | Herb | Material | Mineral | Consumable | QuestItem | Trinket | Weapon;
 
 export interface ItemDefinition {
-    itemType: ItemType;
-    iconImg: string;
-    rarity?: Rarity;
-//    articleUndefined?: string;  // Key to text
-    unique?: boolean;           // Indicate that this item is unique.
-                                // Not actually enforced by anything,
-                                // but used to generate the article ('a' or 'the')
+  itemType: ItemType;
+  iconImg: string;
+  rarity?: Rarity;
+//  articleUndefined?: string;  // Key to text
+  unique?: boolean;       // Indicate that this item is unique.
+                // Not actually enforced by anything,
+                // but used to generate the article ('a' or 'the')
 }

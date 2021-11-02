@@ -6,8 +6,6 @@ import { Kill10BoarsQuestVars } from '../questVars';
 import { Channel, GameSound, MixMode, SoundManager } from 'global/SoundManager';
 import { Item } from 'definitions/items/types';
 
-const TILE_CHEST_CLOSED = 33; // todo: take this from json?
-const TILE_CHEST_OPEN = 34; // todo: take this from json?
 const TILE_DOOR_UPPER_CLOSED = 121 + 131;
 const TILE_DOOR_LOWER_CLOSED = 121 + 143;
 const TILE_DOOR_UPPER_OPEN = 121 + 107;
@@ -77,7 +75,7 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
         case "chest": {
           return {
             ...o,
-            gid: this.questVars.dungeon.entrance.chestOpen ? TILE_CHEST_OPEN : TILE_CHEST_CLOSED,
+            gid: this.questVars.dungeon.entrance.chestOpen ? this.tileTypes["chest.open"] : this.tileTypes["chest.closed"],
           }
         }
       }
@@ -295,7 +293,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
         case "chest": {
           return {
             ...o,
-            gid: this.questVars.dungeon.hallway.chestOpen ? TILE_CHEST_OPEN : TILE_CHEST_CLOSED,
+            gid: this.questVars.dungeon.entrance.chestOpen ? this.tileTypes["chest.open"] : this.tileTypes["chest.closed"],
           }
         }
         case "door1": {

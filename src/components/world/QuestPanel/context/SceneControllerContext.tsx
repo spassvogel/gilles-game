@@ -49,7 +49,7 @@ const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
   }, [controller, questName, scene, sceneName]);
 
   useEffect(() => {
-    if (questVars !== previousQuestVars && controller) {
+    if (questVars !== previousQuestVars && controller?.dataLoadComplete) {
       controller.updateScene();
     }
   }, [controller, previousQuestVars, questVars]);

@@ -9,58 +9,58 @@ import { useRouteMatch } from 'react-router';
 import "./styles/legenda.scss";
 
 interface Props {
-    structures: StructuresStoreState;
+  structures: StructuresStoreState;
 }
 
 // Legenda with clickable names of structures
 const Legenda = (props: Props) => {
-    const {structures} = props;
-    const orderedStructures: Structure[] = [
-        "workshop",
-        "quarry",
-        "tavern",
-        "tannery",
-        "alchemist",
-        "garden",
-        "weaponsmith",
-        "armoursmith",
-        "warehouse",
-        "mine",
-        "lumberMill",
-        "weaver",
-    ];
-    const match = useRouteMatch<{structure: Structure}>(`${getTownLink()}/:structure`);
+  const {structures} = props;
+  const orderedStructures: Structure[] = [
+    "workshop",
+    "quarry",
+    "tavern",
+    "tannery",
+    "alchemist",
+    "garden",
+    "weaponsmith",
+    "armoursmith",
+    "warehouse",
+    "mine",
+    "lumberMill",
+    "weaver",
+  ];
+  const match = useRouteMatch<{structure: Structure}>(`${getTownLink()}/:structure`);
 
-    const renderText = (structure: Structure) => {
-        if (match?.params.structure === structure) {
-            return (
-                <span className="highlighted">{`${TextManager.getStructureName(structure)}`}</span>
-            )
+  const renderText = (structure: Structure) => {
+    if (match?.params.structure === structure) {
+      return (
+        <span className="highlighted">{`${TextManager.getStructureName(structure)}`}</span>
+      )
+    }
+    return (
+      <Link to={getStructureLink(structure, true)} >
+        {`${TextManager.getStructureName(structure)}`}
+      </Link>
+    )
+  }
+
+  return (
+    <div className="legenda">
+      <ul>
+      {orderedStructures.map((structure) => {
+        const structureStore: StructureStoreState = structures[structure];
+        if (structureStore.state === StructureState.NotBuilt) {
+          return null;
         }
         return (
-            <Link to={getStructureLink(structure, true)} >
-                {`${TextManager.getStructureName(structure)}`}
-            </Link>
-        )
-    }
-
-    return (
-        <div className="legenda">
-            <ul>
-            {orderedStructures.map((structure) => {
-                const structureStore: StructureStoreState = structures[structure];
-                if (structureStore.state === StructureState.NotBuilt) {
-                    return null;
-                }
-                return (
-                    <li key={structure}>
-                        {renderText(structure)}
-                    </li>
-                );
-            })}
-            </ul>
-        </div>
-    );
+          <li key={structure}>
+            {renderText(structure)}
+          </li>
+        );
+      })}
+      </ul>
+    </div>
+  );
 }
 
 export default Legenda;

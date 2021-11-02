@@ -7,53 +7,53 @@ const itemType = ItemType.deed;
 const basePath = "/img/items/deeds/";
 
 export interface DeedDefinition extends ItemDefinition {
-    structure: Structure;
+  structure: Structure;
 }
 
 const deeds = {
-    alchemist: {
-        structure: "alchemist" as const,
-        itemType,
-        iconImg: `${basePath}deed.png`,
-    },
-    armoursmith: {
-        structure: "armoursmith" as const,
-        itemType,
-        iconImg: `${basePath}deed.png`,
-    },
-    lumbermill: {
-        structure: "lumberMill" as const,
-        itemType,
-        iconImg: `${basePath}deed.png`,
-    },
-    tavern: {
-        structure: "tavern" as const,
-        itemType,
-        iconImg: `${basePath}deed.png`,
-    },
-    weaponsmith: {
-        structure: "weaponsmith" as const,
-        itemType,
-        iconImg: `${basePath}deed.png`,
-    },
-    workshop: {
-        structure: "workshop" as const,
-        itemType,
-        iconImg: `${basePath}deed.png`,
-    }
+  alchemist: {
+    structure: "alchemist" as const,
+    itemType,
+    iconImg: `${basePath}deed.png`,
+  },
+  armoursmith: {
+    structure: "armoursmith" as const,
+    itemType,
+    iconImg: `${basePath}deed.png`,
+  },
+  lumbermill: {
+    structure: "lumberMill" as const,
+    itemType,
+    iconImg: `${basePath}deed.png`,
+  },
+  tavern: {
+    structure: "tavern" as const,
+    itemType,
+    iconImg: `${basePath}deed.png`,
+  },
+  weaponsmith: {
+    structure: "weaponsmith" as const,
+    itemType,
+    iconImg: `${basePath}deed.png`,
+  },
+  workshop: {
+    structure: "workshop" as const,
+    itemType,
+    iconImg: `${basePath}deed.png`,
+  }
 }
 
 export type Deed = `${Prefix}${keyof typeof deeds}`;
 const all = Object.entries(deeds).reduce<{[key: string]: DeedDefinition}>((acc, [key, value]) => {
-    acc[`${PREFIX}${key}`] = value;
-    return acc;    
+  acc[`${PREFIX}${key}`] = value;
+  return acc;  
 }, {}) as Record<Deed, DeedDefinition>;
 export default all;
 
 export function getDefinition(deed: Deed): DeedDefinition {
-    return all[deed] as unknown as DeedDefinition;
+  return all[deed] as unknown as DeedDefinition;
 }
 
 export const isDeed = (item: Item): item is Deed => {
-    return !!all[item as Deed];
+  return !!all[item as Deed];
 }

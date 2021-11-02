@@ -8,38 +8,38 @@ import { TextManager } from 'global/TextManager';
 import CraftingDetails from './CraftingDetails';
 
 export interface Props {
-    structure: Structure;
+  structure: Structure;
 }
 
 const CraftingArea = (props: Props) => {
-    const {structure} = props;
-    const [selectedItem, setSelectedItem] = useState<ProducableItem>();
+  const {structure} = props;
+  const [selectedItem, setSelectedItem] = useState<ProducableItem>();
 
-    const storeState = useStructureState<ProductionStructureStoreState>(structure);
-    const handleSelectCraftingItem = (item: ProducableItem) => {
-        setSelectedItem(item);
-    };
+  const storeState = useStructureState<ProductionStructureStoreState>(structure);
+  const handleSelectCraftingItem = (item: ProducableItem) => {
+    setSelectedItem(item);
+  };
 
-    return (
-        <>
-            <div> { TextManager.get("ui-structure-production-craft") }</div>
-            <div className="crafting-area">
-                <ul className="vertical-tab-bar">
-                    {storeState.produces.map((item) => (
-                        <li
-                            key={`craft${item}`}
-                            onClick={() => handleSelectCraftingItem(item)}
-                            className={selectedItem === item ? "selected" : ""}
-                        >
-                            <ItemIcon item={item} size={IconSize.smallest} />
-                            { TextManager.getItemName(item) }
-                        </li>
-                    ))}
-                </ul>
-                { selectedItem && <CraftingDetails item={selectedItem} structure={structure} /> }
-            </div>
-        </>
-    )
+  return (
+    <>
+      <div> { TextManager.get("ui-structure-production-craft") }</div>
+      <div className="crafting-area">
+        <ul className="vertical-tab-bar">
+          {storeState.produces.map((item) => (
+            <li
+              key={`craft${item}`}
+              onClick={() => handleSelectCraftingItem(item)}
+              className={selectedItem === item ? "selected" : ""}
+            >
+              <ItemIcon item={item} size={IconSize.smallest} />
+              { TextManager.getItemName(item) }
+            </li>
+          ))}
+        </ul>
+        { selectedItem && <CraftingDetails item={selectedItem} structure={structure} /> }
+      </div>
+    </>
+  )
 };
 
 export default CraftingArea;

@@ -35,7 +35,6 @@ const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<Co
       window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     );
     const persistor = persistStore(store, undefined, () => {
-      console.log('persisted')
       const isHydrated = storeIsRehydrated(store.getState());
       resolve({ store, persistor, isHydrated }) ;
     });

@@ -100,6 +100,40 @@
         }, 
         {
          "draworder":"topdown",
+         "id":11,
+         "name":"object",
+         "objects":[
+                {
+                 "gid":33,
+                 "height":64,
+                 "id":17,
+                 "name":"chest",
+                 "properties":[
+                        {
+                         "name":"blocksMovement",
+                         "type":"bool",
+                         "value":true
+                        }, 
+                        {
+                         "name":"interactive",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "rotation":0,
+                 "type":"chest.closed",
+                 "visible":true,
+                 "width":64,
+                 "x":192,
+                 "y":704
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":3,
          "name":"actor",
          "objects":[
@@ -266,8 +300,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":11,
- "nextobjectid":17,
+ "nextlayerid":12,
+ "nextobjectid":18,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
@@ -284,6 +318,27 @@
          "spacing":0,
          "tilecount":120,
          "tileheight":64,
+         "tiles":[
+                {
+                 "id":32,
+                 "properties":[
+                        {
+                         "name":"blocksMovement",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "type":"chest.closed"
+                }, 
+                {
+                 "id":33,
+                 "properties":[
+                        {
+                         "name":"blocksMovement",
+                         "type":"bool",
+                         "value":true
+                        }],
+                 "type":"chest.open"
+                }],
          "tilewidth":64
         }, 
         {

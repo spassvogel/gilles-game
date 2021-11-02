@@ -10,42 +10,42 @@ import { Item, ItemDefinition, ItemType } from "./types";
 import weapons, { Weapon } from "./weapons";
 
 const all = {
-    ...apparel,
-    ...consumables,
-    ...deeds,
-    ...herbs,
-    ...materials,
-    ...minerals,
-    ...questItems,
-    ...trinkets,
-    ...weapons,
+  ...apparel,
+  ...consumables,
+  ...deeds,
+  ...herbs,
+  ...materials,
+  ...minerals,
+  ...questItems,
+  ...trinkets,
+  ...weapons,
 };
 
 export default all;
 
 export const getDefinition = (item: Item): ItemDefinition => {
-    return all[item]
+  return all[item]
 }
 
 export const getAllItemsByType = (itemType: ItemType): Item[] => {
-    switch (itemType) {
-        case ItemType.apparel:
-            return Object.keys(apparel) as Apparel[];
-        case ItemType.deed:
-            return Object.keys(deeds) as Deed[];
-        case ItemType.herb:
-            return Object.keys(herbs) as Herb[];
-        case ItemType.material:
-            return Object.keys(materials) as Material[];
-        case ItemType.mineral:
-            return Object.keys(minerals) as Mineral[];
-        case ItemType.consumable:
-            return Object.keys(consumables) as Consumable[];
-        case ItemType.questItem:
-            return Object.keys(questItems) as QuestItem[];
-        case ItemType.trinket:
-            return Object.keys(trinkets) as Trinket[];
-        case ItemType.weapon:
-            return Object.keys(weapons) as Weapon[];
-    }
+  switch (itemType) {
+    case ItemType.apparel:
+      return Object.keys(apparel) as Apparel[];
+    case ItemType.deed:
+      return Object.keys(deeds) as Deed[];
+    case ItemType.herb:
+      return Object.keys(herbs) as Herb[];
+    case ItemType.material:
+      return Object.keys(materials) as Material[];
+    case ItemType.mineral:
+      return Object.keys(minerals) as Mineral[];
+    case ItemType.consumable:
+      return Object.keys(consumables) as Consumable[];
+    case ItemType.questItem:
+      return Object.keys(questItems) as QuestItem[];
+    case ItemType.trinket:
+      return Object.keys(trinkets) as Trinket[];
+    case ItemType.weapon:
+      return Object.keys(weapons) as Weapon[];
+  }
 }

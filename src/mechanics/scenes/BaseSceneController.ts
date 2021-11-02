@@ -47,6 +47,7 @@ export class BaseSceneController<TQuestVars> {
 
   protected jsonPath?: string;
   protected blockedTiles: [number, number][] = [];
+  protected tileTypes: {[name: string]: number } = {}; // map tiletype to gid
 
   constructor(store: Store<StoreState, AnyAction>, questName: string) {
     this.store = store;
@@ -93,6 +94,7 @@ export class BaseSceneController<TQuestVars> {
 
     // Create aStar based on blocked tiles
     this.createBlockedTiles();
+    this.createTileTypes();
     this.aStar = this.createAStar();
 
     const spritesheets = this.spritesheetPaths;
@@ -116,6 +118,14 @@ export class BaseSceneController<TQuestVars> {
       if(o.properties.blocksMovement === true && o.location){
         this.blockedTiles.push(o.location);
       }
+    });
+  }
+
+  createTileTypes() {
+    this.mapData?.tilesets.forEach((tileset) => {
+      tileset.tiles?.forEach((tile) => {
+        this.tileTypes[tile.type] = tile.id + tileset.firstgid
+      })
     });
   }
 

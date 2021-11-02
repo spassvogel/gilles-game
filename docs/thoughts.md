@@ -562,15 +562,14 @@ https://wow.gamepedia.com/Quality
 - [x] momentjs is 231.7kb and hardly used. refactor
 - [x] tmx-parser
 
-#### Tiled manual [+doc]
+### Tiled manual [+doc]
 - [ ] Write a list of all the tiled stuff, object name, type, props that have some effect on the game
   
     type: *
     possible properties: 
     - interactive: (boolean) will show interaction icon when an adventurer is on this tile. needs to be implemented in Controller.interactWithObject
 
-    (UPDATE)
-
+    (TODO UPDATE)
 
     type: "exit"
     Exit the scene. If a property called `loadScene: string` is present, will load that scene. If not, the encounter will be exited
@@ -579,6 +578,10 @@ https://wow.gamepedia.com/Quality
     Can interact to loot items
     possible properties: 
     - title: translation key shown in the dialog
+
+
+    #### Tile types
+    Tiles in a tileset can receive a `type` property. Those are mapped to an object called `tileTypes` in the scene controller. In this object the gid (global id) is stored 
 
 ### Loot caches
 - [x] Implement take all
@@ -677,7 +680,6 @@ Quests and adventurers dont need to be stored in the store when not active
 Resource structures will produce not just resources but also items over a long period of time (e.g 3 hrs).
 Each structure level has a number of slots and a weighed loot table of items that it generates
 
-todo 
 - [x] Items are generated periodically by resource structures 
 - [x] Generated items are shown at resource structures 
 - [ x] Items can be taken from resource 

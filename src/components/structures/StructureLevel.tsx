@@ -30,7 +30,6 @@ const StructureLevel = (props: Props) => {
   const upgradeText = nextLevel == null ? TextManager.get("ui-structure-upgrade-max") : TextManager.get("ui-structure-upgrade", { level: level + 2 });
 
   const upgradeTasks = useUpgradeTasksStateByStructure(structure);
-console.log(upgradeTasks)
   const handleReduceTime50 = () => {
     if (!upgradeTasks.length) return;
     dispatch(reduceTime(50, "task", upgradeTasks[0].name))

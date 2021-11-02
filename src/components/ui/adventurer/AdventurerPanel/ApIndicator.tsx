@@ -5,28 +5,28 @@ import { useQuest } from 'hooks/store/quests';
 import { AdventurerStoreState } from 'store/types/adventurer';
 
 export interface Props {
-    adventurer: AdventurerStoreState;
-    questName?: string;
+  adventurer: AdventurerStoreState;
+  questName?: string;
 }
 
 /** Used when AdventurerPanel is used in Quest view
  * todo: move outside of /world
  */
 const ApIndicator = (props: Props) => {
-    const quest = useQuest(props.questName ?? "");
-    const controller = useContext(SceneControllerContext);
+  const quest = useQuest(props.questName ?? "");
+  const controller = useContext(SceneControllerContext);
 
-    const ap = useMemo(() => {
-        if (!controller) return null;
-        return controller.getSceneActor(props.adventurer.id)?.ap || null;
-    }, [controller, props.adventurer.id]);
+  const ap = useMemo(() => {
+    if (!controller) return null;
+    return controller.getSceneActor(props.adventurer.id)?.ap || null;
+  }, [controller, props.adventurer.id]);
 
-    if (!quest?.scene?.combat) {
-        return null;
-    }
-    return (
-        <span>{TextManager.get("ui-adventurer-info-ap-remaining", { ap })}</span>
-    );
+  if (!quest?.scene?.combat) {
+    return null;
+  }
+  return (
+    <span>{TextManager.get("ui-adventurer-info-ap-remaining", { ap })}</span>
+  );
 }
 
 export default ApIndicator;
