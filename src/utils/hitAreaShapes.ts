@@ -1,7 +1,8 @@
 import * as PIXI from 'pixi.js';
+import { IHitArea } from 'pixi.js';
 // Adapted from https://github.com/explooosion/hitarea-shapes/blob/master/src/index.js
 
-export default class HitAreaShapes {
+export default class HitAreaShapes implements IHitArea {
     public shapes: PIXI.Polygon[];
 
     constructor(shapes: { [key: string]: { shape: number[]}[] } = {}, sprite = "0") {
