@@ -2,39 +2,40 @@
 
 
 @font-face {
-    font-family: 'Gabriela';
-    src:  url('./font/Gabriela-Regular.woff') format('woff');
+  font-family: 'Gabriela';
+  src:  url('./font/Gabriela-Regular.woff2') format('woff2'),
+      url('./font/Gabriela-Regular.woff') format('woff');
 }
 
 .app {
-    background: $color-secondary;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    min-height: 100vh;
-    
-    // todo: 08/05/2020  Use variables for cursor
-    --app-cursor-default: url("./img/cursors/dwarven_gauntlet_extra_4.png"), auto;
-    --app-cursor-pointer: url("./img/cursors/dwarven_gauntlet_extra_6.png"), auto;
-    --app-cursor-down: url("./img/cursors/dwarven_gauntlet_extra_3.png"), auto;
+  background: $color-secondary;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  min-height: 100vh;
 
-    cursor: var(--app-cursor-default);
-    font-family: $font-normal;
+  // todo: 08/05/2020  Use variables for cursor
+  --app-cursor-default: url("./img/cursors/dwarven_gauntlet_extra_4.png"), auto;
+  --app-cursor-pointer: url("./img/cursors/dwarven_gauntlet_extra_6.png"), auto;
+  --app-cursor-down: url("./img/cursors/dwarven_gauntlet_extra_3.png"), auto;
 
-    button {
-        cursor: var(--app-cursor-pointer);
-    }
+  cursor: var(--app-cursor-default);
+  font-family: $font-normal;
 
-    .control-bar {
-        margin: 4px 0 4px 8px;
-    }
+  button {
+    cursor: var(--app-cursor-pointer);
+  }
+
+  .control-bar {
+    margin: 4px 0 4px 8px;
+  }
 }
 
 /** Small resolutions */
 @media only screen and (max-width: $max-width-small) {
-    .app {
-        font-size: smaller;
-    }
+  .app {
+    font-size: smaller;
+  }
 }
 
 
