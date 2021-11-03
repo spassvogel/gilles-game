@@ -2,7 +2,7 @@ import { Reducer } from "redux";
 import { State as seedrandomStateType } from "seedrandom";
 import { GameAction } from "store/actions/game";
 
-export const initialRngState = false;
+export const initialRngState = {};
 /**
  * reducer
  * @param state

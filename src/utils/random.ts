@@ -1,6 +1,11 @@
 import seedrandom from "seedrandom";
 
-let generator: seedrandom.prng;
+interface prng {
+  (): number;
+  state(): seedrandom.State;
+}
+let generator: prng
+
 export const init = (seed: string): void => {
   dirty = true;
   generator = seedrandom(seed, {state: true});
