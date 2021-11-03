@@ -7,10 +7,6 @@ interface Props  {
     config: particles.OldEmitterConfig | particles.EmitterConfig;
 }
 
-interface InternalParticleEmitter {
-  _emitter: particles.Emitter;
-  _raf: number;
-}
 
 const ParticleEmitter = PixiComponent<Props & React.ComponentProps<typeof Container>, PIXI.ParticleContainer>("ParticleEmitter", {
     create() {
@@ -23,9 +19,7 @@ const ParticleEmitter = PixiComponent<Props & React.ComponentProps<typeof Contai
       // apply rest props to PIXI.ParticleContainer
       applyDefaultProps(instance, oldProps, newP);
 
-      let emitter = (this as unknown as InternalParticleEmitter)._emitter;
-      if (!emitter) {
-        emitter = new particles.Emitter(
+      const emitter = new particles.Emitter(
           instance,
           [PIXI.Texture.from(image)],
           config
@@ -34,7 +28,10 @@ const ParticleEmitter = PixiComponent<Props & React.ComponentProps<typeof Contai
         let elapsed = performance.now();
 
         const tick = () => {
-          (this as unknown as InternalParticleEmitter)._raf = requestAnimationFrame(tick);
+          if (instance.destroyed) {
+            return;
+          }
+
           const now = performance.now();
           // const amp = Math.random() * 5 + 15;
           // const amp = 15;
@@ -44,20 +41,12 @@ const ParticleEmitter = PixiComponent<Props & React.ComponentProps<typeof Contai
           emitter.update((now - elapsed) * 0.0003);
 
           elapsed = now;
+          requestAnimationFrame(tick);
         };
         emitter.emit = true;
         // emitter.update(00.2);
 
         tick();
-      }
-      (this as unknown as InternalParticleEmitter)._emitter = emitter;
-    },
-
-    willUnmount() {
-      if ((this as unknown as InternalParticleEmitter)._emitter) {
-        (this as unknown as InternalParticleEmitter)._emitter.emit = false;
-        cancelAnimationFrame((this as unknown as InternalParticleEmitter)._raf);
-      }
     }
 });
 
