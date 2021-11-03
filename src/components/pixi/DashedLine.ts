@@ -1,5 +1,5 @@
 import { PixiComponent, applyDefaultProps, Graphics } from "@inlet/react-pixi";
-import { LineStyle, Container } from 'pixi.js';
+import { LineStyle } from 'pixi.js';
 import { Point } from "pixi.js";
 import * as PIXI from "pixi.js";
 
@@ -11,16 +11,13 @@ interface Props  {
   speed?: number; // positive to move forward, negative to move backward, 0 to not move at all
 }
 
-interface InternalDashedLine {
-  _destroy: boolean;
-  _raf: number;
-}
-
 /**
  * Draws a dashed line along a path
  */
 const DashedLine = PixiComponent<React.ComponentProps<typeof Graphics> & Props, PIXI.Graphics>("DashedLine", {
-  create: () => new PIXI.Graphics(),
+  create: () => {
+    return new PIXI.Graphics();
+  },
 
   applyProps: (instance: PIXI.Graphics, oldProps: Props, newProps: Props) => {
     const {
@@ -37,7 +34,9 @@ const DashedLine = PixiComponent<React.ComponentProps<typeof Graphics> & Props, 
     instance.clear();
 
     const draw = () => {
-      if((this as unknown as InternalDashedLine)._destroy){
+
+      if(instance.destroyed) {
+        // component is unmounted, cancel drawing the line
         return;
       }
 
@@ -104,16 +103,11 @@ const DashedLine = PixiComponent<React.ComponentProps<typeof Graphics> & Props, 
         }
       }
       if (speed !== 0) {
-        (this as unknown as InternalDashedLine)._raf = requestAnimationFrame(draw);
+        requestAnimationFrame(draw);
       }
     }
     draw();
   },
-
-  willUnmount: () => {
-    (this as unknown as InternalDashedLine)._destroy = true;
-    cancelAnimationFrame((this as unknown as InternalDashedLine)._raf);
-  }
 });
 
 export default DashedLine;
