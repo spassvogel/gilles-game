@@ -14,6 +14,7 @@ import { getStructureLink } from "utils/routing";
 import { BasicAttribute } from "store/types/adventurer";
 import { EnemyType } from "definitions/enemies/types";
 import { ActorObject, isAdventurer, isEnemy } from "store/types/scene";
+import { QuestStoreState } from "store/types/quest";
 
 export abstract class TextManager {
 
@@ -102,6 +103,11 @@ export abstract class TextManager {
 
   public static getQuestDescription(name: string) {
     return this.get(`quest-${toKebab(name)}-description`);
+  }
+
+  public static getQuestSceneTitle(quest: QuestStoreState) {
+    const sceneName = quest.sceneName || "";
+    return this.get(`quest-${toKebab(quest.name)}-scene-${toKebab(sceneName)}-title`);
   }
 
   public static getResourceName(type: Resource) {

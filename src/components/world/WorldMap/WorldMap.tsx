@@ -196,6 +196,8 @@ const WorldMap = (props: Props) => {
           <span>
             <DebugToggleCombat questName={props.selectedQuestName} />
             {TextManager.getQuestTitle(props.selectedQuestName)}
+            {` | `}
+            {selectedQuest?.sceneName && TextManager.getQuestSceneTitle(selectedQuest)}
           </span>
           <span onClick={handleClose} className="close">x</span>
         </div>
