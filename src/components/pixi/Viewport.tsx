@@ -20,16 +20,16 @@ interface Props {
 const Viewport = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref) => {
   const app = useApp();
   if (app) {
-      // Perhaps this is better moved somewhere else
-      const cursor = `url('${gauntlet}'), auto`;
-      app.renderer.plugins.interaction.cursorStyles.pointer = cursor;
+    // Perhaps this is better moved somewhere else
+    const cursor = `url('${gauntlet}'), auto`;
+    app.renderer.plugins.interaction.cursorStyles.pointer = cursor;
   }
   return <PixiComponentViewport app={app} {...props} ref={ref} />;
 })
 Viewport.displayName = 'DisplayName';
 
 interface PixiComponentProps {
-    app: Application;
+  app: Application;
 }
 
 const PixiComponentViewport = PixiComponent("Viewport", {
@@ -51,12 +51,12 @@ const PixiComponentViewport = PixiComponent("Viewport", {
     } = props;
 
     viewport
-      .drag()
-      .pinch()
-      .wheel()
-      .clamp({ direction: 'all' })
-      .clampZoom({ minScale, maxScale })
-      .decelerate();
+    .drag()
+    .pinch()
+    .wheel()
+    .clamp({ direction: 'all' })
+    .clampZoom({ minScale, maxScale })
+    .decelerate();
 
     return viewport as unknown as PixiViewport;
   },

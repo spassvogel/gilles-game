@@ -23,114 +23,114 @@ import { ProducableItem } from 'store/types/structure';
 import { useStockpileStateFlat } from 'hooks/store/stockpile';
 
 export interface Props {
-    item: ProducableItem;
-    structure: Structure;
+  item: ProducableItem;
+  structure: Structure;
 }
 
 const CraftingDetails = (props: Props) => {
-    const { item, structure } = props;
-    const dispatch = useDispatch();
-    const resourcesState = useResourcesState();
-    const stockpileState = useStockpileStateFlat();
-    const workersFree = useWorkersFreeState();
-    const [workersAssigned, setWorkersAssigned] = useState<number>(0);
+  const { item, structure } = props;
+  const dispatch = useDispatch();
+  const resourcesState = useResourcesState();
+  const stockpileState = useStockpileStateFlat();
+  const workersFree = useWorkersFreeState();
+  const [workersAssigned, setWorkersAssigned] = useState<number>(0);
 
-    const produces = getProductionDefinition(item);
-    const costResources = produces.cost.resources || {};
-    const missingAtLeastOneResource = Object.keys(costResources)
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        .some((key) => { const resource:Resource = key as Resource; return costResources[resource]! > resourcesState[resource]! });
+  const produces = getProductionDefinition(item);
+  const costResources = produces.cost.resources || {};
+  const missingAtLeastOneResource = Object.keys(costResources)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    .some((key) => { const resource:Resource = key as Resource; return costResources[resource]! > resourcesState[resource]! });
 
-    let missingAtLeastOneItem = false;
-    const costMaterials = produces.cost.materials;
-    if (costMaterials) {
-        missingAtLeastOneItem = costMaterials.some((i: Item) => stockpileState.indexOf(i) === -1);
+  let missingAtLeastOneItem = false;
+  const costMaterials = produces.cost.materials;
+  if (costMaterials) {
+    missingAtLeastOneItem = costMaterials.some((i: Item) => stockpileState.indexOf(i) === -1);
+  }
+
+  const disabled = missingAtLeastOneResource || missingAtLeastOneItem || workersAssigned < 1;
+  // TODO: [10/07/2019] Perhaps each item can have a number of minimum workers?
+
+  const makeTimeString = (asNumber: number): string => {
+    if (workersAssigned === 0) {
+      return "";
     }
+    const craftingTime = calculateProductionTime(asNumber, workersAssigned);
+    const time = formatDuration(craftingTime);
+    return TextManager.get("ui-structure-production-crafting-time", { time });
+  };
 
-    const disabled = missingAtLeastOneResource || missingAtLeastOneItem || workersAssigned < 1;
-    // TODO: [10/07/2019] Perhaps each item can have a number of minimum workers?
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
 
-    const makeTimeString = (asNumber: number): string => {
-        if (workersAssigned === 0) {
-            return "";
-        }
-        const craftingTime = calculateProductionTime(asNumber, workersAssigned);
-        const time = formatDuration(craftingTime);
-        return TextManager.get("ui-structure-production-crafting-time", { time });
-    };
+    handleCraft(produces, workersAssigned);
+    setWorkersAssigned(0);
+  };
 
-    const handleClick = (e: React.MouseEvent) => {
-        e.stopPropagation();
+  const handleUp = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setWorkersAssigned(workersAssigned + 1);
+  };
 
-        handleCraft(produces, workersAssigned);
-        setWorkersAssigned(0);
-    };
+  const handleDown = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setWorkersAssigned(workersAssigned - 1);
+  };
 
-    const handleUp = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        setWorkersAssigned(workersAssigned + 1);
-    };
+  const handleCraft = (productionDefinition: ProductionDefinition, workers: number) => {
+    const craftingTime = calculateProductionTime(productionDefinition.cost.time || 0, workers);
+    dispatch(removeResources(productionDefinition.cost.resources || {}));
+    dispatch(increaseWorkers(structure, workers));
 
-    const handleDown = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        setWorkersAssigned(workersAssigned - 1);
-    };
+    const callbacks = [
+      addItemToWarehouse(productionDefinition.item),
+      increaseWorkers(structure, workers),
+    ];
+    const start = startTask(TaskType.craftItem,
+      productionDefinition.item,
+      `${structure}.craft`,
+      craftingTime,
+      callbacks);
+    dispatch(start);
+  }
 
-    const handleCraft = (productionDefinition: ProductionDefinition, workers: number) => {
-        const craftingTime = calculateProductionTime(productionDefinition.cost.time || 0, workers);
-        dispatch(removeResources(productionDefinition.cost.resources || {}));
-        dispatch(increaseWorkers(structure, workers));
-
-        const callbacks = [
-            addItemToWarehouse(productionDefinition.item),
-            increaseWorkers(structure, workers),
-        ];
-        const start = startTask(TaskType.craftItem,
-            productionDefinition.item,
-            `${structure}.craft`,
-            craftingTime,
-            callbacks);
-        dispatch(start);
-    }
-
-    return (
-        <div className="crafting-details">
-            { TextManager.get("ui-structure-production-craft-a", {item}) }
-            <div className="crafting-costs">
-                <fieldset>
-                    <ResourcesCost resources={costResources} />
-                </fieldset>
-                <fieldset>
-                    {costMaterials && <ItemsBox items={costMaterials} />}
-                </fieldset>
-            </div>
-            <div className="buttonrow">
-                <div>
-                    <UpDownValue
-                        value={workersAssigned}
-                        label={TextManager.get("ui-structure-production-workers")}
-                        onUp={handleUp}
-                        onDown={handleDown}
-                        upDisabled={
-                            workersAssigned >= workersFree ||
-                            workersAssigned >= MAX_WORKERS_CRAFTING
-                        }
-                        downDisabled={workersAssigned < 1}
-                    />
-                    { makeTimeString(produces.cost.time || 0)}
-                </div>
-                <div>
-                    <Button
-                        disabled={disabled}
-                        className="craft"
-                        onClick={handleClick}
-                    >
-                        {TextManager.get("ui-structure-production-craft")}
-                    </Button>
-                </div>
-            </div>
+  return (
+    <div className="crafting-details">
+      { TextManager.get("ui-structure-production-craft-a", {item}) }
+      <div className="crafting-costs">
+        <fieldset>
+          <ResourcesCost resources={costResources} />
+        </fieldset>
+        <fieldset>
+          {costMaterials && <ItemsBox items={costMaterials} />}
+        </fieldset>
+      </div>
+      <div className="buttonrow">
+        <div>
+          <UpDownValue
+            value={workersAssigned}
+            label={TextManager.get("ui-structure-production-workers")}
+            onUp={handleUp}
+            onDown={handleDown}
+            upDisabled={
+              workersAssigned >= workersFree ||
+              workersAssigned >= MAX_WORKERS_CRAFTING
+            }
+            downDisabled={workersAssigned < 1}
+          />
+          { makeTimeString(produces.cost.time || 0)}
         </div>
-    );
+        <div>
+          <Button
+            disabled={disabled}
+            className="craft"
+            onClick={handleClick}
+          >
+            {TextManager.get("ui-structure-production-craft")}
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default CraftingDetails;

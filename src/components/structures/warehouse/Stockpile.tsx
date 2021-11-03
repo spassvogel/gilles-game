@@ -17,60 +17,60 @@ import "./styles/stockpile.scss"
 const WAREHOUSE = DragSourceType.warehouse;
 
 const Stockpile = () => {
-    const stockpile = useStockpileState();
-    const {dropItemWarehouse} = useItemDropActions();
-    const [selectedItemType, setSelectedItemType] = useState<string>(Object.keys(stockpile)[0]);
+  const stockpile = useStockpileState();
+  const {dropItemWarehouse} = useItemDropActions();
+  const [selectedItemType, setSelectedItemType] = useState<string>(Object.keys(stockpile)[0]);
 
-    const handleDropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
-        dropItemWarehouse(item, fromSlot, toSlot, sourceType, sourceId);
+  const handleDropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
+    dropItemWarehouse(item, fromSlot, toSlot, sourceType, sourceId);
+  }
+  const dragDropManager = useDragDropManager()
+  const dragging = dragDropManager.getMonitor().isDragging();
+  useEffect(() => {
+    // If we're dragging some item, switch to the appropriate category so we can drop it here
+    if(dragging){
+      const dragItem = dragDropManager.getMonitor().getItem();
+      const dragItemType = dragDropManager.getMonitor().getItemType();
+
+      if (dragItem && dragItemType === DragType.ITEM) {
+        const item = dragItem.item;
+        const definition = getDefinition(item)
+        setSelectedItemType(ItemType[definition.itemType]);
+      }
     }
-    const dragDropManager = useDragDropManager()
-    const dragging = dragDropManager.getMonitor().isDragging();
-    useEffect(() => {
-        // If we're dragging some item, switch to the appropriate category so we can drop it here
-        if(dragging){
-            const dragItem = dragDropManager.getMonitor().getItem();
-            const dragItemType = dragDropManager.getMonitor().getItemType();
+  }, [dragging]);
 
-            if (dragItem && dragItemType === DragType.ITEM) {
-                const item = dragItem.item;
-                const definition = getDefinition(item)
-                setSelectedItemType(ItemType[definition.itemType]);
-            }
+  const handleCheckDropItem = (dragInfo: InventoryItemDragInfo) => {
+    // can only drop on the appropriate category
+    const definition = getDefinition(dragInfo.item)
+    return (definition.itemType === ItemType[selectedItemType as keyof typeof ItemType])
+  }
+
+  const items = useMemo(() => {
+    return stockpile[selectedItemType as keyof StockpileStoreState]
+  }, [selectedItemType, stockpile])
+
+  return (
+    <div className="stockpile">
+      <Tabstrip className="tabs" onTabSelected={setSelectedItemType} activeTab={selectedItemType}>
+      {Object.keys(stockpile).map((itemType) => {
+        return (
+          <Tab id={itemType} key={itemType}>
+            {TextManager.getItemType(ItemType[itemType as keyof typeof ItemType])}
+          </Tab>);
         }
-    }, [dragging]);
-
-    const handleCheckDropItem = (dragInfo: InventoryItemDragInfo) => {
-        // can only drop on the appropriate category
-        const definition = getDefinition(dragInfo.item)
-        return (definition.itemType === ItemType[selectedItemType as keyof typeof ItemType])
-    }
-
-    const items = useMemo(() => {
-        return stockpile[selectedItemType as keyof StockpileStoreState]
-    }, [selectedItemType, stockpile])
-
-    return (
-        <div className="stockpile">
-            <Tabstrip className="tabs" onTabSelected={setSelectedItemType} activeTab={selectedItemType}>
-            {Object.keys(stockpile).map((itemType) => {
-                return (
-                    <Tab id={itemType} key={itemType}>
-                        {TextManager.getItemType(ItemType[itemType as keyof typeof ItemType])}
-                    </Tab>);
-                }
-            )}
-            </Tabstrip>
-            <Inventory
-                sourceType={WAREHOUSE}
-                className="inventory-large"
-                items={items}
-                onDropItem={handleDropItemWarehouse}
-                // onStartDrag={handleStartDrag}
-                canDropHere={handleCheckDropItem}
-            />
-        </div>
-    )
+      )}
+      </Tabstrip>
+      <Inventory
+        sourceType={WAREHOUSE}
+        className="inventory-large"
+        items={items}
+        onDropItem={handleDropItemWarehouse}
+        // onStartDrag={handleStartDrag}
+        canDropHere={handleCheckDropItem}
+      />
+    </div>
+  )
 }
 
 export default Stockpile
