@@ -571,8 +571,8 @@ https://wow.gamepedia.com/Quality
 
     (TODO UPDATE)
 
-    type: "exit"
-    Exit the scene. If a property called `loadScene: string` is present, will load that scene. If not, the encounter will be exited
+    type: "portal"
+    Portals are a way from and to scenes. 
 
     type: "lootCache"
     Can interact to loot items
