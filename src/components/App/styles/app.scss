@@ -3,7 +3,8 @@
 
 @font-face {
     font-family: 'Gabriela';
-    src:  url('./font/Gabriela-Regular.woff') format('woff');
+    src:  url('./font/Gabriela-Regular.woff2') format('woff2'),
+          url('./font/Gabriela-Regular.woff') format('woff');
 }
 
 .app {
@@ -12,7 +13,7 @@
     left: 50%;
     transform: translateX(-50%);
     min-height: 100vh;
-    
+
     // todo: 08/05/2020  Use variables for cursor
     --app-cursor-default: url("./img/cursors/dwarven_gauntlet_extra_4.png"), auto;
     --app-cursor-pointer: url("./img/cursors/dwarven_gauntlet_extra_6.png"), auto;
