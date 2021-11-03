@@ -4,53 +4,55 @@
 	.content {
 		.items {
 			padding: 8px;
-            flex: 1;
-            
+      flex: 1;
+
 			.items-list {
-                overflow: hidden;
-                
+        overflow: hidden;
+
 				.item {
 					background: rgba(0, 0, 0, 0.8);
 					padding: 4px;
 					margin-bottom: 4px;
 					position: relative;
 					right: 0;
-                    height: 48px;
-                    
+          height: 48px;
+
 					.item-icon {
 						margin-right: 8px;
 					}
 				}
 			}
 		}
-
-        .adventurer {
+    .adventurer {
 			width: 64px;
 			padding-right: 8px;
 			padding-top: 8px;
-			button { width: 100%;
+
 			margin-top: 8px;
+
+      button {
+        width: 100%;
+      }
 		}
 
-        .gold {
+    .gold {
 			.icon {
 				margin-right: 8px;
 			}
 		}
 
-        .take-gold {
+    .take-gold {
 			width: 64px;
 			padding-right: 8px;
 			display: flex;
 			align-items: center;
-            padding-bottom: 8px;
-            
+      padding-bottom: 8px;
+
 			button {
 				// margin-right: 8px;
 				width: 100%;
 			}
 		}
-	}
 
 		.content {
 			.gold {
@@ -61,5 +63,5 @@
 				display: flex;
 			}
 		}
-    }
+  }
 }

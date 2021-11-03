@@ -1,34 +1,35 @@
 @import 'components/styles/variables.scss';
 
 .interaction-modal {
-    color: white;
-    width: 384px;
-    border: 1px solid $color-secondary;
+  color: white;
+  width: 384px;
+  border: 1px solid $color-secondary;
+  background-color: $color-background-overlay;
 }
 
 .interaction-modal .header {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid $color-secondary;
-    padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $color-secondary;
+  padding: 8px;
 }
 
 .interaction-modal .header .title {
-    padding-left: 4px;
+  padding-left: 4px;
 }
 
 .interaction-modal .header .close {
-    padding-right: 4px;
+  padding-right: 4px;
 }
 
 .interaction-modal .header .close::before {
-    content: "x"
+  content: "x"
 }
 
 .interaction-modal .content {
-    display: flex;
+  display: flex;
 }
 
 .interaction-modal .content button {
-    flex: 1;
+  flex: 1;
 }

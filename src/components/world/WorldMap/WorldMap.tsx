@@ -108,7 +108,7 @@ const WorldMap = (props: Props) => {
       const point = nodeLocationToPoint({ x: 0, y: 0 });
       viewport?.moveCenter(point.x, point.y);
     }
-  }, [selectedQuest, canvasHeight])
+  }, [selectedQuest, canvasHeight]);
 
   const viewportRef = useRef<PixiViewport>(null);
   useEffect(() => {
@@ -176,6 +176,7 @@ const WorldMap = (props: Props) => {
     width: canvasWidth,
     height: canvasHeight,
   }
+
   return (
     <div className="world-map">
       <Stage width={canvasWidth} height={canvasHeight} options={options}>
@@ -197,7 +198,7 @@ const WorldMap = (props: Props) => {
             <DebugToggleCombat questName={props.selectedQuestName} />
             {TextManager.getQuestTitle(props.selectedQuestName)}
             {` | `}
-            {selectedQuest?.sceneName && TextManager.getQuestSceneTitle(selectedQuest)}
+            {selectedQuest?.sceneName ? TextManager.getQuestSceneTitle(selectedQuest) : "..."}
           </span>
           <span onClick={handleClose} className="close">x</span>
         </div>
@@ -205,7 +206,6 @@ const WorldMap = (props: Props) => {
     </div>
   );
 };
-
 
 export default WorldMap;
 

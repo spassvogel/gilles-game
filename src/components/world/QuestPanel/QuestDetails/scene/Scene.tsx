@@ -19,8 +19,6 @@ export interface Props {
   setSelectedActor: (id: string) => void;
 }
 
-const DEBUG_ACTIONQUEUE = false;
-
 const Scene = (props: Props) => {
   const settings = useSettings();
   const {selectedActorId, setSelectedActor } = props;
@@ -110,7 +108,7 @@ const Scene = (props: Props) => {
           )}
         </Container>
       </BridgedStage>
-      {DEBUG_ACTIONQUEUE && (
+      {settings.debugSceneShowActionQueue && (
         <div style={{ position: 'absolute', bottom: 0}}>
           <h2>ActionQueue</h2>
           <ul>

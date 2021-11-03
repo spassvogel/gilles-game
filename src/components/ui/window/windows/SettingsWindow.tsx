@@ -54,8 +54,13 @@ const SettingsWindow = () => {
   const handleVerboseCombatLogChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSetting("verboseCombatLog", e.currentTarget.checked));
   }
+
   const handleDebugSceneShowPathableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSetting("debugSceneShowPathable", e.currentTarget.checked));
+  }
+
+  const handleDebugSceneShowDebugSceneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSetting("debugSceneShowActionQueue", e.currentTarget.checked));
   }
 
   return (
@@ -90,6 +95,16 @@ const SettingsWindow = () => {
             type="checkbox"
             checked={settings.debugSceneShowPathable}
             onChange={handleDebugSceneShowPathableChange}
+          />
+        </p>
+        </section>
+        <section>
+          <p>
+          <label>Show action queue tiles in scene</label>
+          <input
+            type="checkbox"
+            checked={settings.debugSceneShowActionQueue}
+            onChange={handleDebugSceneShowDebugSceneChange}
           />
         </p>
         </section>

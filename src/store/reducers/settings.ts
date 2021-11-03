@@ -19,7 +19,8 @@ export const settings: Reducer<SettingsState, SettingsAction> = (state = initial
   return state;
 };
 
-export const initialSettingsState = {
+export const initialSettingsState: SettingsState = {
   verboseCombatLog: false,
-  debugSceneShowPathable: false
+  debugSceneShowPathable: false,
+  debugSceneShowActionQueue: false,
 };

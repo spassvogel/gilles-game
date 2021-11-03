@@ -19,12 +19,16 @@ interface Props {
 }
 
 const LootCache = (props: Props) => {
-  const controller = useContext(SceneControllerContext)!;
+  const controller = useContext(SceneControllerContext);
+
   const adventurer = useAdventurerState(props.adventurerId);
   const freeSlots = adventurerFreeInventorySlots(adventurer);
   const ref = useRef<HTMLDivElement>(null);
-  const cache = controller.getLootCache(props.cacheName);
 
+  if (!controller) {
+    return null;
+  }
+  const cache = controller.getLootCache(props.cacheName);
   if (!cache) {
     return null;
   }
@@ -38,22 +42,24 @@ const LootCache = (props: Props) => {
 
   const handleTakeAllItems = (e: React.MouseEvent) => {
     e.stopPropagation();
-    ref.current!.querySelectorAll(".items-list .item").forEach((el, index) => {
-      if (index >= freeSlots) return;
-      el.classList.add("taking");
-    });
-    gsap.to(".items-list .item.taking", {
-      right: "-100%",
-      stagger: {
-        each: 0.1,
-        ease: "power2.inOut",
-      },
-      onComplete: () => {
-        for (let i = 0; i < freeSlots; i++) {
-          controller.takeItemFromCache(0, props.cacheName, props.adventurerId);
+    if (ref.current) {
+      ref.current.querySelectorAll(".items-list .item").forEach((el, index) => {
+        if (index >= freeSlots) return;
+        el.classList.add("taking");
+      });
+      gsap.to(".items-list .item.taking", {
+        right: "-100%",
+        stagger: {
+          each: 0.1,
+          ease: "power2.inOut",
+        },
+        onComplete: () => {
+          for (let i = 0; i < freeSlots; i++) {
+            controller.takeItemFromCache(0, props.cacheName, props.adventurerId);
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   return (
