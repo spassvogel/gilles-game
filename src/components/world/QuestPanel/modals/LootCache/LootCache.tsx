@@ -11,6 +11,9 @@ import { adventurerFreeInventorySlots } from 'store/helpers/storeHelpers';
 import Icon from 'components/ui/common/Icon';
 import "../styles/lootCache.scss";
 import "../styles/modal.scss";
+import DroppableAdventurerAvatar from "components/ui/adventurer/DroppableAdventurerAvatar";
+import { Item } from "definitions/items/types";
+import { InventoryItemDragInfo } from "components/ui/items/DraggableItemIcon";
 
 interface Props {
   cacheName: string;
@@ -62,6 +65,10 @@ const LootCache = (props: Props) => {
     }
   }
 
+  const handleDrop = (item: InventoryItemDragInfo) => {
+    controller.takeItemFromCache(item.inventorySlot ?? 0, props.cacheName, props.adventurerId);
+  }
+
   return (
     <div className={`interaction-modal loot-cache`} ref={ref}>
       <div className="header">
@@ -80,7 +87,7 @@ const LootCache = (props: Props) => {
             />
           </div>
           <div className="adventurer">
-            <AdventurerAvatar adventurer={adventurer}/>
+            <DroppableAdventurerAvatar adventurer={adventurer} onDrop={handleDrop} />
             <Button onClick={handleTakeAllItems} disabled={freeSlots === 0} size="small">
               {TextManager.get("quest-common-loot-cache-take-all")}
             </Button>

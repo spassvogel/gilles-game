@@ -19,79 +19,79 @@ import { Channel, SoundManager } from "global/SoundManager";
 import "./styles/consumeitem.scss";
 
 export interface Props {
-    adventurerId: string;
-    questName?: string;
-    fromSlot?: number;
+  adventurerId: string;
+  questName?: string;
+  fromSlot?: number;
 
-    onDrop?: (index: number) => void;
-    onConsumed?: () => void;
+  onDrop?: (index: number) => void;
+  onConsumed?: () => void;
 }
 
 const ConsumeItem = (props: Props) => {
-    const { adventurerId, questName, fromSlot, onDrop, onConsumed } = props;
-    const adventurer = useAdventurerState(adventurerId);
-    const quest = useQuest(questName ?? "");
-    const dispatch = useDispatch();
-    const combat = !!quest?.scene?.combat; // if in combat mode, you have to pay AP to consume an item
-    const ap = useMemo(() => {
-      return getAdventurer(quest?.scene?.objects ?? [], adventurerId)?.ap ?? 0
-    }, [quest, adventurerId]);
+  const { adventurerId, questName, fromSlot, onDrop, onConsumed } = props;
+  const adventurer = useAdventurerState(adventurerId);
+  const quest = useQuest(questName ?? "");
+  const dispatch = useDispatch();
+  const combat = !!quest?.scene?.combat; // if in combat mode, you have to pay AP to consume an item
+  const ap = useMemo(() => {
+    return getAdventurer(quest?.scene?.objects ?? [], adventurerId)?.ap ?? 0
+  }, [quest, adventurerId]);
 
-    const enoughAp = ap >= AP_COST_CONSUME;
+  const enoughAp = ap >= AP_COST_CONSUME;
 
-    const handleDrop = (dragInfo: InventoryItemDragInfo) => {
-        if (dragInfo.inventorySlot !== undefined){
-            onDrop?.(dragInfo.inventorySlot)
-        }
+  const handleDrop = (dragInfo: InventoryItemDragInfo) => {
+    if (dragInfo.inventorySlot !== undefined){
+      onDrop?.(dragInfo.inventorySlot)
     }
+  }
 
-    const item = useMemo(() => {
-        if (fromSlot === undefined) return undefined;
-        return adventurer?.inventory[fromSlot];
-    }, [adventurer, fromSlot])
+  const item = useMemo(() => {
+    if (fromSlot === undefined) return undefined;
+    return adventurer?.inventory[fromSlot];
+  }, [adventurer, fromSlot])
 
-    const handleConsumeItem = () => {
-      if (!adventurerId || !fromSlot) return
-      if (combat) {
-        if (!questName) return
-        // Deduct AP from adventurer if in combat
-        dispatch(deductActorAp(questName , adventurerId, AP_COST_CONSUME));
-      }
-      dispatch(consumeItem(adventurerId, fromSlot));
-      SoundManager.playSound("scene/drinking", Channel.scene);
-      onConsumed?.();
-
-      // Add log entry
-      if (adventurer) {
-          dispatch(addLogText("adventurer-drink-potion", { item, adventurer }, LogChannel.common));
-      }
+  const handleConsumeItem = () => {
+    if (!adventurerId || !fromSlot) return
+    if (combat) {
+    if (!questName) return
+    // Deduct AP from adventurer if in combat
+    dispatch(deductActorAp(questName , adventurerId, AP_COST_CONSUME));
     }
-    return (
-        <fieldset className="consume-item">
-            <legend>{TextManager.get("ui-adventurer-info-use-item")}</legend>
-            <div className="content">
+    dispatch(consumeItem(adventurerId, fromSlot));
+    SoundManager.playSound("scene/drinking", Channel.scene);
+    onConsumed?.();
 
-                <ConsumeItemSlot onDrop={handleDrop}>
-                    {item && (
-                         <DraggableItemIcon
-                            index={0}
-                            sourceId={adventurerId}
-                            sourceType={DragSourceType.adventurerConsumeItem}
-                            item={item}
-                            size={IconSize.small}
-                        />
-                    )}
-                </ConsumeItemSlot>
-                <Button
-                    className="consume-button"
-                    onClick={handleConsumeItem}
-                    disabled={!item || (combat && !enoughAp)}
-                >
-                    {TextManager.get("ui-adventurer-info-use-item")}
-                    {combat && " " + TextManager.get("ui-adventurer-info-use-item-ap-cost", { ap: AP_COST_CONSUME })}
-                </Button>
-            </div>
-        </fieldset>
-    )
+    // Add log entry
+    if (adventurer) {
+      dispatch(addLogText("adventurer-drink-potion", { item, adventurer }, LogChannel.common));
+    }
+  }
+  return (
+    <fieldset className="consume-item">
+      <legend>{TextManager.get("ui-adventurer-info-use-item")}</legend>
+      <div className="content">
+
+        <ConsumeItemSlot onDrop={handleDrop}>
+          {item && (
+             <DraggableItemIcon
+              index={0}
+              sourceId={adventurerId}
+              sourceType={DragSourceType.adventurerConsumeItem}
+              item={item}
+              size={IconSize.small}
+            />
+          )}
+        </ConsumeItemSlot>
+        <Button
+          className="consume-button"
+          onClick={handleConsumeItem}
+          disabled={!item || (combat && !enoughAp)}
+        >
+          {TextManager.get("ui-adventurer-info-use-item")}
+          {combat && " " + TextManager.get("ui-adventurer-info-use-item-ap-cost", { ap: AP_COST_CONSUME })}
+        </Button>
+      </div>
+    </fieldset>
+  )
 }
 export default ConsumeItem;
