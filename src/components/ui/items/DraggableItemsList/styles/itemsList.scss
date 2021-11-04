@@ -7,7 +7,7 @@ $border: 2px;
 	padding: 0;
 	margin: 0;
 
-    .item-row {
+  .item-row {
 		display: flex;
 		position: relative;
 		margin-bottom: 6px;
@@ -18,13 +18,18 @@ $border: 2px;
 			position: absolute;
 			left: 0;
 			background: #4d4d4d75;
-	
-			border: $border solid $color-secondary;
-			box-sizing: content-box;
-			width: $item-size-medium + $border;
-			height: $item-size-medium + $border;
-			margin-left: -$border;
-			margin-top: -$border;
+
+      @include border-primary-md;
+
+      &.drop-possible {
+        @include border-gold-md;
+      }
+      &.drop-active {
+        @include border-green-md;
+      }
+      box-sizing: border-box;
+			width: $item-size-medium + $border * 2;
+			height: $item-size-medium + $border * 2;
 		}
 
 		div[draggable="true"] {
@@ -33,13 +38,13 @@ $border: 2px;
 			left: 0;
 		}
 
-        .text {
+    .text {
 			flex: 1;
 			p {
 				margin: 4px;
 			}
 
-            .subtext {
+      .subtext {
 				color: $color-secondary;
 			}
 		}

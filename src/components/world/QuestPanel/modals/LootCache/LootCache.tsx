@@ -43,12 +43,12 @@ const LootCache = (props: Props) => {
   const handleTakeAllItems = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (ref.current) {
-      ref.current.querySelectorAll(".items-list .item").forEach((el, index) => {
+      ref.current.querySelectorAll(".items-list .item-icon").forEach((el, index) => {
         if (index >= freeSlots) return;
         el.classList.add("taking");
       });
-      gsap.to(".items-list .item.taking", {
-        right: "-100%",
+      gsap.to(".items-list .item-icon.taking", {
+        right: "-50vw",
         stagger: {
           each: 0.1,
           ease: "power2.inOut",

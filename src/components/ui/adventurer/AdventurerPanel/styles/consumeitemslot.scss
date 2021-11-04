@@ -1,17 +1,17 @@
 @import 'components/styles/variables.scss';
 
 .consume-item-slot {
-    width: $item-size-small;
-    height: $item-size-small;
-    background-size: contain;
-    background-repeat: no-repeat;
-    @include border-primary-md;
+  width: $item-size-small;
+  height: $item-size-small;
+  background-size: contain;
+  background-repeat: no-repeat;
+  @include border-primary-md;
 
-    &.drop-possible {
-        @include border-gold-md;
-    }
-    &.drop-active {
-        @include border-green-md;
-    }
+  &.drop-possible {
+    @include border-gold-md;
+  }
+  &.drop-active {
+    @include border-green-md;
+  }
 }
 
