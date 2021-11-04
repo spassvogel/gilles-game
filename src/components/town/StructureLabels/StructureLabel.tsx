@@ -5,7 +5,6 @@ import { useStructureState } from "hooks/store/structures";
 import { StructureState } from "store/types/structure";
 import { TextManager } from "global/TextManager";
 import { TextMetrics, TextStyle } from "@pixi/text";
-import { Texture } from "@pixi/core";
 import { BlurFilter } from "@pixi/filter-blur";
 import StructureIconSprite from "./StructureIconSprite";
 

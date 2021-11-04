@@ -4,11 +4,11 @@ export type WorkersAction = {
 }
 
 export const addWorkers = (value: number): WorkersAction => ({
-    type: "addWorkers",
-    value,
+  type: "addWorkers",
+  value,
 })
 
 export const subtractWorkers = (value: number): WorkersAction => ({
-    type: "addWorkers",
-    value: -value,
+  type: "addWorkers",
+  value: -value,
 })

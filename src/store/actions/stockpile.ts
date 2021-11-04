@@ -3,8 +3,8 @@ import { Action } from "redux";
 
 export type StockpileAction =
   { type: "addItem", item: Item, toSlot?: number }
- |  { type: "moveItemInWarehouse", itemType: ItemType, fromSlot: number, toSlot: number }
- |  { type: "removeItem", itemType: ItemType, fromSlot: number }
+| { type: "moveItemInWarehouse", itemType: ItemType, fromSlot: number, toSlot: number }
+| { type: "removeItem", itemType: ItemType, fromSlot: number }
 //  |  { type: "addStockpileSlots"
 
 

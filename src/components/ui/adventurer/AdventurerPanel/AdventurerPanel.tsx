@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { DragSourceType } from 'constants/dragging';
 import Inventory from 'components/ui/inventory/Inventory';
 import useItemDropActions from 'hooks/actions/useItemActions';

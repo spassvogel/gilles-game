@@ -232,6 +232,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
   getSituation(situation: string, adventurerId?: string) {
     switch (situation) {
       case 'door': {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const adventurer = this.getAdventurerById(adventurerId!);
         if (adventurer && adventurer.inventory.some(i => i === "questItem/key")) {
           // Adventurer has key
@@ -280,7 +281,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
     super.takeItemFromCache(itemIndex, name, adventurerId, toSlot);
     const lootCache = this.getLootCache(name);
     if (lootCache){
-      const items = lootCache.items.filter((_: any, index: number) => index !== itemIndex);
+      const items = lootCache.items.filter((_: unknown, index: number) => index !== itemIndex);
       this.updateQuestVars({
         dungeon: { hallway: { chest: { items }}}
       });

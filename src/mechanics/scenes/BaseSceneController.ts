@@ -199,7 +199,7 @@ export class BaseSceneController<TQuestVars> {
     }
   }
 
-  actorSlashing(actorId: string, location: [number, number]) {
+  actorSlashing(actorId: string, _location: [number, number]) {
     SoundManager.playSound("scene/swish", Channel.scene, false, MixMode.singleInstance);
     const actor = this.getSceneActor(actorId);
     if (!actor) throw new Error("No actor found");
@@ -250,7 +250,7 @@ export class BaseSceneController<TQuestVars> {
     // todo: process the hit, take away any HP?
   }
 
-  actorShooting(actorId: string, location: [number, number]) {
+  actorShooting(actorId: string, _location: [number, number]) {
     const actor = this.getSceneActor(actorId);
     if (!actor) throw new Error("No actor found");
     const weapon = this.getActorMainhandItem(actor);

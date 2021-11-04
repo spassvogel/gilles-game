@@ -19,6 +19,7 @@ const getActiveQuests = (quests: QuestStoreState[]) => {
 // Returns the quest from redux store
 export const useQuest = (questName: string) => {
   const questSelector = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     (state: StoreState) => state.quests.find((q) => q.name === questName)!,
     [questName]
   );
