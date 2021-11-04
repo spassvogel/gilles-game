@@ -2,7 +2,7 @@ import { LogChannel } from "store/types/logEntry";
 import { TextEntry } from 'constants/text';
 
 export type LogAction =
-   { type: "addLogEntry", entry: TextEntry, channel: LogChannel, channelContext?: string }
+  { type: "addLogEntry", entry: TextEntry, channel: LogChannel, channelContext?: string }
 
 
 export const addLogText = (key: string, context?: unknown, channel: LogChannel = LogChannel.common, channelContext?: string): LogAction => {

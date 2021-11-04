@@ -2,18 +2,16 @@ import React, { useRef, useContext } from "react";
 import gsap from 'gsap';
 import DraggableItemsList from 'components/ui/items/DraggableItemsList';
 import { TextManager } from 'global/TextManager';
-import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
 import { DragSourceType } from 'constants/dragging';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
 import { useAdventurerState } from 'hooks/store/adventurers';
 import Button from 'components/ui/buttons/Button';
 import { adventurerFreeInventorySlots } from 'store/helpers/storeHelpers';
 import Icon from 'components/ui/common/Icon';
-import "../styles/lootCache.scss";
-import "../styles/modal.scss";
-import DroppableAdventurerAvatar from "components/ui/adventurer/DroppableAdventurerAvatar";
-import { Item } from "definitions/items/types";
 import { InventoryItemDragInfo } from "components/ui/items/DraggableItemIcon";
+import DroppableAdventurerAvatar from "components/ui/adventurer/DroppableAdventurerAvatar";
+import "../styles/modal.scss";
+import "../styles/lootCache.scss";
 
 interface Props {
   cacheName: string;
