@@ -30,7 +30,7 @@ import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { roll3D6 } from "utils/random";
 
 const spritesheetBasePath = "img/scene/actors/";
-export const movementDuration = 500; // time every tile movement takes TODO: set back to 500
+export const movementDuration = 500; // time every tile movement takes
 
 
 /**
@@ -691,7 +691,6 @@ export class BaseSceneController<TQuestVars> {
               acc.push(adventurerObject);
             });
           }
-          // object = null;
         }
         else if (object.type === TiledObjectType.enemySpawn) {
           object.type = TiledObjectType.actor;
@@ -704,7 +703,7 @@ export class BaseSceneController<TQuestVars> {
             object.level = level;
             object.allegiance = Allegiance.enemy;
             object.properties.isSprite = true;
-            object.properties.spritesheet = `${spritesheetBasePath}troll-sword.json`; // todo: take from enemy def
+            object.properties.spritesheet = definition.spritesheet;
           }
         }
 
@@ -754,17 +753,9 @@ export class BaseSceneController<TQuestVars> {
     const adventurers = this.getAdventurers();
     return [
       ...adventurers.map(a => a.spritesheetPath),
-      `${spritesheetBasePath}troll-sword.json`
-    ]
-
-    return [];
-
-  //   // return Array.from(
-  //   //     new Set<string>(
-  //   //         objects.filter(o => o.properties.isSprite)
-  //   //             .map(o => o.properties.spritesheet as string)
-  //   //     )
-  //   // );
+      `${spritesheetBasePath}troll-sword.json`,   // todo: only load enemy sprites that are actually needed
+      `${spritesheetBasePath}troll-axe.json`      // todo: only load enemy sprites that are actually needed
+    ];
   }
 
   public get settings() {

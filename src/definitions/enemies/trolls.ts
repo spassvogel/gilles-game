@@ -1,5 +1,6 @@
 import { WeaponType } from "definitions/items/weapons";
 import { EnemyDefinition } from "./types";
+const spritesheetBasePath = "img/scene/actors/";
 
 type TrollDefinition = {
   [key: string]: EnemyDefinition
@@ -15,7 +16,8 @@ const trolls: TrollDefinition = {
     skills: {
       [WeaponType.sword]: 12,
     },
-    mainHand: "weapon/steelSword"
+    mainHand: "weapon/steelSword",
+    spritesheet: `${spritesheetBasePath}troll-sword.json`
   },
   'troll-manager': {
     attributes: {
@@ -27,7 +29,8 @@ const trolls: TrollDefinition = {
     skills: {
       [WeaponType.axe]: 12,
     },
-    mainHand: "weapon/battleAxe"
+    mainHand: "weapon/battleAxe",
+    spritesheet: `${spritesheetBasePath}troll-axe.json`
   },
   'troll-accountant': {
     attributes: {
@@ -39,7 +42,9 @@ const trolls: TrollDefinition = {
     skills: {
       [WeaponType.axe]: 12,
     },
-    mainHand: "weapon/battleAxe"
+    mainHand: "weapon/battleAxe",
+    spritesheet: `${spritesheetBasePath}troll-axe.json`
+
   }
 }
 

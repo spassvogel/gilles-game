@@ -12,8 +12,8 @@ const dotColor = 0x5203fc;  // purple
 
 // For debugging. Displays a grid
 const MapGrid = PixiComponent('Rectangle', {
-  create: (props: Props) => new Graphics(),
-  applyProps: (instance: Graphics, oldProps, props) => {
+  create: (_props: Props) => new Graphics(),
+  applyProps: (instance: Graphics, _oldProps, props) => {
     const { width, height, gridWidth } = props;
 
     instance.clear();

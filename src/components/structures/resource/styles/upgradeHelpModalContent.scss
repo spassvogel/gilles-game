@@ -1,37 +1,37 @@
 @import 'components/styles/variables.scss';
 
 .upgrade-help-model-content-resource {
-    h3 {
-        padding-left: 0.5rem;
-        margin: 0;
-        padding-bottom: 4px;
-        margin-top: -2px;
+  h3 {
+    padding-left: 0.5rem;
+    margin: 0;
+    padding-bottom: 4px;
+    margin-top: -2px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 32px auto 64px 16px 64px;
+    margin: 32px 0 16px 16px;
+
+    .header {
+      font-weight: bold;
+      border-bottom: 1px solid $color-secondary;
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+
+      &:first-child {
+        // Pull first header left to extend the line
+        margin-left: -1rem;
+      }
     }
 
-    .grid {
-        display: grid;
-        grid-template-columns: 32px auto 64px 16px 64px;
-        margin: 32px 0 16px 16px;
-        
-        .header {
-            font-weight: bold;
-            border-bottom: 1px solid $color-secondary;
-            padding-bottom: 4px;
-            margin-bottom: 8px;
-
-            &:first-child {
-                // Pull first header left to extend the line
-                margin-left: -1rem;
-            }
-        }
-
-        .number {
-            text-align: right;
-            padding-right: 1rem;
-        }
-
-        .arrow {
-            color: $color-text-darker;
-        }
+    .number {
+      text-align: right;
+      padding-right: 1rem;
     }
+
+    .arrow {
+      color: $color-text-darker;
+    }
+  }
 }

@@ -5,7 +5,8 @@ import { Troll } from "./trolls";
 export interface EnemyDefinition {
   attributes: BasicAttributesStoreState;
   skills: SkillsStoreState;           //
-  mainHand: Weapon
+  mainHand: Weapon;
+  spritesheet: string;
 }
 
 export type EnemyType = Troll
