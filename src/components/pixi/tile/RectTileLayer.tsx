@@ -12,7 +12,7 @@ interface Props  {
   spritesheets: {[key: string]: PIXI.Spritesheet}
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const RectTileLayer = PixiComponent<Props, any>("RectTileLayer", {
   create(_props: Props) {
     const tileLayer = new CompositeRectTileLayer();
@@ -36,6 +36,11 @@ const RectTileLayer = PixiComponent<Props, any>("RectTileLayer", {
 
       if (layer.data[i] > 0) {
         const spriteId = `${tileset.name}-${layer.data[i]}`;
+        if (!spritesheet.textures[spriteId]) {
+          console.log(spritesheet)
+          console.log(spriteId)
+          continue;
+        }
         instance.addFrame(spritesheet.textures[spriteId], x, y);
       }
     }

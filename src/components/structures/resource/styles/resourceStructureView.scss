@@ -1,27 +1,27 @@
 @import 'components/styles/variables.scss';
 
 .resource-structure-view {
-    padding: 1rem;
-    
+  padding: 1rem;
+  
 
-    .resource-generation-row {
-        display: flex;
-        margin-top: 2rem;
+  .resource-generation-row {
+    display: flex;
+    margin-top: 2rem;
 
-        .error-full {
-            color: $color-invalid;
-        }
-        .info {
-            flex: .4;
-            display: flex;
-
-            .icon {
-                margin-right: 4px;
-            }
-        }
-
-        .generating {
-            flex: .6;
-        }
+    .error-full {
+      color: $color-invalid;
     }
+    .info {
+      flex: .4;
+      display: flex;
+
+      .icon {
+        margin-right: 4px;
+      }
+    }
+
+    .generating {
+      flex: .6;
+    }
+  }
 }
