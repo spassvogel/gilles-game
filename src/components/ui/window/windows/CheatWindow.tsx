@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useMemo,  useState } from 'react';
 import { getDefinition } from "definitions/items";
-import { Item, ItemType } from "definitions/items/types";
+import { Item, ItemCategory } from "definitions/items/types";
 import { getDefinition as getStructureDefinition, Structure } from "definitions/structures";
 import { StructureState, StructureStoreState } from "store/types/structure";
 import { StructuresStoreState } from "store/types/structures";
@@ -29,7 +29,7 @@ import { addWorkers } from "store/actions/workers";
 import "./styles/cheat.scss";
 
 interface Options {
-  label: ItemType;
+  label: ItemCategory;
   value: string;
   subtext: string
 }
@@ -173,16 +173,16 @@ const CheatWindow = () => {
     setCheatTimeMultiplier(value);
   }
 
-  const items = useMemo(() => (Object.keys(ItemType)
+  const items = useMemo(() => (Object.keys(ItemCategory)
     .filter(k => !isNaN(parseInt(k))) // such a weird way to unumerate an enum.. sigh
     .map((typeKey: string) => {
-      const type = ItemType[typeKey as unknown as number] as unknown as ItemType;
+      const type = ItemCategory[typeKey as unknown as number] as unknown as ItemCategory;
       return {
-        label: type as unknown as ItemType,
+        label: type as unknown as ItemCategory,
         value: "",
         subtext: "",
         options: Object.keys(allItems) 
-          .filter((item: string) => getDefinition(item as Item).itemType as unknown as string == typeKey)
+          .filter((item: string) => getDefinition(item as Item).itemCategory as unknown as string == typeKey)
           .map((item: string) => ({
             value: item,
             label: TextManager.getItemName(item as Item),

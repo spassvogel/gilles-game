@@ -1,10 +1,10 @@
-import { Item, ItemType } from "definitions/items/types";
+import { Item, ItemCategory } from "definitions/items/types";
 import { Action } from "redux";
 
 export type StockpileAction =
   { type: "addItem", item: Item, toSlot?: number }
-| { type: "moveItemInWarehouse", itemType: ItemType, fromSlot: number, toSlot: number }
-| { type: "removeItem", itemType: ItemType, fromSlot: number }
+| { type: "moveItemInWarehouse", itemCategory: ItemCategory, fromSlot: number, toSlot: number }
+| { type: "removeItem", itemCategory: ItemCategory, fromSlot: number }
 //  |  { type: "addStockpileSlots"
 
 
@@ -24,19 +24,19 @@ export const addItemToWarehouse = (item: Item, toSlot?: number): StockpileAction
 }
 
 // When an Item is moved from one slot to the other in the warehouse
-export const moveItemInWarehouse = (itemType: ItemType, fromSlot: number, toSlot: number): StockpileAction => {
+export const moveItemInWarehouse = (itemCategory: ItemCategory, fromSlot: number, toSlot: number): StockpileAction => {
   return {
     type: "moveItemInWarehouse",
-    itemType,
+    itemCategory,
     fromSlot,
     toSlot,
   };
 }
 
-export const removeItemFromWarehouse = (itemType: ItemType, fromSlot: number): StockpileAction => {
+export const removeItemFromWarehouse = (itemCategory: ItemCategory, fromSlot: number): StockpileAction => {
   return {
     type: "removeItem",
-    itemType,
+    itemCategory,
     fromSlot,
   };
 }

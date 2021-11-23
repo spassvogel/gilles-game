@@ -5,7 +5,7 @@ import { StockpileStoreState } from 'store/types/stockpile';
 import { useMemo } from 'react';
 import { Item } from 'definitions/items/types';
 
-// Returns the stockpile of items grouped into ItemType
+// Returns the stockpile of items grouped into itemCategory
 export const useStockpileState = () => {
   return useSelector<StoreState, StockpileStoreState>(state => state.stockpile);
 }

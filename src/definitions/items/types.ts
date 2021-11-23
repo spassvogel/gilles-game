@@ -9,7 +9,7 @@ import { QuestItem } from './questItems';
 import { Trinket } from './trinkets';
 import { Weapon } from './weapons';
 
-export enum ItemType {
+export enum ItemCategory {
   apparel,
   consumable,
   deed,
@@ -24,7 +24,7 @@ export enum ItemType {
 export type Item = Apparel | Deed | Herb | Material | Mineral | Consumable | QuestItem | Trinket | Weapon;
 
 export interface ItemDefinition {
-  itemType: ItemType;
+  itemCategory: ItemCategory;
   iconImg: string;
   rarity?: Rarity;
 //  articleUndefined?: string;  // Key to text

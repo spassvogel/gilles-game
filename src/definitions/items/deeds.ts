@@ -1,9 +1,9 @@
 import { Structure } from "../structures";
-import { Item, ItemDefinition, ItemType } from "./types";
+import { Item, ItemDefinition, ItemCategory } from "./types";
 
 type Prefix = "deed/";
 const PREFIX = "deed/";
-const itemType = ItemType.deed;
+const itemCategory = ItemCategory.deed;
 const basePath = "/img/items/deeds/";
 
 export interface DeedDefinition extends ItemDefinition {
@@ -13,32 +13,32 @@ export interface DeedDefinition extends ItemDefinition {
 const deeds = {
   alchemist: {
     structure: "alchemist" as const,
-    itemType,
+    itemCategory,
     iconImg: `${basePath}deed.png`,
   },
   armoursmith: {
     structure: "armoursmith" as const,
-    itemType,
+    itemCategory,
     iconImg: `${basePath}deed.png`,
   },
   lumbermill: {
     structure: "lumberMill" as const,
-    itemType,
+    itemCategory,
     iconImg: `${basePath}deed.png`,
   },
   tavern: {
     structure: "tavern" as const,
-    itemType,
+    itemCategory,
     iconImg: `${basePath}deed.png`,
   },
   weaponsmith: {
     structure: "weaponsmith" as const,
-    itemType,
+    itemCategory,
     iconImg: `${basePath}deed.png`,
   },
   workshop: {
     structure: "workshop" as const,
-    itemType,
+    itemCategory,
     iconImg: `${basePath}deed.png`,
   }
 }

@@ -71,7 +71,7 @@ const ContextTooltip = () => {
             <div className="header">
               <div className={`name item ${getItemNameClassName(itemDefinition)}`}>{name}</div>
               <div className="secondary">
-                {TextManager.getItemType(itemDefinition.itemType)}
+                {TextManager.getItemCategory(itemDefinition.itemCategory)}
               </div>
             </div>
             <ItemContext item={item} source={source} />

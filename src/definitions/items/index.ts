@@ -6,7 +6,7 @@ import minerals, { Mineral } from "./minerals";
 import consumables, { Consumable } from "./consumables";
 import questItems, { QuestItem } from "./questItems";
 import trinkets, { Trinket } from "./trinkets";
-import { Item, ItemDefinition, ItemType } from "./types";
+import { Item, ItemDefinition, ItemCategory } from "./types";
 import weapons, { Weapon } from "./weapons";
 
 const all = {
@@ -27,25 +27,25 @@ export const getDefinition = (item: Item): ItemDefinition => {
   return all[item]
 }
 
-export const getAllItemsByType = (itemType: ItemType): Item[] => {
-  switch (itemType) {
-    case ItemType.apparel:
+export const getAllItemsByCategory = (category: ItemCategory): Item[] => {
+  switch (category) {
+    case ItemCategory.apparel:
       return Object.keys(apparel) as Apparel[];
-    case ItemType.deed:
+    case ItemCategory.deed:
       return Object.keys(deeds) as Deed[];
-    case ItemType.herb:
+    case ItemCategory.herb:
       return Object.keys(herbs) as Herb[];
-    case ItemType.material:
+    case ItemCategory.material:
       return Object.keys(materials) as Material[];
-    case ItemType.mineral:
+    case ItemCategory.mineral:
       return Object.keys(minerals) as Mineral[];
-    case ItemType.consumable:
+    case ItemCategory.consumable:
       return Object.keys(consumables) as Consumable[];
-    case ItemType.questItem:
+    case ItemCategory.questItem:
       return Object.keys(questItems) as QuestItem[];
-    case ItemType.trinket:
+    case ItemCategory.trinket:
       return Object.keys(trinkets) as Trinket[];
-    case ItemType.weapon:
+    case ItemCategory.weapon:
       return Object.keys(weapons) as Weapon[];
   }
 }

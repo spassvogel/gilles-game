@@ -1,89 +1,89 @@
-import { Item, ItemDefinition, ItemType } from "./types";
+import { Item, ItemDefinition, ItemCategory } from "./types";
 
 type Prefix = "consumable/";
 const PREFIX = "consumable/";
-const itemType = ItemType.consumable;
+const itemCategory = ItemCategory.consumable;
 const basePath = "/img/items/consumables/";
 
 export type ConsumableCategory = "health" | "soma" | "mana"
 export interface ConsumableDefinition extends ItemDefinition {
-    category: ConsumableCategory;
+  category: ConsumableCategory;
 }
 
 const consumables = {
-    minorHealthPotion: {
-        category: 'health',
-        itemType,
-        iconImg: `${basePath}minor-health-potion.png`,
-    },
-    minorManaPotion: {
-        category: 'mana',
-        itemType,
-        iconImg: `${basePath}minor-mana-potion.png`,
-    },
-    minorSoma: {
-        category: 'soma',
-        itemType,
-        iconImg: `${basePath}minor-soma.png`,
-    },
-    lesserHealthPotion: {
-        category: 'health',
-        itemType,
-        iconImg: `${basePath}lesser-health-potion.png`,
-    },
-    lesserManaPotion: {
-        category: 'mana',
-        itemType,
-        iconImg: `${basePath}lesser-mana-potion.png`,
-    },
-    lesserSoma: {
-        category: 'soma',
-        itemType,
-        iconImg: `${basePath}lesser-soma.png`,
-    },
-    majorHealthPotion: {
-        category: 'health',
-        itemType,
-        iconImg: `${basePath}major-health-potion.png`,
-    },
-    majorManaPotion: {
-        category: 'mana',
-        itemType,
-        iconImg: `${basePath}major-mana-potion.png`,
-    },
-    majorSoma: {
-        category: 'soma',
-        itemType,
-        iconImg: `${basePath}major-soma.png`,
-    },
-    greaterHealthPotion: {
-        category: 'health',
-        itemType,
-        iconImg: `${basePath}greater-health-potion.png`,
-    },
-    greaterManaPotion: {
-        category: 'mana',
-        itemType,
-        iconImg: `${basePath}greater-mana-potion.png`,
-    },
-    greaterSoma: {
-        category: 'soma',
-        itemType,
-        iconImg: `${basePath}greater-soma.png`,
-    },
+  minorHealthPotion: {
+    category: 'health',
+    itemCategory,
+    iconImg: `${basePath}minor-health-potion.png`,
+  },
+  minorManaPotion: {
+    category: 'mana',
+    itemCategory,
+    iconImg: `${basePath}minor-mana-potion.png`,
+  },
+  minorSoma: {
+    category: 'soma',
+    itemCategory,
+    iconImg: `${basePath}minor-soma.png`,
+  },
+  lesserHealthPotion: {
+    category: 'health',
+    itemCategory,
+    iconImg: `${basePath}lesser-health-potion.png`,
+  },
+  lesserManaPotion: {
+    category: 'mana',
+    itemCategory,
+    iconImg: `${basePath}lesser-mana-potion.png`,
+  },
+  lesserSoma: {
+    category: 'soma',
+    itemCategory,
+    iconImg: `${basePath}lesser-soma.png`,
+  },
+  majorHealthPotion: {
+    category: 'health',
+    itemCategory,
+    iconImg: `${basePath}major-health-potion.png`,
+  },
+  majorManaPotion: {
+    category: 'mana',
+    itemCategory,
+    iconImg: `${basePath}major-mana-potion.png`,
+  },
+  majorSoma: {
+    category: 'soma',
+    itemCategory,
+    iconImg: `${basePath}major-soma.png`,
+  },
+  greaterHealthPotion: {
+    category: 'health',
+    itemCategory,
+    iconImg: `${basePath}greater-health-potion.png`,
+  },
+  greaterManaPotion: {
+    category: 'mana',
+    itemCategory,
+    iconImg: `${basePath}greater-mana-potion.png`,
+  },
+  greaterSoma: {
+    category: 'soma',
+    itemCategory,
+    iconImg: `${basePath}greater-soma.png`,
+  },
 }
 
 export type Consumable = `${Prefix}${keyof typeof consumables}`;
 const all = Object.entries(consumables).reduce<{[key: string]: ConsumableDefinition}>((acc, [key, value]) => {
-    acc[`${PREFIX}${key}`] = value as ConsumableDefinition;
-    return acc;
+  acc[`${PREFIX}${key}`] = value as ConsumableDefinition;
+  return acc;
 }, {}) as Record<Consumable, ConsumableDefinition>;
 export default all;
 
 export function getDefinition(consumable: Consumable): ConsumableDefinition {
-    return all[consumable];
+  return all[consumable];
 }
 
 export const isConsumable = (item: Item): item is Consumable => {
-    return !!all[item as Consumable];
+  return !!all[item as Consumable];
 }
