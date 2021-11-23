@@ -2,7 +2,7 @@ import { paramCase as toKebab} from "text-param-case";
 import { decode } from 'html-entities';
 import { TextEntry } from "constants/text";
 import { getDefinition } from "definitions/items";
-import { Item, ItemCategory } from "definitions/items/types";
+import { ItemType, ItemCategory } from "definitions/items/types";
 import { Resource } from "definitions/resources";
 import { Structure } from "definitions/structures";
 import * as Handlebars from "handlebars";
@@ -114,15 +114,15 @@ export abstract class TextManager {
     return this.get(`resource-${type}-name`);
   }
 
-  public static getItemName(item: Item): string {
-    return this.get(`item-${toKebab(item)}-name`);
+  public static getItemName(itemType: ItemType): string {
+    return this.get(`item-${toKebab(itemType)}-name`);
   }
 
   public static getItemCategory(itemCategory: ItemCategory): string {
     return this.get(`item-category-${toKebab(ItemCategory[itemCategory])}`);
   }
 
-  public static getItemSubtext(item: Item): string|null {
+  public static getItemSubtext(item: ItemType): string|null {
     return this.getDefault(`item-${toKebab(item)}-subtext`);
   }
 
@@ -186,7 +186,7 @@ export abstract class TextManager {
   }
 }
 
-Handlebars.registerHelper("item:name", (item: Item, article?: string) => {
+Handlebars.registerHelper("item:name", (item: ItemType, article?: string) => {
   if (!getDefinition(item)) {
     return new Handlebars.SafeString(`<<ITEM DEFINITION NOT FOUND: ${item}>>`);
   }
@@ -230,17 +230,17 @@ Handlebars.registerHelper("actor:name", (actor: ActorObject) => {
   }
 });
 
-const itemArticleAuto = (item: Item) => {
+const itemArticleAuto = (item: ItemType) => {
   return itemArticleUndefined(item);
 };
 
-const itemArticleUndefined = (item: Item) => {
+const itemArticleUndefined = (item: ItemType) => {
   const name = TextManager.getItemName(item);
   const articleTemplate = TextManager.getTemplate("common-article-undefined");
   return new Handlebars.SafeString(`${articleTemplate({ noun: name})}`);
 };
 
-const itemArticleDefined = (item: Item) => {
+const itemArticleDefined = (item: ItemType) => {
   const name = TextManager.getItemName(item);
   const articleTemplate = TextManager.getTemplate("common-article-defined");
   return new Handlebars.SafeString(`${articleTemplate({ noun: name})}`);

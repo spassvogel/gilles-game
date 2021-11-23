@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useMemo,  useState } from 'react';
 import { getDefinition } from "definitions/items";
-import { Item, ItemCategory } from "definitions/items/types";
+import { ItemType, ItemCategory } from "definitions/items/types";
 import { getDefinition as getStructureDefinition, Structure } from "definitions/structures";
 import { StructureState, StructureStoreState } from "store/types/structure";
 import { StructuresStoreState } from "store/types/structures";
@@ -50,7 +50,7 @@ const CheatWindow = () => {
     dispatch(addLogText("common-cheat-gold-added", { amount }, LogChannel.common));
   };
 
-  const onCheatItem = (item: Item) => {
+  const onCheatItem = (item: ItemType) => {
     dispatch(addItemToWarehouse(item));
     dispatch(addLogText("common-cheat-item-added", { item }, LogChannel.common));
   };
@@ -126,7 +126,7 @@ const CheatWindow = () => {
   }
 
   const handleCheatItem = (_evt: React.MouseEvent<HTMLButtonElement>) => {
-    const item = selectedItem as Item;
+    const item = selectedItem as ItemType;
     onCheatItem(item);
 
     const text = TextManager.get("common-cheat-item-added", { item });
@@ -181,12 +181,12 @@ const CheatWindow = () => {
         label: type as unknown as ItemCategory,
         value: "",
         subtext: "",
-        options: Object.keys(allItems) 
-          .filter((item: string) => getDefinition(item as Item).itemCategory as unknown as string == typeKey)
+        options: Object.keys(allItems)
+          .filter((item: string) => getDefinition(item as ItemType).itemCategory as unknown as string == typeKey)
           .map((item: string) => ({
             value: item,
-            label: TextManager.getItemName(item as Item),
-            subtext: TextManager.getItemSubtext(item as Item),
+            label: TextManager.getItemName(item as ItemType),
+            subtext: TextManager.getItemSubtext(item as ItemType),
           })
         )
       }
@@ -228,7 +228,7 @@ const CheatWindow = () => {
       <div className="label-numberbox-button">
         <label>Items</label>
         <Select<Options, false>
-          placeholder={"Find item in any category..."}           
+          placeholder={"Find item in any category..."}
           onChange={(e) => setSelectedItem(e?.value)}
           formatGroupLabel={(data) => (
             <div className="item-group">
@@ -238,7 +238,7 @@ const CheatWindow = () => {
           )}
           formatOptionLabel={option => (
             <div className="item-option">
-              <ItemIcon item={option.value as Item} size={IconSize.smallest} />
+              <ItemIcon item={option.value as ItemType} size={IconSize.smallest} />
               <div className="item-label">
                 {option.label}
                 <span>{(option as unknown as { subtext: string}).subtext}</span>

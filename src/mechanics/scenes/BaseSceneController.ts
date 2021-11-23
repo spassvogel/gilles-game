@@ -21,7 +21,7 @@ import { addGold } from 'store/actions/gold';
 import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
-import { Item } from "definitions/items/types";
+import { ItemType } from "definitions/items/types";
 import { Loader, Point } from "pixi.js";
 import { AP_COST_MOVE, AP_COST_SHOOT, AP_COST_SLASH, calculateInitialAP } from "mechanics/combat";
 import { xpToLevel } from "mechanics/adventurers/levels";
@@ -454,7 +454,7 @@ export class BaseSceneController<TQuestVars> {
     this.dispatch(addItemToInventory(adventurerId, item, toSlot))
   }
 
-  discardItem(item: Item, adventurerId: string) {
+  discardItem(item: ItemType, adventurerId: string) {
     const adventurer = this.getAdventurerById(adventurerId);
     const itemIndex = adventurer?.inventory.indexOf(item);
     if (itemIndex !== undefined) {

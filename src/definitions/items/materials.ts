@@ -1,4 +1,4 @@
-import { Item, ItemDefinition, ItemCategory } from "./types";
+import { ItemType, ItemDefinition, ItemCategory } from "./types";
 
 type Prefix = "material/";
 const PREFIX = "material/";
@@ -101,7 +101,7 @@ const materials = {
 export type Material = `${Prefix}${keyof typeof materials}`;
 const all = Object.entries(materials).reduce<{[key: string]: ItemDefinition}>((acc, [key, value]) => {
   acc[`${PREFIX}${key}`] = value;
-  return acc;  
+  return acc;
 }, {}) as Record<Material, ItemDefinition>;
 export default all;
 
@@ -109,6 +109,6 @@ export function getDefinition(material: Material): ItemDefinition {
   return all[material];
 }
 
-export const isMaterial = (item: Item): item is Material => {
+export const isMaterial = (item: ItemType): item is Material => {
   return !!all[item as Material];
 }

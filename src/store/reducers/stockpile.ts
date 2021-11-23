@@ -1,7 +1,7 @@
 
 import { StockpileAction } from "store/actions/stockpile";
 import { Reducer } from "redux";
-import { Item, ItemCategory } from "definitions/items/types";
+import { ItemType, ItemCategory } from "definitions/items/types";
 import allItems, { getAllItemsByCategory } from "definitions/items";
 import { StockpileStoreState } from "store/types/stockpile";
 import { getDefinition } from "definitions/structures";
@@ -31,8 +31,8 @@ export const getInitialStockpile = (): StockpileStoreState => {
         result[itemCategoryName as keyof typeof result].push(null)
       } else {
         const randomItem = getRandomItemOfType(itemCategory);
-        const category = result[itemCategoryName as keyof typeof result] as Item[];
-        category.push(randomItem as Item);
+        const category = result[itemCategoryName as keyof typeof result] as ItemType[];
+        category.push(randomItem as ItemType);
       }
     }
   })
@@ -40,16 +40,16 @@ export const getInitialStockpile = (): StockpileStoreState => {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getRandomItem = (): Item => {
+const getRandomItem = (): ItemType => {
   const all = Object.keys(allItems)
   const randomIndex = Math.floor(Math.random() * all.length);
-  return all[randomIndex] as Item;
+  return all[randomIndex] as ItemType;
 }
 
-const getRandomItemOfType = (itemCategory: ItemCategory): Item => {
+const getRandomItemOfType = (itemCategory: ItemCategory): ItemType => {
   const all = getAllItemsByCategory(itemCategory)
   const randomIndex = Math.floor(Math.random() * all.length);
-  return all[randomIndex] as Item;
+  return all[randomIndex] as ItemType;
 }
 
 /**

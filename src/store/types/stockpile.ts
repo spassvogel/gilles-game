@@ -1,14 +1,14 @@
 import { Consumable } from "definitions/items/consumables";
-import { Item } from "definitions/items/types";
+import { ItemType } from "definitions/items/types";
 
 export interface StockpileStoreState {
-  "apparel": (Item|null)[],
-  "deed": (Item|null)[],
-  "herb": (Item|null)[],
-  "material": (Item|null)[],
-  "mineral": (Item|null)[],
+  "apparel": (ItemType|null)[],
+  "deed": (ItemType|null)[],
+  "herb": (ItemType|null)[],
+  "material": (ItemType|null)[],
+  "mineral": (ItemType|null)[],
   "consumable": (Consumable|null)[],
-  "questItem": (Item|null)[],
-  "trinket": (Item|null)[],
-  "weapon": (Item|null)[],
+  "questItem": (ItemType|null)[],
+  "trinket": (ItemType|null)[],
+  "weapon": (ItemType|null)[],
 }

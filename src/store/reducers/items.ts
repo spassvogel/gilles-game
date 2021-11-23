@@ -3,13 +3,13 @@ import { StockpileAction } from "store/actions/stockpile";
 import { Reducer } from "redux";
 import { getDefinition } from 'definitions/structures';
 import { WarehouseStructureDefinition } from 'definitions/structures/types';
-import { Item } from "definitions/items/types";
+import { ItemType } from "definitions/items/types";
 import allItems from "definitions/items";
 
 // Items in warehouse
-export const getItemsInitialState = (): (Item|null)[] => {
+export const getItemsInitialState = (): (ItemType|null)[] => {
   // Generate some random stuff
-  const result: (Item|null)[] = [];
+  const result: (ItemType|null)[] = [];
   const { maxStockpile } = getDefinition<WarehouseStructureDefinition>("warehouse").levels[0];
   for (let i = 0; i < maxStockpile; i++) {
     if (Math.random() < .5) {
@@ -22,10 +22,10 @@ export const getItemsInitialState = (): (Item|null)[] => {
   return result;
 }
 
-const getRandomItem = (): Item => {
+const getRandomItem = (): ItemType => {
   const all = Object.keys(allItems)
   const randomIndex = Math.floor(Math.random() * all.length);
-  return all[randomIndex] as Item;
+  return all[randomIndex] as ItemType;
 }
 
 /**
@@ -33,7 +33,7 @@ const getRandomItem = (): Item => {
  * @param state
  * @param action
  */
-export const items: Reducer<(Item|null)[], StockpileAction> = (state = getItemsInitialState(), action) => {
+export const items: Reducer<(ItemType|null)[], StockpileAction> = (state = getItemsInitialState(), action) => {
   switch (action.type) {
     case "addItem": {
       // toSlot is optional

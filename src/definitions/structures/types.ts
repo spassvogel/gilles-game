@@ -1,4 +1,4 @@
-import { Item } from "definitions/items/types";
+import { ItemType } from "definitions/items/types";
 import { ResourceStoreState } from "store/types/resources";
 import { ProducableItem } from "store/types/structure";
 import { CostStoreState } from "../production/types";
@@ -29,7 +29,7 @@ export interface ResourceStructureDefinition extends StructureDefinition {
 
 interface HarvestDefinition {
   amount: number;
-  lootTable: {[key in Item]?: number};
+  lootTable: {[key in ItemType]?: number};
 }
 
 export interface ResourceStructureLevelDefinition extends StructureLevelDefinition {

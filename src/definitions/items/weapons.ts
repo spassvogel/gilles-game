@@ -1,4 +1,4 @@
-import { Item, ItemDefinition, ItemCategory } from "./types";
+import { ItemType, ItemDefinition, ItemCategory } from "./types";
 import { Rarity } from 'constants/items';
 
 type Prefix = "weapon/";
@@ -372,6 +372,6 @@ export function getDefinition(weapon: Weapon): WeaponDefinition {
   return all[weapon];
 }
 
-export const isWeapon = (item: Item): item is Weapon => {
+export const isWeapon = (item: ItemType): item is Weapon => {
   return !!all[item as Weapon];
 }

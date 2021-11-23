@@ -1,22 +1,22 @@
 import * as React from "react";
 import { DragSourceType } from "constants/dragging";
-import {Item} from "definitions/items/types";
+import {ItemType} from "definitions/items/types";
 import InventorySlot from "./InventorySlot";
 import DraggableItemIcon, { InventoryItemDragInfo } from '../items/DraggableItemIcon';
 import { IconSize } from '../common/Icon';
 import "./styles/inventory.scss";
 
 export interface Props {
-    items: (Item|null)[];
-    sourceId?: string;   // who does this inventory belong to?
-    sourceType: DragSourceType;
-    iconSize?: IconSize;
-    className?: string;
-    disabledIndex?: number;
+  items: (ItemType|null)[];
+  sourceId?: string;   // who does this inventory belong to?
+  sourceType: DragSourceType;
+  iconSize?: IconSize;
+  className?: string;
+  disabledIndex?: number;
 
-    onDropItem: (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string) => void;
-    onStartDrag?: (item: Item, fromSlot: number) => void;
-    canDropHere?: (dragInfo: InventoryItemDragInfo) => boolean;
+  onDropItem: (item: ItemType, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string) => void;
+  onStartDrag?: (item: ItemType, fromSlot: number) => void;
+  canDropHere?: (dragInfo: InventoryItemDragInfo) => boolean;
 }
 
 /**
@@ -24,61 +24,61 @@ export interface Props {
  * @param props
  */
 const Inventory = (props: Props) => {
-    const { items, disabledIndex, canDropHere, onStartDrag } = props;
-    const slots = [];
-    for (let i = 0; i < items.length; i++) {
-        let contents;
-        const item = items[i];
-        const handleDrop = (dragInfo: InventoryItemDragInfo) => {
-            if (dragInfo.inventorySlot === i && dragInfo.sourceType === props.sourceType && dragInfo.sourceId === props.sourceId) {
-                return;
-            }
-            if (props.onDropItem && dragInfo.inventorySlot !== undefined) {
-                const {inventorySlot: fromSlot} = dragInfo;
-                props.onDropItem(dragInfo.item, fromSlot, i, dragInfo.sourceType, dragInfo.sourceId);
-           }
-        };
-
-        const handleCheckDrop = (dragInfo: InventoryItemDragInfo) => {
-            return canDropHere ? canDropHere(dragInfo) : true;
-        }
-
-        const handleStartDrag = () => {
-            if (item) {
-                onStartDrag?.(item, i);
-            }
-        }
-
-        if (item) {
-            contents = (
-                <DraggableItemIcon
-                    index={i}
-                    sourceId={props.sourceId}
-                    sourceType={props.sourceType}
-                    item={item}
-                    onStartDrag={handleStartDrag}
-                />
-            );
+  const { items, disabledIndex, canDropHere, onStartDrag } = props;
+  const slots = [];
+  for (let i = 0; i < items.length; i++) {
+    let contents;
+    const item = items[i];
+    const handleDrop = (dragInfo: InventoryItemDragInfo) => {
+      if (dragInfo.inventorySlot === i && dragInfo.sourceType === props.sourceType && dragInfo.sourceId === props.sourceId) {
+        return;
+      }
+      if (props.onDropItem && dragInfo.inventorySlot !== undefined) {
+        const {inventorySlot: fromSlot} = dragInfo;
+        props.onDropItem(dragInfo.item, fromSlot, i, dragInfo.sourceType, dragInfo.sourceId);
        }
+    };
 
-        const slot = (
-            <InventorySlot
-                key={`inventory-slot-${i}`}
-                item={item}
-                size={props.iconSize}
-                disabled={disabledIndex === i}
-                onDrop={handleDrop}
-                canDropHere={handleCheckDrop}
-            >
-                {contents}
-            </InventorySlot>
-        );
-        slots.push(slot);
-   }
-    return (
-        <div className={`inventory ${props.className ? props.className : ""}`}>
-            {slots}
-        </div>
+    const handleCheckDrop = (dragInfo: InventoryItemDragInfo) => {
+      return canDropHere ? canDropHere(dragInfo) : true;
+    }
+
+    const handleStartDrag = () => {
+      if (item) {
+        onStartDrag?.(item, i);
+      }
+    }
+
+    if (item) {
+      contents = (
+        <DraggableItemIcon
+          index={i}
+          sourceId={props.sourceId}
+          sourceType={props.sourceType}
+          item={item}
+          onStartDrag={handleStartDrag}
+        />
+      );
+     }
+
+    const slot = (
+      <InventorySlot
+        key={`inventory-slot-${i}`}
+        item={item}
+        size={props.iconSize}
+        disabled={disabledIndex === i}
+        onDrop={handleDrop}
+        canDropHere={handleCheckDrop}
+      >
+        {contents}
+      </InventorySlot>
     );
+    slots.push(slot);
+   }
+  return (
+    <div className={`inventory ${props.className ? props.className : ""}`}>
+      {slots}
+    </div>
+  );
 };
 export default Inventory;

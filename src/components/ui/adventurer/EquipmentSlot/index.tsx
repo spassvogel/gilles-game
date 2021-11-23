@@ -4,7 +4,7 @@ import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, 
 import { DragType } from "constants/dragging";
 import { getDefinition } from "definitions/items";
 import { ApparelDefinition } from "definitions/items/apparel";
-import { Item, ItemCategory } from "definitions/items/types";
+import { ItemType, ItemCategory } from "definitions/items/types";
 import { WeaponDefinition, WeaponTypeDefinition, WeaponClassification } from 'definitions/items/weapons';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import "./styles/equipmentslot.scss";
@@ -32,7 +32,7 @@ export enum EquipmentSlotType {
 }
 
 // Returns true if item can be slotted in equipmentSlotType
-export const itemAndEquipmentSlotMatch = (item: Item, equipmentSlotType: EquipmentSlotType) => {
+export const itemAndEquipmentSlotMatch = (item: ItemType, equipmentSlotType: EquipmentSlotType) => {
   switch (equipmentSlotType) {
     case EquipmentSlotType.chest:
     case EquipmentSlotType.feet:
@@ -97,7 +97,7 @@ const EquipmentSlot = (props: React.PropsWithChildren<Props & DropSourceProps>) 
     className.push("drop-active");
   } else if (canDrop) {
     className.push("drop-possible");
-  } 
+  }
 
   return connectDropTarget(
     <div className={className.join(' ')} title={EquipmentSlotType[props.type]}>
@@ -112,7 +112,7 @@ export default DropTarget<Props, DropSourceProps>(
   collect,
 )(EquipmentSlot);
 
-const checkEquipment = (item: Item, equipmentType: EquipmentSlotType) => {
+const checkEquipment = (item: ItemType, equipmentType: EquipmentSlotType) => {
   const itemDefinition = getDefinition(item);
   if (itemDefinition.itemCategory !== ItemCategory.apparel) {
     return false;

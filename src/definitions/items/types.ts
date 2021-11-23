@@ -21,7 +21,7 @@ export enum ItemCategory {
   weapon,
 }
 
-export type Item = Apparel | Deed | Herb | Material | Mineral | Consumable | QuestItem | Trinket | Weapon;
+export type ItemType = Apparel | Deed | Herb | Material | Mineral | Consumable | QuestItem | Trinket | Weapon;
 
 export interface ItemDefinition {
   itemCategory: ItemCategory;

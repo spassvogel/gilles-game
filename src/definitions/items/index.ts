@@ -6,7 +6,7 @@ import minerals, { Mineral } from "./minerals";
 import consumables, { Consumable } from "./consumables";
 import questItems, { QuestItem } from "./questItems";
 import trinkets, { Trinket } from "./trinkets";
-import { Item, ItemDefinition, ItemCategory } from "./types";
+import { ItemType, ItemDefinition, ItemCategory } from "./types";
 import weapons, { Weapon } from "./weapons";
 
 const all = {
@@ -23,11 +23,11 @@ const all = {
 
 export default all;
 
-export const getDefinition = (item: Item): ItemDefinition => {
+export const getDefinition = (item: ItemType): ItemDefinition => {
   return all[item]
 }
 
-export const getAllItemsByCategory = (category: ItemCategory): Item[] => {
+export const getAllItemsByCategory = (category: ItemCategory): ItemType[] => {
   switch (category) {
     case ItemCategory.apparel:
       return Object.keys(apparel) as Apparel[];

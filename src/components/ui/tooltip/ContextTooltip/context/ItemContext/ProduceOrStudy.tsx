@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Item } from 'definitions/items/types';
+import { ItemType } from 'definitions/items/types';
 import { getDefinition as getProductionDefinition, getProductionStructureForItem } from 'definitions/production';
 import { useStructureState } from 'hooks/store/structures';
 import { Structure } from 'definitions/structures';
@@ -18,96 +18,96 @@ import { STUDY_TIME } from 'mechanics/studying';
 import Button from 'components/ui/buttons/Button';
 
 interface Props {
-    item: ProducableItem;
+  item: ProducableItem;
 }
 
 const ProduceOrStudy = (props: Props) => {
-    const structure = getProductionStructureForItem(props.item);
-    const itemDefinition = getItemDefinition(props.item);
-    if (itemDefinition.unique) {
-        return (
-            <p>Unique item</p>
-        )
-    }
-    if (!structure) {
-        return null;
-    }
+  const structure = getProductionStructureForItem(props.item);
+  const itemDefinition = getItemDefinition(props.item);
+  if (itemDefinition.unique) {
     return (
-        <ProducedAtStructure item={props.item} structure={structure} />
+      <p>Unique item</p>
     )
+  }
+  if (!structure) {
+    return null;
+  }
+  return (
+    <ProducedAtStructure item={props.item} structure={structure} />
+  )
 }
 // refactor 2021-02-19 becomes 'CraftedAtStructure'
 const ProducedAtStructure = (props: Props & { structure: Structure}) => {
-    const {structure} = props;
-    const structureStore: ProductionStructureStoreState = useStructureState(structure);
-    const studyTasks = useStudyingTasksStateByStructure(structure);
-    const dispatch = useDispatch();
+  const {structure} = props;
+  const structureStore: ProductionStructureStoreState = useStructureState(structure);
+  const studyTasks = useStudyingTasksStateByStructure(structure);
+  const dispatch = useDispatch();
 
-    if (!structure) {
-        return null;
-    }
+  if (!structure) {
+    return null;
+  }
 
-    // const structureDefinition = getStructureDefinition<ProductionStructureDefinition>(structure);
-    // Can already be produced
-    if (structureStore.produces.some((item: Item) => item === props.item)){
-        return (
-            <p>Constructed at:&nbsp;
-                <Link to={getStructureLink(structure)} >
-                    { TextManager.getStructureName(structure) }
-                </Link>
-            </p>
-        )
-    }
+  // const structureDefinition = getStructureDefinition<ProductionStructureDefinition>(structure);
+  // Can already be produced
+  if (structureStore.produces.some((item: ItemType) => item === props.item)){
+    return (
+      <p>Constructed at:&nbsp;
+        <Link to={getStructureLink(structure)} >
+          { TextManager.getStructureName(structure) }
+        </Link>
+      </p>
+    )
+  }
 
-    // Currently studied
-    const task = studyTasks.find(sT => sT.name === props.item);
-    if (task) {
-        return (
-            <p>
-                <Link to={getStructureLink(structure)} >
-                    {TextManager.get("ui-tooltip-study-currently-studying")}
-                </Link>
-                {formatDuration(task.timeRemaining, true)}
-            </p>
-        )
-    }
+  // Currently studied
+  const task = studyTasks.find(sT => sT.name === props.item);
+  if (task) {
+    return (
+      <p>
+        <Link to={getStructureLink(structure)} >
+          {TextManager.get("ui-tooltip-study-currently-studying")}
+        </Link>
+        {formatDuration(task.timeRemaining, true)}
+      </p>
+    )
+  }
 
-    // Cant study because the structure is not high lvl enough
-    const productionDefinition = getProductionDefinition(props.item);
-    if (structureStore.level < (productionDefinition.levelRequired || 0) || structureStore.state !== StructureState.Built) {
-
-        return (
-            <p className="invalid">
-                {TextManager.get("ui-tooltip-study-requires-structure-level", { structure, level: (productionDefinition.levelRequired || 0) + 1})}
-            </p>
-        )
-    }
-
-    const startStudy = () => {
-        const callbacks = [
-            addItemToToProduces(props.structure, props.item)
-        ];
-
-        const studyTime = STUDY_TIME;
-        const start = startTask(TaskType.studyItem,
-            props.item,
-            `${structure}.study`,
-            studyTime,
-            callbacks);
-        dispatch(start);
-    }
+  // Cant study because the structure is not high lvl enough
+  const productionDefinition = getProductionDefinition(props.item);
+  if (structureStore.level < (productionDefinition.levelRequired || 0) || structureStore.state !== StructureState.Built) {
 
     return (
-        <p>
-            <Button onClick={startStudy} size="small">
-                {TextManager.get("ui-tooltip-study-start-study")}
-            </Button>
-            Start studying this item at {' '}
-            <Link to={getStructureLink(structure)} >
-                { TextManager.getStructureName(structure) }
-            </Link>
-        </p>
-    );
+      <p className="invalid">
+        {TextManager.get("ui-tooltip-study-requires-structure-level", { structure, level: (productionDefinition.levelRequired || 0) + 1})}
+      </p>
+    )
+  }
+
+  const startStudy = () => {
+    const callbacks = [
+      addItemToToProduces(props.structure, props.item)
+    ];
+
+    const studyTime = STUDY_TIME;
+    const start = startTask(TaskType.studyItem,
+      props.item,
+      `${structure}.study`,
+      studyTime,
+      callbacks);
+    dispatch(start);
+  }
+
+  return (
+    <p>
+      <Button onClick={startStudy} size="small">
+        {TextManager.get("ui-tooltip-study-start-study")}
+      </Button>
+      Start studying this item at {' '}
+      <Link to={getStructureLink(structure)} >
+        { TextManager.getStructureName(structure) }
+      </Link>
+    </p>
+  );
 }
 
 export default ProduceOrStudy;

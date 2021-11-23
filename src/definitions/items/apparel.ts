@@ -1,4 +1,4 @@
-import { Item, ItemDefinition, ItemCategory } from "./types";
+import { ItemType, ItemDefinition, ItemCategory } from "./types";
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 
 type Prefix = "apparel/";
@@ -469,7 +469,7 @@ const apparel = {
 export type Apparel = `${Prefix}${keyof typeof apparel}`;
 const all = Object.entries(apparel).reduce<{[key: string]: ApparelDefinition}>((acc, [key, value]) => {
   acc[`${PREFIX}${key}`] = value;
-  return acc;  
+  return acc;
 }, {}) as Record<Apparel, ApparelDefinition>;
 export default all;
 
@@ -477,6 +477,6 @@ export function getDefinition(apparel: Apparel): ApparelDefinition {
   return all[apparel];
 }
 
-export const isApparel = (item: Item): item is Apparel => {
+export const isApparel = (item: ItemType): item is Apparel => {
   return !!all[item as Apparel];
 }

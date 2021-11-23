@@ -4,7 +4,7 @@ import { Action } from "redux";
 import { removeItemFromInventory, assignEquipment, addItemToInventory, removeEquipment, moveItemInInventory } from 'store/actions/adventurers';
 import { removeItemFromWarehouse, addItemToWarehouse, moveItemInWarehouse } from 'store/actions/stockpile';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
-import { Item, ItemCategory } from 'definitions/items/types';
+import { ItemType, ItemCategory } from 'definitions/items/types';
 import { DragSourceType } from 'constants/dragging';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
@@ -87,7 +87,7 @@ const useItemDropActions = () => {
   };
 
   // When an item gets dropped on an adventurer inventory
-  const dropItemInventory = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, adventurer: AdventurerStoreState, sourceId?: string): void => {
+  const dropItemInventory = (item: ItemType, fromSlot: number, toSlot: number, sourceType: DragSourceType, adventurer: AdventurerStoreState, sourceId?: string): void => {
     const actions: Action[] = [];
 
     switch (sourceType) {
@@ -141,7 +141,7 @@ const useItemDropActions = () => {
   };
 
   // When an item gets dropped on the warehouse inventory
-  const dropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId = ""): void => {
+  const dropItemWarehouse = (item: ItemType, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId = ""): void => {
     const actions: Action[] = [];
     const definition = getDefinition(item)
     const stockpileCategory = ItemCategory[definition.itemCategory] as keyof StockpileStoreState
@@ -166,7 +166,7 @@ const useItemDropActions = () => {
           removeItemFromInventory(sourceId, fromSlot),
           addItemToWarehouse(item, toSlot)
         )
-        
+
         const otherItem = stockpile[stockpileCategory][toSlot];
         if (otherItem) {
           actions.push(

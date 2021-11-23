@@ -1,4 +1,4 @@
-import { Item } from 'definitions/items/types';
+import { ItemType } from 'definitions/items/types';
 import { getDefinition, Structure } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureType } from "definitions/structures/types";
 import { StoreState } from "store/types";
@@ -11,7 +11,7 @@ import { ResourceStructureState } from 'store/types/structure';
  /*
   *   */
 export type HarvestUpdate = {
-  [key in Structure]?: Item[]
+  [key in Structure]?: ItemType[]
 }
 
 export const HARVEST_INTERVAL = ONE_HOUR * 3; // every three hours constitutes a harvest tick.
@@ -33,7 +33,7 @@ const getHarvest = (state: StoreState): HarvestUpdate|null => {
       if (levelDefinition.harvest?.lootTable){
         const state = structures[structure] as ResourceStructureState;
         let itemCount = state.harvest?.length ?? 0;
-        const items: Item[] = [];
+        const items: ItemType[] = [];
         while (itemCount < levelDefinition.harvest.amount) {
           items.push(pick(levelDefinition.harvest.lootTable))
           itemCount ++;

@@ -4,7 +4,7 @@ import Button from 'components/ui/buttons/Button';
 import UpDownValue from 'components/ui/common/UpDownValue';
 import ItemsBox from 'components/ui/items/ItemsBox';
 import ResourcesCost from 'components/structures/production/ResourcesCost';
-import { Item } from 'definitions/items/types';
+import { ItemType } from 'definitions/items/types';
 import { TextManager } from 'global/TextManager';
 import { useResourcesState } from 'hooks/store/resources';
 import { useWorkersFreeState } from 'hooks/store/useWorkersState';
@@ -44,7 +44,7 @@ const CraftingDetails = (props: Props) => {
   let missingAtLeastOneItem = false;
   const costMaterials = produces.cost.materials;
   if (costMaterials) {
-    missingAtLeastOneItem = costMaterials.some((i: Item) => stockpileState.indexOf(i) === -1);
+    missingAtLeastOneItem = costMaterials.some((i: ItemType) => stockpileState.indexOf(i) === -1);
   }
 
   const disabled = missingAtLeastOneResource || missingAtLeastOneItem || workersAssigned < 1;

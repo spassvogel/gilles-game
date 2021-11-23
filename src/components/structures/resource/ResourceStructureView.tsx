@@ -16,7 +16,7 @@ import { useStructureLevel, useStructureState } from 'hooks/store/structures';
 import ResourceGenerationRow from './ResourceGenerationRow';
 import { Resource } from 'definitions/resources';
 import DraggableItemsList from "components/ui/items/DraggableItemsList";
-import { Item } from "definitions/items/types";
+import { ItemType } from "definitions/items/types";
 import { DragSourceType } from "constants/dragging";
 import HarvestProgress from "./HarvestProgress";
 import IconButton from "components/ui/buttons/IconButton";
@@ -37,9 +37,9 @@ const ResourceStructureView = (props: Props) => {
   // Fetch needed values from store
   const {level, workers} = useStructureState(structure);
   const workersFree = useSelector<StoreState, number>((store) => selectFreeWorkers(store));
-  const harvest = useSelector<StoreState, Item[]>((store) => selectHarvest(store, structure as ResourceStructure));
+  const harvest = useSelector<StoreState, ItemType[]>((store) => selectHarvest(store, structure as ResourceStructure));
   const levelDefinition = useStructureLevel<ResourceStructureLevelDefinition>(structure);
-  
+
   // Reducer dispatch
   const dispatch = useDispatch();
   const handleWorkersDown = () => {
@@ -67,7 +67,7 @@ const ResourceStructureView = (props: Props) => {
     event.stopPropagation();
   }
 
-  const handleItemTake = (item: Item, index: number) => {
+  const handleItemTake = (item: ItemType, index: number) => {
     dispatch(removeItemFromHarvest(structure, index));
     dispatch(addItemToWarehouse(item))
   }
@@ -90,7 +90,7 @@ const ResourceStructureView = (props: Props) => {
           { /** Generates this resource */}
           <h3>Generates</h3>
           { Object.keys(levelDefinition.generates).map(r => <ResourceGenerationRow structure={structure} resource={r as Resource} key={r} />)}
-  
+
           { levelDefinition.harvest && (
             <>
               { /** Generates these items */}
@@ -98,15 +98,15 @@ const ResourceStructureView = (props: Props) => {
               <ReactMarkdown>
                 {TextManager.get(`ui-structure-resource-harvest-${structure}`)}
               </ReactMarkdown>
-              <HarvestProgress structure={structure} /> 
+              <HarvestProgress structure={structure} />
               <DraggableItemsList
                 items={harvest}
                 sourceType={DragSourceType.resourceStructure}
                 sourceId={structure}
                 slots={levelDefinition.harvest?.amount}
-                renderButton={(item: Item, index: number) => (<IconButton iconImg={warehouseIcon} onClick={() => handleItemTake(item, index)} >Take</IconButton>)}
+                renderButton={(item: ItemType, index: number) => (<IconButton iconImg={warehouseIcon} onClick={() => handleItemTake(item, index)} >Take</IconButton>)}
               />
-               
+
             </>
           )}
         </section>
@@ -117,6 +117,6 @@ const ResourceStructureView = (props: Props) => {
 
 export default ResourceStructureView;
 
-const selectHarvest = (store: StoreState, structure: ResourceStructure): Item[] => {
+const selectHarvest = (store: StoreState, structure: ResourceStructure): ItemType[] => {
   return store.structures[structure].harvest ?? [];
 }

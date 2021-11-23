@@ -1,5 +1,5 @@
 import { Structure } from "../structures";
-import { Item, ItemDefinition, ItemCategory } from "./types";
+import { ItemType, ItemDefinition, ItemCategory } from "./types";
 
 type Prefix = "deed/";
 const PREFIX = "deed/";
@@ -46,7 +46,7 @@ const deeds = {
 export type Deed = `${Prefix}${keyof typeof deeds}`;
 const all = Object.entries(deeds).reduce<{[key: string]: DeedDefinition}>((acc, [key, value]) => {
   acc[`${PREFIX}${key}`] = value;
-  return acc;  
+  return acc;
 }, {}) as Record<Deed, DeedDefinition>;
 export default all;
 
@@ -54,6 +54,6 @@ export function getDefinition(deed: Deed): DeedDefinition {
   return all[deed] as unknown as DeedDefinition;
 }
 
-export const isDeed = (item: Item): item is Deed => {
+export const isDeed = (item: ItemType): item is Deed => {
   return !!all[item as Deed];
 }

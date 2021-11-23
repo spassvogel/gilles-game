@@ -1,4 +1,4 @@
-import { Item } from "definitions/items/types";
+import { ItemType } from "definitions/items/types";
 import { getDefinition } from "definitions/quests";
 import * as React from "react";
 import { AdventurerStoreState } from "store/types/adventurer";
@@ -73,7 +73,7 @@ const QuestBoard = (props: Props) => {
     if (!questDefinition.requiredItems) {
       return true;
     }
-    return questDefinition.requiredItems.every((item: Item) => {
+    return questDefinition.requiredItems.every((item: ItemType) => {
       const amountRequired = (questDefinition.requiredItems)?.filter((i) => i === item).length;
       return items.filter((i) => i === item).length >= (amountRequired ?? 0);
     });

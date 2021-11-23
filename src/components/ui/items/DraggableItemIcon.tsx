@@ -1,7 +1,7 @@
 import * as React from "react";
 import { IconSize } from 'components/ui/common/Icon';
 import { DragSourceType, DragType } from "constants/dragging";
-import { Item } from "definitions/items/types";
+import { ItemType } from "definitions/items/types";
 import ItemIcon from "./ItemIcon";
 import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from "react-dnd";
 import { useMemo } from "react";
@@ -9,7 +9,7 @@ import { ItemSource } from "constants/items";
 
 export interface Props {
   index: number;
-  item: Item;
+  item: ItemType;
   sourceType: DragSourceType;
   sourceId?: string;
   size?: IconSize;
@@ -24,7 +24,7 @@ interface CollectedProps {
 }
 
 export interface InventoryItemDragInfo { // todo: rename to ItemDragInfo
-  item: Item;
+  item: ItemType;
   inventorySlot?: number;
   sourceId?: string;
   sourceType: DragSourceType;

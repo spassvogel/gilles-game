@@ -3,7 +3,7 @@ import { ContextType } from 'constants/context';
 import { TooltipManager, Context, EVENT_CONTEXT_UPDATED } from 'global/TooltipManager';
 import { TextManager } from 'global/TextManager';
 import ItemContext from './context/ItemContext';
-import { Item, ItemDefinition } from 'definitions/items/types';
+import { ItemType, ItemDefinition } from 'definitions/items/types';
 import { Resource } from 'definitions/resources';
 import ResourceContext from './context/ResourceContext';
 import Tooltip from '../Tooltip';
@@ -63,7 +63,7 @@ const ContextTooltip = () => {
         );
       }
       case ContextType.item: {
-        const item = info as Item;
+        const item = info as ItemType;
         const name = TextManager.getItemName(item);
         const itemDefinition = getDefinition(item) as ItemDefinition;
         return (

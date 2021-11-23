@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { Item } from "definitions/items/types";
+import { ItemType } from "definitions/items/types";
 import { WeaponType } from 'definitions/items/weapons';
 import { TraitDefinition } from 'definitions/traits/types';
 import { BasicAttribute } from 'store/types/adventurer';
@@ -16,4 +16,4 @@ export enum ContextType {
   component
 }
 
-export type ContextInfo = Item | TraitDefinition | WeaponType | string | ReactNode | BasicAttribute | ActorObject;
+export type ContextInfo = ItemType | TraitDefinition | WeaponType | string | ReactNode | BasicAttribute | ActorObject;

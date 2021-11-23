@@ -1,4 +1,4 @@
-import { Item, ItemDefinition, ItemCategory } from "./types";
+import { ItemType, ItemDefinition, ItemCategory } from "./types";
 
 type Prefix = "consumable/";
 const PREFIX = "consumable/";
@@ -84,6 +84,6 @@ export function getDefinition(consumable: Consumable): ConsumableDefinition {
   return all[consumable];
 }
 
-export const isConsumable = (item: Item): item is Consumable => {
+export const isConsumable = (item: ItemType): item is Consumable => {
   return !!all[item as Consumable];
 }

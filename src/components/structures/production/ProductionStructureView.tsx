@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Item } from "definitions/items/types";
+import { ItemType } from "definitions/items/types";
 import { Structure } from "definitions/structures";
 import { ProductionStructureDefinition } from "definitions/structures/types";
 import { TextManager } from "global/TextManager";
@@ -67,7 +67,7 @@ const ProductionStructureView = (props: Props) => {
             {craftingTasks.map((t) => (
               <TickingProgressbar
                 key={`${t.name}${t.startTime}`}
-                label={`${TextManager.getItemName(t.name as Item)} (${formatDuration(t.timeRemaining)})`}
+                label={`${TextManager.getItemName(t.name as ItemType)} (${formatDuration(t.timeRemaining)})`}
                 progress={t.progress}
               />
             ))}
@@ -78,7 +78,7 @@ const ProductionStructureView = (props: Props) => {
             {studyingTasks.map((t) => (
               <TickingProgressbar
                 key={`${t.name}${t.startTime}`}
-                label={`${TextManager.getItemName(t.name as Item)} (${formatDuration(t.timeRemaining)})`}
+                label={`${TextManager.getItemName(t.name as ItemType)} (${formatDuration(t.timeRemaining)})`}
                 progress={t.progress}
               />
             ))}

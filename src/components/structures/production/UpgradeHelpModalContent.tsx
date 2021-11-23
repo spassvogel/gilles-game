@@ -3,7 +3,7 @@ import { Structure } from 'definitions/structures';
 import { ProductionStructureDefinition } from 'definitions/structures/types';
 import { IconSize } from 'components/ui/common/Icon';
 import ItemIcon from 'components/ui/items/ItemIcon';
-import { Item } from "definitions/items/types";
+import { ItemType } from "definitions/items/types";
 import { useStructureDefinition } from "hooks/store/structures";
 import { TextManager } from "global/TextManager";
 import "./styles/upgradeHelpModalContent.scss"
@@ -18,7 +18,7 @@ const UpgradeHelpModalContent = (props: Props) => {
   const structureDefinition = useStructureDefinition<ProductionStructureDefinition>(structure);
   const nextLevel = structureDefinition.levels[level + 1];
 
-  const renderRow = (item: Item) => {
+  const renderRow = (item: ItemType) => {
     return (
       <ItemIcon key={item} item={item} size={IconSize.small} />
     )
