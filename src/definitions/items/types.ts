@@ -26,6 +26,7 @@ export type ItemType = Apparel | Deed | Herb | Material | Mineral | Consumable |
 export type Item<T = ItemType> = {
   type: T;
   quantity?: number; // defaults to 1
+  durability?: number; // 0 to 1
 }
 
 export interface ItemDefinition {

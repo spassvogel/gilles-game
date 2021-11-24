@@ -2,13 +2,13 @@ import * as React from "react";
 import { ContextType } from "constants/context";
 import { ItemSource, Rarity } from "constants/items";
 import { getDefinition } from "definitions/items";
-import { ItemType } from "definitions/items/types";
+import { Item } from "definitions/items/types";
 import { TooltipManager } from 'global/TooltipManager';
 import Icon, { IconSize } from 'components/ui/common/Icon';
 import "./styles/itemIcon.scss";
 
 export interface Props {
-  itemType: ItemType;
+  item: Item;
   onClick?: (event: React.MouseEvent) => void;
   size?: IconSize;
   showContext?: boolean;
@@ -16,8 +16,8 @@ export interface Props {
 }
 
 const ItemIcon = (props: Props) => {
-  const { itemType: item, size, source } = props;
-  const itemDefinition = getDefinition(item);
+  const { item, size, source } = props;
+  const itemDefinition = getDefinition(item.type);
 
   if (!itemDefinition) {
     throw `could not find definition for ${item}`;

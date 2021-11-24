@@ -18,9 +18,9 @@ const UpgradeHelpModalContent = (props: Props) => {
   const structureDefinition = useStructureDefinition<ProductionStructureDefinition>(structure);
   const nextLevel = structureDefinition.levels[level + 1];
 
-  const renderRow = (item: ItemType) => {
+  const renderRow = (type: ItemType) => {
     return (
-      <ItemIcon key={item} itemType={item} size={IconSize.small} />
+      <ItemIcon key={type} item={{type}} size={IconSize.small} />
     )
   }
 

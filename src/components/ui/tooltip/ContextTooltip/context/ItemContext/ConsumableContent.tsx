@@ -2,16 +2,17 @@ import * as React from "react";
 import { TextManager } from 'global/TextManager';
 import { Consumable } from "definitions/items/consumables";
 import { ItemSource } from "constants/items";
+import { Item } from "definitions/items/types";
 
 
 interface Props {
-  item: Consumable;
+  item: Item<Consumable>;
   source?: ItemSource;
 }
 
 const ConsumableContent = (props: Props) => {
   const { item } = props;
-  const subtext = TextManager.getItemSubtext(item);
+  const subtext = TextManager.getItemSubtext(item.type);
 
   return (
     <div>

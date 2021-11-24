@@ -529,6 +529,7 @@
 
     "ui-tooltip-actor-level": "Lvl {{level}}",
     "ui-tooltip-damage-reduction": "Damage reduction: {{damageReduction}}",
+    "ui-tooltip-durability": "Durability: {{durability}}%",
     "ui-tooltip-study-requires-structure-level": "Study: Requires {{structure:name structure}} level {{level}}",
     "ui-tooltip-resource-produce-row": "Produced at {{structure:link structure}} ({{amount}}/minute)",
     "ui-tooltip-resource-produce-row-notbuilt": "Produced at {{structure}} (not constructed)",

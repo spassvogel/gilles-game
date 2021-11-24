@@ -31,8 +31,8 @@ const spritesheetBasePath = "img/scene/actors/";
 export const initialAdventurers: AdventurerStoreState[] = [{
   id: "c4a5d270",
   equipment: {
-    [EquipmentSlotType.head]: { type: "apparel/cowl" },
-    [EquipmentSlotType.chest]: { type: "apparel/chest" },
+    [EquipmentSlotType.head]: { type: "apparel/cowl", durability: 0.25 },
+    [EquipmentSlotType.chest]: { type: "apparel/chest", durability: 0.5 },
     [EquipmentSlotType.hands]: { type: "apparel/clothGloves" },
     [EquipmentSlotType.shoulders]: { type: "apparel/shoulders2" },
     [EquipmentSlotType.legs]: { type: "apparel/pants2" },

@@ -85,7 +85,7 @@ const DraggableItemIcon = (props: Props & CollectedProps) => {
   return connectDragSource((
     <div>
       <ItemIcon
-        itemType={item.type}
+        item={item}
         source={source}
         onClick={handleClick}
         size={size}

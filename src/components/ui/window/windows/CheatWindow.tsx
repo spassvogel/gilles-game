@@ -239,7 +239,7 @@ const CheatWindow = () => {
           )}
           formatOptionLabel={option => (
             <div className="item-option">
-              <ItemIcon itemType={option.value as ItemType} size={IconSize.smallest} />
+              <ItemIcon item={ {type: option.value as ItemType}} size={IconSize.smallest} />
               <div className="item-label">
                 {option.label}
                 <span>{(option as unknown as { subtext: string}).subtext}</span>

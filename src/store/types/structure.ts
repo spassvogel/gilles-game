@@ -16,6 +16,7 @@ export interface StructureStoreState {
 }
 
 export type ProducableItem = Weapon | Apparel | QuestItem;
+
 export interface ProductionStructureStoreState extends StructureStoreState {
   produces: ProducableItem[];
 }

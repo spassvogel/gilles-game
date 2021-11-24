@@ -25,14 +25,14 @@ const CraftingArea = (props: Props) => {
       <div> { TextManager.get("ui-structure-production-craft") }</div>
       <div className="crafting-area">
         <ul className="vertical-tab-bar">
-          {storeState.produces.map((item) => (
+          {storeState.produces.map((type) => (
             <li
-              key={`craft${item}`}
-              onClick={() => handleSelectCraftingItem(item)}
-              className={selectedItem === item ? "selected" : ""}
+              key={`craft${type}`}
+              onClick={() => handleSelectCraftingItem(type)}
+              className={selectedItem === type ? "selected" : ""}
             >
-              <ItemIcon itemType={item} size={IconSize.smallest} />
-              { TextManager.getItemName(item) }
+              <ItemIcon item={{ type }} size={IconSize.smallest} />
+              { TextManager.getItemName(type) }
             </li>
           ))}
         </ul>

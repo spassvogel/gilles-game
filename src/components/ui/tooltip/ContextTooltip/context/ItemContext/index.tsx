@@ -1,40 +1,37 @@
 import * as React from "react";
-import { isApparel } from "definitions/items/apparel";
-import { isDeed } from "definitions/items/deeds";
-import { ItemType } from "definitions/items/types";
-import { isWeapon } from "definitions/items/weapons";
+import { Apparel, isApparel } from "definitions/items/apparel";
+import { Deed, isDeed } from "definitions/items/deeds";
+import { Item } from "definitions/items/types";
+import { isWeapon, Weapon } from "definitions/items/weapons";
 import DeedContent from './DeedContent';
 import WeaponContent from './WeaponContent';
 import ApparelContent from './ApparelContent';
 import { TextManager } from 'global/TextManager';
-import { isConsumable } from "definitions/items/consumables";
+import { Consumable, isConsumable } from "definitions/items/consumables";
 import ConsumableContent from "./ConsumableContent";
 import { ItemSource } from "constants/items";
 import "./styles/itemContext.scss";
 
 export interface Props {
-  item: ItemType;
+  item: Item;
   source?: ItemSource;
 }
 
 const ItemContext = (props: Props) => {
   const { item, source } = props;
-  if (isDeed(item)) {
-    return <DeedContent item={item} />;
+  if (isDeed(item.type)) {
+    return <DeedContent item={item as Item<Deed>} />;
   }
-  if (isWeapon(item)) {
-    return <WeaponContent item={item} />;
+  if (isWeapon(item.type)) {
+    return <WeaponContent item={item as Item<Weapon>} />;
   }
-  if (isWeapon(item)) {
-    return <WeaponContent item={item} />;
+  if (isApparel(item.type)) {
+    return <ApparelContent item={item as Item<Apparel>} />;
   }
-  if (isApparel(item)) {
-    return <ApparelContent item={item} />;
+  if (isConsumable(item.type)) {
+    return <ConsumableContent item={item as Item<Consumable>} source={source} />;
   }
-  if (isConsumable(item)) {
-    return <ConsumableContent item={item} source={source} />;
-  }
-  const subtext = TextManager.getItemSubtext(item);
+  const subtext = TextManager.getItemSubtext(item.type);
   return (subtext && (<p className="subtext">{`"${subtext}"`}</p>)) || null;
 }
 export default ItemContext;
