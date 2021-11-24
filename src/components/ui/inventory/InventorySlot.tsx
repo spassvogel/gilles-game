@@ -1,7 +1,7 @@
 import * as React from "react";
 import { PropsWithChildren } from 'react';
 import { DragSourceType, DragType } from "constants/dragging";
-import { ItemType } from "definitions/items/types";
+import { Item } from "definitions/items/types";
 import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
 import { InventoryItemDragInfo } from '../items/DraggableItemIcon';
 import { IconSize } from '../common/Icon';
@@ -14,14 +14,14 @@ const dropTarget: DropTargetSpec<Props> = {
   canDrop(props: Props, monitor: DropTargetMonitor) {
     const dragInfo: InventoryItemDragInfo = monitor.getItem();
     if (dragInfo.sourceType === DragSourceType.adventurerEquipment && dragInfo.inventorySlot !== undefined) {
-      return props.item == null || itemAndEquipmentSlotMatch(props.item, dragInfo.inventorySlot);
+      return props.item == null || itemAndEquipmentSlotMatch(props.item.type, dragInfo.inventorySlot);
     }
     return props.canDropHere ? props.canDropHere(dragInfo) : true;
   },
 };
 
 export interface Props {
-  item: ItemType | null;
+  item: Item | null;
   size?: IconSize;
   disabled?: boolean;
   onDrop: (info: InventoryItemDragInfo) => void;

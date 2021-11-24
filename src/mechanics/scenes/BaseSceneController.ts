@@ -21,7 +21,7 @@ import { addGold } from 'store/actions/gold';
 import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
-import { ItemType } from "definitions/items/types";
+import { Item, ItemType } from "definitions/items/types";
 import { Loader, Point } from "pixi.js";
 import { AP_COST_MOVE, AP_COST_SHOOT, AP_COST_SLASH, calculateInitialAP } from "mechanics/combat";
 import { xpToLevel } from "mechanics/adventurers/levels";
@@ -205,7 +205,7 @@ export class BaseSceneController<TQuestVars> {
     if (!actor) throw new Error("No actor found");
     const weapon = this.getActorMainhandItem(actor);
     if (!weapon) throw new Error("No weapon found");
-    const definition = getWeaponDefinition(weapon);
+    const definition = getWeaponDefinition(weapon.type);
 
     switch(definition.weaponType) {
       case WeaponType.knife: {
@@ -226,7 +226,7 @@ export class BaseSceneController<TQuestVars> {
     if (!actor) throw new Error("No actor found");
     const weapon = this.getActorMainhandItem(actor);
     if (!weapon) throw new Error("No weapon found");
-    const definition = getWeaponDefinition(weapon)
+    const definition = getWeaponDefinition(weapon.type)
     const skills = this.getActorSkills(actor);
     const roll = roll3D6();
     if (roll <= (skills[definition.weaponType] ?? 0)) {
@@ -255,7 +255,7 @@ export class BaseSceneController<TQuestVars> {
     if (!actor) throw new Error("No actor found");
     const weapon = this.getActorMainhandItem(actor);
     if (!weapon) throw new Error("No weapon found");
-    const definition = getWeaponDefinition(weapon)
+    const definition = getWeaponDefinition(weapon.type)
     switch(definition.weaponType) {
       case WeaponType.bow: {
         SoundManager.playSound("scene/bow", Channel.scene, false, MixMode.singleInstance);
@@ -276,7 +276,7 @@ export class BaseSceneController<TQuestVars> {
     if (!actor) throw new Error("No actor found");
     const weapon = this.getActorMainhandItem(actor);
     if (!weapon) throw new Error("No weapon found");
-    const definition = getWeaponDefinition(weapon)
+    const definition = getWeaponDefinition(weapon.type)
     const skills = this.getActorSkills(actor);
     const roll = roll3D6();
     if (roll <= (skills[definition.weaponType] ?? 0)) {
@@ -454,11 +454,20 @@ export class BaseSceneController<TQuestVars> {
     this.dispatch(addItemToInventory(adventurerId, item, toSlot))
   }
 
-  discardItem(item: ItemType, adventurerId: string) {
+  discardItem(item: Item, adventurerId: string) {
     const adventurer = this.getAdventurerById(adventurerId);
     const itemIndex = adventurer?.inventory.indexOf(item);
     if (itemIndex !== undefined) {
       this.dispatch(removeItemFromInventory(adventurerId, itemIndex));
+    }
+  }
+
+  // Discards first item of type
+  discardItemType(itemType: ItemType, adventurerId: string) {
+    const adventurer = this.getAdventurerById(adventurerId);
+    const item = adventurer?.inventory.find(i => i?.type === itemType);
+    if (item) {
+      this.discardItem(item, adventurerId);
     }
   }
 

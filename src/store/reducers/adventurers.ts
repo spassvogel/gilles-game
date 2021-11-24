@@ -31,13 +31,13 @@ const spritesheetBasePath = "img/scene/actors/";
 export const initialAdventurers: AdventurerStoreState[] = [{
   id: "c4a5d270",
   equipment: {
-    [EquipmentSlotType.head]: "apparel/cowl",
-    [EquipmentSlotType.chest]: "apparel/chest",
-    [EquipmentSlotType.hands]: "apparel/clothGloves",
-    [EquipmentSlotType.shoulders]: "apparel/shoulders2",
-    [EquipmentSlotType.legs]: "apparel/pants2",
-    [EquipmentSlotType.feet]: "apparel/boots3",
-    [EquipmentSlotType.mainHand]: "weapon/longbow"
+    [EquipmentSlotType.head]: { type: "apparel/cowl" },
+    [EquipmentSlotType.chest]: { type: "apparel/chest" },
+    [EquipmentSlotType.hands]: { type: "apparel/clothGloves" },
+    [EquipmentSlotType.shoulders]: { type: "apparel/shoulders2" },
+    [EquipmentSlotType.legs]: { type: "apparel/pants2" },
+    [EquipmentSlotType.feet]: { type: "apparel/boots3" },
+    [EquipmentSlotType.mainHand]: { type: "weapon/longbow" }
     // offHand: Item.indomitableCarapace
   },
   basicAttributes: generateRandomAttributes(),
@@ -55,12 +55,12 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [WeaponType.crossbow]: 10,
     [WeaponType.bow]: 10
   },
-  inventory: [ "deed/lumbermill", null, "weapon/simpleCrossbow", "weapon/dagger", "weapon/khopesh", null, "weapon/steelSword", null,  "consumable/greaterManaPotion",  "consumable/majorHealthPotion",  null,  "weapon/steelShield",  null,  null,  null,  null],
+  inventory: [ { type: "deed/lumbermill" }, null, { type: "weapon/simpleCrossbow" }, { type: "weapon/dagger" }, { type: "weapon/khopesh" }, null, { type: "weapon/steelSword" }, null,  { type: "consumable/greaterManaPotion" },  { type: "consumable/majorHealthPotion" },  null,  { type: "weapon/steelShield" },  null,  null,  null,  null],
 }, {
   id: "2e655832",
   equipment: {
-    [EquipmentSlotType.feet]: "apparel/boots2",
-    [EquipmentSlotType.mainHand]: "weapon/simpleCrossbow"
+    [EquipmentSlotType.feet]: { type: "apparel/boots2" },
+    [EquipmentSlotType.mainHand]: { type: "weapon/simpleCrossbow" }
   },
   basicAttributes: generateRandomAttributes(),
   name: "Addison Chilson",
@@ -77,12 +77,12 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [WeaponType.crossbow]: 12,
     [WeaponType.staff]: 13
   },
-  inventory: [ "weapon/simpleCrossbow", null, "consumable/greaterSoma", null, null, null, "apparel/boots1", "apparel/chainmailHood", "apparel/nomadHelmet", "apparel/plateChest4", null, "weapon/buckler", null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, "apparel/plateHelmet", "apparel/cowl"],
+  inventory: [ { type: "weapon/simpleCrossbow" }, null, { type: "consumable/greaterSoma" }, null, null, null, { type: "apparel/boots1" }, { type: "apparel/chainmailHood"} , { type: "apparel/nomadHelmet" }, { type: "apparel/plateChest4" }, null, { type: "weapon/buckler" }, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, { type: "apparel/plateHelmet" }, { type: "apparel/cowl" }]
 }, {
   id: "ec6f1050",
   equipment: {
-    [EquipmentSlotType.feet]: "apparel/boots3",
-    [EquipmentSlotType.mainHand]: "weapon/warhammer"
+    [EquipmentSlotType.feet]: { type: "apparel/boots3" },
+    [EquipmentSlotType.mainHand]: { type: "weapon/warhammer" }
     // offHand: Item.aegisOfValor
   },
   basicAttributes: generateRandomAttributes(),
@@ -100,12 +100,12 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   avatarImg: `${avatarImgBasePath}/male/m_09.png`,
   spritesheetPath: `${spritesheetBasePath}skeleton.json`,
   color: AdventurerColor.black,
-  inventory: [ "weapon/greatswordOfGwai", null, null, null, "weapon/berserkerShield" ],
+  inventory: [{ type: "weapon/greatswordOfGwai" }, null, null, null, { type: "weapon/berserkerShield" }],
 }, {
   id: "d299f98a",
   basicAttributes: generateRandomAttributes(),
   equipment: {
-    [EquipmentSlotType.mainHand]: "weapon/steelSword"
+    [EquipmentSlotType.mainHand]: { type: "weapon/steelSword" }
   },
   name: "Mike Keith",
   flavor: true,
@@ -119,7 +119,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   skills: {
     [WeaponType.sword]: 13
   },
-  inventory: [ null, null, null, null, "weapon/khopesh", "apparel/hornedHelmet", "weapon/woodenBulwark" ],
+  inventory: [ null, null, null, null, { type: "weapon/khopesh" }, { type: "apparel/hornedHelmet" }, { type: "weapon/woodenBulwark"} ],
 }, {
   id: "96c686c3",
   equipment: {},
@@ -136,7 +136,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   skills: {
     [WeaponType.axe]: 12
   },
-  inventory: [ null, null, null, "weapon/goldenShield" ],
+  inventory: [ null, null, null, { type: "weapon/goldenShield" }],
 }, {
   id: "250d1a9d",
   basicAttributes: generateRandomAttributes(),
@@ -165,7 +165,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   room: 3,
   avatarImg: `${avatarImgBasePath}/female/f_16.png`,
   spritesheetPath: `${spritesheetBasePath}troll-sword.json`,
-  inventory: [ "weapon/greatswordOfGwai", null, null, null ],
+  inventory: [ { type: "weapon/greatswordOfGwai" }, null, null, null ],
   skills: {
     [WeaponType.axe]: 10
   },
@@ -196,7 +196,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   room: 6,
   avatarImg: `${avatarImgBasePath}/male/m_26.png`,
   spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
-  inventory: [ "weapon/greatswordOfGwai", null, null, null, "apparel/shoulders1", "apparel/fedora", "apparel/greaves2" ],
+  inventory: [ { type: "weapon/greatswordOfGwai" }, null, null, null, { type: "apparel/shoulders1" }, { type: "apparel/fedora" }, { type: "apparel/greaves2" }],
   skills: {
     [WeaponType.axe]: 3
   },
@@ -211,7 +211,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   room: 7,
   avatarImg: `${avatarImgBasePath}/male/m_33.png`,
   spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
-  inventory: [ "weapon/greatswordOfGwai", null, null, null ],
+  inventory: [ { type: "weapon/greatswordOfGwai" }, null, null, null ],
   skills: {
     [WeaponType.axe]: 10
   },
@@ -230,10 +230,10 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
         throw new Error(`No adventurer ${adventurerId} found`)
       }
       const consumable = adventurer.inventory[fromSlot];
-      if (!consumable || !isConsumable(consumable)) {
+      if (!consumable || !isConsumable(consumable.type)) {
         throw new Error(`No potion found at index ${fromSlot} `)
       }
-      const definition = getDefinition(consumable);
+      const definition = getDefinition(consumable.type);
       // todo: 2021-09-02 Drink potions
       switch (definition.category) {
         case "health":

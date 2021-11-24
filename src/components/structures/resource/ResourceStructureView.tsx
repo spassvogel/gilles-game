@@ -16,15 +16,15 @@ import { useStructureLevel, useStructureState } from 'hooks/store/structures';
 import ResourceGenerationRow from './ResourceGenerationRow';
 import { Resource } from 'definitions/resources';
 import DraggableItemsList from "components/ui/items/DraggableItemsList";
-import { ItemType } from "definitions/items/types";
+import { Item, ItemType } from "definitions/items/types";
 import { DragSourceType } from "constants/dragging";
 import HarvestProgress from "./HarvestProgress";
 import IconButton from "components/ui/buttons/IconButton";
 import warehouseIcon from "components/structures/styles/images/warehouse/icon.png"
 import { addItemToWarehouse } from "store/actions/stockpile";
-import './styles/resourceStructureView.scss';
 import UpgradeHelpModal from "../UpgradeHelpModal";
 import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
+import './styles/resourceStructureView.scss';
 
 export interface Props  {
   structure: Structure;
@@ -37,7 +37,7 @@ const ResourceStructureView = (props: Props) => {
   // Fetch needed values from store
   const {level, workers} = useStructureState(structure);
   const workersFree = useSelector<StoreState, number>((store) => selectFreeWorkers(store));
-  const harvest = useSelector<StoreState, ItemType[]>((store) => selectHarvest(store, structure as ResourceStructure));
+  const harvest = useSelector<StoreState, Item[]>((store) => selectHarvest(store, structure as ResourceStructure));
   const levelDefinition = useStructureLevel<ResourceStructureLevelDefinition>(structure);
 
   // Reducer dispatch
@@ -67,7 +67,7 @@ const ResourceStructureView = (props: Props) => {
     event.stopPropagation();
   }
 
-  const handleItemTake = (item: ItemType, index: number) => {
+  const handleItemTake = (item: Item, index: number) => {
     dispatch(removeItemFromHarvest(structure, index));
     dispatch(addItemToWarehouse(item))
   }
@@ -104,7 +104,7 @@ const ResourceStructureView = (props: Props) => {
                 sourceType={DragSourceType.resourceStructure}
                 sourceId={structure}
                 slots={levelDefinition.harvest?.amount}
-                renderButton={(item: ItemType, index: number) => (<IconButton iconImg={warehouseIcon} onClick={() => handleItemTake(item, index)} >Take</IconButton>)}
+                renderButton={(item: Item, index: number) => (<IconButton iconImg={warehouseIcon} onClick={() => handleItemTake(item, index)} >Take</IconButton>)}
               />
 
             </>
@@ -117,6 +117,6 @@ const ResourceStructureView = (props: Props) => {
 
 export default ResourceStructureView;
 
-const selectHarvest = (store: StoreState, structure: ResourceStructure): ItemType[] => {
+const selectHarvest = (store: StoreState, structure: ResourceStructure): Item[] => {
   return store.structures[structure].harvest ?? [];
 }

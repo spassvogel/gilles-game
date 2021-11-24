@@ -4,7 +4,7 @@ import { Action } from "redux";
 import { removeItemFromInventory, assignEquipment, addItemToInventory, removeEquipment, moveItemInInventory } from 'store/actions/adventurers';
 import { removeItemFromWarehouse, addItemToWarehouse, moveItemInWarehouse } from 'store/actions/stockpile';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
-import { ItemType, ItemCategory } from 'definitions/items/types';
+import { Item, ItemCategory } from 'definitions/items/types';
 import { DragSourceType } from 'constants/dragging';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
@@ -51,7 +51,7 @@ const useItemDropActions = () => {
       }
       // Dragged from warehouse.
       case DragSourceType.warehouse: {
-        const definition = getDefinition(item)
+        const definition = getDefinition(item.type)
         actions.push(
           removeItemFromWarehouse(definition.itemCategory, dragInfo.inventorySlot ?? -1),
           assignEquipment(adventurer.id, slotType, item),
@@ -87,7 +87,7 @@ const useItemDropActions = () => {
   };
 
   // When an item gets dropped on an adventurer inventory
-  const dropItemInventory = (item: ItemType, fromSlot: number, toSlot: number, sourceType: DragSourceType, adventurer: AdventurerStoreState, sourceId?: string): void => {
+  const dropItemInventory = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, adventurer: AdventurerStoreState, sourceId?: string): void => {
     const actions: Action[] = [];
 
     switch (sourceType) {
@@ -98,7 +98,7 @@ const useItemDropActions = () => {
 
       // Dragged from warehouse
       case DragSourceType.warehouse: {
-        const definition = getDefinition(item)
+        const definition = getDefinition(item.type)
         actions.push(
           removeItemFromWarehouse(definition.itemCategory, fromSlot),
           addItemToInventory(adventurer.id, item, toSlot),
@@ -141,9 +141,9 @@ const useItemDropActions = () => {
   };
 
   // When an item gets dropped on the warehouse inventory
-  const dropItemWarehouse = (item: ItemType, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId = ""): void => {
+  const dropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId = ""): void => {
     const actions: Action[] = [];
-    const definition = getDefinition(item)
+    const definition = getDefinition(item.type)
     const stockpileCategory = ItemCategory[definition.itemCategory] as keyof StockpileStoreState
 
     switch (sourceType) {

@@ -1,4 +1,4 @@
-import { ItemType } from 'definitions/items/types';
+import { Item, ItemType } from 'definitions/items/types';
 import { ResourceStoreState } from 'store/types/resources';
 
 
@@ -10,7 +10,7 @@ export interface CostStoreState {
 }
 
 export interface ProductionDefinition {
-  item: ItemType;
+  item: Item;
   cost: CostStoreState;
   levelRequired?: number;
 }

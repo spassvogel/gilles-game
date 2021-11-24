@@ -85,8 +85,9 @@ const CraftingDetails = (props: Props) => {
       addItemToWarehouse(productionDefinition.item),
       increaseWorkers(structure, workers),
     ];
-    const start = startTask(TaskType.craftItem,
-      productionDefinition.item,
+    const start = startTask(
+      TaskType.craftItem,
+      productionDefinition.item.type,
       `${structure}.craft`,
       craftingTime,
       callbacks);

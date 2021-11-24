@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useMemo,  useState } from 'react';
 import { getDefinition } from "definitions/items";
-import { ItemType, ItemCategory } from "definitions/items/types";
+import { ItemType, ItemCategory, Item } from "definitions/items/types";
 import { getDefinition as getStructureDefinition, Structure } from "definitions/structures";
 import { StructureState, StructureStoreState } from "store/types/structure";
 import { StructuresStoreState } from "store/types/structures";
@@ -50,7 +50,8 @@ const CheatWindow = () => {
     dispatch(addLogText("common-cheat-gold-added", { amount }, LogChannel.common));
   };
 
-  const onCheatItem = (item: ItemType) => {
+  const onCheatItem = (type: ItemType) => {
+    const item = { type }
     dispatch(addItemToWarehouse(item));
     dispatch(addLogText("common-cheat-item-added", { item }, LogChannel.common));
   };
@@ -238,7 +239,7 @@ const CheatWindow = () => {
           )}
           formatOptionLabel={option => (
             <div className="item-option">
-              <ItemIcon item={option.value as ItemType} size={IconSize.smallest} />
+              <ItemIcon itemType={option.value as ItemType} size={IconSize.smallest} />
               <div className="item-label">
                 {option.label}
                 <span>{(option as unknown as { subtext: string}).subtext}</span>

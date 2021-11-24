@@ -20,7 +20,7 @@ const UpgradeHelpModalContent = (props: Props) => {
 
   const renderRow = (item: ItemType) => {
     return (
-      <ItemIcon key={item} item={item} size={IconSize.small} />
+      <ItemIcon key={item} itemType={item} size={IconSize.small} />
     )
   }
 

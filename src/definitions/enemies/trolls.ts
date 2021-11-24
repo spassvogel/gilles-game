@@ -16,7 +16,7 @@ const trolls: TrollDefinition = {
     skills: {
       [WeaponType.sword]: 12,
     },
-    mainHand: "weapon/steelSword",
+    mainHand: { type: "weapon/steelSword" },
     spritesheet: `${spritesheetBasePath}troll-sword.json`
   },
   'troll-manager': {
@@ -29,7 +29,7 @@ const trolls: TrollDefinition = {
     skills: {
       [WeaponType.axe]: 12,
     },
-    mainHand: "weapon/battleAxe",
+    mainHand: { type: "weapon/battleAxe" },
     spritesheet: `${spritesheetBasePath}troll-axe.json`
   },
   'troll-accountant': {
@@ -42,7 +42,7 @@ const trolls: TrollDefinition = {
     skills: {
       [WeaponType.axe]: 12,
     },
-    mainHand: "weapon/battleAxe",
+    mainHand: { type: "weapon/battleAxe" },
     spritesheet: `${spritesheetBasePath}troll-axe.json`
 
   }

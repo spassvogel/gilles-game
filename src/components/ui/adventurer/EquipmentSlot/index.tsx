@@ -16,7 +16,7 @@ const dropTarget: DropTargetSpec<Props> = {
   canDrop(props: Props, monitor: DropTargetMonitor)  {
     const item = monitor.getItem<InventoryItemDragInfo>().item;
 
-    return itemAndEquipmentSlotMatch(item, props.type);
+    return itemAndEquipmentSlotMatch(item.type, props.type);
   },
 };
 
@@ -32,17 +32,17 @@ export enum EquipmentSlotType {
 }
 
 // Returns true if item can be slotted in equipmentSlotType
-export const itemAndEquipmentSlotMatch = (item: ItemType, equipmentSlotType: EquipmentSlotType) => {
+export const itemAndEquipmentSlotMatch = (itemType: ItemType, equipmentSlotType: EquipmentSlotType) => {
   switch (equipmentSlotType) {
     case EquipmentSlotType.chest:
     case EquipmentSlotType.feet:
     case EquipmentSlotType.hands:
     case EquipmentSlotType.head:
     case EquipmentSlotType.legs:
-      return checkEquipment(item, equipmentSlotType);
+      return checkEquipment(itemType, equipmentSlotType);
     case EquipmentSlotType.mainHand:
     case EquipmentSlotType.offHand: {
-      const itemDefinition: WeaponDefinition = getDefinition(item) as WeaponDefinition;
+      const itemDefinition: WeaponDefinition = getDefinition(itemType) as WeaponDefinition;
       if (itemDefinition.itemCategory !== ItemCategory.weapon) {
         return false;
       }

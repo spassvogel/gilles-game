@@ -8,7 +8,7 @@ import Icon, { IconSize } from 'components/ui/common/Icon';
 import "./styles/itemIcon.scss";
 
 export interface Props {
-  item: ItemType;
+  itemType: ItemType;
   onClick?: (event: React.MouseEvent) => void;
   size?: IconSize;
   showContext?: boolean;
@@ -16,7 +16,7 @@ export interface Props {
 }
 
 const ItemIcon = (props: Props) => {
-  const { item, size, source } = props;
+  const { itemType: item, size, source } = props;
   const itemDefinition = getDefinition(item);
 
   if (!itemDefinition) {

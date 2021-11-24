@@ -1,4 +1,4 @@
-import { ItemType } from 'definitions/items/types';
+import { Item, ItemType } from 'definitions/items/types';
 import { getDefinition, Structure } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureType } from "definitions/structures/types";
 import { StoreState } from "store/types";
@@ -9,7 +9,7 @@ import { ResourceStructureState } from 'store/types/structure';
 
 
  /*
-  *   */
+  * Items to be harvested  */
 export type HarvestUpdate = {
   [key in Structure]?: ItemType[]
 }

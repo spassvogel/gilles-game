@@ -4,7 +4,7 @@ import Inventory from 'components/ui/inventory/Inventory';
 import useItemDropActions from 'hooks/actions/useItemActions';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
-import { ItemType } from 'definitions/items/types';
+import { Item } from 'definitions/items/types';
 import AdventurerSkills from './AdventurerSkills';
 import { useAdventurerState } from 'hooks/store/adventurers';
 import Level from 'components/ui/adventurer/AdventurerPanel/Level';
@@ -28,7 +28,7 @@ export interface Props {
   traits?: boolean; // whether to show traits
   skills?: boolean; // whether to show skills
 
-  onStartInventoryItemDrag?: (item: ItemType, fromSlot: number) => void;
+  onStartInventoryItemDrag?: (item: Item, fromSlot: number) => void;
 }
 
 /** Vertical panel showing adventurer info
@@ -55,7 +55,7 @@ const AdventurerPanel = (props: Props) => {
     dropItemEquipment(dragInfo, slotType, adventurer);
   };
 
-  const handleDropItemInventory = (item: ItemType, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string) => {
+  const handleDropItemInventory = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string) => {
     if (sourceType === DragSourceType.adventurerConsumeItem) {
       setConsumeItemIndex(undefined)
     } else {

@@ -5,7 +5,7 @@ import {  ProductionDefinition } from "./types";
 // todo: real values for costs
 const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
   "apparel/boots1": {
-    item: "apparel/boots1",
+    item: { type: "apparel/boots1" },
     cost: {
       resources: {
         wood: 10,
@@ -15,7 +15,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     },
   },
   "apparel/boots2": {
-    item: "apparel/boots2",
+    item: { type: "apparel/boots2" },
     cost: {
       resources: {
         wood: 10,
@@ -26,7 +26,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     levelRequired: 2
   },
   "apparel/boots3": {
-    item: "apparel/boots3",
+    item: { type: "apparel/boots3" },
     cost: {
       resources: {
         wood: 10,
@@ -37,7 +37,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     levelRequired: 3
   },
   "apparel/chainmailHood": {
-    item: "apparel/chainmailHood",
+    item: { type: "apparel/chainmailHood" },
     cost: {
       resources: {
         wood: 10,
@@ -47,7 +47,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/chest": {
-    item: "apparel/chest",
+    item: { type: "apparel/chest" },
     cost: {
       resources: {
         wood: 10,
@@ -57,7 +57,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/clothGloves": {
-    item: "apparel/clothGloves",
+    item: { type: "apparel/clothGloves" },
     cost: {
       resources: {
         wood: 10,
@@ -67,7 +67,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     },
   },
   "apparel/cowl": {
-    item: "apparel/cowl",
+    item: { type: "apparel/cowl" },
     cost: {
       resources: {
         wood: 10,
@@ -77,7 +77,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/druidChest": {
-    item: "apparel/druidHands",
+    item: { type: "apparel/druidHands" },
     cost: {
       resources: {
         wood: 10,
@@ -88,7 +88,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     levelRequired: 2
   },
   "apparel/druidFeet": {
-    item: "apparel/druidFeet",
+    item: { type: "apparel/druidFeet" },
     cost: {
       resources: {
         wood: 10,
@@ -99,7 +99,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     levelRequired: 2
   },
   "apparel/druidHands": {
-    item: "apparel/druidHands",
+    item: { type: "apparel/druidHands" },
     cost: {
       resources: {
         wood: 10,
@@ -110,7 +110,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     levelRequired: 2
   },
   "apparel/druidHead": {
-    item: "apparel/druidHead",
+    item: { type: "apparel/druidHead" },
     cost: {
       resources: {
         wood: 10,
@@ -121,7 +121,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     levelRequired: 2
   },
   "apparel/druidLegs": {
-    item: "apparel/druidLegs",
+    item: { type: "apparel/druidLegs" },
     cost: {
       resources: {
         wood: 10,
@@ -132,7 +132,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     levelRequired: 2
   },
   "apparel/fedora": {
-    item: "apparel/fedora",
+    item: { type: "apparel/fedora" },
     cost: {
       resources: {
         wood: 10,
@@ -142,7 +142,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/greaves1": {
-    item: "apparel/greaves1",
+    item: { type: "apparel/greaves1" },
     cost: {
       resources: {
         wood: 10,
@@ -152,7 +152,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/greaves2": {
-    item: "apparel/greaves2",
+    item: { type: "apparel/greaves2" },
     cost: {
       resources: {
         wood: 10,
@@ -162,7 +162,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/hornedHelmet": {
-    item: "apparel/hornedHelmet",
+    item: { type: "apparel/hornedHelmet" },
     cost: {
       resources: {
         wood: 10,
@@ -172,7 +172,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/leatherGloves": {
-    item: "apparel/leatherGloves",
+    item: { type: "apparel/leatherGloves" },
     cost: {
       resources: {
         wood: 10,
@@ -182,7 +182,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/nomadHelmet": {
-    item: "apparel/nomadHelmet",
+    item: { type: "apparel/nomadHelmet" },
     cost: {
       resources: {
         wood: 10,
@@ -192,7 +192,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/pants1": {
-    item: "apparel/pants1",
+    item: { type: "apparel/pants1" },
     cost: {
       resources: {
         wood: 10,
@@ -202,7 +202,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/pants2": {
-    item: "apparel/pants2",
+    item: { type: "apparel/pants2" },
     cost: {
       resources: {
         wood: 10,
@@ -212,7 +212,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/plateChest1": {
-    item: "apparel/plateChest1",
+    item: { type: "apparel/plateChest1" },
     cost: {
       resources: {
         wood: 10,
@@ -222,7 +222,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/plateChest2": {
-    item: "apparel/plateChest2",
+    item: { type: "apparel/plateChest2" },
     cost: {
       resources: {
         wood: 10,
@@ -232,7 +232,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/plateChest3": {
-    item: "apparel/plateChest3",
+    item: { type: "apparel/plateChest3" },
     cost: {
       resources: {
         wood: 10,
@@ -242,7 +242,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/plateChest4": {
-    item: "apparel/plateChest4",
+    item: { type: "apparel/plateChest4" },
     cost: {
       resources: {
         wood: 10,
@@ -252,7 +252,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/plateGloves1": {
-    item: "apparel/plateGloves1",
+    item: { type: "apparel/plateGloves1" },
     cost: {
       resources: {
         wood: 10,
@@ -262,7 +262,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/plateGloves2": {
-    item: "apparel/plateGloves2",
+    item: { type: "apparel/plateGloves2" },
     cost: {
       resources: {
         wood: 10,
@@ -272,7 +272,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/plateHelmet": {
-    item: "apparel/plateHelmet",
+    item: { type: "apparel/plateHelmet" },
     cost: {
       resources: {
         wood: 10,
@@ -282,7 +282,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/platePants": {
-    item: "apparel/platePants",
+    item: { type: "apparel/platePants" },
     cost: {
       resources: {
         wood: 10,
@@ -292,7 +292,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/plateShoulders1": {
-    item: "apparel/plateShoulders1",
+    item: { type: "apparel/plateShoulders1" },
     cost: {
       resources: {
         wood: 10,
@@ -302,7 +302,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     }
   },
   "apparel/plateShoulders2": {
-    item: "apparel/plateShoulders2",
+    item: { type: "apparel/plateShoulders2" },
     cost: {
       resources: {
         wood: 10,
@@ -312,14 +312,14 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
     },
   },
   "apparel/robe": {
-    item: "apparel/robe",
+    item: { type: "apparel/robe" },
     cost: {
       resources: { wood: 10, iron: 45},
       time: time.ONE_HOUR,
     }
   },
   "apparel/shoulders1": {
-    item: "apparel/shoulders1",
+    item: { type: "apparel/shoulders1" },
     cost: {
       resources: { wood: 10, iron: 45},
       time: time.ONE_HOUR,
@@ -327,7 +327,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
 
   },
   "apparel/shoulders2": {
-    item: "apparel/shoulders2",
+    item: { type: "apparel/shoulders2" },
     cost: {
       resources: { wood: 10, iron: 45},
       time: time.ONE_HOUR,
@@ -335,7 +335,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
 
   },
   "apparel/shoulders3": {
-    item: "apparel/shoulders3",
+    item: { type: "apparel/shoulders3" },
     cost: {
       resources: { wood: 10, iron: 45},
       time: time.ONE_HOUR,
@@ -343,7 +343,7 @@ const armoursmithProduction: { [key in Apparel]?: ProductionDefinition } = {
 
   },
   "apparel/vest": {
-    item: "apparel/vest",
+    item: { type: "apparel/vest" },
     cost: {
       resources: { wood: 10, iron: 45},
       time: time.ONE_HOUR,

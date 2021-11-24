@@ -1,6 +1,6 @@
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { Apparel } from "definitions/items/apparel";
-import { ItemType } from "definitions/items/types";
+import { Item } from "definitions/items/types";
 import { Weapon, WeaponType } from "definitions/items/weapons";
 import { Trait } from 'definitions/traits/types';
 
@@ -16,7 +16,7 @@ export interface AdventurerStoreState {
   xp: number;
 
   equipment: EquipmentStoreState;   // equipment
-  inventory: (null | ItemType)[];
+  inventory: (null | Item)[];
   basicAttributes: BasicAttributesStoreState;
   skills: SkillsStoreState;       //
   room: number;             // Adventurer is lodged in this room in the tavern
@@ -33,15 +33,16 @@ export enum AdventurerColor {
   yellow
 }
 
+
 export interface EquipmentStoreState {
-  [EquipmentSlotType.head]?: Apparel;
-  [EquipmentSlotType.shoulders]?: Apparel;
-  [EquipmentSlotType.chest]?: Apparel;
-  [EquipmentSlotType.hands]?: Apparel;
-  [EquipmentSlotType.legs]?: Apparel;
-  [EquipmentSlotType.feet]?: Apparel;
-  [EquipmentSlotType.mainHand]?: Weapon;
-  [EquipmentSlotType.offHand]?: Weapon;
+  [EquipmentSlotType.head]?: Item<Apparel>;
+  [EquipmentSlotType.shoulders]?: Item<Apparel>;
+  [EquipmentSlotType.chest]?: Item<Apparel>;
+  [EquipmentSlotType.hands]?: Item<Apparel>;
+  [EquipmentSlotType.legs]?: Item<Apparel>;
+  [EquipmentSlotType.feet]?: Item<Apparel>;
+  [EquipmentSlotType.mainHand]?: Item<Weapon>;
+  [EquipmentSlotType.offHand]?: Item<Weapon>;
 }
 
 export interface BasicAttributesStoreState {

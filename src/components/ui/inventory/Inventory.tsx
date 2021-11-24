@@ -1,21 +1,21 @@
 import * as React from "react";
 import { DragSourceType } from "constants/dragging";
-import {ItemType} from "definitions/items/types";
+import {Item } from "definitions/items/types";
 import InventorySlot from "./InventorySlot";
 import DraggableItemIcon, { InventoryItemDragInfo } from '../items/DraggableItemIcon';
 import { IconSize } from '../common/Icon';
 import "./styles/inventory.scss";
 
 export interface Props {
-  items: (ItemType|null)[];
+  items: (Item|null)[];
   sourceId?: string;   // who does this inventory belong to?
   sourceType: DragSourceType;
   iconSize?: IconSize;
   className?: string;
   disabledIndex?: number;
 
-  onDropItem: (item: ItemType, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string) => void;
-  onStartDrag?: (item: ItemType, fromSlot: number) => void;
+  onDropItem: (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string) => void;
+  onStartDrag?: (item: Item, fromSlot: number) => void;
   canDropHere?: (dragInfo: InventoryItemDragInfo) => boolean;
 }
 

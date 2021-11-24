@@ -1,8 +1,8 @@
-import { ItemType, ItemCategory } from "definitions/items/types";
+import { Item, ItemCategory } from "definitions/items/types";
 import { Action } from "redux";
 
 export type StockpileAction =
-  { type: "addItem", item: ItemType, toSlot?: number }
+  { type: "addItem", item: Item, toSlot?: number }
 | { type: "moveItemInWarehouse", itemCategory: ItemCategory, fromSlot: number, toSlot: number }
 | { type: "removeItem", itemCategory: ItemCategory, fromSlot: number }
 //  |  { type: "addStockpileSlots"
@@ -15,7 +15,7 @@ export interface AddStockpileSlotsAction extends Action {
 
 // Adds one Item to the warehouse
 // slot is optional, will take the first empty slot if not provided
-export const addItemToWarehouse = (item: ItemType, toSlot?: number): StockpileAction => {
+export const addItemToWarehouse = (item: Item, toSlot?: number): StockpileAction => {
   return {
     type: "addItem",
     item,

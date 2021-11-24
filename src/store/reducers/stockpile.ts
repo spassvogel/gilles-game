@@ -1,7 +1,7 @@
 
 import { StockpileAction } from "store/actions/stockpile";
 import { Reducer } from "redux";
-import { ItemType, ItemCategory } from "definitions/items/types";
+import { ItemType, ItemCategory, Item } from "definitions/items/types";
 import allItems, { getAllItemsByCategory } from "definitions/items";
 import { StockpileStoreState } from "store/types/stockpile";
 import { getDefinition } from "definitions/structures";
@@ -30,9 +30,9 @@ export const getInitialStockpile = (): StockpileStoreState => {
       if (Math.random() < .5) {
         result[itemCategoryName as keyof typeof result].push(null)
       } else {
-        const randomItem = getRandomItemOfType(itemCategory);
-        const category = result[itemCategoryName as keyof typeof result] as ItemType[];
-        category.push(randomItem as ItemType);
+        const randomItem: Item = { type: getRandomItemTypeByCategory(itemCategory) };
+        const category = result[itemCategoryName as keyof typeof result] as Item[];
+        category.push(randomItem);
       }
     }
   })
@@ -46,7 +46,7 @@ const getRandomItem = (): ItemType => {
   return all[randomIndex] as ItemType;
 }
 
-const getRandomItemOfType = (itemCategory: ItemCategory): ItemType => {
+const getRandomItemTypeByCategory = (itemCategory: ItemCategory): ItemType => {
   const all = getAllItemsByCategory(itemCategory)
   const randomIndex = Math.floor(Math.random() * all.length);
   return all[randomIndex] as ItemType;
@@ -60,7 +60,7 @@ const getRandomItemOfType = (itemCategory: ItemCategory): ItemType => {
 export const stockpile: Reducer<StockpileStoreState, StockpileAction> = (state = getInitialStockpile(), action) => {
   switch (action.type) {
     case "addItem": {
-      const definition = getItemDefinition(action.item)
+      const definition = getItemDefinition(action.item.type)
       // toSlot is optional
       const { item } = action;
       let { toSlot } = (action);

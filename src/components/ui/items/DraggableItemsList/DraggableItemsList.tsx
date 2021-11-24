@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ItemType } from "definitions/items/types";
+import { Item } from "definitions/items/types";
 import { DragSourceType } from 'constants/dragging';
 import DraggableItemIcon from '../DraggableItemIcon';
 import ItemText from "./ItemText";
@@ -8,11 +8,11 @@ import "./styles/itemsList.scss";
 
 export interface Props {
   className?: string;
-  items: ItemType[];
+  items: Item[];
   sourceType: DragSourceType;
   sourceId?: string;
   slots?: number; // optionally always show this amount of slots
-  renderButton?: (item: ItemType, index: number) => ReactNode
+  renderButton?: (item: Item, index: number) => ReactNode
 }
 
 /**

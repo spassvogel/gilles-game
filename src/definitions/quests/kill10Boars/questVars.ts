@@ -28,10 +28,10 @@ export const initialQuestVars: Kill10BoarsQuestVars = {
       chest: {
         title: "encounter-dungeon-caches-chest",
         items: [
-          "apparel/nomadHelmet",
-          "questItem/teeth",
-          "material/poisonVial",
-          "apparel/fedora",
+          { type: "apparel/nomadHelmet" },
+          { type: "questItem/teeth" },
+          { type: "material/poisonVial" },
+          { type: "apparel/fedora" },
         ],
         gold: 100
       },
@@ -46,7 +46,7 @@ export const initialQuestVars: Kill10BoarsQuestVars = {
     hallway: {
       chest: {
         title: "encounter-dungeon-caches-chest",
-        items: [ "questItem/key" ]
+        items: [ { type: "questItem/key" }]
       },
       chestOpen: false,
       doorOpen: false

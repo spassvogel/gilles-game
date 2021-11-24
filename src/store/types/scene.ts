@@ -1,5 +1,5 @@
 import { TiledObjectData } from 'constants/tiledMapData';
-import { ItemType } from 'definitions/items/types';
+import { Item } from 'definitions/items/types';
 import { Merge } from 'type-fest';
 import { TiledObjectType } from 'utils/tilemap';
 
@@ -64,7 +64,7 @@ export type SceneInteractionModal =
 
 export interface LootCache {
   title: string;
-  items: ItemType[];
+  items: Item[];
   gold?: number;
   open?: boolean;
 }

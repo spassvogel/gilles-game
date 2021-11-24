@@ -1,6 +1,6 @@
 import { Apparel } from 'definitions/items/apparel';
 import { QuestItem } from 'definitions/items/questItems';
-import { ItemType } from 'definitions/items/types';
+import { Item } from 'definitions/items/types';
 import { Weapon } from 'definitions/items/weapons';
 
 export enum StructureState {
@@ -21,5 +21,5 @@ export interface ProductionStructureStoreState extends StructureStoreState {
 }
 
 export interface ResourceStructureState extends StructureStoreState {
-  harvest?: ItemType[]; // Items currently available for harvest at this structure
+  harvest?: Item[]; // Items currently available for harvest at this structure
 }

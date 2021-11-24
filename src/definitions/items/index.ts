@@ -23,8 +23,8 @@ const all = {
 
 export default all;
 
-export const getDefinition = (item: ItemType): ItemDefinition => {
-  return all[item]
+export const getDefinition = (itemType: ItemType): ItemDefinition => {
+  return all[itemType]
 }
 
 export const getAllItemsByCategory = (category: ItemCategory): ItemType[] => {

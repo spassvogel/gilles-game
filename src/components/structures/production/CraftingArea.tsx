@@ -31,7 +31,7 @@ const CraftingArea = (props: Props) => {
               onClick={() => handleSelectCraftingItem(item)}
               className={selectedItem === item ? "selected" : ""}
             >
-              <ItemIcon item={item} size={IconSize.smallest} />
+              <ItemIcon itemType={item} size={IconSize.smallest} />
               { TextManager.getItemName(item) }
             </li>
           ))}

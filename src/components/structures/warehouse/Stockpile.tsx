@@ -3,7 +3,7 @@ import Inventory from "components/ui/inventory/Inventory";
 import { DragSourceType, DragType } from "constants/dragging";
 import { useStockpileState } from "hooks/store/stockpile";
 import useItemDropActions from "hooks/actions/useItemActions";
-import { ItemType, ItemCategory } from "definitions/items/types";
+import { Item, ItemCategory } from "definitions/items/types";
 import Tabstrip from "components/ui/tabs/Tabstrip";
 import { useEffect, useMemo, useState } from "react";
 import Tab from "components/ui/tabs/Tab";
@@ -18,10 +18,10 @@ const WAREHOUSE = DragSourceType.warehouse;
 
 const Stockpile = () => {
   const stockpile = useStockpileState();
-  const {dropItemWarehouse} = useItemDropActions();
+  const { dropItemWarehouse } = useItemDropActions();
   const [selectedItemCategory, setSelectedItemCategory] = useState<string>(Object.keys(stockpile)[0]);
 
-  const handleDropItemWarehouse = (item: ItemType, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
+  const handleDropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
     dropItemWarehouse(item, fromSlot, toSlot, sourceType, sourceId);
   }
   const dragDropManager = useDragDropManager()
@@ -42,7 +42,7 @@ const Stockpile = () => {
 
   const handleCheckDropItem = (dragInfo: InventoryItemDragInfo) => {
     // can only drop on the appropriate category
-    const definition = getDefinition(dragInfo.item)
+    const definition = getDefinition(dragInfo.item.type)
     return (definition.itemCategory === ItemCategory[selectedItemCategory as keyof typeof ItemCategory])
   }
 

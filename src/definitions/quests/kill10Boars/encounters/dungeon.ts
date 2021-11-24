@@ -4,7 +4,7 @@ import { SceneObject, ActorObject, LootCache } from 'store/types/scene';
 import { setActiveSceneInteractionModal } from 'store/actions/quests';
 import { Kill10BoarsQuestVars } from '../questVars';
 import { Channel, GameSound, MixMode, SoundManager } from 'global/SoundManager';
-import { ItemType } from 'definitions/items/types';
+import { Item, ItemType } from 'definitions/items/types';
 
 const TILE_DOOR_UPPER_CLOSED = 121 + 131;
 const TILE_DOOR_LOWER_CLOSED = 121 + 143;
@@ -62,7 +62,7 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
     super.takeItemFromCache(itemIndex, name, adventurerId, toSlot);
     const lootCache = this.getLootCache(name);
     if (lootCache){
-      const items = lootCache.items.filter((_:ItemType, index: number) => index !== itemIndex);
+      const items = lootCache.items.filter((_:Item, index: number) => index !== itemIndex);
       this.updateQuestVars({
         dungeon: { entrance: { chest: { items }}}
       });
@@ -234,7 +234,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
       case 'door': {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const adventurer = this.getAdventurerById(adventurerId!);
-        if (adventurer && adventurer.inventory.some(i => i === "questItem/key")) {
+        if (adventurer && adventurer.inventory.some(i => i?.type === "questItem/key")) {
           // Adventurer has key
           return {
             title: 'quest-kill10-boars-dungeonentrance-door',
@@ -266,7 +266,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
 
         SoundManager.playSound("scene/doorOpen", Channel.scene, false, MixMode.singleInstance);
 
-        this.discardItem("questItem/key", adventurerId);
+        this.discardItemType("questItem/key", adventurerId);
         const adventurer = this.getAdventurerById(adventurerId)?.name;
         const textEntry = { key: "quest-common-adventurer-opened-door", context: { adventurer } };
         this.questUpdate(textEntry, "/img/items/misc/chest-02.png");

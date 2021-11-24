@@ -1,7 +1,7 @@
 import React from "react";
 import { AdventurerStoreState } from 'store/types/adventurer';
 import EquipmentSlot, { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
-import { ItemType } from 'definitions/items/types';
+import { Item } from 'definitions/items/types';
 import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import { DragSourceType } from 'constants/dragging';
 import { TextManager } from 'global/TextManager';
@@ -20,7 +20,7 @@ const AdventurerEquipment = (props: Props) => {
 
   const getEquipmentSlot = (slotType: EquipmentSlotType) => {
     // returns EquipmentSlot
-    const item: ItemType | undefined = adventurer.equipment[slotType];
+    const item: Item | undefined = adventurer.equipment[slotType];
 
     return (
       <li className={EquipmentSlotType[slotType]}>

@@ -1,13 +1,13 @@
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
-import { ItemType } from "definitions/items/types";
+import { Item } from "definitions/items/types";
 
 export type AdventurerAction =
   { type: "consumeItem", adventurerId: string, fromSlot: number }
  |  { type: "moveItemInInventory", adventurerId: string, fromSlot: number, toSlot: number }
  |  { type: "moveItemToOtherAdventurer", adventurerId: string, fromSlot: number, toSlot?: number, toAdventurerId: string }
- |  { type: "addItemToInventory", adventurerId: string, item: ItemType, toSlot?: number }
+ |  { type: "addItemToInventory", adventurerId: string, item: Item, toSlot?: number }
  |  { type: "removeItemFromInventory", adventurerId: string, fromSlot: number }
- |  { type: "assignEquipment", adventurerId: string, item: ItemType, equipmentSlot: EquipmentSlotType }
+ |  { type: "assignEquipment", adventurerId: string, item: Item, equipmentSlot: EquipmentSlotType }
  |  { type: "removeEquipment", adventurerId: string, equipmentSlot: EquipmentSlotType }
  |  { type: "renameAdventurer", adventurerId: string, name: string }
  |  { type: "addXP", adventurerId: string, xp: number; }
@@ -40,7 +40,7 @@ export const moveItemToOtherAdventurer = (fromAdventurerId: string, fromSlot: nu
 })
 
 // If slot is not provided, will take the first empty slot
-export const addItemToInventory = (adventurerId: string, item: ItemType, toSlot?: number): AdventurerAction => ({
+export const addItemToInventory = (adventurerId: string, item: Item, toSlot?: number): AdventurerAction => ({
   type: "addItemToInventory",
   adventurerId,
   item,
@@ -53,7 +53,7 @@ export const removeItemFromInventory = (adventurerId: string, fromSlot: number):
   fromSlot,
 })
 
-export const assignEquipment = (adventurerId: string, equipmentSlot: EquipmentSlotType, item: ItemType): AdventurerAction => ({
+export const assignEquipment = (adventurerId: string, equipmentSlot: EquipmentSlotType, item: Item): AdventurerAction => ({
   type: "assignEquipment",
   adventurerId,
   item,

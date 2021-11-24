@@ -4,6 +4,7 @@ import { ProductionStructureStoreState, StructureState, StructureStoreState } fr
 import { StructuresStoreState } from "store/types/structures";
 import { StructuresAction } from "store/actions/structures";
 import { GameAction } from "store/actions/game";
+import { Item } from "definitions/items/types";
 
 /**
  * reducer
@@ -105,10 +106,10 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameAc
       return Object.keys(state).reduce<StructuresStoreState>((acc, structureAsString) => {
         const structure = structureAsString as Structure;
         if (isResourceStructure(structure) && action.harvest?.[structure]?.length){
-          const harvest = action.harvest[structure]
+          const harvest: Item[] = (action.harvest[structure] ?? []).map(type => ({ type }))
           acc[structure as ResourceStructure].harvest = [
             ...(acc[structure as ResourceStructure].harvest ?? []),
-            ...harvest ?? []
+            ...harvest
           ]
         }
         return acc;

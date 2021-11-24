@@ -14,9 +14,10 @@ export const processCompletedTasks = (tasks: TasksStoreState, dispatch: Dispatch
 
     switch (task.type) {
       case TaskType.craftItem: {
-        const item = task.name as ItemType;
+        const type = task.name as ItemType;
+        const item = { type }
         const title = TextManager.get("common-item-crafted", { item });
-        const definition = getDefinition(item);
+        const definition = getDefinition(type);
         ToastManager.addToast(title, Type.itemCrafted, definition.iconImg);
         break;
       }
