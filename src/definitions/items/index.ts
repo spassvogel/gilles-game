@@ -1,3 +1,4 @@
+import ammunition, { Ammunition } from "./ammunition";
 import apparel, { Apparel } from "./apparel";
 import deeds, { Deed } from "./deeds";
 import herbs, { Herb } from "./herbs";
@@ -10,6 +11,7 @@ import { ItemType, ItemDefinition, ItemCategory } from "./types";
 import weapons, { Weapon } from "./weapons";
 
 const all = {
+  ...ammunition,
   ...apparel,
   ...consumables,
   ...deeds,
@@ -29,6 +31,8 @@ export const getDefinition = (itemType: ItemType): ItemDefinition => {
 
 export const getAllItemsByCategory = (category: ItemCategory): ItemType[] => {
   switch (category) {
+    case ItemCategory.ammunition:
+      return Object.keys(ammunition) as Ammunition[];
     case ItemCategory.apparel:
       return Object.keys(apparel) as Apparel[];
     case ItemCategory.deed:

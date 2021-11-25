@@ -68,6 +68,10 @@
     "enemy-troll-developer-name": "Troll developer",
     "enemy-troll-manager-name": "Troll manager",
 
+    "item-ammunition-armor-piercing-arrows-name": "Armor piercing arrows",
+    "item-ammunition-basic-arrows-name": "Basic arrows",
+    "item-ammunition-crossbow-bolt-name": "Crossbow bolts",
+    "item-ammunition-elfen-arrows-name": "Elfen arrows",
     "item-apparel-boots1-name": "leather boots",
     "item-apparel-boots1-subtext": "These boots are made for questin'",
     "item-apparel-boots2-name": "boots II",
@@ -270,6 +274,7 @@
     "item-trinket-magic-amulet-name": "magic amulet",
     "item-trinket-ring-name": "ring",
 
+    "item-category-ammunition": "ammunition",
     "item-category-apparel": "apparel",
     "item-category-consumable": "consumabe",
     "item-category-deed": "deed",

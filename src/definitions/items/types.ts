@@ -1,4 +1,5 @@
 import { Rarity } from 'constants/items';
+import { Ammunition } from './ammunition';
 import { Apparel } from './apparel';
 import { Deed } from './deeds';
 import { Herb } from './herbs';
@@ -10,6 +11,7 @@ import { Trinket } from './trinkets';
 import { Weapon } from './weapons';
 
 export enum ItemCategory {
+  ammunition,
   apparel,
   consumable,
   deed,
@@ -21,7 +23,7 @@ export enum ItemCategory {
   weapon,
 }
 
-export type ItemType = Apparel | Deed | Herb | Material | Mineral | Consumable | QuestItem | Trinket | Weapon;
+export type ItemType = Ammunition | Apparel | Deed | Herb | Material | Mineral | Consumable | QuestItem | Trinket | Weapon;
 
 export type Item<T = ItemType> = {
   type: T;

@@ -12,6 +12,7 @@ import { WarehouseStructureDefinition } from "definitions/structures/types";
 export const getInitialStockpile = (): StockpileStoreState => {
   // Generate some random stuff
   const result: StockpileStoreState = {
+    "ammunition": [],
     "apparel": [],
     "deed": [],
     "herb": [],
@@ -31,6 +32,9 @@ export const getInitialStockpile = (): StockpileStoreState => {
         result[itemCategoryName as keyof typeof result].push(null)
       } else {
         const randomItem: Item = { type: getRandomItemTypeByCategory(itemCategory) };
+        if (itemCategory === ItemCategory.ammunition){
+          randomItem.quantity = Math.floor(Math.random() * 100);
+        }
         const category = result[itemCategoryName as keyof typeof result] as Item[];
         category.push(randomItem);
       }
