@@ -2,7 +2,7 @@
 import { StockpileAction } from "store/actions/stockpile";
 import { Reducer } from "redux";
 import { ItemType, ItemCategory, Item } from "definitions/items/types";
-import allItems, { getAllItemsByCategory } from "definitions/items";
+import allItems, { canStackItem, getAllItemsByCategory } from "definitions/items";
 import { StockpileStoreState } from "store/types/stockpile";
 import { getDefinition } from "definitions/structures";
 import { getDefinition as getItemDefinition } from "definitions/items";
@@ -32,7 +32,7 @@ export const getInitialStockpile = (): StockpileStoreState => {
         result[itemCategoryName as keyof typeof result].push(null)
       } else {
         const randomItem: Item = { type: getRandomItemTypeByCategory(itemCategory) };
-        if (itemCategory === ItemCategory.ammunition){
+        if (canStackItem(itemCategory)){
           randomItem.quantity = Math.floor(Math.random() * 100);
         }
         const category = result[itemCategoryName as keyof typeof result] as Item[];

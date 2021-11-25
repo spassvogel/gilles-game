@@ -45,6 +45,9 @@ const ItemIcon = (props: Props) => {
         size={props.size}
         onClick={handleClick}
       />
+      {item.quantity && item.quantity > 1 && (
+        <div className="quantity">{item.quantity}</div>
+      )}
     </div>
   );
 };

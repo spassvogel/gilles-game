@@ -53,3 +53,7 @@ export const getAllItemsByCategory = (category: ItemCategory): ItemType[] => {
       return Object.keys(weapons) as Weapon[];
   }
 }
+
+export const canStackItem = (category: ItemCategory): boolean => {
+  return category === ItemCategory.ammunition;
+}

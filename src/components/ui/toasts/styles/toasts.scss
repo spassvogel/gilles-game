@@ -103,7 +103,7 @@
 			border-right-width: 0;
 		}
 
-        .toast-icon {
+    .toast-icon {
 			z-index: 1;
 			position: absolute;
 			margin-top: -2px;
@@ -111,8 +111,8 @@
 		}
 	}
 
-    .toast.withlink {
-        pointer-events: all;
+  .toast.withlink {
+    pointer-events: all;
 	}
 }
 
