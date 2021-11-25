@@ -35,10 +35,10 @@ export enum WeaponAbility {
 export enum WeaponClassification {
   oneHanded,  // Can be used in main hand or off hand
   mainHand,   // Can only be used in main hand
-  offHand,  // Can only be used in the off hand
+  offHand,    // Can only be used in the off hand
   twoHanded,  // Can be used in the main hand and will disable off hand from being used
-  shield    // ?
-  // add 'ranged'?
+  shield,     // ?
+  ranged      // requires ammo
 }
 
 export const WeaponTypeDefinition = {
@@ -47,7 +47,7 @@ export const WeaponTypeDefinition = {
     abilities: [WeaponAbility.cut],
   },
   [WeaponType.bow]: {
-    classification: WeaponClassification.oneHanded,
+    classification: WeaponClassification.ranged,
     abilities: [WeaponAbility.shoot]
   },
   [WeaponType.club]: {
@@ -55,7 +55,7 @@ export const WeaponTypeDefinition = {
     abilities: [WeaponAbility.swing, WeaponAbility.parry]
   },
   [WeaponType.crossbow]: {
-    classification: WeaponClassification.mainHand,
+    classification: WeaponClassification.ranged,
     abilities: [WeaponAbility.aimedShot, WeaponAbility.shoot]
   },
   [WeaponType.fist]: {

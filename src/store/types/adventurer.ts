@@ -1,4 +1,5 @@
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
+import { Ammunition } from "definitions/items/ammunition";
 import { Apparel } from "definitions/items/apparel";
 import { Item } from "definitions/items/types";
 import { Weapon, WeaponType } from "definitions/items/weapons";
@@ -42,7 +43,7 @@ export interface EquipmentStoreState {
   [EquipmentSlotType.legs]?: Item<Apparel>;
   [EquipmentSlotType.feet]?: Item<Apparel>;
   [EquipmentSlotType.mainHand]?: Item<Weapon>;
-  [EquipmentSlotType.offHand]?: Item<Weapon>;
+  [EquipmentSlotType.offHand]?: Item<Weapon> | Item<Ammunition>;
 }
 
 export interface BasicAttributesStoreState {

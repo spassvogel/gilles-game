@@ -70,7 +70,7 @@
 
     "item-ammunition-armor-piercing-arrows-name": "Armor piercing arrows",
     "item-ammunition-basic-arrows-name": "Basic arrows",
-    "item-ammunition-crossbow-bolt-name": "Crossbow bolts",
+    "item-ammunition-crossbow-bolts-name": "Crossbow bolts",
     "item-ammunition-elfen-arrows-name": "Elfen arrows",
     "item-apparel-boots1-name": "leather boots",
     "item-apparel-boots1-subtext": "These boots are made for questin'",
@@ -464,6 +464,7 @@
 
     "ui-combat-bar-title": "Battle is joined!",
 
+    "ui-equipmentslot-ammunition": "ammo",
     "ui-equipmentslot-chest": "chest",
     "ui-equipmentslot-feet": "feet",
     "ui-equipmentslot-hands": "hands",
@@ -553,6 +554,7 @@
     "ui-weapon-class-main-hand": "Main Hand",
     "ui-weapon-class-off-hand": "Off Hand",
     "ui-weapon-class-two-handed": "Two Handed",
+    "ui-weapon-class-ranged": "Ranged",
     "ui-weapon-class-shield": "Shield",
 
     "ui-weapon-type-axe": "Axe",

@@ -140,7 +140,6 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 }, {
   id: "250d1a9d",
   basicAttributes: generateRandomAttributes(),
-  equipment: {},
   name: "Alexis Ortiz ",
   flavor: true,
   health: Math.random() * 100,
@@ -153,9 +152,12 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   skills: {
     [WeaponType.axe]: 10
   },
+  equipment: {
+    [EquipmentSlotType.mainHand]: { type: "weapon/longbow" },
+    [EquipmentSlotType.offHand]: { type: "ammunition/basicArrows", quantity: 50 }
+  },
 }, {
   id: "169384ef",
-  equipment: {},
   basicAttributes: generateRandomAttributes(),
   name: "Karlee Nolan",
   flavor: true,
@@ -168,6 +170,10 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   inventory: [ { type: "weapon/greatswordOfGwai" }, null, null, null ],
   skills: {
     [WeaponType.axe]: 10
+  },
+  equipment: {
+    [EquipmentSlotType.mainHand]: { type: "weapon/simpleCrossbow" },
+    [EquipmentSlotType.offHand]: { type: "ammunition/crossbowBolts", quantity: 40 }
   },
 }, {
   id: "f22d66cb",

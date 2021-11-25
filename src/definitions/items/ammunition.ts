@@ -21,7 +21,7 @@ const ammunitions = {
     iconImg: `${basePath}basic-arrows.png`,
     weaponType: WeaponType.bow
   },
-  crossbowBolt: {
+  crossbowBolts: {
     itemCategory,
     iconImg: `${basePath}crossbow-bolts.png`,
     weaponType: WeaponType.crossbow

@@ -8,6 +8,7 @@ import { TextManager } from 'global/TextManager';
 import { IconSize } from 'components/ui/common/Icon';
 import Guy from './Guy';
 import './styles/adventurerEquipment.scss';
+import { getDefinition, isWeapon, WeaponClassification, WeaponType, WeaponTypeDefinition } from "definitions/items/weapons";
 
 export interface Props {
   adventurer: AdventurerStoreState
@@ -21,7 +22,19 @@ const AdventurerEquipment = (props: Props) => {
   const getEquipmentSlot = (slotType: EquipmentSlotType) => {
     // returns EquipmentSlot
     const item: Item | undefined = adventurer.equipment[slotType];
+    let text = TextManager.getEquipmentSlot(slotType);
 
+    if (slotType === EquipmentSlotType.offHand) {
+      // Is there a ranged weapon in the main hand?
+      const mainHandItem = adventurer.equipment[EquipmentSlotType.mainHand];
+
+      if (mainHandItem && isWeapon(mainHandItem.type)) {
+        const weaponType = getDefinition(mainHandItem.type).weaponType;
+        if (WeaponTypeDefinition[weaponType].classification === WeaponClassification.ranged) {
+          text = TextManager.get("ui-equipmentslot-ammunition");
+        }
+      }
+    }
     return (
       <li className={EquipmentSlotType[slotType]}>
         <EquipmentSlot
@@ -39,7 +52,7 @@ const AdventurerEquipment = (props: Props) => {
           )}
         </EquipmentSlot>
         <span className="info">
-          {TextManager.getEquipmentSlot(slotType)}
+          {text}
         </span>
       </li>
     );
