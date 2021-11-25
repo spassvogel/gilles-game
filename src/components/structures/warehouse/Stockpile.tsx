@@ -29,12 +29,12 @@ const Stockpile = () => {
   useEffect(() => {
     // If we're dragging some item, switch to the appropriate category so we can drop it here
     if (dragging) {
-      const dragItem = dragDropManager.getMonitor().getItem();
+      const dragItem: InventoryItemDragInfo = dragDropManager.getMonitor().getItem();
       const dragItemType = dragDropManager.getMonitor().getItemType();
 
       if (dragItem && dragItemType === DragType.ITEM) {
         const item = dragItem.item;
-        const definition = getDefinition(item)
+        const definition = getDefinition(item.type)
         setSelectedItemCategory(ItemCategory[definition.itemCategory]);
       }
     }

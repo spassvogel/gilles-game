@@ -5,12 +5,13 @@ import { DragType } from "constants/dragging";
 import { getDefinition } from "definitions/items";
 import { ApparelDefinition } from "definitions/items/apparel";
 import { ItemType, ItemCategory } from "definitions/items/types";
-import { WeaponDefinition, WeaponTypeDefinition, WeaponClassification } from 'definitions/items/weapons';
+import { getDefinition as getWeaponDefinition, WeaponDefinition, WeaponTypeDefinition, WeaponClassification, isWeapon } from 'definitions/items/weapons';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
+import { EquipmentStoreState } from "store/types/adventurer";
 import "./styles/equipmentslot.scss";
 
 const dropTarget: DropTargetSpec<Props> = {
-  drop(props: Props, monitor: DropTargetMonitor) {
+  drop(props: Props, monitor: DropTargetMonitor<InventoryItemDragInfo>) {
     props.onDrop(monitor.getItem());
   },
   canDrop(props: Props, monitor: DropTargetMonitor)  {
@@ -43,7 +44,12 @@ export const itemAndEquipmentSlotMatch = (itemType: ItemType, equipmentSlotType:
     case EquipmentSlotType.mainHand:
     case EquipmentSlotType.offHand: {
       const itemDefinition: WeaponDefinition = getDefinition(itemType) as WeaponDefinition;
-      if (itemDefinition.itemCategory !== ItemCategory.weapon) {
+
+      if (itemDefinition.itemCategory === ItemCategory.ammunition) {
+        // todo: check rangedWeaponInHand
+        return true;
+      }
+      else if (itemDefinition.itemCategory !== ItemCategory.weapon) {
         return false;
       }
       const { classification } = WeaponTypeDefinition[itemDefinition.weaponType];
@@ -119,3 +125,16 @@ const checkEquipment = (item: ItemType, equipmentType: EquipmentSlotType) => {
   }
   return (itemDefinition as ApparelDefinition).equipmentType === equipmentType;
 };
+
+// Returns true if a ranged weapon is held
+export const rangedWeaponInHand = (equipment: EquipmentStoreState) => {
+  const mainHandItem = equipment[EquipmentSlotType.mainHand];
+
+  if (mainHandItem && isWeapon(mainHandItem.type)) {
+    const weaponType = getWeaponDefinition(mainHandItem.type).weaponType;
+    if (WeaponTypeDefinition[weaponType].classification === WeaponClassification.ranged) {
+      return true;
+    }
+  }
+  return false;
+}

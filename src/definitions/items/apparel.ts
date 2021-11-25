@@ -267,7 +267,7 @@ const apparel = {
     damageReduction: 2,
   },
   greaves2: {
-    equipmentType: EquipmentSlotType.hands,
+    equipmentType: EquipmentSlotType.feet,
     itemCategory,
     iconImg: `${basePath}greaves_2.png`,
   },

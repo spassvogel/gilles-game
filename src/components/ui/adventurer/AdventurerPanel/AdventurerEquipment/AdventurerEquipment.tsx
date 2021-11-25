@@ -1,6 +1,6 @@
 import React from "react";
 import { AdventurerStoreState } from 'store/types/adventurer';
-import EquipmentSlot, { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
+import EquipmentSlot, { EquipmentSlotType, rangedWeaponInHand } from 'components/ui/adventurer/EquipmentSlot';
 import { Item } from 'definitions/items/types';
 import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import { DragSourceType } from 'constants/dragging';
@@ -8,7 +8,6 @@ import { TextManager } from 'global/TextManager';
 import { IconSize } from 'components/ui/common/Icon';
 import Guy from './Guy';
 import './styles/adventurerEquipment.scss';
-import { getDefinition, isWeapon, WeaponClassification, WeaponTypeDefinition } from "definitions/items/weapons";
 
 export interface Props {
   adventurer: AdventurerStoreState
@@ -26,13 +25,8 @@ const AdventurerEquipment = (props: Props) => {
 
     if (slotType === EquipmentSlotType.offHand) {
       // If there a ranged weapon in the main hand the offHand is for ammo
-      const mainHandItem = adventurer.equipment[EquipmentSlotType.mainHand];
-
-      if (mainHandItem && isWeapon(mainHandItem.type)) {
-        const weaponType = getDefinition(mainHandItem.type).weaponType;
-        if (WeaponTypeDefinition[weaponType].classification === WeaponClassification.ranged) {
-          text = TextManager.get("ui-equipmentslot-ammunition");
-        }
+      if (rangedWeaponInHand(adventurer.equipment)) {
+        text = TextManager.get("ui-equipmentslot-ammunition");
       }
     }
     return (
@@ -73,3 +67,5 @@ const AdventurerEquipment = (props: Props) => {
 }
 
 export default AdventurerEquipment;
+
+

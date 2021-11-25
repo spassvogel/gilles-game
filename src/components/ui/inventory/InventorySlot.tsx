@@ -8,7 +8,7 @@ import { IconSize } from '../common/Icon';
 import { itemAndEquipmentSlotMatch } from '../adventurer/EquipmentSlot';
 
 const dropTarget: DropTargetSpec<Props> = {
-  drop(props: Props, monitor: DropTargetMonitor) {
+  drop(props: Props, monitor: DropTargetMonitor<InventoryItemDragInfo>) {
     props.onDrop(monitor.getItem());
   },
   canDrop(props: Props, monitor: DropTargetMonitor) {

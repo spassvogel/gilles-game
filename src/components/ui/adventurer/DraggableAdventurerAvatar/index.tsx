@@ -6,19 +6,19 @@ import AdventurerAvatar, { Props as AdventurerAvatarProps } from '../AdventurerA
 import "./styles/draggableadventureravatar.scss";
 
 export interface Props {
-    sourceId?: string;
-    onClick?: () => void;
-    disabled?: boolean;
+  sourceId?: string;
+  onClick?: () => void;
+  disabled?: boolean;
 }
 
 interface CollectedProps {
-    isDragging: boolean;
-    connectDragSource: ConnectDragSource;
+  isDragging: boolean;
+  connectDragSource: ConnectDragSource;
 }
 
 export interface AdventurerAvatarDragInfo {
-    adventurer: AdventurerStoreState;
-    sourceId?: string;
+  adventurer: AdventurerStoreState;
+  sourceId?: string;
 }
 
 /**
@@ -26,49 +26,49 @@ export interface AdventurerAvatarDragInfo {
  * Only `beginDrag` function is required.
  */
 const spec: DragSourceSpec<Props & AdventurerAvatarProps, AdventurerAvatarDragInfo> = {
-    beginDrag(props: Props & AdventurerAvatarProps) {
-        // Return the data describing the dragged item
-        return {
-            adventurer: props.adventurer,
-            sourceId: props.sourceId,
-            sourceType: DragSourceType.adventurerInventory,
-        };
-    },
+  beginDrag(props: Props & AdventurerAvatarProps) {
+    // Return the data describing the dragged item
+    return {
+      adventurer: props.adventurer,
+      sourceId: props.sourceId,
+      sourceType: DragSourceType.adventurerInventory,
+    };
+  },
 };
 
 /**
  * Specifies which props to inject into your component.
  */
 function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
-    return {
-        connectDragSource: connect.dragSource(),
-        isDragging: monitor.isDragging(),
-    };
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+  };
 }
 
 const DraggableAdventurerAvatar = (props: Props & CollectedProps & AdventurerAvatarProps) => {
 
-    const { isDragging, connectDragSource, disabled } = props;
-    let className = "draggable-adventurer-avatar";
-    if (disabled) {
-        className += " disabled";
-    }
-    if (isDragging) {
-        className += " dragging";
-    }
+  const { isDragging, connectDragSource, disabled } = props;
+  let className = "draggable-adventurer-avatar";
+  if (disabled) {
+    className += " disabled";
+  }
+  if (isDragging) {
+    className += " dragging";
+  }
 
-    /*if (isDragging) {
-        // TODO: can show some sort of empty state?
-        return null;
-    }*/
-    return connectDragSource(
-        <div className = { className }>
-            <AdventurerAvatar
-                // Copy all props down to AdventurerAvatar
-                { ...props }
-            />
-        </div>,
-    );
+  /*if (isDragging) {
+    // TODO: can show some sort of empty state?
+    return null;
+  }*/
+  return connectDragSource(
+    <div className = { className }>
+      <AdventurerAvatar
+        // Copy all props down to AdventurerAvatar
+        { ...props }
+      />
+    </div>,
+  );
 }
 
 export default DragSource<Props & AdventurerAvatarProps, CollectedProps>(DragType.ADVENTURER, spec, collect)(DraggableAdventurerAvatar);
