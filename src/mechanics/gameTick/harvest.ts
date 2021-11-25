@@ -1,4 +1,4 @@
-import { Item, ItemType } from 'definitions/items/types';
+import { ItemType } from 'definitions/items/types';
 import { getDefinition, Structure } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureType } from "definitions/structures/types";
 import { StoreState } from "store/types";

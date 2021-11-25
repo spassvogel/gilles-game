@@ -3,7 +3,7 @@ import { ContextType } from 'constants/context';
 import { TooltipManager, Context, EVENT_CONTEXT_UPDATED } from 'global/TooltipManager';
 import { TextManager } from 'global/TextManager';
 import ItemContext from './context/ItemContext';
-import { ItemType, ItemDefinition, Item } from 'definitions/items/types';
+import { ItemDefinition, Item } from 'definitions/items/types';
 import { Resource } from 'definitions/resources';
 import ResourceContext from './context/ResourceContext';
 import Tooltip from '../Tooltip';

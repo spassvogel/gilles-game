@@ -28,7 +28,7 @@ const Stockpile = () => {
   const dragging = dragDropManager.getMonitor().isDragging();
   useEffect(() => {
     // If we're dragging some item, switch to the appropriate category so we can drop it here
-    if(dragging){
+    if (dragging) {
       const dragItem = dragDropManager.getMonitor().getItem();
       const dragItemType = dragDropManager.getMonitor().getItemType();
 

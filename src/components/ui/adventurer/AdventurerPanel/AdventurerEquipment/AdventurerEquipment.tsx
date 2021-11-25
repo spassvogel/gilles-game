@@ -8,7 +8,7 @@ import { TextManager } from 'global/TextManager';
 import { IconSize } from 'components/ui/common/Icon';
 import Guy from './Guy';
 import './styles/adventurerEquipment.scss';
-import { getDefinition, isWeapon, WeaponClassification, WeaponType, WeaponTypeDefinition } from "definitions/items/weapons";
+import { getDefinition, isWeapon, WeaponClassification, WeaponTypeDefinition } from "definitions/items/weapons";
 
 export interface Props {
   adventurer: AdventurerStoreState
@@ -25,7 +25,7 @@ const AdventurerEquipment = (props: Props) => {
     let text = TextManager.getEquipmentSlot(slotType);
 
     if (slotType === EquipmentSlotType.offHand) {
-      // Is there a ranged weapon in the main hand?
+      // If there a ranged weapon in the main hand the offHand is for ammo
       const mainHandItem = adventurer.equipment[EquipmentSlotType.mainHand];
 
       if (mainHandItem && isWeapon(mainHandItem.type)) {

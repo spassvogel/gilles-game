@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useMemo,  useState } from 'react';
 import { getDefinition } from "definitions/items";
-import { ItemType, ItemCategory, Item } from "definitions/items/types";
+import { ItemType, ItemCategory } from "definitions/items/types";
 import { getDefinition as getStructureDefinition, Structure } from "definitions/structures";
 import { StructureState, StructureStoreState } from "store/types/structure";
 import { StructuresStoreState } from "store/types/structures";

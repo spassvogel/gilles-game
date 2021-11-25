@@ -4,7 +4,7 @@ import { SceneObject, ActorObject, LootCache } from 'store/types/scene';
 import { setActiveSceneInteractionModal } from 'store/actions/quests';
 import { Kill10BoarsQuestVars } from '../questVars';
 import { Channel, GameSound, MixMode, SoundManager } from 'global/SoundManager';
-import { Item, ItemType } from 'definitions/items/types';
+import { Item } from 'definitions/items/types';
 
 const TILE_DOOR_UPPER_CLOSED = 121 + 131;
 const TILE_DOOR_LOWER_CLOSED = 121 + 143;
