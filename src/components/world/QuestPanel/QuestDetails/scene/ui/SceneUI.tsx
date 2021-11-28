@@ -1,5 +1,6 @@
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { ContextType } from 'constants/context';
+import { useLongPress } from 'use-long-press';
 import { TooltipManager } from 'global/TooltipManager';
 import { useQuest } from 'hooks/store/quests';
 import { AP_COST_SHOOT } from 'mechanics/combat';
@@ -101,6 +102,21 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     e.preventDefault();
   }
 
+  const bind = useLongPress((e) => {
+    if (e){
+      console.log(e)
+      handleClick(e as React.MouseEvent<HTMLDivElement>);
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, {
+    onStart: (e) => { handleMouseDown(e as React.MouseEvent<HTMLDivElement>)},
+    onMove: (e) => { handleMouseMove(e as React.MouseEvent<HTMLDivElement>)},
+    captureEvent: true,
+    cancelOnMovement: 32
+  });
+
+
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const location = findLocation(e);
     if (!controller || !location || !(e.target instanceof Element)) return;
@@ -120,7 +136,8 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     e.stopPropagation()
   }
 
-  const handleMouseUp = (_e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
+    bind.onMouseUp(e);
     mouseDown.current = false;
 
     setCursorLocation(undefined); // uncomment to debug
@@ -132,6 +149,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       controller?.actorAttemptAction(selectedActorId, actionIntent.action, actionIntent.to);
     }
     onSetActionIntent?.(undefined);
+    e.stopPropagation();
   }
 
   const handleCombatActionChange = useCallback((action?: SceneActionType) => { // todo: beter name, not just combat
@@ -218,10 +236,8 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     <div
       ref={ref}
       className="scene-ui"
-      onMouseMove={handleMouseMove}
-      onMouseDown={handleMouseDown}
+      {...bind}
       onMouseUp={handleMouseUp}
-      onClick={handleClick}
     >
       {children}
       {!scene?.combat && cursorLocation && (

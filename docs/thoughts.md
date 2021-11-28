@@ -746,3 +746,6 @@ https://github.com/MatsMaker/example-of-migration-pixijs-imspector-to-5v/blob/gh
 ### 2021-09-21 Town structure names
 - [x] Show structure labels on the Town
 - [ ] Show level + emblem for structure label
+
+### Bugfixes
+- [ ] Cant take item from equipment guy and drop on inventory 
