@@ -18,7 +18,7 @@ import { getDefinition as getEnemyDefinition } from 'definitions/enemies';
 import { getDefinition as getWeaponDefinition, WeaponType } from 'definitions/items/weapons';
 import { LogChannel } from 'store/types/logEntry';
 import { addGold } from 'store/actions/gold';
-import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
+import { addItemToInventory, changeEquipmentQuantity, removeItemFromInventory } from 'store/actions/adventurers';
 import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import { Item, ItemType } from "definitions/items/types";
@@ -236,14 +236,14 @@ export class BaseSceneController<TQuestVars> {
       if (this.settings.verboseCombatLog) {
         this.log({ key: "scene-combat-attack-slash-missed-verbose", context: {
           actor,
-          weapon,
+          weapon: weapon.type,
           ap,
           roll,
           weaponType: definition.weaponType,
           skill: skills[definition.weaponType]
         }});
       } else {
-        this.log({ key: "scene-combat-attack-slash-missed", context: { actor, weapon }});
+        this.log({ key: "scene-combat-attack-slash-missed", context: { actor, weapon: weapon.type }});
       }
     }
     // todo: see if slash misses
@@ -255,7 +255,8 @@ export class BaseSceneController<TQuestVars> {
     if (!actor) throw new Error("No actor found");
     const weapon = this.getActorMainhandItem(actor);
     if (!weapon) throw new Error("No weapon found");
-    const definition = getWeaponDefinition(weapon.type)
+    const definition = getWeaponDefinition(weapon.type);
+
     switch(definition.weaponType) {
       case WeaponType.bow: {
         SoundManager.playSound("scene/bow", Channel.scene, false, MixMode.singleInstance);
@@ -265,6 +266,12 @@ export class BaseSceneController<TQuestVars> {
         SoundManager.playSound("scene/crossbow", Channel.scene, false, MixMode.singleInstance);
       }
       break;
+    }
+
+    const ammo = this.getActorOffhandItem(actor);
+    if (ammo && isAdventurer(actor)) {
+      let quantity = (ammo.quantity || 1);
+      this.dispatch(changeEquipmentQuantity(actorId, EquipmentSlotType.offHand, --quantity));
     }
   }
 
@@ -286,14 +293,14 @@ export class BaseSceneController<TQuestVars> {
          if (this.settings.verboseCombatLog) {
           this.log({ key: "scene-combat-attack-shoot-missed-verbose", context: {
             actor,
-            weapon,
+            weapon: weapon.type,
             ap,
             roll,
             weaponType: definition.weaponType,
             skill: skills[definition.weaponType]
           }});
         } else {
-          this.log({ key: "scene-combat-attack-shoot-missed", context: { actor, weapon }});
+          this.log({ key: "scene-combat-attack-shoot-missed", context: { actor, weapon: weapon.type }});
         }
     }
     // todo: process the hit, take away any HP?
@@ -812,6 +819,16 @@ export class BaseSceneController<TQuestVars> {
     }
     const enemy = this.getEnemyByActor(actor);
     return enemy.mainHand;
+  }
+
+  protected getActorOffhandItem(actor: ActorObject) {
+    if (isAdventurer(actor)) {
+      const adventurer = this.getAdventurerByActor(actor);
+      if (!adventurer) throw new Error("No adventurer found")
+      return adventurer.equipment[EquipmentSlotType.offHand];
+    }
+    const enemy = this.getEnemyByActor(actor);
+    return enemy.offHand;
   }
 
   protected questUpdate(input: string | TextEntry, icon?: string, toast = false) : void {
