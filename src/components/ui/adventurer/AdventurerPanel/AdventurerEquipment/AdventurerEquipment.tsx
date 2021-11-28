@@ -8,6 +8,8 @@ import { TextManager } from 'global/TextManager';
 import { IconSize } from 'components/ui/common/Icon';
 import Guy from './Guy';
 import './styles/adventurerEquipment.scss';
+import { useDispatch } from "react-redux";
+import { changeEquipmentQuantity } from "store/actions/adventurers";
 
 export interface Props {
   adventurer: AdventurerStoreState
@@ -51,6 +53,7 @@ const AdventurerEquipment = (props: Props) => {
       </li>
     );
   };
+
   return (
     <ul className="adventurer-equipment">
       {getEquipmentSlot(EquipmentSlotType.head)}

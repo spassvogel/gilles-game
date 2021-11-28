@@ -7,6 +7,7 @@ import { WeaponType } from 'definitions/items/weapons';
 import { levelToXp } from "mechanics/adventurers/levels";
 import { Action } from "store/actions";
 import { getDefinition, isConsumable } from "definitions/items/consumables";
+import { Item } from "definitions/items/types";
 
 /**
  * reducer
@@ -37,7 +38,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [EquipmentSlotType.shoulders]: { type: "apparel/shoulders2" },
     [EquipmentSlotType.legs]: { type: "apparel/pants2" },
     [EquipmentSlotType.feet]: { type: "apparel/boots3" },
-    [EquipmentSlotType.mainHand]: { type: "weapon/longbow" }
+    [EquipmentSlotType.mainHand]: { type: "weapon/longbow" },
+    [EquipmentSlotType.offHand]: { type: "ammunition/basicArrows", quantity: 200 }
     // offHand: Item.indomitableCarapace
   },
   basicAttributes: generateRandomAttributes(),
@@ -60,7 +62,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   id: "2e655832",
   equipment: {
     [EquipmentSlotType.feet]: { type: "apparel/boots2" },
-    [EquipmentSlotType.mainHand]: { type: "weapon/simpleCrossbow" }
+    [EquipmentSlotType.mainHand]: { type: "weapon/simpleCrossbow" },
+    [EquipmentSlotType.offHand]: { type: "ammunition/crossbowBolts", quantity: 150 }
   },
   basicAttributes: generateRandomAttributes(),
   name: "Addison Chilson",
@@ -355,6 +358,26 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       });
     }
 
+
+    case "changeItemQuantity": {
+      // Change quantity of an item in invntory
+      const { slot, quantity } = action;
+
+      return state.map((adventurer: AdventurerStoreState) => {
+        if (adventurer.id === action.adventurerId) {
+          const inventory = adventurer.inventory.map((item, index) => index !== slot ? item : ({
+            ...item,
+            quantity
+          }) as Item);
+          return {
+            ...adventurer,
+            inventory,
+          };
+        }
+        return adventurer;
+      });
+    }
+
     case "assignEquipment": {
       // Assigns equipment to an adventurer
       const { equipmentSlot, item, } = action;
@@ -389,6 +412,28 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
         return adventurer;
       });
     }
+
+    case "changeEquipmentQuantity": {
+      // Change quantity of an item equipped
+      const { equipmentSlot, quantity } = action;
+
+      return state.map((adventurer: AdventurerStoreState) => {
+        if (adventurer.id === action.adventurerId) {
+          return {
+            ...adventurer,
+            equipment: {
+              ...adventurer.equipment,
+              [equipmentSlot]: {
+                ...adventurer.equipment[equipmentSlot],
+                quantity
+              },
+            },
+          };
+        }
+        return adventurer;
+      });
+    }
+
     case "renameAdventurer": {
       // Rename adventurer
       const { name } = action;

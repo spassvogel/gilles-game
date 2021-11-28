@@ -46,7 +46,6 @@ export const itemAndEquipmentSlotMatch = (itemType: ItemType, equipmentSlotType:
       const itemDefinition: WeaponDefinition = getDefinition(itemType) as WeaponDefinition;
 
       if (itemDefinition.itemCategory === ItemCategory.ammunition) {
-        // todo: check rangedWeaponInHand
         return true;
       }
       else if (itemDefinition.itemCategory !== ItemCategory.weapon) {
