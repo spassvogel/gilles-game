@@ -53,7 +53,7 @@ const Stockpile = () => {
 
   return (
     <div className="stockpile">
-      <Tabstrip className="tabs" onTabSelected={setSelectedItemCategory} activeTab={selectedItemCategory}>
+      <Tabstrip className="tabs auto-collapse" onTabSelected={setSelectedItemCategory} activeTab={selectedItemCategory}>
       {Object.keys(stockpile).map((itemCategory) => {
         return (
           <Tab id={itemCategory} key={itemCategory}>

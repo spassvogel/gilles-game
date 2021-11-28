@@ -727,7 +727,7 @@ https://redux.js.org/api/store#subscribelistener
 - [x] Had resource requirements 
 
 ### 2021-07-22 Tabstrip mobile mode 
-- [ ] Needs to collapse into a type of dropdown select
+- [x] Needs to collapse into a type of dropdown select
 
 ### 2021-09-02 Drink potions
 - [x] Need the ability for adventurers to drink potions
@@ -747,5 +747,7 @@ https://github.com/MatsMaker/example-of-migration-pixijs-imspector-to-5v/blob/gh
 - [x] Show structure labels on the Town
 - [ ] Show level + emblem for structure label
 
-### Bugfixes
+### 2021-10-28 Bugfixes
 - [ ] Cant take item from equipment guy and drop on inventory 
+
+

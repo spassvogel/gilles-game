@@ -3,16 +3,16 @@ import { Item } from "definitions/items/types";
 
 export type AdventurerAction =
   { type: "consumeItem", adventurerId: string, fromSlot: number }
- |{ type: "moveItemInInventory", adventurerId: string, fromSlot: number, toSlot: number }
- |{ type: "moveItemToOtherAdventurer", adventurerId: string, fromSlot: number, toSlot?: number, toAdventurerId: string }
- |{ type: "addItemToInventory", adventurerId: string, item: Item, toSlot?: number }
- |{ type: "changeItemQuantity", adventurerId: string, slot: number, quantity: number }
- |{ type: "removeItemFromInventory", adventurerId: string, fromSlot: number }
- |{ type: "assignEquipment", adventurerId: string, item: Item, equipmentSlot: EquipmentSlotType }
- |{ type: "removeEquipment", adventurerId: string, equipmentSlot: EquipmentSlotType }
- |{ type: "changeEquipmentQuantity", adventurerId: string, equipmentSlot: EquipmentSlotType, quantity: number }
- |{ type: "renameAdventurer", adventurerId: string, name: string }
- |{ type: "addXP", adventurerId: string, xp: number; }
+| { type: "moveItemInInventory", adventurerId: string, fromSlot: number, toSlot: number }
+| { type: "moveItemToOtherAdventurer", adventurerId: string, fromSlot: number, toSlot?: number, toAdventurerId: string }
+| { type: "addItemToInventory", adventurerId: string, item: Item, toSlot?: number }
+| { type: "changeItemQuantity", adventurerId: string, slot: number, quantity: number }
+| { type: "removeItemFromInventory", adventurerId: string, fromSlot: number }
+| { type: "assignEquipment", adventurerId: string, item: Item, equipmentSlot: EquipmentSlotType }
+| { type: "removeEquipment", adventurerId: string, equipmentSlot: EquipmentSlotType }
+| { type: "changeEquipmentQuantity", adventurerId: string, equipmentSlot: EquipmentSlotType, quantity: number }
+| { type: "renameAdventurer", adventurerId: string, name: string }
+| { type: "addXP", adventurerId: string, xp: number; }
 
 export const consumeItem = (adventurerId: string, fromSlot: number): AdventurerAction => ({
   type: "consumeItem",

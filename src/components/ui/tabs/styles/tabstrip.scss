@@ -7,7 +7,12 @@
 	margin: 0;
 	flex: 1;
 	display: flex;
-    
+
+  .open {
+    // Used for 'auto-collapse' mode
+    display: none;
+  }
+
 	.tabstrip-tab {
 		max-width: 150px;
 		display: inline-block;
@@ -22,19 +27,38 @@
 		cursor: var(--app-cursor-pointer);
 		align-self: flex-end;
 	}
-    
+
 	.tabstrip-tab.active {
 		background: white;
 		border-color: $color-highlighted;
 	}
+
+  &.auto-collapse {
+    /** Auto collapses into a dropdown list on small screens */
+    @media only screen and (max-width: $max-width-small) {
+      flex-direction: column;
+
+      .open:checked ~ .tabstrip-tab {
+        display: block;
+      }
+
+      .tabstrip-tab {
+        align-self: inherit;
+        display: none;
+      }
+
+      .tabstrip-tab.active {
+        display: block;
+      }
+    }
+  }
 }
 
 .tabstrip.disabled {
-
 	.tabstrip-tab {
 		opacity: .2;
-    }
-    
+  }
+
 	.tabstrip-tab.active {
 		opacity: initial;
 	}
