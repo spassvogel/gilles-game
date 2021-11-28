@@ -15,7 +15,8 @@ export const withAppContext = <TWrappedComponentProps extends AppContextProps>(W
     public render() {
       return (
         <AppContext.Consumer>
-          {(context: any) => <WrappedComponent {...this.props } {...context} />}
+          { // eslint-disable-next-line @typescript-eslint/no-explicit-any
+           (context: any) => <WrappedComponent {...this.props } {...context} />}
         </AppContext.Consumer>
       );
     }

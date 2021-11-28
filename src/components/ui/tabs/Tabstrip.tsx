@@ -43,7 +43,7 @@ const Tabstrip = (props: Props) => {
   return (
     <>
       <ul className={`tabstrip ${className ?? ""}`} onClick={handleClick}>
-        <input type="checkbox" className="open" id="open" checked={open} />
+        <input type="checkbox" className="open" id="open" checked={open} onChange={() => setOpen(!open)} />
         {children}
       </ul>
     </>
