@@ -26,7 +26,7 @@ const UpgradeHelpModalContent = (props: Props) => {
         <div><Icon image={resourceDescription.iconImg} size="smallest"/></div>
         <div>{TextManager.getResourceName(resource)}</div>
         <div className="number">{currentLevel.maxResources[resource]}</div>
-        <div className="arrow">⟶</div>
+        <div className="arrow">»</div>
         <div className="number">{nextLevel.maxResources[resource]}</div>
       </React.Fragment>
     )

@@ -1,36 +1,37 @@
 @import 'components/styles/variables.scss';
 
 .upgrade-help-model-content-tavern {
-    h3 {
-        padding-left: 0.5rem;
-        margin-bottom: 0;
+  h3 {
+    padding-left: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  .rooms-increase {
+    display: grid;
+    grid-template-columns: 2rem auto 4rem 1rem 4rem;
+    margin: 1rem 0 1rem 1rem;
+
+    .header {
+      font-weight: bold;
+      border-bottom: 1px solid $color-secondary;
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+      text-transform: capitalize;
+
+      &:first-child {
+        // Pull first header left to extend the line
+        margin-left: -1rem;
+      }
     }
 
-    .rooms-increase {
-        display: grid;
-        grid-template-columns: 2rem auto 4rem 1rem 4rem;
-        margin: 1rem 0 1rem 1rem;
-        
-        .header {
-            font-weight: bold;
-            border-bottom: 1px solid $color-secondary;
-            padding-bottom: 4px;
-            margin-bottom: 8px;
-            text-transform: capitalize;
-
-            &:first-child {
-                // Pull first header left to extend the line
-                margin-left: -1rem;
-            }
-        }
-
-        .number {
-            text-align: right;
-            padding-right: 1rem;
-        }
-
-        .arrow {
-            color: $color-text-darker;
-        }
+    .number {
+      text-align: right;
+      padding-right: 1rem;
     }
+
+    .arrow {
+      color: $color-text-darker;
+      text-align: right;
+    }
+  }
 }

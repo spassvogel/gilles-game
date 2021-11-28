@@ -40,7 +40,7 @@ const UpgradeHelpModalContent = (props: Props) => {
         <div><Icon image="img/ui/structures/tavern.png" size="smallest"/></div>
         <div>{TextManager.get("ui-structure-tavern-rooms")}</div>
         <div className="number">{currentLevel.rooms}</div>
-        <div className="arrow">⟶</div>
+        <div className="arrow">»</div>
         <div className="number">{nextLevel.rooms}</div>
       </div>
     </div>
