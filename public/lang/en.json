@@ -1,6 +1,6 @@
 {
 
-    "adventurer-drink-potion": "{{adventurer}} drinks {{item:name item \"aA\"}}",
+    "adventurer-drink-potion": "{{adventurer:name adventurer}} drinks {{item:name item \"aA\"}}",
     "adventurer-12c613d4-name": "Tedric the Bold",
     "adventurer-169384ef-name": "Karlee Nolan",
     "adventurer-169384ef-flavor": "Silver, flowing hair tight in a ponytail reveals a thin, frowning face. Gentle green eyes, set high within their sockets, watch anxiously over the sea they've become enchancted by for so long.\nFire has left a mark reaching from just under the right eye , running towards the right side of her lips and ending on her chin and leaves a bittersweet memory of a great reputation.",

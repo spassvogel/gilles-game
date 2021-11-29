@@ -734,6 +734,9 @@ https://redux.js.org/api/store#subscribelistener
 - [x] Implement all actions for dragging and dropping between inventory and ConsumeItem
 - [x] Implement AP cost
 - [ ] Implement actual beneficial effects
+   - [x] Health
+   - [ ] Soma
+   - [ ] Mana 
 - [x] Play sound!
 
 ### 2021-09-20 Pixijs inspector

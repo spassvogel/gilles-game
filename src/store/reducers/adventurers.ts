@@ -238,6 +238,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       if (!adventurer) {
         throw new Error(`No adventurer ${adventurerId} found`)
       }
+      let { health } = adventurer;
       const consumable = adventurer.inventory[fromSlot];
       if (!consumable || !isConsumable(consumable.type)) {
         throw new Error(`No potion found at index ${fromSlot} `)
@@ -246,7 +247,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       // todo: 2021-09-02 Drink potions
       switch (definition.category) {
         case "health":
-          console.log(`${adventurer.name} drinks a health potion`);
+          health = Math.min((definition.effect ?? 0) + health, 100);
           break;
         case "soma":
           console.log(`${adventurer.name} drinks a soma potion`);
@@ -255,12 +256,14 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
           console.log(`${adventurer.name} drinks a mana potion`);
           break;
       }
-      const inventory = adventurer.inventory.map((element, index) => index !== fromSlot ? element : null);
 
+      // take item from the inventory
+      const inventory = adventurer.inventory.map((element, index) => index !== fromSlot ? element : null);
       return state.map((element: AdventurerStoreState) => {
         if (element === adventurer) {
           return {
             ...element,
+            health,
             inventory,
           };
         }

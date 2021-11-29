@@ -2,7 +2,7 @@ import { paramCase as toKebab} from "text-param-case";
 import { decode } from 'html-entities';
 import { TextEntry } from "constants/text";
 import { getDefinition } from "definitions/items";
-import { ItemType, ItemCategory } from "definitions/items/types";
+import { ItemType, ItemCategory, isItemType, Item } from "definitions/items/types";
 import { Resource } from "definitions/resources";
 import { Structure } from "definitions/structures";
 import * as Handlebars from "handlebars";
@@ -114,8 +114,11 @@ export abstract class TextManager {
     return this.get(`resource-${type}-name`);
   }
 
-  public static getItemName(itemType: ItemType): string {
-    return this.get(`item-${toKebab(itemType)}-name`);
+  public static getItemName(itemOrItemType: Item | ItemType): string {
+    if (isItemType(itemOrItemType)){
+      return this.get(`item-${toKebab(itemOrItemType)}-name`);
+    }
+    return this.get(`item-${toKebab(itemOrItemType.type)}-name`);
   }
 
   public static getItemCategory(itemCategory: ItemCategory): string {
@@ -186,21 +189,28 @@ export abstract class TextManager {
   }
 }
 
-Handlebars.registerHelper("item:name", (item: ItemType, article?: string) => {
-  if (!getDefinition(item)) {
-    return new Handlebars.SafeString(`<<ITEM DEFINITION NOT FOUND: ${item}>>`);
+Handlebars.registerHelper("item:name", (itemOrItemType: Item | ItemType, article?: string) => {
+  let itemType: ItemType;
+  if (isItemType(itemOrItemType)){
+    itemType = itemOrItemType;
+  } else {
+    itemType = itemOrItemType.type;
+  }
+  console.log(itemType)
+  if (!getDefinition(itemType)) {
+    return new Handlebars.SafeString(`<<ITEM DEFINITION NOT FOUND: ${itemType}>>`);
   }
   switch (article) {
     case "aA":  // article Auto
-      return itemArticleAuto(item);
+      return itemArticleAuto(itemType);
     case "aD":  // article Defined "a sword"
-      return itemArticleDefined(item);
+      return itemArticleDefined(itemType);
     case "aU":  // article Defined "the sword"
-      return itemArticleDefined(item);
+      return itemArticleDefined(itemType);
     default:
       // No article
       // const name = itemDefinitions[item].name;
-      return new Handlebars.SafeString(item);
+      return new Handlebars.SafeString(itemType);
   }
 });
 
@@ -217,6 +227,11 @@ Handlebars.registerHelper("structure:link", (structure: Structure) => {
 
 Handlebars.registerHelper("resource:name", (resource: string) => {
   const name = TextManager.get(`resource-${resource}-name`);
+  return new Handlebars.SafeString(name);
+});
+
+Handlebars.registerHelper("adventurer:name", (adventurerId: string) => {
+  const name = TextManager.getAdventurerName(adventurerId);
   return new Handlebars.SafeString(name);
 });
 

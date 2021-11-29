@@ -31,6 +31,10 @@ export type Item<T = ItemType> = {
   durability?: number; // 0 to 1
 }
 
+export const isItemType = (test: Item | ItemType): test is ItemType => {
+  return !Object.prototype.hasOwnProperty.call(test, "type");
+}
+
 export interface ItemDefinition {
   itemCategory: ItemCategory;
   iconImg: string;

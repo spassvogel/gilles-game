@@ -17,6 +17,7 @@ import { AP_COST_CONSUME } from "mechanics/combat";
 import { deductActorAp } from "store/actions/quests";
 import { Channel, SoundManager } from "global/SoundManager";
 import "./styles/consumeitem.scss";
+import { getDefinition, isConsumable } from "definitions/items/consumables";
 
 export interface Props {
   adventurerId: string;
@@ -46,24 +47,34 @@ const ConsumeItem = (props: Props) => {
   }
 
   const item = useMemo(() => {
-    if (fromSlot === undefined) return undefined;
+    if (fromSlot === undefined) return null;
     return adventurer?.inventory[fromSlot];
   }, [adventurer, fromSlot])
 
   const handleConsumeItem = () => {
     if (!adventurerId || !fromSlot) return
-    if (combat) {
-    if (!questName) return
-    // Deduct AP from adventurer if in combat
-    dispatch(deductActorAp(questName , adventurerId, AP_COST_CONSUME));
+    const consumable = adventurer.inventory[fromSlot];
+    if (!consumable || !isConsumable(consumable.type)) {
+      throw new Error(`No potion found at index ${fromSlot} `)
     }
+    if (combat) {
+      if (!questName) return
+      // Deduct AP from adventurer if in combat
+      dispatch(deductActorAp(questName , adventurerId, AP_COST_CONSUME));
+    }
+
+    // const definition = getDefinition(consumable.type);
+    // switch (definition.category) {
+    //   case "health":
+    //     break;
+    // }
     dispatch(consumeItem(adventurerId, fromSlot));
     SoundManager.playSound("scene/drinking", Channel.scene);
     onConsumed?.();
 
     // Add log entry
     if (adventurer) {
-      dispatch(addLogText("adventurer-drink-potion", { item, adventurer }, LogChannel.common));
+      dispatch(addLogText("adventurer-drink-potion", { item, adventurer: adventurerId }, LogChannel.common));
     }
   }
   return (

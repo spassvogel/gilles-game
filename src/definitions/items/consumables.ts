@@ -5,14 +5,16 @@ const PREFIX = "consumable/";
 const itemCategory = ItemCategory.consumable;
 const basePath = "/img/items/consumables/";
 
-export type ConsumableCategory = "health" | "soma" | "mana"
+export type ConsumableCategory = "health" | "soma" | "mana";
 export interface ConsumableDefinition extends ItemDefinition {
   category: ConsumableCategory;
+  effect?: number;
 }
 
 const consumables = {
   minorHealthPotion: {
     category: 'health',
+    effect: 10,
     itemCategory,
     iconImg: `${basePath}minor-health-potion.png`,
   },
@@ -28,6 +30,7 @@ const consumables = {
   },
   lesserHealthPotion: {
     category: 'health',
+    effect: 25,
     itemCategory,
     iconImg: `${basePath}lesser-health-potion.png`,
   },
@@ -43,6 +46,7 @@ const consumables = {
   },
   majorHealthPotion: {
     category: 'health',
+    effect: 50,
     itemCategory,
     iconImg: `${basePath}major-health-potion.png`,
   },
@@ -58,6 +62,7 @@ const consumables = {
   },
   greaterHealthPotion: {
     category: 'health',
+    effect: 75,
     itemCategory,
     iconImg: `${basePath}greater-health-potion.png`,
   },
