@@ -26,8 +26,7 @@ const style = new TextStyle({
   dropShadowDistance: 0
 })
 
-const blurSize = 32;
-const blurFilter = new BlurFilter(blurSize, 6)
+const blurFilter = new BlurFilter(2, 2)
 const borderWidth = 985; // width of original border image
 
 const StructureLabel = (props: Props) => {
@@ -39,23 +38,21 @@ const StructureLabel = (props: Props) => {
   }
   const structureName = TextManager.getStructureName(props.structure) ?? "";
 
-  const metrics = TextMetrics.measureText(`  ${structureName}`, style)
+  const metrics = TextMetrics.measureText(`${structureName}`, style)
   return (
     <Container
       x={x}
       y={y}
       name={props.structure}
     >
-      <Graphics
-        name="background"
-        draw={graphics => {
-            graphics.beginFill(0x0, 0.75)
-            graphics.drawRect(10, 0, metrics.width + 20, 32);
-            graphics.endFill();
-        }}
-        filters={[blurFilter]}
-        // mask={mask.current}
-      />
+      <Sprite
+          name="background"
+          image={`${process.env.PUBLIC_URL}/img/town/structure-label/background.png`}
+          scale={[(metrics.width + 16) / 190, 25]}
+          filters={[blurFilter]}
+          y={3.5}
+          x={8}
+       />
        <Sprite
           name="border-top"
           image={`${process.env.PUBLIC_URL}/img/town/structure-label/border-top.png`}
@@ -94,15 +91,3 @@ const StructureLabel = (props: Props) => {
 }
 
 export default StructureLabel;
-
-// function gradient(from: string, to: string) {
-//   const c = document.createElement("canvas");
-//   const ctx = c.getContext("2d");
-//   if (!ctx) throw Error();
-//   const grd = ctx.createLinearGradient(0,0,100,100);
-//   grd.addColorStop(0, from);
-//   grd.addColorStop(1, to);
-//   ctx.fillStyle = grd;
-//   ctx.fillRect(0,0,100,100);
-//   return Texture.from(c);
-// }
