@@ -19,10 +19,14 @@ const ApparelContent = (props: Props) => {
 
   return (
     <>
-      <div>{`${equipmentSlot}`}</div>
-      { subtext && (<p className="subtext">{`"${subtext}"`}</p>)}
+      <div className="subheader">{`${equipmentSlot}`}</div>
+      { subtext && (<p className="secondary">{`"${subtext}"`}</p>)}
+      <hr />
       { damageReduction && <p> { TextManager.get("ui-tooltip-damage-reduction", { damageReduction }) } </p> }
-      { <p> { TextManager.get("ui-tooltip-durability", { durability: (durability * 100).toFixed(0) }) } </p> }
+      <dl>
+        <dt>{(durability * 100).toFixed(0)}%</dt>
+        <dd>{TextManager.get("ui-tooltip-durability")}</dd>
+      </dl>
       <ProduceOrStudy item={item.type} />
     </>
   );

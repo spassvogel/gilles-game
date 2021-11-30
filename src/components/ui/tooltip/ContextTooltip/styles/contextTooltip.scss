@@ -1,48 +1,75 @@
 @import 'components/styles/variables.scss';
 
 .context-tooltip {
-    padding: 3px;
-    font-size: smaller;
-    width: 200px;
-    
-    .header {
-        display: flex;
-        justify-content: space-between;
-    }
+  padding: 3px;
+  font-size: smaller;
+  width: 200px;
 
-    .secondary {
-        color: $color-secondary;
-    }
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
 
-    .name {
-        text-transform: capitalize;
-    }
+  .subheader {
+    margin-top: 0.25rem;
+    color: $color-text-lighter;
+  }
 
-    .invalid {
-        color: $color-invalid;
-    }
+  .secondary {
+    color: $color-secondary;
+  }
 
-    .item-name-common {
-        color: $color-rarity-common;
-    }
-    
-    .item-name-uncommon {
-        color: $color-rarity-uncommon;
-    }
-    
-    .item-name-rare {
-        color: $color-rarity-rare;
-    }
-    
-    .item-name-epic {
-        color: $color-rarity-epic;
-    }
-    
-    .item-name-legendary {
-        color: $color-rarity-legendary;
-    }
+  hr {
+    border-width: 1px;
+    border-bottom-width: 1px;
+    border-bottom: 0;
+    border-color: $color-secondary;
+  }
 
-    .button {
-        margin-top: 8px;
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  // lists of stats
+  dl {
+    display: flex;
+
+    dd {
+      flex: 1;
+      color: $color-text-darker;
+      margin-left: 0.5rem;
     }
+  }
+
+  .name {
+    text-transform: capitalize;
+  }
+
+  .invalid {
+    color: $color-invalid;
+  }
+
+  .item-name-common {
+    color: $color-rarity-common;
+  }
+
+  .item-name-uncommon {
+    color: $color-rarity-uncommon;
+  }
+
+  .item-name-rare {
+    color: $color-rarity-rare;
+  }
+
+  .item-name-epic {
+    color: $color-rarity-epic;
+  }
+
+  .item-name-legendary {
+    color: $color-rarity-legendary;
+  }
+
+  .button {
+    margin-top: 8px;
+  }
 }

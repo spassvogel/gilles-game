@@ -1,8 +1,9 @@
 import * as React from "react";
-import { getDefinition as getWeaponDefinition, DamageType, WeaponTypeDefinition, WeaponType, Weapon } from 'definitions/items/weapons';
+import { getDefinition as getWeaponDefinition, WeaponTypeDefinition, WeaponType, Weapon } from 'definitions/items/weapons';
 import { TextManager } from 'global/TextManager';
-import ProduceOrStudy from './ProduceOrStudy';
+import ProduceOrStudy from '../ProduceOrStudy';
 import { Item } from "definitions/items/types";
+import DamageList from "./DamageList";
 
 interface Props {
   item: Item<Weapon>;
@@ -19,11 +20,18 @@ const WeaponContent = (props: Props) => {
 
   return (
     <>
-      <div>{weaponType}
+      <div className="subheader">{weaponType}
         {definition.weaponType !== WeaponType.shield && (` (${classificationText})`)}
       </div>
-      { subtext && (<p className="subtext">{`"${subtext}"`}</p>)}
-      { definition.damage && <p> damage: { definition.damage[DamageType.kinetic] } </p>}
+      <hr />
+      { subtext && (
+        <>
+          <p className="secondary">{`"${subtext}"`}</p>
+          <hr />
+        </>
+      )}
+      { definition.damage && <DamageList damage={definition.damage} /> }
+      <hr />
       <ProduceOrStudy item={item.type} />
     </>
   );

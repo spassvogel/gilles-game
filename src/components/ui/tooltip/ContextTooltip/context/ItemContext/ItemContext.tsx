@@ -10,7 +10,6 @@ import { TextManager } from 'global/TextManager';
 import { Consumable, isConsumable } from "definitions/items/consumables";
 import ConsumableContent from "./ConsumableContent";
 import { ItemSource } from "constants/items";
-import "./styles/itemContext.scss";
 
 export interface Props {
   item: Item;
@@ -19,6 +18,7 @@ export interface Props {
 
 const ItemContext = (props: Props) => {
   const { item, source } = props;
+
   if (isDeed(item.type)) {
     return <DeedContent item={item as Item<Deed>} />;
   }

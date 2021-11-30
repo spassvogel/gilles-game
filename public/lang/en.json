@@ -58,6 +58,8 @@
     "common-time-year": " year",
     "common-time-year-plural": " years",
 
+    "damage-type-kinetic": "kinetic damage",
+
     "encounter-backstabbed-description": "A group of rogues emerges from the bushes, knives drawn.",
     "encounter-dungeon-caches-chest": "{{adventurer}} rummages through an old chest",
     "encounter-goblin-house-hallway-description": "The party stands inside the hallway",
@@ -535,7 +537,7 @@
 
     "ui-tooltip-actor-level": "Lvl {{level}}",
     "ui-tooltip-damage-reduction": "Damage reduction: {{damageReduction}}",
-    "ui-tooltip-durability": "Durability: {{durability}}%",
+    "ui-tooltip-durability": "Durability",
     "ui-tooltip-study-requires-structure-level": "Study: Requires {{structure:name structure}} level {{level}}",
     "ui-tooltip-resource-produce-row": "Produced at {{structure:link structure}} ({{amount}}/minute)",
     "ui-tooltip-resource-produce-row-notbuilt": "Produced at {{structure}} (not constructed)",
