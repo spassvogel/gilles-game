@@ -27,7 +27,7 @@
     "react-dnd": "^14.0.4",
     "react-dnd-html5-backend": "^14.0.2",
     "react-dom": "^17.0.2",
-    "react-markdown": "^7.1.0",
+    "react-markdown": "^7.1.1",
     "react-redux": "^7.2.4",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
@@ -36,7 +36,7 @@
     "react-select": "^5.2.1",
     "react-spring": "^9.3.2",
     "redux-persist": "^6.0.0",
-    "reselect": "^4.1.1",
+    "reselect": "^4.1.5",
     "seedrandom": "^3.0.5",
     "simple-encryptor": "^4.0.0",
     "string-arrays-equal": "^0.2.5",
@@ -83,7 +83,7 @@
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react": "^7.27.1",
     "gh-pages": "^3.2.3",
     "typed-emitter": "^1.3.1"
   }
