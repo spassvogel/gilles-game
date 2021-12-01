@@ -75,7 +75,7 @@ const useItemDropActions = () => {
         const fromSlot = dragInfo.inventorySlot ?? -1;
         if (existingEquipment) {
           // Another weapon was there, switch them
-          actions.push(assignEquipment(adventurer.id, fromSlot, existingEquipment),)
+          actions.push(assignEquipment(adventurer.id, fromSlot, existingEquipment))
         } else {
           // Clear the slot where it came from
           actions.push(removeEquipment(adventurer.id, fromSlot));
@@ -145,7 +145,7 @@ const useItemDropActions = () => {
     const actions: Action[] = [];
     const definition = getDefinition(item.type)
     const stockpileCategory = ItemCategory[definition.itemCategory] as keyof StockpileStoreState
-
+console.log(item)
     switch (sourceType) {
       // Dragged from the warehouse itself
       case DragSourceType.warehouse: {
@@ -171,6 +171,21 @@ const useItemDropActions = () => {
         if (otherItem) {
           actions.push(
             addItemToInventory(sourceId, otherItem, fromSlot)
+          )
+        }
+        break;
+      }
+      // Drag from equipment slot
+      case DragSourceType.adventurerEquipment: {
+        actions.push(
+          removeEquipment(sourceId, fromSlot),
+          addItemToWarehouse(item, toSlot)
+        );
+
+        const otherItem = stockpile[stockpileCategory][toSlot];
+        if (otherItem) {
+          actions.push(
+            assignEquipment(sourceId, fromSlot, otherItem)
           )
         }
         break;

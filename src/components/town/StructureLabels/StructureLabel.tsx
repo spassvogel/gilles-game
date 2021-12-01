@@ -46,20 +46,20 @@ const StructureLabel = (props: Props) => {
       name={props.structure}
     >
       <Sprite
-          name="background"
-          image={`${process.env.PUBLIC_URL}/img/town/structure-label/background.png`}
-          scale={[(metrics.width + 16) / 190, 25.5]}
-          alpha={0.5}
-          filters={[blurFilter]}
-          y={3.5}
-          x={8}
-       />
-       <Sprite
-          name="border-top"
-          image={`${process.env.PUBLIC_URL}/img/town/structure-label/border-top.png`}
-          scale={[(metrics.width + 30)/ borderWidth, 0.2]}
-          y={2}
-       />
+        name="background"
+        image={`${process.env.PUBLIC_URL}/img/town/structure-label/background.png`}
+        scale={[(metrics.width + 16) / 190, 25.5]}
+        alpha={0.5}
+        filters={[blurFilter]}
+        y={3.5}
+        x={8}
+      />
+      <Sprite
+        name="border-top"
+        image={`${process.env.PUBLIC_URL}/img/town/structure-label/border-top.png`}
+        scale={[(metrics.width + 30)/ borderWidth, 0.2]}
+        y={2}
+      />
        <Sprite
           name="border-bottom"
           image={`${process.env.PUBLIC_URL}/img/town/structure-label/border-top.png`}
