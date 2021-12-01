@@ -57,7 +57,12 @@ const ContextTooltip = () => {
         const name = TextManager.getResourceName(info as Resource);
         return (
           <>
-            <div className="name resource">{name}</div>
+            <div className="header">
+              <div className="name resource">{name}</div>
+              <div className="secondary">
+                { TextManager.get("ui-tooltip-resource-resource")}
+              </div>
+            </div>
             <ResourceContext info={info as string} />
           </>
         );

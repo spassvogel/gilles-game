@@ -24,15 +24,15 @@ const WeaponContent = (props: Props) => {
         {definition.weaponType !== WeaponType.shield && (` (${classificationText})`)}
       </div>
       <hr />
-      { subtext && (
-        <>
-          <p className="secondary">{`"${subtext}"`}</p>
-          <hr />
-        </>
-      )}
       { definition.damage && <DamageList damage={definition.damage} /> }
       <hr />
       <ProduceOrStudy item={item.type} />
+      { subtext && (
+        <>
+          <hr />
+          <p className="secondary">{`"${subtext}"`}</p>
+        </>
+      )}
     </>
   );
 

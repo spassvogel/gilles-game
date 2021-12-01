@@ -46,7 +46,7 @@ const ResourceContext = (props: Props) => {
 
     return (
       <span className="produced">
-        <ReactMarkdown>
+        <ReactMarkdown components={{ p: "span" }}>
           {TextManager.get("ui-tooltip-resource-produce-row", {
             structure,
             amount
@@ -67,10 +67,8 @@ const ResourceContext = (props: Props) => {
       const full = (resourcesState[resource] ?? 0) >= (maxResources?.[resource] ?? 0);
       return (
         <div className="resource-context">
-          <div className="info">
-            {TextManager.get(`resource-${resource}-info`)}
-          </div>
-          <div>
+          <hr />
+          <div className="subheader">
             {TextManager.get(`ui-tooltip-resource-quantity`, { amount } )}
           </div>
           <div>
@@ -81,6 +79,10 @@ const ResourceContext = (props: Props) => {
               {TextManager.get(`ui-tooltip-resource-warehouse-full`, { resource })}
             </div>
           )}
+          <hr />
+          <p className="secondary">
+            {TextManager.get(`resource-${resource}-info`)}
+          </p>
         </div>
       )
     }
@@ -89,12 +91,12 @@ const ResourceContext = (props: Props) => {
       return (
         <>
           <div className="resource-context">
-            <div className="info">
-              {` ${TextManager.get(`resource-${resource}-info`)}`}
+            <div>
+              {TextManager.get(`ui-tooltip-resource-quantity`, { amount } )}
             </div>
-          </div>
-          <div>
-            {TextManager.get(`ui-tooltip-resource-quantity`, { amount } )}
+            <p className="secondary">
+              {` ${TextManager.get(`resource-${resource}-info`)}`}
+            </p>
           </div>
         </>
       )
@@ -105,12 +107,12 @@ const ResourceContext = (props: Props) => {
       return (
         <>
           <div className="resource-context">
-             <div className="info">
-            {` ${TextManager.get(`resource-${resource}-info`)}`}
+            <div>
+              {TextManager.get(`ui-tooltip-workers-quantity`, { free, total } )}
             </div>
-          </div>
-          <div>
-            {TextManager.get(`ui-tooltip-workers-quantity`, { free, total } )}
+            <p className="secondary">
+            {` ${TextManager.get(`resource-${resource}-info`)}`}
+            </p>
           </div>
         </>
       )

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Graphics, Sprite, Text } from "@inlet/react-pixi"
+import { Container, Sprite, Text } from "@inlet/react-pixi"
 import { Structure } from "definitions/structures";
 import { useStructureState } from "hooks/store/structures";
 import { StructureState } from "store/types/structure";
@@ -48,7 +48,8 @@ const StructureLabel = (props: Props) => {
       <Sprite
           name="background"
           image={`${process.env.PUBLIC_URL}/img/town/structure-label/background.png`}
-          scale={[(metrics.width + 16) / 190, 25]}
+          scale={[(metrics.width + 16) / 190, 25.5]}
+          alpha={0.5}
           filters={[blurFilter]}
           y={3.5}
           x={8}

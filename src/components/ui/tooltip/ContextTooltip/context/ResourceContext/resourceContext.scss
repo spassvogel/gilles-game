@@ -1,16 +1,20 @@
 @import 'components/styles/variables.scss';
 
 .resource-context {
-    .info {
-        color: $color-secondary;
-    }
+  .info {
+    color: $color-secondary;
+  }
 
-    .warning-full {
+  .warning-full {
 		color: $color-highlighted;
-    }
+  }
 }
 
 
-.produced a {
+.produced {
+  color: $color-text-darker;
+
+  a {
     color: $color-text-lighter;
+  }
 }

@@ -543,6 +543,7 @@
     "ui-tooltip-resource-produce-row-notbuilt": "Produced at {{structure}} (not constructed)",
     "ui-tooltip-resource-warehouse-full": "Warehouse is currently full of {{resource:name resource}} and we cannot produce any more",
     "ui-tooltip-resource-quantity": "Quantity: {{amount}}",
+    "ui-tooltip-resource-resource": "resource",
     "ui-tooltip-study-currently-studying": "Currently studying ",
     "ui-tooltip-study-start-study": "Study",
     "ui-tooltip-type-skill": "Skill: ",

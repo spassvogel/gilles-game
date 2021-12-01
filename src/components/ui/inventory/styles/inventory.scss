@@ -3,113 +3,114 @@
 $border: 2px;
 
 .inventory {
-    display: grid;
+  display: grid;
 
-    padding-top: $border;
-    padding-left: $border;
+  padding-top: $border;
+  padding-left: $border;
 
-    .inventory-item {
-        display: inline-block;
-        position: relative;
-        background: #4d4d4d75;
+  .inventory-item {
+    display: inline-block;
+    position: relative;
+    background: #4d4d4d75;
 
-        border: $border solid $color-secondary;
-        box-sizing: content-box;
-        width: $item-size-medium + $border;
-        height: $item-size-medium + $border;
-        margin-left: -$border;
-        margin-top: -$border;
+    @include border-grey-md;
 
-        &.drop-active {
-            border-color: $color-valid;
-            z-index: 2;
-        }
+    box-sizing: content-box;
+    width: $item-size-medium + $border;
+    height: $item-size-medium + $border;
+    margin-left: -$border;
+    margin-top: -$border;
 
-        &.drop-possible {
-            border-color: $color-primary;
-        }
-
-        &.disabled {
-            pointer-events: none;
-            filter: grayscale(1);
-            opacity: 0.5;
-        }
-
-        .item-icon {
-            background-color: $color-primary;    
-        }
+    &.drop-active {
+      border-color: $color-valid;
+      z-index: 2;
     }
 
+    &.drop-possible {
+      border-color: $color-primary;
+    }
 
-    /* size: small, 
-    on large screens: 8 colums 
-    on medium screens: 4 columns
-    on small screens: 2 columns
-    */
+    &.disabled {
+      pointer-events: none;
+      filter: grayscale(1);
+      opacity: 0.5;
+    }
+
+    .item-icon {
+      background-color: $color-primary;
+    }
+  }
+
+
+  /* size: small,
+  on large screens: 8 colums
+  on medium screens: 4 columns
+  on small screens: 2 columns
+  */
+  &.inventory-small {
+    /** large screen */
+    grid-template-columns: repeat(6, $item-size-medium + 4px);
+  }
+
+  @media only screen and (max-width: $max-width-medium) {
+    /** medium screen */
     &.inventory-small {
-        /** large screen */
-        grid-template-columns: repeat(6, $item-size-medium + 4px);
+      grid-template-columns: repeat(4, $item-size-medium + 4px);
     }
+  }
 
-    @media only screen and (max-width: $max-width-medium) {
-        /** medium screen */
-        &.inventory-small {
-            grid-template-columns: repeat(4, $item-size-medium + 4px);
-        }
+  @media only screen and (max-width: $max-width-small) {
+    /** small screen */
+    &.inventory-small {
+      grid-template-columns: repeat(2, $item-size-medium + 4px);
     }
+  }
 
-    @media only screen and (max-width: $max-width-small) {
-        /** small screen */
-        &.inventory-small {
-            grid-template-columns: repeat(2, $item-size-medium + 4px);
-        }
-    }
+  /* size: medium,
+  on large screens: 8 colums
+  on medium screens: 6 columns
+  on small screens: 4 columns
+  */
+  &.inventory-medium {
+    /** large screen */
+    grid-template-columns: repeat(8, $item-size-medium + 4px);
+  }
 
-    /* size: medium, 
-    on large screens: 8 colums 
-    on medium screens: 6 columns
-    on small screens: 4 columns
-    */
+  @media only screen and (max-width: $max-width-medium) {
+    /** medium screen */
     &.inventory-medium {
-        /** large screen */
-        grid-template-columns: repeat(8, $item-size-medium + 4px);
+      grid-template-columns: repeat(6, $item-size-medium + 4px);
     }
+  }
 
-    @media only screen and (max-width: $max-width-medium) {
-        /** medium screen */
-        &.inventory-medium {
-            grid-template-columns: repeat(6, $item-size-medium + 4px);
-        }
+  @media only screen and (max-width: $max-width-small) {
+    /** small screen */
+    &.inventory-medium {
+      grid-template-columns: repeat(4, $item-size-medium + 4px);
     }
+  }
 
-    @media only screen and (max-width: $max-width-small) {
-        /** small screen */
-        &.inventory-medium {
-            grid-template-columns: repeat(4, $item-size-medium + 4px);
-        }
-    }
+  /* size: large, basically as wide as the uiå
+  on large screens: 16 colums
+  on medium screens: 12 columns
+  on small screens: 6 columns
+  */
+  &.inventory-large {
+    /** large screen */
+    grid-template-columns: repeat(18, $item-size-medium + 4px);
+  }
 
-    /* size: large, basically as wide as the uiå
-    on large screens: 16 colums 
-    on medium screens: 12 columns
-    on small screens: 6 columns
-    */
+  @media only screen and (max-width: $max-width-medium) {
+    /** medium screen */
     &.inventory-large {
-        /** large screen */
-        grid-template-columns: repeat(18, $item-size-medium + 4px);
+      grid-template-columns: repeat(12, $item-size-medium + 4px);
     }
+  }
 
-    @media only screen and (max-width: $max-width-medium) {
-        /** medium screen */
-        &.inventory-large {
-            grid-template-columns: repeat(12, $item-size-medium + 4px);
-        }
+  @media only screen and (max-width: $max-width-small) {
+    /** small screen */
+    &.inventory-large {
+      grid-template-columns: repeat(6, $item-size-medium + 4px);
     }
-
-    @media only screen and (max-width: $max-width-small) {
-        /** small screen */
-        &.inventory-large {
-            grid-template-columns: repeat(6, $item-size-medium + 4px);
-        }
-    }
+  }
 }

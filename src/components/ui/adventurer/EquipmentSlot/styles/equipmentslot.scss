@@ -1,17 +1,17 @@
 @import 'components/styles/variables.scss';
 
-.equipment-slot { 
-    width: 48px;
-    height: 48px;
-    background-size: contain;
-    background-repeat: no-repeat;    
-    @include border-grey-md;
+.equipment-slot {
+  width: 48px;
+  height: 48px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  @include border-grey-md;
 
-    &.drop-possible {
-        @include border-gold-md;
-    }
-    &.drop-active {
-        @include border-green-md;
-    }
+  &.drop-possible {
+    @include border-gold-md;
+  }
+  &.drop-active {
+    @include border-green-md;
+  }
 }
 
