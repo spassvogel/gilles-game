@@ -196,7 +196,6 @@ Handlebars.registerHelper("item:name", (itemOrItemType: Item | ItemType, article
   } else {
     itemType = itemOrItemType.type;
   }
-  console.log(itemType)
   if (!getDefinition(itemType)) {
     return new Handlebars.SafeString(`<<ITEM DEFINITION NOT FOUND: ${itemType}>>`);
   }

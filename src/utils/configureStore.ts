@@ -1,10 +1,17 @@
-import { createStore, DeepPartial, AnyAction, Store } from "redux";
+import { createStore, compose, DeepPartial, applyMiddleware, Middleware, AnyAction, Store } from "redux";
 import { Persistor, persistReducer, persistStore } from "redux-persist";
 import localForage from 'localforage';
 import rootReducer from "store/reducers/index";
 import { asInt } from "constants/version";
 import { storeIsRehydrated } from 'store/helpers/storeHelpers';
 import { StoreState } from 'store/types';
+import { effectsMiddleware } from "store/middleware/effects";
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
 
 const persistConfig = {
   key: "root",
@@ -20,19 +27,25 @@ interface ConfigureStoreResult {
   isHydrated: boolean;
 }
 
+// all middlewares
+const middlewares: Middleware[] = [
+  effectsMiddleware
+]
+const middlewareEnhancer = applyMiddleware(...middlewares)
+const composeEnhancers = (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose)(middlewareEnhancer)
+
 /**
  * Configures the redux store
  */
 const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<ConfigureStoreResult> => {
+
   return new Promise((resolve, _reject) => {
     const store = createStore(
       persistedReducer,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       initial,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+      composeEnhancers,
     );
     const persistor = persistStore(store, undefined, () => {
       const isHydrated = storeIsRehydrated(store.getState());
