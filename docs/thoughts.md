@@ -25,7 +25,7 @@
 - [x] allow for precompilation and JIT, pass by ctor, default = true
 
 
-#### 28/4/2019
+#### 28/4/2019 Various stuff
 - [x] display multi langual structure
 - [x] display multi langual resources
 - [x] for simplicity, don't change the names of the structures as they level up
@@ -81,7 +81,7 @@
 - [ ] Is the warehouse limited? Can you add unlimited items?
 - [x] Resource capacity is limited
 - [ ] Warehouse produces 'food rations' for quests
-
+- [x] Cant take item from equipment guy and drop on inventory 
 
 #### 10/07/2019 ASSERTS [+tech]
 - [x] Include an assert library
@@ -319,7 +319,8 @@ IMPLEMENTATION
 
 - [x] Scene controller can set 'combat = true' on scene. Then all actions of scene actors cost AP.
 - [x] Player has button to forgeit turn. Clears all AP on all player scene actors.
-- [ ] Make useCombat hook to abstract logic
+- [-] Make useCombat hook to abstract logic
+- [ ] Use combatcontroller 
 
 - [ ] When player actors have no APs left and there are *no* running secene actions 
     the AI selects one of their actors to make a move on. AI has different behaviour types,
@@ -750,7 +751,8 @@ https://github.com/MatsMaker/example-of-migration-pixijs-imspector-to-5v/blob/gh
 - [x] Show structure labels on the Town
 - [ ] Show level + emblem for structure label
 
-### 2021-10-28 Bugfixes
-- [ ] Cant take item from equipment guy and drop on inventory 
-
-
+### 2021-12-04 Perks and effects
+effects array in adventurers 
+emitter / listener for certain types of events (walk, attack, etc)
+process events, send out redux actions
+- [ ] Use middleware?

@@ -57,6 +57,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [WeaponType.crossbow]: 10,
     [WeaponType.bow]: 10
   },
+  effects: [],
   inventory: [ { type: "deed/lumbermill" }, null, { type: "weapon/simpleCrossbow" }, { type: "weapon/dagger" }, { type: "weapon/khopesh" }, null, { type: "weapon/steelSword" }, null,  { type: "consumable/greaterManaPotion" },  { type: "consumable/majorHealthPotion" },  null,  { type: "weapon/steelShield" },  null,  null,  null,  null],
 }, {
   id: "2e655832",
@@ -80,6 +81,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [WeaponType.crossbow]: 12,
     [WeaponType.staff]: 13
   },
+  effects: [],
   inventory: [ { type: "weapon/simpleCrossbow" }, null, { type: "consumable/greaterSoma" }, null, null, null, { type: "apparel/boots1" }, { type: "apparel/chainmailHood"} , { type: "apparel/nomadHelmet" }, { type: "apparel/plateChest4" }, null, { type: "weapon/buckler" }, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, { type: "apparel/plateHelmet" }, { type: "apparel/cowl" }]
 }, {
   id: "ec6f1050",
@@ -103,6 +105,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   avatarImg: `${avatarImgBasePath}/male/m_09.png`,
   spritesheetPath: `${spritesheetBasePath}skeleton.json`,
   color: AdventurerColor.black,
+  effects: [],
   inventory: [{ type: "weapon/greatswordOfGwai" }, null, null, null, { type: "weapon/berserkerShield" }],
 }, {
   id: "d299f98a",
@@ -122,6 +125,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   skills: {
     [WeaponType.sword]: 13
   },
+  effects: [],
   inventory: [ null, null, null, null, { type: "weapon/khopesh" }, { type: "apparel/hornedHelmet" }, { type: "weapon/woodenBulwark"} ],
 }, {
   id: "96c686c3",
@@ -139,6 +143,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   skills: {
     [WeaponType.axe]: 12
   },
+  effects: [],
   inventory: [ null, null, null, { type: "weapon/goldenShield" }],
 }, {
   id: "250d1a9d",
@@ -159,6 +164,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [EquipmentSlotType.mainHand]: { type: "weapon/longbow" },
     [EquipmentSlotType.offHand]: { type: "ammunition/basicArrows", quantity: 50 }
   },
+  effects: []
 }, {
   id: "169384ef",
   basicAttributes: generateRandomAttributes(),
@@ -178,6 +184,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [EquipmentSlotType.mainHand]: { type: "weapon/simpleCrossbow" },
     [EquipmentSlotType.offHand]: { type: "ammunition/crossbowBolts", quantity: 40 }
   },
+  effects: []
 }, {
   id: "f22d66cb",
   basicAttributes: generateRandomAttributes(),
@@ -193,6 +200,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   skills: {
     [WeaponType.axe]: 13
   },
+  effects: []
 }, {
   id: "36c686c1",
   equipment: {},
@@ -209,6 +217,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   skills: {
     [WeaponType.axe]: 3
   },
+  effects: []
 }, {
   id: "12c613d4",
   equipment: {},
@@ -224,6 +233,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   skills: {
     [WeaponType.axe]: 10
   },
+  effects: []
 }];
 
 // TODO: To generate a random 11 digit number, use: Math.random().toString(36).substring(2)

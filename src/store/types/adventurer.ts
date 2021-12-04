@@ -4,6 +4,7 @@ import { Apparel } from "definitions/items/apparel";
 import { Item } from "definitions/items/types";
 import { Weapon, WeaponType } from "definitions/items/weapons";
 import { Trait } from 'definitions/traits/types';
+import { Effect } from "mechanics/effects/types";
 
 export interface AdventurerStoreState {
   id: string;
@@ -17,6 +18,7 @@ export interface AdventurerStoreState {
   xp: number;
 
   equipment: EquipmentStoreState;   // equipment
+  effects: Effect[];          // combat effects
   inventory: (null | Item)[];
   basicAttributes: BasicAttributesStoreState;
   skills: SkillsStoreState;       //
@@ -58,3 +60,4 @@ export type BasicAttribute = keyof BasicAttributesStoreState;
 export type SkillsStoreState = {
   [key in WeaponType]?: number
 }
+

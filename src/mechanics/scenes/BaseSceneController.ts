@@ -200,6 +200,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   actorSlashing(actorId: string, _location: [number, number]) {
+    // todo 08/08/2019 use CombatController : move to CombatController?
     SoundManager.playSound("scene/swish", Channel.scene, false, MixMode.singleInstance);
     const actor = this.getSceneActor(actorId);
     if (!actor) throw new Error("No actor found");
@@ -220,6 +221,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   actorSlashed(actorId: string, location: [number, number]) {
+    // todo 08/08/2019 use CombatController : move to CombatController?
     const ap = AP_COST_SLASH;
     this.dispatch(deductActorAp(this.questName, actorId, ap));
     const actor = this.getSceneActor(actorId);
