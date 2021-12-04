@@ -8,6 +8,7 @@ import { levelToXp } from "mechanics/adventurers/levels";
 import { Action } from "store/actions";
 import { getDefinition, isConsumable } from "definitions/items/consumables";
 import { Item } from "definitions/items/types";
+import { EffectType } from "mechanics/effects/types";
 
 /**
  * reducer
@@ -105,7 +106,10 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   avatarImg: `${avatarImgBasePath}/male/m_09.png`,
   spritesheetPath: `${spritesheetBasePath}skeleton.json`,
   color: AdventurerColor.black,
-  effects: [],
+  effects: [{
+    type: EffectType.brokenLegs,
+    lastTick: Date.now(),
+  }],
   inventory: [{ type: "weapon/greatswordOfGwai" }, null, null, null, { type: "weapon/berserkerShield" }],
 }, {
   id: "d299f98a",
