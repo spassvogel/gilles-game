@@ -7,6 +7,13 @@ import { QuestStoreState } from "store/types/quest";
 //   return party.adventurers.map((id: string) => findAdventurerById(store, id)!);
 // };
 
+/**
+ * Returns the quest the given adventurer is currently on. Can be undefined if not on a quest
+ */
+export const findQuestByAdventurer = (adventurer: AdventurerStoreState, quests: QuestStoreState[]) => {
+  return quests.find(q => q.party.some(a => a === adventurer.id))
+}
+
 export const adventurersOnQuest = (adventurers: AdventurerStoreState[], quest: QuestStoreState): AdventurerStoreState[] => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return quest.party.map((id: string) => findAdventurerById(adventurers, id)!);

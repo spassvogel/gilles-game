@@ -237,7 +237,10 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   skills: {
     [WeaponType.axe]: 10
   },
-  effects: []
+  effects: [{
+    type: EffectType.brokenLegs,
+    lastTick: Date.now(),
+  }]
 }];
 
 // TODO: To generate a random 11 digit number, use: Math.random().toString(36).substring(2)

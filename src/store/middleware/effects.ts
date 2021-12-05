@@ -1,39 +1,31 @@
-import { Effect, EffectType } from 'mechanics/effects/types'
-import { Middleware, MiddlewareAPI, Dispatch } from 'redux'
+import { EffectType } from 'mechanics/effects/types'
+import { Middleware } from 'redux'
 import { Action } from 'store/actions'
+import { addHealth } from 'store/actions/adventurers'
 import { StoreState } from 'store/types'
-import { AdventurerStoreState } from 'store/types/adventurer'
+import { SceneActionType } from 'store/types/scene'
+import { lastAdventurerAction, AppMiddlewareAPI } from './utils'
 
-type AppMiddlewareAPI = MiddlewareAPI<Dispatch<Action>, StoreState>
 export const effectsMiddleware: Middleware<
   unknown, // Most middleware do not modify the dispatch return value
   StoreState
 > = (storeApi: AppMiddlewareAPI) => next => (action: Action) => {
   const state = storeApi.getState()
-  
-  console.log('   middleware', action)
+
   for (const adventurer of state.adventurers) {
+    const lastAction = lastAdventurerAction(adventurer, action, storeApi);
     (adventurer.effects ?? []).forEach(effect => {
-      processEffect(effect, adventurer, action, storeApi)
-      console.log(`${adventurer.name} has ${effect.type}`)
+      // processEffect(effect, adventurer, action, storeApi)
+      switch (effect.type) {
+        case EffectType.brokenLegs: {
+          if (lastAction === SceneActionType.move) {
+            console.log("last action for", adventurer.name, "moved");
+            storeApi.dispatch(addHealth(adventurer.id, -5))
+          }
+        }
+      }
     })
   }
-  // if (action.type === "enqueueSceneAction") {
-    
-  // }
   next(action);
 }
-const processEffect = (effect: Effect, adventurer: AdventurerStoreState, action: Action, storeApi: AppMiddlewareAPI) => {
-  switch (effect.type) {
-    case EffectType.brokenLegs: {
-      const bla = "foo";
-      console.log(adventurerJustWalked(adventurer, action, storeApi))
-    }
-  }
-}
 
-const adventurerJustWalked = (adventurer: AdventurerStoreState, action: Action, storeApi: AppMiddlewareAPI) => {
-  if (action.type === "completeSceneAction") {
-   // console.log("queue", storeApi.getState().)
-  }
-}
