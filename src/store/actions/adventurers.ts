@@ -2,7 +2,7 @@ import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { Item } from "definitions/items/types";
 
 export type AdventurerAction =
-  { type: "addHealth", adventurerId: string, amount: number }
+  { type: "modifyHealth", adventurerId: string, amount: number }
 | { type: "consumeItem", adventurerId: string, fromSlot: number }
 | { type: "moveItemInInventory", adventurerId: string, fromSlot: number, toSlot: number }
 | { type: "moveItemToOtherAdventurer", adventurerId: string, fromSlot: number, toSlot?: number, toAdventurerId: string }
@@ -15,8 +15,8 @@ export type AdventurerAction =
 | { type: "renameAdventurer", adventurerId: string, name: string }
 | { type: "addXP", adventurerId: string, xp: number; }
 
-export const addHealth = (adventurerId: string, amount: number): AdventurerAction => ({
-  type: "addHealth",
+export const modifyHealth = (adventurerId: string, amount: number): AdventurerAction => ({
+  type: "modifyHealth",
   adventurerId,
   amount,
 })

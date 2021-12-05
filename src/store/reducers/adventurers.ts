@@ -248,6 +248,19 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (state: AdventurerStoreState[] = initialAdventurers, action: Action) => {
 
   switch (action.type) {
+    // Changes adventurers health
+    case "modifyHealth": {
+      return state.map((adventurer: AdventurerStoreState) => {
+        if (adventurer.id === action.adventurerId) {
+          const health = adventurer.health += action.amount;
+          return {
+            ...adventurer,
+            health,
+          };
+        }
+        return adventurer;
+      });
+    }
     // Moves an  item from one inventory slot to another
     case "consumeItem": {
       const { adventurerId, fromSlot } = action;
