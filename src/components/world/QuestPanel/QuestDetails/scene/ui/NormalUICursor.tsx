@@ -39,6 +39,6 @@ const NormalUICursor = (props: Props) => {
 export default NormalUICursor;
 
 const images = {
-  [SceneActionType.move]: `url(${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/walking-boot.svg)`,
-  [SceneActionType.interact]: `url(${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/sunken-eye.svg)`
+  [SceneActionType.move]: `url(${process.env.PUBLIC_URL}/img/ui/icons/icons/walking-boot.svg)`,
+  [SceneActionType.interact]: `url(${process.env.PUBLIC_URL}/img/ui/icons/icons/sunken-eye.svg)`
 }

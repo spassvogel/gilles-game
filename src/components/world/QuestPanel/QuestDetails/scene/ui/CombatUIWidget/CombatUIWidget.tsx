@@ -65,7 +65,7 @@ const CombatUIWidget = (props: Props) => {
       <Segment
         position="w"
         tileHeight={tileHeight}
-        icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/knife-thrust.svg`}
+        icon={`${process.env.PUBLIC_URL}/img/ui/icons/knife-thrust.svg`}
         onActivate={() => handleSegmentActivate(SceneActionType.slash)}
         onDeactivate={() => handleSegmentDeactivate(SceneActionType.slash)}
         activated={actionIntent?.action === SceneActionType.slash}
@@ -73,7 +73,7 @@ const CombatUIWidget = (props: Props) => {
       <Segment
         position="sw"
         tileHeight={tileHeight}
-        icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/high-shot.svg`}
+        icon={`${process.env.PUBLIC_URL}/img/ui/icons/high-shot.svg`}
         onActivate={() => handleSegmentActivate(SceneActionType.shoot)}
         onDeactivate={() => handleSegmentDeactivate(SceneActionType.shoot)}
         activated={actionIntent?.action === SceneActionType.shoot}
@@ -81,20 +81,20 @@ const CombatUIWidget = (props: Props) => {
       <Segment
         position="s"
         tileHeight={tileHeight}
-        icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/walking-boot.svg`}
+        icon={`${process.env.PUBLIC_URL}/img/ui/icons/walking-boot.svg`}
         onActivate={() => handleSegmentActivate(SceneActionType.move)}
         onDeactivate={() => handleSegmentDeactivate(SceneActionType.move)}
         activated={actionIntent?.action === SceneActionType.move}
       />
       <Segment
         position="se"
-        icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/sunken-eye.svg`}
+        icon={`${process.env.PUBLIC_URL}/img/ui/icons/sunken-eye.svg`}
         tileHeight={tileHeight}
         activated={false}
       />
       <Segment
         position="e"
-        icon={`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/crosshair.svg`}
+        icon={`${process.env.PUBLIC_URL}/img/ui/icons/crosshair.svg`}
         tileHeight={tileHeight}
         activated={false}
       />

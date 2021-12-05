@@ -20,7 +20,7 @@ class CombatActionDot extends Container {
         this.addChild(this.tabContainer);
         this.ringDiameter = Math.sqrt(tileWidth * tileHeight) / 2; // diameter of the ring is twice as small as the tile
         this.drawRingNormal();
-        
+
         //ring.anchor.set(0.5);
         this.interactive = true;
         this.ring.hitArea = new Circle(0, 0, 25);
@@ -30,7 +30,7 @@ class CombatActionDot extends Container {
         this.on('pointerout', () => {
             this.drawRingNormal();
         });
-        
+
         const highlight = new Graphics();
         highlight.beginFill(0xffffff, 0.2);
         highlight.drawCircle(0, 0, 25);
@@ -49,7 +49,7 @@ class CombatActionDot extends Container {
         this.text.y = -40;
         this.addChild(this.text)
     }
-    
+
     setActionTabs(tabs: ActionTabConfig[]) {
         // clear out existing tabs
         this.tabContainer.removeChildren();
@@ -61,16 +61,16 @@ class CombatActionDot extends Container {
             [Math.PI / 4, Math.PI / 2, 3 * Math.PI / 4]
         ]
         tabs.forEach((val, index) => {
-            
-            const tab = Sprite.from(`${process.env.PUBLIC_URL}/img/scene/ui/combat/tab.png`);
+
+            const tab = Sprite.from(`${process.env.PUBLIC_URL}/img/ui/icons/tab.png`);
             tab.interactive = true;
 
             //  tab.y = 50;
             tab.anchor.set(-0.5, 0.5)
             this.tabContainer.addChild(tab);
             tab.rotation = rotations[tabs.length][index];
-            
-            const icon = Sprite.from(`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/${val.icon}.svg`);
+
+            const icon = Sprite.from(`${process.env.PUBLIC_URL}/img/ui/icons/icons/${val.icon}.svg`);
             icon.anchor.set(0.5);
             icon.x = 40;
             icon.width = icon.height = 28;
@@ -87,10 +87,10 @@ class CombatActionDot extends Container {
                 this.activeAction = undefined;
             })
         })
-        // const icon = Sprite.from(`${process.env.PUBLIC_URL}/img/scene/ui/combat/icons/crosshair.svg`);
-        
+        // const icon = Sprite.from(`${process.env.PUBLIC_URL}/img/ui/icons/icons/crosshair.svg`);
+
     }
-    
+
     drawRingNormal() {
         this.ring.clear();
         this.ring.lineStyle(3, 0x00617d);

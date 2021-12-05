@@ -3,63 +3,63 @@
 $cellWidth: 64;
 
 .combat-ui-widget {
-    position: relative; 
+  position: relative;
 
-    .info {
-        z-index: 2;
-        position: absolute;
-        text-align: center;
-        color: $color-text-lighter;
-        text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5), 0 0 2px rgba(0, 0, 0, 0.5);
-        font-size: x-large;
-        top: -22px;
-        white-space: nowrap;
+  .info {
+    z-index: 2;
+    position: absolute;
+    text-align: center;
+    color: $color-text-lighter;
+    text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5), 0 0 2px rgba(0, 0, 0, 0.5);
+    font-size: x-large;
+    top: -22px;
+    white-space: nowrap;
 
-        .insufficient {
-            color: $color-invalid;
-        }
+    .insufficient {
+      color: $color-invalid;
+    }
+  }
+
+  &:before {
+    content: '';
+    width: $cellWidth * .75px;
+    height: $cellWidth * .75px;
+    display: block;
+    position: absolute;
+    border: 8px solid $color-highlighted;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+  }
+
+  .segment {
+    position: absolute;
+    pointer-events: painted;
+
+    @include no-select;
+
+
+    img {
+      margin-top: 12px;
+      margin-left: 4px;
+      pointer-events: none;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &.collapsed {
+    .segment {
+      display: none;
     }
 
     &:before {
-        content: '';
-        width: $cellWidth * .75px;
-        height: $cellWidth * .75px;
-        display: block;
-        position: absolute;
-        border: 8px solid $color-highlighted;
-        border-radius: 50%;
-        left: 0;
-        top: 0;
+      width: $cellWidth / 2;
+      height: $cellWidth / 2;
+      // left: 15px;
+      // top: 15px;
     }
-
-    .segment {
-        position: absolute;
-        pointer-events: painted;
-
-        @include no-select;
-
-
-        img {
-            margin-top: 12px;
-            margin-left: 4px;
-            pointer-events: none;
-        
-            &:hover {
-                opacity: 0.8;
-            }
-        }   
-    }
-
-    &.collapsed {
-        .segment {
-            display: none;
-        }
-
-        &:before {
-            width: $cellWidth / 2;
-            height: $cellWidth / 2;
-            // left: 15px;
-            // top: 15px;
-        }
-    }
+  }
 }
