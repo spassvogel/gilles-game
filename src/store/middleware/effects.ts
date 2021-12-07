@@ -15,11 +15,9 @@ export const effectsMiddleware: Middleware<
   for (const adventurer of state.adventurers) {
     const lastAction = lastAdventurerAction(adventurer, action, storeApi);
     (adventurer.effects ?? []).forEach(effect => {
-      // processEffect(effect, adventurer, action, storeApi)
       switch (effect.type) {
         case EffectType.brokenLegs: {
           if (lastAction === SceneActionType.move) {
-            console.log("last action for", adventurer.name, "moved");
             storeApi.dispatch(modifyHealth(adventurer.id, -5))
           }
         }

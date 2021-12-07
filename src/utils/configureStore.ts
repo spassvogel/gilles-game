@@ -6,6 +6,7 @@ import { asInt } from "constants/version";
 import { storeIsRehydrated } from 'store/helpers/storeHelpers';
 import { StoreState } from 'store/types';
 import { effectsMiddleware } from "store/middleware/effects";
+import { traitsMiddleware } from "store/middleware/traits";
 
 declare global {
   interface Window {
@@ -29,7 +30,8 @@ interface ConfigureStoreResult {
 
 // all middlewares
 const middlewares: Middleware[] = [
-  effectsMiddleware
+  effectsMiddleware,
+  traitsMiddleware
 ]
 const middlewareEnhancer = applyMiddleware(...middlewares)
 const composeEnhancers = (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose)(middlewareEnhancer)
