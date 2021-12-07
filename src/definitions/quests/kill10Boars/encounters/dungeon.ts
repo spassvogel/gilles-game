@@ -255,8 +255,6 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
 
 
   handleSituationOptionClick(situation: string, option: string, adventurerId: string) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     switch (situation) {
       case 'door': {
         // Only one option, to open
