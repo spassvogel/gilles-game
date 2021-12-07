@@ -54,6 +54,7 @@
 - [ ] During encounters, characters can receive certain traits. These can be beneficial or not. 
 - [ ] In some cases the traits can be healed, removed etc. 
 - [ ] Some items can be used to grant a trait to an adventurer.
+- [ ] Some items can be used to grant a trait to an adventurer.
 - [ ] Maybe there can be permanent traits and mutable traits? Should we differentiate between the two?
 - [x] Create trait enum list 
 - [x] Create trait definition file
@@ -66,7 +67,15 @@
 - [ ] Examples: 
     "arrow finder": When looting a body has a chance to find arrows 
     "gloomy": will sometimes say depressing things
+    “"Life isn't fair and the universe is blind to our suffering”
 
+“Life is meaningless and without hope”
+“Love is nothing more than chemical reactions”
+“Please kill me and end my suffering”
+“Humanity is as cruel as it is shortsighted”
+“Do you ever find yourself wandering in the broken remnants of your own life”
+“There’s death all around us. Everywhere we look. ”
+“What is this sadness that pierces my heart?”
 
 #### 23/06/2019 HELP
 - [ ] Each screen should get a contexualized help window

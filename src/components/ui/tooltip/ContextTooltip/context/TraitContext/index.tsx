@@ -4,24 +4,24 @@ import { TraitDefinition } from 'definitions/traits/types';
  import './styles/traitContext.scss';
 
 export interface Props {
-    traitDefinition: TraitDefinition;
+  traitDefinition: TraitDefinition;
 }
 
 const TraitContext = (props: Props) => {
 
-    const {traitDefinition} = props;
+  const {traitDefinition} = props;
 
-    return (
-        <div className="trait-context">
-            <div className="description">
-                {TextManager.getTraitDescription(traitDefinition.trait)}
-            </div>
-            { traitDefinition.hasEffect && (
-            <div className="effect">
-                {TextManager.getTraitEffect(traitDefinition.trait)}
+  return (
+    <div className="trait-context">
+      <div className="description">
+        {TextManager.getTraitDescription(traitDefinition.trait)}
+      </div>
+      { traitDefinition.hasEffect && (
+      <div className="effect">
+        {TextManager.getTraitEffect(traitDefinition.trait)}
 
-            </div>)}
-        </div>
-    )
+      </div>)}
+    </div>
+  )
 }
 export default TraitContext;

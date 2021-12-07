@@ -9,6 +9,10 @@ const all = {
     trait: Trait.gloomy,
     hasEffect: true
   },
+  [Trait.lucky]: {
+    trait: Trait.lucky,
+    hasEffect: true
+  },
   [Trait.houseHouston]: {
     trait: Trait.houseHouston,
   },

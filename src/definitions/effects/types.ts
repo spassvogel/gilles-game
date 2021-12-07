@@ -1,6 +1,6 @@
 export enum EffectType {
   brokenLegs,               // every step
-  burning
+  burning,
 }
 
 export type BaseEffect = {
