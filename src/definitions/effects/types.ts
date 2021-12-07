@@ -1,5 +1,6 @@
 export enum EffectType {
-  brokenLegs                // every step
+  brokenLegs,               // every step
+  burning
 }
 
 export type BaseEffect = {
@@ -10,7 +11,14 @@ export type BaseEffect = {
 }
 
 export type EffectBrokenLegs = BaseEffect & {
-  type: EffectType.brokenLegs
+  type: EffectType.brokenLegs,
+  damage: number
 }
 
-export type Effect = EffectBrokenLegs
+export type EffectBurning = BaseEffect & {
+  type: EffectType.burning,
+  interval: number,
+  damage: number
+}
+
+export type Effect = EffectBrokenLegs | EffectBurning;

@@ -8,7 +8,7 @@ import { levelToXp } from "mechanics/adventurers/levels";
 import { Action } from "store/actions";
 import { getDefinition, isConsumable } from "definitions/items/consumables";
 import { Item } from "definitions/items/types";
-import { EffectType } from "mechanics/effects/types";
+import { EffectType } from "definitions/effects/types";
 
 /**
  * reducer
@@ -109,6 +109,12 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   effects: [{
     type: EffectType.brokenLegs,
     lastTick: Date.now(),
+    damage: 10,
+  }, {
+    type: EffectType.burning,
+    lastTick: Date.now(),
+    damage: 4,
+    interval: 5000
   }],
   inventory: [{ type: "weapon/greatswordOfGwai" }, null, null, null, { type: "weapon/berserkerShield" }],
 }, {
@@ -240,6 +246,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   effects: [{
     type: EffectType.brokenLegs,
     lastTick: Date.now(),
+    damage: 8,
   }]
 }];
 

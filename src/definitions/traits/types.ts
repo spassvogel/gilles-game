@@ -1,6 +1,6 @@
 export interface TraitDefinition {
   trait: Trait;
-  hasEffect?: boolean;
+  hasEffect?: boolean;    // shown in tooltip
 }
 
 export enum Trait {

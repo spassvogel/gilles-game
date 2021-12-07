@@ -1,11 +1,11 @@
 @import 'components/styles/variables.scss';
 
 .adventurer-traits {
-    list-style: none;
-    padding: 0;
-    
-    li {
-        display: inline;
-        @include popupText();
-    }
+  list-style: none;
+  padding: 0;
+
+  li {
+    display: inline;
+    @include popupText();
+  }
 }

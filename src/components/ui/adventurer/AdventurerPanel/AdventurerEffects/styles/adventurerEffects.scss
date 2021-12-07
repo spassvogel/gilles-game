@@ -1,0 +1,30 @@
+@import 'components/styles/variables.scss';
+
+.adventurer-effects {
+  list-style: none;
+  padding: 0;
+
+  li {
+    @include popupText();
+    .name {
+      display: inline-block;
+      margin-bottom: 2px;
+    }
+
+    .effect-icon {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      margin-right: 4px;
+      margin-bottom: -2px;
+
+      &.harmful {
+        background-color: $color-invalid;
+      }
+      &.not-harmful {
+        background-color: $color-valid;
+      }
+    }
+
+  }
+}

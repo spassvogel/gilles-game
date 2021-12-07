@@ -60,6 +60,10 @@
 
     "damage-type-kinetic": "kinetic damage",
 
+    "effect-broken-legs-name": "broken legs",
+    "effect-burning-name": "burning",
+
+
     "encounter-backstabbed-description": "A group of rogues emerges from the bushes, knives drawn.",
     "encounter-dungeon-caches-chest": "{{adventurer}} rummages through an old chest",
     "encounter-goblin-house-hallway-description": "The party stands inside the hallway",
@@ -452,6 +456,7 @@
     "trait-house-monroe-name": "House Monroe",
 
     "ui-adventurer-info-ap-remaining": " ({{ap}} AP remaining)",
+    "ui-adventurer-info-effects-title": "Effects",
     "ui-adventurer-info-equipment-title": "Equipment",
     "ui-adventurer-info-general-title": "General",
     "ui-adventurer-info-health": "Health",

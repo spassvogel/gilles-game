@@ -1,4 +1,4 @@
-import { EffectType } from 'mechanics/effects/types'
+import { EffectType } from 'definitions/effects/types'
 import { Middleware } from 'redux'
 import { Action } from 'store/actions'
 import { modifyHealth } from 'store/actions/adventurers'

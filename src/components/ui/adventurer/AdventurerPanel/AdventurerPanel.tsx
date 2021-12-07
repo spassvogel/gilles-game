@@ -17,6 +17,7 @@ import Health from "./Health";
 import Attributes from "./Attributes";
 import ConsumeItem from "./ConsumeItem";
 import "./styles/adventurerPanel.scss";
+import AdventurerEffects from "./AdventurerEffects";
 
 export interface Props {
   adventurerId: string;
@@ -25,6 +26,7 @@ export interface Props {
 
   name?: boolean; // whether to show the adventurer name
   levelBar?: boolean; // whether to show the level bar
+  effects?: boolean; // whether to show effects
   traits?: boolean; // whether to show traits
   skills?: boolean; // whether to show skills
 
@@ -40,6 +42,7 @@ const AdventurerPanel = (props: Props) => {
     horizontalMode,
     name = true,
     levelBar = true,
+    effects = true,
     traits = true,
     skills = true,
     onStartInventoryItemDrag
@@ -92,6 +95,7 @@ const AdventurerPanel = (props: Props) => {
           </span>
         )}
         <Health adventurerId={adventurer.id}/>
+        { effects && <AdventurerEffects adventurerId={adventurer.id}/> }
         { traits && <AdventurerTraits adventurerId={adventurer.id}/> }
         </div>
         <Attributes basicAttributes={adventurer.basicAttributes} />

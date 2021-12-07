@@ -4,7 +4,7 @@ import { Apparel } from "definitions/items/apparel";
 import { Item } from "definitions/items/types";
 import { Weapon, WeaponType } from "definitions/items/weapons";
 import { Trait } from 'definitions/traits/types';
-import { Effect } from "mechanics/effects/types";
+import { Effect } from "definitions/effects/types";
 
 export interface AdventurerStoreState {
   id: string;

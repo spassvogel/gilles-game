@@ -15,6 +15,7 @@ import { BasicAttribute } from "store/types/adventurer";
 import { EnemyType } from "definitions/enemies/types";
 import { ActorObject, isAdventurer, isEnemy } from "store/types/scene";
 import { QuestStoreState } from "store/types/quest";
+import { Effect, EffectType } from "definitions/effects/types";
 
 export abstract class TextManager {
 
@@ -135,6 +136,10 @@ export abstract class TextManager {
 
   public static getTraitName(trait: Trait): string {
     return this.get(`trait-${toKebab(trait)}-name`);
+  }
+
+  public static getEffectName(effect: Effect): string {
+    return this.get(`effect-${toKebab(EffectType[effect.type])}-name`);
   }
 
   public static getTraitDescription(trait: Trait): string {
