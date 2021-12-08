@@ -9,7 +9,7 @@ import { ContextType } from 'constants/context';
 import { Type} from 'components/ui/toasts/Toast';
 import { getQuestLink} from 'utils/routing';
 import RoomList from './rooms/RoomList';
-import { useState} from 'react';
+import { useEffect, useState} from 'react';
 import QuestBoard from './QuestBoard';
 import { useStructureDefinition, useStructureState } from 'hooks/store/structures';
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,6 +20,7 @@ import StructureLevel from '../StructureLevel';
 import StructureViewHeader from "../StructureViewHeader";
 import UpgradeHelpModal from "../UpgradeHelpModal";
 import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
+import { Channel, SoundManager } from "global/SoundManager";
 import "./styles/tavernStructureView.scss";
 
 export const SOURCE_ID = "tavern";
@@ -37,6 +38,13 @@ const TavernStructureView = () => {
   const levelDefinition: TavernStructureLevelDefinition = structureDefinition.levels[level];
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    SoundManager.addSound("ambient/structure/tavern", "sound/structures/tavern.ogg", () => {
+      SoundManager.playSound("ambient/structure/tavern", Channel.ambient, true);
+    })
+    return () => SoundManager.fadeOutSound(Channel.ambient);
+  }, []);
 
   const onLaunchQuest = (questName: string) => {
     dispatch(launchQuest(questName, assignedAventurers));

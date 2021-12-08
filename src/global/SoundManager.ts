@@ -6,7 +6,8 @@ import { Loader } from 'pixi.js';
 export enum Channel {
   music,
   ui,
-  scene
+  scene,
+  ambient
 }
 
 export enum MixMode {
@@ -21,6 +22,10 @@ export enum Music {
 }
 
 export type GameSound =
+  "ambient/structure/alchemist" |
+  "ambient/structure/smith" |
+  "ambient/structure/tavern" |
+  "ambient/structure/warehouse" |
   "ui/buttonClick" |
   "ui/equip" |
   "ui/error" |
@@ -51,6 +56,7 @@ type SoundInfo = {
 const DEFAULT_MUSIC_VOLUME = 0;
 const DEFAULT_UI_VOLUME = 1;
 const DEFAULT_SCENE_VOLUME = 1;
+const DEFAULT_AMBIENT_VOLUME = 0.2;
 const STORAGE_KEY_VOLUME = "channelVolume";
 
 export class SoundManager {
@@ -68,6 +74,7 @@ export class SoundManager {
       [(Channel.music)]: await localforage.getItem(`${STORAGE_KEY_VOLUME}-${Channel.music}`) ?? DEFAULT_MUSIC_VOLUME,
       [(Channel.ui)]: await localforage.getItem(`${STORAGE_KEY_VOLUME}-${Channel.ui}`) ?? DEFAULT_UI_VOLUME,
       [(Channel.scene)]: await localforage.getItem(`${STORAGE_KEY_VOLUME}-${Channel.scene}`) ?? DEFAULT_SCENE_VOLUME,
+      [(Channel.ambient)]: await localforage.getItem(`${STORAGE_KEY_VOLUME}-${Channel.ambient}`) ?? DEFAULT_AMBIENT_VOLUME,
     }
     this._initialized = true;
   }
@@ -129,10 +136,7 @@ export class SoundManager {
     if (this._currentSound[channel]) {
       if (mixMode === MixMode.fade) {
         // Fade out current sound on this channel and fade in new sound
-        const oldSoundInfo = this._currentSound[channel];
-        gsap.to(oldSoundInfo.instance, { volume: 0, duration: .75, onComplete: () => {
-          oldSoundInfo.instance.destroy();
-        }});
+        SoundManager.fadeOutSound(channel);
         // Fade in the new sound
         gsap.from(instance, { volume: 0, duration: 0.75 });
       }
@@ -157,6 +161,18 @@ export class SoundManager {
     else {
       return this._sounds[sound][Math.floor(Math.random() * this._sounds[sound].length)];
     }
+  }
+
+  public static stopSound(channel: Channel) {
+    this._currentSound[channel]?.instance.destroy();
+    delete this._currentSound[channel];
+  }
+
+  public static fadeOutSound(channel: Channel, duration = 0.75) {
+    const soundInfo = this._currentSound[channel];
+    gsap.to(soundInfo.instance, { volume: 0, duration, onComplete: () => {
+      soundInfo.instance.destroy();
+    }});
   }
 
   public static getCurrentlyPlaying(channel: Channel) {

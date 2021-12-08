@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import { ItemType } from "definitions/items/types";
 import { Structure } from "definitions/structures";
 import { ProductionStructureDefinition } from "definitions/structures/types";
@@ -15,6 +16,7 @@ import CraftingArea from './CraftingArea';
 import { addItemToToProduces } from 'store/actions/structures';
 import UpgradeHelpModal from "../UpgradeHelpModal";
 import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
+import { SoundManager, Channel } from "global/SoundManager";
 import "./styles/productionStructureView.scss";
 
 export interface Props {
@@ -22,12 +24,26 @@ export interface Props {
 }
 
 const ProductionStructureView = (props: Props) => {
-  const {structure} = props;
+  const { structure } = props;
   const level = useStructureState(structure).level;
 
   const craftingTasks = useCraftingTasksStateByStructure(structure);
   const studyingTasks = useStudyingTasksStateByStructure(structure);
   const structureDefinition = useStructureDefinition<ProductionStructureDefinition>(props.structure);
+
+  useEffect(() => {
+    if (structure === 'armoursmith' || structure === 'weaponsmith') {
+      SoundManager.addSound("ambient/structure/smith", "sound/structures/smith.ogg", () => {
+        SoundManager.playSound("ambient/structure/smith", Channel.ambient, true);
+      })
+    }
+    if (structure === 'alchemist') {
+      SoundManager.addSound("ambient/structure/alchemist", "sound/structures/alchemist.ogg", () => {
+        SoundManager.playSound("ambient/structure/alchemist", Channel.ambient, true);
+      })
+    }
+    return () => SoundManager.fadeOutSound(Channel.ambient);
+  }, [structure]);
 
   const handleHelpClicked = (event: React.MouseEvent) => {
     const origin = (event.currentTarget as HTMLElement);

@@ -21,6 +21,7 @@ import UpgradeHelpModal from "../UpgradeHelpModal";
 import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
 import Stockpile from "./Stockpile";
 import "./styles/warehouseStructureView.scss";
+import { Channel, SoundManager } from "global/SoundManager";
 
 
 const WarehouseStructureView = () => {
@@ -32,6 +33,13 @@ const WarehouseStructureView = () => {
   const previousResources = usePrevious(resources);
   const resourcesRef = useRef<HTMLFieldSetElement>(null);
   const structuresState = useSelector<StoreState, StructuresStoreState>(store => store.structures);
+
+  useEffect(() => {
+    SoundManager.addSound("ambient/structure/warehouse", "sound/structures/warehouse.mp3", () => {
+      SoundManager.playSound("ambient/structure/warehouse", Channel.ambient, true);
+    })
+    return () => SoundManager.fadeOutSound(Channel.ambient);
+  }, []);
 
   useEffect(() => {
     // Calculate delta
