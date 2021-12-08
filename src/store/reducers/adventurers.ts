@@ -9,12 +9,9 @@ import { Action } from "store/actions";
 import { getDefinition, isConsumable } from "definitions/items/consumables";
 import { Item } from "definitions/items/types";
 import { EffectType } from "definitions/effects/types";
+import { calculateBaseHitpoints } from "mechanics/adventurers/hitpoints";
 
-/**
- * reducer
- * @param state
- * @param action
- */
+
 const generateRandomAttributes = (): BasicAttributesStoreState => {
   return {
     str: Math.floor(Math.random() * 3) + 9,
@@ -23,11 +20,19 @@ const generateRandomAttributes = (): BasicAttributesStoreState => {
     agi: Math.floor(Math.random() * 3) + 9
   };
 };
-
+const generateAttributesHealthAndXp = (level = 1) => {
+  const basicAttributes = generateRandomAttributes();
+  const xp = levelToXp(level) + (Math.random() * levelToXp(level + 1));
+  const health = 20 + Math.random() * (calculateBaseHitpoints(level, basicAttributes.for) - 20);
+  return {
+    basicAttributes,
+    xp,
+    health,
+  }
+}
 const avatarImgBasePath = "/img/avatars";
 const spritesheetBasePath = "img/scene/actors/";
 
-// offHand]: Item.indomitableCarapace
 
 // Create a bunch of guys for debugging
 export const initialAdventurers: AdventurerStoreState[] = [{
@@ -43,10 +48,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [EquipmentSlotType.offHand]: { type: "ammunition/basicArrows", quantity: 200 }
     // offHand: Item.indomitableCarapace
   },
-  basicAttributes: generateRandomAttributes(),
-  health: Math.random() * 100,
-  xp: levelToXp(1),
-
+  ...generateAttributesHealthAndXp(),
   room: 0,
   name: "Sasha Falcon",
   flavor: true,
@@ -67,11 +69,9 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [EquipmentSlotType.mainHand]: { type: "weapon/simpleCrossbow" },
     [EquipmentSlotType.offHand]: { type: "ammunition/crossbowBolts", quantity: 150 }
   },
-  basicAttributes: generateRandomAttributes(),
+  ...generateAttributesHealthAndXp(),
   name: "Addison Chilson",
   flavor: true,
-  health: Math.random() * 100,
-  xp: Math.random() * 100,
 
   room: 1,
   avatarImg: `${avatarImgBasePath}/male/m_05.png`,
@@ -91,11 +91,9 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [EquipmentSlotType.mainHand]: { type: "weapon/warhammer" }
     // offHand: Item.aegisOfValor
   },
-  basicAttributes: generateRandomAttributes(),
+  ...generateAttributesHealthAndXp(),
   name: "Zackary 'bone bag' Morris",
   flavor: true,
-  health: Math.random() * 100,
-  xp: Math.random() * 100,
 
   room: 2,
   traits: [Trait.gloomy],
@@ -119,14 +117,12 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   inventory: [{ type: "weapon/greatswordOfGwai" }, null, null, null, { type: "weapon/berserkerShield" }],
 }, {
   id: "d299f98a",
-  basicAttributes: generateRandomAttributes(),
+  ...generateAttributesHealthAndXp(),
   equipment: {
     [EquipmentSlotType.mainHand]: { type: "weapon/steelSword" }
   },
   name: "Mike Keith",
   flavor: true,
-  health: Math.random() * 100,
-  xp: Math.random() * 100,
 
   room: 4,
   avatarImg: `${avatarImgBasePath}/male/m_19.png`,
@@ -140,11 +136,9 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 }, {
   id: "96c686c3",
   equipment: {},
-  basicAttributes: generateRandomAttributes(),
+  ...generateAttributesHealthAndXp(),
   name: "Wayne Monroe",
   flavor: true,
-  health: Math.random() * 100,
-  xp: Math.random() * 100,
 
   room: 5,
   avatarImg: `${avatarImgBasePath}/male/m_08.png`,
@@ -157,11 +151,9 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   inventory: [ null, null, null, { type: "weapon/goldenShield" }],
 }, {
   id: "250d1a9d",
-  basicAttributes: generateRandomAttributes(),
+  ...generateAttributesHealthAndXp(),
   name: "Alexis Ortiz ",
   flavor: true,
-  health: Math.random() * 100,
-  xp: Math.random() * 100,
 
   room: 9,
   avatarImg: `${avatarImgBasePath}/female/f_10.png`,
@@ -177,11 +169,9 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   effects: []
 }, {
   id: "169384ef",
-  basicAttributes: generateRandomAttributes(),
+  ...generateAttributesHealthAndXp(),
   name: "Karlee Nolan",
   flavor: true,
-  health: Math.random() * 100,
-  xp: Math.random() * 100,
 
   room: 3,
   avatarImg: `${avatarImgBasePath}/female/f_16.png`,
@@ -197,11 +187,9 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   effects: []
 }, {
   id: "f22d66cb",
-  basicAttributes: generateRandomAttributes(),
+  ...generateAttributesHealthAndXp(),
   equipment: {},
   name: "Gylbarde the Earnest",
-  health: Math.random() * 100,
-  xp: Math.random() * 100,
 
   room: 8,
   avatarImg: `${avatarImgBasePath}/male/m_09.png`,
@@ -214,11 +202,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 }, {
   id: "36c686c1",
   equipment: {},
-  basicAttributes: generateRandomAttributes(),
+  ...generateAttributesHealthAndXp(),
   name: "Lanslet of the Water",
-  health: Math.random() * 100,
-  xp: Math.random() * 100,
-
 
   room: 6,
   avatarImg: `${avatarImgBasePath}/male/m_26.png`,
@@ -231,10 +216,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 }, {
   id: "12c613d4",
   equipment: {},
-  basicAttributes: generateRandomAttributes(),
+  ...generateAttributesHealthAndXp(),
   name: "Tedric the Bold",
-  health: Math.random() * 100,
-  xp: Math.random() * 100,
 
   room: 7,
   avatarImg: `${avatarImgBasePath}/male/m_33.png`,
