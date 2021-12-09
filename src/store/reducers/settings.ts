@@ -21,6 +21,7 @@ export const settings: Reducer<SettingsState, SettingsAction> = (state = initial
 
 export const initialSettingsState: SettingsState = {
   verboseCombatLog: false,
+  debugAllowAdventurerEdit: false,
   debugSceneShowPathable: false,
   debugSceneShowActionQueue: false,
 };

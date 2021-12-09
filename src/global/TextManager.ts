@@ -170,6 +170,7 @@ export abstract class TextManager {
     return this.get(`ui-weapon-class-${toKebab(WeaponClassification[weaponClass])}`);
   }
 
+  // will print all unfound text strings to the console
   public static printNotFounds() {
     if (this.notFound.length) {
       console.log("TextManager strings not found:")

@@ -195,7 +195,7 @@ const CheatWindow = () => {
   ), []);
 
   useEffect(() => {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV === 'development') {
       TextManager.printNotFounds();
     }
   }, [])

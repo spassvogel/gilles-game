@@ -765,3 +765,10 @@ effects array in adventurers
 emitter / listener for certain types of events (walk, attack, etc)
 process events, send out redux actions
 - [ ] Use middleware?
+
+### 2021-12-09 Bubbles
+
+- [ ] Bubbles are short lived popup notifications, used to indicate something
+      has changed, combat events etc
+- [ ] BubblesManager
+- [ ] Should be implemented outside of react, using a combination of document.createElement, setTimeout, css animations

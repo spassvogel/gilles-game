@@ -470,6 +470,21 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
         return adventurer;
       });
     }
+
+    case "setBasicAttributes": {
+      // Used for debugging only, update BA of an adventurer
+      const { basicAttributes } = action;
+      return state.map((adventurer: AdventurerStoreState) => {
+        if (adventurer.id === action.adventurerId) {
+          return {
+            ...adventurer,
+            basicAttributes
+          };
+        }
+        return adventurer;
+      });
+    }
+
     case "addXP": {
       // Adds xp
       const { xp } = action;

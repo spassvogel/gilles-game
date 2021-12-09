@@ -1,5 +1,6 @@
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { Item } from "definitions/items/types";
+import { BasicAttributesStoreState } from "store/types/adventurer";
 
 export type AdventurerAction =
   { type: "modifyHealth", adventurerId: string, amount: number }
@@ -12,6 +13,7 @@ export type AdventurerAction =
 | { type: "assignEquipment", adventurerId: string, item: Item, equipmentSlot: EquipmentSlotType }
 | { type: "removeEquipment", adventurerId: string, equipmentSlot: EquipmentSlotType }
 | { type: "changeEquipmentQuantity", adventurerId: string, equipmentSlot: EquipmentSlotType, quantity: number }
+| { type: "setBasicAttributes", adventurerId: string, basicAttributes: BasicAttributesStoreState }
 | { type: "renameAdventurer", adventurerId: string, name: string }
 | { type: "addXP", adventurerId: string, xp: number; }
 
@@ -80,6 +82,13 @@ export const changeEquipmentQuantity = (adventurerId: string, equipmentSlot: Equ
   adventurerId,
   equipmentSlot,
   quantity,
+})
+
+// Only used for debugging
+export const setBasicAttributes = (adventurerId: string, basicAttributes: BasicAttributesStoreState): AdventurerAction => ({
+  type: "setBasicAttributes",
+  adventurerId,
+  basicAttributes,
 })
 
 export const renameAdventurer = (adventurerId: string, name: string): AdventurerAction => ({

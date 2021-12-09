@@ -2,25 +2,25 @@
 
 .basic-attributes {
 
-    .attribute-list {
-        list-style: none;
-        padding: 0;
+  .attribute-list {
+    list-style: none;
+    padding: 0;
 
-        li {
-            display: flex;
-        }
-
-        .attribute-name {
-            flex: 0.5;
-
-            text-decoration: underline;
-            text-decoration-style: dashed;
-            text-underline-offset: 2px;
-            text-decoration-color: #fcfcfc73;
-        }
-
-        .attribute-value {
-            flex: 0.5;
-        }
+    li {
+      display: flex;
     }
+
+    .attribute-name {
+      flex: 0.5;
+
+      text-decoration: underline;
+      text-decoration-style: dashed;
+      text-underline-offset: 2px;
+      text-decoration-color: #fcfcfc73;
+    }
+
+    .attribute-value {
+      flex: 0.5;
+    }
+  }
 }

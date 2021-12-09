@@ -16,8 +16,10 @@ import ReactMarkdown from "react-markdown";
 import Health from "./Health";
 import Attributes from "./Attributes";
 import ConsumeItem from "./ConsumeItem";
-import "./styles/adventurerPanel.scss";
 import AdventurerEffects from "./AdventurerEffects";
+import { useSettings } from "hooks/store/settings";
+import DebugAdventurerEdit from "./DebugAdventurerEdit";
+import "./styles/adventurerPanel.scss";
 
 export interface Props {
   adventurerId: string;
@@ -48,6 +50,7 @@ const AdventurerPanel = (props: Props) => {
     onStartInventoryItemDrag
   } = props;
   const adventurer = useAdventurerState(adventurerId);
+  const settings = useSettings();
 
   const {
     dropItemEquipment,
@@ -83,6 +86,7 @@ const AdventurerPanel = (props: Props) => {
           <div className="name">
             {adventurer.name}
             {questName && <ApIndicator questName={questName} adventurer={adventurer} />}
+            {settings.debugAllowAdventurerEdit && <DebugAdventurerEdit adventurer={adventurer} />}
           </div>
         )}
         { levelBar && <Level adventurerId={adventurer.id}/> }

@@ -55,6 +55,10 @@ const SettingsWindow = () => {
     dispatch(setSetting("verboseCombatLog", e.currentTarget.checked));
   }
 
+  const handleDebugAllowAdventurerEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSetting("debugAllowAdventurerEdit", e.currentTarget.checked));
+  }
+
   const handleDebugSceneShowPathableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSetting("debugSceneShowPathable", e.currentTarget.checked));
   }
@@ -88,6 +92,16 @@ const SettingsWindow = () => {
       </details>
       <details open className="settings-section debug" >
         <summary>Debug</summary>
+        <section>
+          <p>
+          <label>Allow adventurer stats edit</label>
+          <input
+            type="checkbox"
+            checked={settings.debugAllowAdventurerEdit}
+            onChange={handleDebugAllowAdventurerEditChange}
+          />
+        </p>
+        </section>
         <section>
           <p>
           <label>Show pathable tiles in scene</label>
