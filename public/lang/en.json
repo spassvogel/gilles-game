@@ -466,6 +466,7 @@
     "ui-adventurer-info-traits-title": "Traits",
     "ui-adventurer-info-use-item": "Use item",
     "ui-adventurer-info-use-item-ap-cost": "({{ap}} AP)",
+    "ui-adventurer-info-xp-level-max": "Maximum level",
     "ui-adventurer-info-xp-level-up": "Level up!",
     "ui-adventurer-info-xp-progress": "{{xp}}/{{next}} xp to next level",
 

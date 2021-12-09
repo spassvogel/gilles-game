@@ -4,7 +4,7 @@ import { Reducer } from "redux";
 import { AdventurerColor, AdventurerStoreState, BasicAttributesStoreState } from "store/types/adventurer";
 import { Trait } from 'definitions/traits/types';
 import { WeaponType } from 'definitions/items/weapons';
-import { levelToXp } from "mechanics/adventurers/levels";
+import { levelToXp, MAX_XP } from "mechanics/adventurers/levels";
 import { Action } from "store/actions";
 import { getDefinition, isConsumable } from "definitions/items/consumables";
 import { Item } from "definitions/items/types";
@@ -492,7 +492,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
         if (adventurer.id === action.adventurerId) {
           return {
             ...adventurer,
-            xp: adventurer.xp + xp
+            xp: Math.min(adventurer.xp + xp, MAX_XP)
           };
         }
         return adventurer;

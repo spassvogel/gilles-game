@@ -4,7 +4,7 @@ import { TextManager } from "global/TextManager";
 import { MAX_VALUE, MIN_VALUE } from "mechanics/basicAttributes";
 import { AdventurerStoreState, BasicAttribute } from "store/types/adventurer";
 import { addXp, modifyHealth, renameAdventurer, setBasicAttributes } from "store/actions/adventurers";
-import { levelToXp, MAX_LEVEL, xpToLevel } from "mechanics/adventurers/levels";
+import { MAX_XP, xpToLevel } from "mechanics/adventurers/levels";
 import { calculateBaseHitpoints } from "mechanics/adventurers/hitpoints";
 import { DraggableInfoWindow } from "components/ui/modals/InfoWindow/DraggableInfoWindow";
 import "./styles/debugAdventurerEdit.scss";
@@ -84,7 +84,7 @@ const DebugAdventurerEdit = (props: Props) => {
                 <input
                   type="number"
                   min={0}
-                  max={levelToXp(MAX_LEVEL)}
+                  max={MAX_XP}
                   value={xp}
                   onChange={(e) => handleChangeXP(Number(e.currentTarget.value) - xp)}
                 />

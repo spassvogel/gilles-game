@@ -1,4 +1,4 @@
-import { levelToXp, xpToLevel } from 'mechanics/adventurers/levels';
+import { levelToXp, MAX_XP, xpToLevel } from 'mechanics/adventurers/levels';
 import PlainProgressbar from 'components/ui/common/progress/PlainProgressbar';
 import { TextManager } from 'global/TextManager';
 import { useEffect, useMemo, useState } from "react";
@@ -42,16 +42,26 @@ const Level = (props: Props) => {
     return dingAnimationRunning ? 1 : (xp - currentLevelXp) / (nextLevelXp - currentLevelXp)
   }, [currentLevelXp, dingAnimationRunning, nextLevelXp, xp]);
 
+  const label = useMemo(() => {
+    if (dingAnimationRunning) {
+      return TextManager.get("ui-adventurer-info-xp-level-up");
+    }
+    if (xp >= MAX_XP) {
+      return TextManager.get("ui-adventurer-info-xp-level-max");
+    }
+    return TextManager.get("ui-adventurer-info-xp-progress", {
+      xp: Math.floor(xp - currentLevelXp),
+      next: nextLevelXp - currentLevelXp
+    })
+  }, [xp, dingAnimationRunning])
+
   return (
     <div className="level">
       {TextManager.get("ui-adventurer-info-level", { level: currentLevel })}
       <PlainProgressbar
         progress={progress}
         animationTime={lastAdventurer === adventurerId && !lastDingAnimationRunning ? 300 : 0}
-        label={dingAnimationRunning ?  TextManager.get("ui-adventurer-info-xp-level-up") : TextManager.get("ui-adventurer-info-xp-progress", {
-          xp: Math.floor(xp - currentLevelXp),
-          next: nextLevelXp - currentLevelXp
-        })}
+        label={label}
       />
     </div>
   )
