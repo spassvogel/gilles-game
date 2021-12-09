@@ -20,10 +20,11 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
+        "react/react-in-jsx-scope": "off",
         "@typescript-eslint/explicit-module-boundary-types": 0,
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": [1, {"args": "after-used", "argsIgnorePattern": "^_"}]
-        
+
     },
     "settings": {
         "react": {
