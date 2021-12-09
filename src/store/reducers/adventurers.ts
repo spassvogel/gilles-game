@@ -485,7 +485,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       });
     }
 
-    case "addXP": {
+    case "addXp": {
       // Adds xp
       const { xp } = action;
       return state.map((adventurer: AdventurerStoreState) => {

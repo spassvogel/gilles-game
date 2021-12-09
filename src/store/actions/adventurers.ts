@@ -15,7 +15,7 @@ export type AdventurerAction =
 | { type: "changeEquipmentQuantity", adventurerId: string, equipmentSlot: EquipmentSlotType, quantity: number }
 | { type: "setBasicAttributes", adventurerId: string, basicAttributes: BasicAttributesStoreState }
 | { type: "renameAdventurer", adventurerId: string, name: string }
-| { type: "addXP", adventurerId: string, xp: number; }
+| { type: "addXp", adventurerId: string, xp: number; }
 
 export const modifyHealth = (adventurerId: string, amount: number): AdventurerAction => ({
   type: "modifyHealth",
@@ -98,7 +98,7 @@ export const renameAdventurer = (adventurerId: string, name: string): Adventurer
 })
 
 export const addXp = (adventurerId: string, xp: number): AdventurerAction => ({
-  type: "addXP",
+  type: "addXp",
   adventurerId,
   xp,
 })

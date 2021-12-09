@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { TextManager } from "global/TextManager";
 import { MAX_VALUE, MIN_VALUE } from "mechanics/basicAttributes";
 import { AdventurerStoreState, BasicAttribute } from "store/types/adventurer";
-import { modifyHealth, renameAdventurer, setBasicAttributes } from "store/actions/adventurers";
-import { xpToLevel } from "mechanics/adventurers/levels";
+import { addXp, modifyHealth, renameAdventurer, setBasicAttributes } from "store/actions/adventurers";
+import { levelToXp, MAX_LEVEL, xpToLevel } from "mechanics/adventurers/levels";
 import { calculateBaseHitpoints } from "mechanics/adventurers/hitpoints";
 import { DraggableInfoWindow } from "components/ui/modals/InfoWindow/DraggableInfoWindow";
 import "./styles/debugAdventurerEdit.scss";
@@ -59,6 +59,9 @@ const DebugAdventurerEdit = (props: Props) => {
   const handleChangeHealth = (value: number) => {
     dispatch(modifyHealth(adventurer.id, value));
   }
+  const handleChangeXP = (value: number) => {
+    dispatch(addXp(adventurer.id, value));
+  }
 
   return (
     <span className="debug-adventurer-edit">
@@ -68,7 +71,7 @@ const DebugAdventurerEdit = (props: Props) => {
           <fieldset>
             <summary>General</summary>
             <dl>
-              <td>Name</td>
+              <dt>Name</dt>
               <dd>
                 <input
                   type="text"
@@ -76,7 +79,17 @@ const DebugAdventurerEdit = (props: Props) => {
                   onChange={handleRename}
                 />
               </dd>
-              <td>Health</td>
+              <dt>XP</dt>
+              <dd>
+                <input
+                  type="number"
+                  min={0}
+                  max={levelToXp(MAX_LEVEL)}
+                  value={xp}
+                  onChange={(e) => handleChangeXP(Number(e.currentTarget.value) - xp)}
+                />
+              </dd>
+              <dt>Health</dt>
               <dd>
                 <input
                   type="range"
@@ -110,5 +123,4 @@ const DebugAdventurerEdit = (props: Props) => {
 }
 
 export default DebugAdventurerEdit;
-
 
