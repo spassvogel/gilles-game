@@ -24,7 +24,6 @@ module.exports = {
         "@typescript-eslint/explicit-module-boundary-types": 0,
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": [1, {"args": "after-used", "argsIgnorePattern": "^_"}]
-
     },
     "settings": {
         "react": {

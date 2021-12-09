@@ -8,6 +8,7 @@ import { modifyHealth, setBasicAttributes } from "store/actions/adventurers";
 import { xpToLevel } from "mechanics/adventurers/levels";
 import { calculateBaseHitpoints } from "mechanics/adventurers/hitpoints";
 import "./styles/debugAdventurerEdit.scss";
+import { DraggableInfoWindow } from "components/ui/modals/InfoWindow/DraggableInfoWindow";
 
 type Props = {
   adventurer: AdventurerStoreState;
@@ -59,8 +60,7 @@ const DebugAdventurerEdit = (props: Props) => {
   return (
     <span className="debug-adventurer-edit">
       {open && (
-        <InfoModal className="modal">
-          <h3>Edit adventurer stats</h3>
+        <DraggableInfoWindow className="modal" title="Edit adventurer stats">
           <hr/>
           <fieldset>
             <summary>Attributes</summary>
@@ -82,7 +82,7 @@ const DebugAdventurerEdit = (props: Props) => {
             />
             ({health}/{baseHP})
           </fieldset>
-        </InfoModal>
+        </DraggableInfoWindow>
       )}
       <span className="button-toggle" onClick={() => setOpen(!open)}>
         { open ? '(close)' : '(edit)' }
