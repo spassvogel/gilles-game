@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { InfoModal } from "components/ui/modals/InfoModal";
 import { TextManager } from "global/TextManager";
 import { MAX_VALUE, MIN_VALUE } from "mechanics/basicAttributes";
 import { AdventurerStoreState, BasicAttribute } from "store/types/adventurer";
-import { modifyHealth, setBasicAttributes } from "store/actions/adventurers";
+import { modifyHealth, renameAdventurer, setBasicAttributes } from "store/actions/adventurers";
 import { xpToLevel } from "mechanics/adventurers/levels";
 import { calculateBaseHitpoints } from "mechanics/adventurers/hitpoints";
-import "./styles/debugAdventurerEdit.scss";
 import { DraggableInfoWindow } from "components/ui/modals/InfoWindow/DraggableInfoWindow";
+import "./styles/debugAdventurerEdit.scss";
 
 type Props = {
   adventurer: AdventurerStoreState;
@@ -46,6 +45,10 @@ const DebugAdventurerEdit = (props: Props) => {
     )
   }
 
+  const handleRename = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(renameAdventurer(adventurer.id, e.currentTarget.value));
+  };
+
   const handleChangeAttribute = (attribute: BasicAttribute, value: number) => {
     dispatch(setBasicAttributes(adventurer.id, {
       ...basicAttributes,
@@ -60,8 +63,34 @@ const DebugAdventurerEdit = (props: Props) => {
   return (
     <span className="debug-adventurer-edit">
       {open && (
-        <DraggableInfoWindow className="modal" title="Edit adventurer stats">
+        <DraggableInfoWindow className="debug-adventurer-edit modal" title="Edit adventurer stats">
           <hr/>
+          <fieldset>
+            <summary>General</summary>
+            <dl>
+              <td>Name</td>
+              <dd>
+                <input
+                  type="text"
+                  value={adventurer.name}
+                  onChange={handleRename}
+                />
+              </dd>
+              <td>Health</td>
+              <dd>
+                <input
+                  type="range"
+                  min={0}
+                  max={baseHP}
+                  value={health}
+                  onChange={(e) => handleChangeHealth(Number(e.currentTarget.value) - health)}
+                />
+                <div className="value">
+                  ({health}/{baseHP})
+                </div>
+              </dd>
+            </dl>
+          </fieldset>
           <fieldset>
             <summary>Attributes</summary>
             <dl>
@@ -70,17 +99,6 @@ const DebugAdventurerEdit = (props: Props) => {
               {renderAttribute("int")}
               {renderAttribute("agi")}
             </dl>
-          </fieldset>
-          <fieldset>
-            <summary>Health</summary>
-            <input
-              type="range"
-              min={0}
-              max={baseHP}
-              value={health}
-              onChange={(e) => handleChangeHealth(Number(e.currentTarget.value) - health)}
-            />
-            ({health}/{baseHP})
           </fieldset>
         </DraggableInfoWindow>
       )}

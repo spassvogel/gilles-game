@@ -7,6 +7,10 @@
     cursor: pointer;
   }
 
+    summary {
+    font-weight: bold;
+  }
+
   dl {
     display: grid;
     grid-template-columns: 1fr 1fr;

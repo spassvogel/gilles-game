@@ -19,3 +19,13 @@
     background: $color-secondary;
   }
 }
+
+.info-window-draggable {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  .title {
+    cursor: move;
+  }
+}
