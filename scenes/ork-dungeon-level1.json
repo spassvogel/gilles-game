@@ -230,9 +230,14 @@
                  "name":"enemy3",
                  "properties":[
                         {
+                         "name":"level",
+                         "type":"int",
+                         "value":3
+                        }, 
+                        {
                          "name":"name",
                          "type":"string",
-                         "value":"Troll Developer"
+                         "value":"troll-developer"
                         }],
                  "rotation":0,
                  "type":"enemySpawn",
@@ -247,9 +252,14 @@
                  "name":"enemy1",
                  "properties":[
                         {
+                         "name":"level",
+                         "type":"int",
+                         "value":4
+                        }, 
+                        {
                          "name":"name",
                          "type":"string",
-                         "value":"Troll accountant"
+                         "value":"troll-accountant"
                         }],
                  "rotation":0,
                  "type":"enemySpawn",
@@ -264,9 +274,14 @@
                  "name":"enemy2",
                  "properties":[
                         {
+                         "name":"level",
+                         "type":"int",
+                         "value":2
+                        }, 
+                        {
                          "name":"name",
                          "type":"string",
-                         "value":"Troll manager"
+                         "value":"troll-manager"
                         }],
                  "rotation":0,
                  "type":"enemySpawn",
@@ -303,7 +318,7 @@
          "value":"level2"
         }],
  "renderorder":"right-down",
- "tiledversion":"1.4.3",
+ "tiledversion":"1.5.0",
  "tileheight":100,
  "tilesets":[
         {
@@ -380,6 +395,6 @@
         }],
  "tilewidth":100,
  "type":"map",
- "version":1.4,
+ "version":1.5,
  "width":8
 }

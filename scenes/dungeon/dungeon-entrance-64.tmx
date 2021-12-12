@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="11" height="16" tilewidth="64" tileheight="64" infinite="0" nextlayerid="12" nextobjectid="18">
+ <editorsettings>
+  <export target="dungeon-entrance-64.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../tilesets/dungeon-floor-64.tsx"/>
+ <tileset firstgid="121" source="../tilesets/interior-walls-64.tsx"/>
+ <tileset firstgid="265" source="../tilesets/forest-floor-64.tsx"/>
+ <layer id="5" name="forest" width="11" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+283,283,283,284,283,284,283,283,283,283,284,
+283,283,283,283,283,283,283,283,283,283,284,
+283,283,283,283,283,283,283,284,283,283,284,
+283,283,338,340,283,284,284,284,284,284,284
+</data>
+ </layer>
+ <layer id="8" name="rocks" width="11" height="16">
+  <properties>
+   <property name="blocksMovement" type="bool" value="true"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,457,
+458,459,0,0,457,458,458,458,458,458,510
+</data>
+ </layer>
+ <layer id="9" name="trees" width="11" height="16">
+  <properties>
+   <property name="blocksMovement" type="bool" value="true"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,288,
+0,0,0,0,0,0,0,0,0,0,304
+</data>
+ </layer>
+ <layer id="1" name="dungeon floor" width="11" height="16">
+  <data encoding="csv">
+2,4,5,2,7,7,3,4,5,3,7,
+7,5,4,3,4,5,4,4,3,2,5,
+5,2,2,5,5,5,5,7,7,7,6,
+7,3,3,2,7,2,7,7,6,3,5,
+3,4,7,5,6,3,2,5,6,6,2,
+6,2,5,7,5,6,3,3,3,5,7,
+3,2,3,2,7,7,2,7,2,4,5,
+7,3,4,7,2,4,4,5,6,2,2,
+6,3,7,7,5,6,2,4,7,2,7,
+6,5,5,5,4,3,7,4,3,4,3,
+2,3,5,5,5,2,3,5,5,3,5,
+2,2,4,5,7,4,3,6,4,3,5,
+0,115,112,113,114,115,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="4" name="loose blocking stuff" width="11" height="16">
+  <properties>
+   <property name="blocksMovement" type="bool" value="true"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,53,0,0,0,
+0,0,0,0,0,0,53,51,0,0,0,
+0,0,0,0,0,0,51,52,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+86,87,0,0,0,0,88,89,0,0,0,
+96,97,0,0,0,0,98,99,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="2" name="walls" width="11" height="16">
+  <properties>
+   <property name="blocksMovement" type="bool" value="true"/>
+  </properties>
+  <data encoding="csv">
+121,122,123,123,124,123,123,124,123,124,181,
+133,134,135,135,136,135,135,136,135,136,193,
+145,0,0,0,0,0,0,0,0,0,0,
+157,0,0,0,0,0,0,0,0,0,0,
+157,0,0,0,0,0,0,0,0,0,0,
+157,0,0,0,0,0,0,0,0,0,161,
+157,0,0,0,0,0,0,0,0,0,161,
+157,0,0,0,0,0,0,0,0,0,161,
+174,205,0,0,0,0,0,0,0,0,173,
+253,157,0,0,0,0,161,253,253,253,253,
+123,181,0,0,0,0,190,128,128,128,128,
+135,193,0,0,0,0,202,140,140,140,140,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="11" name="object">
+  <object id="17" name="chest" gid="33" x="192" y="704" width="64" height="64">
+   <properties>
+    <property name="interactive" type="bool" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="actor">
+  <object id="6" name="enemy3" type="enemySpawn" x="256" y="128" width="64" height="64">
+   <properties>
+    <property name="level" type="int" value="3"/>
+    <property name="name" value="troll-developer"/>
+   </properties>
+  </object>
+  <object id="7" name="enemy1" type="enemySpawn" x="128" y="128" width="64" height="64">
+   <properties>
+    <property name="level" type="int" value="3"/>
+    <property name="name" value="troll-accountant"/>
+   </properties>
+  </object>
+  <object id="8" name="enemy2" type="enemySpawn" x="192" y="128" width="64" height="64">
+   <properties>
+    <property name="level" type="int" value="2"/>
+    <property name="name" value="troll-manager"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="10" name="portals">
+  <object id="12" name="portal to canyon" type="portal" x="192" y="960" width="64" height="64">
+   <properties>
+    <property name="to" value="dungeon.canyon"/>
+   </properties>
+  </object>
+  <object id="13" name="portal to hub1" type="portal" x="640" y="128" width="64" height="64">
+   <properties>
+    <property name="to" value="dungeon.hub1"/>
+   </properties>
+  </object>
+  <object id="15" name="portal to hub1" type="portal" x="640" y="256" width="64" height="64">
+   <properties>
+    <property name="to" value="dungeon.hub1"/>
+   </properties>
+  </object>
+  <object id="16" name="portal to hub1" type="portal" x="640" y="192" width="64" height="64">
+   <properties>
+    <property name="to" value="dungeon.hub1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer id="7" name="walls overhang" width="11" height="16">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,214,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,214,176,176,176,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>
