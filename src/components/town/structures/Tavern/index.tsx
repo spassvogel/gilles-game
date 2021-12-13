@@ -1,7 +1,7 @@
 import React from "react";
 import { Sprite, Container } from '@inlet/react-pixi';
 import { Structure } from 'definitions/structures';
-import HitAreaShapes from 'utils/hitAreaShapes';
+import HitAreaShapes from 'utils/pixiJs/hitAreaShapes';
 import smoke from './smoke.json';
 import ParticleEmitter from 'components/pixi/ParticleEmitter';
 import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView';

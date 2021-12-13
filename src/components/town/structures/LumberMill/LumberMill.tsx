@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Structure } from 'definitions/structures';
 import { Sprite, useApp, useTick } from '@inlet/react-pixi';
-import HitAreaShapes from 'utils/hitAreaShapes';
+import HitAreaShapes from 'utils/pixiJs/hitAreaShapes';
 import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView';
 import { loadResource } from 'utils/pixiJs';
 import { Point, Texture } from 'pixi.js';

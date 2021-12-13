@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
 import { gsap } from 'gsap';
 import { MAX_WIDTH } from 'components/App';
-import HitAreaShapes from 'utils/hitAreaShapes';
+import HitAreaShapes from 'utils/pixiJs/hitAreaShapes';
 import polygons from './hitAreas.json';
 import LumberMill from './structures/LumberMill';
 import Tavern from './structures/Tavern';
