@@ -1,11 +1,12 @@
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { ContextType } from 'constants/context';
-import { useLongPress } from 'use-long-press';
+import { LongPressDetectEvents, useLongPress } from 'use-long-press';
 import { TooltipManager } from 'global/TooltipManager';
 import { useQuest } from 'hooks/store/quests';
 import { AP_COST_SHOOT } from 'mechanics/combat';
 import { Point } from 'pixi.js';
 import React, {
+  MouseEventHandler,
   PropsWithChildren,
   useCallback,
   useContext,
@@ -18,6 +19,7 @@ import { locationEquals } from 'utils/tilemap';
 import CombatUIWidget from './CombatUIWidget';
 import NormalUICursor from './NormalUICursor';
 import "./styles/sceneUI.scss";
+import { convertMouseOrTouchCoords, MouseOrTouchEvent } from 'utils/interaction';
 
 export interface Props {
   sceneWidth: number;
@@ -79,10 +81,9 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     };
   }, [sceneHeight, sceneWidth]);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: MouseOrTouchEvent<HTMLDivElement>) => {
     if (mouseDown.current) {
       const location = findLocation(e) ?? [0, 0];
-
       if (controller?.locationIsOutOfBounds(location)) {
         setCursorLocation(undefined);
         onSetActionIntent(undefined);
@@ -94,7 +95,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     }
   }
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseDown = (e: MouseOrTouchEvent ) => {
     const location = findLocation(e);
     if (location) onMouseDown?.(location);
 
@@ -104,16 +105,16 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
   const bind = useLongPress((e) => {
     if (e){
-      console.log(e)
       handleClick(e as React.MouseEvent<HTMLDivElement>);
       e.preventDefault();
       e.stopPropagation();
     }
   }, {
-    onStart: (e) => { handleMouseDown(e as React.MouseEvent<HTMLDivElement>)},
-    onMove: (e) => { handleMouseMove(e as React.MouseEvent<HTMLDivElement>)},
+    onStart: (e) => { handleMouseDown(e as MouseOrTouchEvent<HTMLDivElement>);},
+    onMove: (e) => { handleMouseMove(e as MouseOrTouchEvent<HTMLDivElement>)},
     captureEvent: true,
-    cancelOnMovement: 32
+    cancelOnMovement: 32,
+    detect: LongPressDetectEvents.BOTH
   });
 
 
@@ -136,8 +137,8 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     e.stopPropagation()
   }
 
-  const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
-    bind.onMouseUp(e);
+  const handleMouseUp = (e: MouseOrTouchEvent<HTMLDivElement>) => {
+    bind.onMouseUp(e as unknown as React.MouseEvent<Element, MouseEvent>);
     mouseDown.current = false;
 
     setCursorLocation(undefined); // uncomment to debug
@@ -222,12 +223,17 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     }
   }, [cursorLocation, handleCombatActionChange, combat, controller]);
 
-  const findLocation = (e: React.MouseEvent) => {
-    if (e.target instanceof Element){
+  const findLocation = (e: MouseOrTouchEvent) => {
+    if (e.target instanceof Element) {
+      const {
+        x,
+        y
+      } = convertMouseOrTouchCoords(e);
       const rect = (e.target).getBoundingClientRect();
-      const x = (e.clientX - rect.left) / scale.current;
-      const y = (e.clientY - rect.top) / scale.current;
-      return controller?.pointToSceneLocation(new Point(x, y));
+      const convertedX = (x - rect.left) / scale.current;
+      const convertedY = (y - rect.top) / scale.current;
+
+      return controller?.pointToSceneLocation(new Point(convertedX, convertedY));
     }
     throw new Error("You didnt give me the correct event")
   }
@@ -238,6 +244,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       className="scene-ui"
       {...bind}
       onMouseUp={handleMouseUp}
+      onTouchEnd={handleMouseUp}
     >
       {children}
       {!scene?.combat && cursorLocation && (
