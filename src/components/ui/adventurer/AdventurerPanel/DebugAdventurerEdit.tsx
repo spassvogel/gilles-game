@@ -63,11 +63,14 @@ const DebugAdventurerEdit = (props: Props) => {
     dispatch(addXp(adventurer.id, value));
   }
 
+  const handleClose = () => {
+    setOpen(false);
+  }
+
   return (
     <span className="debug-adventurer-edit">
       {open && (
-        <DraggableInfoWindow className="debug-adventurer-edit modal" title="Edit adventurer stats">
-          <hr/>
+        <DraggableInfoWindow className="debug-adventurer-edit modal" title="Edit adventurer stats" onClose={handleClose}>
           <fieldset>
             <summary>General</summary>
             <dl>

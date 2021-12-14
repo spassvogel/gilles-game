@@ -424,6 +424,11 @@ research fantasy concept art
 
 #### 30/03/2020 Mobile [+art], [+tech]
 - [ ] Need to completely check if the app is responsive and works in mobile
+- [ ] prevent drag of scene to scroll screen in mobile  
+    // prevent drag
+    document.addEventListener('touchmove', swallowDrag, { passive:false });
+    function swallowDrag(e: TouchEvent) { e.preventDefault(); }
+
 
 #### 30/03/2020 Leaders [+design]
 - [x] Parties can have a leader. The leader provides the icon for the party. 

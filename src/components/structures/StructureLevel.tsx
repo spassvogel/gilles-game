@@ -1,4 +1,3 @@
-import * as React from "react";
 import { TextManager } from 'global/TextManager';
 import { Structure } from 'definitions/structures';
 import { useStructureDefinition, useStructureState } from 'hooks/store/structures';

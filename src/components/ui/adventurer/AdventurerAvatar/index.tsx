@@ -1,5 +1,4 @@
 import Icon, { IconSize } from 'components/ui/common/Icon';
-import * as React from "react";
 import { AdventurerStoreState } from "store/types/adventurer";
 import "./styles/adventureravatar.scss";
 

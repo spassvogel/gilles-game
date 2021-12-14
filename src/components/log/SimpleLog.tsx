@@ -16,118 +16,115 @@ export interface Props {
 }
 
 enum ChannelType {
-    all,
-    town,
-    quest,
+  all,
+  town,
+  quest,
 }
 
 interface ChannelDefinition {
-    label: string;
-    tabType: ChannelType;
-    tabId: string;
-    channelContext?: string;
+  label: string;
+  tabType: ChannelType;
+  tabId: string;
+  channelContext?: string;
 }
 
-// const activeQuestNames: string[] = [];
-
 const SimpleLog = () => {
+  const [expanded, setExpanded] = useState(false);
+  const [selectedTabId, setSelectedTabId] = useState<"all" | "town" | string>("all");
 
-    const [expanded, setExpanded] = useState(false);
-    const [selectedTabId, setSelectedTabId] = useState<"all" | "town" | string>("all");
+  const logEntries = useLog();
+  const activeQuestNames = useActiveQuestNames();
+  const location = useLocation<{pathname: string}>();
 
-    const logEntries = useLog();
-    const activeQuestNames = useActiveQuestNames();
-    const location = useLocation<{pathname: string}>();
-
-    useEffect(() => {
-        if (location.pathname === getTownLink()){
-            setSelectedTabId("town");
-            return;
-        }
-        activeQuestNames.forEach(q => {
-            if (location.pathname === getQuestLink(q)){
-                setSelectedTabId(`quest-${q}`);
-            }
-        })
-    }, [activeQuestNames, location]);
-
-    const channels: ChannelDefinition[]=[{
-        label: TextManager.get("ui-log-tab-all"),
-        tabId: "all",
-        tabType: ChannelType.all,
-    }, {
-        label: TextManager.get("ui-log-tab-town"),
-        tabId: "town",
-        tabType: ChannelType.town,
-    }];
-
-    const handleTabSelected = (tabId: string) => {
-        setSelectedTabId(tabId);
+  useEffect(() => {
+    if (location.pathname === getTownLink()){
+      setSelectedTabId("town");
+      return;
     }
+    activeQuestNames.forEach(q => {
+      if (location.pathname === getQuestLink(q)){
+        setSelectedTabId(`quest-${q}`);
+      }
+    })
+  }, [activeQuestNames, location]);
 
-    const handleToggleExpand=() => {
-        setExpanded(!expanded);
-    }
+  const channels: ChannelDefinition[]=[{
+    label: TextManager.get("ui-log-tab-all"),
+    tabId: "all",
+    tabType: ChannelType.all,
+  }, {
+    label: TextManager.get("ui-log-tab-town"),
+    tabId: "town",
+    tabType: ChannelType.town,
+  }];
 
-    activeQuestNames.forEach((questName) => {
-        channels.push({
-            channelContext: questName,
-            label: TextManager.getQuestTitle(questName),
-            tabId: `quest-${questName}`,
-            tabType: ChannelType.quest,
-        });
+  const handleTabSelected = (tabId: string) => {
+    setSelectedTabId(tabId);
+  }
+
+  const handleToggleExpand=() => {
+    setExpanded(!expanded);
+  }
+
+  activeQuestNames.forEach((questName) => {
+    channels.push({
+      channelContext: questName,
+      label: TextManager.getQuestTitle(questName),
+      tabId: `quest-${questName}`,
+      tabType: ChannelType.quest,
     });
+  });
 
-    let displayEntries: LogEntry[] = [];
-    const currentTab = channels.find((t) => t.tabId === selectedTabId);
+  let displayEntries: LogEntry[] = [];
+  const currentTab = channels.find((t) => t.tabId === selectedTabId);
 
-    switch (currentTab?.tabType) {
-        case ChannelType.all:
-            // All the things
-            displayEntries = logEntries;
-            break;
+  switch (currentTab?.tabType) {
+    case ChannelType.all:
+      // All the things
+      displayEntries = logEntries;
+      break;
 
-        case ChannelType.town:
-            // Only town
-            displayEntries = logEntries.filter((lE) => lE.channel === LogChannel.town);
-            break;
+    case ChannelType.town:
+      // Only town
+      displayEntries = logEntries.filter((lE) => lE.channel === LogChannel.town);
+      break;
 
-        case ChannelType.quest:
-            // Only the selected quest
-            displayEntries = logEntries.filter((lE) => lE.channel === LogChannel.quest && lE.channelContext === currentTab.channelContext);
-            break;
-    }
+    case ChannelType.quest:
+      // Only the selected quest
+      displayEntries = logEntries.filter((lE) => lE.channel === LogChannel.quest && lE.channelContext === currentTab.channelContext);
+      break;
+  }
 
-    const getLogEntryRow = (logEntry: LogEntry) => {
-        const text = TextManager.get(logEntry.key, logEntry.context);
-        return (
-            <div className="entry" key={logEntry.time}>
-                {text}
-            </div>
-        );
-    };
-
+  const getLogEntryRow = (logEntry: LogEntry) => {
+    const text = TextManager.get(logEntry.key, logEntry.context);
     return (
-        <div className={`log${expanded ? " expanded" : ""}`}>
-            <div className="tab-bar">
-                <Tabstrip className="tabs" onTabSelected={handleTabSelected} activeTab={selectedTabId}>
-                    {channels.map((tab) => {
-                        return <Tab id={tab.tabId} key={tab.tabId}>{tab.label}</Tab>;
-                    })}
-                </Tabstrip>
-                <Button
-                    className="expand-button"
-                    onClick={handleToggleExpand}
-                    square={true}
-                    size="medium"
-                    text={expanded ? "▼" : "▲"}
-                />
-            </div>
-            <div className="log-entries">
-                {displayEntries.map((entry) => getLogEntryRow(entry))}
-            </div>
-        </div>
+      <div className="entry" key={logEntry.time}>
+        {text}
+      </div>
     );
+  };
+
+  return (
+    <div className={`log${expanded ? " expanded" : ""}`}>
+      <div className="tab-bar">
+        <Tabstrip className="tabs" onTabSelected={handleTabSelected} activeTab={selectedTabId}>
+          {channels.map((tab) => {
+            return <Tab id={tab.tabId} key={tab.tabId}>{tab.label}</Tab>;
+          })}
+        </Tabstrip>
+        <Button
+          className="expand-button"
+          onClick={handleToggleExpand}
+          square={true}
+          size="medium"
+          text={expanded ? "▼" : "▲"}
+        />
+      </div>
+      <div className="log-entries">
+        {displayEntries.map((entry) => getLogEntryRow(entry))}
+      </div>
+    </div>
+  );
 }
 
 export default SimpleLog;

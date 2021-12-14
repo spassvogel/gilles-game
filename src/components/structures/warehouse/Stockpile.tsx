@@ -1,4 +1,3 @@
-import * as React from "react";
 import Inventory from "components/ui/inventory/Inventory";
 import { DragSourceType, DragType } from "constants/dragging";
 import { useStockpileState } from "hooks/store/stockpile";

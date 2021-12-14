@@ -1,17 +1,17 @@
 @import 'components/styles/variables.scss';
 
 .consume-item {
-    margin-top: 1rem;
-    @include border-grey-sm;
+  margin-top: 1rem;
+  @include border-grey-sm;
 
-    .content {
-        display: flex;
+  .content {
+    display: flex;
 
-        .consume-button {
-            margin: 2px;
-            margin-left: 0.5rem;
-            width: 100%;
-        }
+    .consume-button {
+      margin: 2px;
+      margin-left: 0.5rem;
+      width: 100%;
     }
+  }
 }
 

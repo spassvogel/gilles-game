@@ -12,11 +12,19 @@
   box-shadow: 0 0 1px 1px rgb(0, 0, 0);
 
   .title {
-    height: 1.2rem;
     font-size: 1.2rem;
+    height: 1rem;
     margin: -10px;
+    margin-bottom: 10px;
     padding: 10px;
+    padding-top: 2px;
     background: $color-secondary;
+    display: flex;
+    justify-content: space-between;
+
+    .close {
+		  cursor: var(--app-cursor-pointer);
+    }
   }
 }
 

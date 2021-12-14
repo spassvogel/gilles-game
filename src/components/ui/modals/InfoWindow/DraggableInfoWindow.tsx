@@ -4,11 +4,13 @@ import { ComponentProps, ReactNode, useEffect, useRef } from "react";
 
 export interface Props {
   title?: ReactNode;
+  onClose?: () => void;
 }
+
 // An InfoWindow is a semi transparant black square. It is used for tooltips
 // and InfoModal. This can be dragged anywhere on the screen
-export const DraggableInfoWindow = (props: ComponentProps<"div">) => {
-  const { className, title, children, ...otherProps } = props;
+export const DraggableInfoWindow = (props: Props & ComponentProps<"div">) => {
+  const { className, onClose, title, children, ...otherProps } = props;
 
   const ref = useRef<HTMLDivElement>(null);
   const handle = useRef<HTMLHeadingElement>(null);
@@ -26,10 +28,13 @@ export const DraggableInfoWindow = (props: ComponentProps<"div">) => {
   return ReactDOM.createPortal(
     <div {...otherProps} ref={ref} draggable className={`info-window info-window-draggable ${className || ""}`} >
       <h2 className="title" ref={handle}>
-        {title}
+        <div>
+          {title}
+        </div>
+        <div onClick={onClose} className="close">x</div>
       </h2>
       {children}
     </div>,
-    document.body
+    document.querySelector(".app") ?? document.body
   )
 }
