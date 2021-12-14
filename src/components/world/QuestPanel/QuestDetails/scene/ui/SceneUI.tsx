@@ -6,7 +6,6 @@ import { useQuest } from 'hooks/store/quests';
 import { AP_COST_SHOOT } from 'mechanics/combat';
 import { Point } from 'pixi.js';
 import React, {
-  MouseEventHandler,
   PropsWithChildren,
   useCallback,
   useContext,
@@ -18,8 +17,10 @@ import { SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
 import CombatUIWidget from './CombatUIWidget';
 import NormalUICursor from './NormalUICursor';
-import "./styles/sceneUI.scss";
 import { convertMouseOrTouchCoords, MouseOrTouchEvent } from 'utils/interaction';
+import Bubbles from 'components/ui/bubbles/Bubbles';
+import { BubbleLayer } from 'global/BubbleManager';
+import "./styles/sceneUI.scss";
 
 export interface Props {
   sceneWidth: number;
@@ -58,7 +59,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   const controller = useContext(SceneControllerContext);
   const quest = useQuest(controller?.questName ?? "");
   const scene = quest.scene;
-  const {combat} = scene ?? {};
+  const { combat } = scene ?? {};
   const [cursorLocation, setCursorLocation] = useState<[number, number]>();
 
   useEffect(() => {
@@ -113,7 +114,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     onStart: (e) => { handleMouseDown(e as MouseOrTouchEvent<HTMLDivElement>);},
     onMove: (e) => { handleMouseMove(e as MouseOrTouchEvent<HTMLDivElement>)},
     captureEvent: true,
-    cancelOnMovement: 32,
+    cancelOnMovement: 8,
     detect: LongPressDetectEvents.BOTH
   });
 
@@ -125,13 +126,13 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     if (!object || object.type !== "actor") return;
 
     // Show context tooltip
-    const { tileWidth, tileHeight } = controller.getTileDimensions()
+    const { tileWidth, tileHeight } = controller.getTileDimensions();
     const width = tileWidth * scale.current;
     const height = tileHeight * scale.current;
     const rect = (e.target).getBoundingClientRect();
     const x = (location[0] * width) + (rect.left ?? 0);
     const y = (location[1] * height) + (rect.top ?? 0);
-    const domRect = DOMRect.fromRect({ x, y, width, height })
+    const domRect = DOMRect.fromRect({ x, y, width, height });
 
     TooltipManager.showContextTooltip(ContextType.actor, object, domRect, "");
     e.stopPropagation()
@@ -258,6 +259,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
           onActionChange={handleCombatActionChange}
         />
       )}
+      <Bubbles layer={BubbleLayer.scene} />
     </div>
   )
 }

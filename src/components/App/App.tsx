@@ -20,8 +20,9 @@ import {TooltipManager } from 'global/TooltipManager';
 import {getWorldLink, getTownLink } from 'utils/routing';
 import { restartGame } from 'index';
 import Button, { ButtonColor } from 'components/ui/buttons/Button';
+import Bubbles from "components/ui/bubbles/Bubbles";
+import { BubbleLayer } from "global/BubbleManager";
 import "./styles/app.scss";
-
 
 PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);
@@ -40,8 +41,6 @@ export enum View {
   Town,
   World,
 }
-
-
 
 export const MAX_WIDTH = 960;
 export const AppContext = createContext<AppContextProps | null>(null);
@@ -174,6 +173,7 @@ const App = () => {
           {renderWindow()}
           <ContextTooltip />
           <Toasts />
+          <Bubbles layer={BubbleLayer.general} />
         </HashRouter>
         </DndProvider>
       </div>

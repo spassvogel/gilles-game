@@ -1,4 +1,3 @@
-import * as React from "react";
 import { PropsWithChildren } from "react";
 import { TextManager } from 'global/TextManager';
 import useGoldState from "hooks/store/useGoldState";

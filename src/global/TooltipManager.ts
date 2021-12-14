@@ -22,7 +22,6 @@ export class TooltipManager extends (EventEmitter as new () => TypedEmitter<Tool
   private static lastContext: Context | undefined;
 
   // Note you probably want to call event.stopPropagation() after calling this
-
   static showContextTooltip (type: ContextType, info: ContextInfo, originRect: DOMRect, className?: string, source?: ItemSource) {
     const context = { type, info, referenceRect: originRect, className, source };
 

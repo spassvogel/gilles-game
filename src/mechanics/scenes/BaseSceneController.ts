@@ -28,6 +28,8 @@ import { xpToLevel } from "mechanics/adventurers/levels";
 import { EnemyType } from "definitions/enemies/types";
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { roll3D6 } from "utils/random";
+import { BubbleLayer, BubbleManager, BubbleType } from "global/BubbleManager";
+import { convertIn, convertOut } from "utils/aStar";
 
 const spritesheetBasePath = "img/scene/actors/";
 export const movementDuration = 500; // time every tile movement takes
@@ -233,8 +235,11 @@ export class BaseSceneController<TQuestVars> {
     const roll = roll3D6();
     if (roll <= (skills[definition.weaponType] ?? 0)) {
       console.log("HIT at ", location);
+      this.bubbleAtLocation("HIT", location);
 
     } else {
+      this.bubbleAtLocation("MISS", location);
+
       if (this.settings.verboseCombatLog) {
         this.log({ key: "scene-combat-attack-slash-missed-verbose", context: {
           actor,
@@ -418,12 +423,20 @@ export class BaseSceneController<TQuestVars> {
     // override
   }
 
-  // Converts pixel coordinate to scene location
+  // Converts pixel coordinate (where 0,0 is top left of the canvas) to scene location
   pointToSceneLocation (point: Point): [number, number] {
     if (!this.mapData?.tilewidth || !this.mapData?.tileheight) {
       return [0, 0];
     }
     return [Math.floor(point.x / this.mapData.tilewidth), Math.floor(point.y / this.mapData.tilewidth)];
+  }
+
+  // returns the pixel coordinate of the top left corner of the given location
+  sceneLocationToPoint (location: [number, number]): Point {
+    if (!this.mapData?.tilewidth || !this.mapData?.tileheight) {
+      return new Point();
+    }
+    return new Point(location[0] * this.mapData.tilewidth, location[1] * this.mapData.tileheight);
   }
 
   // Returns true if the tile is blocked
@@ -833,7 +846,7 @@ export class BaseSceneController<TQuestVars> {
     return enemy.offHand;
   }
 
-  protected questUpdate(input: string | TextEntry, icon?: string, toast = false) : void {
+  protected questUpdate(input: string | TextEntry, icon?: string, toast = false): void {
     const textEntry: TextEntry = isTextEntry(input) ? input : {key: input};
     const title = TextManager.getTextEntry(textEntry);
     if (toast) {
@@ -842,9 +855,15 @@ export class BaseSceneController<TQuestVars> {
     this.log(textEntry);
   }
 
-  protected log(input: string | TextEntry) : void {
+  protected log(input: string | TextEntry): void {
     const textEntry: TextEntry = isTextEntry(input) ? input : {key: input};
     this.dispatch(addLogEntry(textEntry, LogChannel.quest, this.questName));
+  }
+
+  protected bubbleAtLocation(text: string, location: [number, number], bubbleType?: BubbleType) {
+    const point = this.sceneLocationToPoint(location);
+    point.set(point.x + (this.mapData?.tilewidth ?? 2) / 2, point.y);
+    BubbleManager.addBubble(text, point, bubbleType, BubbleLayer.scene);
   }
 
   // Store
@@ -858,8 +877,3 @@ export interface Situation {
   choices?: string[];
   text?: string;
 }
-
-// This is the format AStarFind works with
-const convertIn = (l: [number, number]) => ({ x: l[0], y: l[1] });
-const convertOut = (input: number[]): [number, number] => [input[0], input[1]];
-

@@ -8,26 +8,26 @@ import './styles/toasts.scss';
 // The toasts themselves will fade out via css transition
 const Toasts = () => {
 
-    const [activeToasts, setActiveToasts] = useState<ToastConfig[]>([]);
+  const [activeToasts, setActiveToasts] = useState<ToastConfig[]>([]);
 
-    const toastsUpdated = (stack?: ToastConfig[]) => {
-        if (stack) setActiveToasts(stack);
+  const toastsUpdated = (stack?: ToastConfig[]) => {
+    if (stack) setActiveToasts(stack);
+  }
+
+  useEffect(() => {
+    ToastManager.instance.addListener(EVENT_TOASTS_UPDATED, toastsUpdated);
+    return () => {
+      ToastManager.instance.removeListener(EVENT_TOASTS_UPDATED, toastsUpdated);
     }
+  }, []);
 
-    useEffect(() => {
-        ToastManager.instance.addListener(EVENT_TOASTS_UPDATED, toastsUpdated);
-        return () => {
-            ToastManager.instance.removeListener(EVENT_TOASTS_UPDATED, toastsUpdated);
-        }
-    }, []);
-
-    return (
-        <div className="toasts" > 
-            { activeToasts.map((toastConfig) => (
-                <Toast key={toastConfig.time} {...toastConfig}/>
-            ))}
-        </div>
-    )
+  return (
+    <div className="toasts" >
+      { activeToasts.map((toastConfig) => (
+        <Toast key={toastConfig.time} {...toastConfig}/>
+      ))}
+    </div>
+  )
 }
 
 export default Toasts;

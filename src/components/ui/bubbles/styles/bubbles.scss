@@ -1,0 +1,30 @@
+.bubbles {
+  .bubble {
+    position: absolute;
+    transform: translateX(-50%);
+    animation: bubbleUp 2s forwards;
+  }
+
+  @keyframes bubbleUp {
+    0% {
+      transform: translateX(-50%) scale(0);
+    }
+    5% {
+      transform: translateX(-50%) scale(1.1);
+    }
+    7% {
+      transform: translateX(-50%) scale(1);
+    }
+    25% {
+      transform: translateX(-50%) scale(1);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -150%) scale(1);
+    }
+  }
+}
+
