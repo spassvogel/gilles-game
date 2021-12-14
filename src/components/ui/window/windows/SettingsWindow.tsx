@@ -75,6 +75,7 @@ const SettingsWindow = () => {
           {getChannelControls(Channel.ui)}
           {getChannelControls(Channel.scene)}
           {getChannelControls(Channel.music)}
+          {getChannelControls(Channel.ambient)}
         </section>
       </details>
       <details open className="settings-section combat" >
