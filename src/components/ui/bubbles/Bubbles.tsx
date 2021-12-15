@@ -17,14 +17,14 @@ const Bubbles = (props: Props) => {
     if (layer === props.layer){
       const bubble = document.createElement('div');
       bubble.innerHTML = `${text}`;
-      bubble.className = 'bubble';
+      bubble.className = `bubble${type !== undefined && ` type-${BubbleType[type]}`}`;
       bubble.style.left = `${point.x}px`;
       bubble.style.top = `${point.y}px`;
       ref.current?.appendChild(bubble);
 
       const timeout = setTimeout(() => {
         timeouts.current = timeouts.current.filter((t: NodeJS.Timeout) => t !== timeout)
-        ref.current?.removeChild(bubble)
+        // ref.current?.removeChild(bubble)
       }, 2000);
       // Keep track of running timeouts in case this component gets unmounted
       timeouts.current.push(timeout)

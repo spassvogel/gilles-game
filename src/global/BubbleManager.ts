@@ -4,7 +4,7 @@ import TypedEmitter from "typed-emitter";
 
 
 export const EVENT_BUBBLE_ADDED = "bubbleAdded";
-export enum BubbleType { combat }
+export enum BubbleType { combat, resource }
 export enum BubbleLayer { general, scene }
 
 interface BubbleEvents {

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { RESOURCE_INTERVAL } from 'constants/resources';
+import { RESOURCE_INTERVAL } from 'mechanics/resources';
 import { Resource } from 'definitions/resources';
 import { getDefinition, Structure } from "definitions/structures";
 import { ResourceStructureDefinition, ResourceStructureLevelDefinition, StructureType } from "definitions/structures/types";

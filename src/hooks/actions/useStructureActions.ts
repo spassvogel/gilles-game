@@ -7,22 +7,22 @@ import { LogChannel } from 'store/types/logEntry';
 
 // this hook is not used at the moment
 const useStructureActions = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    // Unused
-    const startUpgradeStructure = (cost: number, level: number, structure: Structure) => {
-        dispatch(subtractGold(cost));
-        dispatch(upgradeStructure(structure));
+  // Unused
+  const startUpgradeStructure = (cost: number, level: number, structure: Structure) => {
+    dispatch(subtractGold(cost));
+    dispatch(upgradeStructure(structure));
 
-        dispatch(addLogText("log-town-upgrade-structure-complete", {
-            level,
-            structure,
-        }, LogChannel.town));
-    }
+    dispatch(addLogText("log-town-upgrade-structure-complete", {
+      level,
+      structure,
+    }, LogChannel.town));
+  }
 
-    return {
-        startUpgradeStructure //unused
-    }
+  return {
+    startUpgradeStructure //unused
+  }
 }
 
 export default useStructureActions;

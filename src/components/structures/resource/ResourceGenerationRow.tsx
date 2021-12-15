@@ -1,10 +1,9 @@
-import * as React from "react";
 import ReactMarkdown from "react-markdown";
 import { Structure } from 'definitions/structures';
 import { TextManager } from 'global/TextManager';
 import { useEngine } from 'hooks/store/engine';
 import { formatDuration } from 'utils/format/time';
-import { RESOURCE_INTERVAL } from 'constants/resources';
+import { RESOURCE_INTERVAL } from 'mechanics/resources';
 import { Direction } from 'components/ui/common/progress/PlainProgressbar';
 import { Resource } from 'definitions/resources';
 import { useStructureLevel, useStructureState } from 'hooks/store/structures';

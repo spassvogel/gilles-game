@@ -13,6 +13,9 @@ import { StructureState } from 'store/types/structure';
 import { formatNumber } from 'utils/format/number';
 import Icon from '../../ui/common/Icon';
 import "./styles/resourcesBox.scss";
+import { useRef } from "react";
+import { BubbleLayer, BubbleManager, BubbleType } from "global/BubbleManager";
+import { Point } from "pixi.js";
 
 export interface Props {
   className?: string;
@@ -32,9 +35,10 @@ const ResourcesBox = (props: Props & AppContextProps) => {
   } = props;
   const structures = useSelector<StoreState, StructuresStoreState>(store => store.structures);
   const className = `resources-box ${(props.className || "")}`;
+  const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <div className={className}>
+    <div className={className} ref={ref}>
       {
         Object.keys(resources).map((value: string) => {
           const resource = value as Resource;
@@ -44,11 +48,13 @@ const ResourcesBox = (props: Props & AppContextProps) => {
             throw new Error(`No resource description found for ${resource}`);
           }
 
-          let delta;
           if (deltaResources[resource]) {
-            delta = <span className="animate-up">
-              { `+ ${deltaResources[resource]?.toFixed(2)}`  }
-            </span>;
+            // Show bubble
+            const el = ref.current?.querySelector(`[data-resource="${resource}"] .amount`);
+            const rect = el?.getBoundingClientRect();
+            const point = new Point(rect?.right, rect?.top)
+
+            BubbleManager.addBubble(`+ ${deltaResources[resource]?.toFixed(2)}`, point, BubbleType.resource, BubbleLayer.general);
           }
 
           const structure = getStructureByResource(Resource[resource]);
@@ -56,7 +62,7 @@ const ResourcesBox = (props: Props & AppContextProps) => {
           const full = amount >= (props.maxResources?.[resource] ?? 0);
           const structureText = TextManager.get(structures[structure].state === StructureState.Built ? "ui-structure-warehouse-resources-source" : "ui-structure-warehouse-resources-source-unbuilt", {structure})
           return (
-            <React.Fragment key={resource}>
+            <div className="row" data-resource={resource} key={resource}>
               <Icon image={resourceDescription.iconImg} size="smallest"/>
               <div className="name">
                 { TextManager.getResourceName(resource as Resource) }
@@ -67,13 +73,10 @@ const ResourcesBox = (props: Props & AppContextProps) => {
               <div className="max" >
                 { ` / ${props.maxResources[resource]}` }
               </div>
-              <div className="delta">
-                { delta }
-              </div>
               <div className="structure">
                 <ReactMarkdown>{structureText}</ReactMarkdown>
               </div>
-            </React.Fragment>
+            </div>
           )
         })
       }

@@ -1,4 +1,3 @@
-import * as React from "react";
 import ResourcesBox from "components/structures/warehouse/ResourcesBox";
 import { WarehouseStructureLevelDefinition } from "definitions/structures/types";
 import usePrevious from "hooks/usePrevious";
@@ -20,8 +19,8 @@ import { Resource } from "definitions/resources";
 import UpgradeHelpModal from "../UpgradeHelpModal";
 import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
 import Stockpile from "./Stockpile";
-import "./styles/warehouseStructureView.scss";
 import { Channel, SoundManager } from "global/SoundManager";
+import "./styles/warehouseStructureView.scss";
 
 
 const WarehouseStructureView = () => {
@@ -54,20 +53,6 @@ const WarehouseStructureView = () => {
 
     setResourcesDelta(delta);
   }, [resources, previousResources]);
-
-  useEffect(() => {
-    if (!resourcesRef.current) {
-      return;
-    }
-    const ref = resourcesRef.current as unknown as HTMLFieldSetElement;
-    ref.classList.remove("animate");
-    const timeout = setTimeout(() => {
-      if (resourcesRef) {
-        ref.classList.add("animate");
-      }
-    }, 200);
-    return () => { clearTimeout(timeout); }
-  }, [resourcesDelta]);
 
   const structureState = useStructureState("warehouse");
   const { level } = structureState;
