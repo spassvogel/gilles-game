@@ -78,13 +78,14 @@ const continueGame = () => {
  */
 const loadGame = async (state: StoreState) => {
   // todo: implement in MenuWindow!
-  await persistor.purge();
+  await persistor.pause();
   const { store } = await configureStore(state);
   runGame(store);
 
   // We have to cause the page to reinitialize and all react components to remount
   // eslint-disable-next-line no-restricted-globals
-  location.href = `#${getWorldLink()}`; // todo: load path from metadata '#/world/kill10Boars';
+  // location.href = `#${getWorldLink()}`; // todo: load path from metadata '#/world/kill10Boars';
+  location.reload();
 }
 
 const restartGame = () => {

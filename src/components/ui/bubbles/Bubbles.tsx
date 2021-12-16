@@ -24,7 +24,7 @@ const Bubbles = (props: Props) => {
 
       const timeout = setTimeout(() => {
         timeouts.current = timeouts.current.filter((t: NodeJS.Timeout) => t !== timeout)
-        // ref.current?.removeChild(bubble)
+        ref.current?.removeChild(bubble)
       }, 2000);
       // Keep track of running timeouts in case this component gets unmounted
       timeouts.current.push(timeout)

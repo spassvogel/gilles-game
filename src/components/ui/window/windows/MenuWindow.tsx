@@ -39,6 +39,7 @@ const Menu = (props: AllProps & AppContextProps) => {
 
   const handleClickLoad = async () => {
     if (!loadedStore) return;
+
     setLoadedStore(undefined);
 
     await loadGame(loadedStore);
