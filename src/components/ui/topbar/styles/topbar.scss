@@ -1,4 +1,4 @@
-@import 'components/styles/variables.scss';
+@import 'components/styles/import.scss';
 
 .topbar {
     border-bottom: 1px solid #e0e0e2;
@@ -16,7 +16,7 @@
     background: -moz-linear-gradient(top, rgba(229,229,229,1) 0%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(top, rgba(229,229,229,1) 0%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to bottom, rgba(229,229,229,1) 0%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */ 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e5e5e5', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 
     .topbar-left {
         display: inline-block;
@@ -27,14 +27,14 @@
         display: inline-block;
         width: 30px;
         text-align: right;
-        
+
         .hamburger {
             cursor: var(--app-cursor-pointer);
             font-size: 20px;
             line-height: 32px;
         }
     }
-    
+
     span {
         padding: 0 20px 0 20px;
     }

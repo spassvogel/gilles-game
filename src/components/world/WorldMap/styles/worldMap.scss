@@ -1,4 +1,4 @@
-@import 'components/styles/variables.scss';
+@import 'components/styles/import.scss';
 
 .world-map {
     margin-bottom: -32px;
@@ -17,7 +17,7 @@
         box-sizing: border-box;
 
         button { margin-right: 8px; }
-        
+
         .close {
             display: inline-block;
             text-align: center;

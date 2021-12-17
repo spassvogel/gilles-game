@@ -1,4 +1,4 @@
-@import 'components/styles/variables.scss';
+@import 'components/styles/import.scss';
 
 .window {
 	background: rgba(0, 0, 0, .8);
@@ -14,7 +14,7 @@
         background: black;
 		display: flex;
 		height: 32px;
-        
+
 		h3 {
             height: 32px;
             color: white;

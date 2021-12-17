@@ -1,4 +1,4 @@
-@import 'components/styles/variables.scss';
+@import 'components/styles/import.scss';
 
 details.structureview {
     margin-bottom: 10px;
@@ -9,7 +9,7 @@ details.structureview {
 
     .crafting-row {
         display: flex;
-    
+
         .updownvalue {
             padding: 0 32px;
         }
@@ -22,13 +22,13 @@ details.structureview {
     .crafting-area {
         display: flex;
         margin-bottom: 16px;
-    
+
         .vertical-tab-bar {
             list-style: none;
             margin: 0;
             padding: 0;
             width: 200px;
-            
+
             li {
                 display: flex;
                 margin: 0;
@@ -40,13 +40,13 @@ details.structureview {
                     background: $color-secondary;
                     color: white;
                 }
-                
+
                 .item-icon {
                     margin-right: 10px;
                 }
             }
         }
-        
+
         .crafting-details {
             flex: 1;
             border: 3px solid $color-secondary;
@@ -54,7 +54,7 @@ details.structureview {
 
             .crafting-costs {
                 display: flex;
-            
+
                 fieldset {
                     flex: 1;
                 }

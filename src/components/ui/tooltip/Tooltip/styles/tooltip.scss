@@ -1,4 +1,4 @@
-@import "components/styles/variables.scss";
+@import "components/styles/import.scss";
 
 $arrow-size: 8px;
 
@@ -6,7 +6,7 @@ $arrow-size: 8px;
 	position: absolute;
 	z-index: 3;
     transition: opacity .45s ease-in-out;
-    
+
 	.tooltip-arrow {
 		border-color: $color-secondary;
 		width: 0;
@@ -15,14 +15,14 @@ $arrow-size: 8px;
 		position: absolute;
 		margin: $arrow-size;
     }
-    
+
 	.tooltip-content {
 
 	}
-    
+
     &.tooltip-bottom {
         transform: translate(-50%, $arrow-size);
-        
+
         .tooltip-arrow {
             border-width: 0 $arrow-size $arrow-size $arrow-size;
             border-left-color: transparent;
@@ -37,7 +37,7 @@ $arrow-size: 8px;
 
     &.tooltip-top {
         transform: translate(-50%, calc(-100% - #{$arrow-size}));
-    
+
         .tooltip-arrow {
             border-width: $arrow-size $arrow-size 0 $arrow-size;
             border-left-color: transparent;

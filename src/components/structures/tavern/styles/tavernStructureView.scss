@@ -1,15 +1,15 @@
-@import 'components/styles/variables.scss';
+@import 'components/styles/import.scss';
 
 
 .tavern-structure-view {
     padding: 16px;
-    
+
     .room-list {
         overflow: auto;
         flex: 1;
         margin: 8px;
     }
-    
+
     .quest-board {
         flex: 1;
     }

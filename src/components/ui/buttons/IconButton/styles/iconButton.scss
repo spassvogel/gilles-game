@@ -1,4 +1,4 @@
-@import 'components/styles/variables.scss';
+@import 'components/styles/import.scss';
 
 $margin: 2px;
 $borderRadius: 4px;
@@ -19,18 +19,18 @@ $small-margin: 10px;
     padding: $margin;
     border-radius: $borderRadius;
     cursor: pointer;
-    
+
     justify-content: center;
     display: flex;
     position: relative;
-    
+
     &:disabled {
         filter: grayscale(1) brightness(2.5);
         span {
             color: rgb(87, 87, 87) !important;
         }
     }
-    
+
     .text {
         position: absolute;
         bottom: $margin;
@@ -40,7 +40,7 @@ $small-margin: 10px;
     // &.button-large {
     //     height: $large-height;
     //     line-height: $large-height;
-        
+
     //     span {
     //         font-size: large;
     //         background-position: 0 -$large-height;
@@ -64,7 +64,7 @@ $small-margin: 10px;
     &.size-smallest {
         width: $item-size-smallest + $margin;
         height: $item-size-smallest + $margin;
-        
+
         .text {
             font-size: smaller;
         }
@@ -75,26 +75,26 @@ $small-margin: 10px;
         height: $item-size-medium + 2 * $margin;
     }
 
-   
+
 
     // @media only screen and (max-width: $max-width-small) {
     //     &.button-auto {
     //         height: $small-height;
     //         line-height: $small-height;
-    
+
     //         span {
     //             background-position: 0 -$small-height;
     //             font-size: smaller;
     //             margin: 0 $small-margin;
     //             height: $small-height;
     //         }
-    
+
     //         &:before {
     //             width: $small-margin;
     //             height: $small-height;
     //             background-position: 0 0;
     //         }
-    
+
     //         &:after {
     //             width: $small-margin;
     //             height: $small-height;

@@ -1,0 +1,17 @@
+@import 'components/styles/import.scss';
+
+.game-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(min-content, max-content);
+  align-items: start;
+  dl {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+
+    dd {
+      color: $color-text-darker;
+      margin-left: 0.5rem;
+    }
+  }
+}

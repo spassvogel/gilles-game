@@ -1,4 +1,4 @@
-@import 'components/styles/variables.scss';
+@import 'components/styles/import.scss';
 
 .log {
     position: sticky;
@@ -18,7 +18,7 @@
             margin-top: -4px;
             margin-right: -4px;
         }
-    
+
         .tabs {
             height: 25px;
             line-height: 25px;
@@ -45,12 +45,12 @@
 
     &.expanded {
         height: calc(100vh - #{$misc-topbar-height + 12px});
-    
+
         .log-entries{
             height: 100%;
             flex: 1;
         }
     }
-    
+
 }
 

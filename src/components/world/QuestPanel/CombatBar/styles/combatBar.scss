@@ -1,4 +1,4 @@
-@import 'components/styles/variables.scss';
+@import 'components/styles/import.scss';
 
 .combat-bar {
     display: flex;
@@ -15,12 +15,12 @@
 
         .adventurer {
             display: flex;
-            
+
             &.selected {
                 color: $color-text-lighter;
             }
         }
-        
+
         .ap {
             padding-left: 4px;
             width: 46px;

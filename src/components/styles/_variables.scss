@@ -1,0 +1,11 @@
+@import 'variables/colors.scss';
+@import 'variables/font.scss';
+@import 'variables/items.scss';
+@import 'variables/misc.scss';
+@import 'variables/responsive';
+
+:export {
+  colorPrimary: $color-primary;
+  colorSecondary: $color-secondary;
+  colorTextLighter: $color-text-lighter;
+}
