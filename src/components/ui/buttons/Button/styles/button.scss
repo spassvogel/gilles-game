@@ -10,248 +10,248 @@ $small-height: 16px;
 $small-margin: 10px;
 
 .button {
-    padding: 0;
-    background: none;
-    box-shadow: 0px 0px 0px transparent;
-    border: 0px solid transparent;
-    text-shadow: 0px 0px 0px transparent;
+  padding: 0;
+  background: none;
+  box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
 
-    justify-content: space-between;
-    display: inline-flex;
-    position: relative;
+  justify-content: space-between;
+  display: inline-flex;
+  position: relative;
+
+  span {
+    color: $color-text-lighter;
+    font-family: $font-normal;
+    overflow-y: hidden;
+    flex: 1;
+  }
+
+  &:disabled {
+    filter: grayscale(1);
+    span {
+      color: rgb(134, 134, 134) !important;
+    }
+  }
+
+  &:before, &:after {
+    content: '';
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+  }
+
+  &.button-large {
+    height: $large-height;
+    line-height: $large-height;
 
     span {
-        color: $color-text-lighter;
-        font-family: $font-normal;
-        overflow-y: hidden;
-        flex: 1;
+      font-size: large;
+      background-position: 0 -$large-height;
+      margin: 0 $large-margin;
     }
 
-    &:disabled {
-        filter: grayscale(1);
-        span {
-            color: rgb(134, 134, 134) !important;
-        }
+    &:before {
+      width: $large-margin;
+      background-position: 0 0;
+      height: $large-height;
     }
 
-    &:before, &:after {
-        content: '';
-        height: 100%;
+    &:after {
+      width: $large-margin;
+      background-position: right -2*$large-height;
+      right: 0;
+      height: $large-height;
+    }
+  }
+
+  &.button-medium, &.button-auto {
+    height: $medium-height;
+    line-height: $medium-height;
+
+    span {
+      font-size: medium;
+      background-position: 0 -$medium-height;
+      margin: 0 $medium-margin;
+      height: $medium-height;
+    }
+
+    &:before {
+      width: $medium-margin;
+      height: $medium-height;
+      background-position: 0 0;
+    }
+
+    &:after {
+      width: $medium-margin;
+      height: $medium-height;
+      right: 0;
+      background-position: right -2*$medium-height;
+    }
+
+    &.button-square {
+      span {
+        width: 14px;
         display: inline-block;
-        position: absolute;
+        margin: 0 8px;
+      }
+
+      &:before {
+        width: 8px;
+      }
+
+      &:after {
+        width: 8px;
+      }
+    }
+  }
+
+  &.button-small {
+    height: $small-height;
+    line-height: $small-height;
+
+    span {
+      background-position: 0 -$small-height;
+      font-size: smaller;
+      margin: 0 $small-margin;
     }
 
-    &.button-large {
-        height: $large-height;
-        line-height: $large-height;
-
-        span {
-            font-size: large;
-            background-position: 0 -$large-height;
-            margin: 0 $large-margin;
-        }
-
-        &:before {
-            width: $large-margin;
-            background-position: 0 0;
-            height: $large-height;
-        }
-
-        &:after {
-            width: $large-margin;
-            background-position: right -2*$large-height;
-            right: 0;
-            height: $large-height;
-        }
+    &:before {
+      width: $small-margin;
+      height: $small-height;
+      background-position: 0 0;
     }
 
-    &.button-medium, &.button-auto {
-        height: $medium-height;
-        line-height: $medium-height;
-
-        span {
-            font-size: medium;
-            background-position: 0 -$medium-height;
-            margin: 0 $medium-margin;
-            height: $medium-height;
-        }
-
-        &:before {
-            width: $medium-margin;
-            height: $medium-height;
-            background-position: 0 0;
-        }
-
-        &:after {
-            width: $medium-margin;
-            height: $medium-height;
-            right: 0;
-            background-position: right -2*$medium-height;
-        }
-
-        &.button-square {
-            span {
-                width: 14px;
-                display: inline-block;
-                margin: 0 8px;
-            }
-
-            &:before {
-                width: 8px;
-            }
-
-            &:after {
-                width: 8px;
-            }
-        }
+    &:after {
+      width: $small-margin;
+      height: $small-height;
+      background-position: 0 -2*$small-height;
+      right: 0;
     }
 
-    &.button-small {
+    &.button-square {
+      span {
+        width: 8px;
+        display: inline-block;
+        margin: 0 4px;
+      }
+
+      &:before {
+        width: 4px;
+      }
+
+      &:after {
+        width: 4px;
+      }
+    }
+  }
+
+  @include sm-max {
+    &.button-auto {
+      height: $small-height;
+      line-height: $small-height;
+
+      span {
+        background-position: 0 -$small-height;
+        font-size: smaller;
+        margin: 0 $small-margin;
         height: $small-height;
-        line-height: $small-height;
+      }
 
-        span {
-            background-position: 0 -$small-height;
-            font-size: smaller;
-            margin: 0 $small-margin;
-        }
+      &:before {
+        width: $small-margin;
+        height: $small-height;
+        background-position: 0 0;
+      }
 
-        &:before {
-            width: $small-margin;
-            height: $small-height;
-            background-position: 0 0;
-        }
-
-        &:after {
-            width: $small-margin;
-            height: $small-height;
-            background-position: 0 -2*$small-height;
-            right: 0;
-        }
-
-        &.button-square {
-            span {
-                width: 8px;
-                display: inline-block;
-                margin: 0 4px;
-            }
-
-            &:before {
-                width: 4px;
-            }
-
-            &:after {
-                width: 4px;
-            }
-        }
+      &:after {
+        width: $small-margin;
+        height: $small-height;
+        background-position: 0 -2*$small-height;
+        right: 0;
+      }
     }
+  }
 
-    @media only screen and (max-width: $max-width-small) {
-        &.button-auto {
-            height: $small-height;
-            line-height: $small-height;
+  &.button-purple.button-large span,
+  &.button-purple.button-large:before,
+  &.button-purple.button-large:after {
+    background-image: url('./images/button-large-purple.png');
+  }
 
-            span {
-                background-position: 0 -$small-height;
-                font-size: smaller;
-                margin: 0 $small-margin;
-                height: $small-height;
-            }
+  &.button-blue.button-large span,
+  &.button-blue.button-large:before,
+  &.button-blue.button-large:after {
+    background-image: url('./images/button-large-blue.png');
+  }
 
-            &:before {
-                width: $small-margin;
-                height: $small-height;
-                background-position: 0 0;
-            }
+  &.button-green.button-large span,
+  &.button-green.button-large:before,
+  &.button-green.button-large:after {
+    background-image: url('./images/button-large-green.png');
+  }
 
-            &:after {
-                width: $small-margin;
-                height: $small-height;
-                background-position: 0 -2*$small-height;
-                right: 0;
-            }
-        }
-    }
+  &.button-purple.button-medium span,
+  &.button-purple.button-medium:before,
+  &.button-purple.button-medium:after,
+  &.button-purple.button-auto span,
+  &.button-purple.button-auto:before,
+  &.button-purple.button-auto:after {
+    background-image: url('./images/button-medium-purple.png');
+  }
+  &.button-blue.button-medium span,
+  &.button-blue.button-medium:before,
+  &.button-blue.button-medium:after,
+  &.button-blue.button-auto span,
+  &.button-blue.button-auto:before,
+  &.button-blue.button-auto:after {
+    background-image: url('./images/button-medium-blue.png');
+  }
 
-    &.button-purple.button-large span,
-    &.button-purple.button-large:before,
-    &.button-purple.button-large:after {
-        background-image: url('./images/button-large-purple.png');
-    }
+  &.button-green.button-medium span,
+  &.button-green.button-medium:before,
+  &.button-green.button-medium:after,
+  &.button-green.button-auto span,
+  &.button-green.button-auto:before,
+  &.button-green.button-auto:after {
+    background-image: url('./images/button-medium-green.png');
+  }
 
-    &.button-blue.button-large span,
-    &.button-blue.button-large:before,
-    &.button-blue.button-large:after {
-        background-image: url('./images/button-large-blue.png');
-    }
+  &.button-purple.button-small span,
+  &.button-purple.button-small:before,
+  &.button-purple.button-small:after {
+    background-image: url('./images/button-small-purple.png');
+  }
 
-    &.button-green.button-large span,
-    &.button-green.button-large:before,
-    &.button-green.button-large:after {
-        background-image: url('./images/button-large-green.png');
-    }
+  &.button-blue.button-small span,
+  &.button-blue.button-small:before,
+  &.button-blue.button-small:after {
+    background-image: url('./images/button-small-blue.png');
+  }
 
-    &.button-purple.button-medium span,
-    &.button-purple.button-medium:before,
-    &.button-purple.button-medium:after,
+  &.button-green.button-small span,
+  &.button-green.button-small:before,
+  &.button-green.button-small:after {
+    background-image: url('./images/button-small-green.png');
+  }
+
+  @include sm-max {
     &.button-purple.button-auto span,
     &.button-purple.button-auto:before,
     &.button-purple.button-auto:after {
-        background-image: url('./images/button-medium-purple.png');
+      background-image: url('./images/button-small-purple.png');
     }
-    &.button-blue.button-medium span,
-    &.button-blue.button-medium:before,
-    &.button-blue.button-medium:after,
+
     &.button-blue.button-auto span,
     &.button-blue.button-auto:before,
     &.button-blue.button-auto:after {
-        background-image: url('./images/button-medium-blue.png');
+      background-image: url('./images/button-small-blue.png');
     }
 
-    &.button-green.button-medium span,
-    &.button-green.button-medium:before,
-    &.button-green.button-medium:after,
     &.button-green.button-auto span,
     &.button-green.button-auto:before,
     &.button-green.button-auto:after {
-        background-image: url('./images/button-medium-green.png');
+      background-image: url('./images/button-small-green.png');
     }
-
-    &.button-purple.button-small span,
-    &.button-purple.button-small:before,
-    &.button-purple.button-small:after {
-        background-image: url('./images/button-small-purple.png');
-    }
-
-    &.button-blue.button-small span,
-    &.button-blue.button-small:before,
-    &.button-blue.button-small:after {
-        background-image: url('./images/button-small-blue.png');
-    }
-
-    &.button-green.button-small span,
-    &.button-green.button-small:before,
-    &.button-green.button-small:after {
-        background-image: url('./images/button-small-green.png');
-    }
-
-    @media only screen and (max-width: $max-width-small) {
-        &.button-purple.button-auto span,
-        &.button-purple.button-auto:before,
-        &.button-purple.button-auto:after {
-            background-image: url('./images/button-small-purple.png');
-        }
-
-        &.button-blue.button-auto span,
-        &.button-blue.button-auto:before,
-        &.button-blue.button-auto:after {
-            background-image: url('./images/button-small-blue.png');
-        }
-
-        &.button-green.button-auto span,
-        &.button-green.button-auto:before,
-        &.button-green.button-auto:after {
-            background-image: url('./images/button-small-green.png');
-        }
-    }
+  }
 }

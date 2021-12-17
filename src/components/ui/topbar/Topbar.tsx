@@ -5,7 +5,6 @@ import { useContext } from 'react';
 import { AppContext } from 'components/App';
 import "./styles/topbar.scss";
 
-
 const Topbar = () => {
   const context = useContext(AppContext);
 

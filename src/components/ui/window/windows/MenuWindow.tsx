@@ -15,12 +15,13 @@ import { TextManager } from 'global/TextManager';
 import Button from 'components/ui/buttons/Button';
 import { decryptSavedGame, saveGame } from "utils/game";
 import "./styles/menu.scss";
+import GameStats from "components/ui/game/GameStats";
 
 
 type AllProps = WindowProps;
 const Menu = (props: AllProps & AppContextProps) => {
 
-  const storeState = useSelector<StoreState>(state => state);
+  const storeState = useSelector<StoreState, StoreState>(state => state);
   const [loadedStore, setLoadedStore] = useState<StoreState>();
 
   const handleClickCheats = () => {
@@ -34,7 +35,7 @@ const Menu = (props: AllProps & AppContextProps) => {
   };
 
   const handleClickSave = () => {
-     saveGame(storeState as StoreState);
+     saveGame(storeState);
   }
 
   const handleClickLoad = async () => {
@@ -83,6 +84,9 @@ const Menu = (props: AllProps & AppContextProps) => {
           <Button onClick={handleClickLoad} disabled={!loadedStore}>Load</Button>
         </section>
       </fieldset>
+      <div>
+        <GameStats state={storeState} />
+      </div>
     </div>
   );
 }

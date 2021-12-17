@@ -18,7 +18,6 @@ import { TextManager } from "./global/TextManager";
 import { loadResourceAsync } from 'utils/pixiJs';
 import { processCompletedTasks } from 'mechanics/gameTick/tasks';
 import { StoreState } from 'store/types';
-import { getWorldLink } from "utils/routing";
 import { createInitialStore } from "store/reducers";
 import getHarvest from "mechanics/gameTick/harvest";
 import "./index.css";
@@ -84,7 +83,6 @@ const loadGame = async (state: StoreState) => {
 
   // We have to cause the page to reinitialize and all react components to remount
   // eslint-disable-next-line no-restricted-globals
-  // location.href = `#${getWorldLink()}`; // todo: load path from metadata '#/world/kill10Boars';
   location.reload();
 }
 

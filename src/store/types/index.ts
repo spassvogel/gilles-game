@@ -1,4 +1,3 @@
-import { PersistState } from "redux-persist";
 import { State as seedrandomStateType } from "seedrandom";
 import { AdventurerStoreState } from "./adventurer";
 import { EngineStoreState } from "./engine";

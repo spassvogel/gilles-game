@@ -60,7 +60,7 @@
   }
 }
 
-@media only screen and (min-width: $max-width-small) {
+@include sm {
   .settings-window {
     display: grid;
     grid-template-columns: 1fr 1fr;

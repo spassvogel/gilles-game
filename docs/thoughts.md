@@ -773,7 +773,14 @@ process events, send out redux actions
 
 ### 2021-12-09 Bubbles
 
-- [ ] Bubbles are short lived popup notifications, used to indicate something
+- [x] Bubbles are short lived popup notifications, used to indicate something
       has changed, combat events etc
-- [ ] BubblesManager
-- [ ] Should be implemented outside of react, using a combination of document.createElement, setTimeout, css animations
+- [x] BubblesManager
+- [x] Should be implemented outside of react, using a combination of document.createElement, setTimeout, css animations
+
+### 2021-12-16 GameStats
+- [ ] GameStats component, shows 
+  - [ ] time playing 
+  - [ ] structures built (and level)
+  - [ ] adventurers
+  - [ ] resources and workers

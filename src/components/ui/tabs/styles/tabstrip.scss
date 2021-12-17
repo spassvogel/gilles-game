@@ -35,7 +35,7 @@
 
   &.auto-collapse {
     /** Auto collapses into a dropdown list on small screens */
-    @media only screen and (max-width: $max-width-small) {
+    @include sm-max {
       flex-direction: column;
 
       .open:checked ~ .tabstrip-tab {

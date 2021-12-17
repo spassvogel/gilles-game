@@ -1,9 +1,11 @@
 @import 'components/styles/import.scss';
 
 .game-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-auto-rows: minmax(min-content, max-content);
+  @include sm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
   align-items: start;
   dl {
     display: grid;
