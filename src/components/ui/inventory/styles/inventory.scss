@@ -76,14 +76,14 @@ $border: 2px;
     grid-template-columns: repeat(8, $item-size-medium + 4px);
   }
 
-  @media only screen and (max-width: $max-width-medium) {
+  @include md-max {
     /** medium screen */
     &.inventory-medium {
       grid-template-columns: repeat(6, $item-size-medium + 4px);
     }
   }
 
-  @media only screen and (max-width: $max-width-small) {
+  @include sm-max {
     /** small screen */
     &.inventory-medium {
       grid-template-columns: repeat(4, $item-size-medium + 4px);
@@ -100,7 +100,7 @@ $border: 2px;
     grid-template-columns: repeat(18, $item-size-medium + 4px);
   }
 
-  @media only screen and (max-width: $max-width-medium) {
+  @include md-max {
     /** medium screen */
     &.inventory-large {
       grid-template-columns: repeat(12, $item-size-medium + 4px);
