@@ -3,6 +3,7 @@
 import { Resource } from "definitions/resources";
 import { Structure } from "definitions/structures";
 import { TextManager } from "global/TextManager";
+import { groupAdventurersByQuest } from "store/selectors/adventurers";
 import { StoreState } from "store/types"
 import { QuestStatus } from "store/types/quest";
 import { StructureState } from "store/types/structure";
@@ -16,6 +17,7 @@ type Props = {
 const GameStats = (props: Props) => {
   const { state } = props;
   const timePlaying = formatDuration(state.engine.lastTick - (state.engine.gameStarted ?? 0), true)
+  const groupedAdventurers = groupAdventurersByQuest(state.adventurers, state.quests);
 
   return (
     <div className="game-stats">
@@ -73,6 +75,15 @@ const GameStats = (props: Props) => {
             <dd>{state.gold}</dd>
             <dt>{TextManager.get("resource-workers-name")}</dt>
             <dd>{state.workers}</dd>
+          </dl>
+        </fieldset>
+        <fieldset>
+          <legend>Adventurers</legend>
+          <dl>
+            <dt>In tavern</dt>
+            <dd>{groupedAdventurers.solo.length}</dd>
+            <dt>On quest</dt>
+            <dd>{state.adventurers.length - groupedAdventurers.solo.length}</dd>
           </dl>
         </fieldset>
       </div>
