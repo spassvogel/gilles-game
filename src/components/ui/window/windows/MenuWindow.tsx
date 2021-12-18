@@ -7,22 +7,16 @@ import SettingsWindow from './SettingsWindow';
 import CheatWindow from './CheatWindow';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
-import { loadGame } from 'index';
-import { useState } from 'react';
-import { ToastManager } from 'global/ToastManager';
-import { Type } from 'components/ui/toasts/Toast';
-import { TextManager } from 'global/TextManager';
 import Button from 'components/ui/buttons/Button';
-import { decryptSavedGame, saveGame } from "utils/game";
-import "./styles/menu.scss";
 import GameStats from "components/ui/game/GameStats";
+import SaveAndLoadWindow from "./SaveAndLoadWindow";
+import "./styles/menu.scss";
 
 
 type AllProps = WindowProps;
 const Menu = (props: AllProps & AppContextProps) => {
 
   const storeState = useSelector<StoreState, StoreState>(state => state);
-  const [loadedStore, setLoadedStore] = useState<StoreState>();
 
   const handleClickCheats = () => {
     const window = <CheatWindow title="Cheats" />;
@@ -34,56 +28,22 @@ const Menu = (props: AllProps & AppContextProps) => {
     props.onOpenWindow(window);
   };
 
-  const handleClickSave = () => {
-     saveGame(storeState);
+  const handleClickSaveAndLoad = () => {
+    const window = <SaveAndLoadWindow title="Save and Load" />;
+    props.onOpenWindow(window);
   }
-
-  const handleClickLoad = async () => {
-    if (!loadedStore) return;
-
-    setLoadedStore(undefined);
-
-    await loadGame(loadedStore);
-    ToastManager.addToast(TextManager.get("ui-game-loaded"), Type.game, "/img/items/misc/magic-eye.png");
-    props.onCloseWindow();
-
-  }
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const fileReader = new FileReader();
-    fileReader.onload = () => {
-      const encrypted = fileReader.result as string;
-      const state =  decryptSavedGame(encrypted)
-
-      setLoadedStore(state);
-    }
-    if (e.target.files){
-      fileReader.readAsText(e.target.files[0]);
-    }
-  }
-
-
 
   return (
     <div className="menu">
+      <p>
+        <Button onClick={handleClickSaveAndLoad}>Save and load</Button>
+      </p>
       <p>
         <Button onClick={handleClickCheats}>Cheats!</Button>
       </p>
       <p>
         <Button onClick={handleClickSettings}>Settings</Button>
       </p>
-      <fieldset>
-        <legend>Save and load</legend>
-        <section>
-          Save game to disk:&nbsp;
-          <Button onClick={handleClickSave}>Save</Button>
-        </section>
-        <section>
-          Load game from disk:&nbsp;
-          <input type="file" onChange={handleFileChange} />
-          <Button onClick={handleClickLoad} disabled={!loadedStore}>Load</Button>
-        </section>
-      </fieldset>
       <div>
         <GameStats state={storeState} />
       </div>

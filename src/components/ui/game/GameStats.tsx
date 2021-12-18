@@ -15,7 +15,7 @@ type Props = {
 
 const GameStats = (props: Props) => {
   const { state } = props;
-  const timePlaying = formatDuration(Date.now() - (state.engine.gameStarted ?? 0), true)
+  const timePlaying = formatDuration(state.engine.lastTick - (state.engine.gameStarted ?? 0), true)
 
   return (
     <div className="game-stats">
