@@ -10,6 +10,9 @@ const all = {
   },
   [EffectType.burning]: {
     harmful: true
+  },
+  [EffectType.soma]: {
+    harmful: false
   }
 };
 

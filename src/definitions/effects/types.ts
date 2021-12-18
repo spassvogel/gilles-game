@@ -1,6 +1,7 @@
 export enum EffectType {
   brokenLegs,               // every step
   burning,
+  soma,
 }
 
 export type BaseEffect = {
@@ -21,4 +22,9 @@ export type EffectBurning = BaseEffect & {
   damage: number
 }
 
-export type Effect = EffectBrokenLegs | EffectBurning;
+export type EffectSoma = BaseEffect & {
+  type: EffectType.soma,
+  factor: number,   // multiply all base stats by this
+}
+
+export type Effect = EffectBrokenLegs | EffectBurning | EffectSoma;

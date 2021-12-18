@@ -664,10 +664,10 @@ Quests and adventurers dont need to be stored in the store when not active
 - [ ] Then when an adventurer is added to the game (how?) it gets saved in the redux store
 
 ### 31/8/2020 Skills
-- [ ] Implement list of skills of adventurers
+- [x] Implement list of skills of adventurers
 - [ ] We just need weapon combat skills for the time being
       https://gurps.fandom.com/wiki/List_of_Skills
-- [ ] The weapon skills determine chance to hit
+- [x] The weapon skills determine chance to hit
 - [ ] Weapon skill could be a skill that can be levelled up, but 
 
 
@@ -689,7 +689,7 @@ Quests and adventurers dont need to be stored in the store when not active
 - [x] xp bar animates when switching adventurer
 
 ### Improve structure UI 
-- [ ] Add music/sound
+- [x] Add music/sound
 - [x] add rpg professional badge
 
 ### 2021-02-19 Produce items at resource structures
@@ -750,7 +750,7 @@ https://redux.js.org/api/store#subscribelistener
 - [x] Implement AP cost
 - [ ] Implement actual beneficial effects
    - [x] Health
-   - [ ] Soma
+   - [ ] Soma (adds a percentage to all attributes for a while)
    - [ ] Mana 
 - [x] Play sound!
 
