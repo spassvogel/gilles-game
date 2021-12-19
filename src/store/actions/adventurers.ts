@@ -1,4 +1,5 @@
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
+import { Effect } from "definitions/effects/types";
 import { Item } from "definitions/items/types";
 import { BasicAttributesStoreState } from "store/types/adventurer";
 
@@ -13,6 +14,7 @@ export type AdventurerAction =
 | { type: "assignEquipment", adventurerId: string, item: Item, equipmentSlot: EquipmentSlotType }
 | { type: "removeEquipment", adventurerId: string, equipmentSlot: EquipmentSlotType }
 | { type: "changeEquipmentQuantity", adventurerId: string, equipmentSlot: EquipmentSlotType, quantity: number }
+| { type: "addEffect", adventurerId: string, effect: Omit<Effect, 'lastTick'> }
 | { type: "setBasicAttributes", adventurerId: string, basicAttributes: BasicAttributesStoreState }
 | { type: "renameAdventurer", adventurerId: string, name: string }
 | { type: "addXp", adventurerId: string, xp: number; }
@@ -82,6 +84,12 @@ export const changeEquipmentQuantity = (adventurerId: string, equipmentSlot: Equ
   adventurerId,
   equipmentSlot,
   quantity,
+})
+
+export const addEffect = <T extends Effect> (adventurerId: string, effect: Omit<T, 'lastTick'>): AdventurerAction => ({
+  type: "addEffect",
+  adventurerId,
+  effect
 })
 
 // Only used for debugging

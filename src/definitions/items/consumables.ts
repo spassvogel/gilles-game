@@ -27,6 +27,7 @@ const consumables = {
     category: 'soma',
     itemCategory,
     iconImg: `${basePath}minor-soma.png`,
+    effect: 1.1
   },
   lesserHealthPotion: {
     category: 'health',
@@ -43,6 +44,7 @@ const consumables = {
     category: 'soma',
     itemCategory,
     iconImg: `${basePath}lesser-soma.png`,
+    effect: 1.25
   },
   majorHealthPotion: {
     category: 'health',
@@ -59,6 +61,7 @@ const consumables = {
     category: 'soma',
     itemCategory,
     iconImg: `${basePath}major-soma.png`,
+    effect: 1.5
   },
   greaterHealthPotion: {
     category: 'health',
@@ -75,6 +78,7 @@ const consumables = {
     category: 'soma',
     itemCategory,
     iconImg: `${basePath}greater-soma.png`,
+    effect: 2
   },
 }
 

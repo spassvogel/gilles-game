@@ -61,7 +61,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [WeaponType.bow]: 10
   },
   effects: [],
-  inventory: [ { type: "deed/lumbermill" }, null, { type: "weapon/simpleCrossbow" }, { type: "weapon/dagger" }, { type: "weapon/khopesh" }, null, { type: "weapon/steelSword" }, null,  { type: "consumable/greaterManaPotion" },  { type: "consumable/majorHealthPotion" },  null,  { type: "weapon/steelShield" },  null,  null,  null,  null],
+  inventory: [ { type: "deed/lumbermill" }, null, { type: "weapon/simpleCrossbow" }, { type: "weapon/dagger" }, { type: "weapon/khopesh" }, null, { type: "weapon/steelSword" }, null,  { type: "consumable/lesserSoma" }, { type: "consumable/minorSoma" }, { type: "consumable/greaterManaPotion" },  { type: "consumable/majorHealthPotion" },  null,  { type: "weapon/steelShield" },  null,  null,  null,  null],
 }, {
   id: "2e655832",
   equipment: {
@@ -251,7 +251,8 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
         return adventurer;
       });
     }
-    // Moves an  item from one inventory slot to another
+    
+    // Moves an item from one inventory slot to another
     case "consumeItem": {
       const { adventurerId, fromSlot } = action;
       const adventurer = state.find((a) => a.id === adventurerId);
@@ -270,6 +271,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
           health = Math.min((definition.effect ?? 0) + health, 100);
           break;
         case "soma":
+          // handled by effects middleware
           console.log(`${adventurer.name} drinks a soma potion`);
           break;
         case "mana":

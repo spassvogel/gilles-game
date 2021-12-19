@@ -750,7 +750,7 @@ https://redux.js.org/api/store#subscribelistener
 - [x] Implement AP cost
 - [ ] Implement actual beneficial effects
    - [x] Health
-   - [ ] Soma (adds a percentage to all attributes for a while)
+   - [x] Soma (adds a percentage to all attributes for a while)
    - [ ] Mana 
 - [x] Play sound!
 
