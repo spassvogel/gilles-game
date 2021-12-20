@@ -29,6 +29,8 @@ const getIconImage = (effectType: EffectType) => {
       return "knee-bandage.svg";
     case EffectType.burning:
       return "flaming-claw.svg";
+    case EffectType.soma:
+      return "embrassed-energy.svg";
   }
 
 }

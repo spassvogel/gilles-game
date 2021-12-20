@@ -8,7 +8,7 @@ import { levelToXp, MAX_XP } from "mechanics/adventurers/levels";
 import { Action } from "store/actions";
 import { getDefinition, isConsumable } from "definitions/items/consumables";
 import { Item } from "definitions/items/types";
-import { EffectType } from "definitions/effects/types";
+import { Effect, EffectType, initializeEffect } from "definitions/effects/types";
 import { calculateBaseHitpoints } from "mechanics/adventurers/hitpoints";
 
 
@@ -453,6 +453,22 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
                 quantity
               },
             },
+          };
+        }
+        return adventurer;
+      });
+    }
+
+    case "addEffect": {
+      // adds an effect
+      return state.map((adventurer: AdventurerStoreState) => {
+        if (adventurer.id === action.adventurerId) {
+          return {
+            ...adventurer,
+            effects: [
+              initializeEffect(action.effect),
+              ...adventurer.effects,
+            ]
           };
         }
         return adventurer;

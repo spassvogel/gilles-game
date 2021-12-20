@@ -28,3 +28,10 @@ export type EffectSoma = BaseEffect & {
 }
 
 export type Effect = EffectBrokenLegs | EffectBurning | EffectSoma;
+
+export const initializeEffect = (input: Omit<Effect, "lastTick">): Effect => {
+  return {
+    ...input,
+    lastTick: Date.now()
+  } as unknown as Effect
+}
