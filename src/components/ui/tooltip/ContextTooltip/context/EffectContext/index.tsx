@@ -17,8 +17,13 @@ const EffectContext = (props: Props) => {
       <div className="description">
          { getEffectDescription(effect)}
       </div>
-      <hr />
       { /* show charges or time remaining */ }
+      { effect.charges && (
+        <div>
+          {effect.charges} charges remain
+        </div>
+      )}
+      <hr />
       <div className="flavor secondary">
         {TextManager.getEffectFlavor(effect)}
       </div>
