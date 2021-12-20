@@ -17,6 +17,8 @@ import AttributeContext from './context/AttributeContext';
 import { ActorObject } from 'store/types/scene';
 import ActorContext from './context/ActorContext';
 import './styles/contextTooltip.scss';
+import { Effect } from 'definitions/effects/types';
+import EffectContext from './context/EffectContext';
 
 // A contextual popup showing what you just clicked.
 // Can be an Item, Resource, Trait, skill, etc
@@ -50,6 +52,21 @@ const ContextTooltip = () => {
           <>
             <div className="name resource">{name}</div>
             <AttributeContext attribute={attribute} />
+          </>
+        );
+      }
+      case ContextType.effect: {
+        const effect = info as Effect;
+        const name = TextManager.getEffectName(effect);
+        return (
+          <>
+            <div className="header">
+              <div className="name effect">{name}</div>
+              <div className="secondary">
+                { TextManager.get("ui-tooltip-effect")}
+              </div>
+            </div>
+            <EffectContext effect={effect} />
           </>
         );
       }

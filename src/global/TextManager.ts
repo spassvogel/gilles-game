@@ -138,6 +138,15 @@ export abstract class TextManager {
     return this.get(`trait-${toKebab(trait)}-name`);
   }
 
+  public static getEffectDescription(effect: Effect, props?: { [key: string]: string}): string {
+    const { type, ...rest } = effect; 
+    return this.get(`effect-${toKebab(EffectType[type])}-description`, { ...rest, ...props} );
+  }
+
+  public static getEffectFlavor(effect: Effect): string {
+    return this.get(`effect-${toKebab(EffectType[effect.type])}-flavor`);
+  }
+
   public static getEffectName(effect: Effect): string {
     return this.get(`effect-${toKebab(EffectType[effect.type])}-name`);
   }

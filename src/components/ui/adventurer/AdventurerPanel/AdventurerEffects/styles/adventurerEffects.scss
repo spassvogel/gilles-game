@@ -6,6 +6,7 @@
 
   li {
     @include popupText();
+    cursor: var(--app-cursor-pointer);
     .name {
       display: inline-block;
       margin-bottom: 2px;
@@ -17,6 +18,7 @@
       display: inline-block;
       margin-right: 4px;
       margin-bottom: -2px;
+      border-radius: 2px;
 
       &.harmful {
         background-color: $color-invalid;

@@ -8,7 +8,7 @@ import { levelToXp, MAX_XP } from "mechanics/adventurers/levels";
 import { Action } from "store/actions";
 import { getDefinition, isConsumable } from "definitions/items/consumables";
 import { Item } from "definitions/items/types";
-import { Effect, EffectType, initializeEffect } from "definitions/effects/types";
+import { EffectType, initializeEffect } from "definitions/effects/types";
 import { calculateBaseHitpoints } from "mechanics/adventurers/hitpoints";
 
 

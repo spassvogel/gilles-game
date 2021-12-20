@@ -1,4 +1,3 @@
-import React from "react";
 import { EffectType } from 'definitions/effects/types';
 import { getDefinition } from 'definitions/effects';
 

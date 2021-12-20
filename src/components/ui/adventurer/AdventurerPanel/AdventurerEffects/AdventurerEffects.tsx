@@ -3,8 +3,8 @@ import { useAdventurerState } from 'hooks/store/adventurers';
 import { Effect } from 'definitions/effects/types';
 // import { getDefinition } from 'definitions/effects';
 import { TextManager } from 'global/TextManager';
-// import { ContextType } from 'constants/context';
-// import { TooltipManager } from 'global/TooltipManager';
+import { ContextType } from 'constants/context';
+import { TooltipManager } from 'global/TooltipManager';
 import './styles/adventurerEffects.scss';
 import EffectIcon from "./EffectIcon";
 
@@ -18,12 +18,13 @@ const AdventurerEffects = (props: Props) => {
   const renderEffect = (effect: Effect) => {
     // const effectDefinition = getDefinition(effect.type);
 
-    const handleClick = (_event: React.MouseEvent) => {
-      // const origin = (event.currentTarget as HTMLElement);
-      // const originRect = origin.getBoundingClientRect();
+    const handleClick = (event: React.MouseEvent) => {
+      const origin = (event.currentTarget as HTMLElement).querySelector(".name");
+      if (!origin) return;
+      const originRect = origin.getBoundingClientRect();
 
-      // TooltipManager.showContextTooltip(ContextType.trait, effectDefinition, originRect);
-      // event.stopPropagation();
+      TooltipManager.showContextTooltip(ContextType.effect, effect, originRect);
+      event.stopPropagation();
     };
     return (
       <Fragment key={effect.type}>

@@ -60,9 +60,15 @@
 
     "damage-type-kinetic": "kinetic damage",
 
+    "effect-broken-legs-description": "Loses {{damage}} HP every step",
     "effect-broken-legs-name": "broken legs",
+    "effect-broken-legs-flavor": "This adventurer has broken their legs, making walking any further painful",
+    "effect-burning-description": "Loses {{damage}} every {{interval}} seconds",
     "effect-burning-name": "burning",
+    "effect-burning-flavor": "This adventurer is on fire!",
+    "effect-soma-description": "Increases all stats by {{percentage}}%",
     "effect-soma-name": "soma",
+    "effect-soma-flavor": "This adventurer feels the soma coarsing through their veins",
 
     "encounter-backstabbed-description": "A group of rogues emerges from the bushes, knives drawn.",
     "encounter-dungeon-caches-chest": "{{adventurer}} rummages through an old chest",
@@ -544,6 +550,7 @@
     "ui-tooltip-actor-level": "Lvl {{level}}",
     "ui-tooltip-damage-reduction": "Damage reduction: {{damageReduction}}",
     "ui-tooltip-durability": "Durability",
+    "ui-tooltip-effect": "Effect",
     "ui-tooltip-study-requires-structure-level": "Study: Requires {{structure:name structure}} level {{level}}",
     "ui-tooltip-resource-produce-row": "Produced at {{structure:link structure}} ({{amount}}/minute)",
     "ui-tooltip-resource-produce-row-notbuilt": "Produced at {{structure}} (not constructed)",
