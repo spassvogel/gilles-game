@@ -8,7 +8,7 @@ import { levelToXp, MAX_XP } from "mechanics/adventurers/levels";
 import { Action } from "store/actions";
 import { getDefinition, isConsumable } from "definitions/items/consumables";
 import { Item } from "definitions/items/types";
-import { EffectType, initializeEffect } from "definitions/effects/types";
+import { Effect, EffectType, initializeEffect } from "definitions/effects/types";
 import { calculateBaseHitpoints } from "mechanics/adventurers/hitpoints";
 
 
@@ -108,6 +108,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     type: EffectType.brokenLegs,
     lastTick: Date.now(),
     damage: 10,
+    charges: 10
   }, {
     type: EffectType.burning,
     lastTick: Date.now(),
@@ -469,6 +470,36 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
               initializeEffect(action.effect),
               ...adventurer.effects,
             ]
+          };
+        }
+        return adventurer;
+      });
+    }
+
+    case "decreaseEffectCharge": {
+      // decreases charges of given effect by 1
+      return state.map((adventurer: AdventurerStoreState) => {
+        if (adventurer.id === action.adventurerId) {
+          const effects = adventurer.effects.reduce<Effect[]>((acc, value) => {
+            if (value === action.effect) {
+              if (value.charges && value.charges > 1) {
+                const charges = value.charges - 1;
+                acc.push({ 
+                  ...value,
+                  charges,
+                });
+              }
+              // if charges is < 2 remove from list
+            }
+            else {
+              acc.push(value);
+            }
+            return acc;
+          }, []);
+         
+          return {
+            ...adventurer,
+            effects
           };
         }
         return adventurer;

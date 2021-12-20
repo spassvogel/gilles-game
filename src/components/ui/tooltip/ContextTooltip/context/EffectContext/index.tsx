@@ -9,7 +9,7 @@ export interface Props {
 
 const EffectContext = (props: Props) => {
   const { effect } = props;
-
+  const { charges } = effect;
   return (
     <div className="effect-context">
       <hr />
@@ -17,10 +17,10 @@ const EffectContext = (props: Props) => {
       <div className="description">
          { getEffectDescription(effect)}
       </div>
-      { /* show charges or time remaining */ }
-      { effect.charges && (
+      { /* show time remaining */ }
+      { charges && (
         <div>
-          {effect.charges} charges remain
+          {TextManager.get(charges === 1 ? "ui-tooltip-effect-one-charge-remains" : "ui-tooltip-effect-n-charges-remain", { charges }) }
         </div>
       )}
       <hr />

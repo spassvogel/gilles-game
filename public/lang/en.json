@@ -551,6 +551,8 @@
     "ui-tooltip-damage-reduction": "Damage reduction: {{damageReduction}}",
     "ui-tooltip-durability": "Durability",
     "ui-tooltip-effect": "Effect",
+    "ui-tooltip-effect-one-charge-remains": "1 charge remains",
+    "ui-tooltip-effect-n-charges-remain": "{{ charges }} charges remain",
     "ui-tooltip-study-requires-structure-level": "Study: Requires {{structure:name structure}} level {{level}}",
     "ui-tooltip-resource-produce-row": "Produced at {{structure:link structure}} ({{amount}}/minute)",
     "ui-tooltip-resource-produce-row-notbuilt": "Produced at {{structure}} (not constructed)",

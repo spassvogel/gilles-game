@@ -15,6 +15,7 @@ export type AdventurerAction =
 | { type: "removeEquipment", adventurerId: string, equipmentSlot: EquipmentSlotType }
 | { type: "changeEquipmentQuantity", adventurerId: string, equipmentSlot: EquipmentSlotType, quantity: number }
 | { type: "addEffect", adventurerId: string, effect: Omit<Effect, 'lastTick'> }
+| { type: "decreaseEffectCharge", adventurerId: string, effect: Omit<Effect, 'lastTick'> }
 | { type: "setBasicAttributes", adventurerId: string, basicAttributes: BasicAttributesStoreState }
 | { type: "renameAdventurer", adventurerId: string, name: string }
 | { type: "addXp", adventurerId: string, xp: number; }
@@ -88,6 +89,12 @@ export const changeEquipmentQuantity = (adventurerId: string, equipmentSlot: Equ
 
 export const addEffect = <T extends Effect> (adventurerId: string, effect: Omit<T, 'lastTick'>): AdventurerAction => ({
   type: "addEffect",
+  adventurerId,
+  effect
+})
+
+export const decreaseEffectCharge = <T extends Effect> (adventurerId: string, effect: Omit<T, 'lastTick'>): AdventurerAction => ({
+  type: "decreaseEffectCharge",
   adventurerId,
   effect
 })

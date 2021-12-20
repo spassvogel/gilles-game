@@ -1,8 +1,8 @@
-import { EffectSoma, EffectType } from 'definitions/effects/types'
+import { Effect, EffectSoma, EffectType } from 'definitions/effects/types'
 import { getDefinition, isConsumable } from 'definitions/items/consumables'
 import { Middleware } from 'redux'
 import { Action } from 'store/actions'
-import { addEffect, modifyHealth } from 'store/actions/adventurers'
+import { addEffect, decreaseEffectCharge, modifyHealth } from 'store/actions/adventurers'
 import { StoreState } from 'store/types'
 import { SceneActionType } from 'store/types/scene'
 import { lastAdventurerAction, AppMiddlewareAPI } from './utils'
@@ -20,7 +20,9 @@ export const effectsMiddleware: Middleware<
         case EffectType.brokenLegs: {
           // Broken legs effect reduces health at every move
           if (lastAction === SceneActionType.move) {
-            storeApi.dispatch(modifyHealth(adventurer.id, -5))
+            storeApi.dispatch(modifyHealth(adventurer.id, -5));
+
+            effectTick(storeApi, effect, adventurer.id);
           }
         }
       }
@@ -29,6 +31,7 @@ export const effectsMiddleware: Middleware<
 
   switch (action.type) {
     case "consumeItem": {
+      // Apply effect after consuming item
       const { adventurerId, fromSlot } = action;
       const adventurer = state.adventurers.find((a) => a.id === adventurerId);
       if (!adventurer) {
@@ -52,5 +55,11 @@ export const effectsMiddleware: Middleware<
   }
 
   next(action);
+}
+
+const effectTick = (storeApi: AppMiddlewareAPI, effect: Effect, adventurerId: string) => {
+  if (effect.charges) {
+    storeApi.dispatch(decreaseEffectCharge(adventurerId, effect))
+  }
 }
 
