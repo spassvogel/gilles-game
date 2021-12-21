@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { IconSize } from 'components/ui/common/Icon';
 import ItemIcon from 'components/ui/items/ItemIcon';
 import { Structure } from 'definitions/structures';

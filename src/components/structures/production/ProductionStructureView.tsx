@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useEffect } from "react";
 import { ItemType } from "definitions/items/types";
 import { Structure } from "definitions/structures";

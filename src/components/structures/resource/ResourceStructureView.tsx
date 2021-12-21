@@ -1,4 +1,3 @@
-import * as React from "react";
 import { ResourceStructure, Structure  } from "definitions/structures";
 import { ResourceStructureLevelDefinition } from "definitions/structures/types";
 import UpDownValue from "components/ui/common/UpDownValue";

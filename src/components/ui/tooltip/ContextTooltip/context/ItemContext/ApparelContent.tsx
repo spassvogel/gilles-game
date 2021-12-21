@@ -24,8 +24,8 @@ const ApparelContent = (props: Props) => {
       <hr />
       { damageReduction && <p> { TextManager.get("ui-tooltip-damage-reduction", { damageReduction }) } </p> }
       <dl>
-        <dt>{(durability * 100).toFixed(0)}%</dt>
-        <dd>{TextManager.get("ui-tooltip-durability")}</dd>
+        <dt>{TextManager.get("ui-tooltip-durability")}</dt>
+        <dd>{(durability * 100).toFixed(0)}%</dd>
       </dl>
       <ProduceOrStudy item={item.type} />
     </>

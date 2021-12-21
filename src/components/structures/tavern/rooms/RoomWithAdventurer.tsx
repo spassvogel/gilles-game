@@ -1,4 +1,3 @@
-import React from 'react';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { SOURCE_ID } from '../TavernStructureView';
 import AdventurerButton from './AdventurerButton';

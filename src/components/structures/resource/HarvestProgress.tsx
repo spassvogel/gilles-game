@@ -1,4 +1,3 @@
-import React from 'react';
 import { TickingProgressbar } from "components/ui/common/progress";
 import { Direction } from "components/ui/common/progress/TickingProgressbar";
 import { Structure } from "definitions/structures";

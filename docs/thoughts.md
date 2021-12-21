@@ -763,7 +763,7 @@ https://github.com/MatsMaker/example-of-migration-pixijs-imspector-to-5v/blob/gh
 
 ### 2021-09-21 Town structure names
 - [x] Show structure labels on the Town
-- [ ] Show level + emblem for structure label
+- [x] Show level + emblem for structure label
 
 ### 2021-12-04 Perks and effects
 effects array in adventurers 

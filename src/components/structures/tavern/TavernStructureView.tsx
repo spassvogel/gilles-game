@@ -1,4 +1,3 @@
-import * as React from "react";
 import { TavernStructureDefinition, TavernStructureLevelDefinition} from "definitions/structures/types";
 import { AdventurerStoreState} from "store/types/adventurer";
 import { QuestStatus, QuestStoreState} from "store/types/quest";

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Structure } from 'definitions/structures';
 import { ProductionStructureDefinition } from 'definitions/structures/types';
 import { IconSize } from 'components/ui/common/Icon';

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Resource } from "definitions/resources";
 import resourceDescriptions from "definitions/resources";
 import { ResourceStoreState } from "store/types/resources";

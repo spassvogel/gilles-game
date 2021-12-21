@@ -1,4 +1,3 @@
-import * as React from "react";
 import { AdventurerStoreState } from "store/types/adventurer";
 import AdventurerAvatar from "components/ui/adventurer/AdventurerAvatar";
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
@@ -57,9 +56,7 @@ const AssignAdventurers = (props: Props & DispatchProps) => {
   };
 
   return (
-    <ul
-      className="assign-adventurers"
-    >
+    <ul className="assign-adventurers">
       { slotsContent() }
     </ul>
   );

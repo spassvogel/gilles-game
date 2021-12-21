@@ -1,4 +1,4 @@
-import * as React from "react";
+import { Fragment } from "react";
 import resourceDescriptions from "definitions/resources";
 import { WarehouseStructureDefinition } from 'definitions/structures/types';
 import { Resource } from 'definitions/resources';
@@ -22,13 +22,13 @@ const UpgradeHelpModalContent = (props: Props) => {
     const resourceDescription = resourceDescriptions[resource];
 
     return (
-      <React.Fragment key={resource}>
+      <Fragment key={resource}>
         <div><Icon image={resourceDescription.iconImg} size="smallest"/></div>
         <div>{TextManager.getResourceName(resource)}</div>
         <div className="number">{currentLevel.maxResources[resource]}</div>
         <div className="arrow">»</div>
         <div className="number">{nextLevel.maxResources[resource]}</div>
-      </React.Fragment>
+      </Fragment>
     )
   }
 

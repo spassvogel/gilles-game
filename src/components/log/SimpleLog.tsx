@@ -1,4 +1,3 @@
-import * as React from "react";
 import Tab from "components/ui/tabs/Tab";
 import Tabstrip from "components/ui/tabs/Tabstrip";
 import {LogChannel, LogEntry} from "store/types/logEntry";

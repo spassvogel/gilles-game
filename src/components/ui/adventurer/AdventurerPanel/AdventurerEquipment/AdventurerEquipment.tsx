@@ -1,4 +1,3 @@
-import React from "react";
 import { AdventurerStoreState } from 'store/types/adventurer';
 import EquipmentSlot, { EquipmentSlotType, rangedWeaponInHand } from 'components/ui/adventurer/EquipmentSlot';
 import { Item } from 'definitions/items/types';
