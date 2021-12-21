@@ -1,10 +1,9 @@
-import * as React from "react";
 import { TextManager } from 'global/TextManager';
-import { BasicAttribute } from "store/types/adventurer";
+import { Attribute } from "store/types/adventurer";
 import './styles/attributeContext.scss';
 
 export interface Props {
-  attribute: BasicAttribute;
+  attribute: Attribute;
 }
 
 const TraitContext = (props: Props) => {

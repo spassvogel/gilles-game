@@ -20,7 +20,7 @@ export interface AdventurerStoreState {
   equipment: EquipmentStoreState;   // equipment
   effects: Effect[];          // combat effects
   inventory: (null | Item)[];
-  basicAttributes: BasicAttributesStoreState;
+  basicAttributes: AttributesStoreState;
   skills: SkillsStoreState;       //
   room: number;             // Adventurer is lodged in this room in the tavern
 }
@@ -48,14 +48,14 @@ export interface EquipmentStoreState {
   [EquipmentSlotType.offHand]?: Item<Weapon> | Item<Ammunition>;
 }
 
-export interface BasicAttributesStoreState {
+export interface AttributesStoreState {
   str: number;
   for: number;
   int: number;
   agi: number;
 }
 
-export type BasicAttribute = keyof BasicAttributesStoreState;
+export type Attribute = keyof AttributesStoreState;
 
 export type SkillsStoreState = {
   [key in WeaponType]?: number

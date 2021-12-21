@@ -21,6 +21,10 @@
 
     .attribute-value {
       flex: 0.5;
+
+      .additional {
+        color: $color-highlighted;
+      }
     }
   }
 }

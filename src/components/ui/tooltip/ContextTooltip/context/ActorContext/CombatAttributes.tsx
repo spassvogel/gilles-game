@@ -1,9 +1,9 @@
 import * as React from "react";
 import { calculateDodge, calculateInitialAP } from "mechanics/combat";
-import { BasicAttributesStoreState } from "store/types/adventurer"
+import { AttributesStoreState } from "store/types/adventurer"
 
 interface Props {
-  basicAttributes: BasicAttributesStoreState;
+  basicAttributes: AttributesStoreState;
   level: number;
 }
 

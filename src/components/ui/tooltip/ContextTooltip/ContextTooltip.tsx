@@ -12,7 +12,7 @@ import TraitContext from './context/TraitContext';
 import { WeaponType } from 'definitions/items/weapons';
 import { Rarity } from 'constants/items';
 import { getDefinition } from 'definitions/items';
-import { BasicAttribute } from 'store/types/adventurer';
+import { Attribute } from 'store/types/adventurer';
 import AttributeContext from './context/AttributeContext';
 import { ActorObject } from 'store/types/scene';
 import ActorContext from './context/ActorContext';
@@ -46,7 +46,7 @@ const ContextTooltip = () => {
         );
       }
       case ContextType.attribute: {
-        const attribute = info as BasicAttribute;
+        const attribute = info as Attribute;
         const name = TextManager.getAttributeName(attribute);
         return (
           <>

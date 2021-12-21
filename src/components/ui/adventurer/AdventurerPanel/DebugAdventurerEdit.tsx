@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { TextManager } from "global/TextManager";
 import { MAX_VALUE, MIN_VALUE } from "mechanics/basicAttributes";
-import { AdventurerStoreState, BasicAttribute } from "store/types/adventurer";
+import { AdventurerStoreState, Attribute } from "store/types/adventurer";
 import { addXp, modifyHealth, renameAdventurer, setBasicAttributes } from "store/actions/adventurers";
 import { MAX_XP, xpToLevel } from "mechanics/adventurers/levels";
 import { calculateBaseHitpoints } from "mechanics/adventurers/hitpoints";
@@ -21,7 +21,7 @@ const DebugAdventurerEdit = (props: Props) => {
   const level = xpToLevel(xp);
   const baseHP = calculateBaseHitpoints(level, basicAttributes.for);
 
-  const renderAttribute = (attribute: BasicAttribute) => {
+  const renderAttribute = (attribute: Attribute) => {
     return (
       <>
         <dt>
@@ -49,7 +49,7 @@ const DebugAdventurerEdit = (props: Props) => {
     dispatch(renameAdventurer(adventurer.id, e.currentTarget.value));
   };
 
-  const handleChangeAttribute = (attribute: BasicAttribute, value: number) => {
+  const handleChangeAttribute = (attribute: Attribute, value: number) => {
     dispatch(setBasicAttributes(adventurer.id, {
       ...basicAttributes,
       [attribute]: value

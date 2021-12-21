@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useMemo, useState } from "react";
 import { DragSourceType } from 'constants/dragging';
 import Inventory from 'components/ui/inventory/Inventory';
 import useItemDropActions from 'hooks/actions/useItemActions';
@@ -19,6 +19,7 @@ import ConsumeItem from "./ConsumeItem";
 import AdventurerEffects from "./AdventurerEffects";
 import { useSettings } from "hooks/store/settings";
 import DebugAdventurerEdit from "./DebugAdventurerEdit";
+import { calculateEffectiveAttributesExtended } from "mechanics/adventurers/attributes";
 import "./styles/adventurerPanel.scss";
 
 export interface Props {
@@ -78,6 +79,8 @@ const AdventurerPanel = (props: Props) => {
     setConsumeItemIndex(undefined);
   }
 
+  const extendedAttributes = useMemo(() => calculateEffectiveAttributesExtended(adventurer), [adventurer]);
+
   return (
     <div className={`adventurer-panel${(horizontalMode ? " horizontal" : "")}`}>
        <section id="common">
@@ -102,7 +105,7 @@ const AdventurerPanel = (props: Props) => {
         { effects && <AdventurerEffects adventurerId={adventurer.id}/> }
         { traits && <AdventurerTraits adventurerId={adventurer.id}/> }
         </div>
-        <Attributes basicAttributes={adventurer.basicAttributes} />
+        <Attributes attributes={extendedAttributes} />
       </section>
       <section id="skills">
         { skills && <AdventurerSkills adventurerId={adventurer.id}/> }

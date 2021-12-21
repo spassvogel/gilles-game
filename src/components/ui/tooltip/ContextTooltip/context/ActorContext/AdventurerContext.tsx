@@ -5,6 +5,8 @@ import Attributes from "components/ui/adventurer/AdventurerPanel/Attributes";
 import { xpToLevel } from "mechanics/adventurers/levels";
 import { TextManager } from "global/TextManager";
 import CombatAttributes from "./CombatAttributes";
+import { useMemo } from "react";
+import { calculateEffectiveAttributesExtended } from "mechanics/adventurers/attributes";
 
 interface Props {
   actorObject: ActorObject
@@ -12,8 +14,11 @@ interface Props {
 
 const AdventurerContext = (props: Props) => {
   const { actorObject } = props;
-  const { name, xp, basicAttributes } = useAdventurerState(actorObject.name);
+  const adventurer = useAdventurerState(actorObject.name);
+  const { name, xp, basicAttributes } = adventurer;
   const level = xpToLevel(xp);
+  const extendedAttributes = useMemo(() => calculateEffectiveAttributesExtended(adventurer), [adventurer]);
+
   return (
     <div>
       <div className="name-and-level">
@@ -24,9 +29,8 @@ const AdventurerContext = (props: Props) => {
           {TextManager.get("ui-tooltip-actor-level", { level })}
         </div>
       </div>
-      <Attributes basicAttributes={basicAttributes} small />
+      <Attributes attributes={extendedAttributes} small />
       <CombatAttributes basicAttributes={basicAttributes} level={level} />
-
     </div>
   )
 }

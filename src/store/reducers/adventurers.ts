@@ -1,7 +1,7 @@
 import { AdventurerAction } from "store/actions/adventurers";
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { Reducer } from "redux";
-import { AdventurerColor, AdventurerStoreState, BasicAttributesStoreState } from "store/types/adventurer";
+import { AdventurerColor, AdventurerStoreState, AttributesStoreState } from "store/types/adventurer";
 import { Trait } from 'definitions/traits/types';
 import { WeaponType } from 'definitions/items/weapons';
 import { levelToXp, MAX_XP } from "mechanics/adventurers/levels";
@@ -12,7 +12,7 @@ import { Effect, EffectType, initializeEffect } from "definitions/effects/types"
 import { calculateBaseHitpoints } from "mechanics/adventurers/hitpoints";
 
 
-const generateRandomAttributes = (): BasicAttributesStoreState => {
+const generateRandomAttributes = (): AttributesStoreState => {
   return {
     str: Math.floor(Math.random() * 3) + 9,
     for: Math.floor(Math.random() * 3) + 9,

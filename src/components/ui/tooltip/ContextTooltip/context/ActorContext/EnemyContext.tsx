@@ -1,10 +1,10 @@
-import * as React from "react";
 import { ActorObject } from "store/types/scene";
 import { getDefinition } from "definitions/enemies";
 import { EnemyType } from "definitions/enemies/types";
 import { TextManager } from "global/TextManager";
 import Attributes from "components/ui/adventurer/AdventurerPanel/Attributes";
 import CombatAttributes from "./CombatAttributes";
+import { generateBaseAttributes } from "mechanics/adventurers/attributes";
 
 interface Props {
   actorObject: ActorObject
@@ -14,6 +14,8 @@ const EnemyContext = (props: Props) => {
   const { actorObject } = props;
   const definition = getDefinition(actorObject.name as EnemyType)
   const level = actorObject.level ?? 1
+  const attributesExtended = generateBaseAttributes(definition.attributes);
+
   return (
     <div>
       <div className="name-and-level">
@@ -24,7 +26,7 @@ const EnemyContext = (props: Props) => {
           {TextManager.get("ui-tooltip-actor-level", { level })}
         </div>
       </div>
-      <Attributes basicAttributes={definition.attributes} small />
+      <Attributes attributes={attributesExtended} small />
       <CombatAttributes basicAttributes={definition.attributes} level={level} />
     </div>
   )

@@ -11,7 +11,7 @@ import { Type } from 'components/ui/toasts/Toast';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { WeaponType, WeaponClassification } from 'definitions/items/weapons';
 import { getStructureLink } from "utils/routing";
-import { BasicAttribute } from "store/types/adventurer";
+import { Attribute } from "store/types/adventurer";
 import { EnemyType } from "definitions/enemies/types";
 import { ActorObject, isAdventurer, isEnemy } from "store/types/scene";
 import { QuestStoreState } from "store/types/quest";
@@ -78,15 +78,15 @@ export abstract class TextManager {
     return this.get(`adventurer-${adventurerId}-flavor`, { name: adventurerName });
   }
 
-  public static getAttributeName(attribute: BasicAttribute): string {
+  public static getAttributeName(attribute: Attribute): string {
     return this.get(`common-attribute-${attribute}-name`);
   }
 
-  public static getAttributeDescription(attribute: BasicAttribute): string {
+  public static getAttributeDescription(attribute: Attribute): string {
     return this.get(`common-attribute-${attribute}-description`);
   }
 
-  public static getAttributeMechanics(attribute: BasicAttribute): string {
+  public static getAttributeMechanics(attribute: Attribute): string {
     return this.get(`common-attribute-${attribute}-mechanics`);
   }
 

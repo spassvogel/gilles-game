@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Structure } from 'definitions/structures';
 import { StructuresStoreState } from 'store/types/structures';
 import { SoundManager, Channel, MixMode } from 'global/SoundManager';
