@@ -32,10 +32,10 @@
 
   // lists of stats
   dl {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 
     dd {
-      flex: 1;
       color: $color-text-darker;
       margin-left: 0.5rem;
     }

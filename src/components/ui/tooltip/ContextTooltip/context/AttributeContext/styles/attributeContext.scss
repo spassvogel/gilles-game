@@ -1,12 +1,14 @@
 @import 'components/styles/import.scss';
 
 .attribute-context {
-    .description {
-        color: $color-secondary;
-        font-style: italic;
-    }
+  .description {
+    color: $color-secondary;
+    font-style: italic;
+  }
 
-    .effect {
-        margin-top: 6px;
+  .values {
+    .additional {
+      color: $color-highlight-darker;
     }
+  }
 }

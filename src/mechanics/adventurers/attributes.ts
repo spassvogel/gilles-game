@@ -7,7 +7,7 @@ export type AttributesExtended = {
 
 export type ExtendedAttribute = {
   attribute: Attribute;
-  components: ExtendedAttributeComponents;
+  components: ExtendedAttributeComponents[];
 }
 
 export type ExtendedAttributeComponents = {

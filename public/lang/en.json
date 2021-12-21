@@ -548,6 +548,7 @@
     "ui-toast-type-quest-update": "Quest update!",
 
     "ui-tooltip-actor-level": "Lvl {{level}}",
+    "ui-tooltip-attribute": "Attribute",
     "ui-tooltip-damage-reduction": "Damage reduction: {{damageReduction}}",
     "ui-tooltip-durability": "Durability",
     "ui-tooltip-effect": "Effect",

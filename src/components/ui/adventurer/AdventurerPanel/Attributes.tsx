@@ -2,8 +2,9 @@ import { Attribute } from "store/types/adventurer";
 import { TextManager } from "global/TextManager";
 import { TooltipManager } from "global/TooltipManager";
 import { ContextType } from "constants/context";
-import { AttributesExtended } from "mechanics/adventurers/attributes";
+import { AttributesExtended, ExtendedAttribute } from "mechanics/adventurers/attributes";
 import "./styles/attributes.scss"
+import { roundIfNeeded } from "utils/format/number";
 
 interface Props {
   attributes: AttributesExtended;
@@ -14,23 +15,28 @@ const Attributes = (props: Props) => {
   const { attributes, small } = props;
 
   const renderRow = (attribute: Attribute) => {
+    const extendedAttribute: ExtendedAttribute = { 
+      attribute,
+      components: attributes[attribute]
+     };
     const handleClick = (event: React.MouseEvent) => {
       const origin = (event.currentTarget as HTMLElement);
       const originRect = origin.getBoundingClientRect();
 
-      TooltipManager.showContextTooltip(ContextType.attribute, attribute, originRect);
+      TooltipManager.showContextTooltip(ContextType.attribute, extendedAttribute, originRect);
       event.stopPropagation();
     }
 
     // Split out base and additional attribute components
-    const { base, additional } = attributes[attribute].reduce((acc, value) => {
+    const { base, additional } = extendedAttribute.components.reduce((acc, value) => {
       if (value.origin === "base") {
         acc.base += value.value;
       } else {
         acc.additional += value.value;
       }
       return acc;
-    }, { base: 0, additional: 0})
+    }, { base: 0, additional: 0});
+    
     return (
       <li >
         <div className="attribute-name">
@@ -39,8 +45,8 @@ const Attributes = (props: Props) => {
           </span>
         </div>
         <div className="attribute-value">
-          {base} 
-          { additional > 0 && ( <span className="additional"> +{additional.toFixed(1)}</span>)}          
+          {roundIfNeeded(base)} 
+          { additional > 0 && ( <span className="additional"> +{ roundIfNeeded(additional)}</span>)}          
         </div>
       </li>
     );

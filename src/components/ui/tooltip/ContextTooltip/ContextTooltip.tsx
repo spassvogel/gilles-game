@@ -19,6 +19,7 @@ import ActorContext from './context/ActorContext';
 import './styles/contextTooltip.scss';
 import { Effect } from 'definitions/effects/types';
 import EffectContext from './context/EffectContext';
+import { ExtendedAttribute } from 'mechanics/adventurers/attributes';
 
 // A contextual popup showing what you just clicked.
 // Can be an Item, Resource, Trait, skill, etc
@@ -46,12 +47,17 @@ const ContextTooltip = () => {
         );
       }
       case ContextType.attribute: {
-        const attribute = info as Attribute;
-        const name = TextManager.getAttributeName(attribute);
+        const extendedAttribute = info as ExtendedAttribute;
+        const name = TextManager.getAttributeName(extendedAttribute.attribute);
         return (
           <>
-            <div className="name resource">{name}</div>
-            <AttributeContext attribute={attribute} />
+            <div className="header">
+              <div className="name effect">{name}</div>
+              <div className="secondary">
+                { TextManager.get("ui-tooltip-attribute")}
+              </div>
+            </div>
+            <AttributeContext extendedAttribute={extendedAttribute} />
           </>
         );
       }
