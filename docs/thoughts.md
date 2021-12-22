@@ -779,8 +779,12 @@ process events, send out redux actions
 - [x] Should be implemented outside of react, using a combination of document.createElement, setTimeout, css animations
 
 ### 2021-12-16 GameStats
-- [ ] GameStats component, shows 
-  - [ ] time playing 
-  - [ ] structures built (and level)
-  - [ ] adventurers
-  - [ ] resources and workers
+- [x] GameStats component, shows 
+  - [x] time playing 
+  - [x] structures built (and level)
+  - [x] adventurers
+  - [x] resources and workers
+
+### 2021-12-22 Effect split 
+- [ ] Split out the temporary condition an adventurer can have (eg: soma)
+      and the actual technical effect. (eg: attribute increase)

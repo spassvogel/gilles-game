@@ -45,6 +45,6 @@ export function getDefinition(ammunition: Ammunition): AmmunitionDefinition {
   return all[ammunition];
 }
 
-export const isammunition = (item: ItemType): item is Ammunition => {
+export const isAmmunition = (item: ItemType): item is Ammunition => {
   return !!all[item as Ammunition];
 }

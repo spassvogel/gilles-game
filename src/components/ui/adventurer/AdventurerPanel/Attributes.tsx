@@ -2,9 +2,9 @@ import { Attribute } from "store/types/adventurer";
 import { TextManager } from "global/TextManager";
 import { TooltipManager } from "global/TooltipManager";
 import { ContextType } from "constants/context";
-import { AttributesExtended, ExtendedAttribute } from "mechanics/adventurers/attributes";
-import "./styles/attributes.scss"
+import { AttributesExtended, AttributeSourceType, ExtendedAttribute } from "mechanics/adventurers/attributes";
 import { roundIfNeeded } from "utils/format/number";
+import "./styles/attributes.scss"
 
 interface Props {
   attributes: AttributesExtended;
@@ -15,7 +15,7 @@ const Attributes = (props: Props) => {
   const { attributes, small } = props;
 
   const renderRow = (attribute: Attribute) => {
-    const extendedAttribute: ExtendedAttribute = { 
+    const extendedAttribute: ExtendedAttribute = {
       attribute,
       components: attributes[attribute]
      };
@@ -29,14 +29,14 @@ const Attributes = (props: Props) => {
 
     // Split out base and additional attribute components
     const { base, additional } = extendedAttribute.components.reduce((acc, value) => {
-      if (value.origin === "base") {
+      if (value.origin.type === AttributeSourceType.base) {
         acc.base += value.value;
       } else {
         acc.additional += value.value;
       }
       return acc;
     }, { base: 0, additional: 0});
-    
+
     return (
       <li >
         <div className="attribute-name">
@@ -45,8 +45,8 @@ const Attributes = (props: Props) => {
           </span>
         </div>
         <div className="attribute-value">
-          {roundIfNeeded(base)} 
-          { additional > 0 && ( <span className="additional"> +{ roundIfNeeded(additional)}</span>)}          
+          {roundIfNeeded(base)}
+          { additional > 0 && ( <span className="additional"> +{ roundIfNeeded(additional)}</span>)}
         </div>
       </li>
     );

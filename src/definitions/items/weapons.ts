@@ -1,5 +1,6 @@
 import { ItemType, ItemDefinition, ItemCategory } from "./types";
 import { Rarity } from 'constants/items';
+import { Effect } from "definitions/effects/types";
 
 type Prefix = "weapon/";
 const PREFIX = "weapon/";
@@ -104,6 +105,7 @@ export interface DamageDefinition {
 export interface WeaponDefinition extends ItemDefinition {
   weaponType: WeaponType;
   damage?: DamageDefinition;
+  effects?: Effect[];
 }
 
 const weapons = {

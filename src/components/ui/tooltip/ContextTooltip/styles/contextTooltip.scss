@@ -33,7 +33,13 @@
   // lists of stats
   dl {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.5fr);
+
+    dt, dd {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
 
     dd {
       color: $color-text-darker;

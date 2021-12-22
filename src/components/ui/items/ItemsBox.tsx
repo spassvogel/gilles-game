@@ -1,4 +1,3 @@
-import * as React from "react";
 import { getDefinition } from "definitions/items";
 import { ItemType } from "definitions/items/types";
 import { TextManager } from "global/TextManager";

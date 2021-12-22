@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { ContextType } from 'constants/context';
 import { TooltipManager, Context, EVENT_CONTEXT_UPDATED } from 'global/TooltipManager';
 import { TextManager } from 'global/TextManager';
@@ -12,7 +12,6 @@ import TraitContext from './context/TraitContext';
 import { WeaponType } from 'definitions/items/weapons';
 import { Rarity } from 'constants/items';
 import { getDefinition } from 'definitions/items';
-import { Attribute } from 'store/types/adventurer';
 import AttributeContext from './context/AttributeContext';
 import { ActorObject } from 'store/types/scene';
 import ActorContext from './context/ActorContext';
