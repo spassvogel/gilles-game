@@ -1,4 +1,4 @@
-import * as React from "react";
+import { Fragment } from "react";
 import { DamageDefinition } from "definitions/items/weapons";
 import { TextManager } from "global/TextManager";
 
@@ -11,10 +11,10 @@ const DamageList = (props: Props) => {
   return (
     <dl>
       {Object.entries(damage).map(([dmgType, damage]) => (
-        <React.Fragment key={dmgType}>
-          <dt>{damage}</dt>
+        <Fragment key={dmgType}>
           <dd>{TextManager.get(`damage-type-${dmgType}`)}</dd>
-        </React.Fragment>
+          <dt>{damage}</dt>
+        </Fragment>
       ))}
     </dl>
   )

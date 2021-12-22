@@ -15,10 +15,10 @@ import { getDefinition } from 'definitions/items';
 import AttributeContext from './context/AttributeContext';
 import { ActorObject } from 'store/types/scene';
 import ActorContext from './context/ActorContext';
-import './styles/contextTooltip.scss';
 import { Effect } from 'definitions/effects/types';
 import EffectContext from './context/EffectContext';
 import { ExtendedAttribute } from 'mechanics/adventurers/attributes';
+import './styles/contextTooltip.scss';
 
 // A contextual popup showing what you just clicked.
 // Can be an Item, Resource, Trait, skill, etc

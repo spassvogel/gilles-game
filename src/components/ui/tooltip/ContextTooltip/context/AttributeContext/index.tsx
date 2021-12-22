@@ -9,7 +9,7 @@ export interface Props {
   extendedAttribute: ExtendedAttribute;
 }
 
-const TraitContext = (props: Props) => {
+const AttributeContext = (props: Props) => {
   const { extendedAttribute } = props;
 
   return (
@@ -37,7 +37,7 @@ const TraitContext = (props: Props) => {
     </div>
   )
 }
-export default TraitContext;
+export default AttributeContext;
 
 const renderOrigin = (origin: AttributeSource, attribute: Attribute) => {
   switch (origin.type) {

@@ -62,6 +62,8 @@
 
     "damage-type-kinetic": "kinetic damage",
 
+    "effect-attribute-increase-description": "increases {{attribute}} by {{percentage}}%",
+    "effect-attribute-increase-name": "",
     "effect-broken-legs-description": "Loses {{damage}} HP every step",
     "effect-broken-legs-name": "broken legs",
     "effect-broken-legs-flavor": "This adventurer has broken their legs, making walking any further painful",

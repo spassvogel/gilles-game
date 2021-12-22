@@ -1,9 +1,9 @@
-import * as React from "react";
 import { getDefinition as getWeaponDefinition, WeaponTypeDefinition, WeaponType, Weapon } from 'definitions/items/weapons';
 import { TextManager } from 'global/TextManager';
 import ProduceOrStudy from '../ProduceOrStudy';
 import { Item } from "definitions/items/types";
 import DamageList from "./DamageList";
+import Effects from "../Effects";
 
 interface Props {
   item: Item<Weapon>;
@@ -25,6 +25,9 @@ const WeaponContent = (props: Props) => {
       </div>
       <hr />
       { definition.damage && <DamageList damage={definition.damage} /> }
+      { !!(definition.effects?.length) && (
+        <Effects effects={definition.effects}/>
+      )}
       <hr />
       <ProduceOrStudy item={item.type} />
       { subtext && (

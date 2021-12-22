@@ -1,8 +1,8 @@
-import * as React from "react";
 import { TextManager } from 'global/TextManager';
 import { Apparel, getDefinition as getApparelDefinition } from 'definitions/items/apparel';
 import ProduceOrStudy from './ProduceOrStudy';
 import { Item } from "definitions/items/types";
+import Effects from "./Effects";
 
 interface Props {
   item: Item<Apparel>;
@@ -23,6 +23,9 @@ const ApparelContent = (props: Props) => {
       { subtext && (<p className="secondary">{`"${subtext}"`}</p>)}
       <hr />
       { damageReduction && <p> { TextManager.get("ui-tooltip-damage-reduction", { damageReduction }) } </p> }
+      { !!(definition.effects?.length) && (
+        <Effects effects={definition.effects}/>
+      )}
       <dl>
         <dt>{TextManager.get("ui-tooltip-durability")}</dt>
         <dd>{(durability * 100).toFixed(0)}%</dd>
