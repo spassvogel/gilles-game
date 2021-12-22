@@ -232,6 +232,32 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     lastTick: Date.now(),
     damage: 8,
   }]
+}, {
+  id: "5a402ef1",
+  equipment: {
+    [EquipmentSlotType.head]: { type: "apparel/crimsonRogueCoif", durability: 0.25 },
+    [EquipmentSlotType.chest]: { type: "apparel/crimsonRogueTunic", durability: 0.5 },
+    [EquipmentSlotType.hands]: { type: "apparel/crimsonRogueGrips" },
+    [EquipmentSlotType.shoulders]: { type: "apparel/crimsonRogueSpaulders" },
+    [EquipmentSlotType.legs]: { type: "apparel/crimsonRogueBritches" },
+    [EquipmentSlotType.feet]: { type: "apparel/crimsonRogueBoots" },
+    [EquipmentSlotType.mainHand]: { type: "weapon/dagger" },
+    [EquipmentSlotType.offHand]: { type: "weapon/dagger" }
+  },
+  ...generateAttributesHealthAndXp(),
+  room: 11,
+  name: "Allynna Nerilar",
+  flavor: true,
+  traits: [Trait.houseMaddox, Trait.gloomy],
+  avatarImg: `${avatarImgBasePath}/female/f_21.png`,
+  spritesheetPath: `${spritesheetBasePath}elf-bow.json`,
+  color: AdventurerColor.purple,
+  skills: {
+    [WeaponType.knife]: 15,
+    [WeaponType.bow]: 11
+  },
+  effects: [],
+  inventory: [ { type: "deed/lumbermill" }, null, { type: "weapon/simpleCrossbow" }, { type: "weapon/dagger" }, { type: "weapon/khopesh" }, null, { type: "weapon/steelSword" }, null,  { type: "consumable/lesserSoma" }, { type: "consumable/minorSoma" }, { type: "consumable/greaterManaPotion" },  { type: "consumable/majorHealthPotion" },  null,  { type: "weapon/steelShield" },  null,  null,  null,  null],
 }];
 
 // TODO: To generate a random 11 digit number, use: Math.random().toString(36).substring(2)
@@ -252,7 +278,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
         return adventurer;
       });
     }
-    
+
     // Moves an item from one inventory slot to another
     case "consumeItem": {
       const { adventurerId, fromSlot } = action;
@@ -484,7 +510,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
             if (value === action.effect) {
               if (value.charges && value.charges > 1) {
                 const charges = value.charges - 1;
-                acc.push({ 
+                acc.push({
                   ...value,
                   charges,
                 });
@@ -496,7 +522,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
             }
             return acc;
           }, []);
-         
+
           return {
             ...adventurer,
             effects

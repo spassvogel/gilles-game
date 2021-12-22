@@ -5,6 +5,9 @@ export type EffectDefinition = {
 }
 
 const all = {
+  [EffectType.attributeIncrease]: {
+    harmful: false
+  },
   [EffectType.brokenLegs]: {
     harmful: true
   },

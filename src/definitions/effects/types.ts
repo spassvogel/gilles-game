@@ -1,14 +1,23 @@
+import { Attribute } from "store/types/adventurer"
+
 export enum EffectType {
-  brokenLegs,               // every step
+  attributeIncrease,
+  brokenLegs,               // every step decreases health
   burning,
   soma,
 }
 
 export type BaseEffect = {
   type: EffectType;
-  lastTick: number;         // time of last tick
+  lastTick?: number;        // time of last tick
   timeRemaining?: number;   // if set, the effect will wear off
   charges?: number;         // if set, amount of charges still remaining
+}
+
+export type EffectAttibuteIncrease = BaseEffect & {
+  type: EffectType.attributeIncrease,
+  attribute: Attribute,
+  factor: number,   // multiply base attribute by this
 }
 
 export type EffectBrokenLegs = BaseEffect & {
@@ -27,7 +36,10 @@ export type EffectSoma = BaseEffect & {
   factor: number,   // multiply all base stats by this
 }
 
-export type Effect = EffectBrokenLegs | EffectBurning | EffectSoma;
+export type Effect = EffectAttibuteIncrease
+ | EffectBrokenLegs
+ | EffectBurning
+ | EffectSoma;
 
 export const initializeEffect = (input: Omit<Effect, "lastTick">): Effect => {
   return {

@@ -1,23 +1,22 @@
 import { ItemType, ItemDefinition, ItemCategory } from "./types";
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
+import { Effect, EffectAttibuteIncrease, EffectType } from "definitions/effects/types";
 
 type Prefix = "apparel/";
 const PREFIX = "apparel/";
 const itemCategory = ItemCategory.apparel;
 const basePath = "/img/items/apparel/";
 
-// export enum EquipmentSlotType {
-//   feet,
-//   hands,
-//   chest,
-//   legs,
-//   head,
-//   shoulders,
-// }
+const crimsonRogueEffect: EffectAttibuteIncrease = {
+  type: EffectType.attributeIncrease,
+  attribute: "agi",
+  factor: 1.05,
+}
 
 export interface ApparelDefinition extends ItemDefinition {
   equipmentType: EquipmentSlotType;
   damageReduction?: number;
+  effects?: Effect[];
 }
 
 const apparel = {
@@ -73,36 +72,42 @@ const apparel = {
     itemCategory,
     iconImg: `${basePath}crimson_rogue_boots.png`,
     damageReduction: 2,
+    effects: [crimsonRogueEffect]
   },
   crimsonRogueBritches: {
     equipmentType: EquipmentSlotType.legs,
     itemCategory,
     iconImg: `${basePath}crimson_rogue_britches.png`,
     damageReduction: 2,
+    effects: [crimsonRogueEffect]
   },
   crimsonRogueCoif: {
     equipmentType: EquipmentSlotType.head,
     itemCategory,
     iconImg: `${basePath}crimson_rogue_coif.png`,
     damageReduction: 2,
+    effects: [crimsonRogueEffect]
   },
   crimsonRogueGrips: {
     equipmentType: EquipmentSlotType.hands,
     itemCategory,
     iconImg: `${basePath}crimson_rogue_grips.png`,
     damageReduction: 2,
+    effects: [crimsonRogueEffect]
   },
   crimsonRogueSpaulders: {
     equipmentType: EquipmentSlotType.shoulders,
     itemCategory,
     iconImg: `${basePath}crimson_rogue_spaulders.png`,
     damageReduction: 2,
+    effects: [crimsonRogueEffect]
   },
   crimsonRogueTunic: {
     equipmentType: EquipmentSlotType.chest,
     itemCategory,
     iconImg: `${basePath}crimson_rogue_tunic.png`,
     damageReduction: 2,
+    effects: [crimsonRogueEffect]
   },
   cultistGloves: {
     equipmentType: EquipmentSlotType.hands,

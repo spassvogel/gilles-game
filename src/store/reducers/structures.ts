@@ -143,7 +143,7 @@ export const initialStructuresState: StructuresStoreState = {
   lumberMill: structureInitialState,
   mine: { level: 0, workers: 0, state: StructureState.NotBuilt  },
   quarry: structureInitialState,
-  tavern: { level: 0, workers: 0, state: StructureState.Built },
+  tavern: { level: 2, workers: 0, state: StructureState.Built },
   tannery: structureInitialState,
   warehouse: { level: 0, workers: 0, state: StructureState.Built},
   weaponsmith:  { ...structureInitialState, produces: [ "weapon/simpleCrossbow", "weapon/dagger" ] },
