@@ -1,6 +1,6 @@
 import { ItemType, ItemDefinition, ItemCategory } from "./types";
 import { Rarity } from 'constants/items';
-import { Effect } from "definitions/effects/types";
+import { Effect, EffectAttibuteIncrease, EffectType } from "definitions/effects/types";
 
 type Prefix = "weapon/";
 const PREFIX = "weapon/";
@@ -210,6 +210,23 @@ const weapons = {
     unique: true,
     rarity: Rarity.legendary,
     damage: { [DamageType.kinetic]: 25 },
+    effects: [{
+      type: EffectType.attributeIncrease,
+      attribute: "agi",
+      factor: 1.1,
+    }, {
+      type: EffectType.attributeIncrease,
+      attribute: "for",
+      factor: 1.1,
+    }, {
+      type: EffectType.attributeIncrease,
+      attribute: "int",
+      factor: 1.1,
+    }, {
+      type: EffectType.attributeIncrease,
+      attribute: "str",
+      factor: 1.1,
+    }] as EffectAttibuteIncrease[]
   },
   halbert: {
     itemCategory,
