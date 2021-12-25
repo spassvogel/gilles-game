@@ -1,6 +1,7 @@
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { Effect } from "definitions/effects/types";
 import { Item } from "definitions/items/types";
+import { TempEffect } from "definitions/tempEffects/types";
 import { AttributesStoreState } from "store/types/adventurer";
 
 export type AdventurerAction =
@@ -14,7 +15,7 @@ export type AdventurerAction =
 | { type: "assignEquipment", adventurerId: string, item: Item, equipmentSlot: EquipmentSlotType }
 | { type: "removeEquipment", adventurerId: string, equipmentSlot: EquipmentSlotType }
 | { type: "changeEquipmentQuantity", adventurerId: string, equipmentSlot: EquipmentSlotType, quantity: number }
-| { type: "addEffect", adventurerId: string, effect: Omit<Effect, 'lastTick'> }
+| { type: "addTempEffect", adventurerId: string, tempEffect: TempEffect }
 | { type: "decreaseEffectCharge", adventurerId: string, effect: Omit<Effect, 'lastTick'> }
 | { type: "setBasicAttributes", adventurerId: string, basicAttributes: AttributesStoreState }
 | { type: "renameAdventurer", adventurerId: string, name: string }
@@ -87,10 +88,11 @@ export const changeEquipmentQuantity = (adventurerId: string, equipmentSlot: Equ
   quantity,
 })
 
-export const addEffect = <T extends Effect> (adventurerId: string, effect: Omit<T, 'lastTick'>): AdventurerAction => ({
-  type: "addEffect",
+// Adds temporary effect to adventurernpm
+export const addTempEffect = <T extends TempEffect> (adventurerId: string, tempEffect: T): AdventurerAction => ({
+  type: "addTempEffect",
   adventurerId,
-  effect
+  tempEffect
 })
 
 export const decreaseEffectCharge = <T extends Effect> (adventurerId: string, effect: Omit<T, 'lastTick'>): AdventurerAction => ({

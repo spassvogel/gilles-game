@@ -1,8 +1,11 @@
-import { Effect, EffectSoma, EffectType } from 'definitions/effects/types'
+import { collectEffects } from 'definitions/effects'
+import { Effect, EffectType } from 'definitions/effects/types'
 import { getDefinition, isConsumable } from 'definitions/items/consumables'
+import { createTempEffect } from 'definitions/tempEffects'
+import { TempEffectSoma, TempEffectType } from 'definitions/tempEffects/types'
 import { Middleware } from 'redux'
 import { Action } from 'store/actions'
-import { addEffect, decreaseEffectCharge, modifyHealth } from 'store/actions/adventurers'
+import { addTempEffect, decreaseEffectCharge, modifyHealth } from 'store/actions/adventurers'
 import { StoreState } from 'store/types'
 import { SceneActionType } from 'store/types/scene'
 import { lastAdventurerAction, AppMiddlewareAPI } from './utils'
@@ -15,9 +18,10 @@ export const effectsMiddleware: Middleware<
 
   for (const adventurer of state.adventurers) {
     const lastAction = lastAdventurerAction(adventurer, action, storeApi);
-    (adventurer.effects ?? []).forEach(effect => {
+    const effects = collectEffects(adventurer);
+    effects.forEach(effect => {
       switch (effect.type) {
-        case EffectType.brokenLegs: {
+        case EffectType.healthDecreaseOnMove: {
           // Broken legs effect reduces health at every move
           if (lastAction === SceneActionType.move) {
             storeApi.dispatch(modifyHealth(adventurer.id, -5));
@@ -44,11 +48,11 @@ export const effectsMiddleware: Middleware<
       const definition = getDefinition(consumable.type);
       switch (definition.category) {
         case "soma": {
-
-          storeApi.dispatch(addEffect<EffectSoma>(adventurerId, {
-            type: EffectType.soma,
+          const tempEffect = createTempEffect<TempEffectSoma>({
+            type: TempEffectType.soma,
             factor: definition.effect ?? 1
-          }))
+          });
+          storeApi.dispatch(addTempEffect(adventurerId, tempEffect));
         }
       }
     }

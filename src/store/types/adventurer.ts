@@ -4,7 +4,7 @@ import { Apparel } from "definitions/items/apparel";
 import { Item } from "definitions/items/types";
 import { Weapon, WeaponType } from "definitions/items/weapons";
 import { Trait } from 'definitions/traits/types';
-import { Effect } from "definitions/effects/types";
+import { TempEffect } from "definitions/tempEffects/types";
 
 export interface AdventurerStoreState {
   id: string;
@@ -18,7 +18,7 @@ export interface AdventurerStoreState {
   xp: number;
 
   equipment: EquipmentStoreState;   // equipment
-  effects: Effect[];          // combat effects
+  tempEffects: TempEffect[];          // combat effects
   inventory: (null | Item)[];
   basicAttributes: AttributesStoreState;
   skills: SkillsStoreState;       //
@@ -36,6 +36,7 @@ export enum AdventurerColor {
   yellow
 }
 
+export type Equipment = Apparel | Weapon | Ammunition;
 
 export interface EquipmentStoreState {
   [EquipmentSlotType.head]?: Item<Apparel>;
@@ -54,6 +55,8 @@ export interface AttributesStoreState {
   int: number;
   agi: number;
 }
+
+export const attributeList: Attribute[] = ['str', 'for', 'int', 'agi'];
 
 export type Attribute = keyof AttributesStoreState;
 

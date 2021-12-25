@@ -1,4 +1,8 @@
-import { EffectType } from "./types";
+import { getWeaponOrApparelDefinition } from "definitions/items";
+import { isAmmunition } from "definitions/items/ammunition";
+import { AdventurerStoreState, } from "store/types/adventurer";
+import { entries } from "utils/typescript";
+import { Effect, EffectType } from "./types";
 
 export type EffectDefinition = {
   harmful: boolean;
@@ -8,18 +12,44 @@ const all = {
   [EffectType.attributeIncrease]: {
     harmful: false
   },
-  [EffectType.brokenLegs]: {
+  [EffectType.healthDecreaseOnMove]: {
     harmful: true
   },
-  [EffectType.burning]: {
+  [EffectType.healthDecreaseOverTime]: {
     harmful: true
-  },
-  [EffectType.soma]: {
-    harmful: false
   }
 };
 
 export default all;
-export function getDefinition(effectType: EffectType): EffectDefinition {
+export const getDefinition = (effectType: EffectType): EffectDefinition  => {
   return all[effectType] as unknown as EffectDefinition;
+}
+
+// returns all effects on an adventurer (temp effects, equipment etc)
+export const collectEffects = (adventurer: AdventurerStoreState, filterType?: EffectType) => {
+  const result: Effect[] = [];
+
+  // Add effects from temp effects
+  adventurer.tempEffects.forEach(tempEffect => {
+    tempEffect.effects.forEach(e => {
+      if (filterType === undefined || filterType === e.type) {
+        result.push(e);
+      }
+    })
+  })
+  // Add effects from equipment
+  entries(adventurer.equipment).forEach((entry) => {
+    if (!entry) return;
+    const [_, item] = entry;
+    if (!item || isAmmunition(item.type)) return;
+
+    const def = getWeaponOrApparelDefinition(item.type)
+      def.effects?.forEach(e => {
+        if (filterType === undefined || filterType === e.type) {
+          result.push(e);
+        }
+      })
+    })
+
+    return result;
 }

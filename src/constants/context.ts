@@ -10,12 +10,12 @@ import { ExtendedAttribute } from 'mechanics/adventurers/attributes';
 export enum ContextType {
   actor,
   attribute,
-  effect,
+  component,
   item,
-  trait,
   resource,
   skill,
-  component
+  tempEffect,
+  trait,
 }
 
 export type ContextInfo = ItemType | TraitDefinition | WeaponType | string | ReactNode | ExtendedAttribute | ActorObject | Effect;

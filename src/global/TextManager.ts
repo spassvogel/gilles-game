@@ -16,6 +16,7 @@ import { EnemyType } from "definitions/enemies/types";
 import { ActorObject, isAdventurer, isEnemy } from "store/types/scene";
 import { QuestStoreState } from "store/types/quest";
 import { Effect, EffectType } from "definitions/effects/types";
+import { TempEffect, TempEffectType } from "definitions/tempEffects/types";
 
 export abstract class TextManager {
 
@@ -139,7 +140,7 @@ export abstract class TextManager {
   }
 
   public static getEffectDescription(effect: Effect, props?: { [key: string]: string}): string {
-    const { type, ...rest } = effect; 
+    const { type, ...rest } = effect;
     return this.get(`effect-${toKebab(EffectType[type])}-description`, { ...rest, ...props} );
   }
 
@@ -149,6 +150,19 @@ export abstract class TextManager {
 
   public static getEffectName(effect: Effect): string {
     return this.get(`effect-${toKebab(EffectType[effect.type])}-name`);
+  }
+
+  public static getTempEffectDescription(effect: TempEffect, props?: { [key: string]: string}): string {
+    const { type, ...rest } = effect;
+    return this.get(`effect-${toKebab(TempEffectType[type])}-description`, { ...rest, ...props} );
+  }
+
+  public static getTempEffectFlavor(effect: TempEffect): string {
+    return this.get(`effect-${toKebab(TempEffectType[effect.type])}-flavor`);
+  }
+
+  public static getTempEffectName(effect: TempEffect): string {
+    return this.get(`temp-effect-${toKebab(TempEffectType[effect.type])}-name`);
   }
 
   public static getTraitDescription(trait: Trait): string {

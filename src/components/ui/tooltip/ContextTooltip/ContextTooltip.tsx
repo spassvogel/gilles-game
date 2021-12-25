@@ -15,9 +15,9 @@ import { getDefinition } from 'definitions/items';
 import AttributeContext from './context/AttributeContext';
 import { ActorObject } from 'store/types/scene';
 import ActorContext from './context/ActorContext';
-import { Effect } from 'definitions/effects/types';
-import EffectContext from './context/EffectContext';
+import TempEffectContext from './context/TempEffectContext';
 import { ExtendedAttribute } from 'mechanics/adventurers/attributes';
+import { TempEffect } from 'definitions/tempEffects/types';
 import './styles/contextTooltip.scss';
 
 // A contextual popup showing what you just clicked.
@@ -60,9 +60,9 @@ const ContextTooltip = () => {
           </>
         );
       }
-      case ContextType.effect: {
-        const effect = info as Effect;
-        const name = TextManager.getEffectName(effect);
+      case ContextType.tempEffect: {
+        const effect = info as TempEffect;
+        const name = TextManager.getTempEffectName(effect);
         return (
           <>
             <div className="header">
@@ -71,7 +71,7 @@ const ContextTooltip = () => {
                 { TextManager.get("ui-tooltip-effect")}
               </div>
             </div>
-            <EffectContext effect={effect} />
+            <TempEffectContext effect={effect} />
           </>
         );
       }

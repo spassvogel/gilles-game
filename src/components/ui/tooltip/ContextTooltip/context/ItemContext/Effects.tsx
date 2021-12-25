@@ -1,9 +1,5 @@
-import { TextManager } from 'global/TextManager';
-import { Apparel, getDefinition as getApparelDefinition } from 'definitions/items/apparel';
-import ProduceOrStudy from './ProduceOrStudy';
-import { Item } from "definitions/items/types";
 import { Effect } from 'definitions/effects/types';
-import getEffectDescription from '../EffectContext/getEffectDescription';
+import getEffectDescription from '../TempEffectContext/getEffectDescription';
 
 interface Props {
   effects: Effect[];

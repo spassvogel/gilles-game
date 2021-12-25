@@ -8,8 +8,10 @@ import { levelToXp, MAX_XP } from "mechanics/adventurers/levels";
 import { Action } from "store/actions";
 import { getDefinition, isConsumable } from "definitions/items/consumables";
 import { Item } from "definitions/items/types";
-import { Effect, EffectType, initializeEffect } from "definitions/effects/types";
+import { Effect } from "definitions/effects/types";
 import { calculateBaseHitpoints } from "mechanics/adventurers/hitpoints";
+import { TempEffectBrokenLegs, TempEffectBurning, TempEffectType } from "definitions/tempEffects/types";
+import { createTempEffect } from "definitions/tempEffects";
 
 
 const generateRandomAttributes = (): AttributesStoreState => {
@@ -60,7 +62,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [WeaponType.crossbow]: 10,
     [WeaponType.bow]: 10
   },
-  effects: [],
+  tempEffects: [],
   inventory: [ { type: "deed/lumbermill" }, null, { type: "weapon/simpleCrossbow" }, { type: "weapon/dagger" }, { type: "weapon/khopesh" }, null, { type: "weapon/steelSword" }, null,  { type: "consumable/lesserSoma" }, { type: "consumable/minorSoma" }, { type: "consumable/greaterManaPotion" },  { type: "consumable/majorHealthPotion" },  null,  { type: "weapon/steelShield" },  null,  null,  null,  null],
 }, {
   id: "2e655832",
@@ -82,7 +84,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [WeaponType.crossbow]: 12,
     [WeaponType.staff]: 13
   },
-  effects: [],
+  tempEffects: [],
   inventory: [ { type: "weapon/simpleCrossbow" }, null, { type: "consumable/greaterSoma" }, null, null, null, { type: "apparel/boots1" }, { type: "apparel/chainmailHood"} , { type: "apparel/nomadHelmet" }, { type: "apparel/plateChest4" }, null, { type: "weapon/buckler" }, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, { type: "apparel/plateHelmet" }, { type: "apparel/cowl" }]
 }, {
   id: "ec6f1050",
@@ -104,17 +106,29 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   avatarImg: `${avatarImgBasePath}/male/m_09.png`,
   spritesheetPath: `${spritesheetBasePath}skeleton.json`,
   color: AdventurerColor.black,
-  effects: [{
-    type: EffectType.brokenLegs,
-    lastTick: Date.now(),
-    damage: 10,
-    charges: 10
-  }, {
-    type: EffectType.burning,
-    lastTick: Date.now(),
-    damage: 4,
-    interval: 5000
-  }],
+  tempEffects: [
+    createTempEffect<TempEffectBrokenLegs>({
+      type: TempEffectType.brokenLegs,
+      damage: 10,
+      charges: 10
+    }),
+    createTempEffect<TempEffectBurning>({
+      type: TempEffectType.burning,
+      damage: 10,
+      interval: 500
+    })
+  ],
+  // tempEffects: [{
+  //   type: EffectType.healthDecreaseOnMove,
+  //   lastTick: Date.now(),
+  //   damage: 10,
+  //   charges: 10
+  // }, {
+  //   type: EffectType.healthDecreaseOverTime,
+  //   lastTick: Date.now(),
+  //   damage: 4,
+  //   interval: 5000
+  // }],
   inventory: [{ type: "weapon/greatswordOfGwai" }, null, null, null, { type: "weapon/berserkerShield" }],
 }, {
   id: "d299f98a",
@@ -132,7 +146,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   skills: {
     [WeaponType.sword]: 13
   },
-  effects: [],
+  tempEffects: [],
   inventory: [ null, null, null, null, { type: "weapon/khopesh" }, { type: "apparel/hornedHelmet" }, { type: "weapon/woodenBulwark"} ],
 }, {
   id: "96c686c3",
@@ -148,7 +162,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   skills: {
     [WeaponType.axe]: 12
   },
-  effects: [],
+  tempEffects: [],
   inventory: [ null, null, null, { type: "weapon/goldenShield" }],
 }, {
   id: "250d1a9d",
@@ -167,7 +181,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [EquipmentSlotType.mainHand]: { type: "weapon/longbow" },
     [EquipmentSlotType.offHand]: { type: "ammunition/basicArrows", quantity: 50 }
   },
-  effects: []
+  tempEffects: []
 }, {
   id: "169384ef",
   ...generateAttributesHealthAndXp(),
@@ -185,7 +199,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [EquipmentSlotType.mainHand]: { type: "weapon/simpleCrossbow" },
     [EquipmentSlotType.offHand]: { type: "ammunition/crossbowBolts", quantity: 40 }
   },
-  effects: []
+  tempEffects: []
 }, {
   id: "f22d66cb",
   ...generateAttributesHealthAndXp(),
@@ -199,7 +213,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   skills: {
     [WeaponType.axe]: 13
   },
-  effects: []
+  tempEffects: []
 }, {
   id: "36c686c1",
   equipment: {},
@@ -213,7 +227,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   skills: {
     [WeaponType.axe]: 3
   },
-  effects: []
+  tempEffects: []
 }, {
   id: "12c613d4",
   equipment: {},
@@ -227,11 +241,13 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   skills: {
     [WeaponType.axe]: 10
   },
-  effects: [{
-    type: EffectType.brokenLegs,
-    lastTick: Date.now(),
-    damage: 8,
-  }]
+  tempEffects: [
+    createTempEffect<TempEffectBrokenLegs>({
+      type: TempEffectType.brokenLegs,
+      damage: 8,
+      charges: 10
+    })
+  ]
 }, {
   id: "5a402ef1",
   equipment: {
@@ -256,7 +272,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [WeaponType.knife]: 15,
     [WeaponType.bow]: 11
   },
-  effects: [],
+  tempEffects: [],
   inventory: [ { type: "deed/lumbermill" }, null, { type: "weapon/simpleCrossbow" }, { type: "weapon/dagger" }, { type: "weapon/khopesh" }, null, { type: "weapon/steelSword" }, null,  { type: "consumable/lesserSoma" }, { type: "consumable/minorSoma" }, { type: "consumable/greaterManaPotion" },  { type: "consumable/majorHealthPotion" },  null,  { type: "weapon/steelShield" },  null,  null,  null,  null],
 }];
 
@@ -486,15 +502,15 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       });
     }
 
-    case "addEffect": {
+    case "addTempEffect": {
       // adds an effect
       return state.map((adventurer: AdventurerStoreState) => {
         if (adventurer.id === action.adventurerId) {
           return {
             ...adventurer,
-            effects: [
-              initializeEffect(action.effect),
-              ...adventurer.effects,
+            tempEffects: [
+              action.tempEffect,
+              ...adventurer.tempEffects,
             ]
           };
         }
@@ -506,27 +522,28 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       // decreases charges of given effect by 1
       return state.map((adventurer: AdventurerStoreState) => {
         if (adventurer.id === action.adventurerId) {
-          const effects = adventurer.effects.reduce<Effect[]>((acc, value) => {
-            if (value === action.effect) {
-              if (value.charges && value.charges > 1) {
-                const charges = value.charges - 1;
-                acc.push({
-                  ...value,
-                  charges,
-                });
-              }
-              // if charges is < 2 remove from list
-            }
-            else {
-              acc.push(value);
-            }
-            return acc;
-          }, []);
-
           return {
             ...adventurer,
-            effects
-          };
+            tempEffects: adventurer.tempEffects.map((tE) => ({
+              ...tE,
+              effects: tE.effects.reduce<Effect[]>((acc, value) => {
+                if (value === action.effect) {
+                  // if charges is < 2 remove from list
+                  if (value.charges && value.charges > 1) {
+                    const charges = value.charges - 1;
+                    acc.push({
+                      ...value,
+                      charges,
+                    });
+                  }
+                }
+                else {
+                  acc.push(value);
+                }
+                return acc;
+              }, [])
+            }))
+          }
         }
         return adventurer;
       });

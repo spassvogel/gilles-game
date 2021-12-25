@@ -1,21 +1,22 @@
 import React, { Fragment } from "react";
 import { useAdventurerState } from 'hooks/store/adventurers';
-import { Effect } from 'definitions/effects/types';
-// import { getDefinition } from 'definitions/effects';
 import { TextManager } from 'global/TextManager';
 import { ContextType } from 'constants/context';
 import { TooltipManager } from 'global/TooltipManager';
-import './styles/adventurerEffects.scss';
 import EffectIcon from "./EffectIcon";
+import { TempEffect } from "definitions/tempEffects/types";
+import './styles/adventurerEffects.scss';
 
 interface Props {
   adventurerId: string;
+
 }
 
-const AdventurerEffects = (props: Props) => {
+// Shows temp effects
+const AdventurerTempEffects = (props: Props) => {
   const adventurer = useAdventurerState(props.adventurerId);
 
-  const renderEffect = (effect: Effect) => {
+  const renderEffect = (effect: TempEffect) => {
     // const effectDefinition = getDefinition(effect.type);
 
     const handleClick = (event: React.MouseEvent) => {
@@ -23,7 +24,7 @@ const AdventurerEffects = (props: Props) => {
       if (!origin) return;
       const originRect = origin.getBoundingClientRect();
 
-      TooltipManager.showContextTooltip(ContextType.effect, effect, originRect);
+      TooltipManager.showContextTooltip(ContextType.tempEffect, effect, originRect);
       event.stopPropagation();
     };
     return (
@@ -31,24 +32,24 @@ const AdventurerEffects = (props: Props) => {
         <li onClick={handleClick}>
           <EffectIcon effectType={effect.type} />
           <div className="name">
-            {TextManager.getEffectName(effect)}
+            {TextManager.getTempEffectName(effect)}
           </div>
         </li>
       </Fragment>
     )
   };
 
-  if (!adventurer?.effects) {
+  if (!adventurer?.tempEffects) {
     return null;
   }
   return (
     <>
       <p>{TextManager.get("ui-adventurer-info-effects-title")}</p>
       <ul className="adventurer-effects">
-        {adventurer.effects && adventurer.effects.map((effect)=> renderEffect(effect))}
+        {adventurer.tempEffects && adventurer.tempEffects.map((effect)=> renderEffect(effect))}
       </ul>
     </>
   )
 }
 
-export default AdventurerEffects;
+export default AdventurerTempEffects;

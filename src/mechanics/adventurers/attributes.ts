@@ -1,4 +1,4 @@
-import { EffectSoma, EffectType } from "definitions/effects/types";
+import { EffectType } from "definitions/effects/types";
 import { AdventurerStoreState, Attribute, AttributesStoreState } from "store/types/adventurer";
 import { entries } from "utils/typescript";
 import { getWeaponOrApparelDefinition } from "definitions/items";
@@ -50,17 +50,17 @@ export const calculateEffectiveAttributesExtended = (adventurer: AdventurerStore
   const result = generateBaseAttributes(adventurer.basicAttributes);
 
   // Add effects of soma
-  const somaEffects = adventurer.effects.filter(e => e.type === EffectType.soma) as EffectSoma[];
-  if (somaEffects.length > 0) {
-    const ordered = somaEffects.sort((a: EffectSoma, b: EffectSoma) => b.factor - a.factor);
-    // the biggest soma counts
-    const top = ordered[0];
-    const origin: AttributeSource = { type: AttributeSourceType.soma };
-    result.str.push({ origin, value: adventurer.basicAttributes.str * top.factor - adventurer.basicAttributes.str})
-    result.for.push({ origin, value: adventurer.basicAttributes.for * top.factor - adventurer.basicAttributes.for})
-    result.int.push({ origin, value: adventurer.basicAttributes.int * top.factor - adventurer.basicAttributes.int})
-    result.agi.push({ origin, value: adventurer.basicAttributes.agi * top.factor - adventurer.basicAttributes.agi})
-  }
+  // const somaEffects = adventurer.tempEffects.filter(e => e.type === EffectType.soma) as EffectSoma[];
+  // if (somaEffects.length > 0) {
+  //   const ordered = somaEffects.sort((a: EffectSoma, b: EffectSoma) => b.factor - a.factor);
+  //   // the biggest soma counts
+  //   const top = ordered[0];
+  //   const origin: AttributeSource = { type: AttributeSourceType.soma };
+  //   result.str.push({ origin, value: adventurer.basicAttributes.str * top.factor - adventurer.basicAttributes.str})
+  //   result.for.push({ origin, value: adventurer.basicAttributes.for * top.factor - adventurer.basicAttributes.for})
+  //   result.int.push({ origin, value: adventurer.basicAttributes.int * top.factor - adventurer.basicAttributes.int})
+  //   result.agi.push({ origin, value: adventurer.basicAttributes.agi * top.factor - adventurer.basicAttributes.agi})
+  // }
 
   // Add effects from equipment
   entries(adventurer.equipment).forEach((entry) => {

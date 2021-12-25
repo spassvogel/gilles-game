@@ -70,9 +70,6 @@
     "effect-burning-description": "Loses {{damage}} every {{interval}} seconds",
     "effect-burning-name": "burning",
     "effect-burning-flavor": "This adventurer is on fire!",
-    "effect-soma-description": "Increases all stats by {{percentage}}%",
-    "effect-soma-name": "soma",
-    "effect-soma-flavor": "This adventurer feels the soma coarsing through their veins",
 
     "encounter-backstabbed-description": "A group of rogues emerges from the bushes, knives drawn.",
     "encounter-dungeon-caches-chest": "{{adventurer}} rummages through an old chest",
@@ -448,6 +445,10 @@
     "skill-sword-info": "The ability to wield a sword",
     "skill-pole-arm-name": "Pole arms",
     "skill-pole-arm-info": "The ability to use a pole arm",
+
+    "temp-effect-soma-description": "Increases all stats by {{percentage}}%",
+    "temp-effect-soma-name": "soma",
+    "temp-effect-soma-flavor": "This adventurer feels the soma coarsing through their veins",
 
     "test-game-welcome": "Welcome to Gidletown (beta)",
     "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",

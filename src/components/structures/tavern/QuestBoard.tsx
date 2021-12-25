@@ -1,6 +1,5 @@
 import { ItemType } from "definitions/items/types";
 import { getDefinition } from "definitions/quests";
-import * as React from "react";
 import { AdventurerStoreState } from "store/types/adventurer";
 import { QuestStoreState } from "store/types/quest";
 import { TextManager } from "global/TextManager";

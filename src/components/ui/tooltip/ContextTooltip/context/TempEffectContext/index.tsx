@@ -1,10 +1,10 @@
 import { TextManager } from 'global/TextManager';
-import { Effect } from "definitions/effects/types";
-import getEffectDescription from "./getEffectDescription";
+import getTempEffectDescription from './getTempEffectDescription';
+import { TempEffect } from 'definitions/tempEffects/types';
 import './styles/effectContext.scss';
 
 export interface Props {
-  effect: Effect;
+  effect: TempEffect;
 }
 
 const EffectContext = (props: Props) => {
@@ -15,7 +15,7 @@ const EffectContext = (props: Props) => {
       <hr />
 
       <div className="description">
-         { getEffectDescription(effect)}
+         { getTempEffectDescription(effect)}
       </div>
       { /* show time remaining */ }
       { charges && (
@@ -25,7 +25,7 @@ const EffectContext = (props: Props) => {
       )}
       <hr />
       <div className="flavor secondary">
-        {TextManager.getEffectFlavor(effect)}
+        {TextManager.getTempEffectFlavor(effect)}
       </div>
     </div>
   )
