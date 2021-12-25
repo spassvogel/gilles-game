@@ -3,30 +3,30 @@ import { Props as TabProps } from "./Tab";
 import { SoundManager} from 'global/SoundManager';
 import "./styles/tabstrip.scss";
 
-export interface Props {
+export interface Props<T extends string> {
   className?: string;
-  children: React.ReactElement<TabProps>[] |  React.ReactElement<TabProps>;
+  children: React.ReactElement<TabProps<T>>[] |  React.ReactElement<TabProps<T>>;
   activeTab?: string;
   disabled?: boolean;
   onClick?: React.MouseEventHandler<Element>;
-  onTabSelected?: (tabId: string) => void;
+  onTabSelected?: (tabId: T) => void;
 }
 
-const Tabstrip = (props: Props) => {
+const Tabstrip = <T extends string> (props: Props<T>) => {
   const {activeTab = null, onClick} = props;
   if (!activeTab && props.children && props.children) {
     //activeTab = props.children[0].props.id;
   }
   const className = `${props.className}${(props.disabled ? " disabled" : "")}`;
-  const children = React.Children.map(props.children, (child: React.ReactElement<TabProps>) => {
-    const clone: React.ReactElement<TabProps> = React.cloneElement(child, {
+  const children = React.Children.map(props.children, (child: React.ReactElement<TabProps<T>>) => {
+    const clone: React.ReactElement<TabProps<T>> = React.cloneElement(child, {
       active: child.props.id === activeTab,
       onClick: () => { handleTabClick(child.props.id); }
     });
     return clone;
   });
 
-  const handleTabClick = (tabId: string) => {
+  const handleTabClick = (tabId: T) => {
     if (props.onTabSelected && props.disabled !== true) {
       props.onTabSelected(tabId);
     }
