@@ -1,9 +1,11 @@
-import { EffectType } from "definitions/effects/types";
+import { EffectSource, EffectSourceType, EffectType } from "definitions/effects/types";
 import { AdventurerStoreState, Attribute, AttributesStoreState } from "store/types/adventurer";
 import { entries } from "utils/typescript";
 import { getWeaponOrApparelDefinition } from "definitions/items";
 import { isAmmunition } from "definitions/items/ammunition";
 import { ItemType } from "definitions/items/types";
+import { collectEffects } from "definitions/effects";
+import { TempEffectType } from "definitions/tempEffects/types";
 
 export type AttributesExtended = {
   [key in Attribute]: ExtendedAttributeComponents[]
@@ -22,14 +24,15 @@ export type ExtendedAttributeComponents = {
 export enum AttributeSourceType {
   base,
   item,
-  soma
+  tempEffect
 }
 
 // The source of the attribute modifier
 export type AttributeSource = {
   type: AttributeSourceType.base
 } | {
-  type: AttributeSourceType.soma
+  type: AttributeSourceType.tempEffect
+  tempEffectType: TempEffectType
 } | {
   type: AttributeSourceType.item
   item: ItemType
@@ -49,6 +52,17 @@ export const calculateEffectiveAttributes = (adventurer: AdventurerStoreState): 
 export const calculateEffectiveAttributesExtended = (adventurer: AdventurerStoreState): AttributesExtended  => {
   const result = generateBaseAttributes(adventurer.basicAttributes);
 
+  // Add all 'attributeIncrease' effects
+  collectEffects(adventurer, EffectType.attributeIncrease).forEach(effectSource => {
+    const origin = convertOrigin(effectSource.source);
+    if (effectSource.type === EffectType.attributeIncrease) { // this is always true but typescript doesnt know that
+      const { attribute } = effectSource;
+      result[attribute].push({
+        origin,
+        value: adventurer.basicAttributes[attribute] * effectSource.factor - adventurer.basicAttributes[attribute]
+      })
+    }
+  })
   // Add effects of soma
   // const somaEffects = adventurer.tempEffects.filter(e => e.type === EffectType.soma) as EffectSoma[];
   // if (somaEffects.length > 0) {
@@ -65,7 +79,7 @@ export const calculateEffectiveAttributesExtended = (adventurer: AdventurerStore
   // Add effects from equipment
   entries(adventurer.equipment).forEach((entry) => {
     if (!entry) return;
-    const [_, item] = entry;
+    const [, item] = entry;
     if (!item || isAmmunition(item.type)) return;
 
     const def = getWeaponOrApparelDefinition(item.type)
@@ -96,6 +110,25 @@ export const generateBaseAttributes = (basicAttributes: AttributesStoreState): A
     for: [{ origin, value: basicAttributes.for }],
     int: [{ origin, value: basicAttributes.int }],
     agi: [{ origin, value: basicAttributes.agi }]
+  }
+}
+
+const convertOrigin = (effectSource: EffectSource): AttributeSource => {
+  switch (effectSource.type) {
+    case EffectSourceType.item: {
+      return {
+        type: AttributeSourceType.item,
+        item: effectSource.itemType
+      }
+    }
+    case EffectSourceType.tempEffect: {
+      return {
+        type: AttributeSourceType.tempEffect,
+        tempEffectType: effectSource.tempEffectType
+      }
+    }
+    // default:
+    //   throw new Error(`Unknown effect source type ${effectSource.type}`)
   }
 }
 

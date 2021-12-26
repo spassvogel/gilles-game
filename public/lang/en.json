@@ -64,13 +64,6 @@
 
     "effect-attribute-increase-description": "increases {{attribute}} by {{percentage}}%",
     "effect-attribute-increase-name": "",
-    "effect-broken-legs-description": "Loses {{damage}} HP every step",
-    "effect-broken-legs-name": "broken legs",
-    "effect-broken-legs-flavor": "This adventurer has broken their legs, making walking any further painful",
-    "effect-burning-description": "Loses {{damage}} every {{interval}} seconds",
-    "effect-burning-name": "burning",
-    "effect-burning-flavor": "This adventurer is on fire!",
-
     "encounter-backstabbed-description": "A group of rogues emerges from the bushes, knives drawn.",
     "encounter-dungeon-caches-chest": "{{adventurer}} rummages through an old chest",
     "encounter-goblin-house-hallway-description": "The party stands inside the hallway",
@@ -446,6 +439,12 @@
     "skill-pole-arm-name": "Pole arms",
     "skill-pole-arm-info": "The ability to use a pole arm",
 
+    "temp-effect-broken-legs-description": "Loses {{damage}} HP every step",
+    "temp-effect-broken-legs-name": "broken legs",
+    "temp-effect-broken-legs-flavor": "This adventurer has broken their legs, making walking any further painful",
+    "temp-effect-burning-description": "Loses {{damage}} every {{interval}} seconds",
+    "temp-effect-burning-name": "burning",
+    "temp-effect-burning-flavor": "This adventurer is on fire!",
     "temp-effect-soma-description": "Increases all stats by {{percentage}}%",
     "temp-effect-soma-name": "soma",
     "temp-effect-soma-flavor": "This adventurer feels the soma coarsing through their veins",

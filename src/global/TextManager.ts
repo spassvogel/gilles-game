@@ -154,11 +154,11 @@ export abstract class TextManager {
 
   public static getTempEffectDescription(effect: TempEffect, props?: { [key: string]: string}): string {
     const { type, ...rest } = effect;
-    return this.get(`effect-${toKebab(TempEffectType[type])}-description`, { ...rest, ...props} );
+    return this.get(`temp-effect-${toKebab(TempEffectType[type])}-description`, { ...rest, ...props} );
   }
 
   public static getTempEffectFlavor(effect: TempEffect): string {
-    return this.get(`effect-${toKebab(TempEffectType[effect.type])}-flavor`);
+    return this.get(`temp-effect-${toKebab(TempEffectType[effect.type])}-flavor`);
   }
 
   public static getTempEffectName(effect: TempEffect): string {

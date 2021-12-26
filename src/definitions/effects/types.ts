@@ -1,3 +1,5 @@
+import { ItemType } from "definitions/items/types"
+import { TempEffectType } from "definitions/tempEffects/types"
 import { Attribute } from "store/types/adventurer"
 
 export enum EffectType {
@@ -33,4 +35,21 @@ export type Effect = EffectAttibuteIncrease
  | EffectHealthDecreaseOnMove
  | EffectHealthDecreaseOverTime;
 
+
+export enum EffectSourceType {
+  tempEffect,
+  item,
+}
+
+export type EffectSource = {
+  type: EffectSourceType.tempEffect,
+  tempEffectType: TempEffectType
+} | {
+  type: EffectSourceType.item
+  itemType: ItemType
+}
+
+ export type EffectWithSource = Effect & {
+  source: EffectSource
+ }
 
