@@ -14,6 +14,7 @@ import Button from 'components/ui/buttons/Button';
 import { decryptSavedGame, saveGame } from "utils/game";
 import GameStats from "components/ui/game/GameStats";
 import "./styles/saveAndLoad.scss";
+import LoadingSpinner from "components/ui/loading/LoadingSpinner";
 
 
 type AllProps = WindowProps;
@@ -65,7 +66,7 @@ const SaveAndLoad = (props: AllProps & AppContextProps) => {
         <Button onClick={handleClickLoad} disabled={!loadedStore}>Load</Button>
       </section>
       <div>
-        { loading && "Loading... please wait" }
+        { loading && <LoadingSpinner /> }
         { loadedStore && <GameStats state={loadedStore} />}
       </div>
     </div>
