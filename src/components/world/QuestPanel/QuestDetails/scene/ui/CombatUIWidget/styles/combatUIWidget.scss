@@ -1,3 +1,4 @@
+@use "sass:math";
 @import 'components/styles/import.scss';
 
 $cellWidth: 64;
@@ -56,8 +57,8 @@ $cellWidth: 64;
     }
 
     &:before {
-      width: $cellWidth / 2;
-      height: $cellWidth / 2;
+      width: math.div($cellWidth, 2);
+      height: math.div($cellWidth, 2);
       // left: 15px;
       // top: 15px;
     }

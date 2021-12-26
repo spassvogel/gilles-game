@@ -5,7 +5,7 @@ import { getDefinition } from "definitions/items";
 import { ItemType, ItemCategory, isItemType, Item } from "definitions/items/types";
 import { Resource } from "definitions/resources";
 import { Structure } from "definitions/structures";
-import * as Handlebars from "handlebars/runtime";
+import * as Handlebars from "handlebars";
 import { Trait } from 'definitions/traits/types';
 import { Type } from 'components/ui/toasts/Toast';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
