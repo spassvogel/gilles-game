@@ -45,8 +45,6 @@ const setupStore = async (initial: DeepPartial<StoreState> = {}) => {
 
   if (!isHydrated) {
     startNewGame(store);
-  } else {
-    continueGame();
   }
   runGame(store);
 }
@@ -64,13 +62,15 @@ const startNewGame = (store: Store<StoreState, AnyAction>) => {
 };
 
 
-/**
- * Continue playing earlier persisted store
- * @param store
- */
+let paused = false;
+
+const pauseGame = () => {
+  paused = true;
+}
+
 const continueGame = () => {
-  console.log(`Continuing existing GAME (version ${Version.default})`);
-};
+  paused = false;
+}
 
 /**
  * Loads a saved game from a file
@@ -126,6 +126,8 @@ const runGame = (store: Store<StoreState, AnyAction>) => {
   registerServiceWorker();
 
   const gameLoop = () => {
+    if (paused) return;
+
     const state: StoreState = store.getState();
     const delta = Date.now() - state.engine.lastTick;
 
@@ -144,6 +146,6 @@ const runGame = (store: Store<StoreState, AnyAction>) => {
   interval = setInterval(gameLoop, TICK_INTERVAL);
 };
 
-export {runGame, restartGame, loadGame};
+export {runGame, restartGame, loadGame, pauseGame, continueGame };
 
 initGame();

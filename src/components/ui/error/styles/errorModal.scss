@@ -25,6 +25,15 @@
   + iframe { // the hot reload iframe blocks everything :/
     display: none;
   }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+
+    button {
+      margin: 0 2rem;
+    }
+  }
 }
 
 iframe { // the hot reload iframe blocks everything :/

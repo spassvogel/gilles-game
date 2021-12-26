@@ -1,6 +1,6 @@
-import { restartGame } from "index";
+import { continueGame, pauseGame, restartGame } from "index";
 import localforage from "localforage";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { FallbackProps } from "react-error-boundary";
 import { getStoredState } from "redux-persist";
 import { persistConfig } from "utils/configureStore";
@@ -19,16 +19,19 @@ const ErrorModal = (props: FallbackProps) => {
   }
 
   const handleReset = () => {
-    localforage.clear();
-    resetErrorBoundary();
+    // localforage.clear();
+    // resetErrorBoundary();
     restartGame();
   }
 
   useEffect(() => {
+    pauseGame();
     (async () => {
       const initState = await getStoredState(persistConfig)
       setState(JSON.stringify(initState, undefined, 2))
     })()
+
+    return continueGame;
   })
 
   return (
@@ -50,11 +53,11 @@ const ErrorModal = (props: FallbackProps) => {
         { selectedTabId === "store" && (
           <pre>{state}</pre>
         )}
-        <form action="https://formspree.io/f/mayvnnbp" method="POST">
+        <form action="https://formspree.io/f/mayvnnbp" method="POST" className="buttons">
           <input type="hidden" name="message" value={error.message} />
           <input type="hidden" name="stack" value={error.stack} />
           <input type="hidden" name="store" value={state} />
-          <button onClick={handleReset}>Try again</button>
+          <button onClick={handleReset}>Reset game</button>
           <button type="submit">Report bug</button>
         </form>
       </div>
