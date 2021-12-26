@@ -107,7 +107,7 @@ let interval: NodeJS.Timeout; // main game tick
 const runGame = (store: Store<StoreState, AnyAction>) => {
   const gameVersion = store.getState().game?.version;
   if (gameVersion < Version.asInt) {
-    if (!confirm(`This game was initialized with version ${convertIntToSemVer(gameVersion)} which is older than the current client (${Version.default}). This might cause problems. Continue? (pressing cancel will reset progress) `)) {
+    if (!confirm(`This game was initialized with version ${convertIntToSemVer(gameVersion)} which is older than the current client (${Version.default}). This might cause problems. Continue anyway? \n\n(pressing cancel will reset progress) `)) {
       restartGame();
       return
     }

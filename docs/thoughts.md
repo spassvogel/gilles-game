@@ -660,7 +660,7 @@ Studies are tasks like `{structure_name}.study` with a callback that adds the it
 ### 30/8/2020 Quest / Adventurer definitions
 Quests and adventurers dont need to be stored in the store when not active
 - [ ] Adventurers need to have a definition file
-- [ ] Adventurers take name from translation file. Can be renamed afterwards
+- [x] Adventurers take name from translation file. Can be renamed afterwards
 - [ ] Then when an adventurer is added to the game (how?) it gets saved in the redux store
 
 ### 31/8/2020 Skills
@@ -786,5 +786,5 @@ process events, send out redux actions
   - [x] resources and workers
 
 ### 2021-12-22 Effect split 
-- [ ] Split out the temporary condition an adventurer can have (eg: soma)
+- [x] Split out the temporary condition an adventurer can have (eg: soma)
       and the actual technical effect. (eg: attribute increase)
