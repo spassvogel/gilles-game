@@ -61,7 +61,7 @@ const SaveAndLoad = (props: AllProps & AppContextProps) => {
       </section>
       <section>
         Load game from disk:&nbsp;
-        <input type="file" onChange={handleFileChange} />
+        <input type="file" onChange={handleFileChange} accept=".json" />
         <Button onClick={handleClickLoad} disabled={!loadedStore}>Load</Button>
       </section>
       <div>
