@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import { StoreState } from "store/types"
 import { adventurers, initialAdventurers } from "./adventurers";
 import { engine, getInitialEngineState } from "./engine";
+import { game } from "./game";
 import { gold, initialGoldState } from "./gold";
 import { getInitialStockpile, stockpile } from "./stockpile";
 import { initialLogState, log } from "./log";
@@ -16,6 +17,7 @@ import { initialWorkersState, workers } from "./workers";
 export default combineReducers<StoreState>({
   adventurers,
   engine,
+  game,
   gold,
   stockpile,
   log,

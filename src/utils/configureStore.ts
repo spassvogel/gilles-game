@@ -14,8 +14,10 @@ declare global {
   }
 }
 
-const persistConfig = {
-  key: "root",
+export const PERSIST_KEY = "root";
+
+export const persistConfig = {
+  key: PERSIST_KEY,
   storage: localForage,
   version: asInt,
 };

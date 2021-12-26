@@ -1,6 +1,7 @@
 @import 'components/styles/import.scss';
 
 .game-stats {
+  margin-top: 2rem;
   @include sm {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -15,5 +16,13 @@
       color: $color-text-darker;
       margin-left: 0.5rem;
     }
+
+    .prop {
+      color: white;
+    }
+    .invalid {
+      color: $color-invalid!important;
+    }
   }
+
 }

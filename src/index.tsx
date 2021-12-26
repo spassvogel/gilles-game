@@ -87,6 +87,7 @@ const loadGame = async (state: StoreState) => {
 }
 
 const restartGame = () => {
+  persistor.pause();
   // eslint-disable-next-line no-restricted-globals
   if(confirm('Are you sure you wish to reset all your progress?')){
     clearTimeout(interval);
@@ -99,10 +100,10 @@ const restartGame = () => {
     // location.href = `#${getTownLink()}`;
     console.clear();
   }
+  persistor.persist();
 }
 
-
-let interval: NodeJS.Timeout;
+let interval: NodeJS.Timeout; // main game tick
 const runGame = (store: Store<StoreState, AnyAction>) => {
   clearTimeout(interval);
 

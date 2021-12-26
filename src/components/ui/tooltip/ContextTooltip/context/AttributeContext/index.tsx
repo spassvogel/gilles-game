@@ -11,7 +11,6 @@ export interface Props {
 
 const AttributeContext = (props: Props) => {
   const { extendedAttribute } = props;
-
   return (
     <div className="attribute-context">
       <hr />
@@ -43,8 +42,8 @@ const renderOrigin = (origin: AttributeSource, attribute: Attribute) => {
   switch (origin.type) {
     case AttributeSourceType.base:
       return `base ${TextManager.getAttributeName(attribute)}`;
-    case AttributeSourceType.soma:
-      return "soma";
+    case AttributeSourceType.tempEffect:
+      return "soma"; // todo: split out which tempEffect
     case AttributeSourceType.item:
       return TextManager.getItemName(origin.item);
   }
