@@ -56,6 +56,7 @@ export interface AttributesStoreState {
   agi: number;
 }
 
+// Determines the order in which the attributes are shown
 export const attributeList: Attribute[] = ['str', 'for', 'int', 'agi'];
 
 export type Attribute = keyof AttributesStoreState;

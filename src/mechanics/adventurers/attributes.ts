@@ -1,11 +1,12 @@
 import { EffectSource, EffectSourceType, EffectType } from "definitions/effects/types";
 import { AdventurerStoreState, Attribute, AttributesStoreState } from "store/types/adventurer";
-import { entries } from "utils/typescript";
-import { getWeaponOrApparelDefinition } from "definitions/items";
-import { isAmmunition } from "definitions/items/ammunition";
 import { ItemType } from "definitions/items/types";
 import { collectEffects } from "definitions/effects";
 import { TempEffectType } from "definitions/tempEffects/types";
+
+export const MIN_VALUE = 1;   // minimum value of any base attribute
+export const MAX_VALUE = 20;  // maximum value of any base attribute
+
 
 export type AttributesExtended = {
   [key in Attribute]: ExtendedAttributeComponents[]
@@ -75,28 +76,6 @@ export const calculateEffectiveAttributesExtended = (adventurer: AdventurerStore
   //   result.int.push({ origin, value: adventurer.basicAttributes.int * top.factor - adventurer.basicAttributes.int})
   //   result.agi.push({ origin, value: adventurer.basicAttributes.agi * top.factor - adventurer.basicAttributes.agi})
   // }
-
-  // Add effects from equipment
-  entries(adventurer.equipment).forEach((entry) => {
-    if (!entry) return;
-    const [, item] = entry;
-    if (!item || isAmmunition(item.type)) return;
-
-    const def = getWeaponOrApparelDefinition(item.type)
-      def.effects?.forEach(e => {
-      if (e.type === EffectType.attributeIncrease) {
-        const origin: AttributeSource = {
-          type: AttributeSourceType.item,
-          item: item.type
-        };
-
-        result[e.attribute].push({
-          origin,
-          value: adventurer.basicAttributes[e.attribute] * e.factor - adventurer.basicAttributes[e.attribute]
-        })
-      }
-      })
-  })
 
   return result;
 }

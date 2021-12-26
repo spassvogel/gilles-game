@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { TextManager } from "global/TextManager";
-import { MAX_VALUE, MIN_VALUE } from "mechanics/basicAttributes";
-import { AdventurerStoreState, Attribute } from "store/types/adventurer";
+import { MAX_VALUE, MIN_VALUE } from "mechanics/adventurers/attributes";
+import { AdventurerStoreState, Attribute, attributeList } from "store/types/adventurer";
 import { addXp, modifyHealth, renameAdventurer, setBasicAttributes } from "store/actions/adventurers";
 import { MAX_XP, xpToLevel } from "mechanics/adventurers/levels";
 import { calculateBaseHitpoints } from "mechanics/adventurers/hitpoints";
@@ -110,10 +110,7 @@ const DebugAdventurerEdit = (props: Props) => {
           <fieldset>
             <summary>Attributes</summary>
             <dl>
-              {renderAttribute("str")}
-              {renderAttribute("for")}
-              {renderAttribute("int")}
-              {renderAttribute("agi")}
+              {attributeList.map(a => renderAttribute(a))}
             </dl>
           </fieldset>
         </DraggableInfoWindow>

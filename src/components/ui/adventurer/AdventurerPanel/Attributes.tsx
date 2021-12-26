@@ -1,4 +1,4 @@
-import { Attribute } from "store/types/adventurer";
+import { Attribute, attributeList } from "store/types/adventurer";
 import { TextManager } from "global/TextManager";
 import { TooltipManager } from "global/TooltipManager";
 import { ContextType } from "constants/context";
@@ -56,10 +56,7 @@ const Attributes = (props: Props) => {
     <div className="basic-attributes">
       {/* todo: use css grid */}
       <ul className="attribute-list">
-        {renderRow("str")}
-        {renderRow("for")}
-        {renderRow("int")}
-        {renderRow("agi")}
+        {attributeList.map(a => renderRow(a))}
       </ul>
     </div>
   )
