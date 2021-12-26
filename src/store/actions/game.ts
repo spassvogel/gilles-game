@@ -7,6 +7,7 @@ export type Time = "harvest" | "task"
 export type GameAction =
   { type: "gameTick", delta: number, rngState: seedrandomStateType | null, resources: ResourceStoreState | null, quests: QuestUpdate[], harvest: HarvestUpdate | null, log: LogUpdate[] }
 | { type: "startGame" }
+| { type: "ignoreVersionDiff" }
 | { type: "reduceTime", percentage: number, time: Time, what?: string}
 
 
@@ -29,4 +30,8 @@ export const reduceTime = (percentage: number, time: Time, what?: string): GameA
   percentage,
   time,
   what
+})
+
+export const ignoreVersionDiff = () => ({
+  type: "ignoreVersionDiff"
 })

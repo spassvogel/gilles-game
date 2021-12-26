@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { Store, AnyAction, DeepPartial } from "redux";
 import { Persistor } from "redux-persist";
 import localforage from 'localforage';
-import { gameTick, startGame } from "store/actions/game";
+import { gameTick, ignoreVersionDiff, startGame } from "store/actions/game";
 import { addLogText } from "store/actions/log";
 import * as Version from "./constants/version";
 import App from "./components/App";
@@ -19,8 +19,8 @@ import { processCompletedTasks } from 'mechanics/gameTick/tasks';
 import { StoreState } from 'store/types';
 import { createInitialStore } from "store/reducers";
 import getHarvest from "mechanics/gameTick/harvest";
-import "./index.css";
 import { convertIntToSemVer } from "utils/version";
+import "./index.css";
 
 const TICK_INTERVAL = 2500;
 let persistor: Persistor;
@@ -106,11 +106,13 @@ const restartGame = () => {
 let interval: NodeJS.Timeout; // main game tick
 const runGame = (store: Store<StoreState, AnyAction>) => {
   const gameVersion = store.getState().game?.version;
-  if (gameVersion < Version.asInt) {
+  if (gameVersion < Version.asInt && store.getState().game?.ignoreVersionDiff !== Version.asInt) {
     if (!confirm(`This game was initialized with version ${convertIntToSemVer(gameVersion)} which is older than the current client (${Version.default}). This might cause problems. Continue anyway? \n\n(pressing cancel will reset progress) `)) {
       restartGame();
       return
     }
+    store.dispatch(ignoreVersionDiff());
+
   }
   clearTimeout(interval);
 

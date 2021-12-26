@@ -11,6 +11,15 @@ const initial: GameStoreState = {
  * @param state
  * @param action
  */
-export const game: Reducer<GameStoreState, GameAction> = (state = initial) => {
+export const game: Reducer<GameStoreState, GameAction> = (state = initial, action) => {
+  switch (action.type) {
+    // when user dismisses the warning about version incompatibility
+    case "ignoreVersionDiff": {
+      return {
+        ...state,
+        ignoreVersionDiff: Version.asInt
+      }
+    }
+  }
   return state;
 };

@@ -1,6 +1,6 @@
 import { restartGame } from "index";
 import localforage from "localforage";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FallbackProps } from "react-error-boundary";
 import { getStoredState } from "redux-persist";
 import { persistConfig } from "utils/configureStore";
@@ -19,9 +19,9 @@ const ErrorModal = (props: FallbackProps) => {
   }
 
   const handleReset = () => {
-    restartGame();
     localforage.clear();
     resetErrorBoundary();
+    restartGame();
   }
 
   useEffect(() => {
@@ -50,7 +50,13 @@ const ErrorModal = (props: FallbackProps) => {
         { selectedTabId === "store" && (
           <pre>{state}</pre>
         )}
-        <button onClick={handleReset}>Try again</button>
+        <form action="https://formspree.io/f/mayvnnbp" method="POST">
+          <input type="hidden" name="message" value={error.message} />
+          <input type="hidden" name="stack" value={error.stack} />
+          <input type="hidden" name="store" value={state} />
+          <button onClick={handleReset}>Try again</button>
+          <button type="submit">Report bug</button>
+        </form>
       </div>
       </InfoWindow>
     </div>
