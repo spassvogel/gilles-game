@@ -85,6 +85,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   const handleMouseMove = (e: MouseOrTouchEvent<HTMLDivElement>) => {
     if (mouseDown.current) {
       const location = findLocation(e) ?? [0, 0];
+
       if (controller?.locationIsOutOfBounds(location)) {
         setCursorLocation(undefined);
         onSetActionIntent(undefined);

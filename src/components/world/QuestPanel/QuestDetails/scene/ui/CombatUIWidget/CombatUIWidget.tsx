@@ -20,87 +20,47 @@ const CombatUIWidget = (props: Props) => {
   if (!controller) throw Error("No scene controller");
   const {tileWidth, tileHeight} = controller.getTileDimensions();
   const transform = `translate(${tileWidth * location[0]}px, ${tileHeight * location[1]}px)`;
-  const [collapsed, setCollapsed] = useState(true);
+  // const [collapsed, setCollapsed] = useState(true);
 
-  const actorLocation = useMemo(() => {
-    return controller.getSceneActor(selectedActorId)?.location;
-  }, []);
+  // const actorLocation = useMemo(() => {
+  //   return controller.getSceneActor(selectedActorId)?.location;
+  // }, []);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-  }
+  // const handleMouseMove = (e: React.MouseEvent) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  // }
 
-  const handleMouseOver = () => {
-    if (!locationEquals(location, actorLocation ?? [0, 0])){
-      // cant expand the widget when on the current location of the actor
-      setCollapsed(false);
-    }
-  }
+  // const handleMouseOver = () => {
+  //   if (!locationEquals(location, actorLocation ?? [0, 0])){
+  //     // cant expand the widget when on the current location of the actor
+  //     setCollapsed(false);
+  //   }
+  // }
 
-  const handleMouseOut = () => {
-    setCollapsed(true); // todo enable
-  }
+  // const handleMouseOut = () => {
+  //   setCollapsed(true); // todo enable
+  // }
 
-  const handleSegmentActivate = (action: SceneActionType) => {
-    onActionChange(action);
+  // const handleSegmentActivate = (action: SceneActionType) => {
+  //   onActionChange(action);
 
-    // const ap = controller.calculateWalkApCosts(location, location);
-  }
+  //   // const ap = controller.calculateWalkApCosts(location, location);
+  // }
 
-  const handleSegmentDeactivate = (_action: SceneActionType) => {
-    onActionChange(undefined);
-    // setText("") // todo enable
-  }
-
+  // const handleSegmentDeactivate = (_action: SceneActionType) => {
+  //   onActionChange(undefined);
+  //   // setText("") // todo enable
+  // }
 
   return (
     <div
-      className={`combat-ui-widget ${collapsed ? "collapsed" : "expanded"}`}
+      className='combat-ui-widget'
       style={{ transform }}
-      onMouseMove={handleMouseMove}
-      onMouseOver={handleMouseOver}
-      onMouseOut={handleMouseOut}
     >
-      <Segment
-        position="w"
-        tileHeight={tileHeight}
-        icon={`${process.env.PUBLIC_URL}/img/ui/icons/knife-thrust.svg`}
-        onActivate={() => handleSegmentActivate(SceneActionType.slash)}
-        onDeactivate={() => handleSegmentDeactivate(SceneActionType.slash)}
-        activated={actionIntent?.action === SceneActionType.slash}
-      />
-      <Segment
-        position="sw"
-        tileHeight={tileHeight}
-        icon={`${process.env.PUBLIC_URL}/img/ui/icons/high-shot.svg`}
-        onActivate={() => handleSegmentActivate(SceneActionType.shoot)}
-        onDeactivate={() => handleSegmentDeactivate(SceneActionType.shoot)}
-        activated={actionIntent?.action === SceneActionType.shoot}
-      />
-      <Segment
-        position="s"
-        tileHeight={tileHeight}
-        icon={`${process.env.PUBLIC_URL}/img/ui/icons/walking-boot.svg`}
-        onActivate={() => handleSegmentActivate(SceneActionType.move)}
-        onDeactivate={() => handleSegmentDeactivate(SceneActionType.move)}
-        activated={actionIntent?.action === SceneActionType.move}
-      />
-      <Segment
-        position="se"
-        icon={`${process.env.PUBLIC_URL}/img/ui/icons/sunken-eye.svg`}
-        tileHeight={tileHeight}
-        activated={false}
-      />
-      <Segment
-        position="e"
-        icon={`${process.env.PUBLIC_URL}/img/ui/icons/crosshair.svg`}
-        tileHeight={tileHeight}
-        activated={false}
-      />
-      <div className="info" style={{ width: tileWidth }}>
+      {/* <div className="info" style={{ width: tileWidth }}>
         {getText(actionIntent)}
-      </div>
+      </div> */}
     </div>
   )
 }

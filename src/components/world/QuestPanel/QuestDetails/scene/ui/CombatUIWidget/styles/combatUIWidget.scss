@@ -5,6 +5,7 @@ $cellWidth: 64;
 
 .combat-ui-widget {
   position: relative;
+  pointer-events: none;
 
   .info {
     z-index: 2;
@@ -22,6 +23,7 @@ $cellWidth: 64;
   }
 
   &:before {
+    // yellow circle
     content: '';
     width: $cellWidth * .75px;
     height: $cellWidth * .75px;
@@ -31,36 +33,5 @@ $cellWidth: 64;
     border-radius: 50%;
     left: 0;
     top: 0;
-  }
-
-  .segment {
-    position: absolute;
-    pointer-events: painted;
-
-    @include no-select;
-
-
-    img {
-      margin-top: 12px;
-      margin-left: 4px;
-      pointer-events: none;
-
-      &:hover {
-        opacity: 0.8;
-      }
-    }
-  }
-
-  &.collapsed {
-    .segment {
-      display: none;
-    }
-
-    &:before {
-      width: math.div($cellWidth, 2);
-      height: math.div($cellWidth, 2);
-      // left: 15px;
-      // top: 15px;
-    }
   }
 }
