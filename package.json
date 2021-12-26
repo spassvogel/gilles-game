@@ -33,7 +33,6 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.4.3",
-    "react-scripts": "^4.0.3",
     "react-select": "^5.2.1",
     "react-spring": "^9.3.2",
     "redux-persist": "^6.0.0",
@@ -73,6 +72,7 @@
     ]
   },
   "devDependencies": {
+    "react-scripts": "^4.0.3",
     "@types/debounce": "^1.2.0",
     "@types/deep-equal": "^1.0.1",
     "@types/fontfaceobserver": "^2.1.0",
