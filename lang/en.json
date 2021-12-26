@@ -9,6 +9,8 @@
     "adventurer-2e655832-name": "Addison Chilson",
     "adventurer-2e655832-flavor": "Silver, short hair slightly reveals a {{name}}'s, friendly face. Bright gray eyes, set concealed within their sockets, watch readily over the city they've cared for for so long.\nA scar reaching from just under the left eyebrow , running towards his upper lip and ending on his right nostril leaves a lasting punishment of former love.",
     "adventurer-36c686c1-name": "Lanslet of the Water",
+    "adventurer-5a402ef1-name": "Allynna Nerilar",
+    "adventurer-5a402ef1-flavor": "Elf rogue",
     "adventurer-96c686c3-name": "Wayne Monroe",
     "adventurer-96c686c3-flavor": "Standing 6' 3\" tall, and very fat with golden-brown skin, {{name}} has a pretty average feel about him.\nHe has dark dark brown eyes and his short, curly, dark brown hair is unkempt.\nHe usually wears clean, simple clothes that are slightly too big.",
     "adventurer-c4a5d270-name": "Sasha Falcon",
@@ -22,16 +24,16 @@
     "common-article-defined": "the {{noun}}",
     "common-article-undefined": "a {{noun}}",
 
-    "common-attribute-agi-name": "Agility",
+    "common-attribute-agi-name": "agility",
     "common-attribute-agi-description": " the power of moving quickly and easily",
     "common-attribute-agi-mechanics": "Increases combat AP. Increases dodge%",
-    "common-attribute-for-name": "Dexterity",
+    "common-attribute-for-name": "fortitude",
     "common-attribute-for-description": "a measure of a combination of agility, coordination, and fine motor ability. ",
     "common-attribute-for-mechanics": "Increases hitpoints",
-    "common-attribute-int-name": "Intelligence",
+    "common-attribute-int-name": "intelligence",
     "common-attribute-int-description": "broadly measures brainpower, including creativity, intuition, memory, perception, reason, sanity, and willpower. ",
     "common-attribute-int-mechanics": "Increases perception",
-    "common-attribute-str-name": "Strength",
+    "common-attribute-str-name": "strength",
     "common-attribute-str-description": "measures measures physical power and bulk of an individual.",
     "common-attribute-str-mechanics": "Increases melee attack. Increases inventory",
 
@@ -60,10 +62,8 @@
 
     "damage-type-kinetic": "kinetic damage",
 
-    "effect-broken-legs-name": "broken legs",
-    "effect-burning-name": "burning",
-
-
+    "effect-attribute-increase-description": "increases {{attribute}} by {{percentage}}%",
+    "effect-attribute-increase-name": "",
     "encounter-backstabbed-description": "A group of rogues emerges from the bushes, knives drawn.",
     "encounter-dungeon-caches-chest": "{{adventurer}} rummages through an old chest",
     "encounter-goblin-house-hallway-description": "The party stands inside the hallway",
@@ -439,6 +439,16 @@
     "skill-pole-arm-name": "Pole arms",
     "skill-pole-arm-info": "The ability to use a pole arm",
 
+    "temp-effect-broken-legs-description": "Loses {{damage}} HP every step",
+    "temp-effect-broken-legs-name": "broken legs",
+    "temp-effect-broken-legs-flavor": "This adventurer has broken their legs, making walking any further painful",
+    "temp-effect-burning-description": "Loses {{damage}} every {{interval}} seconds",
+    "temp-effect-burning-name": "burning",
+    "temp-effect-burning-flavor": "This adventurer is on fire!",
+    "temp-effect-soma-description": "Increases all stats by {{percentage}}%",
+    "temp-effect-soma-name": "soma",
+    "temp-effect-soma-flavor": "This adventurer feels the soma coarsing through their veins",
+
     "test-game-welcome": "Welcome to Gidletown (beta)",
     "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
 
@@ -542,8 +552,12 @@
     "ui-toast-type-quest-update": "Quest update!",
 
     "ui-tooltip-actor-level": "Lvl {{level}}",
+    "ui-tooltip-attribute": "Attribute",
     "ui-tooltip-damage-reduction": "Damage reduction: {{damageReduction}}",
     "ui-tooltip-durability": "Durability",
+    "ui-tooltip-effect": "Effect",
+    "ui-tooltip-effect-one-charge-remains": "1 charge remains",
+    "ui-tooltip-effect-n-charges-remain": "{{ charges }} charges remain",
     "ui-tooltip-study-requires-structure-level": "Study: Requires {{structure:name structure}} level {{level}}",
     "ui-tooltip-resource-produce-row": "Produced at {{structure:link structure}} ({{amount}}/minute)",
     "ui-tooltip-resource-produce-row-notbuilt": "Produced at {{structure}} (not constructed)",
