@@ -1,4 +1,3 @@
-import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { Store, AnyAction, DeepPartial } from "redux";
@@ -6,7 +5,7 @@ import { Persistor } from "redux-persist";
 import localforage from 'localforage';
 import { gameTick, startGame } from "store/actions/game";
 import { addLogText } from "store/actions/log";
-import version from "./constants/version";
+import * as Version from "./constants/version";
 import App from "./components/App";
 import getProducedResources from "./mechanics/gameTick/producedResources";
 import getQuestUpdates, { LogUpdate } from "./mechanics/gameTick/quests";
@@ -21,6 +20,7 @@ import { StoreState } from 'store/types';
 import { createInitialStore } from "store/reducers";
 import getHarvest from "mechanics/gameTick/harvest";
 import "./index.css";
+import { convertIntToSemVer } from "utils/version";
 
 const TICK_INTERVAL = 2500;
 let persistor: Persistor;
@@ -60,7 +60,7 @@ const startNewGame = (store: Store<StoreState, AnyAction>) => {
   store.dispatch(addLogText("test-game-welcome"));
   // todo: here is a good place to launch a tutorial or something
 
-  console.log(`Starting new GAME (version ${version})`);
+  console.log(`Starting new GAME (version ${Version.default})`);
 };
 
 
@@ -69,7 +69,7 @@ const startNewGame = (store: Store<StoreState, AnyAction>) => {
  * @param store
  */
 const continueGame = () => {
-  console.log(`Continuing existing GAME (version ${version})`);
+  console.log(`Continuing existing GAME (version ${Version.default})`);
 };
 
 /**
@@ -105,6 +105,13 @@ const restartGame = () => {
 
 let interval: NodeJS.Timeout; // main game tick
 const runGame = (store: Store<StoreState, AnyAction>) => {
+  const gameVersion = store.getState().game?.version;
+  if (gameVersion < Version.asInt) {
+    if (!confirm(`This game was initialized with version ${convertIntToSemVer(gameVersion)} which is older than the current client (${Version.default}). This might cause problems. Continue? (pressing cancel will reset progress) `)) {
+      restartGame();
+      return
+    }
+  }
   clearTimeout(interval);
 
   ReactDOM.render((
