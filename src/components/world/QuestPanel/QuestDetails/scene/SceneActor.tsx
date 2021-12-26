@@ -9,7 +9,7 @@ import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import SpriteAnimated from 'components/pixi/tile/SpriteAnimated';
 import { AdventurerColor } from 'store/types/adventurer';
 import { useQuest } from 'hooks/store/quests';
-import ActorThingy from './ActorThingy';
+import ActorStats from './ActorStats';
 import { Filter, Loader, Texture, Container as PixiContainer } from 'pixi.js';
 import { MultiColorReplaceFilter } from '@pixi/filter-multi-color-replace';
 import { useRandomOrientation } from './useRandomOrientation';
@@ -280,7 +280,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
       )}
       {children}
       {showThingy && (
-        <ActorThingy tileWidth={tileWidth} actor={actor} />
+        <ActorStats tileWidth={tileWidth} actor={actor} />
       )}
     </Container>
   )

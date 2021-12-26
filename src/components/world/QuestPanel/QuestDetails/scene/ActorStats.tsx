@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Graphics, Text } from "@inlet/react-pixi";
 import { useAdventurerState } from "hooks/store/adventurers";
 import { ActorObject, Allegiance } from "store/types/scene";
-
+// unused
 interface Props {
   actor: ActorObject;
   tileWidth: number;
@@ -10,7 +10,7 @@ interface Props {
 
 const MARGIN = 4;
 
-const useActorThingyInfo = (actor: ActorObject) => {
+const useActorStatsInfo = (actor: ActorObject) => {
     const adventurer = useAdventurerState(actor.name); // is possibly null
     if (actor.allegiance === Allegiance.player) {
         return adventurer.name;
@@ -18,12 +18,11 @@ const useActorThingyInfo = (actor: ActorObject) => {
     return actor.name; // enemy name
 }
 
-const ActorThingy = (props: Props) => {
+const ActorStats = (props: Props) => {
     const { tileWidth, actor } = props;
 
     // const mask = useRef<PIXI.Graphics>(null);
-    const name = useActorThingyInfo(actor);
-console.log(name)
+    const name = useActorStatsInfo(actor);
     return (
         <Container y={-40}>
             <Text
@@ -54,6 +53,7 @@ console.log(name)
                     mask.endFill();
                 }}
             /> */}
+            {/* healthbar */}
             <Graphics
                 name="background"
                 draw={graphics => {
@@ -74,4 +74,4 @@ console.log(name)
     )
 }
 
-export default ActorThingy
+export default ActorStats
