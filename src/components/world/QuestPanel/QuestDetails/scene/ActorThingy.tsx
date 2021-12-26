@@ -23,7 +23,7 @@ const ActorThingy = (props: Props) => {
 
     // const mask = useRef<PIXI.Graphics>(null);
     const name = useActorThingyInfo(actor);
-
+console.log(name)
     return (
         <Container y={-40}>
             <Text

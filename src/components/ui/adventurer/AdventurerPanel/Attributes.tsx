@@ -38,7 +38,7 @@ const Attributes = (props: Props) => {
     }, { base: 0, additional: 0});
 
     return (
-      <li >
+      <li key={attribute}>
         <div className="attribute-name">
           <span onClick={handleClick}>
             {small ? attribute : TextManager.getAttributeName(attribute)}

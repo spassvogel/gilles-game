@@ -50,7 +50,7 @@ export const collectEffects = (adventurer: AdventurerStoreState, filterType?: Ef
   // Add effects from equipment
   entries(adventurer.equipment).forEach((entry) => {
     if (!entry) return;
-    const [_, item] = entry;
+    const [, item] = entry;
     if (!item || isAmmunition(item.type)) return;
 
     const def = getWeaponOrApparelDefinition(item.type)

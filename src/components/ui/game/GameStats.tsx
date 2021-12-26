@@ -31,7 +31,7 @@ const GameStats = (props: Props) => {
         <span className="invalid">{convertIntToSemVer(state.game.version)}</span>
         <span className="prop"> (current: </span>
         <span>{convertIntToSemVer(Version.asInt)}</span>
-        <span className="prop"> ) </span>
+        <span className="prop">) </span>
       </>
     )
   }, []);

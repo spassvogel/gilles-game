@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { TextManager } from "global/TextManager";
 import { MAX_VALUE, MIN_VALUE } from "mechanics/adventurers/attributes";
@@ -23,7 +23,7 @@ const DebugAdventurerEdit = (props: Props) => {
 
   const renderAttribute = (attribute: Attribute) => {
     return (
-      <>
+      <Fragment key={attribute}>
         <dt>
           {TextManager.getAttributeName(attribute)}
         </dt>
@@ -41,7 +41,7 @@ const DebugAdventurerEdit = (props: Props) => {
             </div>
           </div>
         </dd>
-      </>
+      </Fragment>
     )
   }
 
