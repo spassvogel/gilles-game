@@ -78,8 +78,8 @@ const continueGame = () => {
 const loadGame = async (state: StoreState) => {
   // todo: implement in MenuWindow!
   await persistor.pause();
-  const { store } = await configureStore(state);
-  runGame(store);
+  await configureStore(state);
+  // runGame(store); // no need if we are refreshing the page anyway
 
   // We have to cause the page to reinitialize and all react components to remount
   // eslint-disable-next-line no-restricted-globals

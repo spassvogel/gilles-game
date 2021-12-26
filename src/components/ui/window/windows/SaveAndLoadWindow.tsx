@@ -21,6 +21,7 @@ const SaveAndLoad = (props: AllProps & AppContextProps) => {
 
   const storeState = useSelector<StoreState, StoreState>(state => state);
   const [loadedStore, setLoadedStore] = useState<StoreState>();
+  const [loading, setLoading] = useState(false);
 
   const handleClickSave = () => {
      saveGame(storeState);
@@ -28,7 +29,7 @@ const SaveAndLoad = (props: AllProps & AppContextProps) => {
 
   const handleClickLoad = async () => {
     if (!loadedStore) return;
-
+    setLoading(true);
     setLoadedStore(undefined);
 
     await loadGame(loadedStore);
@@ -64,6 +65,7 @@ const SaveAndLoad = (props: AllProps & AppContextProps) => {
         <Button onClick={handleClickLoad} disabled={!loadedStore}>Load</Button>
       </section>
       <div>
+        { loading && "Loading... please wait" }
         { loadedStore && <GameStats state={loadedStore} />}
       </div>
     </div>
