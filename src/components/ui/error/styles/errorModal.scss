@@ -1,0 +1,32 @@
+@import 'components/styles/import.scss';
+
+.error {
+  background: $color-background-lighter;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-modal {
+  width: 80vw;
+  font-family: $font-normal;
+
+  .content {
+    overflow: hidden;
+  }
+
+  .tabstrip-tab {
+    color: black;
+    padding: 0 16px;
+    cursor: pointer;
+  }
+
+  + iframe { // the hot reload iframe blocks everything :/
+    display: none;
+  }
+}
+
+iframe { // the hot reload iframe blocks everything :/
+  display: none;
+}

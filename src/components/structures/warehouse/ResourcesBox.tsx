@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { useSelector } from 'react-redux';
 import { Resource } from "definitions/resources";
 import resourceDescriptions from "definitions/resources";
 import { ResourceStoreState } from "store/types/resources";
@@ -6,15 +8,13 @@ import ReactMarkdown from "react-markdown";
 import { StructuresStoreState } from 'store/types/structures';
 import { getStructureByResource } from 'definitions/structures';
 import { withAppContext, AppContextProps } from 'hoc/withAppContext';
-import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
 import { StructureState } from 'store/types/structure';
 import { formatNumber } from 'utils/format/number';
 import Icon from '../../ui/common/Icon';
-import "./styles/resourcesBox.scss";
-import { useRef } from "react";
 import { BubbleLayer, BubbleManager, BubbleType } from "global/BubbleManager";
 import { Point } from "pixi.js";
+import "./styles/resourcesBox.scss";
 
 export interface Props {
   className?: string;

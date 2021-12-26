@@ -5,6 +5,7 @@ import {useRef, useState, createContext, useEffect } from "react";
 import {DndProvider } from "react-dnd";
 import {HTML5Backend } from 'react-dnd-html5-backend';
 import {Link, Redirect, Route, Switch, HashRouter} from "react-router-dom";
+import {ErrorBoundary} from 'react-error-boundary'
 import {PixiPlugin } from 'gsap/all';
 import {gsap } from 'gsap';
 import {SoundManager} from "global/SoundManager";
@@ -22,6 +23,7 @@ import { restartGame } from 'index';
 import Button, { ButtonColor } from 'components/ui/buttons/Button';
 import Bubbles from "components/ui/bubbles/Bubbles";
 import { BubbleLayer } from "global/BubbleManager";
+import ErrorModal from "components/ui/error/ErrorModal";
 import "./styles/app.scss";
 
 PixiPlugin.registerPIXI(PIXI);
@@ -130,54 +132,58 @@ const App = () => {
   }, []);
 
   return (
-    <AppContext.Provider value={{
-      onOpenWindow: handleWindowOpened,
-      onCloseWindow: handleWindowClose,
-    }} >
-      <div
-        className="app"
-        ref={containerRef}
-        style={{
-          maxWidth: MAX_WIDTH
-        }}
-        onClick={handleAppClick}
-      >
-        {/* <QuestRepaintTester /> */}
-        <DndProvider backend={HTML5Backend}>
-        <HashRouter>
-          <Topbar />
-          <div className="control-bar">
+    <ErrorBoundary
+      FallbackComponent={ErrorModal}
+    >
+      <AppContext.Provider value={{
+        onOpenWindow: handleWindowOpened,
+        onCloseWindow: handleWindowClose,
+      }} >
+        <div
+          className="app"
+          ref={containerRef}
+          style={{
+            maxWidth: MAX_WIDTH
+          }}
+          onClick={handleAppClick}
+        >
+          {/* <QuestRepaintTester /> */}
+          <DndProvider backend={HTML5Backend}>
+          <HashRouter>
+            <Topbar />
+            <div className="control-bar">
+              <Switch>
+                <Route path="/" exact={true} >
+                  <Redirect from="/" to={getWorldLink()} />
+                </Route>
+                <Route path={getWorldLink()}>
+                  <Link to={getTownLink()}>
+                    <Button onClick={() => handleViewButtonClick()} color="green"> {TextManager.get(`ui-view-button-town`)} </Button>
+                  </Link>
+                </Route>
+                <Route path={getTownLink()}>
+                  <Link to={getWorldLink()}>
+                    <Button onClick={() => handleViewButtonClick()}  > {TextManager.get(`ui-view-button-world`)} </Button>
+                  </Link>
+                </Route>
+              </Switch>
+              {` | `}
+              <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} > Restart! </Button>
+            </div>
             <Switch>
-              <Route path="/" exact={true} >
-                <Redirect from="/" to={getWorldLink()} />
-              </Route>
-              <Route path={getWorldLink()}>
-                <Link to={getTownLink()}>
-                  <Button onClick={() => handleViewButtonClick()} color="green"> {TextManager.get(`ui-view-button-town`)} </Button>
-                </Link>
-              </Route>
-              <Route path={getTownLink()}>
-                <Link to={getWorldLink()}>
-                  <Button onClick={() => handleViewButtonClick()}  > {TextManager.get(`ui-view-button-world`)} </Button>
-                </Link>
-              </Route>
+              <Route path={getTownLink()} render={renderTownView} />
+              <Route path={getWorldLink()} render={renderWorldView} />
             </Switch>
-            {` | `}
-            <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} > Restart! </Button>
-          </div>
-          <Switch>
-            <Route path={getTownLink()} render={renderTownView} />
-            <Route path={getWorldLink()} render={renderWorldView} />
-          </Switch>
-          <SimpleLog/>
-          {renderWindow()}
-          <ContextTooltip />
-          <Toasts />
-          <Bubbles layer={BubbleLayer.general} />
-        </HashRouter>
-        </DndProvider>
-      </div>
-    </AppContext.Provider>
+            <SimpleLog/>
+            {renderWindow()}
+            <ContextTooltip />
+            <Toasts />
+            <Bubbles layer={BubbleLayer.general} />
+          </HashRouter>
+          </DndProvider>
+        </div>
+      </AppContext.Provider>
+    </ErrorBoundary>
   );
 };
 
