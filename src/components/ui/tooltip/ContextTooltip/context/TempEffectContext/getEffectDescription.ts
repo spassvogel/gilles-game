@@ -3,7 +3,6 @@ import { TextManager } from "global/TextManager";
 
 // todo: move somewhere else
 const getEffectDescription = ( effect: Effect) => {
-
   switch (effect.type) {
     case EffectType.attributeIncrease: {
       const attribute = TextManager.getAttributeName(effect.attribute);

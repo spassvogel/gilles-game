@@ -42,20 +42,25 @@ const composeEnhancers = (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
  * Configures the redux store
  */
 const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<ConfigureStoreResult> => {
-
-  return new Promise((resolve, _reject) => {
-    const store = createStore(
-      persistedReducer,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      initial,
-      composeEnhancers,
-    );
-    const persistor = persistStore(store, undefined, () => {
-      const isHydrated = storeIsRehydrated(store.getState());
-      resolve({ store, persistor, isHydrated }) ;
+  return new Promise((resolve, reject) => {
+    try {
+      const store = createStore(
+        persistedReducer,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        initial,
+        composeEnhancers,
+      );
+        const persistor = persistStore(store, undefined, () => {
+          const isHydrated = storeIsRehydrated(store.getState());
+          resolve({ store, persistor, isHydrated }) ;
+        });
+      }
+      catch (e) {
+        console.log('yo', e)
+        reject(e)
+      }
     });
-  });
 };
 
 export default configureStore;

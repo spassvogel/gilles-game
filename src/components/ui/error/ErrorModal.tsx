@@ -1,4 +1,3 @@
-import { continueGame, pauseGame, restartGame } from "index";
 import localforage from "localforage";
 import { useEffect, useState } from "react";
 import { FallbackProps } from "react-error-boundary";
@@ -10,7 +9,7 @@ import Tabstrip from "../tabs/Tabstrip";
 import "./styles/errorModal.scss";
 
 const ErrorModal = (props: FallbackProps) => {
-  const {error, resetErrorBoundary} = props;
+  const {error } = props;
   const [selectedTabId, setSelectedTabId] = useState<"stack" | "store">("stack");
   const [state, setState] = useState<string>("(no store state found)");
 
@@ -19,19 +18,17 @@ const ErrorModal = (props: FallbackProps) => {
   }
 
   const handleReset = () => {
-    // localforage.clear();
+    localforage.clear();
+    location.reload();
     // resetErrorBoundary();
-    restartGame();
+    // restartGame();
   }
 
   useEffect(() => {
-    pauseGame();
     (async () => {
       const initState = await getStoredState(persistConfig)
       setState(JSON.stringify(initState, undefined, 2))
     })()
-
-    return continueGame;
   })
 
   return (

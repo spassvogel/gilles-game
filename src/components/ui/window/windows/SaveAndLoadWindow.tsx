@@ -5,7 +5,6 @@ import * as React from "react";
 import { compose } from "redux";
 import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
-import { loadGame } from 'index';
 import { useState } from 'react';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
@@ -13,8 +12,9 @@ import { TextManager } from 'global/TextManager';
 import Button from 'components/ui/buttons/Button';
 import { decryptSavedGame, saveGame } from "utils/game";
 import GameStats from "components/ui/game/GameStats";
-import "./styles/saveAndLoad.scss";
 import LoadingSpinner from "components/ui/loading/LoadingSpinner";
+// import { loadGame } from "components/Game/Game";
+import "./styles/saveAndLoad.scss";
 
 
 type AllProps = WindowProps;
@@ -33,7 +33,7 @@ const SaveAndLoad = (props: AllProps & AppContextProps) => {
     setLoading(true);
     setLoadedStore(undefined);
 
-    await loadGame(loadedStore);
+    // await loadGame(loadedStore);
     ToastManager.addToast(TextManager.get("ui-game-loaded"), Type.game, "/img/items/misc/magic-eye.png");
     props.onCloseWindow();
 

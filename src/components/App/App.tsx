@@ -1,11 +1,10 @@
 import * as React from "react";
 import * as PIXI from 'pixi.js';
 import {AppContextProps} from "hoc/withAppContext";
-import {useRef, useState, createContext, useEffect } from "react";
+import {useRef, useState, createContext, useEffect, useContext } from "react";
 import {DndProvider } from "react-dnd";
 import {HTML5Backend } from 'react-dnd-html5-backend';
 import {Link, Redirect, Route, Switch, HashRouter} from "react-router-dom";
-import {ErrorBoundary} from 'react-error-boundary'
 import {PixiPlugin } from 'gsap/all';
 import {gsap } from 'gsap';
 import {SoundManager} from "global/SoundManager";
@@ -19,11 +18,10 @@ import SimpleLog from 'components/log/SimpleLog';
 import ContextTooltip from 'components/ui/tooltip/ContextTooltip';
 import {TooltipManager } from 'global/TooltipManager';
 import {getWorldLink, getTownLink } from 'utils/routing';
-import { restartGame } from 'index';
 import Button, { ButtonColor } from 'components/ui/buttons/Button';
 import Bubbles from "components/ui/bubbles/Bubbles";
 import { BubbleLayer } from "global/BubbleManager";
-import ErrorModal from "components/ui/error/ErrorModal";
+import { GameActionsContext } from "components/Game/Game";
 import "./styles/app.scss";
 
 PixiPlugin.registerPIXI(PIXI);
@@ -50,7 +48,7 @@ export const AppContext = createContext<AppContextProps | null>(null);
 
 const App = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-
+  const { restartGame } = useContext(GameActionsContext);
   const [activeWindows, setActiveWindows] = useState<React.ReactElement[]>([]);
 
   const handleViewButtonClick = () => {
@@ -59,7 +57,6 @@ const App = () => {
 
   const handleRestartClick = () => {
     restartGame();
-
   };
 
   const renderTownView = () => <TownView />;
@@ -131,59 +128,61 @@ const App = () => {
     };
   }, []);
 
+  useEffect(() => {
+    window.addEventListener('error', function(event) {
+      console.log("somt went wrong" + event)
+    })
+  }, [])
+
   return (
-    <ErrorBoundary
-      FallbackComponent={ErrorModal}
-    >
-      <AppContext.Provider value={{
-        onOpenWindow: handleWindowOpened,
-        onCloseWindow: handleWindowClose,
-      }} >
-        <div
-          className="app"
-          ref={containerRef}
-          style={{
-            maxWidth: MAX_WIDTH
-          }}
-          onClick={handleAppClick}
-        >
-          {/* <QuestRepaintTester /> */}
-          <DndProvider backend={HTML5Backend}>
-          <HashRouter>
-            <Topbar />
-            <div className="control-bar">
-              <Switch>
-                <Route path="/" exact={true} >
-                  <Redirect from="/" to={getWorldLink()} />
-                </Route>
-                <Route path={getWorldLink()}>
-                  <Link to={getTownLink()}>
-                    <Button onClick={() => handleViewButtonClick()} color="green"> {TextManager.get(`ui-view-button-town`)} </Button>
-                  </Link>
-                </Route>
-                <Route path={getTownLink()}>
-                  <Link to={getWorldLink()}>
-                    <Button onClick={() => handleViewButtonClick()}  > {TextManager.get(`ui-view-button-world`)} </Button>
-                  </Link>
-                </Route>
-              </Switch>
-              {` | `}
-              <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} > Restart! </Button>
-            </div>
+    <AppContext.Provider value={{
+      onOpenWindow: handleWindowOpened,
+      onCloseWindow: handleWindowClose,
+    }} >
+      <div
+        className="app"
+        ref={containerRef}
+        style={{
+          maxWidth: MAX_WIDTH
+        }}
+        onClick={handleAppClick}
+      >
+        {/* <QuestRepaintTester /> */}
+        <DndProvider backend={HTML5Backend}>
+        <HashRouter>
+          <Topbar />
+          <div className="control-bar">
             <Switch>
-              <Route path={getTownLink()} render={renderTownView} />
-              <Route path={getWorldLink()} render={renderWorldView} />
+              <Route path="/" exact={true} >
+                <Redirect from="/" to={getWorldLink()} />
+              </Route>
+              <Route path={getWorldLink()}>
+                <Link to={getTownLink()}>
+                  <Button onClick={() => handleViewButtonClick()} color="green"> {TextManager.get(`ui-view-button-town`)} </Button>
+                </Link>
+              </Route>
+              <Route path={getTownLink()}>
+                <Link to={getWorldLink()}>
+                  <Button onClick={() => handleViewButtonClick()}  > {TextManager.get(`ui-view-button-world`)} </Button>
+                </Link>
+              </Route>
             </Switch>
-            <SimpleLog/>
-            {renderWindow()}
-            <ContextTooltip />
-            <Toasts />
-            <Bubbles layer={BubbleLayer.general} />
-          </HashRouter>
-          </DndProvider>
-        </div>
-      </AppContext.Provider>
-    </ErrorBoundary>
+            {` | `}
+            <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} > Restart! </Button>
+          </div>
+          <Switch>
+            <Route path={getTownLink()} render={renderTownView} />
+            <Route path={getWorldLink()} render={renderWorldView} />
+          </Switch>
+          <SimpleLog/>
+          {renderWindow()}
+          <ContextTooltip />
+          <Toasts />
+          <Bubbles layer={BubbleLayer.general} />
+        </HashRouter>
+        </DndProvider>
+      </div>
+    </AppContext.Provider>
   );
 };
 
