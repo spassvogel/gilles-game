@@ -1,4 +1,4 @@
-import { ItemType, ItemDefinition, ItemCategory } from "./types";
+  import { ItemType, ItemDefinition, ItemCategory } from "./types";
 import { Rarity } from 'constants/items';
 import { Effect, EffectAttibuteIncrease, EffectType } from "definitions/effects/types";
 
@@ -31,6 +31,7 @@ export enum WeaponAbility {
   shoot,
   slash,
   parry,
+  riposte,    // When held in off hand, will counterattack melee attacks
 }
 
 export enum WeaponClassification {
@@ -39,7 +40,7 @@ export enum WeaponClassification {
   offHand,    // Can only be used in the off hand
   twoHanded,  // Can be used in the main hand and will disable off hand from being used
   shield,     // ?
-  ranged      // requires ammo
+  ranged      // requires ammunition
 }
 
 export const WeaponTypeDefinition = {
@@ -128,6 +129,13 @@ const weapons = {
     rarity: Rarity.common,
     iconImg: `${basePath}battle-axe.png`,
     damage: { [DamageType.kinetic]: 20 },
+  },
+  boneBow: {
+    itemCategory,
+    weaponType: WeaponType.bow,
+    rarity: Rarity.common,
+    iconImg: `${basePath}bone-bow.png`,
+    damage: { [DamageType.kinetic]: 15 },
   },
   berserkerShield: {
     itemCategory,
@@ -296,6 +304,13 @@ const weapons = {
     iconImg: `${basePath}morning-star.png`,
     rarity: Rarity.uncommon,
     damage: { [DamageType.kinetic]: 13 },
+  },
+  oakWoodBow: {
+    itemCategory,
+    weaponType: WeaponType.bow,
+    iconImg: `${basePath}oakwood-bow.png`,
+    rarity: Rarity.rare,
+    damage: { [DamageType.kinetic]: 23 },
   },
   paintedBuckler: {
     itemCategory,

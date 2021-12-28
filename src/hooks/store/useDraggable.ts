@@ -9,6 +9,7 @@ const useDraggable = (element: RefObject<HTMLElement>, handle?: RefObject<HTMLEl
   useEffect(() => {
     if (!element.current) return;
     if (!handle) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       handle = element;
     }
 

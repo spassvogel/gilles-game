@@ -63,5 +63,5 @@ export const useRandomOrientation = (enabled: boolean, orientation: Orientation,
     const duration = minDuration + Math.random() * maxDuration;
     const interval = setInterval(randomOrientation, duration);
     return () => clearInterval(interval);
-  }, [enabled]);
+  }, [enabled, orientation, setOrientation]);
 }
