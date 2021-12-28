@@ -32,9 +32,8 @@ const generateAttributesHealthAndXp = (level = 1) => {
     health,
   }
 }
-const avatarImgBasePath = "/img/avatars";
+const avatarImgBasePath = "/img/avatars/";
 const spritesheetBasePath = "img/scene/actors/";
-
 
 // Create a bunch of guys for debugging
 export const initialAdventurers: AdventurerStoreState[] = [{
@@ -55,7 +54,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   name: "Sasha Falcon",
   flavor: true,
   traits: [Trait.houseMaddox, Trait.gloomy],
-  avatarImg: `${avatarImgBasePath}/female/f_14.png`,
+  avatarImg: `${avatarImgBasePath}female/f_14.png`,
   spritesheetPath: `${spritesheetBasePath}elf-bow.json`,
   color: AdventurerColor.purple,
   skills: {
@@ -76,7 +75,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   flavor: true,
 
   room: 1,
-  avatarImg: `${avatarImgBasePath}/male/m_05.png`,
+  avatarImg: `${avatarImgBasePath}male/m_05.png`,
   spritesheetPath: `${spritesheetBasePath}elf-bow.json`,
   color: AdventurerColor.teal,
   traits: [Trait.houseHouston],
@@ -103,7 +102,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [WeaponType.sword]: 12,
     [WeaponType.hammer]: 6
   },
-  avatarImg: `${avatarImgBasePath}/male/m_09.png`,
+  avatarImg: `${avatarImgBasePath}male/m_09.png`,
   spritesheetPath: `${spritesheetBasePath}skeleton.json`,
   color: AdventurerColor.black,
   tempEffects: [
@@ -140,7 +139,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   flavor: true,
 
   room: 4,
-  avatarImg: `${avatarImgBasePath}/male/m_19.png`,
+  avatarImg: `${avatarImgBasePath}male/m_19.png`,
   spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
   traits: [Trait.arrowFinder],
   skills: {
@@ -156,7 +155,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   flavor: true,
 
   room: 5,
-  avatarImg: `${avatarImgBasePath}/male/m_08.png`,
+  avatarImg: `${avatarImgBasePath}male/m_08.png`,
   spritesheetPath: `${spritesheetBasePath}orc-axe.json`,
   traits: [Trait.houseMonroe, Trait.arrowFinder],
   skills: {
@@ -171,7 +170,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   flavor: true,
 
   room: 9,
-  avatarImg: `${avatarImgBasePath}/female/f_10.png`,
+  avatarImg: `${avatarImgBasePath}female/f_10.png`,
   spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
   inventory: [ null, null, null, null, null ],
   skills: {
@@ -189,7 +188,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   flavor: true,
 
   room: 3,
-  avatarImg: `${avatarImgBasePath}/female/f_16.png`,
+  avatarImg: `${avatarImgBasePath}female/f_16.png`,
   spritesheetPath: `${spritesheetBasePath}troll-sword.json`,
   inventory: [ { type: "weapon/greatswordOfGwai" }, null, null, null ],
   skills: {
@@ -207,7 +206,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   name: "Gylbarde the Earnest",
 
   room: 8,
-  avatarImg: `${avatarImgBasePath}/male/m_09.png`,
+  avatarImg: `${avatarImgBasePath}male/m_09.png`,
   spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
   inventory: [ null, null, null, null, null ],
   skills: {
@@ -221,7 +220,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   name: "Lanslet of the Water",
 
   room: 6,
-  avatarImg: `${avatarImgBasePath}/male/m_26.png`,
+  avatarImg: `${avatarImgBasePath}male/m_26.png`,
   spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
   inventory: [ { type: "weapon/greatswordOfGwai" }, null, null, null, { type: "apparel/shoulders1" }, { type: "apparel/fedora" }, { type: "apparel/greaves2" }],
   skills: {
@@ -235,7 +234,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   name: "Tedric the Bold",
 
   room: 7,
-  avatarImg: `${avatarImgBasePath}/male/m_33.png`,
+  avatarImg: `${avatarImgBasePath}male/m_33.png`,
   spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
   inventory: [ { type: "weapon/greatswordOfGwai" }, null, null, null ],
   skills: {
@@ -265,7 +264,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   name: "Allynna Nerilar",
   flavor: true,
   traits: [Trait.houseMaddox, Trait.gloomy],
-  avatarImg: `${avatarImgBasePath}/female/f_21.png`,
+  avatarImg: `${avatarImgBasePath}female/f_21.png`,
   spritesheetPath: `${spritesheetBasePath}elf-bow.json`,
   color: AdventurerColor.purple,
   skills: {

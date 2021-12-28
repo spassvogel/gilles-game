@@ -10,6 +10,7 @@ export interface EnemyDefinition {
   mainHand: Item<Weapon>;
   offHand?: Item<Weapon> | Item<Ammunition>;
   spritesheet: string;
+  avatarImg: string;
 }
 
 export type EnemyType = Troll

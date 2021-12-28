@@ -1,6 +1,7 @@
 import { WeaponType } from "definitions/items/weapons";
 import { EnemyDefinition } from "./types";
 const spritesheetBasePath = "img/scene/actors/";
+const avatarImgBasePath = "/img/avatars/";
 
 type TrollDefinition = {
   [key: string]: EnemyDefinition
@@ -17,7 +18,8 @@ const trolls: TrollDefinition = {
       [WeaponType.sword]: 12,
     },
     mainHand: { type: "weapon/steelSword" },
-    spritesheet: `${spritesheetBasePath}troll-sword.json`
+    spritesheet: `${spritesheetBasePath}troll-sword.json`,
+    avatarImg: `${avatarImgBasePath}orc_01.png`,
   },
   'troll-manager': {
     attributes: {
@@ -30,7 +32,8 @@ const trolls: TrollDefinition = {
       [WeaponType.axe]: 12,
     },
     mainHand: { type: "weapon/battleAxe" },
-    spritesheet: `${spritesheetBasePath}troll-axe.json`
+    spritesheet: `${spritesheetBasePath}troll-axe.json`,
+    avatarImg: `${avatarImgBasePath}orc_02.png`,
   },
   'troll-accountant': {
     attributes: {
@@ -43,8 +46,8 @@ const trolls: TrollDefinition = {
       [WeaponType.axe]: 12,
     },
     mainHand: { type: "weapon/battleAxe" },
-    spritesheet: `${spritesheetBasePath}troll-axe.json`
-
+    spritesheet: `${spritesheetBasePath}troll-axe.json`,
+    avatarImg: `${avatarImgBasePath}orc_03.png`,
   }
 }
 
