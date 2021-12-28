@@ -1,3 +1,6 @@
+import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
+import { Item } from "definitions/items/types";
+import { isWeapon, Weapon } from "definitions/items/weapons";
 import { StoreState } from "store/types";
 import { AdventurerStoreState } from "store/types/adventurer";
 import { QuestStoreState } from "store/types/quest";
@@ -32,6 +35,20 @@ export const findAdventurerById = (adventurers: AdventurerStoreState[], id: stri
  * Returns the amount of free inventory slots on this adventurer */
 export const adventurerFreeInventorySlots = (adventurer: AdventurerStoreState): number => {
   return adventurer.inventory.filter(i => i === null).length;
+};
+
+/**
+ * Returns the weapons the adventurer has. Can be 0, 1 or 2 */
+export const adventurerWeapons = (adventurer: AdventurerStoreState): [Item<Weapon>?, Item<Weapon>?] => {
+  // const isWeapon =
+  const check = (slot: EquipmentSlotType) => {
+    const item = adventurer.equipment[slot];
+    return !!item && isWeapon(item.type);
+  }
+  return [
+    ...check(EquipmentSlotType.mainHand) ? [adventurer.equipment[EquipmentSlotType.mainHand]] : [],
+    ...check(EquipmentSlotType.offHand) ? [adventurer.equipment[EquipmentSlotType.offHand]] : []
+  ] as [Item<Weapon>?, Item<Weapon>?];
 };
 
 // Returns a value indicating whether this store is fresh or rehydrated
