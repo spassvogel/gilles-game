@@ -1,4 +1,3 @@
-import * as React from "react";
 import { IconSize } from 'components/ui/common/Icon';
 import { DragSourceType, DragType } from "constants/dragging";
 import { Item } from "definitions/items/types";
@@ -71,15 +70,17 @@ const DraggableItemIcon = (props: Props & CollectedProps) => {
   const handleClick = (event: React.MouseEvent) => {
     onClick?.(event);
   };
-  if (isDragging) {
-    // TODO: can show some sort of empty state?
-    return null;
-  }
+
   const source = useMemo<ItemSource>(() => ({
     origin: sourceType,
     id: sourceId,
     slot: index
-  }), []);
+  }), [index, sourceId, sourceType]);
+
+  if (isDragging) {
+    // TODO: can show some sort of empty state?
+    return null;
+  }
 
   // The wrapping div is needed by ReactDnD
   return connectDragSource((
