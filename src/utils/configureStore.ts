@@ -1,28 +1,26 @@
-import { createStore, compose, DeepPartial, applyMiddleware, Middleware, AnyAction, Store } from "redux";
+import { createStore, DeepPartial, applyMiddleware, Middleware, Store } from "redux";
 import { Persistor, persistReducer, persistStore } from "redux-persist";
+import { composeWithDevTools } from 'redux-devtools-extension'
 import localForage from 'localforage';
-import rootReducer from "store/reducers/index";
-import { asInt } from "constants/version";
+import * as Version from "constants/version";
+import rootReducer from "store/reducers";
 import { storeIsRehydrated } from 'store/helpers/storeHelpers';
 import { StoreState } from 'store/types';
 import { effectsMiddleware } from "store/middleware/effects";
 import { traitsMiddleware } from "store/middleware/traits";
-
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-  }
-}
+import { convertIntToSemVer } from "./version";
+import { Action } from "store/actions";
+import { PersistPartial } from "redux-persist/es/persistReducer";
 
 export const PERSIST_KEY = "root";
 
 export const persistConfig = {
   key: PERSIST_KEY,
   storage: localForage,
-  version: asInt,
+  version: Version.asInt,
 };
 
-const persistedReducer = persistReducer<StoreState, AnyAction>(persistConfig, rootReducer);
+const persistedReducer = persistReducer<StoreState, Action>(persistConfig, rootReducer);
 
 interface ConfigureStoreResult {
   store: Store;
@@ -36,7 +34,6 @@ const middlewares: Middleware[] = [
   traitsMiddleware
 ]
 const middlewareEnhancer = applyMiddleware(...middlewares)
-const composeEnhancers = (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose)(middlewareEnhancer)
 
 /**
  * Configures the redux store
@@ -44,23 +41,26 @@ const composeEnhancers = (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<ConfigureStoreResult> => {
   return new Promise((resolve, reject) => {
     try {
+      const version = initial?.game?.version ? convertIntToSemVer(initial.game.version) : Version.default
+      const composeEnhancers = composeWithDevTools({
+        name: `Gidletown (${version})`
+      })(middlewareEnhancer);
+
       const store = createStore(
         persistedReducer,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        initial,
+        (initial as StoreState & PersistPartial),
         composeEnhancers,
       );
-        const persistor = persistStore(store, undefined, () => {
-          const isHydrated = storeIsRehydrated(store.getState());
-          resolve({ store, persistor, isHydrated }) ;
-        });
-      }
-      catch (e) {
-        console.log('yo', e)
-        reject(e)
-      }
-    });
+      const persistor = persistStore(store, undefined, () => {
+        const isHydrated = storeIsRehydrated(store.getState());
+        resolve({ store, persistor, isHydrated }) ;
+      });
+    }
+    catch (e) {
+      console.log('An error has occurred', e)
+      reject(e)
+    }
+  });
 };
 
 export default configureStore;

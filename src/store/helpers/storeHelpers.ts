@@ -29,14 +29,13 @@ export const findAdventurerById = (adventurers: AdventurerStoreState[], id: stri
 };
 
 /**
- * Returns the amount of free inventory slots on this adventurer
- */
+ * Returns the amount of free inventory slots on this adventurer */
 export const adventurerFreeInventorySlots = (adventurer: AdventurerStoreState): number => {
   return adventurer.inventory.filter(i => i === null).length;
 };
 
+// Returns a value indicating whether this store is fresh or rehydrated
 export const storeIsRehydrated = (store: StoreState): boolean => {
-  // Returns a value indicating whether this store is fresh or rehydrated
   return store?.engine.gameStarted !== undefined;
 };
 

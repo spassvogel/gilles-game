@@ -3,7 +3,7 @@ import { GameAction } from "store/actions/game";
 import { GameStoreState } from "store/types/game";
 import * as Version from "constants/version";
 
-const initial: GameStoreState = {
+export const initialGameState: GameStoreState = {
   version: Version.asInt
 }
 /**
@@ -11,7 +11,7 @@ const initial: GameStoreState = {
  * @param state
  * @param action
  */
-export const game: Reducer<GameStoreState, GameAction> = (state = initial, action) => {
+export const game: Reducer<GameStoreState, GameAction> = (state = initialGameState, action) => {
   switch (action.type) {
     // when user dismisses the warning about version incompatibility
     case "ignoreVersionDiff": {
@@ -23,3 +23,4 @@ export const game: Reducer<GameStoreState, GameAction> = (state = initial, actio
   }
   return state;
 };
+
