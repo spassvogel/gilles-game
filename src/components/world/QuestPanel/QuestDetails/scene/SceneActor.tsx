@@ -127,7 +127,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
           });
           break;
         }
-        case SceneActionType.slash: {
+        case SceneActionType.melee: {
           determineOrientation();
           setAnimation("attack");
           props.controller.actorSlashing(actor.name, nextAction.target);

@@ -3,7 +3,6 @@ import { ContextType } from 'constants/context';
 import { LongPressDetectEvents, useLongPress } from 'use-long-press';
 import { TooltipManager } from 'global/TooltipManager';
 import { useQuest } from 'hooks/store/quests';
-import { AP_COST_SHOOT } from 'mechanics/combat';
 import { Point } from 'pixi.js';
 import React, {
   PropsWithChildren,
@@ -13,13 +12,15 @@ import React, {
   useRef,
   useState
 } from 'react';
-import { SceneActionType } from 'store/types/scene';
+import { ActorObject, SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
 import CombatUIWidget from './CombatUIWidget';
 import NormalUICursor from './NormalUICursor';
 import { convertMouseOrTouchCoords, MouseOrTouchEvent } from 'utils/interaction';
 import Bubbles from 'components/ui/bubbles/Bubbles';
 import { BubbleLayer } from 'global/BubbleManager';
+import ActionMenu from './ActionMenu/ActionMenu';
+import useCanvasScaler from './hooks/useCanvasScaler';
 import "./styles/sceneUI.scss";
 
 export interface Props {
@@ -33,11 +34,11 @@ export interface Props {
 }
 
 export interface ActionIntent {
-  action: SceneActionType.move | SceneActionType.slash | SceneActionType.interact | SceneActionType.shoot;
+  action: SceneActionType.move | SceneActionType.melee | SceneActionType.interact | SceneActionType.shoot;
   from: [number, number];
   to: [number, number];
   apCost?: number;
-  actor: string;
+  actor: ActorObject;
   actorAP?: number;
   path?: [number, number][];  // is undefined when path is invalid
 }
@@ -55,32 +56,14 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   } = props;
   const ref = useRef<HTMLDivElement>(null);
   const mouseDown = useRef(false);
-  const scale = useRef(1);
   const controller = useContext(SceneControllerContext);
   const quest = useQuest(controller?.questName ?? "");
   const scene = quest.scene;
   const { combat } = scene ?? {};
   const [cursorLocation, setCursorLocation] = useState<[number, number]>();
+  const [actionMenuOpen, setActionMenuOpen] = useState(false);
+  const scale = useCanvasScaler(ref, sceneWidth, sceneHeight);
 
-  useEffect(() => {
-    // Scale the html element together with the sibling canvas
-    const handleResize = () => {
-      if (!ref.current) return;
-      const canvas = ref.current.parentNode?.querySelector("canvas");
-      if (!canvas) throw Error("No canvas found as sibling of SceneUI");
-
-      const currentWidth = canvas?.clientWidth;
-      scale.current = currentWidth/sceneWidth;
-      ref.current.style.transform = `scale(${scale.current})`;
-      ref.current.style.width = `${sceneWidth}px`;
-      ref.current.style.height = `${sceneHeight}px`;
-    }
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [sceneHeight, sceneWidth]);
 
   const handleMouseMove = (e: MouseOrTouchEvent<HTMLDivElement>) => {
     if (mouseDown.current) {
@@ -98,6 +81,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   }
 
   const handleMouseDown = (e: MouseOrTouchEvent ) => {
+    if (actionMenuOpen) return;
     const location = findLocation(e);
     if (location) onMouseDown?.(location);
 
@@ -119,7 +103,6 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     detect: LongPressDetectEvents.BOTH
   });
 
-
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const location = findLocation(e);
     if (!controller || !location || !(e.target instanceof Element)) return;
@@ -128,8 +111,8 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
     // Show context tooltip
     const { tileWidth, tileHeight } = controller.getTileDimensions();
-    const width = tileWidth * scale.current;
-    const height = tileHeight * scale.current;
+    const width = tileWidth * scale;
+    const height = tileHeight * scale;
     const rect = (e.target).getBoundingClientRect();
     const x = (location[0] * width) + (rect.left ?? 0);
     const y = (location[1] * height) + (rect.top ?? 0);
@@ -143,74 +126,47 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     bind.onMouseUp(e as unknown as React.MouseEvent<Element, MouseEvent>);
     mouseDown.current = false;
 
-    setCursorLocation(undefined); // uncomment to debug
-    if (!actionIntent) {
-      return
+    // open action
+    if (combat) {
+      if (cursorLocation){
+        setActionMenuOpen(true);
+      } else {
+        setCursorLocation(undefined);
+        setActionMenuOpen(false);
+      }
+    } else {
+      // Not in combat, do the action immediately
+      setCursorLocation(undefined);
+      if (!actionIntent) {
+        return
+      }
+
+      const selectedActorLocation = controller?.getSceneActor(selectedActorId)?.location;
+      if (selectedActorLocation && cursorLocation && !locationEquals(selectedActorLocation, cursorLocation) && actionIntent){
+        controller?.actorAttemptAction(actionIntent);
+      }
+
+      onSetActionIntent?.(undefined);
+      e.stopPropagation();
     }
-    const selectedActorLocation = controller?.getSceneActor(selectedActorId)?.location;
-    if (selectedActorLocation && cursorLocation && !locationEquals(selectedActorLocation, cursorLocation)){
-      controller?.actorAttemptAction(selectedActorId, actionIntent.action, actionIntent.to);
-    }
-    onSetActionIntent?.(undefined);
-    e.stopPropagation();
   }
 
-  const handleCombatActionChange = useCallback((action?: SceneActionType) => { // todo: beter name, not just combat
-    if (!action) {
+  const handleCombatActionChange = useCallback((action?: SceneActionType) => {
+    const actor = controller?.getSceneActor(selectedActorId);
+    if (!action || !actor || !cursorLocation) {
       onSetActionIntent(undefined);
       return;
     }
-    const {
-      location: from = [0, 0],
-      ap: actorAP,
-    } = controller?.getSceneActor(selectedActorId) ?? {};
-    const to = cursorLocation ?? [0, 0];
-    switch (action){
-      case SceneActionType.move:
-        case SceneActionType.slash: {
-        const path = controller?.findPath(from, to);
-        const apCost = combat ? controller?.calculateWalkApCosts(from, to) : undefined;
 
-        onSetActionIntent({
-          action,
-          from,
-          to,
-          apCost,
-          actor: selectedActorId,
-          actorAP,
-          path,
-        })
-      }
-      break;
-      case SceneActionType.interact: {
-        const path = controller?.findPathNearest(from, to, true);
-        const apCost = 0; // can only inspect out of combat?
+    const intent = controller?.createActionIntent(action, actor, cursorLocation)
+    onSetActionIntent?.(intent)
 
-        onSetActionIntent({
-          action,
-          from,
-          to,
-          apCost,
-          actor: selectedActorId,
-          actorAP,
-          path,
-        })
-      }
-      break;
-      case SceneActionType.shoot: {
-        const apCost = AP_COST_SHOOT;
+  }, [controller, cursorLocation, onSetActionIntent, selectedActorId]);
 
-        onSetActionIntent({
-          action,
-          from,
-          to,
-          apCost,
-          actor: selectedActorId,
-          actorAP,
-        })
-      }
-    }
-  }, [combat, controller, cursorLocation, onSetActionIntent, selectedActorId]);
+  const handleCloseActionMenu = () => {
+    setActionMenuOpen(false);
+    setCursorLocation(undefined);
+  }
 
   useEffect(() => {
     if (!combat && cursorLocation !== undefined) {
@@ -232,8 +188,8 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         y
       } = convertMouseOrTouchCoords(e);
       const rect = (e.target).getBoundingClientRect();
-      const convertedX = (x - rect.left) / scale.current;
-      const convertedY = (y - rect.top) / scale.current;
+      const convertedX = (x - rect.left) / scale;
+      const convertedY = (y - rect.top) / scale;
 
       return controller?.pointToSceneLocation(new Point(convertedX, convertedY));
     }
@@ -256,11 +212,17 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         <CombatUIWidget
           location={cursorLocation}
           selectedActorId={selectedActorId}
-          actionIntent={actionIntent}
-          onActionChange={handleCombatActionChange}
         />
       )}
       <Bubbles layer={BubbleLayer.scene} />
+      { (actionMenuOpen && cursorLocation) && (
+        <ActionMenu
+          adventurerId={selectedActorId}
+          location={cursorLocation}
+          onClose={handleCloseActionMenu}
+          onSetActionIntent={onSetActionIntent}
+        />
+      )}
     </div>
   )
 }

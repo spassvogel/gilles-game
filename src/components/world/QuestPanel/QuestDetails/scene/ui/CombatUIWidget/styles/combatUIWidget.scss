@@ -16,10 +16,6 @@ $cellWidth: 64;
     font-size: x-large;
     top: -22px;
     white-space: nowrap;
-
-    .insufficient {
-      color: $color-invalid;
-    }
   }
 
   &:before {
@@ -29,9 +25,15 @@ $cellWidth: 64;
     height: $cellWidth * .75px;
     display: block;
     position: absolute;
-    border: 8px solid $color-highlighted;
+    border: 8px solid white;
     border-radius: 50%;
     left: 0;
     top: 0;
+  }
+
+  &.on-enemy {
+    &:before {
+      border-color: $color-highlighted;
+    }
   }
 }

@@ -24,6 +24,7 @@ export type SceneObject = Merge<TiledObjectData, {
 }>;
 
 export type ActorObject = SceneObject & {
+  id: string;              // override
   name: string;
   ap: number;           // Remaining AP
   level?: number;         // Only for enemy, for adventurers we look at the adventurers store
@@ -79,8 +80,7 @@ export interface SceneAction {
 export enum SceneActionType {
   move = "move",
   interact = "interact",
-  attack = "attack",
-  slash = "slash",
+  melee = "melee",
   shoot = "shoot"
 }
 

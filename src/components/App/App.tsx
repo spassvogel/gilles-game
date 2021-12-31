@@ -128,12 +128,6 @@ const App = () => {
     };
   }, []);
 
-  useEffect(() => {
-    window.addEventListener('error', function(event) {
-      console.log("somt went wrong" + event)
-    })
-  }, [])
-
   return (
     <AppContext.Provider value={{
       onOpenWindow: handleWindowOpened,

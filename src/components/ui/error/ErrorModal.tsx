@@ -9,9 +9,21 @@ import Tabstrip from "../tabs/Tabstrip";
 import "./styles/errorModal.scss";
 
 const ErrorModal = (props: FallbackProps) => {
-  const {error } = props;
+  const {error, resetErrorBoundary } = props;
   const [selectedTabId, setSelectedTabId] = useState<"stack" | "store">("stack");
   const [state, setState] = useState<string>("(no store state found)");
+
+  useEffect(() => {
+    (async () => {
+      const initState = await getStoredState(persistConfig)
+      setState(JSON.stringify(initState, undefined, 2))
+    })()
+  })
+
+  // if (process.env.NODE_ENV !== "production") {
+  //   resetErrorBoundary();
+  //   return null;
+  // }
 
   const handleTabSelected = (tabId: typeof selectedTabId) => {
     setSelectedTabId(tabId);
@@ -20,16 +32,9 @@ const ErrorModal = (props: FallbackProps) => {
   const handleReset = () => {
     localforage.clear();
     location.reload();
-    // resetErrorBoundary();
     // restartGame();
   }
 
-  useEffect(() => {
-    (async () => {
-      const initState = await getStoredState(persistConfig)
-      setState(JSON.stringify(initState, undefined, 2))
-    })()
-  })
 
   return (
     <div className="error">

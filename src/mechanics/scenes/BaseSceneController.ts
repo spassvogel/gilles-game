@@ -23,13 +23,14 @@ import { adventurersOnQuest } from 'store/helpers/storeHelpers';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import { Item, ItemType } from "definitions/items/types";
 import { Loader, Point } from "pixi.js";
-import { AP_COST_MOVE, AP_COST_SHOOT, AP_COST_SLASH, calculateInitialAP } from "mechanics/combat";
+import { AP_COST_MOVE, AP_COST_SHOOT, AP_COST_MELEE, calculateInitialAP } from "mechanics/combat";
 import { xpToLevel } from "mechanics/adventurers/levels";
 import { EnemyType } from "definitions/enemies/types";
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { roll3D6 } from "utils/random";
 import { BubbleLayer, BubbleManager, BubbleType } from "global/BubbleManager";
 import { convertIn, convertOut } from "utils/aStar";
+import { ActionIntent } from "components/world/QuestPanel/QuestDetails/scene/ui/SceneUI";
 
 const spritesheetBasePath = "img/scene/actors/";
 export const movementDuration = 500; // time every tile movement takes
@@ -224,7 +225,7 @@ export class BaseSceneController<TQuestVars> {
 
   actorSlashed(actorId: string, location: [number, number]) {
     // todo 08/08/2019 use CombatController : move to CombatController?
-    const ap = AP_COST_SLASH;
+    const ap = AP_COST_MELEE;
     this.dispatch(deductActorAp(this.questName, actorId, ap));
     const actor = this.getSceneActor(actorId);
     if (!actor) throw new Error("No actor found");
@@ -297,18 +298,18 @@ export class BaseSceneController<TQuestVars> {
       console.log("HIT at ", location);
 
     } else {
-         if (this.settings.verboseCombatLog) {
-          this.log({ key: "scene-combat-attack-shoot-missed-verbose", context: {
-            actor,
-            weapon: weapon.type,
-            ap,
-            roll,
-            weaponType: definition.weaponType,
-            skill: skills[definition.weaponType]
-          }});
-        } else {
-          this.log({ key: "scene-combat-attack-shoot-missed", context: { actor, weapon: weapon.type }});
-        }
+        if (this.settings.verboseCombatLog) {
+        this.log({ key: "scene-combat-attack-shoot-missed-verbose", context: {
+          actor,
+          weapon: weapon.type,
+          ap,
+          roll,
+          weaponType: definition.weaponType,
+          skill: skills[definition.weaponType]
+        }});
+      } else {
+        this.log({ key: "scene-combat-attack-shoot-missed", context: { actor, weapon: weapon.type }});
+      }
     }
     // todo: process the hit, take away any HP?
   }
@@ -326,18 +327,19 @@ export class BaseSceneController<TQuestVars> {
     }
   }
 
-  actorAttemptAction(actorId: string, type: SceneActionType, destination: [number, number]) {
+  // todo: pass intent
+  actorAttemptAction(intent: ActionIntent) {
     // Tries to perform action on given actor
 
-    const actor = this.getSceneActor(actorId);
+    const { actor, action, to } = intent;
     if (!actor) return
     const {location} = actor;
     if (!location) throw new Error("No location found!")
 
-    switch (type) {
+    switch (action) {
       case SceneActionType.move: {
         // Find path to move using aStar
-        const path = this.findPath(location, destination);
+        const path = this.findPath(location, to);
 
         if (this.combat) {
           const remaining = actor.ap || -1;
@@ -349,7 +351,7 @@ export class BaseSceneController<TQuestVars> {
           // Queue up all the steps
           const sceneAction: SceneAction = {
             actionType: SceneActionType.move,
-            actorId,
+            actorId: actor.id,
             target: l as [number, number],
             endsAt: movementDuration * (index + 1) + performance.now()
           };
@@ -358,11 +360,11 @@ export class BaseSceneController<TQuestVars> {
         break;
       }
       case SceneActionType.interact: {
-        const path = this.findPathNearest(location, destination);
+        const path = this.findPathNearest(location, to);
         path?.forEach((l, index) => {
           const moveAction: SceneAction = {
             actionType: SceneActionType.move,
-            actorId,
+            actorId: actor.id,
             target: l as [number, number],
             endsAt: movementDuration * (index + 1) + performance.now()
           };
@@ -371,16 +373,16 @@ export class BaseSceneController<TQuestVars> {
 
         const interactAction: SceneAction = {
           actionType: SceneActionType.interact,
-          actorId,
-          target: destination,
+          actorId: actor.id,
+          target: to,
           endsAt: movementDuration * path.length + performance.now()
         };
         this.dispatch(enqueueSceneAction(this.questName, interactAction));
         break;
       }
-      case SceneActionType.slash: {
+      case SceneActionType.melee: {
         // Find path to move towards the target
-        const path = this.findPath(location, destination);
+        const path = this.findPath(location, to);
         const target = path?.pop();
         if (!path || !target) {
           // No path possible.. cant do anything now
@@ -391,15 +393,15 @@ export class BaseSceneController<TQuestVars> {
         path?.forEach((l, index) => {
           const moveAction: SceneAction = {
             actionType: SceneActionType.move,
-            actorId,
+            actorId: actor.id,
             target: l as [number, number],
             endsAt: movementDuration * (index + 1) + performance.now()
           };
           this.dispatch(enqueueSceneAction(this.questName, moveAction));
         });
         const meleeAction: SceneAction = {
-          actionType: type,
-          actorId,
+          actionType: action,
+          actorId: actor.id,
           target,
           endsAt: movementDuration * (path.length + 1) + performance.now()
         };
@@ -409,9 +411,9 @@ export class BaseSceneController<TQuestVars> {
       case SceneActionType.shoot: {
 
         const shootAction: SceneAction = {
-          actionType: type,
-          actorId,
-          target: destination,
+          actionType: action,
+          actorId: actor.id,
+          target: to,
           endsAt: 500 + performance.now()
         };
         this.dispatch(enqueueSceneAction(this.questName, shootAction));
@@ -608,6 +610,80 @@ export class BaseSceneController<TQuestVars> {
    */
   calculateWalkApCosts(from: [number, number], to: [number, number]) {
     return this.findPath(from, to)?.length || 0;
+  }
+
+  /**
+   *
+   */
+  createActionIntent(action: SceneActionType, actor: ActorObject, location: [number, number]): ActionIntent | undefined {
+    const {
+      location: from = [0, 0],
+      ap: actorAP,
+    } = actor;
+    const to = location ?? [0, 0];
+    switch (action){
+      case SceneActionType.move:  {
+        const path = this.findPath(from, to);
+        const apCost = this.combat ? this.calculateWalkApCosts(from, to) : undefined;
+
+        return ({
+          action,
+          from,
+          to,
+          apCost,
+          actor,
+          actorAP,
+          path,
+        })
+      }
+
+      case SceneActionType.melee: {
+        const path = this.findPath(from, to);
+        if (!path) throw new Error("No path found");
+        // const lastStep = path?.length > 1 ? path[path.length - 2] : path[path.length - 1];
+        const apCost = this.calculateWalkApCosts(from, to);
+        // if (!path) throw new Error("No path found");
+        // const lastStep = path?.length > 1 ? path[path.length - 2] : path[path.length - 1];
+        // const apCost = this.calculateWalkApCosts(from, lastStep) + AP_COST_MELEE;
+
+        return ({
+          action,
+          from,
+          to,
+          apCost,
+          actor,
+          actorAP,
+          path,
+        })
+      }
+
+      case SceneActionType.interact: {
+        const path = this.findPathNearest(from, to, true);
+        const apCost = 0; // can only inspect out of combat?
+
+        return ({
+          action,
+          from,
+          to,
+          apCost,
+          actor,
+          actorAP,
+          path,
+        })
+      }
+      case SceneActionType.shoot: {
+        const apCost = AP_COST_SHOOT;
+
+        return ({
+          action,
+          from,
+          to,
+          apCost,
+          actor,
+          actorAP,
+        })
+      }
+    }
   }
 
   /**

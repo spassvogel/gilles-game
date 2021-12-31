@@ -18,7 +18,7 @@ const ActionPreview = (props: Props) => {
   switch (actionIntent.action){
     case SceneActionType.move:
     case SceneActionType.interact:
-    case SceneActionType.slash: {
+    case SceneActionType.melee: {
       if (!actionIntent.path){
         return null;
       }

@@ -47,7 +47,7 @@ const Scene = (props: Props) => {
     return () => {
       CombatController.destroy();
     }
-  }, [combat]);
+  }, [combat, controller]);
 
   useEffect(() => {
     if (!mapData) return;
