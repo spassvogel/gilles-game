@@ -10,7 +10,8 @@ import { locationEquals } from "utils/tilemap";
 type Props = {
   adventurer: AdventurerStoreState;
   location: [number, number];
-  renderText: (intent?: ActionIntent) => ReactNode;
+  intent: ActionIntent;
+  renderText: (intent: ActionIntent) => ReactNode;
   onSetActionIntent: (intent?: ActionIntent) => void;
 }
 
@@ -18,20 +19,13 @@ const ActionButton = (props: Props) => {
   const {
     adventurer,
     location,
+    intent,
     renderText,
     onSetActionIntent,
   } = props;
   const controller = useContext(SceneControllerContext);
   if (!controller) throw new Error("No controller");
 
-  const actorObject = useMemo(() => {
-    return controller?.getSceneActor(adventurer.id);
-  }, [controller, adventurer.id]);
-
-  const intent = useMemo(() => {
-    if (!actorObject) return;
-    return controller?.createActionIntent(SceneActionType.melee, actorObject, location);
-  }, [actorObject, controller, location])
 
   // Released the mouse outside of th
   const cancelIntent = useCallback(() => {

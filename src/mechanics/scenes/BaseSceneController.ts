@@ -659,15 +659,12 @@ export class BaseSceneController<TQuestVars> {
 
       case SceneActionType.interact: {
         const path = this.findPathNearest(from, to, true);
-        const apCost = 0; // can only inspect out of combat?
 
         return ({
           action,
           from,
           to,
-          apCost,
           actor,
-          actorAP,
           path,
         })
       }

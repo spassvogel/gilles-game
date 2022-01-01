@@ -16,8 +16,31 @@ const ActionPreview = (props: Props) => {
   const convert = (p: number[]) => new Point(p[0] * (tileWidth) + (tileWidth / 2), p[1] * (tileHeight) + (tileHeight / 2));
 
   switch (actionIntent.action){
+    case SceneActionType.interact: {
+      if (!actionIntent.path){
+        return null;
+      }
+      const converted = [
+        convert(actionIntent.from),
+        ...actionIntent.path.map(p => convert(p))
+      ];
+
+      return (
+        <DashedLine
+          points={converted}
+          dash={10}
+          gap={15}
+          speed={20}
+          rotation={0}
+          style={{
+            width: 6,
+            color: 0xffffff,
+            alpha: 1,
+          }}
+        />
+      )
+    }
     case SceneActionType.move:
-    case SceneActionType.interact:
     case SceneActionType.melee: {
       if (!actionIntent.path){
         return null;

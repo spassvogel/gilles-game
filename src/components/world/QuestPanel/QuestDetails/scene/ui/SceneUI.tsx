@@ -6,7 +6,6 @@ import { useQuest } from 'hooks/store/quests';
 import { Point } from 'pixi.js';
 import React, {
   PropsWithChildren,
-  useCallback,
   useContext,
   useEffect,
   useRef,
@@ -21,6 +20,9 @@ import Bubbles from 'components/ui/bubbles/Bubbles';
 import { BubbleLayer } from 'global/BubbleManager';
 import ActionMenu from './ActionMenu/ActionMenu';
 import useCanvasScaler from './hooks/useCanvasScaler';
+import { Item } from 'definitions/items/types';
+import { Weapon, WeaponAbility } from 'definitions/items/weapons';
+import useActionIntents from './hooks/useActionIntents';
 import "./styles/sceneUI.scss";
 
 export interface Props {
@@ -33,14 +35,28 @@ export interface Props {
   onSetActionIntent: (intent?: ActionIntent) => void;
 }
 
-export interface ActionIntent {
-  action: SceneActionType.move | SceneActionType.melee | SceneActionType.interact | SceneActionType.shoot;
+type BaseActionIntent = {
+  action: SceneActionType;
   from: [number, number];
   to: [number, number];
-  apCost?: number;
   actor: ActorObject;
-  actorAP?: number;
   path?: [number, number][];  // is undefined when path is invalid
+}
+
+export type WeaponWithAbility = {
+  weapon: Item<Weapon>
+  ability: WeaponAbility
+}
+
+export type ActionIntent = BaseActionIntent & {
+  // Non combat action
+  action: SceneActionType.interact;
+} | BaseActionIntent & {
+  // Combat action and non combat action
+  action: SceneActionType.move | SceneActionType.melee | SceneActionType.shoot;
+  apCost?: number;
+  actorAP?: number;
+  weaponWithAbility?: WeaponWithAbility;
 }
 
 // This thing scales itself based on the canvas which should be a sibling of this component
@@ -63,7 +79,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   const [cursorLocation, setCursorLocation] = useState<[number, number]>();
   const [actionMenuOpen, setActionMenuOpen] = useState(false);
   const scale = useCanvasScaler(ref, sceneWidth, sceneHeight);
-
+  const combatIntents = useActionIntents(selectedActorId, cursorLocation, combat);
 
   const handleMouseMove = (e: MouseOrTouchEvent<HTMLDivElement>) => {
     if (mouseDown.current) {
@@ -151,18 +167,6 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     }
   }
 
-  const handleCombatActionChange = useCallback((action?: SceneActionType) => {
-    const actor = controller?.getSceneActor(selectedActorId);
-    if (!action || !actor || !cursorLocation) {
-      onSetActionIntent(undefined);
-      return;
-    }
-
-    const intent = controller?.createActionIntent(action, actor, cursorLocation)
-    onSetActionIntent?.(intent)
-
-  }, [controller, cursorLocation, onSetActionIntent, selectedActorId]);
-
   const handleCloseActionMenu = () => {
     setActionMenuOpen(false);
     setCursorLocation(undefined);
@@ -177,9 +181,16 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         // We're at an interactive object
         action = SceneActionType.interact;
       }
-      handleCombatActionChange(action);
+
+      const actor = controller?.getSceneActor(selectedActorId);
+      if (!action || !actor || !cursorLocation) {
+        onSetActionIntent(undefined);
+      } else {
+        const intent = controller?.createActionIntent(action, actor, cursorLocation)
+        onSetActionIntent?.(intent)
+      }
     }
-  }, [cursorLocation, handleCombatActionChange, combat, controller]);
+  }, [cursorLocation, combat, controller, selectedActorId, onSetActionIntent]);
 
   const findLocation = (e: MouseOrTouchEvent) => {
     if (e.target instanceof Element) {
@@ -215,10 +226,11 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         />
       )}
       <Bubbles layer={BubbleLayer.scene} />
-      { (actionMenuOpen && cursorLocation) && (
+      { (actionMenuOpen && cursorLocation && combatIntents) && (
         <ActionMenu
           adventurerId={selectedActorId}
           location={cursorLocation}
+          intents={combatIntents}
           onClose={handleCloseActionMenu}
           onSetActionIntent={onSetActionIntent}
         />
