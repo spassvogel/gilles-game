@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { QuestStatus, QuestStoreState } from 'store/types/quest';
 import { createSelector } from 'reselect';
 import { createStringArraySelector } from 'utils/reselect';
-import { SceneStoreState } from 'store/types/scene';
+import { SceneObject, SceneStoreState } from 'store/types/scene';
 
 const getQuests = (state: StoreState) => state.quests;
 const getQuestNames = (state: StoreState) => state.quests.map(q => q.name);
@@ -54,4 +54,12 @@ export const useActiveQuestNames = () => {
     (names: string[], statuses: QuestStatus[]) => names.filter((_: string, index: number) => statuses[index] === QuestStatus.active)
   ), []);
   return useSelector<StoreState, string[]>(questNameSelector);
+}
+
+
+export const useActorObject = <T extends SceneObject>(questName: string, actorName: string): (T | undefined) =>  {
+  const scene = useQuestScene(questName);
+  return useMemo(() => {
+    return scene?.objects.find(sA => sA.name === actorName) as T;
+  }, [actorName, scene?.objects])
 }

@@ -1,25 +1,21 @@
-import React, { useContext, useMemo } from "react";
-import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { TextManager } from 'global/TextManager';
-import { useQuest } from 'hooks/store/quests';
+import { useActorObject, useQuest } from 'hooks/store/quests';
 import { AdventurerStoreState } from 'store/types/adventurer';
+import { ActorObject } from "store/types/scene";
 
 export interface Props {
   adventurer: AdventurerStoreState;
-  questName?: string;
+  questName: string;
 }
 
 /** Used when AdventurerPanel is used in Quest view
- * todo: move outside of /world
  */
 const ApIndicator = (props: Props) => {
-  const quest = useQuest(props.questName ?? "");
-  const controller = useContext(SceneControllerContext);
+  const { questName, adventurer } = props;
+  const quest = useQuest(questName);
 
-  const ap = useMemo(() => {
-    if (!controller) return null;
-    return controller.getSceneActor(props.adventurer.id)?.ap || null;
-  }, [controller, props.adventurer.id]);
+  const actor = useActorObject<ActorObject>(questName ?? "", adventurer.id)
+  const ap = actor?.ap || 0;
 
   if (!quest?.scene?.combat) {
     return null;
