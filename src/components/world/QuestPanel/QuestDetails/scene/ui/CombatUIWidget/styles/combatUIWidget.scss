@@ -36,4 +36,10 @@ $cellWidth: 64;
       border-color: $color-highlighted;
     }
   }
+
+  &.invalid {
+    &:before {
+      border-color: $color-invalid !important;
+    }
+  }
 }

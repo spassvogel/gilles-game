@@ -1,6 +1,5 @@
 import { AdventurerStoreState } from "store/types/adventurer";
-import { ReactNode, useCallback, useContext, useEffect, useMemo } from "react";
-import { SceneActionType } from "store/types/scene";
+import { ReactNode, useCallback, useContext, useEffect } from "react";
 import { SceneControllerContext } from "components/world/QuestPanel/context/SceneControllerContext";
 import Button from "components/ui/buttons/Button";
 import { ActionIntent } from "../SceneUI";
@@ -13,6 +12,7 @@ type Props = {
   intent: ActionIntent;
   renderText: (intent: ActionIntent) => ReactNode;
   onSetActionIntent: (intent?: ActionIntent) => void;
+  onCloseMenu: () => void;
 }
 
 const ActionButton = (props: Props) => {
@@ -22,6 +22,7 @@ const ActionButton = (props: Props) => {
     intent,
     renderText,
     onSetActionIntent,
+    onCloseMenu,
   } = props;
   const controller = useContext(SceneControllerContext);
   if (!controller) throw new Error("No controller");
@@ -42,6 +43,7 @@ const ActionButton = (props: Props) => {
     const selectedActorLocation = controller?.getSceneActor(adventurer.id)?.location;
     if (selectedActorLocation && location && !locationEquals(selectedActorLocation, location) && intent){
       controller?.actorAttemptAction(intent);
+      onCloseMenu();
     }
 
     onSetActionIntent?.(undefined);

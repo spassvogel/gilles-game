@@ -56,7 +56,6 @@ export const useActiveQuestNames = () => {
   return useSelector<StoreState, string[]>(questNameSelector);
 }
 
-
 export const useActorObject = <T extends SceneObject>(questName: string, actorName: string): (T | undefined) =>  {
   const scene = useQuestScene(questName);
   return useMemo(() => {

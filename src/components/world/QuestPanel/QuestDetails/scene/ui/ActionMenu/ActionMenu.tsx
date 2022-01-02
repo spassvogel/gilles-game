@@ -58,7 +58,7 @@ const ActionMenu = (props: Props) => {
       <DraggableInfoWindow className="debug-adventurer-edit action-menu-modal" title="Action" onClose={onClose}>
         {adventurer.name}
         <ul>
-          {intents.map((intent, i) => (
+          {intents.filter(i => i.isValid).map((intent, i) => (
             <li key={`${intent.action}${i}`}>
               <ActionButton
                 adventurer={adventurer}
@@ -66,10 +66,10 @@ const ActionMenu = (props: Props) => {
                 intent={intent}
                 onSetActionIntent={onSetActionIntent}
                 renderText={renderButtonText}
+                onCloseMenu={onClose}
               />
             </li>
           ))}
-
         </ul>
         <div>
           {enemyTargetted?.name && TextManager.getEnemyName(enemyTargetted.name)}

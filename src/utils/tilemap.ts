@@ -1,5 +1,6 @@
 import { TiledProperty, TiledLayerData, TiledTilesetData } from 'constants/tiledMapData';
 
+export type Location = [number, number];
 
 // Unpack array of properties into key/value object for fast retrieval
 export const parseProperties = (properties?: TiledProperty[]): {[key: string]: string | boolean | number } => {

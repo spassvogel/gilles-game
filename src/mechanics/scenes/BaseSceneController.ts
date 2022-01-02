@@ -1,4 +1,5 @@
 import { Store, AnyAction, DeepPartial } from "redux";
+import { Location } from "utils/tilemap";
 import { addAllTilesInLayerToList, locationEquals, TiledObjectType, parseProperties } from 'utils/tilemap';
 import { StoreState } from 'store/types';
 import { loadResourceAsync } from 'utils/pixiJs';
@@ -19,7 +20,7 @@ import { getDefinition as getWeaponDefinition, WeaponType } from 'definitions/it
 import { LogChannel } from 'store/types/logEntry';
 import { addGold } from 'store/actions/gold';
 import { addItemToInventory, changeEquipmentQuantity, removeItemFromInventory } from 'store/actions/adventurers';
-import { adventurersOnQuest } from 'store/helpers/storeHelpers';
+import { adventurersOnQuest, getSceneObjectAtLocation, getSceneObjectWithName } from 'store/helpers/storeHelpers';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import { Item, ItemType } from "definitions/items/types";
 import { Loader, Point } from "pixi.js";
@@ -49,7 +50,7 @@ export class BaseSceneController<TQuestVars> {
   public store: Store<StoreState, AnyAction>;
 
   protected jsonPath?: string;
-  protected blockedTiles: [number, number][] = [];
+  protected blockedTiles: Location[] = [];
   protected tileTypes: {[name: string]: number } = {}; // map tiletype to gid
 
   constructor(store: Store<StoreState, AnyAction>, questName: string) {
@@ -171,15 +172,15 @@ export class BaseSceneController<TQuestVars> {
     }
   }
 
-  actorMoved(actor: string, location: [number, number]) {
+  actorMoved(actor: string, location: Location) {
     const isNotAnActor = (object: SceneObject) => !isActorObject(object);
-    const destination = this.getObjectAtLocation(location, isNotAnActor);
-    if (!destination) return;
 
     if (this.combat) {
       // Take away AP for moving
       this.dispatch(deductActorAp(this.questName, actor, AP_COST_MOVE));
     }
+    const destination = this.getObjectAtLocation(location, isNotAnActor);
+    if (!destination) return;
 
     if (destination.type === TiledObjectType.portal) {
 
@@ -202,7 +203,7 @@ export class BaseSceneController<TQuestVars> {
     }
   }
 
-  actorSlashing(actorId: string, _location: [number, number]) {
+  actorSlashing(actorId: string, _location: Location) {
     // todo 08/08/2019 use CombatController : move to CombatController?
     SoundManager.playSound("scene/swish", Channel.scene, false, MixMode.singleInstance);
     const actor = this.getSceneActor(actorId);
@@ -223,7 +224,7 @@ export class BaseSceneController<TQuestVars> {
     }
   }
 
-  actorSlashed(actorId: string, location: [number, number]) {
+  actorSlashed(actorId: string, location: Location) {
     // todo 08/08/2019 use CombatController : move to CombatController?
     const ap = AP_COST_MELEE;
     this.dispatch(deductActorAp(this.questName, actorId, ap));
@@ -258,7 +259,7 @@ export class BaseSceneController<TQuestVars> {
     // todo: process the hit, take away any HP?
   }
 
-  actorShooting(actorId: string, _location: [number, number]) {
+  actorShooting(actorId: string, _location: Location) {
     const actor = this.getSceneActor(actorId);
     if (!actor) throw new Error("No actor found");
     const weapon = this.getActorMainhandItem(actor);
@@ -283,7 +284,7 @@ export class BaseSceneController<TQuestVars> {
     }
   }
 
-  actorShot(actorId: string, location: [number, number]) {
+  actorShot(actorId: string, location: Location) {
     const ap = AP_COST_SHOOT;
     // Take away AP for shooting
     this.dispatch(deductActorAp(this.questName, actorId, ap));
@@ -314,7 +315,7 @@ export class BaseSceneController<TQuestVars> {
     // todo: process the hit, take away any HP?
   }
 
-  actorInteract(actorId: string, location: [number, number]) {
+  actorInteract(actorId: string, location: Location) {
     const actor = this.getSceneActor(actorId);
     const object = this.getObjectAtLocation(location);
 
@@ -327,7 +328,6 @@ export class BaseSceneController<TQuestVars> {
     }
   }
 
-  // todo: pass intent
   actorAttemptAction(intent: ActionIntent) {
     // Tries to perform action on given actor
 
@@ -341,18 +341,18 @@ export class BaseSceneController<TQuestVars> {
         // Find path to move using aStar
         const path = this.findPath(location, to);
 
-        if (this.combat) {
-          const remaining = actor.ap || -1;
-          if (remaining < (path?.length || 0)) {
-            return;
-          }
-        }
+        // if (this.combat) {
+        //   const remaining = actor.ap || -1;
+        //   if (remaining < (path?.length || 0)) {
+        //     return;
+        //   }
+        // }
         path?.forEach((l, index) => {
           // Queue up all the steps
           const sceneAction: SceneAction = {
             actionType: SceneActionType.move,
             actorId: actor.id,
-            target: l as [number, number],
+            target: l as Location,
             endsAt: movementDuration * (index + 1) + performance.now()
           };
           this.dispatch(enqueueSceneAction(this.questName, sceneAction));
@@ -365,7 +365,7 @@ export class BaseSceneController<TQuestVars> {
           const moveAction: SceneAction = {
             actionType: SceneActionType.move,
             actorId: actor.id,
-            target: l as [number, number],
+            target: l as Location,
             endsAt: movementDuration * (index + 1) + performance.now()
           };
           this.dispatch(enqueueSceneAction(this.questName, moveAction));
@@ -394,7 +394,7 @@ export class BaseSceneController<TQuestVars> {
           const moveAction: SceneAction = {
             actionType: SceneActionType.move,
             actorId: actor.id,
-            target: l as [number, number],
+            target: l as Location,
             endsAt: movementDuration * (index + 1) + performance.now()
           };
           this.dispatch(enqueueSceneAction(this.questName, moveAction));
@@ -426,7 +426,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   // Converts pixel coordinate (where 0,0 is top left of the canvas) to scene location
-  pointToSceneLocation (point: Point): [number, number] {
+  pointToSceneLocation (point: Point): Location {
     if (!this.mapData?.tilewidth || !this.mapData?.tileheight) {
       return [0, 0];
     }
@@ -434,7 +434,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   // returns the pixel coordinate of the top left corner of the given location
-  sceneLocationToPoint (location: [number, number]): Point {
+  sceneLocationToPoint (location: Location): Point {
     if (!this.mapData?.tilewidth || !this.mapData?.tileheight) {
       return new Point();
     }
@@ -442,12 +442,12 @@ export class BaseSceneController<TQuestVars> {
   }
 
   // Returns true if the tile is blocked
-  locationIsBlocked(location: [number, number]){
+  locationIsBlocked(location: Location){
     return this.blockedTiles.some((l) => locationEquals(l, location));
   }
 
   // Returns true if outsie of the bounds of the map
-  locationIsOutOfBounds(location: [number, number]) {
+  locationIsOutOfBounds(location: Location) {
     if (!this.mapData) return true;
 
     return location[0] < 0 || location[1] < 0 ||
@@ -508,7 +508,7 @@ export class BaseSceneController<TQuestVars> {
    * @param origin
    * @param target
    */
-  findPath(origin: [number, number], target: [number, number]) {
+  findPath(origin: Location, target: Location) {
     return this
       .aStar?.findPath(convertIn(origin), convertIn(target))
       .map(convertOut);
@@ -520,7 +520,7 @@ export class BaseSceneController<TQuestVars> {
    * @param origin
    * @param target
    */
-  public findPathNearest(origin: [number, number], target: [number, number], includeLast = false) {
+  public findPathNearest(origin: Location, target: Location, includeLast = false) {
     // todo; shortcut, if already neighbour, return early
     const grid = this.aStar?.getGrid().getGridNodes();
     if (!grid) return [];
@@ -546,15 +546,15 @@ export class BaseSceneController<TQuestVars> {
    * @param origin location to search around
    * @param amount of locations to find
    */
-  public findEmptyLocationsAround(origin: [number, number], amount: number) {
-    const results: [number, number][] = [];
+  public findEmptyLocationsAround(origin: Location, amount: number) {
+    const results: Location[] = [];
     let radius = 1;
 
-    const getTop = (radius: number): [number, number][] => {
+    const getTop = (radius: number): Location[] => {
       const y = -radius + origin[1];
       const result = [];
       for (let x = -radius + origin[0]; x <= radius + origin[0]; x++) {
-        result.push([x, y] as [number, number])
+        result.push([x, y] as Location)
       }
       return result;
     }
@@ -562,7 +562,7 @@ export class BaseSceneController<TQuestVars> {
       const x = radius + origin[0];
       const result = [];
       for (let y = -radius + 1 + origin[1]; y <= radius - 1 + origin[1]; y++) {
-        result.push([x, y] as [number, number])
+        result.push([x, y] as Location)
       }
       return result;
     }
@@ -570,7 +570,7 @@ export class BaseSceneController<TQuestVars> {
       const y = radius + origin[1];
       const result = [];
       for (let x = -radius + origin[0]; x <= radius + origin[0]; x++) {
-        result.push([x, y] as [number, number])
+        result.push([x, y] as Location)
       }
       return result;
     }
@@ -578,12 +578,12 @@ export class BaseSceneController<TQuestVars> {
       const x = -radius + origin[0];
       const result = [];
       for (let y = -radius + 1 + origin[1]; y <= radius - 1 + origin[1]; y++) {
-        result.push([x, y] as [number, number])
+        result.push([x, y] as Location)
       }
       return result;
     }
 
-    const notOutside = (location: [number, number]) => {
+    const notOutside = (location: Location) => {
       if (!this.mapData) return false
       return location[0] >= 0 && location[0] < this.mapData.width
         && location[1] >= 1 && location[1] < this.mapData.height
@@ -591,7 +591,7 @@ export class BaseSceneController<TQuestVars> {
 
     while (radius < (this.mapData?.width ?? 2)) {
       // determine locations in square radius
-      const square: [number, number][] = [
+      const square: Location[] = [
         ...getTop(radius),
         ...getRight(radius),
         ...getBottom(radius),
@@ -608,14 +608,14 @@ export class BaseSceneController<TQuestVars> {
   /**
    * Calculates the AP costs to walk
    */
-  calculateWalkApCosts(from: [number, number], to: [number, number]) {
+  calculateWalkApCosts(from: Location, to: Location) {
     return this.findPath(from, to)?.length || 0;
   }
 
   /**
    *
    */
-  createActionIntent(action: SceneActionType, actor: ActorObject, location: [number, number]): ActionIntent | undefined {
+  createActionIntent(action: SceneActionType, actor: ActorObject, location: Location): ActionIntent | undefined {
     const {
       location: from = [0, 0],
       ap: actorAP,
@@ -625,6 +625,7 @@ export class BaseSceneController<TQuestVars> {
       case SceneActionType.move:  {
         const path = this.findPath(from, to);
         const apCost = this.combat ? this.calculateWalkApCosts(from, to) : undefined;
+        const isValid = !!path?.length && (!this.combat || (apCost ?? 0) <= (actorAP ?? 0));
 
         return ({
           action,
@@ -634,6 +635,7 @@ export class BaseSceneController<TQuestVars> {
           actor,
           actorAP,
           path,
+          isValid
         })
       }
 
@@ -643,8 +645,11 @@ export class BaseSceneController<TQuestVars> {
         // const lastStep = path?.length > 1 ? path[path.length - 2] : path[path.length - 1];
         const apCost = this.calculateWalkApCosts(from, to);
         // if (!path) throw new Error("No path found");
+        // todo properly calculate AP
         // const lastStep = path?.length > 1 ? path[path.length - 2] : path[path.length - 1];
         // const apCost = this.calculateWalkApCosts(from, lastStep) + AP_COST_MELEE;
+        const enemy = this.getObjectAtLocation(location, isEnemy);
+        const isValid = !!enemy && (apCost ?? 0) <= (actorAP ?? 0);
 
         return ({
           action,
@@ -654,11 +659,13 @@ export class BaseSceneController<TQuestVars> {
           actor,
           actorAP,
           path,
+          isValid
         })
       }
 
       case SceneActionType.interact: {
         const path = this.findPathNearest(from, to, true);
+        const isValid = true;
 
         return ({
           action,
@@ -666,10 +673,13 @@ export class BaseSceneController<TQuestVars> {
           to,
           actor,
           path,
+          isValid,
         })
       }
       case SceneActionType.shoot: {
         const apCost = AP_COST_SHOOT;
+        const enemy = this.getObjectAtLocation(location, isEnemy);
+        const isValid = !!enemy && (apCost ?? 0) <= (actorAP ?? 0);
 
         return ({
           action,
@@ -678,6 +688,7 @@ export class BaseSceneController<TQuestVars> {
           apCost,
           actor,
           actorAP,
+          isValid
         })
       }
     }
@@ -691,9 +702,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   public getSceneActor(actorId: string): ActorObject | undefined {
-    const actor = this.sceneActors.find(sA => sA.name === actorId);
-    // if (!actor) throw new Error (`No actor found with id ${actorId}`);
-    return actor;
+    return getSceneObjectWithName(this.sceneActors, actorId) as ActorObject
   }
 
   /**
@@ -702,8 +711,8 @@ export class BaseSceneController<TQuestVars> {
    * @param additionalFilter can specifiy an additional filter
    * @returns
    */
-  public getObjectAtLocation(location: [number, number], additionalFilter: (object: SceneObject) => boolean = () => true) {
-    return this.quest.scene?.objects?.find(o => o.location && locationEquals(o.location, location) && additionalFilter(o))
+  public getObjectAtLocation(location: Location, additionalFilter: (object: SceneObject) => boolean = () => true) {
+    return getSceneObjectAtLocation(this.quest.scene?.objects ?? [] , location, additionalFilter)
   }
 
   protected createAStar() {
@@ -713,7 +722,7 @@ export class BaseSceneController<TQuestVars> {
       for (let y = 0; y < this.mapData.height; y++) {
         const row: number[] = [];
         for (let x = 0; x < this.mapData.width; x++) {
-          const location: [number, number] = [x, y];
+          const location: Location = [x, y];
           const blocked = this.locationIsBlocked(location);
           row.push(blocked ? 1 : 0);
         }
@@ -744,7 +753,7 @@ export class BaseSceneController<TQuestVars> {
 
         // reduce the props array into an object with key/values
         const properties = parseProperties(value.properties);
-        const location: [number, number] = [
+        const location: Location = [
           value.x / (this.mapData?.tilewidth || 1),
           (value.y - (value.gid ? value.height : 0)) / (this.mapData?.tileheight || 1)
         ];
@@ -933,7 +942,7 @@ export class BaseSceneController<TQuestVars> {
     this.dispatch(addLogEntry(textEntry, LogChannel.quest, this.questName));
   }
 
-  protected bubbleAtLocation(text: string, location: [number, number], bubbleType?: BubbleType) {
+  protected bubbleAtLocation(text: string, location: Location, bubbleType?: BubbleType) {
     const point = this.sceneLocationToPoint(location);
     point.set(point.x + (this.mapData?.tilewidth ?? 2) / 2, point.y);
     BubbleManager.addBubble(text, point, bubbleType, BubbleLayer.scene);

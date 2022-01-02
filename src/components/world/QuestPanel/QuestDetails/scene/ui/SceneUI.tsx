@@ -41,6 +41,7 @@ type BaseActionIntent = {
   to: [number, number];
   actor: ActorObject;
   path?: [number, number][];  // is undefined when path is invalid
+  isValid: boolean;
 }
 
 export type WeaponWithAbility = {
@@ -58,6 +59,7 @@ export type ActionIntent = BaseActionIntent & {
   actorAP?: number;
   weaponWithAbility?: WeaponWithAbility;
 }
+
 
 // This thing scales itself based on the canvas which should be a sibling of this component
 const SceneUI = (props: PropsWithChildren<Props>) => {
@@ -144,7 +146,8 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
     // open action
     if (combat) {
-      if (cursorLocation){
+      const hasValidIntents = !!combatIntents.length && combatIntents.some(i => i.isValid);
+      if (cursorLocation && hasValidIntents){
         setActionMenuOpen(true);
       } else {
         setCursorLocation(undefined);
@@ -222,6 +225,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       {scene?.combat && cursorLocation && (
         <CombatUIWidget
           location={cursorLocation}
+          intents={combatIntents}
           selectedActorId={selectedActorId}
         />
       )}

@@ -19,9 +19,7 @@ const useActionIntents = (adventurerId: string, location?: [number, number], com
   }, [controller, location]);
 
 
-  const actorObject = useMemo(() => {
-    return controller?.getSceneActor(adventurer.id);
-  }, [controller, adventurer.id]);
+  const actorObject = controller?.getSceneActor(adventurer.id);
 
   const weaponIntents = useMemo(() => {
     if (!combat || !actorObject || !location) return [];

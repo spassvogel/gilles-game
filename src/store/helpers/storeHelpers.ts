@@ -4,6 +4,8 @@ import { isWeapon, Weapon } from "definitions/items/weapons";
 import { StoreState } from "store/types";
 import { AdventurerStoreState } from "store/types/adventurer";
 import { QuestStoreState } from "store/types/quest";
+import { SceneObject } from "store/types/scene";
+import { locationEquals } from "utils/tilemap";
 
 // export const adventurersInParty = (store: StoreState, partyId: string): AdventurerStoreState[] => {
 //   const party: PartyStoreState = store.parties[partyId];
@@ -50,6 +52,15 @@ export const adventurerWeapons = (adventurer: AdventurerStoreState): [Item<Weapo
     ...check(EquipmentSlotType.offHand) ? [adventurer.equipment[EquipmentSlotType.offHand]] : []
   ] as [Item<Weapon>?, Item<Weapon>?];
 };
+
+// Searches `objects` list and returns the object at `location` (if any)
+export const getSceneObjectAtLocation = (objects: SceneObject[], location: [number, number], additionalFilter: (object: SceneObject) => boolean = () => true) => {
+  return objects.find(o => o.location && locationEquals(o.location, location) && additionalFilter(o))
+}
+
+export const getSceneObjectWithName = (objects: SceneObject[], name: string) => {
+  return objects.find(sA => sA.name === name)
+}
 
 // Returns a value indicating whether this store is fresh or rehydrated
 export const storeIsRehydrated = (store: StoreState): boolean => {
