@@ -81,8 +81,12 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   const { combat } = scene ?? {};
   const [cursorLocation, setCursorLocation] = useState<Location>();
   const [actionMenuOpen, setActionMenuOpen] = useState(false);
-  const scale = useCanvasScaler(ref, sceneWidth, sceneHeight);
+  const scaler = useCanvasScaler(ref, sceneWidth, sceneHeight);
   const combatIntents = useActionIntents(selectedActorId, cursorLocation, combat);
+
+  useEffect(() => {
+    scaler.scale = scaler.recalculate();
+  }, [scaler])
 
   const handleMouseMove = (e: MouseOrTouchEvent<HTMLDivElement>) => {
     if (mouseDown.current) {
@@ -130,8 +134,8 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
     // Show context tooltip
     const { tileWidth, tileHeight } = controller.getTileDimensions();
-    const width = tileWidth * scale;
-    const height = tileHeight * scale;
+    const width = tileWidth * scaler.scale;
+    const height = tileHeight * scaler.scale;
     const rect = (e.target).getBoundingClientRect();
     const x = (location[0] * width) + (rect.left ?? 0);
     const y = (location[1] * height) + (rect.top ?? 0);
@@ -203,8 +207,8 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         y
       } = convertMouseOrTouchCoords(e);
       const rect = (e.target).getBoundingClientRect();
-      const convertedX = (x - rect.left) / scale;
-      const convertedY = (y - rect.top) / scale;
+      const convertedX = (x - rect.left) / scaler.scale;
+      const convertedY = (y - rect.top) / scaler.scale;
 
       return controller?.pointToSceneLocation(new Point(convertedX, convertedY));
     }
