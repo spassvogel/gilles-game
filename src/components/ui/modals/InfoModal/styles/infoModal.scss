@@ -6,5 +6,5 @@ $margin: 8px;
   position: absolute;
   width: calc(100% - #{2 * $margin});
   margin: $margin;
-  z-index: 2048;
+  z-index: $z-index-infomodal;
 }

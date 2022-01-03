@@ -4,8 +4,8 @@ $arrow-size: 8px;
 
 .tooltip {
 	position: absolute;
-	z-index: 3;
-    transition: opacity .45s ease-in-out;
+  z-index: zIndex(tooltip);
+  transition: opacity .45s ease-in-out;
 
 	.tooltip-arrow {
 		border-color: $color-secondary;
@@ -21,32 +21,32 @@ $arrow-size: 8px;
 	}
 
     &.tooltip-bottom {
-        transform: translate(-50%, $arrow-size);
+      transform: translate(-50%, $arrow-size);
 
-        .tooltip-arrow {
-            border-width: 0 $arrow-size $arrow-size $arrow-size;
-            border-left-color: transparent;
-            border-right-color: transparent;
-            border-top-color: transparent;
-            top: $arrow-size * -1;
-            left: calc(50% - #{$arrow-size} * 2);
-            margin-top: 0;
-            margin-bottom: 0;
-        }
+      .tooltip-arrow {
+        border-width: 0 $arrow-size $arrow-size $arrow-size;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        border-top-color: transparent;
+        top: $arrow-size * -1;
+        left: calc(50% - #{$arrow-size} * 2);
+        margin-top: 0;
+        margin-bottom: 0;
+      }
     }
 
     &.tooltip-top {
-        transform: translate(-50%, calc(-100% - #{$arrow-size}));
+      transform: translate(-50%, calc(-100% - #{$arrow-size}));
 
-        .tooltip-arrow {
-            border-width: $arrow-size $arrow-size 0 $arrow-size;
-            border-left-color: transparent;
-            border-right-color: transparent;
-            border-bottom-color: transparent;
-            bottom: $arrow-size * -1;
-            left: calc(50% - #{$arrow-size} * 2);
-            margin-top: 0;
-            margin-bottom: 0;
-        }
+      .tooltip-arrow {
+        border-width: $arrow-size $arrow-size 0 $arrow-size;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        bottom: $arrow-size * -1;
+        left: calc(50% - #{$arrow-size} * 2);
+        margin-top: 0;
+        margin-bottom: 0;
+      }
     }
 }

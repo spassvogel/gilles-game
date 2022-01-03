@@ -1,6 +1,6 @@
 .bubbles {
   position: absolute;
-  z-index: 5;
+  z-index: zIndex(bubbles);
   left: 0;
   top: 0;
 

@@ -3,6 +3,7 @@
 @import 'variables/items.scss';
 @import 'variables/misc.scss';
 @import 'variables/responsive';
+@import 'variables/z-index';
 
 :export {
   colorPrimary: $color-primary;

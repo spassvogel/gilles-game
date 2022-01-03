@@ -1,0 +1,3 @@
+@function zIndex ($element) {
+  @return index($z-index-elements, $element);
+}

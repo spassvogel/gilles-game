@@ -2,40 +2,40 @@
 
 
 .icon {
-    background-size: contain;
-    background-repeat: no-repeat;
+  background-size: contain;
+  background-repeat: no-repeat;
 
-    &.size-smallest {
-        width: $item-size-smallest;
-        height: $item-size-smallest;
-    }
+  &.size-smallest {
+    width: $item-size-smallest;
+    height: $item-size-smallest;
+  }
 
-    &.size-small {
-        width: $item-size-small;
-        height: $item-size-small;
-    }
+  &.size-small {
+    width: $item-size-small;
+    height: $item-size-small;
+  }
 
-    &.size-medium {
-        width: $item-size-medium;
-        height: $item-size-medium;
-    }
+  &.size-medium {
+    width: $item-size-medium;
+    height: $item-size-medium;
+  }
 
-    &.size-big {
-        width: $item-size-big;
-        height: $item-size-big;
-    }
+  &.size-big {
+    width: $item-size-big;
+    height: $item-size-big;
+  }
 
-    .border-gold  {
-        z-index: 1;
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border-image-source: url("./images/border-gold-64.png");
-        border-image-slice: 3 3 3 3;
-        border-image-repeat: stretch;
-        border-width: 3px;
-        border-style: solid;
-        box-sizing: border-box;
-        box-shadow: 0 0 16px rgba(255, 255, 255, 0.7), inset 0 0 4px 1px rgba(0, 0, 0, 0.3);
-    }
+  .border-gold  {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-image-source: url("./images/border-gold-64.png");
+    border-image-slice: 3 3 3 3;
+    border-image-repeat: stretch;
+    border-width: 3px;
+    border-style: solid;
+    box-sizing: border-box;
+    box-shadow: 0 0 16px rgba(255, 255, 255, 0.7), inset 0 0 4px 1px rgba(0, 0, 0, 0.3);
+  }
 }
