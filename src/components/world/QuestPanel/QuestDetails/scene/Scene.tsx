@@ -1,6 +1,7 @@
-import React, { useRef, useEffect, useContext, useState } from "react";
+import { useRef, useEffect, useContext, useState } from "react";
 import { Container, Graphics } from '@inlet/react-pixi';
 import { useQuestScene } from 'hooks/store/quests';
+import { Location } from 'utils/tilemap';
 import Tilemap from './Tilemap';
 import BridgedStage from 'components/pixi/util/BridgedStage';
 import useTilesetsLoader from 'hooks/useTilesetsLoader';
@@ -54,7 +55,7 @@ const Scene = (props: Props) => {
     loadTilesets(mapData.tilesets);
   }, [loadTilesets, mapData]);
 
-  const handleUIMouseDown = (location: [number, number]) => {
+  const handleUIMouseDown = (location: Location) => {
     const actor = controller.getObjectAtLocation(location);
     if (actor && isAdventurer(actor) && actor?.name) {
       // We can click on adventurers

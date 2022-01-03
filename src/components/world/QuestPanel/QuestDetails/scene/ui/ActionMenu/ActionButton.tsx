@@ -1,3 +1,4 @@
+import { Location } from 'utils/tilemap';
 import { AdventurerStoreState } from "store/types/adventurer";
 import { ReactNode, useCallback, useContext, useEffect } from "react";
 import { SceneControllerContext } from "components/world/QuestPanel/context/SceneControllerContext";
@@ -8,7 +9,7 @@ import { locationEquals } from "utils/tilemap";
 
 type Props = {
   adventurer: AdventurerStoreState;
-  location: [number, number];
+  location: Location;
   intent: ActionIntent;
   renderText: (intent: ActionIntent) => ReactNode;
   onSetActionIntent: (intent?: ActionIntent) => void;

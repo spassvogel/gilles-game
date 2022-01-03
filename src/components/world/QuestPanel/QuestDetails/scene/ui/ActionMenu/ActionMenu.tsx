@@ -1,7 +1,8 @@
+import { useCallback, useContext, useMemo } from "react";
+import { Location } from 'utils/tilemap';
 import { AdventurerStoreState } from "store/types/adventurer";
 import { DraggableInfoWindow } from "components/ui/modals/InfoWindow/DraggableInfoWindow";
 import { useAdventurerState } from "hooks/store/adventurers";
-import { useCallback, useContext, useMemo } from "react";
 import { SceneControllerContext } from "components/world/QuestPanel/context/SceneControllerContext";
 import { WeaponAbility } from 'definitions/items/weapons';
 import { TextManager } from "global/TextManager";
@@ -12,7 +13,7 @@ import ActionButton from "./ActionButton";
 
 type Props = {
   adventurerId: string;
-  location: [number, number];
+  location: Location;
   intents: ActionIntent[];
   onClose: () => void;
   onSetActionIntent: (intent?: ActionIntent) => void;

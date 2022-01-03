@@ -1,6 +1,7 @@
+import { Merge } from 'type-fest';
+import { Location } from 'utils/tilemap';
 import { TiledObjectData } from 'constants/tiledMapData';
 import { Item } from 'definitions/items/types';
-import { Merge } from 'type-fest';
 import { TiledObjectType } from 'utils/tilemap';
 
 
@@ -20,7 +21,7 @@ export enum Allegiance {
 export type SceneObject = Merge<TiledObjectData, {
   layerId: number;
   properties: { [key: string]: string | boolean | number };
-  location?: [number, number];
+  location?: Location;
 }>;
 
 export type ActorObject = SceneObject & {
@@ -73,7 +74,7 @@ export interface LootCache {
 export interface SceneAction {
   actionType: SceneActionType;
   actorId: string;
-  target: [number, number];
+  target: Location;
   endsAt: number;
 }
 

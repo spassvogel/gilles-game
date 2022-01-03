@@ -1,3 +1,4 @@
+import { Location } from 'utils/tilemap';
 import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
 import { Item } from "definitions/items/types";
 import { isWeapon, Weapon } from "definitions/items/weapons";
@@ -54,7 +55,7 @@ export const adventurerWeapons = (adventurer: AdventurerStoreState): [Item<Weapo
 };
 
 // Searches `objects` list and returns the object at `location` (if any)
-export const getSceneObjectAtLocation = (objects: SceneObject[], location: [number, number], additionalFilter: (object: SceneObject) => boolean = () => true) => {
+export const getSceneObjectAtLocation = (objects: SceneObject[], location: Location, additionalFilter: (object: SceneObject) => boolean = () => true) => {
   return objects.find(o => o.location && locationEquals(o.location, location) && additionalFilter(o))
 }
 

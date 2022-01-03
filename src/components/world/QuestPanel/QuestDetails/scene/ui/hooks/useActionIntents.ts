@@ -1,13 +1,14 @@
+import { useContext, useMemo } from "react";
+import { Location } from 'utils/tilemap';
 import { AdventurerStoreState } from "store/types/adventurer";
 import { useAdventurerState } from "hooks/store/adventurers";
-import { useContext, useMemo } from "react";
 import { SceneControllerContext } from "components/world/QuestPanel/context/SceneControllerContext";
 import { adventurerWeapons } from "store/helpers/storeHelpers";
 import { getDefinition as getWeaponDefinition, WeaponTypeDefinition, WeaponClassification } from 'definitions/items/weapons';
 import { isEnemy, SceneActionType } from "store/types/scene";
 import { ActionIntent } from "../SceneUI";
 
-const useActionIntents = (adventurerId: string, location?: [number, number], combat = false ) => {
+const useActionIntents = (adventurerId: string, location?: Location, combat = false ) => {
   const adventurer: AdventurerStoreState = useAdventurerState(adventurerId);
   const weapons = adventurerWeapons(adventurer);
   const controller = useContext(SceneControllerContext);

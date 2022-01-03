@@ -1,5 +1,6 @@
 import React, { useMemo,  useEffect, useRef, useCallback, PropsWithChildren, useState, memo } from 'react';
 import { gsap } from 'gsap';
+import { Location } from 'utils/tilemap';
 import { Container } from '@inlet/react-pixi';
 import { SceneActionType, SceneAction, ActorObject } from 'store/types/scene';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,8 +20,8 @@ export interface Props  {
   spritesheetPath: string;
   color?: AdventurerColor;
   controller: BaseSceneController<unknown>;
-  location?: [number, number]; // tile coordinate space
-  lookAt?: [number, number];
+  location?: Location; // tile coordinate space
+  lookAt?: Location;
   idleAnimation?: boolean;  // Only when lookAt is undefined, will randomly turn around
 }
 
@@ -289,7 +290,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
 export default memo(SceneActor);
 
 // Calculates an orientation that origin would be in if it was looking at destination
-const calculateBearing = (origin: [number, number], destination: [number, number]) => {
+const calculateBearing = (origin: Location, destination: Location) => {
   const angle = Math.atan2(destination[1] - origin[1], destination[0] - origin[0]);
   const result = Math.round((angle / (2 * Math.PI / 8) + 8) % 8);
   const orientations = [Orientation.east, Orientation.southEast, Orientation.south, Orientation.southWest, Orientation.west, Orientation.northWest, Orientation.north, Orientation.northEast];
@@ -297,7 +298,7 @@ const calculateBearing = (origin: [number, number], destination: [number, number
 }
 
 const createColorReplaceFilter = (from: number[], to: number[]) => {
-  const replacements: [number, number][] = from.map((val, index) => {
+  const replacements: Location[] = from.map((val, index) => {
     return [
       from[index], to[index]
     ]

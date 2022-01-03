@@ -3,7 +3,7 @@ import { Stage, Sprite } from '@inlet/react-pixi';
 import { Viewport as PixiViewport } from "pixi-viewport";
 import { useDispatch, useSelector } from 'react-redux'
 import { QuestStoreState } from "store/types/quest";
-import { lerpLocation } from 'utils/pixiJs';
+import { Coords, lerpLocation } from 'utils/pixiJs';
 import { QuestDefinition, QuestNodeType, QuestNode } from "definitions/quests/types";
 import Viewport from '../../pixi/Viewport';
 // import MapGrid from './MapGrid';
@@ -209,7 +209,7 @@ const WorldMap = (props: Props) => {
 
 export default WorldMap;
 
-const getQuestWorldLocation = (quest: QuestStoreState): { x: number; y: number; } => {
+const getQuestWorldLocation = (quest: QuestStoreState): Coords => {
   const questDefinition = getDefinition(quest.name);
   const roundedProgress = Math.floor(quest.progress);
   const lastNode = questDefinition.nodes[roundedProgress];

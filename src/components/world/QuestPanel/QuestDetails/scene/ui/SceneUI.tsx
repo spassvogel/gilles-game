@@ -1,5 +1,6 @@
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { ContextType } from 'constants/context';
+import { Location } from 'utils/tilemap';
 import { LongPressDetectEvents, useLongPress } from 'use-long-press';
 import { TooltipManager } from 'global/TooltipManager';
 import { useQuest } from 'hooks/store/quests';
@@ -31,16 +32,16 @@ export interface Props {
   selectedActorId: string;
   actionIntent?: ActionIntent;
 
-  onMouseDown?: (location: [number, number]) => void;
+  onMouseDown?: (location: Location) => void;
   onSetActionIntent: (intent?: ActionIntent) => void;
 }
 
 type BaseActionIntent = {
   action: SceneActionType;
-  from: [number, number];
-  to: [number, number];
+  from: Location;
+  to: Location;
   actor: ActorObject;
-  path?: [number, number][];  // is undefined when path is invalid
+  path?: Location[];  // is undefined when path is invalid
   isValid: boolean;
 }
 
@@ -78,7 +79,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   const quest = useQuest(controller?.questName ?? "");
   const scene = quest.scene;
   const { combat } = scene ?? {};
-  const [cursorLocation, setCursorLocation] = useState<[number, number]>();
+  const [cursorLocation, setCursorLocation] = useState<Location>();
   const [actionMenuOpen, setActionMenuOpen] = useState(false);
   const scale = useCanvasScaler(ref, sceneWidth, sceneHeight);
   const combatIntents = useActionIntents(selectedActorId, cursorLocation, combat);

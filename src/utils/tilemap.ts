@@ -29,8 +29,8 @@ export const findTileset = (gid: number, tilesets: TiledTilesetData[]): TiledTil
   return tileset;
 }
 /** Add tiles in this layer to list */
-export const addAllTilesInLayerToList = (list: [number, number][], layer: TiledLayerData, columns: number): void => {
-  layer.data.reduce((acc: [number, number][], tile, index) => {
+export const addAllTilesInLayerToList = (list: Location[], layer: TiledLayerData, columns: number): void => {
+  layer.data.reduce((acc: Location[], tile, index) => {
     if (tile > 0) {
       const x = (index % columns);
       const y = Math.floor(index / columns);
@@ -40,6 +40,6 @@ export const addAllTilesInLayerToList = (list: [number, number][], layer: TiledL
   }, list);
 }
 
-export const locationEquals = (a: [number, number], b: [number, number]): boolean => {
+export const locationEquals = (a: Location, b: Location): boolean => {
   return a[0] === b[0] && a[1] === b[1];
 }

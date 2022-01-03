@@ -1,11 +1,11 @@
-import React from 'react';
+import { Location } from 'utils/tilemap';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { useContext } from 'react';
 import { SceneActionType } from 'store/types/scene';
 import "./styles/normalUICursor.scss";
 
 interface Props {
-  location: [number, number];
+  location: Location;
 }
 
 const NormalUICursor = (props: Props) => {

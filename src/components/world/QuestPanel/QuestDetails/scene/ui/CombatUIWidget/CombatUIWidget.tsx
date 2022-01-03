@@ -1,11 +1,12 @@
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
+import { Location } from 'utils/tilemap';
 import { useContext } from 'react';
 import { isEnemy } from 'store/types/scene';
 import { ActionIntent } from '../SceneUI';
 import "./styles/combatUIWidget.scss";
 
 interface Props {
-  location: [number, number];
+  location: Location;
   selectedActorId: string;
   intents: ActionIntent[];
 }

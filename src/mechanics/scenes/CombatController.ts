@@ -1,5 +1,6 @@
 import { enqueueSceneAction, startTurn } from "store/actions/quests";
 import { AnyAction } from "redux";
+import { Location } from 'utils/tilemap';
 import { ActorObject, Allegiance, SceneAction, SceneActionType } from "store/types/scene";
 import { locationEquals } from "utils/tilemap";
 import { BaseSceneController, movementDuration } from "./BaseSceneController";
@@ -63,7 +64,7 @@ export class CombatController {
             const sceneAction: SceneAction = {
               actionType: SceneActionType.move,
               actorId: enemy.name,
-              target: l as [number, number],
+              target: l as Location,
               endsAt: movementDuration * (index + 1) + performance.now()
             };
             this.dispatch(enqueueSceneAction(quest.name, sceneAction));
@@ -78,7 +79,7 @@ export class CombatController {
   }
 
   /** Finds the actor nearest to `from`, but not ON from */
-  static findNearestActor(from: [number, number], allegiance?: Allegiance) {
+  static findNearestActor(from: Location, allegiance?: Allegiance) {
     if (!this.sceneController) return undefined;
     const actors = this.sceneController.sceneActors;
     let distance = Number.MAX_VALUE;

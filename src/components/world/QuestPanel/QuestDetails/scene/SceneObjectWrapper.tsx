@@ -1,12 +1,12 @@
-
+import { useMemo, forwardRef, PropsWithChildren } from 'react';
 import { Container } from '@inlet/react-pixi';
-import React, { useMemo, forwardRef, PropsWithChildren } from 'react';
+import { Location } from 'utils/tilemap';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { Container as PixiContainer } from 'pixi.js';
 
 interface Props {
   controller: BaseSceneController<any>;
-  location?: [number, number]; // tile coordinate space
+  location?: Location; // tile coordinate space
 }
 
 // This is a wrapper that exposes a location property. Will set x and y on children
