@@ -269,12 +269,12 @@ export class BaseSceneController<TQuestVars> {
     switch(definition.weaponType) {
       case WeaponType.bow: {
         SoundManager.playSound("scene/bow", Channel.scene, false, MixMode.singleInstance);
+        break;
       }
-      break;
       case WeaponType.crossbow: {
         SoundManager.playSound("scene/crossbow", Channel.scene, false, MixMode.singleInstance);
+        break;
       }
-      break;
     }
 
     const ammo = this.getActorOffhandItem(actor);
