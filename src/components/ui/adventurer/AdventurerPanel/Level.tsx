@@ -53,7 +53,7 @@ const Level = (props: Props) => {
       xp: Math.floor(xp - currentLevelXp),
       next: nextLevelXp - currentLevelXp
     })
-  }, [xp, dingAnimationRunning])
+  }, [dingAnimationRunning, xp, currentLevelXp, nextLevelXp])
 
   return (
     <div className="level">

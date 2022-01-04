@@ -15,7 +15,7 @@ export interface Props {
  * @param props
  */
 const WorldView = () => {
-  const worldMapRef = useRef<HTMLDivElement>(null);
+  const worldViewRef = useRef<HTMLDivElement>(null);
   const match = useRouteMatch<{questname: string}>(`${getWorldLink()}/:questname`);
   const selectedQuestName = match?.params.questname;
   const history = useHistory();
@@ -51,11 +51,11 @@ const WorldView = () => {
   };
 
   const handleRetrieveWorldViewRef = () => {
-    return worldMapRef;
+    return worldViewRef;
   }
 
   return (
-    <div className="world-view" ref={worldMapRef}>
+    <div className="world-view" ref={worldViewRef}>
       {/* <div className="compass" ref={compassRef} onClick={handleCompassClick}>
         <div className="distance"/>
       </div> */}

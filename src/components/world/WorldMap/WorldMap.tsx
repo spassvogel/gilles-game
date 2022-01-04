@@ -92,13 +92,18 @@ const WorldMap = (props: Props) => {
       else {
         setCanvasHeight(worldViewHeight);
       }
+
+      const viewport = viewportRef.current;
+      if (viewport) {
+        viewport.resize(canvasWidth, canvasHeight);
+      }
     }
     resize();
     window.addEventListener("resize", resize);
     return () => {
       window.removeEventListener("resize", resize);
     };
-  }, [retrieveWorldViewRef, smallMap]);
+  }, [canvasHeight, canvasWidth, retrieveWorldViewRef, smallMap]);
 
   useEffect(() => {
     if (selectedQuest) {
