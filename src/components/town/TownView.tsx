@@ -20,7 +20,7 @@ import TownStage from './TownStage';
 import { Viewport as PixiViewport } from "pixi-viewport";
 import Clouds from './Clouds';
 import { Point } from "pixi.js";
-import { RoutedStructureDetailsView } from "./StructureDetailsView";
+import RoutedStructureDetailsView from "./StructureDetailsView";
 import StructureLabels from "./StructureLabels";
 import "./styles/townView.scss"
 
@@ -32,8 +32,9 @@ const WORLD_HEIGHT = 1600;
 export const STRUCTURE_HIGHLIGHT_FILTER = new OutlineFilter(8, 0xffcc00);
 
 const TownView = () => {
-  const match = useRouteMatch<{structure: string}>(`${getTownLink()}/:structure`);
-  const selectedStructure = match?.params.structure;
+  const hightlightMatch = useRouteMatch<{structure: string}>(`${getTownLink()}/:structure`);
+  const viewMatch = useRouteMatch<{structure: string}>(`${getTownLink()}/:structure/view`);
+  const selectedStructure = hightlightMatch?.params.structure;
   const ref = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<PixiViewport>(null);
   const dragging = useRef(false);
@@ -144,6 +145,7 @@ const TownView = () => {
     window.addEventListener("resize", resize);
     return () => {
       window.removeEventListener("resize", resize);
+      window.scrollY = 0;
     };
   }, []);
 
@@ -157,6 +159,7 @@ const TownView = () => {
         worldWidth={WORLD_WIDTH}
         worldHeight={WORLD_HEIGHT}
         ref={viewportRef}
+        blockScroll={viewMatch === null}
       >
         <Clouds worldWidth={canvasWidth} />
         {renderStructures()}

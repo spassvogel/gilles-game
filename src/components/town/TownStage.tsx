@@ -11,6 +11,7 @@ export interface Props {
   screenHeight: number;
   worldWidth: number;
   worldHeight: number;
+  blockScroll: boolean;
 }
 
 
@@ -21,7 +22,8 @@ const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref
     screenWidth,
     screenHeight,
     worldWidth,
-    worldHeight
+    worldHeight,
+    blockScroll
     /* eslint-enable react/prop-types */
   } = props;
 
@@ -53,11 +55,14 @@ const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref
       // Scrolling the mouse is just used for zoom, not for actual scrolling
       e.preventDefault();
     }
-    window.addEventListener("wheel", onScroll, {passive: false});
+
+    if (blockScroll) {
+      window.addEventListener("wheel", onScroll, {passive: false});
+    }
     return () => {
       window.removeEventListener("wheel", onScroll);
     };
-  }, [worldHeight, worldWidth]);
+  }, [blockScroll, worldHeight, worldWidth]);
 
   return (
     <BridgedStage width={screenWidth} height={screenHeight} options={options} >
