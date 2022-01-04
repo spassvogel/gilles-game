@@ -1,10 +1,3 @@
-import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
-import { ContextType } from 'constants/context';
-import { Location } from 'utils/tilemap';
-import { LongPressDetectEvents, useLongPress } from 'use-long-press';
-import { TooltipManager } from 'global/TooltipManager';
-import { useQuest } from 'hooks/store/quests';
-import { Point } from 'pixi.js';
 import React, {
   PropsWithChildren,
   useContext,
@@ -12,17 +5,24 @@ import React, {
   useRef,
   useState
 } from 'react';
+import { Point } from 'pixi.js';
+import { LongPressDetectEvents, useLongPress } from 'use-long-press';
+import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
+import { ContextType } from 'constants/context';
+import { Location } from 'utils/tilemap';
+import { TooltipManager } from 'global/TooltipManager';
+import { useQuest } from 'hooks/store/quests';
 import { ActorObject, SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
-import CombatUIWidget from './CombatUIWidget';
-import NormalUICursor from './NormalUICursor';
 import { convertMouseOrTouchCoords, MouseOrTouchEvent } from 'utils/interaction';
 import Bubbles from 'components/ui/bubbles/Bubbles';
 import { BubbleLayer } from 'global/BubbleManager';
-import ActionMenu from './ActionMenu/ActionMenu';
-import useCanvasScaler from './hooks/useCanvasScaler';
 import { Item } from 'definitions/items/types';
 import { Weapon, WeaponAbility } from 'definitions/items/weapons';
+import ActionMenu from './ActionMenu/ActionMenu';
+import useCanvasScaler from './hooks/useCanvasScaler';
+import CombatUIWidget from './CombatUIWidget';
+import NormalUICursor from './NormalUICursor';
 import useActionIntents from './hooks/useActionIntents';
 import "./styles/sceneUI.scss";
 
@@ -74,7 +74,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     onSetActionIntent
   } = props;
   const ref = useRef<HTMLDivElement>(null);
-  const mouseDown = useRef(false);
+  const mouseDownOnCanvas = useRef(false);
   const controller = useContext(SceneControllerContext);
   const quest = useQuest(controller?.questName ?? "");
   const scene = quest.scene;
@@ -89,7 +89,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   }, [scaler])
 
   const handleMouseMove = (e: MouseOrTouchEvent<HTMLDivElement>) => {
-    if (mouseDown.current) {
+    if (mouseDownOnCanvas.current) {
       const location = findLocation(e) ?? [0, 0];
 
       if (controller?.locationIsOutOfBounds(location)) {
@@ -108,12 +108,12 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     const location = findLocation(e);
     if (location) onMouseDown?.(location);
 
-    mouseDown.current = true;
-    e.preventDefault();
+    mouseDownOnCanvas.current = true;
+    // e.preventDefault();
   }
 
   const bind = useLongPress((e) => {
-    if (e){
+    if (e) {
       handleClick(e as React.MouseEvent<HTMLDivElement>);
       e.preventDefault();
       e.stopPropagation();
@@ -147,7 +147,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
   const handleMouseUp = (e: MouseOrTouchEvent<HTMLDivElement>) => {
     bind.onMouseUp(e as unknown as React.MouseEvent<Element, MouseEvent>);
-    mouseDown.current = false;
+    mouseDownOnCanvas.current = false;
 
     // open action
     if (combat) {
@@ -214,6 +214,20 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     }
     throw new Error("You didnt give me the correct event")
   }
+
+  useEffect(() => {
+    // When interacting with the canvas, dont scroll the app
+    const onTouch = (e: Event) => {
+      if (mouseDownOnCanvas.current) {
+        e.preventDefault();
+      }
+    }
+
+    window.addEventListener("touchmove", onTouch, { passive: false} );
+    return () => {
+      window.removeEventListener("touchmove", onTouch);
+    };
+  }, []);
 
   return (
     <div
