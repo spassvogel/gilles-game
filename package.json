@@ -40,6 +40,7 @@
     "simple-encryptor": "^4.0.0",
     "string-arrays-equal": "^0.2.5",
     "text-param-case": "^1.0.2",
+    "type-fest": "^2.8.0",
     "typescript": "^4.3.5",
     "use-long-press": "^1.1.2"
   },
@@ -81,6 +82,7 @@
     "@types/seedrandom": "^3.0.1",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
+    "eslint-config-react-app": "^7.0.0",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
     "gh-pages": "^3.2.3",
