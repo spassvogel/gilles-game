@@ -341,12 +341,6 @@ export class BaseSceneController<TQuestVars> {
         // Find path to move using aStar
         const path = this.findPath(location, to);
 
-        // if (this.combat) {
-        //   const remaining = actor.ap || -1;
-        //   if (remaining < (path?.length || 0)) {
-        //     return;
-        //   }
-        // }
         path?.forEach((l, index) => {
           // Queue up all the steps
           const sceneAction: SceneAction = {

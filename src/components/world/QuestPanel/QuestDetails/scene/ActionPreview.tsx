@@ -1,4 +1,3 @@
-import React from 'react';
 import DashedLine from 'components/pixi/DashedLine';
 import { Point } from 'pixi.js';
 import { SceneActionType } from 'store/types/scene';

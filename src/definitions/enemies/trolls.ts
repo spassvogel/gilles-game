@@ -1,7 +1,7 @@
 import { WeaponType } from "definitions/items/weapons";
 import { EnemyDefinition } from "./types";
 const spritesheetBasePath = "img/scene/actors/";
-const avatarImgBasePath = "/img/avatars/";
+const avatarImgBasePath = "/img/avatars/monster/";
 
 type TrollDefinition = {
   [key: string]: EnemyDefinition

@@ -58,7 +58,7 @@ export const WeaponTypeDefinition = {
   },
   [WeaponType.crossbow]: {
     classification: WeaponClassification.ranged,
-    abilities: [WeaponAbility.aimedShot, WeaponAbility.shoot]
+    abilities: [/*WeaponAbility.aimedShot,*/ WeaponAbility.shoot]
   },
   [WeaponType.fist]: {
     classification: WeaponClassification.oneHanded,

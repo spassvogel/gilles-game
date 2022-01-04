@@ -6,9 +6,11 @@ import { useAdventurerState } from "hooks/store/adventurers";
 import { SceneControllerContext } from "components/world/QuestPanel/context/SceneControllerContext";
 import { WeaponAbility } from 'definitions/items/weapons';
 import { TextManager } from "global/TextManager";
-import { isEnemy, SceneActionType } from "store/types/scene";
+import { ActorObject, isEnemy, SceneActionType } from "store/types/scene";
 import { ActionIntent } from "../SceneUI";
 import ActionButton from "./ActionButton";
+import AdventurerAvatar from "components/ui/adventurer/AdventurerAvatar";
+import EnemyAvatar from "components/ui/enemy/EnemyAvatar";
 // import "./styles/debugAdventurerEdit.scss";
 
 type Props = {
@@ -26,7 +28,7 @@ const ActionMenu = (props: Props) => {
   if (!controller) throw new Error("No controller");
 
   const enemyTargetted = useMemo(() => {
-    return controller?.getObjectAtLocation(location, isEnemy);
+    return controller?.getObjectAtLocation(location, isEnemy) as ActorObject;
   }, [controller, location]);
 
 
@@ -58,6 +60,7 @@ const ActionMenu = (props: Props) => {
     <div className="action-menu">
       <DraggableInfoWindow className="debug-adventurer-edit action-menu-modal" title="Action" onClose={onClose}>
         {adventurer.name}
+        <AdventurerAvatar adventurer={adventurer} />
         <ul>
           {intents.filter(i => i.isValid).map((intent, i) => (
             <li key={`${intent.action}${i}`}>
@@ -73,7 +76,12 @@ const ActionMenu = (props: Props) => {
           ))}
         </ul>
         <div>
-          {enemyTargetted?.name && TextManager.getEnemyName(enemyTargetted.name)}
+          {enemyTargetted?.name && (
+            <>
+              {TextManager.getEnemyName(enemyTargetted.name)}
+              <EnemyAvatar actorObject={enemyTargetted}/>
+            </>
+          )}
         </div>
       </DraggableInfoWindow>
     </div>
