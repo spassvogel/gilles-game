@@ -541,8 +541,9 @@
     "ui-structure-warehouse-resources": "Resources",
     "ui-structure-warehouse-stockpile": "Stockpile",
     "ui-structure-warehouse-help-upgrade-header-capacity": "Capacity",
-    "ui-structure-warehouse-resources-source": "Source: {{structure:link structure}}",
-    "ui-structure-warehouse-resources-source-unbuilt": "Source: {{structure:name structure}} (not built yet)",
+    "ui-structure-warehouse-resources-source": "Source: {{structure:name structure}}",
+    "ui-structure-warehouse-resources-source-link": "Source: {{structure:link structure}}",
+    "ui-structure-warehouse-resources-source-unbuilt": "(not built yet)",
 
     "ui-toast-type-achievement-unlocked": "Achievement unlocked!",
     "ui-toast-type-cheat": "Cheat activated!",

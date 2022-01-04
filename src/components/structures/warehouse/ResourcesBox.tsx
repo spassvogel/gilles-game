@@ -59,7 +59,6 @@ const ResourcesBox = (props: Props & AppContextProps) => {
           const structure = getStructureByResource(Resource[resource]);
 
           const full = amount >= (props.maxResources?.[resource] ?? 0);
-          const structureText = TextManager.get(structures[structure].state === StructureState.Built ? "ui-structure-warehouse-resources-source" : "ui-structure-warehouse-resources-source-unbuilt", {structure})
           return (
             <div className="row" data-resource={resource} key={resource}>
               <Icon image={resourceDescription.iconImg} size="smallest"/>
@@ -73,7 +72,16 @@ const ResourcesBox = (props: Props & AppContextProps) => {
                 { ` / ${props.maxResources[resource]}` }
               </div>
               <div className="structure">
-                <ReactMarkdown>{structureText}</ReactMarkdown>
+                {structures[structure].state === StructureState.Built ? (
+                  <ReactMarkdown>{TextManager.get("ui-structure-warehouse-resources-source", { structure })}</ReactMarkdown>
+                  ) : (
+                  <>
+                    <ReactMarkdown>{TextManager.get("ui-structure-warehouse-resources-source-link", { structure })}</ReactMarkdown>
+                    <span className="unbuilt">
+                      {TextManager.get("ui-structure-warehouse-resources-source-unbuilt")}
+                    </span>
+                  </>
+                )}
               </div>
             </div>
           )

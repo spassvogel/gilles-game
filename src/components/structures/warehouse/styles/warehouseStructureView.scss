@@ -1,15 +1,15 @@
 @import 'components/styles/import.scss';
 
 .warehouse-structureview {
-    padding: 16px;
+  padding: 16px;
 
-    .resources {
-        @include border-grey-sm;
-    }
+  .resources {
+    @include border-grey-sm;
+  }
 
-    .adventurer-inventory {
-        border: 1px solid $color-secondary;
-        min-height: 100px;
-        padding-left: 20px;
-    }
+  .adventurer-inventory {
+    border: 1px solid $color-secondary;
+    min-height: 100px;
+    padding-left: 20px;
+  }
 }
