@@ -1,4 +1,4 @@
-import { combineReducers, AnyAction } from "redux";
+import { combineReducers } from "redux";
 import { StoreState } from "store/types"
 import { adventurers, initialAdventurers } from "./adventurers";
 import { engine, getInitialEngineState } from "./engine";

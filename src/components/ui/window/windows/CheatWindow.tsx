@@ -183,6 +183,7 @@ const CheatWindow = () => {
         value: "",
         subtext: "",
         options: Object.keys(allItems)
+          // eslint-disable-next-line eqeqeq
           .filter((item: string) => getDefinition(item as ItemType).itemCategory as unknown as string == typeKey)
           .map((item: string) => ({
             value: item,

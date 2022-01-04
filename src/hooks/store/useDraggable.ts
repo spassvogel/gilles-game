@@ -7,7 +7,8 @@ const useDraggable = (element: RefObject<HTMLElement>, handle?: RefObject<HTMLEl
   const active = useRef(false)
 
   useEffect(() => {
-    if (!element.current) return;
+    const el = element.current;
+    if (!el) return;
     if (!handle) {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       handle = element;
@@ -15,8 +16,8 @@ const useDraggable = (element: RefObject<HTMLElement>, handle?: RefObject<HTMLEl
 
     const touchStart = (evt: TouchEvent) => {
       offset.current = {
-        x: element.current?.getBoundingClientRect().left ?? 0,
-        y: element.current?.getBoundingClientRect().top ?? 0,
+        x: el.getBoundingClientRect().left ?? 0,
+        y: el.getBoundingClientRect().top ?? 0,
       }
       initial.current = {
         x: evt.touches[0].clientX - offset.current.x,
@@ -29,8 +30,8 @@ const useDraggable = (element: RefObject<HTMLElement>, handle?: RefObject<HTMLEl
 
     const mouseStart = (evt: MouseEvent) => {
       offset.current = {
-        x: element.current?.getBoundingClientRect().left ?? 0,
-        y: element.current?.getBoundingClientRect().top ?? 0,
+        x: el.getBoundingClientRect().left ?? 0,
+        y: el.getBoundingClientRect().top ?? 0,
       }
       initial.current = {
         x: evt.clientX - offset.current.x,
@@ -83,21 +84,21 @@ const useDraggable = (element: RefObject<HTMLElement>, handle?: RefObject<HTMLEl
         element.current.style.top = `${current.current?.y ?? 0}px`;
       }
     }
-    element.current?.addEventListener("touchstart", touchStart, false);
-    element.current?.addEventListener("touchend", dragEnd, false);
+    el.addEventListener("touchstart", touchStart, false);
+    el.addEventListener("touchend", dragEnd, false);
     document.addEventListener("touchmove", touchMove, false);
 
-    element.current?.addEventListener("mousedown", mouseStart, false);
-    element.current?.addEventListener("mouseup", dragEnd, false);
+    el.addEventListener("mousedown", mouseStart, false);
+    el.addEventListener("mouseup", dragEnd, false);
     document.addEventListener("mousemove", mouseMove, false);
 
     return () => {
-      element.current?.removeEventListener("touchstart", touchStart, false);
-      element.current?.removeEventListener("touchend", dragEnd, false);
+      el.removeEventListener("touchstart", touchStart, false);
+      el.removeEventListener("touchend", dragEnd, false);
       document.removeEventListener("touchmove", touchMove, false);
 
-      element.current?.removeEventListener("mousedown", mouseStart, false);
-      element.current?.removeEventListener("mouseup", dragEnd, false);
+      el.removeEventListener("mousedown", mouseStart, false);
+      el.removeEventListener("mouseup", dragEnd, false);
       document.removeEventListener("mousemove", mouseMove, false);
     }
   }, [])

@@ -73,7 +73,7 @@ const Game = () => {
    * Puts loads the game with a fresh empty store
    */
   const restartGame = useCallback(() => {
-    if(confirm('Are you sure you wish to reset all your progress?')){
+    if(window.confirm('Are you sure you wish to reset all your progress?')){
       const newState = createInitialStore();
       store?.dispatch(loadGame(newState));
       startNewGame();
@@ -89,7 +89,7 @@ const Game = () => {
     try {
       const gameVersion = store.getState().game?.version;
       if (gameVersion < Version.asInt && store.getState().game?.ignoreVersionDiff !== Version.asInt) {
-        if (!confirm(`This game was initialized with version ${convertIntToSemVer(gameVersion)} which is older than the current client (${Version.default}). This might cause problems. Continue anyway? \n\n(pressing cancel will reset progress) `)) {
+        if (!window.confirm(`This game was initialized with version ${convertIntToSemVer(gameVersion)} which is older than the current client (${Version.default}). This might cause problems. Continue anyway? \n\n(pressing cancel will reset progress) `)) {
           restartGame();
           return
         }

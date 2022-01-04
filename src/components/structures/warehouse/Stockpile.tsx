@@ -38,7 +38,7 @@ const Stockpile = () => {
         setSelectedItemCategory(ItemCategory[definition.itemCategory]);
       }
     }
-  }, [dragging]);
+  }, [dragDropManager, dragging]);
 
   const handleCheckDropItem = (dragInfo: InventoryItemDragInfo) => {
     // can only drop on the appropriate category

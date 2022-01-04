@@ -31,7 +31,7 @@ const ErrorModal = (props: FallbackProps) => {
 
   const handleReset = () => {
     localforage.clear();
-    location.reload();
+    window.location.reload();
     // restartGame();
   }
 

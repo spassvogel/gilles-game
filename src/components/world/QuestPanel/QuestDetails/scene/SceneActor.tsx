@@ -162,7 +162,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
       }
       previousAction.current = nextAction;
     }
-  }, [dispatch, tileWidth, tileHeight, actionQueue, props.controller, props.name, location, controller]);
+  }, [actionQueue, actor.name, controller, dispatch, location, props.controller, tileHeight, tileWidth]);
 
   useEffect(() => {
     return () => {
@@ -238,7 +238,7 @@ const SceneActor = (props: PropsWithChildren<Props> & React.ComponentProps<typeo
       default:
         return `${prefix}${animation}-${orientation}`;
     }
-  }, [animation, orientation]);
+  }, [animation, orientation, spritesheetPath]);
 
   const filters = useMemo<Filter[]>(() => {
     switch (color) {

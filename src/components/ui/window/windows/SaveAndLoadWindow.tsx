@@ -35,7 +35,7 @@ const SaveAndLoad = (props: AllProps & AppContextProps) => {
     // If we're loading a game made with an older version, inform the user
     const gameVersion = loadedStore.game?.version;
     if (gameVersion < Version.asInt && loadedStore.game?.ignoreVersionDiff !== Version.asInt) {
-      if (!confirm(`This game was initialized with version ${convertIntToSemVer(gameVersion)} which is older than the current client (${Version.default}). This might cause problems. Continue anyway? \n\n `)) {
+      if (!window.confirm(`This game was initialized with version ${convertIntToSemVer(gameVersion)} which is older than the current client (${Version.default}). This might cause problems. Continue anyway? \n\n `)) {
         return
       }
       loadedStore.game.ignoreVersionDiff = Version.asInt;

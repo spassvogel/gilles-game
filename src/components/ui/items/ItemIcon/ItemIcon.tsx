@@ -20,7 +20,7 @@ const ItemIcon = (props: Props) => {
   const itemDefinition = getDefinition(item.type);
 
   if (!itemDefinition) {
-    throw `could not find definition for ${item}`;
+    throw new Error(`could not find definition for ${item}`);
   }
 
   const handleClick = (event: React.MouseEvent) => {

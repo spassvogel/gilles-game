@@ -37,22 +37,22 @@ const AdventurerSectionSelection = () => {
     <ul className="adventurer-section-selection" ref={ref}>
       <li title={TextManager.get("ui-adventurer-info-general-title")}>
         <HashLink smooth to="#common" className="active">
-          <img src={iconPerson} />
+          <img src={iconPerson} alt={TextManager.get("ui-adventurer-info-general-title")} />
         </HashLink>
       </li>
       <li title={TextManager.get("ui-adventurer-info-skills-title")}>
         <HashLink smooth to="#skills">
-          <img src={iconCrosshair} />
+          <img src={iconCrosshair} alt={TextManager.get("ui-adventurer-info-skills-title")}/>
         </HashLink>
       </li>
       <li title={TextManager.get("ui-adventurer-info-equipment-title")}>
         <HashLink smooth to="#equipment">
-          <img src={iconHelmet} />
+          <img src={iconHelmet} alt={TextManager.get("ui-adventurer-info-equipment-title")}/>
         </HashLink>
       </li>
       <li title={TextManager.get("ui-adventurer-info-inventory-title")}>
         <HashLink smooth to={"#inventory" }>
-          <img src={iconSword} />
+          <img src={iconSword} alt={TextManager.get("ui-adventurer-info-inventory-title")}/>
         </HashLink>
       </li>
     </ul>

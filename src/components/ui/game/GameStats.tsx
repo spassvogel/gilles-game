@@ -1,5 +1,4 @@
 // Displays various game stats
-
 import { Resource } from "definitions/resources";
 import { Structure } from "definitions/structures";
 import { TextManager } from "global/TextManager";
@@ -34,7 +33,7 @@ const GameStats = (props: Props) => {
         <span className="prop">) </span>
       </>
     )
-  }, []);
+  }, [state.game.version]);
 
   return (
     <div className="game-stats">
@@ -73,6 +72,7 @@ const GameStats = (props: Props) => {
                   </Fragment>
                 )
               }
+              return null;
             })}
           </dl>
         </fieldset>

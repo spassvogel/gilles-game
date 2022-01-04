@@ -14,10 +14,10 @@ const useActionIntents = (adventurerId: string, location?: Location, combat = fa
   const controller = useContext(SceneControllerContext);
   if (!controller) throw new Error("No controller");
 
-  const enemyTargetted = useMemo(() => {
-    if (!location) return undefined;
-    return controller?.getObjectAtLocation(location, isEnemy);
-  }, [controller, location]);
+  // const enemyTargetted = useMemo(() => {
+  //   if (!location) return undefined;
+  //   return controller?.getObjectAtLocation(location, isEnemy);
+  // }, [controller, location]);
 
 
   const actorObject = controller?.getSceneActor(adventurer.id);

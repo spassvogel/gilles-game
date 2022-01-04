@@ -121,8 +121,7 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
     this.previousMusic = SoundManager.getCurrentlyPlaying(Channel.music);
     SoundManager.addSound("music/violettesElficSong", ["sound/music/ViolettesElficSongForLamentandHope.ogg"], () => {
       SoundManager.playSound("music/violettesElficSong", Channel.music, true, MixMode.fade, true);
-    }),
-
+    });
 
     super.sceneEntered();
   }
