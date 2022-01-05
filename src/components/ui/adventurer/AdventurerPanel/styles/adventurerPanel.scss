@@ -40,7 +40,6 @@
   @include sm-max {
     &.horizontal {
       /** small screen horizontal layout */
-      flex-direction: column;
 
       .left {
         padding-right: 16px;

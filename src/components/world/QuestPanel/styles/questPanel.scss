@@ -77,6 +77,12 @@
 
     .adventurer-details {
       border-top: 2px solid $color-highlighted;
+
+      @include sm-max {
+        .adventurer-section-selection {
+          display: none;
+        }
+      }
     }
   }
 
@@ -162,6 +168,7 @@
     .adventurer-panel {
       display: flex;
       overflow: auto;
+      flex-direction: column;
 
       .info {
         margin-right: 8px;
