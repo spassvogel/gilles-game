@@ -4,7 +4,7 @@ import { QuestStoreState } from 'store/types/quest';
 import RoomWithAdventurer from './RoomWithAdventurer';
 import RoomEmpty from './RoomEmpty';
 import { TextManager } from 'global/TextManager';
-import "./styles/roomList.scss";
+import './styles/roomList.scss';
 
 export interface Props {
   roomCount: number;
@@ -24,7 +24,7 @@ const RoomList = (props: Props) => {
     assignedAventurers,
     selectedQuestName,
     onAddAdventurer,
-    onRemoveAdventurer
+    onRemoveAdventurer,
   } = props;
   const [selectedAdventurer, setSelectedAdventurer] = useState<string>();
 
@@ -71,10 +71,10 @@ const RoomList = (props: Props) => {
 
   return (
     <div className="room-list">
-      <h2>{TextManager.get("ui-structure-tavern-rooms")}</h2>
+      <h2>{TextManager.get('ui-structure-tavern-rooms')}</h2>
       { roomContent }
     </div>
   );
-}
+};
 
 export default RoomList;

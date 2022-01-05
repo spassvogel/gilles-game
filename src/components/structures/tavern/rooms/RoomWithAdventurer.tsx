@@ -29,7 +29,7 @@ const RoomWithAdventurer = (props: Props) => {
     selectedQuestName,
     onClick,
     onAddAdventurer,
-    onRemoveAdventurer
+    onRemoveAdventurer,
   } = props;
 
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ const RoomWithAdventurer = (props: Props) => {
 
   const handleRename = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.stopPropagation();
-    const name = prompt("Enter new name", adventurer.name);
+    const name = prompt('Enter new name', adventurer.name);
     if (name && name !== adventurer.name) {
       dispatch(renameAdventurer(adventurer.id, name));
     }
@@ -46,7 +46,7 @@ const RoomWithAdventurer = (props: Props) => {
   return (
     <>
       <div
-        className={`room ${expanded ? "expanded" : ""}`}
+        className={`room ${expanded ? 'expanded' : ''}`}
         onClick={() => onClick(adventurer)}
       >
         <DraggableAdventurerAvatar
@@ -61,7 +61,7 @@ const RoomWithAdventurer = (props: Props) => {
             {adventurer.name}
           </section>
           <section className="on-a-quest">
-           {(onQuest) && TextManager.get("ui-structure-tavern-on-a-quest") }
+           {(onQuest) && TextManager.get('ui-structure-tavern-on-a-quest') }
           </section>
         </div>
         <span className="rename" onClick={handleRename}>rename</span>
@@ -82,6 +82,6 @@ const RoomWithAdventurer = (props: Props) => {
       )}
     </>
   );
-}
+};
 
 export default RoomWithAdventurer;

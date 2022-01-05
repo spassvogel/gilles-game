@@ -1,4 +1,5 @@
-import { Loader, LoaderResource } from "pixi.js";
+import { Loader, LoaderResource } from 'pixi.js';
+import { lerp } from './math';
 
 export interface Coords {
   x: number;
@@ -9,11 +10,7 @@ export const lerpLocation = (point1: Coords, point2: Coords, alpha: number): Coo
   const x = lerp(point1.x, point2.x, alpha);
   const y = lerp(point1.y, point2.y, alpha);
   return { x, y };
-}
-
-const lerp = (n1: number,  n2: number,  alpha: number) =>  {
-  return n1 + alpha * (n2 - n1);
-}
+};
 
 // Uses the shared pixi loader to load a resource
 export async function loadResourceAsync(path: string) {
@@ -21,8 +18,7 @@ export async function loadResourceAsync(path: string) {
   return new Promise<LoaderResource>((resolve, _reject) => {
     if (loader.resources[path]) {
       resolve(loader.resources[path]);
-    }
-    else {
+    } else {
       loader.add(path).load((_, resources) => {
         resolve(resources[path]);
       });
@@ -36,5 +32,5 @@ export const loadResource = (path: string, callback: (resource: LoaderResource) 
     callback(loader.resources[path]);
     return;
   }
-  loader.add(path).load((_, resources) => { callback(resources[path])});
-}
+  loader.add(path).load((_, resources) => { callback(resources[path]);});
+};

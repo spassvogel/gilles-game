@@ -1,10 +1,10 @@
-import { AnyAction } from "redux";
+import { AnyAction } from 'redux';
 
 export enum TaskType {
   buildStructure,
   upgradeStructure,
   craftItem,
-  studyItem
+  studyItem,
 }
 
 export interface TaskStoreState {

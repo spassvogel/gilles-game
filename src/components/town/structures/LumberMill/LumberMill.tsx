@@ -16,10 +16,10 @@ export interface Props {
 }
 
 const LumberMill = (props: Props) => {
-  const {hitAreaShapes} = props;
-  const structure: Structure = "lumberMill";
+  const { hitAreaShapes } = props;
+  const structure: Structure = 'lumberMill';
   const atlas = `${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.json`;
-  const [textures, setTextures] = useState<{[name: string]: Texture}>();
+  const [textures, setTextures] = useState<{ [name: string]: Texture }>();
   const filters = props.selected ? [STRUCTURE_HIGHLIGHT_FILTER] : [];
 
   const app = useApp();
@@ -29,7 +29,7 @@ const LumberMill = (props: Props) => {
       if (resource) {
         setTextures(resource.textures);
       }
-    })
+    });
   }, [app, app.loader, atlas]);
 
   const [rotation, setRotation] = useState(0);
@@ -48,18 +48,18 @@ const LumberMill = (props: Props) => {
       }}
       hitArea={hitAreaShapes}
       filters={filters}
-      texture={textures["structure.png"]}
+      texture={textures['structure.png']}
     >
       <Sprite
         name="blades"
-        texture={textures["blades.png"]}
+        texture={textures['blades.png']}
         anchor={new Point(0.5, 0.5)}
         x={15}
         y={10}
         rotation={rotation}
       />
     </Sprite>
-  )
-}
+  );
+};
 
 export default LumberMill;

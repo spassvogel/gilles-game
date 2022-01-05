@@ -14,6 +14,6 @@ const SceneLog = (props: Props) => {
     }
   }, [log]);
   return null;
-}
+};
 
 export default SceneLog;

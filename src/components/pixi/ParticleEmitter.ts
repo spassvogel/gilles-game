@@ -1,4 +1,4 @@
-import { PixiComponent, applyDefaultProps, Container } from "@inlet/react-pixi";
+import { PixiComponent, applyDefaultProps, Container } from '@inlet/react-pixi';
 import * as PIXI  from 'pixi.js';
 import * as particles from 'pixi-particles';
 
@@ -8,7 +8,7 @@ interface Props  {
 }
 
 
-const ParticleEmitter = PixiComponent<Props & React.ComponentProps<typeof Container>, PIXI.ParticleContainer>("ParticleEmitter", {
+const ParticleEmitter = PixiComponent<Props & React.ComponentProps<typeof Container>, PIXI.ParticleContainer>('ParticleEmitter', {
   create: () => new PIXI.ParticleContainer(256, {}),
 
   applyProps: (instance, oldProps: Props, newProps: Props) => {
@@ -20,7 +20,7 @@ const ParticleEmitter = PixiComponent<Props & React.ComponentProps<typeof Contai
     const emitter = new particles.Emitter(
       instance,
       [PIXI.Texture.from(image)],
-      config
+      config,
     );
 
     let elapsed = performance.now();
@@ -45,7 +45,7 @@ const ParticleEmitter = PixiComponent<Props & React.ComponentProps<typeof Contai
     // emitter.update(00.2);
 
     tick();
-  }
+  },
 });
 
 export default ParticleEmitter;

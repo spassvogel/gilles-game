@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Button from 'components/ui/buttons/Button';
 import UpDownValue from 'components/ui/common/UpDownValue';
@@ -10,7 +10,7 @@ import { useResourcesState } from 'hooks/store/resources';
 import { useWorkersFreeState } from 'hooks/store/useWorkersState';
 import { calculateProductionTime, MAX_WORKERS_CRAFTING } from 'mechanics/crafting';
 import { formatDuration } from 'utils/format/time';
-import { getDefinition as getProductionDefinition } from "definitions/production";
+import { getDefinition as getProductionDefinition } from 'definitions/production';
 import { ProductionDefinition } from 'definitions/production/types';
 import { addItemToWarehouse } from 'store/actions/stockpile';
 import { removeResources } from 'store/actions/resources';
@@ -39,7 +39,7 @@ const CraftingDetails = (props: Props) => {
   const costResources = produces.cost.resources || {};
   const missingAtLeastOneResource = Object.keys(costResources)
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    .some((key) => { const resource:Resource = key as Resource; return costResources[resource]! > resourcesState[resource]! });
+    .some((key) => { const resource:Resource = key as Resource; return costResources[resource]! > resourcesState[resource]!; });
 
   let missingAtLeastOneItem = false;
   const costMaterials = produces.cost.materials;
@@ -52,11 +52,29 @@ const CraftingDetails = (props: Props) => {
 
   const makeTimeString = (asNumber: number): string => {
     if (workersAssigned === 0) {
-      return "";
+      return '';
     }
     const craftingTime = calculateProductionTime(asNumber, workersAssigned);
     const time = formatDuration(craftingTime);
-    return TextManager.get("ui-structure-production-crafting-time", { time });
+    return TextManager.get('ui-structure-production-crafting-time', { time });
+  };
+
+  const handleCraft = (productionDefinition: ProductionDefinition, workers: number) => {
+    const craftingTime = calculateProductionTime(productionDefinition.cost.time || 0, workers);
+    dispatch(removeResources(productionDefinition.cost.resources || {}));
+    dispatch(increaseWorkers(structure, workers));
+
+    const callbacks = [
+      addItemToWarehouse(productionDefinition.item),
+      increaseWorkers(structure, workers),
+    ];
+    const start = startTask(
+      TaskType.craftItem,
+      productionDefinition.item.type,
+      `${structure}.craft`,
+      craftingTime,
+      callbacks);
+    dispatch(start);
   };
 
   const handleClick = (e: React.MouseEvent) => {
@@ -76,27 +94,10 @@ const CraftingDetails = (props: Props) => {
     setWorkersAssigned(workersAssigned - 1);
   };
 
-  const handleCraft = (productionDefinition: ProductionDefinition, workers: number) => {
-    const craftingTime = calculateProductionTime(productionDefinition.cost.time || 0, workers);
-    dispatch(removeResources(productionDefinition.cost.resources || {}));
-    dispatch(increaseWorkers(structure, workers));
-
-    const callbacks = [
-      addItemToWarehouse(productionDefinition.item),
-      increaseWorkers(structure, workers),
-    ];
-    const start = startTask(
-      TaskType.craftItem,
-      productionDefinition.item.type,
-      `${structure}.craft`,
-      craftingTime,
-      callbacks);
-    dispatch(start);
-  }
 
   return (
     <div className="crafting-details">
-      { TextManager.get("ui-structure-production-craft-a", {item}) }
+      { TextManager.get('ui-structure-production-craft-a', { item }) }
       <div className="crafting-costs">
         <fieldset>
           <ResourcesCost resources={costResources} />
@@ -109,7 +110,7 @@ const CraftingDetails = (props: Props) => {
         <div>
           <UpDownValue
             value={workersAssigned}
-            label={TextManager.get("ui-structure-production-workers")}
+            label={TextManager.get('ui-structure-production-workers')}
             onUp={handleUp}
             onDown={handleDown}
             upDisabled={
@@ -126,7 +127,7 @@ const CraftingDetails = (props: Props) => {
             className="craft"
             onClick={handleClick}
           >
-            {TextManager.get("ui-structure-production-craft")}
+            {TextManager.get('ui-structure-production-craft')}
           </Button>
         </div>
       </div>

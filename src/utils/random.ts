@@ -1,18 +1,19 @@
-import seedrandom from "seedrandom";
+import seedrandom from 'seedrandom';
 
-interface prng {
+interface Prng {
   (): number;
   state(): seedrandom.State;
 }
-let generator: prng
+let generator: Prng;
+export let dirty = false;
 
 export const init = (seed: string): void => {
   dirty = true;
-  generator = seedrandom(seed, {state: true});
-}
+  generator = seedrandom(seed, { state: true });
+};
 
 export function random(): number {
-  if (!generator) { throw new Error("Call init() before random()"); }
+  if (!generator) { throw new Error('Call init() before random()'); }
   dirty = true;
   return generator();
 }
@@ -27,15 +28,13 @@ export const randomInt = (min = 0, max = 10): number => {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(random() * (max - min + 1)) + min;
-}
+};
 
 export const roll3D6 = (): number =>  {
-  return randomInt(1, 6) + randomInt(1, 6) + randomInt(1, 6)
-}
+  return randomInt(1, 6) + randomInt(1, 6) + randomInt(1, 6);
+};
 
 export const state = (): seedrandom.State => {
   dirty = false;
   return generator.state();
-}
-
-export let dirty = false;
+};

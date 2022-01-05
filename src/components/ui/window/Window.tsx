@@ -1,15 +1,15 @@
-import * as React from "react";
-import { SoundManager} from 'global/SoundManager';
+import * as React from 'react';
+import { SoundManager } from 'global/SoundManager';
 import Button from '../buttons/Button';
-import { PropsWithChildren, useEffect } from "react";
+import { PropsWithChildren, useEffect } from 'react';
 
 // todo: refactor using WindowManager [30/03/2020]
 export interface Props {
-    title: string;
-    backEnabled?: boolean;
-    closeEnabled?: boolean;
-    onClose?: () => void;
-    onBack?: () => void;
+  title: string;
+  backEnabled?: boolean;
+  closeEnabled?: boolean;
+  onClose?: () => void;
+  onBack?: () => void;
 }
 
 /**
@@ -17,30 +17,30 @@ export interface Props {
  */
 const Window = (props: PropsWithChildren<Props>) => {
 
-    const handleClose = (_e: React.MouseEvent) => {
-        if (props.onClose) {
-            props?.onClose();
+  const handleClose = (_e: React.MouseEvent) => {
+    if (props.onClose) {
+      props?.onClose();
 
-            SoundManager.playSound("ui/buttonClick");
-        }
+      SoundManager.playSound('ui/buttonClick');
+    }
+  };
+
+  const handleBack = (_e: React.MouseEvent) => {
+    if (props.onBack) {
+      props?.onBack();
+
+      SoundManager.playSound('ui/buttonClick');
+    }
+  };
+
+  useEffect(() => {
+    SoundManager.musicFiltered = true;
+    return () => {
+      SoundManager.musicFiltered = false;
     };
+  });
 
-    const handleBack = (_e: React.MouseEvent) => {
-        if (props.onBack) {
-            props?.onBack();
-
-            SoundManager.playSound("ui/buttonClick");
-        }
-    };
-
-    useEffect(() => {
-        SoundManager.musicFiltered = true;
-        return () => {
-            SoundManager.musicFiltered = false;
-        }
-    })
-
-    return (
+  return (
         <div className="window">
             <div className="header">
                 { props.backEnabled !== false && (
@@ -48,7 +48,7 @@ const Window = (props: PropsWithChildren<Props>) => {
                         className="back-button"
                         onClick={handleBack}
                         square={true}
-                        size={"medium"}
+                        size={'medium'}
                         color="purple"
                         text="<"
                     />
@@ -59,7 +59,7 @@ const Window = (props: PropsWithChildren<Props>) => {
                         className="close-button"
                         onClick={handleClose}
                         square={true}
-                        size={"medium"}
+                        size={'medium'}
                         color="purple"
                         text="x"
                     />
@@ -67,7 +67,7 @@ const Window = (props: PropsWithChildren<Props>) => {
             </div>
             { props.children }
         </div>
-    );
+  );
 };
 
 export default Window;

@@ -21,22 +21,22 @@ export const ONE_DAY = ONE_HOUR * 24;
 export const ONE_YEAR = ONE_DAY * 265.25;
 
 export const formatDuration = (ms: number, short?: boolean): string => {
-    const timeUnitsList = [
-        { unit: short? 'y' : 'year', amount: ONE_YEAR },
-        { unit: short? 'd' : 'day', amount: ONE_DAY },
-        { unit: short? 'h' : 'hour', amount: ONE_HOUR },
-        { unit: short? 'm' : 'minute', amount: ONE_MINUTE },
-        { unit: short? 's': 'second', amount: ONE_SECOND },
-    ]
-    let time = Math.abs(ms);
-    const output: string[] = [];
-    timeUnitsList.forEach((el) => {
-        const tmp = Math.floor(time / el.amount);
-        time -= tmp * el.amount
-        if (tmp !== 0) {
-            const unit = TextManager.get(`common-time-${el.unit}${tmp > 1 && !short ? "-plural": ""}`);
-            output.push(`${tmp}${unit}`);
-        }
-    })
-    return output.join(" ");
-}
+  const timeUnitsList = [
+    { unit: short ? 'y' : 'year', amount: ONE_YEAR },
+    { unit: short ? 'd' : 'day', amount: ONE_DAY },
+    { unit: short ? 'h' : 'hour', amount: ONE_HOUR },
+    { unit: short ? 'm' : 'minute', amount: ONE_MINUTE },
+    { unit: short ? 's' : 'second', amount: ONE_SECOND },
+  ];
+  let time = Math.abs(ms);
+  const output: string[] = [];
+  timeUnitsList.forEach((el) => {
+    const tmp = Math.floor(time / el.amount);
+    time -= tmp * el.amount;
+    if (tmp !== 0) {
+      const unit = TextManager.get(`common-time-${el.unit}${tmp > 1 && !short ? '-plural' : ''}`);
+      output.push(`${tmp}${unit}`);
+    }
+  });
+  return output.join(' ');
+};

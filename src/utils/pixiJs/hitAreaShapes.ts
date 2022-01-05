@@ -5,7 +5,7 @@ import { IHitArea } from 'pixi.js';
 export default class HitAreaShapes implements IHitArea {
   public shapes: PIXI.Polygon[];
 
-  constructor(shapes: { [key: string]: { shape: number[]}[] } = {}, sprite = "0") {
+  constructor(shapes: { [key: string]: { shape: number[] }[] } = {}, sprite = '0') {
 
     this.shapes = shapes[sprite].map((definition: { shape: number[]; }) => {
       const shape: number[] = definition.shape;
@@ -20,7 +20,7 @@ export default class HitAreaShapes implements IHitArea {
    */
   contains(x = 0, y = 0) {
     return (!this.shapes || this.shapes.length === 0)
-    ? false
-    : this.shapes.some(shape => shape.contains(x, y));
+      ? false
+      : this.shapes.some(shape => shape.contains(x, y));
   }
 }

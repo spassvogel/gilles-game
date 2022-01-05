@@ -1,4 +1,4 @@
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from 'react-markdown';
 import { Structure } from 'definitions/structures';
 import { TextManager } from 'global/TextManager';
 import { useEngine } from 'hooks/store/engine';
@@ -9,9 +9,9 @@ import { Resource } from 'definitions/resources';
 import { useStructureLevel, useStructureState } from 'hooks/store/structures';
 import { ResourceStructureLevelDefinition } from 'definitions/structures/types';
 import Icon from 'components/ui/common/Icon';
-import resourceDescriptions from "definitions/resources";
+import resourceDescriptions from 'definitions/resources';
 import TickingProgressbar from 'components/ui/common/progress/TickingProgressbar';
-import { useMaxResourcesState, useResourcesState } from "hooks/store/resources";
+import { useMaxResourcesState, useResourcesState } from 'hooks/store/resources';
 
 interface Props {
   structure: Structure;
@@ -19,9 +19,9 @@ interface Props {
 }
 
 const ResourceGenerationRow = (props: Props) => {
-  const {structure, resource} = props;
+  const { structure, resource } = props;
   const engine = useEngine();
-  const {workers} = useStructureState(structure);
+  const { workers } = useStructureState(structure);
 
   const levelDefinition = useStructureLevel<ResourceStructureLevelDefinition>(structure);
   const generates = levelDefinition.generates[resource] || 0;
@@ -35,18 +35,18 @@ const ResourceGenerationRow = (props: Props) => {
       <div className="resource-generation-row">
         <div className="error-full">
         <ReactMarkdown>
-          {TextManager.get("ui-structure-resource-warehouse-full", { structure, resource })}
+          {TextManager.get('ui-structure-resource-warehouse-full', { structure, resource })}
         </ReactMarkdown>
         </div>
       </div>
-    )
+    );
   }
   return (
     <div className="resource-generation-row">
       <div className="info">
         <Icon image={resourceDescription.iconImg} size="smallest"/>
         <div>
-          {TextManager.get("ui-structure-resource-generates", {
+          {TextManager.get('ui-structure-resource-generates', {
             amount: generates,
             resource,
           })}
@@ -57,15 +57,15 @@ const ResourceGenerationRow = (props: Props) => {
       <TickingProgressbar
         className="generating"
         direction={Direction.decreasing}
-        label={`${TextManager.get("ui-structure-resource-next-generates", {
+        label={`${TextManager.get('ui-structure-resource-next-generates', {
           amount: generates * workers,
           resource,
-          time: formatDuration(delta)
+          time: formatDuration(delta),
         })}`}
         progress={delta / RESOURCE_INTERVAL}
       />}
-      { !workers && TextManager.get("ui-structure-resource-no-workers")}
+      { !workers && TextManager.get('ui-structure-resource-no-workers')}
     </div>
-  )
-}
+  );
+};
 export default ResourceGenerationRow;

@@ -1,1 +1,1 @@
-export { default } from './AdventurerTraits'
+export { default } from './AdventurerTraits';

@@ -1,8 +1,8 @@
 import { Fragment } from 'react';
 import { TextManager } from 'global/TextManager';
-import { AttributeSource, AttributeSourceType, ExtendedAttribute } from 'mechanics/adventurers/attributes';
+import { AttributeSourceType, ExtendedAttribute } from 'mechanics/adventurers/attributes';
 import { roundIfNeeded } from 'utils/format/number';
-import { Attribute } from 'store/types/adventurer';
+import { renderOrigin } from './utils';
 import './styles/attributeContext.scss';
 
 export interface Props {
@@ -11,7 +11,7 @@ export interface Props {
 
 const AttributeContext = (props: Props) => {
   const { extendedAttribute } = props;
-  console.log(extendedAttribute)
+  console.log(extendedAttribute);
   return (
     <div className="attribute-context">
       <hr />
@@ -25,9 +25,9 @@ const AttributeContext = (props: Props) => {
           return (
             <Fragment key={eAC.origin.type + i}>
               <dt title={origin}>{origin}</dt>
-              <dd className={eAC.origin.type === AttributeSourceType.base ? "base" : "additional"}>{roundIfNeeded(eAC.value)}</dd>
+              <dd className={eAC.origin.type === AttributeSourceType.base ? 'base' : 'additional'}>{roundIfNeeded(eAC.value)}</dd>
             </Fragment>
-          )
+          );
         })}
       </dl>
       <hr />
@@ -35,17 +35,6 @@ const AttributeContext = (props: Props) => {
         {TextManager.getAttributeDescription(extendedAttribute.attribute)}
       </div>
     </div>
-  )
-}
+  );
+};
 export default AttributeContext;
-
-const renderOrigin = (origin: AttributeSource, attribute: Attribute) => {
-  switch (origin.type) {
-    case AttributeSourceType.base:
-      return `base ${TextManager.getAttributeName(attribute)}`;
-    case AttributeSourceType.tempEffect:
-      return "soma"; // todo: split out which tempEffect
-    case AttributeSourceType.item:
-      return TextManager.getItemName(origin.item);
-  }
-}

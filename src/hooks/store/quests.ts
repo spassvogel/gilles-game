@@ -21,17 +21,17 @@ export const useQuest = (questName: string) => {
   const questSelector = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     (state: StoreState) => state.quests.find((q) => q.name === questName)!,
-    [questName]
+    [questName],
   );
   const quest = useSelector<StoreState, QuestStoreState>(questSelector);
   return quest;
-}
+};
 
 export const useQuestScene = (questName: string) => {
   const scene = useSelector<StoreState, SceneStoreState | undefined>(
-    store => store.quests.find((q) => q.name === questName)?.scene)
+    store => store.quests.find((q) => q.name === questName)?.scene);
   return scene;
-}
+};
 
 // Returns the active quests from the store
 export const useActiveQuests = () => {
@@ -45,20 +45,20 @@ export const useActiveQuests = () => {
   }, []);
 
   return useSelector<StoreState, QuestStoreState[]>(selectMemoized);
-}
+};
 
 // Returns the active quests from the store
 export const useActiveQuestNames = () => {
   const questNameSelector = useMemo(() => createStringArraySelector(
     [getQuestNames, getQuestStatus],
-    (names: string[], statuses: QuestStatus[]) => names.filter((_: string, index: number) => statuses[index] === QuestStatus.active)
+    (names: string[], statuses: QuestStatus[]) => names.filter((_: string, index: number) => statuses[index] === QuestStatus.active),
   ), []);
   return useSelector<StoreState, string[]>(questNameSelector);
-}
+};
 
 export const useActorObject = <T extends SceneObject>(questName: string, actorName: string): (T | undefined) =>  {
   const scene = useQuestScene(questName);
   return useMemo(() => {
     return scene?.objects.find(sA => sA.name === actorName) as T;
-  }, [actorName, scene?.objects])
-}
+  }, [actorName, scene?.objects]);
+};

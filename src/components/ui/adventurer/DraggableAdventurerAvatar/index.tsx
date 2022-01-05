@@ -1,9 +1,9 @@
-import { DragSourceType, DragType } from "constants/dragging";
-import * as React from "react";
-import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from "react-dnd";
-import { AdventurerStoreState } from "store/types/adventurer";
+import { DragSourceType, DragType } from 'constants/dragging';
+import * as React from 'react';
+import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from 'react-dnd';
+import { AdventurerStoreState } from 'store/types/adventurer';
 import AdventurerAvatar, { Props as AdventurerAvatarProps } from '../AdventurerAvatar';
-import "./styles/draggableadventureravatar.scss";
+import './styles/draggableadventureravatar.scss';
 
 export interface Props {
   sourceId?: string;
@@ -49,12 +49,12 @@ function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
 const DraggableAdventurerAvatar = (props: Props & CollectedProps & AdventurerAvatarProps) => {
 
   const { isDragging, connectDragSource, disabled } = props;
-  let className = "draggable-adventurer-avatar";
+  let className = 'draggable-adventurer-avatar';
   if (disabled) {
-    className += " disabled";
+    className += ' disabled';
   }
   if (isDragging) {
-    className += " dragging";
+    className += ' dragging';
   }
 
   /*if (isDragging) {
@@ -69,6 +69,6 @@ const DraggableAdventurerAvatar = (props: Props & CollectedProps & AdventurerAva
       />
     </div>,
   );
-}
+};
 
 export default DragSource<Props & AdventurerAvatarProps, CollectedProps>(DragType.ADVENTURER, spec, collect)(DraggableAdventurerAvatar);

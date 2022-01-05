@@ -1,11 +1,11 @@
-import { ItemType, ItemDefinition, ItemCategory } from "./types";
+import { ItemType, ItemDefinition, ItemCategory } from './types';
 
-type Prefix = "consumable/";
-const PREFIX = "consumable/";
+type Prefix = 'consumable/';
+const PREFIX = 'consumable/';
 const itemCategory = ItemCategory.consumable;
-const basePath = "/img/items/consumables/";
+const basePath = '/img/items/consumables/';
 
-export type ConsumableCategory = "health" | "soma" | "mana";
+export type ConsumableCategory = 'health' | 'soma' | 'mana';
 export interface ConsumableDefinition extends ItemDefinition {
   category: ConsumableCategory;
   effect?: number;
@@ -27,7 +27,7 @@ const consumables = {
     category: 'soma',
     itemCategory,
     iconImg: `${basePath}minor-soma.png`,
-    effect: 1.1
+    effect: 1.1,
   },
   lesserHealthPotion: {
     category: 'health',
@@ -44,7 +44,7 @@ const consumables = {
     category: 'soma',
     itemCategory,
     iconImg: `${basePath}lesser-soma.png`,
-    effect: 1.25
+    effect: 1.25,
   },
   majorHealthPotion: {
     category: 'health',
@@ -61,7 +61,7 @@ const consumables = {
     category: 'soma',
     itemCategory,
     iconImg: `${basePath}major-soma.png`,
-    effect: 1.5
+    effect: 1.5,
   },
   greaterHealthPotion: {
     category: 'health',
@@ -78,12 +78,12 @@ const consumables = {
     category: 'soma',
     itemCategory,
     iconImg: `${basePath}greater-soma.png`,
-    effect: 2
+    effect: 2,
   },
-}
+};
 
 export type Consumable = `${Prefix}${keyof typeof consumables}`;
-const all = Object.entries(consumables).reduce<{[key: string]: ConsumableDefinition}>((acc, [key, value]) => {
+const all = Object.entries(consumables).reduce<{ [key: string]: ConsumableDefinition }>((acc, [key, value]) => {
   acc[`${PREFIX}${key}`] = value as ConsumableDefinition;
   return acc;
 }, {}) as Record<Consumable, ConsumableDefinition>;
@@ -95,4 +95,4 @@ export function getDefinition(consumable: Consumable): ConsumableDefinition {
 
 export const isConsumable = (item: ItemType): item is Consumable => {
   return !!all[item as Consumable];
-}
+};

@@ -1,9 +1,9 @@
-import React, { MouseEvent, useRef, useContext } from "react";
+import React, { MouseEvent, useRef, useContext } from 'react';
 import { TextManager } from 'global/TextManager';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
 import Button from 'components/ui/buttons/Button';
-import "../styles/situation.scss";
-import "../styles/modal.scss";
+import '../styles/situation.scss';
+import '../styles/modal.scss';
 
 interface Props {
   situation: string;
@@ -20,17 +20,17 @@ const Situation = (props: Props) => {
   const { title, choices, text } = situation;
   const handleChoiceClick = (e: MouseEvent<HTMLButtonElement>) => {
     const choice = e.currentTarget.getAttribute('data-option');
-    if (!choice || !controller) return
+    if (!choice || !controller) return;
     controller.handleSituationOptionClick(props.situation, choice, props.adventurerId);
     e.stopPropagation();
-  }
+  };
 
   const handleClose = (e: MouseEvent<HTMLDivElement>) => {
     props.onClose();
     e.stopPropagation();
-  }
+  };
   return (
-    <div className={`interaction-modal situation`} ref={ref}>
+    <div className={'interaction-modal situation'} ref={ref}>
       <div className="header">
         <div className="title">
           {TextManager.get(title)}
@@ -44,7 +44,7 @@ const Situation = (props: Props) => {
       ))}
     </div>
     </div>
-  )
-}
+  );
+};
 
 export default Situation;

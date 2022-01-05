@@ -4,6 +4,17 @@ interface Props {
   effectType: TempEffectType;
 }
 
+const getIconImage = (effectType: TempEffectType) => {
+  switch (effectType) {
+    case TempEffectType.brokenLegs:
+      return 'knee-bandage.svg';
+    case TempEffectType.burning:
+      return 'flaming-claw.svg';
+    case TempEffectType.soma:
+      return 'embrassed-energy.svg';
+  }
+};
+
 const EffectIcon = (props: Props) => {
   const { effectType } = props;
   // const effectDefinition = getDefinition(effectType);
@@ -15,19 +26,8 @@ const EffectIcon = (props: Props) => {
         backgroundImage: `url(${process.env.PUBLIC_URL}/img/ui/icons/${getIconImage(effectType)})`,
       }}
     />
-  )
-}
+  );
+};
 
 export default EffectIcon;
 
-const getIconImage = (effectType: TempEffectType) => {
-  switch (effectType) {
-    case TempEffectType.brokenLegs:
-      return "knee-bandage.svg";
-    case TempEffectType.burning:
-      return "flaming-claw.svg";
-    case TempEffectType.soma:
-      return "embrassed-energy.svg";
-  }
-
-}

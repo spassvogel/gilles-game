@@ -1,5 +1,5 @@
-import { Effect, EffectType } from "definitions/effects/types";
-import { TextManager } from "global/TextManager";
+import { Effect, EffectType } from 'definitions/effects/types';
+import { TextManager } from 'global/TextManager';
 
 // todo: move somewhere else
 const getEffectDescription = ( effect: Effect) => {
@@ -15,8 +15,8 @@ const getEffectDescription = ( effect: Effect) => {
       return TextManager.getEffectDescription(effect, { interval });
     }
     case EffectType.healthDecreaseOnMove: {
-      return TextManager.getEffectDescription(effect)
+      return TextManager.getEffectDescription(effect);
     }
   }
-}
+};
 export default getEffectDescription;

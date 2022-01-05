@@ -1,6 +1,6 @@
 import Icon, { IconSize } from 'components/ui/common/Icon';
-import { AdventurerStoreState } from "store/types/adventurer";
-import "./styles/adventureravatar.scss";
+import { AdventurerStoreState } from 'store/types/adventurer';
+import './styles/adventureravatar.scss';
 
 export interface Props {
   adventurer: AdventurerStoreState;
@@ -16,10 +16,10 @@ export interface Props {
 const AdventurerAvatar = (props: Props) => {
   const {
     adventurer,
-    size
+    size,
   } = props;
 
-  const className = `${(props.className || "")} avatar`;
+  const className = `${(props.className || '')} avatar`;
 
   const handleClick = () => {
     if (props.onClick) {

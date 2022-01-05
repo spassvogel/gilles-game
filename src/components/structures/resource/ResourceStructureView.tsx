@@ -1,8 +1,8 @@
-import { ResourceStructure, Structure  } from "definitions/structures";
-import { ResourceStructureLevelDefinition } from "definitions/structures/types";
-import UpDownValue from "components/ui/common/UpDownValue";
+import { ResourceStructure, Structure  } from 'definitions/structures';
+import { ResourceStructureLevelDefinition } from 'definitions/structures/types';
+import UpDownValue from 'components/ui/common/UpDownValue';
 import { useSelector, useDispatch } from 'react-redux';
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from 'react-markdown';
 import { StoreState } from 'store/types';
 import { selectFreeWorkers } from 'store/selectors/workers';
 import { decreaseWorkers, increaseWorkers, removeItemFromHarvest } from 'store/actions/structures';
@@ -14,27 +14,31 @@ import { ContextType } from 'constants/context';
 import { useStructureLevel, useStructureState } from 'hooks/store/structures';
 import ResourceGenerationRow from './ResourceGenerationRow';
 import { Resource } from 'definitions/resources';
-import DraggableItemsList from "components/ui/items/DraggableItemsList";
-import { Item } from "definitions/items/types";
-import { DragSourceType } from "constants/dragging";
-import HarvestProgress from "./HarvestProgress";
-import IconButton from "components/ui/buttons/IconButton";
-import warehouseIcon from "components/structures/styles/images/warehouse/icon.png"
-import { addItemToWarehouse } from "store/actions/stockpile";
-import UpgradeHelpModal from "../UpgradeHelpModal";
-import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
+import DraggableItemsList from 'components/ui/items/DraggableItemsList';
+import { Item } from 'definitions/items/types';
+import { DragSourceType } from 'constants/dragging';
+import HarvestProgress from './HarvestProgress';
+import IconButton from 'components/ui/buttons/IconButton';
+import warehouseIcon from 'components/structures/styles/images/warehouse/icon.png';
+import { addItemToWarehouse } from 'store/actions/stockpile';
+import UpgradeHelpModal from '../UpgradeHelpModal';
+import UpgradeHelpModalContent from './UpgradeHelpModalContent';
 import './styles/resourceStructureView.scss';
 
 export interface Props  {
   structure: Structure;
 }
 
+const selectHarvest = (store: StoreState, structure: ResourceStructure): Item[] => {
+  return store.structures[structure].harvest ?? [];
+};
+
 // todo: 02/12/2019 [ ] Can show progress bar in resource screen
 const ResourceStructureView = (props: Props) => {
-  const {structure} = props;
+  const { structure } = props;
 
   // Fetch needed values from store
-  const {level, workers} = useStructureState(structure);
+  const { level, workers } = useStructureState(structure);
   const workersFree = useSelector<StoreState, number>((store) => selectFreeWorkers(store));
   const harvest = useSelector<StoreState, Item[]>((store) => selectHarvest(store, structure as ResourceStructure));
   const levelDefinition = useStructureLevel<ResourceStructureLevelDefinition>(structure);
@@ -43,7 +47,7 @@ const ResourceStructureView = (props: Props) => {
   const dispatch = useDispatch();
   const handleWorkersDown = () => {
     dispatch(decreaseWorkers(props.structure));
-  }
+  };
 
   const handleWorkersUp = () => {
     dispatch(increaseWorkers(props.structure));
@@ -61,15 +65,15 @@ const ResourceStructureView = (props: Props) => {
         <UpgradeHelpModalContent level={level} structure={structure}/>
       </UpgradeHelpModal>
     );
-    TooltipManager.showContextTooltip(ContextType.component, content, originRect, "upgrade-structure-tooltip");
+    TooltipManager.showContextTooltip(ContextType.component, content, originRect, 'upgrade-structure-tooltip');
 
     event.stopPropagation();
-  }
+  };
 
   const handleItemTake = (item: Item, index: number) => {
     dispatch(removeItemFromHarvest(structure, index));
-    dispatch(addItemToWarehouse(item))
-  }
+    dispatch(addItemToWarehouse(item));
+  };
 
   return (
     <>
@@ -78,7 +82,7 @@ const ResourceStructureView = (props: Props) => {
         <section>
           <StructureLevel structure={structure} onHelpClicked={handleHelpClicked}/>
           <UpDownValue
-            label={TextManager.get("ui-structure-production-workers")}
+            label={TextManager.get('ui-structure-production-workers')}
             value={workers}
             max={levelDefinition.workerCapacity}
             upDisabled={upDisabled}
@@ -116,6 +120,3 @@ const ResourceStructureView = (props: Props) => {
 
 export default ResourceStructureView;
 
-const selectHarvest = (store: StoreState, structure: ResourceStructure): Item[] => {
-  return store.structures[structure].harvest ?? [];
-}

@@ -1,10 +1,10 @@
-import ResourcesBox from "components/structures/warehouse/ResourcesBox";
-import { WarehouseStructureLevelDefinition } from "definitions/structures/types";
-import usePrevious from "hooks/usePrevious";
-import { useEffect, useRef, useState } from "react";
-import { empty, ResourceStoreState } from "store/types/resources";
-import { StructuresStoreState } from "store/types/structures";
-import { TextManager } from "global/TextManager";
+import ResourcesBox from 'components/structures/warehouse/ResourcesBox';
+import { WarehouseStructureLevelDefinition } from 'definitions/structures/types';
+import usePrevious from 'hooks/usePrevious';
+import { useEffect, useRef, useState } from 'react';
+import { empty, ResourceStoreState } from 'store/types/resources';
+import { StructuresStoreState } from 'store/types/structures';
+import { TextManager } from 'global/TextManager';
 import { TooltipManager } from 'global/TooltipManager';
 import AdventurerTabstrip from 'components/world/QuestPanel/AdventurerTabstrip';
 import { useStructureLevel, useStructureState } from 'hooks/store/structures';
@@ -15,12 +15,12 @@ import { useAdventurersInTown } from 'hooks/store/adventurers';
 import StructureLevel from '../StructureLevel';
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
 import { ContextType } from 'constants/context';
-import { Resource } from "definitions/resources";
-import UpgradeHelpModal from "../UpgradeHelpModal";
-import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
-import Stockpile from "./Stockpile";
-import { Channel, SoundManager } from "global/SoundManager";
-import "./styles/warehouseStructureView.scss";
+import { Resource } from 'definitions/resources';
+import UpgradeHelpModal from '../UpgradeHelpModal';
+import UpgradeHelpModalContent from './UpgradeHelpModalContent';
+import Stockpile from './Stockpile';
+import { Channel, SoundManager } from 'global/SoundManager';
+import './styles/warehouseStructureView.scss';
 
 
 const WarehouseStructureView = () => {
@@ -34,9 +34,9 @@ const WarehouseStructureView = () => {
   const structuresState = useSelector<StoreState, StructuresStoreState>(store => store.structures);
 
   useEffect(() => {
-    SoundManager.addSound("ambient/structure/warehouse", "sound/structures/warehouse.ogg", () => {
-      SoundManager.playSound("ambient/structure/warehouse", Channel.ambient, true);
-    })
+    SoundManager.addSound('ambient/structure/warehouse', 'sound/structures/warehouse.ogg', () => {
+      SoundManager.playSound('ambient/structure/warehouse', Channel.ambient, true);
+    });
     return () => SoundManager.fadeOutSound(Channel.ambient);
   }, []);
 
@@ -54,9 +54,9 @@ const WarehouseStructureView = () => {
     setResourcesDelta(delta);
   }, [resources, previousResources]);
 
-  const structureState = useStructureState("warehouse");
+  const structureState = useStructureState('warehouse');
   const { level } = structureState;
-  const levelDefinition = useStructureLevel<WarehouseStructureLevelDefinition>("warehouse");
+  const levelDefinition = useStructureLevel<WarehouseStructureLevelDefinition>('warehouse');
 
 
   const handleAdventurerTabSelected = (tabId: string) => {
@@ -67,20 +67,20 @@ const WarehouseStructureView = () => {
     const origin = (event.currentTarget as HTMLElement);
     const originRect = origin.getBoundingClientRect();
     const content = (
-      <UpgradeHelpModal level={level} structure={"warehouse"}>
+      <UpgradeHelpModal level={level} structure={'warehouse'}>
         <UpgradeHelpModalContent level={level} />
       </UpgradeHelpModal>
     );
-    TooltipManager.showContextTooltip(ContextType.component, content, originRect, "upgrade-structure-tooltip");
+    TooltipManager.showContextTooltip(ContextType.component, content, originRect, 'upgrade-structure-tooltip');
 
     event.stopPropagation();
-  }
+  };
 
   return (
     <div className="warehouse-structureview">
-      <StructureLevel structure={"warehouse"} onHelpClicked={handleHelpClicked} />
+      <StructureLevel structure={'warehouse'} onHelpClicked={handleHelpClicked} />
       <fieldset className="resources" ref={resourcesRef}>
-        <legend>{TextManager.get("ui-structure-warehouse-resources")}</legend>
+        <legend>{TextManager.get('ui-structure-warehouse-resources')}</legend>
         <ResourcesBox
           resources={resources}
           structures={structuresState}
@@ -88,9 +88,9 @@ const WarehouseStructureView = () => {
           deltaResources={resourcesDelta}
         />
       </fieldset>
-      <h3>{TextManager.get("ui-structure-warehouse-stockpile")}</h3>
+      <h3>{TextManager.get('ui-structure-warehouse-stockpile')}</h3>
       <Stockpile />
-      <h3>{TextManager.get("ui-structure-warehouse-adventurers")}</h3>
+      <h3>{TextManager.get('ui-structure-warehouse-adventurers')}</h3>
       <div>
         <AdventurerTabstrip
           adventurers={adventurersInTown}

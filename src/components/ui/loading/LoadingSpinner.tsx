@@ -1,4 +1,4 @@
-import "./styles/loadingSpinner.scss";
+import './styles/loadingSpinner.scss';
 
 const LoadingSpinner = () => {
   const rings = 5;
@@ -11,5 +11,5 @@ const LoadingSpinner = () => {
     ))}
     </div>
   );
-}
+};
 export default LoadingSpinner;

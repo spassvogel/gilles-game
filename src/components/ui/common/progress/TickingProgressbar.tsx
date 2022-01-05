@@ -1,12 +1,11 @@
-import * as React from "react";
 import { useDelta } from 'hooks/store/engine';
 import { useEffect, useState } from 'react';
-import PlainProgressbar from "./PlainProgressbar";
-import usePrevious from "hooks/usePrevious";
+import PlainProgressbar from './PlainProgressbar';
+import usePrevious from 'hooks/usePrevious';
 
 export enum Direction {
   increasing,
-  decreasing
+  decreasing,
 }
 
 export interface Props {
@@ -18,7 +17,7 @@ export interface Props {
 }
 
 const TickingProgressbar = (props: Props) => {
-  const { className = "", label, direction, progress = 0} = props;
+  const { className = '', label, direction, progress = 0 } = props;
   const previousProgress = usePrevious(progress) || 0;
   // We use the delta time since last tick to animate
   const delta = useDelta();
@@ -29,9 +28,9 @@ const TickingProgressbar = (props: Props) => {
 
   useEffect(() => {
     setAnimate(
-       direction === undefined ||
+      direction === undefined ||
       (direction === Direction.increasing && progress > previousProgress) ||
-      (direction === Direction.decreasing && progress < previousProgress)
+      (direction === Direction.decreasing && progress < previousProgress),
     );
   }, [direction, previousProgress, progress]);
 

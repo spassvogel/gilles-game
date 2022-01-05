@@ -1,9 +1,9 @@
-import Menu from "components/ui/window/windows/MenuWindow";
-import * as React from "react";
+import Menu from 'components/ui/window/windows/MenuWindow';
+import * as React from 'react';
 import Resourcebar from './Resourcebar';
 import { useContext } from 'react';
 import { AppContext } from 'components/App';
-import "./styles/topbar.scss";
+import './styles/topbar.scss';
 
 const Topbar = () => {
   const context = useContext(AppContext);
@@ -23,5 +23,5 @@ const Topbar = () => {
       </div>
     </div>
   );
-}
+};
 export default Topbar;

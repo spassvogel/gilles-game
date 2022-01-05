@@ -1,18 +1,18 @@
-import { createStore, DeepPartial, applyMiddleware, Middleware, Store } from "redux";
-import { Persistor, persistReducer, persistStore } from "redux-persist";
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { createStore, DeepPartial, applyMiddleware, Middleware, Store } from 'redux';
+import { Persistor, persistReducer, persistStore } from 'redux-persist';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import localForage from 'localforage';
-import * as Version from "constants/version";
-import rootReducer from "store/reducers";
+import * as Version from 'constants/version';
+import rootReducer from 'store/reducers';
 import { storeIsRehydrated } from 'store/helpers/storeHelpers';
 import { StoreState } from 'store/types';
-import { effectsMiddleware } from "store/middleware/effects";
-import { traitsMiddleware } from "store/middleware/traits";
-import { convertIntToSemVer } from "./version";
-import { Action } from "store/actions";
-import { PersistPartial } from "redux-persist/es/persistReducer";
+import { effectsMiddleware } from 'store/middleware/effects';
+import { traitsMiddleware } from 'store/middleware/traits';
+import { convertIntToSemVer } from './version';
+import { Action } from 'store/actions';
+import { PersistPartial } from 'redux-persist/es/persistReducer';
 
-export const PERSIST_KEY = "root";
+export const PERSIST_KEY = 'root';
 
 export const persistConfig = {
   key: PERSIST_KEY,
@@ -31,9 +31,9 @@ interface ConfigureStoreResult {
 // all middlewares
 const middlewares: Middleware[] = [
   effectsMiddleware,
-  traitsMiddleware
-]
-const middlewareEnhancer = applyMiddleware(...middlewares)
+  traitsMiddleware,
+];
+const middlewareEnhancer = applyMiddleware(...middlewares);
 
 /**
  * Configures the redux store
@@ -41,9 +41,9 @@ const middlewareEnhancer = applyMiddleware(...middlewares)
 const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<ConfigureStoreResult> => {
   return new Promise((resolve, reject) => {
     try {
-      const version = initial?.game?.version ? convertIntToSemVer(initial.game.version) : Version.default
+      const version = initial?.game?.version ? convertIntToSemVer(initial.game.version) : Version.default;
       const composeEnhancers = composeWithDevTools({
-        name: `Gidletown (${version})`
+        name: `Gidletown (${version})`,
       })(middlewareEnhancer);
 
       const store = createStore(
@@ -55,10 +55,9 @@ const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<Co
         const isHydrated = storeIsRehydrated(store.getState());
         resolve({ store, persistor, isHydrated }) ;
       });
-    }
-    catch (e) {
-      console.log('An error has occurred', e)
-      reject(e)
+    } catch (e) {
+      console.log('An error has occurred', e);
+      reject(e);
     }
   });
 };

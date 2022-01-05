@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import { ItemType } from "definitions/items/types";
-import { Structure } from "definitions/structures";
-import { ProductionStructureDefinition } from "definitions/structures/types";
-import { TextManager } from "global/TextManager";
-import { formatDuration } from "utils/format/time";
+import { useEffect } from 'react';
+import { ItemType } from 'definitions/items/types';
+import { Structure } from 'definitions/structures';
+import { ProductionStructureDefinition } from 'definitions/structures/types';
+import { TextManager } from 'global/TextManager';
+import { formatDuration } from 'utils/format/time';
 import { TickingProgressbar } from 'components/ui/common/progress';
 import { useStructureDefinition, useStructureState } from 'hooks/store/structures';
 import { useCraftingTasksStateByStructure, useStudyingTasksStateByStructure } from 'hooks/store/useTasksState';
@@ -13,10 +13,10 @@ import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
 import CraftingArea from './CraftingArea';
 import { addItemToToProduces } from 'store/actions/structures';
-import UpgradeHelpModal from "../UpgradeHelpModal";
-import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
-import { SoundManager, Channel } from "global/SoundManager";
-import "./styles/productionStructureView.scss";
+import UpgradeHelpModal from '../UpgradeHelpModal';
+import UpgradeHelpModalContent from './UpgradeHelpModalContent';
+import { SoundManager, Channel } from 'global/SoundManager';
+import './styles/productionStructureView.scss';
 
 export interface Props {
   structure: Structure;
@@ -32,17 +32,22 @@ const ProductionStructureView = (props: Props) => {
 
   useEffect(() => {
     if (structure === 'armoursmith' || structure === 'weaponsmith') {
-      SoundManager.addSound("ambient/structure/smith", "sound/structures/smith.ogg", () => {
-        SoundManager.playSound("ambient/structure/smith", Channel.ambient, true);
-      })
+      SoundManager.addSound('ambient/structure/smith', 'sound/structures/smith.ogg', () => {
+        SoundManager.playSound('ambient/structure/smith', Channel.ambient, true);
+      });
     }
     if (structure === 'alchemist') {
-      SoundManager.addSound("ambient/structure/alchemist", "sound/structures/alchemist.ogg", () => {
-        SoundManager.playSound("ambient/structure/alchemist", Channel.ambient, true);
-      })
+      SoundManager.addSound('ambient/structure/alchemist', 'sound/structures/alchemist.ogg', () => {
+        SoundManager.playSound('ambient/structure/alchemist', Channel.ambient, true);
+      });
     }
     return () => SoundManager.fadeOutSound(Channel.ambient);
   }, [structure]);
+
+  const handleUpgradeCallbacks = (nextLevel: number) => {
+    const nextLevelDefinition = structureDefinition.levels[nextLevel];
+    return nextLevelDefinition.unlocks.map(item => addItemToToProduces(structure, item));
+  };
 
   const handleHelpClicked = (event: React.MouseEvent) => {
     const origin = (event.currentTarget as HTMLElement);
@@ -56,15 +61,10 @@ const ProductionStructureView = (props: Props) => {
         <UpgradeHelpModalContent level={level} structure={structure}/>
       </UpgradeHelpModal>
     );
-    TooltipManager.showContextTooltip(ContextType.component, content, originRect, "upgrade-structure-tooltip");
+    TooltipManager.showContextTooltip(ContextType.component, content, originRect, 'upgrade-structure-tooltip');
 
     event.stopPropagation();
-  }
-
-  const handleUpgradeCallbacks = (nextLevel: number) => {
-    const nextLevelDefinition = structureDefinition.levels[nextLevel];
-    return nextLevelDefinition.unlocks.map(item => addItemToToProduces(structure, item));
-  }
+  };
 
   return (
     // TODO: abstract some stuff to generic StructureView
@@ -78,7 +78,7 @@ const ProductionStructureView = (props: Props) => {
           />
           <CraftingArea structure={structure} />
           <fieldset>
-            <legend>{TextManager.get("ui-structure-production-crafting")}</legend>
+            <legend>{TextManager.get('ui-structure-production-crafting')}</legend>
             {craftingTasks.map((t) => (
               <TickingProgressbar
                 key={`${t.name}${t.startTime}`}
@@ -89,7 +89,7 @@ const ProductionStructureView = (props: Props) => {
           </fieldset>
           {studyingTasks.length > 0 && (
           <fieldset>
-            <legend>{TextManager.get("ui-structure-production-studying")}</legend>
+            <legend>{TextManager.get('ui-structure-production-studying')}</legend>
             {studyingTasks.map((t) => (
               <TickingProgressbar
                 key={`${t.name}${t.startTime}`}
@@ -103,6 +103,6 @@ const ProductionStructureView = (props: Props) => {
       </div>
     </>
   );
-}
+};
 
 export default ProductionStructureView;

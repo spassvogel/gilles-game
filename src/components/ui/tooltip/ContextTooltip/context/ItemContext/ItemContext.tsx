@@ -1,15 +1,15 @@
-import * as React from "react";
-import { Apparel, isApparel } from "definitions/items/apparel";
-import { Deed, isDeed } from "definitions/items/deeds";
-import { Item } from "definitions/items/types";
-import { isWeapon, Weapon } from "definitions/items/weapons";
+import * as React from 'react';
+import { Apparel, isApparel } from 'definitions/items/apparel';
+import { Deed, isDeed } from 'definitions/items/deeds';
+import { Item } from 'definitions/items/types';
+import { isWeapon, Weapon } from 'definitions/items/weapons';
 import DeedContent from './DeedContent';
 import WeaponContent from './WeaponContent';
 import ApparelContent from './ApparelContent';
 import { TextManager } from 'global/TextManager';
-import { Consumable, isConsumable } from "definitions/items/consumables";
-import ConsumableContent from "./ConsumableContent";
-import { ItemSource } from "constants/items";
+import { Consumable, isConsumable } from 'definitions/items/consumables';
+import ConsumableContent from './ConsumableContent';
+import { ItemSource } from 'constants/items';
 
 export interface Props {
   item: Item;
@@ -33,5 +33,5 @@ const ItemContext = (props: Props) => {
   }
   const subtext = TextManager.getItemSubtext(item.type);
   return (subtext && (<p className="subtext">{`"${subtext}"`}</p>)) || null;
-}
+};
 export default ItemContext;

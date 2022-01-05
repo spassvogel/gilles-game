@@ -1,4 +1,4 @@
-import { DragSourceType } from "./dragging";
+import { DragSourceType } from './dragging';
 
 export enum Rarity {
   // gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary
@@ -6,7 +6,7 @@ export enum Rarity {
   uncommon,
   rare,
   epic,
-  legendary
+  legendary,
 }
 
 // Information about where an item is found

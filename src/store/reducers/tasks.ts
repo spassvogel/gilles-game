@@ -1,18 +1,37 @@
 
-import { TaskAction } from "store/actions/tasks";
-import { Reducer } from "redux";
-import { TaskStoreState } from "store/types/task";
-import { TasksStoreState } from "store/types/tasks";
-import { GameAction } from "store/actions/game";
+import { TaskAction } from 'store/actions/tasks';
+import { Reducer } from 'redux';
+import { TaskStoreState } from 'store/types/task';
+import { TasksStoreState } from 'store/types/tasks';
+import { GameAction } from 'store/actions/game';
+
+const createTask = (action: TaskAction): TaskStoreState => {
+  return {
+    name: action.name,
+    origin: action.origin,
+    type: action.taskType,
+    callbacks: action.callbacks,
+    timeRemaining: action.time,
+    startTime: Date.now(),
+    lastTick: Date.now(),
+    progress: 0,
+  };
+};
+
+export const initialTasksState: TasksStoreState = {
+  completed: [],
+  running: [],
+};
 
 /**
  * Tasks reducer
  * @param state
  * @param action
  */
+// eslint-disable-next-line @typescript-eslint/default-param-last
 export const tasks: Reducer<TasksStoreState, TaskAction | GameAction> = (state: TasksStoreState = initialTasksState, action) => {
   switch (action.type) {
-    case "start": {
+    case 'start': {
     // Adds a new task to the running tasks
       const task: TaskStoreState = createTask(action);
       const running = state.running.concat(task);
@@ -21,7 +40,7 @@ export const tasks: Reducer<TasksStoreState, TaskAction | GameAction> = (state: 
         running,
       };
     }
-    case "gameTick": {
+    case 'gameTick': {
       // Will update all tasks in `running`. If a running task expires it is placed in `complete`
       // Note that completed tasks must be handled BEFORE the next call to ActionType.update, because
       // this list is recreated every time
@@ -50,9 +69,9 @@ export const tasks: Reducer<TasksStoreState, TaskAction | GameAction> = (state: 
         completed,
       };
     }
-    case "reduceTime": {
+    case 'reduceTime': {
       if (action.percentage < 0 || action.percentage > 100) return state;
-      if (action.time === "task") {
+      if (action.time === 'task') {
         const running: TaskStoreState[] = [];
         state.running.forEach((t) => {
           const timeRemaining = t.timeRemaining / 100 * action.percentage;
@@ -75,22 +94,4 @@ export const tasks: Reducer<TasksStoreState, TaskAction | GameAction> = (state: 
     }
   }
   return state;
-};
-
-const createTask = (action: TaskAction): TaskStoreState => {
-  return {
-    name: action.name,
-    origin: action.origin,
-    type: action.taskType,
-    callbacks: action.callbacks,
-    timeRemaining: action.time,
-    startTime: Date.now(),
-    lastTick: Date.now(),
-    progress: 0,
-  };
-};
-
-export const initialTasksState: TasksStoreState = {
-  completed: [],
-  running: [],
 };

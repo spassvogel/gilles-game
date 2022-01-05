@@ -1,9 +1,9 @@
-import {  ItemType, ItemDefinition, ItemCategory } from "./types";
+import {  ItemType, ItemDefinition, ItemCategory } from './types';
 
-type Prefix = "trinket/";
-const PREFIX = "trinket/";
+type Prefix = 'trinket/';
+const PREFIX = 'trinket/';
 const itemCategory = ItemCategory.trinket;
-const basePath = "/img/items/trinkets/";
+const basePath = '/img/items/trinkets/';
 
 const trinkets = {
   magicAmulet: {
@@ -18,7 +18,7 @@ const trinkets = {
 
 
 export type Trinket = `${Prefix}${keyof typeof trinkets}`;
-const all = Object.entries(trinkets).reduce<{[key: string]: ItemDefinition}>((acc, [key, value]) => {
+const all = Object.entries(trinkets).reduce<{ [key: string]: ItemDefinition }>((acc, [key, value]) => {
   acc[`${PREFIX}${key}`] = value;
   return acc;
 }, {}) as Record<Trinket, ItemDefinition>;
@@ -30,4 +30,4 @@ export function getDefinition(trinket: Trinket): ItemDefinition {
 
 export const isTrinket = (item: ItemType): item is Trinket => {
   return !!all[item as Trinket];
-}
+};

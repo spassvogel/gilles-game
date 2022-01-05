@@ -1,10 +1,11 @@
-import { Store, AnyAction } from "redux";
+import { Store, AnyAction } from 'redux';
 import { StoreState } from 'store/types';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 
 export abstract class SceneControllerManager {
   static store: { [key: string]: BaseSceneController<unknown> } = {};
-  static controllerTypes: {[key: string]: typeof BaseSceneController} = {};
+
+  static controllerTypes: { [key: string]: typeof BaseSceneController } = {};
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static registerSceneController(questName: string, sceneName: string, controllerType: any) {
@@ -24,7 +25,7 @@ export abstract class SceneControllerManager {
     return this.store[`${questName}.${sceneName}`];
   }
 
-  static destroySceneConroller(questName: string, sceneName: string, ) {
+  static destroySceneConroller(questName: string, sceneName: string ) {
     delete this.store[`${questName}.${sceneName}`];
   }
 }

@@ -1,5 +1,5 @@
-import { AppContext } from "components/App";
-import * as React from "react";
+import { AppContext } from 'components/App';
+import * as React from 'react';
 import { Component, ComponentType } from 'react';
 
 // Sharing context within the entire App

@@ -1,5 +1,5 @@
-import weaponsmithProduction from './weaponsmith'
-import armoursmithProduction from './armoursmith'
+import weaponsmithProduction from './weaponsmith';
+import armoursmithProduction from './armoursmith';
 import { Structure } from 'definitions/structures';
 import { ProductionDefinition } from './types';
 import workshopProduction from './workshop';
@@ -15,28 +15,28 @@ export const getProductionStructureForItem = (item: ProducableItem): Structure |
   //   return Structure.alchemist;
   // }
   if (isApparel(item) && armoursmithProduction[item]){
-    return "armoursmith";
+    return 'armoursmith';
   }
   if (isWeapon(item) && weaponsmithProduction[item]){
-    return "weaponsmith";
+    return 'weaponsmith';
   }
   if (isQuestItem(item) && workshopProduction[item]){
-    return "workshop";
+    return 'workshop';
   }
   return null;
-}
+};
 
 
 const all = {
   // ...alchemistProduction,
   ...armoursmithProduction,
   ...weaponsmithProduction,
-  ...workshopProduction
+  ...workshopProduction,
 };
 
 export const getDefinition = (item: ProducableItem ): ProductionDefinition => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return all[item]!;
-}
+};
 
 

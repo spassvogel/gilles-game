@@ -20,8 +20,8 @@ type AllNodeTypes = {
   x: number;
   y: number;
   log?: string;
-}
+};
 
 export type QuestNode  =
-  | AllNodeTypes & { type: QuestNodeType.nothing}
-  | AllNodeTypes & { type: QuestNodeType.encounter, startScene: string}
+  | AllNodeTypes & { type: QuestNodeType.nothing }
+  | AllNodeTypes & { type: QuestNodeType.encounter, startScene: string };

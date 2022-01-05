@@ -1,7 +1,7 @@
 import DashedLine from 'components/pixi/DashedLine';
 import { Point } from 'pixi.js';
 import { SceneActionType } from 'store/types/scene';
-import { ActionIntent } from './ui/SceneUI'
+import { ActionIntent } from './ui/SceneUI';
 import { Graphics } from '@inlet/react-pixi';
 
 export interface Props {
@@ -11,7 +11,7 @@ export interface Props {
 }
 
 const ActionPreview = (props: Props) => {
-  const {actionIntent, tileWidth, tileHeight} = props;
+  const { actionIntent, tileWidth, tileHeight } = props;
   const convert = (p: number[]) => new Point(p[0] * (tileWidth) + (tileWidth / 2), p[1] * (tileHeight) + (tileHeight / 2));
 
   switch (actionIntent.action){
@@ -21,7 +21,7 @@ const ActionPreview = (props: Props) => {
       }
       const converted = [
         convert(actionIntent.from),
-        ...actionIntent.path.map(p => convert(p))
+        ...actionIntent.path.map(p => convert(p)),
       ];
 
       return (
@@ -37,7 +37,7 @@ const ActionPreview = (props: Props) => {
             alpha: 1,
           }}
         />
-      )
+      );
     }
     case SceneActionType.move:
     case SceneActionType.melee: {
@@ -46,7 +46,7 @@ const ActionPreview = (props: Props) => {
       }
       const converted = [
         convert(actionIntent.from),
-        ...actionIntent.path.map(p => convert(p))
+        ...actionIntent.path.map(p => convert(p)),
       ];
       const valid = (!actionIntent.apCost) || actionIntent.apCost <= (actionIntent.actorAP || 0);
 
@@ -63,7 +63,7 @@ const ActionPreview = (props: Props) => {
             alpha: 1,
           }}
         />
-      )
+      );
     }
     case SceneActionType.shoot: {
       // draw arrow: https://math.stackexchange.com/questions/1314006/drawing-an-arrow
@@ -74,17 +74,17 @@ const ActionPreview = (props: Props) => {
         <Graphics
           name="line"
           draw={graphics => {
-            graphics.lineStyle(4, valid ? 0xcb8c06 : 0x8b0000, 1)
-            graphics.moveTo(from.x, from.y)
+            graphics.lineStyle(4, valid ? 0xcb8c06 : 0x8b0000, 1);
+            graphics.moveTo(from.x, from.y);
             graphics.lineTo(to.x, to.y);
             graphics.endFill();
           }}
         />
-      )
+      );
     }
     default:
       return null;
   }
-}
+};
 
 export default ActionPreview;

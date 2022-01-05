@@ -1,10 +1,10 @@
-import { useRef, useEffect, PropsWithChildren, forwardRef, useImperativeHandle } from "react";
+import { useRef, useEffect, PropsWithChildren, forwardRef, useImperativeHandle } from 'react';
 import { Sprite } from '@inlet/react-pixi';
-import { Viewport as PixiViewport} from 'pixi-viewport';
+import { Viewport as PixiViewport } from 'pixi-viewport';
 import Viewport from 'components/pixi/Viewport';
 import { gsap } from 'gsap';
-import { GodrayFilter } from "@pixi/filter-godray";
-import BridgedStage from "components/pixi/util/BridgedStage";
+import { GodrayFilter } from '@pixi/filter-godray';
+import BridgedStage from 'components/pixi/util/BridgedStage';
 
 export interface Props {
   screenWidth: number;
@@ -13,6 +13,13 @@ export interface Props {
   worldHeight: number;
   blockScroll: boolean;
 }
+
+export const godray = new GodrayFilter();
+
+const options = {
+  autoDensity: true,
+  sharedLoader: true,
+};
 
 
 const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref: React.Ref<PixiViewport>) => {
@@ -23,7 +30,7 @@ const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref
     screenHeight,
     worldWidth,
     worldHeight,
-    blockScroll
+    blockScroll,
     /* eslint-enable react/prop-types */
   } = props;
 
@@ -31,16 +38,16 @@ const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref
 
   useImperativeHandle(ref, () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return innerRef.current!
+    return innerRef.current!;
   });
 
 
   useEffect(() => {
     godray.enabled = false;
-    if(innerRef.current) {
+    if (innerRef.current) {
 
       const viewport = innerRef.current;
-      viewport.on("moved", () => {
+      viewport.on('moved', () => {
         const horizontalFactor = gsap.utils.normalize(viewport.screenWidth, worldWidth, viewport.right);
         const verticalFactor = gsap.utils.normalize(worldHeight, viewport.screenHeight, viewport.bottom);
         const factor = Math.max(horizontalFactor * verticalFactor - .4, 0);
@@ -48,19 +55,19 @@ const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref
         godray.gain =  factor;
         godray.lacunarity = 2.4;
         godray.enabled = godray.gain > 0;
-      })
+      });
     }
 
     const onScroll = (e: WheelEvent) => {
       // Scrolling the mouse is just used for zoom, not for actual scrolling
       e.preventDefault();
-    }
+    };
 
     if (blockScroll) {
-      window.addEventListener("wheel", onScroll, {passive: false});
+      window.addEventListener('wheel', onScroll, { passive: false });
     }
     return () => {
-      window.removeEventListener("wheel", onScroll);
+      window.removeEventListener('wheel', onScroll);
     };
   }, [blockScroll, worldHeight, worldWidth]);
 
@@ -82,15 +89,8 @@ const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref
       </Viewport>
     </BridgedStage>
 
-  )
+  );
 });
-TownStage.displayName = "TownStage";
+TownStage.displayName = 'TownStage';
 
 export default TownStage;
-
-const options = {
-  autoDensity: true,
-  sharedLoader: true
-}
-
-export const godray = new GodrayFilter();

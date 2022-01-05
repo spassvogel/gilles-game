@@ -9,7 +9,7 @@
  */
 export const convertSemVerToInt = (semVer: string): number => {
   // Split a given version string into three parts.
-  const parts = semVer.split(".").map((part) => Number(part));
+  const parts = semVer.split('.').map((part) => Number(part));
   // Check if we got exactly three parts, otherwise throw an error.
   if (parts.length !== 3) {
     throw new Error(`Received invalid version string: ${semVer}`);

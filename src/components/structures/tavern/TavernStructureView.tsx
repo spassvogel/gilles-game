@@ -1,14 +1,14 @@
-import { TavernStructureDefinition, TavernStructureLevelDefinition} from "definitions/structures/types";
-import { AdventurerStoreState} from "store/types/adventurer";
-import { QuestStatus, QuestStoreState} from "store/types/quest";
-import { TextManager} from "global/TextManager";
-import { ToastManager} from 'global/ToastManager';
+import { TavernStructureDefinition, TavernStructureLevelDefinition } from 'definitions/structures/types';
+import { AdventurerStoreState } from 'store/types/adventurer';
+import { QuestStatus, QuestStoreState } from 'store/types/quest';
+import { TextManager } from 'global/TextManager';
+import { ToastManager } from 'global/ToastManager';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
-import { Type} from 'components/ui/toasts/Toast';
-import { getQuestLink} from 'utils/routing';
+import { Type } from 'components/ui/toasts/Toast';
+import { getQuestLink } from 'utils/routing';
 import RoomList from './rooms/RoomList';
-import { useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import QuestBoard from './QuestBoard';
 import { useStructureDefinition, useStructureState } from 'hooks/store/structures';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,32 +16,32 @@ import { StoreState } from 'store/types';
 import { launchQuest } from 'store/actions/quests';
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import StructureLevel from '../StructureLevel';
-import StructureViewHeader from "../StructureViewHeader";
-import UpgradeHelpModal from "../UpgradeHelpModal";
-import UpgradeHelpModalContent from "./UpgradeHelpModalContent";
-import { Channel, SoundManager } from "global/SoundManager";
-import "./styles/tavernStructureView.scss";
+import StructureViewHeader from '../StructureViewHeader';
+import UpgradeHelpModal from '../UpgradeHelpModal';
+import UpgradeHelpModalContent from './UpgradeHelpModalContent';
+import { Channel, SoundManager } from 'global/SoundManager';
+import './styles/tavernStructureView.scss';
 
-export const SOURCE_ID = "tavern";
+export const SOURCE_ID = 'tavern';
 
 // The UI for the tavern
 const TavernStructureView = () => {
-  const level = useStructureState("tavern").level;
+  const level = useStructureState('tavern').level;
   const adventurers = useSelector<StoreState, AdventurerStoreState[]>(store => store.adventurers);
   const quests = useSelector<StoreState, QuestStoreState[]>(store => store.quests);
 
   const [assignedAventurers, setAassignedAdventurers] = useState<AdventurerStoreState[]>([]);
   const [selectedQuest, setSelectedQuest] = useState<string>();
 
-  const structureDefinition = useStructureDefinition<TavernStructureDefinition>("tavern");
+  const structureDefinition = useStructureDefinition<TavernStructureDefinition>('tavern');
   const levelDefinition: TavernStructureLevelDefinition = structureDefinition.levels[level];
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    SoundManager.addSound("ambient/structure/tavern", "sound/structures/tavern.ogg", () => {
-      SoundManager.playSound("ambient/structure/tavern", Channel.ambient, true);
-    })
+    SoundManager.addSound('ambient/structure/tavern', 'sound/structures/tavern.ogg', () => {
+      SoundManager.playSound('ambient/structure/tavern', Channel.ambient, true);
+    });
     return () => SoundManager.fadeOutSound(Channel.ambient);
   }, []);
 
@@ -62,16 +62,16 @@ const TavernStructureView = () => {
     setAassignedAdventurers([]);
   };
 
-  const handleAdventurerDropped = (item: AdventurerAvatarDragInfo, index: number) => {
-    if (item.sourceId === SOURCE_ID) {
-      handleAddAdventurer(item.adventurer, index)
-    }
-  }
-
   const handleAddAdventurer = (adventurer: AdventurerStoreState, index: number): void => {
     const copy = [ ...assignedAventurers];
     copy[index] = adventurer;
     setAassignedAdventurers(copy);
+  };
+
+  const handleAdventurerDropped = (item: AdventurerAvatarDragInfo, index: number) => {
+    if (item.sourceId === SOURCE_ID) {
+      handleAddAdventurer(item.adventurer, index);
+    }
   };
 
   const handleRemoveAdventurer = (adventurer: AdventurerStoreState): void => {
@@ -94,20 +94,20 @@ const TavernStructureView = () => {
     const origin = (event.currentTarget as HTMLElement);
     const originRect = origin.getBoundingClientRect();
     const content = (
-      <UpgradeHelpModal level={level} structure={"tavern"}>
+      <UpgradeHelpModal level={level} structure={'tavern'}>
         <UpgradeHelpModalContent level={level} />
       </UpgradeHelpModal>
     );
-    TooltipManager.showContextTooltip(ContextType.component, content, originRect, "upgrade-structure-tooltip");
+    TooltipManager.showContextTooltip(ContextType.component, content, originRect, 'upgrade-structure-tooltip');
 
     event.stopPropagation();
-  }
+  };
 
   return (
     <>
-      <StructureViewHeader structure={"tavern"} />
+      <StructureViewHeader structure={'tavern'} />
       <div className="tavern-structure-view">
-        <StructureLevel structure={"tavern"} onHelpClicked={handleHelpClicked}/>
+        <StructureLevel structure={'tavern'} onHelpClicked={handleHelpClicked}/>
         <section>
           <RoomList
             roomCount={levelDefinition.rooms}

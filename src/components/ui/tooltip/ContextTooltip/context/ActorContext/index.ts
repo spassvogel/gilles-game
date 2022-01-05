@@ -1,1 +1,1 @@
-export { default } from './ActorContext'
+export { default } from './ActorContext';

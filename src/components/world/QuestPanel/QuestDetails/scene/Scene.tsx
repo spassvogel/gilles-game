@@ -1,4 +1,4 @@
-import { useRef, useEffect, useContext, useState } from "react";
+import { useRef, useEffect, useContext, useState } from 'react';
 import { Container, Graphics } from '@inlet/react-pixi';
 import { useQuestScene } from 'hooks/store/quests';
 import { Location } from 'utils/tilemap';
@@ -8,12 +8,12 @@ import useTilesetsLoader from 'hooks/useTilesetsLoader';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
 import SceneUI, { ActionIntent } from './ui/SceneUI';
 import ActionPreview from './ActionPreview';
-import { isAdventurer } from "store/types/scene";
-import SceneLog from "./SceneLog";
-import { CombatController } from "mechanics/scenes/CombatController";
-import { Rectangle } from "pixi.js";
-import { useSettings } from "hooks/store/settings";
-import "./styles/scene.scss";
+import { isAdventurer } from 'store/types/scene';
+import SceneLog from './SceneLog';
+import { CombatController } from 'mechanics/scenes/CombatController';
+import { Rectangle } from 'pixi.js';
+import { useSettings } from 'hooks/store/settings';
+import './styles/scene.scss';
 
 export interface Props {
   selectedActorId: string;
@@ -22,32 +22,32 @@ export interface Props {
 
 const Scene = (props: Props) => {
   const settings = useSettings();
-  const {selectedActorId, setSelectedActor } = props;
+  const { selectedActorId, setSelectedActor } = props;
   const controller = useContext(SceneControllerContext);
-  if (!controller) throw new Error("No controller found")
+  if (!controller) throw new Error('No controller found');
   const mapData = controller.mapData;
   const basePath = controller.basePath;
-  if (!basePath) throw new Error("No basePath found")
+  if (!basePath) throw new Error('No basePath found');
 
   const {
     loadComplete,
     loadTilesets,
-    tileSpritesheets
+    tileSpritesheets,
   } = useTilesetsLoader(basePath);
 
   const ref = useRef<HTMLDivElement>(null);
   const scene = useQuestScene(controller.questName);
   const combat = scene?.combat === true;
-  const {tileWidth, tileHeight} = controller.getTileDimensions();
+  const { tileWidth, tileHeight } = controller.getTileDimensions();
   const [currentActionIntent, setCurrentActionIntent] = useState<ActionIntent>();
 
   useEffect(() => {
     if (combat) {
-      CombatController.initialize(controller)
+      CombatController.initialize(controller);
     }
     return () => {
       CombatController.destroy();
-    }
+    };
   }, [combat, controller]);
 
   useEffect(() => {
@@ -61,10 +61,10 @@ const Scene = (props: Props) => {
       // We can click on adventurers
       props.setSelectedActor(actor.name);
     }
-  }
+  };
 
   if (!loadComplete || !mapData || !scene) {
-    return <div>loading scene...</div>
+    return <div>loading scene...</div>;
   }
 
   const sceneWidth = mapData.width * mapData.tilewidth;
@@ -110,7 +110,7 @@ const Scene = (props: Props) => {
         </Container>
       </BridgedStage>
       {settings.debugSceneShowActionQueue && (
-        <div style={{ position: 'absolute', bottom: 0}}>
+        <div style={{ position: 'absolute', bottom: 0 }}>
           <h2>ActionQueue</h2>
           <ul>
             {scene.actionQueue && scene.actionQueue.map((action) => (
@@ -130,6 +130,6 @@ const Scene = (props: Props) => {
       <SceneLog questId={controller.questName} />
     </div>
   );
-}
+};
 
 export default Scene;

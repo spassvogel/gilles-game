@@ -1,16 +1,16 @@
-import { Structure } from "definitions/structures";
-import { Link, useParams } from "react-router-dom";
-import { TextManager } from "global/TextManager";
-import Button from "components/ui/buttons/Button";
-import { getStructureLink } from "utils/routing";
-import StructureDetailsView from "./StructureDetailsView";
-import "./styles/structuredetailsview.scss";
+import { Structure } from 'definitions/structures';
+import { Link, useParams } from 'react-router-dom';
+import { TextManager } from 'global/TextManager';
+import Button from 'components/ui/buttons/Button';
+import { getStructureLink } from 'utils/routing';
+import StructureDetailsView from './StructureDetailsView';
+import './styles/structuredetailsview.scss';
 
 
 
 const RoutedStructureDetailsView = () => {
-  const { structure } = useParams<{structure: Structure}>();
-  const title = TextManager.getStructureName(structure)
+  const { structure } = useParams<{ structure: Structure }>();
+  const title = TextManager.getStructureName(structure);
   return (
     <div className="structure-details-window ">
       <div className="header">
@@ -19,7 +19,7 @@ const RoutedStructureDetailsView = () => {
           <Button
             className="close-button"
             square={true}
-            size={"medium"}
+            size={'medium'}
             color="purple"
             text="x"
           />
@@ -27,7 +27,7 @@ const RoutedStructureDetailsView = () => {
       </div>
       <StructureDetailsView structure={structure} title={title} />
     </div>
-  )
-}
+  );
+};
 
 export default RoutedStructureDetailsView;

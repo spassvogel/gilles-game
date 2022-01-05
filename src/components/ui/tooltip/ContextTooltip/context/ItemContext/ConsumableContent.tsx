@@ -1,8 +1,8 @@
-import * as React from "react";
+import * as React from 'react';
 import { TextManager } from 'global/TextManager';
-import { Consumable } from "definitions/items/consumables";
-import { ItemSource } from "constants/items";
-import { Item } from "definitions/items/types";
+import { Consumable } from 'definitions/items/consumables';
+import { ItemSource } from 'constants/items';
+import { Item } from 'definitions/items/types';
 
 
 interface Props {
@@ -20,6 +20,6 @@ const ConsumableContent = (props: Props) => {
     </div>
   );
 
-}
+};
 
 export default ConsumableContent;

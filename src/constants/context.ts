@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ItemType } from "definitions/items/types";
+import { ItemType } from 'definitions/items/types';
 import { WeaponType } from 'definitions/items/weapons';
 import { TraitDefinition } from 'definitions/traits/types';
 import { ActorObject } from 'store/types/scene';

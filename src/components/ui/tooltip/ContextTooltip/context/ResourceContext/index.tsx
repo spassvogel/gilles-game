@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import { TextManager } from 'global/TextManager';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
@@ -11,7 +11,7 @@ import { useMaxResourcesState, useResourcesState } from 'hooks/store/resources';
 import { formatNumber } from 'utils/format/number';
 import useGoldState from 'hooks/store/useGoldState';
 import { useWorkersFreeState, useWorkersState } from 'hooks/store/useWorkersState';
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from 'react-markdown';
 import './resourceContext.scss';
 
 export interface Props {
@@ -34,11 +34,11 @@ const ResourceContext = (props: Props) => {
     if (structureState.state !== StructureState.Built) {
       return (
         <span>
-          {TextManager.get("ui-tooltip-resource-produce-row-notbuilt", {
-            structure: TextManager.getStructureName(structure)
+          {TextManager.get('ui-tooltip-resource-produce-row-notbuilt', {
+            structure: TextManager.getStructureName(structure),
           })}
         </span>
-      )
+      );
     }
     const structureDefinition = getDefinition<ResourceStructureDefinition>(structure);
     const levelDefinition: ResourceStructureLevelDefinition = structureDefinition.levels[structureState.level];
@@ -46,15 +46,15 @@ const ResourceContext = (props: Props) => {
 
     return (
       <span className="produced">
-        <ReactMarkdown components={{ p: "span" }}>
-          {TextManager.get("ui-tooltip-resource-produce-row", {
+        <ReactMarkdown components={{ p: 'span' }}>
+          {TextManager.get('ui-tooltip-resource-produce-row', {
             structure,
-            amount
+            amount,
           })}
         </ReactMarkdown>
       </span>
-    )
-  }
+    );
+  };
 
   switch (resource) {
     case Resource.fabric:
@@ -69,14 +69,14 @@ const ResourceContext = (props: Props) => {
         <div className="resource-context">
           <hr />
           <div className="subheader">
-            {TextManager.get(`ui-tooltip-resource-quantity`, { amount } )}
+            {TextManager.get('ui-tooltip-resource-quantity', { amount } )}
           </div>
           <div>
             {renderProducedBy()}
           </div>
           { full && (
             <div className="warning-full">
-              {TextManager.get(`ui-tooltip-resource-warehouse-full`, { resource })}
+              {TextManager.get('ui-tooltip-resource-warehouse-full', { resource })}
             </div>
           )}
           <hr />
@@ -84,42 +84,42 @@ const ResourceContext = (props: Props) => {
             {TextManager.get(`resource-${resource}-info`)}
           </p>
         </div>
-      )
+      );
     }
-    case "gold": {
+    case 'gold': {
       const amount = goldState;
       return (
         <>
           <div className="resource-context">
             <div>
-              {TextManager.get(`ui-tooltip-resource-quantity`, { amount } )}
+              {TextManager.get('ui-tooltip-resource-quantity', { amount } )}
             </div>
             <p className="secondary">
               {` ${TextManager.get(`resource-${resource}-info`)}`}
             </p>
           </div>
         </>
-      )
+      );
     }
-    case "workers": {
+    case 'workers': {
       const free = workersFreeState;
       const total = workersState;
       return (
         <>
           <div className="resource-context">
             <div>
-              {TextManager.get(`ui-tooltip-workers-quantity`, { free, total } )}
+              {TextManager.get('ui-tooltip-workers-quantity', { free, total } )}
             </div>
             <p className="secondary">
             {` ${TextManager.get(`resource-${resource}-info`)}`}
             </p>
           </div>
         </>
-      )
+      );
     }
     default:
-      throw new Error("Uknow value " + resource);
+      throw new Error('Uknow value ' + resource);
   }
 
-}
+};
 export default ResourceContext;

@@ -1,15 +1,15 @@
-import { Resource } from "definitions/resources";
-import resourceDescriptions from "definitions/resources";
-import * as React from "react";
-import { ResourceStoreState } from "store/types/resources";
-import { TextManager } from "global/TextManager";
+import { Resource } from 'definitions/resources';
+import resourceDescriptions from 'definitions/resources';
+import * as React from 'react';
+import { ResourceStoreState } from 'store/types/resources';
+import { TextManager } from 'global/TextManager';
 import { useMemo } from 'react';
 import { useResourcesState } from 'hooks/store/resources';
 import Icon from 'components/ui/common/Icon';
 import { ContextType } from 'constants/context';
 import { TooltipManager } from 'global/TooltipManager';
-import useGoldState from "hooks/store/useGoldState";
-import "./styles/resourcesCost.scss";
+import useGoldState from 'hooks/store/useGoldState';
+import './styles/resourcesCost.scss';
 
 export interface Props {
   className?: string;
@@ -23,13 +23,13 @@ export interface Props {
 const ResourcesCost = (props: Props) => {
   const {
     resources,
-    gold
+    gold,
   } = props;
 
   const storeResources = useResourcesState();
 
   const sufficientResources = useMemo(() => {
-    return Object.keys(resources).reduce<{[key: string]: boolean}>((acc, value) => {
+    return Object.keys(resources).reduce<{ [key: string]: boolean }>((acc, value) => {
       const resource = value as Resource;
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       acc[value] = storeResources[resource]! >= resources[resource]!;
@@ -39,12 +39,12 @@ const ResourcesCost = (props: Props) => {
   const availableGold = useGoldState();
   const sufficientGold = gold === undefined || availableGold >= gold;
 
-  const className = (props.className || "") + " resources-cost";
+  const className = (props.className || '') + ' resources-cost';
   const listItems = Object.keys(props.resources).map((key: string) => {
     const resource = key as Resource;
-    let listItemClass = "resource";
+    let listItemClass = 'resource';
     if (sufficientResources && !sufficientResources[resource]) {
-      listItemClass += " insufficient";
+      listItemClass += ' insufficient';
     }
     const resourceDescription = resourceDescriptions[resource];
     if (!resourceDescription) {
@@ -83,13 +83,13 @@ const ResourcesCost = (props: Props) => {
     <ul className={className}>
       {listItems}
       {gold && (
-        <li className={["gold", ...(sufficientGold ? [] : ["insufficient"])].join(" ")}>
+        <li className={['gold', ...(sufficientGold ? [] : ['insufficient'])].join(' ')}>
           <Icon
             image="img/resources/gold.png"
             size="smallest"
           />
           <div className="name">
-            {TextManager.get("resource-gold-name")}
+            {TextManager.get('resource-gold-name')}
           </div>
           <div className="amount" >
             { gold }

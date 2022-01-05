@@ -54,7 +54,7 @@ export interface TiledObjectData {
   id: number | string;
   name?: string;
   properties?: TiledProperty[];
-  polygon?: { x: number, y: number}[];
+  polygon?: { x: number, y: number }[];
   type: string;
   visible: boolean;
   width: number;
@@ -64,8 +64,8 @@ export interface TiledObjectData {
 }
 
 export enum TiledLayerType {
-  tilelayer = "tilelayer",
-  objectgroup = "objectgroup"
+  tilelayer = 'tilelayer',
+  objectgroup = 'objectgroup',
 }
 
 export interface TiledProperty {
@@ -75,15 +75,15 @@ export interface TiledProperty {
 }
 
 enum Orientation {
-  orthagonal = "orthagonal",
-  isometric = "isometric",
-  staggered = "staggered",
-  hexagonal = "hexagonal"
+  orthagonal = 'orthagonal',
+  isometric = 'isometric',
+  staggered = 'staggered',
+  hexagonal = 'hexagonal',
 }
 
 enum RenderOrder {
-  rightUp = "right-up",
-  rightDown = "right-down",
-  leftUp = "left-up",
-  leftDown = "left-down"
+  rightUp = 'right-up',
+  rightDown = 'right-down',
+  leftUp = 'left-up',
+  leftDown = 'left-down',
 }

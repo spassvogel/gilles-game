@@ -1,24 +1,24 @@
-import localforage from "localforage";
-import { useEffect, useState } from "react";
-import { FallbackProps } from "react-error-boundary";
-import { getStoredState } from "redux-persist";
-import { persistConfig } from "utils/configureStore";
-import { InfoWindow } from "../modals/InfoWindow";
-import Tab from "../tabs/Tab";
-import Tabstrip from "../tabs/Tabstrip";
-import "./styles/errorModal.scss";
+import localforage from 'localforage';
+import { useEffect, useState } from 'react';
+import { FallbackProps } from 'react-error-boundary';
+import { getStoredState } from 'redux-persist';
+import { persistConfig } from 'utils/configureStore';
+import { InfoWindow } from '../modals/InfoWindow';
+import Tab from '../tabs/Tab';
+import Tabstrip from '../tabs/Tabstrip';
+import './styles/errorModal.scss';
 
 const ErrorModal = (props: FallbackProps) => {
-  const {error } = props;
-  const [selectedTabId, setSelectedTabId] = useState<"stack" | "store">("stack");
-  const [state, setState] = useState<string>("(no store state found)");
+  const { error } = props;
+  const [selectedTabId, setSelectedTabId] = useState<'stack' | 'store'>('stack');
+  const [state, setState] = useState<string>('(no store state found)');
 
   useEffect(() => {
     (async () => {
-      const initState = await getStoredState(persistConfig)
-      setState(JSON.stringify(initState, undefined, 2))
-    })()
-  })
+      const initState = await getStoredState(persistConfig);
+      setState(JSON.stringify(initState, undefined, 2));
+    })();
+  });
 
   // if (process.env.NODE_ENV !== "production") {
   //   resetErrorBoundary();
@@ -27,13 +27,13 @@ const ErrorModal = (props: FallbackProps) => {
 
   const handleTabSelected = (tabId: typeof selectedTabId) => {
     setSelectedTabId(tabId);
-  }
+  };
 
   const handleReset = () => {
     localforage.clear();
     window.location.reload();
     // restartGame();
-  }
+  };
 
 
   return (
@@ -46,13 +46,13 @@ const ErrorModal = (props: FallbackProps) => {
           <pre>{error.message}</pre>
 
         <Tabstrip className="tabs" onTabSelected={handleTabSelected} activeTab={selectedTabId}>
-          <Tab id={"stack"}>Stack</Tab>
-          <Tab id={"store"}>Store</Tab>
+          <Tab id={'stack'}>Stack</Tab>
+          <Tab id={'store'}>Store</Tab>
         </Tabstrip>
-        { selectedTabId === "stack" && (
+        { selectedTabId === 'stack' && (
           <pre>{error.stack}</pre>
         )}
-        { selectedTabId === "store" && (
+        { selectedTabId === 'store' && (
           <pre>{state}</pre>
         )}
         <form action="https://formspree.io/f/mayvnnbp" method="POST" className="buttons">
@@ -65,7 +65,7 @@ const ErrorModal = (props: FallbackProps) => {
       </div>
       </InfoWindow>
     </div>
-  )
-}
+  );
+};
 
 export default ErrorModal;

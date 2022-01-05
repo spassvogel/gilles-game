@@ -1,26 +1,26 @@
-import { paramCase as toKebab} from "text-param-case";
+import { paramCase as toKebab } from 'text-param-case';
 import { decode } from 'html-entities';
-import { TextEntry } from "constants/text";
-import { getDefinition } from "definitions/items";
-import { ItemType, ItemCategory, isItemType, Item } from "definitions/items/types";
-import { Resource } from "definitions/resources";
-import { Structure } from "definitions/structures";
-import * as Handlebars from "handlebars";
+import { TextEntry } from 'constants/text';
+import { getDefinition } from 'definitions/items';
+import { ItemType, ItemCategory, isItemType, Item } from 'definitions/items/types';
+import { Resource } from 'definitions/resources';
+import { Structure } from 'definitions/structures';
+import * as Handlebars from 'handlebars';
 import { Trait } from 'definitions/traits/types';
 import { Type } from 'components/ui/toasts/Toast';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { WeaponType, WeaponClassification } from 'definitions/items/weapons';
-import { getStructureLink } from "utils/routing";
-import { Attribute } from "store/types/adventurer";
-import { EnemyType } from "definitions/enemies/types";
-import { ActorObject, isAdventurer, isEnemy } from "store/types/scene";
-import { QuestStoreState } from "store/types/quest";
-import { Effect, EffectType } from "definitions/effects/types";
-import { TempEffect, TempEffectType } from "definitions/tempEffects/types";
+import { getStructureLink } from 'utils/routing';
+import { Attribute } from 'store/types/adventurer';
+import { EnemyType } from 'definitions/enemies/types';
+import { ActorObject, isAdventurer, isEnemy } from 'store/types/scene';
+import { QuestStoreState } from 'store/types/quest';
+import { Effect, EffectType } from 'definitions/effects/types';
+import { TempEffect, TempEffectType } from 'definitions/tempEffects/types';
 
 export abstract class TextManager {
 
-  public static init(texts: {[key: string]: string}, precompile = true) {
+  public static init(texts: { [key: string]: string }, precompile = true) {
     this.texts = texts;
     this.templates = {};
     this.notFound = [];
@@ -35,7 +35,7 @@ export abstract class TextManager {
     const result = this.getDefault(key, context);
     if (result === null) {
       if (process.env.NODE_ENV === 'development') {
-        this.notFound.push(key)
+        this.notFound.push(key);
       }
 
       console.error(`Key '${key}' not found in TextManager`);
@@ -46,7 +46,7 @@ export abstract class TextManager {
   }
 
   // Will return `null` when no text found, otherwise will return the text
-  public static getDefault(key: string, context?: unknown): string|null {
+  public static getDefault(key: string, context?: unknown): string | null {
     if (!this.initialized) {
       throw new Error(`Error ${this} not initialized!`);
     }
@@ -108,7 +108,7 @@ export abstract class TextManager {
   }
 
   public static getQuestSceneTitle(quest: QuestStoreState) {
-    const sceneName = quest.sceneName || "";
+    const sceneName = quest.sceneName || '';
     return this.get(`quest-${toKebab(quest.name)}-scene-${toKebab(sceneName)}-title`);
   }
 
@@ -127,7 +127,7 @@ export abstract class TextManager {
     return this.get(`item-category-${toKebab(ItemCategory[itemCategory])}`);
   }
 
-  public static getItemSubtext(item: ItemType): string|null {
+  public static getItemSubtext(item: ItemType): string | null {
     return this.getDefault(`item-${toKebab(item)}-subtext`);
   }
 
@@ -139,9 +139,9 @@ export abstract class TextManager {
     return this.get(`trait-${toKebab(trait)}-name`);
   }
 
-  public static getEffectDescription(effect: Effect, props?: { [key: string]: string}): string {
+  public static getEffectDescription(effect: Effect, props?: { [key: string]: string }): string {
     const { type, ...rest } = effect;
-    return this.get(`effect-${toKebab(EffectType[type])}-description`, { ...rest, ...props} );
+    return this.get(`effect-${toKebab(EffectType[type])}-description`, { ...rest, ...props } );
   }
 
   public static getEffectFlavor(effect: Effect): string {
@@ -152,9 +152,9 @@ export abstract class TextManager {
     return this.get(`effect-${toKebab(EffectType[effect.type])}-name`);
   }
 
-  public static getTempEffectDescription(effect: TempEffect, props?: { [key: string]: string}): string {
+  public static getTempEffectDescription(effect: TempEffect, props?: { [key: string]: string }): string {
     const { type, ...rest } = effect;
-    return this.get(`temp-effect-${toKebab(TempEffectType[type])}-description`, { ...rest, ...props} );
+    return this.get(`temp-effect-${toKebab(TempEffectType[type])}-description`, { ...rest, ...props } );
   }
 
   public static getTempEffectFlavor(effect: TempEffect): string {
@@ -196,14 +196,17 @@ export abstract class TextManager {
   // will print all unfound text strings to the console
   public static printNotFounds() {
     if (this.notFound.length) {
-      console.log("TextManager strings not found:")
-      console.log("\"" + this.notFound.join('": "",\n"') + '": ""')
+      console.log('TextManager strings not found:');
+      console.log('"' + this.notFound.join('": "",\n"') + '": ""');
     }
   }
 
   private static initialized = false;
+
   private static texts: Record<string, string>;
+
   private static templates: Record<string, Handlebars.TemplateDelegate<unknown>>;
+
   private static notFound: string[];
 
   private static compileAll() {
@@ -218,7 +221,24 @@ export abstract class TextManager {
   }
 }
 
-Handlebars.registerHelper("item:name", (itemOrItemType: Item | ItemType, article?: string) => {
+
+const itemArticleUndefined = (item: ItemType) => {
+  const name = TextManager.getItemName(item);
+  const articleTemplate = TextManager.getTemplate('common-article-undefined');
+  return new Handlebars.SafeString(`${articleTemplate({ noun: name })}`);
+};
+
+const itemArticleDefined = (item: ItemType) => {
+  const name = TextManager.getItemName(item);
+  const articleTemplate = TextManager.getTemplate('common-article-defined');
+  return new Handlebars.SafeString(`${articleTemplate({ noun: name })}`);
+};
+
+const itemArticleAuto = (item: ItemType) => {
+  return itemArticleUndefined(item);
+};
+
+Handlebars.registerHelper('item:name', (itemOrItemType: Item | ItemType, article?: string) => {
   let itemType: ItemType;
   if (isItemType(itemOrItemType)){
     itemType = itemOrItemType;
@@ -229,11 +249,11 @@ Handlebars.registerHelper("item:name", (itemOrItemType: Item | ItemType, article
     return new Handlebars.SafeString(`<<ITEM DEFINITION NOT FOUND: ${itemType}>>`);
   }
   switch (article) {
-    case "aA":  // article Auto
+    case 'aA':  // article Auto
       return itemArticleAuto(itemType);
-    case "aD":  // article Defined "a sword"
+    case 'aD':  // article Defined "a sword"
       return itemArticleDefined(itemType);
-    case "aU":  // article Defined "the sword"
+    case 'aU':  // article Defined "the sword"
       return itemArticleDefined(itemType);
     default:
       // No article
@@ -242,28 +262,28 @@ Handlebars.registerHelper("item:name", (itemOrItemType: Item | ItemType, article
   }
 });
 
-Handlebars.registerHelper("structure:name", (structure: Structure) => {
+Handlebars.registerHelper('structure:name', (structure: Structure) => {
   const name = TextManager.get(`structure-${toKebab(structure)}-name`);
   return new Handlebars.SafeString(name);
 });
 
-Handlebars.registerHelper("structure:link", (structure: Structure) => {
+Handlebars.registerHelper('structure:link', (structure: Structure) => {
   const name = TextManager.get(`structure-${toKebab(structure)}-name`);
-  const link = getStructureLink(structure)
+  const link = getStructureLink(structure);
   return new Handlebars.SafeString( `[${name}](#${link})`);
 });
 
-Handlebars.registerHelper("resource:name", (resource: string) => {
+Handlebars.registerHelper('resource:name', (resource: string) => {
   const name = TextManager.get(`resource-${resource}-name`);
   return new Handlebars.SafeString(name);
 });
 
-Handlebars.registerHelper("adventurer:name", (adventurerId: string) => {
+Handlebars.registerHelper('adventurer:name', (adventurerId: string) => {
   const name = TextManager.getAdventurerName(adventurerId);
   return new Handlebars.SafeString(name);
 });
 
-Handlebars.registerHelper("actor:name", (actor: ActorObject) => {
+Handlebars.registerHelper('actor:name', (actor: ActorObject) => {
   if (isAdventurer(actor)) {
     const name = TextManager.getAdventurerName(actor.name);
     return new Handlebars.SafeString(name);
@@ -273,18 +293,3 @@ Handlebars.registerHelper("actor:name", (actor: ActorObject) => {
   }
 });
 
-const itemArticleAuto = (item: ItemType) => {
-  return itemArticleUndefined(item);
-};
-
-const itemArticleUndefined = (item: ItemType) => {
-  const name = TextManager.getItemName(item);
-  const articleTemplate = TextManager.getTemplate("common-article-undefined");
-  return new Handlebars.SafeString(`${articleTemplate({ noun: name})}`);
-};
-
-const itemArticleDefined = (item: ItemType) => {
-  const name = TextManager.getItemName(item);
-  const articleTemplate = TextManager.getTemplate("common-article-defined");
-  return new Handlebars.SafeString(`${articleTemplate({ noun: name})}`);
-};

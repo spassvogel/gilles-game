@@ -2,7 +2,7 @@ import Icon, { IconSize } from 'components/ui/common/Icon';
 import { getDefinition } from 'definitions/enemies';
 import { EnemyType } from 'definitions/enemies/types';
 import { ActorObject } from 'store/types/scene';
-import "./styles/enemyAvatar.scss";
+import './styles/enemyAvatar.scss';
 
 export interface Props {
   actorObject: ActorObject
@@ -17,10 +17,10 @@ export interface Props {
 const EnemyAvatar = (props: Props) => {
   const {
     actorObject,
-    size
+    size,
   } = props;
 
-  const className = `${(props.className || "")} enemy-avatar`;
+  const className = `${(props.className || '')} enemy-avatar`;
   const definition = getDefinition(actorObject.name as EnemyType);
 
   const handleClick = () => {

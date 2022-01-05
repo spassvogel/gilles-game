@@ -1,9 +1,9 @@
-import { ItemType, ItemDefinition, ItemCategory } from "./types";
+import { ItemType, ItemDefinition, ItemCategory } from './types';
 
-type Prefix = "herb/";
-const PREFIX = "herb/";
+type Prefix = 'herb/';
+const PREFIX = 'herb/';
 const itemCategory = ItemCategory.herb;
-const basePath = "/img/items/herbs/";
+const basePath = '/img/items/herbs/';
 
 const herbs = {
   angelicasSorrow: {
@@ -109,7 +109,7 @@ const herbs = {
 };
 
 export type Herb = `${Prefix}${keyof typeof herbs}`;
-const all = Object.entries(herbs).reduce<{[key: string]: ItemDefinition}>((acc, [key, value]) => {
+const all = Object.entries(herbs).reduce<{ [key: string]: ItemDefinition }>((acc, [key, value]) => {
   acc[`${PREFIX}${key}`] = value;
   return acc;
 }, {}) as Record<Herb, ItemDefinition>;
@@ -121,4 +121,4 @@ export function getDefinition(herb: Herb): ItemDefinition {
 
 export const isHerb = (item: ItemType): item is Herb => {
   return !!all[item as Herb];
-}
+};

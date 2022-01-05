@@ -1,7 +1,7 @@
-import { PixiComponent, applyDefaultProps, Graphics } from "@inlet/react-pixi";
+import { PixiComponent, applyDefaultProps, Graphics } from '@inlet/react-pixi';
 import { LineStyle } from 'pixi.js';
-import { Point } from "pixi.js";
-import * as PIXI from "pixi.js";
+import { Point } from 'pixi.js';
+import * as PIXI from 'pixi.js';
 
 interface Props  {
   points?: Point[];
@@ -14,7 +14,7 @@ interface Props  {
 /**
  * Draws a dashed line along a path
  */
-const DashedLine = PixiComponent<React.ComponentProps<typeof Graphics> & Props, PIXI.Graphics>("DashedLine", {
+const DashedLine = PixiComponent<React.ComponentProps<typeof Graphics> & Props, PIXI.Graphics>('DashedLine', {
   create: () => {
     return new PIXI.Graphics();
   },
@@ -35,14 +35,14 @@ const DashedLine = PixiComponent<React.ComponentProps<typeof Graphics> & Props, 
 
     const draw = () => {
 
-      if(instance.destroyed) {
+      if (instance.destroyed) {
         // component is unmounted, cancel drawing the line
         return;
       }
 
       instance.clear();
       instance.lineStyle(style?.width ?? 10, style?.color, style?.alpha, style?.alignment, style?.native);
-      const offsetPercentage = (Date.now() % (10000/speed) + 1) / Math.abs(10000/speed);
+      const offsetPercentage = (Date.now() % (10000 / speed) + 1) / Math.abs(10000 / speed);
 
       let dashLeft = 0;
       let gapLeft = 0;
@@ -74,7 +74,7 @@ const DashedLine = PixiComponent<React.ComponentProps<typeof Graphics> & Props, 
         const len = Math.sqrt(dx * dx + dy * dy);
         const normal = {
           x: dx / len,
-          y: dy / len
+          y: dy / len,
         };
         let progressOnLine = 0;
 
@@ -105,7 +105,7 @@ const DashedLine = PixiComponent<React.ComponentProps<typeof Graphics> & Props, 
       if (speed !== 0) {
         requestAnimationFrame(draw);
       }
-    }
+    };
     draw();
   },
 });

@@ -24,6 +24,7 @@ module.exports = {
     "eslint-plugin-import"
   ],
   "rules": {
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "no-unused-vars": "off",

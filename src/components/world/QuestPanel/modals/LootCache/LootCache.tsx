@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext } from 'react';
 import gsap from 'gsap';
 import DraggableItemsList from 'components/ui/items/DraggableItemsList';
 import { TextManager } from 'global/TextManager';
@@ -8,10 +8,10 @@ import { useAdventurerState } from 'hooks/store/adventurers';
 import Button from 'components/ui/buttons/Button';
 import { adventurerFreeInventorySlots } from 'store/helpers/storeHelpers';
 import Icon from 'components/ui/common/Icon';
-import { InventoryItemDragInfo } from "components/ui/items/DraggableItemIcon";
-import DroppableAdventurerAvatar from "components/ui/adventurer/DroppableAdventurerAvatar";
-import "../styles/modal.scss";
-import "../styles/lootCache.scss";
+import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
+import DroppableAdventurerAvatar from 'components/ui/adventurer/DroppableAdventurerAvatar';
+import '../styles/modal.scss';
+import '../styles/lootCache.scss';
 
 interface Props {
   cacheName: string;
@@ -39,36 +39,36 @@ const LootCache = (props: Props) => {
     // todo: animate gold flying away
 
     controller.takeGoldFromCache(props.cacheName);
-  }
+  };
 
   const handleTakeAllItems = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (ref.current) {
-      ref.current.querySelectorAll(".items-list .item-icon").forEach((el, index) => {
+      ref.current.querySelectorAll('.items-list .item-icon').forEach((el, index) => {
         if (index >= freeSlots) return;
-        el.classList.add("taking");
+        el.classList.add('taking');
       });
-      gsap.to(".items-list .item-icon.taking", {
-        right: "-50vw",
+      gsap.to('.items-list .item-icon.taking', {
+        right: '-50vw',
         stagger: {
           each: 0.1,
-          ease: "power2.inOut",
+          ease: 'power2.inOut',
         },
         onComplete: () => {
           for (let i = 0; i < freeSlots; i++) {
             controller.takeItemFromCache(0, props.cacheName, props.adventurerId);
           }
-        }
+        },
       });
     }
-  }
+  };
 
   const handleDrop = (item: InventoryItemDragInfo) => {
     controller.takeItemFromCache(item.inventorySlot ?? 0, props.cacheName, props.adventurerId);
-  }
+  };
 
   return (
-    <div className={`interaction-modal loot-cache`} ref={ref}>
+    <div className={'interaction-modal loot-cache'} ref={ref}>
       <div className="header">
         <div className="title">
           {TextManager.get(cache.title, { adventurer: adventurer.name })}
@@ -87,7 +87,7 @@ const LootCache = (props: Props) => {
           <div className="adventurer">
             <DroppableAdventurerAvatar adventurer={adventurer} onDrop={handleDrop} />
             <Button onClick={handleTakeAllItems} disabled={freeSlots === 0} size="small">
-              {TextManager.get("quest-common-loot-cache-take-all")}
+              {TextManager.get('quest-common-loot-cache-take-all')}
             </Button>
           </div>
         </div>
@@ -99,17 +99,17 @@ const LootCache = (props: Props) => {
               image="img/resources/gold.png"
               size="medium"
             />
-            {TextManager.get("quest-common-loot-cache-gold", { gold: cache.gold })}
+            {TextManager.get('quest-common-loot-cache-gold', { gold: cache.gold })}
           </div>
           <div className="take-gold">
             <Button onClick={handleTakeGold} size="small">
-              {TextManager.get("quest-common-loot-cache-take")}
+              {TextManager.get('quest-common-loot-cache-take')}
             </Button>
           </div>
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default LootCache;

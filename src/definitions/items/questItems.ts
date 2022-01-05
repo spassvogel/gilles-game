@@ -1,9 +1,9 @@
-import { ItemType, ItemDefinition, ItemCategory } from "./types";
+import { ItemType, ItemDefinition, ItemCategory } from './types';
 
-type Prefix = "questItem/";
-const PREFIX = "questItem/";
+type Prefix = 'questItem/';
+const PREFIX = 'questItem/';
 const itemCategory = ItemCategory.questItem;
-const basePath = "/img/items/quest-items/";
+const basePath = '/img/items/quest-items/';
 
 
 const questItems = {
@@ -111,7 +111,7 @@ const questItems = {
 
 
 export type QuestItem = `${Prefix}${keyof typeof questItems}`;
-const all = Object.entries(questItems).reduce<{[key: string]: ItemDefinition}>((acc, [key, value]) => {
+const all = Object.entries(questItems).reduce<{ [key: string]: ItemDefinition }>((acc, [key, value]) => {
   acc[`${PREFIX}${key}`] = value;
   return acc;
 }, {}) as Record<QuestItem, ItemDefinition>;
@@ -123,4 +123,4 @@ export function getDefinition(questItem: QuestItem): ItemDefinition {
 
 export const isQuestItem = (item: ItemType): item is QuestItem => {
   return !!all[item as QuestItem];
-}
+};

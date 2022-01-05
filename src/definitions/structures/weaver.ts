@@ -1,5 +1,5 @@
 import { ONE_MINUTE, THREE_MINUTES } from 'utils/format/time';
-import { ResourceStructureDefinition, StructureType } from "./types";
+import { ResourceStructureDefinition, StructureType } from './types';
 
 const weaver: ResourceStructureDefinition = {
   cost: {
@@ -8,7 +8,7 @@ const weaver: ResourceStructureDefinition = {
   },
   type: StructureType.resource,
   levels: [{
-    displayName: "structure-weaver-name",
+    displayName: 'structure-weaver-name',
     // level 0:
     workerCapacity: 2,
     cost: {
@@ -16,7 +16,7 @@ const weaver: ResourceStructureDefinition = {
     },
     generates: { fabric: 2 },
   }, {
-    displayName: "structure-weaver-name",
+    displayName: 'structure-weaver-name',
     // level 1:
     workerCapacity: 5,
     cost: {
@@ -24,18 +24,18 @@ const weaver: ResourceStructureDefinition = {
       resources: {
         wood: 100,
         iron: 100,
-        stone: 100
+        stone: 100,
       },
-      time: ONE_MINUTE
+      time: ONE_MINUTE,
     },
     generates: { fabric: 5 },
   }, {
-    displayName: "structure-weaver-name",
+    displayName: 'structure-weaver-name',
     // level 2:
     workerCapacity: 10,
     cost: {
       gold: 50,
-      time: THREE_MINUTES
+      time: THREE_MINUTES,
     },
     generates: { fabric: 7 },
   }],

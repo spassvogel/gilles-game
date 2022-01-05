@@ -3,7 +3,7 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState
+  useState,
 } from 'react';
 import { Point } from 'pixi.js';
 import { LongPressDetectEvents, useLongPress } from 'use-long-press';
@@ -24,7 +24,7 @@ import useCanvasScaler from './hooks/useCanvasScaler';
 import CombatUIWidget from './CombatUIWidget';
 import NormalUICursor from './NormalUICursor';
 import useActionIntents from './hooks/useActionIntents';
-import "./styles/sceneUI.scss";
+import './styles/sceneUI.scss';
 
 export interface Props {
   sceneWidth: number;
@@ -43,12 +43,12 @@ type BaseActionIntent = {
   actor: ActorObject;
   path?: Location[];  // is undefined when path is invalid
   isValid: boolean;
-}
+};
 
 export type WeaponWithAbility = {
   weapon: Item<Weapon>
   ability: WeaponAbility
-}
+};
 
 export type ActionIntent = BaseActionIntent & {
   // Non combat action
@@ -59,7 +59,7 @@ export type ActionIntent = BaseActionIntent & {
   apCost?: number;
   actorAP?: number;
   weaponWithAbility?: WeaponWithAbility;
-}
+};
 
 
 // This thing scales itself based on the canvas which should be a sibling of this component
@@ -71,12 +71,12 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     sceneWidth,
     sceneHeight,
     onMouseDown,
-    onSetActionIntent
+    onSetActionIntent,
   } = props;
   const ref = useRef<HTMLDivElement>(null);
   const mouseDownOnCanvas = useRef(false);
   const controller = useContext(SceneControllerContext);
-  const quest = useQuest(controller?.questName ?? "");
+  const quest = useQuest(controller?.questName ?? '');
   const scene = quest.scene;
   const { combat } = scene ?? {};
   const [cursorLocation, setCursorLocation] = useState<Location>();
@@ -86,7 +86,22 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
   useEffect(() => {
     scaler.scale = scaler.recalculate();
-  }, [scaler])
+  }, [scaler]);
+
+  const findLocation = (e: MouseOrTouchEvent) => {
+    if (e.target instanceof Element) {
+      const {
+        x,
+        y,
+      } = convertMouseOrTouchCoords(e);
+      const rect = (e.target).getBoundingClientRect();
+      const convertedX = (x - rect.left) / scaler.scale;
+      const convertedY = (y - rect.top) / scaler.scale;
+
+      return controller?.pointToSceneLocation(new Point(convertedX, convertedY));
+    }
+    throw new Error('You didnt give me the correct event');
+  };
 
   const handleMouseMove = (e: MouseOrTouchEvent<HTMLDivElement>) => {
     if (mouseDownOnCanvas.current) {
@@ -101,36 +116,14 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         setCursorLocation(location);
       }
     }
-  }
+  };
 
-  const handleMouseDown = (e: MouseOrTouchEvent ) => {
-    if (actionMenuOpen) return;
-    const location = findLocation(e);
-    if (location) onMouseDown?.(location);
-
-    mouseDownOnCanvas.current = true;
-    // e.preventDefault();
-  }
-
-  const bind = useLongPress((e) => {
-    if (e) {
-      handleClick(e as React.MouseEvent<HTMLDivElement>);
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  }, {
-    onStart: (e) => { handleMouseDown(e as MouseOrTouchEvent<HTMLDivElement>);},
-    onMove: (e) => { handleMouseMove(e as MouseOrTouchEvent<HTMLDivElement>)},
-    captureEvent: true,
-    cancelOnMovement: 8,
-    detect: LongPressDetectEvents.BOTH
-  });
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const location = findLocation(e);
     if (!controller || !location || !(e.target instanceof Element)) return;
     const object = controller.getObjectAtLocation(location);
-    if (!object || object.type !== "actor") return;
+    if (!object || object.type !== 'actor') return;
 
     // Show context tooltip
     const { tileWidth, tileHeight } = controller.getTileDimensions();
@@ -141,9 +134,32 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     const y = (location[1] * height) + (rect.top ?? 0);
     const domRect = DOMRect.fromRect({ x, y, width, height });
 
-    TooltipManager.showContextTooltip(ContextType.actor, object, domRect, "");
-    e.stopPropagation()
-  }
+    TooltipManager.showContextTooltip(ContextType.actor, object, domRect, '');
+    e.stopPropagation();
+  };
+
+  const handleMouseDown = (e: MouseOrTouchEvent ) => {
+    if (actionMenuOpen) return;
+    const location = findLocation(e);
+    if (location) onMouseDown?.(location);
+
+    mouseDownOnCanvas.current = true;
+    // e.preventDefault();
+  };
+
+  const bind = useLongPress((e) => {
+    if (e) {
+      handleClick(e as React.MouseEvent<HTMLDivElement>);
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, {
+    onStart: (e) => { handleMouseDown(e as MouseOrTouchEvent<HTMLDivElement>);},
+    onMove: (e) => { handleMouseMove(e as MouseOrTouchEvent<HTMLDivElement>);},
+    captureEvent: true,
+    cancelOnMovement: 8,
+    detect: LongPressDetectEvents.BOTH,
+  });
 
   const handleMouseUp = (e: MouseOrTouchEvent<HTMLDivElement>) => {
     bind.onMouseUp(e as unknown as React.MouseEvent<Element, MouseEvent>);
@@ -162,7 +178,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       // Not in combat, do the action immediately
       setCursorLocation(undefined);
       if (!actionIntent) {
-        return
+        return;
       }
 
       const selectedActorLocation = controller?.getSceneActor(selectedActorId)?.location;
@@ -173,19 +189,19 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       onSetActionIntent?.(undefined);
       e.stopPropagation();
     }
-  }
+  };
 
   const handleCloseActionMenu = () => {
     setActionMenuOpen(false);
     setCursorLocation(undefined);
-  }
+  };
 
   useEffect(() => {
     if (!combat && cursorLocation !== undefined) {
       // Handle change of cursor when not in combat
       let action = SceneActionType.move;
       const object = controller?.getObjectAtLocation(cursorLocation);
-      if(object?.properties.interactive){
+      if (object?.properties.interactive){
         // We're at an interactive object
         action = SceneActionType.interact;
       }
@@ -194,26 +210,11 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       if (!action || !actor || !cursorLocation) {
         onSetActionIntent(undefined);
       } else {
-        const intent = controller?.createActionIntent(action, actor, cursorLocation)
-        onSetActionIntent?.(intent)
+        const intent = controller?.createActionIntent(action, actor, cursorLocation);
+        onSetActionIntent?.(intent);
       }
     }
   }, [cursorLocation, combat, controller, selectedActorId, onSetActionIntent]);
-
-  const findLocation = (e: MouseOrTouchEvent) => {
-    if (e.target instanceof Element) {
-      const {
-        x,
-        y
-      } = convertMouseOrTouchCoords(e);
-      const rect = (e.target).getBoundingClientRect();
-      const convertedX = (x - rect.left) / scaler.scale;
-      const convertedY = (y - rect.top) / scaler.scale;
-
-      return controller?.pointToSceneLocation(new Point(convertedX, convertedY));
-    }
-    throw new Error("You didnt give me the correct event")
-  }
 
   useEffect(() => {
     // When interacting with the canvas, dont scroll the app
@@ -221,11 +222,11 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       if (mouseDownOnCanvas.current) {
         e.preventDefault();
       }
-    }
+    };
 
-    window.addEventListener("touchmove", onTouch, { passive: false} );
+    window.addEventListener('touchmove', onTouch, { passive: false } );
     return () => {
-      window.removeEventListener("touchmove", onTouch);
+      window.removeEventListener('touchmove', onTouch);
     };
   }, []);
 
@@ -259,7 +260,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         />
       )}
     </div>
-  )
-}
+  );
+};
 
 export default SceneUI;

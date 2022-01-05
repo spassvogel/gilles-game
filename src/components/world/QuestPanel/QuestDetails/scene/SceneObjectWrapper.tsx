@@ -14,12 +14,12 @@ const SceneObjectWrapper = forwardRef<PixiContainer, Props>((props: PropsWithChi
   const {
     location = [0, 0],
     controller,
-    children
+    children,
   } = props;
   const tileWidth = controller.mapData?.tilewidth;
   const tileHeight = controller.mapData?.tileheight;
 
-  const {x, y} = useMemo(() => {
+  const { x, y } = useMemo(() => {
     return {
       x: location[0] * (tileWidth ?? 1),
       y: location[1] * (tileHeight ?? 1),
@@ -30,8 +30,8 @@ const SceneObjectWrapper = forwardRef<PixiContainer, Props>((props: PropsWithChi
     <Container x={x} y={y} ref={ref}>
       {children}
     </Container>
-  )
+  );
 });
 
-SceneObjectWrapper.displayName = 'SceneObjectWrapper'
+SceneObjectWrapper.displayName = 'SceneObjectWrapper';
 export default SceneObjectWrapper;

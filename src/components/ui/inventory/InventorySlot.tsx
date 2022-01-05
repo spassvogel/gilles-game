@@ -1,8 +1,7 @@
-import * as React from "react";
 import { PropsWithChildren } from 'react';
-import { DragSourceType, DragType } from "constants/dragging";
-import { Item } from "definitions/items/types";
-import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
+import { DragSourceType, DragType } from 'constants/dragging';
+import { Item } from 'definitions/items/types';
+import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from 'react-dnd';
 import { InventoryItemDragInfo } from '../items/DraggableItemIcon';
 import { IconSize } from '../common/Icon';
 import { itemAndEquipmentSlotMatch } from '../adventurer/EquipmentSlot';
@@ -53,19 +52,19 @@ const InventorySlot = (props: PropsWithChildren<Props> & DropSourceProps) => {
   const isActive = isOver && canDrop;
 
   const classNames = [
-    "inventory-item",
-    ...(disabled ? ["disabled"]: []),
-    ...(isActive ? ["drop-active"] : []),
-    ...(!isActive && canDrop ? ["drop-possible"] : [])
+    'inventory-item',
+    ...(disabled ? ['disabled'] : []),
+    ...(isActive ? ['drop-active'] : []),
+    ...(!isActive && canDrop ? ['drop-possible'] : []),
   ];
 
 
   return connectDropTarget(
-    <div className={classNames.join(" ")}>
+    <div className={classNames.join(' ')}>
       { props.children }
     </div>,
   );
-}
+};
 
 export default DropTarget<Props, DropSourceProps>(
   DragType.ITEM,

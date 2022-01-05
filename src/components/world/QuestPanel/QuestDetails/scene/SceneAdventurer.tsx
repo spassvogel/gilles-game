@@ -1,5 +1,5 @@
 import { Container, Graphics } from '@inlet/react-pixi';
-import React, { useRef, memo } from 'react';
+import { useRef, memo } from 'react';
 import { ActorObject } from 'store/types/scene';
 import SceneActor, { Props as SceneActorProps } from './SceneActor';
 import { Container as PixiContainer } from 'pixi.js';
@@ -11,7 +11,7 @@ interface Props  {
 }
 
 // The adventurers avatar on the scene
-const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>) => {
+const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children' | 'name'>) => {
   const {
     controller,
     location,
@@ -19,7 +19,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
     selected,
     spritesheetPath,
   } = props;
-  const {tileWidth, tileHeight} = controller.getTileDimensions();
+  const { tileWidth, tileHeight } = controller.getTileDimensions();
 
   const ref = useRef<PixiContainer>(null);
 
@@ -45,7 +45,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children'|'name'>
         )}
       </SceneActor>
     </Container>
-  )
-}
+  );
+};
 
 export default memo(SceneAdventurer);

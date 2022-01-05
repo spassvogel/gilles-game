@@ -1,17 +1,17 @@
-import { ItemType, ItemDefinition, ItemCategory } from "./types";
+import { ItemType, ItemDefinition, ItemCategory } from './types';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
-import { Effect, EffectAttibuteIncrease, EffectType } from "definitions/effects/types";
+import { Effect, EffectAttibuteIncrease, EffectType } from 'definitions/effects/types';
 
-type Prefix = "apparel/";
-const PREFIX = "apparel/";
+type Prefix = 'apparel/';
+const PREFIX = 'apparel/';
 const itemCategory = ItemCategory.apparel;
-const basePath = "/img/items/apparel/";
+const basePath = '/img/items/apparel/';
 
 const crimsonRogueEffect: EffectAttibuteIncrease = {
   type: EffectType.attributeIncrease,
-  attribute: "agi",
+  attribute: 'agi',
   factor: 1.05,
-}
+};
 
 export interface ApparelDefinition extends ItemDefinition {
   equipmentType: EquipmentSlotType;
@@ -19,7 +19,7 @@ export interface ApparelDefinition extends ItemDefinition {
   effects?: Effect[];
 }
 
-const apparel = {
+const definitions = {
   boots1: {
     equipmentType: EquipmentSlotType.feet,
     itemCategory,
@@ -53,7 +53,7 @@ const apparel = {
     equipmentType: EquipmentSlotType.hands,
     itemCategory,
     iconImg: `${basePath}cloth_gloves.png`,
-    damageReduction: 1
+    damageReduction: 1,
   },
   cowl: {
     equipmentType: EquipmentSlotType.head,
@@ -72,42 +72,42 @@ const apparel = {
     itemCategory,
     iconImg: `${basePath}crimson_rogue_boots.png`,
     damageReduction: 2,
-    effects: [crimsonRogueEffect]
+    effects: [crimsonRogueEffect],
   },
   crimsonRogueBritches: {
     equipmentType: EquipmentSlotType.legs,
     itemCategory,
     iconImg: `${basePath}crimson_rogue_britches.png`,
     damageReduction: 2,
-    effects: [crimsonRogueEffect]
+    effects: [crimsonRogueEffect],
   },
   crimsonRogueCoif: {
     equipmentType: EquipmentSlotType.head,
     itemCategory,
     iconImg: `${basePath}crimson_rogue_coif.png`,
     damageReduction: 2,
-    effects: [crimsonRogueEffect]
+    effects: [crimsonRogueEffect],
   },
   crimsonRogueGrips: {
     equipmentType: EquipmentSlotType.hands,
     itemCategory,
     iconImg: `${basePath}crimson_rogue_grips.png`,
     damageReduction: 2,
-    effects: [crimsonRogueEffect]
+    effects: [crimsonRogueEffect],
   },
   crimsonRogueSpaulders: {
     equipmentType: EquipmentSlotType.shoulders,
     itemCategory,
     iconImg: `${basePath}crimson_rogue_spaulders.png`,
     damageReduction: 2,
-    effects: [crimsonRogueEffect]
+    effects: [crimsonRogueEffect],
   },
   crimsonRogueTunic: {
     equipmentType: EquipmentSlotType.chest,
     itemCategory,
     iconImg: `${basePath}crimson_rogue_tunic.png`,
     damageReduction: 2,
-    effects: [crimsonRogueEffect]
+    effects: [crimsonRogueEffect],
   },
   cultistGloves: {
     equipmentType: EquipmentSlotType.hands,
@@ -326,7 +326,7 @@ const apparel = {
     equipmentType: EquipmentSlotType.legs,
     itemCategory,
     iconImg: `${basePath}pants_2.png`,
-    damageReduction: 3
+    damageReduction: 3,
   },
   plateChest1: {
     equipmentType: EquipmentSlotType.chest,
@@ -392,7 +392,7 @@ const apparel = {
     equipmentType: EquipmentSlotType.shoulders,
     itemCategory,
     iconImg: `${basePath}shoulders_2.png`,
-    damageReduction: 2
+    damageReduction: 2,
   },
   shoulders3: {
     equipmentType: EquipmentSlotType.shoulders,
@@ -471,8 +471,8 @@ const apparel = {
   },
 };
 
-export type Apparel = `${Prefix}${keyof typeof apparel}`;
-const all = Object.entries(apparel).reduce<{[key: string]: ApparelDefinition}>((acc, [key, value]) => {
+export type Apparel = `${Prefix}${keyof typeof definitions}`;
+const all = Object.entries(definitions).reduce<{ [key: string]: ApparelDefinition }>((acc, [key, value]) => {
   acc[`${PREFIX}${key}`] = value;
   return acc;
 }, {}) as Record<Apparel, ApparelDefinition>;
@@ -484,4 +484,4 @@ export function getDefinition(apparel: Apparel): ApparelDefinition {
 
 export const isApparel = (item: ItemType): item is Apparel => {
   return !!all[item as Apparel];
-}
+};

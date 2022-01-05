@@ -1,6 +1,6 @@
 import { TaskStoreState, TaskType } from 'store/types/task';
 import { TasksStoreState } from 'store/types/tasks';
-import { AnyAction, Dispatch } from "redux";
+import { AnyAction, Dispatch } from 'redux';
 import { ToastManager } from 'global/ToastManager';
 import { TextManager } from 'global/TextManager';
 import { Type } from 'components/ui/toasts/Toast';
@@ -15,8 +15,8 @@ export const processCompletedTasks = (tasks: TasksStoreState, dispatch: Dispatch
     switch (task.type) {
       case TaskType.craftItem: {
         const type = task.name as ItemType;
-        const item = { type }
-        const title = TextManager.get("common-item-crafted", { item });
+        const item = { type };
+        const title = TextManager.get('common-item-crafted', { item });
         const definition = getDefinition(type);
         ToastManager.addToast(title, Type.itemCrafted, definition.iconImg);
         break;

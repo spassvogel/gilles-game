@@ -1,8 +1,8 @@
-import { Ammunition } from "definitions/items/ammunition";
-import { Item } from "definitions/items/types";
-import { Weapon } from "definitions/items/weapons";
-import { AttributesStoreState, SkillsStoreState } from "store/types/adventurer";
-import { Troll } from "./trolls";
+import { Ammunition } from 'definitions/items/ammunition';
+import { Item } from 'definitions/items/types';
+import { Weapon } from 'definitions/items/weapons';
+import { AttributesStoreState, SkillsStoreState } from 'store/types/adventurer';
+import { Troll } from './trolls';
 
 export interface EnemyDefinition {
   attributes: AttributesStoreState;
@@ -13,4 +13,4 @@ export interface EnemyDefinition {
   avatarImg: string;
 }
 
-export type EnemyType = Troll
+export type EnemyType = Troll;

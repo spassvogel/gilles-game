@@ -1,19 +1,19 @@
 import localforage from 'localforage';
 import { Sound, IMediaInstance, filters } from '@pixi/sound';
-import {gsap } from 'gsap';
+import { gsap } from 'gsap';
 import { Loader } from 'pixi.js';
 
 export enum Channel {
   music,
   ui,
   scene,
-  ambient
+  ambient,
 }
 
 export enum MixMode {
   singleInstance,   // Only one sound plays at the same time in this channel
   layered,      // Multiple sounds can play in this channel
-  fade        // Fades out currently playing sound on this channel and fades new music in
+  fade,        // Fades out currently playing sound on this channel and fades new music in
 }
 
 export enum Music {
@@ -22,28 +22,28 @@ export enum Music {
 }
 
 export type GameSound =
-  "ambient/structure/alchemist" |
-  "ambient/structure/smith" |
-  "ambient/structure/tavern" |
-  "ambient/structure/warehouse" |
-  "ui/buttonClick" |
-  "ui/equip" |
-  "ui/error" |
-  "ui/levelUp" |
-  "ui/toast" |
-  "music/town" |
-  "music/world" |
-  "music/violettesElficSong" |
-  "scene/bow" |
-  "scene/crossbow" |
-  "scene/daggerSwish" |
-  "scene/doorOpen" |
-  "scene/drinking" |
-  "scene/meleeHit" |
-  "scene/metalBash" |
-  "scene/parry" |
-  "scene/shieldBash" |
-  "scene/swish"
+  'ambient/structure/alchemist' |
+  'ambient/structure/smith' |
+  'ambient/structure/tavern' |
+  'ambient/structure/warehouse' |
+  'ui/buttonClick' |
+  'ui/equip' |
+  'ui/error' |
+  'ui/levelUp' |
+  'ui/toast' |
+  'music/town' |
+  'music/world' |
+  'music/violettesElficSong' |
+  'scene/bow' |
+  'scene/crossbow' |
+  'scene/daggerSwish' |
+  'scene/doorOpen' |
+  'scene/drinking' |
+  'scene/meleeHit' |
+  'scene/metalBash' |
+  'scene/parry' |
+  'scene/shieldBash' |
+  'scene/swish'
 ;
 
 type SoundInfo = {
@@ -51,22 +51,26 @@ type SoundInfo = {
   gameSound: GameSound;
   pixiSound: Sound;
   storePosition?: boolean;
-}
+};
 
 const DEFAULT_MUSIC_VOLUME = 0;
 const DEFAULT_UI_VOLUME = 1;
 const DEFAULT_SCENE_VOLUME = 1;
 const DEFAULT_AMBIENT_VOLUME = 0.2;
-const STORAGE_KEY_VOLUME = "channelVolume";
+const STORAGE_KEY_VOLUME = 'channelVolume';
 
 export class SoundManager {
   private static _sounds: { [key: string]: Sound[] } = {};
+
   private static _currentSound: { [key: number]: SoundInfo } = {};  // per channel
+
   private static _storedPositions: { [key: string]: number } = {};
 
-  private static _channelVolume: {[key: number]: number} = {};
+  private static _channelVolume: { [key: number]: number } = {};
+
   private static _initialized = false;
-  private static _filter = new filters.TelephoneFilter()
+
+  private static _filter = new filters.TelephoneFilter();
 
   public static async init() {
     // Attempt to fetch volumes from storage. If not set, revert to defaults
@@ -75,17 +79,17 @@ export class SoundManager {
       [(Channel.ui)]: await localforage.getItem(`${STORAGE_KEY_VOLUME}-${Channel.ui}`) ?? DEFAULT_UI_VOLUME,
       [(Channel.scene)]: await localforage.getItem(`${STORAGE_KEY_VOLUME}-${Channel.scene}`) ?? DEFAULT_SCENE_VOLUME,
       [(Channel.ambient)]: await localforage.getItem(`${STORAGE_KEY_VOLUME}-${Channel.ambient}`) ?? DEFAULT_AMBIENT_VOLUME,
-    }
+    };
     this._initialized = true;
   }
 
 
   public static async addSound(gameSound: GameSound, files: string[] | string, complete?: (sounds: Sound[]) => void) {
     const promise = new Promise<Sound[]>((resolve, _reject) => {
-      if (typeof files === "string") {
+      if (typeof files === 'string') {
         files = [files];
       }
-      if(this._sounds[gameSound]) {
+      if (this._sounds[gameSound]) {
         // Sound already loaded. Great.
         complete?.(this._sounds[gameSound]);
         resolve(this._sounds[gameSound]);
@@ -103,7 +107,7 @@ export class SoundManager {
           resolve(this._sounds[gameSound]);
         }
       });
-    })
+    });
     return promise;
   }
 
@@ -126,7 +130,7 @@ export class SoundManager {
     if (this._currentSound[channel]?.storePosition) {
       // Did we have to store the position of the current sound?
       const oldSoundInfo = this._currentSound[channel];
-      oldSoundInfo.instance.once('progress', (progress: number , duration: number) => {
+      oldSoundInfo.instance.once('progress', (progress: number, duration: number) => {
         this._storedPositions[oldSoundInfo.gameSound] = progress * duration;
       });
     }
@@ -139,8 +143,7 @@ export class SoundManager {
         SoundManager.fadeOutSound(channel);
         // Fade in the new sound
         gsap.from(instance, { volume: 0, duration: 0.75 });
-      }
-      else if (mixMode === MixMode.singleInstance) {
+      } else if (mixMode === MixMode.singleInstance) {
         this._currentSound[channel].instance.stop();
       }
     }
@@ -157,8 +160,7 @@ export class SoundManager {
     }
     if (this._sounds[sound].length === 1) {
       return this._sounds[sound][0];
-    }
-    else {
+    } else {
       return this._sounds[sound][Math.floor(Math.random() * this._sounds[sound].length)];
     }
   }
@@ -172,7 +174,7 @@ export class SoundManager {
     const soundInfo = this._currentSound[channel];
     gsap.to(soundInfo.instance, { volume: 0, duration, onComplete: () => {
       soundInfo.instance.destroy();
-    }});
+    } });
   }
 
   public static getCurrentlyPlaying(channel: Channel) {
@@ -180,8 +182,8 @@ export class SoundManager {
   }
 
   public static set musicFiltered(value: boolean) {
-    if(this._currentSound[Channel.music]) {
-      this._currentSound[Channel.music].pixiSound.filters = value ? [ this._filter ] : []
+    if (this._currentSound[Channel.music]) {
+      this._currentSound[Channel.music].pixiSound.filters = value ? [ this._filter ] : [];
     }
   }
 
@@ -191,7 +193,7 @@ export class SoundManager {
 
   static setChannelVolume(channel: Channel, volume:number) {
     this._channelVolume[channel] = volume;
-    if(this._currentSound[channel]?.instance) {
+    if (this._currentSound[channel]?.instance) {
       this._currentSound[channel].instance.volume = volume;
     }
     localforage.setItem(`${STORAGE_KEY_VOLUME}-${channel}`, volume);

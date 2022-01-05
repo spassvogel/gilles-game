@@ -1,10 +1,9 @@
-import React from "react";
-import { Container } from "@inlet/react-pixi";
-import { Allegiance, isActorObject, SceneObject } from "store/types/scene";
-import SceneAdventurer from "./SceneAdventurer";
-import { BaseSceneController } from "mechanics/scenes/BaseSceneController";
-import { TiledObjectType } from "utils/tilemap";
-import SceneActor from "./SceneActor";
+import { Container } from '@inlet/react-pixi';
+import { Allegiance, isActorObject, SceneObject } from 'store/types/scene';
+import SceneAdventurer from '../SceneAdventurer';
+import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
+import { TiledObjectType } from 'utils/tilemap';
+import SceneActor from '../SceneActor';
 
 interface Props {
   objects: SceneObject[];
@@ -19,7 +18,7 @@ const ObjectSpriteLayer = (props: Props) => {
     <Container>
       {objects.map((object) => {
         const { location, name } = object;
-        const { adventurerId, spritesheet } = object.properties as { [key: string]: string};
+        const { adventurerId, spritesheet } = object.properties as { [key: string]: string };
         switch (object.type) {
           case TiledObjectType.actor: {
             if (isActorObject(object)) {
@@ -33,9 +32,8 @@ const ObjectSpriteLayer = (props: Props) => {
                     spritesheetPath={spritesheet}
                     selected={props.selectedActorId === name }
                   />
-                )
-              }
-              else if (object.allegiance === Allegiance.enemy) {
+                );
+              } else if (object.allegiance === Allegiance.enemy) {
                 return (
                   <SceneActor
                     actor={object}
@@ -57,7 +55,7 @@ const ObjectSpriteLayer = (props: Props) => {
         return null;
       })}
     </Container>
-  )
-}
+  );
+};
 
 export default ObjectSpriteLayer;

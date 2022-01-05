@@ -40,21 +40,22 @@ abstract class DungeonEncounterSceneController extends BaseSceneController<Kill1
 }
 
 export class DungeonCanyonSceneController extends DungeonEncounterSceneController {
-  jsonPath = "scenes/dungeon/canyon-64.json";
+  jsonPath = 'scenes/dungeon/canyon-64.json';
 }
 export class DungeonEntranceSceneController extends DungeonEncounterSceneController {
   previousMusic?: GameSound;
-  jsonPath = "scenes/dungeon/dungeon-entrance-64.json";
+
+  jsonPath = 'scenes/dungeon/dungeon-entrance-64.json';
 
 
   getLootCache(_: string): LootCache | undefined {
     return this.questVars.dungeon.entrance.chest;
   }
 
-  takeGoldFromCache(name: "chest") {
+  takeGoldFromCache(name: 'chest') {
     super.takeGoldFromCache(name);  // first add gold to inventory
     this.updateQuestVars({
-      dungeon: { entrance: { chest: { gold: 0 }}}
+      dungeon: { entrance: { chest: { gold: 0 } } },
     });
   }
 
@@ -64,19 +65,19 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
     if (lootCache){
       const items = lootCache.items.filter((_:Item, index: number) => index !== itemIndex);
       this.updateQuestVars({
-        dungeon: { entrance: { chest: { items }}}
+        dungeon: { entrance: { chest: { items } } },
       });
     }
   }
 
   updateScene(objects: SceneObject[] = this.sceneObjects, combat: boolean = this.combat) {
     objects = objects.map(o => {
-      switch(o.name) {
-        case "chest": {
+      switch (o.name) {
+        case 'chest': {
           return {
             ...o,
-            gid: this.questVars.dungeon.entrance.chestOpen ? this.tileTypes["chest.open"] : this.tileTypes["chest.closed"],
-          }
+            gid: this.questVars.dungeon.entrance.chestOpen ? this.tileTypes['chest.open'] : this.tileTypes['chest.closed'],
+          };
         }
       }
       return o;
@@ -87,27 +88,27 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
   interactWithObject(actor: ActorObject, object: SceneObject) {
     switch (object.name) {
       // todo: I want to share this common stuff with other SceneControllers
-      case "chest":
+      case 'chest':
         if (!this.questVars.dungeon.entrance.chestOpen) {
           const adventurer = this.getAdventurerByActor(actor)?.name;
-          const textEntry = { key: "quest-common-adventurer-opened-chest", context: { adventurer } };
-          this.questUpdate(textEntry, "/img/items/misc/chest-02.png");
+          const textEntry = { key: 'quest-common-adventurer-opened-chest', context: { adventurer } };
+          this.questUpdate(textEntry, '/img/items/misc/chest-02.png');
 
           this.updateQuestVars({
-            dungeon: { entrance: { chestOpen: true }}
-          })
+            dungeon: { entrance: { chestOpen: true } },
+          });
         }
         // display loot modal
         this.store.dispatch(setActiveSceneInteractionModal(this.questName, {
           type: 'lootCache',
-          lootCache: object.name
+          lootCache: object.name,
         }));
         break;
 
-      case "altar":
+      case 'altar':
         this.store.dispatch(setActiveSceneInteractionModal(this.questName, {
           type: 'situation',
-          situation: 'altar'
+          situation: 'altar',
         }));
         break;
     }
@@ -119,8 +120,8 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
       // this.questUpdate("quest-kill10-boars-enter-dungeon-see-chest");
     }
     this.previousMusic = SoundManager.getCurrentlyPlaying(Channel.music);
-    SoundManager.addSound("music/violettesElficSong", ["sound/music/ViolettesElficSongForLamentandHope.ogg"], () => {
-      SoundManager.playSound("music/violettesElficSong", Channel.music, true, MixMode.fade, true);
+    SoundManager.addSound('music/violettesElficSong', ['sound/music/ViolettesElficSongForLamentandHope.ogg'], () => {
+      SoundManager.playSound('music/violettesElficSong', Channel.music, true, MixMode.fade, true);
     });
 
     super.sceneEntered();
@@ -153,76 +154,76 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
       //       "quest-kill10-boars-dungeonentrance-altar-rummagedrawers"
       //     ]
       //   }
-        default:
-          return super.getSituation(situation, adventurerId);
+      default:
+        return super.getSituation(situation, adventurerId);
     }
   }
 
   handleSituationOptionClick(_situation: string, _option: string, _adventurerId: string) {
     // switch (situation) {
-      // case 'altar': {
-      //   switch (option) {
-      //     case 'quest-kill10-boars-dungeonentrance-altar-lightcandle':
-      //       const questVars = this.questVars;
-      //       questVars.dungeon.situations.altar.candleLit = true;
-      //       this.store.dispatch(updateQuestVars(this.questName, questVars));
-      //       break;
+    // case 'altar': {
+    //   switch (option) {
+    //     case 'quest-kill10-boars-dungeonentrance-altar-lightcandle':
+    //       const questVars = this.questVars;
+    //       questVars.dungeon.situations.altar.candleLit = true;
+    //       this.store.dispatch(updateQuestVars(this.questName, questVars));
+    //       break;
 
-      //     case 'quest-kill10-boars-dungeonentrance-altar-rummagedrawers':
-      //       // display loot modal!
-      //       this.store.dispatch(setActiveSceneInteractionModal(this.questName, {
-      //         type: 'lootCache',
-      //         lootCache: 'altar'
-      //       }));
-      //       break;
-      //   }
-      // }
+    //     case 'quest-kill10-boars-dungeonentrance-altar-rummagedrawers':
+    //       // display loot modal!
+    //       this.store.dispatch(setActiveSceneInteractionModal(this.questName, {
+    //         type: 'lootCache',
+    //         lootCache: 'altar'
+    //       }));
+    //       break;
+    //   }
+    // }
     // }
   }
 }
 
 export class DungeonHallwaySceneController extends DungeonEncounterSceneController {
   // jsonPath = "scenes/ork-dungeon-level2.json";
-  jsonPath = "scenes/dungeon/dungeon-entry-64.json";
+  jsonPath = 'scenes/dungeon/dungeon-entry-64.json';
 
   getLootCache(_: string): LootCache | undefined {
     return this.questVars.dungeon.hallway.chest;
   }
 
   sceneEntered() {
-    console.log("ENTERED THE HALLWAy")
+    console.log('ENTERED THE HALLWAy');
     super.sceneEntered();
   }
 
   interactWithObject(actor: ActorObject, object: SceneObject) {
     switch (object.name) {
       // todo: I want to share this common stuff with other SceneControllers
-      case "chest":
+      case 'chest':
         if (!this.questVars.dungeon.hallway.chestOpen) {
           const adventurer = this.getAdventurerByActor(actor)?.name;
-          const textEntry = { key: "quest-common-adventurer-opened-chest", context: { adventurer } };
-          this.questUpdate(textEntry, "/img/items/misc/chest-02.png");
+          const textEntry = { key: 'quest-common-adventurer-opened-chest', context: { adventurer } };
+          this.questUpdate(textEntry, '/img/items/misc/chest-02.png');
 
           this.updateQuestVars({
-            dungeon: { hallway: { chestOpen: true }}
-          })
+            dungeon: { hallway: { chestOpen: true } },
+          });
         }
         // display loot modal
         this.store.dispatch(setActiveSceneInteractionModal(this.questName, {
           type: 'lootCache',
-          lootCache: object.name
+          lootCache: object.name,
         }));
         break;
-      case "door1":
+      case 'door1':
         if (!this.questVars.dungeon.hallway.doorOpen) {
           this.store.dispatch(setActiveSceneInteractionModal(this.questName, {
             type: 'situation',
-            situation: 'door'
+            situation: 'door',
           }));
         }
         break;
-      case "latrine":
-        this.questUpdate("quest-kill10-boars-dungeonentrance-latrine");
+      case 'latrine':
+        this.questUpdate('quest-kill10-boars-dungeonentrance-latrine');
         break;
     }
     super.interactWithObject(actor, object);
@@ -233,19 +234,19 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
       case 'door': {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const adventurer = this.getAdventurerById(adventurerId!);
-        if (adventurer && adventurer.inventory.some(i => i?.type === "questItem/key")) {
+        if (adventurer && adventurer.inventory.some(i => i?.type === 'questItem/key')) {
           // Adventurer has key
           return {
             title: 'quest-kill10-boars-dungeonentrance-door',
             choices: [
-              "quest-common-scenerio-door-open"
-            ]
-          }
+              'quest-common-scenerio-door-open',
+            ],
+          };
         }
         return {
           title: 'quest-kill10-boars-dungeonentrance-door',
           text: 'quest-kill10-boars-dungeonentrance-door-needs-key',
-        }
+        };
       }
       default:
         return super.getSituation(situation, adventurerId);
@@ -258,15 +259,15 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
       case 'door': {
         // Only one option, to open
         this.updateQuestVars({
-          dungeon: { hallway: { doorOpen: true }}
+          dungeon: { hallway: { doorOpen: true } },
         });
 
-        SoundManager.playSound("scene/doorOpen", Channel.scene, false, MixMode.singleInstance);
+        SoundManager.playSound('scene/doorOpen', Channel.scene, false, MixMode.singleInstance);
 
-        this.discardItemType("questItem/key", adventurerId);
+        this.discardItemType('questItem/key', adventurerId);
         const adventurer = this.getAdventurerById(adventurerId)?.name;
-        const textEntry = { key: "quest-common-adventurer-opened-door", context: { adventurer } };
-        this.questUpdate(textEntry, "/img/items/misc/chest-02.png");
+        const textEntry = { key: 'quest-common-adventurer-opened-door', context: { adventurer } };
+        this.questUpdate(textEntry, '/img/items/misc/chest-02.png');
 
         this.dispatch(setActiveSceneInteractionModal(this.questName));
       }
@@ -280,27 +281,27 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
     if (lootCache){
       const items = lootCache.items.filter((_: unknown, index: number) => index !== itemIndex);
       this.updateQuestVars({
-        dungeon: { hallway: { chest: { items }}}
+        dungeon: { hallway: { chest: { items } } },
       });
     }
   }
 
   updateScene(objects: SceneObject[] = this.sceneObjects, combat: boolean = this.combat) {
     objects = objects.map(o => {
-      switch(o.name) {
-        case "chest": {
+      switch (o.name) {
+        case 'chest': {
           return {
             ...o,
-            gid: this.questVars.dungeon.entrance.chestOpen ? this.tileTypes["chest.open"] : this.tileTypes["chest.closed"],
-          }
+            gid: this.questVars.dungeon.entrance.chestOpen ? this.tileTypes['chest.open'] : this.tileTypes['chest.closed'],
+          };
         }
-        case "door1": {
+        case 'door1': {
           if ( this.questVars.dungeon.hallway.doorOpen) {
             const properties = { ...o.properties, blocksMovement: false, interactive: false };
             if (o.properties.part === 'upper') {
-              return { ...o, gid: TILE_DOOR_UPPER_OPEN, properties};
+              return { ...o, gid: TILE_DOOR_UPPER_OPEN, properties };
             } else {
-              return { ...o, gid: TILE_DOOR_LOWER_OPEN, properties};
+              return { ...o, gid: TILE_DOOR_LOWER_OPEN, properties };
             }
           } else {
             if (o.properties.part === 'upper') {
@@ -318,10 +319,10 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
 }
 
 export class DungeonHub1Controller extends DungeonEncounterSceneController {
-  jsonPath = "scenes/dungeon/dungeon-hub1.json";
+  jsonPath = 'scenes/dungeon/dungeon-hub1.json';
 }
 
-SceneControllerManager.registerSceneController("kill10Boars", "dungeon.canyon", DungeonCanyonSceneController);
-SceneControllerManager.registerSceneController("kill10Boars", "dungeon.entrance", DungeonEntranceSceneController);
-SceneControllerManager.registerSceneController("kill10Boars", "dungeon.hub1", DungeonHub1Controller);
-SceneControllerManager.registerSceneController("kill10Boars", "dungeon.hallway", DungeonHallwaySceneController);
+SceneControllerManager.registerSceneController('kill10Boars', 'dungeon.canyon', DungeonCanyonSceneController);
+SceneControllerManager.registerSceneController('kill10Boars', 'dungeon.entrance', DungeonEntranceSceneController);
+SceneControllerManager.registerSceneController('kill10Boars', 'dungeon.hub1', DungeonHub1Controller);
+SceneControllerManager.registerSceneController('kill10Boars', 'dungeon.hallway', DungeonHallwaySceneController);

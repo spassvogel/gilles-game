@@ -1,6 +1,6 @@
-import * as React from "react";
-import { calculateDodge, calculateInitialAP } from "mechanics/combat";
-import { AttributesStoreState } from "store/types/adventurer"
+import * as React from 'react';
+import { calculateDodge, calculateInitialAP } from 'mechanics/combat';
+import { AttributesStoreState } from 'store/types/adventurer';
 
 interface Props {
   basicAttributes: AttributesStoreState;
@@ -18,7 +18,7 @@ const CombatAttributes = (props: Props) => {
           Dodge: {calculateDodge(basicAttributes)}%
       </div>
     </>
-  )
-}
+  );
+};
 
 export default CombatAttributes;

@@ -1,5 +1,5 @@
-import { Store, AnyAction, DeepPartial } from "redux";
-import { Location } from "utils/tilemap";
+import { Store, AnyAction, DeepPartial } from 'redux';
+import { Location } from 'utils/tilemap';
 import { addAllTilesInLayerToList, locationEquals, TiledObjectType, parseProperties } from 'utils/tilemap';
 import { StoreState } from 'store/types';
 import { loadResourceAsync } from 'utils/pixiJs';
@@ -22,18 +22,18 @@ import { addGold } from 'store/actions/gold';
 import { addItemToInventory, changeEquipmentQuantity, removeItemFromInventory } from 'store/actions/adventurers';
 import { adventurersOnQuest, getSceneObjectAtLocation, getSceneObjectWithName } from 'store/helpers/storeHelpers';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
-import { Item, ItemType } from "definitions/items/types";
-import { Loader, Point } from "pixi.js";
-import { AP_COST_MOVE, AP_COST_SHOOT, AP_COST_MELEE, calculateInitialAP } from "mechanics/combat";
-import { xpToLevel } from "mechanics/adventurers/levels";
-import { EnemyType } from "definitions/enemies/types";
-import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
-import { roll3D6 } from "utils/random";
-import { BubbleLayer, BubbleManager, BubbleType } from "global/BubbleManager";
-import { convertIn, convertOut } from "utils/aStar";
-import { ActionIntent } from "components/world/QuestPanel/QuestDetails/scene/ui/SceneUI";
+import { Item, ItemType } from 'definitions/items/types';
+import { Loader, Point } from 'pixi.js';
+import { AP_COST_MOVE, AP_COST_SHOOT, AP_COST_MELEE, calculateInitialAP } from 'mechanics/combat';
+import { xpToLevel } from 'mechanics/adventurers/levels';
+import { EnemyType } from 'definitions/enemies/types';
+import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
+import { roll3D6 } from 'utils/random';
+import { BubbleLayer, BubbleManager, BubbleType } from 'global/BubbleManager';
+import { convertIn, convertOut } from 'utils/aStar';
+import { ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI';
 
-const spritesheetBasePath = "img/scene/actors/";
+const spritesheetBasePath = 'img/scene/actors/';
 export const movementDuration = 500; // time every tile movement takes
 
 
@@ -43,15 +43,22 @@ export const movementDuration = 500; // time every tile movement takes
 export class BaseSceneController<TQuestVars> {
 
   public questName: string;
+
   public mapData?: TiledMapData;
+
   public aStar?: AStarFinder;
+
   public dataLoading = false;
+
   public dataLoadComplete = false;
+
   public store: Store<StoreState, AnyAction>;
 
   protected jsonPath?: string;
+
   protected blockedTiles: Location[] = [];
-  protected tileTypes: {[name: string]: number } = {}; // map tiletype to gid
+
+  protected tileTypes: { [name: string]: number } = {}; // map tiletype to gid
 
   constructor(store: Store<StoreState, AnyAction>, questName: string) {
     this.store = store;
@@ -68,7 +75,7 @@ export class BaseSceneController<TQuestVars> {
       return callback();
     }
     if (!this.jsonPath) {
-      throw new Error("No jsonPath defined!");
+      throw new Error('No jsonPath defined!');
     }
     this.dataLoading = true;
 
@@ -76,15 +83,15 @@ export class BaseSceneController<TQuestVars> {
 
     // load sounds
     const promises = [
-      SoundManager.addSound("scene/bow", ["sound/scene/bow-01.mp3", "sound/scene/bow-02.mp3"]),
-      SoundManager.addSound("scene/crossbow", ["sound/scene/crossbow-01.mp3", "sound/scene/crossbow-02.mp3", "sound/scene/crossbow-03.mp3", "sound/scene/crossbow-04.mp3"]),
-      SoundManager.addSound("scene/daggerSwish", ["sound/scene/dagger-swish.ogg"]),
-      SoundManager.addSound("scene/meleeHit", ["sound/scene/melee-hit-01.mp3", "sound/scene/melee-hit-02.mp3", "sound/scene/melee-hit-03.mp3"]),
-      SoundManager.addSound("scene/metalBash", ["sound/scene/metal-bash-01.mp3", "sound/scene/metal-bash-02.mp3", "sound/scene/metal-bash-03.mp3"]),
-      SoundManager.addSound("scene/parry", ["sound/scene/parry-01.ogg", "sound/scene/parry-02.ogg"]),
-      SoundManager.addSound("scene/shieldBash", ["sound/scene/shield-bash-impact.mp3"]),
-      SoundManager.addSound("scene/swish", ["sound/scene/swish-01.mp3", "sound/scene/swish-02.mp3", "sound/scene/swish-03.mp3", "sound/scene/swish-04.mp3"]),
-      SoundManager.addSound("scene/doorOpen", ["sound/scene/door.ogg"]),
+      SoundManager.addSound('scene/bow', ['sound/scene/bow-01.mp3', 'sound/scene/bow-02.mp3']),
+      SoundManager.addSound('scene/crossbow', ['sound/scene/crossbow-01.mp3', 'sound/scene/crossbow-02.mp3', 'sound/scene/crossbow-03.mp3', 'sound/scene/crossbow-04.mp3']),
+      SoundManager.addSound('scene/daggerSwish', ['sound/scene/dagger-swish.ogg']),
+      SoundManager.addSound('scene/meleeHit', ['sound/scene/melee-hit-01.mp3', 'sound/scene/melee-hit-02.mp3', 'sound/scene/melee-hit-03.mp3']),
+      SoundManager.addSound('scene/metalBash', ['sound/scene/metal-bash-01.mp3', 'sound/scene/metal-bash-02.mp3', 'sound/scene/metal-bash-03.mp3']),
+      SoundManager.addSound('scene/parry', ['sound/scene/parry-01.ogg', 'sound/scene/parry-02.ogg']),
+      SoundManager.addSound('scene/shieldBash', ['sound/scene/shield-bash-impact.mp3']),
+      SoundManager.addSound('scene/swish', ['sound/scene/swish-01.mp3', 'sound/scene/swish-02.mp3', 'sound/scene/swish-03.mp3', 'sound/scene/swish-04.mp3']),
+      SoundManager.addSound('scene/doorOpen', ['sound/scene/door.ogg']),
     ];
 
     // Promise.all(promises).then(async () => {
@@ -92,7 +99,7 @@ export class BaseSceneController<TQuestVars> {
 
     const resource = Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
     if (!resource.data) {
-      throw new Error(`No map data found at ${process.env.PUBLIC_URL}/${this.jsonPath}`)
+      throw new Error(`No map data found at ${process.env.PUBLIC_URL}/${this.jsonPath}`);
     }
     this.mapData = resource.data;
 
@@ -102,7 +109,7 @@ export class BaseSceneController<TQuestVars> {
     this.aStar = this.createAStar();
 
     const spritesheets = this.spritesheetPaths;
-    for(const path of spritesheets) {
+    for (const path of spritesheets) {
       await loadResourceAsync(path);
     }
     // PIXI.utils.clearTextureCache()
@@ -119,7 +126,7 @@ export class BaseSceneController<TQuestVars> {
       }
     });
     objects?.forEach(o => {
-      if(o.properties.blocksMovement === true && o.location){
+      if (o.properties.blocksMovement === true && o.location){
         this.blockedTiles.push(o.location);
       }
     });
@@ -128,8 +135,8 @@ export class BaseSceneController<TQuestVars> {
   createTileTypes() {
     this.mapData?.tilesets.forEach((tileset) => {
       tileset.tiles?.forEach((tile) => {
-        this.tileTypes[tile.type] = tile.id + tileset.firstgid
-      })
+        this.tileTypes[tile.type] = tile.id + tileset.firstgid;
+      });
     });
   }
 
@@ -137,7 +144,7 @@ export class BaseSceneController<TQuestVars> {
   createScene() {
     const objects = this.createObjects();
     const combat = false;
-    this.updateScene(objects, combat)
+    this.updateScene(objects, combat);
   }
 
   updateScene(objects: SceneObject[] = this.sceneObjects, combat: boolean = this.combat) {
@@ -145,7 +152,7 @@ export class BaseSceneController<TQuestVars> {
       ...this.quest.scene,
       objects,
       combat,
-    }
+    };
     this.dispatch(setScene(this.questName, scene));
 
     this.createBlockedTiles(objects);
@@ -168,8 +175,8 @@ export class BaseSceneController<TQuestVars> {
   getTileDimensions() {
     return {
       tileWidth: this.mapData?.tilewidth || 0,
-      tileHeight: this.mapData?.tileheight || 0
-    }
+      tileHeight: this.mapData?.tileheight || 0,
+    };
   }
 
   actorMoved(actor: string, location: Location) {
@@ -192,33 +199,32 @@ export class BaseSceneController<TQuestVars> {
         const node = definition.nodes[index];
         if (node.log) {
           // If the next node has a log entry, add it
-          this.log(node.log)
+          this.log(node.log);
         }
         this.dispatch(exitEncounter(this.questName));
-      }
-      else if (destination.properties.to) {
+      } else if (destination.properties.to) {
         // Load another scene
-        this.dispatch(setSceneName(this.questName, destination.properties.to as string))
+        this.dispatch(setSceneName(this.questName, destination.properties.to as string));
       }
     }
   }
 
   actorSlashing(actorId: string, _location: Location) {
     // todo 08/08/2019 use CombatController : move to CombatController?
-    SoundManager.playSound("scene/swish", Channel.scene, false, MixMode.singleInstance);
+    SoundManager.playSound('scene/swish', Channel.scene, false, MixMode.singleInstance);
     const actor = this.getSceneActor(actorId);
-    if (!actor) throw new Error("No actor found");
+    if (!actor) throw new Error('No actor found');
     const weapon = this.getActorMainhandItem(actor);
-    if (!weapon) throw new Error("No weapon found");
+    if (!weapon) throw new Error('No weapon found');
     const definition = getWeaponDefinition(weapon.type);
 
-    switch(definition.weaponType) {
+    switch (definition.weaponType) {
       case WeaponType.knife: {
-        SoundManager.playSound("scene/daggerSwish", Channel.scene, false, MixMode.singleInstance);
+        SoundManager.playSound('scene/daggerSwish', Channel.scene, false, MixMode.singleInstance);
         break;
       }
       default: {
-        SoundManager.playSound("scene/swish", Channel.scene, false, MixMode.singleInstance);
+        SoundManager.playSound('scene/swish', Channel.scene, false, MixMode.singleInstance);
         break;
       }
     }
@@ -229,30 +235,30 @@ export class BaseSceneController<TQuestVars> {
     const ap = AP_COST_MELEE;
     this.dispatch(deductActorAp(this.questName, actorId, ap));
     const actor = this.getSceneActor(actorId);
-    if (!actor) throw new Error("No actor found");
+    if (!actor) throw new Error('No actor found');
     const weapon = this.getActorMainhandItem(actor);
-    if (!weapon) throw new Error("No weapon found");
-    const definition = getWeaponDefinition(weapon.type)
+    if (!weapon) throw new Error('No weapon found');
+    const definition = getWeaponDefinition(weapon.type);
     const skills = this.getActorSkills(actor);
     const roll = roll3D6();
     if (roll <= (skills[definition.weaponType] ?? 0)) {
-      console.log("HIT at ", location);
-      this.bubbleAtLocation("HIT", location);
+      console.log('HIT at ', location);
+      this.bubbleAtLocation('HIT', location);
 
     } else {
-      this.bubbleAtLocation("MISS", location);
+      this.bubbleAtLocation('MISS', location);
 
       if (this.settings.verboseCombatLog) {
-        this.log({ key: "scene-combat-attack-slash-missed-verbose", context: {
+        this.log({ key: 'scene-combat-attack-slash-missed-verbose', context: {
           actor,
           weapon: weapon.type,
           ap,
           roll,
           weaponType: definition.weaponType,
-          skill: skills[definition.weaponType]
-        }});
+          skill: skills[definition.weaponType],
+        } });
       } else {
-        this.log({ key: "scene-combat-attack-slash-missed", context: { actor, weapon: weapon.type }});
+        this.log({ key: 'scene-combat-attack-slash-missed', context: { actor, weapon: weapon.type } });
       }
     }
     // todo: see if slash misses
@@ -261,18 +267,18 @@ export class BaseSceneController<TQuestVars> {
 
   actorShooting(actorId: string, _location: Location) {
     const actor = this.getSceneActor(actorId);
-    if (!actor) throw new Error("No actor found");
+    if (!actor) throw new Error('No actor found');
     const weapon = this.getActorMainhandItem(actor);
-    if (!weapon) throw new Error("No weapon found");
+    if (!weapon) throw new Error('No weapon found');
     const definition = getWeaponDefinition(weapon.type);
 
-    switch(definition.weaponType) {
+    switch (definition.weaponType) {
       case WeaponType.bow: {
-        SoundManager.playSound("scene/bow", Channel.scene, false, MixMode.singleInstance);
+        SoundManager.playSound('scene/bow', Channel.scene, false, MixMode.singleInstance);
         break;
       }
       case WeaponType.crossbow: {
-        SoundManager.playSound("scene/crossbow", Channel.scene, false, MixMode.singleInstance);
+        SoundManager.playSound('scene/crossbow', Channel.scene, false, MixMode.singleInstance);
         break;
       }
     }
@@ -289,27 +295,27 @@ export class BaseSceneController<TQuestVars> {
     // Take away AP for shooting
     this.dispatch(deductActorAp(this.questName, actorId, ap));
     const actor = this.getSceneActor(actorId);
-    if (!actor) throw new Error("No actor found");
+    if (!actor) throw new Error('No actor found');
     const weapon = this.getActorMainhandItem(actor);
-    if (!weapon) throw new Error("No weapon found");
-    const definition = getWeaponDefinition(weapon.type)
+    if (!weapon) throw new Error('No weapon found');
+    const definition = getWeaponDefinition(weapon.type);
     const skills = this.getActorSkills(actor);
     const roll = roll3D6();
     if (roll <= (skills[definition.weaponType] ?? 0)) {
-      console.log("HIT at ", location);
+      console.log('HIT at ', location);
 
     } else {
-        if (this.settings.verboseCombatLog) {
-        this.log({ key: "scene-combat-attack-shoot-missed-verbose", context: {
+      if (this.settings.verboseCombatLog) {
+        this.log({ key: 'scene-combat-attack-shoot-missed-verbose', context: {
           actor,
           weapon: weapon.type,
           ap,
           roll,
           weaponType: definition.weaponType,
-          skill: skills[definition.weaponType]
-        }});
+          skill: skills[definition.weaponType],
+        } });
       } else {
-        this.log({ key: "scene-combat-attack-shoot-missed", context: { actor, weapon: weapon.type }});
+        this.log({ key: 'scene-combat-attack-shoot-missed', context: { actor, weapon: weapon.type } });
       }
     }
     // todo: process the hit, take away any HP?
@@ -320,7 +326,7 @@ export class BaseSceneController<TQuestVars> {
     const object = this.getObjectAtLocation(location);
 
     if (!object) {
-      console.warn("No object found");
+      console.warn('No object found');
       return;
     }
     if (actor) {
@@ -332,9 +338,9 @@ export class BaseSceneController<TQuestVars> {
     // Tries to perform action on given actor
 
     const { actor, action, to } = intent;
-    if (!actor) return
-    const {location} = actor;
-    if (!location) throw new Error("No location found!")
+    if (!actor) return;
+    const { location } = actor;
+    if (!location) throw new Error('No location found!');
 
     switch (action) {
       case SceneActionType.move: {
@@ -347,7 +353,7 @@ export class BaseSceneController<TQuestVars> {
             actionType: SceneActionType.move,
             actorId: actor.id,
             target: l as Location,
-            endsAt: movementDuration * (index + 1) + performance.now()
+            endsAt: movementDuration * (index + 1) + performance.now(),
           };
           this.dispatch(enqueueSceneAction(this.questName, sceneAction));
         });
@@ -360,7 +366,7 @@ export class BaseSceneController<TQuestVars> {
             actionType: SceneActionType.move,
             actorId: actor.id,
             target: l as Location,
-            endsAt: movementDuration * (index + 1) + performance.now()
+            endsAt: movementDuration * (index + 1) + performance.now(),
           };
           this.dispatch(enqueueSceneAction(this.questName, moveAction));
         });
@@ -369,7 +375,7 @@ export class BaseSceneController<TQuestVars> {
           actionType: SceneActionType.interact,
           actorId: actor.id,
           target: to,
-          endsAt: movementDuration * path.length + performance.now()
+          endsAt: movementDuration * path.length + performance.now(),
         };
         this.dispatch(enqueueSceneAction(this.questName, interactAction));
         break;
@@ -389,7 +395,7 @@ export class BaseSceneController<TQuestVars> {
             actionType: SceneActionType.move,
             actorId: actor.id,
             target: l as Location,
-            endsAt: movementDuration * (index + 1) + performance.now()
+            endsAt: movementDuration * (index + 1) + performance.now(),
           };
           this.dispatch(enqueueSceneAction(this.questName, moveAction));
         });
@@ -397,7 +403,7 @@ export class BaseSceneController<TQuestVars> {
           actionType: action,
           actorId: actor.id,
           target,
-          endsAt: movementDuration * (path.length + 1) + performance.now()
+          endsAt: movementDuration * (path.length + 1) + performance.now(),
         };
         this.dispatch(enqueueSceneAction(this.questName, meleeAction));
         break;
@@ -408,7 +414,7 @@ export class BaseSceneController<TQuestVars> {
           actionType: action,
           actorId: actor.id,
           target: to,
-          endsAt: 500 + performance.now()
+          endsAt: 500 + performance.now(),
         };
         this.dispatch(enqueueSceneAction(this.questName, shootAction));
       }
@@ -420,7 +426,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   // Converts pixel coordinate (where 0,0 is top left of the canvas) to scene location
-  pointToSceneLocation (point: Point): Location {
+  pointToSceneLocation(point: Point): Location {
     if (!this.mapData?.tilewidth || !this.mapData?.tileheight) {
       return [0, 0];
     }
@@ -428,7 +434,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   // returns the pixel coordinate of the top left corner of the given location
-  sceneLocationToPoint (location: Location): Point {
+  sceneLocationToPoint(location: Location): Point {
     if (!this.mapData?.tilewidth || !this.mapData?.tileheight) {
       return new Point();
     }
@@ -469,7 +475,7 @@ export class BaseSceneController<TQuestVars> {
     if (!lootCache) return;
 
     const item = lootCache.items[itemIndex];
-    this.dispatch(addItemToInventory(adventurerId, item, toSlot))
+    this.dispatch(addItemToInventory(adventurerId, item, toSlot));
   }
 
   discardItem(item: Item, adventurerId: string) {
@@ -490,7 +496,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   getSituation(_situation: string, _adventurerId?: string) : Situation | undefined {
-     return undefined;
+    return undefined;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -523,10 +529,10 @@ export class BaseSceneController<TQuestVars> {
     matrix[target[1]][target[0]] = 0; // make target pathable
     const tempAStar = new AStarFinder({
       grid: {
-        matrix
+        matrix,
       },
       includeStartNode: false,
-      heuristic: "Manhattan",
+      heuristic: 'Manhattan',
       weight: 0.2,
     });
 
@@ -544,55 +550,55 @@ export class BaseSceneController<TQuestVars> {
     const results: Location[] = [];
     let radius = 1;
 
-    const getTop = (radius: number): Location[] => {
+    const getTop = (): Location[] => {
       const y = -radius + origin[1];
       const result = [];
       for (let x = -radius + origin[0]; x <= radius + origin[0]; x++) {
-        result.push([x, y] as Location)
+        result.push([x, y] as Location);
       }
       return result;
-    }
-    const getRight = (radius: number) => {
+    };
+    const getRight = () => {
       const x = radius + origin[0];
       const result = [];
       for (let y = -radius + 1 + origin[1]; y <= radius - 1 + origin[1]; y++) {
-        result.push([x, y] as Location)
+        result.push([x, y] as Location);
       }
       return result;
-    }
-    const getBottom = (radius: number) => {
+    };
+    const getBottom = () => {
       const y = radius + origin[1];
       const result = [];
       for (let x = -radius + origin[0]; x <= radius + origin[0]; x++) {
-        result.push([x, y] as Location)
+        result.push([x, y] as Location);
       }
       return result;
-    }
-    const getLeft = (radius: number) => {
+    };
+    const getLeft = () => {
       const x = -radius + origin[0];
       const result = [];
       for (let y = -radius + 1 + origin[1]; y <= radius - 1 + origin[1]; y++) {
-        result.push([x, y] as Location)
+        result.push([x, y] as Location);
       }
       return result;
-    }
+    };
 
     const notOutside = (location: Location) => {
-      if (!this.mapData) return false
+      if (!this.mapData) return false;
       return location[0] >= 0 && location[0] < this.mapData.width
-        && location[1] >= 1 && location[1] < this.mapData.height
-    }
+        && location[1] >= 1 && location[1] < this.mapData.height;
+    };
 
     while (radius < (this.mapData?.width ?? 2)) {
       // determine locations in square radius
       const square: Location[] = [
-        ...getTop(radius),
-        ...getRight(radius),
-        ...getBottom(radius),
-        ...getLeft(radius)
-      ]
+        ...getTop(),
+        ...getRight(),
+        ...getBottom(),
+        ...getLeft(),
+      ];
       const filtered = square.filter(l => notOutside(l) && !this.locationIsBlocked(l));
-      results.push(...filtered.slice(0, amount - results.length))
+      results.push(...filtered.slice(0, amount - results.length));
       if (results.length === amount) break;
       radius++;
     }
@@ -629,13 +635,13 @@ export class BaseSceneController<TQuestVars> {
           actor,
           actorAP,
           path,
-          isValid
-        })
+          isValid,
+        });
       }
 
       case SceneActionType.melee: {
         const path = this.findPath(from, to);
-        if (!path) throw new Error("No path found");
+        if (!path) throw new Error('No path found');
         // const lastStep = path?.length > 1 ? path[path.length - 2] : path[path.length - 1];
         const apCost = this.calculateWalkApCosts(from, to);
         // if (!path) throw new Error("No path found");
@@ -653,8 +659,8 @@ export class BaseSceneController<TQuestVars> {
           actor,
           actorAP,
           path,
-          isValid
-        })
+          isValid,
+        });
       }
 
       case SceneActionType.interact: {
@@ -668,7 +674,7 @@ export class BaseSceneController<TQuestVars> {
           actor,
           path,
           isValid,
-        })
+        });
       }
       case SceneActionType.shoot: {
         const apCost = AP_COST_SHOOT;
@@ -682,8 +688,8 @@ export class BaseSceneController<TQuestVars> {
           apCost,
           actor,
           actorAP,
-          isValid
-        })
+          isValid,
+        });
       }
     }
   }
@@ -696,7 +702,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   public getSceneActor(actorId: string): ActorObject | undefined {
-    return getSceneObjectWithName(this.sceneActors, actorId) as ActorObject
+    return getSceneObjectWithName(this.sceneActors, actorId) as ActorObject;
   }
 
   /**
@@ -706,11 +712,11 @@ export class BaseSceneController<TQuestVars> {
    * @returns
    */
   public getObjectAtLocation(location: Location, additionalFilter: (object: SceneObject) => boolean = () => true) {
-    return getSceneObjectAtLocation(this.quest.scene?.objects ?? [] , location, additionalFilter)
+    return getSceneObjectAtLocation(this.quest.scene?.objects ?? [], location, additionalFilter);
   }
 
   protected createAStar() {
-    if (!this.mapData) return
+    if (!this.mapData) return;
     const matrix: number[][] = [];
     if (this.mapData){
       for (let y = 0; y < this.mapData.height; y++) {
@@ -726,10 +732,10 @@ export class BaseSceneController<TQuestVars> {
 
     return new AStarFinder({
       grid: {
-        matrix
+        matrix,
       },
       includeStartNode: false,
-      heuristic: "Manhattan",
+      heuristic: 'Manhattan',
       weight: 0.2,
     });
   }
@@ -737,7 +743,7 @@ export class BaseSceneController<TQuestVars> {
   // Create SceneObject from this.mapData
   protected createObjects(): SceneObject[] {
     if (!this.mapData) {
-      throw new Error("No mapData");
+      throw new Error('No mapData');
     }
 
     const objectLayers = this.mapData.layers.filter(layer => layer.type === TiledLayerType.objectgroup);
@@ -749,14 +755,14 @@ export class BaseSceneController<TQuestVars> {
         const properties = parseProperties(value.properties);
         const location: Location = [
           value.x / (this.mapData?.tilewidth || 1),
-          (value.y - (value.gid ? value.height : 0)) / (this.mapData?.tileheight || 1)
+          (value.y - (value.gid ? value.height : 0)) / (this.mapData?.tileheight || 1),
         ];
 
         const object: SceneObject | null = {
           ...value,
           layerId: objectLayer.id,
           properties,
-          location
+          location,
         };
 
         if (object.type === TiledObjectType.portal) {
@@ -766,7 +772,7 @@ export class BaseSceneController<TQuestVars> {
             const { width, height, layerId } = object;
             const locations = [
               location,
-              ...this.findEmptyLocationsAround(location, adventurers.length - 1)
+              ...this.findEmptyLocationsAround(location, adventurers.length - 1),
             ];
 
             adventurers.forEach((adventurer, i) => {
@@ -792,20 +798,19 @@ export class BaseSceneController<TQuestVars> {
                 properties: {
                   adventurerId: adventurer.id,
                   isSprite: true,
-                  spritesheet: adventurer.spritesheetPath
-                }
-              }
+                  spritesheet: adventurer.spritesheetPath,
+                },
+              };
               acc.push(adventurerObject);
             });
           }
-        }
-        else if (object.type === TiledObjectType.enemySpawn) {
+        } else if (object.type === TiledObjectType.enemySpawn) {
           object.type = TiledObjectType.actor;
           if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
-            const definition = getEnemyDefinition(object.properties.name as EnemyType)
+            const definition = getEnemyDefinition(object.properties.name as EnemyType);
             const level = object.properties.level as number ?? 1;
             object.health = Math.random() * 100;
-            object.ap = calculateInitialAP(definition.attributes, level)
+            object.ap = calculateInitialAP(definition.attributes, level);
             object.name = object.properties.name as string;
             object.level = level;
             object.allegiance = Allegiance.enemy;
@@ -848,7 +853,7 @@ export class BaseSceneController<TQuestVars> {
   public get quest() {
     const storeState = this.store.getState();
     const quest = storeState.quests.find(q => q.name === this.questName);
-    if (!quest) throw new Error("No quest :(")
+    if (!quest) throw new Error('No quest :(');
     return quest;
   }
 
@@ -861,7 +866,7 @@ export class BaseSceneController<TQuestVars> {
     return [
       ...adventurers.map(a => a.spritesheetPath),
       `${spritesheetBasePath}troll-sword.json`,   // todo: only load enemy sprites that are actually needed
-      `${spritesheetBasePath}troll-axe.json`      // todo: only load enemy sprites that are actually needed
+      `${spritesheetBasePath}troll-axe.json`,      // todo: only load enemy sprites that are actually needed
     ];
   }
 
@@ -883,6 +888,7 @@ export class BaseSceneController<TQuestVars> {
     const storeState = this.store.getState();
     return storeState.adventurers.find(a => a.id === actor.name);
   }
+
   protected getEnemyByActor(actor: ActorObject) {
     return getEnemyDefinition(actor.name);
   }
@@ -895,7 +901,7 @@ export class BaseSceneController<TQuestVars> {
   protected getActorSkills(actor: ActorObject) {
     if (isAdventurer(actor)) {
       const adventurer = this.getAdventurerByActor(actor);
-      if (!adventurer) throw new Error("No adventurer found")
+      if (!adventurer) throw new Error('No adventurer found');
       return adventurer.skills;
     }
     const enemy = this.getEnemyByActor(actor);
@@ -905,7 +911,7 @@ export class BaseSceneController<TQuestVars> {
   protected getActorMainhandItem(actor: ActorObject) {
     if (isAdventurer(actor)) {
       const adventurer = this.getAdventurerByActor(actor);
-      if (!adventurer) throw new Error("No adventurer found")
+      if (!adventurer) throw new Error('No adventurer found');
       return adventurer.equipment[EquipmentSlotType.mainHand];
     }
     const enemy = this.getEnemyByActor(actor);
@@ -915,7 +921,7 @@ export class BaseSceneController<TQuestVars> {
   protected getActorOffhandItem(actor: ActorObject) {
     if (isAdventurer(actor)) {
       const adventurer = this.getAdventurerByActor(actor);
-      if (!adventurer) throw new Error("No adventurer found")
+      if (!adventurer) throw new Error('No adventurer found');
       return adventurer.equipment[EquipmentSlotType.offHand];
     }
     const enemy = this.getEnemyByActor(actor);
@@ -923,7 +929,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   protected questUpdate(input: string | TextEntry, icon?: string, toast = false): void {
-    const textEntry: TextEntry = isTextEntry(input) ? input : {key: input};
+    const textEntry: TextEntry = isTextEntry(input) ? input : { key: input };
     const title = TextManager.getTextEntry(textEntry);
     if (toast) {
       ToastManager.addToast(title, Type.questUpdate, icon, getQuestLink(this.questName));
@@ -932,7 +938,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   protected log(input: string | TextEntry): void {
-    const textEntry: TextEntry = isTextEntry(input) ? input : {key: input};
+    const textEntry: TextEntry = isTextEntry(input) ? input : { key: input };
     this.dispatch(addLogEntry(textEntry, LogChannel.quest, this.questName));
   }
 
@@ -944,7 +950,7 @@ export class BaseSceneController<TQuestVars> {
 
   // Store
   protected dispatch(action: AnyAction) {
-    this.store.dispatch(action)
+    this.store.dispatch(action);
   }
 }
 

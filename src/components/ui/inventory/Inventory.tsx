@@ -1,13 +1,13 @@
-import * as React from "react";
-import { DragSourceType } from "constants/dragging";
-import {Item } from "definitions/items/types";
-import InventorySlot from "./InventorySlot";
+import * as React from 'react';
+import { DragSourceType } from 'constants/dragging';
+import { Item } from 'definitions/items/types';
+import InventorySlot from './InventorySlot';
 import DraggableItemIcon, { InventoryItemDragInfo } from '../items/DraggableItemIcon';
 import { IconSize } from '../common/Icon';
-import "./styles/inventory.scss";
+import './styles/inventory.scss';
 
 export interface Props {
-  items: (Item|null)[];
+  items: (Item | null)[];
   sourceId?: string;   // who does this inventory belong to?
   sourceType: DragSourceType;
   iconSize?: IconSize;
@@ -34,20 +34,20 @@ const Inventory = (props: Props) => {
         return;
       }
       if (props.onDropItem && dragInfo.inventorySlot !== undefined) {
-        const {inventorySlot: fromSlot} = dragInfo;
+        const { inventorySlot: fromSlot } = dragInfo;
         props.onDropItem(dragInfo.item, fromSlot, i, dragInfo.sourceType, dragInfo.sourceId);
-       }
+      }
     };
 
     const handleCheckDrop = (dragInfo: InventoryItemDragInfo) => {
       return canDropHere ? canDropHere(dragInfo) : true;
-    }
+    };
 
     const handleStartDrag = () => {
       if (item) {
         onStartDrag?.(item, i);
       }
-    }
+    };
 
     if (item) {
       contents = (
@@ -59,7 +59,7 @@ const Inventory = (props: Props) => {
           onStartDrag={handleStartDrag}
         />
       );
-     }
+    }
 
     const slot = (
       <InventorySlot
@@ -74,9 +74,9 @@ const Inventory = (props: Props) => {
       </InventorySlot>
     );
     slots.push(slot);
-   }
+  }
   return (
-    <div className={`inventory ${props.className ? props.className : ""}`}>
+    <div className={`inventory ${props.className ? props.className : ''}`}>
       {slots}
     </div>
   );

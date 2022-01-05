@@ -1,11 +1,11 @@
-import { Fragment } from "react";
-import resourceDescriptions from "definitions/resources";
+import { Fragment } from 'react';
+import resourceDescriptions from 'definitions/resources';
 import { WarehouseStructureDefinition } from 'definitions/structures/types';
 import { Resource } from 'definitions/resources';
 import Icon from 'components/ui/common/Icon';
 import { TextManager } from 'global/TextManager';
-import { useStructureDefinition } from "hooks/store/structures";
-import "./styles/upgradeHelpModalContent.scss"
+import { useStructureDefinition } from 'hooks/store/structures';
+import './styles/upgradeHelpModalContent.scss';
 
 export interface Props  {
   level: number;
@@ -13,7 +13,7 @@ export interface Props  {
 
 const UpgradeHelpModalContent = (props: Props) => {
   const { level } = props;
-  const structureDefinition = useStructureDefinition<WarehouseStructureDefinition>("warehouse");
+  const structureDefinition = useStructureDefinition<WarehouseStructureDefinition>('warehouse');
 
   const currentLevel = structureDefinition.levels[level];
   const nextLevel = structureDefinition.levels[level + 1];
@@ -29,32 +29,32 @@ const UpgradeHelpModalContent = (props: Props) => {
         <div className="arrow">»</div>
         <div className="number">{nextLevel.maxResources[resource]}</div>
       </Fragment>
-    )
-  }
+    );
+  };
 
   return (
     <div className="upgrade-help-model-content-warehouse">
-      <h3>{TextManager.get("ui-structure-help-upgrade-improvements")}</h3>
+      <h3>{TextManager.get('ui-structure-help-upgrade-improvements')}</h3>
       <div className="storage-increase">
         <div className="header"/>
         <div className="header">
-          {TextManager.get("ui-structure-warehouse-help-upgrade-header-capacity")}
+          {TextManager.get('ui-structure-warehouse-help-upgrade-header-capacity')}
         </div>
         <div className="header number">
-          {TextManager.get("ui-structure-help-upgrade-header-level", {
-            level: level + 1
+          {TextManager.get('ui-structure-help-upgrade-header-level', {
+            level: level + 1,
           })}
         </div>
         <div className="header"/>
         <div className="header number">
-        {TextManager.get("ui-structure-help-upgrade-header-level", {
-            level: level + 2
-          })}
+        {TextManager.get('ui-structure-help-upgrade-header-level', {
+          level: level + 2,
+        })}
         </div>
         {Object.keys(nextLevel.maxResources).map(res => renderRow(res as Resource))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default UpgradeHelpModalContent;

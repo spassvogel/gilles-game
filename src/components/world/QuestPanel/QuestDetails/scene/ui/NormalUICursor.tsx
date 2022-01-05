@@ -2,14 +2,20 @@ import { Location } from 'utils/tilemap';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { useContext } from 'react';
 import { SceneActionType } from 'store/types/scene';
-import "./styles/normalUICursor.scss";
+import './styles/normalUICursor.scss';
 
 interface Props {
   location: Location;
 }
 
+
+const images = {
+  [SceneActionType.move]: `url(${process.env.PUBLIC_URL}/img/ui/icons/icons/walking-boot.svg)`,
+  [SceneActionType.interact]: `url(${process.env.PUBLIC_URL}/img/ui/icons/icons/sunken-eye.svg)`,
+};
+
 const NormalUICursor = (props: Props) => {
-  const {location} = props;
+  const { location } = props;
   const controller = useContext(SceneControllerContext);
 
   let blocked = controller?.locationIsBlocked(location) ?? false;
@@ -23,22 +29,17 @@ const NormalUICursor = (props: Props) => {
       blocked = false;
     }
   }
-  const {tileWidth, tileHeight} = controller?.getTileDimensions() ?? { tileWidth: 64, tileHeight: 64 };
+  const { tileWidth, tileHeight } = controller?.getTileDimensions() ?? { tileWidth: 64, tileHeight: 64 };
   const transform = `translate(${tileWidth * location[0]}px, ${tileHeight * location[1]}px)`;
   const backgroundImage = images[action];
   const width = tileWidth;
   const height = tileHeight;
   return (
     <div
-      className={`normal-ui-cursor ${blocked ? "invalid" : ""}`}
+      className={`normal-ui-cursor ${blocked ? 'invalid' : ''}`}
       style={{ transform, backgroundImage, width, height }}
     />
-  )
-}
+  );
+};
 
 export default NormalUICursor;
-
-const images = {
-  [SceneActionType.move]: `url(${process.env.PUBLIC_URL}/img/ui/icons/icons/walking-boot.svg)`,
-  [SceneActionType.interact]: `url(${process.env.PUBLIC_URL}/img/ui/icons/icons/sunken-eye.svg)`
-}

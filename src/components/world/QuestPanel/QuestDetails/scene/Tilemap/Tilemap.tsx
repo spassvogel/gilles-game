@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { TiledMapData, TiledLayerData, TiledLayerType } from 'constants/tiledMapData';
+import { TiledMapData, TiledLayerType } from 'constants/tiledMapData';
 import { Container } from '@inlet/react-pixi';
 import RectTileLayer from 'components/pixi/tile/RectTileLayer';
 import * as PIXI from 'pixi.js';
@@ -7,14 +7,16 @@ import ObjectTileLayer from 'components/pixi/tile/ObjectTileLayer';
 import { SceneObject } from 'store/types/scene';
 import ObjectSpriteLayer from './ObjectSpriteLayer';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
-import { Props as SceneProps } from "./Scene";
+import { Props as SceneProps } from '../Scene';
+import { getLayerObjects } from './utils';
 
 interface Props extends SceneProps {
   basePath: string;
   data: TiledMapData;
-  spritesheets: {[key: string]: PIXI.Spritesheet}
+  spritesheets: { [key: string]: PIXI.Spritesheet }
   objects: SceneObject[];
   controller: BaseSceneController<unknown>;
+  selectedActorId: string;
 }
 
 const Tilemap = (props: PropsWithChildren<Props>) => {
@@ -26,7 +28,7 @@ const Tilemap = (props: PropsWithChildren<Props>) => {
         .filter(l => l.visible)
         .map(layer => {
           if (layer.type === TiledLayerType.objectgroup) {
-            const { tileObjects, spriteObjects} = getLayerObjects(objects, layer);
+            const { tileObjects, spriteObjects } = getLayerObjects(objects, layer);
             return (
               <React.Fragment key={layer.name}>
                 { !!tileObjects.length && (
@@ -45,7 +47,7 @@ const Tilemap = (props: PropsWithChildren<Props>) => {
                   />
                 )}
               </React.Fragment>
-            )
+            );
           }
           if (layer.type === TiledLayerType.tilelayer) {
             return (
@@ -56,26 +58,14 @@ const Tilemap = (props: PropsWithChildren<Props>) => {
                 tilesets={data.tilesets}
                 spritesheets={spritesheets}
               />
-            )
+            );
           }
           return null;
         })
       }
     </Container>
   );
-}
+};
 
 export default Tilemap;
 
-const getLayerObjects = (objects: SceneObject[], layer: TiledLayerData) => {
-  return objects.reduce<{tileObjects: SceneObject[], spriteObjects: SceneObject[]}>((acc, value) => {
-    if (value.layerId === layer.id) {
-      if (value.gid !== undefined) {
-        acc.tileObjects.push(value);
-      } else if (value.properties.isSprite === true) {
-        acc.spriteObjects.push(value);
-      }
-    }
-    return acc;
-  }, { tileObjects: [], spriteObjects: [] });
-}

@@ -13,13 +13,13 @@ export interface Props {
 }
 
 const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
-  const {questName, children} = props;
+  const { questName, children } = props;
   const store = useStore<StoreState>();
   const [loaded, setLoaded] = useState<boolean>(false);
   const storeState = store.getState();
   const quest = storeState.quests.find(q => q.name === questName);
-  if (!quest) throw Error("No quest found")
-  const {scene, sceneName, questVars} = quest;
+  if (!quest) throw Error('No quest found');
+  const { scene, sceneName, questVars } = quest;
   const previousQuestVars = usePrevious(questVars);
 
   const controller = useMemo(() => {
@@ -40,12 +40,12 @@ const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
           controller.createScene();
         }
         controller.sceneEntered();
-      }
+      };
       controller.loadData(loadingComplete);
     }
     return () => {
       controller?.sceneExited();
-    }
+    };
   }, [controller, questName, scene, sceneName]);
 
   useEffect(() => {

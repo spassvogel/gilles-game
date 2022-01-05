@@ -26,14 +26,14 @@ export const initialQuestVars: Kill10BoarsQuestVars = {
     entrance: {
       chestOpen: false,
       chest: {
-        title: "encounter-dungeon-caches-chest",
+        title: 'encounter-dungeon-caches-chest',
         items: [
-          { type: "apparel/nomadHelmet" },
-          { type: "questItem/teeth" },
-          { type: "material/poisonVial" },
-          { type: "apparel/fedora" },
+          { type: 'apparel/nomadHelmet' },
+          { type: 'questItem/teeth' },
+          { type: 'material/poisonVial' },
+          { type: 'apparel/fedora' },
         ],
-        gold: 100
+        gold: 100,
       },
       // altar: {
       //   title: "quest-kill10-boars-dungeonentrance-altar",
@@ -45,11 +45,11 @@ export const initialQuestVars: Kill10BoarsQuestVars = {
     },
     hallway: {
       chest: {
-        title: "encounter-dungeon-caches-chest",
-        items: [ { type: "questItem/key" }]
+        title: 'encounter-dungeon-caches-chest',
+        items: [ { type: 'questItem/key' }],
       },
       chestOpen: false,
-      doorOpen: false
-    }
-  }
-}
+      doorOpen: false,
+    },
+  },
+};

@@ -25,7 +25,7 @@ const AdventurerEquipment = (props: Props) => {
     if (slotType === EquipmentSlotType.offHand) {
       // If there a ranged weapon in the main hand the offHand is for ammo
       if (rangedWeaponInHand(adventurer.equipment)) {
-        text = TextManager.get("ui-equipmentslot-ammunition");
+        text = TextManager.get('ui-equipmentslot-ammunition');
       }
     }
     return (
@@ -63,8 +63,8 @@ const AdventurerEquipment = (props: Props) => {
       {getEquipmentSlot(EquipmentSlotType.offHand)}
       <Guy adventurerId={adventurer.id} />
     </ul>
-  )
-}
+  );
+};
 
 export default AdventurerEquipment;
 

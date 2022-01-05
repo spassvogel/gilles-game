@@ -12,13 +12,13 @@ const Toasts = () => {
 
   const toastsUpdated = (stack?: ToastConfig[]) => {
     if (stack) setActiveToasts(stack);
-  }
+  };
 
   useEffect(() => {
     ToastManager.instance.addListener(EVENT_TOASTS_UPDATED, toastsUpdated);
     return () => {
       ToastManager.instance.removeListener(EVENT_TOASTS_UPDATED, toastsUpdated);
-    }
+    };
   }, []);
 
   return (
@@ -27,7 +27,7 @@ const Toasts = () => {
         <Toast key={toastConfig.time} {...toastConfig}/>
       ))}
     </div>
-  )
-}
+  );
+};
 
 export default Toasts;

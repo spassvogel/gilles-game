@@ -1,25 +1,25 @@
 import { createContext } from 'react';
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Provider as StoreProvider } from "react-redux";
-import { Store, AnyAction, DeepPartial } from "redux";
-import { Persistor } from "redux-persist";
-import { PersistPartial } from "redux-persist/es/persistReducer";
-import { gameTick, ignoreVersionDiff, startGame } from "store/actions/game";
-import { addLogText } from "store/actions/log";
-import * as Version from "constants/version";
-import getProducedResources from "mechanics/gameTick/producedResources";
-import getQuestUpdates, { LogUpdate } from "mechanics/gameTick/quests";
-import getRngState from "mechanics/gameTick/rngState";
-import configureStore from "utils/configureStore";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Provider as StoreProvider } from 'react-redux';
+import { Store, AnyAction, DeepPartial } from 'redux';
+import { Persistor } from 'redux-persist';
+import { PersistPartial } from 'redux-persist/es/persistReducer';
+import { gameTick, ignoreVersionDiff, startGame } from 'store/actions/game';
+import { addLogText } from 'store/actions/log';
+import * as Version from 'constants/version';
+import getProducedResources from 'mechanics/gameTick/producedResources';
+import getQuestUpdates, { LogUpdate } from 'mechanics/gameTick/quests';
+import getRngState from 'mechanics/gameTick/rngState';
+import configureStore from 'utils/configureStore';
 import { processCompletedTasks } from 'mechanics/gameTick/tasks';
 import { StoreState } from 'store/types';
-import { createInitialStore } from "store/reducers";
-import getHarvest from "mechanics/gameTick/harvest";
-import { convertIntToSemVer } from "utils/version";
-import { loadGame } from "store/actions/game";
-import LoadingSpinner from "components/ui/loading/LoadingSpinner";
-import { PersistGate } from "redux-persist/integration/react";
-import App from "components/App";
+import { createInitialStore } from 'store/reducers';
+import getHarvest from 'mechanics/gameTick/harvest';
+import { convertIntToSemVer } from 'utils/version';
+import { loadGame } from 'store/actions/game';
+import LoadingSpinner from 'components/ui/loading/LoadingSpinner';
+import { PersistGate } from 'redux-persist/integration/react';
+import App from 'components/App';
 
 const TICK_INTERVAL = 2500; // main game tick
 
@@ -27,7 +27,7 @@ type GameActionsContextProps = {
   pauseGame: () => void,
   continueGame: () => void,
   restartGame: () => void,
-}
+};
 
 const emptyFn = () => undefined;
 
@@ -42,7 +42,7 @@ const Game = () => {
 
   const paused = useRef(false);
   const [store, setStore] = useState<Store<StoreState & PersistPartial, AnyAction>>();
-  const [persistor, setPersistor] = useState<Persistor>()
+  const [persistor, setPersistor] = useState<Persistor>();
 
 
   /**
@@ -51,7 +51,7 @@ const Game = () => {
    */
   const startNewGame = useCallback(() => {
     store?.dispatch(startGame());
-    store?.dispatch(addLogText("test-game-welcome"));
+    store?.dispatch(addLogText('test-game-welcome'));
     // todo: here is a good place to launch a tutorial or something
 
     console.log(`Starting new GAME (version ${Version.default})`);
@@ -60,20 +60,20 @@ const Game = () => {
   /**
    * Attemps to read persisted store state. Sets `store` state when done */
   const setupStore = useCallback(async (initial: DeepPartial<StoreState> = {}) => {
-    const { store, isHydrated, persistor } = await configureStore(initial);
+    const configuration = await configureStore(initial);
 
-    if (!isHydrated) {
+    if (!configuration.isHydrated) {
       startNewGame();
     }
-    setStore(store);
-    setPersistor(persistor);
+    setStore(configuration.store);
+    setPersistor(configuration.persistor);
   }, [startNewGame]);
 
   /**
    * Puts loads the game with a fresh empty store
    */
   const restartGame = useCallback(() => {
-    if(window.confirm('Are you sure you wish to reset all your progress?')){
+    if (window.confirm('Are you sure you wish to reset all your progress?')){
       const newState = createInitialStore();
       store?.dispatch(loadGame(newState));
       startNewGame();
@@ -91,7 +91,7 @@ const Game = () => {
       if (gameVersion < Version.asInt && store.getState().game?.ignoreVersionDiff !== Version.asInt) {
         if (!window.confirm(`This game was initialized with version ${convertIntToSemVer(gameVersion)} which is older than the current client (${Version.default}). This might cause problems. Continue anyway? \n\n(pressing cancel will reset progress) `)) {
           restartGame();
-          return
+          return;
         }
         store.dispatch(ignoreVersionDiff());
       }
@@ -115,13 +115,12 @@ const Game = () => {
       };
 
       interval = setInterval(gameLoop, TICK_INTERVAL);
-    }
-    catch(e) {
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
     return () => {
       clearInterval(interval);
-    }
+    };
   }, [restartGame, store]);
 
   const pauseGame = useCallback(() => {
@@ -141,7 +140,7 @@ const Game = () => {
   }, [setupStore, store]);
 
   if (!store || !persistor) {
-    return <LoadingSpinner />
+    return <LoadingSpinner />;
   }
   return (
     <GameActionsContext.Provider value={{
@@ -156,8 +155,8 @@ const Game = () => {
         </PersistGate>
       </StoreProvider>
     </GameActionsContext.Provider>
-  )
-}
+  );
+};
 
 export default Game;
 

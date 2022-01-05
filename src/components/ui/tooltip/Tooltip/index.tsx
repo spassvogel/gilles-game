@@ -21,7 +21,7 @@ export enum Placement {
 
 export const Tooltip = (props: PropsWithChildren<Props>) => {
   const { children, referenceRect } = props;
-  let { className = "" } = props;
+  let { className = '' } = props;
   const ref = useRef<HTMLDivElement>(null);
   const [placement, setPlacement] = useState<Placement>(props.placement || Placement.bottom);
 
@@ -51,9 +51,9 @@ export const Tooltip = (props: PropsWithChildren<Props>) => {
         }
         break;
     }
-    tooltipElement.style.opacity = "1"; // animated through css
+    tooltipElement.style.opacity = '1'; // animated through css
 
-    const contentElement = tooltipElement.querySelector(".tooltip-content") as HTMLElement;
+    const contentElement = tooltipElement.querySelector('.tooltip-content') as HTMLElement;
     if (tooltipRect.left < containerRect.left + PADDING) {
       // Check left bounding edge
       const offset = containerRect.left - tooltipRect.left + PADDING;
@@ -70,14 +70,14 @@ export const Tooltip = (props: PropsWithChildren<Props>) => {
 
   const resize = () => {
     TooltipManager.clear();
-  }
+  };
 
   useEffect(() => {
     setContainerRect(ref.current?.closest('.app')?.getBoundingClientRect());
 
-    window.addEventListener("resize", resize);
+    window.addEventListener('resize', resize);
     return () => {
-      window.removeEventListener("resize", resize);
+      window.removeEventListener('resize', resize);
     };
   }, []);
 
@@ -90,12 +90,12 @@ export const Tooltip = (props: PropsWithChildren<Props>) => {
       case Placement.bottom:
         x = referenceRect.left - containerRect.left + referenceRect.width / 2;
         y = referenceRect.top - containerRect.top + referenceRect.height;
-        className += " tooltip-bottom";
+        className += ' tooltip-bottom';
         break;
       case Placement.top:
         x = referenceRect.left - containerRect.left + referenceRect.width / 2;
         y = referenceRect.top - containerRect.top;
-        className += " tooltip-top";
+        className += ' tooltip-top';
         break;
     }
   }
@@ -115,6 +115,6 @@ export const Tooltip = (props: PropsWithChildren<Props>) => {
       </InfoWindow>
     </div>
   );
-}
+};
 
 export default Tooltip;

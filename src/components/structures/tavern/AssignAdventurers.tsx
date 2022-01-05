@@ -1,9 +1,9 @@
-import { AdventurerStoreState } from "store/types/adventurer";
-import AdventurerAvatar from "components/ui/adventurer/AdventurerAvatar";
+import { AdventurerStoreState } from 'store/types/adventurer';
+import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
 import DroppableAdventurerSlot from 'components/ui/adventurer/DroppableAdventurerSlot';
 import { IconSize } from 'components/ui/common/Icon';
-import "./styles/assignadventurers.scss";
+import './styles/assignadventurers.scss';
 
 export interface DispatchProps {
   onAdventurerDropped: (item: AdventurerAvatarDragInfo, index: number) => void;
@@ -22,7 +22,7 @@ const AssignAdventurers = (props: Props & DispatchProps) => {
     const slots: JSX.Element[] = [];
     for (let i = 0; i < props.availableSlots; i++) {
       let content;
-      let className = "";
+      let className = '';
       const hasAdventurer = !!props.assignedAventurers[i];
 
       if (hasAdventurer) {
@@ -35,7 +35,7 @@ const AssignAdventurers = (props: Props & DispatchProps) => {
             onClick={() => props.onAdventurerClicked(adventurer) }
           />
         );
-        className = "has-adventurer";
+        className = 'has-adventurer';
       } else {
         content = (
           <DroppableAdventurerSlot
@@ -49,7 +49,7 @@ const AssignAdventurers = (props: Props & DispatchProps) => {
           className={className}
         >
           {content}
-        </li>
+        </li>,
       );
     }
     return slots;

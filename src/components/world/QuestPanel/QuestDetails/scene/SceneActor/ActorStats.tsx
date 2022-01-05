@@ -1,8 +1,7 @@
-import React from "react";
-import { Container, Graphics, Text } from "@inlet/react-pixi";
-import { useAdventurerState } from "hooks/store/adventurers";
-import { ActorObject, Allegiance } from "store/types/scene";
-// unused
+import { Container, Graphics, Text } from '@inlet/react-pixi';
+import { useAdventurerState } from 'hooks/store/adventurers';
+import { ActorObject, Allegiance } from 'store/types/scene';
+
 interface Props {
   actor: ActorObject;
   tileWidth: number;
@@ -16,7 +15,7 @@ const useActorStatsInfo = (actor: ActorObject) => {
     return adventurer.name;
   }
   return actor.name; // enemy name
-}
+};
 
 const ActorStats = (props: Props) => {
   const { tileWidth, actor } = props;
@@ -40,7 +39,7 @@ const ActorStats = (props: Props) => {
           dropShadow: true,
           dropShadowAngle: 0.9,
           dropShadowBlur: 10,
-          dropShadowDistance: 0
+          dropShadowDistance: 0,
         }}
         // mask={mask.current}
       />
@@ -57,7 +56,7 @@ const ActorStats = (props: Props) => {
       <Graphics
         name="background"
         draw={graphics => {
-          graphics.beginFill (0x003c1b);
+          graphics.beginFill(0x003c1b);
           graphics.drawRect(0, 0, tileWidth, 6);
           graphics.endFill();
         }}
@@ -65,13 +64,13 @@ const ActorStats = (props: Props) => {
       <Graphics
         name="foreground"
         draw={graphics => {
-          graphics.beginFill (0x006b22);
+          graphics.beginFill(0x006b22);
           graphics.drawRect(0, 0, actor.health, 6);
           graphics.endFill();
         }}
       />
     </Container>
-  )
-}
+  );
+};
 
-export default ActorStats
+export default ActorStats;

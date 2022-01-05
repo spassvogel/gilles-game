@@ -1,9 +1,9 @@
-import * as React from "react";
-import { DragType } from "constants/dragging";
-import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
-import AdventurerAvatar, { Props as AdventurerAvatarProps}  from '../AdventurerAvatar';
-import { InventoryItemDragInfo } from "components/ui/items/DraggableItemIcon";
-import "./styles/droppableadventureravatar.scss";
+import * as React from 'react';
+import { DragType } from 'constants/dragging';
+import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from 'react-dnd';
+import AdventurerAvatar, { Props as AdventurerAvatarProps }  from '../AdventurerAvatar';
+import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
+import './styles/droppableadventureravatar.scss';
 
 const dropTarget: DropTargetSpec<Props> = {
   drop(props: Props, monitor: DropTargetMonitor) {
@@ -44,7 +44,7 @@ const DroppableAdventurerAvatar = (props: Props & DropSourceProps) => {
       />
     </div>,
   );
-}
+};
 
 export default DropTarget<Props, DropSourceProps>(
   DragType.ITEM,

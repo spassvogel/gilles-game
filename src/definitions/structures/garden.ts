@@ -1,5 +1,5 @@
 import { ONE_MINUTE, TWO_MINUTES } from 'utils/format/time';
-import { ResourceStructureDefinition, StructureType } from "./types";
+import { ResourceStructureDefinition, StructureType } from './types';
 
 const garden: ResourceStructureDefinition = {
   type: StructureType.resource,
@@ -8,7 +8,7 @@ const garden: ResourceStructureDefinition = {
     time: 4000,
   },
   levels: [{
-    displayName: "structure-garden-name",
+    displayName: 'structure-garden-name',
     // level 1:
     workerCapacity: 2,
     cost: {
@@ -18,12 +18,12 @@ const garden: ResourceStructureDefinition = {
     harvest: {
       amount: 3,
       lootTable: {
-        "herb/bogroot": 2,
-        "herb/winterWeed": 1
-      }
-    }
+        'herb/bogroot': 2,
+        'herb/winterWeed': 1,
+      },
+    },
   }, {
-    displayName: "structure-garden-name",
+    displayName: 'structure-garden-name',
     // level 2:
     workerCapacity: 5,
     cost: {
@@ -31,27 +31,27 @@ const garden: ResourceStructureDefinition = {
       resources: {
         wood: 100,
         iron: 100,
-        stone: 100
+        stone: 100,
       },
-      time: ONE_MINUTE
+      time: ONE_MINUTE,
     },
     generates: { food: 4 },
     harvest: {
       amount: 5,
       lootTable: {
-        "herb/bogroot": 2,
-        "herb/winterWeed": 1,
-        "herb/hyacinthus": 1, 
-        "herb/bloodLotus": 1, 
-      }
-    }
+        'herb/bogroot': 2,
+        'herb/winterWeed': 1,
+        'herb/hyacinthus': 1, 
+        'herb/bloodLotus': 1, 
+      },
+    },
   }, {
     // level 3:
-    displayName: "structure-garden-name",
+    displayName: 'structure-garden-name',
     workerCapacity: 10,
     cost: {
       gold: 50,
-      time: TWO_MINUTES
+      time: TWO_MINUTES,
     },
     generates: { food: 8 },
   }],

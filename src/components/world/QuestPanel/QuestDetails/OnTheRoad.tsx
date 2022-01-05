@@ -21,11 +21,11 @@ const OnTheRoad = (props: Props) => {
         <div>
           <p>{`${TextManager.get(log)}`}</p>
         </div>
-      )
+      );
     }
     progress--;
   } while (progress >= 0);
   return <h1 className="on-the-road questname">{TextManager.getQuestTitle(quest.name)}</h1>;
-}
+};
 
 export default OnTheRoad;

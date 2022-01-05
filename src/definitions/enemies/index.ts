@@ -1,5 +1,5 @@
-import { EnemyDefinition, EnemyType } from "./types";
-import trolls from "./trolls";
+import { EnemyDefinition, EnemyType } from './types';
+import trolls from './trolls';
 
 const all = {
   ...trolls,

@@ -1,9 +1,9 @@
-import { ItemType, ItemDefinition, ItemCategory } from "./types";
+import { ItemType, ItemDefinition, ItemCategory } from './types';
 
-type Prefix = "mineral/";
-const PREFIX = "mineral/";
+type Prefix = 'mineral/';
+const PREFIX = 'mineral/';
 const itemCategory = ItemCategory.mineral;
-const basePath = "/img/items/minerals/";
+const basePath = '/img/items/minerals/';
 
 // Minerals can be used to imbue magical powers to weapons and armor
 const minerals = {
@@ -71,7 +71,7 @@ const minerals = {
 
 
 export type Mineral = `${Prefix}${keyof typeof minerals}`;
-const all = Object.entries(minerals).reduce<{[key: string]: ItemDefinition}>((acc, [key, value]) => {
+const all = Object.entries(minerals).reduce<{ [key: string]: ItemDefinition }>((acc, [key, value]) => {
   acc[`${PREFIX}${key}`] = value;
   return acc;
 }, {}) as Record<Mineral, ItemDefinition>;
@@ -83,4 +83,4 @@ export function getDefinition(mineral: Mineral): ItemDefinition {
 
 export const isMineral = (item: ItemType): item is Mineral => {
   return !!all[item as Mineral];
-}
+};

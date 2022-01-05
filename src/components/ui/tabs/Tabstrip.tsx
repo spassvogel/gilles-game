@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Props as TabProps } from "./Tab";
-import { SoundManager} from 'global/SoundManager';
-import "./styles/tabstrip.scss";
+import React, { useState } from 'react';
+import { Props as TabProps } from './Tab';
+import { SoundManager } from 'global/SoundManager';
+import './styles/tabstrip.scss';
 
 export interface Props<T extends string> {
   className?: string;
@@ -13,18 +13,14 @@ export interface Props<T extends string> {
 }
 
 const Tabstrip = <T extends string> (props: Props<T>) => {
-  const {activeTab = null, onClick} = props;
+  const { activeTab = null, onClick } = props;
+  // used in autocollapse
+  const [open, setOpen] = useState(false);
+
   if (!activeTab && props.children && props.children) {
     //activeTab = props.children[0].props.id;
   }
-  const className = `${props.className}${(props.disabled ? " disabled" : "")}`;
-  const children = React.Children.map(props.children, (child: React.ReactElement<TabProps<T>>) => {
-    const clone: React.ReactElement<TabProps<T>> = React.cloneElement(child, {
-      active: child.props.id === activeTab,
-      onClick: () => { handleTabClick(child.props.id); }
-    });
-    return clone;
-  });
+  const className = `${props.className}${(props.disabled ? ' disabled' : '')}`;
 
   const handleTabClick = (tabId: T) => {
     if (props.onTabSelected && props.disabled !== true) {
@@ -32,17 +28,23 @@ const Tabstrip = <T extends string> (props: Props<T>) => {
     }
   };
 
+  const children = React.Children.map(props.children, (child: React.ReactElement<TabProps<T>>) => {
+    const clone: React.ReactElement<TabProps<T>> = React.cloneElement(child, {
+      active: child.props.id === activeTab,
+      onClick: () => { handleTabClick(child.props.id); },
+    });
+    return clone;
+  });
+
   const handleClick = (e: React.MouseEvent<Element>) => {
-    SoundManager.playSound("ui/buttonClick");
+    SoundManager.playSound('ui/buttonClick');
     onClick?.(e);
-    setOpen(!open)
+    setOpen(!open);
   };
-  // used in autocollapse
-  const [open, setOpen] = useState(false);
 
   return (
     <>
-      <ul className={`tabstrip ${className ?? ""}`} onClick={handleClick}>
+      <ul className={`tabstrip ${className ?? ''}`} onClick={handleClick}>
         <input type="checkbox" className="open" id="open" checked={open} onChange={() => setOpen(!open)} />
         {children}
       </ul>

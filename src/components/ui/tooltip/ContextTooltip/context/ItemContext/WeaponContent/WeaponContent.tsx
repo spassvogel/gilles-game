@@ -1,9 +1,9 @@
 import { getDefinition as getWeaponDefinition, WeaponTypeDefinition, WeaponType, Weapon } from 'definitions/items/weapons';
 import { TextManager } from 'global/TextManager';
-import ProduceOrStudy from '../ProduceOrStudy';
-import { Item } from "definitions/items/types";
-import DamageList from "./DamageList";
-import Effects from "../Effects";
+import ProduceOrStudy from '../common/ProduceOrStudy';
+import { Item } from 'definitions/items/types';
+import DamageList from './DamageList';
+import Effects from '../Effects';
 
 interface Props {
   item: Item<Weapon>;
@@ -11,7 +11,7 @@ interface Props {
 
 const WeaponContent = (props: Props) => {
   const { item } = props;
-  const definition = getWeaponDefinition(item.type)
+  const definition = getWeaponDefinition(item.type);
 
   const subtext = TextManager.getItemSubtext(item.type);
   const weaponType = TextManager.getWeaponType(definition.weaponType);
@@ -39,6 +39,6 @@ const WeaponContent = (props: Props) => {
     </>
   );
 
-}
+};
 
 export default WeaponContent;

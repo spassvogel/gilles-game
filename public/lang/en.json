@@ -567,10 +567,12 @@
     "ui-tooltip-resource-warehouse-full": "Warehouse is currently full of {{resource:name resource}} and we cannot produce any more",
     "ui-tooltip-resource-quantity": "Quantity: {{amount}}",
     "ui-tooltip-resource-resource": "resource",
+    "ui-tooltip-study-start": "Start studying this item at {{structure:link structure}} ",
     "ui-tooltip-study-currently-studying": "Currently studying ",
     "ui-tooltip-study-start-study": "Study",
     "ui-tooltip-type-skill": "Skill: ",
     "ui-tooltip-type-trait": "Trait: ",
+    "ui-tooltip-unique-item": "Unique item",
     "ui-tooltip-workers-quantity": "Quantity: {{free}} free ({{total}} total)",
 
     "ui-view-button-town": "Town",

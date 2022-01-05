@@ -1,10 +1,8 @@
-import * as React from "react";
 import { ItemType } from 'definitions/items/types';
-import { getDefinition as getProductionDefinition, getProductionStructureForItem } from 'definitions/production';
+import { getDefinition as getProductionDefinition } from 'definitions/production';
 import { useStructureState } from 'hooks/store/structures';
 import { Structure } from 'definitions/structures';
 import { ProducableItem, ProductionStructureStoreState, StructureState } from 'store/types/structure';
-import { getDefinition as getItemDefinition } from 'definitions/items';
 import { Link } from 'react-router-dom';
 import { getStructureLink } from 'utils/routing';
 import { TextManager } from 'global/TextManager';
@@ -16,29 +14,17 @@ import { addItemToToProduces } from 'store/actions/structures';
 import { formatDuration } from 'utils/format/time';
 import { STUDY_TIME } from 'mechanics/studying';
 import Button from 'components/ui/buttons/Button';
+import ReactMarkdown from 'react-markdown';
+
 
 interface Props {
   item: ProducableItem;
+  structure: Structure;
 }
 
-const ProduceOrStudy = (props: Props) => {
-  const structure = getProductionStructureForItem(props.item);
-  const itemDefinition = getItemDefinition(props.item);
-  if (itemDefinition.unique) {
-    return (
-      <p>Unique item</p>
-    )
-  }
-  if (!structure) {
-    return null;
-  }
-  return (
-    <ProducedAtStructure item={props.item} structure={structure} />
-  )
-}
 // refactor 2021-02-19 becomes 'CraftedAtStructure'
-const ProducedAtStructure = (props: Props & { structure: Structure}) => {
-  const {structure} = props;
+const ProducedAtStructure = (props: Props) => {
+  const { structure } = props;
   const structureStore: ProductionStructureStoreState = useStructureState(structure);
   const studyTasks = useStudyingTasksStateByStructure(structure);
   const dispatch = useDispatch();
@@ -56,7 +42,7 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
           { TextManager.getStructureName(structure) }
         </Link>
       </p>
-    )
+    );
   }
 
   // Currently studied
@@ -65,11 +51,11 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
     return (
       <p>
         <Link to={getStructureLink(structure)} >
-          {TextManager.get("ui-tooltip-study-currently-studying")}
+          {TextManager.get('ui-tooltip-study-currently-studying')}
         </Link>
         {formatDuration(task.timeRemaining, true)}
       </p>
-    )
+    );
   }
 
   // Cant study because the structure is not high lvl enough
@@ -78,14 +64,14 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
 
     return (
       <p className="invalid">
-        {TextManager.get("ui-tooltip-study-requires-structure-level", { structure, level: (productionDefinition.levelRequired || 0) + 1})}
+        {TextManager.get('ui-tooltip-study-requires-structure-level', { structure, level: (productionDefinition.levelRequired || 0) + 1 })}
       </p>
-    )
+    );
   }
 
   const startStudy = () => {
     const callbacks = [
-      addItemToToProduces(props.structure, props.item)
+      addItemToToProduces(props.structure, props.item),
     ];
 
     const studyTime = STUDY_TIME;
@@ -95,19 +81,16 @@ const ProducedAtStructure = (props: Props & { structure: Structure}) => {
       studyTime,
       callbacks);
     dispatch(start);
-  }
+  };
 
   return (
     <p>
       <Button onClick={startStudy} size="small">
-        {TextManager.get("ui-tooltip-study-start-study")}
+        {TextManager.get('ui-tooltip-study-start-study')}
       </Button>
-      Start studying this item at {' '}
-      <Link to={getStructureLink(structure)} >
-        { TextManager.getStructureName(structure) }
-      </Link>
+      <ReactMarkdown>{TextManager.get('ui-tooltip-study-start', { structure })}</ReactMarkdown>
     </p>
   );
-}
+};
 
-export default ProduceOrStudy;
+export default ProducedAtStructure;

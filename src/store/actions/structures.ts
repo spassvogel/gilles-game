@@ -1,63 +1,63 @@
-import { Structure } from "definitions/structures";
-import { ProducableItem, StructureState } from "store/types/structure";
+import { Structure } from 'definitions/structures';
+import { ProducableItem, StructureState } from 'store/types/structure';
 
 export type StructuresAction =
-  { type: "upgradeStructure", structure: Structure }
- |  { type: "increaseWorkers", structure: Structure, workers: number}
- |  { type: "decreaseWorkers", structure: Structure, workers: number}
- |  { type: "startBuildingStructure", structure: Structure }
- |  { type: "finishBuildingStructure", structure: Structure }
- |  { type: "setStructureState", structure: Structure, state: StructureState }
- |  { type: "addItemToToProduces", structure: Structure, item: ProducableItem }
- |  { type: "removeItemFromHarvest", structure: Structure, index: number }
+  { type: 'upgradeStructure', structure: Structure }
+  |  { type: 'increaseWorkers', structure: Structure, workers: number }
+  |  { type: 'decreaseWorkers', structure: Structure, workers: number }
+  |  { type: 'startBuildingStructure', structure: Structure }
+  |  { type: 'finishBuildingStructure', structure: Structure }
+  |  { type: 'setStructureState', structure: Structure, state: StructureState }
+  |  { type: 'addItemToToProduces', structure: Structure, item: ProducableItem }
+  |  { type: 'removeItemFromHarvest', structure: Structure, index: number };
 
 
 export const startBuildingStructure = (structure: Structure): StructuresAction => ({
-  type: "startBuildingStructure",
+  type: 'startBuildingStructure',
   structure,
-})
+});
 
 export const finishBuildingStructure = (structure: Structure): StructuresAction => ({
-  type: "finishBuildingStructure",
+  type: 'finishBuildingStructure',
   structure,
-})
+});
 
 export const upgradeStructure = (structure: Structure): StructuresAction => ({
-  type: "upgradeStructure",
+  type: 'upgradeStructure',
   structure,
-})
+});
 
 // Increases workers used by given structure by given amount
 export const increaseWorkers = (structure: Structure, workers = 1): StructuresAction => ({
-  type: "increaseWorkers",
+  type: 'increaseWorkers',
   structure,
-  workers
-})
+  workers,
+});
 
 // Decreases workers used by given structure by given amount
 export const decreaseWorkers = (structure: Structure, workers = 1): StructuresAction => ({
-  type: "decreaseWorkers",
+  type: 'decreaseWorkers',
   structure,
-  workers
-})
+  workers,
+});
 
 // Set state directly
 export const setStructureState = (structure: Structure, state: StructureState): StructuresAction => ({
-  type: "setStructureState",
+  type: 'setStructureState',
   structure,
-  state
-})
+  state,
+});
 
 // Structure can now preoduce this
 export const addItemToToProduces = (structure: Structure, item: ProducableItem): StructuresAction => ({
-  type: "addItemToToProduces",
+  type: 'addItemToToProduces',
   structure,
-  item
-})
+  item,
+});
 
 // Take item at specified index
 export const removeItemFromHarvest = (structure: Structure, index: number): StructuresAction => ({
-  type: "removeItemFromHarvest",
+  type: 'removeItemFromHarvest',
   structure,
-  index
-})
+  index,
+});

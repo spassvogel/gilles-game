@@ -1,17 +1,17 @@
-import { Fragment, useState } from "react";
-import { useDispatch } from "react-redux";
-import { TextManager } from "global/TextManager";
-import { MAX_VALUE, MIN_VALUE } from "mechanics/adventurers/attributes";
-import { AdventurerStoreState, Attribute, attributeList } from "store/types/adventurer";
-import { addXp, modifyHealth, renameAdventurer, setBasicAttributes } from "store/actions/adventurers";
-import { MAX_XP, xpToLevel } from "mechanics/adventurers/levels";
-import { calculateBaseHitpoints } from "mechanics/adventurers/hitpoints";
-import { DraggableInfoWindow } from "components/ui/modals/InfoWindow/DraggableInfoWindow";
-import "./styles/debugAdventurerEdit.scss";
+import { Fragment, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { TextManager } from 'global/TextManager';
+import { MAX_VALUE, MIN_VALUE } from 'mechanics/adventurers/attributes';
+import { AdventurerStoreState, Attribute, attributeList } from 'store/types/adventurer';
+import { addXp, modifyHealth, renameAdventurer, setBasicAttributes } from 'store/actions/adventurers';
+import { MAX_XP, xpToLevel } from 'mechanics/adventurers/levels';
+import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
+import { DraggableInfoWindow } from 'components/ui/modals/InfoWindow/DraggableInfoWindow';
+import './styles/debugAdventurerEdit.scss';
 
 type Props = {
   adventurer: AdventurerStoreState;
-}
+};
 
 const DebugAdventurerEdit = (props: Props) => {
   const [open, setOpen] = useState(false);
@@ -20,6 +20,13 @@ const DebugAdventurerEdit = (props: Props) => {
   const { xp, basicAttributes, health } = adventurer;
   const level = xpToLevel(xp);
   const baseHP = calculateBaseHitpoints(level, basicAttributes.for);
+
+  const handleChangeAttribute = (attribute: Attribute, value: number) => {
+    dispatch(setBasicAttributes(adventurer.id, {
+      ...basicAttributes,
+      [attribute]: value,
+    }));
+  };
 
   const renderAttribute = (attribute: Attribute) => {
     return (
@@ -42,30 +49,24 @@ const DebugAdventurerEdit = (props: Props) => {
           </div>
         </dd>
       </Fragment>
-    )
-  }
+    );
+  };
 
   const handleRename = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(renameAdventurer(adventurer.id, e.currentTarget.value));
   };
 
-  const handleChangeAttribute = (attribute: Attribute, value: number) => {
-    dispatch(setBasicAttributes(adventurer.id, {
-      ...basicAttributes,
-      [attribute]: value
-    }));
-  }
 
   const handleChangeHealth = (value: number) => {
     dispatch(modifyHealth(adventurer.id, value));
-  }
+  };
   const handleChangeXP = (value: number) => {
     dispatch(addXp(adventurer.id, value));
-  }
+  };
 
   const handleClose = () => {
     setOpen(false);
-  }
+  };
 
   return (
     <span className="debug-adventurer-edit">
@@ -119,8 +120,8 @@ const DebugAdventurerEdit = (props: Props) => {
         { open ? '(close)' : '(edit)' }
       </span>
     </span>
-  )
-}
+  );
+};
 
 export default DebugAdventurerEdit;
 

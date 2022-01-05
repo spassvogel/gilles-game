@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 import { Graphics } from '@inlet/react-pixi';
-import { Point } from "pixi.js";
+import { Point } from 'pixi.js';
 
 interface Props {
   positions: Point[];
@@ -23,12 +23,12 @@ const QuestLine = (props: Props) => {
           const yc = (positions[i].y + positions[i + 1].y) / 2;
           graphics.quadraticCurveTo(positions[i].x, positions[i].y, xc, yc);
         }
-        graphics.quadraticCurveTo(positions[i].x, positions[i].y, positions[i+1].x, positions[i+1].y);
+        graphics.quadraticCurveTo(positions[i].x, positions[i].y, positions[i + 1].x, positions[i + 1].y);
         graphics.endFill();
       }}
     />;
   }
   return null;
-}
+};
 
 export default QuestLine;

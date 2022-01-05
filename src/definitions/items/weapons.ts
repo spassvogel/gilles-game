@@ -1,25 +1,25 @@
-  import { ItemType, ItemDefinition, ItemCategory } from "./types";
+import { ItemType, ItemDefinition, ItemCategory } from './types';
 import { Rarity } from 'constants/items';
-import { Effect, EffectAttibuteIncrease, EffectType } from "definitions/effects/types";
+import { Effect, EffectAttibuteIncrease, EffectType } from 'definitions/effects/types';
 
-type Prefix = "weapon/";
-const PREFIX = "weapon/";
+type Prefix = 'weapon/';
+const PREFIX = 'weapon/';
 const itemCategory = ItemCategory.weapon;
-const basePath = "/img/items/weapons/";
+const basePath = '/img/items/weapons/';
 
 export enum WeaponType {
-  axe = "axe",
-  bow = "bow",
-  club = "club",
-  crossbow = "crossbow",
-  fist = "fist",
-  flail = "flail",
-  hammer = "hammer",
-  knife = "knife",
-  staff = "staff",
-  shield = "shield",
-  sword = "sword",
-  poleArm = "poleArm",
+  axe = 'axe',
+  bow = 'bow',
+  club = 'club',
+  crossbow = 'crossbow',
+  fist = 'fist',
+  flail = 'flail',
+  hammer = 'hammer',
+  knife = 'knife',
+  staff = 'staff',
+  shield = 'shield',
+  sword = 'sword',
+  poleArm = 'poleArm',
 }
 
 export enum WeaponAbility {
@@ -40,7 +40,7 @@ export enum WeaponClassification {
   offHand,    // Can only be used in the off hand
   twoHanded,  // Can be used in the main hand and will disable off hand from being used
   shield,     // ?
-  ranged      // requires ammunition
+  ranged,      // requires ammunition
 }
 
 export const WeaponTypeDefinition = {
@@ -50,52 +50,52 @@ export const WeaponTypeDefinition = {
   },
   [WeaponType.bow]: {
     classification: WeaponClassification.ranged,
-    abilities: [WeaponAbility.shoot]
+    abilities: [WeaponAbility.shoot],
   },
   [WeaponType.club]: {
     classification: WeaponClassification.oneHanded,
-    abilities: [WeaponAbility.swing, WeaponAbility.parry]
+    abilities: [WeaponAbility.swing, WeaponAbility.parry],
   },
   [WeaponType.crossbow]: {
     classification: WeaponClassification.ranged,
-    abilities: [/*WeaponAbility.aimedShot,*/ WeaponAbility.shoot]
+    abilities: [/*WeaponAbility.aimedShot,*/ WeaponAbility.shoot],
   },
   [WeaponType.fist]: {
     classification: WeaponClassification.oneHanded,
-    abilities: [WeaponAbility.swing]
+    abilities: [WeaponAbility.swing],
   },
   [WeaponType.flail]: {
     classification: WeaponClassification.mainHand,
-    abilities: [WeaponAbility.swing, WeaponAbility.parry]
+    abilities: [WeaponAbility.swing, WeaponAbility.parry],
   },
   [WeaponType.hammer]: {
     classification: WeaponClassification.oneHanded,
-    abilities: [WeaponAbility.swing, WeaponAbility.parry]
+    abilities: [WeaponAbility.swing, WeaponAbility.parry],
   },
   [WeaponType.knife]: {
     classification: WeaponClassification.oneHanded,
-    abilities: [WeaponAbility.cut, WeaponAbility.parry]
+    abilities: [WeaponAbility.cut, WeaponAbility.parry],
   },
   [WeaponType.staff]: {
     classification: WeaponClassification.twoHanded,
-    abilities: [WeaponAbility.swing, WeaponAbility.parry]
+    abilities: [WeaponAbility.swing, WeaponAbility.parry],
   },
   [WeaponType.sword]: {
     classification: WeaponClassification.oneHanded,
-    abilities: [WeaponAbility.swing, WeaponAbility.parry]
+    abilities: [WeaponAbility.swing, WeaponAbility.parry],
   },
   [WeaponType.poleArm]: {
     classification: WeaponClassification.twoHanded,
-    abilities: [WeaponAbility.swing, WeaponAbility.parry]
+    abilities: [WeaponAbility.swing, WeaponAbility.parry],
   },
   [WeaponType.shield]: {
     classification: WeaponClassification.shield,
-    abilities: [WeaponAbility.block]
-  }
-}
+    abilities: [WeaponAbility.block],
+  },
+};
 
 export enum DamageType {
-  kinetic = "kinetic",
+  kinetic = 'kinetic',
 }
 
 export interface DamageDefinition {
@@ -220,21 +220,21 @@ const weapons = {
     damage: { [DamageType.kinetic]: 25 },
     effects: [{
       type: EffectType.attributeIncrease,
-      attribute: "agi",
+      attribute: 'agi',
       factor: 1.1,
     }, {
       type: EffectType.attributeIncrease,
-      attribute: "for",
+      attribute: 'for',
       factor: 1.1,
     }, {
       type: EffectType.attributeIncrease,
-      attribute: "int",
+      attribute: 'int',
       factor: 1.1,
     }, {
       type: EffectType.attributeIncrease,
-      attribute: "str",
+      attribute: 'str',
       factor: 1.1,
-    }] as EffectAttibuteIncrease[]
+    }] as EffectAttibuteIncrease[],
   },
   halbert: {
     itemCategory,
@@ -396,7 +396,7 @@ const weapons = {
 
 
 export type Weapon = `${Prefix}${keyof typeof weapons}`;
-const all = Object.entries(weapons).reduce<{[key: string]: WeaponDefinition}>((acc, [key, value]) => {
+const all = Object.entries(weapons).reduce<{ [key: string]: WeaponDefinition }>((acc, [key, value]) => {
   acc[`${PREFIX}${key}`] = value;
   return acc;
 }, {}) as Record<Weapon, WeaponDefinition>;
@@ -408,4 +408,4 @@ export function getDefinition(weapon: Weapon): WeaponDefinition {
 
 export const isWeapon = (item: ItemType): item is Weapon => {
   return !!all[item as Weapon];
-}
+};

@@ -1,10 +1,10 @@
+import { useMemo } from 'react';
 import { IconSize } from 'components/ui/common/Icon';
-import { DragSourceType, DragType } from "constants/dragging";
-import { Item } from "definitions/items/types";
-import ItemIcon from "./ItemIcon";
-import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from "react-dnd";
-import { useMemo } from "react";
-import { ItemSource } from "constants/items";
+import { DragSourceType, DragType } from 'constants/dragging';
+import { Item } from 'definitions/items/types';
+import ItemIcon from './ItemIcon';
+import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from 'react-dnd';
+import { ItemSource } from 'constants/items';
 
 export interface Props {
   index: number;
@@ -33,14 +33,14 @@ export interface InventoryItemDragInfo { // todo: rename to ItemDragInfo
  * Specifies the drag source contract.
  * Only `beginDrag` function is required.
  */
-const source: DragSourceSpec<Props, InventoryItemDragInfo> = {
+const spec: DragSourceSpec<Props, InventoryItemDragInfo> = {
   beginDrag(props: Props) {
     const {
       onStartDrag,
       index,
       item,
       sourceId,
-      sourceType
+      sourceType,
     } = props;
     onStartDrag?.();
 
@@ -74,7 +74,7 @@ const DraggableItemIcon = (props: Props & CollectedProps) => {
   const source = useMemo<ItemSource>(() => ({
     origin: sourceType,
     id: sourceId,
-    slot: index
+    slot: index,
   }), [index, sourceId, sourceType]);
 
   if (isDragging) {
@@ -93,6 +93,6 @@ const DraggableItemIcon = (props: Props & CollectedProps) => {
       />
     </div>
   ));
-}
+};
 
-export default DragSource<Props, CollectedProps>(DragType.ITEM, source, collect)(DraggableItemIcon);
+export default DragSource<Props, CollectedProps>(DragType.ITEM, spec, collect)(DraggableItemIcon);

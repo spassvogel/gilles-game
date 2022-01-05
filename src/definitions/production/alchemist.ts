@@ -1,4 +1,4 @@
-import { ProductionDefinition } from "./types";
+import { ProductionDefinition } from './types';
 
-const alchemistProduction: {[key: string]: ProductionDefinition} = {};
+const alchemistProduction: { [key: string]: ProductionDefinition } = {};
 export default alchemistProduction;

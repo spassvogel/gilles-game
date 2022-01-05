@@ -1,6 +1,6 @@
-import { ItemType } from "definitions/items/types"
-import { TempEffectType } from "definitions/tempEffects/types"
-import { Attribute } from "store/types/adventurer"
+import { ItemType } from 'definitions/items/types';
+import { TempEffectType } from 'definitions/tempEffects/types';
+import { Attribute } from 'store/types/adventurer';
 
 export enum EffectType {
   attributeIncrease,
@@ -12,28 +12,28 @@ export type BaseEffect = {
   type: EffectType;
   timeRemaining?: number;   // if set, the effect will wear off
   charges?: number;         // if set, amount of charges still remaining
-}
+};
 
 export type EffectAttibuteIncrease = BaseEffect & {
   type: EffectType.attributeIncrease,
   attribute: Attribute,
   factor: number,   // multiply base attribute by this
-}
+};
 
 export type EffectHealthDecreaseOnMove = BaseEffect & {
   type: EffectType.healthDecreaseOnMove,
   damage: number
-}
+};
 
 export type EffectHealthDecreaseOverTime = BaseEffect & {
   type: EffectType.healthDecreaseOverTime,
   interval: number,
   damage: number
-}
+};
 
 export type Effect = EffectAttibuteIncrease
- | EffectHealthDecreaseOnMove
- | EffectHealthDecreaseOverTime;
+| EffectHealthDecreaseOnMove
+| EffectHealthDecreaseOverTime;
 
 
 export enum EffectSourceType {
@@ -47,9 +47,9 @@ export type EffectSource = {
 } | {
   type: EffectSourceType.item
   itemType: ItemType
-}
+};
 
- export type EffectWithSource = Effect & {
+export type EffectWithSource = Effect & {
   source: EffectSource
- }
+};
 

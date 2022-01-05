@@ -1,22 +1,33 @@
-import { Reducer } from "redux";
-import { EngineStoreState } from "store/types/engine";
-import { HARVEST_INTERVAL } from "mechanics/gameTick/harvest";
-import { GameAction } from "store/actions/game";
+import { Reducer } from 'redux';
+import { EngineStoreState } from 'store/types/engine';
+import { HARVEST_INTERVAL } from 'mechanics/gameTick/harvest';
+import { GameAction } from 'store/actions/game';
+
+export const getInitialEngineState = () => {
+  return {
+    gameStarted: undefined,
+    previousTick: Date.now(),
+    lastTick: Date.now(),
+    lastProducedUpdate: Date.now(),
+    lastHarvest: Date.now(),
+  };
+};
 
 /**
  * reducer
  * @param state
  * @param action
  */
+// eslint-disable-next-line @typescript-eslint/default-param-last
 export const engine: Reducer<EngineStoreState, GameAction> = (state = getInitialEngineState(), action) => {
   switch (action.type) {
-    case "startGame": {
+    case 'startGame': {
       return {
         ...state,
-        gameStarted: Date.now()
+        gameStarted: Date.now(),
       };
     }
-    case "gameTick": {
+    case 'gameTick': {
 
       // Keep track of the last time resources were produced
       const resourcesToAdd = action.resources;
@@ -32,21 +43,21 @@ export const engine: Reducer<EngineStoreState, GameAction> = (state = getInitial
         previousTick,
         lastProducedUpdate,
         lastTick: Date.now(),
-        lastHarvest
+        lastHarvest,
       };
     }
 
-    case "reduceTime": {
+    case 'reduceTime': {
       if (action.percentage < 0 || action.percentage > 100) return state;
       switch (action.time) {
-        case "harvest": {
+        case 'harvest': {
           const timeLeft = HARVEST_INTERVAL - (Date.now() - state.lastHarvest);
 
           const delta = timeLeft * (action.percentage / 100);
           return {
             ...state,
-            lastHarvest: state.lastHarvest - delta
-          }
+            lastHarvest: state.lastHarvest - delta,
+          };
         }
       }
       return state;
@@ -55,12 +66,3 @@ export const engine: Reducer<EngineStoreState, GameAction> = (state = getInitial
   return state;
 };
 
-export const getInitialEngineState = () => {
-  return {
-    gameStarted: undefined,
-    previousTick: Date.now(),
-    lastTick: Date.now(),
-    lastProducedUpdate: Date.now(),
-    lastHarvest: Date.now()
-  }
-};

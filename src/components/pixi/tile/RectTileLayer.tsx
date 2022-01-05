@@ -1,26 +1,26 @@
-import { PixiComponent } from "@inlet/react-pixi";
+import { PixiComponent } from '@inlet/react-pixi';
 import * as PIXI  from 'pixi.js';
 import { TiledLayerData, TiledTilesetData } from 'constants/tiledMapData';
-import { findTileset } from "utils/tilemap";
-import { CompositeRectTileLayer } from "@pixi/tilemap";
+import { findTileset } from 'utils/tilemap';
+import { CompositeRectTileLayer } from '@pixi/tilemap';
 
 
 interface Props  {
   horizontalTiles: number;
   layer: TiledLayerData;
   tilesets: TiledTilesetData[];
-  spritesheets: {[key: string]: PIXI.Spritesheet}
+  spritesheets: { [key: string]: PIXI.Spritesheet }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const RectTileLayer = PixiComponent<Props, any>("RectTileLayer", {
+const RectTileLayer = PixiComponent<Props, any>('RectTileLayer', {
   create(_props: Props) {
     const tileLayer = new CompositeRectTileLayer();
     return tileLayer;
   },
 
   applyProps(instance, oldProps: Props, props: Props) {
-    const {layer, tilesets, horizontalTiles, spritesheets} = props;
+    const { layer, tilesets, horizontalTiles, spritesheets } = props;
     if (!layer.data) {
       return;
     }
@@ -37,14 +37,14 @@ const RectTileLayer = PixiComponent<Props, any>("RectTileLayer", {
       if (layer.data[i] > 0) {
         const spriteId = `${tileset.name}-${layer.data[i]}`;
         if (!spritesheet.textures[spriteId]) {
-          console.log(spritesheet)
-          console.log(spriteId)
+          console.log(spritesheet);
+          console.log(spriteId);
           continue;
         }
         instance.addFrame(spritesheet.textures[spriteId], x, y);
       }
     }
-  }
+  },
 });
 
 export default RectTileLayer;

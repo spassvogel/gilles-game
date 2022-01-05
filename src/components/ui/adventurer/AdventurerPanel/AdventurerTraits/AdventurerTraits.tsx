@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 import { useAdventurerState } from 'hooks/store/adventurers';
 import { Trait } from 'definitions/traits/types';
 import { getDefinition } from 'definitions/traits';
@@ -30,7 +30,7 @@ const AdventurerTraits = (props: Props) => {
         </li>
         {!last && (', ')}
       </Fragment>
-    )
+    );
   };
 
   if (!adventurer?.traits) {
@@ -38,12 +38,12 @@ const AdventurerTraits = (props: Props) => {
   }
   return (
     <>
-      <p>{TextManager.get("ui-adventurer-info-traits-title")}</p>
+      <p>{TextManager.get('ui-adventurer-info-traits-title')}</p>
       <ul className="adventurer-traits">
-        {adventurer.traits && adventurer.traits.map((t, i, a)=> renderTrait(t, i === a.length -1))}
+        {adventurer.traits && adventurer.traits.map((t, i, a)=> renderTrait(t, i === a.length - 1))}
       </ul>
     </>
-  )
-}
+  );
+};
 
 export default AdventurerTraits;

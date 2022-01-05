@@ -1,6 +1,6 @@
-import ReactDOM from "react-dom";
-import useDraggable from "hooks/store/useDraggable";
-import { ComponentProps, ReactNode, useEffect, useRef } from "react";
+import ReactDOM from 'react-dom';
+import useDraggable from 'hooks/store/useDraggable';
+import { ComponentProps, ReactNode, useEffect, useRef } from 'react';
 
 export interface Props {
   title?: ReactNode;
@@ -9,7 +9,7 @@ export interface Props {
 
 // An InfoWindow is a semi transparant black square. It is used for tooltips
 // and InfoModal. This can be dragged anywhere on the screen
-export const DraggableInfoWindow = (props: Props & ComponentProps<"div">) => {
+export const DraggableInfoWindow = (props: Props & ComponentProps<'div'>) => {
   const {
     className,
     onClose,
@@ -32,7 +32,7 @@ export const DraggableInfoWindow = (props: Props & ComponentProps<"div">) => {
   }, []);
 
   return ReactDOM.createPortal(
-    <div {...otherProps} ref={ref} className={`info-window info-window-draggable ${className || ""}`} >
+    <div {...otherProps} ref={ref} className={`info-window info-window-draggable ${className || ''}`} >
       <h2 className="title" ref={handle}>
         <div>
           {title}
@@ -41,6 +41,6 @@ export const DraggableInfoWindow = (props: Props & ComponentProps<"div">) => {
       </h2>
       {children}
     </div>,
-    document.querySelector(".app") ?? document.body
-  )
-}
+    document.querySelector('.app') ?? document.body,
+  );
+};

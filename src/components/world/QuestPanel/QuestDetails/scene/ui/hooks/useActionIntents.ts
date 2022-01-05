@@ -1,18 +1,18 @@
-import { useContext, useMemo } from "react";
+import { useContext, useMemo } from 'react';
 import { Location } from 'utils/tilemap';
-import { AdventurerStoreState } from "store/types/adventurer";
-import { useAdventurerState } from "hooks/store/adventurers";
-import { SceneControllerContext } from "components/world/QuestPanel/context/SceneControllerContext";
-import { adventurerWeapons } from "store/helpers/storeHelpers";
+import { AdventurerStoreState } from 'store/types/adventurer';
+import { useAdventurerState } from 'hooks/store/adventurers';
+import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
+import { adventurerWeapons } from 'store/helpers/storeHelpers';
 import { getDefinition as getWeaponDefinition, WeaponTypeDefinition, WeaponClassification } from 'definitions/items/weapons';
-import { isEnemy, SceneActionType } from "store/types/scene";
-import { ActionIntent } from "../SceneUI";
+import { isEnemy, SceneActionType } from 'store/types/scene';
+import { ActionIntent } from '../SceneUI';
 
 const useActionIntents = (adventurerId: string, location?: Location, combat = false ) => {
   const adventurer: AdventurerStoreState = useAdventurerState(adventurerId);
   const weapons = adventurerWeapons(adventurer);
   const controller = useContext(SceneControllerContext);
-  if (!controller) throw new Error("No controller");
+  if (!controller) throw new Error('No controller');
 
   // const enemyTargetted = useMemo(() => {
   //   if (!location) return undefined;
@@ -41,25 +41,25 @@ const useActionIntents = (adventurerId: string, location?: Location, combat = fa
           result.push({
             ...intent,
             action,
-            weaponWithAbility
-          })
+            weaponWithAbility,
+          });
         }
-      })
-    })
+      });
+    });
     return result;
   }, [actorObject, combat, controller, location, weapons]);
 
   const moveIntent = useMemo(() => {
-    if (!actorObject || !location) return
-    return controller?.createActionIntent(SceneActionType.move, actorObject, location)
-  }, [actorObject, controller, location])
+    if (!actorObject || !location) return;
+    return controller?.createActionIntent(SceneActionType.move, actorObject, location);
+  }, [actorObject, controller, location]);
 
   return useMemo(() => {
     return [
       ...weaponIntents,
-      ...(moveIntent ? [moveIntent] : [])
-    ]
-  }, [moveIntent, weaponIntents])
-}
+      ...(moveIntent ? [moveIntent] : []),
+    ];
+  }, [moveIntent, weaponIntents]);
+};
 
 export default useActionIntents;

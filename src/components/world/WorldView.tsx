@@ -1,10 +1,10 @@
-import WorldMap from "components/world/WorldMap";
-import React, { useEffect, useRef } from "react";
-import { Channel, MixMode, SoundManager } from "global/SoundManager";
+import WorldMap from 'components/world/WorldMap';
+import React, { useEffect, useRef } from 'react';
+import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import QuestPanel from './QuestPanel';
 import { useRouteMatch, useHistory } from 'react-router';
 import { getQuestLink, getWorldLink } from 'utils/routing';
-import "./styles/worldView.scss";
+import './styles/worldView.scss';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props {
@@ -16,14 +16,14 @@ export interface Props {
  */
 const WorldView = () => {
   const worldViewRef = useRef<HTMLDivElement>(null);
-  const match = useRouteMatch<{questname: string}>(`${getWorldLink()}/:questname`);
+  const match = useRouteMatch<{ questname: string }>(`${getWorldLink()}/:questname`);
   const selectedQuestName = match?.params.questname;
   const history = useHistory();
 
   useEffect(() => {
-    SoundManager.addSound("music/world", "sound/music/TheLoomingBattle.ogg", () => {
-      SoundManager.playSound("music/world", Channel.music, true, MixMode.fade, true);
-    })
+    SoundManager.addSound('music/world', 'sound/music/TheLoomingBattle.ogg', () => {
+      SoundManager.playSound('music/world', Channel.music, true, MixMode.fade, true);
+    });
   }, []);
 
   // const handleMapMove = (distance: number, angle: number) => {
@@ -45,14 +45,14 @@ const WorldView = () => {
     // if (questName === selectedQuestName) {
     //   history.push(getWorldLink());
     // } else {
-      history.push(getQuestLink(questName));
+    history.push(getQuestLink(questName));
     // }
-    SoundManager.playSound("ui/buttonClick");
+    SoundManager.playSound('ui/buttonClick');
   };
 
   const handleRetrieveWorldViewRef = () => {
     return worldViewRef;
-  }
+  };
 
   return (
     <div className="world-view" ref={worldViewRef}>

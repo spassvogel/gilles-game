@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import { PropsWithChildren } from 'react';
 import './styles/button.scss';
 
@@ -10,9 +10,9 @@ export enum ButtonSize {
 }
 
 export enum ButtonColor {
-  blue = "blue",
-  purple = "purple",
-  green = "green"
+  blue = 'blue',
+  purple = 'purple',
+  green = 'green',
 }
 
 export type Props = PropsWithChildren<{
@@ -23,23 +23,23 @@ export type Props = PropsWithChildren<{
   disabled?: boolean;
   square?: boolean;
   onClick?: React.MouseEventHandler<Element>;
-}>
+}>;
 
 
 const Button = (props: React.ComponentProps<'button'> & Props) => {
   const { color, square, text, ...otherProps } = props;
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    props.onClick?.(e)
+    props.onClick?.(e);
   };
 
   const className = [
     'button',
-    (props.className ?? ""),
-    `button-${typeof color === "string" ? color : ButtonColor[color ?? ButtonColor.blue]}`,
-    `button-${typeof props.size === "string" ? props.size : ButtonSize[props.size ?? ButtonSize.auto]}`,
-    `${square ? "button-square" : ''}`
-  ]
+    (props.className ?? ''),
+    `button-${typeof color === 'string' ? color : ButtonColor[color ?? ButtonColor.blue]}`,
+    `button-${typeof props.size === 'string' ? props.size : ButtonSize[props.size ?? ButtonSize.auto]}`,
+    `${square ? 'button-square' : ''}`,
+  ];
 
   return (
     <button

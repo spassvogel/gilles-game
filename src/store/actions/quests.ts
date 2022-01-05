@@ -1,22 +1,22 @@
-import { AdventurerStoreState } from "store/types/adventurer";
-import { SceneAction, SceneStoreState, SceneInteractionModal, Allegiance } from "store/types/scene";
-import { PartialDeep } from "type-fest";
+import { AdventurerStoreState } from 'store/types/adventurer';
+import { SceneAction, SceneStoreState, SceneInteractionModal, Allegiance } from 'store/types/scene';
+import { PartialDeep } from 'type-fest';
 
 export type QuestAction =
-  { type: "launchQuest", questName: string, assignedAventurers: AdventurerStoreState[] }
- |  { type: "exitEncounter", questName: string }
- |  { type: "updateQuestVars", questName: string, vars: PartialDeep<unknown> }
- |  { type: "setSceneName", questName: string, sceneName: string }
- |  { type: "setScene", questName: string, scene: SceneStoreState; }
- |  { type: "enqueueSceneAction", questName: string, sceneAction: SceneAction }
- |  { type: "completeSceneAction", questName: string }
- |  { type: "setCombat", questName: string, combat: boolean }
- |  { type: "endPlayerTurn", questName: string }
- |  { type: "startTurn", questName: string, turn: Allegiance, adventurers?: AdventurerStoreState[] }
- |  { type: "deductActorAp", questName: string,  actor: string, ap: number }
- |  { type: "setActorAp", questName: string, actor: string, ap: number }
-//  |  { type: "updateEncounterResult", questName: string, nodeIndex: number, result: string }
- |  { type: "setActiveSceneInteractionModal", questName: string, sceneInteractionModal?: SceneInteractionModal }
+  { type: 'launchQuest', questName: string, assignedAventurers: AdventurerStoreState[] }
+  |  { type: 'exitEncounter', questName: string }
+  |  { type: 'updateQuestVars', questName: string, vars: PartialDeep<unknown> }
+  |  { type: 'setSceneName', questName: string, sceneName: string }
+  |  { type: 'setScene', questName: string, scene: SceneStoreState; }
+  |  { type: 'enqueueSceneAction', questName: string, sceneAction: SceneAction }
+  |  { type: 'completeSceneAction', questName: string }
+  |  { type: 'setCombat', questName: string, combat: boolean }
+  |  { type: 'endPlayerTurn', questName: string }
+  |  { type: 'startTurn', questName: string, turn: Allegiance, adventurers?: AdventurerStoreState[] }
+  |  { type: 'deductActorAp', questName: string,  actor: string, ap: number }
+  |  { type: 'setActorAp', questName: string, actor: string, ap: number }
+  //  |  { type: "updateEncounterResult", questName: string, nodeIndex: number, result: string }
+  |  { type: 'setActiveSceneInteractionModal', questName: string, sceneInteractionModal?: SceneInteractionModal }
 
 ;
 
@@ -24,82 +24,82 @@ export type QuestAction =
 /**
  * Embark upon a new quest */
 export const launchQuest = (questName: string, assignedAventurers: AdventurerStoreState[]): QuestAction => ({
-  type: "launchQuest",
+  type: 'launchQuest',
   questName,
   assignedAventurers,
-})
+});
 
 /**
  * Completes the current encounter so the party can continue the quest */
 export const exitEncounter = (quest: string): QuestAction => ({
-  type: "exitEncounter",
+  type: 'exitEncounter',
   questName: quest,
-})
+});
 
 export const updateQuestVars = (quest: string, vars: PartialDeep<unknown>): QuestAction => ({
-  type: "updateQuestVars",
+  type: 'updateQuestVars',
   questName: quest,
   vars,
-})
+});
 
 /**
  * Sets name of the current scene of a quest */
 export const setSceneName = (questName: string, sceneName: string): QuestAction =>({
-  type: "setSceneName",
+  type: 'setSceneName',
   questName,
   sceneName,
-})
+});
 
 /**
  * Fills in the scene of a quest */
 export const setScene = (questName: string, scene: SceneStoreState): QuestAction => ({
-  type: "setScene",
+  type: 'setScene',
   questName,
   scene,
-})
+});
 
 export const enqueueSceneAction = (questName: string, sceneAction: SceneAction): QuestAction => ({
-  type: "enqueueSceneAction",
+  type: 'enqueueSceneAction',
   questName,
   sceneAction,
-})
+});
 
 export const completeSceneAction = (questName: string): QuestAction => ({
-  type: "completeSceneAction",
+  type: 'completeSceneAction',
   questName,
-})
+});
 
 export const setCombat = (questName: string, combat: boolean): QuestAction => ({
-  type: "setCombat",
+  type: 'setCombat',
   questName,
-  combat
-})
+  combat,
+});
 
 export const endPlayerTurn = (questName: string): QuestAction => ({
-  type: "endPlayerTurn",
+  type: 'endPlayerTurn',
   questName,
-})
+});
 
 export const startTurn = (questName: string, turn: Allegiance, adventurers?: AdventurerStoreState[]): QuestAction => ({
-  type: "startTurn",
+  type: 'startTurn',
   questName,
   turn,
-  adventurers
-})
+  adventurers,
+});
 
 export const deductActorAp = (questName: string, actor: string, ap: number): QuestAction => ({
-  type: "deductActorAp",
+  type: 'deductActorAp',
   questName,
   actor,
-  ap
-})
+  ap,
+});
 
 export const setActorAp = (questName: string, actor: string, ap: number): QuestAction => ({
-  type: "setActorAp",
+  type: 'setActorAp',
   questName,
   actor,
-  ap
-})
+  ap,
+});
 
 
 // export const updateEncounterResult = (questName: string, nodeIndex: number, result: string): QuestAction => ({
@@ -110,8 +110,8 @@ export const setActorAp = (questName: string, actor: string, ap: number): QuestA
 // })
 
 export const setActiveSceneInteractionModal = (questName: string, sceneInteractionModal?: SceneInteractionModal): QuestAction => ({
-  type: "setActiveSceneInteractionModal",
+  type: 'setActiveSceneInteractionModal',
   questName,
-  sceneInteractionModal
-})
+  sceneInteractionModal,
+});
 

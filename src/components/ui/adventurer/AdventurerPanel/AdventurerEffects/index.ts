@@ -1,1 +1,1 @@
-export { default } from './AdventurerTempEffects'
+export { default } from './AdventurerTempEffects';

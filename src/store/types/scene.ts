@@ -36,24 +36,24 @@ export type ActorObject = SceneObject & {
 // Type guard for ActorObject
 export const isActorObject = (object: SceneObject): object is ActorObject => {
   return object.type === TiledObjectType.actor;
-}
+};
 
 // Returns true if given scene Object is an Adventurer (player controlled Actor)
 export const isAdventurer = (object: SceneObject): object is ActorObject => {
   return isActorObject(object) && object.allegiance === Allegiance.player;
-}
+};
 
 // Returns true if given scene Object is an Enemy (AI controlled Actor)
 export const isEnemy = (object: SceneObject): object is ActorObject => {
   return isActorObject(object) && object.allegiance === Allegiance.enemy;
-}
+};
 
 // Returns the ActorObject belonging to given adventurerId
 export const getAdventurer = (objects: SceneObject[], adventurerId: string): ActorObject | undefined => {
   return objects.find(o => isAdventurer(o) && o.name === adventurerId) as ActorObject;
-}
+};
 
- // export type Actor = SceneObject & {
+// export type Actor = SceneObject & {
 //   type: "actor";
 //   //allegiance: Allegiance;
 //   health: number;
@@ -62,7 +62,7 @@ export const getAdventurer = (objects: SceneObject[], adventurerId: string): Act
 
 export type SceneInteractionModal =
 | { type: 'lootCache', lootCache: string }
-| { type: 'situation', situation: string }
+| { type: 'situation', situation: string };
 
 export interface LootCache {
   title: string;
@@ -79,9 +79,9 @@ export interface SceneAction {
 }
 
 export enum SceneActionType {
-  move = "move",
-  interact = "interact",
-  melee = "melee",
-  shoot = "shoot"
+  move = 'move',
+  interact = 'interact',
+  melee = 'melee',
+  shoot = 'shoot',
 }
 

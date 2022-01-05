@@ -44,7 +44,7 @@ const QuestMarker = (props: Props) => {
       scale={new Point(0.1, 0.1)}
       anchor={new Point(0.5, 1)}
       pointerdown={() => {
-        if(onClick) {
+        if (onClick) {
           onClick(quest);
         }
       }}
@@ -70,7 +70,7 @@ const QuestMarker = (props: Props) => {
       />
       )}
     </Sprite>
-  )
-}
+  );
+};
 
 export default QuestMarker;

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { ReactReduxContext, Provider } from 'react-redux';
 import { Stage } from '@inlet/react-pixi';
 
@@ -19,6 +19,6 @@ const BridgedStage = (props: React.ComponentProps<typeof Stage>) => {
       )}
     </ReactReduxContext.Consumer>
   );
-}
+};
 
 export default BridgedStage;

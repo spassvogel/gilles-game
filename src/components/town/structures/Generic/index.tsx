@@ -13,7 +13,7 @@ export interface Props {
 }
 
 const Generic = (props: Props) => {
-  const {structure, position, hitAreaShapes, selected, onStructureClick} = props;
+  const { structure, position, hitAreaShapes, selected, onStructureClick } = props;
   const filters = selected ? [STRUCTURE_HIGHLIGHT_FILTER] : [];
 
   const handlePointerTap = () => {
@@ -41,5 +41,5 @@ const Generic = (props: Props) => {
       /> */}
     </Sprite>
   );
-}
+};
 export default Generic;

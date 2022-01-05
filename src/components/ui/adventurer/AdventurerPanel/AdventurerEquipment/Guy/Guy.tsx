@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { useAdventurerDamageReduction } from 'hooks/store/adventurers';
 import './styles/guy.scss';
@@ -9,7 +9,7 @@ export interface Props {
 
 // A silhouette of a person with the Damage Reduction numbers
 const Guy = (props: Props) => {
-  const {adventurerId} = props;
+  const { adventurerId } = props;
 
   const damageReduction = useAdventurerDamageReduction(adventurerId);
   const renderDamageReduction = (equipmentType: EquipmentSlotType) => {
@@ -21,8 +21,8 @@ const Guy = (props: Props) => {
       <div className={EquipmentSlotType[equipmentType]} key={equipmentType}>
         {dR}
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <li className="guy">
@@ -33,7 +33,7 @@ const Guy = (props: Props) => {
       {(renderDamageReduction(EquipmentSlotType.legs))}
       {(renderDamageReduction(EquipmentSlotType.feet))}
     </li>
-  )
-}
+  );
+};
 
 export default Guy;

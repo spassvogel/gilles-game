@@ -1,10 +1,10 @@
-import { Attribute, attributeList } from "store/types/adventurer";
-import { TextManager } from "global/TextManager";
-import { TooltipManager } from "global/TooltipManager";
-import { ContextType } from "constants/context";
-import { AttributesExtended, AttributeSourceType, ExtendedAttribute } from "mechanics/adventurers/attributes";
-import { roundIfNeeded } from "utils/format/number";
-import "./styles/attributes.scss"
+import { Attribute, attributeList } from 'store/types/adventurer';
+import { TextManager } from 'global/TextManager';
+import { TooltipManager } from 'global/TooltipManager';
+import { ContextType } from 'constants/context';
+import { AttributesExtended, AttributeSourceType, ExtendedAttribute } from 'mechanics/adventurers/attributes';
+import { roundIfNeeded } from 'utils/format/number';
+import './styles/attributes.scss';
 
 interface Props {
   attributes: AttributesExtended;
@@ -17,15 +17,15 @@ const Attributes = (props: Props) => {
   const renderRow = (attribute: Attribute) => {
     const extendedAttribute: ExtendedAttribute = {
       attribute,
-      components: attributes[attribute]
-     };
+      components: attributes[attribute],
+    };
     const handleClick = (event: React.MouseEvent) => {
       const origin = (event.currentTarget as HTMLElement);
       const originRect = origin.getBoundingClientRect();
 
       TooltipManager.showContextTooltip(ContextType.attribute, extendedAttribute, originRect);
       event.stopPropagation();
-    }
+    };
 
     // Split out base and additional attribute components
     const { base, additional } = extendedAttribute.components.reduce((acc, value) => {
@@ -35,7 +35,7 @@ const Attributes = (props: Props) => {
         acc.additional += value.value;
       }
       return acc;
-    }, { base: 0, additional: 0});
+    }, { base: 0, additional: 0 });
 
     return (
       <li key={attribute}>
@@ -50,7 +50,7 @@ const Attributes = (props: Props) => {
         </div>
       </li>
     );
-  }
+  };
 
   return (
     <div className="basic-attributes">
@@ -59,6 +59,6 @@ const Attributes = (props: Props) => {
         {attributeList.map(a => renderRow(a))}
       </ul>
     </div>
-  )
-}
+  );
+};
 export default Attributes;

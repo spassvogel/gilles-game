@@ -18,12 +18,12 @@ const MapGrid = PixiComponent('Rectangle', {
 
     instance.clear();
     instance.lineStyle(1, gridColor, 0.5);
-    for(let y = 0; y < height; y++) {
+    for (let y = 0; y < height; y++) {
       instance.moveTo(0, y * gridWidth);
       instance.lineTo(width, y * gridWidth);
     }
 
-    for(let x = 0; x < width; x++) {
+    for (let x = 0; x < width; x++) {
       instance.moveTo(x * gridWidth, 0);
       instance.lineTo(x * gridWidth, height);
     }
@@ -34,7 +34,7 @@ const MapGrid = PixiComponent('Rectangle', {
     Object.assign(instance as any, {
       gridWidth,
       worldWidth: width,
-      worldHeight: height
+      worldHeight: height,
     });
   },
 
@@ -48,7 +48,7 @@ const MapGrid = PixiComponent('Rectangle', {
     instance.addChild(point);
 
     const { gridWidth, worldWidth, worldHeight } = instance as any;
-    parent.addListener("clicked", (event: { world: Point }) => {
+    parent.addListener('clicked', (event: { world: Point }) => {
       const nearestX = Math.round(event.world.x / gridWidth) * gridWidth;
       const nearestY = Math.round(event.world.y / gridWidth) * gridWidth;
 
@@ -62,8 +62,8 @@ const MapGrid = PixiComponent('Rectangle', {
       return {
         x: (x - Math.floor(worldWidth / 2)) / gridWidth,
         y: (y - Math.floor(worldHeight / 2)) / gridWidth,
-      }
-    }
+      };
+    };
   },
 });
 

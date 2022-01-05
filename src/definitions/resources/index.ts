@@ -1,10 +1,10 @@
 export enum Resource {
-  wood = "wood",
-  iron = "iron",
-  stone = "stone",
-  leather = "leather",
-  fabric = "fabric",
-  food = "food",
+  wood = 'wood',
+  iron = 'iron',
+  stone = 'stone',
+  leather = 'leather',
+  fabric = 'fabric',
+  food = 'food',
 }
 
 
@@ -16,27 +16,27 @@ export interface ResourceDefinition {
 const all = {
   [Resource.wood]: {
     resource: Resource.wood,
-    iconImg: "/img/resources/wood.png",
+    iconImg: '/img/resources/wood.png',
   },
   [Resource.iron]: {
     resource: Resource.iron,
-    iconImg: "/img/resources/iron.png",
+    iconImg: '/img/resources/iron.png',
   },
   [Resource.stone]: {
     resource: Resource.stone,
-    iconImg: "/img/resources/stone.png",
+    iconImg: '/img/resources/stone.png',
   },
   [Resource.leather]: {
     resource: Resource.leather,
-    iconImg: "/img/resources/leather.png",
+    iconImg: '/img/resources/leather.png',
   },
   [Resource.fabric]: {
     resource: Resource.fabric,
-    iconImg: "/img/resources/fabric.png",
+    iconImg: '/img/resources/fabric.png',
   },
   [Resource.food]: {
     resource: Resource.food,
-    iconImg: "/img/resources/food.png",
+    iconImg: '/img/resources/food.png',
   },
 };
 

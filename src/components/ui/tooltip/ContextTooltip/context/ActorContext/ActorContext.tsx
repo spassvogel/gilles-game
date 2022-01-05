@@ -1,7 +1,7 @@
-import * as React from "react";
-import { ActorObject, Allegiance } from "store/types/scene";
-import AdventurerContext from "./AdventurerContext";
-import EnemyContext from "./EnemyContext";
+import * as React from 'react';
+import { ActorObject, Allegiance } from 'store/types/scene';
+import AdventurerContext from './AdventurerContext';
+import EnemyContext from './EnemyContext';
 import './styles/actorContext.scss';
 
 
@@ -17,7 +17,7 @@ const ActorContext = (props: Props) => {
       {actorObject.allegiance === Allegiance.player && (<AdventurerContext actorObject={actorObject} />)}
       {actorObject.allegiance === Allegiance.enemy && (<EnemyContext actorObject={actorObject} />)}
     </div>
-  )
-}
+  );
+};
 
 export default ActorContext;

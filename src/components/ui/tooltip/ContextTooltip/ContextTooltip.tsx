@@ -10,7 +10,6 @@ import Tooltip from '../Tooltip';
 import { TraitDefinition } from 'definitions/traits/types';
 import TraitContext from './context/TraitContext';
 import { WeaponType } from 'definitions/items/weapons';
-import { Rarity } from 'constants/items';
 import { getDefinition } from 'definitions/items';
 import AttributeContext from './context/AttributeContext';
 import { ActorObject } from 'store/types/scene';
@@ -18,6 +17,7 @@ import ActorContext from './context/ActorContext';
 import TempEffectContext from './context/TempEffectContext';
 import { ExtendedAttribute } from 'mechanics/adventurers/attributes';
 import { TempEffect } from 'definitions/tempEffects/types';
+import { getItemNameClassName } from './utils';
 import './styles/contextTooltip.scss';
 
 // A contextual popup showing what you just clicked.
@@ -28,12 +28,12 @@ const ContextTooltip = () => {
 
   const tooltipUpdated = (context: Context | undefined) => {
     setSelectedContext(context);
-  }
+  };
   useEffect(() => {
     TooltipManager.instance.addListener(EVENT_CONTEXT_UPDATED, tooltipUpdated);
     return () => {
       TooltipManager.instance.removeListener(EVENT_CONTEXT_UPDATED, tooltipUpdated);
-    }
+    };
   }, []);
   if (!selectedContext) { return null; }
 
@@ -53,7 +53,7 @@ const ContextTooltip = () => {
             <div className="header">
               <div className="name effect">{name}</div>
               <div className="secondary">
-                { TextManager.get("ui-tooltip-attribute")}
+                { TextManager.get('ui-tooltip-attribute')}
               </div>
             </div>
             <AttributeContext extendedAttribute={extendedAttribute} />
@@ -68,7 +68,7 @@ const ContextTooltip = () => {
             <div className="header">
               <div className="name effect">{name}</div>
               <div className="secondary">
-                { TextManager.get("ui-tooltip-effect")}
+                { TextManager.get('ui-tooltip-effect')}
               </div>
             </div>
             <TempEffectContext effect={effect} />
@@ -82,7 +82,7 @@ const ContextTooltip = () => {
             <div className="header">
               <div className="name resource">{name}</div>
               <div className="secondary">
-                { TextManager.get("ui-tooltip-resource-resource")}
+                { TextManager.get('ui-tooltip-resource-resource')}
               </div>
             </div>
             <ResourceContext info={info as string} />
@@ -111,7 +111,7 @@ const ContextTooltip = () => {
         return (
           <>
             <div className="name trait">
-              {TextManager.get("ui-tooltip-type-trait")}
+              {TextManager.get('ui-tooltip-type-trait')}
               {name}
             </div>
             <TraitContext traitDefinition={traitDefinition} />
@@ -124,7 +124,7 @@ const ContextTooltip = () => {
         return (
           <>
             <div className="name skill">
-              {TextManager.get("ui-tooltip-type-skill")}
+              {TextManager.get('ui-tooltip-type-skill')}
               {name}
             </div>
             { TextManager.getSkillInfo(skill)}
@@ -136,10 +136,10 @@ const ContextTooltip = () => {
         return component;
       }
       default: {
-        throw new Error(`Unknown context type ${selectedContext.type}`)
+        throw new Error(`Unknown context type ${selectedContext.type}`);
       }
     }
-  }
+  };
 
   return (
     <Tooltip referenceRect={selectedContext.referenceRect} className={className}>
@@ -147,23 +147,6 @@ const ContextTooltip = () => {
         {renderContent()}
       </div>
     </Tooltip>
-  )
-}
-export default ContextTooltip;
-
-export const getItemNameClassName = (item: ItemDefinition): string => {
-  const {rarity} = item;
-  switch (rarity) {
-    case Rarity.common:
-      return "item-name-common";
-    case Rarity.uncommon:
-      return "item-name-uncommon";
-    case Rarity.rare:
-      return "item-name-rare";
-    case Rarity.epic:
-      return "item-name-epic";
-    case Rarity.legendary:
-      return "item-name-legendary";
-  }
-  return "item-name-common";
+  );
 };
+export default ContextTooltip;

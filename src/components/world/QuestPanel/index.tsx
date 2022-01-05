@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import AdventurerTabstrip from './AdventurerTabstrip';
 import { createSelectAdventurersOnQuest } from 'store/selectors/adventurers';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,13 +12,13 @@ import Situation from './modals/Situation';
 import SceneControllerContextProvider from './context/SceneControllerContext';
 import CombatBar from './CombatBar';
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
-import { AdventurerSectionSelection } from "components/ui/adventurer/AdventurerPanel";
-import "./styles/questPanel.scss";
+import { AdventurerSectionSelection } from 'components/ui/adventurer/AdventurerPanel';
+import './styles/questPanel.scss';
 
 enum Layout {
   auto,     // horizontal on large screens, vertical on small screens
   vertical,
-  horizontal
+  horizontal,
 }
 
 interface Props {
@@ -29,7 +29,7 @@ interface Props {
 const QuestPanel = (props: Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const {layout = Layout.auto} = props;
+  const { layout = Layout.auto } = props;
   const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));
   const leader = adventurers[0];
   const [selectedAdventurerId, setSelectedAdventurerID] = useState<string>(leader?.id);
@@ -39,18 +39,18 @@ const QuestPanel = (props: Props) => {
 
   const handleAdventurerSelected = (adventurerId: string) => {
     setSelectedAdventurerID(adventurerId);
-  }
+  };
 
   const handleCloseLootCacheModal = () => {
     dispatch(setActiveSceneInteractionModal(props.questName));
-  }
+  };
 
   useEffect(() => {
     if (!adventurers.length) {
       // no adventurers, something went wrong, perhaps invalid url
       // bounce back to world
       history.push(getWorldLink());
-     }
+    }
   }, [adventurers.length, history]);
   if (!adventurers.length) return null;
 
@@ -102,7 +102,7 @@ const QuestPanel = (props: Props) => {
         </div>
       </div>
     </SceneControllerContextProvider>
-  )
-}
+  );
+};
 
 export default QuestPanel;

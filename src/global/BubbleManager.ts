@@ -1,9 +1,9 @@
-import EventEmitter from "events";
-import { Point } from "pixi.js";
-import TypedEmitter from "typed-emitter";
+import EventEmitter from 'events';
+import { Point } from 'pixi.js';
+import TypedEmitter from 'typed-emitter';
 
 
-export const EVENT_BUBBLE_ADDED = "bubbleAdded";
+export const EVENT_BUBBLE_ADDED = 'bubbleAdded';
 export enum BubbleType { combat, resource }
 export enum BubbleLayer { general, scene }
 

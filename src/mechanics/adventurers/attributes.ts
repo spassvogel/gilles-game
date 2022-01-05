@@ -1,8 +1,8 @@
-import { EffectSource, EffectSourceType, EffectType } from "definitions/effects/types";
-import { AdventurerStoreState, Attribute, AttributesStoreState } from "store/types/adventurer";
-import { ItemType } from "definitions/items/types";
-import { collectEffects } from "definitions/effects";
-import { TempEffectType } from "definitions/tempEffects/types";
+import { EffectSource, EffectSourceType, EffectType } from 'definitions/effects/types';
+import { AdventurerStoreState, Attribute, AttributesStoreState } from 'store/types/adventurer';
+import { ItemType } from 'definitions/items/types';
+import { collectEffects } from 'definitions/effects';
+import { TempEffectType } from 'definitions/tempEffects/types';
 
 export const MIN_VALUE = 1;   // minimum value of any base attribute
 export const MAX_VALUE = 20;  // maximum value of any base attribute
@@ -10,22 +10,22 @@ export const MAX_VALUE = 20;  // maximum value of any base attribute
 
 export type AttributesExtended = {
   [key in Attribute]: ExtendedAttributeComponents[]
-}
+};
 
 export type ExtendedAttribute = {
   attribute: Attribute;
   components: ExtendedAttributeComponents[];
-}
+};
 
 export type ExtendedAttributeComponents = {
   origin: AttributeSource,
   value: number
-}
+};
 
 export enum AttributeSourceType {
   base,
   item,
-  tempEffect
+  tempEffect,
 }
 
 // The source of the attribute modifier
@@ -37,17 +37,40 @@ export type AttributeSource = {
 } | {
   type: AttributeSourceType.item
   item: ItemType
-}
+};
 
-export const calculateEffectiveAttributes = (adventurer: AdventurerStoreState): AttributesStoreState  => {
-  const extended = calculateEffectiveAttributesExtended(adventurer);
+
+// Turns base attribues into AttributesExtended
+export const generateBaseAttributes = (basicAttributes: AttributesStoreState): AttributesExtended => {
+  const origin: AttributeSource = { type: AttributeSourceType.base };
+
   return {
-    str: extended.str.reduce((acc, value) => (acc + value.value), 0),
-    for: extended.for.reduce((acc, value) => (acc + value.value), 0),
-    int: extended.int.reduce((acc, value) => (acc + value.value), 0),
-    agi: extended.agi.reduce((acc, value) => (acc + value.value), 0),
+    str: [{ origin, value: basicAttributes.str }],
+    for: [{ origin, value: basicAttributes.for }],
+    int: [{ origin, value: basicAttributes.int }],
+    agi: [{ origin, value: basicAttributes.agi }],
+  };
+};
+
+const convertOrigin = (effectSource: EffectSource): AttributeSource => {
+  switch (effectSource.type) {
+    case EffectSourceType.item: {
+      return {
+        type: AttributeSourceType.item,
+        item: effectSource.itemType,
+      };
+    }
+    case EffectSourceType.tempEffect: {
+      return {
+        type: AttributeSourceType.tempEffect,
+        tempEffectType: effectSource.tempEffectType,
+      };
+    }
+    // default:
+    //   throw new Error(`Unknown effect source type ${effectSource.type}`)
   }
-}
+};
+
 
 // Returns the extended list of effective attributes (where each component comes from)
 export const calculateEffectiveAttributesExtended = (adventurer: AdventurerStoreState): AttributesExtended  => {
@@ -60,10 +83,10 @@ export const calculateEffectiveAttributesExtended = (adventurer: AdventurerStore
       const { attribute } = effectSource;
       result[attribute].push({
         origin,
-        value: adventurer.basicAttributes[attribute] * effectSource.factor - adventurer.basicAttributes[attribute]
-      })
+        value: adventurer.basicAttributes[attribute] * effectSource.factor - adventurer.basicAttributes[attribute],
+      });
     }
-  })
+  });
   // Add effects of soma
   // const somaEffects = adventurer.tempEffects.filter(e => e.type === EffectType.soma) as EffectSoma[];
   // if (somaEffects.length > 0) {
@@ -78,36 +101,14 @@ export const calculateEffectiveAttributesExtended = (adventurer: AdventurerStore
   // }
 
   return result;
-}
+};
 
-// Turns base attribues into AttributesExtended
-export const generateBaseAttributes = (basicAttributes: AttributesStoreState): AttributesExtended => {
-  const origin: AttributeSource = { type: AttributeSourceType.base };
-
+export const calculateEffectiveAttributes = (adventurer: AdventurerStoreState): AttributesStoreState  => {
+  const extended = calculateEffectiveAttributesExtended(adventurer);
   return {
-    str: [{ origin, value: basicAttributes.str }],
-    for: [{ origin, value: basicAttributes.for }],
-    int: [{ origin, value: basicAttributes.int }],
-    agi: [{ origin, value: basicAttributes.agi }]
-  }
-}
-
-const convertOrigin = (effectSource: EffectSource): AttributeSource => {
-  switch (effectSource.type) {
-    case EffectSourceType.item: {
-      return {
-        type: AttributeSourceType.item,
-        item: effectSource.itemType
-      }
-    }
-    case EffectSourceType.tempEffect: {
-      return {
-        type: AttributeSourceType.tempEffect,
-        tempEffectType: effectSource.tempEffectType
-      }
-    }
-    // default:
-    //   throw new Error(`Unknown effect source type ${effectSource.type}`)
-  }
-}
-
+    str: extended.str.reduce((acc, value) => (acc + value.value), 0),
+    for: extended.for.reduce((acc, value) => (acc + value.value), 0),
+    int: extended.int.reduce((acc, value) => (acc + value.value), 0),
+    agi: extended.agi.reduce((acc, value) => (acc + value.value), 0),
+  };
+};

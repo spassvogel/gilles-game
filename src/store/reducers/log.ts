@@ -1,31 +1,34 @@
-import { GameAction } from "store/actions/game";
-import {  LogAction } from "store/actions/log";
-import { LogUpdate } from "mechanics/gameTick/quests";
-import { Reducer } from "redux";
-import { LogEntry } from "store/types/logEntry";
+import { GameAction } from 'store/actions/game';
+import { LogAction } from 'store/actions/log';
+import { LogUpdate } from 'mechanics/gameTick/quests';
+import { Reducer } from 'redux';
+import { LogEntry } from 'store/types/logEntry';
+
+export const initialLogState = [];
 
 /**
  * reducer
  * @param state
  * @param action
  */
+// eslint-disable-next-line @typescript-eslint/default-param-last
 export const log: Reducer<LogEntry[]> = (state: LogEntry[] = initialLogState, action: GameAction | LogAction) => {
   switch (action.type) {
-    case "addLogEntry": {
-      const {entry, channel, channelContext} = action;
-      const {key, context} = entry;
+    case 'addLogEntry': {
+      const { entry, channel, channelContext } = action;
+      const { key, context } = entry;
       const time = Date.now();
       return [{
-          channel,
-          channelContext,
-          context,
-          key,
-          time,
-        },
-        ...state,
+        channel,
+        channelContext,
+        context,
+        key,
+        time,
+      },
+      ...state,
       ];
     }
-    case "gameTick": {
+    case 'gameTick': {
       if (!action.log.length) {
         return state;
       }
@@ -46,4 +49,3 @@ export const log: Reducer<LogEntry[]> = (state: LogEntry[] = initialLogState, ac
   return state;
 };
 
-export const initialLogState = [];

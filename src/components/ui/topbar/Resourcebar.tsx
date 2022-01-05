@@ -1,7 +1,7 @@
-import { resourceOrder } from "constants/resources";
-import resourceDescriptions, { Resource } from "definitions/resources";
-import * as React from "react";
-import { ResourceStoreState } from "store/types/resources";
+import { resourceOrder } from 'constants/resources';
+import resourceDescriptions, { Resource } from 'definitions/resources';
+import * as React from 'react';
+import { ResourceStoreState } from 'store/types/resources';
 import { formatNumber } from 'utils/format/number';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
@@ -9,7 +9,7 @@ import useGoldState from 'hooks/store/useGoldState';
 import { useMaxResourcesState, useResourcesState } from 'hooks/store/resources';
 import { useWorkersFreeState } from 'hooks/store/useWorkersState';
 import Icon from 'components/ui/common/Icon';
-import "./styles/resourcebar.scss";
+import './styles/resourcebar.scss';
 
 export interface StateProps  {
   gold: number;
@@ -26,8 +26,8 @@ const Resourcebar = () => {
   const workersFree = useWorkersFreeState();
   const maxResources = useMaxResourcesState();
 
-  const createItem = (icon: string, amount: number, type: Resource | "workers" | "gold") => {
-    const full = type !== "workers" && type !== "gold" && (amount ?? 0) >= (maxResources?.[type] ?? 0);
+  const createItem = (icon: string, amount: number, type: Resource | 'workers' | 'gold') => {
+    const full = type !== 'workers' && type !== 'gold' && (amount ?? 0) >= (maxResources?.[type] ?? 0);
 
     const handleClick = (event: React.MouseEvent) => {
 
@@ -43,11 +43,11 @@ const Resourcebar = () => {
           image={icon}
           size="smallest"
         />
-        <div className={`amount ${full ? "full" : ""}`}>
+        <div className={`amount ${full ? 'full' : ''}`}>
           { formatNumber(amount, 0) }
         </div>
       </li>
-    )
+    );
   };
 
   const resources = resourceOrder.map((resource) => {
@@ -56,8 +56,8 @@ const Resourcebar = () => {
   });
 
   resources.push(
-    createItem("/img/resources/worker.png", workersFree, "workers"),
-    createItem("/img/resources/gold.png", goldState, "gold"),
+    createItem('/img/resources/worker.png', workersFree, 'workers'),
+    createItem('/img/resources/gold.png', goldState, 'gold'),
   );
 
   return (

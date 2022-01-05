@@ -1,10 +1,9 @@
-import React, { useEffect, useRef, useCallback, useState } from "react";
+import { useEffect, useRef, useCallback, useState, RefObject } from 'react';
 import { Stage, Sprite } from '@inlet/react-pixi';
-import { Viewport as PixiViewport } from "pixi-viewport";
-import { useDispatch, useSelector } from 'react-redux'
-import { QuestStoreState } from "store/types/quest";
-import { Coords, lerpLocation } from 'utils/pixiJs';
-import { QuestDefinition, QuestNodeType, QuestNode } from "definitions/quests/types";
+import { Viewport as PixiViewport } from 'pixi-viewport';
+import { useSelector } from 'react-redux';
+import { QuestStoreState } from 'store/types/quest';
+import { QuestDefinition, QuestNodeType, QuestNode } from 'definitions/quests/types';
 import Viewport from '../../pixi/Viewport';
 // import MapGrid from './MapGrid';
 import QuestMarker from './QuestMarker';
@@ -15,38 +14,32 @@ import { getDefinition } from 'definitions/quests';
 import { TextManager } from 'global/TextManager';
 import { getQuestLeader } from 'store/helpers/storeHelpers';
 import { StoreState } from 'store/types';
-import { useActiveQuests, useQuest } from 'hooks/store/quests';
-import { setCombat } from 'store/actions/quests';
+import { useActiveQuests } from 'hooks/store/quests';
 import { useHistory } from 'react-router-dom';
 import { getWorldLink } from 'utils/routing';
-import { Point } from 'pixi.js';
-import { Allegiance } from 'store/types/scene';
 import './styles/worldMap.scss';
-
-const FULL_HEIGHT = 1024;
-const SMALL_HEIGHT = 64;   // Used when QuestPanel is open
-const WORLD_WIDTH = 1500;
-const WORLD_HEIGHT = 1061;
-const GRID_WIDTH = 10;    // width or height of each node location in pixels
+import { DebugToggleCombat } from './DebugToggleCombat';
+import { FULL_HEIGHT, SMALL_HEIGHT, nodeLocationToPoint, getPreviousPositions, getQuestWorldLocation, WORLD_WIDTH, WORLD_HEIGHT } from './utils';
 
 export interface Props {
   selectedQuestName?: string;
   smallMap: boolean;
   onPartyClick: (questName: string) => void;
-  retrieveWorldViewRef: () => React.RefObject<HTMLDivElement>;
+  retrieveWorldViewRef: () => RefObject<HTMLDivElement>;
 }
 
 const WorldMap = (props: Props) => {
   const { retrieveWorldViewRef, smallMap } = props;
   const questSelector = useCallback(
     (state: StoreState) => state.quests.find((q) => q.name === props.selectedQuestName),
-    [props.selectedQuestName]
+    [props.selectedQuestName],
   );
 
   const selectedQuest = useSelector<StoreState, QuestStoreState | undefined>(questSelector);
   const adventurers = useSelector<StoreState, AdventurerStoreState[]>((store) => store.adventurers);
   const activeQuests = useActiveQuests();
   const history = useHistory();
+  const viewportRef = useRef<PixiViewport>(null);
 
   const handlePartyClick = (name: string) => {
     props.onPartyClick(name);
@@ -54,7 +47,7 @@ const WorldMap = (props: Props) => {
 
   const handleClose = () => {
     history.push(getWorldLink());
-  }
+  };
 
   // useEffect(() => {
   //   const onScroll = (e: WheelEvent) => {
@@ -73,6 +66,17 @@ const WorldMap = (props: Props) => {
   const [canvasWidth, setCanvasWidth] = useState(WIDTH);
   const [canvasHeight, setCanvasHeight] = useState(FULL_HEIGHT);
 
+
+  // puts the given party in the center of the map
+  const focusOnQuestingParty = (quest: QuestStoreState) => {
+    const viewport = viewportRef.current;
+    if (viewport) {
+      const partyLocation = getQuestWorldLocation(quest);
+      const point = nodeLocationToPoint(partyLocation);
+      viewport.moveCenter(point.x, point.y);
+    }
+  };
+
   useEffect(() => {
     // This will set the dimensions of the canvas tot that of the parent (worldview)
     const resize = () => {
@@ -88,8 +92,7 @@ const WorldMap = (props: Props) => {
         } else {
           setCanvasHeight(SMALL_HEIGHT);
         }
-      }
-      else {
+      } else {
         setCanvasHeight(worldViewHeight);
       }
 
@@ -97,11 +100,11 @@ const WorldMap = (props: Props) => {
       if (viewport) {
         viewport.resize(canvasWidth, canvasHeight);
       }
-    }
+    };
     resize();
-    window.addEventListener("resize", resize);
+    window.addEventListener('resize', resize);
     return () => {
-      window.removeEventListener("resize", resize);
+      window.removeEventListener('resize', resize);
     };
   }, [canvasHeight, canvasWidth, retrieveWorldViewRef, smallMap]);
 
@@ -115,7 +118,6 @@ const WorldMap = (props: Props) => {
     }
   }, [selectedQuest, canvasHeight]);
 
-  const viewportRef = useRef<PixiViewport>(null);
   useEffect(() => {
     // focus on center of the map
     if (viewportRef.current) {
@@ -157,30 +159,19 @@ const WorldMap = (props: Props) => {
     });
   };
 
-
-  // puts the given party in the center of the map
-  const focusOnQuestingParty = (quest: QuestStoreState) => {
-    const viewport = viewportRef.current;
-    if (viewport) {
-      const partyLocation = getQuestWorldLocation(quest);
-      const point = nodeLocationToPoint(partyLocation);
-      viewport.moveCenter(point.x, point.y);
-    }
-  }
-
   const handleMapClick = () => {
     /// todo: close map
     // if(smallMap === true && selectedQuest) {
     //   props.onPartyClick(selectedQuest.name);
     // }
-  }
+  };
 
   const options = {
     autoDensity: true,
     sharedLoader: true,
     width: canvasWidth,
     height: canvasHeight,
-  }
+  };
 
   return (
     <div className="world-map">
@@ -202,8 +193,8 @@ const WorldMap = (props: Props) => {
           <span>
             <DebugToggleCombat questName={props.selectedQuestName} />
             {TextManager.getQuestTitle(props.selectedQuestName)}
-            {` | `}
-            {selectedQuest?.sceneName ? TextManager.getQuestSceneTitle(selectedQuest) : "..."}
+            {' | '}
+            {selectedQuest?.sceneName ? TextManager.getQuestSceneTitle(selectedQuest) : '...'}
           </span>
           <span onClick={handleClose} className="close">x</span>
         </div>
@@ -214,54 +205,3 @@ const WorldMap = (props: Props) => {
 
 export default WorldMap;
 
-const getQuestWorldLocation = (quest: QuestStoreState): Coords => {
-  const questDefinition = getDefinition(quest.name);
-  const roundedProgress = Math.floor(quest.progress);
-  const lastNode = questDefinition.nodes[roundedProgress];
-
-  const nextNode = questDefinition.nodes[roundedProgress + 1];
-  if (!nextNode) {
-    // We've reached the last node
-    return lastNode;
-  }
-  return lerpLocation(lastNode, nextNode, quest.progress - roundedProgress);
-};
-
-// Node locations work on a centered coordinate system
-const nodeLocationToPoint = (location: { x: number; y: number; }) => {
-  const x = location.x * GRID_WIDTH + WORLD_WIDTH / 2;
-  const y = location.y * GRID_WIDTH + WORLD_HEIGHT / 2;
-  return new Point(x, y);
-}
-
-const getPreviousPositions = (quest: QuestStoreState) => {
-  const positions: Point[] = [];
-  const questDefinition = getDefinition(quest.name);
-
-  for (let i = 0; i < quest.progress; i++) {
-    positions.push(nodeLocationToPoint(questDefinition.nodes[i]))
-  }
-  const lastPosition = nodeLocationToPoint(getQuestWorldLocation(quest));
-  positions.push(lastPosition);
-  return positions;
-}
-
-
-// temporary
-const DebugToggleCombat = ({ questName }: {questName: string}) => {
-  const quest = useQuest(questName);
-  const dispatch = useDispatch();
-
-  if (quest.scene?.combat && quest.scene.turn !== undefined) {
-    return (
-      <button onClick={() => dispatch(setCombat(questName, false))}>
-        combat: on ({Allegiance[quest.scene.turn]})
-      </button>
-    );
-  }
-  return (
-    <button onClick={() => dispatch(setCombat(questName, true))}>
-      combat: off
-    </button>
-  )
-}

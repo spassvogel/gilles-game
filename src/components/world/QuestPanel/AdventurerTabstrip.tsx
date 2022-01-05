@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import Tabstrip from 'components/ui/tabs/Tabstrip';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import Tab from 'components/ui/tabs/Tab';
@@ -14,12 +14,12 @@ interface Props {
 
 // Shows adventurer portraits in a tabstrip
 const AdventurerTabstrip = (props: Props) => {
-  const {adventurers, onAdventurerTabSelected} = props;
+  const { adventurers, onAdventurerTabSelected } = props;
 
   const handleAdventurerTabSelected = (adventurerId: string) => {
     const adventurer = props.adventurers.find(a => a.id === adventurerId);
     if (adventurer) onAdventurerTabSelected(adventurer.id);
-  }
+  };
 
   const renderAdventurerTab = (adventurer: AdventurerStoreState) => (
     <Tab id={adventurer.id} key={adventurer.id}>
@@ -35,7 +35,7 @@ const AdventurerTabstrip = (props: Props) => {
     >
       {adventurers.map((a) => renderAdventurerTab(a))}
     </Tabstrip>
-  )
-}
+  );
+};
 
 export default AdventurerTabstrip;

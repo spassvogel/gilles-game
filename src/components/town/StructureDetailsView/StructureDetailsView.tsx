@@ -1,21 +1,21 @@
-import { getDefinition, Structure } from "definitions/structures";
-import { StructureDefinition, StructureType } from "definitions/structures/types";
-import { StructureState } from "store/types/structure";
+import { getDefinition, Structure } from 'definitions/structures';
+import { StructureDefinition, StructureType } from 'definitions/structures/types';
+import { StructureState } from 'store/types/structure';
 import { useSelector } from 'react-redux';
 import { StoreState } from 'store/types';
 import { TasksStoreState } from 'store/types/tasks';
 import { useStructureState } from 'hooks/store/structures';
 import { withWindow } from 'hoc/withWindow';
-import { Props as WindowProps } from "components/ui/window/Window";
+import { Props as WindowProps } from 'components/ui/window/Window';
 import { formatDuration } from 'utils/format/time';
 import { TickingProgressbar } from 'components/ui/common/progress';
 import ProductionStructureView from 'components/structures/production/ProductionStructureView';
 import WarehouseStructureView from 'components/structures/warehouse/WarehouseStructureView';
 import TavernStructureView from 'components/structures/tavern/TavernStructureView';
 import ResourceStructureView from 'components/structures/resource/ResourceStructureView';
-import "./styles/structuredetailsview.scss";
+import './styles/structuredetailsview.scss';
 
- interface Props {
+interface Props {
   structure: Structure;
 }
 
@@ -23,7 +23,7 @@ const StructureDetailsView = (props: Props & WindowProps) => {
   const { structure } = props;
   const tasks = useSelector<StoreState, TasksStoreState>(store => store.tasks);
   const buildTask = tasks.running.filter((val) =>
-    val.origin === `town` && val.name === `${structure}.build`)[0];
+    val.origin === 'town' && val.name === `${structure}.build`)[0];
   const structureState = useStructureState(structure);
 
   const renderContent = () => {
@@ -58,7 +58,7 @@ const StructureDetailsView = (props: Props & WindowProps) => {
         }
       }
     }
-  }
+  };
 
   return (
     <div className="structure-details">
@@ -67,5 +67,5 @@ const StructureDetailsView = (props: Props & WindowProps) => {
   );
 };
 
-export default StructureDetailsView
+export default StructureDetailsView;
 export const StructureDetailsWindow = withWindow(StructureDetailsView);

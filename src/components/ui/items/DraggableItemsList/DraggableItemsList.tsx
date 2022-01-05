@@ -1,10 +1,10 @@
-import * as React from "react";
-import { Item } from "definitions/items/types";
+import * as React from 'react';
+import { Item } from 'definitions/items/types';
 import { DragSourceType } from 'constants/dragging';
 import DraggableItemIcon from '../DraggableItemIcon';
-import ItemText from "./ItemText";
-import { ReactNode } from "react";
-import "./styles/itemsList.scss";
+import ItemText from './ItemText';
+import { ReactNode } from 'react';
+import './styles/itemsList.scss';
 
 export interface Props {
   className?: string;
@@ -46,7 +46,7 @@ const DraggableItemsList = (props: Props) => {
             )}
             { (item && renderButton) && renderButton(item, index) }
           </li>
-        )
+        );
       })}
     </ul>
   );

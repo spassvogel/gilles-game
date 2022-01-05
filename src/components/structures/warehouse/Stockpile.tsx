@@ -1,17 +1,17 @@
-import { useEffect, useMemo, useState } from "react";
-import { useDragDropManager } from "react-dnd";
-import Inventory from "components/ui/inventory/Inventory";
-import { DragSourceType, DragType } from "constants/dragging";
-import { useStockpileState } from "hooks/store/stockpile";
-import useItemDropActions from "hooks/actions/useItemActions";
-import { Item, ItemCategory } from "definitions/items/types";
-import Tabstrip from "components/ui/tabs/Tabstrip";
-import Tab from "components/ui/tabs/Tab";
-import { StockpileStoreState } from "store/types/stockpile";
-import { TextManager } from "global/TextManager";
-import { getDefinition } from "definitions/items";
-import { InventoryItemDragInfo } from "components/ui/items/DraggableItemIcon";
-import "./styles/stockpile.scss"
+import { useEffect, useMemo, useState } from 'react';
+import { useDragDropManager } from 'react-dnd';
+import Inventory from 'components/ui/inventory/Inventory';
+import { DragSourceType, DragType } from 'constants/dragging';
+import { useStockpileState } from 'hooks/store/stockpile';
+import useItemDropActions from 'hooks/actions/useItemActions';
+import { Item, ItemCategory } from 'definitions/items/types';
+import Tabstrip from 'components/ui/tabs/Tabstrip';
+import Tab from 'components/ui/tabs/Tab';
+import { StockpileStoreState } from 'store/types/stockpile';
+import { TextManager } from 'global/TextManager';
+import { getDefinition } from 'definitions/items';
+import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
+import './styles/stockpile.scss';
 
 const WAREHOUSE = DragSourceType.warehouse;
 
@@ -22,8 +22,8 @@ const Stockpile = () => {
 
   const handleDropItemWarehouse = (item: Item, fromSlot: number, toSlot: number, sourceType: DragSourceType, sourceId?: string): void => {
     dropItemWarehouse(item, fromSlot, toSlot, sourceType, sourceId);
-  }
-  const dragDropManager = useDragDropManager()
+  };
+  const dragDropManager = useDragDropManager();
   const dragging = dragDropManager.getMonitor().isDragging();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Stockpile = () => {
 
       if (dragItem && dragItemType === DragType.ITEM) {
         const item = dragItem.item;
-        const definition = getDefinition(item.type)
+        const definition = getDefinition(item.type);
         setSelectedItemCategory(ItemCategory[definition.itemCategory]);
       }
     }
@@ -42,13 +42,13 @@ const Stockpile = () => {
 
   const handleCheckDropItem = (dragInfo: InventoryItemDragInfo) => {
     // can only drop on the appropriate category
-    const definition = getDefinition(dragInfo.item.type)
-    return (definition.itemCategory === ItemCategory[selectedItemCategory as keyof typeof ItemCategory])
-  }
+    const definition = getDefinition(dragInfo.item.type);
+    return (definition.itemCategory === ItemCategory[selectedItemCategory as keyof typeof ItemCategory]);
+  };
 
   const items = useMemo(() => {
-    return stockpile[selectedItemCategory as keyof StockpileStoreState]
-  }, [selectedItemCategory, stockpile])
+    return stockpile[selectedItemCategory as keyof StockpileStoreState];
+  }, [selectedItemCategory, stockpile]);
 
   return (
     <div className="stockpile">
@@ -58,7 +58,7 @@ const Stockpile = () => {
           <Tab id={itemCategory} key={itemCategory}>
             {TextManager.getItemCategory(ItemCategory[itemCategory as keyof typeof ItemCategory])}
           </Tab>);
-        }
+      },
       )}
       </Tabstrip>
       <Inventory
@@ -70,7 +70,7 @@ const Stockpile = () => {
         canDropHere={handleCheckDropItem}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Stockpile
+export default Stockpile;

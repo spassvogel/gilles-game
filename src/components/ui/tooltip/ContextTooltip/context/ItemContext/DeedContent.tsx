@@ -1,17 +1,17 @@
-import * as React from "react";
+import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { Structure } from 'definitions/structures';
 import { subtractGold } from 'store/actions/gold';
 import { startBuildingStructure, finishBuildingStructure } from 'store/actions/structures';
 import { startTask } from 'store/actions/tasks';
 import { TaskType } from 'store/types/task';
-import { Deed, getDefinition as getDeedDefinition} from 'definitions/items/deeds';
+import { Deed, getDefinition as getDeedDefinition } from 'definitions/items/deeds';
 import useGoldState from 'hooks/store/useGoldState';
 import { useStructureDefinition, useStructureState } from 'hooks/store/structures';
 import { StructureState } from 'store/types/structure';
 import { TextManager } from 'global/TextManager';
 import Button from 'components/ui/buttons/Button';
-import { Item } from "definitions/items/types";
+import { Item } from 'definitions/items/types';
 
 interface Props {
   item: Item<Deed>;
@@ -19,7 +19,7 @@ interface Props {
 
 const DeedContent = (props: Props) => {
   const { item } = props;
-  const definition = getDeedDefinition(item.type)
+  const definition = getDeedDefinition(item.type);
   const dispatch = useDispatch();
 
   const gold = useGoldState();
@@ -39,11 +39,11 @@ const DeedContent = (props: Props) => {
     const time = structureDefinition.cost.time;
     const start = startTask(TaskType.buildStructure,
       `${structure}.build`,
-      "town",
+      'town',
       time ?? 0,
       callbacks);
     dispatch(start);
-  }
+  };
   return (
     <div>
       { subtext && (<p className="subtext">{`"${subtext}"`}</p>)}
@@ -57,6 +57,6 @@ const DeedContent = (props: Props) => {
     </div>
   );
 
-}
+};
 
 export default DeedContent;

@@ -1,16 +1,16 @@
-import { getDefinition } from "definitions/items";
-import { ItemType } from "definitions/items/types";
-import { TextManager } from "global/TextManager";
+import { getDefinition } from 'definitions/items';
+import { ItemType } from 'definitions/items/types';
+import { TextManager } from 'global/TextManager';
 import { useMemo } from 'react';
 import Icon from 'components/ui/common/Icon';
-import { useStockpileStateFlat } from "hooks/store/stockpile";
-import "./styles/itemsBox.scss";
+import { useStockpileStateFlat } from 'hooks/store/stockpile';
+import './styles/itemsBox.scss';
 
 export interface Props {
   className?: string;
   items: ItemType[];
 
-   // itemsInInventory?: Item[]; // Items that are in `items` array and also in inventory
+  // itemsInInventory?: Item[]; // Items that are in `items` array and also in inventory
 }
 
 
@@ -19,8 +19,8 @@ export interface Props {
  */
 const ItemsBox = (props: Props) => {
   const { items } = props;
-  const className = (props.className || "") + " items-box";
-  const aggregate = items.reduce<{[key: string]: number}>((acc, value) => {
+  const className = (props.className || '') + ' items-box';
+  const aggregate = items.reduce<{ [key: string]: number }>((acc, value) => {
     if (!acc[value]) {
       acc[value] = 0;
     }
@@ -49,12 +49,12 @@ const ItemsBox = (props: Props) => {
   const listItems = Object.keys(aggregate).map((key: string) => {
     const item = key as ItemType;
     const amount = aggregate[key] as number;
-    let listItemClass = "item";
+    let listItemClass = 'item';
 
     // Check if we have enough
     const amountInInventory = itemsInInventory ? itemsInInventory.filter((i) => i === item).length : 0;
     if (amount > amountInInventory) {
-      listItemClass += " missing";
+      listItemClass += ' missing';
     }
     const itemDescription = getDefinition(item);
     return (

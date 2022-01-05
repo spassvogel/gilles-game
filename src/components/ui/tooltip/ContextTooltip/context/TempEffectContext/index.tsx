@@ -20,7 +20,7 @@ const EffectContext = (props: Props) => {
       { /* show time remaining */ }
       { charges && (
         <div>
-          {TextManager.get(charges === 1 ? "ui-tooltip-effect-one-charge-remains" : "ui-tooltip-effect-n-charges-remain", { charges }) }
+          {TextManager.get(charges === 1 ? 'ui-tooltip-effect-one-charge-remains' : 'ui-tooltip-effect-n-charges-remain', { charges }) }
         </div>
       )}
       <hr />
@@ -28,6 +28,6 @@ const EffectContext = (props: Props) => {
         {TextManager.getTempEffectFlavor(effect)}
       </div>
     </div>
-  )
-}
+  );
+};
 export default EffectContext;

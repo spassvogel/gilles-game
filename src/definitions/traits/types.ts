@@ -4,11 +4,11 @@ export interface TraitDefinition {
 }
 
 export enum Trait {
-  arrowFinder = "arrowFinder",
-  gloomy = "gloomy",
-  lucky = "lucky",
-  houseHouston = "houseHouston",
-  houseMaddox = "houseMaddox",
-  houseMonroe = "houseMonroe",
+  arrowFinder = 'arrowFinder',
+  gloomy = 'gloomy',
+  lucky = 'lucky',
+  houseHouston = 'houseHouston',
+  houseMaddox = 'houseMaddox',
+  houseMonroe = 'houseMonroe',
 }
 

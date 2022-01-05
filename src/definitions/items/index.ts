@@ -1,14 +1,14 @@
-import ammunition, { Ammunition } from "./ammunition";
-import apparel, { Apparel, isApparel, getDefinition as getApparelDefinition, ApparelDefinition } from "./apparel";
-import deeds, { Deed } from "./deeds";
-import herbs, { Herb } from "./herbs";
-import materials, { Material } from "./materials";
-import minerals, { Mineral } from "./minerals";
-import consumables, { Consumable } from "./consumables";
-import questItems, { QuestItem } from "./questItems";
-import trinkets, { Trinket } from "./trinkets";
-import { ItemType, ItemDefinition, ItemCategory } from "./types";
-import weapons, { Weapon, WeaponDefinition, isWeapon, getDefinition as getWeaponDefinition  } from "./weapons";
+import ammunition, { Ammunition } from './ammunition';
+import apparel, { Apparel, isApparel, getDefinition as getApparelDefinition, ApparelDefinition } from './apparel';
+import deeds, { Deed } from './deeds';
+import herbs, { Herb } from './herbs';
+import materials, { Material } from './materials';
+import minerals, { Mineral } from './minerals';
+import consumables, { Consumable } from './consumables';
+import questItems, { QuestItem } from './questItems';
+import trinkets, { Trinket } from './trinkets';
+import { ItemType, ItemDefinition, ItemCategory } from './types';
+import weapons, { Weapon, WeaponDefinition, isWeapon, getDefinition as getWeaponDefinition  } from './weapons';
 
 const all = {
   ...ammunition,
@@ -26,8 +26,8 @@ const all = {
 export default all;
 
 export const getDefinition = (itemType: ItemType): ItemDefinition => {
-  return all[itemType]
-}
+  return all[itemType];
+};
 
 export const getWeaponOrApparelDefinition = (itemType: ItemType): WeaponDefinition | ApparelDefinition => {
   if (isApparel(itemType)) {
@@ -38,7 +38,7 @@ export const getWeaponOrApparelDefinition = (itemType: ItemType): WeaponDefiniti
   }
 
   throw new Error(`${itemType} is neither a weapon nor apparel`);
-}
+};
 
 export const getAllItemsByCategory = (category: ItemCategory): ItemType[] => {
   switch (category) {
@@ -63,8 +63,8 @@ export const getAllItemsByCategory = (category: ItemCategory): ItemType[] => {
     case ItemCategory.weapon:
       return Object.keys(weapons) as Weapon[];
   }
-}
+};
 
 export const canStackItem = (category: ItemCategory): boolean => {
   return category === ItemCategory.ammunition;
-}
+};

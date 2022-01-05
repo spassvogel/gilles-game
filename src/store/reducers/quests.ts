@@ -1,27 +1,29 @@
-import { Reducer } from "redux";
-import { QuestStatus, QuestStoreState } from "store/types/quest";
+import { Reducer } from 'redux';
+import { QuestStatus, QuestStoreState } from 'store/types/quest';
 import { Allegiance, isActorObject, isAdventurer, isEnemy, SceneActionType } from 'store/types/scene';
 import { QuestDefinition } from 'definitions/quests/types';
 import { getDefinition } from 'definitions/quests';
 import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars';
-import deepmerge from "deepmerge";
-import { Action } from "store/actions";
-import { calculateInitialAP, ENEMY_BASE_AP } from "mechanics/combat";
-import { xpToLevel } from "mechanics/adventurers/levels";
+import deepmerge from 'deepmerge';
+import { Action } from 'store/actions';
+import { calculateInitialAP, ENEMY_BASE_AP } from 'mechanics/combat';
+import { xpToLevel } from 'mechanics/adventurers/levels';
+
+const overwriteMerge = (_: [], sourceArray: []) => sourceArray;
 
 export const initialQuestState: QuestStoreState[] = [{
-  name: "kill10Boars",
+  name: 'kill10Boars',
   status: QuestStatus.active,
   party: [
-    "c4a5d270",
-    "2e655832",
-    "ec6f1050",
-    "d299f98a",
+    'c4a5d270',
+    '2e655832',
+    'ec6f1050',
+    'd299f98a',
   ],
   progress: 0,
   questVars: initialQuestVars,
   encounterResults: [],
-  icon: "sigil1.png",
+  icon: 'sigil1.png',
 // }, {
 //   name: "retrieveMagicAmulet",
 //   party: [],
@@ -41,10 +43,11 @@ export const initialQuestState: QuestStoreState[] = [{
  * @param state
  * @param action
  */
+// eslint-disable-next-line @typescript-eslint/default-param-last
 export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialQuestState, action: Action): QuestStoreState[] => {
   switch (action.type) {
     // Launches quest. Sets state to active, assigns adventurers
-    case "launchQuest": {
+    case 'launchQuest': {
       const party = action.assignedAventurers
         .filter((adventurer) => !!adventurer)
         .map((adventurer) => adventurer.id);
@@ -58,14 +61,14 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
             ...qss,
             status: QuestStatus.active,
             party,
-            questVars
+            questVars,
           };
         }
         return qss;
       });
     }
 
-    case "exitEncounter": {
+    case 'exitEncounter': {
       return state.map((qss) => {
         if (qss.name === action.questName) {
           const progress = qss.progress + 1;
@@ -76,7 +79,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
             ...qss,
             progress,
             scene: undefined,
-            sceneName: undefined
+            sceneName: undefined,
           };
         }
         return qss;
@@ -84,15 +87,12 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
     }
 
     // Updates the questvars
-    case "updateQuestVars": {
+    case 'updateQuestVars': {
       return state.map((qss) => {
         if (qss.name === action.questName) {
           return {
             ...qss,
-            // todo: sort this out
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            questVars: deepmerge(qss.questVars, action.vars, { arrayMerge: overwriteMerge })
+            questVars: deepmerge(qss.questVars as Partial<unknown>, action.vars as Partial<unknown>, { arrayMerge: overwriteMerge }),
           };
         }
         return qss;
@@ -107,26 +107,26 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
     // To change scene, set scene name. The scenecontroller will load the scene data and art assets
     // and call setScene reducer
-    case "setSceneName": {
+    case 'setSceneName': {
       return state.map((qss) => {
         if (qss.name === action.questName) {
           return {
             ...qss,
             sceneName: action.sceneName,
             sceneNamePrev: qss.sceneName,
-            scene: undefined
+            scene: undefined,
           };
         }
         return qss;
       });
     }
 
-    case "setScene": {
+    case 'setScene': {
       return state.map((qss) => {
         if (qss.name === action.questName) {
           return {
             ...qss,
-            scene: action.scene
+            scene: action.scene,
           };
         }
         return qss;
@@ -134,19 +134,19 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
     }
 
     // Enqueues a scene action on this quest
-    case "enqueueSceneAction": {
+    case 'enqueueSceneAction': {
       return state.map((qss) => {
         if (qss.name === action.questName) {
           const scene = qss.scene;
-          if (!scene) throw new Error("Something broke. No scene");
+          if (!scene) throw new Error('Something broke. No scene');
           scene.actionQueue = [
             ...scene.actionQueue ?? [],
-            action.sceneAction
+            action.sceneAction,
           ];
 
           return {
             ...qss,
-            scene
+            scene,
           };
         }
         return qss;
@@ -154,11 +154,11 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
     }
 
     // next action on scene is completed
-    case "completeSceneAction": {
+    case 'completeSceneAction': {
       return state.map((qss) => {
         if (qss.name === action.questName) {
           const scene = qss.scene;
-          if (!scene || !scene.actionQueue) throw new Error("Something broke. No scene");
+          if (!scene || !scene.actionQueue) throw new Error('Something broke. No scene');
           const sceneAction = scene.actionQueue[0];
           if (!sceneAction) return qss;
 
@@ -168,11 +168,11 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
                 if (isActorObject(a) && a.name === sceneAction.actorId) {
                   return {
                     ...a,
-                    location: sceneAction.target
+                    location: sceneAction.target,
                   };
                 }
                 return a;
-              })
+              });
             }
           }
 
@@ -181,14 +181,14 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
           return {
             ...qss,
-            scene
+            scene,
           };
         }
         return qss;
       });
     }
 
-    case "setCombat": {
+    case 'setCombat': {
       const { combat } = action;
       return state.map((qss) => {
         if (qss.name === action.questName && qss.scene) {
@@ -199,134 +199,134 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
           };
           return {
             ...qss,
-            scene
+            scene,
           };
         }
         return qss;
       });
     }
 
-    case "endPlayerTurn": {
+    case 'endPlayerTurn': {
       return state.map((qss) => {
         if (qss.name === action.questName) {
           const scene = qss.scene;
-          if (!scene) throw new Error("Something broke. No scene");
+          if (!scene) throw new Error('Something broke. No scene');
 
           scene.objects = scene.objects.map(o => {
             if (isActorObject(o)) {
               const ap = 0;
               return {
                 ...o,
-                ap
+                ap,
               };
             }
             return o;
-          })
+          });
 
           return {
             ...qss,
-            scene
+            scene,
           };
         }
         return qss;
       });
     }
 
-    case "startTurn": {
+    case 'startTurn': {
       // Starts a combat turn, either for Player or Enemy
       return state.map((qss) => {
         if (qss.name === action.questName) {
-          if (!qss.scene) throw new Error("Something broke. No scene");
+          if (!qss.scene) throw new Error('Something broke. No scene');
           const { turn } = action;
           const scene = qss.scene;
 
           if (turn === Allegiance.player) {
             scene.objects = scene.objects.map(o => {
               if (isAdventurer(o)) {
-                const adventurerInStore = action.adventurers?.find(a => a.id === o.name)
+                const adventurerInStore = action.adventurers?.find(a => a.id === o.name);
                 if (adventurerInStore){
                   const level = xpToLevel(adventurerInStore.xp);
                   const ap = calculateInitialAP(adventurerInStore.basicAttributes, level);
                   return {
                     ...o,
-                    ap
+                    ap,
                   };
                 }
                 return o;
               }
               return o;
-            })
+            });
           } else if (turn === Allegiance.enemy) {
             scene.objects = scene.objects.map(o => {
               if (isEnemy(o)) {
                 const ap = ENEMY_BASE_AP;
                 return {
                   ...o,
-                  ap
+                  ap,
                 };
               }
               return o;
-            })
+            });
           }
 
           return {
             ...qss,
             scene: {
               ...scene,
-              turn
-            }
+              turn,
+            },
           };
         }
         return qss;
       });
     }
 
-    case "setActorAp": {
+    case 'setActorAp': {
       return state.map((qss) => {
         if (qss.name === action.questName) {
           const scene = qss.scene;
-          if (!scene) throw new Error("Something broke. No scene");
+          if (!scene) throw new Error('Something broke. No scene');
 
           scene.objects = scene.objects.map(o => {
             if (isActorObject(o) && o.name === action.actor) {
               const ap = action.ap;
               return {
                 ...o,
-                ap
+                ap,
               };
             }
             return o;
-          })
+          });
 
           return {
             ...qss,
-            scene
+            scene,
           };
         }
         return qss;
       });
     }
 
-    case "deductActorAp": {
+    case 'deductActorAp': {
       return state.map((qss) => {
         if (qss.name === action.questName) {
           const scene = qss.scene;
-          if (!scene) throw new Error("Something broke. No scene");
+          if (!scene) throw new Error('Something broke. No scene');
 
           scene.objects = scene.objects.map(o => {
             if (isActorObject(o) && o.name === action.actor) {
               const ap = o.ap - action.ap;
               return {
                 ...o,
-                ap
+                ap,
               };
             }
             return o;
-          })
+          });
 
           return {
             ...qss,
-            scene
+            scene,
           };
         }
         return qss;
@@ -358,16 +358,16 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
     //   });
     // }
 
-    case "setActiveSceneInteractionModal": {
+    case 'setActiveSceneInteractionModal': {
       return state.map((qss: QuestStoreState) => {
         if (qss.name === action.questName && qss.scene) {
-          qss.scene.activeInteractionModal = action.sceneInteractionModal
+          qss.scene.activeInteractionModal = action.sceneInteractionModal;
         }
         return qss;
       });
     }
 
-    case "gameTick": {
+    case 'gameTick': {
       const questsToUpdate = action.quests;
       if (!questsToUpdate.length) {
         return state;
@@ -392,5 +392,4 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
   return state;
 };
 
-const overwriteMerge = (_: [], sourceArray: []) => sourceArray
 

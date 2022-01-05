@@ -1,5 +1,5 @@
-import { createSelector } from "reselect";
-import { StoreState } from "store/types";
+import { createSelector } from 'reselect';
+import { StoreState } from 'store/types';
 import { TasksStoreState } from 'store/types/tasks';
 import { Structure } from 'definitions/structures';
 
@@ -13,9 +13,9 @@ export const createSelectCraftingTasksByStructure = (structure: Structure) => {
   };
   return createSelector([
     getTasks],
-    craftingTasksByStructure,
+  craftingTasksByStructure,
   );
-}
+};
 
 /*
  * Returns a selector for the store that selects all study tasks running for given structure */
@@ -25,9 +25,9 @@ export const createSelectStudyingTasksByStructure = (structure: Structure) => {
   };
   return createSelector([
     getTasks],
-    studyingTasksByStructure,
+  studyingTasksByStructure,
   );
-}
+};
 
 /*
  * Returns a selector for the store that selects all upgrade tasks running for given structure
@@ -38,6 +38,6 @@ export const createSelectUpgradeTasksByStructure = (structure: Structure) => {
   };
   return createSelector([
     getTasks],
-    upgradeTasksByStructure,
+  upgradeTasksByStructure,
   );
-}
+};

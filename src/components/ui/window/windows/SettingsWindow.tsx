@@ -1,13 +1,13 @@
-import * as React from "react";
-import { compose } from "redux";
-import { useDispatch } from "react-redux";
+import * as React from 'react';
+import { compose } from 'redux';
+import { useDispatch } from 'react-redux';
 import { ChangeEvent } from 'react';
 import gsap from 'gsap';
 import { Channel, SoundManager } from 'global/SoundManager';
-import { withWindow } from "hoc/withWindow";
-import { setSetting } from "store/actions/settings";
-import { useSettings } from "hooks/store/settings";
-import "./styles/settings.scss";
+import { withWindow } from 'hoc/withWindow';
+import { setSetting } from 'store/actions/settings';
+import { useSettings } from 'hooks/store/settings';
+import './styles/settings.scss';
 
 const SettingsWindow = () => {
   const settings = useSettings();
@@ -28,10 +28,10 @@ const SettingsWindow = () => {
           value: 0,
           onComplete: () => {
             SoundManager.setChannelVolume(channel, 0);
-          }
+          },
         });
       }
-    }
+    };
 
     return (
       <p>
@@ -48,24 +48,24 @@ const SettingsWindow = () => {
           defaultValue={`${Math.sqrt(SoundManager.getChannelVolume(channel))}`}
         />
       </p>
-    )
-  }
+    );
+  };
 
   const handleVerboseCombatLogChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSetting("verboseCombatLog", e.currentTarget.checked));
-  }
+    dispatch(setSetting('verboseCombatLog', e.currentTarget.checked));
+  };
 
   const handleDebugAllowAdventurerEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSetting("debugAllowAdventurerEdit", e.currentTarget.checked));
-  }
+    dispatch(setSetting('debugAllowAdventurerEdit', e.currentTarget.checked));
+  };
 
   const handleDebugSceneShowPathableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSetting("debugSceneShowPathable", e.currentTarget.checked));
-  }
+    dispatch(setSetting('debugSceneShowPathable', e.currentTarget.checked));
+  };
 
   const handleDebugSceneShowDebugSceneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSetting("debugSceneShowActionQueue", e.currentTarget.checked));
-  }
+    dispatch(setSetting('debugSceneShowActionQueue', e.currentTarget.checked));
+  };
 
   return (
     <div className="settings-window">
@@ -126,7 +126,7 @@ const SettingsWindow = () => {
       </details>
     </div>
   );
-}
+};
 
 export default compose(
   withWindow,

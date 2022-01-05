@@ -1,14 +1,14 @@
 export type GoldAction = {
-    type: "addGold",
-    amount: number
-}
+  type: 'addGold',
+  amount: number
+};
 
 export const addGold = (amount: number): GoldAction => ({
-    type: "addGold",
-    amount,
-})
+  type: 'addGold',
+  amount,
+});
 
 export const subtractGold = (amount: number): GoldAction => ({
-    type: "addGold",
-    amount: -amount,
-})
+  type: 'addGold',
+  amount: -amount,
+});

@@ -1,9 +1,9 @@
-import * as React from "react";
-import { ConnectDropTarget, useDrop } from "react-dnd";
-import { DragType } from "constants/dragging";
+import * as React from 'react';
+import { ConnectDropTarget, useDrop } from 'react-dnd';
+import { DragType } from 'constants/dragging';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
-import { isConsumable } from "definitions/items/consumables";
-import "./styles/consumeitemslot.scss";
+import { isConsumable } from 'definitions/items/consumables';
+import './styles/consumeitemslot.scss';
 
 export interface Props {
   onDrop: (item: InventoryItemDragInfo) => void;
@@ -25,7 +25,7 @@ const ConsumeItemSlot = (props: React.PropsWithChildren<Props>) => {
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     // The type (or types) to accept - strings or symbols
     accept: DragType.ITEM,
-    canDrop: ({item}: InventoryItemDragInfo) => {
+    canDrop: ({ item }: InventoryItemDragInfo) => {
       // Can only drop consumables here
       return isConsumable(item.type);
     },
@@ -35,8 +35,8 @@ const ConsumeItemSlot = (props: React.PropsWithChildren<Props>) => {
     // Props to collect
     collect: (monitor) => ({
       isOver: monitor.isOver(),
-      canDrop: monitor.canDrop()
-    })
+      canDrop: monitor.canDrop(),
+    }),
     //  // The border is still green for some reason ??
     //  collect: (monitor: DropTargetMonitor<InventoryItemDragInfo>) => {
     //   const dragInfo = monitor.getItem();
@@ -48,12 +48,12 @@ const ConsumeItemSlot = (props: React.PropsWithChildren<Props>) => {
     //   canDrop
     //   }
     // }
-    }))
-  const className = ["consume-item-slot"]
+  }));
+  const className = ['consume-item-slot'];
   if (isOver) {
-    className.push("drop-active");
+    className.push('drop-active');
   } else if (canDrop) {
-    className.push("drop-possible");
+    className.push('drop-possible');
   }
   return (
     <div className={className.join(' ')} ref={drop}>

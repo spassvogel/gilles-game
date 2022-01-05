@@ -1,17 +1,17 @@
-import { AdventurerAction } from "store/actions/adventurers";
-import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
-import { Reducer } from "redux";
-import { AdventurerColor, AdventurerStoreState, AttributesStoreState } from "store/types/adventurer";
+import { AdventurerAction } from 'store/actions/adventurers';
+import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
+import { Reducer } from 'redux';
+import { AdventurerColor, AdventurerStoreState, AttributesStoreState } from 'store/types/adventurer';
 import { Trait } from 'definitions/traits/types';
 import { WeaponType } from 'definitions/items/weapons';
-import { levelToXp, MAX_XP } from "mechanics/adventurers/levels";
-import { Action } from "store/actions";
-import { getDefinition, isConsumable } from "definitions/items/consumables";
-import { Item } from "definitions/items/types";
-import { Effect } from "definitions/effects/types";
-import { calculateBaseHitpoints } from "mechanics/adventurers/hitpoints";
-import { TempEffectBrokenLegs, TempEffectBurning, TempEffectType } from "definitions/tempEffects/types";
-import { createTempEffect } from "definitions/tempEffects";
+import { levelToXp, MAX_XP } from 'mechanics/adventurers/levels';
+import { Action } from 'store/actions';
+import { getDefinition, isConsumable } from 'definitions/items/consumables';
+import { Item } from 'definitions/items/types';
+import { Effect } from 'definitions/effects/types';
+import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
+import { TempEffectBrokenLegs, TempEffectBurning, TempEffectType } from 'definitions/tempEffects/types';
+import { createTempEffect } from 'definitions/tempEffects';
 
 
 const generateRandomAttributes = (): AttributesStoreState => {
@@ -19,7 +19,7 @@ const generateRandomAttributes = (): AttributesStoreState => {
     str: Math.floor(Math.random() * 3) + 9,
     for: Math.floor(Math.random() * 3) + 9,
     int: Math.floor(Math.random() * 3) + 9,
-    agi: Math.floor(Math.random() * 3) + 9
+    agi: Math.floor(Math.random() * 3) + 9,
   };
 };
 const generateAttributesHealthAndXp = (level = 1) => {
@@ -30,28 +30,28 @@ const generateAttributesHealthAndXp = (level = 1) => {
     basicAttributes,
     xp,
     health,
-  }
-}
-const avatarImgBasePath = "/img/avatars/";
-const spritesheetBasePath = "img/scene/actors/";
+  };
+};
+const avatarImgBasePath = '/img/avatars/';
+const spritesheetBasePath = 'img/scene/actors/';
 
 // Create a bunch of guys for debugging
 export const initialAdventurers: AdventurerStoreState[] = [{
-  id: "c4a5d270",
+  id: 'c4a5d270',
   equipment: {
-    [EquipmentSlotType.head]: { type: "apparel/cowl", durability: 0.25 },
-    [EquipmentSlotType.chest]: { type: "apparel/chest", durability: 0.5 },
-    [EquipmentSlotType.hands]: { type: "apparel/clothGloves" },
-    [EquipmentSlotType.shoulders]: { type: "apparel/shoulders2" },
-    [EquipmentSlotType.legs]: { type: "apparel/pants2" },
-    [EquipmentSlotType.feet]: { type: "apparel/boots3" },
-    [EquipmentSlotType.mainHand]: { type: "weapon/longbow" },
-    [EquipmentSlotType.offHand]: { type: "ammunition/basicArrows", quantity: 200 }
+    [EquipmentSlotType.head]: { type: 'apparel/cowl', durability: 0.25 },
+    [EquipmentSlotType.chest]: { type: 'apparel/chest', durability: 0.5 },
+    [EquipmentSlotType.hands]: { type: 'apparel/clothGloves' },
+    [EquipmentSlotType.shoulders]: { type: 'apparel/shoulders2' },
+    [EquipmentSlotType.legs]: { type: 'apparel/pants2' },
+    [EquipmentSlotType.feet]: { type: 'apparel/boots3' },
+    [EquipmentSlotType.mainHand]: { type: 'weapon/longbow' },
+    [EquipmentSlotType.offHand]: { type: 'ammunition/basicArrows', quantity: 200 },
     // offHand: Item.indomitableCarapace
   },
   ...generateAttributesHealthAndXp(),
   room: 0,
-  name: "Sasha Falcon",
+  name: 'Sasha Falcon',
   flavor: true,
   traits: [Trait.houseMaddox, Trait.gloomy],
   avatarImg: `${avatarImgBasePath}female/f_14.png`,
@@ -59,19 +59,19 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   color: AdventurerColor.purple,
   skills: {
     [WeaponType.crossbow]: 10,
-    [WeaponType.bow]: 10
+    [WeaponType.bow]: 10,
   },
   tempEffects: [],
-  inventory: [ { type: "deed/lumbermill" }, null, { type: "weapon/simpleCrossbow" }, { type: "weapon/dagger" }, { type: "weapon/khopesh" }, null, { type: "weapon/steelSword" }, null,  { type: "consumable/lesserSoma" }, { type: "consumable/minorSoma" }, { type: "consumable/greaterManaPotion" },  { type: "consumable/majorHealthPotion" },  null,  { type: "weapon/steelShield" },  null,  null,  null,  null],
+  inventory: [ { type: 'deed/lumbermill' }, null, { type: 'weapon/simpleCrossbow' }, { type: 'weapon/dagger' }, { type: 'weapon/khopesh' }, null, { type: 'weapon/steelSword' }, null,  { type: 'consumable/lesserSoma' }, { type: 'consumable/minorSoma' }, { type: 'consumable/greaterManaPotion' },  { type: 'consumable/majorHealthPotion' },  null,  { type: 'weapon/steelShield' },  null,  null,  null,  null],
 }, {
-  id: "2e655832",
+  id: '2e655832',
   equipment: {
-    [EquipmentSlotType.feet]: { type: "apparel/boots2" },
-    [EquipmentSlotType.mainHand]: { type: "weapon/simpleCrossbow" },
-    [EquipmentSlotType.offHand]: { type: "ammunition/crossbowBolts", quantity: 150 }
+    [EquipmentSlotType.feet]: { type: 'apparel/boots2' },
+    [EquipmentSlotType.mainHand]: { type: 'weapon/simpleCrossbow' },
+    [EquipmentSlotType.offHand]: { type: 'ammunition/crossbowBolts', quantity: 150 },
   },
   ...generateAttributesHealthAndXp(),
-  name: "Addison Chilson",
+  name: 'Addison Chilson',
   flavor: true,
 
   room: 1,
@@ -81,15 +81,15 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   traits: [Trait.houseHouston],
   skills: {
     [WeaponType.crossbow]: 12,
-    [WeaponType.staff]: 13
+    [WeaponType.staff]: 13,
   },
   tempEffects: [],
-  inventory: [ { type: "weapon/simpleCrossbow" }, null, { type: "consumable/greaterSoma" }, null, null, null, { type: "apparel/boots1" }, { type: "apparel/chainmailHood"} , { type: "apparel/nomadHelmet" }, { type: "apparel/plateChest4" }, null, { type: "weapon/buckler" }, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, { type: "apparel/plateHelmet" }, { type: "apparel/cowl" }]
+  inventory: [ { type: 'weapon/simpleCrossbow' }, null, { type: 'consumable/greaterSoma' }, null, null, null, { type: 'apparel/boots1' }, { type: 'apparel/chainmailHood' }, { type: 'apparel/nomadHelmet' }, { type: 'apparel/plateChest4' }, null, { type: 'weapon/buckler' }, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, { type: 'apparel/plateHelmet' }, { type: 'apparel/cowl' }],
 }, {
-  id: "ec6f1050",
+  id: 'ec6f1050',
   equipment: {
-    [EquipmentSlotType.feet]: { type: "apparel/boots3" },
-    [EquipmentSlotType.mainHand]: { type: "weapon/warhammer" }
+    [EquipmentSlotType.feet]: { type: 'apparel/boots3' },
+    [EquipmentSlotType.mainHand]: { type: 'weapon/warhammer' },
     // offHand: Item.aegisOfValor
   },
   ...generateAttributesHealthAndXp(),
@@ -100,7 +100,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   traits: [Trait.gloomy],
   skills: {
     [WeaponType.sword]: 12,
-    [WeaponType.hammer]: 6
+    [WeaponType.hammer]: 6,
   },
   avatarImg: `${avatarImgBasePath}male/m_09.png`,
   spritesheetPath: `${spritesheetBasePath}skeleton.json`,
@@ -109,13 +109,13 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     createTempEffect<TempEffectBrokenLegs>({
       type: TempEffectType.brokenLegs,
       damage: 10,
-      charges: 10
+      charges: 10,
     }),
     createTempEffect<TempEffectBurning>({
       type: TempEffectType.burning,
       damage: 10,
-      interval: 500
-    })
+      interval: 500,
+    }),
   ],
   // tempEffects: [{
   //   type: EffectType.healthDecreaseOnMove,
@@ -128,14 +128,14 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   //   damage: 4,
   //   interval: 5000
   // }],
-  inventory: [{ type: "weapon/greatswordOfGwai" }, null, null, null, { type: "weapon/berserkerShield" }],
+  inventory: [{ type: 'weapon/greatswordOfGwai' }, null, null, null, { type: 'weapon/berserkerShield' }],
 }, {
-  id: "d299f98a",
+  id: 'd299f98a',
   ...generateAttributesHealthAndXp(),
   equipment: {
-    [EquipmentSlotType.mainHand]: { type: "weapon/steelSword" }
+    [EquipmentSlotType.mainHand]: { type: 'weapon/steelSword' },
   },
-  name: "Mike Keith",
+  name: 'Mike Keith',
   flavor: true,
 
   room: 4,
@@ -143,15 +143,15 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
   traits: [Trait.arrowFinder],
   skills: {
-    [WeaponType.sword]: 13
+    [WeaponType.sword]: 13,
   },
   tempEffects: [],
-  inventory: [ null, null, null, null, { type: "weapon/khopesh" }, { type: "apparel/hornedHelmet" }, { type: "weapon/woodenBulwark"} ],
+  inventory: [ null, null, null, null, { type: 'weapon/khopesh' }, { type: 'apparel/hornedHelmet' }, { type: 'weapon/woodenBulwark' } ],
 }, {
-  id: "96c686c3",
+  id: '96c686c3',
   equipment: {},
   ...generateAttributesHealthAndXp(),
-  name: "Wayne Monroe",
+  name: 'Wayne Monroe',
   flavor: true,
 
   room: 5,
@@ -159,14 +159,14 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   spritesheetPath: `${spritesheetBasePath}orc-axe.json`,
   traits: [Trait.houseMonroe, Trait.arrowFinder],
   skills: {
-    [WeaponType.axe]: 12
+    [WeaponType.axe]: 12,
   },
   tempEffects: [],
-  inventory: [ null, null, null, { type: "weapon/goldenShield" }],
+  inventory: [ null, null, null, { type: 'weapon/goldenShield' }],
 }, {
-  id: "250d1a9d",
+  id: '250d1a9d',
   ...generateAttributesHealthAndXp(),
-  name: "Alexis Ortiz ",
+  name: 'Alexis Ortiz ',
   flavor: true,
 
   room: 9,
@@ -174,94 +174,94 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
   inventory: [ null, null, null, null, null ],
   skills: {
-    [WeaponType.axe]: 10
+    [WeaponType.axe]: 10,
   },
   equipment: {
-    [EquipmentSlotType.mainHand]: { type: "weapon/longbow" },
-    [EquipmentSlotType.offHand]: { type: "ammunition/basicArrows", quantity: 50 }
+    [EquipmentSlotType.mainHand]: { type: 'weapon/longbow' },
+    [EquipmentSlotType.offHand]: { type: 'ammunition/basicArrows', quantity: 50 },
   },
-  tempEffects: []
+  tempEffects: [],
 }, {
-  id: "169384ef",
+  id: '169384ef',
   ...generateAttributesHealthAndXp(),
-  name: "Karlee Nolan",
+  name: 'Karlee Nolan',
   flavor: true,
 
   room: 3,
   avatarImg: `${avatarImgBasePath}female/f_16.png`,
   spritesheetPath: `${spritesheetBasePath}troll-sword.json`,
-  inventory: [ { type: "weapon/greatswordOfGwai" }, null, null, null ],
+  inventory: [ { type: 'weapon/greatswordOfGwai' }, null, null, null ],
   skills: {
-    [WeaponType.axe]: 10
+    [WeaponType.axe]: 10,
   },
   equipment: {
-    [EquipmentSlotType.mainHand]: { type: "weapon/simpleCrossbow" },
-    [EquipmentSlotType.offHand]: { type: "ammunition/crossbowBolts", quantity: 40 }
+    [EquipmentSlotType.mainHand]: { type: 'weapon/simpleCrossbow' },
+    [EquipmentSlotType.offHand]: { type: 'ammunition/crossbowBolts', quantity: 40 },
   },
-  tempEffects: []
+  tempEffects: [],
 }, {
-  id: "f22d66cb",
+  id: 'f22d66cb',
   ...generateAttributesHealthAndXp(),
   equipment: {},
-  name: "Gylbarde the Earnest",
+  name: 'Gylbarde the Earnest',
 
   room: 8,
   avatarImg: `${avatarImgBasePath}male/m_09.png`,
   spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
   inventory: [ null, null, null, null, null ],
   skills: {
-    [WeaponType.axe]: 13
+    [WeaponType.axe]: 13,
   },
-  tempEffects: []
+  tempEffects: [],
 }, {
-  id: "36c686c1",
+  id: '36c686c1',
   equipment: {},
   ...generateAttributesHealthAndXp(),
-  name: "Lanslet of the Water",
+  name: 'Lanslet of the Water',
 
   room: 6,
   avatarImg: `${avatarImgBasePath}male/m_26.png`,
   spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
-  inventory: [ { type: "weapon/greatswordOfGwai" }, null, null, null, { type: "apparel/shoulders1" }, { type: "apparel/fedora" }, { type: "apparel/greaves2" }],
+  inventory: [ { type: 'weapon/greatswordOfGwai' }, null, null, null, { type: 'apparel/shoulders1' }, { type: 'apparel/fedora' }, { type: 'apparel/greaves2' }],
   skills: {
-    [WeaponType.axe]: 3
+    [WeaponType.axe]: 3,
   },
-  tempEffects: []
+  tempEffects: [],
 }, {
-  id: "12c613d4",
+  id: '12c613d4',
   equipment: {},
   ...generateAttributesHealthAndXp(),
-  name: "Tedric the Bold",
+  name: 'Tedric the Bold',
 
   room: 7,
   avatarImg: `${avatarImgBasePath}male/m_33.png`,
   spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
-  inventory: [ { type: "weapon/greatswordOfGwai" }, null, null, null ],
+  inventory: [ { type: 'weapon/greatswordOfGwai' }, null, null, null ],
   skills: {
-    [WeaponType.axe]: 10
+    [WeaponType.axe]: 10,
   },
   tempEffects: [
     createTempEffect<TempEffectBrokenLegs>({
       type: TempEffectType.brokenLegs,
       damage: 8,
-      charges: 10
-    })
-  ]
+      charges: 10,
+    }),
+  ],
 }, {
-  id: "5a402ef1",
+  id: '5a402ef1',
   equipment: {
-    [EquipmentSlotType.head]: { type: "apparel/crimsonRogueCoif", durability: 0.25 },
-    [EquipmentSlotType.chest]: { type: "apparel/crimsonRogueTunic", durability: 0.5 },
-    [EquipmentSlotType.hands]: { type: "apparel/crimsonRogueGrips" },
-    [EquipmentSlotType.shoulders]: { type: "apparel/crimsonRogueSpaulders" },
-    [EquipmentSlotType.legs]: { type: "apparel/crimsonRogueBritches" },
-    [EquipmentSlotType.feet]: { type: "apparel/crimsonRogueBoots" },
-    [EquipmentSlotType.mainHand]: { type: "weapon/dagger" },
-    [EquipmentSlotType.offHand]: { type: "weapon/dagger" }
+    [EquipmentSlotType.head]: { type: 'apparel/crimsonRogueCoif', durability: 0.25 },
+    [EquipmentSlotType.chest]: { type: 'apparel/crimsonRogueTunic', durability: 0.5 },
+    [EquipmentSlotType.hands]: { type: 'apparel/crimsonRogueGrips' },
+    [EquipmentSlotType.shoulders]: { type: 'apparel/crimsonRogueSpaulders' },
+    [EquipmentSlotType.legs]: { type: 'apparel/crimsonRogueBritches' },
+    [EquipmentSlotType.feet]: { type: 'apparel/crimsonRogueBoots' },
+    [EquipmentSlotType.mainHand]: { type: 'weapon/dagger' },
+    [EquipmentSlotType.offHand]: { type: 'weapon/dagger' },
   },
   ...generateAttributesHealthAndXp(),
   room: 11,
-  name: "Allynna Nerilar",
+  name: 'Allynna Nerilar',
   flavor: true,
   traits: [Trait.houseMaddox, Trait.gloomy],
   avatarImg: `${avatarImgBasePath}female/f_21.png`,
@@ -269,19 +269,20 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   color: AdventurerColor.purple,
   skills: {
     [WeaponType.knife]: 15,
-    [WeaponType.bow]: 11
+    [WeaponType.bow]: 11,
   },
   tempEffects: [],
-  inventory: [ { type: "deed/lumbermill" }, null, { type: "weapon/simpleCrossbow" }, { type: "weapon/dagger" }, { type: "weapon/khopesh" }, null, { type: "weapon/steelSword" }, null,  { type: "consumable/lesserSoma" }, { type: "consumable/minorSoma" }, { type: "consumable/greaterManaPotion" },  { type: "consumable/majorHealthPotion" },  null,  { type: "weapon/steelShield" },  null,  null,  null,  null],
+  inventory: [ { type: 'deed/lumbermill' }, null, { type: 'weapon/simpleCrossbow' }, { type: 'weapon/dagger' }, { type: 'weapon/khopesh' }, null, { type: 'weapon/steelSword' }, null,  { type: 'consumable/lesserSoma' }, { type: 'consumable/minorSoma' }, { type: 'consumable/greaterManaPotion' },  { type: 'consumable/majorHealthPotion' },  null,  { type: 'weapon/steelShield' },  null,  null,  null,  null],
 }];
 
-// TODO: To generate a random 11 digit number, use: Math.random().toString(36).substring(2)
+// To generate a random 11 digit number, use: Math.random().toString(36).substring(2)
 
+// eslint-disable-next-line @typescript-eslint/default-param-last
 export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (state: AdventurerStoreState[] = initialAdventurers, action: Action) => {
 
   switch (action.type) {
     // Changes adventurers health
-    case "modifyHealth": {
+    case 'modifyHealth': {
       return state.map((adventurer: AdventurerStoreState) => {
         if (adventurer.id === action.adventurerId) {
           const health = adventurer.health += action.amount;
@@ -295,28 +296,28 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
     }
 
     // Moves an item from one inventory slot to another
-    case "consumeItem": {
+    case 'consumeItem': {
       const { adventurerId, fromSlot } = action;
       const adventurer = state.find((a) => a.id === adventurerId);
       if (!adventurer) {
-        throw new Error(`No adventurer ${adventurerId} found`)
+        throw new Error(`No adventurer ${adventurerId} found`);
       }
       let { health } = adventurer;
       const consumable = adventurer.inventory[fromSlot];
       if (!consumable || !isConsumable(consumable.type)) {
-        throw new Error(`No potion found at index ${fromSlot} `)
+        throw new Error(`No potion found at index ${fromSlot} `);
       }
       const definition = getDefinition(consumable.type);
       // todo: 2021-09-02 Drink potions
       switch (definition.category) {
-        case "health":
+        case 'health':
           health = Math.min((definition.effect ?? 0) + health, 100);
           break;
-        case "soma":
+        case 'soma':
           // handled by effects middleware
           console.log(`${adventurer.name} drinks a soma potion`);
           break;
-        case "mana":
+        case 'mana':
           console.log(`${adventurer.name} drinks a mana potion`);
           break;
       }
@@ -335,11 +336,11 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       });
     }
     // Moves an  item from one inventory slot to another
-    case "moveItemInInventory": {
+    case 'moveItemInInventory': {
       const { adventurerId, fromSlot, toSlot } = action;
       const adventurer = state.find((a) => a.id === adventurerId);
       if (!adventurer) {
-        throw new Error(`No adventurer ${adventurerId} found`)
+        throw new Error(`No adventurer ${adventurerId} found`);
       }
       const inventory = adventurer.inventory.map((element, index) => {
         if (index === fromSlot) { return adventurer.inventory[toSlot]; }
@@ -358,11 +359,11 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       });
     }
 
-    case "moveItemToOtherAdventurer": {
+    case 'moveItemToOtherAdventurer': {
       // Moves an item from one adventurer to another
       const { adventurerId: fromAdventurerId, fromSlot, toAdventurerId } = action;
       const fromAdventurer = state.find((a) => a.id === fromAdventurerId);
-      if (!fromAdventurer) return state
+      if (!fromAdventurer) return state;
       const item = fromAdventurer.inventory[fromSlot];
 
       return state.map((element: AdventurerStoreState) => {
@@ -389,7 +390,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       });
     }
 
-    case "addItemToInventory": {
+    case 'addItemToInventory': {
       const { item } = action;
       let { toSlot } = action;
 
@@ -410,7 +411,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       });
     }
 
-    case "removeItemFromInventory": {
+    case 'removeItemFromInventory': {
       const { fromSlot } = action;
 
       return state.map((adventurer: AdventurerStoreState) => {
@@ -426,7 +427,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
     }
 
 
-    case "changeItemQuantity": {
+    case 'changeItemQuantity': {
       // Change quantity of an item in invntory
       const { slot, quantity } = action;
 
@@ -434,7 +435,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
         if (adventurer.id === action.adventurerId) {
           const inventory = adventurer.inventory.map((item, index) => index !== slot ? item : ({
             ...item,
-            quantity
+            quantity,
           }) as Item);
           return {
             ...adventurer,
@@ -445,9 +446,9 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       });
     }
 
-    case "assignEquipment": {
+    case 'assignEquipment': {
       // Assigns equipment to an adventurer
-      const { equipmentSlot, item, } = action;
+      const { equipmentSlot, item } = action;
       return state.map((adventurer: AdventurerStoreState) => {
         if (adventurer.id === action.adventurerId) {
           return {
@@ -462,7 +463,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       });
     }
 
-    case "removeEquipment": {
+    case 'removeEquipment': {
       // Assigns equipment to an adventurer
       const { equipmentSlot } = action;
 
@@ -480,7 +481,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       });
     }
 
-    case "changeEquipmentQuantity": {
+    case 'changeEquipmentQuantity': {
       // Change quantity of an item equipped
       const { equipmentSlot, quantity } = action;
 
@@ -492,7 +493,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
               ...adventurer.equipment,
               [equipmentSlot]: {
                 ...adventurer.equipment[equipmentSlot],
-                quantity
+                quantity,
               },
             },
           };
@@ -501,7 +502,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       });
     }
 
-    case "addTempEffect": {
+    case 'addTempEffect': {
       // adds an effect
       return state.map((adventurer: AdventurerStoreState) => {
         if (adventurer.id === action.adventurerId) {
@@ -510,14 +511,14 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
             tempEffects: [
               action.tempEffect,
               ...adventurer.tempEffects,
-            ]
+            ],
           };
         }
         return adventurer;
       });
     }
 
-    case "decreaseEffectCharge": {
+    case 'decreaseEffectCharge': {
       // decreases charges of given effect by 1
       return state.map((adventurer: AdventurerStoreState) => {
         if (adventurer.id === action.adventurerId) {
@@ -535,55 +536,54 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
                       charges,
                     });
                   }
-                }
-                else {
+                } else {
                   acc.push(value);
                 }
                 return acc;
-              }, [])
-            }))
-          }
+              }, []),
+            })),
+          };
         }
         return adventurer;
       });
     }
 
-    case "renameAdventurer": {
+    case 'renameAdventurer': {
       // Rename adventurer
       const { name } = action;
       return state.map((adventurer: AdventurerStoreState) => {
         if (adventurer.id === action.adventurerId) {
           return {
             ...adventurer,
-            name
+            name,
           };
         }
         return adventurer;
       });
     }
 
-    case "setBasicAttributes": {
+    case 'setBasicAttributes': {
       // Used for debugging only, update BA of an adventurer
       const { basicAttributes } = action;
       return state.map((adventurer: AdventurerStoreState) => {
         if (adventurer.id === action.adventurerId) {
           return {
             ...adventurer,
-            basicAttributes
+            basicAttributes,
           };
         }
         return adventurer;
       });
     }
 
-    case "addXp": {
+    case 'addXp': {
       // Adds xp
       const { xp } = action;
       return state.map((adventurer: AdventurerStoreState) => {
         if (adventurer.id === action.adventurerId) {
           return {
             ...adventurer,
-            xp: Math.min(adventurer.xp + xp, MAX_XP)
+            xp: Math.min(adventurer.xp + xp, MAX_XP),
           };
         }
         return adventurer;
@@ -591,7 +591,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
     }
 
   }
-  return state
+  return state;
   // debug: this will auto-increase the levels of every adventurer at every tick
   // return state.map((adventurer: AdventurerStoreState) => {
   //   return {

@@ -1,9 +1,19 @@
-import { Reducer } from "redux";
-import { ResourceStoreState } from "store/types/resources";
-import { Resource } from "definitions/resources";
-import { ResourcesAction } from "store/actions/resources";
-import { GameAction } from "store/actions/game";
+import { Reducer } from 'redux';
+import { ResourceStoreState } from 'store/types/resources';
+import { Resource } from 'definitions/resources';
+import { ResourcesAction } from 'store/actions/resources';
+import { GameAction } from 'store/actions/game';
 
+export const initialResourcesState: ResourceStoreState = {
+  fabric: 0,
+  food: 0,
+  iron: 10,
+  leather: 0,
+  stone: 0,
+  wood: 10,
+};
+
+// eslint-disable-next-line @typescript-eslint/default-param-last
 export const resources: Reducer<ResourceStoreState, ResourcesAction | GameAction> = (state = initialResourcesState, action) => {
 
   const addResources = (resourcesToAdd: ResourceStoreState) => {
@@ -16,11 +26,11 @@ export const resources: Reducer<ResourceStoreState, ResourcesAction | GameAction
   };
 
   switch (action.type) {
-    case "addResources": {
+    case 'addResources': {
       const resourcesToAdd = action.resources;
       return addResources(resourcesToAdd);
     }
-    case "removeResources": {
+    case 'removeResources': {
       const resourcesToRemove = action.resources;
       return Object.keys(state).reduce<ResourceStoreState>((acc, value) => {
         const resource = value as Resource;
@@ -29,7 +39,7 @@ export const resources: Reducer<ResourceStoreState, ResourcesAction | GameAction
       }, {});
     }
 
-    case "gameTick": {
+    case 'gameTick': {
       const resourcesToAdd = action.resources;
       if (resourcesToAdd === null) {
         return state;
@@ -40,11 +50,3 @@ export const resources: Reducer<ResourceStoreState, ResourcesAction | GameAction
   return state;
 };
 
-export const initialResourcesState: ResourceStoreState = {
-  fabric: 0,
-  food: 0,
-  iron: 10,
-  leather: 0,
-  stone: 0,
-  wood: 10,
-};

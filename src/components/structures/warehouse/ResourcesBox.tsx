@@ -1,10 +1,10 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { Resource } from "definitions/resources";
-import resourceDescriptions from "definitions/resources";
-import { ResourceStoreState } from "store/types/resources";
-import { TextManager } from "global/TextManager";
-import ReactMarkdown from "react-markdown";
+import { Resource } from 'definitions/resources';
+import resourceDescriptions from 'definitions/resources';
+import { ResourceStoreState } from 'store/types/resources';
+import { TextManager } from 'global/TextManager';
+import ReactMarkdown from 'react-markdown';
 import { StructuresStoreState } from 'store/types/structures';
 import { getStructureByResource } from 'definitions/structures';
 import { withAppContext, AppContextProps } from 'hoc/withAppContext';
@@ -12,9 +12,9 @@ import { StoreState } from 'store/types';
 import { StructureState } from 'store/types/structure';
 import { formatNumber } from 'utils/format/number';
 import Icon from '../../ui/common/Icon';
-import { BubbleLayer, BubbleManager, BubbleType } from "global/BubbleManager";
-import { Point } from "pixi.js";
-import "./styles/resourcesBox.scss";
+import { BubbleLayer, BubbleManager, BubbleType } from 'global/BubbleManager';
+import { Point } from 'pixi.js';
+import './styles/resourcesBox.scss';
 
 export interface Props {
   className?: string;
@@ -33,7 +33,7 @@ const ResourcesBox = (props: Props & AppContextProps) => {
     deltaResources,
   } = props;
   const structures = useSelector<StoreState, StructuresStoreState>(store => store.structures);
-  const className = `resources-box ${(props.className || "")}`;
+  const className = `resources-box ${(props.className || '')}`;
   const ref = useRef<HTMLDivElement>(null);
 
   return (
@@ -51,7 +51,7 @@ const ResourcesBox = (props: Props & AppContextProps) => {
             // Show bubble
             const el = ref.current?.querySelector(`[data-resource="${resource}"] .amount`);
             const rect = el?.getBoundingClientRect();
-            const point = new Point(rect?.right, rect?.top)
+            const point = new Point(rect?.right, rect?.top);
 
             BubbleManager.addBubble(`+ ${deltaResources[resource]?.toFixed(2)}`, point, BubbleType.resource, BubbleLayer.general);
           }
@@ -65,7 +65,7 @@ const ResourcesBox = (props: Props & AppContextProps) => {
               <div className="name">
                 { TextManager.getResourceName(resource as Resource) }
               </div>
-              <div className={`amount${full ? " full" : ""}`}  >
+              <div className={`amount${full ? ' full' : ''}`}  >
                 { formatNumber(amount, 0) }
               </div>
               <div className="max" >
@@ -73,18 +73,18 @@ const ResourcesBox = (props: Props & AppContextProps) => {
               </div>
               <div className="structure">
                 {structures[structure].state === StructureState.Built ? (
-                  <ReactMarkdown>{TextManager.get("ui-structure-warehouse-resources-source", { structure })}</ReactMarkdown>
-                  ) : (
+                  <ReactMarkdown>{TextManager.get('ui-structure-warehouse-resources-source', { structure })}</ReactMarkdown>
+                ) : (
                   <>
-                    <ReactMarkdown>{TextManager.get("ui-structure-warehouse-resources-source-link", { structure })}</ReactMarkdown>
+                    <ReactMarkdown>{TextManager.get('ui-structure-warehouse-resources-source-link', { structure })}</ReactMarkdown>
                     <span className="unbuilt">
-                      {TextManager.get("ui-structure-warehouse-resources-source-unbuilt")}
+                      {TextManager.get('ui-structure-warehouse-resources-source-unbuilt')}
                     </span>
                   </>
                 )}
               </div>
             </div>
-          )
+          );
         })
       }
     </div>

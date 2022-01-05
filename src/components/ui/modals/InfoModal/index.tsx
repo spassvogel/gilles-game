@@ -11,8 +11,8 @@ export const InfoModal = (props: PropsWithChildren<Props>) => {
   const { className, children } = props;
 
   return (
-    <InfoWindow className={`info-modal ${className || ""}`}>
+    <InfoWindow className={`info-modal ${className || ''}`}>
       {children}
     </InfoWindow>
-  )
-}
+  );
+};

@@ -1,4 +1,4 @@
-import { ItemType } from "definitions/items/types";
+import { ItemType } from 'definitions/items/types';
 import { SceneStoreState } from './scene';
 
 export enum QuestStatus {

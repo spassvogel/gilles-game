@@ -1,5 +1,5 @@
-import { TempEffect, TempEffectType } from "definitions/tempEffects/types";
-import { TextManager } from "global/TextManager";
+import { TempEffect, TempEffectType } from 'definitions/tempEffects/types';
+import { TextManager } from 'global/TextManager';
 
 
 const getTempEffectDescription = (effect: TempEffect) => {
@@ -13,10 +13,10 @@ const getTempEffectDescription = (effect: TempEffect) => {
     case TempEffectType.brokenLegs:
       return TextManager.getTempEffectDescription(effect);
 
-      case TempEffectType.soma: {
+    case TempEffectType.soma: {
       const percentage = (effect.factor * 100 - 100).toFixed( );
       return TextManager.getTempEffectDescription(effect, { percentage });
     }
   }
-}
+};
 export default getTempEffectDescription;

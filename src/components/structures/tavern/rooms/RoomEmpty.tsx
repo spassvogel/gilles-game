@@ -5,11 +5,11 @@ export interface Props {
 }
 
 const RoomEmpty = () => {
-    return (
+  return (
         <div className="room">
             (empty room)
         </div>
-    );
-}
+  );
+};
 
 export default RoomEmpty;

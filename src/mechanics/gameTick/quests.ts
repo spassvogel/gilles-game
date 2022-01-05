@@ -1,11 +1,11 @@
-import { TextEntry } from "constants/text";
-import { getDefinition } from "definitions/quests";
+import { TextEntry } from 'constants/text';
+import { getDefinition } from 'definitions/quests';
 import { QuestDefinition, QuestNodeType } from 'definitions/quests/types';
 
-import { Store } from "redux";
-import { StoreState } from "store/types";
-import { LogChannel } from "store/types/logEntry";
-import { QuestStatus, QuestStoreState } from "store/types/quest";
+import { Store } from 'redux';
+import { StoreState } from 'store/types';
+import { LogChannel } from 'store/types/logEntry';
+import { QuestStatus, QuestStoreState } from 'store/types/quest';
 import { ToastManager } from 'global/ToastManager';
 import { TextManager } from 'global/TextManager';
 import { Type } from 'components/ui/toasts/Toast';
@@ -47,7 +47,7 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
     const questTitle = TextManager.getQuestTitle(quest.name);
     const leader = getQuestLeader(state.adventurers, quest);
     ToastManager.addToast(questTitle, Type.questEncounter, leader?.avatarImg, getQuestLink(quest.name));
-  }
+  };
 
   // Moves the quest line progress. Only if currently at a 'nothing' node
   // Otherwise the player has to do something to move the quest along
@@ -63,7 +63,7 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
     if (currentNode.type === QuestNodeType.encounter) {
       if (quest.sceneName === undefined) {
         // This happens when the first node is an encounter. Initialize it right away
-        initializeScene(quest, currentNode.startScene)
+        initializeScene(quest, currentNode.startScene);
       }
     }
     if (currentNode.type === QuestNodeType.nothing) {

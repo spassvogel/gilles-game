@@ -1,15 +1,15 @@
-import { ItemType } from "definitions/items/types";
-import { getDefinition } from "definitions/quests";
-import { AdventurerStoreState } from "store/types/adventurer";
-import { QuestStoreState } from "store/types/quest";
-import { TextManager } from "global/TextManager";
-import AssignAdventurers from "./AssignAdventurers";
+import { ItemType } from 'definitions/items/types';
+import { getDefinition } from 'definitions/quests';
+import { AdventurerStoreState } from 'store/types/adventurer';
+import { QuestStoreState } from 'store/types/quest';
+import { TextManager } from 'global/TextManager';
+import AssignAdventurers from './AssignAdventurers';
 import { QuestDefinition } from 'definitions/quests/types';
 import Button from 'components/ui/buttons/Button';
 import ItemsBox from 'components/ui/items/ItemsBox';
 import { AdventurerAvatarDragInfo } from 'components/ui/adventurer/DraggableAdventurerAvatar';
-import { useStockpileStateFlat } from "hooks/store/stockpile";
-import "./styles/questboard.scss";
+import { useStockpileStateFlat } from 'hooks/store/stockpile';
+import './styles/questboard.scss';
 
 export const AVAILABLE_SLOTS = 5;
 const minimumCountAdventurers = 3;  // we need this many adventurers to start the quest
@@ -29,6 +29,20 @@ export interface Props {
 const QuestBoard = (props: Props) => {
 
   const items = useStockpileStateFlat();
+
+  /**
+   * Returns true if all the items required by the quest are in the inventory
+   */
+  const checkEnoughItems = (questDefinition: QuestDefinition): boolean => {
+    if (!questDefinition.requiredItems) {
+      return true;
+    }
+    return questDefinition.requiredItems.every((item: ItemType) => {
+      const amountRequired = (questDefinition.requiredItems)?.filter((i) => i === item).length;
+      return items.filter((i) => i === item).length >= (amountRequired ?? 0);
+    });
+  };
+
   const getQuestDetails = () => {
     if (!props.selectedQuestName) {
       return null;
@@ -36,7 +50,7 @@ const QuestBoard = (props: Props) => {
     const quest = props.availableQuests.find((q) => q.name === props.selectedQuestName);
     if (!quest) {
       return (
-        <div> { TextManager.get("ui-structure-tavern-quest-launched") } </div>
+        <div> { TextManager.get('ui-structure-tavern-quest-launched') } </div>
       );
     }
     const questDefinition = getDefinition(quest.name);
@@ -59,34 +73,21 @@ const QuestBoard = (props: Props) => {
         />
         <ItemsBox items={ questDefinition.requiredItems || [] }/>
         <Button disabled={!canLaunch} onClick = { () => props.onLaunchQuest() }>
-          {TextManager.get("ui-structure-tavern-button-launch-quest")}
+          {TextManager.get('ui-structure-tavern-button-launch-quest')}
         </Button>
       </div>
     );
   };
 
-  /**
-   * Returns true if all the items required by the quest are in the inventory
-   */
-  const checkEnoughItems = (questDefinition: QuestDefinition): boolean => {
-    if (!questDefinition.requiredItems) {
-      return true;
-    }
-    return questDefinition.requiredItems.every((item: ItemType) => {
-      const amountRequired = (questDefinition.requiredItems)?.filter((i) => i === item).length;
-      return items.filter((i) => i === item).length >= (amountRequired ?? 0);
-    });
-  }
-
   // quest board, expanded quest info + assign adventurers + launch button
   return (
     <div className="quest-board">
       <h2>
-        {TextManager.get("ui-structure-tavern-title-quest-board")}
+        {TextManager.get('ui-structure-tavern-title-quest-board')}
       </h2>
       <ul className="quest-list">
         {props.availableQuests.map((q) => {
-          const className = `quest ${(q.name === props.selectedQuestName) ? " selected" : ""}`;
+          const className = `quest ${(q.name === props.selectedQuestName) ? ' selected' : ''}`;
           return (
             <li key={q.name}
               className={className}
@@ -94,7 +95,7 @@ const QuestBoard = (props: Props) => {
             >
               <div
                 className="icon"
-                style={{backgroundImage: `url(${process.env.PUBLIC_URL})`}}
+                style={{ backgroundImage: `url(${process.env.PUBLIC_URL})` }}
               />
               <div className="title">{TextManager.getQuestTitle(q.name) } </div>
             </li>
@@ -104,6 +105,6 @@ const QuestBoard = (props: Props) => {
       { getQuestDetails() }
     </div>
   );
-}
+};
 
 export default QuestBoard;

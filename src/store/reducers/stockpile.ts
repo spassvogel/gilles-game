@@ -1,35 +1,41 @@
 
-import { StockpileAction } from "store/actions/stockpile";
-import { Reducer } from "redux";
-import { ItemType, ItemCategory, Item } from "definitions/items/types";
-import allItems, { canStackItem, getAllItemsByCategory } from "definitions/items";
-import { StockpileStoreState } from "store/types/stockpile";
-import { getDefinition } from "definitions/structures";
-import { getDefinition as getItemDefinition } from "definitions/items";
-import { WarehouseStructureDefinition } from "definitions/structures/types";
+import { StockpileAction } from 'store/actions/stockpile';
+import { Reducer } from 'redux';
+import { ItemType, ItemCategory, Item } from 'definitions/items/types';
+import allItems, { canStackItem, getAllItemsByCategory } from 'definitions/items';
+import { StockpileStoreState } from 'store/types/stockpile';
+import { getDefinition } from 'definitions/structures';
+import { getDefinition as getItemDefinition } from 'definitions/items';
+import { WarehouseStructureDefinition } from 'definitions/structures/types';
+
+const getRandomItemTypeByCategory = (itemCategory: ItemCategory): ItemType => {
+  const all = getAllItemsByCategory(itemCategory);
+  const randomIndex = Math.floor(Math.random() * all.length);
+  return all[randomIndex] as ItemType;
+};
 
 // Items in warehouse
 export const getInitialStockpile = (): StockpileStoreState => {
   // Generate some random stuff
   const result: StockpileStoreState = {
-    "ammunition": [],
-    "apparel": [],
-    "deed": [],
-    "herb": [],
-    "material": [],
-    "mineral": [],
-    "consumable": [],
-    "questItem": [],
-    "trinket": [],
-    "weapon": [],
+    'ammunition': [],
+    'apparel': [],
+    'deed': [],
+    'herb': [],
+    'material': [],
+    'mineral': [],
+    'consumable': [],
+    'questItem': [],
+    'trinket': [],
+    'weapon': [],
   };
 
-  const { maxStockpile } = getDefinition<WarehouseStructureDefinition>("warehouse").levels[0];
+  const { maxStockpile } = getDefinition<WarehouseStructureDefinition>('warehouse').levels[0];
   Object.keys(result).forEach((itemCategoryName: string) => {
     const itemCategory = ItemCategory[itemCategoryName as keyof typeof ItemCategory];
     for (let i = 0; i < maxStockpile; i++) {
       if (Math.random() < .5) {
-        result[itemCategoryName as keyof typeof result].push(null)
+        result[itemCategoryName as keyof typeof result].push(null);
       } else {
         const randomItem: Item = { type: getRandomItemTypeByCategory(itemCategory) };
         if (canStackItem(itemCategory)){
@@ -39,36 +45,33 @@ export const getInitialStockpile = (): StockpileStoreState => {
         category.push(randomItem);
       }
     }
-  })
+  });
   return result;
-}
+};
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getRandomItem = (): ItemType => {
-  const all = Object.keys(allItems)
+  const all = Object.keys(allItems);
   const randomIndex = Math.floor(Math.random() * all.length);
   return all[randomIndex] as ItemType;
-}
+};
 
-const getRandomItemTypeByCategory = (itemCategory: ItemCategory): ItemType => {
-  const all = getAllItemsByCategory(itemCategory)
-  const randomIndex = Math.floor(Math.random() * all.length);
-  return all[randomIndex] as ItemType;
-}
+
 
 /**
  * reducer
  * @param state
  * @param action
  */
+// eslint-disable-next-line @typescript-eslint/default-param-last
 export const stockpile: Reducer<StockpileStoreState, StockpileAction> = (state = getInitialStockpile(), action) => {
   switch (action.type) {
-    case "addItem": {
-      const definition = getItemDefinition(action.item.type)
+    case 'addItem': {
+      const definition = getItemDefinition(action.item.type);
       // toSlot is optional
       const { item } = action;
       let { toSlot } = (action);
-      const stockpileCategory = ItemCategory[definition.itemCategory] as keyof StockpileStoreState
+      const stockpileCategory = ItemCategory[definition.itemCategory] as keyof StockpileStoreState;
 
       if (toSlot === undefined) {
         toSlot = state[stockpileCategory].findIndex((slot) => slot === null);  // find first empty element
@@ -79,24 +82,24 @@ export const stockpile: Reducer<StockpileStoreState, StockpileAction> = (state =
             ...state,
             [stockpileCategory]: [
               ...state[stockpileCategory],
-              item
-            ]
+              item,
+            ],
           };
         }
       }
       return {
         ...state,
-        [stockpileCategory]: state[stockpileCategory].map((element, index) => index === toSlot ? item : element)
+        [stockpileCategory]: state[stockpileCategory].map((element, index) => index === toSlot ? item : element),
       };
     }
 
-    case "moveItemInWarehouse": {
+    case 'moveItemInWarehouse': {
       const {
         itemCategory,
         fromSlot,
         toSlot,
       } = action;
-      const stockpileCategory = ItemCategory[itemCategory] as keyof StockpileStoreState
+      const stockpileCategory = ItemCategory[itemCategory] as keyof StockpileStoreState;
 
       return {
         ...state,
@@ -104,16 +107,16 @@ export const stockpile: Reducer<StockpileStoreState, StockpileAction> = (state =
           if (index === fromSlot) { return state[stockpileCategory][toSlot]; }
           if (index === toSlot) { return state[stockpileCategory][fromSlot]; }
           return element;
-        })
+        }),
       };
     }
-    case "removeItem": {
+    case 'removeItem': {
       const { itemCategory, fromSlot } = action;
-      const stockpileCategory = ItemCategory[itemCategory] as keyof StockpileStoreState
+      const stockpileCategory = ItemCategory[itemCategory] as keyof StockpileStoreState;
 
-        return {
+      return {
         ...state,
-        [stockpileCategory]: state[stockpileCategory].map((element, index) => index !== fromSlot ? element : null)
+        [stockpileCategory]: state[stockpileCategory].map((element, index) => index !== fromSlot ? element : null),
       };
     }
 

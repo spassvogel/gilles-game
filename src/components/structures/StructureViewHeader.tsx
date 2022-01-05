@@ -1,5 +1,5 @@
 import { Structure } from 'definitions/structures';
-import "./styles/structureViewHeader.scss";
+import './styles/structureViewHeader.scss';
 
 interface Props {
   structure: Structure;
@@ -12,6 +12,6 @@ const StructureViewHeader = (props: Props) => {
       {/* <h1 className="app-h1-white">{displayName}</h1> */}
     </div>
   );
-}
+};
 
 export default StructureViewHeader;

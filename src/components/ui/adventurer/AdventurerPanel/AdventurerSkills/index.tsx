@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 import { useAdventurerState } from 'hooks/store/adventurers';
 import { TextManager } from 'global/TextManager';
 import { ContextType } from 'constants/context';
@@ -33,7 +33,7 @@ const AdventurerSkills = (props: Props) => {
           {/* {TextManager.getTraitName(trait)} */}
         </li>
       </Fragment>
-    )
+    );
   };
 
   if (!adventurer?.skills) {
@@ -41,7 +41,7 @@ const AdventurerSkills = (props: Props) => {
   }
   return (
     <>
-      <p>{TextManager.get("ui-adventurer-info-skills-title")}</p>
+      <p>{TextManager.get('ui-adventurer-info-skills-title')}</p>
       <ul className="adventurer-skills">
         {Object.keys(adventurer.skills)?.map((s) => {
           const skill: WeaponType = s as WeaponType;
@@ -49,7 +49,7 @@ const AdventurerSkills = (props: Props) => {
         })}
       </ul>
     </>
-  )
-}
+  );
+};
 
 export default AdventurerSkills;

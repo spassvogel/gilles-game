@@ -14,15 +14,15 @@ const useStructureActions = () => {
     dispatch(subtractGold(cost));
     dispatch(upgradeStructure(structure));
 
-    dispatch(addLogText("log-town-upgrade-structure-complete", {
+    dispatch(addLogText('log-town-upgrade-structure-complete', {
       level,
       structure,
     }, LogChannel.town));
-  }
+  };
 
   return {
-    startUpgradeStructure //unused
-  }
-}
+    startUpgradeStructure, //unused
+  };
+};
 
 export default useStructureActions;

@@ -1,10 +1,10 @@
-import { EquipmentSlotType } from "components/ui/adventurer/EquipmentSlot";
-import { Ammunition } from "definitions/items/ammunition";
-import { Apparel } from "definitions/items/apparel";
-import { Item } from "definitions/items/types";
-import { Weapon, WeaponType } from "definitions/items/weapons";
+import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
+import { Ammunition } from 'definitions/items/ammunition';
+import { Apparel } from 'definitions/items/apparel';
+import { Item } from 'definitions/items/types';
+import { Weapon, WeaponType } from 'definitions/items/weapons';
 import { Trait } from 'definitions/traits/types';
-import { TempEffect } from "definitions/tempEffects/types";
+import { TempEffect } from 'definitions/tempEffects/types';
 
 export interface AdventurerStoreState {
   id: string;
@@ -33,12 +33,12 @@ export enum AdventurerColor {
   orange,
   black,
   white,
-  yellow
+  yellow,
 }
 
 export type Equipment = Apparel | Weapon | Ammunition;
 
-export interface EquipmentStoreState {
+export type EquipmentStoreState = {
   [EquipmentSlotType.head]?: Item<Apparel>;
   [EquipmentSlotType.shoulders]?: Item<Apparel>;
   [EquipmentSlotType.chest]?: Item<Apparel>;
@@ -47,7 +47,7 @@ export interface EquipmentStoreState {
   [EquipmentSlotType.feet]?: Item<Apparel>;
   [EquipmentSlotType.mainHand]?: Item<Weapon>;
   [EquipmentSlotType.offHand]?: Item<Weapon> | Item<Ammunition>;
-}
+};
 
 export interface AttributesStoreState {
   str: number;
@@ -63,5 +63,4 @@ export type Attribute = keyof AttributesStoreState;
 
 export type SkillsStoreState = {
   [key in WeaponType]?: number
-}
-
+};

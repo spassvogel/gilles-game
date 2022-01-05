@@ -1,8 +1,8 @@
-import { DragType } from "constants/dragging";
-import * as React from "react";
-import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from "react-dnd";
-import { AdventurerAvatarDragInfo } from "../DraggableAdventurerAvatar";
-import "./styles/droppableadventurerslot.scss";
+import { DragType } from 'constants/dragging';
+import * as React from 'react';
+import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from 'react-dnd';
+import { AdventurerAvatarDragInfo } from '../DraggableAdventurerAvatar';
+import './styles/droppableadventurerslot.scss';
 
 const dropTarget: DropTargetSpec<Props> = {
   drop(props: Props, monitor: DropTargetMonitor<AdventurerAvatarDragInfo>) {
@@ -38,18 +38,18 @@ const DroppableAdventurerSlot = (props: Props & DropSourceProps) => {
     connectDropTarget,
   } = props;
   // const isActive = isOver && canDrop;
-  let className = "droppable-adventurer-slot";
+  let className = 'droppable-adventurer-slot';
 
   if (isOver) {
-    className += " active-drop";
+    className += ' active-drop';
   } else if (canDrop) {
-    className += " can-drop";
+    className += ' can-drop';
   }
 
   return connectDropTarget(
-    <div className = { className }/>
+    <div className = { className }/>,
   );
-}
+};
 
 export default DropTarget<Props, DropSourceProps>(
   DragType.ADVENTURER,

@@ -3,15 +3,15 @@ import { TraitDefinition, Trait } from './types';
 const all = {
   [Trait.arrowFinder]: {
     trait: Trait.arrowFinder,
-    hasEffect: true
+    hasEffect: true,
   },
   [Trait.gloomy]: {
     trait: Trait.gloomy,
-    hasEffect: true
+    hasEffect: true,
   },
   [Trait.lucky]: {
     trait: Trait.lucky,
-    hasEffect: true
+    hasEffect: true,
   },
   [Trait.houseHouston]: {
     trait: Trait.houseHouston,
@@ -21,7 +21,7 @@ const all = {
   },
   [Trait.houseMonroe]: {
     trait: Trait.houseMonroe,
-  }
+  },
 };
 
 export function getDefinition(trait: Trait): TraitDefinition {

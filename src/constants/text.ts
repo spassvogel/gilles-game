@@ -4,5 +4,5 @@ export interface TextEntry {
 }
 
 export function isTextEntry(test: string | TextEntry): test is TextEntry {
-  return typeof test !== "string";
+  return typeof test !== 'string';
 }

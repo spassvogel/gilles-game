@@ -1,5 +1,5 @@
 import { ONE_MINUTE, TWO_MINUTES } from 'utils/format/time';
-import { ResourceStructureDefinition, StructureType } from "./types";
+import { ResourceStructureDefinition, StructureType } from './types';
 
 const tannery: ResourceStructureDefinition = {
   cost: {
@@ -8,7 +8,7 @@ const tannery: ResourceStructureDefinition = {
   },
   type: StructureType.resource,
   levels: [{
-    displayName: "structure-tannery-name",
+    displayName: 'structure-tannery-name',
     // level 1:
     workerCapacity: 2,
     cost: {
@@ -17,25 +17,25 @@ const tannery: ResourceStructureDefinition = {
     generates: { leather: 2 },
   }, {
     // level 2:
-    displayName: "structure-tannery-name",
+    displayName: 'structure-tannery-name',
     workerCapacity: 5,
     cost: {
       gold: 30,
       resources: {
         wood: 100,
         iron: 100,
-        stone: 100
+        stone: 100,
       },
-      time: ONE_MINUTE
+      time: ONE_MINUTE,
     },
     generates: { leather: 5 },
   }, {
     // level 3:
-    displayName: "structure-tannery-name",
+    displayName: 'structure-tannery-name',
     workerCapacity: 10,
     cost: {
       gold: 50,
-      time: TWO_MINUTES
+      time: TWO_MINUTES,
     },
     generates: { leather: 7 },
   }],

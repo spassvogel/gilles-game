@@ -29,18 +29,18 @@ export type Item<T = ItemType> = {
   type: T;
   quantity?: number; // defaults to 1
   durability?: number; // 0 to 1
-}
+};
 
 export const isItemType = (test: Item | ItemType): test is ItemType => {
-  return !Object.prototype.hasOwnProperty.call(test, "type");
-}
+  return !Object.prototype.hasOwnProperty.call(test, 'type');
+};
 
 export interface ItemDefinition {
   itemCategory: ItemCategory;
   iconImg: string;
   rarity?: Rarity;
-//  articleUndefined?: string;  // Key to text
+  //  articleUndefined?: string;  // Key to text
   unique?: boolean;       // Indicate that this item is unique.
-                // Not actually enforced by anything,
-                // but used to generate the article ('a' or 'the')
+  // Not actually enforced by anything,
+  // but used to generate the article ('a' or 'the')
 }

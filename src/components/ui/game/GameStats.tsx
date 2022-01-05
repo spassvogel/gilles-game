@@ -1,27 +1,27 @@
 // Displays various game stats
-import { Resource } from "definitions/resources";
-import { Structure } from "definitions/structures";
-import { TextManager } from "global/TextManager";
-import { Fragment, useMemo } from "react";
-import { groupAdventurersByQuest } from "store/selectors/adventurers";
-import { StoreState } from "store/types"
-import { QuestStatus } from "store/types/quest";
-import { StructureState } from "store/types/structure";
-import { formatDuration } from "utils/format/time";
-import { convertIntToSemVer } from "utils/version";
-import * as Version from "constants/version";
-import "./styles/gameStats.scss";
+import { Resource } from 'definitions/resources';
+import { Structure } from 'definitions/structures';
+import { TextManager } from 'global/TextManager';
+import { Fragment, useMemo } from 'react';
+import { groupAdventurersByQuest } from 'store/selectors/adventurers';
+import { StoreState } from 'store/types';
+import { QuestStatus } from 'store/types/quest';
+import { StructureState } from 'store/types/structure';
+import { formatDuration } from 'utils/format/time';
+import { convertIntToSemVer } from 'utils/version';
+import * as Version from 'constants/version';
+import './styles/gameStats.scss';
 
 type Props = {
   state: StoreState
-}
+};
 
 const GameStats = (props: Props) => {
   const { state } = props;
-  const timePlaying = formatDuration(state.engine.lastTick - (state.engine.gameStarted ?? 0), true)
+  const timePlaying = formatDuration(state.engine.lastTick - (state.engine.gameStarted ?? 0), true);
   const groupedAdventurers = groupAdventurersByQuest(state.adventurers, state.quests);
   const version = useMemo(() => {
-    if (!state.game?.version) return "unknown";
+    if (!state.game?.version) return 'unknown';
     if (state.game.version === Version.asInt) {
       return convertIntToSemVer(state.game.version);
     }
@@ -32,7 +32,7 @@ const GameStats = (props: Props) => {
         <span>{convertIntToSemVer(Version.asInt)}</span>
         <span className="prop">) </span>
       </>
-    )
+    );
   }, [state.game.version]);
 
   return (
@@ -60,9 +60,9 @@ const GameStats = (props: Props) => {
                 return (
                   <Fragment key={structure}>
                     <dt>{TextManager.getStructureName(structure)}</dt>
-                    <dd>{TextManager.get("ui-structure-level")} {state.structures[structure].level + 1}</dd>
+                    <dd>{TextManager.get('ui-structure-level')} {state.structures[structure].level + 1}</dd>
                   </Fragment>
-                )
+                );
               }
               if (state.structures[structure].state === StructureState.Building) {
                 return (
@@ -70,7 +70,7 @@ const GameStats = (props: Props) => {
                     <dt>{TextManager.getStructureName(structure)}</dt>
                     <dd>constructing...</dd>
                   </Fragment>
-                )
+                );
               }
               return null;
             })}
@@ -88,11 +88,11 @@ const GameStats = (props: Props) => {
                   <dt>{TextManager.getResourceName(resource)}</dt>
                   <dd>{state.resources[resource]}</dd>
                 </Fragment>
-              )
+              );
             })}
-            <dt>{TextManager.get("resource-gold-name")}</dt>
+            <dt>{TextManager.get('resource-gold-name')}</dt>
             <dd>{state.gold}</dd>
-            <dt>{TextManager.get("resource-workers-name")}</dt>
+            <dt>{TextManager.get('resource-workers-name')}</dt>
             <dd>{state.workers}</dd>
           </dl>
         </fieldset>
@@ -107,7 +107,7 @@ const GameStats = (props: Props) => {
         </fieldset>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default GameStats
+export default GameStats;
