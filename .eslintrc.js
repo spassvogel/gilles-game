@@ -3,13 +3,14 @@ module.exports = {
     "browser": true,
   },
   "extends": [
-    "react-app",
+    "airbnb-typescript",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "project": './tsconfig.json',
     "ecmaFeatures": {
       "jsx": true
     },
@@ -19,7 +20,8 @@ module.exports = {
   "plugins": [
     "react",
     "react-hooks",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "eslint-plugin-import"
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
