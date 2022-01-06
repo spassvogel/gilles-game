@@ -27,7 +27,7 @@ const EnemyContext = (props: Props) => {
         </div>
       </div>
       <Attributes attributes={attributesExtended} small />
-      <CombatAttributes basicAttributes={definition.attributes} level={level} />
+      <CombatAttributes attributes={definition.attributes} level={level} />
     </div>
   );
 };

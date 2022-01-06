@@ -1,12 +1,11 @@
-import * as React from 'react';
+import { useMemo } from 'react';
 import { useAdventurerState } from 'hooks/store/adventurers';
 import { ActorObject } from 'store/types/scene';
 import Attributes from 'components/ui/adventurer/AdventurerPanel/Attributes';
 import { xpToLevel } from 'mechanics/adventurers/levels';
 import { TextManager } from 'global/TextManager';
 import CombatAttributes from './CombatAttributes';
-import { useMemo } from 'react';
-import { calculateEffectiveAttributesExtended } from 'mechanics/adventurers/attributes';
+import { calculateEffectiveAttributes, calculateEffectiveAttributesExtended } from 'mechanics/adventurers/attributes';
 
 interface Props {
   actorObject: ActorObject
@@ -15,7 +14,8 @@ interface Props {
 const AdventurerContext = (props: Props) => {
   const { actorObject } = props;
   const adventurer = useAdventurerState(actorObject.name);
-  const { name, xp, basicAttributes } = adventurer;
+  const attributes = calculateEffectiveAttributes(adventurer);
+  const { name, xp } = adventurer;
   const level = xpToLevel(xp);
   const extendedAttributes = useMemo(() => calculateEffectiveAttributesExtended(adventurer), [adventurer]);
 
@@ -30,7 +30,7 @@ const AdventurerContext = (props: Props) => {
         </div>
       </div>
       <Attributes attributes={extendedAttributes} small />
-      <CombatAttributes basicAttributes={basicAttributes} level={level} />
+      <CombatAttributes attributes={attributes} level={level} />
     </div>
   );
 };
