@@ -145,7 +145,7 @@ const useItemDropActions = () => {
     const actions: Action[] = [];
     const definition = getDefinition(item.type);
     const stockpileCategory = ItemCategory[definition.itemCategory] as keyof StockpileStoreState;
-    console.log(item);
+
     switch (sourceType) {
       // Dragged from the warehouse itself
       case DragSourceType.warehouse: {

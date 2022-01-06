@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import { Fragment, PropsWithChildren } from 'react';
 import { TiledMapData, TiledLayerType } from 'constants/tiledMapData';
 import { Container } from '@inlet/react-pixi';
 import RectTileLayer from 'components/pixi/tile/RectTileLayer';
@@ -30,7 +30,7 @@ const Tilemap = (props: PropsWithChildren<Props>) => {
           if (layer.type === TiledLayerType.objectgroup) {
             const { tileObjects, spriteObjects } = getLayerObjects(objects, layer);
             return (
-              <React.Fragment key={layer.name}>
+              <Fragment key={layer.name}>
                 { !!tileObjects.length && (
                   <ObjectTileLayer
                     objects={tileObjects}
@@ -46,7 +46,7 @@ const Tilemap = (props: PropsWithChildren<Props>) => {
                     selectedActorId={selectedActorId}
                   />
                 )}
-              </React.Fragment>
+              </Fragment>
             );
           }
           if (layer.type === TiledLayerType.tilelayer) {

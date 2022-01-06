@@ -56,7 +56,7 @@ const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<Co
         resolve({ store, persistor, isHydrated }) ;
       });
     } catch (e) {
-      console.log('An error has occurred', e);
+      console.error('An error has occurred', e);
       reject(e);
     }
   });

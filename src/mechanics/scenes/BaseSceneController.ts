@@ -302,7 +302,13 @@ export class BaseSceneController<TQuestVars> {
     const skills = this.getActorSkills(actor);
     const roll = roll3D6();
     if (roll <= (skills[definition.weaponType] ?? 0)) {
-      console.log('HIT at ', location);
+      this.log({
+        key: 'scene-combat-attack-shoot-hit',
+        context: {
+          actor,
+          weapon,
+        },
+      });
 
     } else {
       if (this.settings.verboseCombatLog) {
@@ -315,7 +321,10 @@ export class BaseSceneController<TQuestVars> {
           skill: skills[definition.weaponType],
         } });
       } else {
-        this.log({ key: 'scene-combat-attack-shoot-missed', context: { actor, weapon: weapon.type } });
+        this.log({
+          key: 'scene-combat-attack-shoot-missed',
+          context: { actor, weapon },
+        });
       }
     }
     // todo: process the hit, take away any HP?

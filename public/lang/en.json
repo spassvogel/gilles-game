@@ -397,7 +397,8 @@
     "resource-workers-info": "Your workforce",
     "resource-workers-name": "workers",
 
-    "scene-combat-attack-shoot-missed": "{{actor:name actor}} shoots with {{item:name weapon \"aA\"}} but missed!",
+    "scene-combat-attack-shoot-hit": "{{actor:name actor}} shoots {{item:trigger weapon \"aA\"}} and hits for xx!",
+    "scene-combat-attack-shoot-missed": "{{actor:name actor}} shoots {{item:trigger weapon \"aA\"}} but missed!",
     "scene-combat-attack-shoot-missed-verbose": "{{actor:name actor}} shoots with {{item:name weapon \"aA\"}} but missed!",
     "scene-combat-attack-slash-missed": "{{actor:name actor}} slashes with {{item:name weapon \"aA\"}} but missed!",
     "scene-combat-attack-slash-missed-verbose": "{{actor:name actor}} slashes (-{{ap}}AP) with {{item:name weapon \"aA\"}} but missed! (rolled {{roll}} against {{skill}} ({{weaponType}} skill))",
@@ -452,7 +453,7 @@
     "temp-effect-soma-flavor": "This adventurer feels the soma coarsing through their veins",
 
     "test-game-welcome": "Welcome to Gidletown (beta)",
-    "test-you-have-found-an-item": "You have found {{item:name item \"aA\"}}",
+    "test-you-have-found-an-item": "You have found {{item:trigger item}}...",
 
     "trait-arrow-finder-description": "Arrow finder lore text",
     "trait-arrow-finder-effect": "Small chance to find arrows on looted bodies",

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import AdventurerTabstrip from './AdventurerTabstrip';
 import { createSelectAdventurersOnQuest } from 'store/selectors/adventurers';
 import { useSelector, useDispatch } from 'react-redux';

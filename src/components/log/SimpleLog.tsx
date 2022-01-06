@@ -8,6 +8,7 @@ import { useLog } from 'hooks/store/useLog';
 import { useActiveQuestNames } from 'hooks/store/quests';
 import { useLocation } from 'react-router-dom';
 import { getQuestLink, getTownLink } from 'utils/routing';
+import Markdown from 'components/markdown/Markdown';
 import './styles/simplelog.scss';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -94,11 +95,13 @@ const SimpleLog = () => {
       break;
   }
 
+
   const getLogEntryRow = (logEntry: LogEntry) => {
     const text = TextManager.get(logEntry.key, logEntry.context);
+
     return (
       <div className="entry" key={logEntry.time}>
-        {text}
+        <Markdown>{text}</Markdown>
       </div>
     );
   };
@@ -127,3 +130,4 @@ const SimpleLog = () => {
 };
 
 export default SimpleLog;
+

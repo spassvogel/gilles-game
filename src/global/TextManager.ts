@@ -262,6 +262,10 @@ Handlebars.registerHelper('item:name', (itemOrItemType: Item | ItemType, article
   }
 });
 
+Handlebars.registerHelper('item:trigger', (item: Item) => {
+  return new Handlebars.SafeString(`:ItemTooltipTrigger[${JSON.stringify(item)}]`);
+});
+
 Handlebars.registerHelper('structure:name', (structure: Structure) => {
   const name = TextManager.get(`structure-${toKebab(structure)}-name`);
   return new Handlebars.SafeString(name);
