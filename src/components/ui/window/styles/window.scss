@@ -3,7 +3,7 @@
 .window {
 	background: $color-background-overlay;
 	position: absolute;
-	z-index: z-index-window;
+	z-index: zIndex("window");
 	top: $misc-topbar-height;
 	left: 0;
 	width: 100%;
