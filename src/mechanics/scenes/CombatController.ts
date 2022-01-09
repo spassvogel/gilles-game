@@ -1,13 +1,20 @@
-import { enqueueSceneAction, startTurn } from 'store/actions/quests';
+import { deductActorAp, enqueueSceneAction, startTurn } from 'store/actions/quests';
 import { AnyAction } from 'redux';
 import { Location } from 'utils/tilemap';
-import { ActorObject, Allegiance, SceneAction, SceneActionType } from 'store/types/scene';
+import { ActorObject, Allegiance, isAdventurer, SceneAction, SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
 import { BaseSceneController, movementDuration } from './BaseSceneController';
+import { Channel, MixMode, SoundManager } from 'global/SoundManager';
+import { getDefinition as getWeaponDefinition, WeaponType } from 'definitions/items/weapons';
+import { AP_COST_MELEE, AP_COST_SHOOT } from 'mechanics/combat';
+import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
+import { TextEntry } from 'constants/text';
+import { roll3D6 } from 'utils/random';
+import { changeEquipmentQuantity } from 'store/actions/adventurers';
 
 
 export class CombatController {
-  static sceneController?: BaseSceneController<unknown>;
+  static sceneController: BaseSceneController<unknown>;
 
   protected static unsubscriber: () => void;
 
@@ -75,6 +82,128 @@ export class CombatController {
     }
   }
 
+  public static actorSlashing(actorId: string, _location: Location) {
+    if (!this.sceneController) return;
+
+    SoundManager.playSound('scene/swish', Channel.scene, false, MixMode.singleInstance);
+    const actor = this.sceneController.getSceneActor(actorId);
+    if (!actor) throw new Error('No actor found');
+    const weapon = this.getActorMainhandItem(actor);
+    if (!weapon) throw new Error('No weapon found');
+    const definition = getWeaponDefinition(weapon.type);
+
+    switch (definition.weaponType) {
+      case WeaponType.knife: {
+        SoundManager.playSound('scene/daggerSwish', Channel.scene, false, MixMode.singleInstance);
+        break;
+      }
+      default: {
+        SoundManager.playSound('scene/swish', Channel.scene, false, MixMode.singleInstance);
+        break;
+      }
+    }
+  }
+
+  public static actorSlashed(actorId: string, location: Location) {
+    // todo 08/08/2019 use CombatController : move to CombatController?
+    const ap = AP_COST_MELEE;
+    this.dispatch(deductActorAp(this.questName, actorId, ap));
+    const actor = this.sceneController.getSceneActor(actorId);
+    if (!actor) throw new Error('No actor found');
+    const weapon = this.getActorMainhandItem(actor);
+    if (!weapon) throw new Error('No weapon found');
+    const definition = getWeaponDefinition(weapon.type);
+    const skills = this.sceneController.getActorSkills(actor);
+    const roll = roll3D6();
+    if (roll <= (skills[definition.weaponType] ?? 0)) {
+      console.log('HIT at ', location);
+      this.sceneController.bubbleAtLocation('HIT', location);
+
+    } else {
+      this.sceneController.bubbleAtLocation('MISS', location);
+
+      if (this.settings.verboseCombatLog) {
+        this.log({ key: 'scene-combat-attack-slash-missed-verbose', context: {
+          actor,
+          weapon: weapon.type,
+          ap,
+          roll,
+          weaponType: definition.weaponType,
+          skill: skills[definition.weaponType],
+        } });
+      } else {
+        this.log({ key: 'scene-combat-attack-slash-missed', context: { actor, weapon: weapon.type } });
+      }
+    }
+    // todo: see if slash misses
+    // todo: process the hit, take away any HP?
+  }
+
+  public static actorShooting(actorId: string, _location: Location) {
+    const actor = this.sceneController.getSceneActor(actorId);
+    if (!actor) throw new Error('No actor found');
+    const weapon = this.getActorMainhandItem(actor);
+    if (!weapon) throw new Error('No weapon found');
+    const definition = getWeaponDefinition(weapon.type);
+
+    switch (definition.weaponType) {
+      case WeaponType.bow: {
+        SoundManager.playSound('scene/bow', Channel.scene, false, MixMode.singleInstance);
+        break;
+      }
+      case WeaponType.crossbow: {
+        SoundManager.playSound('scene/crossbow', Channel.scene, false, MixMode.singleInstance);
+        break;
+      }
+    }
+
+    const ammo = this.getActorOffhandItem(actor);
+    if (ammo && isAdventurer(actor)) {
+      let quantity = (ammo.quantity || 1);
+      this.dispatch(changeEquipmentQuantity(actorId, EquipmentSlotType.offHand, --quantity));
+    }
+  }
+
+  public static actorShot(actorId: string, _location: Location) {
+    const ap = AP_COST_SHOOT;
+    // Take away AP for shooting
+    this.dispatch(deductActorAp(this.questName, actorId, ap));
+    const actor = this.sceneController.getSceneActor(actorId);
+    if (!actor) throw new Error('No actor found');
+    const weapon = this.getActorMainhandItem(actor);
+    if (!weapon) throw new Error('No weapon found');
+    const definition = getWeaponDefinition(weapon.type);
+    const skills = this.sceneController.getActorSkills(actor);
+    const roll = roll3D6();
+    if (roll <= (skills[definition.weaponType] ?? 0)) {
+      this.log({
+        key: 'scene-combat-attack-shoot-hit',
+        context: {
+          actor,
+          weapon,
+        },
+      });
+
+    } else {
+      if (this.settings.verboseCombatLog) {
+        this.log({ key: 'scene-combat-attack-shoot-missed-verbose', context: {
+          actor,
+          weapon: weapon.type,
+          ap,
+          roll,
+          weaponType: definition.weaponType,
+          skill: skills[definition.weaponType],
+        } });
+      } else {
+        this.log({
+          key: 'scene-combat-attack-shoot-missed',
+          context: { actor, weapon },
+        });
+      }
+    }
+    // todo: process the hit, take away any HP?
+  } 
+
   static getQuestStoreState() {
     return this.sceneController?.store.getState().quests.find(q => q.name === this.sceneController?.questName);
   }
@@ -105,7 +234,39 @@ export class CombatController {
     return actors?.find(a => a.allegiance === Allegiance.enemy && a.ap > 0);
   }
 
+  protected static get questName() {
+    return this.sceneController.questName;
+  }
+
+  protected static getActorMainhandItem(actor: ActorObject) {
+    if (isAdventurer(actor)) {
+      const adventurer = this.sceneController.getAdventurerByActor(actor);
+      if (!adventurer) throw new Error('No adventurer found');
+      return adventurer.equipment[EquipmentSlotType.mainHand];
+    }
+    const enemy = this.sceneController.getEnemyByActor(actor);
+    return enemy.mainHand;
+  }
+  
+  protected static getActorOffhandItem(actor: ActorObject) {
+    if (isAdventurer(actor)) {
+      const adventurer = this.sceneController.getAdventurerByActor(actor);
+      if (!adventurer) throw new Error('No adventurer found');
+      return adventurer.equipment[EquipmentSlotType.offHand];
+    }
+    const enemy = this.sceneController.getEnemyByActor(actor);
+    return enemy.offHand;
+  }
+
   static dispatch(action: AnyAction) {
     this.sceneController?.store.dispatch(action);
+  }
+
+  protected static log(input: string | TextEntry): void {
+    this.sceneController.log(input);
+  } 
+
+  public static get settings() {
+    return this.sceneController.settings;
   }
 }

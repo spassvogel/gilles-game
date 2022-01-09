@@ -14,6 +14,7 @@ import ActorStats from './ActorStats';
 import { Filter, Loader, Texture, Container as PixiContainer } from 'pixi.js';
 import { useRandomOrientation } from './useRandomOrientation';
 import { BLACK, BLUES, calculateBearing, createColorReplaceFilter, ORANGE, Orientation, PURPLE, REDS, SPRITE_WIDTH, TEALS, WHITE, YELLOW } from './utils';
+import { CombatController } from 'mechanics/scenes/CombatController';
 
 export interface Props  {
   actor: ActorObject;
@@ -112,12 +113,12 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
         case SceneActionType.melee: {
           determineOrientation();
           setAnimation('attack');
-          props.controller.actorSlashing(actor.name, nextAction.target);
+          CombatController.actorSlashing(actor.name, nextAction.target);
 
           const attackComplete = () => {
             setAnimation('stand');
             dispatch(completeSceneAction(props.controller.questName));
-            props.controller.actorSlashed(actor.name, nextAction.target);
+            CombatController.actorSlashed(actor.name, nextAction.target);
           };
           setTimeout(attackComplete, 1000);
           break;
@@ -125,12 +126,12 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
         case SceneActionType.shoot: {
           determineOrientation();
           setAnimation('attack');
-          props.controller.actorShooting(actor.name, nextAction.target);
+          CombatController.actorShooting(actor.name, nextAction.target);
 
           const attackComplete = () => {
             setAnimation('stand');
             dispatch(completeSceneAction(props.controller.questName));
-            props.controller.actorShot(actor.name, nextAction.target);
+            CombatController.actorShot(actor.name, nextAction.target);
           };
           setTimeout(attackComplete, 500);
           break;

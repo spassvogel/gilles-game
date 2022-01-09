@@ -17,8 +17,6 @@ const ItemTooltipTrigger = (props: Props) => {
     }
   }, [children]);
 
-  console.log(item);
-
   const handleClick = (event: React.MouseEvent) => {
     const origin = (event.currentTarget as HTMLElement);
     const originRect = origin.getBoundingClientRect();

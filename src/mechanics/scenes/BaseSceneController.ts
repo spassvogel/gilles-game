@@ -16,19 +16,16 @@ import { TextManager } from 'global/TextManager';
 import { addLogEntry } from 'store/actions/log';
 import { getDefinition } from 'definitions/quests';
 import { getDefinition as getEnemyDefinition } from 'definitions/enemies';
-import { getDefinition as getWeaponDefinition, WeaponType } from 'definitions/items/weapons';
 import { LogChannel } from 'store/types/logEntry';
 import { addGold } from 'store/actions/gold';
-import { addItemToInventory, changeEquipmentQuantity, removeItemFromInventory } from 'store/actions/adventurers';
+import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
 import { adventurersOnQuest, getSceneObjectAtLocation, getSceneObjectWithName } from 'store/helpers/storeHelpers';
-import { Channel, MixMode, SoundManager } from 'global/SoundManager';
+import { SoundManager } from 'global/SoundManager';
 import { Item, ItemType } from 'definitions/items/types';
 import { Loader, Point } from 'pixi.js';
-import { AP_COST_MOVE, AP_COST_SHOOT, AP_COST_MELEE, calculateInitialAP } from 'mechanics/combat';
+import { AP_COST_MOVE, AP_COST_SHOOT, calculateInitialAP } from 'mechanics/combat';
 import { xpToLevel } from 'mechanics/adventurers/levels';
 import { EnemyType } from 'definitions/enemies/types';
-import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
-import { roll3D6 } from 'utils/random';
 import { BubbleLayer, BubbleManager, BubbleType } from 'global/BubbleManager';
 import { convertIn, convertOut } from 'utils/aStar';
 import { ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI';
@@ -94,7 +91,6 @@ export class BaseSceneController<TQuestVars> {
       SoundManager.addSound('scene/doorOpen', ['sound/scene/door.ogg']),
     ];
 
-    // Promise.all(promises).then(async () => {
     await Promise.all(promises);
 
     const resource = Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
@@ -207,127 +203,6 @@ export class BaseSceneController<TQuestVars> {
         this.dispatch(setSceneName(this.questName, destination.properties.to as string));
       }
     }
-  }
-
-  actorSlashing(actorId: string, _location: Location) {
-    // todo 08/08/2019 use CombatController : move to CombatController?
-    SoundManager.playSound('scene/swish', Channel.scene, false, MixMode.singleInstance);
-    const actor = this.getSceneActor(actorId);
-    if (!actor) throw new Error('No actor found');
-    const weapon = this.getActorMainhandItem(actor);
-    if (!weapon) throw new Error('No weapon found');
-    const definition = getWeaponDefinition(weapon.type);
-
-    switch (definition.weaponType) {
-      case WeaponType.knife: {
-        SoundManager.playSound('scene/daggerSwish', Channel.scene, false, MixMode.singleInstance);
-        break;
-      }
-      default: {
-        SoundManager.playSound('scene/swish', Channel.scene, false, MixMode.singleInstance);
-        break;
-      }
-    }
-  }
-
-  actorSlashed(actorId: string, location: Location) {
-    // todo 08/08/2019 use CombatController : move to CombatController?
-    const ap = AP_COST_MELEE;
-    this.dispatch(deductActorAp(this.questName, actorId, ap));
-    const actor = this.getSceneActor(actorId);
-    if (!actor) throw new Error('No actor found');
-    const weapon = this.getActorMainhandItem(actor);
-    if (!weapon) throw new Error('No weapon found');
-    const definition = getWeaponDefinition(weapon.type);
-    const skills = this.getActorSkills(actor);
-    const roll = roll3D6();
-    if (roll <= (skills[definition.weaponType] ?? 0)) {
-      console.log('HIT at ', location);
-      this.bubbleAtLocation('HIT', location);
-
-    } else {
-      this.bubbleAtLocation('MISS', location);
-
-      if (this.settings.verboseCombatLog) {
-        this.log({ key: 'scene-combat-attack-slash-missed-verbose', context: {
-          actor,
-          weapon: weapon.type,
-          ap,
-          roll,
-          weaponType: definition.weaponType,
-          skill: skills[definition.weaponType],
-        } });
-      } else {
-        this.log({ key: 'scene-combat-attack-slash-missed', context: { actor, weapon: weapon.type } });
-      }
-    }
-    // todo: see if slash misses
-    // todo: process the hit, take away any HP?
-  }
-
-  actorShooting(actorId: string, _location: Location) {
-    const actor = this.getSceneActor(actorId);
-    if (!actor) throw new Error('No actor found');
-    const weapon = this.getActorMainhandItem(actor);
-    if (!weapon) throw new Error('No weapon found');
-    const definition = getWeaponDefinition(weapon.type);
-
-    switch (definition.weaponType) {
-      case WeaponType.bow: {
-        SoundManager.playSound('scene/bow', Channel.scene, false, MixMode.singleInstance);
-        break;
-      }
-      case WeaponType.crossbow: {
-        SoundManager.playSound('scene/crossbow', Channel.scene, false, MixMode.singleInstance);
-        break;
-      }
-    }
-
-    const ammo = this.getActorOffhandItem(actor);
-    if (ammo && isAdventurer(actor)) {
-      let quantity = (ammo.quantity || 1);
-      this.dispatch(changeEquipmentQuantity(actorId, EquipmentSlotType.offHand, --quantity));
-    }
-  }
-
-  actorShot(actorId: string, location: Location) {
-    const ap = AP_COST_SHOOT;
-    // Take away AP for shooting
-    this.dispatch(deductActorAp(this.questName, actorId, ap));
-    const actor = this.getSceneActor(actorId);
-    if (!actor) throw new Error('No actor found');
-    const weapon = this.getActorMainhandItem(actor);
-    if (!weapon) throw new Error('No weapon found');
-    const definition = getWeaponDefinition(weapon.type);
-    const skills = this.getActorSkills(actor);
-    const roll = roll3D6();
-    if (roll <= (skills[definition.weaponType] ?? 0)) {
-      this.log({
-        key: 'scene-combat-attack-shoot-hit',
-        context: {
-          actor,
-          weapon,
-        },
-      });
-
-    } else {
-      if (this.settings.verboseCombatLog) {
-        this.log({ key: 'scene-combat-attack-shoot-missed-verbose', context: {
-          actor,
-          weapon: weapon.type,
-          ap,
-          roll,
-          weaponType: definition.weaponType,
-          skill: skills[definition.weaponType],
-        } });
-      } else {
-        this.log({
-          key: 'scene-combat-attack-shoot-missed',
-          context: { actor, weapon },
-        });
-      }
-    }
-    // todo: process the hit, take away any HP?
   }
 
   actorInteract(actorId: string, location: Location) {
@@ -893,12 +768,12 @@ export class BaseSceneController<TQuestVars> {
     return adventurersOnQuest(storeState.adventurers, this.quest);
   }
 
-  protected getAdventurerByActor(actor: ActorObject) {
+  public getAdventurerByActor(actor: ActorObject) {
     const storeState = this.store.getState();
     return storeState.adventurers.find(a => a.id === actor.name);
   }
 
-  protected getEnemyByActor(actor: ActorObject) {
+  public getEnemyByActor(actor: ActorObject) {
     return getEnemyDefinition(actor.name);
   }
 
@@ -907,7 +782,7 @@ export class BaseSceneController<TQuestVars> {
     return storeState.adventurers.find(a => a.id === id);
   }
 
-  protected getActorSkills(actor: ActorObject) {
+  public getActorSkills(actor: ActorObject) {
     if (isAdventurer(actor)) {
       const adventurer = this.getAdventurerByActor(actor);
       if (!adventurer) throw new Error('No adventurer found');
@@ -915,26 +790,6 @@ export class BaseSceneController<TQuestVars> {
     }
     const enemy = this.getEnemyByActor(actor);
     return enemy.skills;
-  }
-
-  protected getActorMainhandItem(actor: ActorObject) {
-    if (isAdventurer(actor)) {
-      const adventurer = this.getAdventurerByActor(actor);
-      if (!adventurer) throw new Error('No adventurer found');
-      return adventurer.equipment[EquipmentSlotType.mainHand];
-    }
-    const enemy = this.getEnemyByActor(actor);
-    return enemy.mainHand;
-  }
-
-  protected getActorOffhandItem(actor: ActorObject) {
-    if (isAdventurer(actor)) {
-      const adventurer = this.getAdventurerByActor(actor);
-      if (!adventurer) throw new Error('No adventurer found');
-      return adventurer.equipment[EquipmentSlotType.offHand];
-    }
-    const enemy = this.getEnemyByActor(actor);
-    return enemy.offHand;
   }
 
   protected questUpdate(input: string | TextEntry, icon?: string, toast = false): void {
@@ -946,12 +801,12 @@ export class BaseSceneController<TQuestVars> {
     this.log(textEntry);
   }
 
-  protected log(input: string | TextEntry): void {
+  public log(input: string | TextEntry): void {
     const textEntry: TextEntry = isTextEntry(input) ? input : { key: input };
     this.dispatch(addLogEntry(textEntry, LogChannel.quest, this.questName));
   }
 
-  protected bubbleAtLocation(text: string, location: Location, bubbleType?: BubbleType) {
+  public bubbleAtLocation(text: string, location: Location, bubbleType?: BubbleType) {
     const point = this.sceneLocationToPoint(location);
     point.set(point.x + (this.mapData?.tilewidth ?? 2) / 2, point.y);
     BubbleManager.addBubble(text, point, bubbleType, BubbleLayer.scene);

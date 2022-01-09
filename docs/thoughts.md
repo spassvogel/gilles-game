@@ -329,7 +329,7 @@ IMPLEMENTATION
 - [x] Scene controller can set 'combat = true' on scene. Then all actions of scene actors cost AP.
 - [x] Player has button to forgeit turn. Clears all AP on all player scene actors.
 - [-] Make useCombat hook to abstract logic
-- [ ] Use combatcontroller 
+- [x] Use combatcontroller 
 
 - [ ] When player actors have no APs left and there are *no* running secene actions 
     the AI selects one of their actors to make a move on. AI has different behaviour types,
