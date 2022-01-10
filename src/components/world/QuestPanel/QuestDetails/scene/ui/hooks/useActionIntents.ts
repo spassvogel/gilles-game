@@ -3,9 +3,9 @@ import { Location } from 'utils/tilemap';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { useAdventurerState } from 'hooks/store/adventurers';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
-import { adventurerWeapons } from 'store/helpers/storeHelpers';
+import { adventurerAmmo, adventurerWeapons } from 'store/helpers/storeHelpers';
 import { getDefinition as getWeaponDefinition, WeaponTypeDefinition, WeaponClassification } from 'definitions/items/weapons';
-import { isEnemy, SceneActionType } from 'store/types/scene';
+import { SceneActionType } from 'store/types/scene';
 import { ActionIntent } from '../SceneUI';
 
 const useActionIntents = (adventurerId: string, location?: Location, combat = false ) => {
@@ -35,19 +35,23 @@ const useActionIntents = (adventurerId: string, location?: Location, combat = fa
 
         // Ranged weapons trigger a 'shoot' action, others a melee
         const action = classification === WeaponClassification.ranged ? SceneActionType.shoot : SceneActionType.melee;
-
-        const intent = controller?.createActionIntent(action, actorObject, location);
-        if (intent) { // TODO: and enough AP
-          result.push({
-            ...intent,
-            action,
-            weaponWithAbility,
-          });
+        if (action === SceneActionType.melee) {
+          const intent = controller?.createActionIntent(action, actorObject, location, weaponWithAbility);
+          if (intent) { // TODO: and enough AP
+            result.push(intent);
+          }
+        } else {
+          const ammo = adventurerAmmo(adventurer);
+          if (!ammo) throw new Error('no ammo');
+          const intent = controller?.createActionIntent(action, actorObject, location, weaponWithAbility, ammo);
+          if (intent) { // TODO: and enough AP
+            result.push(intent);
+          }
         }
       });
     });
     return result;
-  }, [actorObject, combat, controller, location, weapons]);
+  }, [actorObject, adventurer, combat, controller, location, weapons]);
 
   const moveIntent = useMemo(() => {
     if (!actorObject || !location) return;

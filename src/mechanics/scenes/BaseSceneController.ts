@@ -28,7 +28,8 @@ import { xpToLevel } from 'mechanics/adventurers/levels';
 import { EnemyType } from 'definitions/enemies/types';
 import { BubbleLayer, BubbleManager, BubbleType } from 'global/BubbleManager';
 import { convertIn, convertOut } from 'utils/aStar';
-import { ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI';
+import { ActionIntent, WeaponWithAbility } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI';
+import { Ammunition } from 'definitions/items/ammunition';
 
 const spritesheetBasePath = 'img/scene/actors/';
 export const movementDuration = 500; // time every tile movement takes
@@ -505,7 +506,7 @@ export class BaseSceneController<TQuestVars> {
   /**
    *
    */
-  createActionIntent(action: SceneActionType, actor: ActorObject, location: Location): ActionIntent | undefined {
+  createActionIntent(action: SceneActionType, actor: ActorObject, location: Location, weaponWithAbility?: WeaponWithAbility, ammo?: Item<Ammunition>): ActionIntent | undefined {
     const {
       location: from = [0, 0],
       ap: actorAP,
@@ -540,6 +541,7 @@ export class BaseSceneController<TQuestVars> {
         // const apCost = this.calculateWalkApCosts(from, lastStep) + AP_COST_MELEE;
         const enemy = this.getObjectAtLocation(location, isEnemy);
         const isValid = !!enemy && (apCost ?? 0) <= (actorAP ?? 0);
+        if (!weaponWithAbility) return undefined;
 
         return ({
           action,
@@ -550,6 +552,7 @@ export class BaseSceneController<TQuestVars> {
           actorAP,
           path,
           isValid,
+          weaponWithAbility,
         });
       }
 
@@ -570,6 +573,8 @@ export class BaseSceneController<TQuestVars> {
         const apCost = AP_COST_SHOOT;
         const enemy = this.getObjectAtLocation(location, isEnemy);
         const isValid = !!enemy && (apCost ?? 0) <= (actorAP ?? 0);
+        if (!weaponWithAbility) return undefined;
+        if (!ammo) return undefined;
 
         return ({
           action,
@@ -579,6 +584,8 @@ export class BaseSceneController<TQuestVars> {
           actor,
           actorAP,
           isValid,
+          weaponWithAbility,
+          ammo,
         });
       }
     }

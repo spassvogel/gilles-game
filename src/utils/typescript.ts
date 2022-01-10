@@ -7,6 +7,8 @@ export type Entries<T> = {
   [K in keyof T]: [K, T[K]]
 }[keyof T][];
 
+export type DistributiveOmit<T, K extends keyof any> = T extends unknown ? Omit<T, K>: never;
+
 export function entries<T>(obj: T): Entries<T> {
   return Object.entries(obj) as Entries<T>;
 }

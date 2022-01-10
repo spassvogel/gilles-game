@@ -7,6 +7,8 @@ import { AdventurerStoreState } from 'store/types/adventurer';
 import { QuestStoreState } from 'store/types/quest';
 import { SceneObject } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
+import { Ammunition } from 'definitions/items/ammunition';
+import { isAmmunition } from 'definitions/items/ammunition';
 
 // export const adventurersInParty = (store: StoreState, partyId: string): AdventurerStoreState[] => {
 //   const party: PartyStoreState = store.parties[partyId];
@@ -44,7 +46,6 @@ export const adventurerFreeInventorySlots = (adventurer: AdventurerStoreState): 
 /**
  * Returns the weapons the adventurer has. Can be 0, 1 or 2 */
 export const adventurerWeapons = (adventurer: AdventurerStoreState): [Item<Weapon>?, Item<Weapon>?] => {
-  // const isWeapon =
   const check = (slot: EquipmentSlotType) => {
     const item = adventurer.equipment[slot];
     return !!item && isWeapon(item.type);
@@ -53,6 +54,13 @@ export const adventurerWeapons = (adventurer: AdventurerStoreState): [Item<Weapo
     ...check(EquipmentSlotType.mainHand) ? [adventurer.equipment[EquipmentSlotType.mainHand]] : [],
     ...check(EquipmentSlotType.offHand) ? [adventurer.equipment[EquipmentSlotType.offHand]] : [],
   ] as [Item<Weapon>?, Item<Weapon>?];
+};
+
+/**
+ * Returns the ammo in the offhand slot */
+export const adventurerAmmo = (adventurer: AdventurerStoreState): Item<Ammunition> | undefined => {
+  const item = adventurer.equipment[EquipmentSlotType.offHand];
+  return (item && isAmmunition(item.type)) ? adventurer.equipment[EquipmentSlotType.offHand] as Item<Ammunition> : undefined;
 };
 
 // Searches `objects` list and returns the object at `location` (if any)

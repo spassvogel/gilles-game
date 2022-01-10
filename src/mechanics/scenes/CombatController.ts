@@ -68,7 +68,7 @@ export class CombatController {
           if (!target || !target.location) return; // no target? did everyone die?
           const path = this.sceneController.findPath(enemy.location, target.location);
           const intent = this.sceneController.createActionIntent(SceneActionType.move, enemy, target.location);
-          if (!intent) return;
+          if (!intent || intent.action !== SceneActionType.move) return;
 
           path?.forEach((l, index) => {
             if (index >= enemy.ap - 1) return;
@@ -111,12 +111,12 @@ export class CombatController {
 
   public static actorMeleeEnd(actorId: string, intent: ActionIntent) {
     const location = intent.to;
-    // todo 08/08/2019 use CombatController : move to CombatController?
     const ap = AP_COST_MELEE;
     this.dispatch(deductActorAp(this.questName, actorId, ap));
     const actor = this.sceneController.getSceneActor(actorId);
     if (!actor) throw new Error('No actor found');
-    const weapon = this.getActorMainhandItem(actor);
+    if (intent.action !== SceneActionType.melee) throw new Error('Wrong action type');
+    const { weapon } = intent.weaponWithAbility;
     if (!weapon) throw new Error('No weapon found');
     const definition = getWeaponDefinition(weapon.type);
     const skills = this.sceneController.getActorSkills(actor);
@@ -145,10 +145,11 @@ export class CombatController {
     // todo: process the hit, take away any HP?
   }
 
-  public static actorShootStart(actorId: string, _intent: ActionIntent) {
+  public static actorShootStart(actorId: string, intent: ActionIntent) {
     const actor = this.sceneController.getSceneActor(actorId);
     if (!actor) throw new Error('No actor found');
-    const weapon = this.getActorMainhandItem(actor);
+    if (intent.action !== SceneActionType.shoot) throw new Error('Wrong action type');
+    const { weapon } = intent.weaponWithAbility;
     if (!weapon) throw new Error('No weapon found');
     const definition = getWeaponDefinition(weapon.type);
 
@@ -163,20 +164,21 @@ export class CombatController {
       }
     }
 
-    const ammo = this.getActorOffhandItem(actor);
+    const { ammo } = intent;
     if (ammo && isAdventurer(actor)) {
       let quantity = (ammo.quantity || 1);
       this.dispatch(changeEquipmentQuantity(actorId, EquipmentSlotType.offHand, --quantity));
     }
   }
 
-  public static actorShootEnd(actorId: string, _intent: ActionIntent) {
+  public static actorShootEnd(actorId: string, intent: ActionIntent) {
     const ap = AP_COST_SHOOT;
     // Take away AP for shooting
     this.dispatch(deductActorAp(this.questName, actorId, ap));
     const actor = this.sceneController.getSceneActor(actorId);
     if (!actor) throw new Error('No actor found');
-    const weapon = this.getActorMainhandItem(actor);
+    if (intent.action !== SceneActionType.shoot) throw new Error('Wrong action type');
+    const { weapon } = intent.weaponWithAbility;
     if (!weapon) throw new Error('No weapon found');
     const definition = getWeaponDefinition(weapon.type);
     const skills = this.sceneController.getActorSkills(actor);
@@ -208,7 +210,7 @@ export class CombatController {
       }
     }
     // todo: process the hit, take away any HP?
-  } 
+  }
 
   static getQuestStoreState() {
     return this.sceneController?.store.getState().quests.find(q => q.name === this.sceneController?.questName);
@@ -253,16 +255,16 @@ export class CombatController {
     const enemy = this.sceneController.getEnemyByActor(actor);
     return enemy.mainHand;
   }
-  
-  protected static getActorOffhandItem(actor: ActorObject) {
-    if (isAdventurer(actor)) {
-      const adventurer = this.sceneController.getAdventurerByActor(actor);
-      if (!adventurer) throw new Error('No adventurer found');
-      return adventurer.equipment[EquipmentSlotType.offHand];
-    }
-    const enemy = this.sceneController.getEnemyByActor(actor);
-    return enemy.offHand;
-  }
+
+  // protected static getActorOffhandItem(actor: ActorObject) {
+  //   if (isAdventurer(actor)) {
+  //     const adventurer = this.sceneController.getAdventurerByActor(actor);
+  //     if (!adventurer) throw new Error('No adventurer found');
+  //     return adventurer.equipment[EquipmentSlotType.offHand];
+  //   }
+  //   const enemy = this.sceneController.getEnemyByActor(actor);
+  //   return enemy.offHand;
+  // }
 
   static dispatch(action: AnyAction) {
     this.sceneController?.store.dispatch(action);
@@ -270,7 +272,7 @@ export class CombatController {
 
   protected static log(input: string | TextEntry): void {
     this.sceneController.log(input);
-  } 
+  }
 
   public static get settings() {
     return this.sceneController.settings;

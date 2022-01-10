@@ -24,6 +24,7 @@ import useCanvasScaler from './hooks/useCanvasScaler';
 import CombatUIWidget from './CombatUIWidget';
 import NormalUICursor from './NormalUICursor';
 import useActionIntents from './hooks/useActionIntents';
+import { Ammunition } from 'definitions/items/ammunition';
 import './styles/sceneUI.scss';
 
 export interface Props {
@@ -54,11 +55,22 @@ export type ActionIntent = BaseActionIntent & {
   // Non combat action
   action: SceneActionType.interact;
 } | BaseActionIntent & {
-  // Combat action and non combat action
-  action: SceneActionType.move | SceneActionType.melee | SceneActionType.shoot;
+  //
+  action: SceneActionType.move;
   apCost?: number;
   actorAP?: number;
-  weaponWithAbility?: WeaponWithAbility;
+} | BaseActionIntent & {
+  //
+  action: SceneActionType.melee;
+  apCost?: number;
+  actorAP?: number;
+  weaponWithAbility: WeaponWithAbility;
+} | BaseActionIntent & {
+  action: SceneActionType.shoot;
+  apCost?: number;
+  actorAP?: number;
+  weaponWithAbility: WeaponWithAbility;
+  ammo: Item<Ammunition>;
 };
 
 
@@ -197,6 +209,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   };
 
   useEffect(() => {
+    // Non combat action
     if (!combat && cursorLocation !== undefined) {
       // Handle change of cursor when not in combat
       let action = SceneActionType.move;
@@ -211,7 +224,9 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         onSetActionIntent(undefined);
       } else {
         const intent = controller?.createActionIntent(action, actor, cursorLocation);
-        onSetActionIntent?.(intent);
+        if (!intent || intent.action === SceneActionType.move || intent.action === SceneActionType.interact) {
+          onSetActionIntent?.(intent);
+        }
       }
     }
   }, [cursorLocation, combat, controller, selectedActorId, onSetActionIntent]);
