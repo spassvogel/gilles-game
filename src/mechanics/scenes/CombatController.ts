@@ -11,6 +11,7 @@ import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { TextEntry } from 'constants/text';
 import { roll3D6 } from 'utils/random';
 import { changeEquipmentQuantity } from 'store/actions/adventurers';
+import { ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI';
 
 
 export class CombatController {
@@ -66,6 +67,8 @@ export class CombatController {
           const target = this.findNearestActor(enemy.location, Allegiance.player);
           if (!target || !target.location) return; // no target? did everyone die?
           const path = this.sceneController.findPath(enemy.location, target.location);
+          const intent = this.sceneController.createActionIntent(SceneActionType.move, enemy, target.location);
+          if (!intent) return;
 
           path?.forEach((l, index) => {
             if (index >= enemy.ap - 1) return;
@@ -74,6 +77,7 @@ export class CombatController {
               actorId: enemy.name,
               target: l as Location,
               endsAt: movementDuration * (index + 1) + performance.now(),
+              intent,
             };
             this.dispatch(enqueueSceneAction(quest.name, sceneAction));
           });
@@ -82,7 +86,8 @@ export class CombatController {
     }
   }
 
-  public static actorSlashing(actorId: string, _location: Location) {
+  // Call when actor melee animation starts
+  public static actorMeleeStart(actorId: string, intent: ActionIntent) {
     if (!this.sceneController) return;
 
     SoundManager.playSound('scene/swish', Channel.scene, false, MixMode.singleInstance);
@@ -104,7 +109,8 @@ export class CombatController {
     }
   }
 
-  public static actorSlashed(actorId: string, location: Location) {
+  public static actorMeleeEnd(actorId: string, intent: ActionIntent) {
+    const location = intent.to;
     // todo 08/08/2019 use CombatController : move to CombatController?
     const ap = AP_COST_MELEE;
     this.dispatch(deductActorAp(this.questName, actorId, ap));
@@ -139,7 +145,7 @@ export class CombatController {
     // todo: process the hit, take away any HP?
   }
 
-  public static actorShooting(actorId: string, _location: Location) {
+  public static actorShootStart(actorId: string, _intent: ActionIntent) {
     const actor = this.sceneController.getSceneActor(actorId);
     if (!actor) throw new Error('No actor found');
     const weapon = this.getActorMainhandItem(actor);
@@ -164,7 +170,7 @@ export class CombatController {
     }
   }
 
-  public static actorShot(actorId: string, _location: Location) {
+  public static actorShootEnd(actorId: string, _intent: ActionIntent) {
     const ap = AP_COST_SHOOT;
     // Take away AP for shooting
     this.dispatch(deductActorAp(this.questName, actorId, ap));

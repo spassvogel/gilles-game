@@ -238,6 +238,7 @@ export class BaseSceneController<TQuestVars> {
             actorId: actor.id,
             target: l as Location,
             endsAt: movementDuration * (index + 1) + performance.now(),
+            intent,
           };
           this.dispatch(enqueueSceneAction(this.questName, sceneAction));
         });
@@ -251,6 +252,7 @@ export class BaseSceneController<TQuestVars> {
             actorId: actor.id,
             target: l as Location,
             endsAt: movementDuration * (index + 1) + performance.now(),
+            intent,
           };
           this.dispatch(enqueueSceneAction(this.questName, moveAction));
         });
@@ -260,6 +262,7 @@ export class BaseSceneController<TQuestVars> {
           actorId: actor.id,
           target: to,
           endsAt: movementDuration * path.length + performance.now(),
+          intent,
         };
         this.dispatch(enqueueSceneAction(this.questName, interactAction));
         break;
@@ -280,6 +283,7 @@ export class BaseSceneController<TQuestVars> {
             actorId: actor.id,
             target: l as Location,
             endsAt: movementDuration * (index + 1) + performance.now(),
+            intent,
           };
           this.dispatch(enqueueSceneAction(this.questName, moveAction));
         });
@@ -288,6 +292,7 @@ export class BaseSceneController<TQuestVars> {
           actorId: actor.id,
           target,
           endsAt: movementDuration * (path.length + 1) + performance.now(),
+          intent,
         };
         this.dispatch(enqueueSceneAction(this.questName, meleeAction));
         break;
@@ -299,6 +304,7 @@ export class BaseSceneController<TQuestVars> {
           actorId: actor.id,
           target: to,
           endsAt: 500 + performance.now(),
+          intent,
         };
         this.dispatch(enqueueSceneAction(this.questName, shootAction));
       }

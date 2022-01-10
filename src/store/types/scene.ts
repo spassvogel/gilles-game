@@ -3,6 +3,7 @@ import { Location } from 'utils/tilemap';
 import { TiledObjectData } from 'constants/tiledMapData';
 import { Item } from 'definitions/items/types';
 import { TiledObjectType } from 'utils/tilemap';
+import { ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI';
 
 
 export interface SceneStoreState {
@@ -76,6 +77,7 @@ export interface SceneAction {
   actorId: string;
   target: Location;
   endsAt: number;
+  intent: ActionIntent; // todo: actorId and actionType might not be necessary
 }
 
 export enum SceneActionType {

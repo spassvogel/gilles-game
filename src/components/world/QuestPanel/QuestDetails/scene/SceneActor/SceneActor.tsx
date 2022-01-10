@@ -83,6 +83,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
       }
     };
     if (nextAction && nextAction !== previousAction.current) {
+      const { intent } = nextAction;
       // console.log(`next action is ${nextAction.target} (${nextAction.actionType}), \ncurrent location is: ${location}\nprev action was ${previousAction?.current?.target} `)
       switch (nextAction.actionType) {
         case SceneActionType.move: {
@@ -113,12 +114,12 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
         case SceneActionType.melee: {
           determineOrientation();
           setAnimation('attack');
-          CombatController.actorSlashing(actor.name, nextAction.target);
+          CombatController.actorMeleeStart(actor.name, intent);
 
           const attackComplete = () => {
             setAnimation('stand');
             dispatch(completeSceneAction(props.controller.questName));
-            CombatController.actorSlashed(actor.name, nextAction.target);
+            CombatController.actorMeleeEnd(actor.name, intent);
           };
           setTimeout(attackComplete, 1000);
           break;
@@ -126,12 +127,12 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
         case SceneActionType.shoot: {
           determineOrientation();
           setAnimation('attack');
-          CombatController.actorShooting(actor.name, nextAction.target);
+          CombatController.actorShootStart(actor.name, intent);
 
           const attackComplete = () => {
             setAnimation('stand');
             dispatch(completeSceneAction(props.controller.questName));
-            CombatController.actorShot(actor.name, nextAction.target);
+            CombatController.actorShootEnd(actor.name, intent);
           };
           setTimeout(attackComplete, 500);
           break;
