@@ -30,13 +30,13 @@
     "react-dnd-html5-backend": "^14.1.0",
     "react-dom": "^17.0.2",
     "react-error-boundary": "^3.1.4",
-    "react-markdown": "^7.1.1",
+    "react-markdown": "^7.1.2",
     "react-redux": "^7.2.4",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.4.3",
     "react-select": "^5.2.1",
-    "react-spring": "^9.3.2",
+    "react-spring": "^9.4.1",
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
     "remark-directive": "^1.0.1",
@@ -96,6 +96,6 @@
     "gh-pages": "^3.2.3",
     "react-scripts": "^4.0.3",
     "redux-devtools-extension": "^2.13.9",
-    "sass": "^1.45.2"
+    "sass": "^1.47.0"
   }
 }
