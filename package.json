@@ -10,7 +10,7 @@
     "@pixi/filter-godray": "^4.1.5",
     "@pixi/filter-multi-color-replace": "^4.1.3",
     "@pixi/filter-outline": "^4.1.5",
-    "@pixi/sound": "^4.1.1",
+    "@pixi/sound": "^4.2.0",
     "@pixi/text": "^6.2.1",
     "@pixi/tilemap": "^3.2.1",
     "astar-typescript": "^1.2.5",
