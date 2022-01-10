@@ -1,20 +1,16 @@
 import { useMemo,  useEffect, useRef, useCallback, PropsWithChildren, useState, memo, ComponentProps } from 'react';
-import { gsap } from 'gsap';
 import { Location } from 'utils/tilemap';
 import { Container } from '@inlet/react-pixi';
-import { SceneActionType, SceneAction, ActorObject } from 'store/types/scene';
-import { useDispatch, useSelector } from 'react-redux';
-import { completeSceneAction } from 'store/actions/quests';
-import { StoreState } from 'store/types';
+import { Filter, Loader, Texture, Container as PixiContainer } from 'pixi.js';
+import { ActorObject } from 'store/types/scene';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import SpriteAnimated from 'components/pixi/tile/SpriteAnimated';
 import { AdventurerColor } from 'store/types/adventurer';
 import { useQuest } from 'hooks/store/quests';
 import ActorStats from './ActorStats';
-import { Filter, Loader, Texture, Container as PixiContainer } from 'pixi.js';
 import { useRandomOrientation } from './useRandomOrientation';
 import { BLACK, BLUES, calculateBearing, createColorReplaceFilter, ORANGE, Orientation, PURPLE, REDS, SPRITE_WIDTH, TEALS, WHITE, YELLOW } from './utils';
-import { CombatController } from 'mechanics/scenes/CombatController';
+import useAnimation from './useAnimation';
 
 export interface Props  {
   actor: ActorObject;
@@ -41,128 +37,21 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
   } = props;
   const { tileWidth, tileHeight } = controller.getTileDimensions();
   const actorRef = useRef<PixiContainer>(null);
-  const previousAction = useRef<SceneAction>();
-  const dispatch = useDispatch();
   const quest = useQuest(props.controller.questName);
-  const actionQueueSelector = useCallback(() => {
-    if (!quest.scene?.actionQueue) {
-      return [];
-    }
-    return quest.scene.actionQueue.filter(a => a.actorId === actor.name);
-  }, [quest.scene, actor.name]);
 
-  const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
-  const [animation, setAnimation] = useState('stand');
   const [orientation, setOrientation] = useState<Orientation>(Orientation.north);
-  const tween = useRef<gsap.core.Tween>();
-  const nextAction = actionQueue[0];
+  const animation = useAnimation(controller, actorRef, actor.name, location, setOrientation);
+  useRandomOrientation(!!idleAnimation && !lookAt, orientation, setOrientation);
 
-  // Handle actions
-  useEffect(() => {
-    if (!actorRef) {
-      return;
-    }
-    // Determines orientation based on where the target is
-    const determineOrientation = () => {
-      if (location[0] === nextAction.target[0] && location[1] > nextAction.target[1]) {
-        setOrientation(Orientation.north);
-      } else if (location[0] < nextAction.target[0] && location[1] > nextAction.target[1]) {
-        setOrientation(Orientation.northEast);
-      } else if (location[0] < nextAction.target[0] && location[1] === nextAction.target[1]) {
-        setOrientation(Orientation.east);
-      } else if (location[0] < nextAction.target[0] && location[1] < nextAction.target[1]) {
-        setOrientation(Orientation.southEast);
-      } else if (location[0] === nextAction.target[0] && location[1] < nextAction.target[1]) {
-        setOrientation(Orientation.south);
-      } else if (location[0] > nextAction.target[0] && location[1] < nextAction.target[1]) {
-        setOrientation(Orientation.southWest);
-      } else if (location[0] > nextAction.target[0] && location[1] === nextAction.target[1]) {
-        setOrientation(Orientation.west);
-      } else if (location[0] > nextAction.target[0] && location[1] > nextAction.target[1]) {
-        setOrientation(Orientation.northWest);
-      }
-    };
-    if (nextAction && nextAction !== previousAction.current) {
-      const { intent } = nextAction;
-      // console.log(`next action is ${nextAction.target} (${nextAction.actionType}), \ncurrent location is: ${location}\nprev action was ${previousAction?.current?.target} `)
-      switch (nextAction.actionType) {
-        case SceneActionType.move: {
-          const moveComplete = () => {
-            dispatch(completeSceneAction(props.controller.questName));
-            props.controller.actorMoved(actor.name, nextAction.target);
-          };
-          const duration = (nextAction.endsAt - performance.now()) / 1000;
-          if (duration < 0) {
-            moveComplete();
-          }
+  const [frames, setFrames] = useState<{ [key: string]: Texture[] } | null>(null);
 
-          // determine orientation
-          determineOrientation();
-          setAnimation('walk');
-          gsap.killTweensOf(actorRef.current);
-          tween.current = gsap.to(actorRef.current, {
-            duration,
-            ease: 'linear',
-            pixi: {
-              x: nextAction.target[0] * tileWidth,
-              y: nextAction.target[1] * tileHeight,
-            },
-            onComplete: moveComplete,
-          });
-          break;
-        }
-        case SceneActionType.melee: {
-          determineOrientation();
-          setAnimation('attack');
-          CombatController.actorMeleeStart(actor.name, intent);
-
-          const attackComplete = () => {
-            setAnimation('stand');
-            dispatch(completeSceneAction(props.controller.questName));
-            CombatController.actorMeleeEnd(actor.name, intent);
-          };
-          setTimeout(attackComplete, 1000);
-          break;
-        }
-        case SceneActionType.shoot: {
-          determineOrientation();
-          setAnimation('attack');
-          CombatController.actorShootStart(actor.name, intent);
-
-          const attackComplete = () => {
-            setAnimation('stand');
-            dispatch(completeSceneAction(props.controller.questName));
-            CombatController.actorShootEnd(actor.name, intent);
-          };
-          setTimeout(attackComplete, 500);
-          break;
-        }
-        case SceneActionType.interact: {
-          controller.actorInteract(actor.name, nextAction.target);
-          dispatch(completeSceneAction(props.controller.questName));
-          break;
-        }
-      }
-      previousAction.current = nextAction;
-    }
-  }, [actionQueue, actor.name, controller, dispatch, location, nextAction, props.controller, tileHeight, tileWidth]);
-
-  useEffect(() => {
-    return () => {
-      tween.current?.kill();
-    };
-  }, []);
 
   const { x, y } = useMemo(() => {
-    setAnimation('stand');
-
     return {
       x: location[0] * tileWidth,
       y: location[1] * tileHeight,
     };
   }, [location, tileWidth, tileHeight]);
-
-  const [frames, setFrames] = useState<{ [key: string]: Texture[] } | null>(null);
 
   useEffect(() => {
     if (!spritesheetPath) return;
@@ -202,8 +91,6 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
   useEffect(() => {
     setFlipped(orientation === Orientation.southWest || orientation === Orientation.west || orientation === Orientation.northWest);
   }, [orientation]);
-
-  useRandomOrientation(!!idleAnimation && !lookAt, orientation, setOrientation);
 
   const getFrames = useCallback(() => {
     const spritesheet = Loader.shared.resources[spritesheetPath];
