@@ -12,7 +12,7 @@ import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { WeaponType, WeaponClassification } from 'definitions/items/weapons';
 import { getStructureLink } from 'utils/routing';
 import { Attribute } from 'store/types/adventurer';
-import { EnemyType } from 'definitions/enemies/types';
+import { checkIfEnemy, EnemyType } from 'definitions/enemies/types';
 import { ActorObject, isAdventurer, isEnemy } from 'store/types/scene';
 import { QuestStoreState } from 'store/types/quest';
 import { Effect, EffectType } from 'definitions/effects/types';
@@ -287,13 +287,11 @@ Handlebars.registerHelper('adventurer:name', (adventurerId: string) => {
   return new Handlebars.SafeString(name);
 });
 
-Handlebars.registerHelper('actor:name', (actor: ActorObject) => {
-  if (isAdventurer(actor)) {
-    const name = TextManager.getAdventurerName(actor.name);
-    return new Handlebars.SafeString(name);
-  } else if (isEnemy(actor)){
+Handlebars.registerHelper('actor:name', (actor: string) => {
+  if (checkIfEnemy(actor)) {
     const name = TextManager.getEnemyName(actor);
     return new Handlebars.SafeString(name);
   }
+  const name = TextManager.getAdventurerName(actor);
+  return new Handlebars.SafeString(name);
 });
-
