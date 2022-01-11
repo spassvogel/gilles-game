@@ -3,5 +3,30 @@
 .markdown {
   .trigger {
     color: $color-highlighted;
+
+    &.item-trigger-common {
+      color: $color-rarity-common;
+    }
+
+    &.item-trigger-uncommon {
+      color: $color-rarity-uncommon;
+    }
+
+    &.item-trigger-rare {
+      color: $color-rarity-rare;
+    }
+
+    &.item-trigger-epic {
+      color: $color-rarity-epic;
+    }
+
+    &.item-trigger-legendary {
+      color: $color-rarity-legendary;
+    }
+  }
+
+
+  p {
+    margin: 0;
   }
 }
