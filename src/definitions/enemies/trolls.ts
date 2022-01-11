@@ -26,7 +26,7 @@ const trolls: TrollDefinition = {
       str: 8,
       for: 7,
       int: 12,
-      agi: 10,
+      agi: 20,
     },
     skills: {
       [WeaponType.axe]: 12,

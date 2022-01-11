@@ -1,4 +1,5 @@
 import { AttributesStoreState } from 'store/types/adventurer';
+import { randomInt, roll3D6 } from 'utils/random';
 
 export const AP_COST_MOVE = 1; // amount of AP to deduct for each tile moved
 export const AP_COST_CONSUME = 2; // amount of AP to deduct for consuming an item
@@ -23,3 +24,16 @@ export const calculateDodge = (attributes: AttributesStoreState) => {
   const { agi } = attributes;
   return agi * 3;
 };
+
+export const rollToHit = (weaponSkill = 0) => {
+  const roll = roll3D6();
+  return roll <= weaponSkill;
+};
+
+export const rollToDodge = (attributes: AttributesStoreState) => {
+  const dodge = calculateDodge(attributes);
+  const roll = randomInt(0, 100);
+  return dodge > roll;
+  // todo: level difference modifier?
+};
+

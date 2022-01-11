@@ -30,6 +30,7 @@ import { BubbleLayer, BubbleManager, BubbleType } from 'global/BubbleManager';
 import { convertIn, convertOut } from 'utils/aStar';
 import { ActionIntent, WeaponWithAbility } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI';
 import { Ammunition } from 'definitions/items/ammunition';
+import { calculateEffectiveAttributes } from 'mechanics/adventurers/attributes';
 
 const spritesheetBasePath = 'img/scene/actors/';
 export const movementDuration = 500; // time every tile movement takes
@@ -803,6 +804,16 @@ export class BaseSceneController<TQuestVars> {
     }
     const enemy = this.getEnemyByActor(actor);
     return enemy.skills;
+  }
+
+  public getActorAttributes(actor: ActorObject) {
+    if (isAdventurer(actor)) {
+      const adventurer = this.getAdventurerByActor(actor);
+      if (!adventurer) throw new Error('No adventurer found');
+      return calculateEffectiveAttributes(adventurer);
+    }
+    const enemy = this.getEnemyByActor(actor);
+    return enemy.attributes;
   }
 
   protected questUpdate(input: string | TextEntry, icon?: string, toast = false): void {

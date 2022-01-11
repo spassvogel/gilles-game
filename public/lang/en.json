@@ -397,11 +397,12 @@
     "resource-workers-info": "Your workforce",
     "resource-workers-name": "workers",
 
-    "scene-combat-attack-shoot-hit": "{{actor:name actor}} shoots {{item:trigger weapon \"aA\"}} and hits for xx!",
-    "scene-combat-attack-shoot-missed": "{{actor:name actor}} shoots {{item:trigger weapon \"aA\"}} but missed!",
-    "scene-combat-attack-shoot-missed-verbose": "{{actor:name actor}} shoots with {{item:trigger weapon \"aA\"}} but missed!",
-    "scene-combat-attack-slash-missed": "{{actor:name actor}} slashes with {{item:trigger weapon \"aA\"}} but missed!",
-    "scene-combat-attack-slash-missed-verbose": "{{actor:name actor}} slashes (-{{ap}}AP) with {{item:name weapon \"aA\"}} but missed! (rolled {{roll}} against {{skill}} ({{weaponType}} skill))",
+    "scene-combat-attack-shoot-dodged": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}}. {{actor:name target}} dodged!",
+    "scene-combat-attack-shoot-hit": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} and hits  {{actor:name target}} for xx!",
+    "scene-combat-attack-shoot-missed": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} but missed!",
+    "scene-combat-attack-shoot-missed-verbose": "{{actor:name attacker}} shoots with {{item:trigger weapon \"aA\"}} but missed!",
+    "scene-combat-attack-slash-missed": "{{actor:name attacker}} slashes with {{item:trigger weapon \"aA\"}} but missed!",
+    "scene-combat-attack-slash-missed-verbose": "{{actor:name attacker}} slashes (-{{ap}}AP) with {{item:name weapon \"aA\"}} but missed! (rolled {{roll}} against {{skill}} ({{weaponType}} skill))",
 
     "structure-alchemist-name": "alchemist",
     "structure-armoursmith-name": "armoursmith",
