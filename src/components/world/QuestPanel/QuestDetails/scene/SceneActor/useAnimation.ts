@@ -102,7 +102,7 @@ const useAnimation = (
             dispatch(completeSceneAction(controller.questName));
             CombatController.actorMeleeEnd(actorName, intent);
           };
-          timeout.current = setTimeout(attackComplete, 1000);
+          setTimeout(attackComplete, 1000);
           break;
         }
         case SceneActionType.shoot: {
@@ -115,7 +115,7 @@ const useAnimation = (
             dispatch(completeSceneAction(controller.questName));
             CombatController.actorShootEnd(actorName, intent);
           };
-          timeout.current = setTimeout(attackComplete, 500);
+          setTimeout(attackComplete, 500);
           break;
         }
         case SceneActionType.interact: {
@@ -142,9 +142,6 @@ const useAnimation = (
   useEffect(() => {
     return () => {
       tween.current?.kill();
-      if (timeout.current) {
-        clearTimeout(timeout.current);
-      }
     };
   }, []);
 

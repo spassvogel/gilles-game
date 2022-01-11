@@ -8,7 +8,7 @@ export const ENEMY_BASE_AP = 6;
 
 export const calculateInitialAP = (attributes: AttributesStoreState, level: number) => {
   const { agi } = attributes;
-  return Math.floor(0.2 * (1.16 ^ agi) + 1 + (level / 10));
+  return Math.floor(0.2 * (1.16 ^ agi) + 1 + (level / 10)) + 300; // todo: remove the 300
   // for (let dx = 1; dx < 21; dx++) {
   //     console.log(`lvl 1, dx ${dx}: ${calculateInitialAP(dx, 1)}`)
   // }
