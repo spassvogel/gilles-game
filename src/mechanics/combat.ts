@@ -1,5 +1,7 @@
+import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { AttributesStoreState } from 'store/types/adventurer';
-import { randomInt, roll3D6 } from 'utils/random';
+import {  randomInt, roll3D6, weightedRoll } from 'utils/random';
+import { entries } from 'utils/typescript';
 
 export const AP_COST_MOVE = 1; // amount of AP to deduct for each tile moved
 export const AP_COST_CONSUME = 2; // amount of AP to deduct for consuming an item
@@ -35,5 +37,20 @@ export const rollToDodge = (attributes: AttributesStoreState) => {
   const roll = randomInt(0, 100);
   return dodge > roll;
   // todo: level difference modifier?
+};
+
+
+// Returns a weighted random bodypart
+export const rollBodyPart = () => {
+  const bodyParts = {
+    [EquipmentSlotType.head]: 0.1,
+    [EquipmentSlotType.chest]: 0.4,
+    [EquipmentSlotType.hands]: 0.1,
+    [EquipmentSlotType.legs]: 0.3,
+    [EquipmentSlotType.shoulders]: 0.05,
+    [EquipmentSlotType.feet]: 0.05,
+  };
+
+  return weightedRoll(bodyParts);
 };
 

@@ -5,8 +5,8 @@ import { ActorObject, Allegiance, isAdventurer, SceneAction, SceneActionType } f
 import { locationEquals } from 'utils/tilemap';
 import { BaseSceneController, movementDuration } from './BaseSceneController';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
-import { getDefinition as getWeaponDefinition, WeaponType } from 'definitions/items/weapons';
-import { AP_COST_MELEE, AP_COST_SHOOT, calculateDodge, rollToDodge, rollToHit } from 'mechanics/combat';
+import { DamageType, getDefinition as getWeaponDefinition, WeaponType } from 'definitions/items/weapons';
+import { AP_COST_MELEE, AP_COST_SHOOT, calculateDodge, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { TextEntry } from 'constants/text';
 import { roll3D6 } from 'utils/random';
@@ -187,11 +187,12 @@ export class CombatController {
     if (intent.action !== SceneActionType.shoot) throw new Error('Wrong action type');
     const { weapon } = intent.weaponWithAbility;
     if (!weapon) throw new Error('No weapon found');
-    const definition = getWeaponDefinition(weapon.type);
+    const weaponDefinition = getWeaponDefinition(weapon.type);
     const skills = this.sceneController.getActorSkills(actor);
     const target = this.sceneController.getObjectAtLocation(intent.to) as ActorObject;
 
-    if (rollToHit(skills[definition.weaponType])) {
+    rollBodyPart();
+    if (rollToHit(skills[weaponDefinition.weaponType])) {
 
       const targetAttributes = this.sceneController.getActorAttributes(target);
       if (rollToDodge(targetAttributes)){
@@ -204,6 +205,8 @@ export class CombatController {
           },
         });
       } else {
+        // todo: calculate damage types?
+        const damage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0;
 
         this.log({
           key: 'scene-combat-attack-shoot-hit',
@@ -211,30 +214,24 @@ export class CombatController {
             attacker: actor.name,
             weapon,
             target: target.name,
+            damage,
           },
         });
       }
 
 
     } else {
-      if (this.settings.verboseCombatLog) {
-        this.log({ key: 'scene-combat-attack-shoot-missed-verbose', context: {
+      this.log({
+        key: this.settings.verboseCombatLog ? 'scene-combat-attack-shoot-missed-verbose' : 'scene-combat-attack-shoot-missed',
+        context: {
           attacker: actor.name,
           weapon: weapon.type,
           ap,
           roll: rollToHit,
-          weaponType: definition.weaponType,
-          skill: skills[definition.weaponType],
-        } });
-      } else {
-        this.log({
-          key: 'scene-combat-attack-shoot-missed',
-          context: {
-            attacker: actor.name,
-            weapon,
-          },
-        });
-      }
+          weaponType: weaponDefinition.weaponType,
+          skill: skills[weaponDefinition.weaponType],
+        },
+      });
     }
     // todo: process the hit, take away any HP?
   }

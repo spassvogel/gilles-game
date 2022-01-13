@@ -1,3 +1,4 @@
+import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { Ammunition } from 'definitions/items/ammunition';
 import { Item } from 'definitions/items/types';
 import { Weapon } from 'definitions/items/weapons';
@@ -9,6 +10,7 @@ export interface EnemyDefinition {
   skills: SkillsStoreState;           //
   mainHand: Item<Weapon>;
   offHand?: Item<Weapon> | Item<Ammunition>;
+  armor: Partial<{ [key in EquipmentSlotType]: number }>;
   spritesheet: string;
   avatarImg: string;
 }
