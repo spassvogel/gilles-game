@@ -1,4 +1,3 @@
-import { createContext } from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Provider as StoreProvider } from 'react-redux';
 import { Store, AnyAction, DeepPartial } from 'redux';
@@ -20,30 +19,15 @@ import { loadGame } from 'store/actions/game';
 import LoadingSpinner from 'components/ui/loading/LoadingSpinner';
 import { PersistGate } from 'redux-persist/integration/react';
 import App from 'components/App';
+import { GameActionsContext } from './context';
 
 const TICK_INTERVAL = 2500; // main game tick
 
-type GameActionsContextProps = {
-  pauseGame: () => void,
-  continueGame: () => void,
-  restartGame: () => void,
-};
-
-const emptyFn = () => undefined;
-
-export const GameActionsContext = createContext<GameActionsContextProps>({
-  // values will all be overwritten in Game
-  pauseGame: emptyFn,
-  continueGame: emptyFn,
-  restartGame: emptyFn,
-});
 
 const Game = () => {
-
   const paused = useRef(false);
   const [store, setStore] = useState<Store<StoreState & PersistPartial, AnyAction>>();
   const [persistor, setPersistor] = useState<Persistor>();
-
 
   /**
    * Gets called when a player starts a new game
@@ -71,8 +55,7 @@ const Game = () => {
   }, [startNewGame]);
 
   /**
-   * Puts loads the game with a fresh empty store
-   */
+   * Puts loads the game with a fresh empty store */
   const restartGame = useCallback(() => {
     if (window.confirm('Are you sure you wish to reset all your progress?')){
       const newState = createInitialStore();
