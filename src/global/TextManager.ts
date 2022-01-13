@@ -17,6 +17,7 @@ import { ActorObject, isAdventurer, isEnemy } from 'store/types/scene';
 import { QuestStoreState } from 'store/types/quest';
 import { Effect, EffectType } from 'definitions/effects/types';
 import { TempEffect, TempEffectType } from 'definitions/tempEffects/types';
+import { Rarity } from 'constants/items';
 
 export abstract class TextManager {
 
@@ -129,6 +130,10 @@ export abstract class TextManager {
 
   public static getItemSubtext(item: ItemType): string | null {
     return this.getDefault(`item-${toKebab(item)}-subtext`);
+  }
+
+  public static getRarity(rarity: Rarity): string {
+    return this.get(`rarity-${Rarity[rarity]}-name`);
   }
 
   public static getStructureName(structure: Structure): string {
