@@ -25,6 +25,11 @@
     height: $item-size-big;
   }
 
+  &.size-biggest {
+    width: $item-size-biggest;
+    height: $item-size-biggest;
+  }
+
   .border-gold  {
     z-index: 1;
     position: absolute;

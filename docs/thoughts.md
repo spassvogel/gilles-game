@@ -265,11 +265,12 @@ During combat each actor has a nr of AP. They can spend this in a few ways:
 research: different weapon types and their strenghts and weaknesses
 
 - [ ] body area hit could be stochastic now:
-    - head:  0.1
-    - torso: 0.4
-    - hands: 0.1
-    - legs:  0.3
-    - feet:  0.1
+  - head:      0.1
+  - torso:     0.4
+  - hands:     0.1
+  - legs:      0.3
+  - shoulders: 0.05 
+  - feet:      0.05
 - [ ] later allow for aimed hits
 
 COMBAT SEQUENCE

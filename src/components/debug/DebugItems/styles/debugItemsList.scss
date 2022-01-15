@@ -1,0 +1,14 @@
+.debug-items-list {
+  background-color: white;
+  padding: 1rem 0.5rem;
+
+  .item {
+    padding: 0.5rem;
+    display: flex;
+
+    h2, h3 { margin: 0; }
+    .info {
+      margin-left: 0.5rem;
+    }
+  }
+}

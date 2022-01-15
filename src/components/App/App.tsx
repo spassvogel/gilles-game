@@ -20,7 +20,8 @@ import { getWorldLink, getTownLink } from 'utils/routing';
 import Button, { ButtonColor } from 'components/ui/buttons/Button';
 import Bubbles from 'components/ui/bubbles/Bubbles';
 import { BubbleLayer } from 'global/BubbleManager';
-import { GameActionsContext } from 'components/Game/Game';
+import DebugView from 'components/debug/DebugView';
+import { GameActionsContext } from 'components/Game/context';
 import './styles/app.scss';
 
 PixiPlugin.registerPIXI(PIXI);
@@ -58,8 +59,6 @@ const App = () => {
     restartGame();
   };
 
-  const renderTownView = () => <TownView />;
-  const renderWorldView = () => <WorldView />;
 
   const handleWindowOpened = (window: React.ReactElement) => {
     setActiveWindows([
@@ -156,7 +155,12 @@ const App = () => {
               </Route>
               <Route path={getTownLink()}>
                 <Link to={getWorldLink()}>
-                  <Button onClick={() => handleViewButtonClick()}  > {TextManager.get('ui-view-button-world')} </Button>
+                  <Button onClick={() => handleViewButtonClick()}> {TextManager.get('ui-view-button-world')} </Button>
+                </Link>
+              </Route>
+              <Route path="/debug">
+                <Link to={getWorldLink()}>
+                  <Button onClick={() => handleViewButtonClick()}> Back </Button>
                 </Link>
               </Route>
             </Switch>
@@ -164,8 +168,15 @@ const App = () => {
             <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} > Restart! </Button>
           </div>
           <Switch>
-            <Route path={getTownLink()} render={renderTownView} />
-            <Route path={getWorldLink()} render={renderWorldView} />
+            <Route path={getTownLink()} >
+              <TownView />
+            </Route>
+            <Route path={getWorldLink()} >
+              <WorldView />
+            </Route>
+            <Route path="/debug">
+              <DebugView />
+            </Route>
           </Switch>
           <SimpleLog/>
           {renderWindow()}

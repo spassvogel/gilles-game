@@ -7,8 +7,8 @@ import minerals, { Mineral } from './minerals';
 import consumables, { Consumable } from './consumables';
 import questItems, { QuestItem } from './questItems';
 import trinkets, { Trinket } from './trinkets';
-import { ItemType, ItemDefinition, ItemCategory } from './types';
 import weapons, { Weapon, WeaponDefinition, isWeapon, getDefinition as getWeaponDefinition  } from './weapons';
+import { ItemType, ItemDefinition, ItemCategory } from './types';
 
 const all = {
   ...ammunition,

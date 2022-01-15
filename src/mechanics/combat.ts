@@ -1,7 +1,6 @@
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { AttributesStoreState } from 'store/types/adventurer';
 import {  randomInt, roll3D6, weightedRoll } from 'utils/random';
-import { entries } from 'utils/typescript';
 
 export const AP_COST_MOVE = 1; // amount of AP to deduct for each tile moved
 export const AP_COST_CONSUME = 2; // amount of AP to deduct for consuming an item

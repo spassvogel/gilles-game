@@ -58,8 +58,7 @@ const Stockpile = () => {
           <Tab id={itemCategory} key={itemCategory}>
             {TextManager.getItemCategory(ItemCategory[itemCategory as keyof typeof ItemCategory])}
           </Tab>);
-      },
-      )}
+      })}
       </Tabstrip>
       <Inventory
         sourceType={WAREHOUSE}
