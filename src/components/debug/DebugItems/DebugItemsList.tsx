@@ -9,6 +9,12 @@ type Props = {
   items: { [key: string]: ItemDefinition }
 };
 
+
+const prepareText = (definition: ItemDefinition) => {
+  const asString = JSON.stringify(definition, undefined, 2);
+  return asString.substring(2, asString.length - 2);
+};
+
 const DebugItemsList = (props: Props) => {
   const { items } = props;
   return (
@@ -20,12 +26,13 @@ const DebugItemsList = (props: Props) => {
             <div className="info">
               <h2>{TextManager.getItemName(key as ItemType)}</h2>
               { value.rarity !== undefined && <h3>{TextManager.getRarity(value.rarity)}</h3>}
+              <pre>
+                {prepareText(value)}
+              </pre>
             </div>
           </div>
         );
       })}
-      {/* sda
-      {JSON.stringify(items)} */}
     </div>
   );
 };

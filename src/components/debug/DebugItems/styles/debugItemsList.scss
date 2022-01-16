@@ -1,6 +1,13 @@
+@import 'components/styles/import.scss';
+
 .debug-items-list {
   background-color: white;
   padding: 1rem 0.5rem;
+
+  @include md {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 
   .item {
     padding: 0.5rem;
