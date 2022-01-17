@@ -13,10 +13,11 @@ export interface ToastConfig {
 }
 
 export const EVENT_TOASTS_UPDATED = 'toast';
-interface ToastEvents {
+type ToastEvents = {
   [EVENT_TOASTS_UPDATED]: (context: ToastConfig[] | undefined) => void;
-}
-export class ToastManager extends (EventEmitter as new () => TypedEmitter<ToastEvents>) {
+};
+
+export class ToastManager extends (EventEmitter as unknown as new () => TypedEmitter<ToastEvents>) {
   private static _instance = new ToastManager();
 
   private static stack: ToastConfig[] = [];

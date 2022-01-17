@@ -13,11 +13,11 @@ export interface Context {
 }
 
 export const EVENT_CONTEXT_UPDATED = 'tooltipContextUpdated';
-interface TooltipEvents {
+type TooltipEvents = {
   [EVENT_CONTEXT_UPDATED]: (context: Context | undefined) => void;
-}
+};
 
-export class TooltipManager extends (EventEmitter as new () => TypedEmitter<TooltipEvents>) {
+export class TooltipManager extends (EventEmitter as unknown as new () => TypedEmitter<TooltipEvents>) {
   private static _instance = new TooltipManager();
 
   private static lastContext: Context | undefined;

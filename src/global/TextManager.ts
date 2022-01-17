@@ -13,7 +13,6 @@ import { WeaponType, WeaponClassification } from 'definitions/items/weapons';
 import { getStructureLink } from 'utils/routing';
 import { Attribute } from 'store/types/adventurer';
 import { checkIfEnemy, EnemyType } from 'definitions/enemies/types';
-import { ActorObject, isAdventurer, isEnemy } from 'store/types/scene';
 import { QuestStoreState } from 'store/types/quest';
 import { Effect, EffectType } from 'definitions/effects/types';
 import { TempEffect, TempEffectType } from 'definitions/tempEffects/types';

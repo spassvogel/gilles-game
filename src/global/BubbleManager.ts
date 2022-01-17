@@ -7,11 +7,11 @@ export const EVENT_BUBBLE_ADDED = 'bubbleAdded';
 export enum BubbleType { combat, resource }
 export enum BubbleLayer { general, scene }
 
-interface BubbleEvents {
+type BubbleEvents = {
   [EVENT_BUBBLE_ADDED]: (text: string, point: Point, bubbleType?: BubbleType, layer?: BubbleLayer) => void;
-}
+};
 
-export class BubbleManager extends (EventEmitter as new () => TypedEmitter<BubbleEvents>) {
+export class BubbleManager extends (EventEmitter as unknown as new () => TypedEmitter<BubbleEvents>) {
   private static _instance = new BubbleManager();
 
   static addBubble(text: string, point: Point, bubbleType: BubbleType = BubbleType.combat, layer: BubbleLayer = BubbleLayer.general) {
