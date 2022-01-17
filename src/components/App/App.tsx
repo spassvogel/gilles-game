@@ -23,6 +23,7 @@ import { BubbleLayer } from 'global/BubbleManager';
 import DebugView from 'components/debug/DebugView';
 import { GameActionsContext } from 'components/Game/context';
 import './styles/app.scss';
+import { useSettings } from 'hooks/store/settings';
 
 PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);
@@ -110,6 +111,8 @@ const App = () => {
     SoundManager.addSound('scene/drinking', 'sound/scene/drinking.ogg');
   }, []);
 
+  const settings = useSettings();
+
   const handleAppClick = () => {
     TooltipManager.clear();
   };
@@ -165,6 +168,14 @@ const App = () => {
               </Route>
             </Switch>
             {' | '}
+            { settings.debugShowDebugMenu && (
+              <>
+                <Link to={'/debug'}>
+                  <Button color={ButtonColor.purple} > Debug </Button>
+                </Link>
+                {' | '}
+              </>
+            )}
             <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} > Restart! </Button>
           </div>
           <Switch>

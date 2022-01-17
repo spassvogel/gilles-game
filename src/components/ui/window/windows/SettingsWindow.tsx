@@ -5,7 +5,7 @@ import { ChangeEvent } from 'react';
 import gsap from 'gsap';
 import { Channel, SoundManager } from 'global/SoundManager';
 import { withWindow } from 'hoc/withWindow';
-import { setSetting } from 'store/actions/settings';
+import { setSetting, SettingsKey } from 'store/actions/settings';
 import { useSettings } from 'hooks/store/settings';
 import './styles/settings.scss';
 
@@ -51,20 +51,10 @@ const SettingsWindow = () => {
     );
   };
 
-  const handleVerboseCombatLogChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSetting('verboseCombatLog', e.currentTarget.checked));
-  };
-
-  const handleDebugAllowAdventurerEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSetting('debugAllowAdventurerEdit', e.currentTarget.checked));
-  };
-
-  const handleDebugSceneShowPathableChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSetting('debugSceneShowPathable', e.currentTarget.checked));
-  };
-
-  const handleDebugSceneShowDebugSceneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSetting('debugSceneShowActionQueue', e.currentTarget.checked));
+  const handleBooleanChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const setting = e.currentTarget.getAttribute('setting-name');
+    if (setting === null) throw new Error('No setting');
+    dispatch(setSetting(setting as SettingsKey, e.currentTarget.checked));
   };
 
   return (
@@ -86,7 +76,8 @@ const SettingsWindow = () => {
           <input
             type="checkbox"
             checked={settings.verboseCombatLog}
-            onChange={handleVerboseCombatLogChange}
+            setting-name="verboseCombatLog"
+            onChange={handleBooleanChange}
           />
         </p>
         </section>
@@ -99,7 +90,19 @@ const SettingsWindow = () => {
           <input
             type="checkbox"
             checked={settings.debugAllowAdventurerEdit}
-            onChange={handleDebugAllowAdventurerEditChange}
+            setting-name="debugAllowAdventurerEdit"
+            onChange={handleBooleanChange}
+          />
+        </p>
+        </section>
+        <section>
+          <p>
+          <label>Show debug info menu</label>
+          <input
+            type="checkbox"
+            checked={settings.debugShowDebugMenu}
+            setting-name="debugShowDebugMenu"
+            onChange={handleBooleanChange}
           />
         </p>
         </section>
@@ -109,7 +112,8 @@ const SettingsWindow = () => {
           <input
             type="checkbox"
             checked={settings.debugSceneShowPathable}
-            onChange={handleDebugSceneShowPathableChange}
+            setting-name="debugSceneShowPathable"
+            onChange={handleBooleanChange}
           />
         </p>
         </section>
@@ -119,7 +123,8 @@ const SettingsWindow = () => {
           <input
             type="checkbox"
             checked={settings.debugSceneShowActionQueue}
-            onChange={handleDebugSceneShowDebugSceneChange}
+            setting-name="debugSceneShowActionQueue"
+            onChange={handleBooleanChange}
           />
         </p>
         </section>

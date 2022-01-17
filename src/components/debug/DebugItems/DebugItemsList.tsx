@@ -11,7 +11,7 @@ type Props = {
 
 
 const prepareText = (definition: ItemDefinition) => {
-  const asString = JSON.stringify(definition, undefined, 2);
+  const asString = JSON.stringify(definition, undefined, 2).replaceAll('\n  ', '\n');
   return asString.substring(2, asString.length - 2);
 };
 
