@@ -77,7 +77,7 @@ export const weightedRoll = <T extends number | string>(probabilities: { [key in
 //   }
 
 //   entries(result).forEach(([key, value]) => {
-//     console.log(`option: ${key} was chosen ${value / (testAmount / 100)}% (prob: ${(1 / (value / (testAmount / 100))).toFixed(3)}) of the time (abs: ${value})`);
+//     console.lxg(`option: ${key} was chosen ${value / (testAmount / 100)}% (prob: ${(1 / (value / (testAmount / 100))).toFixed(3)}) of the time (abs: ${value})`);
 //   });
 // };
 

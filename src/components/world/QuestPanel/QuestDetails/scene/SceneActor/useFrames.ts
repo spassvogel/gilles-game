@@ -8,7 +8,6 @@ const useFrames = (spritesheetPath: string, animation: Animation, orientation: O
   const indexedFrames = useMemo(() => {
     if (!spritesheetPath) return;
 
-    console.log(spritesheetPath);
     if (!Loader.shared.resources[spritesheetPath]?.textures){
       throw new Error(`No textures for ${spritesheetPath}`);
     }

@@ -12,10 +12,10 @@ export const calculateInitialAP = (attributes: AttributesStoreState, level: numb
   const { agi } = attributes;
   return Math.floor(0.2 * (1.16 ^ agi) + 1 + (level / 10)) + 300; // todo: remove the 300
   // for (let dx = 1; dx < 21; dx++) {
-  //     console.log(`lvl 1, dx ${dx}: ${calculateInitialAP(dx, 1)}`)
+  //     console.lxg(`lvl 1, dx ${dx}: ${calculateInitialAP(dx, 1)}`)
   // }
   // for (let dx = 1; dx < 21; dx++) {
-  //     console.log(`lvl 10, dx ${dx}: ${calculateInitialAP(dx, 10)}`)
+  //     console.lxg(`lvl 10, dx ${dx}: ${calculateInitialAP(dx, 10)}`)
   // }
 };
 
