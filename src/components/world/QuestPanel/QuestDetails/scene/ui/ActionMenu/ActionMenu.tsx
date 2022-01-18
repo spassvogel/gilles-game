@@ -11,7 +11,9 @@ import { ActionIntent } from '../SceneUI';
 import ActionButton from './ActionButton';
 import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
 import EnemyAvatar from 'components/ui/enemy/EnemyAvatar';
-// import "./styles/debugAdventurerEdit.scss";
+import ItemIcon from 'components/ui/items/ItemIcon';
+import { IconSize } from 'components/ui/common/Icon';
+import './styles/actionMenu.scss';
 
 type Props = {
   adventurerId: string;
@@ -44,12 +46,16 @@ const ActionMenu = (props: Props) => {
         }
         return (
           <>
-          {TextManager.getItemName(intent.weaponWithAbility?.weapon)}
-                  -
-          {WeaponAbility[intent.weaponWithAbility.ability]}
-          {intent &&
-            JSON.stringify(intent?.apCost)
-          }
+            <ItemIcon
+              size={IconSize.smallest}
+              item={intent.weaponWithAbility.weapon}
+            />
+            {TextManager.getItemName(intent.weaponWithAbility?.weapon)}
+                    -
+            {WeaponAbility[intent.weaponWithAbility.ability]}
+            {intent &&
+              JSON.stringify(intent?.apCost)
+            }
           </>
         );
       }
