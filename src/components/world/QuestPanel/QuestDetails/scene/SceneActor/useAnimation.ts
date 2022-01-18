@@ -11,7 +11,8 @@ import { SceneAction, SceneActionType } from 'store/types/scene';
 import { Location } from 'utils/tilemap';
 import { Orientation } from '.';
 
-export type Animation = 'stand' | 'attack' | 'walk';
+export const allAnimations = ['stand', 'attack', 'walk'] as const;
+export type Animation = typeof allAnimations[number];
 
 const useAnimation = (
   controller: BaseSceneController<unknown>,
