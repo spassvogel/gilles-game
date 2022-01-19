@@ -92,6 +92,7 @@ const DebugAdventurerEdit = (props: Props) => {
                   value={xp}
                   onChange={(e) => handleChangeXP(Number(e.currentTarget.value) - xp)}
                 />
+                (level {xpToLevel(xp)})
               </dd>
               <dt>Health</dt>
               <dd>

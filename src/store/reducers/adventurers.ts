@@ -4,7 +4,7 @@ import { Reducer } from 'redux';
 import { AdventurerColor, AdventurerStoreState, AttributesStoreState } from 'store/types/adventurer';
 import { Trait } from 'definitions/traits/types';
 import { WeaponType } from 'definitions/items/weapons';
-import { levelToXp, MAX_XP } from 'mechanics/adventurers/levels';
+import { levelToXp, MAX_XP, xpToLevel } from 'mechanics/adventurers/levels';
 import { Action } from 'store/actions';
 import { getDefinition, isConsumable } from 'definitions/items/consumables';
 import { Item } from 'definitions/items/types';
@@ -335,7 +335,8 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
         return element;
       });
     }
-    // Moves an  item from one inventory slot to another
+
+    // Moves an item from one inventory slot to another
     case 'moveItemInInventory': {
       const { adventurerId, fromSlot, toSlot } = action;
       const adventurer = state.find((a) => a.id === adventurerId);
@@ -578,12 +579,20 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
 
     case 'addXp': {
       // Adds xp
-      const { xp } = action;
       return state.map((adventurer: AdventurerStoreState) => {
         if (adventurer.id === action.adventurerId) {
+          const oldLevel = xpToLevel(adventurer.xp);
+          const xp = Math.min(adventurer.xp + action.xp, MAX_XP);
+          const newLevel = xpToLevel(xp);
+          let health = adventurer.health;
+          if (newLevel > oldLevel) {
+            // When achieving a new level, immediately get full health
+            health = calculateBaseHitpoints(newLevel, adventurer.basicAttributes.for);
+          }
           return {
             ...adventurer,
-            xp: Math.min(adventurer.xp + xp, MAX_XP),
+            xp,
+            health,
           };
         }
         return adventurer;
