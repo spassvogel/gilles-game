@@ -2,9 +2,10 @@ import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { Ammunition } from 'definitions/items/ammunition';
 import { Apparel } from 'definitions/items/apparel';
 import { Item } from 'definitions/items/types';
-import { Weapon, WeaponType } from 'definitions/items/weapons';
+import { Weapon } from 'definitions/items/weapons';
 import { Trait } from 'definitions/traits/types';
 import { TempEffect } from 'definitions/tempEffects/types';
+import { WeaponType } from 'mechanics/weapons';
 
 export interface AdventurerStoreState {
   id: string;

@@ -1,7 +1,8 @@
 import { getDefinition } from 'definitions/items';
 import { ApparelDefinition } from 'definitions/items/apparel';
 import { ItemType, ItemCategory } from 'definitions/items/types';
-import { getDefinition as getWeaponDefinition, WeaponTypeDefinition, WeaponClassification, isWeapon, WeaponDefinition } from 'definitions/items/weapons';
+import { getDefinition as getWeaponDefinition, isWeapon, WeaponDefinition } from 'definitions/items/weapons';
+import { WeaponTypeDefinition, WeaponClassification } from 'mechanics/weapons';
 import { EquipmentStoreState } from 'store/types/adventurer';
 
 export enum EquipmentSlotType {

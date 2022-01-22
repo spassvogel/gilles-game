@@ -9,7 +9,6 @@ import * as Handlebars from 'handlebars';
 import { Trait } from 'definitions/traits/types';
 import { Type } from 'components/ui/toasts/Toast';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
-import { WeaponType, WeaponClassification } from 'definitions/items/weapons';
 import { getStructureLink } from 'utils/routing';
 import { Attribute } from 'store/types/adventurer';
 import { checkIfEnemy, EnemyType } from 'definitions/enemies/types';
@@ -17,6 +16,7 @@ import { QuestStoreState } from 'store/types/quest';
 import { Effect, EffectType } from 'definitions/effects/types';
 import { TempEffect, TempEffectType } from 'definitions/tempEffects/types';
 import { Rarity } from 'constants/items';
+import { WeaponType, WeaponClassification } from 'mechanics/weapons';
 
 export abstract class TextManager {
 

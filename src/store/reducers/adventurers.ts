@@ -3,7 +3,6 @@ import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { Reducer } from 'redux';
 import { AdventurerColor, AdventurerStoreState, AttributesStoreState } from 'store/types/adventurer';
 import { Trait } from 'definitions/traits/types';
-import { WeaponType } from 'definitions/items/weapons';
 import { levelToXp, MAX_XP, xpToLevel } from 'mechanics/adventurers/levels';
 import { Action } from 'store/actions';
 import { getDefinition, isConsumable } from 'definitions/items/consumables';
@@ -12,6 +11,7 @@ import { Effect } from 'definitions/effects/types';
 import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
 import { TempEffectBrokenLegs, TempEffectBurning, TempEffectType } from 'definitions/tempEffects/types';
 import { createTempEffect } from 'definitions/tempEffects';
+import { WeaponType } from 'mechanics/weapons';
 
 
 const generateRandomAttributes = (): AttributesStoreState => {

@@ -1,5 +1,5 @@
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
-import { WeaponType } from 'definitions/items/weapons';
+import { WeaponType } from 'mechanics/weapons';
 import { EnemyDefinition } from './types';
 const spritesheetBasePath = 'img/scene/actors/';
 const avatarImgBasePath = '/img/avatars/monster/';

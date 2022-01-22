@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
-import { DamageDefinition } from 'definitions/items/weapons';
 import { TextManager } from 'global/TextManager';
+import { DamageDefinition } from 'mechanics/weapons';
 
 interface Props {
   damage: DamageDefinition;
