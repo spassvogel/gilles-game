@@ -5,13 +5,14 @@ import { ActorObject, Allegiance, isAdventurer, SceneAction, SceneActionType } f
 import { locationEquals } from 'utils/tilemap';
 import { BaseSceneController, movementDuration } from './BaseSceneController';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
-import { DamageType, getDefinition as getWeaponDefinition, WeaponType } from 'definitions/items/weapons';
+import { getDefinition as getWeaponDefinition } from 'definitions/items/weapons';
 import { AP_COST_MELEE, AP_COST_SHOOT, calculateDodge, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { TextEntry } from 'constants/text';
 import { roll3D6 } from 'utils/random';
 import { changeEquipmentQuantity } from 'store/actions/adventurers';
 import { ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI';
+import { DamageType, WeaponType } from 'mechanics/weapons';
 
 
 export class CombatController {

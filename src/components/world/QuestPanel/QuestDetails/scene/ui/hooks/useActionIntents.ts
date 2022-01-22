@@ -4,9 +4,10 @@ import { AdventurerStoreState } from 'store/types/adventurer';
 import { useAdventurerState } from 'hooks/store/adventurers';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { adventurerAmmo, adventurerWeapons } from 'store/helpers/storeHelpers';
-import { getDefinition as getWeaponDefinition, WeaponTypeDefinition, WeaponClassification } from 'definitions/items/weapons';
+import { getDefinition as getWeaponDefinition } from 'definitions/items/weapons';
 import { SceneActionType } from 'store/types/scene';
 import { ActionIntent } from '../SceneUI';
+import { WeaponClassification, WeaponTypeDefinition } from 'mechanics/weapons';
 
 const useActionIntents = (adventurerId: string, location?: Location, combat = false ) => {
   const adventurer: AdventurerStoreState = useAdventurerState(adventurerId);

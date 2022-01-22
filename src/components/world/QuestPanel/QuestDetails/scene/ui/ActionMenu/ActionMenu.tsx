@@ -4,7 +4,6 @@ import { AdventurerStoreState } from 'store/types/adventurer';
 import { DraggableInfoWindow } from 'components/ui/modals/InfoWindow/DraggableInfoWindow';
 import { useAdventurerState } from 'hooks/store/adventurers';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
-import { WeaponAbility } from 'definitions/items/weapons';
 import { TextManager } from 'global/TextManager';
 import { ActorObject, isEnemy, SceneActionType } from 'store/types/scene';
 import { ActionIntent } from '../SceneUI';
@@ -13,6 +12,7 @@ import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
 import EnemyAvatar from 'components/ui/enemy/EnemyAvatar';
 import ItemIcon from 'components/ui/items/ItemIcon';
 import { IconSize } from 'components/ui/common/Icon';
+import { WeaponAbility } from 'mechanics/weapons';
 import './styles/actionMenu.scss';
 
 type Props = {

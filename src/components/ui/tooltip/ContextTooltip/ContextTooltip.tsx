@@ -9,7 +9,6 @@ import ResourceContext from './context/ResourceContext';
 import Tooltip from '../Tooltip';
 import { TraitDefinition } from 'definitions/traits/types';
 import TraitContext from './context/TraitContext';
-import { WeaponType } from 'definitions/items/weapons';
 import { getDefinition } from 'definitions/items';
 import AttributeContext from './context/AttributeContext';
 import { ActorObject } from 'store/types/scene';
@@ -18,6 +17,7 @@ import TempEffectContext from './context/TempEffectContext';
 import { ExtendedAttribute } from 'mechanics/adventurers/attributes';
 import { TempEffect } from 'definitions/tempEffects/types';
 import { getItemNameClassName } from './utils';
+import { WeaponType } from 'mechanics/weapons';
 import './styles/contextTooltip.scss';
 
 // A contextual popup showing what you just clicked.

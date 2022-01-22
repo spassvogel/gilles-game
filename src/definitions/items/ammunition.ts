@@ -1,5 +1,5 @@
+import { WeaponType } from 'mechanics/weapons';
 import {  ItemType, ItemDefinition, ItemCategory } from './types';
-import { WeaponType } from './weapons';
 
 type Prefix = 'ammunition/';
 const PREFIX = 'ammunition/';

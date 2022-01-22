@@ -1,4 +1,5 @@
-import { getDefinition as getWeaponDefinition, WeaponTypeDefinition, WeaponType, Weapon } from 'definitions/items/weapons';
+import { getDefinition as getWeaponDefinition, Weapon } from 'definitions/items/weapons';
+import { WeaponTypeDefinition, WeaponType } from 'mechanics/weapons';
 import { TextManager } from 'global/TextManager';
 import ProduceOrStudy from '../common/ProduceOrStudy';
 import { Item } from 'definitions/items/types';

@@ -18,7 +18,7 @@ import { convertMouseOrTouchCoords, MouseOrTouchEvent } from 'utils/interaction'
 import Bubbles from 'components/ui/bubbles/Bubbles';
 import { BubbleLayer } from 'global/BubbleManager';
 import { Item } from 'definitions/items/types';
-import { Weapon, WeaponAbility } from 'definitions/items/weapons';
+import { Weapon } from 'definitions/items/weapons';
 import ActionMenu from './ActionMenu/ActionMenu';
 import useCanvasScaler from './hooks/useCanvasScaler';
 import CombatUIWidget from './CombatUIWidget';
@@ -26,6 +26,7 @@ import NormalUICursor from './NormalUICursor';
 import useActionIntents from './hooks/useActionIntents';
 import { Ammunition } from 'definitions/items/ammunition';
 import './styles/sceneUI.scss';
+import { WeaponAbility } from 'mechanics/weapons';
 
 export interface Props {
   sceneWidth: number;
@@ -47,8 +48,8 @@ type BaseActionIntent = {
 };
 
 export type WeaponWithAbility = {
-  weapon: Item<Weapon>
-  ability: WeaponAbility
+  weapon: Item<Weapon>;
+  ability: WeaponAbility;
 };
 
 export type ActionIntent = BaseActionIntent & {

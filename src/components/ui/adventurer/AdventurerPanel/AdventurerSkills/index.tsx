@@ -3,8 +3,8 @@ import { useAdventurerState } from 'hooks/store/adventurers';
 import { TextManager } from 'global/TextManager';
 import { ContextType } from 'constants/context';
 import { TooltipManager } from 'global/TooltipManager';
-import { WeaponType } from 'definitions/items/weapons';
 import './styles/adventurerSkills.scss';
+import { WeaponType } from 'mechanics/weapons';
 
 interface Props {
   adventurerId: string;
