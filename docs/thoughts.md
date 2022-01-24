@@ -93,7 +93,7 @@
 - [x] Cant take item from equipment guy and drop on inventory 
 
 #### 10/07/2019 ASSERTS [+tech]
-- [x] Include an assert library
+~~- [x] Include an assert library~~
 
 
 #### 10/07/2019 GAME TICK RESOURCE [+tech]
