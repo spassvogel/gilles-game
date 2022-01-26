@@ -8,6 +8,7 @@ import { getDefinition as getWeaponTypeDefinition } from 'definitions/weaponType
 import { WeaponType } from 'definitions/weaponTypes/types';
 import AbilitiesList from './AbilitiesList';
 import './styles/weaponContent.scss';
+
 interface Props {
   item: Item<Weapon>;
 }

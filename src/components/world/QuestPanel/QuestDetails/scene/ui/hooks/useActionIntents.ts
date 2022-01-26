@@ -9,6 +9,7 @@ import { SceneActionType } from 'store/types/scene';
 import { ActionIntent } from '../SceneUI';
 import { getDefinition as getWeaponTypeDefinition } from 'definitions/weaponTypes';
 import { WeaponClassification } from 'definitions/weaponTypes/types';
+import { getDefinition as getAbilityDefinition } from 'definitions/abilities';
 
 const useActionIntents = (adventurerId: string, location?: Location, combat = false ) => {
   const adventurer: AdventurerStoreState = useAdventurerState(adventurerId);
@@ -33,6 +34,8 @@ const useActionIntents = (adventurerId: string, location?: Location, combat = fa
       const weaponType = getWeaponTypeDefinition(definition.weaponType);
       const { classification } = weaponType;
       weaponType.abilities.forEach((ability) => {
+        const abilityDefinition = getAbilityDefinition(ability);
+        if (abilityDefinition.passive) return;
         const weaponWithAbility = { weapon, ability };
 
         // Ranged weapons trigger a 'shoot' action, others a melee

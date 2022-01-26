@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { getDefinition } from 'definitions/weaponTypes';
 import { WeaponType } from 'definitions/weaponTypes/types';
 import { TextManager } from 'global/TextManager';
