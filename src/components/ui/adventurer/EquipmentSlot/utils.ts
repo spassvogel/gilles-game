@@ -2,8 +2,9 @@ import { getDefinition } from 'definitions/items';
 import { ApparelDefinition } from 'definitions/items/apparel';
 import { ItemType, ItemCategory } from 'definitions/items/types';
 import { getDefinition as getWeaponDefinition, isWeapon, WeaponDefinition } from 'definitions/items/weapons';
-import { WeaponTypeDefinition, WeaponClassification } from 'mechanics/weapons';
 import { EquipmentStoreState } from 'store/types/adventurer';
+import { getDefinition as getWeaponTypeDefinition } from 'definitions/weaponTypes';
+import { WeaponClassification } from 'definitions/weaponTypes/types';
 
 export enum EquipmentSlotType {
   feet,
@@ -42,7 +43,7 @@ export const itemAndEquipmentSlotMatch = (itemType: ItemType, equipmentSlotType:
       } else if (itemDefinition.itemCategory !== ItemCategory.weapon) {
         return false;
       }
-      const { classification } = WeaponTypeDefinition[itemDefinition.weaponType];
+      const { classification } = getWeaponTypeDefinition(itemDefinition.weaponType);
       switch (classification) {
         case WeaponClassification.oneHanded:
           return true;
@@ -68,7 +69,7 @@ export const rangedWeaponInHand = (equipment: EquipmentStoreState) => {
 
   if (mainHandItem && isWeapon(mainHandItem.type)) {
     const weaponType = getWeaponDefinition(mainHandItem.type).weaponType;
-    if (WeaponTypeDefinition[weaponType].classification === WeaponClassification.ranged) {
+    if (getWeaponTypeDefinition(weaponType).classification === WeaponClassification.ranged) {
       return true;
     }
   }

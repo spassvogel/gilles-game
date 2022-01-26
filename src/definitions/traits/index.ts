@@ -24,6 +24,6 @@ const all = {
   },
 };
 
-export function getDefinition(trait: Trait): TraitDefinition {
+export const getDefinition = (trait: Trait): TraitDefinition => {
   return all[trait];
-}
+};

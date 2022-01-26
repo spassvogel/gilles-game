@@ -12,7 +12,7 @@ import { TextEntry } from 'constants/text';
 import { roll3D6 } from 'utils/random';
 import { changeEquipmentQuantity } from 'store/actions/adventurers';
 import { ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI';
-import { DamageType, WeaponType } from 'mechanics/weapons';
+import { DamageType, WeaponType } from 'definitions/weaponTypes/types';
 
 
 export class CombatController {
@@ -88,7 +88,7 @@ export class CombatController {
   }
 
   // Call when actor melee animation starts
-  public static actorMeleeStart(actorId: string, intent: ActionIntent) {
+  public static actorMeleeStart(actorId: string, _intent: ActionIntent) {
     if (!this.sceneController) return;
 
     SoundManager.playSound('scene/swish', Channel.scene, false, MixMode.singleInstance);

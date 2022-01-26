@@ -1,4 +1,13 @@
 {
+    "ability-aimed-shot-name": "aimed shot",
+    "ability-swing-name": "swing",
+    "ability-block-name": "block",
+    "ability-cut-name": "cut",
+    "ability-cleave-name": "cleave",
+    "ability-shoot-name": "shoot",
+    "ability-slash-name": "slash",
+    "ability-parry-name": "parry",
+    "ability-riposte-name": "riposte",
 
     "adventurer-drink-potion": "{{adventurer:name adventurer}} drinks {{item:name item \"aA\"}}",
     "adventurer-12c613d4-name": "Tedric the Bold",

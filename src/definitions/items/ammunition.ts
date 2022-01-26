@@ -1,4 +1,4 @@
-import { WeaponType } from 'mechanics/weapons';
+import { WeaponType } from 'definitions/weaponTypes/types';
 import {  ItemType, ItemDefinition, ItemCategory } from './types';
 
 type Prefix = 'ammunition/';

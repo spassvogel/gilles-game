@@ -4,7 +4,7 @@ import { TraitDefinition } from 'definitions/traits/types';
 import { ActorObject } from 'store/types/scene';
 import { Effect } from 'definitions/effects/types';
 import { ExtendedAttribute } from 'mechanics/adventurers/attributes';
-import { WeaponType } from 'mechanics/weapons';
+import { WeaponType } from 'definitions/weaponTypes/types';
 
 // Things that can be shown on the ContextPopup
 export enum ContextType {
