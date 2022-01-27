@@ -239,12 +239,23 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         e.preventDefault();
       }
     };
-
+  
     window.addEventListener('touchmove', onTouch, { passive: false } );
     return () => {
       window.removeEventListener('touchmove', onTouch);
     };
   }, []);
+
+  useEffect(() => {
+    const onLeave = () => {
+      if (mouseDownOnCanvas.current){
+        mouseDownOnCanvas.current = false;
+        setCursorLocation(undefined);
+        onSetActionIntent?.(undefined);
+      }
+    };
+    ref.current?.addEventListener('mouseleave', onLeave);
+  }, [onSetActionIntent]);
 
   return (
     <div
