@@ -8,12 +8,10 @@ export type Entries<T> = {
 }[keyof T][];
 
 
-// Type save entries ([key, value] pair)
+// Type safe entries ([key, value] pair)
 export function entries<T>(obj: T): Entries<T> {
   return Object.entries(obj) as Entries<T>;
 }
-
-export type DistributiveOmit<T, K extends keyof any> = T extends unknown ? Omit<T, K>: never;
 
 
 // Returns a list of enum values
