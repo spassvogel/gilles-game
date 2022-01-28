@@ -7,17 +7,18 @@ import { groupAdventurersByQuest } from 'store/selectors/adventurers';
 import { StoreState } from 'store/types';
 import { QuestStatus } from 'store/types/quest';
 import { StructureState } from 'store/types/structure';
-import { formatDuration } from 'utils/format/time';
+import { formatDateTime, formatDuration } from 'utils/format/time';
 import { convertIntToSemVer } from 'utils/version';
 import * as Version from 'constants/version';
 import './styles/gameStats.scss';
 
 type Props = {
-  state: StoreState
+  state: StoreState;
+  loadGameMode?: boolean;
 };
 
 const GameStats = (props: Props) => {
-  const { state } = props;
+  const { state, loadGameMode } = props;
   const timePlaying = formatDuration(state.engine.lastTick - (state.engine.gameStarted ?? 0), true);
   const groupedAdventurers = groupAdventurersByQuest(state.adventurers, state.quests);
   const version = useMemo(() => {
@@ -43,6 +44,12 @@ const GameStats = (props: Props) => {
           <dl>
             <dt>Time playing</dt>
             <dd>{timePlaying}</dd>
+            { loadGameMode && (
+              <>
+                <dt>Time saved</dt>
+                <dd>{formatDateTime(state.engine.lastTick)}</dd>
+              </>
+            )}
             <dt>Version</dt>
             <dd>{version}</dd>
             <dt>Quests active</dt>

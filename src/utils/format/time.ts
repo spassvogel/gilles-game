@@ -40,3 +40,7 @@ export const formatDuration = (ms: number, short?: boolean): string => {
   });
   return output.join(' ');
 };
+
+export const formatDateTime = (ms: number): string => {
+  return new Date(ms).toLocaleTimeString();
+};

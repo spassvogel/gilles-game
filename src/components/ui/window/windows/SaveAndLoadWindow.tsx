@@ -76,7 +76,7 @@ const SaveAndLoad = (props: AllProps & AppContextProps) => {
       </section>
       <div>
         { loading && <LoadingSpinner /> }
-        { loadedStore && <GameStats state={loadedStore} />}
+        { loadedStore && <GameStats state={loadedStore} loadGameMode />}
       </div>
     </div>
   );
