@@ -1,71 +1,71 @@
 @import 'components/styles/import.scss';
 
 details.structureview {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 
-    section {
-        margin-left: 15px;
+  section {
+    margin-left: 15px;
+  }
+
+  .crafting-row {
+    display: flex;
+
+    .updownvalue {
+      padding: 0 32px;
     }
-
-    .crafting-row {
-        display: flex;
-
-        .updownvalue {
-            padding: 0 32px;
-        }
-    }
+  }
 }
 
 .production-structure-view {
-    padding: 16px;
+  padding: 16px;
 
-    .crafting-area {
+  .crafting-area {
+    display: flex;
+    margin-bottom: 16px;
+
+    .vertical-tab-bar {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      width: 200px;
+
+      li {
         display: flex;
-        margin-bottom: 16px;
+        margin: 0;
+        padding: 2px;
+        // line-height: $item-size-small;
+        cursor: var(--app-cursor-pointer);
 
-        .vertical-tab-bar {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            width: 200px;
-
-            li {
-                display: flex;
-                margin: 0;
-                padding: 2px;
-                // line-height: $item-size-small;
-                cursor: var(--app-cursor-pointer);
-
-                &.selected {
-                    background: $color-secondary;
-                    color: white;
-                }
-
-                .item-icon {
-                    margin-right: 10px;
-                }
-            }
+        &.selected {
+          background: $color-secondary;
+          color: white;
         }
 
-        .crafting-details {
-            flex: 1;
-            border: 3px solid $color-secondary;
-            padding: 10px;
-
-            .crafting-costs {
-                display: flex;
-
-                fieldset {
-                    flex: 1;
-                }
-            }
-
-            .buttonrow {
-                display: flex;
-                justify-content: space-between;
-                margin-top: 16px;
-            }
+        .item-icon {
+          margin-right: 10px;
         }
+      }
     }
+
+    .crafting-details {
+      flex: 1;
+      border: 3px solid $color-secondary;
+      padding: 10px;
+
+      .crafting-costs {
+        display: flex;
+
+        fieldset {
+          flex: 1;
+        }
+      }
+
+      .buttonrow {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 16px;
+      }
+    }
+  }
 }
 

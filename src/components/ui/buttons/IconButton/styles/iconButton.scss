@@ -10,98 +10,98 @@ $small-height: 16px;
 $small-margin: 10px;
 
 .icon-button {
-    background: $color-secondary;
-    box-shadow: 0px 0px 0px transparent;
-    border: 1px solid $color-background-overlay;
-    text-shadow: 2px 2px 1px black;
-    margin-left: $margin * -0.5;
-    margin-top: $margin * -0.5;
-    padding: $margin;
-    border-radius: $borderRadius;
-    cursor: pointer;
+  background: $color-secondary;
+  box-shadow: 0px 0px 0px transparent;
+  border: 1px solid $color-background-overlay;
+  text-shadow: 2px 2px 1px black;
+  margin-left: $margin * -0.5;
+  margin-top: $margin * -0.5;
+  padding: $margin;
+  border-radius: $borderRadius;
+  cursor: pointer;
 
-    justify-content: center;
-    display: flex;
-    position: relative;
+  justify-content: center;
+  display: flex;
+  position: relative;
 
-    &:disabled {
-        filter: grayscale(1) brightness(2.5);
-        span {
-            color: rgb(87, 87, 87) !important;
-        }
+  &:disabled {
+    filter: grayscale(1) brightness(2.5);
+    span {
+      color: rgb(87, 87, 87) !important;
     }
+  }
+
+  .text {
+    position: absolute;
+    bottom: $margin;
+    text-align: center;
+    color: $color-text-lighter;
+  }
+  // &.button-large {
+  //   height: $large-height;
+  //   line-height: $large-height;
+
+  //   span {
+  //     font-size: large;
+  //     background-position: 0 -$large-height;
+  //     margin: 0 $large-margin;
+  //   }
+
+  //   &:before {
+  //     width: $large-margin;
+  //     background-position: 0 0;
+  //     height: $large-height;
+  //   }
+
+  //   &:after {
+  //     width: $large-margin;
+  //     background-position: right -2*$large-height;
+  //     right: 0;
+  //     height: $large-height;
+  //   }
+  // }
+
+  &.size-smallest {
+    width: $item-size-smallest + $margin;
+    height: $item-size-smallest + $margin;
 
     .text {
-        position: absolute;
-        bottom: $margin;
-        text-align: center;
-        color: $color-text-lighter;
+      font-size: smaller;
     }
-    // &.button-large {
-    //     height: $large-height;
-    //     line-height: $large-height;
+  }
 
-    //     span {
-    //         font-size: large;
-    //         background-position: 0 -$large-height;
-    //         margin: 0 $large-margin;
-    //     }
-
-    //     &:before {
-    //         width: $large-margin;
-    //         background-position: 0 0;
-    //         height: $large-height;
-    //     }
-
-    //     &:after {
-    //         width: $large-margin;
-    //         background-position: right -2*$large-height;
-    //         right: 0;
-    //         height: $large-height;
-    //     }
-    // }
-
-    &.size-smallest {
-        width: $item-size-smallest + $margin;
-        height: $item-size-smallest + $margin;
-
-        .text {
-            font-size: smaller;
-        }
-    }
-
-    &.size-medium, &.size-auto {
-        width: $item-size-medium + 2 * $margin;
-        height: $item-size-medium + 2 * $margin;
-    }
+  &.size-medium, &.size-auto {
+    width: $item-size-medium + 2 * $margin;
+    height: $item-size-medium + 2 * $margin;
+  }
 
 
 
-    // @media only screen and (max-width: $max-width-small) {
-    //     &.button-auto {
-    //         height: $small-height;
-    //         line-height: $small-height;
+  // @media only screen and (max-width: $max-width-small) {
+  //   &.button-auto {
+  //     height: $small-height;
+  //     line-height: $small-height;
 
-    //         span {
-    //             background-position: 0 -$small-height;
-    //             font-size: smaller;
-    //             margin: 0 $small-margin;
-    //             height: $small-height;
-    //         }
+  //     span {
+  //       background-position: 0 -$small-height;
+  //       font-size: smaller;
+  //       margin: 0 $small-margin;
+  //       height: $small-height;
+  //     }
 
-    //         &:before {
-    //             width: $small-margin;
-    //             height: $small-height;
-    //             background-position: 0 0;
-    //         }
+  //     &:before {
+  //       width: $small-margin;
+  //       height: $small-height;
+  //       background-position: 0 0;
+  //     }
 
-    //         &:after {
-    //             width: $small-margin;
-    //             height: $small-height;
-    //             background-position: 0 -2*$small-height;
-    //             right: 0;
-    //         }
-    //     }
-    // }
+  //     &:after {
+  //       width: $small-margin;
+  //       height: $small-height;
+  //       background-position: 0 -2*$small-height;
+  //       right: 0;
+  //     }
+  //   }
+  // }
 
 }

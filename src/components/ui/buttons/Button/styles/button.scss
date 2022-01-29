@@ -25,6 +25,7 @@ $small-margin: 10px;
     font-family: $font-normal;
     overflow-y: hidden;
     flex: 1;
+    white-space: nowrap;
   }
 
   &:disabled {

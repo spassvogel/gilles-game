@@ -1,8 +1,62 @@
+@import 'components/styles/import.scss';
+
 .action-menu-modal {
   .button {
     .item-icon {
       float: left;
       margin-right: 0.5rem;
     }
+  }
+
+  .background {
+    width: 92px;
+    height: 92px;
+    background: $color-invalid;
+    transform: translate(-50%, -50%) rotate(45deg);
+    position: relative;
+
+    .adventurer-frame {
+      position: absolute;
+      left: -22px;
+      top: 20px;
+    }
+
+    .enemy-frame {
+      position: absolute;
+      top: -8px;
+      left: 50px;
+    }
+  }
+
+  .button-list {
+    position: absolute;
+    top: -32px;
+    right: 175px;
+    list-style: none;
+    padding: 0;
+    background-color: orange;
+
+    li {
+      margin: 0;
+      margin-bottom: 8px;
+      text-align: right;
+
+      &:nth-of-type(1) {
+        margin-right: -16px;
+      }
+
+      &:nth-of-type(3) {
+        margin-right: -16px;
+      }
+
+      &:nth-of-type(4) {
+        margin-right: -32px;
+      }
+    }
+  }
+
+  .action-button-close {
+    position: absolute;
+    top: -35px;
   }
 }

@@ -2,10 +2,9 @@ import { Location } from 'utils/tilemap';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { ReactNode, useCallback, useContext, useEffect } from 'react';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
-import Button from 'components/ui/buttons/Button';
 import { ActionIntent } from '../SceneUI';
 import { locationEquals } from 'utils/tilemap';
-// import "./styles/debugAdventurerEdit.scss";
+import './styles/actionButton.scss';
 
 type Props = {
   adventurer: AdventurerStoreState;
@@ -55,12 +54,13 @@ const ActionButton = (props: Props) => {
   }, [cancelIntent]);
 
   return (
-    <Button
+    <div
+      className="action-button"
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
     >
       {renderText(intent)}
-    </Button>
+    </div>
   );
 };
 

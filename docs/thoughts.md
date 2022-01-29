@@ -671,7 +671,7 @@ Quests and adventurers dont need to be stored in the store when not active
 - [ ] We just need weapon combat skills for the time being
       https://gurps.fandom.com/wiki/List_of_Skills
 - [x] The weapon skills determine chance to hit
-- [ ] Weapon skill could be a skill that can be levelled up, but 
+- [ ] Weapon skill could be a skill that can be levelled up, but only sporadically
 
 
 ### Group adventurer sections
@@ -791,3 +791,14 @@ process events, send out redux actions
 ### 2021-12-22 Effect split 
 - [x] Split out the temporary condition an adventurer can have (eg: soma)
       and the actual technical effect. (eg: attribute increase)
+
+### 2022-01-29 Debug
+- [x] Items
+- [x] Sprites
+- [ ] Adventurers (replace current edit modal)
+- [ ] Map editor
+- [ ] Contextual settings
+- [ ] Have it as a drawer
+
+### 2022-01-29 Forward outpots (nice to have)
+Can build forward outposts (small versions of town) anywhere on the map, with less functionality, but adventurers can return there and rest, heal up etc.

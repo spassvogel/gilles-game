@@ -14,6 +14,7 @@ import ItemIcon from 'components/ui/items/ItemIcon';
 import { IconSize } from 'components/ui/common/Icon';
 import './styles/actionMenu.scss';
 import { WeaponAbility } from 'definitions/abilities/types';
+import DiamondFrame from './DiamondFrame';
 
 type Props = {
   adventurerId: string;
@@ -50,7 +51,7 @@ const ActionMenu = (props: Props) => {
               size={IconSize.smallest}
               item={intent.weaponWithAbility.weapon}
             />
-            {TextManager.getItemName(intent.weaponWithAbility?.weapon)}
+            {/* {TextManager.getItemName(intent.weaponWithAbility?.weapon)} */}
                     -
             {WeaponAbility[intent.weaponWithAbility.ability]}
             {intent &&
@@ -65,9 +66,20 @@ const ActionMenu = (props: Props) => {
   return (
     <div className="action-menu">
       <DraggableInfoWindow className="debug-adventurer-edit action-menu-modal" title="Action" onClose={onClose}>
-        {adventurer.name}
-        <AdventurerAvatar adventurer={adventurer} />
-        <ul>
+        <div className="background">
+          <DiamondFrame className="adventurer-frame gold">
+            <AdventurerAvatar adventurer={adventurer} size={IconSize.big}/>
+          </DiamondFrame>
+          {enemyTargetted?.name && (
+
+            <DiamondFrame className="enemy-frame gold">
+              <EnemyAvatar actorObject={enemyTargetted} size={IconSize.big}/>
+            </DiamondFrame>
+          )}
+        </div>
+        <div className="action-button action-button-close" onClick={onClose}>x close</div>
+
+        <ul className="button-list">
           {intents.filter(i => i.isValid).map((intent, i) => (
             <li key={`${intent.action}${i}`}>
               <ActionButton
@@ -80,15 +92,21 @@ const ActionMenu = (props: Props) => {
               />
             </li>
           ))}
+          <li>
+             <div className="action-button">sdfsdfs</div>
+          </li>
+          <li>
+             <div className="action-button">sdfsdfs</div>
+          </li>
         </ul>
-        <div>
+        {/* <div>
           {enemyTargetted?.name && (
             <>
               {TextManager.getEnemyName(enemyTargetted.name)}
               <EnemyAvatar actorObject={enemyTargetted}/>
             </>
           )}
-        </div>
+        </div> */}
       </DraggableInfoWindow>
     </div>
   );

@@ -1,0 +1,15 @@
+@import 'components/styles/import.scss';
+
+.diamond-frame {
+  background-color: black;
+  overflow: hidden;
+  display: inline-block;
+  
+  &.gold {
+    @include border-gold-md;
+  }
+
+  & > * {
+    transform: rotate(-45deg);
+  }
+}

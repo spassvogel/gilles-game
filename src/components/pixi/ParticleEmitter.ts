@@ -1,3 +1,4 @@
+import { ComponentProps } from 'react';
 import { PixiComponent, applyDefaultProps, Container } from '@inlet/react-pixi';
 import * as PIXI  from 'pixi.js';
 import * as particles from 'pixi-particles';
@@ -8,7 +9,7 @@ interface Props  {
 }
 
 
-const ParticleEmitter = PixiComponent<Props & React.ComponentProps<typeof Container>, PIXI.ParticleContainer>('ParticleEmitter', {
+const ParticleEmitter = PixiComponent<Props & ComponentProps<typeof Container>, PIXI.ParticleContainer>('ParticleEmitter', {
   create: () => new PIXI.ParticleContainer(256, {}),
 
   applyProps: (instance, oldProps: Props, newProps: Props) => {
