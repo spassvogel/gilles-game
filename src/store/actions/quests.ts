@@ -15,6 +15,7 @@ export type QuestAction =
   |  { type: 'startTurn', questName: string, turn: Allegiance, adventurers?: AdventurerStoreState[] }
   |  { type: 'deductActorAp', questName: string,  actor: string, ap: number }
   |  { type: 'setActorAp', questName: string, actor: string, ap: number }
+  |  { type: 'modifyEnemyHealth', questName: string, actor: string, health: number }
   //  |  { type: "updateEncounterResult", questName: string, nodeIndex: number, result: string }
   |  { type: 'setActiveSceneInteractionModal', questName: string, sceneInteractionModal?: SceneInteractionModal }
 
@@ -92,6 +93,13 @@ export const deductActorAp = (questName: string, actor: string, ap: number): Que
   questName,
   actor,
   ap,
+});
+
+export const modifyEnemyHealth = (questName: string, actor: string, health: number): QuestAction => ({
+  type: 'modifyEnemyHealth',
+  questName,
+  actor,
+  health,
 });
 
 export const setActorAp = (questName: string, actor: string, ap: number): QuestAction => ({

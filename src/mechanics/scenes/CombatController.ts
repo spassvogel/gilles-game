@@ -1,4 +1,4 @@
-import { deductActorAp, enqueueSceneAction, startTurn } from 'store/actions/quests';
+import { deductActorAp, enqueueSceneAction, modifyEnemyHealth, startTurn } from 'store/actions/quests';
 import { AnyAction } from 'redux';
 import { Location } from 'utils/tilemap';
 import { ActorObject, Allegiance, isAdventurer, SceneAction, SceneActionType } from 'store/types/scene';
@@ -10,8 +10,10 @@ import { AP_COST_MELEE, AP_COST_SHOOT, calculateDodge, rollBodyPart, rollToDodge
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { TextEntry } from 'constants/text';
 import { roll3D6 } from 'utils/random';
-import { changeEquipmentQuantity } from 'store/actions/adventurers';
+import { changeEquipmentQuantity, modifyHealth } from 'store/actions/adventurers';
 import { ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI';
+import {  getDefinition, isApparel } from 'definitions/items/apparel';
+import { TextManager } from 'global/TextManager';
 import { DamageType, WeaponType } from 'definitions/weaponTypes/types';
 
 
@@ -192,11 +194,11 @@ export class CombatController {
     const skills = this.sceneController.getActorSkills(actor);
     const target = this.sceneController.getObjectAtLocation(intent.to) as ActorObject;
 
-    rollBodyPart();
     if (rollToHit(skills[weaponDefinition.weaponType])) {
 
       const targetAttributes = this.sceneController.getActorAttributes(target);
       if (rollToDodge(targetAttributes)){
+        // Dodged!
         this.log({
           key: 'scene-combat-attack-shoot-dodged',
           context: {
@@ -206,16 +208,24 @@ export class CombatController {
           },
         });
       } else {
+        // Hit!
         // todo: calculate damage types?
-        const damage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0;
+        const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0;
+        const bodyPart = rollBodyPart();
+        const armor = this.getArmor(target, bodyPart);
+        const damage = rawDamage - armor;
+        const absorbed = rawDamage - damage;
+        this.takeDamage(target, damage);
 
         this.log({
           key: 'scene-combat-attack-shoot-hit',
           context: {
             attacker: actor.name,
             weapon,
+            bodyPart: TextManager.getEquipmentSlot(bodyPart),
             target: target.name,
             damage,
+            absorbed,
           },
         });
       }
@@ -279,6 +289,27 @@ export class CombatController {
     }
     const enemy = this.sceneController.getEnemyByActor(actor);
     return enemy.mainHand;
+  }
+
+  protected static getArmor(actor: ActorObject, bodyPart: EquipmentSlotType) {
+    if (isAdventurer(actor)) {
+      const adventurer = this.sceneController.getAdventurerByActor(actor);
+      if (!adventurer) throw new Error('No adventurer found');
+      const equipment = adventurer.equipment[bodyPart]?.type;
+      if (!equipment || !isApparel(equipment)) return 0;
+      return getDefinition(equipment).damageReduction ?? 0;
+    }
+    const enemy = this.sceneController.getEnemyByActor(actor);
+    return enemy.armor[bodyPart] ?? 0;
+  }
+
+  protected static takeDamage(actor: ActorObject, damage: number) {
+    const actorId = actor.name;
+    if (isAdventurer(actor)) {
+      this.dispatch(modifyHealth(actorId, -damage));
+    } else {
+      this.dispatch(modifyEnemyHealth(this.questName, actorId, -damage));
+    }
   }
 
   // protected static getActorOffhandItem(actor: ActorObject) {

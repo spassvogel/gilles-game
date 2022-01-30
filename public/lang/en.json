@@ -407,7 +407,7 @@
     "resource-workers-name": "workers",
 
     "scene-combat-attack-shoot-dodged": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}}. {{actor:name target}} dodged!",
-    "scene-combat-attack-shoot-hit": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} and hits {{actor:name target}} for {{damage}}!",
+    "scene-combat-attack-shoot-hit": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} and hits {{actor:name target}} in the {{bodyPart}} for {{damage}} damage ({{absorbed}} absorbed)!",
     "scene-combat-attack-shoot-missed": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} but missed!",
     "scene-combat-attack-shoot-missed-verbose": "{{actor:name attacker}} shoots with {{item:trigger weapon \"aA\"}} but missed!",
     "scene-combat-attack-slash-missed": "{{actor:name attacker}} slashes with {{item:trigger weapon \"aA\"}} but missed!",

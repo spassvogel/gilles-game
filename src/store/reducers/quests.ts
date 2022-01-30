@@ -333,6 +333,31 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
       });
     }
 
+    case 'modifyEnemyHealth': {
+      return state.map((qss) => {
+        if (qss.name === action.questName) {
+          const scene = qss.scene;
+          if (!scene) throw new Error('Something broke. No scene');
+          scene.objects = scene.objects.map(o => {
+            if (isActorObject(o) && o.name === action.actor) {
+              const health = o.health + action.health;
+              return {
+                ...o,
+                health,
+              };
+            }
+            return o;
+          });
+
+          return {
+            ...qss,
+            scene,
+          };
+        }
+        return qss;
+      });
+    }
+
     // case "updateSceneObjectAction": {
     //   return state.map((qss) => {
     //     if (qss.name === action.questName) {
