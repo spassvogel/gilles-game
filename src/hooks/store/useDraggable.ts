@@ -87,20 +87,21 @@ const useDraggable = (element: RefObject<HTMLElement>, handle?: RefObject<HTMLEl
 
 
     el.addEventListener('touchstart', touchStart, false);
-    el.addEventListener('touchend', dragEnd, false);
+    document.addEventListener('touchend', dragEnd, false);
     document.addEventListener('touchmove', touchMove, false);
 
     el.addEventListener('mousedown', mouseStart, false);
-    el.addEventListener('mouseup', dragEnd, false);
+    document.addEventListener('mouseup', dragEnd, false);
     document.addEventListener('mousemove', mouseMove, false);
 
     return () => {
       el.removeEventListener('touchstart', touchStart, false);
-      el.removeEventListener('touchend', dragEnd, false);
+      document.removeEventListener('touchend', dragEnd, false);
+      document.removeEventListener('touchend', dragEnd, false);
       document.removeEventListener('touchmove', touchMove, false);
 
       el.removeEventListener('mousedown', mouseStart, false);
-      el.removeEventListener('mouseup', dragEnd, false);
+      document.removeEventListener('mouseup', dragEnd, false);
       document.removeEventListener('mousemove', mouseMove, false);
     };
   }, []);

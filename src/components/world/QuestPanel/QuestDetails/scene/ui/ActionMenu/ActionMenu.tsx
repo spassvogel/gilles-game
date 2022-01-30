@@ -1,4 +1,4 @@
-import { useCallback, useContext, useMemo } from 'react';
+import { useCallback, useContext, useMemo, useRef } from 'react';
 import { Location } from 'utils/tilemap';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { DraggableInfoWindow } from 'components/ui/modals/InfoWindow/DraggableInfoWindow';
@@ -15,6 +15,7 @@ import { IconSize } from 'components/ui/common/Icon';
 import './styles/actionMenu.scss';
 import { WeaponAbility } from 'definitions/abilities/types';
 import DiamondFrame from './DiamondFrame';
+import useDraggable from 'hooks/store/useDraggable';
 
 type Props = {
   adventurerId: string;
@@ -29,6 +30,10 @@ const ActionMenu = (props: Props) => {
   const adventurer: AdventurerStoreState = useAdventurerState(adventurerId);
   const controller = useContext(SceneControllerContext);
   if (!controller) throw new Error('No controller');
+
+  const ref = useRef<HTMLDivElement>(null);
+  const handle = useRef<HTMLDivElement>(null);
+  useDraggable(ref, handle);
 
   const enemyTargetted = useMemo(() => {
     return controller?.getObjectAtLocation(location, isEnemy) as ActorObject;
@@ -57,16 +62,16 @@ const ActionMenu = (props: Props) => {
             {intent &&
               JSON.stringify(intent?.apCost)
             }
-          </>
+          </> 
         );
       }
     }
   }, []);
 
   return (
-    <div className="action-menu">
-      <DraggableInfoWindow className="debug-adventurer-edit action-menu-modal" title="Action" onClose={onClose}>
-        <div className="background">
+    <div className="action-menu-background" onClick={onClose}>
+      <div className="action-menu" ref={ref}>
+        <div className="background" ref={handle}>
           <DiamondFrame className="adventurer-frame gold">
             <AdventurerAvatar adventurer={adventurer} size={IconSize.big}/>
           </DiamondFrame>
@@ -93,10 +98,10 @@ const ActionMenu = (props: Props) => {
             </li>
           ))}
           <li>
-             <div className="action-button">sdfsdfs</div>
+              <div className="action-button">sdfsdfs</div>
           </li>
           <li>
-             <div className="action-button">sdfsdfs</div>
+              <div className="action-button">sdfsdfs</div>
           </li>
         </ul>
         {/* <div>
@@ -107,7 +112,7 @@ const ActionMenu = (props: Props) => {
             </>
           )}
         </div> */}
-      </DraggableInfoWindow>
+      </div>
     </div>
   );
 };

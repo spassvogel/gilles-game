@@ -1,6 +1,17 @@
 @import 'components/styles/import.scss';
 
-.action-menu-modal {
+.action-menu-background {
+  width: 100%;
+  height: 100%;
+  background-color: $color-background-overlay-lighter;
+}
+
+.action-menu {
+  position: absolute;
+  transform: translate(100px, -100px);
+  top: 300px;
+  left: 300px;
+
   .button {
     .item-icon {
       float: left;
@@ -14,6 +25,10 @@
     background: $color-invalid;
     transform: translate(-50%, -50%) rotate(45deg);
     position: relative;
+
+    .diamond-frame {
+      pointer-events: none;
+    }
 
     .adventurer-frame {
       position: absolute;
@@ -30,11 +45,10 @@
 
   .button-list {
     position: absolute;
-    top: -32px;
+    top: -71px;
     right: 175px;
     list-style: none;
     padding: 0;
-    background-color: orange;
 
     li {
       margin: 0;
@@ -57,6 +71,6 @@
 
   .action-button-close {
     position: absolute;
-    top: -35px;
+    top: -65px;
   }
 }
