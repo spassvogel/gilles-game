@@ -707,7 +707,7 @@ export class BaseSceneController<TQuestVars> {
           if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
             const definition = getEnemyDefinition(object.properties.name as EnemyType);
             const level = object.properties.level as number ?? 1;
-            object.health = Math.random() * 100;
+            object.health = Math.random() * 20; // todo
             object.ap = calculateInitialAP(definition.attributes, level);
             object.name = object.properties.name as string;
             object.level = level;

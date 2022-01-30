@@ -41,7 +41,7 @@ export const roll3D6 = (): number =>  {
  * @param probabilities object with probability as values
  * @returns one of the keys of `probabilities`
  */
-export const weightedRoll = <T extends number | string>(probabilities: { [key in T]: number }) => {
+export const weightedRoll = <T extends number | string>(probabilities: { [key in T]: number }): T => {
   const roll = random();
   let cumulative = 0;
   const found = entries(probabilities).find(([_key, value]) => {

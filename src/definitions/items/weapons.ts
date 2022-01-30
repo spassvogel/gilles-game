@@ -153,7 +153,7 @@ const weapons = {
     weaponType: WeaponType.bow,
     iconImg: `${basePath}hunting-bow.png`,
     rarity: Rarity.common,
-    damage: { [DamageType.kinetic]: 3 },
+    damage: { [DamageType.kinetic]: 5 },
   },
   indomitableCarapace: {
     itemCategory,
@@ -194,7 +194,7 @@ const weapons = {
     weaponType: WeaponType.bow,
     iconImg: `${basePath}longbow.png`,
     rarity: Rarity.rare,
-    damage: { [DamageType.kinetic]: 2 },
+    damage: { [DamageType.kinetic]: 6 },
   },
   mace: {
     itemCategory,
@@ -262,7 +262,7 @@ const weapons = {
     weaponType: WeaponType.crossbow,
     iconImg: `${basePath}crossbow.png`,
     rarity: Rarity.common,
-    damage: { [DamageType.kinetic]: 3 },
+    damage: { [DamageType.kinetic]: 5 },
   },
   spear: {
     itemCategory,
