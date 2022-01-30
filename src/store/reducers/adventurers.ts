@@ -11,7 +11,7 @@ import { Effect } from 'definitions/effects/types';
 import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
 import { TempEffectBrokenLegs, TempEffectBurning, TempEffectType } from 'definitions/tempEffects/types';
 import { createTempEffect } from 'definitions/tempEffects';
-import { WeaponType } from 'mechanics/weapons';
+import { WeaponType } from 'definitions/weaponTypes/types';
 
 
 const generateRandomAttributes = (): AttributesStoreState => {

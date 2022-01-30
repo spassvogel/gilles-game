@@ -16,7 +16,8 @@ import { QuestStoreState } from 'store/types/quest';
 import { Effect, EffectType } from 'definitions/effects/types';
 import { TempEffect, TempEffectType } from 'definitions/tempEffects/types';
 import { Rarity } from 'constants/items';
-import { WeaponType, WeaponClassification } from 'mechanics/weapons';
+import { WeaponClassification, WeaponType } from 'definitions/weaponTypes/types';
+import { WeaponAbility } from 'definitions/abilities/types';
 
 export abstract class TextManager {
 
@@ -69,6 +70,10 @@ export abstract class TextManager {
       template = this.templates[key];
     }
     return template;
+  }
+
+  public static getAbilityName(ability: WeaponAbility) {
+    return this.get(`ability-${WeaponAbility[ability]}-name`);
   }
 
   public static getAdventurerName(adventurerId: string) {

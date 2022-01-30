@@ -1,7 +1,7 @@
 import { ItemType, ItemDefinition, ItemCategory } from './types';
 import { Rarity } from 'constants/items';
 import { Effect, EffectAttibuteIncrease, EffectType } from 'definitions/effects/types';
-import { DamageDefinition, DamageType, WeaponType } from 'mechanics/weapons';
+import { WeaponType, DamageDefinition, DamageType } from 'definitions/weaponTypes/types';
 
 type Prefix = 'weapon/';
 const PREFIX = 'weapon/';

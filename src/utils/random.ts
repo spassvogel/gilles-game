@@ -44,7 +44,7 @@ export const roll3D6 = (): number =>  {
 export const weightedRoll = <T extends number | string>(probabilities: { [key in T]: number }): T => {
   const roll = random();
   let cumulative = 0;
-  const found = entries(probabilities).find(([_key, value]) => {
+  const found = entries(probabilities).find(([_key, value]: [T, number] ) => {
     cumulative += value;
     if (roll < cumulative) {
       return true;

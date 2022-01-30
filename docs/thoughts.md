@@ -130,13 +130,13 @@ https://forum.rpg.net/index.php?threads/what-are-the-advantages-if-these-various
 - [x] Can go to resource production structure directly from warehouse
 
 #### 14/07/2019 XP Progression 
-- [ ] https://stackoverflow.com/questions/6954874/php-game-formula-to-calculate-a-level-based-on-exp
+- [z] https://stackoverflow.com/questions/6954874/php-game-formula-to-calculate-a-level-based-on-exp
 - [ ] or find RPG framework
     level = 0.5 * Math.sqrt(xp)
     
 - [ ] XP should have diminishing returns on weaker enemies
     research: wow?
-- [ ] Action points come with level, use logarithmic scale:
+- [x] Action points come with level, use logarithmic scale:
 
 for (var i = 0; i < 30; i++) {
  console.log(i + ":" + Math.floor(Math.log(i+1)*1))
@@ -174,7 +174,7 @@ for (var i = 0; i < 30; i++) {
 
 #### 24/06/2019 BUTTON COMPONENTS
 - [x] buttons should get their own react component.
-- [x]  first identify the different button types
+- [x] first identify the different button types
 - [x] https://www.youtube.com/watch?v=ftINEEKWtFQ
 
 #### 25/07/2019 SCROLLING TABS
@@ -198,6 +198,7 @@ for (var i = 0; i < 30; i++) {
   mainhand  offhand sidearm
 
 #### 31/07/2019 THREE.js
+~~
 Because I'm not an artist and I want to use unity3d assets
 - [x] First check if components dont get remounted too much. If yes, find out why and resolve issue!     
 - [x] Find cool fantasy town assets
@@ -206,7 +207,7 @@ Because I'm not an artist and I want to use unity3d assets
 - [x] It would be cool to have the town scrollable. (see: 23/08/2019 WORLD MAP)
     The easiest way would maybe to be to create a very long canvas, render everything on it and let the browser scroll this canvas. This way you also have a scrollbar.
     Not optimal for performance tho.
-- [ ] Find cool fantasy character unity asset packs
+- [x] Find cool fantasy character unity asset packs
 - [x] Check if can be loaded in threejs (seperate project)
 - [x] Implement in combat
     perhaps we don't need react bindings.
@@ -215,7 +216,7 @@ Because I'm not an artist and I want to use unity3d assets
     2. on update, all actors (AIs turn happens simultanously?) move to their new positions
        and play their animations.
 - [x] On second hand, I think it's worth checking out react-three-fiber. Might get complicated otherwise  
-
+~~
 
 #### 04/08/2019 Swap items between warehouse and adventurers [+tech]
 - [x] Take items from warehouse and assign to adventurer inventory
@@ -285,7 +286,8 @@ https://www.youtube.com/watch?v=LO8BHmnIrVU
 - [x] When slashing, look at weapon type. Then take associated weapon skill.
     Roll 3d6 and if result is higher than weapon skill, it's a miss
 
-- [ ] Defender rolls to dodge. Dodge% is in effect at equal level. Otherwise penalty applies, eg 10% per level difference
+- [x] Defender rolls to dodge. Dodge% is in effect at equal level. 
+- [ ] Otherwise penalty applies, eg 10% per level difference
 
 - [ ] If dodge fails can try to block with shield or parry with weapon. IF succesful will deflect all dmg but cause shield/weapon integrity to go down.
 
@@ -425,11 +427,11 @@ research fantasy concept art
 
 #### 30/03/2020 Mobile [+art], [+tech]
 - [ ] Need to completely check if the app is responsive and works in mobile
-- [ ] prevent drag of scene to scroll screen in mobile  
+- [x] prevent drag of scene to scroll screen in mobile  
     // prevent drag
     document.addEventListener('touchmove', swallowDrag, { passive:false });
     function swallowDrag(e: TouchEvent) { e.preventDefault(); }
-
+- [x] cancel drag when mouse leaves scene
 
 #### 30/03/2020 Leaders [+design]
 - [x] Parties can have a leader. The leader provides the icon for the party. 

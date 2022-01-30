@@ -5,7 +5,7 @@ import { Item } from 'definitions/items/types';
 import { Weapon } from 'definitions/items/weapons';
 import { Trait } from 'definitions/traits/types';
 import { TempEffect } from 'definitions/tempEffects/types';
-import { WeaponType } from 'mechanics/weapons';
+import { WeaponType } from 'definitions/weaponTypes/types';
 
 export interface AdventurerStoreState {
   id: string;

@@ -1,10 +1,13 @@
 import { getDefinition as getWeaponDefinition, Weapon } from 'definitions/items/weapons';
-import { WeaponTypeDefinition, WeaponType } from 'mechanics/weapons';
 import { TextManager } from 'global/TextManager';
 import ProduceOrStudy from '../common/ProduceOrStudy';
 import { Item } from 'definitions/items/types';
 import DamageList from './DamageList';
 import Effects from '../Effects';
+import { getDefinition as getWeaponTypeDefinition } from 'definitions/weaponTypes';
+import { WeaponType } from 'definitions/weaponTypes/types';
+import AbilitiesList from './AbilitiesList';
+import './styles/weaponContent.scss';
 
 interface Props {
   item: Item<Weapon>;
@@ -16,11 +19,11 @@ const WeaponContent = (props: Props) => {
 
   const subtext = TextManager.getItemSubtext(item.type);
   const weaponType = TextManager.getWeaponType(definition.weaponType);
-  const { classification } = WeaponTypeDefinition[definition.weaponType];
+  const { classification } = getWeaponTypeDefinition(definition.weaponType);
   const classificationText = TextManager.getWeaponClassification(classification);
 
   return (
-    <>
+    <div className="weapon-content">
       <div className="subheader">{weaponType}
         {definition.weaponType !== WeaponType.shield && (` (${classificationText})`)}
       </div>
@@ -30,6 +33,8 @@ const WeaponContent = (props: Props) => {
         <Effects effects={definition.effects}/>
       )}
       <hr />
+      <AbilitiesList weaponType={definition.weaponType} />
+      <hr />
       <ProduceOrStudy item={item.type} />
       { subtext && (
         <>
@@ -37,7 +42,7 @@ const WeaponContent = (props: Props) => {
           <p className="secondary">{`"${subtext}"`}</p>
         </>
       )}
-    </>
+    </div>
   );
 
 };

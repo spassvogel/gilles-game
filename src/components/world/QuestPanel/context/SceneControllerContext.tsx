@@ -1,4 +1,4 @@
-import React, { createContext, PropsWithChildren, useState, useMemo, useEffect } from 'react';
+import { createContext, PropsWithChildren, useState, useMemo, useEffect } from 'react';
 import { useStore } from 'react-redux';
 import { SceneControllerManager } from 'global/SceneControllerManager';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';

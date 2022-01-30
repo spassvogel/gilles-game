@@ -17,7 +17,7 @@ import TempEffectContext from './context/TempEffectContext';
 import { ExtendedAttribute } from 'mechanics/adventurers/attributes';
 import { TempEffect } from 'definitions/tempEffects/types';
 import { getItemNameClassName } from './utils';
-import { WeaponType } from 'mechanics/weapons';
+import { WeaponType } from 'definitions/weaponTypes/types';
 import './styles/contextTooltip.scss';
 
 // A contextual popup showing what you just clicked.

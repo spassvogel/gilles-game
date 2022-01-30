@@ -1,7 +1,7 @@
 import { deductActorAp, enqueueSceneAction, modifyEnemyHealth, startTurn } from 'store/actions/quests';
 import { AnyAction } from 'redux';
 import { Location } from 'utils/tilemap';
-import { ActorObject, Allegiance, isActorObject, isAdventurer, isEnemy, SceneAction, SceneActionType } from 'store/types/scene';
+import { ActorObject, Allegiance, isAdventurer, SceneAction, SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
 import { BaseSceneController, movementDuration } from './BaseSceneController';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
@@ -12,9 +12,9 @@ import { TextEntry } from 'constants/text';
 import { roll3D6 } from 'utils/random';
 import { changeEquipmentQuantity, modifyHealth } from 'store/actions/adventurers';
 import { ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI';
-import { DamageType, WeaponType } from 'mechanics/weapons';
 import {  getDefinition, isApparel } from 'definitions/items/apparel';
 import { TextManager } from 'global/TextManager';
+import { DamageType, WeaponType } from 'definitions/weaponTypes/types';
 
 
 export class CombatController {
@@ -90,7 +90,7 @@ export class CombatController {
   }
 
   // Call when actor melee animation starts
-  public static actorMeleeStart(actorId: string, intent: ActionIntent) {
+  public static actorMeleeStart(actorId: string, _intent: ActionIntent) {
     if (!this.sceneController) return;
 
     SoundManager.playSound('scene/swish', Channel.scene, false, MixMode.singleInstance);
