@@ -1,4 +1,8 @@
 .debug {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 1rem);
+
   .menu {
     margin: 0.5rem;
     padding: 0.5rem;
@@ -7,5 +11,9 @@
       display: inline;
       padding-right: 0.5rem;
     }
+  }
+
+  .content {
+    flex: 1;
   }
 }

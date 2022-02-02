@@ -4,6 +4,7 @@ import { loadResourceAsync } from 'utils/pixiJs';
 import LoadingSpinner from 'components/ui/loading/LoadingSpinner';
 import { allAnimations, Animation } from 'components/world/QuestPanel/QuestDetails/scene/SceneActor/useAnimation';
 import { Orientation } from 'components/world/QuestPanel/QuestDetails/scene/SceneActor';
+import './styles/debugSprites.scss';
 
 const allSpritesheets = ['elf-bow', 'knight-sword', 'orc-axe', 'skeleton', 'troll-axe', 'troll-sword'] as const;
 type Spritesheet = typeof allSpritesheets[number];

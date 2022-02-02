@@ -20,7 +20,7 @@ const DebugItems = () => {
   const [selected, setSelected] = useState<string>(`${listEnum(ItemCategory)[0]}`);
 
   return (
-    <div className="debug-items">
+    <div className="debug-items content">
       <Tabstrip className="tabs auto-collapse" onTabSelected={setSelected} activeTab={selected}>
         {listEnum(ItemCategory).map((itemCategory) => {
           return (

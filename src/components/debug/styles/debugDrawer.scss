@@ -3,20 +3,24 @@
 .debug-drawer {
   background-color: lighten($color-secondary, 10%);
   position: absolute;
-  bottom: 0;
-  height: 100%;
+  height: inherit;
+  min-height: 100%;
   width: 100%;
   z-index: zIndex("debugdrawer");
-  animation: 1s slidein;
+  animation: 1s slidein forwards;
 }
 
 
 @keyframes slidein {
   from {
+    min-height: 0;
     height: 0;
+    top: 100%;
   }
 
   to {
-    height: 100%;
+    min-height: 100%;
+    height: inherit;
+    top: 0;
   }
 }
