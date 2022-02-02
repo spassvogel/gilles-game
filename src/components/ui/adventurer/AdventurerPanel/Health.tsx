@@ -1,6 +1,5 @@
-import * as React from 'react';
 import PlainProgressbar from 'components/ui/common/progress/PlainProgressbar';
-import { useAdventurerState } from 'hooks/store/adventurers';
+import { useAdventurer } from 'hooks/store/adventurers';
 import { TextManager } from 'global/TextManager';
 import { xpToLevel } from 'mechanics/adventurers/levels';
 import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
@@ -11,7 +10,7 @@ export interface Props {
 
 const Health = (props: Props) => {
   const { adventurerId } = props;
-  const { health, basicAttributes, xp } = useAdventurerState(adventurerId);
+  const { health, basicAttributes, xp } = useAdventurer(adventurerId);
   const level = xpToLevel(xp);
   const baseHP = calculateBaseHitpoints(level, basicAttributes.for);
 

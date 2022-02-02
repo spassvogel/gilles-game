@@ -2,9 +2,10 @@ import { useState } from 'react';
 import Button from 'components/ui/buttons/Button';
 import DebugItems from '../DebugItems';
 import DebugSprites from '../DebugSprites/DebugSprites';
+import DebugAdventurers from '../DebugAdventurers';
 import './styles/debugView.scss';
 
-const allPages = ['items',  'sprites'] as const;
+const allPages = ['items',  'sprites', 'adventurers'] as const;
 type Page = typeof allPages[number];
 
 const DebugView = () => {
@@ -19,9 +20,13 @@ const DebugView = () => {
         <li>
           <Button onClick={() => setPage('sprites')} color={page === 'sprites' ? 'green' : 'blue'}> Sprites</Button>
         </li>
+        <li>
+          <Button onClick={() => setPage('adventurers')} color={page === 'adventurers' ? 'green' : 'blue'}> Adventurers</Button>
+        </li>
       </ul>
       { page === 'items' && <DebugItems />}
       { page === 'sprites' && <DebugSprites />}
+      { page === 'adventurers' && <DebugAdventurers />}
     </div>
   );
 };

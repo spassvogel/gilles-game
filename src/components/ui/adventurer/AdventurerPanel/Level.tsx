@@ -3,7 +3,7 @@ import PlainProgressbar from 'components/ui/common/progress/PlainProgressbar';
 import { TextManager } from 'global/TextManager';
 import { useEffect, useMemo, useState } from 'react';
 import usePrevious from 'hooks/usePrevious';
-import { useAdventurerState } from 'hooks/store/adventurers';
+import { useAdventurer } from 'hooks/store/adventurers';
 import { SoundManager } from 'global/SoundManager';
 
 export interface Props {
@@ -12,7 +12,7 @@ export interface Props {
 
 const Level = (props: Props) => {
   const { adventurerId } = props;
-  const { xp } = useAdventurerState(adventurerId);
+  const { xp } = useAdventurer(adventurerId);
   const currentLevel = xpToLevel(xp);
   const currentLevelXp = levelToXp(currentLevel); // start
   const nextLevel = currentLevel + 1;

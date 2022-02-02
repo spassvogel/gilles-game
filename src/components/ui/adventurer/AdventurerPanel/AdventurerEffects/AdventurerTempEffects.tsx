@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { useAdventurerState } from 'hooks/store/adventurers';
+import { useAdventurer } from 'hooks/store/adventurers';
 import { TextManager } from 'global/TextManager';
 import { ContextType } from 'constants/context';
 import { TooltipManager } from 'global/TooltipManager';
@@ -14,7 +14,7 @@ interface Props {
 
 // Shows temp effects
 const AdventurerTempEffects = (props: Props) => {
-  const adventurer = useAdventurerState(props.adventurerId);
+  const adventurer = useAdventurer(props.adventurerId);
 
   const renderEffect = (effect: TempEffect) => {
     // const effectDefinition = getDefinition(effect.type);

@@ -1,7 +1,7 @@
 import { useContext, useMemo } from 'react';
 import { Location } from 'utils/tilemap';
 import { AdventurerStoreState } from 'store/types/adventurer';
-import { useAdventurerState } from 'hooks/store/adventurers';
+import { useAdventurer } from 'hooks/store/adventurers';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { adventurerAmmo, adventurerWeapons } from 'store/helpers/storeHelpers';
 import { getDefinition as getWeaponDefinition } from 'definitions/items/weapons';
@@ -12,7 +12,7 @@ import { WeaponClassification } from 'definitions/weaponTypes/types';
 import { getDefinition as getAbilityDefinition } from 'definitions/abilities';
 
 const useActionIntents = (adventurerId: string, location?: Location, combat = false ) => {
-  const adventurer: AdventurerStoreState = useAdventurerState(adventurerId);
+  const adventurer: AdventurerStoreState = useAdventurer(adventurerId);
   const weapons = adventurerWeapons(adventurer);
   const controller = useContext(SceneControllerContext);
   if (!controller) throw new Error('No controller');

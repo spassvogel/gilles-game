@@ -1,5 +1,5 @@
 import { Container, Graphics, Text } from '@inlet/react-pixi';
-import { useAdventurerState } from 'hooks/store/adventurers';
+import { useAdventurer } from 'hooks/store/adventurers';
 import { ActorObject, Allegiance } from 'store/types/scene';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 const MARGIN = 4;
 
 const useActorStatsInfo = (actor: ActorObject) => {
-  const adventurer = useAdventurerState(actor.name); // is possibly null
+  const adventurer = useAdventurer(actor.name); // is possibly null
   if (actor.allegiance === Allegiance.player) {
     return adventurer.name;
   }

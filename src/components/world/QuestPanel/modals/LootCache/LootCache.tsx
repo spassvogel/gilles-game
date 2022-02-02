@@ -4,7 +4,7 @@ import DraggableItemsList from 'components/ui/items/DraggableItemsList';
 import { TextManager } from 'global/TextManager';
 import { DragSourceType } from 'constants/dragging';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
-import { useAdventurerState } from 'hooks/store/adventurers';
+import { useAdventurer } from 'hooks/store/adventurers';
 import Button from 'components/ui/buttons/Button';
 import { adventurerFreeInventorySlots } from 'store/helpers/storeHelpers';
 import Icon from 'components/ui/common/Icon';
@@ -22,7 +22,7 @@ interface Props {
 const LootCache = (props: Props) => {
   const controller = useContext(SceneControllerContext);
 
-  const adventurer = useAdventurerState(props.adventurerId);
+  const adventurer = useAdventurer(props.adventurerId);
   const freeSlots = adventurerFreeInventorySlots(adventurer);
   const ref = useRef<HTMLDivElement>(null);
 

@@ -6,7 +6,7 @@ import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import { Item } from 'definitions/items/types';
 import AdventurerSkills from './AdventurerSkills';
-import { useAdventurerState } from 'hooks/store/adventurers';
+import { useAdventurer } from 'hooks/store/adventurers';
 import Level from 'components/ui/adventurer/AdventurerPanel/Level';
 import ApIndicator from './ApIndicator';
 import AdventurerTraits from './AdventurerTraits';
@@ -18,7 +18,6 @@ import Attributes from './Attributes';
 import ConsumeItem from './ConsumeItem';
 import AdventurerEffects from './AdventurerEffects';
 import { useSettings } from 'hooks/store/settings';
-import DebugAdventurerEdit from './DebugAdventurerEdit';
 import { calculateEffectiveAttributesExtended } from 'mechanics/adventurers/attributes';
 import './styles/adventurerPanel.scss';
 
@@ -50,7 +49,7 @@ const AdventurerPanel = (props: Props) => {
     skills = true,
     onStartInventoryItemDrag,
   } = props;
-  const adventurer = useAdventurerState(adventurerId);
+  const adventurer = useAdventurer(adventurerId);
   const settings = useSettings();
 
   const {
@@ -89,7 +88,6 @@ const AdventurerPanel = (props: Props) => {
           <div className="name">
             {adventurer.name}
             {questName && <ApIndicator questName={questName} adventurer={adventurer} />}
-            {settings.debugAllowAdventurerEdit && <DebugAdventurerEdit adventurer={adventurer} />}
           </div>
          )}
         { levelBar && <Level adventurerId={adventurer.id}/> }

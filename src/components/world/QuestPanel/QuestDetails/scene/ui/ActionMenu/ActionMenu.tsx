@@ -1,7 +1,7 @@
 import { useCallback, useContext, useMemo, useRef } from 'react';
 import { Location } from 'utils/tilemap';
 import { AdventurerStoreState } from 'store/types/adventurer';
-import { useAdventurerState } from 'hooks/store/adventurers';
+import { useAdventurer } from 'hooks/store/adventurers';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { ActorObject, isEnemy, SceneActionType } from 'store/types/scene';
 import { ActionIntent } from '../SceneUI';
@@ -25,7 +25,7 @@ type Props = {
 
 const ActionMenu = (props: Props) => {
   const { adventurerId, location, intents, onClose, onSetActionIntent } = props;
-  const adventurer: AdventurerStoreState = useAdventurerState(adventurerId);
+  const adventurer: AdventurerStoreState = useAdventurer(adventurerId);
   const controller = useContext(SceneControllerContext);
   if (!controller) throw new Error('No controller');
 

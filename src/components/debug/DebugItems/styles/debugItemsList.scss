@@ -3,6 +3,7 @@
 .debug-items-list {
   background-color: white;
   padding: 1rem 0.5rem;
+  border-top: 2px solid $color-highlighted;
 
   @include md {
     display: grid;

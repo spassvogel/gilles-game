@@ -31,8 +31,12 @@ export const useAdventurersInTown = () => {
   return adventurersInTown;
 };
 
+export const useAdventurers = () => {
+  return useSelector<StoreState, AdventurerStoreState[]>(store => store.adventurers);
+};
+
 /** Returns the adventurer from store */
-export const useAdventurerState = (adventurerId: string) => {
+export const useAdventurer = (adventurerId: string) => {
   const adventurerSelector = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     (state: StoreState) => state.adventurers.find((q) => q.id === adventurerId)!,
@@ -44,7 +48,7 @@ export const useAdventurerState = (adventurerId: string) => {
 /* Returns a map keyed by EquipmentSlotType with DR of an adventurer.
    0 if nothing worn or if item does not have DR */
 export const useAdventurerDamageReduction = (adventurerId: string): { [key: string]: number } => {
-  const adventurer = useAdventurerState(adventurerId);
+  const adventurer = useAdventurer(adventurerId);
   const findDR = (type: EquipmentSlotType) => {
     const item: Item<Apparel> | undefined = adventurer.equipment[type as EquipmentSlotType] as Item<Apparel>;
     if (!item) return 0;
@@ -61,6 +65,6 @@ export const useAdventurerDamageReduction = (adventurerId: string): { [key: stri
 };
 
 export const useAdventurerMainhandItem = (adventurerId: string) => {
-  const adventurer = useAdventurerState(adventurerId);
+  const adventurer = useAdventurer(adventurerId);
   return adventurer.equipment[EquipmentSlotType.mainHand];
 };

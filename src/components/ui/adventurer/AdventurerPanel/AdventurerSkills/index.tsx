@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { useAdventurerState } from 'hooks/store/adventurers';
+import { useAdventurer } from 'hooks/store/adventurers';
 import { TextManager } from 'global/TextManager';
 import { ContextType } from 'constants/context';
 import { TooltipManager } from 'global/TooltipManager';
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const AdventurerSkills = (props: Props) => {
-  const adventurer = useAdventurerState(props.adventurerId);
+  const adventurer = useAdventurer(props.adventurerId);
 
   const renderSkill = (skill: WeaponType) => {
     // const traitDefinition = getDefinition(trait);

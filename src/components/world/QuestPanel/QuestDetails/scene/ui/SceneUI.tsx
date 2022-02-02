@@ -25,8 +25,8 @@ import CombatUIWidget from './CombatUIWidget';
 import NormalUICursor from './NormalUICursor';
 import useActionIntents from './hooks/useActionIntents';
 import { Ammunition } from 'definitions/items/ammunition';
-import './styles/sceneUI.scss';
 import { WeaponAbility } from 'definitions/abilities/types';
+import './styles/sceneUI.scss';
 
 export interface Props {
   sceneWidth: number;

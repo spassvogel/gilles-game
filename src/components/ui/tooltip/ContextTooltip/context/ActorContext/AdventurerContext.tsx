@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useAdventurerState } from 'hooks/store/adventurers';
+import { useAdventurer } from 'hooks/store/adventurers';
 import { ActorObject } from 'store/types/scene';
 import Attributes from 'components/ui/adventurer/AdventurerPanel/Attributes';
 import { xpToLevel } from 'mechanics/adventurers/levels';
@@ -13,7 +13,7 @@ interface Props {
 
 const AdventurerContext = (props: Props) => {
   const { actorObject } = props;
-  const adventurer = useAdventurerState(actorObject.name);
+  const adventurer = useAdventurer(actorObject.name);
   const attributes = calculateEffectiveAttributes(adventurer);
   const { name, xp } = adventurer;
   const level = xpToLevel(xp);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAdventurerState } from 'hooks/store/adventurers';
+import { useAdventurer } from 'hooks/store/adventurers';
 import { TextManager } from 'global/TextManager';
 import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import { useMemo } from 'react';
@@ -16,8 +16,8 @@ import { getAdventurer } from 'store/types/scene';
 import { AP_COST_CONSUME } from 'mechanics/combat';
 import { deductActorAp } from 'store/actions/quests';
 import { Channel, SoundManager } from 'global/SoundManager';
-import './styles/consumeitem.scss';
 import {  isConsumable } from 'definitions/items/consumables';
+import './styles/consumeitem.scss';
 
 export interface Props {
   adventurerId: string;
@@ -30,7 +30,7 @@ export interface Props {
 
 const ConsumeItem = (props: Props) => {
   const { adventurerId, questName, fromSlot, onDrop, onConsumed } = props;
-  const adventurer = useAdventurerState(adventurerId);
+  const adventurer = useAdventurer(adventurerId);
   const quest = useQuest(questName ?? '');
   const dispatch = useDispatch();
   const combat = !!quest?.scene?.combat; // if in combat mode, you have to pay AP to consume an item

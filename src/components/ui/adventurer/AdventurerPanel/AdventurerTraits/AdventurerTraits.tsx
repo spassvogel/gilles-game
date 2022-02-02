@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { useAdventurerState } from 'hooks/store/adventurers';
+import { useAdventurer } from 'hooks/store/adventurers';
 import { Trait } from 'definitions/traits/types';
 import { getDefinition } from 'definitions/traits';
 import { TextManager } from 'global/TextManager';
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const AdventurerTraits = (props: Props) => {
-  const adventurer = useAdventurerState(props.adventurerId);
+  const adventurer = useAdventurer(props.adventurerId);
 
   const renderTrait = (trait: Trait, last: boolean) => {
     const traitDefinition = getDefinition(trait);
