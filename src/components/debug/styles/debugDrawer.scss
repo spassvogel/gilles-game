@@ -1,0 +1,22 @@
+@import 'components/styles/import.scss';
+
+.debug-drawer {
+  background-color: lighten($color-secondary, 10%);
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  z-index: zIndex("debugdrawer");
+  animation: 1s slidein;
+}
+
+
+@keyframes slidein {
+  from {
+    height: 0;
+  }
+
+  to {
+    height: 100%;
+  }
+}

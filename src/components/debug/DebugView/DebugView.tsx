@@ -1,5 +1,5 @@
-import Button from 'components/ui/buttons/Button';
 import { useState } from 'react';
+import Button from 'components/ui/buttons/Button';
 import DebugItems from '../DebugItems';
 import DebugSprites from '../DebugSprites/DebugSprites';
 import './styles/debugView.scss';

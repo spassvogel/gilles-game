@@ -1,10 +1,8 @@
 import { useCallback, useContext, useMemo, useRef } from 'react';
 import { Location } from 'utils/tilemap';
 import { AdventurerStoreState } from 'store/types/adventurer';
-import { DraggableInfoWindow } from 'components/ui/modals/InfoWindow/DraggableInfoWindow';
 import { useAdventurerState } from 'hooks/store/adventurers';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
-import { TextManager } from 'global/TextManager';
 import { ActorObject, isEnemy, SceneActionType } from 'store/types/scene';
 import { ActionIntent } from '../SceneUI';
 import ActionButton from './ActionButton';
@@ -12,10 +10,10 @@ import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
 import EnemyAvatar from 'components/ui/enemy/EnemyAvatar';
 import ItemIcon from 'components/ui/items/ItemIcon';
 import { IconSize } from 'components/ui/common/Icon';
-import './styles/actionMenu.scss';
 import { WeaponAbility } from 'definitions/abilities/types';
 import DiamondFrame from './DiamondFrame';
 import useDraggable from 'hooks/store/useDraggable';
+import './styles/actionMenu.scss';
 
 type Props = {
   adventurerId: string;

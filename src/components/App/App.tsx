@@ -22,8 +22,9 @@ import Bubbles from 'components/ui/bubbles/Bubbles';
 import { BubbleLayer } from 'global/BubbleManager';
 import DebugView from 'components/debug/DebugView';
 import { GameActionsContext } from 'components/Game/context';
-import './styles/app.scss';
 import { useSettings } from 'hooks/store/settings';
+import DebugDrawer from 'components/debug/DebugDrawer';
+import './styles/app.scss';
 
 PixiPlugin.registerPIXI(PIXI);
 gsap.registerPlugin(PixiPlugin);
@@ -168,14 +169,6 @@ const App = () => {
               </Route>
             </Switch>
             {' | '}
-            { settings.debugShowDebugMenu && (
-              <>
-                <Link to={'/debug'}>
-                  <Button color={ButtonColor.purple} > Debug </Button>
-                </Link>
-                {' | '}
-              </>
-            )}
             <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} > Restart! </Button>
           </div>
           <Switch>
@@ -194,6 +187,7 @@ const App = () => {
           <ContextTooltip />
           <Toasts />
           <Bubbles layer={BubbleLayer.general} />
+          <DebugDrawer />
         </HashRouter>
         </DndProvider>
       </div>

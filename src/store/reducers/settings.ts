@@ -5,7 +5,7 @@ import { SettingsState } from 'store/types/settings';
 
 export const initialSettingsState: SettingsState = {
   verboseCombatLog: false,
-  debugShowDebugMenu: false,
+  debugEnableDebugDrawer: true,
   debugAllowAdventurerEdit: false,
   debugSceneShowPathable: false,
   debugSceneShowActionQueue: false,

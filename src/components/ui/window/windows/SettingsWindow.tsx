@@ -97,11 +97,11 @@ const SettingsWindow = () => {
         </section>
         <section>
           <p>
-          <label>Show debug info menu</label>
+          <label>Enable debug drawer (~ key)</label>
           <input
             type="checkbox"
-            checked={settings.debugShowDebugMenu}
-            setting-name="debugShowDebugMenu"
+            checked={settings.debugEnableDebugDrawer}
+            setting-name="debugEnableDebugDrawer"
             onChange={handleBooleanChange}
           />
         </p>

@@ -13,6 +13,7 @@
     "@pixi/sound": "^4.2.0",
     "@pixi/text": "^6.2.2",
     "@pixi/tilemap": "^3.2.1",
+    "@rooks/use-key": "^4.11.2",
     "astar-typescript": "^1.2.5",
     "debounce": "^1.2.1",
     "deep-equal": "^2.0.5",
