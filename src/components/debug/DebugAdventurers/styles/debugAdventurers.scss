@@ -40,12 +40,18 @@
     }
   
   .debug-adventurer-edit {
-    // background: $color-background-lighter;
     margin-top: 1rem; 
     padding: 1rem;
     background: white;
 
+    .avatar {
+      float: right;
+      margin-bottom: 1rem;
+      margin-left: 1rem;
+    }
+
     fieldset {
+      clear: both;
       margin-top: 1rem;
     }
     summary {

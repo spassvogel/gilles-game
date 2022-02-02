@@ -9,6 +9,8 @@ import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
 import { useAdventurer } from 'hooks/store/adventurers';
 import AdventurerXpInput from './AdventurerXpInput';
 import { formatNumber } from 'utils/format/number';
+import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
+import { IconSize } from 'components/ui/common/Icon';
 
 type Props = {
   adventurerId: string;
@@ -68,6 +70,7 @@ const DebugAdventurers = (props: Props) => {
 
   return (
     <div className="debug-adventurer-edit">
+      <AdventurerAvatar adventurer={adventurer} size={IconSize.biggest} />
       {TextManager.getAdventurerFlavor(adventurerId, adventurer.name)}
       <fieldset>
         <summary>General</summary>
