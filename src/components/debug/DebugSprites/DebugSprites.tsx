@@ -25,6 +25,7 @@ const DebugSprites = () => {
   const [spritesheet, setSelected] = useState<Spritesheet>('elf-bow');
   const [animation, setAnimation] = useState<Animation>('stand');
   const [orientation, setOrientation] = useState<Orientation>(Orientation.north);
+  const [currentFrame, setCurrentFrame] = useState<number>(0); 
 
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
@@ -55,11 +56,13 @@ const DebugSprites = () => {
         <select value={orientation} onChange={(e) => { setOrientation(e.currentTarget.value as Orientation); }}>
           {allOrientations.map(o => <option key={o}>{o}</option>)}
         </select>
+        <input type="number" value={currentFrame} onChange={(e) => setCurrentFrame(e.currentTarget.value as unknown as number)} />
       </div>
       <DebugSpriteDemo
         spritesheetPath={getSpritesheetPath(spritesheet)}
         animation={animation}
         orientation={orientation}
+        currentFrame={currentFrame}
       />
     </div>
   );

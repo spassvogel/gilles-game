@@ -399,46 +399,6 @@
                 "w": 142,
                 "h": 142
             }
-        },
-        "knight-sword-die2-n": {
-            "frame": {
-                "x": 0,
-                "y": 1420,
-                "w": 142,
-                "h": 142
-            }
-        },
-        "knight-sword-die2-ne": {
-            "frame": {
-                "x": 142,
-                "y": 1420,
-                "w": 142,
-                "h": 142
-            }
-        },
-        "knight-sword-die2-e": {
-            "frame": {
-                "x": 284,
-                "y": 1420,
-                "w": 142,
-                "h": 142
-            }
-        },
-        "knight-sword-die2-se": {
-            "frame": {
-                "x": 426,
-                "y": 1420,
-                "w": 142,
-                "h": 142
-            }
-        },
-        "knight-sword-die2-s": {
-            "frame": {
-                "x": 568,
-                "y": 1420,
-                "w": 142,
-                "h": 142
-            }
         }
     },
     "meta": {

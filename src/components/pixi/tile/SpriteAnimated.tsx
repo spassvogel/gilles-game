@@ -20,6 +20,8 @@ const SpriteAnimated = PixiComponent<React.ComponentProps<typeof AnimatedSprite>
       applyDefaultProps(instance, oldProps, newProps);
       instance.gotoAndPlay(0);
     }
+
+    // gotoAndStop
   },
 });
 

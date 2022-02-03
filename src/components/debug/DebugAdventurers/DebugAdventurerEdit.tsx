@@ -59,10 +59,10 @@ const DebugAdventurers = (props: Props) => {
     dispatch(renameAdventurer(adventurer.id, e.currentTarget.value));
   };
 
-
   const handleChangeHealth = (value: number) => {
     dispatch(modifyHealth(adventurer.id, value));
   };
+
   const handleChangeXP = (value: number) => {
     dispatch(addXp(adventurer.id, value));
   };
