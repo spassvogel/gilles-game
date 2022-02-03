@@ -20,7 +20,6 @@ import { getWorldLink, getTownLink } from 'utils/routing';
 import Button, { ButtonColor } from 'components/ui/buttons/Button';
 import Bubbles from 'components/ui/bubbles/Bubbles';
 import { BubbleLayer } from 'global/BubbleManager';
-import DebugView from 'components/debug/DebugView';
 import { GameActionsContext } from 'components/Game/context';
 import { useSettings } from 'hooks/store/settings';
 import DebugDrawer from 'components/debug/DebugDrawer';
@@ -162,11 +161,6 @@ const App = () => {
                   <Button onClick={() => handleViewButtonClick()}> {TextManager.get('ui-view-button-world')} </Button>
                 </Link>
               </Route>
-              <Route path="/debug">
-                <Link to={getWorldLink()}>
-                  <Button onClick={() => handleViewButtonClick()}> Back </Button>
-                </Link>
-              </Route>
             </Switch>
             {' | '}
             <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} > Restart! </Button>
@@ -177,9 +171,6 @@ const App = () => {
             </Route>
             <Route path={getWorldLink()} >
               <WorldView />
-            </Route>
-            <Route path="/debug">
-              <DebugView />
             </Route>
           </Switch>
           <SimpleLog/>

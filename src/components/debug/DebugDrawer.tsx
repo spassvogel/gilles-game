@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import useKey from '@rooks/use-key';
-import './styles/debugDrawer.scss';
 import DebugView from './DebugView';
 import { useSettings } from 'hooks/store/settings';
+import './styles/debugDrawer.scss';
 
 const DebugDrawer = () => {
   const [open, setOpen] = useState(false); 

@@ -7,7 +7,7 @@ import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { CombatController } from 'mechanics/scenes/CombatController';
 import { completeSceneAction } from 'store/actions/quests';
 import { StoreState } from 'store/types';
-import { SceneAction, SceneActionType } from 'store/types/scene';
+import { isActorObject, SceneAction, SceneActionType } from 'store/types/scene';
 import { Location } from 'utils/tilemap';
 import { Orientation } from '.';
 
@@ -38,6 +38,13 @@ const useAnimation = (
   const [animation, setAnimation] = useState<Animation>('stand');
   const tween = useRef<gsap.core.Tween>();
   const nextAction = actionQueue[0];
+
+  useEffect(() => {
+    const actor = quest.scene?.objects.find(o => o.name === actorName);
+    if (actor && isActorObject(actor) && actor.health <= 0) {
+      setAnimation('die');
+    }
+  }, [actorName, quest]);
 
   // Handle actions
   useEffect(() => {
