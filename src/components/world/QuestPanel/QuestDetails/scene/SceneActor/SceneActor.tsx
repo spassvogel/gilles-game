@@ -94,7 +94,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
         return [];
     }
   }, [color]);
-  const showThingy = !!quest.scene?.combat;
+  const combat = !!quest.scene?.combat;
   return (
     <Container x={x} y={y} ref={actorRef} {...rest}>
       { spritesheetPath && frames && (
@@ -112,11 +112,11 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
         />
       )}
       {children}
-      {showThingy && (
+      {combat && (
         <ActorStats tileWidth={tileWidth} actor={actor} />
       )}
     </Container>
   );
 };
 
-export default memo(SceneActor);
+export default SceneActor;

@@ -30,10 +30,10 @@ const ActorStats = (props: Props) => {
         anchor={[0, 1]}
         text={`${name} (${actor.ap})`}
         style={{
-          fontFamily : 'Gabriela',
+          fontFamily: 'Gabriela',
           fontSize: 18,
-          fill : 0xffffff,
-          align : 'center',
+          fill: 0xffffff,
+          align: 'center',
           wordWrap: true,
           wordWrapWidth: tileWidth,
           dropShadow: true,
