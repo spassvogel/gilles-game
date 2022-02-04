@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { createSelectAdventurersOnQuest } from 'store/selectors/adventurers';
 import { SceneControllerContext } from '../context/SceneControllerContext';
@@ -23,7 +23,7 @@ const CombatBar = (props: Props) => {
       <div className="title">
         {TextManager.get('ui-combat-bar-title')}
       </div>
-      <div className="adventurers">
+      {/* <div className="adventurers">
         {adventurers.map(a => (
           <div key={a.id} className={`adventurer ${selectedAdventurerId === a.id ? 'selected' : ''}`}>
             <AdventurerAvatar adventurer={a} size={IconSize.smallest}/>
@@ -32,8 +32,8 @@ const CombatBar = (props: Props) => {
             </div>
           </div>
         ))}
-      </div>
-      <Button size="small" onClick={() => controller?.endTurn()}>End turn</Button>
+      </div> */}
+      <Button size="medium" onClick={() => controller?.endTurn()}>End turn</Button>
     </div>
   );
 };
