@@ -1,4 +1,4 @@
-import React, { MouseEvent, useRef, useContext } from 'react';
+import { MouseEvent, useRef, useContext } from 'react';
 import { TextManager } from 'global/TextManager';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
 import Button from 'components/ui/buttons/Button';
@@ -30,7 +30,7 @@ const Situation = (props: Props) => {
     e.stopPropagation();
   };
   return (
-    <div className={'interaction-modal situation'} ref={ref}>
+    <div className='interaction-modal situation' ref={ref}>
       <div className="header">
         <div className="title">
           {TextManager.get(title)}

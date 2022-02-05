@@ -1,6 +1,5 @@
 import { DragSourceType, DragType } from 'constants/dragging';
-import * as React from 'react';
-import { ConnectDragSource, DragSource, DragSourceConnector, DragSourceMonitor, DragSourceSpec } from 'react-dnd';
+import { ConnectDragSource, useDrag } from 'react-dnd';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import AdventurerAvatar, { Props as AdventurerAvatarProps } from '../AdventurerAvatar';
 import './styles/draggableadventureravatar.scss';
@@ -21,39 +20,22 @@ export interface AdventurerAvatarDragInfo {
   sourceId?: string;
 }
 
-/**
- * Specifies the drag source contract.
- * Only `beginDrag` function is required.
- */
-const spec: DragSourceSpec<Props & AdventurerAvatarProps, AdventurerAvatarDragInfo> = {
-  beginDrag(props: Props & AdventurerAvatarProps) {
-    // Return the data describing the dragged item
-    return {
+const DraggableAdventurerAvatar = (props: Props & AdventurerAvatarProps) => {
+  const [collected, dragRef] = useDrag<AdventurerAvatarDragInfo, null, CollectedProps>(() => ({
+    type: DragType.ADVENTURER,
+    item: { 
       adventurer: props.adventurer,
       sourceId: props.sourceId,
       sourceType: DragSourceType.adventurerInventory,
-    };
-  },
-};
+    },
+  }), []);
 
-/**
- * Specifies which props to inject into your component.
- */
-function collect(connect: DragSourceConnector, monitor: DragSourceMonitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging(),
-  };
-}
-
-const DraggableAdventurerAvatar = (props: Props & CollectedProps & AdventurerAvatarProps) => {
-
-  const { isDragging, connectDragSource, disabled } = props;
+  const { disabled } = props;
   let className = 'draggable-adventurer-avatar';
   if (disabled) {
     className += ' disabled';
   }
-  if (isDragging) {
+  if (collected.isDragging) {
     className += ' dragging';
   }
 
@@ -61,14 +43,14 @@ const DraggableAdventurerAvatar = (props: Props & CollectedProps & AdventurerAva
     // TODO: can show some sort of empty state?
     return null;
   }*/
-  return connectDragSource(
-    <div className = { className }>
+  return (
+    <div className={className} ref={dragRef}>
       <AdventurerAvatar
         // Copy all props down to AdventurerAvatar
         { ...props }
       />
-    </div>,
+    </div>
   );
 };
 
-export default DragSource<Props & AdventurerAvatarProps, CollectedProps>(DragType.ADVENTURER, spec, collect)(DraggableAdventurerAvatar);
+export default DraggableAdventurerAvatar;
