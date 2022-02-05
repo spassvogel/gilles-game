@@ -1,47 +1,57 @@
-// todo: refactor hooks https://github.com/react-dnd/react-dnd/pull/1244
-import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from 'react-dnd';
+import { ConnectDropTarget, DropTargetMonitor, useDrop } from 'react-dnd';
 import { DragType } from 'constants/dragging';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import { EquipmentSlotType, itemAndEquipmentSlotMatch } from './utils';
+import { PropsWithChildren } from 'react';
 import './styles/equipmentslot.scss';
 
-const dropTarget: DropTargetSpec<Props> = {
-  drop(props: Props, monitor: DropTargetMonitor<InventoryItemDragInfo>) {
-    props.onDrop(monitor.getItem());
-  },
-  canDrop(props: Props, monitor: DropTargetMonitor)  {
-    const item = monitor.getItem<InventoryItemDragInfo>().item;
+// const dropTarget: DropTargetSpec<Props> = {
+//   drop(props: Props, monitor: DropTargetMonitor<InventoryItemDragInfo>) {
+//     props.onDrop(monitor.getItem());
+//   },
+//   canDrop(props: Props, monitor: DropTargetMonitor)  {
+//     const item = monitor.getItem<InventoryItemDragInfo>().item;
 
-    return itemAndEquipmentSlotMatch(item.type, props.type);
-  },
-};
+//     return itemAndEquipmentSlotMatch(item.type, props.type);
+//   },
+// };
 
 export interface Props {
   type: EquipmentSlotType;
   onDrop: (item: InventoryItemDragInfo) => void;
 }
 
-export interface DropSourceProps {
+export interface CollectedProps {
   canDrop: boolean;
   isOver: boolean;
-  connectDropTarget: ConnectDropTarget;
+  // connectDropTarget: ConnectDropTarget;
 }
 
-const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
-  canDrop: monitor.canDrop(),
-  connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver(),
-});
+// const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
+//   canDrop: monitor.canDrop(),
+//   connectDropTarget: connect.dropTarget(),
+//   isOver: monitor.isOver(),
+// });
 
 /**
  * The EquipmentSlot displays a slot in which an item can be placed.
  */
-const EquipmentSlot = (props: React.PropsWithChildren<Props & DropSourceProps>) => {
+const EquipmentSlot = (props: PropsWithChildren<Props>) => {
   const {
-    isOver,
-    canDrop,
-    connectDropTarget,
+    // isOver,
+    // canDrop,
+    // connectDropTarget,
   } = props;
+
+  const [collectedProps, dropRef] = useDrop<InventoryItemDragInfo, null, CollectedProps>(() => ({
+    accept: DragType.ITEM,
+    collect: (monitor) => ({
+      canDrop: monitor.canDrop(),
+      isOver: monitor.isOver(),
+    }),
+  }));
+console.log(collectedProps);
+  const { isOver, canDrop } = collectedProps;
   const isActive = isOver && canDrop;
   const className = ['equipment-slot'];
   if (isActive) {
@@ -50,16 +60,12 @@ const EquipmentSlot = (props: React.PropsWithChildren<Props & DropSourceProps>) 
     className.push('drop-possible');
   }
 
-  return connectDropTarget(
-    <div className={className.join(' ')} title={EquipmentSlotType[props.type]}>
+  return (
+    <div className={className.join(' ')} title={EquipmentSlotType[props.type]} ref={dropRef}>
       { props.children }
-    </div>,
+    </div>
   );
 };
 
-export default DropTarget<Props, DropSourceProps>(
-  DragType.ITEM,
-  dropTarget,
-  collect,
-)(EquipmentSlot);
+export default EquipmentSlot;
 
