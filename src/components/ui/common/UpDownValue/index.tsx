@@ -1,4 +1,4 @@
-// Todo: come up with a less retarded name
+// Todo: come up with a less stupid name
 import * as React from 'react';
 import './styles/updownvalue.scss';
 

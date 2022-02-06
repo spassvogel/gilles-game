@@ -1,8 +1,7 @@
-// import { DragType } from 'constants/dragging';
-// import * as React from 'react';
-// import { ConnectDropTarget, DropTarget, DropTargetConnector, DropTargetMonitor, DropTargetSpec } from 'react-dnd';
-// import { AdventurerAvatarDragInfo } from '../DraggableAdventurerAvatar';
-// import './styles/droppableadventurerslot.scss';
+import { DragType } from 'constants/dragging';
+import { useDrop } from 'react-dnd';
+import { AdventurerAvatarDragInfo } from '../DraggableAdventurerAvatar';
+import './styles/droppableadventurerslot.scss';
 
 // const dropTarget: DropTargetSpec<Props> = {
 //   drop(props: Props, monitor: DropTargetMonitor<AdventurerAvatarDragInfo>) {
@@ -13,15 +12,14 @@
 //   },
 // };
 
-// export interface Props {
-//   onDrop: (item: AdventurerAvatarDragInfo) => void;
-// }
+export interface Props {
+  onDrop: (item: AdventurerAvatarDragInfo) => void;
+}
 
-// export interface DropSourceProps {
-//   canDrop: boolean;
-//   isOver: boolean;
-//   connectDropTarget: ConnectDropTarget;
-// }
+export interface CollectedProps {
+  canDrop: boolean;
+  isOver: boolean;
+}
 
 // const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
 //   canDrop: monitor.canDrop(),
@@ -29,34 +27,35 @@
 //   isOver: monitor.isOver(),
 // });
 
-// /*
-//  * Can drop adventurers on this */
-// const DroppableAdventurerSlot = (props: Props & DropSourceProps) => {
-//   const {
-//     isOver,
-//     canDrop,
-//     connectDropTarget,
-//   } = props;
-//   // const isActive = isOver && canDrop;
-//   let className = 'droppable-adventurer-slot';
+/*
+ * Can drop adventurers on this */
+const DroppableAdventurerSlot = (props: Props) => {
+  const {
+    onDrop,
+  } = props;
+  // const isActive = isOver && canDrop;
 
-//   if (isOver) {
-//     className += ' active-drop';
-//   } else if (canDrop) {
-//     className += ' can-drop';
-//   }
 
-//   return connectDropTarget(
-//     <div className = { className }/>,
-//   );
-// };
+  const [{ isOver, canDrop }, dropRef] = useDrop<AdventurerAvatarDragInfo, void, CollectedProps>(() => ({
+    accept: DragType.ADVENTURER,
+    collect: (monitor) => ({
+      canDrop: monitor.canDrop(),
+      isOver: monitor.isOver(),
+    }),
+    drop: (dragInfo: AdventurerAvatarDragInfo) => {
+      return onDrop(dragInfo);
+    },
+  }));
 
-// export default DropTarget<Props, DropSourceProps>(
-//   DragType.ADVENTURER,
-//   dropTarget,
-//   collect,
-// )(DroppableAdventurerSlot);
+  const className = [
+    'droppable-adventurer-slot',
+    ...(isOver ? ['active-drop'] : []),
+    ...(!isOver && canDrop ? ['can-drop'] : []),
+  ].join(' ');
 
-export default () => {
-  return null;
+  return (
+    <div className={className} ref={dropRef} />
+  );
 };
+
+export default DroppableAdventurerSlot;

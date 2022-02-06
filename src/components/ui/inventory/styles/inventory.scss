@@ -22,12 +22,12 @@ $border: 2px;
     margin-top: -$border;
 
     &.drop-active {
-      border-color: $color-valid;
+      @include border-green-md;
       z-index: 2;
     }
 
     &.drop-possible {
-      border-color: $color-primary;
+      @include border-gold-md;
     }
 
     &.disabled {

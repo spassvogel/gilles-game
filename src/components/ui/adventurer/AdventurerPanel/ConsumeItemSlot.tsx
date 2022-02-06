@@ -1,28 +1,27 @@
-import * as React from 'react';
-import { ConnectDropTarget, useDrop } from 'react-dnd';
+import { useDrop } from 'react-dnd';
 import { DragType } from 'constants/dragging';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import { isConsumable } from 'definitions/items/consumables';
+import { PropsWithChildren } from 'react';
 import './styles/consumeitemslot.scss';
 
 export interface Props {
   onDrop: (item: InventoryItemDragInfo) => void;
 }
 
-export interface DropSourceProps {
+export interface CollectedProps {
   canDrop: boolean;
   isOver: boolean;
-  connectDropTarget: ConnectDropTarget;
 }
 
 
 /**
  * The ConsumeItemSlot displays a slot in which a consumable item can be placed
  */
-const ConsumeItemSlot = (props: React.PropsWithChildren<Props>) => {
+const ConsumeItemSlot = (props: PropsWithChildren<Props>) => {
 
   const { onDrop } = props;
-  const [{ canDrop, isOver }, drop] = useDrop(() => ({
+  const [{ canDrop, isOver }, dropRef] = useDrop<InventoryItemDragInfo, void, CollectedProps>(() => ({
     // The type (or types) to accept - strings or symbols
     accept: DragType.ITEM,
     canDrop: ({ item }: InventoryItemDragInfo) => {
@@ -56,7 +55,7 @@ const ConsumeItemSlot = (props: React.PropsWithChildren<Props>) => {
     className.push('drop-possible');
   }
   return (
-    <div className={className.join(' ')} ref={drop}>
+    <div className={className.join(' ')} ref={dropRef}>
       {props.children}
     </div>
   );

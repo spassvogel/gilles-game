@@ -1,23 +1,10 @@
 import { PropsWithChildren } from 'react';
 import { DragSourceType, DragType } from 'constants/dragging';
 import { Item } from 'definitions/items/types';
-import { DropTargetConnector, DropTargetMonitor, DropTargetSpec, useDrop } from 'react-dnd';
+import { useDrop } from 'react-dnd';
 import { InventoryItemDragInfo } from '../items/DraggableItemIcon';
 import { IconSize } from '../common/Icon';
 import { itemAndEquipmentSlotMatch } from '../adventurer/EquipmentSlot';
-
-// const dropTarget: DropTargetSpec<Props> = {
-//   drop(props: Props, monitor: DropTargetMonitor<InventoryItemDragInfo>) {
-//     props.onDrop(monitor.getItem());
-//   },
-//   canDrop(props: Props, monitor: DropTargetMonitor) {
-//     const dragInfo: InventoryItemDragInfo = monitor.getItem();
-//     if (dragInfo.sourceType === DragSourceType.adventurerEquipment && dragInfo.inventorySlot !== undefined) {
-//       return props.item == null || itemAndEquipmentSlotMatch(props.item.type, dragInfo.inventorySlot);
-//     }
-//     return props.canDropHere ? props.canDropHere(dragInfo) : true;
-//   },
-// };
 
 export interface Props {
   item: Item | null;
@@ -30,40 +17,38 @@ export interface Props {
 export interface CollectedProps {
   canDrop: boolean;
   isOver: boolean;
-  // connectDropTarget: ConnectDropTarget;
 }
-
-// const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
-//   canDrop: monitor.canDrop(),
-//   connectDropTarget: connect.dropTarget(),
-//   isOver: monitor.isOver(),
-// });
 
 /**
  * The InventorySlot displays a slot in which an item can be placed.
  */
 const InventorySlot = (props: PropsWithChildren<Props>) => {
   const {
-    // isOver,
-    // canDrop,
+    item,
     disabled,
-    // connectDropTarget,
+    canDropHere,
+    onDrop,
   } = props;
 
-
-  const [collectedProps, dropRef] = useDrop<InventoryItemDragInfo, null, CollectedProps>(() => ({
+  const [{ isOver, canDrop }, dropRef] = useDrop<InventoryItemDragInfo, void, CollectedProps>(() => ({
     accept: DragType.ITEM,
     collect: (monitor) => ({
       canDrop: monitor.canDrop(),
       isOver: monitor.isOver(),
     }),
+    canDrop: (dragInfo: InventoryItemDragInfo) => {
+      if (dragInfo.sourceType === DragSourceType.adventurerEquipment && dragInfo.inventorySlot !== undefined) {
+        return item == null || itemAndEquipmentSlotMatch(item.type, dragInfo.inventorySlot);
+      }
+      return canDropHere?.(dragInfo) ?? true;
+    },
+    drop: (dragInfo: InventoryItemDragInfo) => {
+      return onDrop(dragInfo);
+    },
   }));
-console.log(collectedProps);
-  const { isOver, canDrop } = collectedProps;
-
   const isActive = isOver && canDrop;
 
-  const classNames = [
+  const className = [
     'inventory-item',
     ...(disabled ? ['disabled'] : []),
     ...(isActive ? ['drop-active'] : []),
@@ -72,19 +57,11 @@ console.log(collectedProps);
 
 
   return (
-    <div className={classNames} ref={dropRef}>
+    <div className={className} ref={dropRef}>
       { props.children }
     </div>
   );
 };
 
 export default InventorySlot;
-// export default DropTarget<Props, DropSourceProps>(
-//   DragType.ITEM,
-//   dropTarget,
-//   collect,
-// )(InventorySlot);
 
-// export default () => {
-//   return null;
-// };
