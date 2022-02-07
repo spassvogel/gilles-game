@@ -48,4 +48,4 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children' | 'name
   );
 };
 
-export default memo(SceneAdventurer);
+export default SceneAdventurer;

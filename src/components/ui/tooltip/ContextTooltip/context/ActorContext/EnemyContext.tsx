@@ -5,6 +5,8 @@ import { TextManager } from 'global/TextManager';
 import Attributes from 'components/ui/adventurer/AdventurerPanel/Attributes';
 import CombatAttributes from './CombatAttributes';
 import { generateBaseAttributes } from 'mechanics/adventurers/attributes';
+import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
+import { formatNumber } from 'utils/format/number';
 
 interface Props {
   actorObject: ActorObject
@@ -24,6 +26,15 @@ const EnemyContext = (props: Props) => {
         </div>
         <div className="level">
           {TextManager.get('ui-tooltip-actor-level', { level })}
+        </div>
+      </div>
+      <div>
+        <div>
+          health:
+        </div>
+        <div>
+          {formatNumber(actorObject.health, 2)}/
+          {calculateBaseHitpoints(actorObject.level ?? 1, definition.attributes.for)}
         </div>
       </div>
       <Attributes attributes={attributesExtended} small />

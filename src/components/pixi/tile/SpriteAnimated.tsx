@@ -25,6 +25,5 @@ const SpriteAnimated = PixiComponent<React.ComponentProps<typeof AnimatedSprite>
   },
 });
 
-// export default memo(SpriteAnimated);
 export default SpriteAnimated;
 
