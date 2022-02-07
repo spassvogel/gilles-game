@@ -3,15 +3,6 @@ import { useDrop } from 'react-dnd';
 import { AdventurerAvatarDragInfo } from '../DraggableAdventurerAvatar';
 import './styles/droppableadventurerslot.scss';
 
-// const dropTarget: DropTargetSpec<Props> = {
-//   drop(props: Props, monitor: DropTargetMonitor<AdventurerAvatarDragInfo>) {
-//     props.onDrop(monitor.getItem());
-//   },
-//   canDrop(_props: Props, _monitor: DropTargetMonitor)  {
-//     return true; // todo: can't drop on yourself
-//   },
-// };
-
 export interface Props {
   onDrop: (item: AdventurerAvatarDragInfo) => void;
 }
@@ -20,12 +11,6 @@ export interface CollectedProps {
   canDrop: boolean;
   isOver: boolean;
 }
-
-// const collect = (connect: DropTargetConnector, monitor: DropTargetMonitor) => ({
-//   canDrop: monitor.canDrop(),
-//   connectDropTarget: connect.dropTarget(),
-//   isOver: monitor.isOver(),
-// });
 
 /*
  * Can drop adventurers on this */

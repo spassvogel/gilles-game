@@ -21,8 +21,12 @@ export interface CollectedProps {
  */
 const EquipmentSlot = (props: PropsWithChildren<Props>) => {
 
+  const { onDrop } = props;
   const [{ isOver, canDrop }, dropRef] = useDrop<InventoryItemDragInfo, void, CollectedProps>(() => ({
     accept: DragType.ITEM,
+    drop: (info: InventoryItemDragInfo) => {
+      onDrop(info);
+    },
     collect: (monitor) => ({
       canDrop: monitor.canDrop(),
       isOver: monitor.isOver(),

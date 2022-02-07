@@ -3,7 +3,7 @@ import { IconSize } from 'components/ui/common/Icon';
 import { DragSourceType, DragType } from 'constants/dragging';
 import { Item } from 'definitions/items/types';
 import ItemIcon from './ItemIcon';
-import { ConnectDragSource, useDrag } from 'react-dnd';
+import { useDrag } from 'react-dnd';
 import { ItemSource } from 'constants/items';
 
 export interface Props {
@@ -19,7 +19,6 @@ export interface Props {
 
 interface CollectedProps {
   isDragging: boolean;
-  connectDragSource: ConnectDragSource;
 }
 
 export interface InventoryItemDragInfo { // todo: rename to ItemDragInfo

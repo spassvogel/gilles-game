@@ -1,5 +1,5 @@
 import { DragSourceType, DragType } from 'constants/dragging';
-import { ConnectDragSource, useDrag } from 'react-dnd';
+import { useDrag } from 'react-dnd';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import AdventurerAvatar, { Props as AdventurerAvatarProps } from '../AdventurerAvatar';
 import './styles/draggableadventureravatar.scss';
@@ -12,7 +12,6 @@ export interface Props {
 
 interface CollectedProps {
   isDragging: boolean;
-  connectDragSource: ConnectDragSource;
 }
 
 export interface AdventurerAvatarDragInfo {
@@ -23,7 +22,7 @@ export interface AdventurerAvatarDragInfo {
 const DraggableAdventurerAvatar = (props: Props & AdventurerAvatarProps) => {
   const [collected, dragRef] = useDrag<AdventurerAvatarDragInfo, null, CollectedProps>(() => ({
     type: DragType.ADVENTURER,
-    item: { 
+    item: {
       adventurer: props.adventurer,
       sourceId: props.sourceId,
       sourceType: DragSourceType.adventurerInventory,
