@@ -114,20 +114,16 @@
 
   /** medium screen, horizontal layout */
   .quest-panel.quest-panel-auto {
-    display: table;
     position: relative;
 
     .quest-area {
       overflow: hidden;
-      display: table-cell;
       width: 50%;
     }
 
     .party-area {
-      display: table-cell;
       height: 100%;
       overflow: hidden;
-      position: absolute;
       width: calc(50% - 4px);
       padding-left: 0;
     }
