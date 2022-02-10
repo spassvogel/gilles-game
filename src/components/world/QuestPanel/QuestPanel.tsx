@@ -14,6 +14,7 @@ import CombatBar from './CombatBar';
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
 import { AdventurerSectionSelection } from 'components/ui/adventurer/AdventurerPanel';
 import './styles/questPanel.scss';
+import AdventurersPanel from './AdventurersPanel';
 
 enum Layout {
   auto,     // horizontal on large screens, vertical on small screens
@@ -29,20 +30,20 @@ interface Props {
 const QuestPanel = (props: Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { layout = Layout.auto } = props;
-  const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));
+  const { layout = Layout.auto, questName } = props;
+  const adventurers = useSelector(createSelectAdventurersOnQuest(questName));
   const leader = adventurers[0];
-  const [selectedAdventurerId, setSelectedAdventurerID] = useState<string>(leader?.id);
+  const [selectedActorId, setSelectedActorId] = useState<string>(leader?.id);
 
-  const quest = useQuest(props.questName);
+  const quest = useQuest(questName);
   const activeInteractionModal = quest?.scene?.activeInteractionModal;
 
-  const handleAdventurerSelected = (adventurerId: string) => {
-    setSelectedAdventurerID(adventurerId);
+  const handleActorSelected = (actorId: string) => {
+    setSelectedActorId(actorId);
   };
 
   const handleCloseLootCacheModal = () => {
-    dispatch(setActiveSceneInteractionModal(props.questName));
+    dispatch(setActiveSceneInteractionModal(questName));
   };
 
   useEffect(() => {
@@ -55,20 +56,20 @@ const QuestPanel = (props: Props) => {
   if (!adventurers.length) return null;
 
   return (
-    <SceneControllerContextProvider questName={props.questName}>
-      { quest?.scene?.combat && <CombatBar questName={props.questName} selectedAdventurerId={selectedAdventurerId}/>}
+    <SceneControllerContextProvider questName={questName}>
+      { quest?.scene?.combat && <CombatBar questName={questName} selectedAdventurerId={selectedActorId}/>}
       <div className={`quest-panel quest-panel-${Layout[layout]}`}>
         <div className="quest-area">
           <QuestDetails
-            questName={props.questName}
-            selectedActorId={selectedAdventurerId}
-            setSelectedActor={handleAdventurerSelected}
+            questName={questName}
+            selectedActorId={selectedActorId}
+            setSelectedActor={handleActorSelected}
           />
           { activeInteractionModal && activeInteractionModal.type === 'lootCache' && (
             <div className="modal" onClick={handleCloseLootCacheModal}>
               <LootCache
                 cacheName={activeInteractionModal.lootCache}
-                adventurerId={selectedAdventurerId}
+                adventurerId={selectedActorId}
                 onClose={handleCloseLootCacheModal}
               />
             </div>
@@ -77,28 +78,20 @@ const QuestPanel = (props: Props) => {
             <div className="modal" onClick={handleCloseLootCacheModal}>
               <Situation
                 situation={activeInteractionModal.situation}
-                adventurerId={selectedAdventurerId}
+                adventurerId={selectedActorId}
                 onClose={handleCloseLootCacheModal}
               />
             </div>
           )}
         </div>
         <div className="party-area">
-          <AdventurerTabstrip
+          <AdventurersPanel
             adventurers={adventurers}
-            selectedAdventurerId={selectedAdventurerId}
-            onAdventurerTabSelected={handleAdventurerSelected}
+            adventurerId={selectedActorId}
+            onAdventurerTabSelected={handleActorSelected}
             disabled={activeInteractionModal !== undefined}
+            questName={questName}
           />
-          <div className="adventurer-details">
-            <AdventurerSectionSelection />
-            { selectedAdventurerId && (
-              <AdventurerPanel
-                adventurerId={selectedAdventurerId}
-                questName={props.questName}
-              />
-            )}
-          </div>
         </div>
       </div>
     </SceneControllerContextProvider>

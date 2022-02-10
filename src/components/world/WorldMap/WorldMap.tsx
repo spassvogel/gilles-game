@@ -17,9 +17,9 @@ import { StoreState } from 'store/types';
 import { useActiveQuests } from 'hooks/store/quests';
 import { useHistory } from 'react-router-dom';
 import { getWorldLink } from 'utils/routing';
-import './styles/worldMap.scss';
 import { DebugToggleCombat } from './DebugToggleCombat';
 import { FULL_HEIGHT, SMALL_HEIGHT, nodeLocationToPoint, getPreviousPositions, getQuestWorldLocation, WORLD_WIDTH, WORLD_HEIGHT } from './utils';
+import './styles/worldMap.scss';
 
 export interface Props {
   selectedQuestName?: string;
@@ -65,7 +65,6 @@ const WorldMap = (props: Props) => {
 
   const [canvasWidth, setCanvasWidth] = useState(WIDTH);
   const [canvasHeight, setCanvasHeight] = useState(FULL_HEIGHT);
-
 
   // puts the given party in the center of the map
   const focusOnQuestingParty = (quest: QuestStoreState) => {

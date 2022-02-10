@@ -1,14 +1,12 @@
 import WorldMap from 'components/world/WorldMap';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import QuestPanel from './QuestPanel';
 import { useRouteMatch, useHistory } from 'react-router';
 import { getQuestLink, getWorldLink } from 'utils/routing';
 import './styles/worldView.scss';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Props {
-}
+
 
 /**
  * WorldView shows the map and QuestPanel

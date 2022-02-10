@@ -1,4 +1,3 @@
-import React from 'react';
 import Tabstrip from 'components/ui/tabs/Tabstrip';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import Tab from 'components/ui/tabs/Tab';
