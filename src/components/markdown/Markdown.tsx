@@ -1,7 +1,7 @@
 import ReactMarkdown from 'react-markdown';
 import directive from 'remark-directive';
 import { reactMarkdownRemarkDirective } from '../../utils/markdown';
-import ItemTooltipTrigger from './ItemTooltipTrigger';
+import ItemElement from './ItemElement';
 import './styles/markdown.scss';
 
 type Props = {
@@ -14,7 +14,7 @@ const Markdown = (props: Props) => {
     <ReactMarkdown
       className="markdown"
       remarkPlugins={[directive, reactMarkdownRemarkDirective]}
-      components={{ ItemTooltipTrigger }}
+      components={{ item: ItemElement }}
     >{children}</ReactMarkdown>
   );
 };

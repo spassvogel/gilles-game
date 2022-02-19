@@ -27,7 +27,7 @@ const getRarityClassName = (rarity?: Rarity): string => {
 };
 
 // To be used inside Markdown component
-const ItemTooltipTrigger = (props: Props) => {
+const ItemElement = (props: Props) => {
   const { children } = props;
 
   const item = useMemo(() => {
@@ -60,13 +60,13 @@ const ItemTooltipTrigger = (props: Props) => {
   );
 };
 
-export default ItemTooltipTrigger;
+export default ItemElement;
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
-      'ItemTooltipTrigger': ElementContent[]
+      'item': ElementContent[]
     }
   }
 }

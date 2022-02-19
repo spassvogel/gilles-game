@@ -272,7 +272,7 @@ Handlebars.registerHelper('item:name', (itemOrItemType: Item | ItemType, article
 });
 
 Handlebars.registerHelper('item:trigger', (item: Item) => {
-  return new Handlebars.SafeString(`:ItemTooltipTrigger[${JSON.stringify(item)}]`);
+  return new Handlebars.SafeString(`:item[${JSON.stringify(item)}]`);
 });
 
 Handlebars.registerHelper('structure:name', (structure: Structure) => {
