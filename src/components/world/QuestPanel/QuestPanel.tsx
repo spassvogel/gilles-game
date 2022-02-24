@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import AdventurerTabstrip from './AdventurerTabstrip';
 import { createSelectAdventurersOnQuest } from 'store/selectors/adventurers';
 import { useSelector, useDispatch } from 'react-redux';
 import QuestDetails from './QuestDetails';
@@ -11,10 +10,10 @@ import { setActiveSceneInteractionModal } from 'store/actions/quests';
 import Situation from './modals/Situation';
 import SceneControllerContextProvider from './context/SceneControllerContext';
 import CombatBar from './CombatBar';
-import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
-import { AdventurerSectionSelection } from 'components/ui/adventurer/AdventurerPanel';
-import './styles/questPanel.scss';
 import AdventurersPanel from './AdventurersPanel';
+import Accordion from 'components/ui/accordion/Accordion';
+import './styles/questPanel.scss';
+import AccordionItem from 'components/ui/accordion/AccordionItem';
 
 enum Layout {
   auto,     // horizontal on large screens, vertical on small screens
@@ -58,42 +57,61 @@ const QuestPanel = (props: Props) => {
   return (
     <SceneControllerContextProvider questName={questName}>
       { quest?.scene?.combat && <CombatBar questName={questName} selectedAdventurerId={selectedActorId}/>}
-      <div className={`quest-panel quest-panel-${Layout[layout]}`}>
-        <div className="quest-area">
-          <QuestDetails
-            questName={questName}
-            selectedActorId={selectedActorId}
-            setSelectedActor={handleActorSelected}
-          />
-          { activeInteractionModal && activeInteractionModal.type === 'lootCache' && (
-            <div className="modal" onClick={handleCloseLootCacheModal}>
-              <LootCache
-                cacheName={activeInteractionModal.lootCache}
-                adventurerId={selectedActorId}
-                onClose={handleCloseLootCacheModal}
-              />
-            </div>
+        <div className={`quest-panel quest-panel-${Layout[layout]}`}>
+          <div className="quest-area">
+            <QuestDetails
+              questName={questName}
+              selectedActorId={selectedActorId}
+              setSelectedActor={handleActorSelected}
+            />
+            { activeInteractionModal && activeInteractionModal.type === 'lootCache' && (
+              <div className="modal" onClick={handleCloseLootCacheModal}>
+                <LootCache
+                  cacheName={activeInteractionModal.lootCache}
+                  adventurerId={selectedActorId}
+                  onClose={handleCloseLootCacheModal}
+                />
+              </div>
+            )}
+            { activeInteractionModal && activeInteractionModal.type === 'situation' && (
+              <div className="modal" onClick={handleCloseLootCacheModal}>
+                <Situation
+                  situation={activeInteractionModal.situation}
+                  adventurerId={selectedActorId}
+                  onClose={handleCloseLootCacheModal}
+                />
+              </div>
+            )}
+          </div>
+          <div className="party-area">
+          { !quest?.scene?.combat && (
+            <AdventurersPanel
+              adventurers={adventurers}
+              adventurerId={selectedActorId}
+              onAdventurerTabSelected={handleActorSelected}
+              disabled={activeInteractionModal !== undefined}
+              questName={questName}
+            />
           )}
-          { activeInteractionModal && activeInteractionModal.type === 'situation' && (
-            <div className="modal" onClick={handleCloseLootCacheModal}>
-              <Situation
-                situation={activeInteractionModal.situation}
-                adventurerId={selectedActorId}
-                onClose={handleCloseLootCacheModal}
-              />
-            </div>
-          )}
+            <Accordion>
+              <AccordionItem title="first adventurer" id="first">
+                <p>
+                  blablbla<br/>
+                  blablbla<br/>
+                  blablbla<br/>
+                </p>
+              </AccordionItem>
+              <AccordionItem title="second adventurer" id="second">
+                <p>
+                  hmm whatevah
+                </p>
+              </AccordionItem>
+              <AccordionItem title="third adventurer" id="third">
+                <button>da button</button>
+              </AccordionItem>
+            </Accordion>
+          </div>
         </div>
-        <div className="party-area">
-          <AdventurersPanel
-            adventurers={adventurers}
-            adventurerId={selectedActorId}
-            onAdventurerTabSelected={handleActorSelected}
-            disabled={activeInteractionModal !== undefined}
-            questName={questName}
-          />
-        </div>
-      </div>
     </SceneControllerContextProvider>
   );
 };
