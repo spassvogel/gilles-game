@@ -5,7 +5,7 @@ import './styles/accordion.scss';
 type Props = ComponentProps<'div'>;
 
 const Accordion = (props: Props) => {
-  const { children } = props;
+  const { children, className } = props;
   const [itemsExpanded, setItemsExpanded] = useState<string[]>([]);
 
   const toggleItem = (id: string) => {
@@ -20,7 +20,7 @@ const Accordion = (props: Props) => {
       itemsExpanded,
       toggleItem,
     }} >
-    <div className="accordion">
+    <div className={`accordion ${className ?? ''}`}>
       {children}
     </div>
     </AccordionContext.Provider>

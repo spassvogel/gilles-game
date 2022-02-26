@@ -18,4 +18,3 @@ export function entries<T>(obj: T): Entries<T> {
 export const listEnum = <T extends { [key: string]: number | string }>(enumeration: T) => {
   return Object.keys(enumeration).filter(v => !isNaN(Number(v))).map(v => Number(v));
 };
-

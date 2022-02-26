@@ -1,11 +1,15 @@
-import { ComponentProps, CSSProperties, useContext, useLayoutEffect, useRef, useState } from 'react';
+import { ComponentProps, CSSProperties, ReactElement, useContext, useLayoutEffect, useRef, useState } from 'react';
+import { Merge } from 'type-fest';
 import { AccordionContext } from './context/AccordionContext';
 
-type Props = { id: string } & ComponentProps<'div'>;
-
+export type Props = Merge<ComponentProps<'div'>, {
+  id: string;
+  onHeaderClick?: () => void;
+  title: string | ReactElement
+}>;
 
 const AccordionItem = (props: Props) => {
-  const { title = '', className, id, children, ...rest } = props;
+  const { title = '', className, id, children, onHeaderClick, ...rest } = props;
   const context = useContext(AccordionContext);
   const contentRef = useRef<HTMLDivElement>(null);
   const [clientHeight, setClientHeight] = useState(0);
@@ -17,8 +21,13 @@ const AccordionItem = (props: Props) => {
     ...(isExpanded ? ['expanded'] : []),
   ];
 
+  const handleHeaderClick = () => {
+    context?.toggleItem(id);
+    onHeaderClick?.();
+  };
+
   useLayoutEffect(() => {
-    if (contentRef.current) {
+    if (!isExpanded && contentRef.current) {
       setClientHeight(contentRef.current?.clientHeight);
     }
   }, [isExpanded]);
@@ -27,7 +36,7 @@ const AccordionItem = (props: Props) => {
   const style = { '--content-height': clientHeight || 1200 } as CSSProperties;
   return (
     <div className={classNames.join(' ')} style={style}>
-      <header className={`header ${className ?? ''}`} { ...rest } onClick={() => context?.toggleItem(id)}>
+      <header className='header' { ...rest } onClick={handleHeaderClick}>
         {title}
       </header>
       <div className="content" ref={contentRef}>

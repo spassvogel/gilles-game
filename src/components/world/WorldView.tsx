@@ -6,8 +6,6 @@ import { useRouteMatch, useHistory } from 'react-router';
 import { getQuestLink, getWorldLink } from 'utils/routing';
 import './styles/worldView.scss';
 
-
-
 /**
  * WorldView shows the map and QuestPanel
  * @param props

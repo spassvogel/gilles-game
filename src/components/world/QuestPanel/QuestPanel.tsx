@@ -11,9 +11,8 @@ import Situation from './modals/Situation';
 import SceneControllerContextProvider from './context/SceneControllerContext';
 import CombatBar from './CombatBar';
 import AdventurersPanel from './AdventurersPanel';
-import Accordion from 'components/ui/accordion/Accordion';
+import ActorsAccordion from './ActorsAccordion';
 import './styles/questPanel.scss';
-import AccordionItem from 'components/ui/accordion/AccordionItem';
 
 enum Layout {
   auto,     // horizontal on large screens, vertical on small screens
@@ -93,23 +92,12 @@ const QuestPanel = (props: Props) => {
               questName={questName}
             />
           )}
-            <Accordion>
-              <AccordionItem title="first adventurer" id="first">
-                <p>
-                  blablbla<br/>
-                  blablbla<br/>
-                  blablbla<br/>
-                </p>
-              </AccordionItem>
-              <AccordionItem title="second adventurer" id="second">
-                <p>
-                  hmm whatevah
-                </p>
-              </AccordionItem>
-              <AccordionItem title="third adventurer" id="third">
-                <button>da button</button>
-              </AccordionItem>
-            </Accordion>
+            <ActorsAccordion
+              selectedActorId={selectedActorId}
+              adventurers={adventurers}
+              questName={questName}
+              onActorSelected={handleActorSelected}
+            />
           </div>
         </div>
     </SceneControllerContextProvider>

@@ -1,0 +1,30 @@
+@import 'components/styles/import.scss';
+
+.actors-accordion {
+
+  .actors-accordion-item {
+    .header {
+      display: flex;
+      white-space: nowrap;
+
+      .name {
+        flex: 0.7;
+      }
+      .ap {
+        flex: 0.3;
+        text-align: right;
+        padding-right: 0.5rem;
+      }
+    }
+
+    &.selected {
+      .header {
+        background-color: $color-highlighted;
+      }
+    }
+
+    .content > * {
+      padding: 0.5rem;
+    }
+  }
+}

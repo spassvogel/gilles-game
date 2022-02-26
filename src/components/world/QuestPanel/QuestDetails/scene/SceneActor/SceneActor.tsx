@@ -112,9 +112,9 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
         />
       )}
       {children}
-      {combat && (
+      {/* {combat && (
         <ActorStats tileWidth={tileWidth} actor={actor} />
-      )}
+      )} */}
     </Container>
   );
 };
