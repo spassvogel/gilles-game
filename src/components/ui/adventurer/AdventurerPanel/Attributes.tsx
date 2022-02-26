@@ -2,10 +2,10 @@ import { Attribute, attributeList } from 'store/types/adventurer';
 import { TextManager } from 'global/TextManager';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
-import { AttributesExtended, AttributeSourceType, ExtendedAttribute } from 'mechanics/adventurers/attributes';
+import { AttributesExtended, AttributeSourceType, ExtendedAttribute, MAX_VALUE } from 'mechanics/adventurers/attributes';
 import { roundIfNeeded } from 'utils/format/number';
 import AttributeIndicator from 'components/ui/attributes/AttributeIndicator';
-import { Fragment } from 'react';
+import { CSSProperties, Fragment } from 'react';
 import { entries } from 'utils/typescript';
 import './styles/attributes.scss';
 
@@ -14,6 +14,7 @@ interface Props {
   small?: boolean;
 }
 
+const style = { '--item-count': MAX_VALUE } as CSSProperties;
 const Attributes = (props: Props) => {
   const { attributes, small } = props;
 
@@ -47,7 +48,7 @@ const Attributes = (props: Props) => {
             {small ? attribute : TextManager.getAttributeName(attribute)}
           </span>
         </div>
-        <AttributeIndicator value={base + additional} />
+        <AttributeIndicator base={base} additional={additional} />
         <div className="attribute-base">
           {roundIfNeeded(base)}
         </div>
@@ -64,7 +65,7 @@ const Attributes = (props: Props) => {
 
   return (
     <div className="basic-attributes">
-      <div className={`attribute-list ${hasAdditional ? 'has-additional' : ''}`}>
+      <div className={`attribute-list ${hasAdditional ? 'has-additional' : ''}`} style={style}>
         {attributeList.map(a => renderRow(a))}
       </div>
     </div>

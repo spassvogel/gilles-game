@@ -1,16 +1,31 @@
 import { MAX_VALUE } from 'mechanics/adventurers/attributes';
+import { useCallback } from 'react';
 import './styles/attributeIndicator.scss';
 
 interface Props {
-  value: number;
+  base: number;
+  additional?: number;
 }
 
 const AttributeIndicator = (props: Props) => {
-  const { value } = props;
+  const { base, additional = 0 } = props;
+
+  const determineClass = useCallback((index: number) => {
+    if (index == Math.round(base - 1)) {
+      return 'base';
+    }
+    if (index > Math.round(base - 1) && index <= Math.round(base - 1) + Math.round(additional)) {
+      return 'additional';
+    }
+    return '';
+  }, [additional, base]);
+
+
+
   return (
-    <div className="attribute-indicator">
+    <div className="attribute-indicator" >
       {[...Array(MAX_VALUE)].map((_, i) => (
-        <div key={i} className={`blip ${i == Math.round(value - 1) ? 'active' : ''}`}></div>
+        <div key={i} className={`blip ${determineClass(i)}`}></div>
       ))}
     </div>
   );

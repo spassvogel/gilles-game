@@ -1,16 +1,17 @@
 @import 'components/styles/import.scss';
 
+$max-blip-width: 8px; // plus margin
+
 .basic-attributes {
 
   .attribute-list {
     display: grid;
-    grid-template-columns: 1fr 1fr minmax(2rem, auto);
+    grid-template-columns: 1fr minmax(2rem, calc(var(--item-count) * $max-blip-width)) 1fr;
     padding: 0;
 
     &.has-additional {
-      grid-template-columns: 1fr 1fr minmax(2rem, auto) minmax(2rem, auto);
+      grid-template-columns: 1fr minmax(2rem, calc(var(--item-count) * $max-blip-width)) minmax(2rem, auto) 1fr;
     }
-
     .attribute-name {
       text-decoration: underline;
       text-decoration-style: dashed;
@@ -21,6 +22,7 @@
     .attribute-indicator {
       margin: 0 0.5rem;
       align-items: center;
+      max-width: calc(var(--item-count) * 8px);
     }
 
     .value-text {

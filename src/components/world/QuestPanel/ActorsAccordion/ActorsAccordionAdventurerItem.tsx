@@ -43,10 +43,10 @@ const ActorsAccordionAdventurerItem = (props: Props) => {
             {TextManager.get('ui-tooltip-actor-level', { level })}
           </div>
         </div>
-        <AttributeIndicator value={effectiveAttributes.agi} />
-        <AttributeIndicator value={effectiveAttributes.for} />
-        <AttributeIndicator value={effectiveAttributes.int} />
-        <AttributeIndicator value={effectiveAttributes.str} />
+        <AttributeIndicator base={effectiveAttributes.agi} />
+        <AttributeIndicator base={effectiveAttributes.for} />
+        <AttributeIndicator base={effectiveAttributes.int} />
+        <AttributeIndicator base={effectiveAttributes.str} />
         <Attributes attributes={extendedAttributes} small />
         <CombatAttributes attributes={attributes} level={level} />
       </div>
