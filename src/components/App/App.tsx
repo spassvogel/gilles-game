@@ -21,7 +21,6 @@ import Button, { ButtonColor } from 'components/ui/buttons/Button';
 import Bubbles from 'components/ui/bubbles/Bubbles';
 import { BubbleLayer } from 'global/BubbleManager';
 import { GameActionsContext } from 'components/Game/context';
-import { useSettings } from 'hooks/store/settings';
 import DebugDrawer from 'components/debug/DebugDrawer';
 import './styles/app.scss';
 
@@ -110,8 +109,6 @@ const App = () => {
 
     SoundManager.addSound('scene/drinking', 'sound/scene/drinking.ogg');
   }, []);
-
-  const settings = useSettings();
 
   const handleAppClick = () => {
     TooltipManager.clear();

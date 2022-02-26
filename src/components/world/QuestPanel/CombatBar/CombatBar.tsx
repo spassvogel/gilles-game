@@ -1,11 +1,7 @@
 import { useContext } from 'react';
-import { useSelector } from 'react-redux';
-import { createSelectAdventurersOnQuest } from 'store/selectors/adventurers';
 import { SceneControllerContext } from '../context/SceneControllerContext';
-import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
 import { TextManager } from 'global/TextManager';
 import Button from 'components/ui/buttons/Button';
-import { IconSize } from 'components/ui/common/Icon';
 import './styles/combatBar.scss';
 
 interface Props {
@@ -13,9 +9,9 @@ interface Props {
   selectedAdventurerId?: string;
 }
 
-const CombatBar = (props: Props) => {
-  const { selectedAdventurerId } = props;
-  const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));
+const CombatBar = (_props: Props) => {
+  // const { selectedAdventurerId } = props;
+  // const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));
   const controller = useContext(SceneControllerContext);
 
   return (

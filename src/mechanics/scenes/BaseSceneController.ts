@@ -22,7 +22,7 @@ import { addItemToInventory, removeItemFromInventory } from 'store/actions/adven
 import { adventurersOnQuest, getSceneObjectAtLocation, getSceneObjectWithName } from 'store/helpers/storeHelpers';
 import { SoundManager } from 'global/SoundManager';
 import { Item, ItemType } from 'definitions/items/types';
-import { Loader, Point } from 'pixi.js';
+import { Loader, Point, utils } from 'pixi.js';
 import { AP_COST_MOVE, AP_COST_SHOOT, calculateInitialAP } from 'mechanics/combat';
 import { xpToLevel } from 'mechanics/adventurers/levels';
 import { EnemyType } from 'definitions/enemies/types';
@@ -78,6 +78,7 @@ export class BaseSceneController<TQuestVars> {
     }
     this.dataLoading = true;
 
+    // Load map json
     await loadResourceAsync(`${process.env.PUBLIC_URL}/${this.jsonPath}`);
 
     // load sounds
@@ -110,7 +111,7 @@ export class BaseSceneController<TQuestVars> {
     for (const path of spritesheets) {
       await loadResourceAsync(path);
     }
-    // PIXI.utils.clearTextureCache()
+    utils.clearTextureCache();
     this.dataLoadComplete = true;
     this.dataLoading = false;
     callback();
@@ -162,6 +163,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   sceneEntered() {
+    utils.clearTextureCache();
     return;
   }
 

@@ -17,7 +17,6 @@ import Health from './Health';
 import Attributes from './Attributes';
 import ConsumeItem from './ConsumeItem';
 import AdventurerEffects from './AdventurerEffects';
-import { useSettings } from 'hooks/store/settings';
 import { calculateEffectiveAttributesExtended } from 'mechanics/adventurers/attributes';
 import './styles/adventurerPanel.scss';
 
@@ -50,7 +49,6 @@ const AdventurerPanel = (props: Props) => {
     onStartInventoryItemDrag,
   } = props;
   const adventurer = useAdventurer(adventurerId);
-  const settings = useSettings();
 
   const {
     dropItemEquipment,

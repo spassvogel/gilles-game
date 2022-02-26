@@ -1,4 +1,4 @@
-import { useMemo,  useEffect, useRef, PropsWithChildren, useState, memo, ComponentProps } from 'react';
+import { useMemo,  useEffect, useRef, PropsWithChildren, useState, ComponentProps } from 'react';
 import { Location } from 'utils/tilemap';
 import { Container } from '@inlet/react-pixi';
 import { Filter, Container as PixiContainer } from 'pixi.js';
@@ -6,8 +6,6 @@ import { ActorObject } from 'store/types/scene';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import SpriteAnimated from 'components/pixi/tile/SpriteAnimated';
 import { AdventurerColor } from 'store/types/adventurer';
-import { useQuest } from 'hooks/store/quests';
-import ActorStats from './ActorStats';
 import { useRandomOrientation } from './useRandomOrientation';
 import { BLACK, BLUES, calculateBearing, createColorReplaceFilter, ORANGE, Orientation, PURPLE, REDS, SPRITE_WIDTH, TEALS, WHITE, YELLOW } from './utils';
 import useAnimation from './useAnimation';
@@ -38,7 +36,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
   } = props;
   const { tileWidth, tileHeight } = controller.getTileDimensions();
   const actorRef = useRef<PixiContainer>(null);
-  const quest = useQuest(props.controller.questName);
+  // const quest = useQuest(props.controller.questName);
 
   const [orientation, setOrientation] = useState<Orientation>(Orientation.north);
   const animation = useAnimation(controller, actorRef, actor.name, location, setOrientation);
@@ -94,7 +92,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
         return [];
     }
   }, [color]);
-  const combat = !!quest.scene?.combat;
+  // const combat = !!quest.scene?.combat;
   return (
     <Container x={x} y={y} ref={actorRef} {...rest}>
       { spritesheetPath && frames && (

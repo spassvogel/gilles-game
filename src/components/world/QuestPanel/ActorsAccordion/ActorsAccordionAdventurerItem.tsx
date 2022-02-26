@@ -9,7 +9,6 @@ import AccordionItem, { Props as AccordionItemProps } from 'components/ui/accord
 import CombatAttributes from 'components/ui/tooltip/ContextTooltip/context/ActorContext/CombatAttributes';
 import { useActorObject } from 'hooks/store/quests';
 import { ActorObject } from 'store/types/scene';
-import AttributeIndicator from 'components/ui/attributes/AttributeIndicator';
 
 type Props = Merge<Omit<AccordionItemProps, 'id' | 'title'>, {
   adventurerId: string
@@ -21,9 +20,8 @@ const ActorsAccordionAdventurerItem = (props: Props) => {
   const { adventurerId, selected, questName, ...rest } = props;
   const adventurer = useAdventurer(adventurerId);
   const attributes = calculateEffectiveAttributes(adventurer);
-  const { name, xp } = adventurer;
+  const { xp } = adventurer;
   const level = xpToLevel(xp);
-  const effectiveAttributes = useMemo(() => calculateEffectiveAttributes(adventurer), [adventurer]);
   const extendedAttributes = useMemo(() => calculateEffectiveAttributesExtended(adventurer), [adventurer]);
   const actor = useActorObject<ActorObject>(questName ?? '', adventurerId);
 

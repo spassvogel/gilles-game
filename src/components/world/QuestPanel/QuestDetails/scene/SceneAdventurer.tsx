@@ -1,5 +1,5 @@
 import { Container, Graphics } from '@inlet/react-pixi';
-import { useRef, memo } from 'react';
+import { useRef } from 'react';
 import { ActorObject } from 'store/types/scene';
 import SceneActor, { Props as SceneActorProps } from './SceneActor';
 import { Container as PixiContainer } from 'pixi.js';

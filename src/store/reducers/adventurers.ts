@@ -89,7 +89,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   id: 'ec6f1050',
   equipment: {
     [EquipmentSlotType.feet]: { type: 'apparel/boots3' },
-    [EquipmentSlotType.mainHand]: { type: 'weapon/warhammer' },
+    [EquipmentSlotType.mainHand]: { type: 'weapon/greatswordOfGwai' },
     // offHand: Item.aegisOfValor
   },
   ...generateAttributesHealthAndXp(),
@@ -128,7 +128,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   //   damage: 4,
   //   interval: 5000
   // }],
-  inventory: [{ type: 'weapon/greatswordOfGwai' }, null, null, null, { type: 'weapon/berserkerShield' }],
+  inventory: [{ type: 'weapon/greatswordOfGwai' }, null, null, null, { type: 'weapon/berserkerShield' }, { type: 'weapon/warhammer' }],
 }, {
   id: 'd299f98a',
   ...generateAttributesHealthAndXp(),

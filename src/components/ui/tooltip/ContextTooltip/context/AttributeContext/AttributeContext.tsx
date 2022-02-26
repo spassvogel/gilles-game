@@ -11,7 +11,6 @@ export interface Props {
 
 const AttributeContext = (props: Props) => {
   const { extendedAttribute } = props;
-  console.log(extendedAttribute);
   return (
     <div className="attribute-context">
       <hr />
