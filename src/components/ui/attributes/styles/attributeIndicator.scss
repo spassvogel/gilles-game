@@ -1,0 +1,18 @@
+@import 'components/styles/import.scss';
+
+.attribute-indicator {
+  display: flex;
+  justify-content: space-between;
+
+  .blip {
+    max-width: 3px;
+    min-width: 1px;
+    flex: 1;
+    height: 0.5rem;
+    background: $color-text-darker;
+
+    &.active {
+      background: $color-text-lighter;
+    }
+  }
+}

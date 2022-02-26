@@ -3,28 +3,35 @@
 .basic-attributes {
 
   .attribute-list {
-    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr minmax(2rem, auto);
     padding: 0;
 
-    li {
-      display: flex;
+    &.has-additional {
+      grid-template-columns: 1fr 1fr minmax(2rem, auto) minmax(2rem, auto);
     }
 
     .attribute-name {
-      flex: 0.5;
-
       text-decoration: underline;
       text-decoration-style: dashed;
       text-underline-offset: 2px;
       text-decoration-color: #fcfcfc73;
     }
 
-    .attribute-value {
-      flex: 0.5;
+    .attribute-indicator {
+      margin: 0 0.5rem;
+      align-items: center;
+    }
 
-      .additional {
-        color: $color-highlighted;
-      }
+    .value-text {
+      flex: 0.2;
+      margin-left: 0.5rem;
+      white-space: nowrap;
+
+    }
+    .attribute-additional {
+      color: $color-highlighted;
+      white-space: nowrap;
     }
   }
 }

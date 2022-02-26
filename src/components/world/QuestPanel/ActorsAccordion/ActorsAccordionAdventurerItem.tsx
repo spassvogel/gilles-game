@@ -9,6 +9,7 @@ import AccordionItem, { Props as AccordionItemProps } from 'components/ui/accord
 import CombatAttributes from 'components/ui/tooltip/ContextTooltip/context/ActorContext/CombatAttributes';
 import { useActorObject } from 'hooks/store/quests';
 import { ActorObject } from 'store/types/scene';
+import AttributeIndicator from 'components/ui/attributes/AttributeIndicator';
 
 type Props = Merge<Omit<AccordionItemProps, 'id' | 'title'>, {
   adventurerId: string
@@ -22,6 +23,7 @@ const ActorsAccordionAdventurerItem = (props: Props) => {
   const attributes = calculateEffectiveAttributes(adventurer);
   const { name, xp } = adventurer;
   const level = xpToLevel(xp);
+  const effectiveAttributes = useMemo(() => calculateEffectiveAttributes(adventurer), [adventurer]);
   const extendedAttributes = useMemo(() => calculateEffectiveAttributesExtended(adventurer), [adventurer]);
   const actor = useActorObject<ActorObject>(questName ?? '', adventurerId);
 
@@ -41,6 +43,10 @@ const ActorsAccordionAdventurerItem = (props: Props) => {
             {TextManager.get('ui-tooltip-actor-level', { level })}
           </div>
         </div>
+        <AttributeIndicator value={effectiveAttributes.agi} />
+        <AttributeIndicator value={effectiveAttributes.for} />
+        <AttributeIndicator value={effectiveAttributes.int} />
+        <AttributeIndicator value={effectiveAttributes.str} />
         <Attributes attributes={extendedAttributes} small />
         <CombatAttributes attributes={attributes} level={level} />
       </div>

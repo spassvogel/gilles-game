@@ -4,11 +4,14 @@ import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
 import { AttributesExtended, AttributeSourceType, ExtendedAttribute } from 'mechanics/adventurers/attributes';
 import { roundIfNeeded } from 'utils/format/number';
+import AttributeIndicator from 'components/ui/attributes/AttributeIndicator';
+import { Fragment } from 'react';
+import { entries } from 'utils/typescript';
 import './styles/attributes.scss';
 
 interface Props {
   attributes: AttributesExtended;
-  small?: boolean
+  small?: boolean;
 }
 
 const Attributes = (props: Props) => {
@@ -38,26 +41,32 @@ const Attributes = (props: Props) => {
     }, { base: 0, additional: 0 });
 
     return (
-      <li key={attribute}>
+      <Fragment key={attribute}>
         <div className="attribute-name">
           <span onClick={handleClick}>
             {small ? attribute : TextManager.getAttributeName(attribute)}
           </span>
         </div>
-        <div className="attribute-value">
+        <AttributeIndicator value={base + additional} />
+        <div className="attribute-base">
           {roundIfNeeded(base)}
-          { additional > 0 && ( <span className="additional"> +{ roundIfNeeded(additional)}</span>)}
         </div>
-      </li>
+        { additional > 0 && (
+          <div className="attribute-additional">
+           +{roundIfNeeded(additional)}
+          </div>
+        )}
+      </Fragment>
     );
   };
 
+  const hasAdditional = entries(attributes).some(([_attr, comp]) => comp.some(c => c.origin.type !== AttributeSourceType.base));
+
   return (
     <div className="basic-attributes">
-      {/* todo: use css grid */}
-      <ul className="attribute-list">
+      <div className={`attribute-list ${hasAdditional ? 'has-additional' : ''}`}>
         {attributeList.map(a => renderRow(a))}
-      </ul>
+      </div>
     </div>
   );
 };
