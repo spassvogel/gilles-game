@@ -59,7 +59,7 @@ const ErrorModal = (props: FallbackProps) => {
           <input type="hidden" name="message" value={error.message} />
           <input type="hidden" name="stack" value={error.stack} />
           <input type="hidden" name="store" value={state} />
-          <button onClick={handleReset}>Reset game</button>
+          <button type="reset" onClick={handleReset}>Reset game</button>
           <button type="submit">Report bug</button>
         </form>
       </div>
