@@ -28,7 +28,8 @@
 	}
 
 	.max {
-		color: grey;
+		color: $color-text-medium;
+    white-space: nowrap;
 	}
 
 	.structure {

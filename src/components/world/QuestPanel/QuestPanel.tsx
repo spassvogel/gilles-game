@@ -92,12 +92,14 @@ const QuestPanel = (props: Props) => {
               questName={questName}
             />
           )}
+          { quest?.scene?.combat && (
             <ActorsAccordion
               selectedActorId={selectedActorId}
               adventurers={adventurers}
               questName={questName}
               onActorSelected={handleActorSelected}
             />
+          )}
           </div>
         </div>
     </SceneControllerContextProvider>

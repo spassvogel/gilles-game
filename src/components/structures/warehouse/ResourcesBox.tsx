@@ -68,7 +68,7 @@ const ResourcesBox = (props: Props) => {
                 { formatNumber(amount, 0) }
               </div>
               <div className="max" >
-                { ` / ${props.maxResources[resource]}` }
+                { ` /${props.maxResources[resource]}` }
               </div>
               <div className="structure">
                 {structures[structure].state === StructureState.Built ? (

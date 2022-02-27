@@ -1,10 +1,11 @@
 import { calculateDodge, calculateInitialAP } from 'mechanics/combat';
 import { AttributesStoreState } from 'store/types/adventurer';
+import { roundIfNeeded } from 'utils/format/number';
 
-interface Props {
+type Props = {
   attributes: AttributesStoreState;
   level: number;
-}
+};
 
 const CombatAttributes = (props: Props) => {
   const { attributes, level } = props;
@@ -14,7 +15,7 @@ const CombatAttributes = (props: Props) => {
         AP each turn: {calculateInitialAP(attributes, level)}
       </div>
       <div>
-        Dodge: {calculateDodge(attributes)}%
+        Dodge: {roundIfNeeded(calculateDodge(attributes))}%
       </div>
     </>
   );
