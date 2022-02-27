@@ -102,7 +102,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [WeaponType.sword]: 12,
     [WeaponType.hammer]: 6,
   },
-  avatarImg: `${avatarImgBasePath}male/m_09.png`,
+  avatarImg: `${avatarImgBasePath}male/m_36.png`,
   spritesheetPath: `${spritesheetBasePath}skeleton.json`,
   color: AdventurerColor.black,
   tempEffects: [
