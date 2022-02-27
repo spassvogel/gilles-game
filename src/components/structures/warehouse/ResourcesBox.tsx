@@ -7,7 +7,6 @@ import { TextManager } from 'global/TextManager';
 import ReactMarkdown from 'react-markdown';
 import { StructuresStoreState } from 'store/types/structures';
 import { getStructureByResource } from 'definitions/structures';
-import { withAppContext, AppContextProps } from 'hoc/withAppContext';
 import { StoreState } from 'store/types';
 import { StructureState } from 'store/types/structure';
 import { formatNumber } from 'utils/format/number';
@@ -27,7 +26,7 @@ export interface Props {
 /**
  * The ResourcesBox is used in the Warehouse to show a list of resources
  */
-const ResourcesBox = (props: Props & AppContextProps) => {
+const ResourcesBox = (props: Props) => {
   const {
     resources,
     deltaResources,
@@ -73,10 +72,10 @@ const ResourcesBox = (props: Props & AppContextProps) => {
               </div>
               <div className="structure">
                 {structures[structure].state === StructureState.Built ? (
-                  <ReactMarkdown>{TextManager.get('ui-structure-warehouse-resources-source', { structure })}</ReactMarkdown>
+                  <ReactMarkdown>{TextManager.get('ui-structure-warehouse-resources-source-link', { structure })}</ReactMarkdown>
                 ) : (
                   <>
-                    <ReactMarkdown>{TextManager.get('ui-structure-warehouse-resources-source-link', { structure })}</ReactMarkdown>
+                    <ReactMarkdown>{TextManager.get('ui-structure-warehouse-resources-source', { structure })}</ReactMarkdown>
                     <span className="unbuilt">
                       {TextManager.get('ui-structure-warehouse-resources-source-unbuilt')}
                     </span>
@@ -91,6 +90,6 @@ const ResourcesBox = (props: Props & AppContextProps) => {
   );
 };
 
-export default withAppContext(ResourcesBox);
+export default ResourcesBox;
 
 

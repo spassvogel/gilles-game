@@ -1,7 +1,14 @@
+@import 'components/styles/import.scss';
+
 .stockpile {
   .tabs {
     li {
       padding: 0 0.25rem;
+      color: $color-text-darkest;
+
+      &.active {
+        background: $color-primary;
+      }
     }
   }
 }

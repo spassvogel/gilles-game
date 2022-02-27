@@ -150,19 +150,21 @@ const TownView = () => {
   return (
     <div className="town-view" ref={ref}>
       {/* <Legenda structures={structures} /> */}
-      <TownStage
-        screenWidth={canvasWidth}
-        screenHeight={canvasHeight}
-        worldWidth={WORLD_WIDTH}
-        worldHeight={WORLD_HEIGHT}
-        ref={viewportRef}
-        blockScroll={viewMatch === null}
-      >
-        <Clouds worldWidth={canvasWidth} />
-        {renderStructures()}
-        <Clouds worldWidth={canvasWidth} />
-        <StructureLabels />
-      </TownStage>
+      { viewMatch === null && (
+        <TownStage
+          screenWidth={canvasWidth}
+          screenHeight={canvasHeight}
+          worldWidth={WORLD_WIDTH}
+          worldHeight={WORLD_HEIGHT}
+          ref={viewportRef}
+          blockScroll={viewMatch === null}
+        >
+          <Clouds worldWidth={canvasWidth} />
+          {renderStructures()}
+          <Clouds worldWidth={canvasWidth} />
+          <StructureLabels />
+        </TownStage>
+      )}
       <Switch>
         <Route path="/town/:structure/view" >
           <RoutedStructureDetailsView />

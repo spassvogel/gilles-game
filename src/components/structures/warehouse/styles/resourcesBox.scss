@@ -35,6 +35,10 @@
 		padding-left: 15px;
 		overflow: hidden;
 
+    a {
+      color: $color-highlighted;
+    }
+
 		p {
 			margin: 0;
 			overflow: hidden;
