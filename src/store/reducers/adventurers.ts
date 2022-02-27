@@ -75,7 +75,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   flavor: true,
 
   room: 1,
-  avatarImg: `${avatarImgBasePath}male/m_05.png`,
+  avatarImg: `${avatarImgBasePath}female/f_16.png`,
   spritesheetPath: `${spritesheetBasePath}elf-bow.json`,
   color: AdventurerColor.teal,
   traits: [Trait.houseHouston],
