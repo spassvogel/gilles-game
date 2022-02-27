@@ -3,10 +3,11 @@ import { useAdventurer } from 'hooks/store/adventurers';
 import { TextManager } from 'global/TextManager';
 import { xpToLevel } from 'mechanics/adventurers/levels';
 import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
+import { roundIfNeeded } from 'utils/format/number';
 
-export interface Props {
+export type Props = {
   adventurerId: string;
-}
+};
 
 const Health = (props: Props) => {
   const { adventurerId } = props;
@@ -19,7 +20,7 @@ const Health = (props: Props) => {
       {TextManager.get('ui-adventurer-info-health')}
       <PlainProgressbar
         progress={health / baseHP}
-        label={`${health.toFixed(2)}/${baseHP}`}
+        label={`${roundIfNeeded(Math.max(health, 0))}/${baseHP}`}
         variation="health"
       />
     </div>
