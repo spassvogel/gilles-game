@@ -1,10 +1,10 @@
 import { useDrop } from 'react-dnd';
 import { DragType } from 'constants/dragging';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
-import { EquipmentSlotType } from './utils';
+import { EquipmentSlotType, itemAndEquipmentSlotMatch } from './utils';
 import { PropsWithChildren } from 'react';
-import './styles/equipmentslot.scss';
 import { useAdventurer } from 'hooks/store/adventurers';
+import './styles/equipmentslot.scss';
 
 
 export interface Props {
@@ -31,10 +31,14 @@ const EquipmentSlot = (props: PropsWithChildren<Props>) => {
     drop: (info: InventoryItemDragInfo) => {
       onDrop(info);
     },
-    collect: (monitor) => ({
-      canDrop: monitor.canDrop(),
-      isOver: monitor.isOver(),
-    }),
+    collect: (monitor) => {
+      const item = monitor.getItem<InventoryItemDragInfo>()?.item;
+      const validDrop = !!item && itemAndEquipmentSlotMatch(item.type, props.type) && monitor.canDrop();
+      return {
+        canDrop: validDrop,
+        isOver: monitor.isOver(),
+      };
+    },
   }), [adventurerId, adventurer.equipment]);
   const isActive = isOver && canDrop;
   const className = ['equipment-slot'];
@@ -52,4 +56,3 @@ const EquipmentSlot = (props: PropsWithChildren<Props>) => {
 };
 
 export default EquipmentSlot;
-

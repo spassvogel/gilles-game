@@ -802,3 +802,8 @@ process events, send out redux actions
 
 ### 2022-01-29 Forward outpots (nice to have)
 Can build forward outposts (small versions of town) anywhere on the map, with less functionality, but adventurers can return there and rest, heal up etc.
+
+### bugs
+- [ ] cant drag items from adventurer to warehouse
+- [ ] adventurer panel on warehouse is a hot mess
+- [x] prevent wrong apparel to be placed 
