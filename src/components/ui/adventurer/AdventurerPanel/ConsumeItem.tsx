@@ -63,11 +63,6 @@ const ConsumeItem = (props: Props) => {
       dispatch(deductActorAp(questName, adventurerId, AP_COST_CONSUME));
     }
 
-    // const definition = getDefinition(consumable.type);
-    // switch (definition.category) {
-    //   case "health":
-    //     break;
-    // }
     dispatch(consumeItem(adventurerId, fromSlot));
     SoundManager.playSound('scene/drinking', Channel.scene);
     onConsumed?.();

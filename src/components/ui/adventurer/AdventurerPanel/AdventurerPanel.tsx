@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { DragSourceType } from 'constants/dragging';
 import Inventory from 'components/ui/inventory/Inventory';
 import useItemDropActions from 'hooks/actions/useItemActions';
@@ -70,6 +70,11 @@ const AdventurerPanel = (props: Props) => {
   const handleDropConsumeItem = (fromSlot: number) => {
     setConsumeItemIndex(fromSlot);
   };
+
+  useEffect(() => {
+    // selecting another adventurer cancels the consume intent
+    setConsumeItemIndex(undefined);
+  }, [adventurerId]);
 
   const handleItemConsumed = () => {
     setConsumeItemIndex(undefined);

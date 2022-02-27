@@ -128,7 +128,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   //   damage: 4,
   //   interval: 5000
   // }],
-  inventory: [{ type: 'weapon/greatswordOfGwai' }, null, null, null, { type: 'weapon/berserkerShield' }, { type: 'weapon/warhammer' }],
+  inventory: [{ type: 'weapon/greatswordOfGwai' }, { type: 'consumable/greaterSoma' }, { type: 'consumable/greaterSoma' }, null, null, null, { type: 'weapon/berserkerShield' }, { type: 'weapon/warhammer' }],
 }, {
   id: 'd299f98a',
   ...generateAttributesHealthAndXp(),
