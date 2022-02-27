@@ -42,6 +42,17 @@
         display: block;
       }
 
+      .open ~.active:after {
+        float: right;
+        color: $color-text-darker;
+      }
+      .open:checked ~ .active:after {
+        content: '▴';
+      }
+      .open:not(checked) ~ .active:after {
+        content: '▾';
+      }
+
       .tabstrip-tab {
         align-self: inherit;
         display: none;
