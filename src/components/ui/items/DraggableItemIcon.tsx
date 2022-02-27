@@ -41,7 +41,7 @@ const DraggableItemIcon = (props: Props) => {
       sourceId,
       sourceType,
     },
-  }), []);
+  }), [item]);
 
   const handleClick = (event: React.MouseEvent) => {
     onClick?.(event);
