@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { QuestStatus, QuestStoreState } from 'store/types/quest';
 import { createSelector } from 'reselect';
 import { createStringArraySelector } from 'utils/reselect';
-import { SceneObject, SceneStoreState } from 'store/types/scene';
+import { ActorObject, isEnemy, SceneObject, SceneStoreState } from 'store/types/scene';
 
 const getQuests = (state: StoreState) => state.quests;
 const getQuestNames = (state: StoreState) => state.quests.map(q => q.name);
@@ -56,9 +56,32 @@ export const useActiveQuestNames = () => {
   return useSelector<StoreState, string[]>(questNameSelector);
 };
 
-export const useActorObject = <T extends SceneObject>(questName: string, actorName: string): (T | undefined) =>  {
+export const useQuestSceneObjectByName = <T extends SceneObject>(questName: string, actorName: string): (T | undefined) =>  {
   const scene = useQuestScene(questName);
   return useMemo(() => {
     return scene?.objects.find(sA => sA.name === actorName) as T;
   }, [actorName, scene?.objects]);
+};
+
+export const useQuestSceneObjectById = <T extends SceneObject>(questName: string, actorId: string): (T | undefined) =>  {
+  const scene = useQuestScene(questName);
+  return useMemo(() => {
+    return scene?.objects.find(sA => sA.id === actorId) as T;
+  }, [actorId, scene?.objects]);
+};
+
+export const useActorObject = (questName: string, actorName: string): ActorObject =>  {
+  const scene = useQuestScene(questName);
+  return useMemo(() => {
+    return scene?.objects.find(sA => sA.name === actorName) as ActorObject;
+  }, [actorName, scene?.objects]);
+};
+
+
+
+export const useQuestSceneEnemies = (questName: string): ActorObject[] =>  {
+  const scene = useQuestScene(questName);
+  return useMemo(() => {
+    return scene?.objects.filter(isEnemy) ?? [];
+  }, [scene?.objects]);
 };

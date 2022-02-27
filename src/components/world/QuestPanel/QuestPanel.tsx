@@ -95,7 +95,6 @@ const QuestPanel = (props: Props) => {
           { quest?.scene?.combat && (
             <ActorsAccordion
               selectedActorId={selectedActorId}
-              adventurers={adventurers}
               questName={questName}
               onActorSelected={handleActorSelected}
             />

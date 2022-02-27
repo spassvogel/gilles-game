@@ -1,18 +1,23 @@
-import { AdventurerStoreState } from 'store/types/adventurer';
 import Accordion from 'components/ui/accordion/Accordion';
 import ActorsAccordionAdventurerItem from './ActorsAccordionAdventurerItem';
+import { createSelectAdventurersOnQuest } from 'store/selectors/adventurers';
+import { useSelector } from 'react-redux';
 import './styles/actorsAccordion.scss';
+import ActorsAccordionEnemyItem from './ActorsAccordionEnemyItem';
+import { useQuestSceneEnemies } from 'hooks/store/quests';
 
 type Props = {
   selectedActorId: string;
-  adventurers: AdventurerStoreState[];
   onActorSelected: (actorId: string) => void;
   questName: string;
 };
 
 // A tabstrip with adventurer details below it
 const ActorsAccordion = (props: Props) => {
-  const {  adventurers, selectedActorId, questName, onActorSelected } = props;
+  const { selectedActorId, questName, onActorSelected } = props;
+  const adventurers = useSelector(createSelectAdventurersOnQuest(questName));
+  const enemies = useQuestSceneEnemies(questName);
+
   return (
     <Accordion className="actors-accordion">
       {adventurers.map(a => (
@@ -22,6 +27,14 @@ const ActorsAccordion = (props: Props) => {
           adventurerId={a.id}
           questName={questName}
           onHeaderClick={() => { onActorSelected(a.id);}}
+        />
+      ))}
+      {enemies.map(e => (
+        <ActorsAccordionEnemyItem
+          enemyId={e.id}
+          key={e.id}
+          selected={selectedActorId === e.id}
+          questName={questName}
         />
       ))}
     </Accordion>
