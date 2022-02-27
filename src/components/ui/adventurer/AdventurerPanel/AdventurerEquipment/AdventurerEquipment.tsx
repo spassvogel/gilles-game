@@ -1,4 +1,3 @@
-import { AdventurerStoreState } from 'store/types/adventurer';
 import EquipmentSlot, { EquipmentSlotType, rangedWeaponInHand } from 'components/ui/adventurer/EquipmentSlot';
 import { Item } from 'definitions/items/types';
 import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
@@ -6,16 +5,18 @@ import { DragSourceType } from 'constants/dragging';
 import { TextManager } from 'global/TextManager';
 import { IconSize } from 'components/ui/common/Icon';
 import Guy from './Guy';
+import { useAdventurer } from 'hooks/store/adventurers';
 import './styles/adventurerEquipment.scss';
 
 export interface Props {
-  adventurer: AdventurerStoreState
+  adventurerId: string
   onDropItemEquipment: (dragInfo: InventoryItemDragInfo, slotType: EquipmentSlotType) => void;
 }
 
 // Shows the gear an adventurer is wearing
 const AdventurerEquipment = (props: Props) => {
-  const { adventurer, onDropItemEquipment } = props;
+  const { adventurerId, onDropItemEquipment } = props;
+  const adventurer = useAdventurer(adventurerId);
 
   const getEquipmentSlot = (slotType: EquipmentSlotType) => {
     // returns EquipmentSlot
@@ -28,10 +29,16 @@ const AdventurerEquipment = (props: Props) => {
         text = TextManager.get('ui-equipmentslot-ammunition');
       }
     }
+    const handleDrop = (dragInfo: InventoryItemDragInfo) => {
+      console.log('handle drop for ', adventurerId);
+      onDropItemEquipment(dragInfo, slotType);
+    };
+
     return (
       <li className={EquipmentSlotType[slotType]}>
         <EquipmentSlot
-          onDrop={(dragInfo: InventoryItemDragInfo) => onDropItemEquipment(dragInfo, slotType)}
+          onDrop={handleDrop}
+          adventurerId={adventurerId}
           type={slotType}
         >
           {item && (

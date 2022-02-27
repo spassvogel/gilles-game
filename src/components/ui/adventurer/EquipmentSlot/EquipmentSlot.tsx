@@ -8,6 +8,7 @@ import './styles/equipmentslot.scss';
 
 export interface Props {
   type: EquipmentSlotType;
+  adventurerId: string;
   onDrop: (item: InventoryItemDragInfo) => void;
 }
 
@@ -21,7 +22,7 @@ export interface CollectedProps {
  */
 const EquipmentSlot = (props: PropsWithChildren<Props>) => {
 
-  const { onDrop } = props;
+  const { adventurerId, onDrop } = props;
   const [{ isOver, canDrop }, dropRef] = useDrop<InventoryItemDragInfo, void, CollectedProps>(() => ({
     accept: DragType.ITEM,
     drop: (info: InventoryItemDragInfo) => {
@@ -31,7 +32,7 @@ const EquipmentSlot = (props: PropsWithChildren<Props>) => {
       canDrop: monitor.canDrop(),
       isOver: monitor.isOver(),
     }),
-  }));
+  }), [adventurerId]);
   const isActive = isOver && canDrop;
   const className = ['equipment-slot'];
   if (isActive) {

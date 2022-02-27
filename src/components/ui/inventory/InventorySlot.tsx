@@ -8,6 +8,7 @@ import { itemAndEquipmentSlotMatch } from '../adventurer/EquipmentSlot';
 
 export interface Props {
   item: Item | null;
+  sourceId?: string;
   size?: IconSize;
   disabled?: boolean;
   onDrop: (info: InventoryItemDragInfo) => void;
@@ -26,6 +27,7 @@ const InventorySlot = (props: PropsWithChildren<Props>) => {
   const {
     item,
     disabled,
+    sourceId,
     canDropHere,
     onDrop,
   } = props;
@@ -45,7 +47,7 @@ const InventorySlot = (props: PropsWithChildren<Props>) => {
     drop: (dragInfo: InventoryItemDragInfo) => {
       return onDrop(dragInfo);
     },
-  }));
+  }), [sourceId]);
   const isActive = isOver && canDrop;
 
   const className = [

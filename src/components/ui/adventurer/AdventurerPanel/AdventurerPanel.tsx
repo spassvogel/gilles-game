@@ -49,7 +49,6 @@ const AdventurerPanel = (props: Props) => {
     onStartInventoryItemDrag,
   } = props;
   const adventurer = useAdventurer(adventurerId);
-
   const {
     dropItemEquipment,
     dropItemInventory,
@@ -110,7 +109,7 @@ const AdventurerPanel = (props: Props) => {
         <div className="equipment">
           <p>{TextManager.get('ui-adventurer-info-equipment-title')}</p>
           <AdventurerEquipment
-            adventurer={adventurer}
+            adventurerId={adventurerId}
             onDropItemEquipment={handleDropItemEquipment}
           />
         </div>
@@ -119,7 +118,7 @@ const AdventurerPanel = (props: Props) => {
       <p>{TextManager.get('ui-adventurer-info-inventory-title')}</p>
         <Inventory
           sourceType={DragSourceType.adventurerInventory}
-          sourceId={adventurer.id}
+          sourceId={adventurerId}
           disabledIndex={consumeItemIndex}
           items={adventurer.inventory}
           className="inventory-medium"
