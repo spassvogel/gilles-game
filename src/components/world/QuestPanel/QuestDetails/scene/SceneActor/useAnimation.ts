@@ -7,7 +7,7 @@ import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { CombatController } from 'mechanics/scenes/CombatController';
 import { completeSceneAction } from 'store/actions/quests';
 import { StoreState } from 'store/types';
-import { isActorObject, SceneAction, SceneActionType } from 'store/types/scene';
+import { SceneAction, SceneActionType } from 'store/types/scene';
 import { Location } from 'utils/tilemap';
 import { Orientation } from '.';
 
@@ -31,7 +31,7 @@ const useAnimation = (
     if (!quest.scene?.actionQueue) {
       return [];
     }
-    return quest.scene.actionQueue.filter(a => a.actorId === actorName);
+    return quest.scene.actionQueue.filter(a => a.actor === actorName);
   }, [quest.scene, actorName]);
 
   const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
@@ -40,10 +40,11 @@ const useAnimation = (
   const nextAction = actionQueue[0];
 
   useEffect(() => {
-    const actor = quest.scene?.objects.find(o => o.name === actorName);
-    if (actor && isActorObject(actor) && actor.health <= 0) {
-      setAnimation('die');
-    }
+    // todo
+    // const actor = quest.scene?.objects.find(o => o.name === actorName);
+    // if (actor && isActorObject(actor) && actor.health <= 0) {
+    //   setAnimation('die');
+    // }
   }, [actorName, quest]);
 
   // Handle actions

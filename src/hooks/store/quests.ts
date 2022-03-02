@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { QuestStatus, QuestStoreState } from 'store/types/quest';
 import { createSelector } from 'reselect';
 import { createStringArraySelector } from 'utils/reselect';
-import { ActorObject, isEnemy, SceneObject, SceneStoreState } from 'store/types/scene';
+import { ActorObject, AdventurerObject, EnemyObject, isAdventurer, isEnemy, SceneObject, SceneStoreState } from 'store/types/scene';
 
 const getQuests = (state: StoreState) => state.quests;
 const getQuestNames = (state: StoreState) => state.quests.map(q => q.name);
@@ -77,9 +77,22 @@ export const useActorObject = (questName: string, actorName: string): ActorObjec
   }, [actorName, scene?.objects]);
 };
 
+export const useAdventurerActorObject = (questName: string, adventurerId: string): AdventurerObject =>  {
+  const scene = useQuestScene(questName);
+  return useMemo(() => {
+    return scene?.objects.find(sA => isAdventurer(sA) && sA.adventurerId === adventurerId) as AdventurerObject;
+  }, [adventurerId, scene?.objects]);
+};
+
+export const useEnemyActorObject = (questName: string, enemyId: string): EnemyObject =>  {
+  const scene = useQuestScene(questName);
+  return useMemo(() => {
+    return scene?.objects.find(sA => isEnemy(sA) && sA.enemyId === enemyId) as EnemyObject;
+  }, [enemyId, scene?.objects]);
+};
 
 
-export const useQuestSceneEnemies = (questName: string): ActorObject[] =>  {
+export const useQuestSceneEnemies = (questName: string): EnemyObject[] =>  {
   const scene = useQuestScene(questName);
   return useMemo(() => {
     return scene?.objects.filter(isEnemy) ?? [];

@@ -1,11 +1,10 @@
 import Icon, { IconSize } from 'components/ui/common/Icon';
 import { getDefinition } from 'definitions/enemies';
-import { EnemyType } from 'definitions/enemies/types';
-import { ActorObject } from 'store/types/scene';
+import { EnemyObject } from 'store/types/scene';
 import './styles/enemyAvatar.scss';
 
 export interface Props {
-  actorObject: ActorObject
+  actorObject: EnemyObject
   className?: string;
   onClick?: (adventurerId: string) => void;
   size?: IconSize;
@@ -21,11 +20,11 @@ const EnemyAvatar = (props: Props) => {
   } = props;
 
   const className = `${(props.className || '')} enemy-avatar`;
-  const definition = getDefinition(actorObject.name as EnemyType);
+  const definition = getDefinition(actorObject.enemyType);
 
   const handleClick = () => {
     if (props.onClick) {
-      props.onClick(actorObject.id);
+      props.onClick(actorObject.enemyId);
     }
   };
   return (

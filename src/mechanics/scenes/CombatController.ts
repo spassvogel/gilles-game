@@ -1,7 +1,7 @@
 import { deductActorAp, enqueueSceneAction, modifyEnemyHealth, startTurn } from 'store/actions/quests';
 import { AnyAction } from 'redux';
 import { Location } from 'utils/tilemap';
-import { ActorObject, Allegiance, isAdventurer, SceneAction, SceneActionType } from 'store/types/scene';
+import { ActorObject, Allegiance, EnemyObject, getUniqueName, isAdventurer, SceneAction, SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
 import { BaseSceneController, movementDuration } from './BaseSceneController';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
@@ -77,7 +77,7 @@ export class CombatController {
             if (index >= enemy.ap - 1) return;
             const sceneAction: SceneAction = {
               actionType: SceneActionType.move,
-              actorId: enemy.name,
+              actor: getUniqueName(enemy),
               target: l as Location,
               endsAt: movementDuration * (index + 1) + performance.now(),
               intent,
@@ -274,7 +274,7 @@ export class CombatController {
   static findEnemyWithAp() {
     if (!this.sceneController) return undefined;
     const actors = this.sceneController.sceneActors;
-    return actors?.find(a => a.allegiance === Allegiance.enemy && a.ap > 0);
+    return actors?.find(a => a.allegiance === Allegiance.enemy && a.ap > 0) as EnemyObject;
   }
 
   protected static get questName() {
@@ -304,11 +304,10 @@ export class CombatController {
   }
 
   protected static takeDamage(actor: ActorObject, damage: number) {
-    const actorId = actor.name;
     if (isAdventurer(actor)) {
-      this.dispatch(modifyHealth(actorId, -damage));
+      this.dispatch(modifyHealth(actor.adventurerId, -damage));
     } else {
-      this.dispatch(modifyEnemyHealth(this.questName, actorId, -damage));
+      this.dispatch(modifyEnemyHealth(this.questName, actor.enemyId, -damage));
     }
   }
 

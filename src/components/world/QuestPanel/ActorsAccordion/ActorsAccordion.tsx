@@ -2,9 +2,9 @@ import Accordion from 'components/ui/accordion/Accordion';
 import ActorsAccordionAdventurerItem from './ActorsAccordionAdventurerItem';
 import { createSelectAdventurersOnQuest } from 'store/selectors/adventurers';
 import { useSelector } from 'react-redux';
-import './styles/actorsAccordion.scss';
 import ActorsAccordionEnemyItem from './ActorsAccordionEnemyItem';
 import { useQuestSceneEnemies } from 'hooks/store/quests';
+import './styles/actorsAccordion.scss';
 
 type Props = {
   selectedActorId: string;
@@ -31,7 +31,7 @@ const ActorsAccordion = (props: Props) => {
       ))}
       {enemies.map(e => (
         <ActorsAccordionEnemyItem
-          enemyId={e.id}
+          enemyId={e.enemyId}
           key={e.id}
           selected={selectedActorId === e.id}
           questName={questName}

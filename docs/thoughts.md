@@ -139,7 +139,7 @@ https://forum.rpg.net/index.php?threads/what-are-the-advantages-if-these-various
 - [x] Action points come with level, use logarithmic scale:
 
 for (var i = 0; i < 30; i++) {
- console.log(i + ":" + Math.floor(Math.log(i+1)*1))
+ console.lg(i + ":" + Math.floor(Math.log(i+1)*1))
 }
 
 #### 14/07/2019 Rooms of tavern
@@ -598,6 +598,10 @@ https://wow.gamepedia.com/Quality
     possible properties: 
     - title: translation key shown in the dialog
 
+    type: "enemySpawn"
+    properties:
+    - enemyType: 
+    - level:
 
     #### Tile types
     Tiles in a tileset can receive a `type` property. Those are mapped to an object called `tileTypes` in the scene controller. In this object the gid (global id) is stored 

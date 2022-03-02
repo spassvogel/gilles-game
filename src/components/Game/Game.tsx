@@ -100,7 +100,7 @@ const Game = () => {
 
       interval = setInterval(gameLoop, TICK_INTERVAL);
     } catch (e) {
-      console.log(e);
+      console.warn(e);
     }
     return () => {
       clearInterval(interval);

@@ -2,7 +2,7 @@ import { useMemo,  useEffect, useRef, PropsWithChildren, useState, ComponentProp
 import { Location } from 'utils/tilemap';
 import { Container } from '@inlet/react-pixi';
 import { Filter, Container as PixiContainer } from 'pixi.js';
-import { ActorObject } from 'store/types/scene';
+import { ActorObject, getUniqueName } from 'store/types/scene';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import SpriteAnimated from 'components/pixi/tile/SpriteAnimated';
 import { AdventurerColor } from 'store/types/adventurer';
@@ -39,7 +39,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
   // const quest = useQuest(props.controller.questName);
 
   const [orientation, setOrientation] = useState<Orientation>(Orientation.north);
-  const animation = useAnimation(controller, actorRef, actor.name, location, setOrientation);
+  const animation = useAnimation(controller, actorRef, getUniqueName(actor), location, setOrientation);
   useRandomOrientation(!!idleAnimation && !lookAt, orientation, setOrientation);
 
   const frames = useFrames(spritesheetPath, animation, orientation);

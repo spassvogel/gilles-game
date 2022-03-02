@@ -27,21 +27,23 @@ const UpDownValue = (props: Props) => {
   if (props.max == null) {
     displayValue = props.value;
   } else {
-    displayValue = <span>
-            { props.value } / <span className="max">{ props.max }</span>
-        </span>;
+    displayValue = (
+      <span>
+        {props.value} / <span className="max">{ props.max }</span>
+      </span>
+    );
   }
   return (
-        <div className="updownvalue">
-            <label> { props.label }</label>
-            { displayValue }
-            <i className= { 'arrow up' + (props.upDisabled ? ' disabled' : '' )}
-                onClick= { handleUp }
-            />
-            <i className={'arrow down' + (props.downDisabled ? ' disabled' : '')}
-                onClick= { handleDown }
-            />
-        </div>
+    <div className="updownvalue">
+        <label> { props.label }</label>
+        { displayValue }
+        <i className={ 'arrow up' + (props.upDisabled ? ' disabled' : '' )}
+        onClick={handleUp}
+        />
+        <i className={'arrow down' + (props.downDisabled ? ' disabled' : '')}
+        onClick={handleDown}
+        />
+    </div>
   );
 };
 

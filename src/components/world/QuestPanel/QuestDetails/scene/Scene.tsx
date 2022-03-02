@@ -57,9 +57,9 @@ const Scene = (props: Props) => {
 
   const handleUIMouseDown = (location: Location) => {
     const actor = controller.getObjectAtLocation(location);
-    if (actor && isAdventurer(actor) && actor?.name) {
+    if (actor && isAdventurer(actor)) {
       // We can click on adventurers
-      props.setSelectedActor(actor.name);
+      props.setSelectedActor(actor.adventurerId);
     }
   };
 
@@ -71,7 +71,7 @@ const Scene = (props: Props) => {
   const sceneHeight = mapData.height * mapData.tileheight;
   return (
     <div className="scene" ref={ref}>
-      <BridgedStage width={sceneWidth} height={sceneHeight} >
+      <BridgedStage width={sceneWidth} height={sceneHeight}>
         <Container
           interactive={true}
           hitArea={new Rectangle(0, 0, sceneWidth, sceneHeight)}
