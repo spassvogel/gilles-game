@@ -30,7 +30,6 @@ const AdventurerEquipment = (props: Props) => {
       }
     }
     const handleDrop = (dragInfo: InventoryItemDragInfo) => {
-      console.log('handle drop for ', adventurerId);
       onDropItemEquipment(dragInfo, slotType);
     };
 

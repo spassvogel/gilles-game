@@ -22,7 +22,7 @@ const options = {
 const DebugSpriteDemo = (props: Props) => {
   const { spritesheetPath, animation, orientation, currentFrame } = props;
   const ref = useRef<AnimatedSprite>(null);
-  
+
   const frames = useFrames(spritesheetPath, animation, orientation);
   const [flipped, setFlipped] = useState(false);
 
@@ -32,7 +32,6 @@ const DebugSpriteDemo = (props: Props) => {
 
   useEffect(() => {
     if (currentFrame) {
-      console.log(currentFrame);
       ref.current?.gotoAndStop(currentFrame);
     }
   }, [currentFrame]);

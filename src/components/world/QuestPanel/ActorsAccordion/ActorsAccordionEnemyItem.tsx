@@ -1,8 +1,7 @@
 import { Merge } from 'type-fest';
 import { TextManager } from 'global/TextManager';
 import AccordionItem, { Props as AccordionItemProps } from 'components/ui/accordion/AccordionItem';
-import { useQuestSceneObjectById } from 'hooks/store/quests';
-import { ActorObject } from 'store/types/scene';
+import { useEnemyActorObject } from 'hooks/store/quests';
 import { getDefinition } from 'definitions/enemies';
 import { generateBaseAttributes } from 'mechanics/adventurers/attributes';
 import Attributes from 'components/ui/adventurer/AdventurerPanel/Attributes';
@@ -16,9 +15,9 @@ type Props = Merge<Omit<AccordionItemProps, 'id' | 'title'>, {
 
 const ActorsAccordionEnemyItem = (props: Props) => {
   const { enemyId, selected, questName, ...rest } = props;
-  const actorObject = useQuestSceneObjectById<ActorObject>(questName, enemyId);
+  const actorObject = useEnemyActorObject(questName, enemyId);
   if (!actorObject) throw new Error(`No actor found with id ${enemyId}`);
-  const definition = getDefinition(actorObject.name);
+  const definition = getDefinition(actorObject.enemyType);
   const level = actorObject.level ?? 1;
   const extendedAttributes = generateBaseAttributes(definition.attributes);
   const attributes = definition.attributes;
@@ -29,7 +28,7 @@ const ActorsAccordionEnemyItem = (props: Props) => {
       { ...rest}
       id={enemyId}
       title={(<>
-        <div className="name">{TextManager.getEnemyName(actorObject.name)}</div>
+        <div className="name">{TextManager.getEnemyName(actorObject.enemyType)}</div>
         <div className="ap">AP: 3</div>
       </>)}
     >

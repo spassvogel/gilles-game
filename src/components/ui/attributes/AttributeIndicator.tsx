@@ -2,10 +2,10 @@ import { MAX_VALUE } from 'mechanics/adventurers/attributes';
 import { useCallback } from 'react';
 import './styles/attributeIndicator.scss';
 
-interface Props {
+type Props = {
   base: number;
   additional?: number;
-}
+};
 
 const AttributeIndicator = (props: Props) => {
   const { base, additional = 0 } = props;

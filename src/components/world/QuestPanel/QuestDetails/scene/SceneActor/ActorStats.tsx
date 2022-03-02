@@ -9,19 +9,19 @@ interface Props {
 
 const MARGIN = 4;
 
-const useActorStatsInfo = (actor: ActorObject) => {
-  const adventurer = useAdventurer(actor.name); // is possibly null
-  if (actor.allegiance === Allegiance.player) {
-    return adventurer.name;
-  }
-  return actor.name; // enemy name
-};
+// const useActorStatsInfo = (actor: ActorObject) => {
+//   const adventurer = useAdventurer(actor.name); // is possibly null
+//   if (actor.allegiance === Allegiance.player) {
+//     return adventurer.name;
+//   }
+//   return actor.name; // enemy name
+// };
 
 const ActorStats = (props: Props) => {
   const { tileWidth, actor } = props;
 
   // const mask = useRef<PIXI.Graphics>(null);
-  const name = useActorStatsInfo(actor);
+  // const name = useActorStatsInfo(actor);
   return (
     <Container y={-40}>
       <Text
@@ -65,7 +65,7 @@ const ActorStats = (props: Props) => {
         name="foreground"
         draw={graphics => {
           graphics.beginFill(0x006b22);
-          graphics.drawRect(0, 0, actor.health, 6);
+          graphics.drawRect(0, 0, 3/*actor.health*/, 6);
           graphics.endFill();
         }}
       />

@@ -7,10 +7,10 @@ export interface Props {
   onDrop: (item: AdventurerAvatarDragInfo) => void;
 }
 
-export interface CollectedProps {
+export type CollectedProps = {
   canDrop: boolean;
   isOver: boolean;
-}
+};
 
 /*
  * Can drop adventurers on this */

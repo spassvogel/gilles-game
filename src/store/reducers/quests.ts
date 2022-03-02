@@ -1,6 +1,6 @@
 import { Reducer } from 'redux';
 import { QuestStatus, QuestStoreState } from 'store/types/quest';
-import { Allegiance, isActorObject, isAdventurer, isEnemy, SceneActionType } from 'store/types/scene';
+import { Allegiance, getUniqueName, isActorObject, isAdventurer, isEnemy, SceneActionType } from 'store/types/scene';
 import { QuestDefinition } from 'definitions/quests/types';
 import { getDefinition } from 'definitions/quests';
 import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars';
@@ -165,7 +165,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
           switch (sceneAction.actionType) {
             case SceneActionType.move: {
               scene.objects = scene.objects.map((a) => {
-                if (isActorObject(a) && a.name === sceneAction.actorId) {
+                if (isActorObject(a) && getUniqueName(a) === sceneAction.actor) {
                   return {
                     ...a,
                     location: sceneAction.target,
@@ -340,8 +340,9 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
           if (!scene) throw new Error('Something broke. No scene');
           const objects = scene.objects.map(o => {
             if (isActorObject(o) && o.name === action.actor) {
-              const health = o.health + action.health;
-
+              // todo
+              // const health = o.health + action.health;
+              const health = 23;
               return {
                 ...o,
                 health,

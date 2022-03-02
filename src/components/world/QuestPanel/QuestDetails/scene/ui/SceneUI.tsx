@@ -193,8 +193,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       if (!actionIntent) {
         return;
       }
-
-      const selectedActorLocation = controller?.getSceneActor(selectedActorId)?.location;
+      const selectedActorLocation = controller?.getSceneAdventurer(selectedActorId)?.location;
       if (selectedActorLocation && cursorLocation && !locationEquals(selectedActorLocation, cursorLocation) && actionIntent){
         controller?.actorAttemptAction(actionIntent);
       }
@@ -219,8 +218,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         // We're at an interactive object
         action = SceneActionType.interact;
       }
-
-      const actor = controller?.getSceneActor(selectedActorId);
+      const actor = controller?.getSceneAdventurer(selectedActorId);
       if (!action || !actor || !cursorLocation) {
         onSetActionIntent(undefined);
       } else {
@@ -239,7 +237,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         e.preventDefault();
       }
     };
-  
+
     window.addEventListener('touchmove', onTouch, { passive: false } );
     return () => {
       window.removeEventListener('touchmove', onTouch);

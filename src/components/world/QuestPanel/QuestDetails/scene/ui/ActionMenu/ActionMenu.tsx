@@ -3,7 +3,7 @@ import { Location } from 'utils/tilemap';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { useAdventurer } from 'hooks/store/adventurers';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
-import { ActorObject, isEnemy, SceneActionType } from 'store/types/scene';
+import { EnemyObject, isEnemy, SceneActionType } from 'store/types/scene';
 import { ActionIntent } from '../SceneUI';
 import ActionButton from './ActionButton';
 import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
@@ -34,7 +34,7 @@ const ActionMenu = (props: Props) => {
   useDraggable(ref, handle);
 
   const enemyTargetted = useMemo(() => {
-    return controller?.getObjectAtLocation(location, isEnemy) as ActorObject;
+    return controller?.getObjectAtLocation(location, isEnemy) as EnemyObject;
   }, [controller, location]);
 
 
@@ -60,7 +60,7 @@ const ActionMenu = (props: Props) => {
             {intent &&
               JSON.stringify(intent?.apCost)
             }
-          </> 
+          </>
         );
       }
     }

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAdventurer } from 'hooks/store/adventurers';
 import { TextManager } from 'global/TextManager';
 import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';

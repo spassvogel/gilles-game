@@ -1,4 +1,4 @@
-import { ActorObject } from 'store/types/scene';
+import { EnemyObject } from 'store/types/scene';
 import { getDefinition } from 'definitions/enemies';
 import { EnemyType } from 'definitions/enemies/types';
 import { TextManager } from 'global/TextManager';
@@ -9,7 +9,7 @@ import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
 import { formatNumber } from 'utils/format/number';
 
 interface Props {
-  actorObject: ActorObject
+  actorObject: EnemyObject
 }
 
 const EnemyContext = (props: Props) => {

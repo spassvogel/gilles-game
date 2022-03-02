@@ -148,20 +148,20 @@
  <objectgroup id="3" name="actor">
   <object id="6" name="enemy3" type="enemySpawn" x="256" y="128" width="64" height="64">
    <properties>
+    <property name="enemyType" value="troll-developer"/>
     <property name="level" type="int" value="3"/>
-    <property name="name" value="troll-developer"/>
    </properties>
   </object>
   <object id="7" name="enemy1" type="enemySpawn" x="128" y="128" width="64" height="64">
    <properties>
+    <property name="enemyType" value="troll-accountant"/>
     <property name="level" type="int" value="3"/>
-    <property name="name" value="troll-accountant"/>
    </properties>
   </object>
   <object id="8" name="enemy2" type="enemySpawn" x="192" y="128" width="64" height="64">
    <properties>
+    <property name="enemyType" value="troll-manager"/>
     <property name="level" type="int" value="2"/>
-    <property name="name" value="troll-manager"/>
    </properties>
   </object>
  </objectgroup>

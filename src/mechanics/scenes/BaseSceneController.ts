@@ -7,7 +7,20 @@ import { TiledLayerType, TiledMapData, TiledObjectData } from 'constants/tiledMa
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { setScene, setSceneName, exitEncounter, enqueueSceneAction, updateQuestVars, deductActorAp, endPlayerTurn } from 'store/actions/quests';
-import { SceneObject, ActorObject, LootCache, SceneActionType, SceneAction, isActorObject, isAdventurer, isEnemy, Allegiance } from 'store/types/scene';
+import {
+  SceneObject,
+  ActorObject,
+  LootCache,
+  SceneActionType,
+  SceneAction,
+  isActorObject,
+  isAdventurer,
+  isEnemy,
+  Allegiance,
+  EnemyObject,
+  getUniqueName,
+  AdventurerObject,
+} from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
 import { getQuestLink } from 'utils/routing';
@@ -209,8 +222,8 @@ export class BaseSceneController<TQuestVars> {
     }
   }
 
-  actorInteract(actorId: string, location: Location) {
-    const actor = this.getSceneActor(actorId);
+  actorInteract(adventurerId: string, location: Location) {
+    const actor = this.getSceneAdventurer(adventurerId);
     const object = this.getObjectAtLocation(location);
 
     if (!object) {
@@ -224,7 +237,6 @@ export class BaseSceneController<TQuestVars> {
 
   actorAttemptAction(intent: ActionIntent) {
     // Tries to perform action on given actor
-
     const { actor, action, to } = intent;
     if (!actor) return;
     const { location } = actor;
@@ -239,7 +251,7 @@ export class BaseSceneController<TQuestVars> {
           // Queue up all the steps
           const sceneAction: SceneAction = {
             actionType: SceneActionType.move,
-            actorId: actor.id,
+            actor: getUniqueName(actor),
             target: l as Location,
             endsAt: movementDuration * (index + 1) + performance.now(),
             intent,
@@ -253,7 +265,7 @@ export class BaseSceneController<TQuestVars> {
         path?.forEach((l, index) => {
           const moveAction: SceneAction = {
             actionType: SceneActionType.move,
-            actorId: actor.id,
+            actor: getUniqueName(actor),
             target: l as Location,
             endsAt: movementDuration * (index + 1) + performance.now(),
             intent,
@@ -263,7 +275,7 @@ export class BaseSceneController<TQuestVars> {
 
         const interactAction: SceneAction = {
           actionType: SceneActionType.interact,
-          actorId: actor.id,
+          actor: getUniqueName(actor),
           target: to,
           endsAt: movementDuration * path.length + performance.now(),
           intent,
@@ -284,7 +296,7 @@ export class BaseSceneController<TQuestVars> {
         path?.forEach((l, index) => {
           const moveAction: SceneAction = {
             actionType: SceneActionType.move,
-            actorId: actor.id,
+            actor: getUniqueName(actor),
             target: l as Location,
             endsAt: movementDuration * (index + 1) + performance.now(),
             intent,
@@ -293,7 +305,7 @@ export class BaseSceneController<TQuestVars> {
         });
         const meleeAction: SceneAction = {
           actionType: action,
-          actorId: actor.id,
+          actor: getUniqueName(actor),
           target,
           endsAt: movementDuration * (path.length + 1) + performance.now(),
           intent,
@@ -305,7 +317,7 @@ export class BaseSceneController<TQuestVars> {
 
         const shootAction: SceneAction = {
           actionType: action,
-          actorId: actor.id,
+          actor: getUniqueName(actor),
           target: to,
           endsAt: 500 + performance.now(),
           intent,
@@ -315,7 +327,7 @@ export class BaseSceneController<TQuestVars> {
     }
   }
 
-  interactWithObject(_actor: ActorObject, _object: SceneObject) {
+  interactWithObject(_actor: AdventurerObject, _object: SceneObject) {
     // override
   }
 
@@ -605,6 +617,10 @@ export class BaseSceneController<TQuestVars> {
     return getSceneObjectWithName(this.sceneActors, actorId) as ActorObject;
   }
 
+  public getSceneAdventurer(adventurerId: string): AdventurerObject | undefined {
+    return this.sceneActors.find((s) => isAdventurer(s) && s.adventurerId === adventurerId) as AdventurerObject;
+  }
+
   /**
    *
    * @param location
@@ -681,9 +697,9 @@ export class BaseSceneController<TQuestVars> {
               const x = Math.round(object.x);
               const y = Math.round(object.y);
               const level = xpToLevel(adventurer.xp);
-              const adventurerObject: ActorObject = {
-                name: adventurer.id,
-                id: adventurer.id,
+              const adventurerObject: AdventurerObject = {
+                id: 0,
+                adventurerId: adventurer.id,
                 x,
                 y,
                 location: locations[i],
@@ -693,7 +709,6 @@ export class BaseSceneController<TQuestVars> {
                 visible: true,
                 type: TiledObjectType.actor,
                 ap: calculateInitialAP(adventurer.basicAttributes, level),
-                health: adventurer.health,
                 allegiance: Allegiance.player,
                 properties: {
                   adventurerId: adventurer.id,
@@ -707,8 +722,13 @@ export class BaseSceneController<TQuestVars> {
         } else if (object.type === TiledObjectType.enemySpawn) {
           object.type = TiledObjectType.actor;
           if (isActorObject(object)) { // typeguard, is always true but we need to tell typescript it's an actor
-            const definition = getEnemyDefinition(object.properties.name as EnemyType);
+            object.allegiance = Allegiance.enemy;
+          }
+          if (isEnemy(object)) { // typeguard, is always true but we need to tell typescript it's an actor
+            const definition = getEnemyDefinition(object.properties.enemyType as EnemyType);
             const level = object.properties.level as number ?? 1;
+            object.enemyId = `${object.properties.enemyType}_${Math.random().toString(36).substring(7)}`;
+            object.enemyType = object.properties.enemyType as string;
             object.health = Math.random() * 20; // todo
             object.ap = calculateInitialAP(definition.attributes, level);
             object.name = object.properties.name as string;
@@ -784,13 +804,13 @@ export class BaseSceneController<TQuestVars> {
     return adventurersOnQuest(storeState.adventurers, this.quest);
   }
 
-  public getAdventurerByActor(actor: ActorObject) {
+  public getAdventurerByActor(actor: AdventurerObject) {
     const storeState = this.store.getState();
-    return storeState.adventurers.find(a => a.id === actor.name);
+    return storeState.adventurers.find(a => a.id === actor.adventurerId);
   }
 
-  public getEnemyByActor(actor: ActorObject) {
-    return getEnemyDefinition(actor.name);
+  public getEnemyByActor(actor: EnemyObject) {
+    return getEnemyDefinition(actor.enemyType);
   }
 
   protected getAdventurerById(id: string) {

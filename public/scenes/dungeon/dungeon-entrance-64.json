@@ -143,14 +143,14 @@
                  "name":"enemy3",
                  "properties":[
                         {
+                         "name":"enemyType",
+                         "type":"string",
+                         "value":"troll-developer"
+                        }, 
+                        {
                          "name":"level",
                          "type":"int",
                          "value":3
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"troll-developer"
                         }],
                  "rotation":0,
                  "type":"enemySpawn",
@@ -165,14 +165,14 @@
                  "name":"enemy1",
                  "properties":[
                         {
+                         "name":"enemyType",
+                         "type":"string",
+                         "value":"troll-accountant"
+                        }, 
+                        {
                          "name":"level",
                          "type":"int",
                          "value":3
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"troll-accountant"
                         }],
                  "rotation":0,
                  "type":"enemySpawn",
@@ -187,14 +187,14 @@
                  "name":"enemy2",
                  "properties":[
                         {
+                         "name":"enemyType",
+                         "type":"string",
+                         "value":"troll-manager"
+                        }, 
+                        {
                          "name":"level",
                          "type":"int",
                          "value":2
-                        }, 
-                        {
-                         "name":"name",
-                         "type":"string",
-                         "value":"troll-manager"
                         }],
                  "rotation":0,
                  "type":"enemySpawn",

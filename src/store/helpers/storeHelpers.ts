@@ -5,7 +5,7 @@ import { isWeapon, Weapon } from 'definitions/items/weapons';
 import { StoreState } from 'store/types';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { QuestStoreState } from 'store/types/quest';
-import { SceneObject } from 'store/types/scene';
+import { isAdventurer, isEnemy, SceneObject } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
 import { Ammunition } from 'definitions/items/ammunition';
 import { isAmmunition } from 'definitions/items/ammunition';
@@ -69,7 +69,7 @@ export const getSceneObjectAtLocation = (objects: SceneObject[], location: Locat
 };
 
 export const getSceneObjectWithName = (objects: SceneObject[], name: string) => {
-  return objects.find(sA => sA.name === name);
+  return objects.find(sA => isAdventurer(sA) && sA.adventurerId === name || isEnemy(sA) && sA.enemyId === name);
 };
 
 // Returns a value indicating whether this store is fresh or rehydrated

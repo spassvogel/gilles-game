@@ -9,10 +9,10 @@ import { CSSProperties, Fragment } from 'react';
 import { entries } from 'utils/typescript';
 import './styles/attributes.scss';
 
-interface Props {
+type Props = {
   attributes: AttributesExtended;
   small?: boolean;
-}
+};
 
 const style = { '--item-count': MAX_VALUE } as CSSProperties;
 const Attributes = (props: Props) => {
