@@ -14,7 +14,7 @@ interface Props {
 
 const EnemyContext = (props: Props) => {
   const { actorObject } = props;
-  const definition = getDefinition(actorObject.name as EnemyType);
+  const definition = getDefinition(actorObject.enemyType as EnemyType);
   const level = actorObject.level ?? 1;
   const attributesExtended = generateBaseAttributes(definition.attributes);
 
@@ -22,7 +22,7 @@ const EnemyContext = (props: Props) => {
     <div>
       <div className="name-and-level">
         <div className="name">
-          {TextManager.getEnemyName(actorObject.name as EnemyType)}
+          {TextManager.getEnemyName(actorObject.enemyType as EnemyType)}
         </div>
         <div className="level">
           {TextManager.get('ui-tooltip-actor-level', { level })}

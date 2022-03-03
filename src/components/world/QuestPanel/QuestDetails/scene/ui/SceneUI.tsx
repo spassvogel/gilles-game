@@ -11,7 +11,7 @@ import { SceneControllerContext } from 'components/world/QuestPanel/context/Scen
 import { ContextType } from 'constants/context';
 import { Location } from 'utils/tilemap';
 import { TooltipManager } from 'global/TooltipManager';
-import { useQuest } from 'hooks/store/quests';
+import { useAdventurerActorObject, useQuest } from 'hooks/store/quests';
 import { ActorObject, SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
 import { convertMouseOrTouchCoords, MouseOrTouchEvent } from 'utils/interaction';
@@ -23,8 +23,8 @@ import useCanvasScaler from './hooks/useCanvasScaler';
 import NormalUICursor from './NormalUICursor';
 import { Ammunition } from 'definitions/items/ammunition';
 import { WeaponAbility } from 'definitions/abilities/types';
-import './styles/sceneUI.scss';
 import AdventurerCombatSceneUI, { Refs } from './AdventurerCombatSceneUI';
+import './styles/sceneUI.scss';
 
 export type Props = {
   sceneWidth: number;
@@ -93,6 +93,9 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   const { combat, actionQueue } = scene ?? {};
   const [cursorLocation, setCursorLocation] = useState<Location>();
   const scaler = useCanvasScaler(ref, sceneWidth, sceneHeight);
+
+  // when enemy is selected, this is undefined
+  const selectedAdventurer = useAdventurerActorObject(controller?.questName ?? '', selectedActorId);
 
   useEffect(() => {
     scaler.scale = scaler.recalculate();
@@ -254,7 +257,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       {!scene?.combat && cursorLocation && (
         <NormalUICursor location={cursorLocation} />
       )}
-      {scene?.combat && cursorLocation && (
+      {scene?.combat && cursorLocation && !!selectedAdventurer &&  (
         <AdventurerCombatSceneUI
           ref={adventurerCombatRef}
           cursorLocation={cursorLocation}

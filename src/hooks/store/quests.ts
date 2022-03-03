@@ -77,10 +77,10 @@ export const useActorObject = (questName: string, actorName: string): ActorObjec
   }, [actorName, scene?.objects]);
 };
 
-export const useAdventurerActorObject = (questName: string, adventurerId: string): AdventurerObject =>  {
+export const useAdventurerActorObject = (questName: string, adventurerId: string): AdventurerObject | undefined=>  {
   const scene = useQuestScene(questName);
   return useMemo(() => {
-    return scene?.objects.find(sA => isAdventurer(sA) && sA.adventurerId === adventurerId) as AdventurerObject;
+    return scene?.objects.find(sA => isAdventurer(sA) && sA.adventurerId === adventurerId) as AdventurerObject | undefined;
   }, [adventurerId, scene?.objects]);
 };
 

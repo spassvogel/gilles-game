@@ -12,7 +12,7 @@ type Props = {
   questName: string;
 };
 
-// A tabstrip with adventurer details below it
+// A tabstrip with adventurer / enemy details below it
 const ActorsAccordion = (props: Props) => {
   const { selectedActorId, questName, onActorSelected } = props;
   const adventurers = useSelector(createSelectAdventurersOnQuest(questName));
