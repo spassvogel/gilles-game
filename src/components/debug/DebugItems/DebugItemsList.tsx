@@ -11,7 +11,7 @@ type Props = {
 
 
 const prepareText = (definition: ItemDefinition) => {
-  const asString = JSON.stringify(definition, undefined, 2).replaceAll('\n  ', '\n');
+  const asString = JSON.stringify(definition, undefined, 2).replace(/\n /g, '\n').replace(/ "/g, '"');
   return asString.substring(2, asString.length - 2);
 };
 
@@ -24,7 +24,7 @@ const DebugItemsList = (props: Props) => {
           <div className="item" key={key}>
             <ItemIcon item={{ type: key as ItemType }} size={IconSize.big} />
             <div className="info">
-              <h2>{TextManager.getItemName(key as ItemType)}</h2>
+              <h4>{TextManager.getItemName(key as ItemType)}</h4>
               { value.rarity !== undefined && <h3>{TextManager.getRarity(value.rarity)}</h3>}
               <pre>
                 {prepareText(value)}

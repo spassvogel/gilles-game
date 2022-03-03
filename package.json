@@ -49,7 +49,7 @@
     "type": "^2.6.0",
     "type-fest": "^2.12.0",
     "typed-emitter": "^2.1.0",
-    "typescript": "^4.5.5",
+    "typescript": "^4.6.2",
     "unist-util-visit": "^4.1.0",
     "use-long-press": "^1.1.2"
   },
@@ -85,7 +85,6 @@
     "@types/deep-equal": "^1.0.1",
     "@types/fontfaceobserver": "^2.1.0",
     "@types/react-dom": "^17.0.11",
-    "@types/react-redux": "^7.1.22",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-router-hash-link": "^2.4.5",
     "@types/seedrandom": "^3.0.2",

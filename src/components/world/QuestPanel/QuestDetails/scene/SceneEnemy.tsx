@@ -18,7 +18,6 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children' | 'name
   } = props;
   const { tileWidth, tileHeight } = controller.getTileDimensions();
 
-
   return (
     <Container>
       <SceneActor
