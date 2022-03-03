@@ -3,7 +3,6 @@ import { isAdventurer, isEnemy, SceneObject } from 'store/types/scene';
 import SceneAdventurer from '../SceneAdventurer';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { TiledObjectType } from 'utils/tilemap';
-import SceneActor from '../SceneActor';
 import SceneEnemy from '../SceneEnemy';
 
 interface Props {
