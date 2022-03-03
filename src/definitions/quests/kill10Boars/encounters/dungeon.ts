@@ -1,6 +1,6 @@
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { SceneControllerManager } from 'global/SceneControllerManager';
-import { SceneObject, ActorObject, LootCache, AdventurerObject } from 'store/types/scene';
+import { SceneObject, LootCache, AdventurerObject } from 'store/types/scene';
 import { setActiveSceneInteractionModal } from 'store/actions/quests';
 import { Kill10BoarsQuestVars } from '../questVars';
 import { Channel, GameSound, MixMode, SoundManager } from 'global/SoundManager';
