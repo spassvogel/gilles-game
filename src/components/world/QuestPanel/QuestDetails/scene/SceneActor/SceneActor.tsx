@@ -1,7 +1,7 @@
-import { useMemo,  useEffect, useRef, PropsWithChildren, useState, ComponentProps } from 'react';
+import { useMemo,  useEffect, useRef, PropsWithChildren, useState, ComponentProps, useCallback } from 'react';
 import { Location } from 'utils/tilemap';
-import { Container } from '@inlet/react-pixi';
-import { Filter, Container as PixiContainer } from 'pixi.js';
+import { Container, Graphics } from '@inlet/react-pixi';
+import { Filter, Graphics as PixiGraphics, Container as PixiContainer } from 'pixi.js';
 import { ActorObject, getUniqueName } from 'store/types/scene';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import SpriteAnimated from 'components/pixi/tile/SpriteAnimated';
@@ -16,6 +16,7 @@ export interface Props  {
   spritesheetPath: string;
   color?: AdventurerColor;
   controller: BaseSceneController<unknown>;
+  selectionColor?: number;
   location?: Location; // tile coordinate space
   lookAt?: Location;
   idleAnimation?: boolean;  // Only when lookAt is undefined, will randomly turn around
@@ -28,6 +29,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
     controller,
     idleAnimation,
     color,
+    selectionColor,
     children,
     spritesheetPath,
     lookAt,
@@ -35,14 +37,6 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
     ...rest
   } = props;
   const { tileWidth, tileHeight } = controller.getTileDimensions();
-  const actorRef = useRef<PixiContainer>(null);
-  // const quest = useQuest(props.controller.questName);
-
-  const [orientation, setOrientation] = useState<Orientation>(Orientation.north);
-  const animation = useAnimation(controller, actorRef, getUniqueName(actor), location, setOrientation);
-  useRandomOrientation(!!idleAnimation && !lookAt, orientation, setOrientation);
-
-  const frames = useFrames(spritesheetPath, animation, orientation);
 
   const { x, y } = useMemo(() => {
     return {
@@ -51,11 +45,21 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
     };
   }, [location, tileWidth, tileHeight]);
 
+  const actorRef = useRef<PixiContainer>(null);
+
+  const [orientation, setOrientation] = useState<Orientation>(Orientation.north);
+  const animation = useAnimation(controller, actorRef, getUniqueName(actor), location, setOrientation);
+  useRandomOrientation(!!idleAnimation && !lookAt, orientation, setOrientation);
+
+  const frames = useFrames(spritesheetPath, animation, orientation);
   const [flipped, setFlipped] = useState(false);
-  // const flipped = useRef(false);
-  // const setFlipped = (value:boolean) => {
-  //   flipped.current = value;
-  // };
+
+  const drawCircle = useCallback((graphics: PixiGraphics) => {
+    const line = 3;
+    graphics.lineStyle(line, selectionColor);
+    graphics.drawCircle(tileWidth / 2, tileHeight / 2, tileWidth / 2 - line);
+    graphics.endFill();
+  }, [selectionColor, tileHeight, tileWidth]);
 
   useEffect(() => {
     if (lookAt !== undefined) {
@@ -92,9 +96,15 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
         return [];
     }
   }, [color]);
-  // const combat = !!quest.scene?.combat;
+
   return (
     <Container x={x} y={y} ref={actorRef} {...rest}>
+      {selectionColor !== undefined && (
+        <Graphics
+          name="selectioncircle-back"
+          draw={drawCircle}
+        />
+      )}
       { spritesheetPath && frames && (
         <SpriteAnimated
           animationSpeed={0.1}
@@ -113,6 +123,13 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
       {/* {combat && (
         <ActorStats tileWidth={tileWidth} actor={actor} />
       )} */}
+      {selectionColor !== undefined && (
+        <Graphics
+          name="selectioncircle-front"
+          alpha={0.25}
+          draw={drawCircle}
+        />
+      )}
     </Container>
   );
 };

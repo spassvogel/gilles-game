@@ -1,4 +1,4 @@
-import { Container, Graphics } from '@inlet/react-pixi';
+import { Container } from '@inlet/react-pixi';
 import { ActorObject } from 'store/types/scene';
 import SceneActor, { Props as SceneActorProps } from './SceneActor';
 
@@ -7,8 +7,8 @@ interface Props  {
   selected: boolean;
 }
 
-// The adventurers avatar on the scene
-const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children' | 'name'>) => {
+// The enemy on the scene
+const SceneEnemy = (props: Props & Omit<SceneActorProps, 'children' | 'name'>) => {
   const {
     controller,
     location,
@@ -16,7 +16,6 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children' | 'name
     selected,
     spritesheetPath,
   } = props;
-  const { tileWidth, tileHeight } = controller.getTileDimensions();
 
   return (
     <Container>
@@ -24,22 +23,11 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children' | 'name
         actor={actor}
         controller={controller}
         spritesheetPath={spritesheetPath}
+        selectionColor={selected ? 0x8b0000 : undefined }
         location={location}
-      >
-        {selected && (
-          <Graphics
-            name="selectioncircle"
-            draw={graphics => {
-              const line = 3;
-              graphics.lineStyle(line, 0x8b0000);
-              graphics.drawCircle(tileWidth / 2, tileHeight / 2, tileWidth / 2 - line);
-              graphics.endFill();
-            }}
-          />
-        )}
-      </SceneActor>
+      />
     </Container>
   );
 };
 
-export default SceneAdventurer;
+export default SceneEnemy;

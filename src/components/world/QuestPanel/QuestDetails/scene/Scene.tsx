@@ -8,7 +8,7 @@ import useTilesetsLoader from 'hooks/useTilesetsLoader';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
 import SceneUI, { ActionIntent } from './ui/SceneUI';
 import ActionPreview from './ActionPreview';
-import { isAdventurer } from 'store/types/scene';
+import { isAdventurer, isEnemy } from 'store/types/scene';
 import SceneLog from './SceneLog';
 import { CombatController } from 'mechanics/scenes/CombatController';
 import { Rectangle } from 'pixi.js';
@@ -60,6 +60,10 @@ const Scene = (props: Props) => {
     if (actor && isAdventurer(actor)) {
       // We can click on adventurers
       props.setSelectedActor(actor.adventurerId);
+    }
+    if (actor && isEnemy(actor)) {
+      // We can click on enemies too
+      props.setSelectedActor(actor.enemyId);
     }
   };
 
