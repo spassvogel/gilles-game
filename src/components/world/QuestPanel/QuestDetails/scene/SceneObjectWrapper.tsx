@@ -4,13 +4,13 @@ import { Location } from 'utils/tilemap';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { Container as PixiContainer } from 'pixi.js';
 
-interface Props {
+type Props = PropsWithChildren<{
   controller: BaseSceneController<any>;
   location?: Location; // tile coordinate space
-}
+}>;
 
 // This is a wrapper that exposes a location property. Will set x and y on children
-const SceneObjectWrapper = forwardRef<PixiContainer, Props>((props: PropsWithChildren<Props>, ref) => {
+const SceneObjectWrapper = forwardRef<PixiContainer, Props>((props: Props, ref) => {
   const {
     location = [0, 0],
     controller,

@@ -1,8 +1,6 @@
 import { Container, Graphics } from '@inlet/react-pixi';
-import { useRef } from 'react';
 import { ActorObject } from 'store/types/scene';
 import SceneActor, { Props as SceneActorProps } from './SceneActor';
-import { Container as PixiContainer } from 'pixi.js';
 
 interface Props  {
   actor: ActorObject;
@@ -20,23 +18,21 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children' | 'name
   } = props;
   const { tileWidth, tileHeight } = controller.getTileDimensions();
 
-  const ref = useRef<PixiContainer>(null);
 
   return (
-    <Container ref={ref}>
+    <Container>
       <SceneActor
         actor={actor}
         controller={controller}
         spritesheetPath={spritesheetPath}
         location={location}
-        idleAnimation={Math.random() < 0.5}
       >
         {selected && (
           <Graphics
             name="selectioncircle"
             draw={graphics => {
               const line = 3;
-              graphics.lineStyle(line, 0xFFFFFF);
+              graphics.lineStyle(line, 0xFFFF00);
               graphics.drawCircle(tileWidth / 2, tileHeight / 2, tileWidth / 2 - line);
               graphics.endFill();
             }}

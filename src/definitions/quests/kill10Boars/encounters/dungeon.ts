@@ -90,7 +90,7 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
       // todo: I want to share this common stuff with other SceneControllers
       case 'chest':
         if (!this.questVars.dungeon.entrance.chestOpen) {
-          const adventurer = this.getAdventurerByActor(actor)?.name;
+          const adventurer = this.getAdventurerByActor(actor);
           const textEntry = { key: 'quest-common-adventurer-opened-chest', context: { adventurer } };
           this.questUpdate(textEntry, '/img/items/misc/chest-02.png');
 

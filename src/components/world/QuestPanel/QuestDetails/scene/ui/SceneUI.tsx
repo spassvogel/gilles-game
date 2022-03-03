@@ -19,16 +19,14 @@ import Bubbles from 'components/ui/bubbles/Bubbles';
 import { BubbleLayer } from 'global/BubbleManager';
 import { Item } from 'definitions/items/types';
 import { Weapon } from 'definitions/items/weapons';
-import ActionMenu from './ActionMenu/ActionMenu';
 import useCanvasScaler from './hooks/useCanvasScaler';
-import CombatUIWidget from './CombatUIWidget';
 import NormalUICursor from './NormalUICursor';
-import useActionIntents from './hooks/useActionIntents';
 import { Ammunition } from 'definitions/items/ammunition';
 import { WeaponAbility } from 'definitions/abilities/types';
 import './styles/sceneUI.scss';
+import AdventurerCombatSceneUI, { Refs } from './AdventurerCombatSceneUI';
 
-export interface Props {
+export type Props = {
   sceneWidth: number;
   sceneHeight: number;
   selectedActorId: string;
@@ -36,7 +34,7 @@ export interface Props {
 
   onMouseDown?: (location: Location) => void;
   onSetActionIntent: (intent?: ActionIntent) => void;
-}
+};
 
 type BaseActionIntent = {
   action: SceneActionType;
@@ -87,15 +85,14 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     onSetActionIntent,
   } = props;
   const ref = useRef<HTMLDivElement>(null);
+  const adventurerCombatRef = useRef<Refs>(null);
   const mouseDownOnCanvas = useRef(false);
   const controller = useContext(SceneControllerContext);
   const quest = useQuest(controller?.questName ?? '');
   const scene = quest.scene;
   const { combat } = scene ?? {};
   const [cursorLocation, setCursorLocation] = useState<Location>();
-  const [actionMenuOpen, setActionMenuOpen] = useState(false);
   const scaler = useCanvasScaler(ref, sceneWidth, sceneHeight);
-  const combatIntents = useActionIntents(selectedActorId, cursorLocation, combat);
 
   useEffect(() => {
     scaler.scale = scaler.recalculate();
@@ -152,7 +149,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   };
 
   const handleMouseDown = (e: MouseOrTouchEvent ) => {
-    if (actionMenuOpen) return;
+    if (adventurerCombatRef.current?.actionMenuOpen) return;
     const location = findLocation(e);
     if (location) onMouseDown?.(location);
 
@@ -178,16 +175,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     bind.onMouseUp(e as unknown as React.MouseEvent<Element, MouseEvent>);
     mouseDownOnCanvas.current = false;
 
-    // open action
-    if (combat) {
-      const hasValidIntents = !!combatIntents.length && combatIntents.some(i => i.isValid);
-      if (cursorLocation && hasValidIntents){
-        setActionMenuOpen(true);
-      } else {
-        setCursorLocation(undefined);
-        setActionMenuOpen(false);
-      }
-    } else {
+    if (!combat){
       // Not in combat, do the action immediately
       setCursorLocation(undefined);
       if (!actionIntent) {
@@ -197,15 +185,11 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       if (selectedActorLocation && cursorLocation && !locationEquals(selectedActorLocation, cursorLocation) && actionIntent){
         controller?.actorAttemptAction(actionIntent);
       }
-
-      onSetActionIntent?.(undefined);
-      e.stopPropagation();
+    } else {
+      adventurerCombatRef.current?.onMouseUp();
     }
-  };
 
-  const handleCloseActionMenu = () => {
-    setActionMenuOpen(false);
-    setCursorLocation(undefined);
+    e.stopPropagation();
   };
 
   useEffect(() => {
@@ -268,22 +252,15 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         <NormalUICursor location={cursorLocation} />
       )}
       {scene?.combat && cursorLocation && (
-        <CombatUIWidget
-          location={cursorLocation}
-          intents={combatIntents}
-          selectedActorId={selectedActorId}
-        />
-      )}
-      <Bubbles layer={BubbleLayer.scene} />
-      { (actionMenuOpen && cursorLocation && combatIntents) && (
-        <ActionMenu
-          adventurerId={selectedActorId}
-          location={cursorLocation}
-          intents={combatIntents}
-          onClose={handleCloseActionMenu}
+        <AdventurerCombatSceneUI
+          ref={adventurerCombatRef}
+          cursorLocation={cursorLocation}
+          selectedAdventurerId={selectedActorId}
+          setCursorLocation={setCursorLocation}
           onSetActionIntent={onSetActionIntent}
         />
       )}
+      <Bubbles layer={BubbleLayer.scene} />
     </div>
   );
 };

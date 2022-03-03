@@ -4,6 +4,7 @@ import SceneAdventurer from '../SceneAdventurer';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { TiledObjectType } from 'utils/tilemap';
 import SceneActor from '../SceneActor';
+import SceneEnemy from '../SceneEnemy';
 
 interface Props {
   objects: SceneObject[];
@@ -34,7 +35,7 @@ const ObjectSpriteLayer = (props: Props) => {
               );
             } else if (isEnemy(object)) {
               return (
-                <SceneActor
+                <SceneEnemy
                   actor={object}
                   controller={controller}
                   spritesheetPath={spritesheet}
@@ -42,6 +43,7 @@ const ObjectSpriteLayer = (props: Props) => {
                   key={object.enemyId}
                   idleAnimation={Math.random() < 0.5}
                   lookAt={[4, 3]}
+                  selected={props.selectedActorId === object.enemyId }
                 />
               );
             }

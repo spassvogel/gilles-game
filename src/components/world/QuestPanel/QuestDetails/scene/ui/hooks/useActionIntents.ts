@@ -11,7 +11,7 @@ import { getDefinition as getWeaponTypeDefinition } from 'definitions/weaponType
 import { WeaponClassification } from 'definitions/weaponTypes/types';
 import { getDefinition as getAbilityDefinition } from 'definitions/abilities';
 
-const useActionIntents = (adventurerId: string, location?: Location, combat = false ) => {
+const useActionIntents = (adventurerId: string, location?: Location ) => {
   const adventurer: AdventurerStoreState = useAdventurer(adventurerId);
   const weapons = adventurerWeapons(adventurer);
   const controller = useContext(SceneControllerContext);
@@ -26,7 +26,7 @@ const useActionIntents = (adventurerId: string, location?: Location, combat = fa
   const actorObject = controller?.getSceneAdventurer(adventurer.id);
 
   const weaponIntents = useMemo(() => {
-    if (!combat || !actorObject || !location) return [];
+    if  (!actorObject || !location) return [];
     const result: ActionIntent[] = [];
     weapons?.forEach((weapon) => {
       if (!weapon) return;
@@ -56,7 +56,7 @@ const useActionIntents = (adventurerId: string, location?: Location, combat = fa
       });
     });
     return result;
-  }, [actorObject, adventurer, combat, controller, location, weapons]);
+  }, [actorObject, adventurer, controller, location, weapons]);
 
   const moveIntent = useMemo(() => {
     if (!actorObject || !location) return;

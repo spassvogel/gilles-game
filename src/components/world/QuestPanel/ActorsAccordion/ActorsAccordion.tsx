@@ -33,7 +33,8 @@ const ActorsAccordion = (props: Props) => {
         <ActorsAccordionEnemyItem
           enemyId={e.enemyId}
           key={e.id}
-          selected={selectedActorId === e.id}
+          selected={selectedActorId === e.enemyId}
+          onHeaderClick={() => { onActorSelected(e.enemyId);}}
           questName={questName}
         />
       ))}
