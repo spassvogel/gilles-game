@@ -32,7 +32,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children' | 'name
             name="selectioncircle"
             draw={graphics => {
               const line = 3;
-              graphics.lineStyle(line, 0xFFFF00);
+              graphics.lineStyle(line, 0x8b0000);
               graphics.drawCircle(tileWidth / 2, tileHeight / 2, tileWidth / 2 - line);
               graphics.endFill();
             }}

@@ -90,7 +90,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   const controller = useContext(SceneControllerContext);
   const quest = useQuest(controller?.questName ?? '');
   const scene = quest.scene;
-  const { combat } = scene ?? {};
+  const { combat, actionQueue } = scene ?? {};
   const [cursorLocation, setCursorLocation] = useState<Location>();
   const scaler = useCanvasScaler(ref, sceneWidth, sceneHeight);
 
@@ -150,6 +150,8 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
   const handleMouseDown = (e: MouseOrTouchEvent ) => {
     if (adventurerCombatRef.current?.actionMenuOpen) return;
+    if (actionQueue?.length) return; // dont allow new actions to be created
+
     const location = findLocation(e);
     if (location) onMouseDown?.(location);
 
@@ -175,15 +177,16 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     bind.onMouseUp(e as unknown as React.MouseEvent<Element, MouseEvent>);
     mouseDownOnCanvas.current = false;
 
-    if (!combat){
+    if (!combat) {
       // Not in combat, do the action immediately
       setCursorLocation(undefined);
       if (!actionIntent) {
         return;
       }
       const selectedActorLocation = controller?.getSceneAdventurer(selectedActorId)?.location;
-      if (selectedActorLocation && cursorLocation && !locationEquals(selectedActorLocation, cursorLocation) && actionIntent){
+      if (selectedActorLocation && cursorLocation && !locationEquals(selectedActorLocation, cursorLocation) && actionIntent) {
         controller?.actorAttemptAction(actionIntent);
+        onSetActionIntent(undefined);
       }
     } else {
       adventurerCombatRef.current?.onMouseUp();

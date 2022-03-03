@@ -314,7 +314,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
           if (!scene) throw new Error('Something broke. No scene');
 
           scene.objects = scene.objects.map(o => {
-            if (isActorObject(o) && o.name === action.actor) {
+            if (isAdventurer(o) && o.adventurerId === action.actor || isEnemy(o) && o.enemyId === action.actor) {
               const ap = o.ap - action.ap;
               return {
                 ...o,

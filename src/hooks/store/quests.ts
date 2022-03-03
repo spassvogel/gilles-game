@@ -91,10 +91,16 @@ export const useEnemyActorObject = (questName: string, enemyId: string): EnemyOb
   }, [enemyId, scene?.objects]);
 };
 
-
 export const useQuestSceneEnemies = (questName: string): EnemyObject[] =>  {
   const scene = useQuestScene(questName);
   return useMemo(() => {
     return scene?.objects.filter(isEnemy) ?? [];
   }, [scene?.objects]);
+};
+
+export const useQuestActionQueue = (questName: string) =>  {
+  const scene = useQuestScene(questName);
+  return useMemo(() => {
+    return scene?.actionQueue ?? [];
+  }, [scene?.actionQueue]);
 };
