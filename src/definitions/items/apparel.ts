@@ -1,6 +1,7 @@
 import { ItemType, ItemDefinition, ItemCategory } from './types';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { Effect, EffectAttibuteIncrease, EffectType } from 'definitions/effects/types';
+import { Rarity } from 'constants/items';
 
 type Prefix = 'apparel/';
 const PREFIX = 'apparel/';
@@ -468,6 +469,42 @@ const definitions = {
     equipmentType: EquipmentSlotType.chest,
     itemCategory,
     iconImg: `${basePath}vest_1.png`,
+  },
+  witchhunterBoots: {
+    equipmentType: EquipmentSlotType.feet,
+    rarity: Rarity.epic,
+    itemCategory,
+    iconImg: `${basePath}witchhunter_boots.png`,
+  },
+  witchhunterBritches: {
+    equipmentType: EquipmentSlotType.legs,
+    rarity: Rarity.epic,
+    itemCategory,
+    iconImg: `${basePath}witchhunter_britches.png`,
+  },
+  witchhunterCape: {
+    equipmentType: EquipmentSlotType.shoulders,
+    rarity: Rarity.epic,
+    itemCategory,
+    iconImg: `${basePath}witchhunter_cape.png`,
+  },
+  witchhunterGambeson: {
+    equipmentType: EquipmentSlotType.chest,
+    rarity: Rarity.epic,
+    itemCategory,
+    iconImg: `${basePath}witchhunter_gambeson.png`,
+  },
+  witchhunterGrips: {
+    equipmentType: EquipmentSlotType.hands,
+    rarity: Rarity.epic,
+    itemCategory,
+    iconImg: `${basePath}witchhunter_grips.png`,
+  },
+  witchhunterHat: {
+    equipmentType: EquipmentSlotType.head,
+    rarity: Rarity.epic,
+    itemCategory,
+    iconImg: `${basePath}witchhunter_hat.png`,
   },
 };
 
