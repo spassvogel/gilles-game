@@ -11,6 +11,7 @@ export interface Props {
   sourceId?: string;
   size?: IconSize;
   disabled?: boolean;
+  dependencies?: unknown[];
   onDrop: (info: InventoryItemDragInfo) => void;
   canDropHere?: ( dragInfo: InventoryItemDragInfo ) => boolean;
 }
@@ -28,6 +29,7 @@ const InventorySlot = (props: PropsWithChildren<Props>) => {
     item,
     disabled,
     sourceId,
+    dependencies = [],
     canDropHere,
     onDrop,
   } = props;
@@ -47,7 +49,7 @@ const InventorySlot = (props: PropsWithChildren<Props>) => {
     drop: (dragInfo: InventoryItemDragInfo) => {
       return onDrop(dragInfo);
     },
-  }), [sourceId]);
+  }), [sourceId, ...dependencies]);
   const isActive = isOver && canDrop;
 
   const className = [

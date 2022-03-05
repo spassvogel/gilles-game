@@ -165,7 +165,6 @@ const useItemDropActions = () => {
           removeItemFromInventory(sourceId, fromSlot),
           addItemToWarehouse(item, toSlot),
         );
-
         const otherItem = stockpile[stockpileCategory][toSlot];
         if (otherItem) {
           actions.push(

@@ -69,6 +69,7 @@ const Inventory = (props: Props) => {
         sourceId={sourceId}
         onDrop={handleDrop}
         canDropHere={handleCheckDrop}
+        dependencies={[items]}
       >
         {contents}
       </InventorySlot>
