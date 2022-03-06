@@ -1,14 +1,14 @@
 import { Container } from '@inlet/react-pixi';
-import { ActorObject } from 'store/types/scene';
+import { EnemyObject } from 'store/types/scene';
 import SceneActor, { Props as SceneActorProps } from './SceneActor';
 
 interface Props  {
-  actor: ActorObject;
+  actor: EnemyObject;
   selected: boolean;
 }
 
 // The enemy on the scene
-const SceneEnemy = (props: Props & Omit<SceneActorProps, 'children' | 'name'>) => {
+const SceneEnemy = (props: Props & Omit<SceneActorProps, 'children' | 'name' | 'health'>) => {
   const {
     controller,
     location,
@@ -21,6 +21,7 @@ const SceneEnemy = (props: Props & Omit<SceneActorProps, 'children' | 'name'>) =
     <Container>
       <SceneActor
         actor={actor}
+        health={actor.health}
         controller={controller}
         spritesheetPath={spritesheetPath}
         selectionColor={selected ? 0x8b0000 : undefined }

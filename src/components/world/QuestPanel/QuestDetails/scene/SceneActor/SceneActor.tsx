@@ -13,6 +13,7 @@ import useFrames from './useFrames';
 
 export interface Props  {
   actor: ActorObject;
+  health: number;
   spritesheetPath: string;
   color?: AdventurerColor;
   controller: BaseSceneController<unknown>;
@@ -27,6 +28,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
   const {
     location = [0, 0],
     controller,
+    health,
     idleAnimation,
     color,
     selectionColor,
@@ -48,7 +50,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
   const actorRef = useRef<PixiContainer>(null);
 
   const [orientation, setOrientation] = useState<Orientation>(Orientation.north);
-  const animation = useAnimation(controller, actorRef, getUniqueName(actor), location, setOrientation);
+  const animation = useAnimation(controller, actorRef, getUniqueName(actor), location, health, setOrientation);
   useRandomOrientation(!!idleAnimation && !lookAt, orientation, setOrientation);
 
   const frames = useFrames(spritesheetPath, animation, orientation);

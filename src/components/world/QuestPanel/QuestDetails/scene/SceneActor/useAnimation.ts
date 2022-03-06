@@ -19,6 +19,7 @@ const useAnimation = (
   actorRef: RefObject<Container>,
   actorName: string,
   location: Location,
+  health: number,
   setOrientation: (o: Orientation) => void,
 ) => {
   const { tileWidth, tileHeight } = controller.getTileDimensions();
@@ -40,12 +41,10 @@ const useAnimation = (
   const nextAction = actionQueue[0];
 
   useEffect(() => {
-    // todo
-    // const actor = quest.scene?.objects.find(o => o.name === actorName);
-    // if (actor && isActorObject(actor) && actor.health <= 0) {
-    //   setAnimation('die');
-    // }
-  }, [actorName, quest]);
+    if (health <= 0) {
+      setAnimation('die');
+    }
+  }, [health]);
 
   // Handle actions
   useEffect(() => {
