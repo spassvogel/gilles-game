@@ -11,7 +11,7 @@ const AttributeIndicator = (props: Props) => {
   const { base, additional = 0 } = props;
 
   const determineClass = useCallback((index: number) => {
-    if (index == Math.round(base - 1)) {
+    if (index <= Math.round(base - 1)) {
       return 'base';
     }
     if (index > Math.round(base - 1) && index <= Math.round(base - 1) + Math.round(additional)) {
