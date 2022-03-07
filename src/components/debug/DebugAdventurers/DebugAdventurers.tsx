@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { groupAdventurersByQuest } from 'store/selectors/adventurers';
 import { StoreState } from 'store/types';
 import { AdventurerStoreState } from 'store/types/adventurer';
+import AdventurersOverview from './AdventurersOverview';
 import DebugAdventurerEdit from './DebugAdventurerEdit';
 import './styles/debugAdventurers.scss';
 
@@ -67,6 +68,9 @@ const DebugAdventurers = () => {
       options={items} />
       { selectedId && (
         <DebugAdventurerEdit adventurerId={selectedId} />
+      )}
+      {! selectedId && (
+        <AdventurersOverview />
       )}
     </div>
   );
