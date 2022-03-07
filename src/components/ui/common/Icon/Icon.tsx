@@ -1,4 +1,4 @@
-import { ComponentProps, PropsWithChildren } from 'react';
+import { ComponentProps, CSSProperties, PropsWithChildren } from 'react';
 import { sizeClassName, borderClassName, IconSizeType, Border, IconSize } from './utils';
 import './styles/icon.scss';
 
@@ -18,13 +18,14 @@ const Icon = (props: PropsWithChildren<Props> & ComponentProps<'div'>) => {
     border = 'none',
     ...restProps
   } = props;
+
+  const style = { '--img': `url("${process.env.PUBLIC_URL}${image}")` } as CSSProperties;
+
   return (
     <div
       className={`icon ${sizeClassName((typeof size === 'string') ? IconSize[size] : size)} ${className}`}
       {...restProps}
-      style={{
-        backgroundImage: `url(${process.env.PUBLIC_URL}${image})`,
-      }}
+      style={style}
     >
       {children}
       { border !== 'none' && border && (

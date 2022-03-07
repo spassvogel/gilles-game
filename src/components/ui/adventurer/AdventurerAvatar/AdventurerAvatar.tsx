@@ -1,6 +1,6 @@
 import Icon, { IconSize } from 'components/ui/common/Icon';
 import { AdventurerStoreState } from 'store/types/adventurer';
-import './styles/adventureravatar.scss';
+import './styles/adventurerAvatar.scss';
 
 export interface Props {
   adventurer: AdventurerStoreState;

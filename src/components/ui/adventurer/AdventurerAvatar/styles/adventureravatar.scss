@@ -1,17 +1,12 @@
 .avatar {
-    text-align: center;
-    background-size: cover;
-    position: relative;
+  text-align: center;
+  background-size: cover;
+  position: relative;
+  background-color: rgb(69,69,69);
+  background-image: var(--img), linear-gradient(0deg, #454545 0%, black 10%, #4f4d4d 100%);
 
-    .sizer {
-        width: 100%;
-        padding-bottom: 100%;
-    }
-
-    .name {
-        position: absolute;
-        color: white;
-        width: 100%;
-        bottom: 3px;
-    }
+  .sizer {
+    width: 100%;
+    padding-bottom: 100%;
+  }
 }
