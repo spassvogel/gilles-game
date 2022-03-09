@@ -12,6 +12,8 @@ import SceneControllerContextProvider from './context/SceneControllerContext';
 import CombatBar from './CombatBar';
 import AdventurersPanel from './AdventurersPanel';
 import ActorsAccordion from './ActorsAccordion';
+import { getSceneObjectWithName } from 'store/helpers/storeHelpers';
+import { isEnemy, SceneObject } from 'store/types/scene';
 import './styles/questPanel.scss';
 
 enum Layout {
@@ -25,6 +27,11 @@ interface Props {
   layout?: Layout;
 }
 
+const isEnemySelected = (objects: SceneObject[], name: string): boolean => {
+  const selectedObject = getSceneObjectWithName(objects, name);
+  return !!selectedObject && isEnemy(selectedObject);
+};
+
 const QuestPanel = (props: Props) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -37,6 +44,11 @@ const QuestPanel = (props: Props) => {
   const activeInteractionModal = quest?.scene?.activeInteractionModal;
 
   const handleActorSelected = (actorId: string) => {
+    // can only select enemies when in combat
+    // in fact, only time enemies are visible is in combat, but still ...
+    if ((!quest?.scene?.combat && isEnemySelected(quest.scene?.objects ?? [], actorId))) {
+      return;
+    }
     setSelectedActorId(actorId);
   };
 
@@ -51,6 +63,16 @@ const QuestPanel = (props: Props) => {
       history.push(getWorldLink());
     }
   }, [adventurers.length, history]);
+
+  useEffect(() => {
+    // When returning from combat and an enemy is still selected, select the leader instead
+    if (!quest?.scene?.combat && selectedActorId) {
+      const enemySelected = isEnemySelected(quest.scene?.objects ?? [], selectedActorId);
+      if (enemySelected){
+        setSelectedActorId(leader?.id);
+      }
+    }
+  }, [leader?.id, quest.scene?.combat, quest.scene?.objects, selectedActorId]);
   if (!adventurers.length) return null;
 
   return (

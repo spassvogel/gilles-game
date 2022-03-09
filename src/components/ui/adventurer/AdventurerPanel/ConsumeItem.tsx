@@ -16,7 +16,7 @@ import { AP_COST_CONSUME } from 'mechanics/combat';
 import { deductActorAp } from 'store/actions/quests';
 import { Channel, SoundManager } from 'global/SoundManager';
 import {  isConsumable } from 'definitions/items/consumables';
-import './styles/consumeitem.scss';
+import './styles/consumeItem.scss';
 
 export interface Props {
   adventurerId: string;

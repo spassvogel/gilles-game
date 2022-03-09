@@ -3,7 +3,7 @@ import { DragType } from 'constants/dragging';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import { isConsumable } from 'definitions/items/consumables';
 import { PropsWithChildren } from 'react';
-import './styles/consumeitemslot.scss';
+import './styles/consumeItemSlot.scss';
 
 export interface Props {
   onDrop: (item: InventoryItemDragInfo) => void;

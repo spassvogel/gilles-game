@@ -78,6 +78,8 @@ const AdventurerPanel = (props: Props) => {
     setConsumeItemIndex(undefined);
   };
 
+  if (!adventurer) return null;
+
   return (
     <div className={`adventurer-panel${(horizontalMode ? ' horizontal' : '')}`}>
        <section id="common">
