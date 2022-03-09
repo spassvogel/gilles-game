@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import usePrevious from 'hooks/usePrevious';
 import { useAdventurer } from 'hooks/store/adventurers';
 import { SoundManager } from 'global/SoundManager';
+import './styles/level.scss';
 
 export interface Props {
   adventurerId: string;
@@ -56,7 +57,9 @@ const Level = (props: Props) => {
 
   return (
     <div className="level">
-      {TextManager.get('ui-adventurer-info-level', { level: currentLevel })}
+      <div className="text">
+        {TextManager.get('ui-adventurer-info-level', { level: currentLevel })}
+      </div>
       <PlainProgressbar
         progress={progress}
         animationTime={lastAdventurer === adventurerId && !lastDingAnimationRunning ? 300 : 0}

@@ -1,0 +1,40 @@
+@import 'components/styles/import.scss';
+
+$max-blip-width: 8px; // plus margin
+
+
+.attribute-list {
+  display: grid;
+  grid-template-columns: 1fr minmax(2rem, calc(var(--item-count) * $max-blip-width)) 1fr 0;
+  padding: 0;
+
+  &.has-additional {
+    grid-template-columns: 1fr minmax(2rem, calc(var(--item-count) * $max-blip-width)) minmax(2rem, auto) 1fr;
+  }
+
+  .name {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-underline-offset: 2px;
+    text-decoration-color: #fcfcfc73;
+  }
+
+  .attribute-indicator {
+    margin: 0 0.5rem;
+    align-items: center;
+    max-width: calc(var(--item-count) * 8px);
+  }
+
+  .value-base {
+    flex: 0.2;
+    margin-left: 0.5rem;
+    white-space: nowrap;
+
+  }
+
+  .value-additional {
+    color: $color-highlighted;
+    white-space: nowrap;
+  }
+}
+

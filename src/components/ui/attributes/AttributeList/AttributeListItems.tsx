@@ -2,20 +2,18 @@ import { Attribute, attributeList } from 'store/types/adventurer';
 import { TextManager } from 'global/TextManager';
 import { TooltipManager } from 'global/TooltipManager';
 import { ContextType } from 'constants/context';
-import { AttributesExtended, AttributeSourceType, ExtendedAttribute, MAX_VALUE } from 'mechanics/adventurers/attributes';
+import { AttributesExtended, AttributeSourceType, ExtendedAttribute } from 'mechanics/adventurers/attributes';
 import { roundIfNeeded } from 'utils/format/number';
 import AttributeIndicator from 'components/ui/attributes/AttributeIndicator';
-import { CSSProperties, Fragment } from 'react';
-import { entries } from 'utils/typescript';
-import './styles/attributes.scss';
+import { Fragment } from 'react';
 
 type Props = {
   attributes: AttributesExtended;
   small?: boolean;
 };
 
-const style = { '--item-count': MAX_VALUE } as CSSProperties;
-const Attributes = (props: Props) => {
+// Seperate list of attributes, intended to share the same container as SkillsListItems
+const AttributeListItems = (props: Props) => {
   const { attributes, small } = props;
 
   const renderRow = (attribute: Attribute) => {
@@ -43,32 +41,28 @@ const Attributes = (props: Props) => {
 
     return (
       <Fragment key={attribute}>
-        <div className="attribute-name">
+        <div className="name">
           <span onClick={handleClick}>
             {small ? attribute : TextManager.getAttributeName(attribute)}
           </span>
         </div>
         <AttributeIndicator base={base} additional={additional} />
-        <div className="attribute-base">
+        <div className="value-base">
           {roundIfNeeded(base)}
         </div>
-        { additional > 0 && (
-          <div className="attribute-additional">
-           +{roundIfNeeded(additional)}
-          </div>
-        )}
+        <div className="value-additional">
+          { additional > 0 && (`+${roundIfNeeded(additional)}`)}
+        </div>
       </Fragment>
     );
   };
 
-  const hasAdditional = entries(attributes).some(([_attr, comp]) => comp.some(c => c.origin.type !== AttributeSourceType.base));
 
   return (
-    <div className="basic-attributes">
-      <div className={`attribute-list ${hasAdditional ? 'has-additional' : ''}`} style={style}>
-        {attributeList.map(a => renderRow(a))}
-      </div>
-    </div>
+    <>
+      {attributeList.map(a => renderRow(a))}
+    </>
   );
 };
-export default Attributes;
+
+export default AttributeListItems;

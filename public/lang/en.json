@@ -490,6 +490,7 @@
     "trait-house-monroe-name": "House Monroe",
 
     "ui-adventurer-info-ap-remaining": " ({{ap}} AP remaining)",
+    "ui-adventurer-info-attributes-title": "Attributes",
     "ui-adventurer-info-effects-title": "Effects",
     "ui-adventurer-info-equipment-title": "Equipment",
     "ui-adventurer-info-general-title": "General",

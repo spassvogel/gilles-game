@@ -1,0 +1,31 @@
+@import 'components/styles/import.scss';
+
+$max-blip-width: 8px; // plus margin
+
+
+.skills-list {
+  display: grid;
+  grid-template-columns: 1fr minmax(2rem, calc(var(--item-count) * $max-blip-width)) 1fr;
+  padding: 0;
+
+  .name {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-underline-offset: 2px;
+    text-decoration-color: #fcfcfc73;
+  }
+
+  .attribute-indicator {
+    margin: 0 0.5rem;
+    align-items: center;
+    max-width: calc(var(--item-count) * 8px);
+  }
+
+  .value-text {
+    flex: 0.2;
+    margin-left: 0.5rem;
+    white-space: nowrap;
+
+  }
+}
+

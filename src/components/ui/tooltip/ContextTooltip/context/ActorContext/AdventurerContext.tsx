@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useAdventurer } from 'hooks/store/adventurers';
 import { AdventurerObject } from 'store/types/scene';
-import Attributes from 'components/ui/adventurer/AdventurerPanel/Attributes';
+import Attributes from 'components/ui/attributes/AttributeList';
 import { xpToLevel } from 'mechanics/adventurers/levels';
 import { TextManager } from 'global/TextManager';
 import CombatAttributes from './CombatAttributes';

@@ -2,7 +2,7 @@ import { EnemyObject } from 'store/types/scene';
 import { getDefinition } from 'definitions/enemies';
 import { EnemyType } from 'definitions/enemies/types';
 import { TextManager } from 'global/TextManager';
-import Attributes from 'components/ui/adventurer/AdventurerPanel/Attributes';
+import Attributes from 'components/ui/attributes/AttributeList';
 import CombatAttributes from './CombatAttributes';
 import { generateBaseAttributes } from 'mechanics/adventurers/attributes';
 import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';

@@ -4,7 +4,7 @@ import AccordionItem, { Props as AccordionItemProps } from 'components/ui/accord
 import { useEnemyActorObject } from 'hooks/store/quests';
 import { getDefinition } from 'definitions/enemies';
 import { generateBaseAttributes } from 'mechanics/adventurers/attributes';
-import Attributes from 'components/ui/adventurer/AdventurerPanel/Attributes';
+import Attributes from 'components/ui/attributes/AttributeList';
 import CombatAttributes from 'components/ui/tooltip/ContextTooltip/context/ActorContext/CombatAttributes';
 
 type Props = Merge<Omit<AccordionItemProps, 'id' | 'title'>, {

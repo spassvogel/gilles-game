@@ -6,6 +6,12 @@ import { WarehouseStructureDefinition } from 'definitions/structures/types';
 import { Item, ItemType } from 'definitions/items/types';
 import allItems from 'definitions/items';
 
+const getRandomItemType = (): ItemType => {
+  const all = Object.keys(allItems);
+  const randomIndex = Math.floor(Math.random() * all.length);
+  return all[randomIndex] as ItemType;
+};
+
 // Items in warehouse
 export const getItemsInitialState = (): (Item | null)[] => {
   // Generate some random stuff
@@ -22,17 +28,12 @@ export const getItemsInitialState = (): (Item | null)[] => {
   return result;
 };
 
-const getRandomItemType = (): ItemType => {
-  const all = Object.keys(allItems);
-  const randomIndex = Math.floor(Math.random() * all.length);
-  return all[randomIndex] as ItemType;
-};
-
 /**
  * reducer
  * @param state
  * @param action
  */
+// eslint-disable-next-line @typescript-eslint/default-param-last
 export const items: Reducer<(Item | null)[], StockpileAction> = (state = getItemsInitialState(), action) => {
   switch (action.type) {
     case 'addItem': {

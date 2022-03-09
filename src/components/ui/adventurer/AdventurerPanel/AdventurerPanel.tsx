@@ -1,11 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DragSourceType } from 'constants/dragging';
 import Inventory from 'components/ui/inventory/Inventory';
 import useItemDropActions from 'hooks/actions/useItemActions';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
 import { Item } from 'definitions/items/types';
-import AdventurerSkills from './AdventurerSkills';
 import { useAdventurer } from 'hooks/store/adventurers';
 import Level from 'components/ui/adventurer/AdventurerPanel/Level';
 import ApIndicator from './ApIndicator';
@@ -14,10 +13,9 @@ import AdventurerEquipment from './AdventurerEquipment';
 import { TextManager } from 'global/TextManager';
 import ReactMarkdown from 'react-markdown';
 import Health from './Health';
-import Attributes from './Attributes';
 import ConsumeItem from './ConsumeItem';
 import AdventurerEffects from './AdventurerEffects';
-import { calculateEffectiveAttributesExtended } from 'mechanics/adventurers/attributes';
+import AdventurerAttributesAndSkills from './AdventurerAttributesAndSkills';
 import './styles/adventurerPanel.scss';
 
 export interface Props {
@@ -80,15 +78,13 @@ const AdventurerPanel = (props: Props) => {
     setConsumeItemIndex(undefined);
   };
 
-  const extendedAttributes = useMemo(() => calculateEffectiveAttributesExtended(adventurer), [adventurer]);
-
   return (
     <div className={`adventurer-panel${(horizontalMode ? ' horizontal' : '')}`}>
        <section id="common">
          <div className="info">
          { name && (
           <div className="name">
-            {adventurer.name}
+            <h3 className="title">{adventurer.name}</h3>
             {questName && <ApIndicator questName={questName} adventurer={adventurer} />}
           </div>
          )}
@@ -102,17 +98,14 @@ const AdventurerPanel = (props: Props) => {
           </span>
         )}
         <Health adventurerId={adventurer.id}/>
-        { effects && <AdventurerEffects adventurerId={adventurer.id}/> }
-        { traits && <AdventurerTraits adventurerId={adventurer.id}/> }
+        { effects && <AdventurerEffects adventurerId={adventurerId}/> }
+        { traits && <AdventurerTraits adventurerId={adventurerId}/> }
         </div>
-        <Attributes attributes={extendedAttributes} />
       </section>
-      <section id="skills">
-        { skills && <AdventurerSkills adventurerId={adventurer.id}/> }
-      </section>
+      <AdventurerAttributesAndSkills adventurerId={adventurerId} skills={skills} />
       <section id="equipment">
         <div className="equipment">
-          <p>{TextManager.get('ui-adventurer-info-equipment-title')}</p>
+          <h3 className='title'>{TextManager.get('ui-adventurer-info-equipment-title')}</h3>
           <AdventurerEquipment
             adventurerId={adventurerId}
             onDropItemEquipment={handleDropItemEquipment}
@@ -120,7 +113,7 @@ const AdventurerPanel = (props: Props) => {
         </div>
       </section>
       <section id="inventory">
-      <p>{TextManager.get('ui-adventurer-info-inventory-title')}</p>
+        <h3 className='title'>{TextManager.get('ui-adventurer-info-inventory-title')}</h3>
         <Inventory
           sourceType={DragSourceType.adventurerInventory}
           sourceId={adventurerId}

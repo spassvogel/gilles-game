@@ -1,0 +1,42 @@
+@import 'components/styles/import.scss';
+
+$max-blip-width: 8px; // plus margin
+
+
+.attributes-and-skills {
+  display: grid;
+  // without 'has-additional' the last column is invisible
+  grid-template-columns: 1fr minmax(2rem, calc(var(--item-count) * $max-blip-width)) 1fr 0;
+  padding: 0;
+
+  .title {
+    margin: 2rem 0 .5rem 0;
+    grid-column: 1 /  span 4;
+  }
+
+  &.has-additional {
+    grid-template-columns: 1fr minmax(2rem, calc(var(--item-count) * $max-blip-width)) minmax(2rem, auto) minmax(2rem, auto);
+  }
+
+  .name {
+    text-transform: capitalize;
+  }
+
+  .attribute-indicator {
+    margin: 0 0.5rem;
+    align-items: center;
+    max-width: calc(var(--item-count) * 8px);
+  }
+
+  .value-base {
+    flex: 0.2;
+    margin-left: 0.5rem;
+    white-space: nowrap;
+
+  }
+  .value-additional {
+    color: $color-highlighted;
+    white-space: nowrap;
+  }
+}
+

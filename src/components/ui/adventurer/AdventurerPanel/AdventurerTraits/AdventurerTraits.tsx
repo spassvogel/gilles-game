@@ -38,7 +38,7 @@ const AdventurerTraits = (props: Props) => {
   }
   return (
     <>
-      <p>{TextManager.get('ui-adventurer-info-traits-title')}</p>
+      <h3 className='title'>{TextManager.get('ui-adventurer-info-traits-title')}</h3>
       <ul className="adventurer-traits">
         {adventurer.traits && adventurer.traits.map((t, i, a)=> renderTrait(t, i === a.length - 1))}
       </ul>

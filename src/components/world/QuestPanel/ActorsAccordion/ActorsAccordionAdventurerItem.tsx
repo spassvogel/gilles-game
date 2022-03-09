@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Merge } from 'type-fest';
 import { useAdventurer } from 'hooks/store/adventurers';
-import Attributes from 'components/ui/adventurer/AdventurerPanel/Attributes';
+import Attributes from 'components/ui/attributes/AttributeList';
 import { xpToLevel } from 'mechanics/adventurers/levels';
 import { TextManager } from 'global/TextManager';
 import { calculateEffectiveAttributes, calculateEffectiveAttributesExtended } from 'mechanics/adventurers/attributes';
