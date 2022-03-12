@@ -18,7 +18,6 @@ import {
   isEnemy,
   Allegiance,
   EnemyObject,
-  getUniqueName,
   AdventurerObject,
 } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
@@ -246,37 +245,66 @@ export class BaseSceneController<TQuestVars> {
       case SceneActionType.move: {
         // Find path to move using aStar
         const path = this.findPath(location, to);
-
         path?.forEach((l, index) => {
           // Queue up all the steps
           const sceneAction: SceneAction = {
-            actionType: SceneActionType.move,
-            actor: getUniqueName(actor),
-            target: l as Location,
+            // actionType: SceneActionType.move,
+            // actor: getUniqueName(actor),
+            // target: l as Location,
             endsAt: movementDuration * (index + 1) + performance.now(),
-            intent,
+            intent: { ...intent, to: l },
           };
           this.dispatch(enqueueSceneAction(this.questName, sceneAction));
         });
+        console.log('move', this.combat);
+        if (!this.combat) {
+          const otherAdventurers = this.sceneAdventurers.filter(a => a !== actor);
+          console.log(otherAdventurers);
+          const availableLocations = this.findEmptyLocationsAround(to, 2);
+          const otherAdventurer = otherAdventurers[0];
+          const otherAdventurerLocation = otherAdventurer.location;
+          if (otherAdventurerLocation) {
+
+            const otherPath = this.findPath(otherAdventurerLocation, availableLocations[0]);
+            if (otherPath) {
+              otherPath?.forEach((l, index) => {
+                // Queue up all the steps
+                const sceneAction: SceneAction = {
+                  // actionType: SceneActionType.move,
+                  // actor: getUniqueName(otherAdventurer),
+                  // target: l as Location,
+                  endsAt: movementDuration * (index + 1) + performance.now(),
+                  intent: {
+                    ...intent,
+                    to: l,
+                    actor: otherAdventurer,
+                  },
+                };
+                // this.dispatch(enqueueSceneAction(this.questName, sceneAction));
+              });
+            }
+          }
+
+        }
         break;
       }
       case SceneActionType.interact: {
         const path = this.findPathNearest(location, to);
         path?.forEach((l, index) => {
           const moveAction: SceneAction = {
-            actionType: SceneActionType.move,
-            actor: getUniqueName(actor),
-            target: l as Location,
+            // actionType: SceneActionType.move,
+            // actor: getUniqueName(actor),
+            // target: l as Location,
             endsAt: movementDuration * (index + 1) + performance.now(),
-            intent,
+            intent: { ...intent, to: l },
           };
           this.dispatch(enqueueSceneAction(this.questName, moveAction));
         });
 
         const interactAction: SceneAction = {
-          actionType: SceneActionType.interact,
-          actor: getUniqueName(actor),
-          target: to,
+          // actionType: SceneActionType.interact,
+          // actor: getUniqueName(actor),
+          // target: to,
           endsAt: movementDuration * path.length + performance.now(),
           intent,
         };
@@ -295,18 +323,18 @@ export class BaseSceneController<TQuestVars> {
         // Walk towards the target
         path?.forEach((l, index) => {
           const moveAction: SceneAction = {
-            actionType: SceneActionType.move,
-            actor: getUniqueName(actor),
-            target: l as Location,
+            // actionType: SceneActionType.move,
+            // actor: getUniqueName(actor),
+            // target: l as Location,
             endsAt: movementDuration * (index + 1) + performance.now(),
             intent,
           };
           this.dispatch(enqueueSceneAction(this.questName, moveAction));
         });
         const meleeAction: SceneAction = {
-          actionType: action,
-          actor: getUniqueName(actor),
-          target,
+          // actionType: action,
+          // actor: getUniqueName(actor),
+          // target,
           endsAt: movementDuration * (path.length + 1) + performance.now(),
           intent,
         };
@@ -316,9 +344,9 @@ export class BaseSceneController<TQuestVars> {
       case SceneActionType.shoot: {
 
         const shootAction: SceneAction = {
-          actionType: action,
-          actor: getUniqueName(actor),
-          target: to,
+          // actionType: action,
+          // actor: getUniqueName(actor),
+          // target: to,
           endsAt: 500 + performance.now(),
           intent,
         };
@@ -761,8 +789,8 @@ export class BaseSceneController<TQuestVars> {
     return this.sceneObjects.filter<ActorObject>(isActorObject);
   }
 
-  public get sceneAdventurers(): ActorObject[] {
-    return this.sceneObjects.filter<ActorObject>(isAdventurer);
+  public get sceneAdventurers(): AdventurerObject[] {
+    return this.sceneObjects.filter<ActorObject>(isAdventurer) as AdventurerObject[];
   }
 
   public get sceneEnemies(): ActorObject[] {

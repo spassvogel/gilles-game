@@ -811,3 +811,7 @@ Can build forward outposts (small versions of town) anywhere on the map, with le
 - [x] cant drag items from adventurer to warehouse
 - [ ] adventurer panel on warehouse is a hot mess
 - [x] prevent wrong apparel to be placed 
+
+### 2022-03-11 General UI inspiration
+
+https://interfaceingame.com/games/league-of-legends/

@@ -162,13 +162,14 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
           const sceneAction = scene.actionQueue[0];
           if (!sceneAction) return qss;
 
-          switch (sceneAction.actionType) {
+          switch (sceneAction.intent.action) {
             case SceneActionType.move: {
               scene.objects = scene.objects.map((a) => {
-                if (isActorObject(a) && getUniqueName(a) === sceneAction.actor) {
+                if (getUniqueName(a) === action.actorName) {
+                  console.log('the new location is ', sceneAction.intent.to, sceneAction.intent.actor);
                   return {
                     ...a,
-                    location: sceneAction.target,
+                    location: sceneAction.intent.to,
                   };
                 }
                 return a;
@@ -177,7 +178,9 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
           }
 
           // pop first action of the stack
-          scene.actionQueue = scene.actionQueue.filter((_, i) => i > 0);
+          // scene.actionQueue = scene.actionQueue.filter((_, i) => i > 0);
+          const index = scene.actionQueue.findIndex(aQ => (getUniqueName(aQ.intent.actor) === action.actorName));
+          scene.actionQueue = scene.actionQueue.filter((_, i) => i !== index);
 
           return {
             ...qss,

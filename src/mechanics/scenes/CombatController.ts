@@ -76,9 +76,9 @@ export class CombatController {
           path?.forEach((l, index) => {
             if (index >= enemy.ap - 1) return;
             const sceneAction: SceneAction = {
-              actionType: SceneActionType.move,
-              actor: getUniqueName(enemy),
-              target: l as Location,
+              // actionType: SceneActionType.move,
+              // actor: getUniqueName(enemy),
+              // target: l as Location,
               endsAt: movementDuration * (index + 1) + performance.now(),
               intent,
             };

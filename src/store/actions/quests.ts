@@ -9,7 +9,7 @@ export type QuestAction =
   |  { type: 'setSceneName', questName: string, sceneName: string }
   |  { type: 'setScene', questName: string, scene: SceneStoreState; }
   |  { type: 'enqueueSceneAction', questName: string, sceneAction: SceneAction }
-  |  { type: 'completeSceneAction', questName: string }
+  |  { type: 'completeSceneAction', questName: string, actorName: string }
   |  { type: 'setCombat', questName: string, combat: boolean }
   |  { type: 'endPlayerTurn', questName: string }
   |  { type: 'startTurn', questName: string, turn: Allegiance, adventurers?: AdventurerStoreState[] }
@@ -65,9 +65,10 @@ export const enqueueSceneAction = (questName: string, sceneAction: SceneAction):
   sceneAction,
 });
 
-export const completeSceneAction = (questName: string): QuestAction => ({
+export const completeSceneAction = (questName: string, actorName: string): QuestAction => ({
   type: 'completeSceneAction',
   questName,
+  actorName,
 });
 
 export const setCombat = (questName: string, combat: boolean): QuestAction => ({

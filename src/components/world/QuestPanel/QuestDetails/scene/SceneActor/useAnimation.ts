@@ -7,7 +7,7 @@ import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { CombatController } from 'mechanics/scenes/CombatController';
 import { completeSceneAction } from 'store/actions/quests';
 import { StoreState } from 'store/types';
-import { SceneAction, SceneActionType } from 'store/types/scene';
+import { getUniqueName, SceneAction, SceneActionType } from 'store/types/scene';
 import { Location } from 'utils/tilemap';
 import { Orientation } from '.';
 
@@ -32,8 +32,24 @@ const useAnimation = (
     if (!quest.scene?.actionQueue) {
       return [];
     }
-    return quest.scene.actionQueue.filter(a => a.actor === actorName);
+    return quest.scene.actionQueue.filter(a => (getUniqueName(a.intent.actor) === actorName));
   }, [quest.scene, actorName]);
+
+  // const actionQueueIntentsSelector = useCallback(() => {
+  //   if (!quest.scene?.actionQueue) {
+  //     return [];
+  //   }
+  //   return quest.scene.actionQueue.reduce<ActionIntent[]>((acc, value) => {
+  //     const intentsForThisActor = value.actions.filter((i) => (getUniqueName(i.actor) === actorName));
+  //     if (intentsForThisActor.length) {
+  //       return [
+  //         ...acc,
+  //         ...intentsForThisActor,
+  //       ];
+  //     }
+  //     return acc;
+  //   }, []);
+  // }, [quest.scene, actorName]);
 
   const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
   const [animation, setAnimation] = useState<Animation>('stand');
@@ -50,34 +66,34 @@ const useAnimation = (
   useEffect(() => {
     // Determines orientation based on where the target is
     const determineOrientation = () => {
-      if (location[0] === nextAction.target[0] && location[1] > nextAction.target[1]) {
+      if (location[0] === nextAction.intent.to[0] && location[1] > nextAction.intent.to[1]) {
         setOrientation(Orientation.north);
-      } else if (location[0] < nextAction.target[0] && location[1] > nextAction.target[1]) {
+      } else if (location[0] < nextAction.intent.to[0] && location[1] > nextAction.intent.to[1]) {
         setOrientation(Orientation.northEast);
-      } else if (location[0] < nextAction.target[0] && location[1] === nextAction.target[1]) {
+      } else if (location[0] < nextAction.intent.to[0] && location[1] === nextAction.intent.to[1]) {
         setOrientation(Orientation.east);
-      } else if (location[0] < nextAction.target[0] && location[1] < nextAction.target[1]) {
+      } else if (location[0] < nextAction.intent.to[0] && location[1] < nextAction.intent.to[1]) {
         setOrientation(Orientation.southEast);
-      } else if (location[0] === nextAction.target[0] && location[1] < nextAction.target[1]) {
+      } else if (location[0] === nextAction.intent.to[0] && location[1] < nextAction.intent.to[1]) {
         setOrientation(Orientation.south);
-      } else if (location[0] > nextAction.target[0] && location[1] < nextAction.target[1]) {
+      } else if (location[0] > nextAction.intent.to[0] && location[1] < nextAction.intent.to[1]) {
         setOrientation(Orientation.southWest);
-      } else if (location[0] > nextAction.target[0] && location[1] === nextAction.target[1]) {
+      } else if (location[0] > nextAction.intent.to[0] && location[1] === nextAction.intent.to[1]) {
         setOrientation(Orientation.west);
-      } else if (location[0] > nextAction.target[0] && location[1] > nextAction.target[1]) {
+      } else if (location[0] > nextAction.intent.to[0] && location[1] > nextAction.intent.to[1]) {
         setOrientation(Orientation.northWest);
       }
     };
     if (nextAction && nextAction !== previousAction.current) {
       const { intent } = nextAction;
-      // console.log(`next action is ${nextAction.target} (${nextAction.actionType}), \ncurrent location is: ${location}\nprev action was ${previousAction?.current?.target} `)
-      switch (nextAction.actionType) {
+      // console.log(`next action is ${nextAction.intent.to} (${nextAction.actionType}), \ncurrent location is: ${location}\nprev action was ${previousAction?.current?.target} `)
+      switch (nextAction.intent.action) {
         case SceneActionType.move: {
           const moveComplete = () => {
             setAnimation('stand');
-
-            dispatch(completeSceneAction(quest.name));
-            controller.actorMoved(actorName, nextAction.target);
+            console.log('completing an action', actorName, quest.name);
+            dispatch(completeSceneAction(quest.name, actorName));
+            controller.actorMoved(actorName, nextAction.intent.to);
           };
 
           const duration = (nextAction.endsAt - performance.now()) / 1000;
@@ -93,8 +109,8 @@ const useAnimation = (
             duration,
             ease: 'linear',
             pixi: {
-              x: nextAction.target[0] * tileWidth,
-              y: nextAction.target[1] * tileHeight,
+              x: nextAction.intent.to[0] * tileWidth,
+              y: nextAction.intent.to[1] * tileHeight,
             },
             onComplete: moveComplete,
           });
@@ -107,7 +123,7 @@ const useAnimation = (
 
           const attackComplete = () => {
             setAnimation('stand');
-            dispatch(completeSceneAction(controller.questName));
+            dispatch(completeSceneAction(controller.questName, actorName));
             CombatController.actorMeleeEnd(actorName, intent);
           };
           setTimeout(attackComplete, 1000);
@@ -120,15 +136,15 @@ const useAnimation = (
 
           const attackComplete = () => {
             setAnimation('stand');
-            dispatch(completeSceneAction(controller.questName));
+            dispatch(completeSceneAction(controller.questName, actorName));
             CombatController.actorShootEnd(actorName, intent);
           };
           setTimeout(attackComplete, 500);
           break;
         }
         case SceneActionType.interact: {
-          controller.actorInteract(actorName, nextAction.target);
-          dispatch(completeSceneAction(controller.questName));
+          controller.actorInteract(actorName, nextAction.intent.to);
+          dispatch(completeSceneAction(controller.questName, actorName));
           break;
         }
       }

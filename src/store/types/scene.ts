@@ -94,11 +94,8 @@ export interface LootCache {
 }
 
 export interface SceneAction {
-  actionType: SceneActionType;
-  actor: string;
-  target: Location;
+  intent: ActionIntent;
   endsAt: number;
-  intent: ActionIntent; // todo: actorId and actionType might not be necessary
 }
 
 export enum SceneActionType {
