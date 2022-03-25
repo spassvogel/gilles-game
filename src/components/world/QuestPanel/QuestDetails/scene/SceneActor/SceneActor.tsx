@@ -10,7 +10,6 @@ import { useRandomOrientation } from './useRandomOrientation';
 import { BLACK, BLUES, calculateBearing, createColorReplaceFilter, ORANGE, Orientation, PURPLE, REDS, SPRITE_WIDTH, TEALS, WHITE, YELLOW } from './utils';
 import useAnimation from './useAnimation';
 import useFrames from './useFrames';
-import useUnchangedPrevious from 'hooks/useUnchangedPrevious';
 
 export interface Props  {
   actor: ActorObject;
@@ -39,24 +38,22 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
     actor,
     ...rest
   } = props;
-  const prevLocation = useUnchangedPrevious(location);
 
   const { tileWidth, tileHeight } = controller.getTileDimensions();
 
   const { x, y } = useMemo(() => {
-    const actualLocation = prevLocation ?? location;
-    console.log('prev', prevLocation, 'location', location);
+    // console.log('prev', prevLocation, 'location', location);
     return {
-      x: actualLocation[0] * tileWidth,
-      y: actualLocation[1] * tileHeight,
+      x: location[0] * tileWidth,
+      y: location[1] * tileHeight,
     };
-  }, [prevLocation, location, tileWidth, tileHeight]);
+  }, [location, tileWidth, tileHeight]);
 
   const actorRef = useRef<PixiContainer>(null);
 
   const [orientation, setOrientation] = useState<Orientation>(Orientation.north);
   const animation = useAnimation(controller, actorRef, getUniqueName(actor), location, health, setOrientation);
-  useRandomOrientation(!!idleAnimation && !lookAt, orientation, setOrientation);
+  useRandomOrientation(!!idleAnimation && !lookAt && health > 0, orientation, setOrientation);
 
   const frames = useFrames(spritesheetPath, animation, orientation);
   const [flipped, setFlipped] = useState(false);
