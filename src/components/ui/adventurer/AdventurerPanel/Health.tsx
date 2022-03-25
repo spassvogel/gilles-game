@@ -15,12 +15,13 @@ const Health = (props: Props) => {
   const level = xpToLevel(xp);
   const baseHP = calculateBaseHitpoints(level, basicAttributes.for);
 
+  const label = health > 0 ? `${roundIfNeeded(Math.max(health, 0))}/${baseHP}` : TextManager.get('ui-adventurer-info-dead');
   return (
     <div className="health">
       {TextManager.get('ui-adventurer-info-health')}
       <PlainProgressbar
         progress={health / baseHP}
-        label={`${roundIfNeeded(Math.max(health, 0))}/${baseHP}`}
+        label={label}
         variation="health"
       />
     </div>
