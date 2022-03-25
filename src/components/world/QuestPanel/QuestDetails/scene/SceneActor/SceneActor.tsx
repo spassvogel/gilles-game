@@ -10,6 +10,7 @@ import { useRandomOrientation } from './useRandomOrientation';
 import { BLACK, BLUES, calculateBearing, createColorReplaceFilter, ORANGE, Orientation, PURPLE, REDS, SPRITE_WIDTH, TEALS, WHITE, YELLOW } from './utils';
 import useAnimation from './useAnimation';
 import useFrames from './useFrames';
+import useUnchangedPrevious from 'hooks/useUnchangedPrevious';
 
 export interface Props  {
   actor: ActorObject;
@@ -38,14 +39,18 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
     actor,
     ...rest
   } = props;
+  const prevLocation = useUnchangedPrevious(location);
+
   const { tileWidth, tileHeight } = controller.getTileDimensions();
 
   const { x, y } = useMemo(() => {
+    const actualLocation = prevLocation ?? location;
+    console.log('prev', prevLocation, 'location', location);
     return {
-      x: location[0] * tileWidth,
-      y: location[1] * tileHeight,
+      x: actualLocation[0] * tileWidth,
+      y: actualLocation[1] * tileHeight,
     };
-  }, [location, tileWidth, tileHeight]);
+  }, [prevLocation, location, tileWidth, tileHeight]);
 
   const actorRef = useRef<PixiContainer>(null);
 

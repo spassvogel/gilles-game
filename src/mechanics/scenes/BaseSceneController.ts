@@ -6,7 +6,7 @@ import { loadResourceAsync } from 'utils/pixiJs';
 import { TiledLayerType, TiledMapData, TiledObjectData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'store/types/adventurer';
-import { setScene, setSceneName, exitEncounter, enqueueSceneAction, updateQuestVars, deductActorAp, endPlayerTurn } from 'store/actions/quests';
+import { setScene, setSceneName, exitEncounter, enqueueSceneAction, updateQuestVars, deductActorAp, endPlayerTurn, setActorLocation } from 'store/actions/quests';
 import {
   SceneObject,
   ActorObject,
@@ -19,6 +19,7 @@ import {
   Allegiance,
   EnemyObject,
   AdventurerObject,
+  getUniqueName,
 } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
@@ -244,47 +245,44 @@ export class BaseSceneController<TQuestVars> {
     switch (action) {
       case SceneActionType.move: {
         // Find path to move using aStar
-        const path = this.findPath(location, to);
-        path?.forEach((l, index) => {
-          // Queue up all the steps
-          const sceneAction: SceneAction = {
-            // actionType: SceneActionType.move,
-            // actor: getUniqueName(actor),
-            // target: l as Location,
-            endsAt: movementDuration * (index + 1) + performance.now(),
-            intent: { ...intent, to: l },
-          };
-          this.dispatch(enqueueSceneAction(this.questName, sceneAction));
-        });
-        console.log('move', this.combat);
+
+        this.dispatch(enqueueSceneAction(this.questName, {
+          endsAt: performance.now() + (intent.path?.length ?? 0 + 1) * movementDuration,
+          intent,
+        }));
+
         if (!this.combat) {
+          // Other adventurers follow this adventurer
           const otherAdventurers = this.sceneAdventurers.filter(a => a !== actor);
-          console.log(otherAdventurers);
-          const availableLocations = this.findEmptyLocationsAround(to, 2);
-          const otherAdventurer = otherAdventurers[0];
-          const otherAdventurerLocation = otherAdventurer.location;
-          if (otherAdventurerLocation) {
+          console.log('the others', otherAdventurers);
+          let availableLocations = this.findEmptyLocationsAround(to, 4);
 
-            const otherPath = this.findPath(otherAdventurerLocation, availableLocations[0]);
-            if (otherPath) {
-              otherPath?.forEach((l, index) => {
-                // Queue up all the steps
-                const sceneAction: SceneAction = {
-                  // actionType: SceneActionType.move,
-                  // actor: getUniqueName(otherAdventurer),
-                  // target: l as Location,
-                  endsAt: movementDuration * (index + 1) + performance.now(),
-                  intent: {
-                    ...intent,
-                    to: l,
-                    actor: otherAdventurer,
-                  },
+          otherAdventurers.forEach(otherAdventurer => {
+
+            const otherAdventurerLocation = otherAdventurer.location;
+            if (otherAdventurerLocation) {
+
+              const closestPath = this.findClosestPath(otherAdventurerLocation, availableLocations);
+              console.log('finding a path for ', otherAdventurer, closestPath);
+              if (closestPath && closestPath.length > 0) {
+                availableLocations = availableLocations.filter(l => !locationEquals(l, closestPath[closestPath?.length - 1]));
+                const otherIntent: ActionIntent = {
+                  ...intent,
+                  from: otherAdventurerLocation,
+                  to: closestPath[closestPath?.length - 1],
+                  actor: otherAdventurer,
+                  path: closestPath,
                 };
-                // this.dispatch(enqueueSceneAction(this.questName, sceneAction));
-              });
-            }
-          }
 
+                this.dispatch(enqueueSceneAction(this.questName, {
+                  endsAt: performance.now() + (otherIntent.path?.length ?? 0 + 1) * movementDuration,
+                  intent: otherIntent,
+                }));
+              }
+            }
+
+          });
+          console.log(otherAdventurers);
         }
         break;
       }
@@ -353,6 +351,16 @@ export class BaseSceneController<TQuestVars> {
         this.dispatch(enqueueSceneAction(this.questName, shootAction));
       }
     }
+  }
+
+  findClosestPath(from: Location, locations: Location[]) {
+    return locations.reduce<Location[] | undefined>((acc, value) => {
+      const path = this.findPath(from, value);
+      if (acc === undefined || (path?.length ?? Number.MAX_VALUE) < acc?.length) {
+        acc = path;
+      }
+      return acc;
+    }, undefined);
   }
 
   interactWithObject(_actor: AdventurerObject, _object: SceneObject) {

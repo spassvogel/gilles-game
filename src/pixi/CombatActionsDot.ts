@@ -82,7 +82,7 @@ class CombatActionDot extends Container {
       tab.addChild(icon);
 
       tab.on('pointerover', () => {
-        this.text.text = val.action;
+        this.text.text = SceneActionType[val.action] as string;
         this.activeAction = val.action;
       });
 

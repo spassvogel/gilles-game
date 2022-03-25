@@ -391,6 +391,32 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
     //   });
     // }
 
+    case 'setActorLocation': {
+      return state.map((qss) => {
+        if (qss.name === action.questName) {
+          const scene = qss.scene;
+          if (!scene) throw new Error('Something broke. No scene');
+
+          scene.objects = scene.objects.map(o => {
+            if (getUniqueName(o) === action.actor) {
+              const location = action.location;
+              return {
+                ...o,
+                location,
+              };
+            }
+            return o;
+          });
+
+          return {
+            ...qss,
+            scene,
+          };
+        }
+        return qss;
+      });
+    }
+
     case 'setActiveSceneInteractionModal': {
       return state.map((qss: QuestStoreState) => {
         if (qss.name === action.questName && qss.scene) {

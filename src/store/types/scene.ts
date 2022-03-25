@@ -105,3 +105,8 @@ export enum SceneActionType {
   shoot = 'shoot',
 }
 
+// move,
+// interact,
+// melee,
+// shoot,
+// }

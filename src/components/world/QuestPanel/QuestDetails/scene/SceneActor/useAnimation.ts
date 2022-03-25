@@ -8,7 +8,8 @@ import { CombatController } from 'mechanics/scenes/CombatController';
 import { completeSceneAction } from 'store/actions/quests';
 import { StoreState } from 'store/types';
 import { getUniqueName, SceneAction, SceneActionType } from 'store/types/scene';
-import { Location } from 'utils/tilemap';
+import { Location, locationEquals } from 'utils/tilemap';
+import usePrevious from 'hooks/usePrevious';
 import { Orientation } from '.';
 
 export const allAnimations = ['stand', 'attack', 'walk', 'die'] as const;
@@ -27,7 +28,7 @@ const useAnimation = (
   const timeout = useRef<NodeJS.Timeout>();
   const dispatch = useDispatch();
   const quest = useQuest(controller.questName);
-
+  const prevLocation = usePrevious(location);
   const actionQueueSelector = useCallback(() => {
     if (!quest.scene?.actionQueue) {
       return [];
@@ -35,6 +36,35 @@ const useAnimation = (
     return quest.scene.actionQueue.filter(a => (getUniqueName(a.intent.actor) === actorName));
   }, [quest.scene, actorName]);
 
+  // if (!locationEquals(prevLocation ?? [0, 0], location)) {
+  //   console.log('prev loc', prevLocation, 'current loc', location);
+  // const moveComplete = () => {
+  //   setAnimation('stand');
+  //   console.log('completing an action', actorName, quest.name);
+  //   dispatch(completeSceneAction(quest.name, actorName));
+  //   controller.actorMoved(actorName, nextAction.intent.to);
+  // };
+
+  // const duration = (nextAction.endsAt - performance.now()) / 1000;
+  // if (duration < 0) {
+  //   moveComplete();
+  // }
+
+  // // determine orientation
+  // determineOrientation();
+  // setAnimation('walk');
+  // gsap.killTweensOf(actorRef.current);
+  // tween.current = gsap.to(actorRef.current, {
+  //   duration,
+  //   ease: 'linear',
+  //   pixi: {
+  //     x: nextAction.intent.to[0] * tileWidth,
+  //     y: nextAction.intent.to[1] * tileHeight,
+  //   },
+  //   onComplete: moveComplete,
+  // });
+  // break;
+  // }
   // const actionQueueIntentsSelector = useCallback(() => {
   //   if (!quest.scene?.actionQueue) {
   //     return [];
@@ -53,7 +83,7 @@ const useAnimation = (
 
   const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
   const [animation, setAnimation] = useState<Animation>('stand');
-  const tween = useRef<gsap.core.Tween>();
+  const animationTimeline = useRef<gsap.core.Timeline>();
   const nextAction = actionQueue[0];
 
   useEffect(() => {
@@ -65,25 +95,26 @@ const useAnimation = (
   // Handle actions
   useEffect(() => {
     // Determines orientation based on where the target is
-    const determineOrientation = () => {
-      if (location[0] === nextAction.intent.to[0] && location[1] > nextAction.intent.to[1]) {
+    const determineOrientation = (currentLocation: Location, target: Location) => {
+      if (currentLocation[0] === target[0] && currentLocation[1] > target[1]) {
         setOrientation(Orientation.north);
-      } else if (location[0] < nextAction.intent.to[0] && location[1] > nextAction.intent.to[1]) {
+      } else if (currentLocation[0] < target[0] && currentLocation[1] > target[1]) {
         setOrientation(Orientation.northEast);
-      } else if (location[0] < nextAction.intent.to[0] && location[1] === nextAction.intent.to[1]) {
+      } else if (currentLocation[0] < target[0] && currentLocation[1] === target[1]) {
         setOrientation(Orientation.east);
-      } else if (location[0] < nextAction.intent.to[0] && location[1] < nextAction.intent.to[1]) {
+      } else if (currentLocation[0] < target[0] && currentLocation[1] < target[1]) {
         setOrientation(Orientation.southEast);
-      } else if (location[0] === nextAction.intent.to[0] && location[1] < nextAction.intent.to[1]) {
+      } else if (currentLocation[0] === target[0] && currentLocation[1] < target[1]) {
         setOrientation(Orientation.south);
-      } else if (location[0] > nextAction.intent.to[0] && location[1] < nextAction.intent.to[1]) {
+      } else if (currentLocation[0] > target[0] && currentLocation[1] < target[1]) {
         setOrientation(Orientation.southWest);
-      } else if (location[0] > nextAction.intent.to[0] && location[1] === nextAction.intent.to[1]) {
+      } else if (currentLocation[0] > target[0] && currentLocation[1] === target[1]) {
         setOrientation(Orientation.west);
-      } else if (location[0] > nextAction.intent.to[0] && location[1] > nextAction.intent.to[1]) {
+      } else if (currentLocation[0] > target[0] && currentLocation[1] > target[1]) {
         setOrientation(Orientation.northWest);
       }
     };
+
     if (nextAction && nextAction !== previousAction.current) {
       const { intent } = nextAction;
       // console.log(`next action is ${nextAction.intent.to} (${nextAction.actionType}), \ncurrent location is: ${location}\nprev action was ${previousAction?.current?.target} `)
@@ -102,22 +133,28 @@ const useAnimation = (
           }
 
           // determine orientation
-          determineOrientation();
           setAnimation('walk');
           gsap.killTweensOf(actorRef.current);
-          tween.current = gsap.to(actorRef.current, {
-            duration,
-            ease: 'linear',
-            pixi: {
-              x: nextAction.intent.to[0] * tileWidth,
-              y: nextAction.intent.to[1] * tileHeight,
-            },
-            onComplete: moveComplete,
+          animationTimeline.current = gsap.timeline({ onComplete: moveComplete });
+          nextAction.intent.path?.forEach((l, index) => {
+            // Queue up all the steps
+            animationTimeline.current?.to(actorRef.current, {
+              duration: duration / (nextAction.intent.path?.length ?? 1),
+              ease: 'linear',
+              pixi: {
+                x: l[0] * tileWidth,
+                y: l[1] * tileHeight,
+              },
+              onStart: () => {
+                const currentLocation = nextAction.intent.path?.[index - 1] ?? location;
+                determineOrientation(currentLocation, l);
+              },
+            });
           });
           break;
         }
         case SceneActionType.melee: {
-          determineOrientation();
+          // determineOrientation();
           setAnimation('attack');
           CombatController.actorMeleeStart(actorName, intent);
 
@@ -130,7 +167,7 @@ const useAnimation = (
           break;
         }
         case SceneActionType.shoot: {
-          determineOrientation();
+          // determineOrientation();
           setAnimation('attack');
           CombatController.actorShootStart(actorName, intent);
 
@@ -165,7 +202,7 @@ const useAnimation = (
 
   useEffect(() => {
     return () => {
-      tween.current?.kill();
+      animationTimeline.current?.kill();
     };
   }, []);
 
