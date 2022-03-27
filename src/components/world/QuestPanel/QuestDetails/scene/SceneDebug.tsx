@@ -67,6 +67,7 @@ const SceneDebug = (props: Props) => {
       allLocations.map(([x, y]) => (
         <Text
           anchor={0.5}
+          alpha={0.5}
           style={style}
           x={x * tileWidth + tileWidth / 2}
           y={y * tileHeight + tileHeight / 2}
