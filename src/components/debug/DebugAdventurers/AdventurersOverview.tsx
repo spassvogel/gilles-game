@@ -4,13 +4,18 @@ import { TextManager } from 'global/TextManager';
 import { useAdventurers } from 'hooks/store/adventurers';
 import './styles/adventurersOverview.scss';
 
-const AdventurersOverview = () => {
+type Props = {
+  onSetSelectedId: (id: string) => void
+};
+
+const AdventurersOverview = (props: Props) => {
+  const { onSetSelectedId } = props;
   const adventurers = useAdventurers();
 
   return (
     <div className="adventurers-overview">
       {adventurers.map(a => (
-        <div className="adventurer" key={a.id}>
+        <div className="adventurer" key={a.id} onClick={() => onSetSelectedId(a.id)}>
           <AdventurerAvatar adventurer={a} size={IconSize.biggest} />
           <div className="name">
             {TextManager.getAdventurerName(a.id)}

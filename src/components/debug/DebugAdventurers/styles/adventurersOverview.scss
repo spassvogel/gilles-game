@@ -18,6 +18,12 @@
       width: 100%;
       height: 0;
       padding-bottom: 100%;
+      border: 2px solid $color-secondary;
+		  cursor: var(--app-cursor-pointer);
+
+      &:hover {
+        border: 2px solid $color-highlighted;
+      }
     }
 
     .name {

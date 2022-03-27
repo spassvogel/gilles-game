@@ -70,7 +70,7 @@ const DebugAdventurers = () => {
         <DebugAdventurerEdit adventurerId={selectedId} />
       )}
       {! selectedId && (
-        <AdventurersOverview />
+        <AdventurersOverview onSetSelectedId={setSelectedId} />
       )}
     </div>
   );
