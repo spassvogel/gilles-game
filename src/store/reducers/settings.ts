@@ -8,6 +8,7 @@ export const initialSettingsState: SettingsState = {
   debugEnableDebugDrawer: true,
   debugAllowAdventurerEdit: false,
   debugSceneShowPathable: false,
+  debugSceneShowCellLocations: false,
   debugSceneShowActionQueue: false,
 };
 

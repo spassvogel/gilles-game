@@ -3,5 +3,6 @@ export interface SettingsState {
   debugEnableDebugDrawer: boolean
   debugAllowAdventurerEdit: boolean
   debugSceneShowPathable: boolean
+  debugSceneShowCellLocations: boolean
   debugSceneShowActionQueue: boolean
 }

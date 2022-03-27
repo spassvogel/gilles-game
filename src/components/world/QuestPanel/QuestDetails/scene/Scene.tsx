@@ -1,5 +1,5 @@
 import { useRef, useEffect, useContext, useState } from 'react';
-import { Container, Graphics } from '@inlet/react-pixi';
+import { Container } from '@inlet/react-pixi';
 import { useQuestScene } from 'hooks/store/quests';
 import { Location } from 'utils/tilemap';
 import Tilemap from './Tilemap';
@@ -13,6 +13,7 @@ import SceneLog from './SceneLog';
 import { CombatController } from 'mechanics/scenes/CombatController';
 import { Rectangle } from 'pixi.js';
 import { useSettings } from 'hooks/store/settings';
+import SceneDebug from './SceneDebug';
 import './styles/scene.scss';
 
 export interface Props {
@@ -90,27 +91,7 @@ const Scene = (props: Props) => {
             setSelectedActor={setSelectedActor}
           />
           { currentActionIntent && (<ActionPreview actionIntent={currentActionIntent} tileWidth={tileWidth} tileHeight={tileHeight}/>)}
-          {settings.debugSceneShowPathable && (
-            <Graphics
-              name="blocked-tiles"
-              draw={graphics => {
-                const line = 3;
-                for (let y = 0; y < mapData.height; y++) {
-                  for (let x = 0; x < mapData.width; x++) {
-                    const blocked = controller.locationIsBlocked([x, y]);
-
-                    if (blocked) {
-                      graphics.lineStyle(line, 0xFF0000);
-                    } else {
-                      graphics.lineStyle(line, 0xFFFFFF);
-                    }
-                    graphics.drawRect(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
-                    graphics.endFill();
-                  }
-                }
-              }}
-            />
-          )}
+          <SceneDebug controller={controller} />
         </Container>
       </BridgedStage>
       {settings.debugSceneShowActionQueue && (
