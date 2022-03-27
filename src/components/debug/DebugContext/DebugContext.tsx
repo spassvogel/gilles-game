@@ -1,6 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import { getTownLink, getWorldLink } from 'utils/routing';
 import DebugContextTown from './DebugContextTown';
+import DebugContextWorld from './DebugContextWorld';
 import './styles/debugContext.scss';
 
 const DebugContext = () => {
@@ -9,7 +10,7 @@ const DebugContext = () => {
     <div className="debug-context">
        <Switch>
         <Route path={getWorldLink()}>
-          in world
+          <DebugContextWorld />
         </Route>
         <Route path={getTownLink()}>
           <DebugContextTown />

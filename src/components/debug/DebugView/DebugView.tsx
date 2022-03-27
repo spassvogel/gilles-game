@@ -10,7 +10,7 @@ const allPages = ['context', 'items',  'sprites', 'adventurers'] as const;
 type Page = typeof allPages[number];
 
 const DebugView = () => {
-  const [page, setPage] = useState<Page>('items');
+  const [page, setPage] = useState<Page>('context');
 
   return (
     <div className="debug">

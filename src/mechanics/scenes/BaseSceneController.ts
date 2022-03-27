@@ -19,7 +19,6 @@ import {
   Allegiance,
   EnemyObject,
   AdventurerObject,
-  getUniqueName,
 } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';

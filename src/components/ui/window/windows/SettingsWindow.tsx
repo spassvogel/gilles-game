@@ -86,17 +86,6 @@ const SettingsWindow = () => {
         <summary>Debug</summary>
         <section>
           <p>
-          <label>Allow adventurer stats edit</label>
-          <input
-            type="checkbox"
-            checked={settings.debugAllowAdventurerEdit}
-            setting-name="debugAllowAdventurerEdit"
-            onChange={handleBooleanChange}
-          />
-        </p>
-        </section>
-        <section>
-          <p>
           <label>Enable debug drawer (~ key)</label>
           <input
             type="checkbox"
@@ -106,28 +95,7 @@ const SettingsWindow = () => {
           />
         </p>
         </section>
-        <section>
-          <p>
-          <label>Show pathable tiles in scene</label>
-          <input
-            type="checkbox"
-            checked={settings.debugSceneShowPathable}
-            setting-name="debugSceneShowPathable"
-            onChange={handleBooleanChange}
-          />
-        </p>
-        </section>
-        <section>
-          <p>
-          <label>Show action queue tiles in scene</label>
-          <input
-            type="checkbox"
-            checked={settings.debugSceneShowActionQueue}
-            setting-name="debugSceneShowActionQueue"
-            onChange={handleBooleanChange}
-          />
-        </p>
-        </section>
+
       </details>
     </div>
   );
