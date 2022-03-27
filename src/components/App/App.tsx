@@ -172,10 +172,10 @@ const App = () => {
           </Switch>
           <SimpleLog/>
           {renderWindow()}
+          <DebugDrawer />
           <ContextTooltip />
           <Toasts />
           <Bubbles layer={BubbleLayer.general} />
-          <DebugDrawer />
         </HashRouter>
         </DndProvider>
       </div>
