@@ -3,9 +3,9 @@ import { Structure } from 'definitions/structures';
 import { useStructureState } from 'hooks/store/structures';
 import { StructureState } from 'store/types/structure';
 import { TextManager } from 'global/TextManager';
-import { TextMetrics, TextStyle } from '@pixi/text';
 import { BlurFilter } from '@pixi/filter-blur';
 import StructureIconSprite from './StructureIconSprite';
+import { TextStyle, TextMetrics } from 'pixi.js';
 
 interface Props {
   structure: Structure;
