@@ -28,13 +28,13 @@ const useAnimation = (
   const timeout = useRef<NodeJS.Timeout>();
   const dispatch = useDispatch();
   const quest = useQuest(controller.questName);
-  const prevLocation = usePrevious(location);
-  const actionQueueSelector = useCallback(() => {
+
+  const actionSelector = useCallback(() => {
     if (!quest.scene?.actionQueue) {
-      return [];
+      return undefined;
     }
-    return quest.scene.actionQueue.filter(a => (getUniqueName(a.intent.actor) === actorName));
-  }, [quest.scene, actorName]);
+    return quest.scene.actionQueue.filter(a => (getUniqueName(a.intent.actor) === actorName))[0];
+  }, [quest.scene?.actionQueue, actorName]);
 
   // if (!locationEquals(prevLocation ?? [0, 0], location)) {
   //   console.log('prev loc', prevLocation, 'current loc', location);
@@ -81,10 +81,9 @@ const useAnimation = (
   //   }, []);
   // }, [quest.scene, actorName]);
 
-  const actionQueue = useSelector<StoreState, SceneAction[]>(actionQueueSelector);
+  const nextAction = useSelector<StoreState, SceneAction | undefined>(actionSelector);
   const [animation, setAnimation] = useState<Animation>('stand');
   const animationTimeline = useRef<gsap.core.Timeline>();
-  const nextAction = actionQueue[0];
 
   useEffect(() => {
     if (health <= 0) {
@@ -122,7 +121,7 @@ const useAnimation = (
         case SceneActionType.move: {
           const moveComplete = () => {
             setAnimation('stand');
-            console.log('completing an action', actorName, quest.name);
+            console.log('completing an action', actorName, quest.name, nextAction.intent.path![nextAction.intent.path!.length - 1], nextAction.intent.to);
             dispatch(completeSceneAction(quest.name, actorName));
             controller.actorMoved(actorName, nextAction.intent.to);
           };
@@ -132,10 +131,11 @@ const useAnimation = (
             moveComplete();
           }
 
-          // determine orientation
-          setAnimation('walk');
-          gsap.killTweensOf(actorRef.current);
-          animationTimeline.current = gsap.timeline({ onComplete: moveComplete });
+          // gsap.killTweensOf(actorRef.current);
+          animationTimeline.current = gsap.timeline({
+            delay: nextAction.delay,
+            onComplete: moveComplete,
+          });
           nextAction.intent.path?.forEach((l, index) => {
             // Queue up all the steps
             animationTimeline.current?.to(actorRef.current, {
@@ -146,8 +146,11 @@ const useAnimation = (
                 y: l[1] * tileHeight,
               },
               onStart: () => {
+                console.log('moving ', actorName, l);
+                // determine orientation
                 const currentLocation = nextAction.intent.path?.[index - 1] ?? location;
                 determineOrientation(currentLocation, l);
+                setAnimation('walk');
               },
             });
           });

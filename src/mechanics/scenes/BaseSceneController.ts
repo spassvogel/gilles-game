@@ -250,39 +250,40 @@ export class BaseSceneController<TQuestVars> {
           endsAt: performance.now() + (intent.path?.length ?? 0 + 1) * movementDuration,
           intent,
         }));
+        console.log('moving to', intent.to);
 
         if (!this.combat) {
           // Other adventurers follow this adventurer
           const otherAdventurers = this.sceneAdventurers.filter(a => a !== actor);
-          console.log('the others', otherAdventurers);
-          let availableLocations = this.findEmptyLocationsAround(to, 4);
+          let availableLocations = this.findEmptyLocationsAround(to, 6);
 
-          otherAdventurers.forEach(otherAdventurer => {
-
-            const otherAdventurerLocation = otherAdventurer.location;
-            if (otherAdventurerLocation) {
-
-              const closestPath = this.findClosestPath(otherAdventurerLocation, availableLocations);
-              console.log('finding a path for ', otherAdventurer, closestPath);
-              if (closestPath && closestPath.length > 0) {
-                availableLocations = availableLocations.filter(l => !locationEquals(l, closestPath[closestPath?.length - 1]));
-                const otherIntent: ActionIntent = {
-                  ...intent,
-                  from: otherAdventurerLocation,
-                  to: closestPath[closestPath?.length - 1],
-                  actor: otherAdventurer,
-                  path: closestPath,
-                };
-
-                this.dispatch(enqueueSceneAction(this.questName, {
-                  endsAt: performance.now() + (otherIntent.path?.length ?? 0 + 1) * movementDuration,
-                  intent: otherIntent,
-                }));
-              }
+          otherAdventurers.forEach((otherAdventurer, index) => {
+            const health = this.getAdventurerByActor(otherAdventurer)?.health ?? 0;
+            if (!otherAdventurer.location || health <= 0) {
+              return;
             }
 
+            const closestPath = this.findClosestPath(otherAdventurer.location, availableLocations);
+            if (closestPath && closestPath.length > 0) {
+              console.log('finding a path for ', otherAdventurer, closestPath[closestPath?.length - 1], closestPath);
+              availableLocations = availableLocations.filter(l => !locationEquals(l, closestPath[closestPath?.length - 1]));
+              const otherIntent: ActionIntent = {
+                ...intent,
+                from: otherAdventurer.location,
+                to: closestPath[closestPath?.length - 1],
+                actor: otherAdventurer,
+                path: closestPath,
+              };
+
+              this.dispatch(enqueueSceneAction(this.questName, {
+                endsAt: performance.now() + (otherIntent.path?.length ?? 0 + 1) * movementDuration,
+                intent: otherIntent,
+                delay: (index + 1) / 2,
+              }));
+            }
+
+
           });
-          console.log(otherAdventurers);
         }
         break;
       }
@@ -356,7 +357,8 @@ export class BaseSceneController<TQuestVars> {
   findClosestPath(from: Location, locations: Location[]) {
     return locations.reduce<Location[] | undefined>((acc, value) => {
       const path = this.findPath(from, value);
-      if (acc === undefined || (path?.length ?? Number.MAX_VALUE) < acc?.length) {
+      if (acc === undefined || (path && path?.length < acc.length)) {
+        console.log(from, '\nfound a path', path, '\nits smaller than tge current', acc, '\nall locs', locations);
         acc = path;
       }
       return acc;

@@ -96,6 +96,7 @@ export interface LootCache {
 export interface SceneAction {
   intent: ActionIntent;
   endsAt: number;
+  delay?: number;
 }
 
 export enum SceneActionType {
