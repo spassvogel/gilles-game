@@ -31,6 +31,7 @@ export type GameSound =
   'ui/error' |
   'ui/levelUp' |
   'ui/toast' |
+  'music/combat' |
   'music/town' |
   'music/world' |
   'music/violettesElficSong' |
@@ -123,6 +124,7 @@ export class SoundManager {
     if (!this._initialized) {
       await this.init();
     }
+
     const pixiSound = this.getSound(gameSound);
     pixiSound.volume = this._channelVolume[channel];
     pixiSound.loop = loop;
@@ -179,6 +181,10 @@ export class SoundManager {
 
   public static getCurrentlyPlaying(channel: Channel) {
     return this._currentSound[channel]?.gameSound;
+  }
+
+  public static hasSoundLoaded(sound:  GameSound) {
+    return !!this._sounds[sound];
   }
 
   public static set musicFiltered(value: boolean) {

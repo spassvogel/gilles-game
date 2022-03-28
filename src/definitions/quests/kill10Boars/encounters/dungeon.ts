@@ -120,9 +120,17 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
       // this.questUpdate("quest-kill10-boars-enter-dungeon-see-chest");
     }
     this.previousMusic = SoundManager.getCurrentlyPlaying(Channel.music);
-    SoundManager.addSound('music/violettesElficSong', ['sound/music/ViolettesElficSongForLamentandHope.ogg'], () => {
-      SoundManager.playSound('music/violettesElficSong', Channel.music, true, MixMode.fade, true);
-    });
+
+    if (this.combat){
+      SoundManager.addSound('music/combat', 'sound/music/TribalHut.ogg', () => {
+        SoundManager.playSound('music/combat', Channel.music, true, MixMode.fade, true);
+      });
+    } else {
+      SoundManager.addSound('music/violettesElficSong', ['sound/music/ViolettesElficSongForLamentandHope.ogg'], () => {
+        SoundManager.playSound('music/violettesElficSong', Channel.music, true, MixMode.fade, true);
+      });
+    }
+
 
     super.sceneEntered();
   }

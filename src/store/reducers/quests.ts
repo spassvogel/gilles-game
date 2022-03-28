@@ -166,7 +166,6 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
             case SceneActionType.move: {
               scene.objects = scene.objects.map((a) => {
                 if (getUniqueName(a) === action.actorName) {
-                  console.log('the new location is ', sceneAction.intent.to, sceneAction.intent.actor);
                   return {
                     ...a,
                     // location: sceneAction.intent.path![sceneAction.intent.path!.length - 1],
