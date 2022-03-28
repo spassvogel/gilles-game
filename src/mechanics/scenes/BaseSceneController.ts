@@ -730,6 +730,9 @@ export class BaseSceneController<TQuestVars> {
 
             adventurers.forEach((adventurer, i) => {
               if (!object) throw new Error();
+              if (adventurer.health <= 0) {
+                return;
+              }
 
               const x = Math.round(object.x);
               const y = Math.round(object.y);
