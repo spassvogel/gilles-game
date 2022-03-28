@@ -34,10 +34,11 @@ const generateAttributesHealthAndXp = (level = 1) => {
 };
 const avatarImgBasePath = '/img/avatars/';
 const spritesheetBasePath = 'img/scene/actors/';
+export const ADVENTURER_PREFIX = 'adv_';
 
 // Create a bunch of guys for debugging
 export const initialAdventurers: AdventurerStoreState[] = [{
-  id: 'c4a5d270',
+  id: `${ADVENTURER_PREFIX}c4a5d270`,
   equipment: {
     [EquipmentSlotType.head]: { type: 'apparel/cowl', durability: 0.25 },
     [EquipmentSlotType.chest]: { type: 'apparel/chest', durability: 0.5 },
@@ -64,7 +65,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   tempEffects: [],
   inventory: [ { type: 'deed/lumbermill' }, null, { type: 'weapon/simpleCrossbow' }, { type: 'weapon/dagger' }, { type: 'weapon/khopesh' }, null, { type: 'weapon/steelSword' }, null,  { type: 'consumable/lesserSoma' }, { type: 'consumable/minorSoma' }, { type: 'consumable/greaterManaPotion' },  { type: 'consumable/majorHealthPotion' },  null,  { type: 'weapon/steelShield' },  null,  null,  null,  null],
 }, {
-  id: '2e655832',
+  id: `${ADVENTURER_PREFIX}2e655832`,
   equipment: {
     [EquipmentSlotType.feet]: { type: 'apparel/boots2' },
     [EquipmentSlotType.mainHand]: { type: 'weapon/simpleCrossbow' },
@@ -86,7 +87,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   tempEffects: [],
   inventory: [ { type: 'weapon/simpleCrossbow' }, null, { type: 'consumable/greaterSoma' }, null, null, null, { type: 'apparel/boots1' }, { type: 'apparel/chainmailHood' }, { type: 'apparel/nomadHelmet' }, { type: 'apparel/plateChest4' }, null, { type: 'weapon/buckler' }, null, null, null,  null,  null,  null,  null,  null,  null,  null,  null, { type: 'apparel/plateHelmet' }, { type: 'apparel/cowl' }],
 }, {
-  id: 'ec6f1050',
+  id: `${ADVENTURER_PREFIX}ec6f1050`,
   equipment: {
     [EquipmentSlotType.feet]: { type: 'apparel/boots3' },
     [EquipmentSlotType.mainHand]: { type: 'weapon/greatswordOfGwai' },
@@ -130,7 +131,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   // }],
   inventory: [{ type: 'weapon/greatswordOfGwai' }, { type: 'consumable/greaterSoma' }, { type: 'consumable/greaterSoma' }, null, null, null, { type: 'weapon/berserkerShield' }, { type: 'weapon/warhammer' }],
 }, {
-  id: 'd299f98a',
+  id: `${ADVENTURER_PREFIX}d299f98a`,
   ...generateAttributesHealthAndXp(),
   equipment: {
     [EquipmentSlotType.mainHand]: { type: 'weapon/steelSword' },
@@ -164,7 +165,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   tempEffects: [],
   inventory: [ null, null, null, { type: 'weapon/goldenShield' }],
 }, {
-  id: '250d1a9d',
+  id: `${ADVENTURER_PREFIX}250d1a9d`,
   ...generateAttributesHealthAndXp(),
   name: 'Alexis Ortiz ',
   flavor: true,
@@ -182,7 +183,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   },
   tempEffects: [],
 }, {
-  id: '169384ef',
+  id: `${ADVENTURER_PREFIX}169384ef`,
   ...generateAttributesHealthAndXp(),
   name: 'Karlee Nolan',
   flavor: true,
@@ -200,7 +201,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   },
   tempEffects: [],
 }, {
-  id: 'f22d66cb',
+  id: `${ADVENTURER_PREFIX}f22d66cb`,
   ...generateAttributesHealthAndXp(),
   equipment: {},
   name: 'Gylbarde the Earnest',
@@ -214,7 +215,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   },
   tempEffects: [],
 }, {
-  id: '36c686c1',
+  id: `${ADVENTURER_PREFIX}36c686c1`,
   equipment: {},
   ...generateAttributesHealthAndXp(),
   name: 'Lanslet of the Water',
@@ -228,7 +229,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   },
   tempEffects: [],
 }, {
-  id: '12c613d4',
+  id: `${ADVENTURER_PREFIX}12c613d4`,
   equipment: {},
   ...generateAttributesHealthAndXp(),
   name: 'Tedric the Bold',
@@ -248,7 +249,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     }),
   ],
 }, {
-  id: '5a402ef1',
+  id: `${ADVENTURER_PREFIX}5a402ef1`,
   equipment: {
     [EquipmentSlotType.head]: { type: 'apparel/crimsonRogueCoif', durability: 0.25 },
     [EquipmentSlotType.chest]: { type: 'apparel/crimsonRogueTunic', durability: 0.5 },

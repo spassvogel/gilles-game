@@ -8,8 +8,7 @@ import { CombatController } from 'mechanics/scenes/CombatController';
 import { completeSceneAction } from 'store/actions/quests';
 import { StoreState } from 'store/types';
 import { getUniqueName, SceneAction, SceneActionType } from 'store/types/scene';
-import { Location, locationEquals } from 'utils/tilemap';
-import usePrevious from 'hooks/usePrevious';
+import { Location } from 'utils/tilemap';
 import { Orientation } from '.';
 
 export const allAnimations = ['stand', 'attack', 'walk', 'die'] as const;
@@ -35,51 +34,6 @@ const useAnimation = (
     }
     return quest.scene.actionQueue.filter(a => (getUniqueName(a.intent.actor) === actorName))[0];
   }, [quest.scene?.actionQueue, actorName]);
-
-  // if (!locationEquals(prevLocation ?? [0, 0], location)) {
-  //   console.log('prev loc', prevLocation, 'current loc', location);
-  // const moveComplete = () => {
-  //   setAnimation('stand');
-  //   console.log('completing an action', actorName, quest.name);
-  //   dispatch(completeSceneAction(quest.name, actorName));
-  //   controller.actorMoved(actorName, nextAction.intent.to);
-  // };
-
-  // const duration = (nextAction.endsAt - performance.now()) / 1000;
-  // if (duration < 0) {
-  //   moveComplete();
-  // }
-
-  // // determine orientation
-  // determineOrientation();
-  // setAnimation('walk');
-  // gsap.killTweensOf(actorRef.current);
-  // tween.current = gsap.to(actorRef.current, {
-  //   duration,
-  //   ease: 'linear',
-  //   pixi: {
-  //     x: nextAction.intent.to[0] * tileWidth,
-  //     y: nextAction.intent.to[1] * tileHeight,
-  //   },
-  //   onComplete: moveComplete,
-  // });
-  // break;
-  // }
-  // const actionQueueIntentsSelector = useCallback(() => {
-  //   if (!quest.scene?.actionQueue) {
-  //     return [];
-  //   }
-  //   return quest.scene.actionQueue.reduce<ActionIntent[]>((acc, value) => {
-  //     const intentsForThisActor = value.actions.filter((i) => (getUniqueName(i.actor) === actorName));
-  //     if (intentsForThisActor.length) {
-  //       return [
-  //         ...acc,
-  //         ...intentsForThisActor,
-  //       ];
-  //     }
-  //     return acc;
-  //   }, []);
-  // }, [quest.scene, actorName]);
 
   const nextAction = useSelector<StoreState, SceneAction | undefined>(actionSelector);
   const [animation, setAnimation] = useState<Animation>('stand');
@@ -121,7 +75,6 @@ const useAnimation = (
         case SceneActionType.move: {
           const moveComplete = () => {
             setAnimation('stand');
-            console.log('completing an action', actorName, quest.name, nextAction.intent.path![nextAction.intent.path!.length - 1], nextAction.intent.to);
             dispatch(completeSceneAction(quest.name, actorName));
             controller.actorMoved(actorName, nextAction.intent.to);
           };
@@ -146,7 +99,6 @@ const useAnimation = (
                 y: l[1] * tileHeight,
               },
               onStart: () => {
-                console.log('moving ', actorName, l);
                 // determine orientation
                 const currentLocation = nextAction.intent.path?.[index - 1] ?? location;
                 determineOrientation(currentLocation, l);
