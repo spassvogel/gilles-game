@@ -131,7 +131,7 @@ const useAnimation = (
             moveComplete();
           }
 
-          // gsap.killTweensOf(actorRef.current);
+          gsap.killTweensOf(actorRef.current);
           animationTimeline.current = gsap.timeline({
             delay: nextAction.delay,
             onComplete: moveComplete,

@@ -22,9 +22,10 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children' | 'name
 
   const ref = useRef<PixiContainer>(null);
   const adventurer = useAdventurer(actor.adventurerId);
+  const { health } = adventurer;
 
   return (
-    <Container ref={ref}>
+    <Container ref={ref} zIndex={health}>
       <SceneActor
         actor={actor}
         health={adventurer.health}

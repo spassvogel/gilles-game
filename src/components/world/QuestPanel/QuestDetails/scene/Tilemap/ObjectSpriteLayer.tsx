@@ -15,7 +15,7 @@ const ObjectSpriteLayer = (props: Props) => {
   const { objects, controller } = props;
 
   return (
-    <Container>
+    <Container sortableChildren>
       {objects.map((object) => {
         const { location } = object;
         const { adventurerId, spritesheet } = object.properties as { [key: string]: string };

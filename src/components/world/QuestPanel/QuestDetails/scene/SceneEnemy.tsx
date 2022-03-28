@@ -16,9 +16,10 @@ const SceneEnemy = (props: Props & Omit<SceneActorProps, 'children' | 'name' | '
     selected,
     spritesheetPath,
   } = props;
+  const { health } = actor;
 
   return (
-    <Container>
+    <Container zIndex={health}>
       <SceneActor
         actor={actor}
         health={actor.health}
