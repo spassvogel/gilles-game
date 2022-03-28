@@ -249,7 +249,6 @@ export class BaseSceneController<TQuestVars> {
           endsAt: performance.now() + (intent.path?.length ?? 0 + 1) * movementDuration,
           intent,
         }));
-        console.log('moving to', intent.to);
 
         if (!this.combat) {
           // Other adventurers follow this adventurer
@@ -264,7 +263,6 @@ export class BaseSceneController<TQuestVars> {
 
             const closestPath = this.findClosestPath(otherAdventurer.location, availableLocations);
             if (closestPath && closestPath.length > 0) {
-              console.log('finding a path for ', otherAdventurer, closestPath[closestPath?.length - 1], closestPath);
               availableLocations = availableLocations.filter(l => !locationEquals(l, closestPath[closestPath?.length - 1]));
               const otherIntent: ActionIntent = {
                 ...intent,
@@ -357,7 +355,6 @@ export class BaseSceneController<TQuestVars> {
     return locations.reduce<Location[] | undefined>((acc, value) => {
       const path = this.findPath(from, value);
       if (acc === undefined || (path && path?.length < acc.length)) {
-        console.log(from, '\nfound a path', path, '\nits smaller than tge current', acc, '\nall locs', locations);
         acc = path;
       }
       return acc;

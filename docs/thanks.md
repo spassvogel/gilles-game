@@ -13,3 +13,4 @@ Arrow.mp3                       thecrow_br              https://freesound.org/pe
 01dagger01, 01dagger02          lostchocolatelab        https://freesound.org/people/lostchocolatelab/sounds/1469/
 dagger woosh                    gss fx                  https://www.youtube.com/watch?v=6oM2ComGDf8
 00517 alchemist laboratory arra Robinhood76             https://freesound.org/people/Robinhood76/sounds/62282/
+War Game Battle Level Up        qubodup                 https://freesound.org/people/qubodup/sounds/161654/
