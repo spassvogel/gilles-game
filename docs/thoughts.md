@@ -222,7 +222,7 @@ Because I'm not an artist and I want to use unity3d assets
 - [x] Take items from warehouse and assign to adventurer inventory
 - [x] Take items from warehouse and assign to adventurer gear
 
-#### 08/08/2019 Combat [+design] [+tech]
+#### 08/08/2019  Combat [+design] [+tech]
 Still haven't figured out a combat game system. But can implement some ground work. 
 Want to store the combat state in the store as such:
 ```
@@ -799,9 +799,9 @@ process events, send out redux actions
 ### 2022-01-29 Debug
 - [x] Items
 - [x] Sprites
-- [ ] Adventurers (replace current edit modal)
+- [x] Adventurers (replace current edit modal)
 - [ ] Map editor
-- [ ] Contextual settings
+- [x] Contextual settings
 - [x] Have it as a drawer
 
 ### 2022-01-29 Forward outpots (nice to have)

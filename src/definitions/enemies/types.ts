@@ -20,5 +20,5 @@ export type EnemyType = Troll;
 
 // Given the id of an adventurer or enemyType, check if its an enemy or adventurer
 export const checkIfEnemy = (name: string) => {
-  return !name.startsWith(ADVENTURER_PREFIX);
+  return !name?.startsWith(ADVENTURER_PREFIX);
 };

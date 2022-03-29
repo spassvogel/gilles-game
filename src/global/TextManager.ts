@@ -298,7 +298,7 @@ Handlebars.registerHelper('adventurer:name', (adventurerId: string) => {
 
 Handlebars.registerHelper('actor:name', (actor: string) => {
   if (checkIfEnemy(actor)) {
-    const name = TextManager.getEnemyName(actor.substring(0, actor.indexOf('_')));
+    const name = TextManager.getEnemyName(actor?.substring(0, actor.indexOf('_')));
     return new Handlebars.SafeString(name);
   }
   const name = TextManager.getAdventurerName(actor);
