@@ -1,4 +1,4 @@
-import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import registerServiceWorker from './registerServiceWorker';
 import * as Random from './utils/random';
 import { TextManager } from './global/TextManager';
@@ -16,13 +16,12 @@ const initialize = async () => {
   }
   Random.init('GILLESROX2');
 
-  ReactDOM.render((
+  const root = createRoot(document.getElementById('root')  as HTMLElement);
+  root.render((
     <ErrorBoundary FallbackComponent={ErrorModal} >
       <Game />
     </ErrorBoundary>
-  ),
-  document.getElementById('root') as HTMLElement,
-  );
+  ));
 };
 
 initialize();
