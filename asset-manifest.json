@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "./static/css/main.804851b4.chunk.css",
-    "main.js": "./static/js/main.9028f292.chunk.js",
-    "main.js.map": "./static/js/main.9028f292.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.855d051d.js",
-    "runtime-main.js.map": "./static/js/runtime-main.855d051d.js.map",
-    "static/js/2.f7b3f7e1.chunk.js": "./static/js/2.f7b3f7e1.chunk.js",
-    "static/js/2.f7b3f7e1.chunk.js.map": "./static/js/2.f7b3f7e1.chunk.js.map",
-    "index.html": "./index.html",
-    "static/css/main.804851b4.chunk.css.map": "./static/css/main.804851b4.chunk.css.map",
-    "static/js/2.f7b3f7e1.chunk.js.LICENSE.txt": "./static/js/2.f7b3f7e1.chunk.js.LICENSE.txt",
-    "static/media/app.scss": "./static/media/Gabriela-Regular.75fa3ac7.woff",
-    "static/media/toasts.scss": "./static/media/border-top.1e2354f8.png",
-    "static/media/structureViewHeader.scss": "./static/media/icon.d422c1b8.png",
-    "static/media/button.scss": "./static/media/button-large-purple.c519bd8c.png",
-    "static/media/guy.scss": "./static/media/empty-guy.5db41569.png",
-    "static/media/icon.745e2ffb.png": "./static/media/icon.745e2ffb.png"
+    "main.css": "/gilles-game/static/css/main.e6d95c1f.chunk.css",
+    "main.js": "/gilles-game/static/js/main.be322f34.chunk.js",
+    "main.js.map": "/gilles-game/static/js/main.be322f34.chunk.js.map",
+    "runtime-main.js": "/gilles-game/static/js/runtime-main.e0fb81e2.js",
+    "runtime-main.js.map": "/gilles-game/static/js/runtime-main.e0fb81e2.js.map",
+    "static/js/2.f7b3f7e1.chunk.js": "/gilles-game/static/js/2.f7b3f7e1.chunk.js",
+    "static/js/2.f7b3f7e1.chunk.js.map": "/gilles-game/static/js/2.f7b3f7e1.chunk.js.map",
+    "index.html": "/gilles-game/index.html",
+    "static/css/main.e6d95c1f.chunk.css.map": "/gilles-game/static/css/main.e6d95c1f.chunk.css.map",
+    "static/js/2.f7b3f7e1.chunk.js.LICENSE.txt": "/gilles-game/static/js/2.f7b3f7e1.chunk.js.LICENSE.txt",
+    "static/media/app.scss": "/gilles-game/static/media/Gabriela-Regular.75fa3ac7.woff",
+    "static/media/toasts.scss": "/gilles-game/static/media/border-top.1e2354f8.png",
+    "static/media/structureViewHeader.scss": "/gilles-game/static/media/icon.d422c1b8.png",
+    "static/media/button.scss": "/gilles-game/static/media/button-large-purple.c519bd8c.png",
+    "static/media/guy.scss": "/gilles-game/static/media/empty-guy.5db41569.png",
+    "static/media/icon.745e2ffb.png": "/gilles-game/static/media/icon.745e2ffb.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.855d051d.js",
+    "static/js/runtime-main.e0fb81e2.js",
     "static/js/2.f7b3f7e1.chunk.js",
-    "static/css/main.804851b4.chunk.css",
-    "static/js/main.9028f292.chunk.js"
+    "static/css/main.e6d95c1f.chunk.css",
+    "static/js/main.be322f34.chunk.js"
   ]
 }
