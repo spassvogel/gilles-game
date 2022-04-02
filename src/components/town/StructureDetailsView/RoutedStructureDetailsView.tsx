@@ -6,10 +6,10 @@ import { getStructureLink } from 'utils/routing';
 import StructureDetailsView from './StructureDetailsView';
 import './styles/structuredetailsview.scss';
 
-
-
 const RoutedStructureDetailsView = () => {
   const { structure } = useParams<{ structure: Structure }>();
+  if (!structure) return null;
+
   const title = TextManager.getStructureName(structure);
   return (
     <div className="structure-details-window ">

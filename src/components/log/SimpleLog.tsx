@@ -34,7 +34,7 @@ const SimpleLog = () => {
 
   const logEntries = useLog();
   const activeQuestNames = useActiveQuestNames();
-  const location = useLocation<{ pathname: string }>();
+  const location = useLocation();
 
   useEffect(() => {
     if (location.pathname === getTownLink()){

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Structure } from 'definitions/structures';
 import { StructuresStoreState } from 'store/types/structures';
 import { SoundManager, Channel, MixMode } from 'global/SoundManager';
-import { Route, Switch, useHistory, useRouteMatch } from 'react-router';
+import { Route, Routes, useMatch, useNavigate } from 'react-router';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { getStructureLink, getTownLink } from 'utils/routing';
 import { StructureState, StructureStoreState } from 'store/types/structure';
@@ -29,13 +29,13 @@ const WORLD_HEIGHT = 1600;
 export const STRUCTURE_HIGHLIGHT_FILTER = new OutlineFilter(8, 0xffcc00);
 
 const TownView = () => {
-  const hightlightMatch = useRouteMatch<{ structure: string }>(`${getTownLink()}/:structure`);
-  const viewMatch = useRouteMatch<{ structure: string }>(`${getTownLink()}/:structure/view`);
+  const hightlightMatch = useMatch(`${getTownLink()}/:structure`);
+  const viewMatch = useMatch(`${getTownLink()}/:structure/view`);
   const selectedStructure = hightlightMatch?.params.structure;
   const ref = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<PixiViewport>(null);
   const dragging = useRef(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     SoundManager.addSound('music/town', 'sound/music/Soliloquy.mp3', () => {
@@ -71,7 +71,7 @@ const TownView = () => {
   const handleStructureClick = (structure: Structure | null) => {
     if (!dragging.current && structure) {
       SoundManager.playSound('ui/buttonClick');
-      history.push(getStructureLink(structure));
+      navigate(getStructureLink(structure));
     }
   };
 
@@ -165,11 +165,9 @@ const TownView = () => {
           <StructureLabels />
         </TownStage>
       )}
-      <Switch>
-        <Route path="/town/:structure/view" >
-          <RoutedStructureDetailsView />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path=":structure/view" element={<RoutedStructureDetailsView />} />
+      </Routes>
     </div>
   );
 };

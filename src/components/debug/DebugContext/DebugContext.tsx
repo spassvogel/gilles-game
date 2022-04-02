@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { getTownLink, getWorldLink } from 'utils/routing';
 import DebugContextTown from './DebugContextTown';
 import DebugContextWorld from './DebugContextWorld';
@@ -8,14 +8,10 @@ const DebugContext = () => {
 
   return (
     <div className="debug-context">
-       <Switch>
-        <Route path={getWorldLink()}>
-          <DebugContextWorld />
-        </Route>
-        <Route path={getTownLink()}>
-          <DebugContextTown />
-        </Route>
-      </Switch>
+       <Routes>
+        <Route path={getWorldLink()} element={(<DebugContextWorld />)} />
+        <Route path={getTownLink()} element={(<DebugContextTown />)} />
+      </Routes>
     </div>
   );
 };

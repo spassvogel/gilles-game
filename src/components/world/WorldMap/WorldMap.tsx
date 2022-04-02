@@ -15,7 +15,7 @@ import { TextManager } from 'global/TextManager';
 import { getQuestLeader } from 'store/helpers/storeHelpers';
 import { StoreState } from 'store/types';
 import { useActiveQuests } from 'hooks/store/quests';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getWorldLink } from 'utils/routing';
 import { DebugToggleCombat } from './DebugToggleCombat';
 import { FULL_HEIGHT, SMALL_HEIGHT, nodeLocationToPoint, getPreviousPositions, getQuestWorldLocation, WORLD_WIDTH, WORLD_HEIGHT } from './utils';
@@ -38,7 +38,7 @@ const WorldMap = (props: Props) => {
   const selectedQuest = useSelector<StoreState, QuestStoreState | undefined>(questSelector);
   const adventurers = useSelector<StoreState, AdventurerStoreState[]>((store) => store.adventurers);
   const activeQuests = useActiveQuests();
-  const history = useHistory();
+  const navigate = useNavigate();
   const viewportRef = useRef<PixiViewport>(null);
 
   const handlePartyClick = (name: string) => {
@@ -46,7 +46,7 @@ const WorldMap = (props: Props) => {
   };
 
   const handleClose = () => {
-    history.push(getWorldLink());
+    navigate(getWorldLink());
   };
 
   // useEffect(() => {

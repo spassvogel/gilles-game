@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { createSelectAdventurersOnQuest } from 'store/selectors/adventurers';
 import { useSelector, useDispatch } from 'react-redux';
 import QuestDetails from './QuestDetails';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { getWorldLink } from 'utils/routing';
 import LootCache from './modals/LootCache';
 import { useQuest } from 'hooks/store/quests';
@@ -33,7 +33,7 @@ const isEnemySelected = (objects: SceneObject[], name: string): boolean => {
 };
 
 const QuestPanel = (props: Props) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { layout = Layout.auto, questName } = props;
   const adventurers = useSelector(createSelectAdventurersOnQuest(questName));
@@ -60,9 +60,9 @@ const QuestPanel = (props: Props) => {
     if (!adventurers.length) {
       // no adventurers, something went wrong, perhaps invalid url
       // bounce back to world
-      history.push(getWorldLink());
+      navigate(getWorldLink());
     }
-  }, [adventurers.length, history]);
+  }, [adventurers.length, navigate]);
 
   useEffect(() => {
     // When returning from combat and an enemy is still selected, select the leader instead

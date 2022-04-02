@@ -33,7 +33,6 @@ const generateAttributesHealthAndXp = (level = 1) => {
   };
 };
 const avatarImgBasePath = '/img/avatars/';
-const spritesheetBasePath = 'img/scene/actors/';
 export const ADVENTURER_PREFIX = 'adv_';
 
 // Create a bunch of guys for debugging
@@ -56,7 +55,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   flavor: true,
   traits: [Trait.houseMaddox, Trait.gloomy],
   avatarImg: `${avatarImgBasePath}female/f_14.png`,
-  spritesheetPath: `${spritesheetBasePath}elf-bow.json`,
+  spritesheetPath: 'elf-bow.json',
   color: AdventurerColor.purple,
   skills: {
     [WeaponType.crossbow]: 10,
@@ -77,7 +76,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 
   room: 1,
   avatarImg: `${avatarImgBasePath}female/f_16.png`,
-  spritesheetPath: `${spritesheetBasePath}elf-bow.json`,
+  spritesheetPath: 'elf-bow.json',
   color: AdventurerColor.teal,
   traits: [Trait.houseHouston],
   skills: {
@@ -104,7 +103,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [WeaponType.hammer]: 6,
   },
   avatarImg: `${avatarImgBasePath}male/m_36.png`,
-  spritesheetPath: `${spritesheetBasePath}skeleton.json`,
+  spritesheetPath: 'skeleton.json',
   color: AdventurerColor.black,
   tempEffects: [
     createTempEffect<TempEffectBrokenLegs>({
@@ -141,7 +140,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 
   room: 4,
   avatarImg: `${avatarImgBasePath}male/m_19.png`,
-  spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
+  spritesheetPath: 'knight-sword.json',
   traits: [Trait.arrowFinder],
   skills: {
     [WeaponType.sword]: 13,
@@ -157,7 +156,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 
   room: 5,
   avatarImg: `${avatarImgBasePath}male/m_08.png`,
-  spritesheetPath: `${spritesheetBasePath}orc-axe.json`,
+  spritesheetPath: 'orc-axe.json',
   traits: [Trait.houseMonroe, Trait.arrowFinder],
   skills: {
     [WeaponType.axe]: 12,
@@ -172,7 +171,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 
   room: 9,
   avatarImg: `${avatarImgBasePath}female/f_10.png`,
-  spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
+  spritesheetPath: 'knight-sword.json',
   inventory: [ null, null, null, null, null ],
   skills: {
     [WeaponType.axe]: 10,
@@ -190,7 +189,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 
   room: 3,
   avatarImg: `${avatarImgBasePath}female/f_16.png`,
-  spritesheetPath: `${spritesheetBasePath}troll-sword.json`,
+  spritesheetPath: 'troll-sword.json',
   inventory: [ { type: 'weapon/greatswordOfGwai' }, null, null, null ],
   skills: {
     [WeaponType.axe]: 10,
@@ -208,7 +207,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 
   room: 8,
   avatarImg: `${avatarImgBasePath}male/m_09.png`,
-  spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
+  spritesheetPath: 'knight-sword.json',
   inventory: [ null, null, null, null, null ],
   skills: {
     [WeaponType.axe]: 13,
@@ -222,7 +221,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 
   room: 6,
   avatarImg: `${avatarImgBasePath}male/m_26.png`,
-  spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
+  spritesheetPath: 'knight-sword.json',
   inventory: [ { type: 'weapon/greatswordOfGwai' }, null, null, null, { type: 'apparel/shoulders1' }, { type: 'apparel/fedora' }, { type: 'apparel/greaves2' }],
   skills: {
     [WeaponType.axe]: 3,
@@ -236,7 +235,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 
   room: 7,
   avatarImg: `${avatarImgBasePath}male/m_33.png`,
-  spritesheetPath: `${spritesheetBasePath}knight-sword.json`,
+  spritesheetPath: 'knight-sword.json',
   inventory: [ { type: 'weapon/greatswordOfGwai' }, null, null, null ],
   skills: {
     [WeaponType.axe]: 10,
@@ -266,7 +265,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   flavor: true,
   traits: [Trait.houseMaddox, Trait.gloomy],
   avatarImg: `${avatarImgBasePath}female/f_21.png`,
-  spritesheetPath: `${spritesheetBasePath}elf-bow.json`,
+  spritesheetPath: 'elf-bow.json',
   color: AdventurerColor.purple,
   skills: {
     [WeaponType.knife]: 15,

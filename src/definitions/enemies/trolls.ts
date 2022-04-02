@@ -1,7 +1,6 @@
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { WeaponType } from 'definitions/weaponTypes/types';
 import { EnemyDefinition } from './types';
-const spritesheetBasePath = 'img/scene/actors/';
 const avatarImgBasePath = '/img/avatars/monster/';
 
 type TrollDefinition = {
@@ -27,7 +26,7 @@ const trolls: TrollDefinition = {
       [EquipmentSlotType.head]: 1,
       [EquipmentSlotType.shoulders]: 1,
     },
-    spritesheet: `${spritesheetBasePath}troll-sword.json`,
+    spritesheet: 'troll-sword.json',
     avatarImg: `${avatarImgBasePath}orc_01.png`,
   },
   'troll-manager': {
@@ -44,7 +43,7 @@ const trolls: TrollDefinition = {
     armor: {
 
     },
-    spritesheet: `${spritesheetBasePath}troll-axe.json`,
+    spritesheet: 'troll-axe.json',
     avatarImg: `${avatarImgBasePath}orc_02.png`,
   },
   'troll-accountant': {
@@ -66,7 +65,7 @@ const trolls: TrollDefinition = {
       [EquipmentSlotType.head]: 2,
       [EquipmentSlotType.shoulders]: 2,
     },
-    spritesheet: `${spritesheetBasePath}troll-axe.json`,
+    spritesheet: 'troll-axe.json',
     avatarImg: `${avatarImgBasePath}orc_03.png`,
   },
 };

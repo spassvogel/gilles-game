@@ -1,6 +1,6 @@
 import { TextManager } from 'global/TextManager';
 import { ToastConfig } from 'global/ToastManager';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import Icon from 'components/ui/common/Icon';
 
 type Props = ToastConfig;
@@ -23,11 +23,11 @@ const Toast = (props: Props) => {
     icon = '/img/items/quest-items/dragon-eye.png',
     link,
   } = props;
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleClick = () => {
     if (link) {
-      history.push(link);
+      navigate(link);
     }
   };
 

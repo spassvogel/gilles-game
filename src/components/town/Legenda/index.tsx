@@ -5,7 +5,7 @@ import { StructureStoreState, StructureState } from 'store/types/structure';
 import { Link } from 'react-router-dom';
 import { getStructureLink, getTownLink } from 'utils/routing';
 import { TextManager } from 'global/TextManager';
-import { useRouteMatch } from 'react-router';
+import { useMatch } from 'react-router';
 import './styles/legenda.scss';
 
 interface Props {
@@ -29,7 +29,7 @@ const Legenda = (props: Props) => {
     'lumberMill',
     'weaver',
   ];
-  const match = useRouteMatch<{ structure: Structure }>(`${getTownLink()}/:structure`);
+  const match = useMatch(`${getTownLink()}/:structure`);
 
   const renderText = (structure: Structure) => {
     if (match?.params.structure === structure) {

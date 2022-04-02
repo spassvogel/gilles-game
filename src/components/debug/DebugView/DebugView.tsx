@@ -3,8 +3,8 @@ import Button from 'components/ui/buttons/Button';
 import DebugItems from '../DebugItems';
 import DebugSprites from '../DebugSprites/DebugSprites';
 import DebugAdventurers from '../DebugAdventurers';
-import './styles/debugView.scss';
 import DebugContext from '../DebugContext/DebugContext';
+import './styles/debugView.scss';
 
 const allPages = ['context', 'items',  'sprites', 'adventurers'] as const;
 type Page = typeof allPages[number];

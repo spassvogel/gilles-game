@@ -3,7 +3,12 @@ import { AppContextProps } from 'hoc/withAppContext';
 import { useRef, useState, createContext, useEffect, useContext, ReactElement, cloneElement } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { Link, Redirect, Route, Switch, HashRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Navigate } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  Link,
+} from 'react-router-dom';
 import { PixiPlugin } from 'gsap/all';
 import { gsap } from 'gsap';
 import { SoundManager } from 'global/SoundManager';
@@ -141,42 +146,40 @@ const App = () => {
       >
         {/* <QuestRepaintTester /> */}
         <DndProvider backend={HTML5Backend}>
-        <HashRouter>
+        <BrowserRouter>
           <Topbar />
           <div className="control-bar">
-            <Switch>
-              <Route path="/" exact={true} >
-                <Redirect from="/" to={getWorldLink()} />
+            <Routes>
+              <Route path="/" element={(
+                <Navigate to={getWorldLink()} />
+              )}>
+                {/* <Redirect from="/" to={getWorldLink()} /> */}
               </Route>
-              <Route path={getWorldLink()}>
-                <Link to={getTownLink()}>
+              <Route path={getWorldLink()} element={(
+                <Link to={`/${getTownLink()}/*`}>
                   <Button onClick={() => handleViewButtonClick()} color="green"> {TextManager.get('ui-view-button-town')} </Button>
-                </Link>
-              </Route>
-              <Route path={getTownLink()}>
-                <Link to={getWorldLink()}>
-                  <Button onClick={() => handleViewButtonClick()}> {TextManager.get('ui-view-button-world')} </Button>
-                </Link>
-              </Route>
-            </Switch>
+                </Link>)}
+              />
+              <Route path={`${getTownLink()}/*`} element={(
+                <Link to={`/${getWorldLink()}`}>
+                  <Button onClick={() => handleViewButtonClick()} color="green"> {TextManager.get('ui-view-button-world')} </Button>
+                </Link>)}
+              />
+            </Routes>
             {' | '}
             <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} > Restart! </Button>
           </div>
-          <Switch>
-            <Route path={getTownLink()} >
-              <TownView />
-            </Route>
-            <Route path={getWorldLink()} >
-              <WorldView />
-            </Route>
-          </Switch>
+          <Routes>
+            <Route path={`/${getTownLink()}/*`} element={(<TownView />)} />
+            <Route path={`/${getWorldLink()}/*`} element={(<WorldView />)} />
+          </Routes>
           <SimpleLog/>
           {renderWindow()}
           <DebugDrawer />
           <ContextTooltip />
           <Toasts />
           <Bubbles layer={BubbleLayer.general} />
-        </HashRouter>
+        </BrowserRouter>
         </DndProvider>
       </div>
     </AppContext.Provider>

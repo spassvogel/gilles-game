@@ -11,6 +11,8 @@ import { BLACK, BLUES, calculateBearing, createColorReplaceFilter, ORANGE, Orien
 import useAnimation from './useAnimation';
 import useFrames from './useFrames';
 
+const spritesheetBasePath = '/img/scene/actors/';
+
 export interface Props  {
   actor: ActorObject;
   health: number;
@@ -55,7 +57,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
   const animation = useAnimation(controller, actorRef, getUniqueName(actor), location, health, setOrientation);
   useRandomOrientation(!!idleAnimation && !lookAt && health > 0, orientation, setOrientation);
 
-  const frames = useFrames(spritesheetPath, animation, orientation);
+  const frames = useFrames(`${spritesheetBasePath}${spritesheetPath}`, animation, orientation);
   const [flipped, setFlipped] = useState(false);
 
   const drawCircle = useCallback((graphics: PixiGraphics) => {

@@ -9,7 +9,7 @@ import './styles/debugSprites.scss';
 const allSpritesheets = ['elf-bow', 'knight-sword', 'orc-axe', 'skeleton', 'troll-axe', 'troll-sword'] as const;
 type Spritesheet = typeof allSpritesheets[number];
 
-const getSpritesheetPath = (spritesheet: Spritesheet) => `img/scene/actors/${spritesheet}.json`;
+const getSpritesheetPath = (spritesheet: Spritesheet) => `/img/scene/actors/${spritesheet}.json`;
 const allOrientations = [
   Orientation.north,
   Orientation.northEast,
@@ -25,15 +25,17 @@ const DebugSprites = () => {
   const [spritesheet, setSelected] = useState<Spritesheet>('elf-bow');
   const [animation, setAnimation] = useState<Animation>('stand');
   const [orientation, setOrientation] = useState<Orientation>(Orientation.north);
-  const [currentFrame, setCurrentFrame] = useState<number>(0); 
+  const [currentFrame, setCurrentFrame] = useState<number>(0);
 
   const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
     (async () => {
       const spritesheets = allSpritesheets.map(s => getSpritesheetPath(s));
       for (const path of spritesheets) {
         await loadResourceAsync(path);
       }
+
       setLoaded(true);
     })();
   });

@@ -2,8 +2,8 @@ import WorldMap from 'components/world/WorldMap';
 import { useEffect, useRef } from 'react';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import QuestPanel from './QuestPanel';
-import { useRouteMatch, useHistory } from 'react-router';
-import { getQuestLink, getWorldLink } from 'utils/routing';
+import { useMatch, useNavigate } from 'react-router';
+import { getWorldLink } from 'utils/routing';
 import './styles/worldView.scss';
 
 /**
@@ -12,9 +12,9 @@ import './styles/worldView.scss';
  */
 const WorldView = () => {
   const worldViewRef = useRef<HTMLDivElement>(null);
-  const match = useRouteMatch<{ questname: string }>(`${getWorldLink()}/:questname`);
+  const match = useMatch(`${getWorldLink()}/:questname`);
   const selectedQuestName = match?.params.questname;
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     SoundManager.addSound('music/world', 'sound/music/TheLoomingBattle.ogg', () => {
@@ -41,7 +41,7 @@ const WorldView = () => {
     // if (questName === selectedQuestName) {
     //   history.push(getWorldLink());
     // } else {
-    history.push(getQuestLink(questName));
+    navigate(questName);
     // }
     SoundManager.playSound('ui/buttonClick');
   };

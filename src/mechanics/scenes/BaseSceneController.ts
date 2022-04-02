@@ -44,7 +44,7 @@ import { ActionIntent, WeaponWithAbility } from 'components/world/QuestPanel/Que
 import { Ammunition } from 'definitions/items/ammunition';
 import { calculateEffectiveAttributes } from 'mechanics/adventurers/attributes';
 
-const spritesheetBasePath = 'img/scene/actors/';
+const spritesheetBasePath = '/img/scene/actors/';
 export const movementDuration = 500; // time every tile movement takes
 
 
@@ -121,7 +121,7 @@ export class BaseSceneController<TQuestVars> {
 
     const spritesheets = this.spritesheetPaths;
     for (const path of spritesheets) {
-      await loadResourceAsync(path);
+      await loadResourceAsync(`${spritesheetBasePath}${path}`);
     }
     utils.clearTextureCache();
     this.dataLoadComplete = true;
