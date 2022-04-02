@@ -822,8 +822,8 @@ export class BaseSceneController<TQuestVars> {
     const adventurers = this.getAdventurers();
     return [
       ...adventurers.map(a => a.spritesheetPath),
-      `${spritesheetBasePath}troll-sword.json`,   // todo: only load enemy sprites that are actually needed
-      `${spritesheetBasePath}troll-axe.json`,      // todo: only load enemy sprites that are actually needed
+      'troll-sword.json',   // todo: only load enemy sprites that are actually needed
+      'troll-axe.json',      // todo: only load enemy sprites that are actually needed
     ];
   }
 

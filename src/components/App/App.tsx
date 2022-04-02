@@ -146,7 +146,7 @@ const App = () => {
       >
         {/* <QuestRepaintTester /> */}
         <DndProvider backend={HTML5Backend}>
-        <BrowserRouter>
+        <HashRouter>
           <Topbar />
           <div className="control-bar">
             <Routes>
@@ -179,7 +179,7 @@ const App = () => {
           <ContextTooltip />
           <Toasts />
           <Bubbles layer={BubbleLayer.general} />
-        </BrowserRouter>
+        </HashRouter>
         </DndProvider>
       </div>
     </AppContext.Provider>
