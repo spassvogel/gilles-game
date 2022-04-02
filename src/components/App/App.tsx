@@ -155,13 +155,13 @@ const App = () => {
               )}>
                 {/* <Redirect from="/" to={getWorldLink()} /> */}
               </Route>
-              <Route path={getWorldLink()} element={(
-                <Link to={`/${getTownLink()}/*`}>
+              <Route path={`${getWorldLink()}/*`} element={(
+                <Link to={getTownLink()}>
                   <Button onClick={() => handleViewButtonClick()} color="green"> {TextManager.get('ui-view-button-town')} </Button>
                 </Link>)}
               />
               <Route path={`${getTownLink()}/*`} element={(
-                <Link to={`/${getWorldLink()}`}>
+                <Link to={getWorldLink()}>
                   <Button onClick={() => handleViewButtonClick()} color="green"> {TextManager.get('ui-view-button-world')} </Button>
                 </Link>)}
               />
@@ -170,8 +170,8 @@ const App = () => {
             <Button onClick={() => handleRestartClick()} color={ButtonColor.purple} > Restart! </Button>
           </div>
           <Routes>
-            <Route path={`/${getTownLink()}/*`} element={(<TownView />)} />
-            <Route path={`/${getWorldLink()}/*`} element={(<WorldView />)} />
+            <Route path={`${getTownLink()}/*`} element={(<TownView />)} />
+            <Route path={`${getWorldLink()}/*`} element={(<WorldView />)} />
           </Routes>
           <SimpleLog/>
           {renderWindow()}
