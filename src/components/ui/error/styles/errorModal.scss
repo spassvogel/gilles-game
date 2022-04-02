@@ -12,6 +12,10 @@
   width: 80vw;
   font-family: $font-normal;
 
+  .close {
+    color: $color-text-darker;
+  }
+
   .content {
     overflow: hidden;
   }

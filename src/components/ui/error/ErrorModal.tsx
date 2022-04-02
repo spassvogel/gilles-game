@@ -1,6 +1,7 @@
 import localforage from 'localforage';
 import { useEffect, useState } from 'react';
 import { FallbackProps } from 'react-error-boundary';
+import { Link } from 'react-router-dom';
 import { getStoredState } from 'redux-persist';
 import { persistConfig } from 'utils/configureStore';
 import { InfoWindow } from '../modals/InfoWindow';
@@ -41,6 +42,7 @@ const ErrorModal = (props: FallbackProps) => {
       <InfoWindow className="error-modal" title="">
         <h2 className="title" >
           Something went horribly wrong
+          <a href="/" className="close">x</a>
         </h2>
         <div className="content">
           <pre>{error.message}</pre>
