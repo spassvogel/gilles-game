@@ -1,7 +1,6 @@
 import localforage from 'localforage';
 import { useEffect, useState } from 'react';
 import { FallbackProps } from 'react-error-boundary';
-import { Link } from 'react-router-dom';
 import { getStoredState } from 'redux-persist';
 import { persistConfig } from 'utils/configureStore';
 import { InfoWindow } from '../modals/InfoWindow';

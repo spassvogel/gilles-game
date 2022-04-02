@@ -3,7 +3,7 @@ import { AppContextProps } from 'hoc/withAppContext';
 import { useRef, useState, createContext, useEffect, useContext, ReactElement, cloneElement } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { BrowserRouter, HashRouter, Navigate } from 'react-router-dom';
+import { HashRouter, Navigate } from 'react-router-dom';
 import {
   Routes,
   Route,

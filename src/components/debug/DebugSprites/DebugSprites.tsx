@@ -9,7 +9,7 @@ import './styles/debugSprites.scss';
 const allSpritesheets = ['elf-bow', 'knight-sword', 'orc-axe', 'skeleton', 'troll-axe', 'troll-sword'] as const;
 type Spritesheet = typeof allSpritesheets[number];
 
-const getSpritesheetPath = (spritesheet: Spritesheet) => `/img/scene/actors/${spritesheet}.json`;
+const getSpritesheetPath = (spritesheet: Spritesheet) => `${process.env.PUBLIC_URL}/img/scene/actors/${spritesheet}.json`;
 const allOrientations = [
   Orientation.north,
   Orientation.northEast,

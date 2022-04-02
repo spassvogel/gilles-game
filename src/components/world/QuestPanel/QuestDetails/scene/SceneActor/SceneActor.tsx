@@ -11,7 +11,7 @@ import { BLACK, BLUES, calculateBearing, createColorReplaceFilter, ORANGE, Orien
 import useAnimation from './useAnimation';
 import useFrames from './useFrames';
 
-const spritesheetBasePath = '/img/scene/actors/';
+const spritesheetBasePath = `${process.env.PUBLIC_URL}img/scene/actors/`;
 
 export interface Props  {
   actor: ActorObject;
