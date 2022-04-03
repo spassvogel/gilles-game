@@ -284,9 +284,14 @@ export class BaseSceneController<TQuestVars> {
       }
       case SceneActionType.interact: {
 
+        // bump off the last location from the path
+        const path = (intent.path && intent.path?.length > 0 ) ? intent.path.slice(0, -1) : [];
         const interactAction: SceneAction = {
           endsAt: movementDuration * (intent.path?.length ?? 0) + performance.now(),
-          intent,
+          intent: {
+            ...intent,
+            path,
+          },
         };
         this.dispatch(enqueueSceneAction(this.questName, interactAction));
         break;
@@ -311,6 +316,8 @@ export class BaseSceneController<TQuestVars> {
         //   };
         //   this.dispatch(enqueueSceneAction(this.questName, moveAction));
         // });
+
+        // bump off the last location from the path
         const path = (intent.path && intent.path?.length > 0 ) ? intent.path.slice(0, -1) : [];
         const meleeAction: SceneAction = {
 
