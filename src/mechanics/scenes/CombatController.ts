@@ -127,7 +127,6 @@ export class CombatController {
 
     // Roll to hit
     if (roll <= (skills[definition.weaponType] ?? 0)) {
-      console.log('HIT at ', location);
 
       const target = this.sceneController.getObjectAtLocation(location) as ActorObject;
       const targetAttributes = this.sceneController.getActorAttributes(target);

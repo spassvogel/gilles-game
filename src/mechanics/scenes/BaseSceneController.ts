@@ -283,22 +283,8 @@ export class BaseSceneController<TQuestVars> {
         break;
       }
       case SceneActionType.interact: {
-        // const path = this.findPathNearest(location, to);
-        // path?.forEach((l, index) => {
-        //   const moveAction: SceneAction = {
-        //     // actionType: SceneActionType.move,
-        //     // actor: getUniqueName(actor),
-        //     // target: l as Location,
-        //     endsAt: movementDuration * (index + 1) + performance.now(),
-        //     intent: { ...intent, to: l },
-        //   };
-        //   this.dispatch(enqueueSceneAction(this.questName, moveAction));
-        // });
 
         const interactAction: SceneAction = {
-          // actionType: SceneActionType.interact,
-          // actor: getUniqueName(actor),
-          // target: to,
           endsAt: movementDuration * (intent.path?.length ?? 0) + performance.now(),
           intent,
         };
@@ -306,31 +292,34 @@ export class BaseSceneController<TQuestVars> {
         break;
       }
       case SceneActionType.melee: {
-        // Find path to move towards the target
-        const path = this.findPath(location, to);
-        const target = path?.pop();
-        if (!path || !target) {
-          // No path possible.. cant do anything now
-          return;
-        }
+        // // Find path to move towards the target
+        // const path = this.findPath(location, to);
+        // const target = path?.pop();
+        // if (!path || !target) {
+        //   // No path possible.. cant do anything now
+        //   return;
+        // }
 
-        // Walk towards the target
-        path?.forEach((l, index) => {
-          const moveAction: SceneAction = {
-            // actionType: SceneActionType.move,
-            // actor: getUniqueName(actor),
-            // target: l as Location,
-            endsAt: movementDuration * (index + 1) + performance.now(),
-            intent,
-          };
-          this.dispatch(enqueueSceneAction(this.questName, moveAction));
-        });
+        // // Walk towards the target
+        // path?.forEach((l, index) => {
+        //   const moveAction: SceneAction = {
+        //     // actionType: SceneActionType.move,
+        //     // actor: getUniqueName(actor),
+        //     // target: l as Location,
+        //     endsAt: movementDuration * (index + 1) + performance.now(),
+        //     intent,
+        //   };
+        //   this.dispatch(enqueueSceneAction(this.questName, moveAction));
+        // });
+        const path = (intent.path && intent.path?.length > 0 ) ? intent.path.slice(0, -1) : [];
         const meleeAction: SceneAction = {
-          // actionType: action,
-          // actor: getUniqueName(actor),
-          // target,
-          endsAt: movementDuration * (path.length + 1) + performance.now(),
-          intent,
+
+          endsAt: movementDuration * (intent.path?.length ?? 0) + performance.now(),
+          intent: {
+            ...intent,
+            to: path[path.length - 1],
+            path,
+          },
         };
         this.dispatch(enqueueSceneAction(this.questName, meleeAction));
         break;
@@ -338,9 +327,6 @@ export class BaseSceneController<TQuestVars> {
       case SceneActionType.shoot: {
 
         const shootAction: SceneAction = {
-          // actionType: action,
-          // actor: getUniqueName(actor),
-          // target: to,
           endsAt: 500 + performance.now(),
           intent,
         };

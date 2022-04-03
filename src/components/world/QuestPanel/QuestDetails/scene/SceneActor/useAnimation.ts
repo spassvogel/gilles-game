@@ -114,16 +114,21 @@ const useAnimation = (
           break;
         }
         case SceneActionType.melee: {
-          // determineOrientation();
-          setAnimation('attack');
-          CombatController.actorMeleeStart(actorName, intent);
+          const moveComplete = () => {
+            setAnimation('attack');
+            CombatController.actorMeleeStart(actorName, intent);
+            controller.actorInteract(actorName, nextAction.intent.to);
 
-          const attackComplete = () => {
-            setAnimation('stand');
-            dispatch(completeSceneAction(controller.questName, actorName));
-            CombatController.actorMeleeEnd(actorName, intent);
+            const attackComplete = () => {
+              setAnimation('stand');
+              dispatch(completeSceneAction(controller.questName, actorName));
+              CombatController.actorMeleeEnd(actorName, intent);
+            };
+            setTimeout(attackComplete, 500);
           };
-          setTimeout(attackComplete, 1000);
+
+          const duration = (nextAction.endsAt - performance.now()) / 1000;
+          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete);
           break;
         }
         case SceneActionType.shoot: {
@@ -142,7 +147,6 @@ const useAnimation = (
         case SceneActionType.interact: {
           const moveComplete = () => {
             setAnimation('stand');
-            console.log('we are interacting', nextAction.intent.path);
             controller.actorInteract(actorName, nextAction.intent.to);
             dispatch(completeSceneAction(controller.questName, actorName));
           };
@@ -156,11 +160,6 @@ const useAnimation = (
       previousAction.current = nextAction;
     }
   }, [actorName, actorRef, controller, dispatch, location, nextAction, quest.name, setOrientation, tileHeight, tileWidth]);
-
-  // useEffect(() => {
-  //   console.log('location CHANGE')
-  //   setAnimation('stand');
-  // }, [location]);
 
   useEffect(() => {
     if (timeout.current) {

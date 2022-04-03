@@ -164,12 +164,12 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
 
           switch (sceneAction.intent.action) {
             case SceneActionType.move:
+            case SceneActionType.melee:
             case SceneActionType.interact: {
               scene.objects = scene.objects.map((a) => {
                 if (getUniqueName(a) === action.actorName) {
                   return {
                     ...a,
-                    // location: sceneAction.intent.path![sceneAction.intent.path!.length - 1],
                     location: sceneAction.intent.to,
                   };
                 }
@@ -178,8 +178,6 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
             }
           }
 
-          // pop first action of the stack
-          // scene.actionQueue = scene.actionQueue.filter((_, i) => i > 0);
           const index = scene.actionQueue.findIndex(aQ => (getUniqueName(aQ.intent.actor) === action.actorName));
           scene.actionQueue = scene.actionQueue.filter((_, i) => i !== index);
 

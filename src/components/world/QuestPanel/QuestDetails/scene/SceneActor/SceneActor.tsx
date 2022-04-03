@@ -10,6 +10,7 @@ import { useRandomOrientation } from './useRandomOrientation';
 import { BLACK, BLUES, calculateBearing, createColorReplaceFilter, ORANGE, Orientation, PURPLE, REDS, SPRITE_WIDTH, TEALS, WHITE, YELLOW } from './utils';
 import useAnimation from './useAnimation';
 import useFrames from './useFrames';
+import { useQuest } from 'hooks/store/quests';
 
 const spritesheetBasePath = `${process.env.PUBLIC_URL}img/scene/actors/`;
 
@@ -55,7 +56,9 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
 
   const [orientation, setOrientation] = useState<Orientation>(Orientation.north);
   const animation = useAnimation(controller, actorRef, getUniqueName(actor), location, health, setOrientation);
-  useRandomOrientation(!!idleAnimation && !lookAt && health > 0, orientation, setOrientation);
+  const quest = useQuest(props.controller.questName);
+  const combat = quest.scene?.combat;
+  useRandomOrientation(!!idleAnimation && !lookAt && health > 0 && !combat, orientation, setOrientation);
 
   const frames = useFrames(`${spritesheetBasePath}${spritesheetPath}`, animation, orientation);
   const [flipped, setFlipped] = useState(false);
