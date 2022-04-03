@@ -68,6 +68,36 @@ const useAnimation = (
       }
     };
 
+    // Initiates move animation
+    const moveActor = (path: Location[], duration: number, delay?: number, onComplete?: () => void) => {
+      if (duration < 0) {
+        onComplete?.();
+      }
+
+      gsap.killTweensOf(actorRef.current);
+      animationTimeline.current = gsap.timeline({
+        delay: delay,
+        onComplete: onComplete,
+      });
+      path.forEach((l, index) => {
+        // Queue up all the steps
+        animationTimeline.current?.to(actorRef.current, {
+          duration: duration / (path.length ?? 1),
+          ease: 'linear',
+          pixi: {
+            x: l[0] * tileWidth,
+            y: l[1] * tileHeight,
+          },
+          onStart: () => {
+            // determine orientation
+            const currentLocation = path[index - 1] ?? location;
+            determineOrientation(currentLocation, l);
+            setAnimation('walk');
+          },
+        });
+      });
+    };
+
     if (nextAction && nextAction !== previousAction.current) {
       const { intent } = nextAction;
       // console.log(`next action is ${nextAction.intent.to} (${nextAction.actionType}), \ncurrent location is: ${location}\nprev action was ${previousAction?.current?.target} `)
@@ -80,32 +110,7 @@ const useAnimation = (
           };
 
           const duration = (nextAction.endsAt - performance.now()) / 1000;
-          if (duration < 0) {
-            moveComplete();
-          }
-
-          gsap.killTweensOf(actorRef.current);
-          animationTimeline.current = gsap.timeline({
-            delay: nextAction.delay,
-            onComplete: moveComplete,
-          });
-          nextAction.intent.path?.forEach((l, index) => {
-            // Queue up all the steps
-            animationTimeline.current?.to(actorRef.current, {
-              duration: duration / (nextAction.intent.path?.length ?? 1),
-              ease: 'linear',
-              pixi: {
-                x: l[0] * tileWidth,
-                y: l[1] * tileHeight,
-              },
-              onStart: () => {
-                // determine orientation
-                const currentLocation = nextAction.intent.path?.[index - 1] ?? location;
-                determineOrientation(currentLocation, l);
-                setAnimation('walk');
-              },
-            });
-          });
+          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete);
           break;
         }
         case SceneActionType.melee: {
@@ -135,8 +140,16 @@ const useAnimation = (
           break;
         }
         case SceneActionType.interact: {
-          controller.actorInteract(actorName, nextAction.intent.to);
-          dispatch(completeSceneAction(controller.questName, actorName));
+          const moveComplete = () => {
+            setAnimation('stand');
+            console.log('we are interacting', nextAction.intent.path);
+            controller.actorInteract(actorName, nextAction.intent.to);
+            dispatch(completeSceneAction(controller.questName, actorName));
+          };
+
+          const duration = (nextAction.endsAt - performance.now()) / 1000;
+          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete);
+
           break;
         }
       }

@@ -163,7 +163,8 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
           if (!sceneAction) return qss;
 
           switch (sceneAction.intent.action) {
-            case SceneActionType.move: {
+            case SceneActionType.move:
+            case SceneActionType.interact: {
               scene.objects = scene.objects.map((a) => {
                 if (getUniqueName(a) === action.actorName) {
                   return {

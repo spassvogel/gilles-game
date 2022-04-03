@@ -815,3 +815,5 @@ Can build forward outposts (small versions of town) anywhere on the map, with le
 ### 2022-03-11 General UI inspiration
 
 https://interfaceingame.com/games/league-of-legends/
+
+- [ ] Show icon on the ground for move / interact

@@ -251,7 +251,7 @@ export class BaseSceneController<TQuestVars> {
         }));
 
         if (!this.combat) {
-          // Other adventurers follow this adventurer
+          // Follow behaviour. Other adventurers follow this adventurer
           const otherAdventurers = this.sceneAdventurers.filter(a => a !== actor);
           let availableLocations = this.findEmptyLocationsAround(to, 6);
 
@@ -278,30 +278,28 @@ export class BaseSceneController<TQuestVars> {
                 delay: (index + 1) / 2,
               }));
             }
-
-
           });
         }
         break;
       }
       case SceneActionType.interact: {
-        const path = this.findPathNearest(location, to);
-        path?.forEach((l, index) => {
-          const moveAction: SceneAction = {
-            // actionType: SceneActionType.move,
-            // actor: getUniqueName(actor),
-            // target: l as Location,
-            endsAt: movementDuration * (index + 1) + performance.now(),
-            intent: { ...intent, to: l },
-          };
-          this.dispatch(enqueueSceneAction(this.questName, moveAction));
-        });
+        // const path = this.findPathNearest(location, to);
+        // path?.forEach((l, index) => {
+        //   const moveAction: SceneAction = {
+        //     // actionType: SceneActionType.move,
+        //     // actor: getUniqueName(actor),
+        //     // target: l as Location,
+        //     endsAt: movementDuration * (index + 1) + performance.now(),
+        //     intent: { ...intent, to: l },
+        //   };
+        //   this.dispatch(enqueueSceneAction(this.questName, moveAction));
+        // });
 
         const interactAction: SceneAction = {
           // actionType: SceneActionType.interact,
           // actor: getUniqueName(actor),
           // target: to,
-          endsAt: movementDuration * path.length + performance.now(),
+          endsAt: movementDuration * (intent.path?.length ?? 0) + performance.now(),
           intent,
         };
         this.dispatch(enqueueSceneAction(this.questName, interactAction));
