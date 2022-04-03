@@ -6,7 +6,7 @@ import { loadResourceAsync } from 'utils/pixiJs';
 import { TiledLayerType, TiledMapData, TiledObjectData } from 'constants/tiledMapData';
 import { AStarFinder } from 'astar-typescript';
 import { AdventurerStoreState } from 'store/types/adventurer';
-import { setScene, setSceneName, exitEncounter, enqueueSceneAction, updateQuestVars, deductActorAp, endPlayerTurn, setActorLocation } from 'store/actions/quests';
+import { setScene, setSceneName, exitEncounter, enqueueSceneAction, updateQuestVars, deductActorAp, endPlayerTurn } from 'store/actions/quests';
 import {
   SceneObject,
   ActorObject,
