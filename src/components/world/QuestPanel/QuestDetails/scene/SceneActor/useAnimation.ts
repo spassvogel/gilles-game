@@ -115,6 +115,7 @@ const useAnimation = (
         }
         case SceneActionType.melee: {
           const moveComplete = () => {
+            determineOrientation(location, nextAction.intent.to);
             setAnimation('attack');
             CombatController.actorMeleeStart(actorName, intent);
 
@@ -131,7 +132,7 @@ const useAnimation = (
           break;
         }
         case SceneActionType.shoot: {
-          // determineOrientation();
+          determineOrientation(location, nextAction.intent.to);
           setAnimation('attack');
           CombatController.actorShootStart(actorName, intent);
 
