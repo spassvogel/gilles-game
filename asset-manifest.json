@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/gilles-game/static/css/main.3c90b0f6.chunk.css",
-    "main.js": "/gilles-game/static/js/main.5c01e9a0.chunk.js",
-    "main.js.map": "/gilles-game/static/js/main.5c01e9a0.chunk.js.map",
+    "main.css": "/gilles-game/static/css/main.ccb6aaf9.chunk.css",
+    "main.js": "/gilles-game/static/js/main.b405716e.chunk.js",
+    "main.js.map": "/gilles-game/static/js/main.b405716e.chunk.js.map",
     "runtime-main.js": "/gilles-game/static/js/runtime-main.e0fb81e2.js",
     "runtime-main.js.map": "/gilles-game/static/js/runtime-main.e0fb81e2.js.map",
-    "static/js/2.f7b3f7e1.chunk.js": "/gilles-game/static/js/2.f7b3f7e1.chunk.js",
-    "static/js/2.f7b3f7e1.chunk.js.map": "/gilles-game/static/js/2.f7b3f7e1.chunk.js.map",
+    "static/js/2.9a2affac.chunk.js": "/gilles-game/static/js/2.9a2affac.chunk.js",
+    "static/js/2.9a2affac.chunk.js.map": "/gilles-game/static/js/2.9a2affac.chunk.js.map",
     "index.html": "/gilles-game/index.html",
-    "static/css/main.3c90b0f6.chunk.css.map": "/gilles-game/static/css/main.3c90b0f6.chunk.css.map",
-    "static/js/2.f7b3f7e1.chunk.js.LICENSE.txt": "/gilles-game/static/js/2.f7b3f7e1.chunk.js.LICENSE.txt",
+    "static/css/main.ccb6aaf9.chunk.css.map": "/gilles-game/static/css/main.ccb6aaf9.chunk.css.map",
+    "static/js/2.9a2affac.chunk.js.LICENSE.txt": "/gilles-game/static/js/2.9a2affac.chunk.js.LICENSE.txt",
     "static/media/app.scss": "/gilles-game/static/media/Gabriela-Regular.75fa3ac7.woff",
     "static/media/toasts.scss": "/gilles-game/static/media/border-top.1e2354f8.png",
     "static/media/structureViewHeader.scss": "/gilles-game/static/media/icon.d422c1b8.png",
@@ -19,8 +19,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.e0fb81e2.js",
-    "static/js/2.f7b3f7e1.chunk.js",
-    "static/css/main.3c90b0f6.chunk.css",
-    "static/js/main.5c01e9a0.chunk.js"
+    "static/js/2.9a2affac.chunk.js",
+    "static/css/main.ccb6aaf9.chunk.css",
+    "static/js/main.b405716e.chunk.js"
   ]
 }
