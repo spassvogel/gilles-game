@@ -25,13 +25,11 @@ const options = {
 const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref: React.Ref<PixiViewport>) => {
   const {
     children,
-    /* eslint-disable react/prop-types */
     screenWidth,
     screenHeight,
     worldWidth,
     worldHeight,
     blockScroll,
-    /* eslint-enable react/prop-types */
   } = props;
 
   const innerRef = useRef<PixiViewport>(null);
