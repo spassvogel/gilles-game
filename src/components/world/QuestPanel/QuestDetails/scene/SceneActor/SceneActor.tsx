@@ -12,7 +12,7 @@ import useAnimation from './useAnimation';
 import useFrames from './useFrames';
 import { useQuest } from 'hooks/store/quests';
 
-const spritesheetBasePath = `${process.env.PUBLIC_URL}img/scene/actors/`;
+const spritesheetBasePath = `${process.env.PUBLIC_URL}/img/scene/actors/`;
 
 export interface Props  {
   actor: ActorObject;

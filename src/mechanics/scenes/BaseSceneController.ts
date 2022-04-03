@@ -44,7 +44,7 @@ import { ActionIntent, WeaponWithAbility } from 'components/world/QuestPanel/Que
 import { Ammunition } from 'definitions/items/ammunition';
 import { calculateEffectiveAttributes } from 'mechanics/adventurers/attributes';
 
-const spritesheetBasePath = `${process.env.PUBLIC_URL}img/scene/actors/`;
+const spritesheetBasePath = `${process.env.PUBLIC_URL}/img/scene/actors/`;
 export const movementDuration = 500; // time every tile movement takes
 
 

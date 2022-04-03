@@ -41,7 +41,7 @@ const ErrorModal = (props: FallbackProps) => {
       <InfoWindow className="error-modal" title="">
         <h2 className="title" >
           Something went horribly wrong
-          <a href="/" className="close">x</a>
+          <a href={`${process.env.PUBLIC_URL}`} className="close">x</a>
         </h2>
         <div className="content">
           <pre>{error.message}</pre>
