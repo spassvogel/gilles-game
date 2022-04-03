@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/gilles-game/static/css/main.ccb6aaf9.chunk.css",
-    "main.js": "/gilles-game/static/js/main.8800ad71.chunk.js",
-    "main.js.map": "/gilles-game/static/js/main.8800ad71.chunk.js.map",
+    "main.js": "/gilles-game/static/js/main.41c392de.chunk.js",
+    "main.js.map": "/gilles-game/static/js/main.41c392de.chunk.js.map",
     "runtime-main.js": "/gilles-game/static/js/runtime-main.e0fb81e2.js",
     "runtime-main.js.map": "/gilles-game/static/js/runtime-main.e0fb81e2.js.map",
     "static/js/2.f068a265.chunk.js": "/gilles-game/static/js/2.f068a265.chunk.js",
@@ -21,6 +21,6 @@
     "static/js/runtime-main.e0fb81e2.js",
     "static/js/2.f068a265.chunk.js",
     "static/css/main.ccb6aaf9.chunk.css",
-    "static/js/main.8800ad71.chunk.js"
+    "static/js/main.41c392de.chunk.js"
   ]
 }
