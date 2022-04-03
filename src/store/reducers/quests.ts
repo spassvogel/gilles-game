@@ -158,7 +158,7 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
       return state.map((qss) => {
         if (qss.name === action.questName) {
           const scene = qss.scene;
-          if (!scene || !scene.actionQueue) throw new Error('Something broke. No scene');
+          if (!scene || !scene.actionQueue) return qss;
           const sceneAction = scene.actionQueue.find(aq => getUniqueName(aq.intent.actor) === action.actorName);
           if (!sceneAction) return qss;
 
@@ -167,10 +167,10 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
             case SceneActionType.melee:
             case SceneActionType.interact: {
               scene.objects = scene.objects.map((a) => {
-                if (getUniqueName(a) === action.actorName) {
+                if (getUniqueName(a) === action.actorName && sceneAction.intent.path?.[sceneAction.intent.path.length - 1]) {
                   return {
                     ...a,
-                    location: sceneAction.intent.to,
+                    location: sceneAction.intent.path[sceneAction.intent.path.length - 1],
                   };
                 }
                 return a;

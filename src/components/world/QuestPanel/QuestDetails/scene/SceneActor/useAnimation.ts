@@ -117,7 +117,6 @@ const useAnimation = (
           const moveComplete = () => {
             setAnimation('attack');
             CombatController.actorMeleeStart(actorName, intent);
-            controller.actorInteract(actorName, nextAction.intent.to);
 
             const attackComplete = () => {
               setAnimation('stand');

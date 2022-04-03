@@ -5,6 +5,7 @@
   z-index: zIndex(bubbles);
   left: 0;
   top: 0;
+  @include no-select;
 
   .bubble {
     position: absolute;

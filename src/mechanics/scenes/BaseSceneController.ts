@@ -317,7 +317,6 @@ export class BaseSceneController<TQuestVars> {
           endsAt: movementDuration * (intent.path?.length ?? 0) + performance.now(),
           intent: {
             ...intent,
-            to: path[path.length - 1],
             path,
           },
         };
