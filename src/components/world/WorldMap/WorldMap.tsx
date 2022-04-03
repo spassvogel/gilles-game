@@ -20,6 +20,7 @@ import { getWorldLink } from 'utils/routing';
 import { DebugToggleCombat } from './DebugToggleCombat';
 import { FULL_HEIGHT, SMALL_HEIGHT, nodeLocationToPoint, getPreviousPositions, getQuestWorldLocation, WORLD_WIDTH, WORLD_HEIGHT } from './utils';
 import './styles/worldMap.scss';
+import { IApplicationOptions } from 'pixi.js';
 
 export interface Props {
   selectedQuestName?: string;
@@ -165,7 +166,8 @@ const WorldMap = (props: Props) => {
     // }
   };
 
-  const options = {
+  const options: IApplicationOptions = {
+    backgroundColor: 0xa09b92,
     autoDensity: true,
     sharedLoader: true,
     width: canvasWidth,
@@ -177,7 +179,7 @@ const WorldMap = (props: Props) => {
       <Stage width={canvasWidth} height={canvasHeight} options={options}>
         <Viewport screenWidth={canvasWidth} screenHeight={canvasHeight} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef} >
           <Sprite
-            image={`${process.env.PUBLIC_URL}/img/world/francesca-baerald-fbaerald-angeloumap-lowres.jpg`}
+            image={`${process.env.PUBLIC_URL}/img/world/map-default.png`}
             interactive={true}
             pointerdown={handleMapClick}
           >
