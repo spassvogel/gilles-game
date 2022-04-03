@@ -140,7 +140,7 @@ export class CombatController {
       if (this.settings.verboseCombatLog) {
         this.log({ key: 'scene-combat-attack-slash-missed-verbose', context: {
           attacker: getUniqueName(actor),
-          weapon: weapon.type,
+          weapon,
           ap,
           roll,
           weaponType: definition.weaponType,
@@ -149,7 +149,7 @@ export class CombatController {
       } else {
         this.log({ key: 'scene-combat-attack-slash-missed', context: {
           attacker: getUniqueName(actor),
-          weapon: weapon.type,
+          weapon,
         } });
       }
     }
@@ -238,7 +238,7 @@ export class CombatController {
         key: this.settings.verboseCombatLog ? 'scene-combat-attack-shoot-missed-verbose' : 'scene-combat-attack-shoot-missed',
         context: {
           attacker: getUniqueName(actor),
-          weapon: weapon.type,
+          weapon,
           ap,
           roll: rollToHit,
           weaponType: weaponDefinition.weaponType,
