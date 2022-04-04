@@ -1,11 +1,12 @@
 import { ComponentProps } from 'react';
 import { PixiComponent, applyDefaultProps, Container } from '@inlet/react-pixi';
 import * as PIXI  from 'pixi.js';
-import * as particles from 'pixi-particles';
+import * as particles from '@pixi/particle-emitter';
+import { upgradeConfig } from '@pixi/particle-emitter';
 
 interface Props  {
   image: string;
-  config: particles.OldEmitterConfig | particles.EmitterConfig;
+  config: particles.EmitterConfigV1;
 }
 
 
@@ -18,10 +19,10 @@ const ParticleEmitter = PixiComponent<Props & ComponentProps<typeof Container>, 
     // apply rest props to PIXI.ParticleContainer
     applyDefaultProps(instance, oldProps, newP);
 
+    const newConfig = upgradeConfig(config, [PIXI.Texture.from(image)]);
     const emitter = new particles.Emitter(
       instance,
-      [PIXI.Texture.from(image)],
-      config,
+      newConfig,
     );
 
     let elapsed = performance.now();

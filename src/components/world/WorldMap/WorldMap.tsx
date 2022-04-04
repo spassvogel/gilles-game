@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { QuestStoreState } from 'store/types/quest';
 import { QuestDefinition, QuestNodeType, QuestNode } from 'definitions/quests/types';
 import Viewport from '../../pixi/Viewport';
-// import MapGrid from './MapGrid';
+import MapGrid from './MapGrid';
 import QuestMarker from './QuestMarker';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import QuestLine from './QuestLine';
@@ -19,9 +19,10 @@ import { useNavigate } from 'react-router-dom';
 import { getWorldLink } from 'utils/routing';
 import { DebugToggleCombat } from './DebugToggleCombat';
 import { FULL_HEIGHT, SMALL_HEIGHT, nodeLocationToPoint, getPreviousPositions, getQuestWorldLocation, WORLD_WIDTH, WORLD_HEIGHT } from './utils';
-import './styles/worldMap.scss';
 import { IApplicationOptions } from 'pixi.js';
+import './styles/worldMap.scss';
 
+const GRID_WIDTH = 100;
 export interface Props {
   selectedQuestName?: string;
   smallMap: boolean;
@@ -186,7 +187,7 @@ const WorldMap = (props: Props) => {
             {renderQuestlines()}
             {renderMarkers()}
           </Sprite>
-          {/* <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} /> */}
+          <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} />
         </Viewport>
       </Stage>
       {props.selectedQuestName && (

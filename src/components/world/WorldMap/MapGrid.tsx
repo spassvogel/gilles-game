@@ -7,7 +7,7 @@ interface Props {
   gridWidth: number;
 }
 
-const gridColor = 0xadadad; // grey
+const gridColor = 0xfff; // grey
 const dotColor = 0x5203fc;  // purple
 
 // For debugging. Displays a grid
