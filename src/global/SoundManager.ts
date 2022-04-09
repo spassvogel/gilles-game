@@ -137,23 +137,28 @@ export class SoundManager {
       });
     }
     const start = this._storedPositions[gameSound] ?? 0;
-    const instance = await pixiSound.play({ start });
+    try {
 
-    if (this._currentSound[channel]) {
-      if (mixMode === MixMode.fade) {
+      const instance = await pixiSound.play({ start });
+
+      if (this._currentSound[channel]) {
+        if (mixMode === MixMode.fade) {
         // Fade out current sound on this channel and fade in new sound
-        SoundManager.fadeOutSound(channel);
-        // Fade in the new sound
-        gsap.from(instance, { volume: 0, duration: 0.75 });
-      } else if (mixMode === MixMode.singleInstance) {
-        this._currentSound[channel].instance.stop();
+          SoundManager.fadeOutSound(channel);
+          // Fade in the new sound
+          gsap.from(instance, { volume: 0, duration: 0.75 });
+        } else if (mixMode === MixMode.singleInstance) {
+          this._currentSound[channel].instance.stop();
+        }
       }
+      this._currentSound[channel] = { instance, gameSound, pixiSound, storePosition };
+      instance.on('end', () => {
+        this._currentSound[channel].instance.destroy();
+        delete this._currentSound[channel];
+      });
+    // eslint-disable-next-line no-empty
+    } catch (_e) {
     }
-    this._currentSound[channel] = { instance, gameSound, pixiSound, storePosition };
-    instance.on('end', () => {
-      this._currentSound[channel].instance.destroy();
-      delete this._currentSound[channel];
-    });
   }
 
   protected static getSound(sound: GameSound): Sound {
