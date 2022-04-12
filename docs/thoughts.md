@@ -571,7 +571,7 @@ https://github.com/DragonBones/DragonBonesJS
 - [x] Try to implement sass again (https://www.google.com/search?q=sass+create+react+app)
 - [ ] Use variables for cursor
 - [x] Convert existing css to sass: http://beautifytools.com/css-to-scss-converter.php
-- [-] Use craco and react-scoped-css for scoping https://dev.to/viclafouch/how-to-scope-your-css-scss-in-react-js-271a
+- [-] ~~Use craco and react-scoped-css for scoping https://dev.to/viclafouch/how-to-scope-your-css-scss-in-react-js-271a~~
 
 #### Item rarity/quality [+art] [+design]
 - [x] background on items. gray = common, green = uncommon, blue = rare, purple = epic, orange = legendary
