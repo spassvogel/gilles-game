@@ -393,6 +393,10 @@ research fantasy concept art
 
 #### THREEJS examples
 - [ ] http://server1.lazy-kitty.com/tests/
+- [ ] https://www.spriters-resource.com/playstation/alundra/
+- [ ] https://www.spriters-resource.com/pc_computer/ultima8pagan/
+- [ ] https://www.spriters-resource.com/playstation/sagafrontier2/
+- [ ] 
 - [x]   check achievements (http://server1.lazy-kitty.com/tests/achievements_2019_08_11/)
     
 
@@ -817,3 +821,8 @@ Can build forward outposts (small versions of town) anywhere on the map, with le
 https://interfaceingame.com/games/league-of-legends/
 
 - [ ] Show icon on the ground for move / interact
+
+
+### 2022-04-18 Scenecontrollers as hooks
+
+- [ ] Investigate if we can have scenecontroller as hooks

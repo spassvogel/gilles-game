@@ -1,4 +1,6 @@
 import { Store, AnyAction, DeepPartial } from 'redux';
+import EventEmitter from 'events';
+import TypedEmitter from 'typed-emitter';
 import { Location } from 'utils/tilemap';
 import { addAllTilesInLayerToList, locationEquals, TiledObjectType, parseProperties } from 'utils/tilemap';
 import { StoreState } from 'store/types';
@@ -44,14 +46,19 @@ import { ActionIntent, WeaponWithAbility } from 'components/world/QuestPanel/Que
 import { Ammunition } from 'definitions/items/ammunition';
 import { calculateEffectiveAttributes } from 'mechanics/adventurers/attributes';
 
-const spritesheetBasePath = `${process.env.PUBLIC_URL}/img/scene/actors/`;
+const actorSpritesheetBasePath = `${process.env.PUBLIC_URL}/img/scene/actors/`;
+const effectSpritesheetBasePath = `${process.env.PUBLIC_URL}/img/scene/effects/`;
 export const movementDuration = 500; // time every tile movement takes
 
+export const EVENT_SCENE_EFFECT = 'eventSceneEffect';
+type SceneEffectsEvents = {
+  [EVENT_SCENE_EFFECT]: (path: string, point: Point) => void;
+};
 
 /**
  * This is a type of God class that knows pretty much everything about a scene
  */
-export class BaseSceneController<TQuestVars> {
+export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as new () => TypedEmitter<SceneEffectsEvents>) {
 
   public questName: string;
 
@@ -72,6 +79,7 @@ export class BaseSceneController<TQuestVars> {
   protected tileTypes: { [name: string]: number } = {}; // map tiletype to gid
 
   constructor(store: Store<StoreState, AnyAction>, questName: string) {
+    super();
     this.store = store;
     this.questName = questName;
   }
@@ -119,10 +127,13 @@ export class BaseSceneController<TQuestVars> {
     this.createTileTypes();
     this.aStar = this.createAStar();
 
-    const spritesheets = this.spritesheetPaths;
-    for (const path of spritesheets) {
-      await loadResourceAsync(`${spritesheetBasePath}${path}`);
+    for (const path of this.actorSpritesheetPaths) {
+      await loadResourceAsync(`${actorSpritesheetBasePath}${path}`);
     }
+    for (const path of this.effectSpritesheetPaths) {
+      await loadResourceAsync(`${effectSpritesheetBasePath}${path}`);
+    }
+
     utils.clearTextureCache();
     this.dataLoadComplete = true;
     this.dataLoading = false;
@@ -364,7 +375,7 @@ export class BaseSceneController<TQuestVars> {
   }
 
   // returns the pixel coordinate of the top left corner of the given location
-  sceneLocationToPoint(location: Location): Point {
+  public sceneLocationToPoint(location: Location): Point {
     if (!this.mapData?.tilewidth || !this.mapData?.tileheight) {
       return new Point();
     }
@@ -808,12 +819,19 @@ export class BaseSceneController<TQuestVars> {
     return this.quest.questVars as unknown as TQuestVars;
   }
 
-  protected get spritesheetPaths(): string[] {
+  protected get actorSpritesheetPaths(): string[] {
     const adventurers = this.getAdventurers();
     return [
       ...adventurers.map(a => a.spritesheetPath),
       'troll-sword.json',   // todo: only load enemy sprites that are actually needed
       'troll-axe.json',      // todo: only load enemy sprites that are actually needed
+    ];
+  }
+
+  protected get effectSpritesheetPaths(): string[] {
+    return [
+      'blood_1/blood_1.json',
+      'blood_2/blood_2.json',
     ];
   }
 
@@ -888,6 +906,13 @@ export class BaseSceneController<TQuestVars> {
   // Store
   protected dispatch(action: AnyAction) {
     this.store.dispatch(action);
+  }
+
+
+  public effectAtLocation(effectPath: string, location: Location) {
+    const point = this.sceneLocationToPoint(location);
+    // point.set(point.x, point.y);
+    this.emit(EVENT_SCENE_EFFECT, `${effectSpritesheetBasePath}${effectPath}`, point);
   }
 }
 

@@ -76,9 +76,6 @@ export class CombatController {
           path?.forEach((l, index) => {
             if (index >= enemy.ap - 1) return;
             const sceneAction: SceneAction = {
-              // actionType: SceneActionType.move,
-              // actor: getUniqueName(enemy),
-              // target: l as Location,
               endsAt: movementDuration * (index + 1) + performance.now(),
               intent,
             };
@@ -90,7 +87,7 @@ export class CombatController {
   }
 
   // Call when actor melee animation starts
-  public static actorMeleeStart(actorId: string, _intent: ActionIntent) {
+  public static actorMeleeStart(actorId: string, intent: ActionIntent) {
     if (!this.sceneController) return;
 
     SoundManager.playSound('scene/swish', Channel.scene, false, MixMode.singleInstance);
@@ -131,8 +128,9 @@ export class CombatController {
       const target = this.sceneController.getObjectAtLocation(location) as ActorObject;
       const targetAttributes = this.sceneController.getActorAttributes(target);
       const dodge = calculateDodge(targetAttributes);
-      console.log('dodge ', dodge);
+
       this.sceneController.bubbleAtLocation('HIT', location);
+      this.sceneController.effectAtLocation('blood_1/blood_1.json', location);
 
     } else {
       this.sceneController.bubbleAtLocation('MISS', location);
@@ -185,6 +183,7 @@ export class CombatController {
 
   public static actorShootEnd(actorId: string, intent: ActionIntent) {
     const ap = AP_COST_SHOOT;
+    const location = intent.to;
     // Take away AP for shooting
     this.dispatch(deductActorAp(this.questName, actorId, ap));
     const actor = this.sceneController.getSceneActor(actorId);
@@ -218,6 +217,10 @@ export class CombatController {
         const damage = rawDamage - armor;
         const absorbed = rawDamage - damage;
         this.takeDamage(target, damage);
+
+
+        this.sceneController.bubbleAtLocation('HIT', location);
+        this.sceneController.effectAtLocation('blood_2/blood_2.json', location);
 
         this.log({
           key: 'scene-combat-attack-shoot-hit',

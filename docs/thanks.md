@@ -15,3 +15,4 @@ dagger woosh                    gss fx                  https://www.youtube.com/
 00517 alchemist laboratory arra Robinhood76             https://freesound.org/people/Robinhood76/sounds/62282/
 War Game Battle Level Up        qubodup                 https://freesound.org/people/qubodup/sounds/161654/
 Angelou fantasy map             francesca baerald       https://francescabaerald.artstation.com/
+Blood, Hit and Both :D          Sinestesia              https://opengameart.org/content/animations-blood-hit-and-both-d

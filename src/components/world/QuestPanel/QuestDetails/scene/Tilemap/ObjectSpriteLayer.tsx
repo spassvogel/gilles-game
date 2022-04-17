@@ -1,9 +1,11 @@
 import { Container } from '@inlet/react-pixi';
+import { Container as PixiContainer } from 'pixi.js';
 import { isAdventurer, isEnemy, SceneObject } from 'store/types/scene';
 import SceneAdventurer from '../SceneAdventurer';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { TiledObjectType } from 'utils/tilemap';
 import SceneEnemy from '../SceneEnemy';
+import { useRef } from 'react';
 
 interface Props {
   objects: SceneObject[];
@@ -13,9 +15,10 @@ interface Props {
 
 const ObjectSpriteLayer = (props: Props) => {
   const { objects, controller } = props;
+  const ref = useRef<PixiContainer>(null);
 
   return (
-    <Container sortableChildren>
+    <Container sortableChildren ref={ref}>
       {objects.map((object) => {
         const { location } = object;
         const { adventurerId, spritesheet } = object.properties as { [key: string]: string };
