@@ -36,7 +36,6 @@ const Game = () => {
   const startNewGame = useCallback(() => {
     store?.dispatch(startGame());
     store?.dispatch(addLogText('test-game-welcome'));
-    store?.dispatch(addLogText('test-you-have-found-an-item', { item: { type: 'weapon/battleAxe', quantity: 2  } }));
     // todo: here is a good place to launch a tutorial or something
 
     console.log(`Starting new GAME (version ${Version.default})`);

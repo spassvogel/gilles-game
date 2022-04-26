@@ -126,19 +126,22 @@ export class SoundManager {
       await this.init();
     }
 
-    const pixiSound = this.getSound(gameSound);
-    pixiSound.volume = this._channelVolume[channel];
-    pixiSound.loop = loop;
-
-    if (this._currentSound[channel]?.storePosition) {
-      // Did we have to store the position of the current sound?
-      const oldSoundInfo = this._currentSound[channel];
-      oldSoundInfo.instance.once('progress', (progress: number, duration: number) => {
-        this._storedPositions[oldSoundInfo.gameSound] = progress * duration;
-      });
-    }
-    const start = this._storedPositions[gameSound] ?? 0;
     try {
+      const pixiSound = this.getSound(gameSound);
+      if (!pixiSound) {
+        console.warn(`Can't find sound ${gameSound}`);
+      }
+      pixiSound.volume = this._channelVolume[channel];
+      pixiSound.loop = loop;
+
+      if (this._currentSound[channel]?.storePosition) {
+        // Did we have to store the position of the current sound?
+        const oldSoundInfo = this._currentSound[channel];
+        oldSoundInfo.instance.once('progress', (progress: number, duration: number) => {
+          this._storedPositions[oldSoundInfo.gameSound] = progress * duration;
+        });
+      }
+      const start = this._storedPositions[gameSound] ?? 0;
 
       const instance = await pixiSound.play({ start });
 

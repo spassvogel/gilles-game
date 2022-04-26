@@ -9,6 +9,7 @@ import ObjectSpriteLayer from './ObjectSpriteLayer';
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import { Props as SceneProps } from '../Scene';
 import { getLayerObjects } from './utils';
+import SceneEffectLayer from './SceneEffectLayer';
 
 interface Props extends SceneProps {
   basePath: string;
@@ -63,6 +64,7 @@ const Tilemap = (props: PropsWithChildren<Props>) => {
           return null;
         })
       }
+      <SceneEffectLayer controller={controller} />
     </Container>
   );
 };

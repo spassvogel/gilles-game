@@ -1,0 +1,175 @@
+{"frames": {
+
+"explosion-10.png":
+{
+	"frame": {"x":2,"y":2,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-11.png":
+{
+	"frame": {"x":66,"y":2,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-12.png":
+{
+	"frame": {"x":130,"y":2,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-13.png":
+{
+	"frame": {"x":194,"y":2,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-14.png":
+{
+	"frame": {"x":258,"y":2,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-15.png":
+{
+	"frame": {"x":322,"y":2,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-16.png":
+{
+	"frame": {"x":386,"y":2,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-17.png":
+{
+	"frame": {"x":2,"y":130,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-18.png":
+{
+	"frame": {"x":66,"y":130,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-19.png":
+{
+	"frame": {"x":130,"y":130,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-20.png":
+{
+	"frame": {"x":194,"y":130,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-21.png":
+{
+	"frame": {"x":258,"y":130,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-22.png":
+{
+	"frame": {"x":322,"y":130,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-23.png":
+{
+	"frame": {"x":386,"y":130,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-24.png":
+{
+	"frame": {"x":2,"y":258,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-25.png":
+{
+	"frame": {"x":66,"y":258,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-26.png":
+{
+	"frame": {"x":130,"y":258,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-27.png":
+{
+	"frame": {"x":194,"y":258,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-28.png":
+{
+	"frame": {"x":258,"y":258,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+},
+"explosion-29.png":
+{
+	"frame": {"x":322,"y":258,"w":64,"h":128},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":128},
+	"sourceSize": {"w":64,"h":128}
+}},
+"animations": {
+	"explosion": ["explosion-10.png","explosion-11.png","explosion-12.png","explosion-13.png","explosion-14.png","explosion-15.png","explosion-16.png","explosion-17.png","explosion-18.png","explosion-19.png","explosion-20.png","explosion-21.png","explosion-22.png","explosion-23.png","explosion-24.png","explosion-25.png","explosion-26.png","explosion-27.png","explosion-28.png","explosion-29.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "explosion_1.png",
+	"format": "RGBA8888",
+	"size": {"w":452,"h":388},
+  "speed": 1,
+	"scale": "1"
+}
+}

@@ -31,7 +31,7 @@ const MapGrid = PixiComponent('Rectangle', {
 
     // Store props to access them in didMount
     // todo: figure out a nicer way to access props in didmount
-    Object.assign(instance as any, {
+    Object.assign(instance, {
       gridWidth,
       worldWidth: width,
       worldHeight: height,
@@ -47,7 +47,7 @@ const MapGrid = PixiComponent('Rectangle', {
     point.x = -999; // offscreen
     instance.addChild(point);
 
-    const { gridWidth, worldWidth, worldHeight } = instance as any;
+    const { gridWidth/*, worldWidth, worldHeight*/ } = instance as unknown as { gridWidth: number };
     parent.addListener('clicked', (event: { world: Point }) => {
       const nearestX = Math.round(event.world.x / gridWidth) * gridWidth;
       const nearestY = Math.round(event.world.y / gridWidth) * gridWidth;
@@ -58,12 +58,12 @@ const MapGrid = PixiComponent('Rectangle', {
     });
 
     // Node locations work on a centered coordinate system
-    const toNodeLocation = (x: number, y: number) => {
-      return {
-        x: (x - Math.floor(worldWidth / 2)) / gridWidth,
-        y: (y - Math.floor(worldHeight / 2)) / gridWidth,
-      };
-    };
+    // const toNodeLocation = (x: number, y: number) => {
+    //   return {
+    //     x: (x - Math.floor(worldWidth / 2)) / gridWidth,
+    //     y: (y - Math.floor(worldHeight / 2)) / gridWidth,
+    //   };
+    // };
   },
 });
 
