@@ -118,38 +118,74 @@ export class CombatController {
     if (intent.action !== SceneActionType.melee) throw new Error('Wrong action type');
     const { weapon } = intent.weaponWithAbility;
     if (!weapon) throw new Error('No weapon found');
-    const definition = getWeaponDefinition(weapon.type);
+    const weaponDefinition = getWeaponDefinition(weapon.type);
     const skills = this.sceneController.getActorSkills(actor);
     const roll = roll3D6();
 
     // Roll to hit
-    if (roll <= (skills[definition.weaponType] ?? 0)) {
+    if (roll <= (skills[weaponDefinition.weaponType] ?? 0)) {
 
       const target = this.sceneController.getObjectAtLocation(location) as ActorObject;
-      const targetAttributes = this.sceneController.getActorAttributes(target);
-      const dodge = calculateDodge(targetAttributes);
 
-      this.sceneController.bubbleAtLocation('HIT', location);
-      this.sceneController.effectAtLocation('blood_1/blood_1.json', location);
+      
+      const targetAttributes = this.sceneController.getActorAttributes(target);
+      if (rollToDodge(targetAttributes)){
+        this.sceneController.bubbleAtLocation(TextManager.get('scene-combat-attack-dodge'), location);
+
+        // Dodged!
+        this.log({
+          key: 'scene-combat-attack-slash-dodged',
+          context: {
+            attacker: getUniqueName(actor),
+            weapon,
+            target: getUniqueName(target),
+          },
+        });
+      } else {
+        // Hit!
+        // todo: calculate damage types?
+        this.sceneController.bubbleAtLocation(TextManager.get('scene-combat-attack-hit'), location);
+        this.sceneController.effectAtLocation('blood_1/blood_1.json', location);
+        SoundManager.playSound('scene/swordHitFlesh', Channel.scene);
+        
+        const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0;
+        const bodyPart = rollBodyPart();
+        const armor = this.getArmor(target, bodyPart);
+        const damage = rawDamage - armor;
+        const absorbed = rawDamage - damage;
+        this.takeDamage(target, damage);
+
+        // this.sceneController.effectAtLocation('blood_2/blood_2.json', location);
+
+        this.log({
+          key: 'scene-combat-attack-shoot-hit',
+          context: {
+            attacker: getUniqueName(actor),
+            weapon,
+            bodyPart: TextManager.getEquipmentSlot(bodyPart),
+            target: getUniqueName(target),
+            damage,
+            absorbed,
+          },
+        });
+      }
+
+
 
     } else {
-      this.sceneController.bubbleAtLocation('MISS', location);
+      this.sceneController.bubbleAtLocation(TextManager.get('scene-combat-attack-miss'), location);
 
-      if (this.settings.verboseCombatLog) {
-        this.log({ key: 'scene-combat-attack-slash-missed-verbose', context: {
+      this.log({
+        key: this.settings.verboseCombatLog ? 'scene-combat-attack-slash-missed-verbose' : 'scene-combat-attack-slash-missed',
+        context: {
           attacker: getUniqueName(actor),
           weapon,
           ap,
-          roll,
-          weaponType: definition.weaponType,
-          skill: skills[definition.weaponType],
-        } });
-      } else {
-        this.log({ key: 'scene-combat-attack-slash-missed', context: {
-          attacker: getUniqueName(actor),
-          weapon,
-        } });
-      }
+          roll: rollToHit,
+          weaponType: weaponDefinition.weaponType,
+          skill: skills[weaponDefinition.weaponType],
+        },
+      });
     }
     // todo: see if slash misses
     // todo: process the hit, take away any HP?

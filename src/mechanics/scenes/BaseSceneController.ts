@@ -127,6 +127,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     this.createBlockedTiles();
     this.createTileTypes();
     this.aStar = this.createAStar();
+    utils.clearTextureCache();
 
     for (const path of this.actorSpritesheetPaths) {
       await loadResourceAsync(`${actorSpritesheetBasePath}${path}`);
@@ -135,7 +136,6 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
       await loadResourceAsync(`${effectSpritesheetBasePath}${path}`);
     }
 
-    utils.clearTextureCache();
     this.dataLoadComplete = true;
     this.dataLoading = false;
     callback();
