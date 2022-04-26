@@ -103,6 +103,7 @@ export class BaseSceneController<TQuestVars> {
       SoundManager.addSound('scene/parry', ['sound/scene/parry-01.ogg', 'sound/scene/parry-02.ogg']),
       SoundManager.addSound('scene/shieldBash', ['sound/scene/shield-bash-impact.mp3']),
       SoundManager.addSound('scene/swish', ['sound/scene/swish-01.mp3', 'sound/scene/swish-02.mp3', 'sound/scene/swish-03.mp3', 'sound/scene/swish-04.mp3']),
+      SoundManager.addSound('scene/swordHitFlesh', ['sound/scene/sword-hit-flesh-01.mp3', 'sound/scene/sword-hit-flesh-02.mp3', 'sound/scene/sword-hit-flesh-03.mp3', 'sound/scene/sword-hit-flesh-04.mp3']),
       SoundManager.addSound('scene/doorOpen', ['sound/scene/door.ogg']),
     ];
 

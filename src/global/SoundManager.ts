@@ -44,7 +44,8 @@ export type GameSound =
   'scene/metalBash' |
   'scene/parry' |
   'scene/shieldBash' |
-  'scene/swish'
+  'scene/swish' |
+  'scene/swordHitFlesh'
 ;
 
 type SoundInfo = {
