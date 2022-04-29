@@ -162,7 +162,9 @@ const TownView = () => {
           <Clouds worldWidth={canvasWidth} />
           {renderStructures()}
           <Clouds worldWidth={canvasWidth} />
-          <StructureLabels />
+          <StructureLabels 
+            onStructureClick={handleStructureClick}
+          />
         </TownStage>
       )}
       <Routes>

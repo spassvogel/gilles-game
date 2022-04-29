@@ -11,6 +11,7 @@ interface Props {
   structure: Structure;
   x: number;
   y: number;
+  onStructureClick: (structure: Structure | null) => void;
 }
 
 const style = new TextStyle({
@@ -29,20 +30,26 @@ const blurFilter = new BlurFilter(2, 2);
 const borderWidth = 985; // width of original border image
 
 const StructureLabel = (props: Props) => {
-  const { x, y } = props;
+  const { x, y, onStructureClick } = props;
   const structure = useStructureState(props.structure);
   // const mask = useRef<PIXI.Graphics>(null);
   if (structure.state !== StructureState.Built){
     return null;
   }
   const structureName = TextManager.getStructureName(props.structure) ?? '';
-
   const metrics = TextMetrics.measureText(`${structureName}`, style);
+
+  const handleClick = () => {
+    onStructureClick(props.structure);
+  };
+
   return (
     <Container
       x={x}
       y={y}
       name={props.structure}
+      click={handleClick}
+      interactive
     >
       <Sprite
         name="background"
