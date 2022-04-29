@@ -183,6 +183,7 @@ export class SoundManager {
 
   public static fadeOutSound(channel: Channel, duration = 0.75) {
     const soundInfo = this._currentSound[channel];
+    if (!soundInfo) return;
     gsap.to(soundInfo.instance, { volume: 0, duration, onComplete: () => {
       soundInfo.instance.destroy();
     } });
