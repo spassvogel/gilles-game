@@ -3,15 +3,21 @@ import { TextManager } from 'global/TextManager';
 import AccordionItem, { Props as AccordionItemProps } from 'components/ui/accordion/AccordionItem';
 import { useEnemyActorObject } from 'hooks/store/quests';
 import { getDefinition } from 'definitions/enemies';
-import { generateBaseAttributes } from 'mechanics/adventurers/attributes';
+import { generateBaseAttributes, MAX_VALUE } from 'mechanics/adventurers/attributes';
 import Attributes from 'components/ui/attributes/AttributeList';
 import CombatAttributes from 'components/ui/tooltip/ContextTooltip/context/ActorContext/CombatAttributes';
+import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
+import { PlainProgressbar } from 'components/ui/common/progress';
+import { roundIfNeeded } from 'utils/format/number';
+import { CSSProperties } from 'react';
 
 type Props = Merge<Omit<AccordionItemProps, 'id' | 'title'>, {
   enemyId: string;
   selected: boolean;
   questName: string;
 }>;
+
+const style = { '--item-count': MAX_VALUE } as CSSProperties;
 
 const ActorsAccordionEnemyItem = (props: Props) => {
   const { enemyId, selected, questName, ...rest } = props;
@@ -21,6 +27,9 @@ const ActorsAccordionEnemyItem = (props: Props) => {
   const level = actorObject.level ?? 1;
   const extendedAttributes = generateBaseAttributes(definition.attributes);
   const attributes = definition.attributes;
+  const baseHP = calculateBaseHitpoints(level, attributes.for);
+  const health = actorObject.health;
+  const label = health > 0 ? `${roundIfNeeded(Math.max(health, 0))}/${baseHP}` : TextManager.get('ui-adventurer-info-dead');
 
   return (
     <AccordionItem
@@ -33,7 +42,15 @@ const ActorsAccordionEnemyItem = (props: Props) => {
       </>)}
     >
       <div>
-        <div className="name-and-level">
+        <div className={'attribute-list'} style={style}>
+          <div className="health">
+            {TextManager.get('ui-adventurer-info-health')}
+          </div>
+          <PlainProgressbar
+            progress={health / baseHP}
+            label={label}
+            variation="health"
+          />
           <div className="level">
             {TextManager.get('ui-tooltip-actor-level', { level })}
           </div>
