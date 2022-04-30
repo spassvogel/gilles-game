@@ -341,10 +341,8 @@ export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = in
           const scene = qss.scene;
           if (!scene) throw new Error('Something broke. No scene');
           const objects = scene.objects.map(o => {
-            if (isActorObject(o) && o.name === action.actor) {
-              // todo
-              // const health = o.health + action.health;
-              const health = 23;
+            if (isEnemy(o) && o.enemyId === action.actor) {
+              const health = o.health + action.health;
               return {
                 ...o,
                 health,

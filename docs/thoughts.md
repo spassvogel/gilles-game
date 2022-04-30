@@ -826,3 +826,4 @@ https://interfaceingame.com/games/league-of-legends/
 ### 2022-04-18 Scenecontrollers as hooks
 
 - [ ] Investigate if we can have scenecontroller as hooks
+- [ ] Everything needs to be put in state / memo

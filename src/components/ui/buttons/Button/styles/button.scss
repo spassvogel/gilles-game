@@ -23,9 +23,9 @@ $small-margin: 10px;
   span {
     color: $color-text-lighter;
     font-family: $font-normal;
-    overflow-y: hidden;
     flex: 1;
     white-space: nowrap;
+    overflow: hidden;
   }
 
   &:disabled {
