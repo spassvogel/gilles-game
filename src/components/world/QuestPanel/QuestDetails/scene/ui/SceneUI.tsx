@@ -2,6 +2,7 @@ import React, {
   PropsWithChildren,
   useContext,
   useEffect,
+  useCallback,
   useRef,
   useState,
 } from 'react';
@@ -165,6 +166,8 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   const bind = useLongPress((e) => {
     if (e) {
       handleClick(e as React.MouseEvent<HTMLDivElement>);
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      handleMouseUp(e as React.MouseEvent<HTMLDivElement>);
       e.preventDefault();
       e.stopPropagation();
     }
@@ -176,7 +179,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     detect: LongPressDetectEvents.BOTH,
   });
 
-  const handleMouseUp = (e: MouseOrTouchEvent<HTMLDivElement>) => {
+  const handleMouseUp = useCallback((e: MouseOrTouchEvent<HTMLDivElement>) => {
     bind.onMouseUp(e as unknown as React.MouseEvent<Element, MouseEvent>);
     mouseDownOnCanvas.current = false;
 
@@ -196,7 +199,12 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     }
 
     e.stopPropagation();
-  };
+  }, [actionIntent, bind, combat, controller, cursorLocation, onSetActionIntent, selectedActorId]);
+
+  useEffect(() => {
+    document.addEventListener('mouseup', handleMouseUp);
+    return () => document.removeEventListener('mouseup', handleMouseUp);
+  }, [handleMouseUp]);
 
   useEffect(() => {
     // Non combat action
