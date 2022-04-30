@@ -6,7 +6,7 @@ import { locationEquals } from 'utils/tilemap';
 import { BaseSceneController, movementDuration } from './BaseSceneController';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import { getDefinition as getWeaponDefinition } from 'definitions/items/weapons';
-import { AP_COST_MELEE, AP_COST_SHOOT, calculateDodge, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat';
+import { AP_COST_MELEE, AP_COST_SHOOT, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { TextEntry } from 'constants/text';
 import { roll3D6 } from 'utils/random';
@@ -87,7 +87,7 @@ export class CombatController {
   }
 
   // Call when actor melee animation starts
-  public static actorMeleeStart(actorId: string, intent: ActionIntent) {
+  public static actorMeleeStart(actorId: string, _intent: ActionIntent) {
     if (!this.sceneController) return;
 
     SoundManager.playSound('scene/swish', Channel.scene, false, MixMode.singleInstance);
@@ -158,7 +158,7 @@ export class CombatController {
         // this.sceneController.effectAtLocation('blood_2/blood_2.json', location);
 
         this.log({
-          key: 'scene-combat-attack-shoot-hit',
+          key: absorbed > 0 ? 'scene-combat-attack-slash-hit-absorbed' : 'scene-combat-attack-slash-hit',
           context: {
             attacker: getUniqueName(actor),
             weapon,
@@ -259,7 +259,7 @@ export class CombatController {
         this.sceneController.effectAtLocation('blood_2/blood_2.json', location);
 
         this.log({
-          key: 'scene-combat-attack-shoot-hit',
+          key: absorbed > 0 ? 'scene-combat-attack-shoot-hit-absorbed' : 'scene-combat-attack-shoot-hit',
           context: {
             attacker: getUniqueName(actor),
             weapon,

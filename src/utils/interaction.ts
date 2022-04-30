@@ -1,6 +1,6 @@
 import { hasOwnProperty } from './typescript';
 
-export type MouseOrTouchEvent<T = HTMLElement> = React.MouseEvent<T> | React.TouchEvent<T>;
+export type MouseOrTouchEvent<T = HTMLElement> = React.MouseEvent<T> | React.TouchEvent<T> | MouseEvent; 
 
 // Normalizes `clientX` and `clientY` props from either a mouse or a touch event
 export const convertMouseOrTouchCoords = (e: MouseOrTouchEvent) => {
