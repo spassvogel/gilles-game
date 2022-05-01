@@ -21,7 +21,7 @@ const ManifestLoader = (props: Props) => {
   if (loading) {
     return (
       <LoadingPage>
-        Loading more data...
+        Loading sprites ...
       </LoadingPage>
     );
   }
