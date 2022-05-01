@@ -4,6 +4,7 @@ import * as PIXI from 'pixi.js';
 import { QuestStoreState } from 'store/types/quest';
 import { AdventurerStoreState } from 'store/types/adventurer';
 import { Point } from 'pixi.js';
+import { sprites } from 'manifests/sprites';
 
 interface Props {
   quest: QuestStoreState;
@@ -17,7 +18,7 @@ const CIRCLE_DIAMETER = 256; // = avatar size / 2
 
 const QuestMarker = (props: Props) => {
   const { quest, leader, encounterActive, position, onClick, selected } = props;
-  const image = selected ? '/img/world/map-marker-selected.png' : '/img/world/map-marker.png';
+  const image = selected ? sprites.WORLD_MAP_MARKER_SELECTED : sprites.WORLD_MAP_MARKER;
 
   const avatar = useRef<PIXI.Sprite>(null);
   // Mask has to be a child of the avatar in order to move with it
@@ -35,8 +36,8 @@ const QuestMarker = (props: Props) => {
 
   return (
     <Sprite
-      image={`${process.env.PUBLIC_URL}${image}`}
-      name={quest.name}
+      image={image}
+      name={`${quest.name} marker`}
       x={position.x}
       y={position.y}
       interactive={true}
@@ -61,7 +62,7 @@ const QuestMarker = (props: Props) => {
       />)}
       {encounterActive && (
       <Sprite
-        image={`${process.env.PUBLIC_URL}/img/world/quest-alert.png`}
+        image={sprites.WORLD_MAP_QUEST_ALERT}
         name="quest-alert"
         anchor={new Point(0.5, 1)}
         x={180}

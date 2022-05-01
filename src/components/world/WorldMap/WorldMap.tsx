@@ -20,6 +20,7 @@ import { getWorldLink } from 'utils/routing';
 import { DebugToggleCombat } from './DebugToggleCombat';
 import { FULL_HEIGHT, SMALL_HEIGHT, nodeLocationToPoint, getPreviousPositions, getQuestWorldLocation, WORLD_WIDTH, WORLD_HEIGHT } from './utils';
 import { IApplicationOptions } from 'pixi.js';
+import { sprites } from 'manifests/sprites';
 import './styles/worldMap.scss';
 
 const GRID_WIDTH = 100;
@@ -180,7 +181,7 @@ const WorldMap = (props: Props) => {
       <Stage width={canvasWidth} height={canvasHeight} options={options}>
         <Viewport screenWidth={canvasWidth} screenHeight={canvasHeight} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef} >
           <Sprite
-            image={`${process.env.PUBLIC_URL}/img/world/map-default.png`}
+            image={sprites.WORLD_MAP_DEFAULT}
             interactive={true}
             pointerdown={handleMapClick}
           >

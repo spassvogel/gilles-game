@@ -20,6 +20,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import App from 'components/App';
 import { GameActionsContext } from './context';
 import LoadingPage from 'components/ui/loading/LoadingPage';
+import ManifestLoader from 'components/loading/ManifestLoader';
 
 const TICK_INTERVAL = 2500; // main game tick
 
@@ -122,8 +123,7 @@ const Game = () => {
     }
   }, [setupStore, store]);
 
-  const X = true;
-  if (/*!store || !persistor || */X) {
+  if (!store || !persistor) {
     return (
       <LoadingPage>
         Loading data...
@@ -139,7 +139,9 @@ const Game = () => {
 
       <StoreProvider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <App />
+          <ManifestLoader>
+            <App />
+          </ManifestLoader>
         </PersistGate>
       </StoreProvider>
     </GameActionsContext.Provider>
