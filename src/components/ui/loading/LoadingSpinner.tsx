@@ -4,11 +4,11 @@ const LoadingSpinner = () => {
   const rings = 5;
   return (
     <div className="loading-spinner">
-    {[...Array(rings)].map((e, i) => (
-      <div className="ring" key={i}>
-        <div className="inner"/>
-      </div>
-    ))}
+      {[...Array(rings)].map((e, i) => (
+        <div className="ring" key={i}>
+          <div className="inner"/>
+        </div>
+      ))}
     </div>
   );
 };

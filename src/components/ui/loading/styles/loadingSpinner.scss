@@ -2,39 +2,39 @@ $rings: 5;
 $color: #cfb9a7;
 
 .loading-spinner {
-    width: 100px;
-    height: 102px;
-    border-radius: 100%;
+  width: 100px;
+  height: 102px;
+  border-radius: 100%;
+  position: absolute;
+  top: 45%;
+  left: calc(50% - 50px);
+  animation: spin 5s infinite linear;
+  
+  .ring {
+    width: 100%;
+    height: 100%;
     position: absolute;
-    top: 45%;
-    left: calc(50% - 50px);
-    animation: spin 5s infinite linear;
     
-    .ring {
-        width: 100%;
-        height: 100%;
-        position: absolute;
+    @for $i from 0 through $rings  {
+      &:nth-of-type(#{$i}) {
+        transform: rotate($i * 70deg);
         
-        @for $i from 0 through $rings  {
-            &:nth-of-type(#{$i}) {
-                transform: rotate($i * 70deg);
-                
-                .inner {
-                    animation: spin 2s infinite linear
-                }
-            }
-        }
-
         .inner {
-            width: 100%;
-            height: 100%;
-            border-radius: 100%;
-            border: 5px solid transparentize($color, 0.3);
-            border-right: none;
-            border-top: none;
-            box-shadow: inset 0px 0px 10px transparentize($color, 0.85);
+          animation: spin 2s infinite linear
         }
+      }
     }
+
+    .inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 100%;
+      border: 5px solid transparentize($color, 0.3);
+      border-right: none;
+      border-top: none;
+      box-shadow: inset 0px 0px 10px transparentize($color, 0.85);
+    }
+  }
 }
 
 @keyframes spin {

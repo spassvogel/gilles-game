@@ -16,10 +16,10 @@ import { createInitialStore } from 'store/reducers';
 import getHarvest from 'mechanics/gameTick/harvest';
 import { convertIntToSemVer } from 'utils/version';
 import { loadGame } from 'store/actions/game';
-import LoadingSpinner from 'components/ui/loading/LoadingSpinner';
 import { PersistGate } from 'redux-persist/integration/react';
 import App from 'components/App';
 import { GameActionsContext } from './context';
+import LoadingPage from 'components/ui/loading/LoadingPage';
 
 const TICK_INTERVAL = 2500; // main game tick
 
@@ -122,8 +122,13 @@ const Game = () => {
     }
   }, [setupStore, store]);
 
-  if (!store || !persistor) {
-    return <LoadingSpinner />;
+  const X = true;
+  if (/*!store || !persistor || */X) {
+    return (
+      <LoadingPage>
+        Loading data...
+      </LoadingPage>
+    );
   }
   return (
     <GameActionsContext.Provider value={{
