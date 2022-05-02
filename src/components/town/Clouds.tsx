@@ -1,19 +1,24 @@
 import { useState } from 'react';
 import { Sprite, useTick } from '@inlet/react-pixi';
+import { sprites } from 'manifests/sprites';
 
 interface Props {
   worldWidth: number;
   speed?: number;
 }
 
-
-const randomCloud = () => Math.floor(Math.random() * 2) + 1;
+const CLOUD_IMAGES = [
+  sprites.TOWN_CLOUD_1,
+  sprites.TOWN_CLOUD_2,
+  sprites.TOWN_CLOUD_3,
+];
+const randomCloud = () => Math.floor(Math.random() * (CLOUD_IMAGES.length - 1));
 const randomY = () => Math.random() * -300 - 200;
 
 const Clouds = (props: Props) => {
   const { speed = 1 } = props;
   const [cloud, setCloud] = useState(randomCloud());
-  const image = `${process.env.PUBLIC_URL}/img/town/clouds/cloud-0${cloud}.png`;
+  const image = CLOUD_IMAGES[cloud];
   const [x, setX] = useState(-2000);
   const [y, setY] = useState(randomY());
 

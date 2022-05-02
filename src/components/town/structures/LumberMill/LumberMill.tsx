@@ -5,6 +5,7 @@ import HitAreaShapes from 'utils/pixiJs/hitAreaShapes';
 import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView';
 import { loadResource } from 'utils/pixiJs';
 import { Point, Texture } from 'pixi.js';
+import { sprites } from 'manifests/sprites';
 
 const BLADE_ROTATION_SPEED = 0.01;
 
@@ -18,7 +19,7 @@ export interface Props {
 const LumberMill = (props: Props) => {
   const { hitAreaShapes } = props;
   const structure: Structure = 'lumberMill';
-  const atlas = `${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.json`;
+  const atlas = sprites.TOWN_STRUCTURE_LUMBERMILL;
   const [textures, setTextures] = useState<{ [name: string]: Texture }>();
   const filters = props.selected ? [STRUCTURE_HIGHLIGHT_FILTER] : [];
 

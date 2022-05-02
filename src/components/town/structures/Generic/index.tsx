@@ -3,6 +3,7 @@ import { Sprite } from '@inlet/react-pixi';
 import HitAreaShapes from 'utils/pixiJs/hitAreaShapes';
 import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView';
 import { Point } from 'pixi.js';
+import { sprites } from 'manifests/sprites';
 
 export interface Props {
   onStructureClick: (structure: Structure | null) => void;
@@ -11,6 +12,36 @@ export interface Props {
   structure: Structure;
   hitAreaShapes: HitAreaShapes;
 }
+
+const getImagePath = (structure: string): string => {
+  switch (structure) {
+    case 'workshop':
+      return sprites.TOWN_STRUCTURE_WORKSHOP;
+    case 'quarry':
+      return sprites.TOWN_STRUCTURE_QUARRY;
+    case 'tannery':
+      return sprites.TOWN_STRUCTURE_TANNERY;
+    case 'alchemist':
+      return sprites.TOWN_STRUCTURE_ALCHEMIST;
+    case 'garden':
+      return sprites.TOWN_STRUCTURE_GARDEN;
+    case 'weaponsmith':
+      return sprites.TOWN_STRUCTURE_WEAPONSMITH;
+    case 'armoursmith':
+      return sprites.TOWN_STRUCTURE_ARMOURSMITH;
+    case 'warehouse':
+      return sprites.TOWN_STRUCTURE_WAREHOUSE;
+    case 'mine':
+      return sprites.TOWN_STRUCTURE_MINE;
+    case 'weaver':
+      return sprites.TOWN_STRUCTURE_WEAVER;
+    case 'lumberMill':
+      return sprites.TOWN_STRUCTURE_LUMBERMILL;
+    case 'tavern':
+      return sprites.TOWN_STRUCTURE_TAVERN;
+  }
+  throw new Error();
+};
 
 const Generic = (props: Props) => {
   const { structure, position, hitAreaShapes, selected, onStructureClick } = props;
@@ -29,7 +60,7 @@ const Generic = (props: Props) => {
       pointertap={handlePointerTap}
       hitArea={hitAreaShapes}
       filters={filters}
-      image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}
+      image={getImagePath(structure)}
     >
       {/* <Graphics
         name="hitarea"
@@ -43,3 +74,5 @@ const Generic = (props: Props) => {
   );
 };
 export default Generic;
+
+

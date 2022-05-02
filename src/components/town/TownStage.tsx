@@ -5,6 +5,7 @@ import Viewport from 'components/pixi/Viewport';
 import { gsap } from 'gsap';
 import { GodrayFilter } from '@pixi/filter-godray';
 import BridgedStage from 'components/pixi/util/BridgedStage';
+import { sprites } from 'manifests/sprites';
 
 export interface Props {
   screenWidth: number;
@@ -79,7 +80,7 @@ const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref
         ref={innerRef}>
         <Sprite
           name="background"
-          image={`${process.env.PUBLIC_URL}/img/town/town-alpha/background.png`}
+          image={sprites.TOWN_BACKGROUND}
           filters={[godray]}
         >
           {children}

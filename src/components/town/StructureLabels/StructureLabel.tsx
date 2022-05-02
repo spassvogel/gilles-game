@@ -6,6 +6,7 @@ import { TextManager } from 'global/TextManager';
 import { BlurFilter } from '@pixi/filter-blur';
 import StructureIconSprite from './StructureIconSprite';
 import { TextStyle, TextMetrics } from 'pixi.js';
+import { sprites } from 'manifests/sprites';
 
 interface Props {
   structure: Structure;
@@ -53,7 +54,7 @@ const StructureLabel = (props: Props) => {
     >
       <Sprite
         name="background"
-        image={`${process.env.PUBLIC_URL}/img/town/structure-label/background.png`}
+        image={sprites.TOWN_STRUCTURELABEL_BACKGROUND}
         scale={[(metrics.width + 16) / 190, 25.5]}
         alpha={0.5}
         filters={[blurFilter]}
@@ -62,13 +63,13 @@ const StructureLabel = (props: Props) => {
       />
       <Sprite
         name="border-top"
-        image={`${process.env.PUBLIC_URL}/img/town/structure-label/border-top.png`}
+        image={sprites.TOWN_STRUCTURELABEL_BORDER}
         scale={[(metrics.width + 30) / borderWidth, 0.2]}
         y={2}
       />
        <Sprite
           name="border-bottom"
-          image={`${process.env.PUBLIC_URL}/img/town/structure-label/border-top.png`}
+          image={sprites.TOWN_STRUCTURELABEL_BORDER}
           y={28}
           scale={[(metrics.width + 30) / borderWidth, 0.2]}
        />

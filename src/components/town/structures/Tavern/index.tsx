@@ -5,6 +5,7 @@ import HitAreaShapes from 'utils/pixiJs/hitAreaShapes';
 import smoke from './smoke.json';
 import ParticleEmitter from 'components/pixi/ParticleEmitter';
 import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView';
+import { sprites } from 'manifests/sprites';
 
 export interface Props {
   onStructureClick: (structure: Structure | null) => void;
@@ -27,13 +28,13 @@ const Tavern = (props: Props) => {
         pointertap={() => { props.onStructureClick(structure); }}
         filters={filters}
         hitArea={hitAreaShapes}
-        image={`${process.env.PUBLIC_URL}/img/town/town-alpha/${structure}.png`}
+        image={sprites.TOWN_STRUCTURE_TAVERN}
       />
       <ParticleEmitter
         name="smoke"
         x={107}
         y={-2}
-        image={`${process.env.PUBLIC_URL}/img/town/effects/smokeparticle.png`}
+        image={sprites.TOWN_EFFECT_SMOKEPARTICLE}
         config={smoke}
       />
     </Container>
