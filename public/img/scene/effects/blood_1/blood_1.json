@@ -1,6 +1,6 @@
 {
   "frames": {
-    "1.png": {
+    "1-blood1.png": {
       "frame": {
         "x": 0,
         "y": 0,
@@ -20,7 +20,7 @@
         "h": 64
       }
     },
-    "2.png": {
+    "2-blood1.png": {
       "frame": {
         "x": 64,
         "y": 0,
@@ -40,7 +40,7 @@
         "h": 64
       }
     },
-    "3.png": {
+    "3-blood1.png": {
       "frame": {
         "x": 128,
         "y": 0,
@@ -60,7 +60,7 @@
         "h": 64
       }
     },
-    "4.png": {
+    "4-blood1.png": {
       "frame": {
         "x": 192,
         "y": 0,
@@ -80,7 +80,7 @@
         "h": 64
       }
     },
-    "5.png": {
+    "5-blood1.png": {
       "frame": {
         "x": 0,
         "y": 64,
@@ -100,7 +100,7 @@
         "h": 64
       }
     },
-    "6.png": {
+    "6-blood1.png": {
       "frame": {
         "x": 64,
         "y": 64,
@@ -120,7 +120,7 @@
         "h": 64
       }
     },
-    "7.png": {
+    "7-blood1.png": {
       "frame": {
         "x": 128,
         "y": 64,
@@ -140,7 +140,7 @@
         "h": 64
       }
     },
-    "8.png": {
+    "8-blood1.png": {
       "frame": {
         "x": 192,
         "y": 64,
@@ -160,7 +160,7 @@
         "h": 64
       }
     },
-    "9.png": {
+    "9-blood1.png": {
       "frame": {
         "x": 0,
         "y": 128,
@@ -180,7 +180,7 @@
         "h": 64
       }
     },
-    "10.png": {
+    "10-blood1.png": {
       "frame": {
         "x": 64,
         "y": 128,
@@ -200,7 +200,7 @@
         "h": 64
       }
     },
-    "11.png": {
+    "11-blood1.png": {
       "frame": {
         "x": 128,
         "y": 128,
@@ -220,7 +220,7 @@
         "h": 64
       }
     },
-    "12.png": {
+    "12-blood1.png": {
       "frame": {
         "x": 192,
         "y": 128,
@@ -240,7 +240,7 @@
         "h": 64
       }
     },
-    "13.png": {
+    "13-blood1.png": {
       "frame": {
         "x": 0,
         "y": 192,
@@ -260,7 +260,7 @@
         "h": 64
       }
     },
-    "14.png": {
+    "14-blood1.png": {
       "frame": {
         "x": 64,
         "y": 192,
@@ -280,7 +280,7 @@
         "h": 64
       }
     },
-    "15.png": {
+    "15-blood1.png": {
       "frame": {
         "x": 128,
         "y": 192,
@@ -300,7 +300,7 @@
         "h": 64
       }
     },
-    "16.png": {
+    "16-blood1.png": {
       "frame": {
         "x": 192,
         "y": 192,
@@ -322,7 +322,7 @@
     }
   },
   "animations": {
-    "play": ["1.png","2.png","3.png","4.png","5.png","6.png","7.png","8.png","9.png","10.png","11.png","12.png","13.png","14.png","15.png","16.png"]
+    "play": ["1-blood1.png","2-blood1.png","3-blood1.png","4-blood1.png","5-blood1.png","6-blood1.png","7-blood1.png","8-blood1.png","9-blood1.png","10-blood1.png","11-blood1.png","12-blood1.png","13-blood1.png","14-blood1.png","15-blood1.png","16-blood1.png"]
   },
   "meta": {
     "app": "https://github.com/piskelapp/piskel/",
