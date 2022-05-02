@@ -1,7 +1,8 @@
 import LoadingPage from 'components/ui/loading/LoadingPage';
 import { sprites } from 'manifests/sprites';
-import { PropsWithChildren, useEffect, useState } from 'react';
-import { loadResourceAsync, loadResourcesAsync } from 'utils/pixiJs';
+import { Loader } from 'pixi.js';
+import { PropsWithChildren, useEffect, useRef, useState } from 'react';
+import { loadResourcesAsync } from 'utils/pixiJs';
 
 
 type Props = PropsWithChildren<unknown>;
@@ -9,10 +10,17 @@ type Props = PropsWithChildren<unknown>;
 const ManifestLoader = (props: Props) => {
   const { children } = props;
   const [loading, setLoading] = useState(true);
-  // todo: load a bunch of stuff here
+  const pctRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const allSprites = Object.values(sprites);
+    let counter = 0;
+    Loader.shared.onProgress.add(() => {
+      counter++;
+      if (pctRef.current) {
+        pctRef.current.innerHTML = `${((counter / allSprites.length) * 100).toFixed(0)}%`;
+      }
+    });
     loadResourcesAsync(allSprites).then(() => {
       setLoading(false);
     });
@@ -21,7 +29,7 @@ const ManifestLoader = (props: Props) => {
   if (loading) {
     return (
       <LoadingPage>
-        Loading sprites ...
+        Loading sprites <span ref={pctRef}></span>...
       </LoadingPage>
     );
   }
