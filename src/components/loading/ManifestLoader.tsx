@@ -14,11 +14,9 @@ const ManifestLoader = (props: Props) => {
 
   useEffect(() => {
     const allSprites = Object.values(sprites);
-    let counter = 0;
     Loader.shared.onProgress.add(() => {
-      counter++;
       if (pctRef.current) {
-        pctRef.current.innerHTML = `${((counter / allSprites.length) * 100).toFixed(0)}%`;
+        pctRef.current.innerHTML = `${(Loader.shared.progress).toFixed(0)}%`;
       }
     });
     loadResourcesAsync(allSprites).then(() => {

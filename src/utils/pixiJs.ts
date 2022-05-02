@@ -14,7 +14,6 @@ export const lerpLocation = (point1: Coords, point2: Coords, alpha: number): Coo
 
 // Uses the shared pixi loader to load a resource
 export async function loadResourceAsync(path: string) {
-  console.log('we ae loading', path);
   const loader = Loader.shared;
   return new Promise<LoaderResource>((resolve, _reject) => {
     if (loader.resources[path]) {

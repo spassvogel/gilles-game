@@ -148,7 +148,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   tempEffects: [],
   inventory: [ null, null, null, null, { type: 'weapon/khopesh' }, { type: 'apparel/hornedHelmet' }, { type: 'weapon/woodenBulwark' } ],
 }, {
-  id: '96c686c3',
+  id: `${ADVENTURER_PREFIX}96c686c3`,
   equipment: {},
   ...generateAttributesHealthAndXp(),
   name: 'Wayne Monroe',
