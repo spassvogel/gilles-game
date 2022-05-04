@@ -26,6 +26,7 @@ import { Ammunition } from 'definitions/items/ammunition';
 import { WeaponAbility } from 'definitions/abilities/types';
 import AdventurerCombatSceneUI, { Refs } from './AdventurerCombatSceneUI';
 import './styles/sceneUI.scss';
+import { checkIfEnemy } from 'definitions/enemies/types';
 
 export type Props = {
   sceneWidth: number;
@@ -102,7 +103,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     scaler.scale = scaler.recalculate();
   }, [scaler]);
 
-  const findLocation = (e: MouseOrTouchEvent) => {
+  const findLocation = useCallback((e: MouseOrTouchEvent) => {
     if (e.target instanceof Element) {
       const {
         x,
@@ -115,7 +116,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       return controller?.pointToSceneLocation(new Point(convertedX, convertedY));
     }
     throw new Error('You didnt give me the correct event');
-  };
+  }, [controller, scaler.scale]);
 
   const handleMouseMove = (e: MouseOrTouchEvent<HTMLDivElement>) => {
     if (mouseDownOnCanvas.current) {
@@ -167,7 +168,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     if (e) {
       handleClick(e as React.MouseEvent<HTMLDivElement>);
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
-      handleMouseUp(e as React.MouseEvent<HTMLDivElement>);
+      handleMouseUp(e as React.MouseEvent);
       e.preventDefault();
       e.stopPropagation();
     }
@@ -179,10 +180,17 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     detect: LongPressDetectEvents.BOTH,
   });
 
-  const handleMouseUp = useCallback((e: MouseOrTouchEvent<HTMLDivElement>) => {
-    bind.onMouseUp(e as unknown as React.MouseEvent<Element, MouseEvent>);
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
     mouseDownOnCanvas.current = false;
 
+    if (!combat) {
+      adventurerCombatRef.current?.onMouseUp();
+    }
+  }, [combat]);
+
+  const handleMouseUp = useCallback((e: React.MouseEvent) => {
+    bind.onMouseUp(e);
+    mouseDownOnCanvas.current = false;
     if (!combat) {
       // Not in combat, do the action immediately
       setCursorLocation(undefined);
@@ -194,16 +202,22 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         controller?.actorAttemptAction(actionIntent);
         onSetActionIntent(undefined);
       }
-    } else {
+    } else if (e.button === 2){
       adventurerCombatRef.current?.onMouseUp();
     }
 
     e.stopPropagation();
   }, [actionIntent, bind, combat, controller, cursorLocation, onSetActionIntent, selectedActorId]);
 
+  const handleContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    return false;
+  };
+
   useEffect(() => {
-    document.addEventListener('mouseup', handleMouseUp);
-    return () => document.removeEventListener('mouseup', handleMouseUp);
+    const mouseUp = (e: MouseEvent) => { handleMouseUp(e as unknown as React.MouseEvent); };
+    document.addEventListener('mouseup', mouseUp);
+    return () => document.removeEventListener('mouseup', mouseUp);
   }, [handleMouseUp]);
 
   useEffect(() => {
@@ -236,7 +250,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       }
     };
 
-    window.addEventListener('touchmove', onTouch, { passive: false } );
+    window.addEventListener('touchmove', onTouch, { passive: false });
     return () => {
       window.removeEventListener('touchmove', onTouch);
     };
@@ -253,23 +267,44 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     ref.current?.addEventListener('mouseleave', onLeave);
   }, [onSetActionIntent]);
 
+  useEffect(() => {
+    const mouseOver = (e: MouseEvent) => {
+      console.log('mousemose', mouseDownOnCanvas.current);
+      if (!adventurerCombatRef.current || !adventurerCombatRef.current.actionMenuOpen) {
+        // dont move cursor when combat dialog is open
+        setCursorLocation(findLocation(e) ?? [0, 0]);
+      }
+    };
+    const sceneRef = ref.current;
+    if (!sceneRef) return;
+
+    if (!checkIfEnemy(selectedActorId)) {
+      sceneRef.addEventListener('mousemove', mouseOver);
+    }
+    return () => {
+      sceneRef.removeEventListener('mousemove', mouseOver);
+    };
+  }, [findLocation, selectedActorId]);
+
   return (
     <div
       ref={ref}
       className="scene-ui"
       {...bind}
+      onContextMenu={handleContextMenu}
       onMouseUp={handleMouseUp}
-      onTouchEnd={handleMouseUp}
+      onTouchEnd={handleTouchEnd}
     >
       {children}
       {!scene?.combat && cursorLocation && (
         <NormalUICursor location={cursorLocation} />
       )}
-      {scene?.combat && cursorLocation && !!selectedAdventurer &&  (
+      {scene?.combat && cursorLocation && !!selectedAdventurer && (
         <AdventurerCombatSceneUI
           ref={adventurerCombatRef}
           cursorLocation={cursorLocation}
           selectedAdventurerId={selectedActorId}
+          visible={mouseDownOnCanvas.current}
           setCursorLocation={setCursorLocation}
           onSetActionIntent={onSetActionIntent}
         />

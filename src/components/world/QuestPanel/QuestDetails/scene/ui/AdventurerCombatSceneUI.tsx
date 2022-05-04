@@ -8,6 +8,7 @@ import { ActionIntent } from './SceneUI';
 type Props = {
   selectedAdventurerId: string;
   cursorLocation: Location;
+  visible: boolean;
   setCursorLocation: (location?: Location) => void;
   onSetActionIntent: (intent?: ActionIntent) => void;
 };
@@ -20,7 +21,7 @@ export type Refs = {
 // part of the UI that is shown when an adventurer is selected and the scene is in combat
 const AdventurerCombatSceneUI = forwardRef<Refs, Props>((props: Props, ref) => {
 // const AdventurerCombatSceneUI = (props: Props) => {
-  const { selectedAdventurerId, cursorLocation, setCursorLocation, onSetActionIntent } = props;
+  const { selectedAdventurerId, cursorLocation, visible, setCursorLocation, onSetActionIntent } = props;
   const [actionMenuOpen, setActionMenuOpen] = useState(false);
   const combatIntents = useActionIntents(selectedAdventurerId, cursorLocation);
 
@@ -51,11 +52,11 @@ const AdventurerCombatSceneUI = forwardRef<Refs, Props>((props: Props, ref) => {
 
   return (
     <>
-      <CombatUIWidget
+      { visible && <CombatUIWidget
         location={cursorLocation}
         intents={combatIntents}
         selectedActorId={selectedAdventurerId}
-      />
+      />}
       { (actionMenuOpen && cursorLocation && combatIntents) && (
         <ActionMenu
           adventurerId={selectedAdventurerId}
