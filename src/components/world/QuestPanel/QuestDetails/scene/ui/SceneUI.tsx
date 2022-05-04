@@ -180,7 +180,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     detect: LongPressDetectEvents.BOTH,
   });
 
-  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+  const handleTouchEnd = useCallback((_e: React.TouchEvent) => {
     mouseDownOnCanvas.current = false;
 
     if (!combat) {
@@ -269,7 +269,9 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
   useEffect(() => {
     const mouseOver = (e: MouseEvent) => {
-      console.log('mousemose', mouseDownOnCanvas.current);
+      if (!combat) {
+        return;
+      }
       if (!adventurerCombatRef.current || !adventurerCombatRef.current.actionMenuOpen) {
         // dont move cursor when combat dialog is open
         setCursorLocation(findLocation(e) ?? [0, 0]);
@@ -284,7 +286,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     return () => {
       sceneRef.removeEventListener('mousemove', mouseOver);
     };
-  }, [findLocation, selectedActorId]);
+  }, [combat, findLocation, selectedActorId]);
 
   return (
     <div
