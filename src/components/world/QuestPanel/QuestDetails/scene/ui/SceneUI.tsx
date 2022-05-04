@@ -182,11 +182,21 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
   const handleTouchEnd = useCallback((_e: React.TouchEvent) => {
     mouseDownOnCanvas.current = false;
-
-    if (!combat) {
+    if (combat) {
       adventurerCombatRef.current?.onMouseUp();
+    } else {
+      // Not in combat, do the action immediately
+      setCursorLocation(undefined);
+      if (!actionIntent) {
+        return;
+      }
+      const selectedActorLocation = controller?.getSceneAdventurer(selectedActorId)?.location;
+      if (selectedActorLocation && cursorLocation && !locationEquals(selectedActorLocation, cursorLocation) && actionIntent) {
+        controller?.actorAttemptAction(actionIntent);
+        onSetActionIntent(undefined);
+      }
     }
-  }, [combat]);
+  }, [actionIntent, combat, controller, cursorLocation, onSetActionIntent, selectedActorId]);
 
   const handleMouseUp = useCallback((e: React.MouseEvent) => {
     bind.onMouseUp(e);
@@ -202,7 +212,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         controller?.actorAttemptAction(actionIntent);
         onSetActionIntent(undefined);
       }
-    } else if (e.button === 2){
+    } else {
       adventurerCombatRef.current?.onMouseUp();
     }
 
