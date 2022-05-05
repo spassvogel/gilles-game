@@ -6,14 +6,10 @@ import { PersistPartial } from 'redux-persist/es/persistReducer';
 import { gameTick, ignoreVersionDiff, startGame } from 'store/actions/game';
 import { addLogText } from 'store/actions/log';
 import * as Version from 'constants/version';
-import getProducedResources from 'mechanics/gameTick/producedResources';
-import getQuestUpdates, { LogUpdate } from 'mechanics/gameTick/quests';
-import getRngState from 'mechanics/gameTick/rngState';
 import configureStore from 'utils/configureStore';
 import { processCompletedTasks } from 'mechanics/gameTick/tasks';
 import { StoreState } from 'store/types';
 import { createInitialStore } from 'store/reducers';
-import getHarvest from 'mechanics/gameTick/harvest';
 import { convertIntToSemVer } from 'utils/version';
 import { loadGame } from 'store/actions/game';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -83,20 +79,15 @@ const Game = () => {
 
       const gameLoop = () => {
         if (paused.current) return;
+        // const rngState = getRngState();
+        // console.log('rngState1111', rngState);
 
         const state: StoreState = store.getState();
         const delta = Date.now() - state.engine.lastTick;
+        store.dispatch(gameTick(delta));
 
-        // todo: 2022-05-05 refactor this into middleware
-        const logs: LogUpdate[] = [];
-        const resourcesUpdates = getProducedResources(state.engine.lastProducedUpdate, state);
-        const harvestUpdates = getHarvest(state);
-        const rngState = getRngState();
-        const { questUpdates, logUpdates } = getQuestUpdates(delta, store);
-        logs.push(...logUpdates);
 
-        store.dispatch(gameTick(delta, rngState, resourcesUpdates, questUpdates, harvestUpdates, logs));
-
+    
         processCompletedTasks(state.tasks, store.dispatch);
       };
 

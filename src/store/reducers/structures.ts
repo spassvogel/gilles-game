@@ -3,8 +3,8 @@ import { isProductionStructure, isResourceStructure, ResourceStructure, Structur
 import { ProductionStructureStoreState, StructureState, StructureStoreState } from 'store/types/structure';
 import { StructuresStoreState } from 'store/types/structures';
 import { StructuresAction } from 'store/actions/structures';
-import { GameAction } from 'store/actions/game';
 import { Item } from 'definitions/items/types';
+import { GameTickActionExt } from 'store/middleware/gameTick';
 
 
 const updateStructureState = (state: StructuresStoreState, structure: Structure, structureState: StructureState) => {
@@ -46,7 +46,7 @@ export const initialStructuresState: StructuresStoreState = {
  * @param action
  */
 // eslint-disable-next-line @typescript-eslint/default-param-last
-export const structures: Reducer<StructuresStoreState, StructuresAction | GameAction> = (state = initialStructuresState, action) => {
+export const structures: Reducer<StructuresStoreState, StructuresAction | GameTickActionExt> = (state = initialStructuresState, action) => {
   switch (action.type) {
     case 'startBuildingStructure': {
       return updateStructureState(state, action.structure, StructureState.Building);

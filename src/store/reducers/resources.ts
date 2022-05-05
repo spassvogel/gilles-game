@@ -2,7 +2,7 @@ import { Reducer } from 'redux';
 import { ResourceStoreState } from 'store/types/resources';
 import { Resource } from 'definitions/resources';
 import { ResourcesAction } from 'store/actions/resources';
-import { GameAction } from 'store/actions/game';
+import { GameTickActionExt } from 'store/middleware/gameTick';
 
 export const initialResourcesState: ResourceStoreState = {
   fabric: 0,
@@ -14,7 +14,7 @@ export const initialResourcesState: ResourceStoreState = {
 };
 
 // eslint-disable-next-line @typescript-eslint/default-param-last
-export const resources: Reducer<ResourceStoreState, ResourcesAction | GameAction> = (state = initialResourcesState, action) => {
+export const resources: Reducer<ResourceStoreState, ResourcesAction | GameTickActionExt> = (state = initialResourcesState, action) => {
 
   const addResources = (resourcesToAdd: ResourceStoreState) => {
     // todo: Check if warehouse can hold it

@@ -11,6 +11,7 @@ import { traitsMiddleware } from 'store/middleware/traits';
 import { convertIntToSemVer } from './version';
 import { Action } from 'store/actions';
 import { PersistPartial } from 'redux-persist/es/persistReducer';
+import { gameTickMiddleware } from 'store/middleware/gameTick';
 
 export const PERSIST_KEY = 'root';
 
@@ -30,6 +31,7 @@ interface ConfigureStoreResult {
 
 // all middlewares
 const middlewares: Middleware[] = [
+  gameTickMiddleware,
   effectsMiddleware,
   traitsMiddleware,
 ];

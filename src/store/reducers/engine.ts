@@ -2,6 +2,7 @@ import { Reducer } from 'redux';
 import { EngineStoreState } from 'store/types/engine';
 import { HARVEST_INTERVAL } from 'mechanics/gameTick/harvest';
 import { GameAction } from 'store/actions/game';
+import { GameTickActionExt } from 'store/middleware/gameTick';
 
 export const getInitialEngineState = () => {
   return {
@@ -13,13 +14,15 @@ export const getInitialEngineState = () => {
   };
 };
 
+type GameActionExtended = Exclude<GameAction, { type: 'gameTick' }> | GameTickActionExt;
+
 /**
  * reducer
  * @param state
  * @param action
  */
 // eslint-disable-next-line @typescript-eslint/default-param-last
-export const engine: Reducer<EngineStoreState, GameAction> = (state = getInitialEngineState(), action) => {
+export const engine: Reducer<EngineStoreState, GameActionExtended> = (state = getInitialEngineState(), action) => {
   switch (action.type) {
     case 'startGame': {
       return {

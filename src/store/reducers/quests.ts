@@ -5,9 +5,10 @@ import { QuestDefinition } from 'definitions/quests/types';
 import { getDefinition } from 'definitions/quests';
 import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars';
 import deepmerge from 'deepmerge';
-import { Action } from 'store/actions';
 import { calculateInitialAP, ENEMY_BASE_AP } from 'mechanics/combat';
 import { xpToLevel } from 'mechanics/adventurers/levels';
+import { GameTickActionExt } from 'store/middleware/gameTick';
+import { QuestAction } from 'store/actions/quests';
 
 const overwriteMerge = (_: [], sourceArray: []) => sourceArray;
 
@@ -44,7 +45,7 @@ export const initialQuestState: QuestStoreState[] = [{
  * @param action
  */
 // eslint-disable-next-line @typescript-eslint/default-param-last
-export const quests: Reducer<QuestStoreState[]> = (state: QuestStoreState[] = initialQuestState, action: Action): QuestStoreState[] => {
+export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt> = (state: QuestStoreState[] = initialQuestState, action): QuestStoreState[] => {
   switch (action.type) {
     // Launches quest. Sets state to active, assigns adventurers
     case 'launchQuest': {

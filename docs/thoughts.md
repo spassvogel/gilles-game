@@ -829,4 +829,4 @@ https://interfaceingame.com/games/league-of-legends/
 - [ ] Everything needs to be put in state / memo
 
 ### 2022-05-05 Tick into middleware
-- [ ] refactor gametick logic into middleware
+- [x] refactor gametick logic into middleware
