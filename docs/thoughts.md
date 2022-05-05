@@ -827,3 +827,6 @@ https://interfaceingame.com/games/league-of-legends/
 
 - [ ] Investigate if we can have scenecontroller as hooks
 - [ ] Everything needs to be put in state / memo
+
+### 2022-05-05 Tick into middleware
+- [ ] refactor gametick logic into middleware

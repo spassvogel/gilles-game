@@ -153,7 +153,6 @@ const App = () => {
               <Route path="/" element={(
                 <Navigate to={getWorldLink()} />
               )}>
-                {/* <Redirect from="/" to={getWorldLink()} /> */}
               </Route>
               <Route path={`${getWorldLink()}/*`} element={(
                 <Link to={getTownLink()}>

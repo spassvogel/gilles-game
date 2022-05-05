@@ -21,6 +21,7 @@ import App from 'components/App';
 import { GameActionsContext } from './context';
 import LoadingPage from 'components/ui/loading/LoadingPage';
 import ManifestLoader from 'components/loading/ManifestLoader';
+import { TextManager } from 'global/TextManager';
 
 const TICK_INTERVAL = 2500; // main game tick
 
@@ -86,6 +87,7 @@ const Game = () => {
         const state: StoreState = store.getState();
         const delta = Date.now() - state.engine.lastTick;
 
+        // todo: 2022-05-05 refactor this into middleware
         const logs: LogUpdate[] = [];
         const resourcesUpdates = getProducedResources(state.engine.lastProducedUpdate, state);
         const harvestUpdates = getHarvest(state);
@@ -126,7 +128,7 @@ const Game = () => {
   if (!store || !persistor) {
     return (
       <LoadingPage>
-        Loading data...
+        {TextManager.get('ui-game-loading-data')}
       </LoadingPage>
     );
   }

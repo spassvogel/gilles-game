@@ -1,4 +1,5 @@
 import LoadingPage from 'components/ui/loading/LoadingPage';
+import { TextManager } from 'global/TextManager';
 import { sprites } from 'manifests/sprites';
 import { Loader } from 'pixi.js';
 import { PropsWithChildren, useEffect, useRef, useState } from 'react';
@@ -27,7 +28,7 @@ const ManifestLoader = (props: Props) => {
   if (loading) {
     return (
       <LoadingPage>
-        Loading sprites <span ref={pctRef}></span>...
+        {TextManager.get('ui-game-loading-sprites')} <span ref={pctRef}></span>...
       </LoadingPage>
     );
   }

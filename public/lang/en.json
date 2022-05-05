@@ -527,6 +527,8 @@
     "ui-log-tab-all": "all",
     "ui-log-tab-town": "town",
 
+    "ui-game-loading-data": "Loading data...",
+    "ui-game-loading-sprites": "Loading sprites",
     "ui-game-loaded": "Game loaded",
 
     "ui-structure-help-upgrade-cost-gold": "{{gold}} {{resource:name 'gold'}}",
