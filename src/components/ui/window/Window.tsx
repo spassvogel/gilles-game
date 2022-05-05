@@ -21,7 +21,7 @@ const Window = (props: PropsWithChildren<Props>) => {
     if (props.onClose) {
       props?.onClose();
 
-      SoundManager.playSound('ui/buttonClick');
+      SoundManager.playSound('UI_BUTTON_CLICK');
     }
   };
 
@@ -29,7 +29,7 @@ const Window = (props: PropsWithChildren<Props>) => {
     if (props.onBack) {
       props?.onBack();
 
-      SoundManager.playSound('ui/buttonClick');
+      SoundManager.playSound('UI_BUTTON_CLICK');
     }
   };
 

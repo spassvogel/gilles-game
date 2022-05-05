@@ -2,6 +2,7 @@ import localforage from 'localforage';
 import { Sound, IMediaInstance, filters } from '@pixi/sound';
 import { gsap } from 'gsap';
 import { Loader } from 'pixi.js';
+import { sounds } from 'manifests/sounds';
 
 export enum Channel {
   music,
@@ -21,32 +22,7 @@ export enum Music {
   world,
 }
 
-export type GameSound =
-  'ambient/structure/alchemist' |
-  'ambient/structure/smith' |
-  'ambient/structure/tavern' |
-  'ambient/structure/warehouse' |
-  'ui/buttonClick' |
-  'ui/equip' |
-  'ui/error' |
-  'ui/levelUp' |
-  'ui/toast' |
-  'music/combat' |
-  'music/town' |
-  'music/world' |
-  'music/violettesElficSong' |
-  'scene/bow' |
-  'scene/crossbow' |
-  'scene/daggerSwish' |
-  'scene/doorOpen' |
-  'scene/drinking' |
-  'scene/meleeHit' |
-  'scene/metalBash' |
-  'scene/parry' |
-  'scene/shieldBash' |
-  'scene/swish' |
-  'scene/swordHitFlesh'
-;
+export type GameSound = keyof typeof sounds;
 
 type SoundInfo = {
   instance: IMediaInstance;
@@ -62,7 +38,6 @@ const DEFAULT_AMBIENT_VOLUME = 0.2;
 const STORAGE_KEY_VOLUME = 'channelVolume';
 
 export class SoundManager {
-  private static _sounds: { [key: string]: Sound[] } = {};
 
   private static _currentSound: { [key: number]: SoundInfo } = {};  // per channel
 
@@ -83,34 +58,6 @@ export class SoundManager {
       [(Channel.ambient)]: await localforage.getItem(`${STORAGE_KEY_VOLUME}-${Channel.ambient}`) ?? DEFAULT_AMBIENT_VOLUME,
     };
     this._initialized = true;
-  }
-
-
-  public static async addSound(gameSound: GameSound, files: string[] | string, complete?: (sounds: Sound[]) => void) {
-    const promise = new Promise<Sound[]>((resolve, _reject) => {
-      if (typeof files === 'string') {
-        files = [files];
-      }
-      if (this._sounds[gameSound]) {
-        // Sound already loaded. Great.
-        complete?.(this._sounds[gameSound]);
-        resolve(this._sounds[gameSound]);
-        return;
-      }
-
-      const loader = new Loader();
-      files.map((file) => loader.add(file));
-      loader.load((_, resources) => {
-        if (resources) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore no 'sound' property on LoaderResource
-          this._sounds[gameSound] = Object.values(resources).filter(Boolean).map(r => r.sound);
-          complete?.(this._sounds[gameSound]);
-          resolve(this._sounds[gameSound]);
-        }
-      });
-    });
-    return promise;
   }
 
   /**
@@ -166,13 +113,20 @@ export class SoundManager {
   }
 
   protected static getSound(sound: GameSound): Sound {
-    if (!this._sounds[sound]?.length) {
+    if (!sounds[sound]) {
       console.error(`No sound found for ${sound}`);
     }
-    if (this._sounds[sound].length === 1) {
-      return this._sounds[sound][0];
+    if (Array.isArray(sounds[sound])) {
+      const path = sounds[sound][Math.floor(Math.random() * sounds[sound].length)];
+      if (!Loader.shared.resources[path]?.sound) {
+        throw new Error(`No sound: ${sound}`);
+      }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return Loader.shared.resources[path].sound!;
     } else {
-      return this._sounds[sound][Math.floor(Math.random() * this._sounds[sound].length)];
+      const path = sounds[sound] as string;
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return Loader.shared.resources[path].sound!;
     }
   }
 
@@ -191,10 +145,6 @@ export class SoundManager {
 
   public static getCurrentlyPlaying(channel: Channel) {
     return this._currentSound[channel]?.gameSound;
-  }
-
-  public static hasSoundLoaded(sound:  GameSound) {
-    return !!this._sounds[sound];
   }
 
   public static set musicFiltered(value: boolean) {

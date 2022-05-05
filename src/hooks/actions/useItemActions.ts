@@ -30,7 +30,7 @@ const useItemDropActions = () => {
     const item = dragInfo.item;
     const actions: Action[] = [];
 
-    SoundManager.playSound('ui/equip');
+    SoundManager.playSound('UI_EQUIP');
     switch (dragInfo.sourceType) {
       // Dragged from inventory
       case DragSourceType.adventurerInventory: {

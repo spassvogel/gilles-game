@@ -38,9 +38,7 @@ const TownView = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    SoundManager.addSound('music/town', 'sound/music/Soliloquy.mp3', () => {
-      SoundManager.playSound('music/town', Channel.music, true, MixMode.fade, true);
-    });
+    SoundManager.playSound('MUSIC_TOWN', Channel.music, true, MixMode.fade, true);
   }, []);
 
   useEffect(() => {
@@ -70,7 +68,7 @@ const TownView = () => {
 
   const handleStructureClick = (structure: Structure | null) => {
     if (!dragging.current && structure) {
-      SoundManager.playSound('ui/buttonClick');
+      SoundManager.playSound('UI_BUTTON_CLICK');
       navigate(getStructureLink(structure));
     }
   };

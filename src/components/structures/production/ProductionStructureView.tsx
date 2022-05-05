@@ -32,14 +32,10 @@ const ProductionStructureView = (props: Props) => {
 
   useEffect(() => {
     if (structure === 'armoursmith' || structure === 'weaponsmith') {
-      SoundManager.addSound('ambient/structure/smith', 'sound/structures/smith.ogg', () => {
-        SoundManager.playSound('ambient/structure/smith', Channel.ambient, true);
-      });
+      SoundManager.playSound('AMBIENT_STRUCTURE_SMITH', Channel.ambient, true);
     }
     if (structure === 'alchemist') {
-      SoundManager.addSound('ambient/structure/alchemist', 'sound/structures/alchemist.ogg', () => {
-        SoundManager.playSound('ambient/structure/alchemist', Channel.ambient, true);
-      });
+      SoundManager.playSound('AMBIENT_STRUCTURE_ALCHEMIST', Channel.ambient, true);
     }
     return () => SoundManager.fadeOutSound(Channel.ambient);
   }, [structure]);

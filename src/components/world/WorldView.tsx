@@ -17,9 +17,7 @@ const WorldView = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    SoundManager.addSound('music/world', 'sound/music/TheLoomingBattle.ogg', () => {
-      SoundManager.playSound('music/world', Channel.music, true, MixMode.fade, true);
-    });
+    SoundManager.playSound('MUSIC_WORLD', Channel.music, true, MixMode.fade, true);
   }, []);
 
   // const handleMapMove = (distance: number, angle: number) => {
@@ -43,7 +41,7 @@ const WorldView = () => {
     // } else {
     navigate(questName);
     // }
-    SoundManager.playSound('ui/buttonClick');
+    SoundManager.playSound('UI_BUTTON_CLICK');
   };
 
   const handleRetrieveWorldViewRef = () => {

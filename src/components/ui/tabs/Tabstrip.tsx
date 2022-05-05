@@ -37,7 +37,7 @@ const Tabstrip = <T extends string> (props: Props<T>) => {
   });
 
   const handleClick = (e: React.MouseEvent<Element>) => {
-    SoundManager.playSound('ui/buttonClick');
+    SoundManager.playSound('UI_BUTTON_CLICK');
     onClick?.(e);
     setOpen(!open);
   };

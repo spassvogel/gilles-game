@@ -37,7 +37,7 @@ export class ToastManager extends (EventEmitter as unknown as new () => TypedEmi
 
     this.instance.emit(EVENT_TOASTS_UPDATED, this.stack);
 
-    SoundManager.playSound('ui/toast');
+    SoundManager.playSound('UI_TOAST');
 
     setTimeout(() => {
       // Remove all popups that have expired

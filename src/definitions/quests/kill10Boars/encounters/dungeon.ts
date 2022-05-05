@@ -121,13 +121,9 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
     this.previousMusic = SoundManager.getCurrentlyPlaying(Channel.music);
 
     if (this.combat){
-      SoundManager.addSound('music/combat', 'sound/music/TribalHut.ogg', () => {
-        SoundManager.playSound('music/combat', Channel.music, true, MixMode.fade, true);
-      });
+      SoundManager.playSound('MUSIC_COMBAT', Channel.music, true, MixMode.fade, true);
     } else {
-      SoundManager.addSound('music/violettesElficSong', ['sound/music/ViolettesElficSongForLamentandHope.ogg'], () => {
-        SoundManager.playSound('music/violettesElficSong', Channel.music, true, MixMode.fade, true);
-      });
+      SoundManager.playSound('MUSIC_VIOLETTES', Channel.music, true, MixMode.fade, true);
     }
 
 
@@ -269,7 +265,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
           dungeon: { hallway: { doorOpen: true } },
         });
 
-        SoundManager.playSound('scene/doorOpen', Channel.scene, false, MixMode.singleInstance);
+        SoundManager.playSound('SCENE_DOOR_OPEN', Channel.scene, false, MixMode.singleInstance);
 
         this.discardItemType('questItem/key', adventurerId);
         const adventurer = this.getAdventurerById(adventurerId)?.name;

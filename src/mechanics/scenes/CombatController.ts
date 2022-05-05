@@ -90,7 +90,7 @@ export class CombatController {
   public static actorMeleeStart(actorId: string, _intent: ActionIntent) {
     if (!this.sceneController) return;
 
-    SoundManager.playSound('scene/swish', Channel.scene, false, MixMode.singleInstance);
+    SoundManager.playSound('SCENE_SWISH', Channel.scene, false, MixMode.singleInstance);
     const actor = this.sceneController.getSceneActor(actorId);
     if (!actor) throw new Error('No actor found');
     const weapon = this.getActorMainhandItem(actor);
@@ -99,11 +99,11 @@ export class CombatController {
 
     switch (definition.weaponType) {
       case WeaponType.knife: {
-        SoundManager.playSound('scene/daggerSwish', Channel.scene, false, MixMode.singleInstance);
+        SoundManager.playSound('SCENE_DAGGER_SWISH', Channel.scene, false, MixMode.singleInstance);
         break;
       }
       default: {
-        SoundManager.playSound('scene/swish', Channel.scene, false, MixMode.singleInstance);
+        SoundManager.playSound('SCENE_SWISH', Channel.scene, false, MixMode.singleInstance);
         break;
       }
     }
@@ -146,7 +146,7 @@ export class CombatController {
         // todo: calculate damage types?
         this.sceneController.bubbleAtLocation(TextManager.get('scene-combat-attack-hit'), location);
         this.sceneController.effectAtLocation('blood_1/blood_1.json', location);
-        SoundManager.playSound('scene/swordHitFlesh', Channel.scene);
+        SoundManager.playSound('SCENE_SWORD_HIT_FLESH', Channel.scene);
         
         const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0;
         const bodyPart = rollBodyPart();
@@ -201,11 +201,11 @@ export class CombatController {
 
     switch (definition.weaponType) {
       case WeaponType.bow: {
-        SoundManager.playSound('scene/bow', Channel.scene, false, MixMode.singleInstance);
+        SoundManager.playSound('SCENE_BOW', Channel.scene, false, MixMode.singleInstance);
         break;
       }
       case WeaponType.crossbow: {
-        SoundManager.playSound('scene/crossbow', Channel.scene, false, MixMode.singleInstance);
+        SoundManager.playSound('SCENE_CROSSBOW', Channel.scene, false, MixMode.singleInstance);
         break;
       }
     }

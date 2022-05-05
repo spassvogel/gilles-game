@@ -57,7 +57,7 @@ const App = () => {
   const [activeWindows, setActiveWindows] = useState<ReactElement[]>([]);
 
   const handleViewButtonClick = () => {
-    SoundManager.playSound('ui/buttonClick');
+    SoundManager.playSound('UI_BUTTON_CLICK');
   };
 
   const handleRestartClick = () => {
@@ -104,16 +104,6 @@ const App = () => {
     const element = cloneElement(topWindow, commonWindowProps);
     return element;
   };
-
-  useEffect(() => {
-    SoundManager.addSound('ui/buttonClick', 'sound/ui/button-click.ogg');
-    SoundManager.addSound('ui/equip', 'sound/ui/equip.mp3');
-    SoundManager.addSound('ui/error', 'sound/ui/error.ogg');
-    SoundManager.addSound('ui/levelUp', 'sound/ui/level-up.ogg');
-    SoundManager.addSound('ui/toast', 'sound/ui/toast.ogg');
-
-    SoundManager.addSound('scene/drinking', 'sound/scene/drinking.ogg');
-  }, []);
 
   const handleAppClick = () => {
     TooltipManager.clear();

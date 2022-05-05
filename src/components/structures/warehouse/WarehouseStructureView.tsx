@@ -34,9 +34,7 @@ const WarehouseStructureView = () => {
   const structuresState = useSelector<StoreState, StructuresStoreState>(store => store.structures);
 
   useEffect(() => {
-    SoundManager.addSound('ambient/structure/warehouse', 'sound/structures/warehouse.ogg', () => {
-      SoundManager.playSound('ambient/structure/warehouse', Channel.ambient, true);
-    });
+    SoundManager.playSound('AMBIENT_STRUCTURE_WAREHOUSE', Channel.ambient, true);
     return () => SoundManager.fadeOutSound(Channel.ambient);
   }, []);
 

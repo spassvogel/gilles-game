@@ -27,7 +27,7 @@ const Level = (props: Props) => {
     if (lastAdventurer !== adventurerId) {
       setDingAnimationRunning(false);
     } else if (nextLevel > (lastState?.nextLevel ?? 0)) {
-      SoundManager.playSound('ui/levelUp');
+      SoundManager.playSound('UI_LEVEL_UP');
       setDingAnimationRunning(true);
 
       setTimeout(() => {

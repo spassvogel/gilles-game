@@ -528,6 +528,7 @@
     "ui-log-tab-town": "town",
 
     "ui-game-loading-data": "Loading data...",
+    "ui-game-loading-sounds": "Loading sounds",
     "ui-game-loading-sprites": "Loading sprites",
     "ui-game-loaded": "Game loaded",
 

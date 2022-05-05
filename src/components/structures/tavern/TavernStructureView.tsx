@@ -39,9 +39,7 @@ const TavernStructureView = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    SoundManager.addSound('ambient/structure/tavern', 'sound/structures/tavern.ogg', () => {
-      SoundManager.playSound('ambient/structure/tavern', Channel.ambient, true);
-    });
+    SoundManager.playSound('AMBIENT_STRUCTURE_TAVERN', Channel.ambient, true);
     return () => SoundManager.fadeOutSound(Channel.ambient);
   }, []);
 

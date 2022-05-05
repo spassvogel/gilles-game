@@ -34,7 +34,6 @@ import { LogChannel } from 'store/types/logEntry';
 import { addGold } from 'store/actions/gold';
 import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
 import { adventurersOnQuest, getSceneObjectAtLocation, getSceneObjectWithName } from 'store/helpers/storeHelpers';
-import { SoundManager } from 'global/SoundManager';
 import { Item, ItemType } from 'definitions/items/types';
 import { Loader, Point, utils } from 'pixi.js';
 import { AP_COST_MOVE, AP_COST_SHOOT, calculateInitialAP } from 'mechanics/combat';
@@ -102,20 +101,20 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     await loadResourceAsync(`${process.env.PUBLIC_URL}/${this.jsonPath}`);
 
     // load sounds
-    const promises = [
-      SoundManager.addSound('scene/bow', ['sound/scene/bow-01.mp3', 'sound/scene/bow-02.mp3']),
-      SoundManager.addSound('scene/crossbow', ['sound/scene/crossbow-01.mp3', 'sound/scene/crossbow-02.mp3', 'sound/scene/crossbow-03.mp3', 'sound/scene/crossbow-04.mp3']),
-      SoundManager.addSound('scene/daggerSwish', ['sound/scene/dagger-swish.ogg']),
-      SoundManager.addSound('scene/meleeHit', ['sound/scene/melee-hit-01.mp3', 'sound/scene/melee-hit-02.mp3', 'sound/scene/melee-hit-03.mp3']),
-      SoundManager.addSound('scene/metalBash', ['sound/scene/metal-bash-01.mp3', 'sound/scene/metal-bash-02.mp3', 'sound/scene/metal-bash-03.mp3']),
-      SoundManager.addSound('scene/parry', ['sound/scene/parry-01.ogg', 'sound/scene/parry-02.ogg']),
-      SoundManager.addSound('scene/shieldBash', ['sound/scene/shield-bash-impact.mp3']),
-      SoundManager.addSound('scene/swish', ['sound/scene/swish-01.mp3', 'sound/scene/swish-02.mp3', 'sound/scene/swish-03.mp3', 'sound/scene/swish-04.mp3']),
-      SoundManager.addSound('scene/swordHitFlesh', ['sound/scene/sword-hit-flesh-01.mp3', 'sound/scene/sword-hit-flesh-02.mp3', 'sound/scene/sword-hit-flesh-03.mp3', 'sound/scene/sword-hit-flesh-04.mp3']),
-      SoundManager.addSound('scene/doorOpen', ['sound/scene/door.ogg']),
-    ];
+    // const promises = [
+    //   SoundManager.addSound('scene/bow', ['sound/scene/bow-01.mp3', 'sound/scene/bow-02.mp3']),
+    //   SoundManager.addSound('scene/crossbow', ['sound/scene/crossbow-01.mp3', 'sound/scene/crossbow-02.mp3', 'sound/scene/crossbow-03.mp3', 'sound/scene/crossbow-04.mp3']),
+    //   SoundManager.addSound('scene/daggerSwish', ['sound/scene/dagger-swish.ogg']),
+    //   SoundManager.addSound('scene/meleeHit', ['sound/scene/melee-hit-01.mp3', 'sound/scene/melee-hit-02.mp3', 'sound/scene/melee-hit-03.mp3']),
+    //   SoundManager.addSound('scene/metalBash', ['sound/scene/metal-bash-01.mp3', 'sound/scene/metal-bash-02.mp3', 'sound/scene/metal-bash-03.mp3']),
+    //   SoundManager.addSound('scene/parry', ['sound/scene/parry-01.ogg', 'sound/scene/parry-02.ogg']),
+    //   SoundManager.addSound('scene/shieldBash', ['sound/scene/shield-bash-impact.mp3']),
+    //   SoundManager.addSound('scene/swish', ['sound/scene/swish-01.mp3', 'sound/scene/swish-02.mp3', 'sound/scene/swish-03.mp3', 'sound/scene/swish-04.mp3']),
+    //   SoundManager.addSound('scene/swordHitFlesh', ['sound/scene/sword-hit-flesh-01.mp3', 'sound/scene/sword-hit-flesh-02.mp3', 'sound/scene/sword-hit-flesh-03.mp3', 'sound/scene/sword-hit-flesh-04.mp3']),
+    //   SoundManager.addSound('scene/doorOpen', ['sound/scene/door.ogg']),
+    // ];
 
-    await Promise.all(promises);
+    // await Promise.all(promises);
 
     const resource = Loader.shared.resources[`${process.env.PUBLIC_URL}/${this.jsonPath}`];
     if (!resource.data) {

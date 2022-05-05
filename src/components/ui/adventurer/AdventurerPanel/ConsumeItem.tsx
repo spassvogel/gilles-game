@@ -63,7 +63,7 @@ const ConsumeItem = (props: Props) => {
     }
 
     dispatch(consumeItem(adventurerId, fromSlot));
-    SoundManager.playSound('scene/drinking', Channel.scene);
+    SoundManager.playSound('SCENE_DRINKING', Channel.scene);
     onConsumed?.();
 
     // Add log entry
