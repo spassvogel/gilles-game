@@ -561,6 +561,13 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
       location: from = [0, 0],
       ap: actorAP,
     } = actor;
+    if (isAdventurer(actor)) {
+
+      const adventurer = this.getAdventurerByActor(actor);
+      if ((adventurer?.health || 0) <= 0) {
+        return undefined;
+      }
+    }
     const to = location ?? [0, 0];
     switch (action){
       case SceneActionType.move:  {
