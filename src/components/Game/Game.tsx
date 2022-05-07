@@ -79,14 +79,10 @@ const Game = () => {
 
       const gameLoop = () => {
         if (paused.current) return;
-        // const rngState = getRngState();
-        // console.log('rngState1111', rngState);
-
+        
         const state: StoreState = store.getState();
         const delta = Date.now() - state.engine.lastTick;
         store.dispatch(gameTick(delta));
-
-
     
         processCompletedTasks(state.tasks, store.dispatch);
       };

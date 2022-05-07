@@ -22,7 +22,7 @@ export const sounds = {
   SCENE_DAGGER_SWISH: `${process.env.PUBLIC_URL}/sound/scene/dagger-swish.ogg`,
   SCENE_DRINKING: `${process.env.PUBLIC_URL}/sound/scene/drinking.ogg`,
   SCENE_DOOR_OPEN: `${process.env.PUBLIC_URL}/sound/scene/door.ogg`,
-  SCENE_MELEE_HI: [
+  SCENE_MELEE_HIT: [
     `${process.env.PUBLIC_URL}/sound/scene/melee-hit-01.mp3`, 
     `${process.env.PUBLIC_URL}/sound/scene/melee-hit-02.mp3`, 
     `${process.env.PUBLIC_URL}/sound/scene/melee-hit-03.mp3`,
