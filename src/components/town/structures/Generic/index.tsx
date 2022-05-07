@@ -4,6 +4,8 @@ import HitAreaShapes from 'utils/pixiJs/hitAreaShapes';
 import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView';
 import { Point } from 'pixi.js';
 import { sprites } from 'manifests/sprites';
+import ParticleEmitter from 'components/pixi/ParticleEmitter';
+import smoke from './smoke.json';
 
 export interface Props {
   onStructureClick: (structure: Structure | null) => void;
@@ -70,6 +72,14 @@ const Generic = (props: Props) => {
           graphics.endFill();
         }}
       /> */}
+      { structure === 'quarry' && (
+      <ParticleEmitter
+        name="smoke"
+        x={66}
+        y={-2}
+        image={sprites.TOWN_EFFECT_SMOKEPARTICLE}
+        config={smoke}
+      />)}
     </Sprite>
   );
 };

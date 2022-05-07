@@ -830,3 +830,6 @@ https://interfaceingame.com/games/league-of-legends/
 
 ### 2022-05-05 Tick into middleware
 - [x] refactor gametick logic into middleware
+
+### 2022-05-07 Serviceworker caching
+- [] Implement a serviceworker for caching
