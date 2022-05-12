@@ -5,6 +5,7 @@ import { SceneControllerContext } from 'components/world/QuestPanel/context/Scen
 import { ActionIntent } from '../SceneUI';
 import { locationEquals } from 'utils/tilemap';
 import './styles/actionButton.scss';
+import Button from 'components/ui/buttons/Button';
 
 type Props = {
   adventurer: AdventurerStoreState;
@@ -59,7 +60,9 @@ const ActionButton = (props: Props) => {
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
     >
-      {renderText(intent)}
+      <Button>
+        {renderText(intent)}
+      </Button>
     </div>
   );
 };

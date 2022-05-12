@@ -41,7 +41,7 @@ const ActionMenu = (props: Props) => {
   const renderButtonText = useCallback((intent: ActionIntent) => {
     switch (intent.action) {
       case SceneActionType.move: {
-        return `Move ${intent.apCost} AP`;
+        return `Move (${intent.apCost} AP)`;
       }
       case SceneActionType.melee:
       case SceneActionType.shoot: {
@@ -50,16 +50,19 @@ const ActionMenu = (props: Props) => {
         }
         return (
           <>
-            <ItemIcon
+            {/* <ItemIcon
               size={IconSize.smallest}
               item={intent.weaponWithAbility.weapon}
-            />
+            /> */}
             {/* {TextManager.getItemName(intent.weaponWithAbility?.weapon)} */}
-                    -
             {WeaponAbility[intent.weaponWithAbility.ability]}
+            {' '}
+            (
             {intent &&
               JSON.stringify(intent?.apCost)
             }
+             AP
+            )
           </>
         );
       }
@@ -95,12 +98,6 @@ const ActionMenu = (props: Props) => {
               />
             </li>
           ))}
-          <li>
-              <div className="action-button">sdfsdfs</div>
-          </li>
-          <li>
-              <div className="action-button">sdfsdfs</div>
-          </li>
         </ul>
         {/* <div>
           {enemyTargetted?.name && (
