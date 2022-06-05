@@ -73,7 +73,7 @@ const QuestPanel = (props: Props) => {
       }
     }
   }, [leader?.id, quest.scene?.combat, quest.scene?.objects, selectedActorId]);
-  if (!adventurers.length) return null;
+  if (!adventurers.length || !quest.sceneName) return null;
 
   return (
     <SceneControllerContextProvider questName={questName}>

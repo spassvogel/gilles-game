@@ -1,4 +1,10 @@
 export const sprites = {
+  SCENE_ACTOR_ELF_BOW: `${process.env.PUBLIC_URL}/img/scene/actors/elf-bow.json`,
+  SCENE_ACTOR_KNIGHT_SWORD: `${process.env.PUBLIC_URL}/img/scene/actors/knight-sword.json`,
+  SCENE_ACTOR_ORC_AXE: `${process.env.PUBLIC_URL}/img/scene/actors/orc-axe.json`,
+  SCENE_ACTOR_SKELETON: `${process.env.PUBLIC_URL}/img/scene/actors/skeleton.json`,
+  SCENE_ACTOR_TROLL_AXE: `${process.env.PUBLIC_URL}/img/scene/actors/troll-axe.json`,
+  SCENE_ACTOR_TROLL_SWORD: `${process.env.PUBLIC_URL}/img/scene/actors/troll-sword.json`,
   TOWN_CLOUD_1: `${process.env.PUBLIC_URL}/img/town/clouds/cloud-01.png`,
   TOWN_CLOUD_2: `${process.env.PUBLIC_URL}/img/town/clouds/cloud-02.png`,
   TOWN_CLOUD_3: `${process.env.PUBLIC_URL}/img/town/clouds/cloud-03.png`,

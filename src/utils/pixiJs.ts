@@ -44,3 +44,24 @@ export const loadResource = (path: string, callback: (resource: LoaderResource) 
   }
   loader.add(path).load((_, resources) => { callback(resources[path]);});
 };
+
+export const loadResources = (paths: string[], callback: (resource: { [key: string]: LoaderResource }) => void) => {
+  const loader = Loader.shared;
+  const start = () => {
+    paths.forEach(p => {
+      if (!loader.resources[p]){
+        loader.add(p);
+      }
+    });
+    loader.load((_, resources) => {
+      console.log('will call back', resources)
+      callback(resources);
+    });
+  };
+  if (loader.loading) {
+    console.log('loader busy, delay', paths)
+    loader.onComplete.once(start);
+  } else {
+    start();
+  }
+};

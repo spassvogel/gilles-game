@@ -40,6 +40,19 @@ export const addAllTilesInLayerToList = (list: Location[], layer: TiledLayerData
   }, list);
 };
 
+export const getTilesInLayerLocations = (layer: TiledLayerData): Location[] => {
+  const columns = layer.width;
+  return layer.data.reduce((acc: Location[], tile, index) => {
+    if (tile > 0) {
+      const x = (index % columns);
+      const y = Math.floor(index / columns);
+      acc.push([x, y]);
+    }
+    return acc;
+  }, []);
+};
+
+
 export const locationEquals = (a: Location, b: Location): boolean => {
   return a[0] === b[0] && a[1] === b[1];
 };

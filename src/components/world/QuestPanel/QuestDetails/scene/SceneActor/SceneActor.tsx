@@ -1,9 +1,8 @@
 import { useMemo,  useEffect, useRef, PropsWithChildren, useState, ComponentProps, useCallback } from 'react';
 import { Location } from 'utils/tilemap';
 import { Container, Graphics } from '@inlet/react-pixi';
-import { Filter, Graphics as PixiGraphics, Container as PixiContainer } from 'pixi.js';
+import { Filter, Graphics as PixiGraphics, Container as PixiContainer, Spritesheet } from 'pixi.js';
 import { ActorObject, getUniqueName } from 'store/types/scene';
-import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 import SpriteAnimated from 'components/pixi/tile/SpriteAnimated';
 import { AdventurerColor } from 'store/types/adventurer';
 import { useRandomOrientation } from './useRandomOrientation';
@@ -11,15 +10,16 @@ import { BLACK, BLUES, calculateBearing, createColorReplaceFilter, ORANGE, Orien
 import useAnimation from './useAnimation';
 import useFrames from './useFrames';
 import { useQuest } from 'hooks/store/quests';
+import { SceneController } from 'mechanics/scenes/useSceneController';
 
 const spritesheetBasePath = `${process.env.PUBLIC_URL}/img/scene/actors/`;
 
 export interface Props  {
   actor: ActorObject;
   health: number;
-  spritesheetPath: string;
+  spritesheet: Spritesheet;
   color?: AdventurerColor;
-  controller: BaseSceneController<unknown>;
+  controller: SceneController;
   selectionColor?: number;
   location?: Location; // tile coordinate space
   lookAt?: Location;
@@ -36,7 +36,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
     color,
     selectionColor,
     children,
-    spritesheetPath,
+    spritesheet,
     lookAt,
     actor,
     ...rest
@@ -60,7 +60,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
   const combat = quest.scene?.combat;
   useRandomOrientation(!!idleAnimation && !lookAt && health > 0 && !combat, orientation, setOrientation);
 
-  const frames = useFrames(`${spritesheetBasePath}${spritesheetPath}`, animation, orientation);
+  const frames = useFrames(spritesheet, animation, orientation);
   const [flipped, setFlipped] = useState(false);
 
   const drawCircle = useCallback((graphics: PixiGraphics) => {
@@ -114,7 +114,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
           draw={drawCircle}
         />
       )}
-      { spritesheetPath && frames && (
+      { spritesheet && frames && (
         <SpriteAnimated
           animationSpeed={0.1}
           name={`${actor.id}-sprite`}

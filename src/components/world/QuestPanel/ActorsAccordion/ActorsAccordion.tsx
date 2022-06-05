@@ -1,9 +1,8 @@
 import Accordion from 'components/ui/accordion/Accordion';
 import ActorsAccordionAdventurerItem from './ActorsAccordionAdventurerItem';
-import { createSelectAdventurersOnQuest } from 'store/selectors/adventurers';
-import { useSelector } from 'react-redux';
 import ActorsAccordionEnemyItem from './ActorsAccordionEnemyItem';
 import { useQuestSceneEnemies } from 'hooks/store/quests';
+import { useAdventurersOnQuest } from 'hooks/store/adventurers';
 import './styles/actorsAccordion.scss';
 
 type Props = {
@@ -15,7 +14,7 @@ type Props = {
 // A tabstrip with adventurer / enemy details below it
 const ActorsAccordion = (props: Props) => {
   const { selectedActorId, questName, onActorSelected } = props;
-  const adventurers = useSelector(createSelectAdventurersOnQuest(questName));
+  const adventurers = useAdventurersOnQuest(questName);
   const enemies = useQuestSceneEnemies(questName);
 
   return (

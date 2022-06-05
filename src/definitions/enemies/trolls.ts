@@ -26,7 +26,7 @@ const trolls: TrollDefinition = {
       [EquipmentSlotType.head]: 1,
       [EquipmentSlotType.shoulders]: 1,
     },
-    spritesheet: 'troll-sword.json',
+    spritesheet: 'SCENE_ACTOR_TROLL_SWORD',
     avatarImg: `${avatarImgBasePath}orc_01.png`,
   },
   'troll-manager': {
@@ -43,7 +43,7 @@ const trolls: TrollDefinition = {
     armor: {
 
     },
-    spritesheet: 'troll-axe.json',
+    spritesheet: 'SCENE_ACTOR_TROLL_AXE',
     avatarImg: `${avatarImgBasePath}orc_02.png`,
   },
   'troll-accountant': {
@@ -65,7 +65,7 @@ const trolls: TrollDefinition = {
       [EquipmentSlotType.head]: 2,
       [EquipmentSlotType.shoulders]: 2,
     },
-    spritesheet: 'troll-axe.json',
+    spritesheet: 'SCENE_ACTOR_TROLL_AXE',
     avatarImg: `${avatarImgBasePath}orc_03.png`,
   },
 };

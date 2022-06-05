@@ -5,10 +5,10 @@ import useFrames from 'components/world/QuestPanel/QuestDetails/scene/SceneActor
 import { SPRITE_WIDTH } from 'components/world/QuestPanel/QuestDetails/scene/SceneActor/utils';
 import { Animation } from 'components/world/QuestPanel/QuestDetails/scene/SceneActor/useAnimation';
 import { useEffect, useRef, useState } from 'react';
-import { AnimatedSprite } from 'pixi.js';
+import { AnimatedSprite, Spritesheet } from 'pixi.js';
 
 type Props = {
-  spritesheetPath: string;
+  spritesheet: Spritesheet;
   animation: Animation;
   orientation: Orientation;
   currentFrame?: number;
@@ -20,10 +20,9 @@ const options = {
 };
 
 const DebugSpriteDemo = (props: Props) => {
-  const { spritesheetPath, animation, orientation, currentFrame } = props;
+  const { spritesheet, animation, orientation, currentFrame } = props;
   const ref = useRef<AnimatedSprite>(null);
-
-  const frames = useFrames(spritesheetPath, animation, orientation);
+  const frames = useFrames(spritesheet, animation, orientation);
   const [flipped, setFlipped] = useState(false);
 
   useEffect(() => {

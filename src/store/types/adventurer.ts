@@ -6,13 +6,14 @@ import { Weapon } from 'definitions/items/weapons';
 import { Trait } from 'definitions/traits/types';
 import { TempEffect } from 'definitions/tempEffects/types';
 import { WeaponType } from 'definitions/weaponTypes/types';
+import { sprites } from 'manifests/sprites';
 
 export interface AdventurerStoreState {
   id: string;
   name?: string;
   flavor?: boolean;           // Has lore text, language key: `adventurer-{id}-flavor
   avatarImg: string;
-  spritesheetPath: string;      // Path to JSON of spritesheet to use in scenes
+  spritesheet: keyof typeof sprites;      // Path to JSON of spritesheet to use in scenes
   color?: AdventurerColor;
   traits?: Trait[];
   health: number;           // When this reaches zero, the adventurer is dead

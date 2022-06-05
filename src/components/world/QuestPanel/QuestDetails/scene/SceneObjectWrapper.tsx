@@ -9,6 +9,10 @@ type Props = PropsWithChildren<{
   location?: Location; // tile coordinate space
 }>;
 
+
+
+// todo: obsolete
+
 // This is a wrapper that exposes a location property. Will set x and y on children
 const SceneObjectWrapper = forwardRef<PixiContainer, Props>((props: Props, ref) => {
   const {

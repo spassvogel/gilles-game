@@ -6,6 +6,7 @@ import { useMemo, useCallback } from 'react';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { Apparel, getDefinition } from 'definitions/items/apparel';
 import { Item } from 'definitions/items/types';
+import { createSelectAdventurersOnQuest } from 'store/selectors/adventurers';
 
 const getAdventurersInTown = (adventurers: AdventurerStoreState[], quests: QuestStoreState[]): AdventurerStoreState[] => {
   // Get an array of all adventurer ids on any active quest
@@ -33,6 +34,10 @@ export const useAdventurersInTown = () => {
 
 export const useAdventurers = () => {
   return useSelector<StoreState, AdventurerStoreState[]>(store => store.adventurers);
+};
+
+export const useAdventurersOnQuest = (questName: string) => {
+  return useSelector(createSelectAdventurersOnQuest(questName));
 };
 
 /** Returns the adventurer from store */

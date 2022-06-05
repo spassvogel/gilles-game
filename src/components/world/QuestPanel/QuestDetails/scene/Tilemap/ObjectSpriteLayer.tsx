@@ -21,7 +21,7 @@ const ObjectSpriteLayer = (props: Props) => {
     <Container sortableChildren ref={ref}>
       {objects.map((object) => {
         const { location } = object;
-        const { adventurerId, spritesheet } = object.properties as { [key: string]: string };
+        const { adventurerId } = object.properties as { [key: string]: string };
         switch (object.type) {
           case TiledObjectType.actor: {
             if (isAdventurer(object)) {
@@ -31,7 +31,6 @@ const ObjectSpriteLayer = (props: Props) => {
                   controller={controller}
                   actor={object}
                   key={adventurerId}
-                  spritesheetPath={spritesheet}
                   selected={props.selectedActorId === object.adventurerId }
                 />
               );
@@ -40,7 +39,6 @@ const ObjectSpriteLayer = (props: Props) => {
                 <SceneEnemy
                   actor={object}
                   controller={controller}
-                  spritesheetPath={spritesheet}
                   location={location}
                   key={object.enemyId}
                   idleAnimation={Math.random() < 0.5}
