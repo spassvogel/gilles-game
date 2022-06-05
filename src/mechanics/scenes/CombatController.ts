@@ -5,7 +5,7 @@ import { ActorObject, Allegiance, EnemyObject, getUniqueName, isAdventurer, Scen
 import { locationEquals } from 'utils/tilemap';
 import { BaseSceneController, movementDuration } from './BaseSceneController';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
-import { getDefinition as getWeaponDefinition } from 'definitions/items/weapons';
+import { getDefinition as getWeaponDefinition, Weapon } from 'definitions/items/weapons';
 import { AP_COST_MELEE, AP_COST_SHOOT, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { TextEntry } from 'constants/text';
@@ -15,6 +15,7 @@ import { ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/
 import {  getDefinition, isApparel } from 'definitions/items/apparel';
 import { TextManager } from 'global/TextManager';
 import { DamageType, WeaponType } from 'definitions/weaponTypes/types';
+import { Item } from 'definitions/items/types';
 
 
 export class CombatController {
@@ -120,75 +121,22 @@ export class CombatController {
     if (!weapon) throw new Error('No weapon found');
     const weaponDefinition = getWeaponDefinition(weapon.type);
     const skills = this.sceneController.getActorSkills(actor);
-    const roll = roll3D6();
 
     // Roll to hit
-    if (roll <= (skills[weaponDefinition.weaponType] ?? 0)) {
-
+    if (!rollToHit(skills[weaponDefinition.weaponType])) {
+      this.meleeMissed(actor, weapon, ap, location);
+    } else {
+      // Hit
       const target = this.sceneController.getObjectAtLocation(location) as ActorObject;
-
-      
       const targetAttributes = this.sceneController.getActorAttributes(target);
-      if (rollToDodge(targetAttributes)){
-        this.sceneController.bubbleAtLocation(TextManager.get('scene-combat-attack-dodge'), location);
 
-        // Dodged!
-        this.log({
-          key: 'scene-combat-attack-slash-dodged',
-          context: {
-            attacker: getUniqueName(actor),
-            weapon,
-            target: getUniqueName(target),
-          },
-        });
+      if (rollToDodge(targetAttributes)){
+        this.meleeDodged(actor, target, weapon, location);
       } else {
         // Hit!
-        // todo: calculate damage types?
-        this.sceneController.bubbleAtLocation(TextManager.get('scene-combat-attack-hit'), location);
-        this.sceneController.effectAtLocation('blood_1/blood_1.json', location);
-        SoundManager.playSound('SCENE_SWORD_HIT_FLESH', Channel.scene);
-        
-        const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0;
-        const bodyPart = rollBodyPart();
-        const armor = this.getArmor(target, bodyPart);
-        const damage = rawDamage - armor;
-        const absorbed = rawDamage - damage;
-        this.takeDamage(target, damage);
-
-        // this.sceneController.effectAtLocation('blood_2/blood_2.json', location);
-
-        this.log({
-          key: absorbed > 0 ? 'scene-combat-attack-slash-hit-absorbed' : 'scene-combat-attack-slash-hit',
-          context: {
-            attacker: getUniqueName(actor),
-            weapon,
-            bodyPart: TextManager.getEquipmentSlot(bodyPart),
-            target: getUniqueName(target),
-            damage,
-            absorbed,
-          },
-        });
+        this.meleeHit(actor, target, weapon, location);
       }
-
-
-
-    } else {
-      this.sceneController.bubbleAtLocation(TextManager.get('scene-combat-attack-miss'), location);
-
-      this.log({
-        key: this.settings.verboseCombatLog ? 'scene-combat-attack-slash-missed-verbose' : 'scene-combat-attack-slash-missed',
-        context: {
-          attacker: getUniqueName(actor),
-          weapon,
-          ap,
-          roll: rollToHit,
-          weaponType: weaponDefinition.weaponType,
-          skill: skills[weaponDefinition.weaponType],
-        },
-      });
     }
-    // todo: see if slash misses
-    // todo: process the hit, take away any HP?
   }
 
   public static actorShootStart(actorId: string, intent: ActionIntent) {
@@ -229,71 +177,31 @@ export class CombatController {
     if (!weapon) throw new Error('No weapon found');
     const weaponDefinition = getWeaponDefinition(weapon.type);
     const skills = this.sceneController.getActorSkills(actor);
-    const target = this.sceneController.getObjectAtLocation(intent.to) as ActorObject;
 
-    if (rollToHit(skills[weaponDefinition.weaponType])) {
 
+    // Roll to hit
+    if (!rollToHit(skills[weaponDefinition.weaponType])) {
+      this.shootMissed(actor, weapon, ap, location);
+    } else {
+      // Hit
+      const target = this.sceneController.getObjectAtLocation(location) as ActorObject;
       const targetAttributes = this.sceneController.getActorAttributes(target);
+
       if (rollToDodge(targetAttributes)){
-        // Dodged!
-        this.log({
-          key: 'scene-combat-attack-shoot-dodged',
-          context: {
-            attacker: getUniqueName(actor),
-            weapon,
-            target: getUniqueName(target),
-          },
-        });
+        this.shootDodged(actor, target, weapon, location);
       } else {
         // Hit!
-        // todo: calculate damage types?
-        const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0;
-        const bodyPart = rollBodyPart();
-        const armor = this.getArmor(target, bodyPart);
-        const damage = rawDamage - armor;
-        const absorbed = rawDamage - damage;
-        this.takeDamage(target, damage);
-
-
-        this.sceneController.bubbleAtLocation('HIT', location);
-        this.sceneController.effectAtLocation('blood_2/blood_2.json', location);
-
-        this.log({
-          key: absorbed > 0 ? 'scene-combat-attack-shoot-hit-absorbed' : 'scene-combat-attack-shoot-hit',
-          context: {
-            attacker: getUniqueName(actor),
-            weapon,
-            bodyPart: TextManager.getEquipmentSlot(bodyPart),
-            target: getUniqueName(target),
-            damage,
-            absorbed,
-          },
-        });
+        this.shootHit(actor, target, weapon, location);
       }
-
-
-    } else {
-      this.log({
-        key: this.settings.verboseCombatLog ? 'scene-combat-attack-shoot-missed-verbose' : 'scene-combat-attack-shoot-missed',
-        context: {
-          attacker: getUniqueName(actor),
-          weapon,
-          ap,
-          roll: rollToHit,
-          weaponType: weaponDefinition.weaponType,
-          skill: skills[weaponDefinition.weaponType],
-        },
-      });
     }
-    // todo: process the hit, take away any HP?
   }
 
-  static getQuestStoreState() {
+  private static getQuestStoreState() {
     return this.sceneController?.store.getState().quests.find(q => q.name === this.sceneController?.questName);
   }
 
   /** Finds the actor nearest to `from`, but not ON from */
-  static findNearestActor(from: Location, allegiance?: Allegiance) {
+  private static findNearestActor(from: Location, allegiance?: Allegiance) {
     if (!this.sceneController) return undefined;
     const actors = this.sceneController.sceneActors;
     let distance = Number.MAX_VALUE;
@@ -309,6 +217,126 @@ export class CombatController {
       }
     });
     return actor;
+  }
+
+  protected static meleeMissed(actor: ActorObject, weapon: Item<Weapon>, ap: number, location: Location) {
+    const weaponDefinition = getWeaponDefinition(weapon.type);
+    const skills = this.sceneController.getActorSkills(actor);
+
+    this.sceneController.bubbleAtLocation(TextManager.get('scene-combat-attack-miss'), location);
+
+    this.log({
+      key: this.settings.verboseCombatLog ? 'scene-combat-attack-slash-missed-verbose' : 'scene-combat-attack-slash-missed',
+      context: {
+        attacker: getUniqueName(actor),
+        weapon,
+        ap,
+        weaponType: weaponDefinition.weaponType,
+        skill: skills[weaponDefinition.weaponType],
+      },
+    });
+  }
+
+  protected static meleeDodged(actor: ActorObject, target: ActorObject, weapon: Item<Weapon>, location: Location) {
+    this.sceneController.bubbleAtLocation(TextManager.get('scene-combat-attack-dodge'), location);
+
+    // Dodged!
+    this.log({
+      key: 'scene-combat-attack-slash-dodged',
+      context: {
+        attacker: getUniqueName(actor),
+        weapon,
+        target: getUniqueName(target),
+      },
+    });
+  }
+
+  protected static meleeHit(actor: ActorObject, target: ActorObject, weapon: Item<Weapon>, location: Location) {
+    const weaponDefinition = getWeaponDefinition(weapon.type);
+    // todo: calculate damage types?
+    this.sceneController.bubbleAtLocation(TextManager.get('scene-combat-attack-hit'), location);
+    this.sceneController.effectAtLocation('blood_1/blood_1.json', location);
+    SoundManager.playSound('SCENE_SWORD_HIT_FLESH', Channel.scene);
+
+    const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0;
+    const bodyPart = rollBodyPart();
+    const armor = this.getArmor(target, bodyPart);
+    const damage = rawDamage - armor;
+    const absorbed = rawDamage - damage;
+    this.takeDamage(target, damage);
+
+    // this.sceneController.effectAtLocation('blood_2/blood_2.json', location);
+
+    this.log({
+      key: absorbed > 0 ? 'scene-combat-attack-slash-hit-absorbed' : 'scene-combat-attack-slash-hit',
+      context: {
+        attacker: getUniqueName(actor),
+        weapon,
+        bodyPart: TextManager.getEquipmentSlot(bodyPart),
+        target: getUniqueName(target),
+        damage,
+        absorbed,
+      },
+    });
+  }
+
+  protected static shootMissed(actor: ActorObject, weapon: Item<Weapon>, ap: number, location: Location) {
+    const weaponDefinition = getWeaponDefinition(weapon.type);
+    const skills = this.sceneController.getActorSkills(actor);
+
+    this.sceneController.bubbleAtLocation(TextManager.get('scene-combat-attack-miss'), location);
+
+    this.log({
+      key: this.settings.verboseCombatLog ? 'scene-combat-attack-shoot-missed-verbose' : 'scene-combat-attack-shoot-missed',
+      context: {
+        attacker: getUniqueName(actor),
+        weapon,
+        ap,
+        weaponType: weaponDefinition.weaponType,
+        skill: skills[weaponDefinition.weaponType],
+      },
+    });
+  }
+
+  protected static shootDodged(actor: ActorObject, target: ActorObject, weapon: Item<Weapon>, location: Location) {
+    this.sceneController.bubbleAtLocation(TextManager.get('scene-combat-attack-dodge'), location);
+
+    // Dodged!
+    this.log({
+      key: 'scene-combat-attack-shoot-dodged',
+      context: {
+        attacker: getUniqueName(actor),
+        weapon,
+        target: getUniqueName(target),
+      },
+    });
+  }
+
+  protected static shootHit(actor: ActorObject, target: ActorObject, weapon: Item<Weapon>, location: Location) {
+    const weaponDefinition = getWeaponDefinition(weapon.type);
+    // todo: calculate damage types?
+    const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0;
+    const bodyPart = rollBodyPart();
+    const armor = this.getArmor(target, bodyPart);
+    const damage = rawDamage - armor;
+    const absorbed = rawDamage - damage;
+    this.takeDamage(target, damage);
+
+
+    this.sceneController.bubbleAtLocation('HIT', location);
+    this.sceneController.effectAtLocation('blood_2/blood_2.json', location);
+
+    this.log({
+      key: absorbed > 0 ? 'scene-combat-attack-shoot-hit-absorbed' : 'scene-combat-attack-shoot-hit',
+      context: {
+        attacker: getUniqueName(actor),
+        weapon,
+        bodyPart: TextManager.getEquipmentSlot(bodyPart),
+        target: getUniqueName(target),
+        damage,
+        absorbed,
+      },
+    });
   }
 
   /** Find next enemy with ap */
