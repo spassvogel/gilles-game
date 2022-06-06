@@ -54,12 +54,10 @@ export const loadResources = (paths: string[], callback: (resource: { [key: stri
       }
     });
     loader.load((_, resources) => {
-      console.log('will call back', resources)
       callback(resources);
     });
   };
   if (loader.loading) {
-    console.log('loader busy, delay', paths)
     loader.onComplete.once(start);
   } else {
     start();

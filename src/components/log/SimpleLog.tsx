@@ -2,7 +2,7 @@ import Tab from 'components/ui/tabs/Tab';
 import Tabstrip from 'components/ui/tabs/Tabstrip';
 import { LogChannel, LogEntry } from 'store/types/logEntry';
 import { TextManager } from 'global/TextManager';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Button from 'components/ui/buttons/Button';
 import { useLog } from 'hooks/store/useLog';
 import { useActiveQuestNames } from 'hooks/store/quests';
@@ -35,6 +35,7 @@ const SimpleLog = () => {
   const logEntries = useLog();
   const activeQuestNames = useActiveQuestNames();
   const location = useLocation();
+  const scrollDownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (location.pathname === getTownLink()){
@@ -75,26 +76,29 @@ const SimpleLog = () => {
     });
   });
 
-  let displayEntries: LogEntry[] = [];
   const currentTab = channels.find((t) => t.tabId === selectedTabId);
+  const displayEntries: LogEntry[] = useMemo(() => {
+    switch (currentTab?.tabType) {
+      case ChannelType.all:
+        // All the things
+        return logEntries;
 
-  switch (currentTab?.tabType) {
-    case ChannelType.all:
-      // All the things
-      displayEntries = logEntries;
-      break;
+      case ChannelType.town:
+        // Only town
+        return logEntries.filter((lE) => lE.channel === LogChannel.town);
 
-    case ChannelType.town:
-      // Only town
-      displayEntries = logEntries.filter((lE) => lE.channel === LogChannel.town);
-      break;
+      case ChannelType.quest:
+        // Only the selected quest
+        return logEntries.filter((lE) => lE.channel === LogChannel.quest && lE.channelContext === currentTab.channelContext);
+    }
+    return [];
+  }, [currentTab?.channelContext, currentTab?.tabType, logEntries]);
 
-    case ChannelType.quest:
-      // Only the selected quest
-      displayEntries = logEntries.filter((lE) => lE.channel === LogChannel.quest && lE.channelContext === currentTab.channelContext);
-      break;
-  }
-
+  useEffect(() => {
+    if (scrollDownRef.current){
+      scrollDownRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+    }
+  }, [displayEntries]);
 
   const getLogEntryRow = (logEntry: LogEntry) => {
     const text = TextManager.get(logEntry.key, logEntry.context);
@@ -124,6 +128,7 @@ const SimpleLog = () => {
       </div>
       <div className="log-entries">
         {displayEntries.map((entry) => getLogEntryRow(entry))}
+        <div ref={scrollDownRef}></div>
       </div>
     </div>
   );

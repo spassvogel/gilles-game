@@ -10,16 +10,14 @@ import { BLACK, BLUES, calculateBearing, createColorReplaceFilter, ORANGE, Orien
 import useAnimation from './useAnimation';
 import useFrames from './useFrames';
 import { useQuest } from 'hooks/store/quests';
-import { SceneController } from 'mechanics/scenes/useSceneController';
-
-const spritesheetBasePath = `${process.env.PUBLIC_URL}/img/scene/actors/`;
+import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
 
 export interface Props  {
   actor: ActorObject;
   health: number;
   spritesheet: Spritesheet;
   color?: AdventurerColor;
-  controller: SceneController;
+  controller: BaseSceneController<unknown>,
   selectionColor?: number;
   location?: Location; // tile coordinate space
   lookAt?: Location;

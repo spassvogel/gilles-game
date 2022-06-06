@@ -128,9 +128,9 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     this.aStar = this.createAStar();
     utils.clearTextureCache();
 
-    for (const path of this.actorSpritesheetPaths) {
-      await loadResourceAsync(`${actorSpritesheetBasePath}${path}`);
-    }
+    // for (const path of this.actorSpritesheetPaths) {
+    //   await loadResourceAsync(`${actorSpritesheetBasePath}${path}`);
+    // }
     for (const path of this.effectSpritesheetPaths) {
       await loadResourceAsync(`${effectSpritesheetBasePath}${path}`);
     }
@@ -758,7 +758,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
                 properties: {
                   adventurerId: adventurer.id,
                   isSprite: true,
-                  spritesheet: adventurer.spritesheetPath,
+                  spritesheet: adventurer.spritesheet,
                 },
               };
               acc.push(adventurerObject);
@@ -826,14 +826,14 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     return this.quest.questVars as unknown as TQuestVars;
   }
 
-  protected get actorSpritesheetPaths(): string[] {
-    const adventurers = this.getAdventurers();
-    return [
-      ...adventurers.map(a => a.spritesheetPath),
-      'troll-sword.json',   // todo: only load enemy sprites that are actually needed
-      'troll-axe.json',      // todo: only load enemy sprites that are actually needed
-    ];
-  }
+  // protected get actorSpritesheetPaths(): string[] {
+  //   const adventurers = this.getAdventurers();
+  //   return [
+  //     ...adventurers.map(a => a.spritesheetPath),
+  //     'troll-sword.json',   // todo: only load enemy sprites that are actually needed
+  //     'troll-axe.json',      // todo: only load enemy sprites that are actually needed
+  //   ];
+  // }
 
   protected get effectSpritesheetPaths(): string[] {
     return [

@@ -3,7 +3,6 @@ import { loadResource } from 'utils/pixiJs';
 import { TiledTilesetData } from 'constants/tiledMapData';
 import { SpritesheetData, SpriteData } from 'constants/spritesheetData';
 import { Spritesheet } from 'pixi.js';
-import { BASE_PATH } from 'mechanics/scenes/useSceneController';
 
 // Returns a TiledTilesetData that has not been loaded into tilesetsTextures yet
 const nextTilesetToload = (tilesets: TiledTilesetData[], tilesetsTextures: { [key: string]: Spritesheet }) => {
@@ -46,7 +45,7 @@ const parseSpritesheetData = (tileset: TiledTilesetData): SpritesheetData => {
  * @param basePath
  * @returns
  */
-const useTilesetsLoader = () => {
+const useTilesetsLoader = (basePath: string) => {
   const [tileSpritesheets, setTilesets] = useState<{ [key: string]: Spritesheet }>({});
   const [data, setData] = useState<TiledTilesetData[]>();
 
@@ -63,14 +62,14 @@ const useTilesetsLoader = () => {
     const image = nextTileset.image.substring(nextTileset.image.indexOf('/'));
     // todo: first add then load in parallel
     // use own laoder. see usetileset
-    loadResource(`${BASE_PATH}/${image}`, (resource) => {
+    loadResource(`${basePath}/${image}`, (resource) => {
       if (!resource) return;
       if (resource.error) {
-        throw new Error(`Loading ${BASE_PATH}/${image}\n${resource.error}`);
+        throw new Error(`Loading ${basePath}/${image}\n${resource.error}`);
       }
 
       const spritesheetData = parseSpritesheetData(nextTileset);
-      if (!resource.texture) throw new Error(`No texure found ${BASE_PATH}/${image}`);
+      if (!resource.texture) throw new Error(`No texure found ${basePath}/${image}`);
       const spritesheet = new Spritesheet(resource.texture, spritesheetData);
 
       spritesheet.parse(() => {
@@ -100,7 +99,7 @@ export default useTilesetsLoader;
 // import { TiledMapData, TiledTilesetData } from 'constants/tiledMapData';
 // import { SpritesheetData, SpriteData } from 'constants/spritesheetData';
 // import { Loader, Spritesheet } from 'pixi.js';
-// import { BASE_PATH } from 'mechanics/scenes/useSceneController';
+// import { basePath } from 'mechanics/scenes/useSceneController';
 
 // const parseSpritesheetData = (tileset: TiledTilesetData): SpritesheetData => {
 //   const columns = tileset.columns;
@@ -132,7 +131,7 @@ export default useTilesetsLoader;
 //   };
 // };
 
-// const tilesetToImagePath = (tileset: TiledTilesetData) => (`${BASE_PATH}${tileset.image.substring(tileset.image.indexOf('/'))}`);
+// const tilesetToImagePath = (tileset: TiledTilesetData) => (`${basePath}${tileset.image.substring(tileset.image.indexOf('/'))}`);
 
 // /**
 //  * @param basePath
@@ -149,7 +148,7 @@ export default useTilesetsLoader;
 //     const loader = new Loader();
 //     mapData.tilesets.forEach(ts => {
 //       const image = tilesetToImagePath(ts);
-//       loader.add(ts.name, `${BASE_PATH}${image}`);
+//       loader.add(ts.name, `${basePath}${image}`);
 //     });
 //     loader.load(() => {
 //       const newSpritesheets = mapData?.tilesets.reduce<{ [key: string]: Spritesheet }>((acc, tileset) => {
