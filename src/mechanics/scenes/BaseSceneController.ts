@@ -861,7 +861,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     return storeState.adventurers.find(a => a.id === actor.adventurerId);
   }
 
-  public getEnemyByActor(actor: EnemyObject) {
+  public getEnemyDefitionByActor(actor: EnemyObject) {
     return getEnemyDefinition(actor.enemyType);
   }
 
@@ -876,7 +876,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
       if (!adventurer) throw new Error('No adventurer found');
       return adventurer.skills;
     }
-    const enemy = this.getEnemyByActor(actor);
+    const enemy = this.getEnemyDefitionByActor(actor);
     return enemy.skills;
   }
 
@@ -886,7 +886,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
       if (!adventurer) throw new Error('No adventurer found');
       return calculateEffectiveAttributes(adventurer);
     }
-    const enemy = this.getEnemyByActor(actor);
+    const enemy = this.getEnemyDefitionByActor(actor);
     return enemy.attributes;
   }
 

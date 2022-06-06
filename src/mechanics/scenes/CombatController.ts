@@ -263,7 +263,6 @@ export class CombatController {
     const armor = this.getArmor(target, bodyPart);
     const damage = rawDamage - armor;
     const absorbed = rawDamage - damage;
-    this.takeDamage(target, damage);
 
     // this.sceneController.effectAtLocation('blood_2/blood_2.json', location);
 
@@ -278,6 +277,7 @@ export class CombatController {
         absorbed,
       },
     });
+    this.takeDamage(target, damage);
   }
 
   protected static shootMissed(actor: ActorObject, weapon: Item<Weapon>, ap: number, location: Location) {
@@ -320,7 +320,6 @@ export class CombatController {
     const armor = this.getArmor(target, bodyPart);
     const damage = rawDamage - armor;
     const absorbed = rawDamage - damage;
-    this.takeDamage(target, damage);
 
 
     this.sceneController.bubbleAtLocation('HIT', location);
@@ -337,6 +336,7 @@ export class CombatController {
         absorbed,
       },
     });
+    this.takeDamage(target, damage);
   }
 
   /** Find next enemy with ap */
@@ -356,7 +356,7 @@ export class CombatController {
       if (!adventurer) throw new Error('No adventurer found');
       return adventurer.equipment[EquipmentSlotType.mainHand];
     }
-    const enemy = this.sceneController.getEnemyByActor(actor);
+    const enemy = this.sceneController.getEnemyDefitionByActor(actor);
     return enemy.mainHand;
   }
 
@@ -368,15 +368,26 @@ export class CombatController {
       if (!equipment || !isApparel(equipment)) return 0;
       return getDefinition(equipment).damageReduction ?? 0;
     }
-    const enemy = this.sceneController.getEnemyByActor(actor);
+    const enemy = this.sceneController.getEnemyDefitionByActor(actor);
     return enemy.armor[bodyPart] ?? 0;
   }
 
   protected static takeDamage(actor: ActorObject, damage: number) {
+    let died = false;
     if (isAdventurer(actor)) {
       this.dispatch(modifyHealth(actor.adventurerId, -damage));
+      died = (this.sceneController.getAdventurerByActor(actor)?.health ?? Number.MAX_VALUE) - damage <= 0;
     } else {
       this.dispatch(modifyEnemyHealth(this.questName, actor.enemyId, -damage));
+      died = actor.health - damage <= 0;
+    }
+    if (died) {
+      this.log({
+        key: 'scene-combat-dies',
+        context: {
+          actor: getUniqueName(actor),
+        },
+      });
     }
   }
 

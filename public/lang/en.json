@@ -424,6 +424,7 @@
     "scene-combat-attack-slash-hit-absorbed": "{{actor:name attacker}} slashes with {{item:trigger weapon \"aA\"}} and hits {{actor:name target}} in the {{bodyPart}} for {{damage}} damage ({{absorbed}} absorbed)!",
     "scene-combat-attack-slash-missed": "{{actor:name attacker}} slashes with {{item:trigger weapon \"aA\"}} but missed!",
     "scene-combat-attack-slash-missed-verbose": "{{actor:name attacker}} slashes (-{{ap}}AP) with {{item:name weapon \"aA\"}} but missed! (rolled {{roll}} against {{skill}} ({{weaponType}} skill))",
+    "scene-combat-dies": "{{actor:name actor}} dies...",
 
     "structure-alchemist-name": "alchemist",
     "structure-armoursmith-name": "armoursmith",
