@@ -52,7 +52,7 @@ const ActorsAccordionEnemyItem = (props: Props) => {
             variation="health"
           />
           <div className="level">
-            {TextManager.get('ui-tooltip-actor-level', { level })}
+           {health > 0 ? TextManager.get('ui-tooltip-actor-level', { level }) : ''}
           </div>
         </div>
         <Attributes attributes={extendedAttributes} small />
