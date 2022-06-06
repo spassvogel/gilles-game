@@ -7,7 +7,6 @@ import React, {
   useState,
 } from 'react';
 import { Point } from 'pixi.js';
-import { LongPressDetectEvents, useLongPress } from 'use-long-press';
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
 import { ContextType } from 'constants/context';
 import { Location } from 'utils/tilemap';
@@ -25,8 +24,8 @@ import NormalUICursor from './NormalUICursor';
 import { Ammunition } from 'definitions/items/ammunition';
 import { WeaponAbility } from 'definitions/abilities/types';
 import AdventurerCombatSceneUI, { Refs } from './AdventurerCombatSceneUI';
-import './styles/sceneUI.scss';
 import { checkIfEnemy } from 'definitions/enemies/types';
+import './styles/sceneUI.scss';
 
 export type Props = {
   sceneWidth: number;
@@ -159,26 +158,9 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
     const location = findLocation(e);
     if (location) onMouseDown?.(location);
-
     mouseDownOnCanvas.current = true;
-    // e.preventDefault();
+    e.preventDefault();
   };
-
-  const bind = useLongPress((e) => {
-    if (e) {
-      handleClick(e as React.MouseEvent<HTMLDivElement>);
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
-      handleMouseUp(e as React.MouseEvent);
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  }, {
-    onStart: (e) => { handleMouseDown(e as MouseOrTouchEvent<HTMLDivElement>);},
-    onMove: (e) => { handleMouseMove(e as MouseOrTouchEvent<HTMLDivElement>);},
-    captureEvent: true,
-    cancelOnMovement: 8,
-    detect: LongPressDetectEvents.BOTH,
-  });
 
   const handleTouchEnd = useCallback((_e: React.TouchEvent) => {
     mouseDownOnCanvas.current = false;
@@ -199,7 +181,6 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   }, [actionIntent, combat, controller, cursorLocation, onSetActionIntent, selectedActorId]);
 
   const handleMouseUp = useCallback((e: React.MouseEvent) => {
-    bind.onMouseUp(e);
     if (!combat) {
       // Not in combat, do the action immediately
       setCursorLocation(undefined);
@@ -217,7 +198,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     mouseDownOnCanvas.current = false;
 
     e.stopPropagation();
-  }, [actionIntent, bind, combat, controller, cursorLocation, onSetActionIntent, selectedActorId]);
+  }, [actionIntent, combat, controller, cursorLocation, onSetActionIntent, selectedActorId]);
 
   const handleContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -302,9 +283,13 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     <div
       ref={ref}
       className="scene-ui"
-      {...bind}
+      // onClick={handleClick}
       onContextMenu={handleContextMenu}
+      onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
+      onDrag={handleMouseMove}
+      onMouseMove={handleMouseMove}
+      onTouchStart={handleMouseDown}
       onTouchEnd={handleTouchEnd}
     >
       {children}
