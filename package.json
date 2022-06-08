@@ -94,6 +94,6 @@
     "gh-pages": "^4.0.0",
     "react-scripts": "^4.0.3",
     "redux-devtools-extension": "^2.13.9",
-    "sass": "^1.51.0"
+    "sass": "^1.52.2"
   }
 }
