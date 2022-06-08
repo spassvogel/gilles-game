@@ -283,7 +283,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     <div
       ref={ref}
       className="scene-ui"
-      // onClick={handleClick}
+      onClick={handleClick}
       onContextMenu={handleContextMenu}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}

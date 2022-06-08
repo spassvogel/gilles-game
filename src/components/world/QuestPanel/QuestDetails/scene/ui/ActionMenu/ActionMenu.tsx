@@ -8,7 +8,6 @@ import { ActionIntent } from '../SceneUI';
 import ActionButton from './ActionButton';
 import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar';
 import EnemyAvatar from 'components/ui/enemy/EnemyAvatar';
-import ItemIcon from 'components/ui/items/ItemIcon';
 import { IconSize } from 'components/ui/common/Icon';
 import { WeaponAbility } from 'definitions/abilities/types';
 import DiamondFrame from './DiamondFrame';

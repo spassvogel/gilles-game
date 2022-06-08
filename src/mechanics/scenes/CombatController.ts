@@ -9,7 +9,6 @@ import { getDefinition as getWeaponDefinition, Weapon } from 'definitions/items/
 import { AP_COST_MELEE, AP_COST_SHOOT, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { TextEntry } from 'constants/text';
-import { roll3D6 } from 'utils/random';
 import { changeEquipmentQuantity, modifyHealth } from 'store/actions/adventurers';
 import { ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI';
 import {  getDefinition, isApparel } from 'definitions/items/apparel';

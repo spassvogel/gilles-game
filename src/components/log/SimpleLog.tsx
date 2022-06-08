@@ -2,7 +2,7 @@ import Tab from 'components/ui/tabs/Tab';
 import Tabstrip from 'components/ui/tabs/Tabstrip';
 import { LogChannel, LogEntry } from 'store/types/logEntry';
 import { TextManager } from 'global/TextManager';
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Button from 'components/ui/buttons/Button';
 import { useLog } from 'hooks/store/useLog';
 import { useActiveQuestNames } from 'hooks/store/quests';
