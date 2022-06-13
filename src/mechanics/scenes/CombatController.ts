@@ -6,10 +6,10 @@ import { locationEquals } from 'utils/tilemap';
 import { BaseSceneController, movementDuration } from './BaseSceneController';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import { getDefinition as getWeaponDefinition, Weapon } from 'definitions/items/weapons';
-import { AP_COST_MELEE, AP_COST_SHOOT, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat';
+import { AP_COST_MELEE, AP_COST_SHOOT, decreaseDurability, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { TextEntry } from 'constants/text';
-import { changeEquipmentQuantity, modifyHealth } from 'store/actions/adventurers';
+import { apparelTakeDamage, changeEquipmentQuantity, modifyHealth } from 'store/actions/adventurers';
 import { ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI';
 import {  getDefinition, isApparel } from 'definitions/items/apparel';
 import { TextManager } from 'global/TextManager';
@@ -276,7 +276,7 @@ export class CombatController {
         absorbed,
       },
     });
-    this.takeDamage(target, damage);
+    this.takeDamage(target, damage, armor, bodyPart);
   }
 
   protected static shootMissed(actor: ActorObject, weapon: Item<Weapon>, ap: number, location: Location) {
@@ -335,7 +335,7 @@ export class CombatController {
         absorbed,
       },
     });
-    this.takeDamage(target, damage);
+    this.takeDamage(target, damage, bodyPart);
   }
 
   /** Find next enemy with ap */
@@ -371,11 +371,15 @@ export class CombatController {
     return enemy.armor[bodyPart] ?? 0;
   }
 
-  protected static takeDamage(actor: ActorObject, damage: number) {
+  protected static takeDamage(actor: ActorObject, damage: number, armor: number, bodyPart: EquipmentSlotType) {
     let died = false;
     if (isAdventurer(actor)) {
       this.dispatch(modifyHealth(actor.adventurerId, -damage));
       died = (this.sceneController.getAdventurerByActor(actor)?.health ?? Number.MAX_VALUE) - damage <= 0;
+
+      if (!died) {
+        this.dispatch(apparelTakeDamage(actor.adventurerId, damage, bodyPart));
+      }
     } else {
       this.dispatch(modifyEnemyHealth(this.questName, actor.enemyId, -damage));
       died = actor.health - damage <= 0;
@@ -387,6 +391,10 @@ export class CombatController {
           actor: getUniqueName(actor),
         },
       });
+    } else {
+
+      const decreasedDurability = decreaseDurability(damage, armor);
+      // bodyPart
     }
   }
 

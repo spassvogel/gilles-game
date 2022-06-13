@@ -53,3 +53,6 @@ export const rollBodyPart = () => {
   return weightedRoll(bodyParts);
 };
 
+export const decreaseDurability = (armor: number, damage: number) => {
+  return Math.max(0.1 / armor * damage, 1);
+};

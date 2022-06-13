@@ -7,11 +7,13 @@ import { levelToXp, MAX_XP, xpToLevel } from 'mechanics/adventurers/levels';
 import { Action } from 'store/actions';
 import { getDefinition, isConsumable } from 'definitions/items/consumables';
 import { Item } from 'definitions/items/types';
+import { getDefinition as getApparelDefinition, isApparel } from 'definitions/items/apparel';
 import { Effect } from 'definitions/effects/types';
 import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
 import { TempEffectBrokenLegs, TempEffectBurning, TempEffectType } from 'definitions/tempEffects/types';
 import { createTempEffect } from 'definitions/tempEffects';
 import { WeaponType } from 'definitions/weaponTypes/types';
+import { decreaseDurability } from 'mechanics/combat';
 
 
 const generateRandomAttributes = (): AttributesStoreState => {
@@ -495,6 +497,34 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
               [equipmentSlot]: {
                 ...adventurer.equipment[equipmentSlot],
                 quantity,
+              },
+            },
+          };
+        }
+        return adventurer;
+      });
+    }
+
+    case 'apparelTakeDamage': {
+      const adventurer = state.find((a) => a.id === action.adventurerId);
+      const equipment = adventurer?.equipment[action.bodyPart];
+      if (!equipment || !isApparel(equipment.type)) {
+        return state;
+      }
+      const definition = getApparelDefinition(equipment.type);
+      const armor = definition.damageReduction ?? 1;
+      const diff = decreaseDurability(armor, action.damage);
+      const durability = (adventurer.equipment[action.bodyPart]?.durability ?? 1) - diff;
+
+      return state.map((a: AdventurerStoreState) => {
+        if (a === adventurer) {
+          return {
+            ...adventurer,
+            equipment: {
+              ...adventurer.equipment,
+              [action.bodyPart]: {
+                ...adventurer.equipment[action.bodyPart],
+                durability,
               },
             },
           };

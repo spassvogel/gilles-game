@@ -15,6 +15,7 @@ export type AdventurerAction =
   | { type: 'assignEquipment', adventurerId: string, item: Item, equipmentSlot: EquipmentSlotType }
   | { type: 'removeEquipment', adventurerId: string, equipmentSlot: EquipmentSlotType }
   | { type: 'changeEquipmentQuantity', adventurerId: string, equipmentSlot: EquipmentSlotType, quantity: number }
+  | { type: 'apparelTakeDamage', adventurerId: string, damage: number, bodyPart: EquipmentSlotType }
   | { type: 'addTempEffect', adventurerId: string, tempEffect: TempEffect }
   | { type: 'decreaseEffectCharge', adventurerId: string, effect: Omit<Effect, 'lastTick'> }
   | { type: 'setBasicAttributes', adventurerId: string, basicAttributes: AttributesStoreState }
@@ -86,6 +87,13 @@ export const changeEquipmentQuantity = (adventurerId: string, equipmentSlot: Equ
   adventurerId,
   equipmentSlot,
   quantity,
+});
+
+export const apparelTakeDamage = (adventurerId: string, damage: number, bodyPart: EquipmentSlotType): AdventurerAction => ({
+  type: 'apparelTakeDamage',
+  adventurerId,
+  damage,
+  bodyPart,
 });
 
 // Adds temporary effect to adventurernpm
