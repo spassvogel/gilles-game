@@ -335,7 +335,7 @@ export class CombatController {
         absorbed,
       },
     });
-    this.takeDamage(target, damage, bodyPart);
+    this.takeDamage(target, damage, armor, bodyPart);
   }
 
   /** Find next enemy with ap */
