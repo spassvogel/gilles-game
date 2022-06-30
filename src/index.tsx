@@ -1,15 +1,14 @@
 import { createRoot } from 'react-dom/client';
-import registerServiceWorker from './registerServiceWorker';
 import * as Random from './utils/random';
 import { TextManager } from './global/TextManager';
 import { loadResourceAsync } from 'utils/pixiJs';
 import { ErrorBoundary } from 'react-error-boundary';
 import Game from 'components/Game';
 import ErrorModal from 'components/ui/error/ErrorModal';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import './index.css';
 
 const initialize = async () => {
-  registerServiceWorker();
   const texts = await loadResourceAsync(`${process.env.PUBLIC_URL}/lang/en.json`);
   if (texts) {
     TextManager.init(texts.data);
@@ -25,4 +24,8 @@ const initialize = async () => {
 };
 
 initialize();
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://cra.link/PWA
+serviceWorkerRegistration.register();
 
