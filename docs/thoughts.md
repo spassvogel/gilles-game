@@ -353,6 +353,9 @@ APs can be spent in any order.
     e.g. the 'arrow finder' trait logic needs to be in the BaseSceneController. 
 - [x] Might need to seperate this stuff into different files. Find out if Typescript can do that. Answer: no it cant
 - [x] Store enemy definitions in definition file
+- [ ] Scene turns combat on when 1 or more enemies in scene
+- [ ] Scene turns combat off when combat is on and 0 enemies remain
+
 
 ### 23/8/2019 ADVENTURER STATS
 
