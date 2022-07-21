@@ -38,7 +38,7 @@ const ActorsAccordionEnemyItem = (props: Props) => {
       id={enemyId}
       title={(<>
         <div className="name">{TextManager.getEnemyName(actorObject.enemyType)}</div>
-        <div className="ap">AP: 3</div>
+        <div className="ap">AP: {actorObject.ap}</div>
       </>)}
     >
       <div>
