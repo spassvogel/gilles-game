@@ -21,6 +21,7 @@ import {
   Allegiance,
   EnemyObject,
   AdventurerObject,
+  getUniqueName,
 } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
@@ -163,6 +164,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
 
   // Constructs the scene and dispatches it to be saved to the store
   createScene() {
+    console.log(`creating scene`);
     const objects = this.createObjects();
     const combat = false;
     this.updateScene(objects, combat);
@@ -204,10 +206,11 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
   actorMoved(actor: string, location: Location) {
     const isNotAnActor = (object: SceneObject) => !isActorObject(object);
 
-    if (this.combat) {
-      // Take away AP for moving
-      this.dispatch(deductActorAp(this.questName, actor, AP_COST_MOVE));
-    }
+    // if (this.combat) {
+    //   // Take away AP for moving
+    //   console.log(`taking away one MOVE AP`);
+    //   this.dispatch(deductActorAp(this.questName, actor, AP_COST_MOVE));
+    // }
     const destination = this.getObjectAtLocation(location, isNotAnActor);
     if (!destination) return;
 
@@ -260,7 +263,11 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
           intent,
         }));
 
-        if (!this.combat) {
+        if (this.combat) {
+          // Take away AP for moving
+          console.log(`taking away ${AP_COST_MOVE * (intent.path?.length ?? 1)} MOVE AP` );
+          this.dispatch(deductActorAp(this.questName, getUniqueName(actor), AP_COST_MOVE * (intent.path?.length ?? 1)));
+        } else {
           // Follow behaviour. Other adventurers follow this adventurer
           const otherAdventurers = this.sceneAdventurers.filter(a => a !== actor);
           let availableLocations = this.findEmptyLocationsAround(to, 6);
@@ -721,8 +728,9 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
           properties,
           location,
         };
-
+console.log(`object.type`, object.type);
         if (object.type === TiledObjectType.portal) {
+          console.log(`this.quest.sceneNamePrev`, this.quest.sceneNamePrev);
           if ((!object.properties.to && !this.quest.sceneNamePrev) || object.properties.to === this.quest.sceneNamePrev) {
             // todo: instead store location in var and spawn adventurers at the end
             const adventurers = this.getAdventurers();
