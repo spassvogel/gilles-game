@@ -43,6 +43,7 @@ export class CombatController {
     const adventurers = this.sceneController.sceneAdventurers;
     const enemies = this.sceneController.sceneEnemies;
     const quest = this.sceneController.quest;
+
     if (adventurers && enemies && quest && quest.scene && !quest.scene.actionQueue?.length){
       const totalAdventurerAp = adventurers.reduce((acc, value) => acc + value.ap, 0);
       const { scene } = quest;
@@ -50,37 +51,38 @@ export class CombatController {
 
       // No AP for the player left, switch to enemy turn
       if (totalAdventurerAp === 0 && turn === Allegiance.player) {
-
+        console.log('start enemy turn!')
         this.dispatch(startTurn(quest.name, Allegiance.enemy));
         return;
       }
 
-
-      if (turn === Allegiance.enemy && scene.actionQueue?.length === 0) {
+      if (turn === Allegiance.enemy && !scene.actionQueue?.length) {
         const totalEnemiesAp = enemies.reduce((acc, value) => acc + value.ap, 0);
-
         if (totalEnemiesAp === 0) {
           // No more AP left for the enemy, player turn
+          console.log('start player turn', this.sceneController.getAdventurers())
           this.dispatch(startTurn(quest.name, Allegiance.player, this.sceneController.getAdventurers()));
           return;
         }
 
+        // AI behaviour
         const enemy = this.findEnemyWithAp();
         if (enemy && enemy.location) {
           const target = this.findNearestActor(enemy.location, Allegiance.player);
           if (!target || !target.location) return; // no target? did everyone die?
-          const path = this.sceneController.findPath(enemy.location, target.location);
+          console.log(`enemy ${getUniqueName(enemy)} locked onto target`, getUniqueName(target));
+          // const path = this.sceneController.findPath(enemy.location, target.location);
           const intent = this.sceneController.createActionIntent(SceneActionType.move, enemy, target.location);
           if (!intent || intent.action !== SceneActionType.move) return;
+          console.log(`intent.path`, intent.path);
+          console.log(`enemy.ap`, enemy.ap);
+          intent.path = intent.path?.slice(0, enemy.ap);
+          console.log(`intent2.path`, intent.path);
+          // path?.forEach((l, index) => {
+          // if (index >= enemy.ap - 1) return;
+          this.sceneController?.actorAttemptAction(intent);
 
-          path?.forEach((l, index) => {
-            if (index >= enemy.ap - 1) return;
-            const sceneAction: SceneAction = {
-              endsAt: movementDuration * (index + 1) + performance.now(),
-              intent,
-            };
-            this.dispatch(enqueueSceneAction(quest.name, sceneAction));
-          });
+          // });
         }
       }
     }

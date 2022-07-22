@@ -164,7 +164,6 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
 
   // Constructs the scene and dispatches it to be saved to the store
   createScene() {
-    console.log(`creating scene`);
     const objects = this.createObjects();
     const combat = false;
     this.updateScene(objects, combat);
@@ -269,6 +268,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
           this.dispatch(deductActorAp(this.questName, getUniqueName(actor), AP_COST_MOVE * (intent.path?.length ?? 1)));
         } else {
           // Follow behaviour. Other adventurers follow this adventurer
+          // Enemies move only in combat so this code will never get called for enemies
           const otherAdventurers = this.sceneAdventurers.filter(a => a !== actor);
           let availableLocations = this.findEmptyLocationsAround(to, 6);
 
@@ -728,9 +728,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
           properties,
           location,
         };
-console.log(`object.type`, object.type);
         if (object.type === TiledObjectType.portal) {
-          console.log(`this.quest.sceneNamePrev`, this.quest.sceneNamePrev);
           if ((!object.properties.to && !this.quest.sceneNamePrev) || object.properties.to === this.quest.sceneNamePrev) {
             // todo: instead store location in var and spawn adventurers at the end
             const adventurers = this.getAdventurers();

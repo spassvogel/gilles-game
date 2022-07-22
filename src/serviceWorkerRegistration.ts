@@ -96,9 +96,7 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
 }
 
 export function register(config?: Config) {
-  console.log(`process.env.PUBLIC_URL`, process.env.PUBLIC_URL);
-  console.log(`'serviceWorker' in navigator`, 'serviceWorker' in navigator);
-  if (/*process.env.NODE_ENV === 'production' && */'serviceWorker' in navigator) {
+  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
