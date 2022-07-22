@@ -2,17 +2,20 @@ import { useContext } from 'react';
 import { SceneControllerContext } from '../context/SceneControllerContext';
 import { TextManager } from 'global/TextManager';
 import Button from 'components/ui/buttons/Button';
+import { useQuest } from 'hooks/store/quests';
 import './styles/combatBar.scss';
+import { Allegiance } from 'store/types/scene';
 
 interface Props {
   questName: string;
   selectedAdventurerId?: string;
 }
 
-const CombatBar = (_props: Props) => {
-  // const { selectedAdventurerId } = props;
+const CombatBar = (props: Props) => {
+  const { questName } = props;
   // const adventurers = useSelector(createSelectAdventurersOnQuest(props.questName));
   const controller = useContext(SceneControllerContext);
+  const quest = useQuest(questName);
 
   return (
     <div className="combat-bar">
@@ -29,7 +32,7 @@ const CombatBar = (_props: Props) => {
           </div>
         ))}
       </div> */}
-      <Button size="medium" onClick={() => controller?.endTurn()}>End turn</Button>
+      <Button size="medium" onClick={() => controller?.endTurn()} disabled={quest.scene?.turn !== Allegiance.player}>End turn</Button>
     </div>
   );
 };
