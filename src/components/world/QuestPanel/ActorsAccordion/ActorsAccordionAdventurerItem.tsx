@@ -30,6 +30,7 @@ const ActorsAccordionAdventurerItem = (props: Props) => {
   const baseHP = calculateBaseHitpoints(level, attributes.for);
   const health = adventurer.health;
   const label = health > 0 ? `${roundIfNeeded(Math.max(health, 0))}/${baseHP}` : TextManager.get('ui-adventurer-info-dead');
+  const apDisplay = health > 0 ? TextManager.get('ui-actor-info-ap', { ap: actor?.ap }) : TextManager.get('ui-actor-info-ap-dead');
 
   return (
     <AccordionItem
@@ -38,13 +39,13 @@ const ActorsAccordionAdventurerItem = (props: Props) => {
       id={adventurerId}
       title={(<>
         <div className="name">{TextManager.getAdventurerName(adventurerId)}</div>
-        <div className="ap">AP: {actor?.ap}</div>
+        <div className="ap">{apDisplay}</div>
       </>)}
     >
       <div>
        <div className={'attribute-list'} style={style}>
           <div className="health">
-            {TextManager.get('ui-adventurer-info-health')}
+            {TextManager.get('ui-actor-info-health')}
           </div>
           <PlainProgressbar
             progress={health / baseHP}

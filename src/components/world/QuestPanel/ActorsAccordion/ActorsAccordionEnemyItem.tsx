@@ -30,6 +30,7 @@ const ActorsAccordionEnemyItem = (props: Props) => {
   const baseHP = calculateBaseHitpoints(level, attributes.for);
   const health = actorObject.health;
   const label = health > 0 ? `${roundIfNeeded(Math.max(health, 0))}/${baseHP}` : TextManager.get('ui-adventurer-info-dead');
+  const apDisplay = health > 0 ? TextManager.get('ui-actor-info-ap', { ap: actorObject?.ap }) : TextManager.get('ui-actor-info-ap-dead');
 
   return (
     <AccordionItem
@@ -38,13 +39,13 @@ const ActorsAccordionEnemyItem = (props: Props) => {
       id={enemyId}
       title={(<>
         <div className="name">{TextManager.getEnemyName(actorObject.enemyType)}</div>
-        <div className="ap">AP: {actorObject.ap}</div>
+        <div className="ap">{apDisplay}</div>
       </>)}
     >
       <div>
         <div className={'attribute-list'} style={style}>
           <div className="health">
-            {TextManager.get('ui-adventurer-info-health')}
+            {TextManager.get('ui-actor-info-health')}
           </div>
           <PlainProgressbar
             progress={health / baseHP}

@@ -503,7 +503,6 @@
     "ui-adventurer-info-equipment-title": "Equipment",
     "ui-adventurer-info-dead": "Dead ✝",
     "ui-adventurer-info-general-title": "General",
-    "ui-adventurer-info-health": "Health",
     "ui-adventurer-info-inventory-title": "Inventory",
     "ui-adventurer-info-level": "Level {{level}}",
     "ui-adventurer-info-skills-title": "Skills",
@@ -513,6 +512,9 @@
     "ui-adventurer-info-xp-level-max": "Maximum level",
     "ui-adventurer-info-xp-level-up": "Level up!",
     "ui-adventurer-info-xp-progress": "{{xp}}/{{next}} xp to next level",
+    "ui-actor-info-ap": "AP {{ap}}",
+    "ui-actor-info-ap-dead": "✝",
+    "ui-actor-info-health": "Health",
 
     "ui-combat-bar-title": "Battle is joined!",
 

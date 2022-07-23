@@ -18,7 +18,7 @@ const Health = (props: Props) => {
   const label = health > 0 ? `${roundIfNeeded(Math.max(health, 0))}/${baseHP}` : TextManager.get('ui-adventurer-info-dead');
   return (
     <div className="health">
-      {TextManager.get('ui-adventurer-info-health')}
+      {TextManager.get('ui-actor-info-health')}
       <PlainProgressbar
         progress={health / baseHP}
         label={label}

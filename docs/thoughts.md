@@ -828,11 +828,14 @@ https://interfaceingame.com/games/league-of-legends/
 
 ### 2022-04-18 Scenecontrollers as hooks
 
-- [ ] Investigate if we can have scenecontroller as hooks
-- [ ] Everything needs to be put in state / memo
+- [-] ~~Investigate if we can have scenecontroller as hooks~~ bad idea, becomes a big mess
+- [-] ~~Everything needs to be put in state / memo~~
 
 ### 2022-05-05 Tick into middleware
 - [x] refactor gametick logic into middleware
 
 ### 2022-05-07 Serviceworker caching
-- [] Implement a serviceworker for caching
+- [ ] Implement a serviceworker for caching
+
+### 2022-06-23 Remove long press
+- [ ] Remove long press to see actor stats. It's hella annoying
