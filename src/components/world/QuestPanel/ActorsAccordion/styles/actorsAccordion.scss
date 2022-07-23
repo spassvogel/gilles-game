@@ -9,6 +9,10 @@
 
       .name {
         flex: 0.7;
+
+        &.dead {
+          text-decoration-line: line-through;
+        }
       }
       .ap {
         flex: 0.3;

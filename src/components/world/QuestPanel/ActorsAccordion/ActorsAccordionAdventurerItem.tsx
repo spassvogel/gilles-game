@@ -41,7 +41,7 @@ const ActorsAccordionAdventurerItem = (props: Props) => {
       { ...rest}
       id={adventurerId}
       title={(<>
-        <div className="name">{TextManager.getAdventurerName(adventurerId)}</div>
+        <div className={`name ${health > 0 ? '' : 'dead'}`}>{TextManager.getAdventurerName(adventurerId)}</div>
         <div className={`ap ${apActive ? 'active' : ''}`}>{apDisplay}</div>
       </>)}
     >
