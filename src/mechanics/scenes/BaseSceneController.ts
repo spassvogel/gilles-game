@@ -388,9 +388,17 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     return new Point(location[0] * this.mapData.tilewidth, location[1] * this.mapData.tileheight);
   }
 
-  // Returns true if the tile is blocked
-  locationIsBlocked(location: Location){
-    return this.blockedTiles.some((l) => locationEquals(l, location));
+
+  /**
+   * Returns true if the tile is blocked
+   * @param location location
+   * @param blockedByObjects can be blocked by objects as well as static tiles
+   */
+  locationIsBlocked(location: Location, blockedByObjects = false) {
+    if (this.blockedTiles.some((l) => locationEquals(l, location))){
+      return true;
+    }
+    return blockedByObjects && this.getObjectAtLocation(location) !== undefined;
   }
 
   // Returns true if outsie of the bounds of the map
@@ -492,8 +500,9 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
    * Searches around @param origin to find empty, pathable locations
    * @param origin location to search around
    * @param amount of locations to find
+   * @param blockedByObjects can be blocked by objects as well as static tiles
    */
-  public findEmptyLocationsAround(origin: Location, amount: number) {
+  public findEmptyLocationsAround(origin: Location, amount: number, blockedByObjects = false) {
     const results: Location[] = [];
     let radius = 1;
 
@@ -536,6 +545,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         && location[1] >= 1 && location[1] < this.mapData.height;
     };
 
+
     while (radius < (this.mapData?.width ?? 2)) {
       // determine locations in square radius
       const square: Location[] = [
@@ -544,7 +554,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         ...getBottom(),
         ...getLeft(),
       ];
-      const filtered = square.filter(l => notOutside(l) && !this.locationIsBlocked(l));
+      const filtered = square.filter(l => notOutside(l) && !this.locationIsBlocked(l, blockedByObjects));
       results.push(...filtered.slice(0, amount - results.length));
       if (results.length === amount) break;
       radius++;
