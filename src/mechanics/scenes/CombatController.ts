@@ -66,15 +66,19 @@ export class CombatController {
 
         // AI behaviour
         const enemy = this.findEnemyWithAp();
-        if (enemy && enemy.location) {
-          const target = this.findNearestActor(enemy.location, Allegiance.player);
-          if (!target || !target.location) return; // no target? did everyone die?
-          console.log(`enemy ${getUniqueName(enemy)} locked onto target`, getUniqueName(target));
-          // const path = this.sceneController.findPath(enemy.location, target.location);
-          const intent = this.createEnemyMoveIntent(enemy, target.location);
-          if (!intent || intent.action !== SceneActionType.move) return;
-          this.sceneController?.actorAttemptAction(intent);
-
+        if (enemy) {
+          if (enemy.health <= 0) {
+          // This enemy actor is dead, forfeit his turn
+            this.dispatch(deductActorAp(this.questName, getUniqueName(enemy), enemy.ap));
+          } else if (enemy.location) {
+            const target = this.findNearestActor(enemy.location, Allegiance.player);
+            if (!target || !target.location) return; // no target? did everyone die?
+            console.log(`enemy ${getUniqueName(enemy)} locked onto target`, getUniqueName(target));
+            // const path = this.sceneController.findPath(enemy.location, target.location);
+            const intent = this.createEnemyMoveIntent(enemy, target.location);
+            if (!intent || intent.action !== SceneActionType.move) return;
+            this.sceneController?.actorAttemptAction(intent);
+          }
           // });
         }
       }
@@ -443,6 +447,7 @@ export class CombatController {
           actor: getUniqueName(actor),
         },
       });
+      this.dispatch(deductActorAp(this.questName, getUniqueName(actor), actor.ap)); 
     } else {
 
       const decreasedDurability = decreaseDurability(damage, armor);
