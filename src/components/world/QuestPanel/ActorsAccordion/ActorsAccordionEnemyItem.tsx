@@ -1,7 +1,7 @@
 import { Merge } from 'type-fest';
 import { TextManager } from 'global/TextManager';
 import AccordionItem, { Props as AccordionItemProps } from 'components/ui/accordion/AccordionItem';
-import { useEnemyActorObject } from 'hooks/store/quests';
+import { useEnemyActorObject, useQuest } from 'hooks/store/quests';
 import { getDefinition } from 'definitions/enemies';
 import { generateBaseAttributes, MAX_VALUE } from 'mechanics/adventurers/attributes';
 import Attributes from 'components/ui/attributes/AttributeList';
@@ -10,6 +10,7 @@ import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
 import { PlainProgressbar } from 'components/ui/common/progress';
 import { roundIfNeeded } from 'utils/format/number';
 import { CSSProperties } from 'react';
+import { Allegiance } from 'store/types/scene';
 
 type Props = Merge<Omit<AccordionItemProps, 'id' | 'title'>, {
   enemyId: string;
@@ -22,6 +23,7 @@ const style = { '--item-count': MAX_VALUE } as CSSProperties;
 const ActorsAccordionEnemyItem = (props: Props) => {
   const { enemyId, selected, questName, ...rest } = props;
   const actorObject = useEnemyActorObject(questName, enemyId);
+  const quest = useQuest(questName);
   if (!actorObject) throw new Error(`No actor found with id ${enemyId}`);
   const definition = getDefinition(actorObject.enemyType);
   const level = actorObject.level ?? 1;
@@ -31,6 +33,7 @@ const ActorsAccordionEnemyItem = (props: Props) => {
   const health = actorObject.health;
   const label = health > 0 ? `${roundIfNeeded(Math.max(health, 0))}/${baseHP}` : TextManager.get('ui-adventurer-info-dead');
   const apDisplay = health > 0 ? TextManager.get('ui-actor-info-ap', { ap: actorObject?.ap }) : TextManager.get('ui-actor-info-ap-dead');
+  const apActive = health > 0 && quest.scene?.turn === Allegiance.enemy;
 
   return (
     <AccordionItem
@@ -39,7 +42,7 @@ const ActorsAccordionEnemyItem = (props: Props) => {
       id={enemyId}
       title={(<>
         <div className="name">{TextManager.getEnemyName(actorObject.enemyType)}</div>
-        <div className="ap">{apDisplay}</div>
+        <div className={`ap ${apActive ? 'active' : ''}`}>{apDisplay}</div>
       </>)}
     >
       <div>

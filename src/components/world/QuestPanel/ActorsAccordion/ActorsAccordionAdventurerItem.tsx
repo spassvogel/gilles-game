@@ -7,10 +7,11 @@ import { TextManager } from 'global/TextManager';
 import { calculateEffectiveAttributes, calculateEffectiveAttributesExtended, MAX_VALUE } from 'mechanics/adventurers/attributes';
 import AccordionItem, { Props as AccordionItemProps } from 'components/ui/accordion/AccordionItem';
 import CombatAttributes from 'components/ui/tooltip/ContextTooltip/context/ActorContext/CombatAttributes';
-import { useAdventurerActorObject } from 'hooks/store/quests';
+import { useAdventurerActorObject, useQuest } from 'hooks/store/quests';
 import { PlainProgressbar } from 'components/ui/common/progress';
 import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
 import { roundIfNeeded } from 'utils/format/number';
+import { Allegiance } from 'store/types/scene';
 
 type Props = Merge<Omit<AccordionItemProps, 'id' | 'title'>, {
   adventurerId: string
@@ -21,6 +22,7 @@ const style = { '--item-count': MAX_VALUE } as CSSProperties;
 
 const ActorsAccordionAdventurerItem = (props: Props) => {
   const { adventurerId, selected, questName, ...rest } = props;
+  const quest = useQuest(questName);
   const adventurer = useAdventurer(adventurerId);
   const attributes = calculateEffectiveAttributes(adventurer);
   const { xp } = adventurer;
@@ -31,6 +33,7 @@ const ActorsAccordionAdventurerItem = (props: Props) => {
   const health = adventurer.health;
   const label = health > 0 ? `${roundIfNeeded(Math.max(health, 0))}/${baseHP}` : TextManager.get('ui-adventurer-info-dead');
   const apDisplay = health > 0 ? TextManager.get('ui-actor-info-ap', { ap: actor?.ap }) : TextManager.get('ui-actor-info-ap-dead');
+  const apActive = health > 0 && quest.scene?.turn === Allegiance.player;
 
   return (
     <AccordionItem
@@ -39,7 +42,7 @@ const ActorsAccordionAdventurerItem = (props: Props) => {
       id={adventurerId}
       title={(<>
         <div className="name">{TextManager.getAdventurerName(adventurerId)}</div>
-        <div className="ap">{apDisplay}</div>
+        <div className={`ap ${apActive ? 'active' : ''}`}>{apDisplay}</div>
       </>)}
     >
       <div>
