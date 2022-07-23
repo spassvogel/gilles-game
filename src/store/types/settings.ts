@@ -4,4 +4,5 @@ export interface SettingsState {
   debugSceneShowPathable: boolean
   debugSceneShowCellLocations: boolean
   debugSceneShowActionQueue: boolean
+  debugMapShowGrid: boolean
 }

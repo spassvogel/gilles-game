@@ -7,8 +7,9 @@ export const initialSettingsState: SettingsState = {
   verboseCombatLog: false,
   debugEnableDebugDrawer: true,
   debugSceneShowPathable: false,
-  debugSceneShowCellLocations: false,
+  debugSceneShowCellLocations: true,
   debugSceneShowActionQueue: false,
+  debugMapShowGrid: false,
 };
 
 /**

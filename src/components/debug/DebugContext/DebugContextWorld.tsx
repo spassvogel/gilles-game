@@ -15,6 +15,18 @@ const DebugContextWorld = () => {
 
   return (
     <div className="debug-context-world">
+      <h2>World map</h2>
+      <section>
+        <p>
+          <label>Show grid</label>
+          <input
+            type="checkbox"
+            checked={settings.debugMapShowGrid}
+            setting-name="debugMapShowGrid"
+            onChange={handleBooleanChange}
+          />
+        </p>
+      </section>
       <h2>Scene</h2>
       <section>
         <p>

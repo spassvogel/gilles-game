@@ -21,6 +21,7 @@ import { DebugToggleCombat } from './DebugToggleCombat';
 import { FULL_HEIGHT, SMALL_HEIGHT, nodeLocationToPoint, getPreviousPositions, getQuestWorldLocation, WORLD_WIDTH, WORLD_HEIGHT } from './utils';
 import { IApplicationOptions } from 'pixi.js';
 import { sprites } from 'manifests/sprites';
+import { useSettings } from 'hooks/store/settings';
 import './styles/worldMap.scss';
 
 const GRID_WIDTH = 100;
@@ -41,6 +42,7 @@ const WorldMap = (props: Props) => {
   const selectedQuest = useSelector<StoreState, QuestStoreState | undefined>(questSelector);
   const adventurers = useSelector<StoreState, AdventurerStoreState[]>((store) => store.adventurers);
   const activeQuests = useActiveQuests();
+  const settings = useSettings();
   const navigate = useNavigate();
   const viewportRef = useRef<PixiViewport>(null);
 
@@ -188,7 +190,7 @@ const WorldMap = (props: Props) => {
             {renderQuestlines()}
             {renderMarkers()}
           </Sprite>
-          <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} />
+          { settings.debugMapShowGrid && <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} /> }
         </Viewport>
       </Stage>
       {props.selectedQuestName && (
