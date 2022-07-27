@@ -516,7 +516,8 @@
     "ui-actor-info-ap-dead": "✝",
     "ui-actor-info-health": "Health",
 
-    "ui-combat-bar-title": "Battle is joined!",
+    "ui-combat-bar-enemy-turn": "Enemy turn",
+    "ui-combat-bar-player-turn": "Your turn",
 
     "ui-equipmentslot-ammunition": "ammo",
     "ui-equipmentslot-chest": "chest",

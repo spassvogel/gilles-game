@@ -77,7 +77,6 @@ const QuestPanel = (props: Props) => {
 
   return (
     <SceneControllerContextProvider questName={questName}>
-      { quest?.scene?.combat && <CombatBar questName={questName} selectedAdventurerId={selectedActorId}/>}
         <div className={`quest-panel quest-panel-${Layout[layout]}`}>
           <div className="quest-area">
             <QuestDetails
@@ -115,11 +114,14 @@ const QuestPanel = (props: Props) => {
             />
           )}
           { quest?.scene?.combat && (
-            <ActorsAccordion
-              selectedActorId={selectedActorId}
-              questName={questName}
-              onActorSelected={handleActorSelected}
-            />
+            <>
+              <CombatBar questName={questName} selectedAdventurerId={selectedActorId}/>
+              <ActorsAccordion
+                selectedActorId={selectedActorId}
+                questName={questName}
+                onActorSelected={handleActorSelected}
+              />
+            </>
           )}
           </div>
         </div>
