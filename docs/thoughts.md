@@ -838,4 +838,6 @@ https://interfaceingame.com/games/league-of-legends/
 - [ ] Implement a serviceworker for caching
 
 ### 2022-06-23 Remove long press
-- [ ] Remove long press to see actor stats. It's hella annoying
+- [x] Remove long press to see actor stats. It's hella annoying
+- [ ] Cannot shoot dead enemies
+- [ ] When a live actor and a dead one share the same tile, live actor takes precedence for selecting 

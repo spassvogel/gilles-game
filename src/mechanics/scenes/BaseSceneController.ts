@@ -825,8 +825,8 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     return this.sceneObjects.filter<ActorObject>(isAdventurer) as AdventurerObject[];
   }
 
-  public get sceneEnemies(): ActorObject[] {
-    return this.sceneObjects.filter<ActorObject>(isEnemy);
+  public get sceneEnemies(): EnemyObject[] {
+    return this.sceneObjects.filter<EnemyObject>(isEnemy);
   }
 
   // Quest

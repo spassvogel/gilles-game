@@ -1,4 +1,4 @@
-import { deductActorAp, modifyEnemyHealth, startTurn } from 'store/actions/quests';
+import { deductActorAp, modifyEnemyHealth, setCombat, startTurn } from 'store/actions/quests';
 import { AnyAction } from 'redux';
 import { Location } from 'utils/tilemap';
 import { ActorObject, Allegiance, EnemyObject, getUniqueName, isAdventurer, SceneActionType } from 'store/types/scene';
@@ -48,6 +48,13 @@ export class CombatController {
       const totalAdventurerAp = adventurers.reduce((acc, value) => acc + value.ap, 0);
       const { scene } = quest;
       const { turn } = scene;
+
+      // All enemies dead, turn combat off
+      const totalEnemiesHealth = enemies.reduce((acc, value) => acc + value.health, 0);
+      if (totalEnemiesHealth <= 0 && quest.scene.combat) {
+        this.dispatch(setCombat(quest.name, false));
+        return; 
+      }
 
       // No AP for the player left, switch to enemy turn
       if (totalAdventurerAp === 0 && turn === Allegiance.player) {
