@@ -46,6 +46,7 @@ const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<Co
       const version = initial?.game?.version ? convertIntToSemVer(initial.game.version) : Version.default;
       const composeEnhancers = composeWithDevTools({
         name: `Gidletown (${version})`,
+        actionsBlacklist: ['gameTick'], // ignore these actions. todo: make this configurable
       })(middlewareEnhancer);
 
       const store = createStore(
