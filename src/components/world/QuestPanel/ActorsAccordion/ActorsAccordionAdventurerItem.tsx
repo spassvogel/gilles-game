@@ -11,7 +11,7 @@ import { useAdventurerActorObject, useQuest } from 'hooks/store/quests';
 import { PlainProgressbar } from 'components/ui/common/progress';
 import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
 import { roundIfNeeded } from 'utils/format/number';
-import { Allegiance } from 'store/types/scene';
+import { Allegiance, isEnemy } from 'store/types/scene';
 
 type Props = Merge<Omit<AccordionItemProps, 'id' | 'title'>, {
   adventurerId: string
@@ -35,9 +35,15 @@ const ActorsAccordionAdventurerItem = (props: Props) => {
   const apDisplay = health > 0 ? TextManager.get('ui-actor-info-ap', { ap: actor?.ap }) : TextManager.get('ui-actor-info-ap-dead');
   const apActive = health > 0 && quest.scene?.turn === Allegiance.player;
 
+  const enemyIsDoingSomething = useMemo(() => {
+    const action = (quest.scene?.actionQueue ?? [])[0];
+    if (!action) return false;
+    return isEnemy(action.intent.actor);
+  }, [quest.scene?.actionQueue]);
+
   return (
     <AccordionItem
-      className={`actors-accordion-item ${selected ? 'selected' : ''}`}
+      className={`actors-accordion-item ${selected && !enemyIsDoingSomething ? 'selected' : ''}`}
       { ...rest}
       id={adventurerId}
       title={(<>

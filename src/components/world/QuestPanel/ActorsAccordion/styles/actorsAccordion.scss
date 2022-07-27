@@ -32,6 +32,17 @@
       }
     }
 
+    &.enemy-action {
+      .header {
+        background-color: $color-invalid;
+        color: $color-text-lighter;
+      }
+
+      .ap.active {
+        color: $color-text-lighter;
+      }
+    }
+
     .content > * {
       padding: 0.5rem;
     }

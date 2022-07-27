@@ -9,8 +9,8 @@ import CombatAttributes from 'components/ui/tooltip/ContextTooltip/context/Actor
 import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
 import { PlainProgressbar } from 'components/ui/common/progress';
 import { roundIfNeeded } from 'utils/format/number';
-import { CSSProperties } from 'react';
-import { Allegiance } from 'store/types/scene';
+import { CSSProperties, useMemo } from 'react';
+import { Allegiance, isEnemy } from 'store/types/scene';
 
 type Props = Merge<Omit<AccordionItemProps, 'id' | 'title'>, {
   enemyId: string;
@@ -34,10 +34,16 @@ const ActorsAccordionEnemyItem = (props: Props) => {
   const label = health > 0 ? `${roundIfNeeded(Math.max(health, 0))}/${baseHP}` : TextManager.get('ui-adventurer-info-dead');
   const apDisplay = health > 0 ? TextManager.get('ui-actor-info-ap', { ap: actorObject?.ap }) : TextManager.get('ui-actor-info-ap-dead');
   const apActive = health > 0 && quest.scene?.turn === Allegiance.enemy;
+  
+  const currentlyDoingAnAction = useMemo(() => {
+    const action = (quest.scene?.actionQueue ?? [])[0];
+    if (!action) return false;
+    return isEnemy(action.intent.actor) && action.intent.actor.enemyId === enemyId;
+  }, [enemyId, quest.scene?.actionQueue]);
 
   return (
     <AccordionItem
-      className={`actors-accordion-item ${selected ? 'selected' : ''}`}
+      className={`actors-accordion-item ${selected ? 'selected' : ''} ${currentlyDoingAnAction ? 'enemy-action' : ''}`}
       { ...rest}
       id={enemyId}
       title={(<>
