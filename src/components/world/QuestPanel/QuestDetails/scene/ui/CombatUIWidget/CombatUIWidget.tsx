@@ -19,7 +19,8 @@ const CombatUIWidget = (props: Props) => {
   const { tileWidth, tileHeight } = controller.getTileDimensions();
   const transform = `translate(${tileWidth * location[0]}px, ${tileHeight * location[1]}px)`;
 
-  const onEnemy = !!controller?.getObjectAtLocation(location, isEnemy);
+  const onEnemy = (controller?.getObjectsAtLocation(location, isEnemy) ?? []).length > 1;
+
   const invalid = intents.every(i => !i.isValid);
 
   const classNames = [

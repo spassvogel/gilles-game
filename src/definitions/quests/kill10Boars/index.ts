@@ -12,7 +12,8 @@ const kill10Boars: QuestDefinition<Kill10BoarsQuestVars> = {
     x: 0,
     y: 1,
     type: QuestNodeType.encounter,
-    startScene: 'dungeon.canyon',
+    startScene: 'dungeon.entrance',
+    // startScene: 'dungeon.canyon', todo: revert this
   }, {
     x: 0,
     y: 2,

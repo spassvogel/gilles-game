@@ -222,7 +222,9 @@
                         {
                          "name":"to",
                          "type":"string",
-                         "value":"dungeon.canyon"
+                         "value":"",
+                         "value-OLD":"dungeon.canyon"
+
                         }],
                  "rotation":0,
                  "type":"portal",

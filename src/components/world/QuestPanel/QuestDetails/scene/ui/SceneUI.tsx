@@ -216,7 +216,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     if (!combat && cursorLocation !== undefined) {
       // Handle change of cursor when not in combat
       let action = SceneActionType.move;
-      const object = controller?.getObjectAtLocation(cursorLocation);
+      const [object] = controller?.getObjectsAtLocation(cursorLocation) ?? [];
       if (object?.properties.interactive){
         // We're at an interactive object
         action = SceneActionType.interact;

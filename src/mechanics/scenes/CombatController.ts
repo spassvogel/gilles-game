@@ -1,7 +1,7 @@
 import { deductActorAp, modifyEnemyHealth, setCombat, startTurn } from 'store/actions/quests';
 import { AnyAction } from 'redux';
 import { Location } from 'utils/tilemap';
-import { ActorObject, Allegiance, EnemyObject, getUniqueName, isAdventurer, SceneActionType } from 'store/types/scene';
+import { ActorObject, Allegiance, EnemyObject, getUniqueName, isActorObject, isAdventurer, SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
 import { BaseSceneController } from './BaseSceneController';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
@@ -189,7 +189,7 @@ export class CombatController {
       this.meleeMissed(actor, weapon, ap, location);
     } else {
       // Hit
-      const target = this.sceneController.getObjectAtLocation(location) as ActorObject;
+      const [target] = <ActorObject[]> <unknown> this.sceneController.getObjectsAtLocation(location, isActorObject);
       const targetAttributes = this.sceneController.getActorAttributes(target);
 
       if (rollToDodge(targetAttributes)){
@@ -246,7 +246,7 @@ export class CombatController {
       this.shootMissed(actor, weapon, ap, location);
     } else {
       // Hit
-      const target = this.sceneController.getObjectAtLocation(location) as ActorObject;
+      const [target] = <ActorObject[]><unknown> this.sceneController.getObjectsAtLocation(location);
       const targetAttributes = this.sceneController.getActorAttributes(target);
 
       if (rollToDodge(targetAttributes)){

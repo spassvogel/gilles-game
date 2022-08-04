@@ -64,8 +64,8 @@ export const adventurerAmmo = (adventurer: AdventurerStoreState): Item<Ammunitio
 };
 
 // Searches `objects` list and returns the object at `location` (if any)
-export const getSceneObjectAtLocation = (objects: SceneObject[], location: Location, additionalFilter: (object: SceneObject) => boolean = () => true) => {
-  return objects.find(o => o.location && locationEquals(o.location, location) && additionalFilter(o));
+export const getSceneObjectsAtLocation = (objects: SceneObject[], location: Location, additionalFilter: (object: SceneObject) => boolean = () => true) => {
+  return objects.filter(o => o.location && locationEquals(o.location, location) && additionalFilter(o));
 };
 
 export const getSceneObjectWithName = (objects: SceneObject[], name: string) => {
