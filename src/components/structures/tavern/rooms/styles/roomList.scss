@@ -23,6 +23,10 @@
     &.expanded {
       background-color: $color-secondary;
       color: $color-text-lighter;
+
+      .on-a-quest {
+        color: $color-background-dark;
+      }
     }
 
     .adventurer-icon {

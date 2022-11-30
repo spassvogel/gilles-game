@@ -1,0 +1,28 @@
+@import 'components/styles/import.scss';
+
+.tavern-adventurer-details {
+  .adventurer-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: 0.5rem;
+
+    #common {
+      grid-column: span 2;
+    }
+
+    #skills {
+      align-content: start;
+    }
+
+    .equipment {
+      .title {
+        margin: 2rem 0 0.5rem 0;
+      }
+    }
+
+    #inventory {
+      grid-column: span 2;
+    }
+  }
+
+}

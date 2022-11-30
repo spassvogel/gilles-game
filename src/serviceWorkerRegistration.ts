@@ -96,8 +96,8 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
 }
 
 export function register(config?: Config) {
-  console.log(`process.env.PUBLIC_URL`, process.env.PUBLIC_URL);
-  console.log(`'serviceWorker' in navigator`, 'serviceWorker' in navigator);
+  // console.log(`process.env.PUBLIC_URL`, process.env.PUBLIC_URL);
+  // console.log(`'serviceWorker' in navigator`, 'serviceWorker' in navigator);
   if (/*process.env.NODE_ENV === 'production' && */'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
@@ -109,7 +109,7 @@ export function register(config?: Config) {
     }
 
     window.addEventListener('load', () => {
-      const swUrl = `/service-worker.js`;
+      const swUrl = '/service-worker.js';
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.

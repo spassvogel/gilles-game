@@ -6,6 +6,7 @@ import DraggableAdventurerAvatar from 'components/ui/adventurer/DraggableAdventu
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
 import { renameAdventurer } from 'store/actions/adventurers';
 import { useDispatch } from 'react-redux';
+import './styles/tavernAdventurerDetails.scss';
 
 export interface Props {
   adventurer: AdventurerStoreState;
@@ -67,7 +68,7 @@ const RoomWithAdventurer = (props: Props) => {
         <span className="rename" onClick={handleRename}>rename</span>
       </div>
       { expanded && (
-        <div className="adventurer-details">
+        <div className="adventurer-details tavern-adventurer-details">
           <AdventurerPanel adventurerId={adventurer.id} name={false} />
           { (!onQuest && selectedQuestName) && (
             <AdventurerButton
