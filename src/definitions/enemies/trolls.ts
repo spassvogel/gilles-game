@@ -1,4 +1,5 @@
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
+import { Race } from 'constants/race';
 import { WeaponType } from 'definitions/weaponTypes/types';
 import { EnemyDefinition } from './types';
 const avatarImgBasePath = '/img/avatars/monster/';
@@ -6,6 +7,7 @@ const avatarImgBasePath = '/img/avatars/monster/';
 type TrollDefinition = {
   [key: string]: EnemyDefinition
 };
+
 const trolls: TrollDefinition = {
   'troll-developer': {
     attributes: {
@@ -28,6 +30,7 @@ const trolls: TrollDefinition = {
     },
     spritesheet: 'SCENE_ACTOR_TROLL_SWORD',
     avatarImg: `${avatarImgBasePath}orc_01.png`,
+    race: Race.troll,
   },
   'troll-manager': {
     attributes: {
@@ -45,6 +48,7 @@ const trolls: TrollDefinition = {
     },
     spritesheet: 'SCENE_ACTOR_TROLL_AXE',
     avatarImg: `${avatarImgBasePath}orc_02.png`,
+    race: Race.troll,
   },
   'troll-accountant': {
     attributes: {
@@ -67,6 +71,7 @@ const trolls: TrollDefinition = {
     },
     spritesheet: 'SCENE_ACTOR_TROLL_AXE',
     avatarImg: `${avatarImgBasePath}orc_03.png`,
+    race: Race.troll,
   },
 };
 

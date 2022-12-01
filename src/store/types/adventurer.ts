@@ -7,6 +7,7 @@ import { Trait } from 'definitions/traits/types';
 import { TempEffect } from 'definitions/tempEffects/types';
 import { WeaponType } from 'definitions/weaponTypes/types';
 import { sprites } from 'manifests/sprites';
+import { Race } from 'constants/race';
 
 export interface AdventurerStoreState {
   id: string;
@@ -15,6 +16,7 @@ export interface AdventurerStoreState {
   avatarImg: string;
   spritesheet: keyof typeof sprites;      // Path to JSON of spritesheet to use in scenes
   color?: AdventurerColor;
+  race: Race;
   traits?: Trait[];
   health: number;           // When this reaches zero, the adventurer is dead
   xp: number;

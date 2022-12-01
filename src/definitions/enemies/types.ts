@@ -1,4 +1,5 @@
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
+import { Race } from 'constants/race';
 import { Ammunition } from 'definitions/items/ammunition';
 import { Item } from 'definitions/items/types';
 import { Weapon } from 'definitions/items/weapons';
@@ -15,6 +16,7 @@ export interface EnemyDefinition {
   armor: Partial<{ [key in EquipmentSlotType]: number }>;
   spritesheet: keyof typeof sprites;
   avatarImg: string;
+  race: Race;
 }
 
 export type EnemyType = Troll;

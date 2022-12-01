@@ -14,6 +14,7 @@ import { TempEffectBrokenLegs, TempEffectBurning, TempEffectType } from 'definit
 import { createTempEffect } from 'definitions/tempEffects';
 import { WeaponType } from 'definitions/weaponTypes/types';
 import { decreaseDurability } from 'mechanics/combat';
+import { Race } from 'constants/race';
 
 
 const generateRandomAttributes = (): AttributesStoreState => {
@@ -59,6 +60,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   avatarImg: `${avatarImgBasePath}female/f_14.png`,
   spritesheet: 'SCENE_ACTOR_ELF_BOW',
   color: AdventurerColor.purple,
+  race: Race.elf,
   skills: {
     [WeaponType.crossbow]: 10,
     [WeaponType.bow]: 10,
@@ -81,6 +83,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   spritesheet: 'SCENE_ACTOR_ELF_BOW',
   color: AdventurerColor.teal,
   traits: [Trait.houseHouston],
+  race: Race.human,
   skills: {
     [WeaponType.crossbow]: 12,
     [WeaponType.staff]: 13,
@@ -100,6 +103,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 
   room: 2,
   traits: [Trait.gloomy],
+  race: Race.undead,
   skills: {
     [WeaponType.sword]: 12,
     [WeaponType.hammer]: 6,
@@ -144,6 +148,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   avatarImg: `${avatarImgBasePath}male/m_19.png`,
   spritesheet: 'SCENE_ACTOR_KNIGHT_SWORD',
   traits: [Trait.arrowFinder],
+  race: Race.human,
   skills: {
     [WeaponType.sword]: 13,
   },
@@ -160,6 +165,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   avatarImg: `${avatarImgBasePath}male/m_08.png`,
   spritesheet: 'SCENE_ACTOR_TROLL_AXE',
   traits: [Trait.houseMonroe, Trait.arrowFinder],
+  race: Race.troll,
   skills: {
     [WeaponType.axe]: 12,
   },
@@ -175,6 +181,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   avatarImg: `${avatarImgBasePath}female/f_10.png`,
   spritesheet: 'SCENE_ACTOR_KNIGHT_SWORD',
   inventory: [ null, null, null, null, null ],
+  race: Race.human,
   skills: {
     [WeaponType.axe]: 10,
   },
@@ -193,6 +200,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   avatarImg: `${avatarImgBasePath}female/f_16.png`,
   spritesheet: 'SCENE_ACTOR_TROLL_SWORD',
   inventory: [ { type: 'weapon/greatswordOfGwai' }, null, null, null ],
+  race: Race.troll,
   skills: {
     [WeaponType.axe]: 10,
   },
@@ -211,6 +219,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   avatarImg: `${avatarImgBasePath}male/m_09.png`,
   spritesheet: 'SCENE_ACTOR_KNIGHT_SWORD',
   inventory: [ null, null, null, null, null ],
+  race: Race.human,
   skills: {
     [WeaponType.axe]: 13,
   },
@@ -225,6 +234,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   avatarImg: `${avatarImgBasePath}male/m_26.png`,
   spritesheet: 'SCENE_ACTOR_KNIGHT_SWORD',
   inventory: [ { type: 'weapon/greatswordOfGwai' }, null, null, null, { type: 'apparel/shoulders1' }, { type: 'apparel/fedora' }, { type: 'apparel/greaves2' }],
+  race: Race.human,
   skills: {
     [WeaponType.axe]: 3,
   },
@@ -239,6 +249,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   avatarImg: `${avatarImgBasePath}male/m_33.png`,
   spritesheet: 'SCENE_ACTOR_KNIGHT_SWORD',
   inventory: [ { type: 'weapon/greatswordOfGwai' }, null, null, null ],
+  race: Race.human,
   skills: {
     [WeaponType.axe]: 10,
   },
@@ -268,6 +279,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   traits: [Trait.houseMaddox, Trait.gloomy],
   avatarImg: `${avatarImgBasePath}female/f_21.png`,
   spritesheet: 'SCENE_ACTOR_ELF_BOW',
+  race: Race.elf,
   color: AdventurerColor.purple,
   skills: {
     [WeaponType.knife]: 15,
