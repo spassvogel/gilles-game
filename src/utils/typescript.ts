@@ -10,8 +10,11 @@ export type Entries<T> = {
 
 // Type safe entries ([key, value] pair)
 export function entries<T>(obj: T): Entries<T> {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return Object.entries(obj) as Entries<T>;
 }
+
 
 
 // Returns a list of enum values
