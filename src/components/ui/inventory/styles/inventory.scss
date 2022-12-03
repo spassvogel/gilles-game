@@ -5,6 +5,9 @@ $border: 2px;
 .inventory {
   display: grid;
 
+// todo: this 2022-12-03 Inventory
+//  grid-template-columns: repeat(auto-fit, 50px);
+
   padding-top: $border;
   padding-left: $border;
 
@@ -66,11 +69,10 @@ $border: 2px;
     }
   }
 
-  /* size: medium,
-  on large screens: 8 colums
-  on medium screens: 6 columns
-  on small screens: 4 columns
-  */
+  // size: medium,
+  // on large screens: 8 colums
+  // on medium screens: 6 columns
+  // on small screens: 4 columns
   &.inventory-medium {
     /** large screen */
     grid-template-columns: repeat(8, $item-size-medium + 4px);

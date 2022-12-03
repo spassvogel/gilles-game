@@ -833,3 +833,6 @@ https://interfaceingame.com/games/league-of-legends/
 
 ### 2022-05-07 Serviceworker caching
 - [] Implement a serviceworker for caching
+
+### 2022-12-03 Inventory
+- [ ] Fix Inventory. Let css grid figure out how many rows/columns
