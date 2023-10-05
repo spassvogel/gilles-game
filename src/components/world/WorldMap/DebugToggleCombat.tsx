@@ -1,13 +1,20 @@
 import { useDispatch } from 'react-redux';
 // import MapGrid from './MapGrid';
 import { useQuest } from 'hooks/store/quests';
-import { setCombat } from 'store/actions/quests';
+import { setCombat, startTurn } from 'store/actions/quests';
 import { Allegiance } from 'store/types/scene';
+import { useAdventurers } from 'hooks/store/adventurers';
 
 // temporary
 export const DebugToggleCombat = ({ questName }: { questName: string }) => {
   const quest = useQuest(questName);
+  const adventurers = useAdventurers();
   const dispatch = useDispatch();
+
+  const startCombat = () => {
+    dispatch(startTurn(quest.name, Allegiance.player, adventurers));
+    dispatch(setCombat(questName, true));
+  };
 
   if (quest.scene?.combat && quest.scene.turn !== undefined) {
     return (
@@ -17,7 +24,7 @@ export const DebugToggleCombat = ({ questName }: { questName: string }) => {
     );
   }
   return (
-    <button onClick={() => dispatch(setCombat(questName, true))}>
+    <button onClick={startCombat}>
       combat: off
     </button>
   );

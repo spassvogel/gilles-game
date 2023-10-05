@@ -1,12 +1,12 @@
-import { deductActorAp, enqueueSceneAction, modifyEnemyHealth, startTurn } from 'store/actions/quests';
+import { deductActorAp, modifyEnemyHealth, setCombat, startTurn } from 'store/actions/quests';
 import { AnyAction } from 'redux';
 import { Location } from 'utils/tilemap';
-import { ActorObject, Allegiance, EnemyObject, getUniqueName, isAdventurer, SceneAction, SceneActionType } from 'store/types/scene';
+import { ActorObject, Allegiance, EnemyObject, getUniqueName, isActorObject, isAdventurer, SceneActionType } from 'store/types/scene';
 import { locationEquals } from 'utils/tilemap';
-import { BaseSceneController, movementDuration } from './BaseSceneController';
+import { BaseSceneController } from './BaseSceneController';
 import { Channel, MixMode, SoundManager } from 'global/SoundManager';
 import { getDefinition as getWeaponDefinition, Weapon } from 'definitions/items/weapons';
-import { AP_COST_MELEE, AP_COST_SHOOT, decreaseDurability, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat';
+import { AP_COST_MELEE, AP_COST_MOVE, AP_COST_SHOOT, decreaseDurability, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat';
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
 import { TextEntry } from 'constants/text';
 import { apparelTakeDamage, changeEquipmentQuantity, modifyHealth } from 'store/actions/adventurers';
@@ -43,47 +43,110 @@ export class CombatController {
     const adventurers = this.sceneController.sceneAdventurers;
     const enemies = this.sceneController.sceneEnemies;
     const quest = this.sceneController.quest;
+
     if (adventurers && enemies && quest && quest.scene && !quest.scene.actionQueue?.length){
       const totalAdventurerAp = adventurers.reduce((acc, value) => acc + value.ap, 0);
       const { scene } = quest;
       const { turn } = scene;
 
+      // All enemies dead, turn combat off
+      const totalEnemiesHealth = enemies.reduce((acc, value) => acc + value.health, 0);
+      if (totalEnemiesHealth <= 0 && quest.scene.combat) {
+        this.dispatch(setCombat(quest.name, false));
+        return; 
+      }
+
       // No AP for the player left, switch to enemy turn
       if (totalAdventurerAp === 0 && turn === Allegiance.player) {
-
         this.dispatch(startTurn(quest.name, Allegiance.enemy));
         return;
       }
 
-
-      if (turn === Allegiance.enemy && scene.actionQueue?.length === 0) {
+      if (turn === Allegiance.enemy && !scene.actionQueue?.length) {
         const totalEnemiesAp = enemies.reduce((acc, value) => acc + value.ap, 0);
-
         if (totalEnemiesAp === 0) {
           // No more AP left for the enemy, player turn
+          console.log('start player turn', this.sceneController.getAdventurers());
           this.dispatch(startTurn(quest.name, Allegiance.player, this.sceneController.getAdventurers()));
           return;
         }
 
+        // AI behaviour
         const enemy = this.findEnemyWithAp();
-        if (enemy && enemy.location) {
-          const target = this.findNearestActor(enemy.location, Allegiance.player);
-          if (!target || !target.location) return; // no target? did everyone die?
-          const path = this.sceneController.findPath(enemy.location, target.location);
-          const intent = this.sceneController.createActionIntent(SceneActionType.move, enemy, target.location);
-          if (!intent || intent.action !== SceneActionType.move) return;
-
-          path?.forEach((l, index) => {
-            if (index >= enemy.ap - 1) return;
-            const sceneAction: SceneAction = {
-              endsAt: movementDuration * (index + 1) + performance.now(),
-              intent,
-            };
-            this.dispatch(enqueueSceneAction(quest.name, sceneAction));
-          });
+        if (enemy) {
+          if (enemy.health <= 0) {
+          // This enemy actor is dead, forfeit his turn
+            this.dispatch(deductActorAp(this.questName, getUniqueName(enemy), enemy.ap));
+          } else if (enemy.location) {
+            const target = this.findNearestActor(enemy.location, Allegiance.player);
+            if (!target || !target.location) return; // no target? did everyone die?
+            console.log(`enemy ${getUniqueName(enemy)} locked onto target`, getUniqueName(target));
+            // const path = this.sceneController.findPath(enemy.location, target.location);
+            const intent = this.createEnemyMoveIntent(enemy, target.location);
+            if (!intent || intent.action !== SceneActionType.move) return;
+            this.sceneController?.actorAttemptAction(intent);
+          }
+          // });
         }
       }
     }
+  }
+
+  static createEnemyMoveIntent(enemy: EnemyObject, location: Location) {
+    const intent = this.sceneController.createActionIntent(SceneActionType.move, enemy, location);
+    if (!intent || !intent.path || intent.action !== SceneActionType.move) return;
+    console.log('intent.path', intent.path);
+    console.log('enemy.ap', enemy.ap);
+    intent.path = intent.path.slice(0, enemy.ap);
+    console.log('intent2.path', intent.path);
+    const destination = intent.path[intent.path.length - 1];
+    console.log(`destination`, destination);
+
+    if (!this.sceneController.locationIsBlocked(destination, true)){
+      return intent;
+    }
+    console.log("WE ARE BLOCKED! oh noes")
+    // Intented location is blocked, find another
+    const neighbours = this.sceneController.findEmptyLocationsAround(destination, 1, true);
+    let leastDistance = Number.MAX_VALUE;
+    let newLocation;
+    // find a neighbouring tile closest to the target
+    
+
+    // todo: forfeit actor turn when nothing can be done (i.e when returning...)
+    neighbours.forEach((nL) => {
+      console.log('lets consider ', nL)
+      console.log(`enemy.location`, enemy.location);
+      if (!enemy.location) return;
+      const distanceFromOrigin = this.sceneController.findPath(enemy.location, nL)?.length ?? Number.MAX_VALUE;
+      // See if this destination would extend ap, if so dont consider it
+      if (distanceFromOrigin * AP_COST_MOVE > enemy.ap) {
+        console.log('location is too far!', nL)
+        return
+      };
+      console.log('its not outside of reach')
+      // distance TO the target
+      const distanceToTarget = this.sceneController.findPath(nL, location)?.length;
+      if (distanceToTarget === undefined) return;
+      if (distanceToTarget < leastDistance) {
+        if (!this.sceneController.locationIsBlocked(nL)){
+          leastDistance = distanceToTarget;
+          newLocation = nL;
+          console.log(`newLocation`, newLocation);
+        }
+      }
+    });
+    if (newLocation !== undefined) {
+      return this.sceneController.createActionIntent(SceneActionType.move, enemy, newLocation);
+    }
+    // This enemy actor can't do anything, forfeit his turn
+    this.dispatch(deductActorAp(this.questName, getUniqueName(enemy), enemy.ap));
+    // const objectAtDestination = this.sceneController.getObjectAtLocation(destination)
+    // console.log('object at last location of path ', this.sceneController.getObjectAtLocation(lastLocation));
+    // this.sceneController.getObjectAtLocation(lastLocation)
+    // path?.forEach((l, index) => {
+    // if (index >= enemy.ap - 1) return;
+
   }
 
   // Call when actor melee animation starts
@@ -126,7 +189,7 @@ export class CombatController {
       this.meleeMissed(actor, weapon, ap, location);
     } else {
       // Hit
-      const target = this.sceneController.getObjectAtLocation(location) as ActorObject;
+      const [target] = <ActorObject[]> <unknown> this.sceneController.getObjectsAtLocation(location, isActorObject);
       const targetAttributes = this.sceneController.getActorAttributes(target);
 
       if (rollToDodge(targetAttributes)){
@@ -183,7 +246,7 @@ export class CombatController {
       this.shootMissed(actor, weapon, ap, location);
     } else {
       // Hit
-      const target = this.sceneController.getObjectAtLocation(location) as ActorObject;
+      const [target] = <ActorObject[]><unknown> this.sceneController.getObjectsAtLocation(location);
       const targetAttributes = this.sceneController.getActorAttributes(target);
 
       if (rollToDodge(targetAttributes)){
@@ -391,6 +454,7 @@ export class CombatController {
           actor: getUniqueName(actor),
         },
       });
+      this.dispatch(deductActorAp(this.questName, getUniqueName(actor), actor.ap)); 
     } else {
 
       const decreasedDurability = decreaseDurability(damage, armor);

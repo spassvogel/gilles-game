@@ -33,7 +33,8 @@ const ActionMenu = (props: Props) => {
   useDraggable(ref, handle);
 
   const enemyTargetted = useMemo(() => {
-    return controller?.getObjectAtLocation(location, isEnemy) as EnemyObject;
+    const [object] = controller?.getObjectsAtLocation(location, isEnemy) ?? [];
+    return object as EnemyObject;
   }, [controller, location]);
 
 

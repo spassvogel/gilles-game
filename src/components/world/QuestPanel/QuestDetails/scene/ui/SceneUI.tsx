@@ -133,24 +133,24 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   };
 
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const location = findLocation(e);
-    if (!controller || !location || !(e.target instanceof Element)) return;
-    const object = controller.getObjectAtLocation(location);
-    if (!object || object.type !== 'actor') return;
+  // const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  //   const location = findLocation(e);
+  //   if (!controller || !location || !(e.target instanceof Element)) return;
+  //   const object = controller.getObjectAtLocation(location);
+  //   if (!object || object.type !== 'actor') return;
 
-    // Show context tooltip
-    const { tileWidth, tileHeight } = controller.getTileDimensions();
-    const width = tileWidth * scaler.scale;
-    const height = tileHeight * scaler.scale;
-    const rect = (e.target).getBoundingClientRect();
-    const x = (location[0] * width) + (rect.left ?? 0);
-    const y = (location[1] * height) + (rect.top ?? 0);
-    const domRect = DOMRect.fromRect({ x, y, width, height });
+  //   // Show context tooltip
+  //   const { tileWidth, tileHeight } = controller.getTileDimensions();
+  //   const width = tileWidth * scaler.scale;
+  //   const height = tileHeight * scaler.scale;
+  //   const rect = (e.target).getBoundingClientRect();
+  //   const x = (location[0] * width) + (rect.left ?? 0);
+  //   const y = (location[1] * height) + (rect.top ?? 0);
+  //   const domRect = DOMRect.fromRect({ x, y, width, height });
 
-    TooltipManager.showContextTooltip(ContextType.actor, object, domRect, '');
-    e.stopPropagation();
-  };
+  //   TooltipManager.showContextTooltip(ContextType.actor, object, domRect, '');
+  //   e.stopPropagation();
+  // };
 
   const handleMouseDown = (e: MouseOrTouchEvent ) => {
     if (adventurerCombatRef.current?.actionMenuOpen) return;
@@ -216,7 +216,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     if (!combat && cursorLocation !== undefined) {
       // Handle change of cursor when not in combat
       let action = SceneActionType.move;
-      const object = controller?.getObjectAtLocation(cursorLocation);
+      const [object] = controller?.getObjectsAtLocation(cursorLocation) ?? [];
       if (object?.properties.interactive){
         // We're at an interactive object
         action = SceneActionType.interact;
@@ -283,7 +283,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     <div
       ref={ref}
       className="scene-ui"
-      onClick={handleClick}
+      // onClick={handleClick}
       onContextMenu={handleContextMenu}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}

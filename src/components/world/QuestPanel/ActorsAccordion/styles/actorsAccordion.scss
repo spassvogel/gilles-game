@@ -9,17 +9,37 @@
 
       .name {
         flex: 0.7;
+
+        &.dead {
+          text-decoration-line: line-through;
+        }
       }
       .ap {
         flex: 0.3;
         text-align: right;
         padding-right: 0.5rem;
+        color: $color-text-medium;
+
+        &.active {
+          color: $color-text-darkest;
+        }
       }
     }
 
     &.selected {
       .header {
         background-color: $color-highlighted;
+      }
+    }
+
+    &.enemy-action {
+      .header {
+        background-color: $color-invalid;
+        color: $color-text-lighter;
+      }
+
+      .ap.active {
+        color: $color-text-lighter;
       }
     }
 

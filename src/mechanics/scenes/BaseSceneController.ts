@@ -21,6 +21,7 @@ import {
   Allegiance,
   EnemyObject,
   AdventurerObject,
+  getUniqueName,
 } from 'store/types/scene';
 import { ToastManager } from 'global/ToastManager';
 import { Type } from 'components/ui/toasts/Toast';
@@ -33,7 +34,7 @@ import { getDefinition as getEnemyDefinition } from 'definitions/enemies';
 import { LogChannel } from 'store/types/logEntry';
 import { addGold } from 'store/actions/gold';
 import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers';
-import { adventurersOnQuest, getSceneObjectAtLocation, getSceneObjectWithName } from 'store/helpers/storeHelpers';
+import { adventurersOnQuest, getSceneObjectsAtLocation, getSceneObjectWithName } from 'store/helpers/storeHelpers';
 import { Item, ItemType } from 'definitions/items/types';
 import { Loader, Point, utils } from 'pixi.js';
 import { AP_COST_MOVE, AP_COST_SHOOT, calculateInitialAP } from 'mechanics/combat';
@@ -204,11 +205,12 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
   actorMoved(actor: string, location: Location) {
     const isNotAnActor = (object: SceneObject) => !isActorObject(object);
 
-    if (this.combat) {
-      // Take away AP for moving
-      this.dispatch(deductActorAp(this.questName, actor, AP_COST_MOVE));
-    }
-    const destination = this.getObjectAtLocation(location, isNotAnActor);
+    // if (this.combat) {
+    //   // Take away AP for moving
+    //   console.log(`taking away one MOVE AP`);
+    //   this.dispatch(deductActorAp(this.questName, actor, AP_COST_MOVE));
+    // }
+    const [destination] = this.getObjectsAtLocation(location, isNotAnActor);
     if (!destination) return;
 
     if (destination.type === TiledObjectType.portal) {
@@ -233,7 +235,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
 
   actorInteract(adventurerId: string, location: Location) {
     const actor = this.getSceneAdventurer(adventurerId);
-    const object = this.getObjectAtLocation(location);
+    const [object] = this.getObjectsAtLocation(location);
 
     if (!object) {
       console.warn('No object found');
@@ -260,8 +262,13 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
           intent,
         }));
 
-        if (!this.combat) {
+        if (this.combat) {
+          // Take away AP for moving
+          console.log(`taking away ${AP_COST_MOVE * (intent.path?.length ?? 1)} MOVE AP` );
+          this.dispatch(deductActorAp(this.questName, getUniqueName(actor), AP_COST_MOVE * (intent.path?.length ?? 1)));
+        } else {
           // Follow behaviour. Other adventurers follow this adventurer
+          // Enemies move only in combat so this code will never get called for enemies
           const otherAdventurers = this.sceneAdventurers.filter(a => a !== actor);
           let availableLocations = this.findEmptyLocationsAround(to, 6);
 
@@ -381,9 +388,17 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     return new Point(location[0] * this.mapData.tilewidth, location[1] * this.mapData.tileheight);
   }
 
-  // Returns true if the tile is blocked
-  locationIsBlocked(location: Location){
-    return this.blockedTiles.some((l) => locationEquals(l, location));
+
+  /**
+   * Returns true if the tile is blocked
+   * @param location location
+   * @param blockedByObjects can be blocked by objects as well as static tiles
+   */
+  locationIsBlocked(location: Location, blockedByObjects = false) {
+    if (this.blockedTiles.some((l) => locationEquals(l, location))){
+      return true;
+    }
+    return blockedByObjects && this.getObjectsAtLocation(location).length > 0;
   }
 
   // Returns true if outsie of the bounds of the map
@@ -485,8 +500,9 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
    * Searches around @param origin to find empty, pathable locations
    * @param origin location to search around
    * @param amount of locations to find
+   * @param blockedByObjects can be blocked by objects as well as static tiles
    */
-  public findEmptyLocationsAround(origin: Location, amount: number) {
+  public findEmptyLocationsAround(origin: Location, amount: number, blockedByObjects = false) {
     const results: Location[] = [];
     let radius = 1;
 
@@ -529,6 +545,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         && location[1] >= 1 && location[1] < this.mapData.height;
     };
 
+
     while (radius < (this.mapData?.width ?? 2)) {
       // determine locations in square radius
       const square: Location[] = [
@@ -537,7 +554,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         ...getBottom(),
         ...getLeft(),
       ];
-      const filtered = square.filter(l => notOutside(l) && !this.locationIsBlocked(l));
+      const filtered = square.filter(l => notOutside(l) && !this.locationIsBlocked(l, blockedByObjects));
       results.push(...filtered.slice(0, amount - results.length));
       if (results.length === amount) break;
       radius++;
@@ -595,7 +612,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         // todo properly calculate AP
         // const lastStep = path?.length > 1 ? path[path.length - 2] : path[path.length - 1];
         // const apCost = this.calculateWalkApCosts(from, lastStep) + AP_COST_MELEE;
-        const enemy = this.getObjectAtLocation(location, isEnemy);
+        const [enemy] = this.getObjectsAtLocation(location, isEnemy);
         const isValid = !!enemy && (apCost ?? 0) <= (actorAP ?? 0);
         if (!weaponWithAbility) return undefined;
 
@@ -627,8 +644,8 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
       }
       case SceneActionType.shoot: {
         const apCost = AP_COST_SHOOT;
-        const enemy = this.getObjectAtLocation(location, isEnemy);
-        const isValid = !!enemy && (apCost ?? 0) <= (actorAP ?? 0);
+        const onEnemy = this.getObjectsAtLocation(location, isEnemy).length > 0;
+        const isValid = onEnemy && (apCost ?? 0) <= (actorAP ?? 0);
         if (!weaponWithAbility) return undefined;
         if (!ammo) return undefined;
 
@@ -666,10 +683,10 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
    *
    * @param location
    * @param additionalFilter can specifiy an additional filter
-   * @returns
+   * @returns list of objects at location
    */
-  public getObjectAtLocation(location: Location, additionalFilter: (object: SceneObject) => boolean = () => true) {
-    return getSceneObjectAtLocation(this.quest.scene?.objects ?? [], location, additionalFilter);
+  public getObjectsAtLocation(location: Location, additionalFilter: (object: SceneObject) => boolean = () => true) {
+    return getSceneObjectsAtLocation(this.quest.scene?.objects ?? [], location, additionalFilter) ?? [];
   }
 
   protected createAStar() {
@@ -721,7 +738,6 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
           properties,
           location,
         };
-
         if (object.type === TiledObjectType.portal) {
           if ((!object.properties.to && !this.quest.sceneNamePrev) || object.properties.to === this.quest.sceneNamePrev) {
             // todo: instead store location in var and spawn adventurers at the end
@@ -809,8 +825,8 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     return this.sceneObjects.filter<ActorObject>(isAdventurer) as AdventurerObject[];
   }
 
-  public get sceneEnemies(): ActorObject[] {
-    return this.sceneObjects.filter<ActorObject>(isEnemy);
+  public get sceneEnemies(): EnemyObject[] {
+    return this.sceneObjects.filter<EnemyObject>(isEnemy);
   }
 
   // Quest

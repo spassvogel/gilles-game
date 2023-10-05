@@ -246,10 +246,10 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
           if (turn === Allegiance.player) {
             scene.objects = scene.objects.map(o => {
               if (isAdventurer(o)) {
-                const adventurerInStore = action.adventurers?.find(a => a.id === o.name);
+                const adventurerInStore = action.adventurers?.find(a => a.id === getUniqueName(o));
                 if (adventurerInStore){
                   const level = xpToLevel(adventurerInStore.xp);
-                  const ap = calculateInitialAP(adventurerInStore.basicAttributes, level);
+                  const ap = adventurerInStore.health > 0 ? calculateInitialAP(adventurerInStore.basicAttributes, level) : 0;
                   return {
                     ...o,
                     ap,
@@ -262,7 +262,7 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
           } else if (turn === Allegiance.enemy) {
             scene.objects = scene.objects.map(o => {
               if (isEnemy(o)) {
-                const ap = ENEMY_BASE_AP;
+                const ap = o.health > 0 ? ENEMY_BASE_AP : 0;
                 return {
                   ...o,
                   ap,
@@ -317,7 +317,7 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
           if (!scene) throw new Error('Something broke. No scene');
 
           scene.objects = scene.objects.map(o => {
-            if (isAdventurer(o) && o.adventurerId === action.actor || isEnemy(o) && o.enemyId === action.actor) {
+            if (getUniqueName(o) === action.actor && isActorObject(o)) {
               const ap = o.ap - action.ap;
               return {
                 ...o,

@@ -353,6 +353,9 @@ APs can be spent in any order.
     e.g. the 'arrow finder' trait logic needs to be in the BaseSceneController. 
 - [x] Might need to seperate this stuff into different files. Find out if Typescript can do that. Answer: no it cant
 - [x] Store enemy definitions in definition file
+- [ ] Scene turns combat on when 1 or more enemies in scene
+- [ ] Scene turns combat off when combat is on and 0 enemies remain
+
 
 ### 23/8/2019 ADVENTURER STATS
 
@@ -825,8 +828,8 @@ https://interfaceingame.com/games/league-of-legends/
 
 ### 2022-04-18 Scenecontrollers as hooks
 
-- [ ] Investigate if we can have scenecontroller as hooks
-- [ ] Everything needs to be put in state / memo
+- [-] ~~Investigate if we can have scenecontroller as hooks~~ bad idea, becomes a big mess
+- [-] ~~Everything needs to be put in state / memo~~
 
 ### 2022-05-05 Tick into middleware
 - [x] refactor gametick logic into middleware
@@ -836,3 +839,9 @@ https://interfaceingame.com/games/league-of-legends/
 
 ### 2022-12-03 Inventory
 - [ ] Fix Inventory. Let css grid figure out how many rows/columns
+- [ ] Implement a serviceworker for caching
+
+### 2022-06-23 Remove long press
+- [x] Remove long press to see actor stats. It's hella annoying
+- [ ] Cannot shoot dead enemies
+- [ ] When a live actor and a dead one share the same tile, live actor takes precedence for selecting 

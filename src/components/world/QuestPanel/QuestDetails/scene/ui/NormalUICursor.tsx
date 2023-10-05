@@ -22,7 +22,7 @@ const NormalUICursor = (props: Props) => {
   let action = SceneActionType.move;
   if (blocked) {
     // todo: can we have interactive tiles that are NOT blocking?
-    const object = controller?.getObjectAtLocation(location);
+    const [object] = controller?.getObjectsAtLocation(location) ?? [];
     if (object?.properties.interactive){
       // We're at an interactive object
       action = SceneActionType.interact;

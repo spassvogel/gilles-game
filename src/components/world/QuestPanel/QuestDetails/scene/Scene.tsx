@@ -8,18 +8,46 @@ import useTilesetsLoader from 'hooks/useTilesetsLoader';
 import { SceneControllerContext } from '../../context/SceneControllerContext';
 import SceneUI, { ActionIntent } from './ui/SceneUI';
 import ActionPreview from './ActionPreview';
-import { isAdventurer, isEnemy } from 'store/types/scene';
+import { getUniqueName, isAdventurer, isEnemy, SceneObject } from 'store/types/scene';
 import SceneLog from './SceneLog';
 import { CombatController } from 'mechanics/scenes/CombatController';
 import { Rectangle } from 'pixi.js';
 import { useSettings } from 'hooks/store/settings';
 import SceneDebug from './SceneDebug';
+import { AdventurerStoreState } from 'store/types/adventurer';
+import { useAdventurers } from 'hooks/store/adventurers';
 import './styles/scene.scss';
 
-export interface Props {
+export type Props = {
   selectedActorId: string;
   setSelectedActor: (id: string) => void;
-}
+};
+
+
+/**
+ * There is an order of precedence with regards to clicking on objects on the scene.
+ * Live adventurers get precedence, then enemies, then dead adventurers. then the rest
+ * @param objects 
+ */
+ 
+const determineActorToClick = (objects: SceneObject[] = [], adventurers: AdventurerStoreState[] = []) => {
+  const sortIndex = (object:SceneObject) => {
+    if (isAdventurer(object)) {
+      const adventurer = adventurers.find(a => a.id === getUniqueName(object));
+      if (adventurer && adventurer.health > 0) {
+        return 100;
+      }
+      return 80;
+    }
+    if (isEnemy(object)) {
+      return 90;
+    }
+    return 80;
+  };
+  const order = objects.sort((o1, o2) => (sortIndex(o2) - sortIndex(o1)));
+  console.log('order', order);
+  return order[0];
+};
 
 const Scene = (props: Props) => {
   const settings = useSettings();
@@ -29,6 +57,7 @@ const Scene = (props: Props) => {
   const mapData = controller.mapData;
   const basePath = controller.basePath;
   if (!basePath) throw new Error('No basePath found');
+  const adventurers = useAdventurers();
 
   const {
     loadComplete,
@@ -57,14 +86,13 @@ const Scene = (props: Props) => {
   }, [loadTilesets, mapData]);
 
   const handleUIMouseDown = (location: Location) => {
-    const actor = controller.getObjectAtLocation(location);
-    if (actor && isAdventurer(actor)) {
-      // We can click on adventurers
-      props.setSelectedActor(actor.adventurerId);
-    }
-    if (actor && isEnemy(actor)) {
-      // We can click on enemies too
-      props.setSelectedActor(actor.enemyId);
+    const objects = controller.getObjectsAtLocation(location);
+    console.log('objects', objects)
+    const actor = determineActorToClick(objects, adventurers);
+    console.log('actor', actor)
+    if (actor) {
+      // We can click on adventurers or enemies
+      props.setSelectedActor(getUniqueName(actor));
     }
   };
 

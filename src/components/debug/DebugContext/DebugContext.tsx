@@ -9,7 +9,7 @@ const DebugContext = () => {
   return (
     <div className="debug-context">
        <Routes>
-        <Route path={getWorldLink()} element={(<DebugContextWorld />)} />
+        <Route path={`${getWorldLink()}/*`} element={(<DebugContextWorld />)} />
         <Route path={getTownLink()} element={(<DebugContextTown />)} />
       </Routes>
     </div>

@@ -7,10 +7,11 @@ import { TextManager } from 'global/TextManager';
 import { calculateEffectiveAttributes, calculateEffectiveAttributesExtended, MAX_VALUE } from 'mechanics/adventurers/attributes';
 import AccordionItem, { Props as AccordionItemProps } from 'components/ui/accordion/AccordionItem';
 import CombatAttributes from 'components/ui/tooltip/ContextTooltip/context/ActorContext/CombatAttributes';
-import { useAdventurerActorObject } from 'hooks/store/quests';
+import { useAdventurerActorObject, useQuest } from 'hooks/store/quests';
 import { PlainProgressbar } from 'components/ui/common/progress';
 import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
 import { roundIfNeeded } from 'utils/format/number';
+import { Allegiance, isEnemy } from 'store/types/scene';
 
 type Props = Merge<Omit<AccordionItemProps, 'id' | 'title'>, {
   adventurerId: string
@@ -21,6 +22,7 @@ const style = { '--item-count': MAX_VALUE } as CSSProperties;
 
 const ActorsAccordionAdventurerItem = (props: Props) => {
   const { adventurerId, selected, questName, ...rest } = props;
+  const quest = useQuest(questName);
   const adventurer = useAdventurer(adventurerId);
   const attributes = calculateEffectiveAttributes(adventurer);
   const { xp } = adventurer;
@@ -30,21 +32,29 @@ const ActorsAccordionAdventurerItem = (props: Props) => {
   const baseHP = calculateBaseHitpoints(level, attributes.for);
   const health = adventurer.health;
   const label = health > 0 ? `${roundIfNeeded(Math.max(health, 0))}/${baseHP}` : TextManager.get('ui-adventurer-info-dead');
+  const apDisplay = health > 0 ? TextManager.get('ui-actor-info-ap', { ap: actor?.ap }) : TextManager.get('ui-actor-info-ap-dead');
+  const apActive = health > 0 && quest.scene?.turn === Allegiance.player;
+
+  const enemyIsDoingSomething = useMemo(() => {
+    const action = (quest.scene?.actionQueue ?? [])[0];
+    if (!action) return false;
+    return isEnemy(action.intent.actor);
+  }, [quest.scene?.actionQueue]);
 
   return (
     <AccordionItem
-      className={`actors-accordion-item ${selected ? 'selected' : ''}`}
+      className={`actors-accordion-item ${selected && !enemyIsDoingSomething ? 'selected' : ''}`}
       { ...rest}
       id={adventurerId}
       title={(<>
-        <div className="name">{TextManager.getAdventurerName(adventurerId)}</div>
-        <div className="ap">AP: {actor?.ap}</div>
+        <div className={`name ${health > 0 ? '' : 'dead'}`}>{TextManager.getAdventurerName(adventurerId)}</div>
+        <div className={`ap ${apActive ? 'active' : ''}`}>{apDisplay}</div>
       </>)}
     >
       <div>
        <div className={'attribute-list'} style={style}>
           <div className="health">
-            {TextManager.get('ui-adventurer-info-health')}
+            {TextManager.get('ui-actor-info-health')}
           </div>
           <PlainProgressbar
             progress={health / baseHP}
