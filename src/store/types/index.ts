@@ -1,27 +1,27 @@
-import { State as seedrandomStateType } from 'seedrandom';
-import { AdventurerStoreState } from './adventurer';
-import { EngineStoreState } from './engine';
-import { GameStoreState } from './game';
-import { LogEntry } from './logEntry';
-import { QuestStoreState } from './quest';
-import { ResourceStoreState } from './resources';
-import { SettingsState } from './settings';
-import { StockpileStoreState } from './stockpile';
-import { StructuresStoreState } from './structures';
-import { TasksStoreState } from './tasks';
+import { type AdventurerStoreState } from './adventurer'
+import { type EngineStoreState } from './engine'
+import { type GameStoreState } from './game'
+import { type LogEntry } from './logEntry'
+import { type QuestStoreState } from './quest'
+import { type ResourceStoreState } from './resources'
+import { type SeedRandomState } from './seedRandom'
+import { type SettingsState } from './settings'
+import { type StockpileStoreState } from './stockpile'
+import { type StructuresStoreState } from './structures'
+import { type TasksStoreState } from './tasks'
 
-export interface StoreState {
-  adventurers: AdventurerStoreState[];
-  engine: EngineStoreState;
-  game: GameStoreState;
-  gold: number;
-  log: LogEntry[];
-  stockpile: StockpileStoreState;  // items in warehouse
-  resources: ResourceStoreState;
-  rngState: seedrandomStateType;
-  settings: SettingsState;
-  structures: StructuresStoreState;
-  tasks: TasksStoreState;
-  quests: QuestStoreState[];
-  workers: number;
+export type StoreState = {
+  adventurers: AdventurerStoreState[]
+  engine: EngineStoreState
+  game: GameStoreState
+  gold: number
+  log: LogEntry[]
+  stockpile: StockpileStoreState // items in warehouse
+  resources: ResourceStoreState
+  rngState: SeedRandomState
+  settings: SettingsState
+  structures: StructuresStoreState
+  tasks: TasksStoreState
+  quests: QuestStoreState[]
+  workers: number
 }

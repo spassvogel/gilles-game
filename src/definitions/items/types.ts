@@ -1,14 +1,14 @@
-import { Rarity } from 'constants/items';
-import { Ammunition } from './ammunition';
-import { Apparel } from './apparel';
-import { Deed } from './deeds';
-import { Herb } from './herbs';
-import { Material } from './materials';
-import { Mineral } from './minerals';
-import { Consumable } from './consumables';
-import { QuestItem } from './questItems';
-import { Trinket } from './trinkets';
-import { Weapon } from './weapons';
+import { type Rarity } from 'constants/items'
+import { type Ammunition } from './ammunition'
+import { type Apparel } from './apparel'
+import { type Deed } from './deeds'
+import { type Herb } from './herbs'
+import { type Material } from './materials'
+import { type Mineral } from './minerals'
+import { type Consumable } from './consumables'
+import { type QuestItem } from './questItems'
+import { type Trinket } from './trinkets'
+import { type Weapon } from './weapons'
 
 export enum ItemCategory {
   ammunition,
@@ -23,24 +23,24 @@ export enum ItemCategory {
   weapon,
 }
 
-export type ItemType = Ammunition | Apparel | Deed | Herb | Material | Mineral | Consumable | QuestItem | Trinket | Weapon;
+export type ItemType = Ammunition | Apparel | Deed | Herb | Material | Mineral | Consumable | QuestItem | Trinket | Weapon
 
 export type Item<T = ItemType> = {
-  type: T;
-  quantity?: number; // defaults to 1
-  durability?: number; // 0 to 1
-};
+  type: T
+  quantity?: number // defaults to 1
+  durability?: number // 0 to 1
+}
 
 export const isItemType = (test: Item | ItemType): test is ItemType => {
-  return !Object.prototype.hasOwnProperty.call(test, 'type');
-};
+  return !Object.prototype.hasOwnProperty.call(test, 'type')
+}
 
-export interface ItemDefinition {
-  itemCategory: ItemCategory;
-  iconImg: string;
-  rarity?: Rarity;
-  //  articleUndefined?: string;  // Key to text
-  unique?: boolean;       // Indicate that this item is unique.
+export type ItemDefinition = {
+  itemCategory: ItemCategory
+  iconImg: string
+  rarity?: Rarity
+  //  articleUndefined?: string  // Key to text
+  unique?: boolean // Indicate that this item is unique.
   // Not actually enforced by anything,
   // but used to generate the article ('a' or 'the')
 }

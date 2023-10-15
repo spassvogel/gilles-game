@@ -1,17 +1,18 @@
-import Menu from 'components/ui/window/windows/MenuWindow';
-import * as React from 'react';
-import Resourcebar from './Resourcebar';
-import { useContext } from 'react';
-import { AppContext } from 'components/App';
-import './styles/topbar.scss';
+import * as React from 'react'
+import Resourcebar from './Resourcebar'
+import { useContext } from 'react'
+import { appContext } from 'components/App/context'
+import Menu from '../window/windows/MenuWindow'
+
+import './styles/topbar.scss'
 
 const Topbar = () => {
-  const context = useContext(AppContext);
+  const app = useContext(appContext)
 
   const handleClick = (_e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const window = <Menu title = "Menu" />;
-    context?.onOpenWindow(window);
-  };
+    const window = <Menu />
+    app?.onOpenWindow(window)
+  }
 
   return (
     <div className="topbar">
@@ -22,6 +23,6 @@ const Topbar = () => {
         <div className="hamburger" onClick={handleClick}>☰</div>
       </div>
     </div>
-  );
-};
-export default Topbar;
+  )
+}
+export default Topbar

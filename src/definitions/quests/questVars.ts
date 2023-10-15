@@ -1,4 +1,4 @@
-import { Kill10BoarsQuestVars } from './kill10Boars/questVars';
-import { RetrieveMagicAmuletQuestVars } from './retrieveMagicAmulet';
+import { type Kill10BoarsQuestVars } from './kill10Boars/questVars'
+import { type RetrieveMagicAmuletQuestVars } from './retrieveMagicAmulet'
 
-export type QuestVars = Kill10BoarsQuestVars | RetrieveMagicAmuletQuestVars;
+export type QuestVars = Kill10BoarsQuestVars | RetrieveMagicAmuletQuestVars

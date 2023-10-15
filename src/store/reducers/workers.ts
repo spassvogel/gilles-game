@@ -1,7 +1,7 @@
-import { Reducer } from 'redux';
-import { WorkersAction } from 'store/actions/workers';
+import { type Reducer } from 'redux'
+import { type WorkersAction } from 'store/actions/workers'
 
-export const initialWorkersState = 13;
+export const initialWorkersState = 13
 
 /**
  * reducer
@@ -13,8 +13,7 @@ export const workers: Reducer<number, WorkersAction> = (state = initialWorkersSt
   switch (action.type) {
     case 'addWorkers':
       // Adds (or subtract, if negative) from the players workers
-      return state + action.value;
+      return state + action.value
   }
-  return state;
-};
-
+  return state
+}

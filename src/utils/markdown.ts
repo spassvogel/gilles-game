@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { visit } from 'unist-util-visit';
+import { visit } from 'unist-util-visit'
 
 export const reactMarkdownRemarkDirective = () => {
   return (tree: any) => {
@@ -10,10 +10,10 @@ export const reactMarkdownRemarkDirective = () => {
         node.data = {
           hName: node.name,
           hProperties: node.attributes,
-          ...node.data,
-        };
-        return node;
-      },
-    );
-  };
-};
+          ...node.data
+        }
+        return node
+      }
+    )
+  }
+}

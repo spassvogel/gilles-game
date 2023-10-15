@@ -1,27 +1,27 @@
-import { useMemo,  useEffect, useRef, PropsWithChildren, useState, ComponentProps, useCallback } from 'react';
-import { Location } from 'utils/tilemap';
-import { Container, Graphics } from '@inlet/react-pixi';
-import { Filter, Graphics as PixiGraphics, Container as PixiContainer, Spritesheet } from 'pixi.js';
-import { ActorObject, getUniqueName } from 'store/types/scene';
-import SpriteAnimated from 'components/pixi/tile/SpriteAnimated';
-import { AdventurerColor } from 'store/types/adventurer';
-import { useRandomOrientation } from './useRandomOrientation';
-import { BLACK, BLUES, calculateBearing, createColorReplaceFilter, ORANGE, Orientation, PURPLE, REDS, SPRITE_WIDTH, TEALS, WHITE, YELLOW } from './utils';
-import useAnimation from './useAnimation';
-import useFrames from './useFrames';
-import { useQuest } from 'hooks/store/quests';
-import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
+import { useMemo, useEffect, useRef, type PropsWithChildren, useState, type ComponentProps, useCallback } from 'react'
+import { type Location } from 'utils/tilemap'
+import { Container, Graphics } from '@pixi/react'
+import { type Filter, type Graphics as PixiGraphics, type Container as PixiContainer, type Spritesheet } from 'pixi.js'
+import { type ActorObject, getUniqueName } from 'store/types/scene'
+import SpriteAnimated from 'components/pixi/tile/SpriteAnimated'
+import { AdventurerColor } from 'store/types/adventurer'
+import { useRandomOrientation } from './useRandomOrientation'
+import { BLACK, BLUES, calculateBearing, createColorReplaceFilter, ORANGE, Orientation, PURPLE, REDS, SPRITE_WIDTH, TEALS, WHITE, YELLOW } from './utils'
+import useAnimation from './useAnimation'
+import useFrames from './useFrames'
+import { useQuest } from 'hooks/store/quests'
+import { type BaseSceneController } from 'mechanics/scenes/BaseSceneController'
 
-export interface Props  {
-  actor: ActorObject;
-  health: number;
-  spritesheet: Spritesheet;
-  color?: AdventurerColor;
-  controller: BaseSceneController<unknown>,
-  selectionColor?: number;
-  location?: Location; // tile coordinate space
-  lookAt?: Location;
-  idleAnimation?: boolean;  // Only when lookAt is undefined, will randomly turn around
+export type Props = {
+  actor: ActorObject
+  health: number
+  spritesheet: Spritesheet
+  color?: AdventurerColor
+  controller: BaseSceneController<unknown>
+  selectionColor?: number
+  location?: Location // tile coordinate space
+  lookAt?: Location
+  idleAnimation?: boolean // Only when lookAt is undefined, will randomly turn around
 }
 
 // This is a wrapper that exposes a location property. Will set x and y on children
@@ -38,71 +38,71 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
     lookAt,
     actor,
     ...rest
-  } = props;
+  } = props
 
-  const { tileWidth, tileHeight } = controller.getTileDimensions();
+  const { tileWidth, tileHeight } = controller.getTileDimensions()
 
   const { x, y } = useMemo(() => {
     // console.log('prev', prevLocation, 'location', location);
     return {
       x: location[0] * tileWidth,
-      y: location[1] * tileHeight,
-    };
-  }, [location, tileWidth, tileHeight]);
+      y: location[1] * tileHeight
+    }
+  }, [location, tileWidth, tileHeight])
 
-  const actorRef = useRef<PixiContainer>(null);
+  const actorRef = useRef<PixiContainer>(null)
 
-  const [orientation, setOrientation] = useState<Orientation>(Orientation.north);
-  const animation = useAnimation(controller, actorRef, getUniqueName(actor), location, health, setOrientation);
-  const quest = useQuest(props.controller.questName);
-  const combat = quest.scene?.combat;
-  useRandomOrientation(!!idleAnimation && !lookAt && health > 0 && !combat, orientation, setOrientation);
+  const [orientation, setOrientation] = useState<Orientation>(Orientation.north)
+  const animation = useAnimation(controller, actorRef, getUniqueName(actor), location, health, setOrientation)
+  const quest = useQuest(props.controller.questName)
+  const combat = quest.scene?.combat ?? false
+  useRandomOrientation(idleAnimation !== undefined && (lookAt == null) && health > 0 && !combat, orientation, setOrientation)
 
-  const frames = useFrames(spritesheet, animation, orientation);
-  const [flipped, setFlipped] = useState(false);
+  const frames = useFrames(spritesheet, animation, orientation)
+  const [flipped, setFlipped] = useState(false)
 
   const drawCircle = useCallback((graphics: PixiGraphics) => {
-    const line = 3;
-    graphics.lineStyle(line, selectionColor);
-    graphics.drawCircle(tileWidth / 2, tileHeight / 2, tileWidth / 2 - line);
-    graphics.endFill();
-  }, [selectionColor, tileHeight, tileWidth]);
+    const line = 3
+    graphics.lineStyle(line, selectionColor)
+    graphics.drawCircle(tileWidth / 2, tileHeight / 2, tileWidth / 2 - line)
+    graphics.endFill()
+  }, [selectionColor, tileHeight, tileWidth])
 
   useEffect(() => {
     if (lookAt !== undefined) {
-      const bearing = calculateBearing(location, lookAt);
-      setOrientation(bearing);
+      const bearing = calculateBearing(location, lookAt)
+      setOrientation(bearing)
     }
-  }, [location, lookAt]);
+  }, [location, lookAt])
 
   useEffect(() => {
-    setFlipped(orientation === Orientation.southWest || orientation === Orientation.west || orientation === Orientation.northWest);
-  }, [orientation]);
+    setFlipped(orientation === Orientation.southWest || orientation === Orientation.west || orientation === Orientation.northWest)
+  }, [orientation])
 
   const scale = useMemo(() => {
-    return [(flipped ? -1 : 1), 1] as [number, number];
-  }, [flipped]);
+    return [(flipped ? -1 : 1), 1] as [number, number]
+  }, [flipped])
 
   const filters = useMemo<Filter[]>(() => {
     switch (color) {
       case AdventurerColor.black:
-        return [createColorReplaceFilter(BLUES, BLACK)];
+        return [createColorReplaceFilter(BLUES, BLACK)]
       case AdventurerColor.orange:
-        return [createColorReplaceFilter(BLUES, ORANGE)];
+        return [createColorReplaceFilter(BLUES, ORANGE)]
       case AdventurerColor.purple:
-        return [createColorReplaceFilter(BLUES, PURPLE)];
+        return [createColorReplaceFilter(BLUES, PURPLE)]
       case AdventurerColor.red:
-        return [createColorReplaceFilter(BLUES, REDS)];
+        return [createColorReplaceFilter(BLUES, REDS)]
       case AdventurerColor.teal:
-        return [createColorReplaceFilter(BLUES, TEALS)];
+        return [createColorReplaceFilter(BLUES, TEALS)]
       case AdventurerColor.white:
-        return [createColorReplaceFilter(BLUES, WHITE)];
+        return [createColorReplaceFilter(BLUES, WHITE)]
       case AdventurerColor.yellow:
-        return [createColorReplaceFilter(BLUES, YELLOW)];
+        return [createColorReplaceFilter(BLUES, YELLOW)]
       default:
-        return [];
+        return []
     }
-  }, [color]);
+  }, [color])
 
   return (
     <Container x={x} y={y} ref={actorRef} {...rest}>
@@ -112,7 +112,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
           draw={drawCircle}
         />
       )}
-      { spritesheet && frames && (
+      { spritesheet !== undefined && (frames != null) && (
         <SpriteAnimated
           animationSpeed={0.1}
           name={`${actor.id}-sprite`}
@@ -121,7 +121,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
           x={SPRITE_WIDTH / 4}
           y={20}
           scale={scale}
-          anchor={[.5, .5]}
+          anchor={[0.5, 0.5]}
           pivot={[0, 0]}
           filters={filters}
         />
@@ -138,7 +138,7 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
         />
       )}
     </Container>
-  );
-};
+  )
+}
 
-export default SceneActor;
+export default SceneActor

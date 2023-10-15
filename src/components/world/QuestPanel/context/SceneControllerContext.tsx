@@ -1,69 +1,69 @@
-import { createContext, PropsWithChildren, useState, useMemo, useEffect } from 'react';
-import { useStore } from 'react-redux';
-import { SceneControllerManager } from 'global/SceneControllerManager';
-import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
-import { StoreState } from 'store/types';
-import LoadingSpinner from 'components/ui/loading/LoadingSpinner';
-import usePrevious from 'hooks/usePrevious';
+import { createContext, type PropsWithChildren, useState, useMemo, useEffect } from 'react'
+import { useStore } from 'react-redux'
+import { type BaseSceneController } from 'mechanics/scenes/BaseSceneController'
+import { type StoreState } from 'store/types'
+import LoadingSpinner from 'components/ui/loading/LoadingSpinner'
+import usePrevious from 'hooks/usePrevious'
+import { getSceneController } from 'global/SceneControllerManager'
 
-export const SceneControllerContext = createContext<BaseSceneController<unknown> | null>(null);
+export const SceneControllerContext = createContext<BaseSceneController<unknown> | null>(null)
 
-export interface Props {
-  questName: string;
+export type Props = {
+  questName: string
 }
 
 const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
-  const { questName, children } = props;
-  const store = useStore<StoreState>();
-  const [loaded, setLoaded] = useState<boolean>(false);
-  const storeState = store.getState();
-  const quest = storeState.quests.find(q => q.name === questName);
-  if (!quest) throw Error('No quest found');
-  const { scene, sceneName, questVars } = quest;
-  const previousQuestVars = usePrevious(questVars);
+  const { questName, children } = props
+  const store = useStore<StoreState>()
+  const [loaded, setLoaded] = useState<boolean>(false)
+  const storeState = store.getState()
+  const quest = storeState.quests.find(q => q.name === questName)
+  if (quest == null) throw Error('No quest found')
+  const { scene, sceneName, questVars } = quest
+  const previousQuestVars = usePrevious(questVars)
 
   const controller = useMemo(() => {
     if (!sceneName) {
-      return null;
+      return null
     }
-    return SceneControllerManager.getSceneController(questName, sceneName, store);
-  }, [questName, sceneName, store]);
+    return getSceneController(questName, sceneName, store)
+  }, [questName, sceneName, store])
 
   useEffect(() => {
-    setLoaded(false);
+    setLoaded(false)
     if (sceneName && controller && !controller.dataLoading) {
       const loadingComplete = () => {
-        setLoaded(true);
+        setLoaded(true)
 
         // If the store has no scene for this quest yet, create and store it!
-        if (!scene && controller) {
-          controller.createScene();
+        if ((scene == null) && controller) {
+          controller.createScene()
         }
-        controller.sceneEntered();
-      };
-      controller.loadData(loadingComplete);
+        controller.sceneEntered()
+      }
+      controller.loadData(loadingComplete)
     }
     return () => {
-      controller?.sceneExited();
-    };
-  }, [controller, questName, scene, sceneName]);
+      controller?.sceneExited()
+    }
+  }, [controller, questName, scene, sceneName])
 
   useEffect(() => {
     if (questVars !== previousQuestVars && controller?.dataLoadComplete) {
-      controller.updateScene();
+      controller.updateScene()
     }
-  }, [controller, previousQuestVars, questVars]);
+  }, [controller, previousQuestVars, questVars])
 
   if (controller && (controller.dataLoading || !loaded)) {
     return (
       <LoadingSpinner />
-    );
+    )
   }
   return (
     <SceneControllerContext.Provider value={controller}>
       {children}
     </SceneControllerContext.Provider>
-  );
-};
+  )
+}
 
-export default SceneControllerContextProvider;
+export default SceneControllerContextProvider

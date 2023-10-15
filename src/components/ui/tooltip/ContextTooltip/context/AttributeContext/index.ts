@@ -1,1 +1,1 @@
-export { default } from './AttributeContext';
+export { default } from './AttributeContext'

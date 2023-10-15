@@ -1,16 +1,15 @@
-import { Item, ItemType } from 'definitions/items/types';
-import { ResourceStoreState } from 'store/types/resources';
+import { type Item, type ItemType } from 'definitions/items/types'
+import { type ResourceStoreState } from 'store/types/resources'
 
-
-export interface CostStoreState {
-  gold?: number;
-  time?: number;
-  resources?: ResourceStoreState;
-  materials?: ItemType[];
+export type CostStoreState = {
+  gold?: number
+  time?: number
+  resources?: ResourceStoreState
+  materials?: ItemType[]
 }
 
-export interface ProductionDefinition {
-  item: Item;
-  cost: CostStoreState;
-  levelRequired?: number;
+export type ProductionDefinition = {
+  item: Item
+  cost: CostStoreState
+  levelRequired?: number
 }

@@ -1,20 +1,20 @@
-import { ONE_MINUTE, TWO_MINUTES } from 'utils/format/time';
-import { ProductionStructureDefinition, StructureType } from './types';
+import { ONE_MINUTE, TWO_MINUTES } from 'utils/format/time'
+import { type ProductionStructureDefinition, StructureType } from './types'
 
 const alchemist: ProductionStructureDefinition = {
   type: StructureType.production,
   cost: {
     gold: 40,
-    time: 4000,
+    time: 4000
   },
   levels: [{
     displayName: 'structure-alchemist-name',
     // level 1:
     workerCapacity: 2,
     cost: {
-      gold: 0,
+      gold: 0
     },
-    unlocks: [],
+    unlocks: []
   }, {
     // level 2:
     displayName: 'structure-alchemist-name',
@@ -24,21 +24,21 @@ const alchemist: ProductionStructureDefinition = {
       resources: {
         wood: 100,
         iron: 100,
-        stone: 100,
+        stone: 100
       },
-      time: ONE_MINUTE,
+      time: ONE_MINUTE
     },
-    unlocks: [],
+    unlocks: []
   }, {
     // level 3:
     displayName: 'structure-alchemist-name',
     workerCapacity: 10,
     cost: {
       gold: 50,
-      time: TWO_MINUTES,
+      time: TWO_MINUTES
     },
-    unlocks: [],
-  }],
-};
+    unlocks: []
+  }]
+}
 
-export default alchemist;
+export default alchemist

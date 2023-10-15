@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { Container } from '@inlet/react-pixi';
-import FontFaceObserver from 'fontfaceobserver';
-import StructureLabel from './StructureLabel';
-import { Structure } from 'definitions/structures';
+import { useEffect, useState } from 'react'
+import { Container } from '@pixi/react'
+import FontFaceObserver from 'fontfaceobserver'
+import StructureLabel from './StructureLabel'
+import { type Structure } from 'definitions/structures'
 
-interface Props {
-  onStructureClick: (structure: Structure | null) => void;
+type Props = {
+  onStructureClick: (structure: Structure | null) => void
 }
 const StructureLabels = (props: Props) => {
-  const { onStructureClick } = props;
-  const [fontLoaded, setFontLoaded] = useState(false);
-  useEffect(() => {
-    const font = new FontFaceObserver('Gabriela');
-    font.load().then(function () {
-      setFontLoaded(true);
-    });
-  }, []);
+  const { onStructureClick } = props
+  const [fontLoaded, setFontLoaded] = useState(false)
 
-  if (!fontLoaded) return null;
+  useEffect(() => {
+    const font = new FontFaceObserver('Gabriela')
+    void font.load().then(() => {
+      setFontLoaded(true)
+    })
+  }, [])
+
+  if (!fontLoaded) return null
   return (
     <Container name="structure-labels">
       <StructureLabel structure={'tavern'} x={645} y={535} onStructureClick={onStructureClick} />
@@ -33,7 +34,7 @@ const StructureLabels = (props: Props) => {
       <StructureLabel structure={'quarry'} x={685} y={666} onStructureClick={onStructureClick} />
       <StructureLabel structure={'garden'} x={785} y={776} onStructureClick={onStructureClick} />
     </Container>
-  );
-};
+  )
+}
 
-export default StructureLabels;
+export default StructureLabels

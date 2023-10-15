@@ -1,32 +1,31 @@
-import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
-import { Ammunition } from 'definitions/items/ammunition';
-import { Apparel } from 'definitions/items/apparel';
-import { Item } from 'definitions/items/types';
-import { Weapon } from 'definitions/items/weapons';
-import { Trait } from 'definitions/traits/types';
-import { TempEffect } from 'definitions/tempEffects/types';
-import { WeaponType } from 'definitions/weaponTypes/types';
-import { sprites } from 'manifests/sprites';
-import { Race } from 'constants/race';
+import { type EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot'
+import { type Ammunition } from 'definitions/items/ammunition'
+import { type Apparel } from 'definitions/items/apparel'
+import { type Item } from 'definitions/items/types'
+import { type Weapon } from 'definitions/items/weapons'
+import { type Trait } from 'definitions/traits/types'
+import { type TempEffect } from 'definitions/tempEffects/types'
+import { type WeaponType } from 'definitions/weaponTypes/types'
+import { type Race } from 'constants/race'
 
-export interface AdventurerStoreState {
-  id: string;
-  name?: string;
-  flavor?: boolean;           // Has lore text, language key: `adventurer-{id}-flavor
-  avatarImg: string;
-  spritesheet: keyof typeof sprites;      // Path to JSON of spritesheet to use in scenes
-  color?: AdventurerColor;
-  race: Race;
-  traits?: Trait[];
-  health: number;           // When this reaches zero, the adventurer is dead
-  xp: number;
+export type AdventurerStoreState = {
+  id: string
+  name?: string
+  flavor?: boolean // Has lore text, language key: `adventurer-{id}-flavor
+  avatarImg: string
+  spritesheet: string // Path to JSON of spritesheet to use in scenes
+  color?: AdventurerColor
+  race: Race
+  traits?: Trait[]
+  health: number // When this reaches zero, the adventurer is dead
+  xp: number
 
-  equipment: EquipmentStoreState;   // equipment
-  tempEffects: TempEffect[];          // combat effects
-  inventory: (null | Item)[];
-  basicAttributes: AttributesStoreState;
-  skills: SkillsStoreState;       //
-  room: number;             // Adventurer is lodged in this room in the tavern
+  equipment: EquipmentStoreState // equipment
+  tempEffects: TempEffect[] // combat effects
+  inventory: Array<null | Item>
+  basicAttributes: AttributesStoreState
+  skills: SkillsStoreState //
+  room: number // Adventurer is lodged in this room in the tavern
 }
 
 export enum AdventurerColor {
@@ -40,31 +39,31 @@ export enum AdventurerColor {
   yellow,
 }
 
-export type Equipment = Apparel | Weapon | Ammunition;
+export type Equipment = Apparel | Weapon | Ammunition
 
 export type EquipmentStoreState = {
-  [EquipmentSlotType.head]?: Item<Apparel>;
-  [EquipmentSlotType.shoulders]?: Item<Apparel>;
-  [EquipmentSlotType.chest]?: Item<Apparel>;
-  [EquipmentSlotType.hands]?: Item<Apparel>;
-  [EquipmentSlotType.legs]?: Item<Apparel>;
-  [EquipmentSlotType.feet]?: Item<Apparel>;
-  [EquipmentSlotType.mainHand]?: Item<Weapon>;
-  [EquipmentSlotType.offHand]?: Item<Weapon> | Item<Ammunition>;
-};
+  [EquipmentSlotType.head]?: Item<Apparel>
+  [EquipmentSlotType.shoulders]?: Item<Apparel>
+  [EquipmentSlotType.chest]?: Item<Apparel>
+  [EquipmentSlotType.hands]?: Item<Apparel>
+  [EquipmentSlotType.legs]?: Item<Apparel>
+  [EquipmentSlotType.feet]?: Item<Apparel>
+  [EquipmentSlotType.mainHand]?: Item<Weapon>
+  [EquipmentSlotType.offHand]?: Item<Weapon> | Item<Ammunition>
+}
 
-export interface AttributesStoreState {
-  str: number;
-  for: number;
-  int: number;
-  agi: number;
+export type AttributesStoreState = {
+  str: number
+  for: number
+  int: number
+  agi: number
 }
 
 // Determines the order in which the attributes are shown
-export const attributeList: Attribute[] = ['str', 'for', 'int', 'agi'];
+export const attributeList: Attribute[] = ['str', 'for', 'int', 'agi']
 
-export type Attribute = keyof AttributesStoreState;
+export type Attribute = keyof AttributesStoreState
 
 export type SkillsStoreState = {
   [key in WeaponType]?: number
-};
+}

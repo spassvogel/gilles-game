@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux';
-import { StoreState } from 'store/types';
-import { SettingsState } from 'store/types/settings';
+import { useSelector } from 'react-redux'
+import { type StoreState } from 'store/types'
+import { type SettingsState } from 'store/types/settings'
 
 export const useSettings = () => {
-  return useSelector<StoreState, SettingsState>(state => state.settings);
-};
+  return useSelector<StoreState, SettingsState>(state => state.settings)
+}

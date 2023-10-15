@@ -1,8 +1,8 @@
-import { convertSemVerToInt } from 'utils/version';
+import { convertSemVerToInt } from 'utils/version'
 
 // <MAJOR>.<MINOR>.<RELEASE>
 
-const version = '0.2.1';
+const version = '1.2.1'
 
-export default version;
-export const asInt: number = convertSemVerToInt(version);
+export default version
+export const asInt: number = convertSemVerToInt(version)

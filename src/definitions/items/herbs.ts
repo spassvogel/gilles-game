@@ -1,124 +1,124 @@
-import { ItemType, ItemDefinition, ItemCategory } from './types';
+import { type ItemType, type ItemDefinition, ItemCategory } from './types'
 
-type Prefix = 'herb/';
-const PREFIX = 'herb/';
-const itemCategory = ItemCategory.herb;
-const basePath = '/img/items/herbs/';
+type Prefix = 'herb/'
+const PREFIX = 'herb/'
+const itemCategory = ItemCategory.herb
+const basePath = '/img/items/herbs/'
 
 const herbs = {
   angelicasSorrow: {
     itemCategory,
-    iconImg: `${basePath}angelicas-sorrow.png`,
+    iconImg: `${basePath}angelicas-sorrow.png`
   },
   bansheeReeds: {
     itemCategory,
-    iconImg: `${basePath}banshee-reeds.png`,
+    iconImg: `${basePath}banshee-reeds.png`
   },
   blissflower: {
     itemCategory,
-    iconImg: `${basePath}blissflower.png`,
+    iconImg: `${basePath}blissflower.png`
   },
   bloodLotus: {
     itemCategory,
-    iconImg: `${basePath}blood-lotus.png`,
+    iconImg: `${basePath}blood-lotus.png`
   },
   bogroot: {
     itemCategory,
-    iconImg: `${basePath}bogroot.png`,
+    iconImg: `${basePath}bogroot.png`
   },
   ceviorise: {
     itemCategory,
-    iconImg: `${basePath}ceviorise.png`,
+    iconImg: `${basePath}ceviorise.png`
   },
   chicory: {
     itemCategory,
-    iconImg: `${basePath}chicory.png`,
+    iconImg: `${basePath}chicory.png`
   },
   dragonroot: {
     itemCategory,
-    iconImg: `${basePath}dragonroot.png`,
+    iconImg: `${basePath}dragonroot.png`
   },
   heartsVine: {
     itemCategory,
-    iconImg: `${basePath}hearts-vine.png`,
+    iconImg: `${basePath}hearts-vine.png`
   },
   hyacinthus: {
     itemCategory,
-    iconImg: `${basePath}hyacinthus.png`,
+    iconImg: `${basePath}hyacinthus.png`
   },
   jaboticaba: {
     itemCategory,
-    iconImg: `${basePath}jaboticaba.png`,
+    iconImg: `${basePath}jaboticaba.png`
   },
   kingsrose: {
     itemCategory,
-    iconImg: `${basePath}kingsrose.png`,
+    iconImg: `${basePath}kingsrose.png`
   },
   lastSupper: {
     itemCategory,
-    iconImg: `${basePath}last-supper.png`,
+    iconImg: `${basePath}last-supper.png`
   },
   mistagold: {
     itemCategory,
-    iconImg: `${basePath}mistagold.png`,
+    iconImg: `${basePath}mistagold.png`
   },
   monksweed: {
     itemCategory,
-    iconImg: `${basePath}monksweed.png`,
+    iconImg: `${basePath}monksweed.png`
   },
   moonFlower: {
     itemCategory,
-    iconImg: `${basePath}moon-flower.png`,
+    iconImg: `${basePath}moon-flower.png`
   },
   mountainGrass: {
     itemCategory,
-    iconImg: `${basePath}mountain-grass.png`,
+    iconImg: `${basePath}mountain-grass.png`
   },
   oakLeaf: {
     itemCategory,
-    iconImg: `${basePath}oak-leaf.png`,
+    iconImg: `${basePath}oak-leaf.png`
   },
   patricksroot: {
     itemCategory,
-    iconImg: `${basePath}patricksroot.png`,
+    iconImg: `${basePath}patricksroot.png`
   },
   sunleaf: {
     itemCategory,
-    iconImg: `${basePath}sunleaf.png`,
+    iconImg: `${basePath}sunleaf.png`
   },
   trollsFeast: {
     itemCategory,
-    iconImg: `${basePath}trolls-feast.png`,
+    iconImg: `${basePath}trolls-feast.png`
   },
   uwolic: {
     itemCategory,
-    iconImg: `${basePath}uwolic.png`,
+    iconImg: `${basePath}uwolic.png`
   },
   wyrmvine: {
     itemCategory,
-    iconImg: `${basePath}wyrmvine.png`,
+    iconImg: `${basePath}wyrmvine.png`
   },
   winterWeed: {
     itemCategory,
-    iconImg: `${basePath}winter-weed.png`,
+    iconImg: `${basePath}winter-weed.png`
   },
   wizardsBane: {
     itemCategory,
-    iconImg: `${basePath}wizards-bane.png`,
-  },
-};
+    iconImg: `${basePath}wizards-bane.png`
+  }
+}
 
-export type Herb = `${Prefix}${keyof typeof herbs}`;
-const all = Object.entries(herbs).reduce<{ [key: string]: ItemDefinition }>((acc, [key, value]) => {
-  acc[`${PREFIX}${key}`] = value;
-  return acc;
-}, {}) as Record<Herb, ItemDefinition>;
-export default all;
+export type Herb = `${Prefix}${keyof typeof herbs}`
+const all = Object.entries(herbs).reduce<Record<string, ItemDefinition>>((acc, [key, value]) => {
+  acc[`${PREFIX}${key}`] = value
+  return acc
+}, {}) as Record<Herb, ItemDefinition>
+export default all
 
-export function getDefinition(herb: Herb): ItemDefinition {
-  return all[herb];
+export function getDefinition (herb: Herb): ItemDefinition {
+  return all[herb]
 }
 
 export const isHerb = (item: ItemType): item is Herb => {
-  return !!all[item as Herb];
-};
+  return all[item as Herb] !== undefined
+}

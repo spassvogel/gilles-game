@@ -1,64 +1,79 @@
-import { forwardRef, PropsWithChildren } from 'react';
-import { Viewport as PixiViewport } from 'pixi-viewport';
-import { PixiComponent, useApp } from '@inlet/react-pixi';
-import gauntlet from 'components/App/styles/img/cursors/dwarven_gauntlet_extra_6.png';
-import { InteractionEvent, Application, Ticker } from 'pixi.js';
+import React, { type PropsWithChildren, forwardRef } from 'react'
+import type * as PIXI from 'pixi.js'
+import { PixiComponent, useApp } from '@pixi/react'
+import { Viewport as PixiViewport } from 'pixi-viewport'
+import { EventSystem } from '@pixi/events'
+import { type Container as PixiContainer } from '@pixi/display'
+import gauntlet from 'components/App/styles/img/cursors/dwarven_gauntlet_extra_6.png'
 
-interface Props {
-  onClick?(event: InteractionEvent): void;
-  screenWidth: number,
-  screenHeight: number,
-  worldWidth: number,
-  worldHeight: number,
-  minScale?: number;
-  maxScale?: number;
-}
+export type ViewportProps = PropsWithChildren<{
+  screenWidth: number
+  screenHeight: number
+  worldWidth: number
+  worldHeight: number
+  minScale?: number
+  maxScale?: number
+}>
 
-interface PixiComponentProps {
-  app: Application;
-}
+export type PixiComponentViewportProps = {
+  app: PIXI.Application
+} & ViewportProps
 
 const PixiComponentViewport = PixiComponent('Viewport', {
-  create: (props: PixiComponentProps & Props) => {
-    const viewport = new PixiViewport({
-      screenWidth: props.screenWidth,
-      screenHeight: props.screenHeight,
-      worldWidth: props.worldWidth,
-      worldHeight: props.worldHeight,
-      ticker: Ticker.shared,
-      interaction: props.app.renderer.plugins.interaction,
-      // the interaction module is important for wheel to work properly when renderer.view is placed or scaled
-    });
-    viewport.on('clicked', (event) => { if (props.onClick) props.onClick(event); });
-
+  create: (props: PixiComponentViewportProps) => {
     const {
+      screenWidth,
+      screenHeight,
+      worldWidth,
+      worldHeight,
       minScale = 1,
-      maxScale = 2,
-    } = props;
+      maxScale = 2
+    } = props
 
+    // comes from github issue: https://github.com/davidfig/pixi-viewport/issues/438
+    // Install EventSystem, if not already
+    // (PixiJS 6 doesn't add it by default)
+    const events = new EventSystem(props.app.renderer)
+    events.domElement = props.app.renderer.view as unknown as HTMLElement
+
+    const viewport = new PixiViewport({
+      screenWidth,
+      screenHeight,
+      worldWidth,
+      worldHeight,
+      ticker: props.app.ticker,
+      events
+    })
     viewport
       .drag()
       .pinch()
       .wheel()
       .clamp({ direction: 'all' })
-      .clampZoom({ minScale, maxScale })
-      .decelerate();
+      .clampZoom({
+        minScale,
+        maxScale
+      })
+      .decelerate()
 
-    return viewport as unknown as PixiViewport;
+    return viewport
   },
-});
 
-/** Viewport leverages pixi-viewport to create a pannable map
- * https://davidfig.github.io/pixi-viewport/jsdoc/
- */
-const Viewport = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref) => {
-  const app = useApp();
-  if (app) {
-    // Perhaps this is better moved somewhere else
-    const cursor = `url('${gauntlet}'), auto`;
-    app.renderer.plugins.interaction.cursorStyles.pointer = cursor;
+  willUnmount: (instance: PixiViewport, parent: PixiContainer) => {
+    // workaround because the ticker is already destroyed by this point by the stage
+    instance.options.noTicker = true
+    instance.destroy({ children: true, texture: true, baseTexture: true })
   }
-  return <PixiComponentViewport app={app} {...props} ref={ref} />;
-});
-Viewport.displayName = 'Viewport';
-export default Viewport;
+})
+
+const Viewport = forwardRef(
+  (props: ViewportProps, ref: React.Ref<PixiViewport>) => {
+    const app = useApp()
+    // Perhaps this is better moved somewhere else
+    const cursor = `url('${gauntlet}'), auto`
+    app.renderer.plugins.interaction.cursorStyles.pointer = cursor
+
+    return <PixiComponentViewport ref={ref} app={app} {...props} />
+  }
+)
+
+export default Viewport

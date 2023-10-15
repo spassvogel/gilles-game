@@ -1,23 +1,21 @@
 
-export interface SpritesheetData {
-  frames: {
-    [name: string]: SpriteData;
-  }
+export type SpritesheetData = {
+  frames: Record<string, SpriteData>
   meta: {
-    image: string;
-    size: Size;
-    scale: string;
+    image: string
+    size: Size
+    scale: string
   }
 }
 
-export interface SpriteData {
-  frame: Frame,
-  rotated?: boolean,
-  trimmed?: boolean;
-  spriteSourceSize?: Frame;
-  sourceSize?: Size;
+export type SpriteData = {
+  frame: Frame
+  rotated?: boolean
+  trimmed?: boolean
+  spriteSourceSize?: Frame
+  sourceSize?: Size
 }
 
-interface Position { x: number, y: number }
-interface Size { w: number; h: number }
-type Frame = Size & Position;
+type Position = { x: number, y: number }
+type Size = { w: number, h: number }
+type Frame = Size & Position

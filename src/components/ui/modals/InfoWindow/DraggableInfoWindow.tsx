@@ -1,10 +1,10 @@
-import ReactDOM from 'react-dom';
-import useDraggable from 'hooks/store/useDraggable';
-import { ComponentProps, ReactNode, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom'
+import useDraggable from 'hooks/store/useDraggable'
+import { type ComponentProps, type ReactNode, useEffect, useRef } from 'react'
 
-export interface Props {
-  title?: ReactNode;
-  onClose?: () => void;
+export type Props = {
+  title?: ReactNode
+  onClose?: () => void
 }
 
 // An InfoWindow is a semi transparant black square. It is used for tooltips
@@ -16,20 +16,20 @@ export const DraggableInfoWindow = (props: Props & ComponentProps<'div'>) => {
     title,
     children,
     ...otherProps
-  } = props;
+  } = props
 
-  const ref = useRef<HTMLDivElement>(null);
-  const handle = useRef<HTMLHeadingElement>(null);
-  useDraggable(ref, handle);
+  const ref = useRef<HTMLDivElement>(null)
+  const handle = useRef<HTMLHeadingElement>(null)
+  useDraggable(ref, handle)
   useEffect(() => {
     // center window
-    if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      const parentRect = (ref.current.parentNode as HTMLElement).getBoundingClientRect();
-      ref.current.style.left = `${parentRect.width / 2 - rect.width / 2}px`;
-      ref.current.style.top = `${parentRect.height / 2 - rect.height / 2}px`;
+    if (ref.current != null) {
+      const rect = ref.current.getBoundingClientRect()
+      const parentRect = (ref.current.parentNode as HTMLElement).getBoundingClientRect()
+      ref.current.style.left = `${parentRect.width / 2 - rect.width / 2}px`
+      ref.current.style.top = `${parentRect.height / 2 - rect.height / 2}px`
     }
-  }, []);
+  }, [])
 
   return ReactDOM.createPortal(
     <div {...otherProps} ref={ref} className={`info-window info-window-draggable ${className || ''}`} >
@@ -41,6 +41,6 @@ export const DraggableInfoWindow = (props: Props & ComponentProps<'div'>) => {
       </h2>
       {children}
     </div>,
-    document.querySelector('.app') ?? document.body,
-  );
-};
+    document.querySelector('.app') ?? document.body
+  )
+}

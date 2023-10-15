@@ -1,1 +1,1 @@
-export { default } from './ProduceOrStudy';
+export { default } from './ProduceOrStudy'

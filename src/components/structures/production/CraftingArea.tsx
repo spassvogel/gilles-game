@@ -1,24 +1,24 @@
-import { useState } from 'react';
-import { IconSize } from 'components/ui/common/Icon';
-import ItemIcon from 'components/ui/items/ItemIcon';
-import { Structure } from 'definitions/structures';
-import { ProducableItem, ProductionStructureStoreState } from 'store/types/structure';
-import { useStructureState } from 'hooks/store/structures';
-import { TextManager } from 'global/TextManager';
-import CraftingDetails from './CraftingDetails';
+import { useState } from 'react'
+import { IconSize } from 'components/ui/common/Icon'
+import ItemIcon from 'components/ui/items/ItemIcon'
+import { type Structure } from 'definitions/structures'
+import { type ProducableItem, type ProductionStructureStoreState } from 'store/types/structure'
+import { useStructureState } from 'hooks/store/structures'
+import { TextManager } from 'global/TextManager'
+import { CraftingDetails } from './CraftingDetails'
 
-export interface Props {
-  structure: Structure;
+export type Props = {
+  structure: Structure
 }
 
 const CraftingArea = (props: Props) => {
-  const { structure } = props;
-  const [selectedItem, setSelectedItem] = useState<ProducableItem>();
+  const { structure } = props
+  const [selectedItem, setSelectedItem] = useState<ProducableItem>()
 
-  const storeState = useStructureState<ProductionStructureStoreState>(structure);
+  const storeState = useStructureState<ProductionStructureStoreState>(structure)
   const handleSelectCraftingItem = (item: ProducableItem) => {
-    setSelectedItem(item);
-  };
+    setSelectedItem(item)
+  }
 
   return (
     <>
@@ -28,7 +28,7 @@ const CraftingArea = (props: Props) => {
           {storeState.produces.map((type) => (
             <li
               key={`craft${type}`}
-              onClick={() => handleSelectCraftingItem(type)}
+              onClick={() => { handleSelectCraftingItem(type) }}
               className={selectedItem === type ? 'selected' : ''}
             >
               <ItemIcon item={{ type }} size={IconSize.smallest} />
@@ -36,10 +36,10 @@ const CraftingArea = (props: Props) => {
             </li>
           ))}
         </ul>
-        { selectedItem && <CraftingDetails item={selectedItem} structure={structure} /> }
+        { selectedItem !== undefined && <CraftingDetails item={selectedItem} structure={structure} /> }
       </div>
     </>
-  );
-};
+  )
+}
 
-export default CraftingArea;
+export default CraftingArea

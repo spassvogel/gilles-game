@@ -1,25 +1,24 @@
-import { useState } from 'react';
-import useKey from '@rooks/use-key';
-import DebugView from './DebugView';
-import { useSettings } from 'hooks/store/settings';
-import './styles/debugDrawer.scss';
+import { useState } from 'react'
+import useKey from '@rooks/use-key'
+import DebugView from './DebugView'
+import { useSettings } from 'hooks/store/settings'
+import './styles/debugDrawer.scss'
 
 const DebugDrawer = () => {
-  const [open, setOpen] = useState(false);
-  const settings = useSettings();
+  const [open, setOpen] = useState(false)
+  const settings = useSettings()
 
   useKey('~', () => {
-    setOpen(!open && settings.debugEnableDebugDrawer);
-  });
+    setOpen(!open && settings.debugEnableDebugDrawer)
+  })
 
-  if (!open) return null;
+  if (!open) return null
   return (
     <div className="debug-drawer">
-      <div className="close" onClick={() => setOpen(false)}>x</div>
+      <div className="close" onClick={() => { setOpen(false) }}>x</div>
       <DebugView />
     </div>
-  );
-};
+  )
+}
 
-export default DebugDrawer;
-
+export default DebugDrawer

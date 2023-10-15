@@ -1,15 +1,11 @@
-import React, {  } from 'react';
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Props {
-}
+import { TextManager } from 'global/TextManager'
 
 const RoomEmpty = () => {
   return (
-        <div className="room">
-            (empty room)
-        </div>
-  );
-};
+    <div className="room">
+      ({TextManager.get('ui-structure-tavern-room-empty')})
+    </div>
+  )
+}
 
-export default RoomEmpty;
+export default RoomEmpty

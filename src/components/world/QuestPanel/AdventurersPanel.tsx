@@ -1,18 +1,18 @@
-import AdventurerPanel, { AdventurerSectionSelection } from 'components/ui/adventurer/AdventurerPanel';
-import { AdventurerStoreState } from 'store/types/adventurer';
-import AdventurerTabstrip from './AdventurerTabstrip';
+import AdventurerPanel, { AdventurerSectionSelection } from 'components/ui/adventurer/AdventurerPanel'
+import { type AdventurerStoreState } from 'store/types/adventurer'
+import AdventurerTabstrip from './AdventurerTabstrip'
 
 type Props = {
-  adventurerId: string;
-  adventurers: AdventurerStoreState[];
-  onAdventurerTabSelected: (adventurerId: string) => void;
-  questName?: string;
-  disabled?: boolean;
-};
+  adventurerId: string
+  adventurers: AdventurerStoreState[]
+  onAdventurerTabSelected: (adventurerId: string) => void
+  questName?: string
+  disabled?: boolean
+}
 
 // A tabstrip with adventurer details below it
 const AdventurersPanel = (props: Props) => {
-  const { adventurerId, adventurers, onAdventurerTabSelected, disabled, questName } = props;
+  const { adventurerId, adventurers, onAdventurerTabSelected, disabled, questName } = props
   return (
     <>
      <AdventurerTabstrip
@@ -31,7 +31,7 @@ const AdventurersPanel = (props: Props) => {
         )}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default AdventurersPanel;
+export default AdventurersPanel

@@ -1,14 +1,14 @@
 
-import { StoreState } from 'store/types';
-import { useSelector } from 'react-redux';
-import { EngineStoreState } from 'store/types/engine';
+import { type StoreState } from 'store/types'
+import { useSelector } from 'react-redux'
+import { type EngineStoreState } from 'store/types/engine'
 
 // Returns the 'engine' part from redux store
 export const useEngine = () => {
-  return useSelector<StoreState, EngineStoreState>(store => store.engine);
-};
+  return useSelector<StoreState, EngineStoreState>(store => store.engine)
+}
 
 export const useDelta = () => {
-  const engine = useEngine();
-  return Date.now() - engine.previousTick;
-};
+  const engine = useEngine()
+  return Date.now() - engine.previousTick
+}

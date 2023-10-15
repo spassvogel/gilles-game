@@ -1,1 +1,1 @@
-export { default } from './CombatBar';
+export { default } from './CombatBar'

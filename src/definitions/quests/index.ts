@@ -1,7 +1,6 @@
-import kill10Boars from './kill10Boars';
-import retrieveMagicAmulet from './retrieveMagicAmulet';
-import { QuestDefinition } from './types';
-
+import kill10Boars from './kill10Boars'
+import retrieveMagicAmulet from './retrieveMagicAmulet'
+import { type QuestDefinition } from './types'
 
 // const fulruhmRaid: QuestDefinition = {
 //   nodes: [{
@@ -15,11 +14,11 @@ import { QuestDefinition } from './types';
 
 const all = {
   kill10Boars,
-  retrieveMagicAmulet,
-};
+  retrieveMagicAmulet
+}
 
-export default all;
+export default all
 
-export function getDefinition<T = unknown>(questName: string): QuestDefinition<T> {
-  return all[questName as keyof typeof all] as unknown as QuestDefinition<T>;
+export function getDefinition<T = unknown> (questName: string): QuestDefinition<T> {
+  return all[questName as keyof typeof all] as unknown as QuestDefinition<T>
 }

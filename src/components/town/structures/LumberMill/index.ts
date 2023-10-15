@@ -1,1 +1,1 @@
-export { default } from './LumberMill';
+export { default } from './LumberMill'

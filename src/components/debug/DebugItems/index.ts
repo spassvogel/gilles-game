@@ -1,1 +1,1 @@
-export { default } from './DebugItems';
+export { default } from './DebugItems'

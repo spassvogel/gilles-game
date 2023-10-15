@@ -1,18 +1,18 @@
-import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Container } from 'pixi.js';
-import { gsap } from 'gsap';
-import { useQuest } from 'hooks/store/quests';
-import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
-import { CombatController } from 'mechanics/scenes/CombatController';
-import { completeSceneAction } from 'store/actions/quests';
-import { StoreState } from 'store/types';
-import { getUniqueName, SceneAction, SceneActionType } from 'store/types/scene';
-import { Location } from 'utils/tilemap';
-import { Orientation } from '.';
+import { type RefObject, useCallback, useEffect, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { type Container } from 'pixi.js'
+import { gsap } from 'gsap'
+import { useQuest } from 'hooks/store/quests'
+import { type BaseSceneController } from 'mechanics/scenes/BaseSceneController'
+import { CombatController } from 'mechanics/scenes/CombatController'
+import { completeSceneAction } from 'store/actions/quests'
+import { type StoreState } from 'store/types'
+import { getUniqueName, type SceneAction, SceneActionType } from 'store/types/scene'
+import { type Location } from 'utils/tilemap'
+import { Orientation } from '.'
 
-export const allAnimations = ['stand', 'attack', 'walk', 'die'] as const;
-export type Animation = typeof allAnimations[number];
+export const allAnimations = ['stand', 'attack', 'walk', 'die'] as const
+export type Animation = typeof allAnimations[number]
 
 const useAnimation = (
   controller: BaseSceneController<unknown>,
@@ -20,65 +20,65 @@ const useAnimation = (
   actorName: string,
   location: Location,
   health: number,
-  setOrientation: (o: Orientation) => void,
+  setOrientation: (o: Orientation) => void
 ) => {
-  const { tileWidth, tileHeight } = controller.getTileDimensions();
-  const previousAction = useRef<SceneAction>();
-  const timeout = useRef<NodeJS.Timeout>();
-  const dispatch = useDispatch();
-  const quest = useQuest(controller.questName);
+  const { tileWidth, tileHeight } = controller.getTileDimensions()
+  const previousAction = useRef<SceneAction>()
+  const timeout = useRef<number>()
+  const dispatch = useDispatch()
+  const quest = useQuest(controller.questName)
 
   const actionSelector = useCallback(() => {
-    if (!quest.scene?.actionQueue) {
-      return undefined;
+    if ((quest.scene?.actionQueue) == null) {
+      return undefined
     }
-    return quest.scene.actionQueue.filter(a => (getUniqueName(a.intent.actor) === actorName))[0];
-  }, [quest.scene?.actionQueue, actorName]);
+    return quest.scene.actionQueue.filter(a => (getUniqueName(a.intent.actor) === actorName))[0]
+  }, [quest.scene?.actionQueue, actorName])
 
-  const nextAction = useSelector<StoreState, SceneAction | undefined>(actionSelector);
-  const [animation, setAnimation] = useState<Animation>('stand');
-  const animationTimeline = useRef<gsap.core.Timeline>();
+  const nextAction = useSelector<StoreState, SceneAction | undefined>(actionSelector)
+  const [animation, setAnimation] = useState<Animation>('stand')
+  const animationTimeline = useRef<gsap.core.Timeline>()
 
   useEffect(() => {
     if (health <= 0) {
-      setAnimation('die');
+      setAnimation('die')
     }
-  }, [health]);
+  }, [health])
 
   // Handle actions
   useEffect(() => {
     // Determines orientation based on where the target is
     const determineOrientation = (currentLocation: Location, target: Location) => {
       if (currentLocation[0] === target[0] && currentLocation[1] > target[1]) {
-        setOrientation(Orientation.north);
+        setOrientation(Orientation.north)
       } else if (currentLocation[0] < target[0] && currentLocation[1] > target[1]) {
-        setOrientation(Orientation.northEast);
+        setOrientation(Orientation.northEast)
       } else if (currentLocation[0] < target[0] && currentLocation[1] === target[1]) {
-        setOrientation(Orientation.east);
+        setOrientation(Orientation.east)
       } else if (currentLocation[0] < target[0] && currentLocation[1] < target[1]) {
-        setOrientation(Orientation.southEast);
+        setOrientation(Orientation.southEast)
       } else if (currentLocation[0] === target[0] && currentLocation[1] < target[1]) {
-        setOrientation(Orientation.south);
+        setOrientation(Orientation.south)
       } else if (currentLocation[0] > target[0] && currentLocation[1] < target[1]) {
-        setOrientation(Orientation.southWest);
+        setOrientation(Orientation.southWest)
       } else if (currentLocation[0] > target[0] && currentLocation[1] === target[1]) {
-        setOrientation(Orientation.west);
+        setOrientation(Orientation.west)
       } else if (currentLocation[0] > target[0] && currentLocation[1] > target[1]) {
-        setOrientation(Orientation.northWest);
+        setOrientation(Orientation.northWest)
       }
-    };
+    }
 
     // Initiates move animation
     const moveActor = (path: Location[], duration: number, delay?: number, onComplete?: () => void) => {
       if (duration < 0) {
-        onComplete?.();
+        onComplete?.()
       }
 
-      gsap.killTweensOf(actorRef.current);
+      gsap.killTweensOf(actorRef.current)
       animationTimeline.current = gsap.timeline({
-        delay: delay,
-        onComplete: onComplete,
-      });
+        delay,
+        onComplete
+      })
       path.forEach((l, index) => {
         // Queue up all the steps
         animationTimeline.current?.to(actorRef.current, {
@@ -86,94 +86,94 @@ const useAnimation = (
           ease: 'linear',
           pixi: {
             x: l[0] * tileWidth,
-            y: l[1] * tileHeight,
+            y: l[1] * tileHeight
           },
           onStart: () => {
             // determine orientation
-            const currentLocation = path[index - 1] ?? location;
-            determineOrientation(currentLocation, l);
-            setAnimation('walk');
-          },
-        });
-      });
-    };
+            const currentLocation = path[index - 1] ?? location
+            determineOrientation(currentLocation, l)
+            setAnimation('walk')
+          }
+        })
+      })
+    }
 
-    if (nextAction && nextAction !== previousAction.current) {
-      const { intent } = nextAction;
+    if ((nextAction != null) && nextAction !== previousAction.current) {
+      const { intent } = nextAction
       // console.log(`next action is ${nextAction.intent.to} (${nextAction.actionType}), \ncurrent location is: ${location}\nprev action was ${previousAction?.current?.target} `)
       switch (nextAction.intent.action) {
         case SceneActionType.move: {
           const moveComplete = () => {
-            setAnimation('stand');
-            dispatch(completeSceneAction(quest.name, actorName));
-            controller.actorMoved(actorName, nextAction.intent.to);
-          };
+            setAnimation('stand')
+            dispatch(completeSceneAction(quest.name, actorName))
+            controller.actorMoved(actorName, nextAction.intent.to)
+          }
 
-          const duration = (nextAction.endsAt - performance.now()) / 1000;
-          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete);
-          break;
+          const duration = (nextAction.endsAt - performance.now()) / 1000
+          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete)
+          break
         }
         case SceneActionType.melee: {
           const moveComplete = () => {
-            determineOrientation(location, nextAction.intent.to);
-            setAnimation('attack');
-            CombatController.actorMeleeStart(actorName, intent);
+            determineOrientation(location, nextAction.intent.to)
+            setAnimation('attack')
+            CombatController.actorMeleeStart(actorName, intent)
 
             const attackComplete = () => {
-              setAnimation('stand');
-              dispatch(completeSceneAction(controller.questName, actorName));
-              CombatController.actorMeleeEnd(actorName, intent);
-            };
-            setTimeout(attackComplete, 500);
-          };
+              setAnimation('stand')
+              dispatch(completeSceneAction(controller.questName, actorName))
+              CombatController.actorMeleeEnd(actorName, intent)
+            }
+            setTimeout(attackComplete, 500)
+          }
 
-          const duration = (nextAction.endsAt - performance.now()) / 1000;
-          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete);
-          break;
+          const duration = (nextAction.endsAt - performance.now()) / 1000
+          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete)
+          break
         }
         case SceneActionType.shoot: {
-          determineOrientation(location, nextAction.intent.to);
-          setAnimation('attack');
-          CombatController.actorShootStart(actorName, intent);
+          determineOrientation(location, nextAction.intent.to)
+          setAnimation('attack')
+          CombatController.actorShootStart(actorName, intent)
 
           const attackComplete = () => {
-            setAnimation('stand');
-            dispatch(completeSceneAction(controller.questName, actorName));
-            CombatController.actorShootEnd(actorName, intent);
-          };
-          setTimeout(attackComplete, 500);
-          break;
+            setAnimation('stand')
+            dispatch(completeSceneAction(controller.questName, actorName))
+            CombatController.actorShootEnd(actorName, intent)
+          }
+          setTimeout(attackComplete, 500)
+          break
         }
         case SceneActionType.interact: {
           const moveComplete = () => {
-            setAnimation('stand');
-            controller.actorInteract(actorName, nextAction.intent.to);
-            dispatch(completeSceneAction(controller.questName, actorName));
-          };
+            setAnimation('stand')
+            controller.actorInteract(actorName, nextAction.intent.to)
+            dispatch(completeSceneAction(controller.questName, actorName))
+          }
 
-          const duration = (nextAction.endsAt - performance.now()) / 1000;
-          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete);
+          const duration = (nextAction.endsAt - performance.now()) / 1000
+          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete)
 
-          break;
+          break
         }
       }
-      previousAction.current = nextAction;
+      previousAction.current = nextAction
     }
-  }, [actorName, actorRef, controller, dispatch, location, nextAction, quest.name, setOrientation, tileHeight, tileWidth]);
+  }, [actorName, actorRef, controller, dispatch, location, nextAction, quest.name, setOrientation, tileHeight, tileWidth])
 
   useEffect(() => {
-    if (timeout.current) {
-      clearTimeout(timeout.current);
+    if (timeout.current !== undefined) {
+      clearTimeout(timeout.current)
     }
-  }, [animation]);
+  }, [animation])
 
   useEffect(() => {
     return () => {
-      animationTimeline.current?.kill();
-    };
-  }, []);
+      animationTimeline.current?.kill()
+    }
+  }, [])
 
-  return animation;
-};
+  return animation
+}
 
-export default useAnimation;
+export default useAnimation

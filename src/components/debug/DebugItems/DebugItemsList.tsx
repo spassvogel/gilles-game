@@ -1,47 +1,46 @@
-import { IconSize } from 'components/ui/common/Icon';
-import ItemIcon from 'components/ui/items/ItemIcon';
-import { ApparelDefinition } from 'definitions/items/apparel';
-import { ItemDefinition, ItemType } from 'definitions/items/types';
-import { TextManager } from 'global/TextManager';
-import { entries } from 'utils/typescript';
-import './styles/debugItemsList.scss';
+import { IconSize } from 'components/ui/common/Icon'
+import ItemIcon from 'components/ui/items/ItemIcon'
+import { type ApparelDefinition } from 'definitions/items/apparel'
+import { type ItemDefinition, type ItemType } from 'definitions/items/types'
+import { TextManager } from 'global/TextManager'
+import { entries } from 'utils/typescript'
+import './styles/debugItemsList.scss'
 
 type Props = {
-  items: { [key: string]: ItemDefinition }
-};
+  items: Record<string, ItemDefinition>
+}
 
 const parseRarity = (input: unknown) => {
-  const object = input as Pick<ItemDefinition, 'rarity'>;
+  const object = input as Pick<ItemDefinition, 'rarity'>
   if (object.rarity !== undefined) {
     return {
       ...object,
-      rarity: `Rarity.${TextManager.getRarity(object.rarity)}`,
-    };
+      rarity: `Rarity.${TextManager.getRarity(object.rarity)}`
+    }
   }
-  return object as unknown;
-};
+  return object as unknown
+}
 
-const parseEquipmentType = (input: unknown ) => {
-  const object = input as Pick<ApparelDefinition, 'equipmentType'>;
+const parseEquipmentType = (input: unknown) => {
+  const object = input as Pick<ApparelDefinition, 'equipmentType'>
   if (object.equipmentType !== undefined) {
     return {
       ...object,
-      equipmentType: `EquipmentSlotType.${TextManager.getEquipmentSlot(object.equipmentType)}`,
-    };
+      equipmentType: `EquipmentSlotType.${TextManager.getEquipmentSlot(object.equipmentType)}`
+    }
   }
-  return object as unknown;
-};
+  return object as unknown
+}
 
 const parsers = [
   parseRarity,
-  parseEquipmentType,
-];
+  parseEquipmentType
+]
 
 const prepareText = (definition: ItemDefinition) => {
-
-  const text = parsers.reduce((acc, value) => {
-    return value(acc);
-  }, definition as unknown);
+  const text = parsers.reduce<unknown>((acc, value) => {
+    return value(acc)
+  }, definition)
 
   const asString = JSON.stringify(text, undefined, 2)
     .replace(/\n /g, '\n')
@@ -50,13 +49,13 @@ const prepareText = (definition: ItemDefinition) => {
     .replace(/\n {4}/g, '\n  ')
     .replace(/\n \}/g, '\n}')
     .replace(/\n {3}\},/g, '\n}, ')
-    .replace(/\n {3}\}\n ]/g, '\n}]');
+    .replace(/\n {3}\}\n ]/g, '\n}]')
 
-  return asString.substring(2, asString.length - 2);
-};
+  return asString.substring(2, asString.length - 2)
+}
 
 const DebugItemsList = (props: Props) => {
-  const { items } = props;
+  const { items } = props
   return (
     <div className="debug-items-list">
       {entries(items).map(([key, value]) => {
@@ -70,13 +69,10 @@ const DebugItemsList = (props: Props) => {
               </pre>
             </div>
           </div>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}
 
-export default DebugItemsList;
-
-
-
+export default DebugItemsList

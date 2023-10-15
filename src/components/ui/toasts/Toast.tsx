@@ -1,9 +1,9 @@
-import { TextManager } from 'global/TextManager';
-import { ToastConfig } from 'global/ToastManager';
-import { useNavigate } from 'react-router';
-import Icon from 'components/ui/common/Icon';
+import { TextManager } from 'global/TextManager'
+import { type ToastConfig } from 'global/ToastManager'
+import { useNavigate } from 'react-router'
+// import Icon from 'components/ui/common/Icon'
 
-type Props = ToastConfig;
+type Props = ToastConfig
 
 export enum Type {
   achievementUnlocked,
@@ -21,25 +21,25 @@ const Toast = (props: Props) => {
     title,
     type = Type.achievementUnlocked,
     icon = '/img/items/quest-items/dragon-eye.png',
-    link,
-  } = props;
-  const navigate = useNavigate();
+    link
+  } = props
+  const navigate = useNavigate()
 
   const handleClick = () => {
-    if (link) {
-      navigate(link);
+    if (link !== undefined) {
+      navigate(link)
     }
-  };
+  }
 
-  const typeText = TextManager.getToastType(type);
+  const typeText = TextManager.getToastType(type)
   return (
-    <div className={`toast ${link ? 'withlink' : ''}`} onClick={handleClick}>
+    <div className={`toast ${link !== undefined ? 'withlink' : ''}`} onClick={handleClick}>
       <div className="label type">{typeText}</div>
       <div className="label title">{title}</div>
-      <Icon size="big" image={icon} className="toast-icon" border="gold" />
+      {/* <Icon size="big" image={icon} className="toast-icon" border="gold" /> */}
       <div className="banner"/>
     </div>
-  );
-};
+  )
+}
 
-export default Toast;
+export default Toast

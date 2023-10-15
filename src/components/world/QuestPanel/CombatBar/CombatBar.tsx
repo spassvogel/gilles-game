@@ -1,20 +1,20 @@
-import { useContext } from 'react';
-import { SceneControllerContext } from '../context/SceneControllerContext';
-import { TextManager } from 'global/TextManager';
-import Button from 'components/ui/buttons/Button';
-import { useQuest } from 'hooks/store/quests';
-import { Allegiance } from 'store/types/scene';
-import './styles/combatBar.scss';
+import { useContext } from 'react'
+import { SceneControllerContext } from '../context/SceneControllerContext'
+import { TextManager } from 'global/TextManager'
+import Button from 'components/ui/buttons/Button'
+import { useQuest } from 'hooks/store/quests'
+import { Allegiance } from 'store/types/scene'
+import './styles/combatBar.scss'
 
 type Props = {
-  questName: string;
-  selectedAdventurerId?: string;
-};
+  questName: string
+  selectedAdventurerId?: string
+}
 
 const CombatBar = (props: Props) => {
-  const { questName } = props;
-  const controller = useContext(SceneControllerContext);
-  const quest = useQuest(questName);
+  const { questName } = props
+  const controller = useContext(SceneControllerContext)
+  const quest = useQuest(questName)
 
   return (
     <div className="combat-bar">
@@ -23,7 +23,7 @@ const CombatBar = (props: Props) => {
       </div>
       <Button size="medium" onClick={() => controller?.endTurn()} disabled={quest.scene?.turn !== Allegiance.player}>End turn</Button>
     </div>
-  );
-};
+  )
+}
 
-export default CombatBar;
+export default CombatBar

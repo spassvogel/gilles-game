@@ -1,2 +1,2 @@
-export { default } from './LootCache';
+export { default } from './LootCache'
 

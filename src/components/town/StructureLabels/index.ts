@@ -1,1 +1,1 @@
-export { default } from './StructureLabels';
+export { default } from './StructureLabels'

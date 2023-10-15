@@ -1,50 +1,50 @@
 // Todo: come up with a less stupid name
-import * as React from 'react';
-import './styles/updownvalue.scss';
+import * as React from 'react'
+import './styles/updownvalue.scss'
 
-export interface DispatchProps {
-  onUp?: (e: React.MouseEvent) => void;
-  onDown?: (e: React.MouseEvent) => void;
+export type DispatchProps = {
+  onUp?: (e: React.MouseEvent) => void
+  onDown?: (e: React.MouseEvent) => void
 }
-export interface Props extends DispatchProps {
-  label?: string;
-  value?: number;
-  max?: number;
-  upDisabled?: boolean;
-  downDisabled?: boolean;
-}
+export type Props = {
+  label?: string
+  value?: number
+  max?: number
+  upDisabled?: boolean
+  downDisabled?: boolean
+} & DispatchProps
 
 const UpDownValue = (props: Props) => {
   const handleUp = (e: React.MouseEvent) => {
-    if (props.onUp && !props.upDisabled) { props.onUp(e); }
-  };
+    if ((props.onUp != null) && props.upDisabled !== true) { props.onUp(e) }
+  }
 
   const handleDown = (e: React.MouseEvent) => {
-    if (props.onDown && !props.downDisabled) { props.onDown(e); }
-  };
+    if ((props.onDown != null) && props.downDisabled !== true) { props.onDown(e) }
+  }
 
-  let displayValue;
+  let displayValue
   if (props.max == null) {
-    displayValue = props.value;
+    displayValue = props.value
   } else {
     displayValue = (
       <span>
         {props.value} / <span className="max">{ props.max }</span>
       </span>
-    );
+    )
   }
   return (
     <div className="updownvalue">
         <label> { props.label }</label>
         { displayValue }
-        <i className={ 'arrow up' + (props.upDisabled ? ' disabled' : '' )}
+        <i className={ 'arrow up' + (props.upDisabled === true ? ' disabled' : '')}
         onClick={handleUp}
         />
-        <i className={'arrow down' + (props.downDisabled ? ' disabled' : '')}
+        <i className={'arrow down' + (props.downDisabled === true ? ' disabled' : '')}
         onClick={handleDown}
         />
     </div>
-  );
-};
+  )
+}
 
-export default UpDownValue;
+export default UpDownValue

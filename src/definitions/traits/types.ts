@@ -1,6 +1,6 @@
-export interface TraitDefinition {
-  trait: Trait;
-  hasEffect?: boolean;    // shown in tooltip
+export type TraitDefinition = {
+  trait: Trait
+  hasEffect?: boolean // shown in tooltip
 }
 
 export enum Trait {
@@ -11,4 +11,3 @@ export enum Trait {
   houseMaddox = 'houseMaddox',
   houseMonroe = 'houseMonroe',
 }
-

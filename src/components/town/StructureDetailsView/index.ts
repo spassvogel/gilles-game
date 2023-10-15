@@ -1,1 +1,1 @@
-export { default } from './RoutedStructureDetailsView';
+export { default } from './RoutedStructureDetailsView'

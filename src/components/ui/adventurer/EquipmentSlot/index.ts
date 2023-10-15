@@ -1,2 +1,2 @@
-export { default } from './EquipmentSlot';
-export { EquipmentSlotType, itemAndEquipmentSlotMatch, rangedWeaponInHand } from './utils';
+export { default } from './EquipmentSlot'
+export { EquipmentSlotType, itemAndEquipmentSlotMatch, rangedWeaponInHand } from './utils'

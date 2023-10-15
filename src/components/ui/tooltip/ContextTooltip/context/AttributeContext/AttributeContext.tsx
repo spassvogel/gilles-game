@@ -1,16 +1,16 @@
-import { Fragment } from 'react';
-import { TextManager } from 'global/TextManager';
-import { AttributeSourceType, ExtendedAttribute } from 'mechanics/adventurers/attributes';
-import { roundIfNeeded } from 'utils/format/number';
-import { renderOrigin } from './utils';
-import './styles/attributeContext.scss';
+import { Fragment } from 'react'
+import { TextManager } from 'global/TextManager'
+import { AttributeSourceType, type ExtendedAttribute } from 'mechanics/adventurers/attributes'
+import { roundIfNeeded } from 'utils/format/number'
+import { renderOrigin } from './utils'
+import './styles/attributeContext.scss'
 
-export interface Props {
-  extendedAttribute: ExtendedAttribute;
+export type Props = {
+  extendedAttribute: ExtendedAttribute
 }
 
 const AttributeContext = (props: Props) => {
-  const { extendedAttribute } = props;
+  const { extendedAttribute } = props
   return (
     <div className="attribute-context">
       <hr />
@@ -20,13 +20,13 @@ const AttributeContext = (props: Props) => {
       <hr />
       <dl className="values">
         {extendedAttribute.components.map((eAC, i) => {
-          const origin = renderOrigin(eAC.origin, extendedAttribute.attribute);
+          const origin = renderOrigin(eAC.origin, extendedAttribute.attribute)
           return (
             <Fragment key={eAC.origin.type + i}>
               <dt title={origin}>{origin}</dt>
               <dd className={eAC.origin.type === AttributeSourceType.base ? 'base' : 'additional'}>{roundIfNeeded(eAC.value)}</dd>
             </Fragment>
-          );
+          )
         })}
       </dl>
       <hr />
@@ -34,6 +34,6 @@ const AttributeContext = (props: Props) => {
         {TextManager.getAttributeDescription(extendedAttribute.attribute)}
       </div>
     </div>
-  );
-};
-export default AttributeContext;
+  )
+}
+export default AttributeContext

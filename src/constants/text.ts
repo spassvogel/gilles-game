@@ -1,8 +1,8 @@
-export interface TextEntry {
-  key: string;
-  context?: unknown;
+export type TextEntry = {
+  key: string
+  context?: unknown
 }
 
-export function isTextEntry(test: string | TextEntry): test is TextEntry {
-  return typeof test !== 'string';
+export function isTextEntry (test: string | TextEntry): test is TextEntry {
+  return typeof test !== 'string'
 }

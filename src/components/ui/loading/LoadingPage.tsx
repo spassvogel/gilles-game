@@ -1,11 +1,11 @@
-import { PropsWithChildren } from 'react';
-import LoadingSpinner from './LoadingSpinner';
-import './styles/loadingPage.scss';
+import { type PropsWithChildren } from 'react'
+import LoadingSpinner from './LoadingSpinner'
+import './styles/loadingPage.scss'
 
-type Props = PropsWithChildren<unknown>;
+type Props = PropsWithChildren<unknown>
 
 const LoadingPage = (props: Props) => {
-  const { children } = props;
+  const { children } = props
   return (
     <div className="loading-page">
       <LoadingSpinner />
@@ -13,6 +13,6 @@ const LoadingPage = (props: Props) => {
         {children}
       </div>
     </div>
-  );
-};
-export default LoadingPage;
+  )
+}
+export default LoadingPage

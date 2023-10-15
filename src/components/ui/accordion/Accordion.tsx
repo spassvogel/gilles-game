@@ -1,30 +1,30 @@
-import { ComponentProps, useState } from 'react';
-import { AccordionContext } from './context/AccordionContext';
-import './styles/accordion.scss';
+import { type ComponentProps, useState } from 'react'
+import { AccordionContext } from './context/AccordionContext'
+import './styles/accordion.scss'
 
-type Props = ComponentProps<'div'>;
+type Props = ComponentProps<'div'>
 
 const Accordion = (props: Props) => {
-  const { children, className } = props;
-  const [itemsExpanded, setItemsExpanded] = useState<string[]>([]);
+  const { children, className } = props
+  const [itemsExpanded, setItemsExpanded] = useState<string[]>([])
 
   const toggleItem = (id: string) => {
-    if (itemsExpanded.indexOf(id) > -1) {
-      setItemsExpanded(itemsExpanded.filter(i => i !== id));
+    if (itemsExpanded.includes(id)) {
+      setItemsExpanded(itemsExpanded.filter(i => i !== id))
     } else {
-      setItemsExpanded([...itemsExpanded, id]);
+      setItemsExpanded([...itemsExpanded, id])
     }
-  };
+  }
   return (
     <AccordionContext.Provider value={{
       itemsExpanded,
-      toggleItem,
+      toggleItem
     }} >
     <div className={`accordion ${className ?? ''}`}>
       {children}
     </div>
     </AccordionContext.Provider>
-  );
-};
+  )
+}
 
-export default Accordion;
+export default Accordion

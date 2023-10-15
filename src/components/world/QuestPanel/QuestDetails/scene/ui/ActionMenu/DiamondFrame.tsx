@@ -1,15 +1,16 @@
-import { ComponentProps } from 'react';
-import './styles/diamondFrame.scss';
+import { type ComponentProps } from 'react'
 
-type Props = ComponentProps<'div'>;
+import './styles/diamondFrame.scss'
+
+type Props = ComponentProps<'div'>
 
 const DiamondFrame = (props: Props) => {
-  const { children, className = '', ...restProps } = props;
+  const { children, className = '', ...restProps } = props
   return (
     <div {...restProps} className={`diamond-frame ${className}`}>
       { children }
     </div>
-  );
-};
+  )
+}
 
-export default DiamondFrame;
+export default DiamondFrame

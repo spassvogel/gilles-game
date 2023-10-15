@@ -1,8 +1,6 @@
-import React from 'react';
-import Select, { Props } from 'react-select';
+import Select, { type Props } from 'react-select'
 
-
-function DefaultSelect<Option, IsMulti extends boolean = false>(props: Props<Option, IsMulti>) {
+function DefaultSelect<Option, IsMulti extends boolean = false> (props: Props<Option, IsMulti>) {
   return <Select
     styles={{
       control: (provided, state) => ({
@@ -12,38 +10,38 @@ function DefaultSelect<Option, IsMulti extends boolean = false>(props: Props<Opt
         boxShadow: '0',
         border: state.isFocused ? '1px solid orange' : '1px solid #B1B1B1',
         ':hover': {
-          border: '1px solid orange',
-        },       
+          border: '1px solid orange'
+        }
       }),
       container: (provided, _state) => ({
         ...provided,
-        flex: 1,
+        flex: 1
       }),
       option: (provided) => ({
         ...provided,
-        padding: '4px 12px',
+        padding: '4px 12px'
       }),
       placeholder: (provided) => ({
         ...provided,
-        whiteSpace: 'nowrap',
-      }), 
+        whiteSpace: 'nowrap'
+      }),
       valueContainer: (provided) => ({
         ...provided,
-        marginTop: '-2px',
-      }), 
+        marginTop: '-2px'
+      }),
       indicatorsContainer: (provided) => ({
         ...provided,
         marginTop: '-2px',
 
-        'div': {
-          padding: '4px',
-        },
-      }),
-      
+        div: {
+          padding: '4px'
+        }
+      })
+
     }}
     {...props}
-  />;
+  />
 }
-DefaultSelect.displayName = 'DefaultSelect';
+DefaultSelect.displayName = 'DefaultSelect'
 
-export default DefaultSelect;
+export default DefaultSelect

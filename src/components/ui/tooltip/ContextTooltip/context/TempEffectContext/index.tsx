@@ -1,15 +1,15 @@
-import { TextManager } from 'global/TextManager';
-import getTempEffectDescription from './getTempEffectDescription';
-import { TempEffect } from 'definitions/tempEffects/types';
-import './styles/effectContext.scss';
+import { TextManager } from 'global/TextManager'
+import getTempEffectDescription from './getTempEffectDescription'
+import { type TempEffect } from 'definitions/tempEffects/types'
+import './styles/effectContext.scss'
 
-export interface Props {
-  effect: TempEffect;
+export type Props = {
+  effect: TempEffect
 }
 
 const EffectContext = (props: Props) => {
-  const { effect } = props;
-  const { charges } = effect;
+  const { effect } = props
+  const { charges } = effect
   return (
     <div className="effect-context">
       <hr />
@@ -28,6 +28,6 @@ const EffectContext = (props: Props) => {
         {TextManager.getTempEffectFlavor(effect)}
       </div>
     </div>
-  );
-};
-export default EffectContext;
+  )
+}
+export default EffectContext

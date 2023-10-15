@@ -1,8 +1,8 @@
-@import 'components/styles/import.scss';
+@import '@/components/styles/import.scss';
 
 .debug-adventurers {
   padding: 1rem;
-  
+
   .adventurer-list__menu-list {
     max-height: inherit !important;
   }
@@ -38,9 +38,9 @@
       }
     }
   }
-  
+
   .debug-adventurer-edit {
-    margin-top: 1rem; 
+    margin-top: 1rem;
     padding: 1rem;
     background: white;
 

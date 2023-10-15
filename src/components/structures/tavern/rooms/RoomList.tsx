@@ -1,20 +1,21 @@
-import { useState } from 'react';
-import { AdventurerStoreState } from 'store/types/adventurer';
-import { QuestStoreState } from 'store/types/quest';
-import RoomWithAdventurer from './RoomWithAdventurer';
-import RoomEmpty from './RoomEmpty';
-import { TextManager } from 'global/TextManager';
-import './styles/roomList.scss';
+import { useState } from 'react'
+import { type AdventurerStoreState } from 'store/types/adventurer'
+import { type QuestStoreState } from 'store/types/quest'
+import RoomWithAdventurer from './RoomWithAdventurer'
+import RoomEmpty from './RoomEmpty'
+import { TextManager } from 'global/TextManager'
 
-export interface Props {
-  roomCount: number;
-  adventurers: AdventurerStoreState[];
-  assignedAventurers: AdventurerStoreState[];
-  quests: QuestStoreState[];
-  selectedQuestName?: string;     // name of selected quest
+import './styles/roomList.scss'
 
-  onAddAdventurer: (adventurer: AdventurerStoreState, index: number) => void;
-  onRemoveAdventurer: (adventurer: AdventurerStoreState) => void;
+export type Props = {
+  roomCount: number
+  adventurers: AdventurerStoreState[]
+  assignedAventurers: AdventurerStoreState[]
+  quests: QuestStoreState[]
+  selectedQuestName?: string // name of selected quest
+
+  onAddAdventurer: (adventurer: AdventurerStoreState, index: number) => void
+  onRemoveAdventurer: (adventurer: AdventurerStoreState) => void
 }
 
 const RoomList = (props: Props) => {
@@ -24,34 +25,34 @@ const RoomList = (props: Props) => {
     assignedAventurers,
     selectedQuestName,
     onAddAdventurer,
-    onRemoveAdventurer,
-  } = props;
-  const [selectedAdventurer, setSelectedAdventurer] = useState<string>();
+    onRemoveAdventurer
+  } = props
+  const [selectedAdventurer, setSelectedAdventurer] = useState<string>()
 
   const getQuestByAdventurer = (adventurerId: string): QuestStoreState | undefined => {
     return Object.values(props.quests).find((quest) => {
-      return quest.party.indexOf(adventurerId) > -1;
-    });
-  };
+      return quest.party.includes(adventurerId)
+    })
+  }
 
   const handleAdventurerClick = (adventurer: AdventurerStoreState) => {
     if (selectedAdventurer === adventurer.id) {
-      setSelectedAdventurer(undefined);
+      setSelectedAdventurer(undefined)
     } else {
-      setSelectedAdventurer(adventurer.id);
+      setSelectedAdventurer(adventurer.id)
     }
-  };
+  }
 
-  const roomContent: JSX.Element[] = [];
+  const roomContent: JSX.Element[] = []
   for (let i = 0; i < roomCount; i++) {
-    const adventurer = adventurers.find((a) => a.room === i);
-    if (!adventurer) {
+    const adventurer = adventurers.find((a) => a.room === i)
+    if (adventurer == null) {
       roomContent.push((
         <RoomEmpty key={`room${i}`} />
-      ));
-      continue;
+      ))
+      continue
     }
-    const onQuest = !!getQuestByAdventurer(adventurer.id);
+    const onQuest = !(getQuestByAdventurer(adventurer.id) == null)
 
     roomContent.push((
       <RoomWithAdventurer
@@ -66,7 +67,7 @@ const RoomList = (props: Props) => {
         onAddAdventurer={onAddAdventurer}
         onRemoveAdventurer={onRemoveAdventurer}
       />
-    ));
+    ))
   }
 
   return (
@@ -74,7 +75,7 @@ const RoomList = (props: Props) => {
       <h2>{TextManager.get('ui-structure-tavern-rooms')}</h2>
       { roomContent }
     </div>
-  );
-};
+  )
+}
 
-export default RoomList;
+export default RoomList

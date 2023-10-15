@@ -1,15 +1,15 @@
-import { TiledProperty, TiledLayerData, TiledTilesetData } from 'constants/tiledMapData';
+import { type TiledProperty, type TiledLayerData, type TiledTilesetData } from 'constants/tiledMapData'
 
-export type Location = [number, number];
+export type Location = [number, number]
 
 // Unpack array of properties into key/value object for fast retrieval
-export const parseProperties = (properties?: TiledProperty[]): { [key: string]: string | boolean | number } => {
-  if (!properties) return {};
-  return properties.reduce((acc: { [key: string]: string | boolean | number }, value: TiledProperty) => {
-    acc[value.name] = value.value;
-    return acc;
-  }, {});
-};
+export const parseProperties = (properties?: TiledProperty[]): Record<string, string | boolean | number> => {
+  if (properties == null) return {}
+  return properties.reduce((acc: Record<string, string | boolean | number>, value: TiledProperty) => {
+    acc[value.name] = value.value
+    return acc
+  }, {})
+}
 
 export enum TiledObjectType {
   actor = 'actor',
@@ -19,40 +19,39 @@ export enum TiledObjectType {
 
 // finds tileset based on gid
 export const findTileset = (gid: number, tilesets: TiledTilesetData[]): TiledTilesetData | undefined => {
-  let tileset;
+  let tileset
   for (let i = tilesets.length - 1; i >= 0; i--) {
-    tileset = tilesets[i];
+    tileset = tilesets[i]
     if (tileset.firstgid <= gid) {
-      break;
+      break
     }
   }
-  return tileset;
-};
+  return tileset
+}
 /** Add tiles in this layer to list */
 export const addAllTilesInLayerToList = (list: Location[], layer: TiledLayerData, columns: number): void => {
   layer.data.reduce((acc: Location[], tile, index) => {
     if (tile > 0) {
-      const x = (index % columns);
-      const y = Math.floor(index / columns);
-      acc.push([x, y]);
+      const x = (index % columns)
+      const y = Math.floor(index / columns)
+      acc.push([x, y])
     }
-    return acc;
-  }, list);
-};
+    return acc
+  }, list)
+}
 
 export const getTilesInLayerLocations = (layer: TiledLayerData): Location[] => {
-  const columns = layer.width;
+  const columns = layer.width
   return layer.data.reduce((acc: Location[], tile, index) => {
     if (tile > 0) {
-      const x = (index % columns);
-      const y = Math.floor(index / columns);
-      acc.push([x, y]);
+      const x = (index % columns)
+      const y = Math.floor(index / columns)
+      acc.push([x, y])
     }
-    return acc;
-  }, []);
-};
-
+    return acc
+  }, [])
+}
 
 export const locationEquals = (a: Location, b: Location): boolean => {
-  return a[0] === b[0] && a[1] === b[1];
-};
+  return a[0] === b[0] && a[1] === b[1]
+}

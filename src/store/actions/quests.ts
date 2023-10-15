@@ -1,123 +1,119 @@
-import { AdventurerStoreState } from 'store/types/adventurer';
-import { SceneAction, SceneStoreState, SceneInteractionModal, Allegiance } from 'store/types/scene';
-import { PartialDeep } from 'type-fest';
-import { Location } from 'utils/tilemap';
+import { type AdventurerStoreState } from 'store/types/adventurer'
+import { type SceneAction, type SceneStoreState, type SceneInteractionModal, type Allegiance } from 'store/types/scene'
+import { type PartialDeep } from 'type-fest'
+import { type Location } from 'utils/tilemap'
 
 export type QuestAction =
   { type: 'launchQuest', questName: string, assignedAventurers: AdventurerStoreState[] }
-  |  { type: 'exitEncounter', questName: string }
-  |  { type: 'updateQuestVars', questName: string, vars: PartialDeep<unknown> }
-  |  { type: 'setSceneName', questName: string, sceneName: string }
-  |  { type: 'setScene', questName: string, scene: SceneStoreState; }
-  |  { type: 'enqueueSceneAction', questName: string, sceneAction: SceneAction }
-  |  { type: 'completeSceneAction', questName: string, actorName: string }
-  |  { type: 'setCombat', questName: string, combat: boolean }
-  |  { type: 'endPlayerTurn', questName: string }
-  |  { type: 'startTurn', questName: string, turn: Allegiance, adventurers?: AdventurerStoreState[] }
-  |  { type: 'deductActorAp', questName: string,  actor: string, ap: number }
-  |  { type: 'setActorAp', questName: string, actor: string, ap: number }
-  |  { type: 'setActorLocation', questName: string, actor: string, location: Location }
-  |  { type: 'modifyEnemyHealth', questName: string, actor: string, health: number }
+  | { type: 'exitEncounter', questName: string }
+  | { type: 'updateQuestVars', questName: string, vars: PartialDeep<unknown> }
+  | { type: 'setSceneName', questName: string, sceneName: string }
+  | { type: 'setScene', questName: string, scene: SceneStoreState }
+  | { type: 'enqueueSceneAction', questName: string, sceneAction: SceneAction }
+  | { type: 'completeSceneAction', questName: string, actorName: string }
+  | { type: 'setCombat', questName: string, combat: boolean }
+  | { type: 'endPlayerTurn', questName: string }
+  | { type: 'startTurn', questName: string, turn: Allegiance, adventurers?: AdventurerStoreState[] }
+  | { type: 'deductActorAp', questName: string, actor: string, ap: number }
+  | { type: 'setActorAp', questName: string, actor: string, ap: number }
+  | { type: 'setActorLocation', questName: string, actor: string, location: Location }
+  | { type: 'modifyEnemyHealth', questName: string, actor: string, health: number }
   //  |  { type: "updateEncounterResult", questName: string, nodeIndex: number, result: string }
-  |  { type: 'setActiveSceneInteractionModal', questName: string, sceneInteractionModal?: SceneInteractionModal }
-
-;
-
+  | { type: 'setActiveSceneInteractionModal', questName: string, sceneInteractionModal?: SceneInteractionModal }
 
 /**
  * Embark upon a new quest */
 export const launchQuest = (questName: string, assignedAventurers: AdventurerStoreState[]): QuestAction => ({
   type: 'launchQuest',
   questName,
-  assignedAventurers,
-});
+  assignedAventurers
+})
 
 /**
  * Completes the current encounter so the party can continue the quest */
 export const exitEncounter = (quest: string): QuestAction => ({
   type: 'exitEncounter',
-  questName: quest,
-});
+  questName: quest
+})
 
 export const updateQuestVars = (quest: string, vars: PartialDeep<unknown>): QuestAction => ({
   type: 'updateQuestVars',
   questName: quest,
-  vars,
-});
+  vars
+})
 
 /**
  * Sets name of the current scene of a quest */
-export const setSceneName = (questName: string, sceneName: string): QuestAction =>({
+export const setSceneName = (questName: string, sceneName: string): QuestAction => ({
   type: 'setSceneName',
   questName,
-  sceneName,
-});
+  sceneName
+})
 
 /**
  * Fills in the scene of a quest */
 export const setScene = (questName: string, scene: SceneStoreState): QuestAction => ({
   type: 'setScene',
   questName,
-  scene,
-});
+  scene
+})
 
 export const enqueueSceneAction = (questName: string, sceneAction: SceneAction): QuestAction => ({
   type: 'enqueueSceneAction',
   questName,
-  sceneAction,
-});
+  sceneAction
+})
 
 export const completeSceneAction = (questName: string, actorName: string): QuestAction => ({
   type: 'completeSceneAction',
   questName,
-  actorName,
-});
+  actorName
+})
 
 export const setCombat = (questName: string, combat: boolean): QuestAction => ({
   type: 'setCombat',
   questName,
-  combat,
-});
+  combat
+})
 
 export const endPlayerTurn = (questName: string): QuestAction => ({
   type: 'endPlayerTurn',
-  questName,
-});
+  questName
+})
 
 export const startTurn = (questName: string, turn: Allegiance, adventurers?: AdventurerStoreState[]): QuestAction => ({
   type: 'startTurn',
   questName,
   turn,
-  adventurers,
-});
+  adventurers
+})
 
 export const deductActorAp = (questName: string, actor: string, ap: number): QuestAction => ({
   type: 'deductActorAp',
   questName,
   actor,
-  ap,
-});
+  ap
+})
 
 export const modifyEnemyHealth = (questName: string, actor: string, health: number): QuestAction => ({
   type: 'modifyEnemyHealth',
   questName,
   actor,
-  health,
-});
+  health
+})
 
 export const setActorAp = (questName: string, actor: string, ap: number): QuestAction => ({
   type: 'setActorAp',
   questName,
   actor,
-  ap,
-});
+  ap
+})
 export const setActorLocation = (questName: string, actor: string, location: Location): QuestAction => ({
   type: 'setActorLocation',
   questName,
   actor,
-  location,
-});
-
+  location
+})
 
 // export const updateEncounterResult = (questName: string, nodeIndex: number, result: string): QuestAction => ({
 //   type: "updateEncounterResult",
@@ -129,6 +125,5 @@ export const setActorLocation = (questName: string, actor: string, location: Loc
 export const setActiveSceneInteractionModal = (questName: string, sceneInteractionModal?: SceneInteractionModal): QuestAction => ({
   type: 'setActiveSceneInteractionModal',
   questName,
-  sceneInteractionModal,
-});
-
+  sceneInteractionModal
+})

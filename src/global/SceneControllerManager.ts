@@ -1,33 +1,28 @@
-import { Store, AnyAction } from 'redux';
-import { StoreState } from 'store/types';
-import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
+import { type Store, type AnyAction } from 'redux'
+import { type StoreState } from 'store/types'
+import { type BaseSceneController } from 'mechanics/scenes/BaseSceneController'
 
-export abstract class SceneControllerManager {
-  static store: { [key: string]: BaseSceneController<unknown> } = {};
+// todo: refactor this weird class/ manager stuff
+const store: Record<string, BaseSceneController<unknown>> = {}
+const controllerTypes: Record<string, typeof BaseSceneController> = {}
 
-  static controllerTypes: { [key: string]: typeof BaseSceneController } = {};
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static registerSceneController(questName: string, sceneName: string, controllerType: any) {
-    this.controllerTypes[`${questName}.${sceneName}`] = controllerType;
-  }
-
-  /**
-   * Gets the scenecontroller for scene. Creates it if it doesnt exist
-   */
-  static getSceneController(questName: string, sceneName: string, store: Store<StoreState, AnyAction>): BaseSceneController<unknown> {
-    if (!this.store[`${questName}.${sceneName}`]) {
-      if (!this.controllerTypes[`${questName}.${sceneName}`]) {
-        throw new Error(`No controller registered for ${questName}.${sceneName}`);
-      }
-      this.store[`${questName}.${sceneName}`] = new this.controllerTypes[`${questName}.${sceneName}`](store, questName);
-    }
-    return this.store[`${questName}.${sceneName}`];
-  }
-
-  static destroySceneConroller(questName: string, sceneName: string ) {
-    delete this.store[`${questName}.${sceneName}`];
-  }
+export const registerSceneController = (questName: string, sceneName: string, controllerType: any) => {
+  controllerTypes[`${questName}.${sceneName}`] = controllerType
 }
 
-require('definitions/quests/kill10Boars/encounters/dungeon');
+/**
+ * Gets the scenecontroller for scene. Creates it if it doesnt exist
+ */
+export const getSceneController = (questName: string, sceneName: string, store: Store<StoreState, AnyAction>): BaseSceneController<unknown> => {
+  if (!store[`${questName}.${sceneName}`]) {
+    if (!controllerTypes[`${questName}.${sceneName}`]) {
+      throw new Error(`No controller registered for ${questName}.${sceneName}`)
+    }
+    store[`${questName}.${sceneName}`] = new controllerTypes[`${questName}.${sceneName}`](store, questName)
+  }
+  return store[`${questName}.${sceneName}`]
+}
+
+const destroySceneConroller = (questName: string, sceneName: string) => {
+  delete store[`${questName}.${sceneName}`]
+}

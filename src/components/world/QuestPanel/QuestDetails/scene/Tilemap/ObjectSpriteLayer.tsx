@@ -1,27 +1,28 @@
-import { Container } from '@inlet/react-pixi';
-import { Container as PixiContainer } from 'pixi.js';
-import { isAdventurer, isEnemy, SceneObject } from 'store/types/scene';
-import SceneAdventurer from '../SceneAdventurer';
-import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
-import { TiledObjectType } from 'utils/tilemap';
-import SceneEnemy from '../SceneEnemy';
-import { useRef } from 'react';
+import { Container } from '@pixi/react'
+import { type Container as PixiContainer } from 'pixi.js'
+import { isAdventurer, isEnemy, type SceneObject } from 'store/types/scene'
+import SceneAdventurer from '../SceneAdventurer'
+import { type BaseSceneController } from 'mechanics/scenes/BaseSceneController'
+import { TiledObjectType } from 'utils/tilemap'
+import SceneEnemy from '../SceneEnemy'
+import { useRef } from 'react'
 
-interface Props {
-  objects: SceneObject[];
-  controller: BaseSceneController<unknown>;
-  selectedActorId: string;
+type Props = {
+  objects: SceneObject[]
+  controller: BaseSceneController<unknown>
+  selectedActorId: string
 }
 
 const ObjectSpriteLayer = (props: Props) => {
-  const { objects, controller } = props;
-  const ref = useRef<PixiContainer>(null);
+  const { objects, controller } = props
+  const ref = useRef<PixiContainer>(null)
 
   return (
     <Container sortableChildren ref={ref}>
       {objects.map((object) => {
-        const { location } = object;
-        const { adventurerId } = object.properties as { [key: string]: string };
+        const { location } = object
+        const { adventurerId } = object.properties as Record<string, string>
+
         switch (object.type) {
           case TiledObjectType.actor: {
             if (isAdventurer(object)) {
@@ -33,7 +34,7 @@ const ObjectSpriteLayer = (props: Props) => {
                   key={adventurerId}
                   selected={props.selectedActorId === object.adventurerId }
                 />
-              );
+              )
             } else if (isEnemy(object)) {
               return (
                 <SceneEnemy
@@ -45,17 +46,17 @@ const ObjectSpriteLayer = (props: Props) => {
                   lookAt={[4, 3]}
                   selected={props.selectedActorId === object.enemyId }
                 />
-              );
+              )
             }
-            break;
+            break
           }
           default:
-            return null;
+            return null
         }
-        return null;
+        return null
       })}
     </Container>
-  );
-};
+  )
+}
 
-export default ObjectSpriteLayer;
+export default ObjectSpriteLayer

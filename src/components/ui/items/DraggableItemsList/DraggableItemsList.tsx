@@ -1,17 +1,16 @@
-import * as React from 'react';
-import { Item } from 'definitions/items/types';
-import { DragSourceType } from 'constants/dragging';
-import DraggableItemIcon from '../DraggableItemIcon';
-import ItemText from './ItemText';
-import { ReactNode } from 'react';
-import './styles/itemsList.scss';
+import { type Item } from 'definitions/items/types'
+import { type DragSourceType } from 'constants/dragging'
+import DraggableItemIcon from '../DraggableItemIcon'
+import ItemText from './ItemText'
+import { type ReactNode } from 'react'
+import './styles/itemsList.scss'
 
-export interface Props {
-  className?: string;
-  items: Item[];
-  sourceType: DragSourceType;
-  sourceId?: string;
-  slots?: number; // optionally always show this amount of slots
+export type Props = {
+  className?: string
+  items: Item[]
+  sourceType: DragSourceType
+  sourceId?: string
+  slots?: number // optionally always show this amount of slots
   renderButton?: (item: Item, index: number) => ReactNode
 }
 
@@ -19,21 +18,20 @@ export interface Props {
  * The ItemsList displays a list of items vertically. Shows icon and description
  */
 const DraggableItemsList = (props: Props) => {
-  const { renderButton, items } = props;
-  const className = `items-list ${props.className ?? ''}`;
-  const slots = props.slots ?? items.length;
-
+  const { renderButton, items } = props
+  const className = `items-list ${props.className ?? ''}`
+  const slots = props.slots ?? items.length
   return (
     <ul className={className} >
-      {[...Array(slots)].map((_, index )=> {
-        const item = items[index];
+      {[...Array(slots)].map((_, index) => {
+        const item = items[index]
         return (
           <li
-            key={`${item}${index}`}
+            key={`${item?.type}${index}`}
             className="item-row"
           >
             <div className="item-placeholder" />
-            { item && (
+            {item !== undefined && (
               <>
                 <DraggableItemIcon
                   item={item}
@@ -42,14 +40,14 @@ const DraggableItemsList = (props: Props) => {
                   sourceType={props.sourceType}
                 />
                 <ItemText item={item} />
+                { renderButton?.(item, index) }
               </>
             )}
-            { (item && renderButton) && renderButton(item, index) }
           </li>
-        );
+        )
       })}
     </ul>
-  );
-};
+  )
+}
 
-export default DraggableItemsList;
+export default DraggableItemsList

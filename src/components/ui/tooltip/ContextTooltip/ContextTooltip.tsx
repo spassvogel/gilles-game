@@ -1,53 +1,53 @@
-import { ReactNode, useEffect, useState } from 'react';
-import { ContextType } from 'constants/context';
-import { TooltipManager, Context, EVENT_CONTEXT_UPDATED } from 'global/TooltipManager';
-import { TextManager } from 'global/TextManager';
-import ItemContext from './context/ItemContext';
-import { ItemDefinition, Item } from 'definitions/items/types';
-import { Resource } from 'definitions/resources';
-import ResourceContext from './context/ResourceContext';
-import Tooltip from '../Tooltip';
-import { TraitDefinition } from 'definitions/traits/types';
-import TraitContext from './context/TraitContext';
-import { getDefinition } from 'definitions/items';
-import AttributeContext from './context/AttributeContext';
-import { ActorObject } from 'store/types/scene';
-import ActorContext from './context/ActorContext';
-import TempEffectContext from './context/TempEffectContext';
-import { ExtendedAttribute } from 'mechanics/adventurers/attributes';
-import { TempEffect } from 'definitions/tempEffects/types';
-import { getItemNameClassName } from './utils';
-import { WeaponType } from 'definitions/weaponTypes/types';
-import './styles/contextTooltip.scss';
+import { type ReactNode, useEffect, useState } from 'react'
+import { ContextType } from 'constants/context'
+import { TooltipManager, type Context, EVENT_CONTEXT_UPDATED } from 'global/TooltipManager'
+import { TextManager } from 'global/TextManager'
+import ItemContext from './context/ItemContext'
+import { type Item } from 'definitions/items/types'
+import { type Resource } from 'definitions/resources'
+import ResourceContext from './context/ResourceContext'
+import Tooltip from '../Tooltip'
+import { type TraitDefinition } from 'definitions/traits/types'
+import TraitContext from './context/TraitContext'
+import { getDefinition } from 'definitions/items'
+import AttributeContext from './context/AttributeContext'
+import { type ActorObject } from 'store/types/scene'
+import ActorContext from './context/ActorContext'
+import TempEffectContext from './context/TempEffectContext'
+import { type ExtendedAttribute } from 'mechanics/adventurers/attributes'
+import { type TempEffect } from 'definitions/tempEffects/types'
+import { getItemNameClassName } from './utils'
+import { type WeaponType } from 'definitions/weaponTypes/types'
+
+import './styles/contextTooltip.scss'
 
 // A contextual popup showing what you just clicked.
 // Can be an Item, Resource, Trait, skill, etc
 const ContextTooltip = () => {
-
-  const [selectedContext, setSelectedContext] = useState<Context | undefined>();
+  const [selectedContext, setSelectedContext] = useState<Context | undefined>()
 
   const tooltipUpdated = (context: Context | undefined) => {
-    setSelectedContext(context);
-  };
+    setSelectedContext(context)
+  }
   useEffect(() => {
-    TooltipManager.instance.addListener(EVENT_CONTEXT_UPDATED, tooltipUpdated);
+    TooltipManager.instance.addListener(EVENT_CONTEXT_UPDATED, tooltipUpdated)
     return () => {
-      TooltipManager.instance.removeListener(EVENT_CONTEXT_UPDATED, tooltipUpdated);
-    };
-  }, []);
-  if (!selectedContext) { return null; }
+      TooltipManager.instance.removeListener(EVENT_CONTEXT_UPDATED, tooltipUpdated)
+    }
+  }, [])
+  if (selectedContext === undefined) { return null }
 
-  const { info, type, className, source } = selectedContext;
+  const { info, type, className, source } = selectedContext
   const renderContent = () => {
     switch (type) {
       case ContextType.actor: {
         return (
           <ActorContext actorObject={info as ActorObject} />
-        );
+        )
       }
       case ContextType.attribute: {
-        const extendedAttribute = info as ExtendedAttribute;
-        const name = TextManager.getAttributeName(extendedAttribute.attribute);
+        const extendedAttribute = info as ExtendedAttribute
+        const name = TextManager.getAttributeName(extendedAttribute.attribute)
         return (
           <>
             <div className="header">
@@ -58,11 +58,11 @@ const ContextTooltip = () => {
             </div>
             <AttributeContext extendedAttribute={extendedAttribute} />
           </>
-        );
+        )
       }
       case ContextType.tempEffect: {
-        const effect = info as TempEffect;
-        const name = TextManager.getTempEffectName(effect);
+        const effect = info as unknown as TempEffect
+        const name = TextManager.getTempEffectName(effect)
         return (
           <>
             <div className="header">
@@ -73,10 +73,10 @@ const ContextTooltip = () => {
             </div>
             <TempEffectContext effect={effect} />
           </>
-        );
+        )
       }
       case ContextType.resource: {
-        const name = TextManager.getResourceName(info as Resource);
+        const name = TextManager.getResourceName(info as Resource)
         return (
           <>
             <div className="header">
@@ -87,12 +87,12 @@ const ContextTooltip = () => {
             </div>
             <ResourceContext info={info as string} />
           </>
-        );
+        )
       }
       case ContextType.item: {
-        const item = info as Item;
-        const name = TextManager.getItemName(item.type);
-        const itemDefinition = getDefinition(item.type) as ItemDefinition;
+        const item = info as Item
+        const name = TextManager.getItemName(item.type)
+        const itemDefinition = getDefinition(item.type)
         return (
           <>
             <div className="header">
@@ -103,11 +103,11 @@ const ContextTooltip = () => {
             </div>
             <ItemContext item={item} source={source} />
           </>
-        );
+        )
       }
       case ContextType.trait: {
-        const traitDefinition = info as TraitDefinition;
-        const name = TextManager.getTraitName(traitDefinition.trait);
+        const traitDefinition = info as TraitDefinition
+        const name = TextManager.getTraitName(traitDefinition.trait)
         return (
           <>
             <div className="name trait">
@@ -116,11 +116,11 @@ const ContextTooltip = () => {
             </div>
             <TraitContext traitDefinition={traitDefinition} />
           </>
-        );
+        )
       }
       case ContextType.skill: {
-        const skill = info as WeaponType;
-        const name = TextManager.getSkillName(skill);
+        const skill = info as WeaponType
+        const name = TextManager.getSkillName(skill)
         return (
           <>
             <div className="name skill">
@@ -129,17 +129,17 @@ const ContextTooltip = () => {
             </div>
             { TextManager.getSkillInfo(skill)}
           </>
-        );
+        )
       }
       case ContextType.component: {
-        const component = info as ReactNode;
-        return component;
+        const component = info as ReactNode
+        return component
       }
       default: {
-        throw new Error(`Unknown context type ${selectedContext.type}`);
+        throw new Error(`Unknown context type ${selectedContext.type}`)
       }
     }
-  };
+  }
 
   return (
     <Tooltip referenceRect={selectedContext.referenceRect} className={className}>
@@ -147,6 +147,6 @@ const ContextTooltip = () => {
         {renderContent()}
       </div>
     </Tooltip>
-  );
-};
-export default ContextTooltip;
+  )
+}
+export default ContextTooltip

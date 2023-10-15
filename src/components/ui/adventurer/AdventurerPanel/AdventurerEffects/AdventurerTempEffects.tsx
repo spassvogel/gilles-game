@@ -1,32 +1,32 @@
-import React, { Fragment } from 'react';
-import { useAdventurer } from 'hooks/store/adventurers';
-import { TextManager } from 'global/TextManager';
-import { ContextType } from 'constants/context';
-import { TooltipManager } from 'global/TooltipManager';
-import EffectIcon from './EffectIcon';
-import { TempEffect } from 'definitions/tempEffects/types';
-import './styles/adventurerEffects.scss';
+import React, { Fragment } from 'react'
+import { useAdventurer } from 'hooks/store/adventurers'
+import { TextManager } from 'global/TextManager'
+import { TooltipManager } from 'global/TooltipManager'
+import EffectIcon from './EffectIcon'
+import { type TempEffect } from 'definitions/tempEffects/types'
+import './styles/adventurerEffects.scss'
+import { ContextType } from 'constants/context'
 
-interface Props {
-  adventurerId: string;
+type Props = {
+  adventurerId: string
 
 }
 
 // Shows temp effects
 const AdventurerTempEffects = (props: Props) => {
-  const adventurer = useAdventurer(props.adventurerId);
+  const adventurer = useAdventurer(props.adventurerId)
 
   const renderEffect = (effect: TempEffect) => {
-    // const effectDefinition = getDefinition(effect.type);
+    // const effectDefinition = getDefinition(effect.type)
 
     const handleClick = (event: React.MouseEvent) => {
-      const origin = (event.currentTarget as HTMLElement).querySelector('.name');
-      if (!origin) return;
-      const originRect = origin.getBoundingClientRect();
+      const origin = (event.currentTarget as HTMLElement).querySelector('.name')
+      if (origin == null) return
+      const originRect = origin.getBoundingClientRect()
 
-      TooltipManager.showContextTooltip(ContextType.tempEffect, effect, originRect);
-      event.stopPropagation();
-    };
+      TooltipManager.showContextTooltip(ContextType.tempEffect, effect, originRect)
+      event.stopPropagation()
+    }
     return (
       <Fragment key={effect.type}>
         <li onClick={handleClick}>
@@ -36,20 +36,20 @@ const AdventurerTempEffects = (props: Props) => {
           </div>
         </li>
       </Fragment>
-    );
-  };
+    )
+  }
 
-  if (!adventurer?.tempEffects) {
-    return null;
+  if (adventurer?.tempEffects === undefined) {
+    return null
   }
   return (
     <>
       <p>{TextManager.get('ui-adventurer-info-effects-title')}</p>
       <ul className="adventurer-effects">
-        {adventurer.tempEffects && adventurer.tempEffects.map((effect)=> renderEffect(effect))}
+        {adventurer.tempEffects?.map((effect) => renderEffect(effect))}
       </ul>
     </>
-  );
-};
+  )
+}
 
-export default AdventurerTempEffects;
+export default AdventurerTempEffects

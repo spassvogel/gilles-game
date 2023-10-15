@@ -1,27 +1,27 @@
-import { Fragment, PropsWithChildren } from 'react';
-import { TiledMapData, TiledLayerType } from 'constants/tiledMapData';
-import { Container } from '@inlet/react-pixi';
-import RectTileLayer from 'components/pixi/tile/RectTileLayer';
-import * as PIXI from 'pixi.js';
-import ObjectTileLayer from 'components/pixi/tile/ObjectTileLayer';
-import { SceneObject } from 'store/types/scene';
-import ObjectSpriteLayer from './ObjectSpriteLayer';
-import { BaseSceneController } from 'mechanics/scenes/BaseSceneController';
-import { Props as SceneProps } from '../Scene';
-import { getLayerObjects } from './utils';
-import SceneEffectLayer from './SceneEffectLayer';
+import { Fragment, type PropsWithChildren } from 'react'
+import { type TiledMapData, TiledLayerType } from 'constants/tiledMapData'
+import { Container } from '@pixi/react'
+import RectTileLayer from 'components/pixi/tile/RectTileLayer'
+import type * as PIXI from 'pixi.js'
+import ObjectTileLayer from 'components/pixi/tile/ObjectTileLayer'
+import { type SceneObject } from 'store/types/scene'
+import ObjectSpriteLayer from './ObjectSpriteLayer'
+import { type BaseSceneController } from 'mechanics/scenes/BaseSceneController'
+import { type Props as SceneProps } from '../Scene'
+import { getLayerObjects } from './utils'
+import SceneEffectLayer from './SceneEffectLayer'
 
-interface Props extends SceneProps {
-  basePath: string;
-  data: TiledMapData;
-  spritesheets: { [key: string]: PIXI.Spritesheet }
-  objects: SceneObject[];
-  controller: BaseSceneController<unknown>;
-  selectedActorId: string;
-}
+type Props = {
+  basePath: string
+  data: TiledMapData
+  spritesheets: Record<string, PIXI.Spritesheet>
+  objects: SceneObject[]
+  controller: BaseSceneController<unknown>
+  selectedActorId: string
+} & SceneProps
 
 const Tilemap = (props: PropsWithChildren<Props>) => {
-  const { data, objects, controller, spritesheets, selectedActorId } = props;
+  const { data, objects, controller, spritesheets, selectedActorId } = props
 
   return (
     <Container >
@@ -29,26 +29,26 @@ const Tilemap = (props: PropsWithChildren<Props>) => {
         .filter(l => l.visible)
         .map(layer => {
           if (layer.type === TiledLayerType.objectgroup) {
-            const { tileObjects, spriteObjects } = getLayerObjects(objects, layer);
+            const { tileObjects, spriteObjects } = getLayerObjects(objects, layer)
             return (
               <Fragment key={layer.name}>
-                { !!tileObjects.length && (
+                { tileObjects.length > 0 && (
                   <ObjectTileLayer
                     objects={tileObjects}
-                    tilesets={data.tilesets || []}
+                    tilesets={data.tilesets ?? []}
                     spritesheets={spritesheets}
                   />
                 )}
-                { !!spriteObjects.length && (
+                { spriteObjects.length > 0 && (
                   <ObjectSpriteLayer
                     key={layer.name}
-                    objects={spriteObjects || []}
+                    objects={spriteObjects ?? []}
                     controller={controller}
                     selectedActorId={selectedActorId}
                   />
                 )}
               </Fragment>
-            );
+            )
           }
           if (layer.type === TiledLayerType.tilelayer) {
             return (
@@ -59,15 +59,14 @@ const Tilemap = (props: PropsWithChildren<Props>) => {
                 tilesets={data.tilesets}
                 spritesheets={spritesheets}
               />
-            );
+            )
           }
-          return null;
+          return null
         })
       }
       <SceneEffectLayer controller={controller} />
     </Container>
-  );
-};
+  )
+}
 
-export default Tilemap;
-
+export default Tilemap

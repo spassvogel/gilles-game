@@ -1,17 +1,19 @@
-import { Reducer } from 'redux';
-import { State as seedrandomStateType } from 'seedrandom';
-import { GameTickActionExt } from 'store/middleware/gameTick';
+import { type Reducer } from 'redux'
+import { type GameTickActionExt } from 'store/middleware/gameTick'
+import { type SeedRandomState } from 'store/types/seedRandom'
 
-export const initialRngState = {};
+export const initialRngState = {
+  i: 0, j: 0, S: []
+}
+
 /**
  * reducer
  * @param state
  * @param action
  */
-// eslint-disable-next-line @typescript-eslint/default-param-last
-export const rngState: Reducer<seedrandomStateType, GameTickActionExt> = (state = initialRngState, action) => {
+export const rngState: Reducer<SeedRandomState, GameTickActionExt> = (state = initialRngState, action) => {
   if (action.type === 'gameTick' && action.rngState != null) {
-    state = Object.assign({}, action.rngState);
+    state = Object.assign({}, action.rngState)
   }
-  return state;
-};
+  return state ?? initialRngState
+}

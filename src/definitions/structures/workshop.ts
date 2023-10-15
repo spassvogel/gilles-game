@@ -1,20 +1,20 @@
-import { ONE_MINUTE, THREE_MINUTES, TWO_MINUTES } from 'utils/format/time';
-import { ProductionStructureDefinition, StructureType } from './types';
+import { ONE_MINUTE, THREE_MINUTES, TWO_MINUTES } from 'utils/format/time'
+import { type ProductionStructureDefinition, StructureType } from './types'
 
 const workshop: ProductionStructureDefinition = {
   type: StructureType.production,
   cost: {
     gold: 40,
-    time: 4000,
+    time: 4000
   },
   levels: [{
     // level 1:
     displayName: 'structure-workshop-name',
     workerCapacity: 2,
     cost: {
-      gold: 0,
+      gold: 0
     },
-    unlocks: [ ],
+    unlocks: []
   }, {
     // level 2:
     displayName: 'structure-workshop-name',
@@ -24,29 +24,29 @@ const workshop: ProductionStructureDefinition = {
       resources: {
         wood: 100,
         iron: 100,
-        stone: 100,
+        stone: 100
       },
-      time: ONE_MINUTE,
+      time: ONE_MINUTE
     },
-    unlocks: [],
+    unlocks: []
   }, {
     // level 3:
     displayName: 'structure-workshop-name',
     workerCapacity: 10,
     cost: {
       gold: 50,
-      time: TWO_MINUTES,
+      time: TWO_MINUTES
     },
-    unlocks: [],
+    unlocks: []
   }, {
     // level 4:
     displayName: 'structure-workshop-name',
     workerCapacity: 14,
     cost: {
       gold: 50,
-      time: THREE_MINUTES,
+      time: THREE_MINUTES
     },
-    unlocks: [],
-  }],
-};
-export default workshop;
+    unlocks: []
+  }]
+}
+export default workshop

@@ -1,45 +1,50 @@
-import { Merge } from 'type-fest';
-import { TextManager } from 'global/TextManager';
-import AccordionItem, { Props as AccordionItemProps } from 'components/ui/accordion/AccordionItem';
-import { useEnemyActorObject, useQuest } from 'hooks/store/quests';
-import { getDefinition } from 'definitions/enemies';
-import { generateBaseAttributes, MAX_VALUE } from 'mechanics/adventurers/attributes';
-import Attributes from 'components/ui/attributes/AttributeList';
-import CombatAttributes from 'components/ui/tooltip/ContextTooltip/context/ActorContext/CombatAttributes';
-import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
-import { PlainProgressbar } from 'components/ui/common/progress';
-import { roundIfNeeded } from 'utils/format/number';
-import { CSSProperties, useMemo } from 'react';
-import { Allegiance, isEnemy } from 'store/types/scene';
+import { type Merge } from 'type-fest'
+import { TextManager } from 'global/TextManager'
+import AccordionItem, { type Props as AccordionItemProps } from 'components/ui/accordion/AccordionItem'
+import { useEnemyActorObject, useQuest } from 'hooks/store/quests'
+import { getDefinition } from 'definitions/enemies'
+import { generateBaseAttributes, MAX_VALUE } from 'mechanics/adventurers/attributes'
+import Attributes from 'components/ui/attributes/AttributeList'
+
+import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints'
+import { PlainProgressbar } from 'components/ui/common/progress'
+import { roundIfNeeded } from 'utils/format/number'
+import { type CSSProperties, useMemo } from 'react'
+import { Allegiance, isEnemy } from 'store/types/scene'
+import CombatAttributes from 'components/ui/tooltip/ContextTooltip/context/ActorContext/CombatAttributes'
 
 type Props = Merge<Omit<AccordionItemProps, 'id' | 'title'>, {
-  enemyId: string;
-  selected: boolean;
-  questName: string;
-}>;
+  enemyId: string
+  selected: boolean
+  questName: string
+}>
 
-const style = { '--item-count': MAX_VALUE } as CSSProperties;
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+const style = { '--item-count': MAX_VALUE } as CSSProperties
 
 const ActorsAccordionEnemyItem = (props: Props) => {
-  const { enemyId, selected, questName, ...rest } = props;
-  const actorObject = useEnemyActorObject(questName, enemyId);
-  const quest = useQuest(questName);
-  if (!actorObject) throw new Error(`No actor found with id ${enemyId}`);
-  const definition = getDefinition(actorObject.enemyType);
-  const level = actorObject.level ?? 1;
-  const extendedAttributes = generateBaseAttributes(definition.attributes);
-  const attributes = definition.attributes;
-  const baseHP = calculateBaseHitpoints(level, attributes.for);
-  const health = actorObject.health;
-  const label = health > 0 ? `${roundIfNeeded(Math.max(health, 0))}/${baseHP}` : TextManager.get('ui-adventurer-info-dead');
-  const apDisplay = health > 0 ? TextManager.get('ui-actor-info-ap', { ap: actorObject?.ap }) : TextManager.get('ui-actor-info-ap-dead');
-  const apActive = health > 0 && quest.scene?.turn === Allegiance.enemy;
-  
+  const { enemyId, selected, questName, ...rest } = props
+  const actorObject = useEnemyActorObject(questName, enemyId)
+  const quest = useQuest(questName)
+  if (actorObject === undefined) {
+    throw new Error(`No actor found with id ${enemyId}`)
+  }
+
+  const definition = getDefinition(actorObject.enemyType)
+  const level = actorObject.level ?? 1
+  const extendedAttributes = generateBaseAttributes(definition.attributes)
+  const attributes = definition.attributes
+  const baseHP = calculateBaseHitpoints(level, attributes.for)
+  const health = actorObject.health
+  const label = health > 0 ? `${roundIfNeeded(Math.max(health, 0))}/${baseHP}` : TextManager.get('ui-adventurer-info-dead')
+  const apDisplay = health > 0 ? TextManager.get('ui-actor-info-ap', { ap: actorObject?.ap }) : TextManager.get('ui-actor-info-ap-dead')
+  const apActive = health > 0 && quest.scene?.turn === Allegiance.enemy
+
   const currentlyDoingAnAction = useMemo(() => {
-    const action = (quest.scene?.actionQueue ?? [])[0];
-    if (!action) return false;
-    return isEnemy(action.intent.actor) && action.intent.actor.enemyId === enemyId;
-  }, [enemyId, quest.scene?.actionQueue]);
+    const action = (quest.scene?.actionQueue ?? [])[0]
+    if (action === undefined) return false
+    return isEnemy(action.intent.actor) && action.intent.actor.enemyId === enemyId
+  }, [enemyId, quest.scene?.actionQueue])
 
   return (
     <AccordionItem
@@ -69,7 +74,7 @@ const ActorsAccordionEnemyItem = (props: Props) => {
         <CombatAttributes attributes={attributes} level={level} />
       </div>
     </AccordionItem>
-  );
-};
+  )
+}
 
-export default ActorsAccordionEnemyItem;
+export default ActorsAccordionEnemyItem

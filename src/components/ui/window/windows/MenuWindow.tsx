@@ -1,57 +1,55 @@
-import { Props as WindowProps } from 'components/ui/window/Window';
-import { AppContextProps, withAppContext } from 'hoc/withAppContext';
-import { withWindow } from 'hoc/withWindow';
-import * as React from 'react';
-import { compose } from 'redux';
-import SettingsWindow from './SettingsWindow';
-import CheatWindow from './CheatWindow';
-import { useSelector } from 'react-redux';
-import { StoreState } from 'store/types';
-import Button from 'components/ui/buttons/Button';
-import GameStats from 'components/ui/game/GameStats';
-import SaveAndLoadWindow from './SaveAndLoadWindow';
-import './styles/menu.scss';
+import { useSelector } from 'react-redux'
+import { type StoreState } from 'store/types'
+import Button from 'components/ui/buttons/Button'
+import GameStats from 'components/ui/game/GameStats'
+import { useContext } from 'react'
+import { appContext } from 'components/App/context'
+import { TextManager } from 'global/TextManager'
+import CheatWindow from './CheatWindow'
+import SettingsWindow from './SettingsWindow'
+import SaveAndLoadWindow from './SaveAndLoadWindow'
+import Window from '../Window'
 
+import './styles/menu.scss'
 
-type AllProps = WindowProps;
-const Menu = (props: AllProps & AppContextProps) => {
+const Menu = () => {
+  const app = useContext(appContext)
 
-  const storeState = useSelector<StoreState, StoreState>(state => state);
+  const storeState = useSelector<StoreState, StoreState>(state => state)
 
   const handleClickCheats = () => {
-    const window = <CheatWindow title="Cheats" />;
-    props.onOpenWindow(window);
-  };
+    const window = <CheatWindow />
+    app?.onOpenWindow(window)
+  }
 
   const handleClickSettings = () => {
-    const window = <SettingsWindow title="Settings" />;
-    props.onOpenWindow(window);
-  };
+    const window = <SettingsWindow />
+    app?.onOpenWindow(window)
+  }
 
   const handleClickSaveAndLoad = () => {
-    const window = <SaveAndLoadWindow title="Save and Load" />;
-    props.onOpenWindow(window);
-  };
+    const window = <SaveAndLoadWindow />
+    app?.onOpenWindow(window)
+  }
 
   return (
-    <div className="menu">
-      <p>
-        <Button onClick={handleClickSaveAndLoad}>Save and load</Button>
-      </p>
-      <p>
-        <Button onClick={handleClickCheats}>Cheats!</Button>
-      </p>
-      <p>
-        <Button onClick={handleClickSettings}>Settings</Button>
-      </p>
-      <div>
-        <GameStats state={storeState} />
+    <Window title={TextManager.get('ui-window-title-menu')}>
+      <div className="menu">
+        <p>
+          <Button onClick={handleClickSaveAndLoad}>Save and load</Button>
+        </p>
+        <p>
+          <Button onClick={handleClickCheats}>Cheats!</Button>
+        </p>
+        <p>
+          <Button onClick={handleClickSettings}>Settings</Button>
+        </p>
+        <div>
+          <GameStats state={storeState} />
+        </div>
       </div>
-    </div>
-  );
-};
+    </Window>
+  )
+}
 
-export default compose(
-  withWindow,
-  withAppContext,
-)(Menu) as React.ComponentType<AllProps>;
+export default Menu

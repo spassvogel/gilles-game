@@ -1,12 +1,10 @@
-import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
-import { Race } from 'constants/race';
-import { WeaponType } from 'definitions/weaponTypes/types';
-import { EnemyDefinition } from './types';
-const avatarImgBasePath = '/img/avatars/monster/';
+import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot'
+import { Race } from 'constants/race'
+import { WeaponType } from 'definitions/weaponTypes/types'
+import { type EnemyDefinition } from './types'
+const avatarImgBasePath = '/img/avatars/monster/'
 
-type TrollDefinition = {
-  [key: string]: EnemyDefinition
-};
+type TrollDefinition = Record<string, EnemyDefinition>
 
 const trolls: TrollDefinition = {
   'troll-developer': {
@@ -14,10 +12,10 @@ const trolls: TrollDefinition = {
       str: 6,
       for: 5,
       int: 16,
-      agi: 8,
+      agi: 8
     },
     skills: {
-      [WeaponType.sword]: 12,
+      [WeaponType.sword]: 12
     },
     mainHand: { type: 'weapon/steelSword' },
     armor: {
@@ -26,21 +24,21 @@ const trolls: TrollDefinition = {
       [EquipmentSlotType.chest]: 1,
       [EquipmentSlotType.legs]: 1,
       [EquipmentSlotType.head]: 1,
-      [EquipmentSlotType.shoulders]: 1,
+      [EquipmentSlotType.shoulders]: 1
     },
     spritesheet: 'SCENE_ACTOR_TROLL_SWORD',
     avatarImg: `${avatarImgBasePath}orc_01.png`,
-    race: Race.troll,
+    race: Race.troll
   },
   'troll-manager': {
     attributes: {
       str: 8,
       for: 7,
       int: 12,
-      agi: 20,
+      agi: 20
     },
     skills: {
-      [WeaponType.axe]: 12,
+      [WeaponType.axe]: 12
     },
     mainHand: { type: 'weapon/battleAxe' },
     armor: {
@@ -48,17 +46,17 @@ const trolls: TrollDefinition = {
     },
     spritesheet: 'SCENE_ACTOR_TROLL_AXE',
     avatarImg: `${avatarImgBasePath}orc_02.png`,
-    race: Race.troll,
+    race: Race.troll
   },
   'troll-accountant': {
     attributes: {
       str: 8,
       for: 7,
       int: 12,
-      agi: 10,
+      agi: 10
     },
     skills: {
-      [WeaponType.axe]: 12,
+      [WeaponType.axe]: 12
     },
     mainHand: { type: 'weapon/battleAxe' },
     armor: {
@@ -67,14 +65,13 @@ const trolls: TrollDefinition = {
       [EquipmentSlotType.chest]: 3,
       [EquipmentSlotType.legs]: 2,
       [EquipmentSlotType.head]: 2,
-      [EquipmentSlotType.shoulders]: 2,
+      [EquipmentSlotType.shoulders]: 2
     },
     spritesheet: 'SCENE_ACTOR_TROLL_AXE',
     avatarImg: `${avatarImgBasePath}orc_03.png`,
-    race: Race.troll,
-  },
-};
+    race: Race.troll
+  }
+}
 
-export default trolls;
-export type Troll = `${keyof typeof trolls}`;
-
+export default trolls
+export type Troll = `${keyof typeof trolls}`

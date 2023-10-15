@@ -1,13 +1,13 @@
-import { Effect } from 'definitions/effects/types';
-import getEffectDescription from '../TempEffectContext/getEffectDescription';
+import { type Effect } from 'definitions/effects/types'
+import getEffectDescription from '../TempEffectContext/getEffectDescription'
 
-interface Props {
-  effects: Effect[];
+type Props = {
+  effects: Effect[]
 }
 
 // Displays list of effects
 const Effects = (props: Props) => {
-  const { effects } = props;
+  const { effects } = props
   // const definition = getApparelDefinition(item.type)
 
   return (
@@ -18,7 +18,7 @@ const Effects = (props: Props) => {
         </li>
       ))}
     </ul>
-  );
-};
+  )
+}
 
-export default Effects;
+export default Effects

@@ -1,23 +1,23 @@
-import Tab from 'components/ui/tabs/Tab';
-import Tabstrip from 'components/ui/tabs/Tabstrip';
-import { ItemCategory } from 'definitions/items/types';
-import { TextManager } from 'global/TextManager';
-import { useState } from 'react';
-import { listEnum } from 'utils/typescript';
-import ammunition from 'definitions/items/ammunition';
-import apparel from 'definitions/items/apparel';
-import deeds from 'definitions/items/deeds';
-import herbs from 'definitions/items/herbs';
-import materials from 'definitions/items/materials';
-import minerals from 'definitions/items/minerals';
-import consumables from 'definitions/items/consumables';
-import questItems from 'definitions/items/questItems';
-import trinkets from 'definitions/items/trinkets';
-import weapons from 'definitions/items/weapons';
-import DebugItemsList from './DebugItemsList';
+import Tab from 'components/ui/tabs/Tab'
+import Tabstrip from 'components/ui/tabs/Tabstrip'
+import { ItemCategory } from 'definitions/items/types'
+import { TextManager } from 'global/TextManager'
+import { useState } from 'react'
+import { listEnum } from 'utils/typescript'
+import ammunition from 'definitions/items/ammunition'
+import apparel from 'definitions/items/apparel'
+import deeds from 'definitions/items/deeds'
+import herbs from 'definitions/items/herbs'
+import materials from 'definitions/items/materials'
+import minerals from 'definitions/items/minerals'
+import consumables from 'definitions/items/consumables'
+import questItems from 'definitions/items/questItems'
+import trinkets from 'definitions/items/trinkets'
+import weapons from 'definitions/items/weapons'
+import DebugItemsList from './DebugItemsList'
 
 const DebugItems = () => {
-  const [selected, setSelected] = useState<string>(`${listEnum(ItemCategory)[0]}`);
+  const [selected, setSelected] = useState<string>(`${listEnum(ItemCategory)[0]}`)
 
   return (
     <div className="debug-items content">
@@ -26,7 +26,7 @@ const DebugItems = () => {
           return (
           <Tab id={`${itemCategory}`} key={itemCategory}>
             {TextManager.getItemCategory(itemCategory)}
-          </Tab>);
+          </Tab>)
         })}
       </Tabstrip>
       <div className="items">
@@ -42,7 +42,7 @@ const DebugItems = () => {
         {selected === `${ItemCategory.weapon}` && <DebugItemsList items={weapons} />}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DebugItems;
+export default DebugItems

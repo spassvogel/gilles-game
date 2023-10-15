@@ -1,26 +1,26 @@
-import { getDefinition as getWeaponDefinition, Weapon } from 'definitions/items/weapons';
-import { TextManager } from 'global/TextManager';
-import ProduceOrStudy from '../common/ProduceOrStudy';
-import { Item } from 'definitions/items/types';
-import DamageList from './DamageList';
-import Effects from '../Effects';
-import { getDefinition as getWeaponTypeDefinition } from 'definitions/weaponTypes';
-import { WeaponType } from 'definitions/weaponTypes/types';
-import AbilitiesList from './AbilitiesList';
-import './styles/weaponContent.scss';
+import { getDefinition as getWeaponDefinition, type Weapon } from 'definitions/items/weapons'
+import { TextManager } from 'global/TextManager'
+import ProduceOrStudy from '../common/ProduceOrStudy'
+import { type Item } from 'definitions/items/types'
+import DamageList from './DamageList'
+import Effects from '../Effects'
+import { getDefinition as getWeaponTypeDefinition } from 'definitions/weaponTypes'
+import { WeaponType } from 'definitions/weaponTypes/types'
+import AbilitiesList from './AbilitiesList'
+import './styles/weaponContent.scss'
 
-interface Props {
-  item: Item<Weapon>;
+type Props = {
+  item: Item<Weapon>
 }
 
 const WeaponContent = (props: Props) => {
-  const { item } = props;
-  const definition = getWeaponDefinition(item.type);
+  const { item } = props
+  const definition = getWeaponDefinition(item.type)
 
-  const subtext = TextManager.getItemSubtext(item.type);
-  const weaponType = TextManager.getWeaponType(definition.weaponType);
-  const { classification } = getWeaponTypeDefinition(definition.weaponType);
-  const classificationText = TextManager.getWeaponClassification(classification);
+  const subtext = TextManager.getItemSubtext(item.type)
+  const weaponType = TextManager.getWeaponType(definition.weaponType)
+  const { classification } = getWeaponTypeDefinition(definition.weaponType)
+  const classificationText = TextManager.getWeaponClassification(classification)
 
   return (
     <div className="weapon-content">
@@ -28,7 +28,7 @@ const WeaponContent = (props: Props) => {
         {definition.weaponType !== WeaponType.shield && (` (${classificationText})`)}
       </div>
       <hr />
-      { definition.damage && <DamageList damage={definition.damage} /> }
+      { (definition.damage != null) && <DamageList damage={definition.damage} /> }
       { !!(definition.effects?.length) && (
         <Effects effects={definition.effects}/>
       )}
@@ -43,8 +43,7 @@ const WeaponContent = (props: Props) => {
         </>
       )}
     </div>
-  );
+  )
+}
 
-};
-
-export default WeaponContent;
+export default WeaponContent

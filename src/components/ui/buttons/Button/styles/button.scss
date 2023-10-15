@@ -1,4 +1,4 @@
-@import 'components/styles/import.scss';
+@import '@/components/styles/import.scss';
 
 $large-height: 77px;
 $large-margin: 46px;
@@ -48,7 +48,7 @@ $small-margin: 10px;
 
     span {
       font-size: large;
-      background-position: 0 -$large-height;
+      background-position: 0 - $large-height;
       margin: 0 $large-margin;
     }
 
@@ -72,7 +72,7 @@ $small-margin: 10px;
 
     span {
       font-size: medium;
-      background-position: 0 -$medium-height;
+      background-position: 0 - $medium-height;
       margin: 0 $medium-margin;
       height: $medium-height;
     }
@@ -112,7 +112,7 @@ $small-margin: 10px;
     line-height: $small-height;
 
     span {
-      background-position: 0 -$small-height;
+      background-position: 0 - $small-height;
       font-size: smaller;
       margin: 0 $small-margin;
     }
@@ -153,7 +153,7 @@ $small-margin: 10px;
       line-height: $small-height;
 
       span {
-        background-position: 0 -$small-height;
+        background-position: 0 - $small-height;
         font-size: smaller;
         margin: 0 $small-margin;
         height: $small-height;

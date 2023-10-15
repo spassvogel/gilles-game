@@ -1,4 +1,4 @@
-import { Resource } from 'definitions/resources';
+import { Resource } from 'definitions/resources'
 
 // Whenever a list of resource is shown, use this order
 export const resourceOrder = [
@@ -7,5 +7,5 @@ export const resourceOrder = [
   Resource.iron,
   Resource.stone,
   Resource.fabric,
-  Resource.leather,
-];
+  Resource.leather
+]

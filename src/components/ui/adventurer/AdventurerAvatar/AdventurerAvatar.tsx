@@ -1,13 +1,14 @@
-import Icon, { IconSize } from 'components/ui/common/Icon';
-import { AdventurerStoreState } from 'store/types/adventurer';
-import './styles/adventurerAvatar.scss';
+import Icon, { type IconSize } from 'components/ui/common/Icon'
+import { type AdventurerStoreState } from 'store/types/adventurer'
 
-export interface Props {
-  adventurer: AdventurerStoreState;
-  className?: string;
-  displayName?: boolean;
-  onClick?: (adventurerId: string) => void;
-  size?: IconSize;
+import './styles/adventurerAvatar.scss'
+
+export type Props = {
+  adventurer: AdventurerStoreState
+  className?: string
+  displayName?: boolean
+  onClick?: (adventurerId: string) => void
+  size?: IconSize
 }
 
 /**
@@ -16,16 +17,16 @@ export interface Props {
 const AdventurerAvatar = (props: Props) => {
   const {
     adventurer,
-    size,
-  } = props;
+    size
+  } = props
 
-  const className = `${(props.className || '')} avatar`;
+  const className = `${(props.className ?? '')} avatar`
 
   const handleClick = () => {
-    if (props.onClick) {
-      props.onClick(props.adventurer.id);
+    if (props.onClick != null) {
+      props.onClick(props.adventurer.id)
     }
-  };
+  }
   return (
     <Icon
       className={className}
@@ -33,7 +34,7 @@ const AdventurerAvatar = (props: Props) => {
       size={size}
       onClick={handleClick}
     />
-  );
-};
+  )
+}
 
-export default AdventurerAvatar;
+export default AdventurerAvatar

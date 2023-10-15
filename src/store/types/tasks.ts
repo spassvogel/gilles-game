@@ -1,7 +1,6 @@
-import { TaskStoreState } from './task';
+import { type TaskStoreState } from './task'
 
-export interface TasksStoreState {
-  running: TaskStoreState[];
-  completed: TaskStoreState[];
+export type TasksStoreState = {
+  running: TaskStoreState[]
+  completed: TaskStoreState[]
 }
-

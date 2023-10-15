@@ -1,1 +1,1 @@
-export { default, AppContext, MAX_WIDTH } from './App';
+export { default, MAX_WIDTH } from './App'

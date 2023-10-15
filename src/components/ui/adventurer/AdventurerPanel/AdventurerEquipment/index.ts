@@ -1,1 +1,1 @@
-export { default } from './AdventurerEquipment';
+export { default } from './AdventurerEquipment'

@@ -1,7 +1,7 @@
-import { Apparel } from 'definitions/items/apparel';
-import { QuestItem } from 'definitions/items/questItems';
-import { Item } from 'definitions/items/types';
-import { Weapon } from 'definitions/items/weapons';
+import { type Apparel } from 'definitions/items/apparel'
+import { type QuestItem } from 'definitions/items/questItems'
+import { type Item } from 'definitions/items/types'
+import { type Weapon } from 'definitions/items/weapons'
 
 export enum StructureState {
   NotBuilt,
@@ -9,18 +9,18 @@ export enum StructureState {
   Built,
 }
 
-export interface StructureStoreState {
-  level: number;
-  workers: number;
-  state: StructureState;
+export type StructureStoreState = {
+  level: number
+  workers: number
+  state: StructureState
 }
 
-export type ProducableItem = Weapon | Apparel | QuestItem;
+export type ProducableItem = Weapon | Apparel | QuestItem
 
-export interface ProductionStructureStoreState extends StructureStoreState {
-  produces: ProducableItem[];
-}
+export type ProductionStructureStoreState = {
+  produces: ProducableItem[]
+} & StructureStoreState
 
-export interface ResourceStructureState extends StructureStoreState {
-  harvest?: Item[]; // Items currently available for harvest at this structure
-}
+export type ResourceStructureState = {
+  harvest?: Item[] // Items currently available for harvest at this structure
+} & StructureStoreState

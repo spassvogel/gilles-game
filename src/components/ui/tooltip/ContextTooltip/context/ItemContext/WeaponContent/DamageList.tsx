@@ -1,13 +1,13 @@
-import { Fragment } from 'react';
-import { TextManager } from 'global/TextManager';
-import { DamageDefinition } from 'definitions/weaponTypes/types';
+import { Fragment } from 'react'
+import { TextManager } from 'global/TextManager'
+import { type DamageDefinition } from 'definitions/weaponTypes/types'
 
-interface Props {
-  damage: DamageDefinition;
+type Props = {
+  damage: DamageDefinition
 }
 
 const DamageList = (props: Props) => {
-  const { damage } = props;
+  const { damage } = props
   return (
     <dl>
       {Object.entries(damage).map(([dmgType, dmg]) => (
@@ -17,7 +17,7 @@ const DamageList = (props: Props) => {
         </Fragment>
       ))}
     </dl>
-  );
-};
+  )
+}
 
-export default DamageList;
+export default DamageList

@@ -1,1 +1,1 @@
-export { default } from './CombatUIWidget';
+export { default } from './CombatUIWidget'

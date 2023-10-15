@@ -1,2 +1,2 @@
-export { default } from './AdventurerAvatar';
-export type { Props } from './AdventurerAvatar';
+export { default } from './AdventurerAvatar'
+export type { Props } from './AdventurerAvatar'

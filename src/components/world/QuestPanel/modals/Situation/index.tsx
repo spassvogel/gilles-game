@@ -1,34 +1,34 @@
-import { MouseEvent, useRef, useContext } from 'react';
-import { TextManager } from 'global/TextManager';
-import { SceneControllerContext } from '../../context/SceneControllerContext';
-import Button from 'components/ui/buttons/Button';
-import '../styles/situation.scss';
-import '../styles/modal.scss';
+import { type MouseEvent, useRef, useContext } from 'react'
+import { TextManager } from 'global/TextManager'
+import { SceneControllerContext } from '../../context/SceneControllerContext'
+import Button from 'components/ui/buttons/Button'
+import '../styles/situation.scss'
+import '../styles/modal.scss'
 
-interface Props {
-  situation: string;
-  adventurerId: string;
-  onClose: () => void;
+type Props = {
+  situation: string
+  adventurerId: string
+  onClose: () => void
 }
 
 const Situation = (props: Props) => {
-  const controller = useContext(SceneControllerContext);
-  const ref = useRef<HTMLDivElement>(null);
-  const situation = controller?.getSituation(props.situation, props.adventurerId);
-  if (!situation) return null;
+  const controller = useContext(SceneControllerContext)
+  const ref = useRef<HTMLDivElement>(null)
+  const situation = controller?.getSituation(props.situation, props.adventurerId)
+  if (situation == null) return null
 
-  const { title, choices, text } = situation;
+  const { title, choices, text } = situation
   const handleChoiceClick = (e: MouseEvent<HTMLButtonElement>) => {
-    const choice = e.currentTarget.getAttribute('data-option');
-    if (!choice || !controller) return;
-    controller.handleSituationOptionClick(props.situation, choice, props.adventurerId);
-    e.stopPropagation();
-  };
+    const choice = e.currentTarget.getAttribute('data-option')
+    if (!choice || (controller == null)) return
+    controller.handleSituationOptionClick(props.situation, choice, props.adventurerId)
+    e.stopPropagation()
+  }
 
   const handleClose = (e: MouseEvent<HTMLDivElement>) => {
-    props.onClose();
-    e.stopPropagation();
-  };
+    props.onClose()
+    e.stopPropagation()
+  }
   return (
     <div className='interaction-modal situation' ref={ref}>
       <div className="header">
@@ -44,7 +44,7 @@ const Situation = (props: Props) => {
       ))}
     </div>
     </div>
-  );
-};
+  )
+}
 
-export default Situation;
+export default Situation

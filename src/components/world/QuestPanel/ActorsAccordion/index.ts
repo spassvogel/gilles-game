@@ -1,2 +1,1 @@
-export  { default } from './ActorsAccordion';
-
+export { default } from './ActorsAccordion'

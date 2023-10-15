@@ -1,23 +1,24 @@
-import { AdventurerStoreState } from 'store/types/adventurer';
-import { SOURCE_ID } from '../TavernStructureView';
-import AdventurerButton from './AdventurerButton';
-import { TextManager } from 'global/TextManager';
-import DraggableAdventurerAvatar from 'components/ui/adventurer/DraggableAdventurerAvatar';
-import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel';
-import { renameAdventurer } from 'store/actions/adventurers';
-import { useDispatch } from 'react-redux';
-import './styles/tavernAdventurerDetails.scss';
+import { type AdventurerStoreState } from 'store/types/adventurer'
+import { SOURCE_ID } from '../TavernStructureView'
+import AdventurerButton from './AdventurerButton'
+import { TextManager } from 'global/TextManager'
+import DraggableAdventurerAvatar from 'components/ui/adventurer/DraggableAdventurerAvatar'
+import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel'
+import { renameAdventurer } from 'store/actions/adventurers'
+import { useDispatch } from 'react-redux'
 
-export interface Props {
-  adventurer: AdventurerStoreState;
-  onQuest: boolean;
-  assignedAventurers: AdventurerStoreState[];
-  expanded: boolean;
-  selectedQuestName?: string;
+import './styles/tavernAdventurerDetails.scss'
 
-  onClick: (adventurer: AdventurerStoreState) => void;
-  onAddAdventurer: (adventurer: AdventurerStoreState, index: number) => void;
-  onRemoveAdventurer: (adventurer: AdventurerStoreState) => void;
+export type Props = {
+  adventurer: AdventurerStoreState
+  onQuest: boolean
+  assignedAventurers: AdventurerStoreState[]
+  expanded: boolean
+  selectedQuestName?: string
+
+  onClick: (adventurer: AdventurerStoreState) => void
+  onAddAdventurer: (adventurer: AdventurerStoreState, index: number) => void
+  onRemoveAdventurer: (adventurer: AdventurerStoreState) => void
 }
 
 // Room block that has adventurer
@@ -30,25 +31,25 @@ const RoomWithAdventurer = (props: Props) => {
     selectedQuestName,
     onClick,
     onAddAdventurer,
-    onRemoveAdventurer,
-  } = props;
+    onRemoveAdventurer
+  } = props
 
-  const dispatch = useDispatch();
-  const assigned = assignedAventurers.indexOf(adventurer) > -1; // assigned to a quest in the QuestBoard
+  const dispatch = useDispatch()
+  const assigned = assignedAventurers.includes(adventurer) // assigned to a quest in the QuestBoard
 
   const handleRename = (e: React.MouseEvent<HTMLSpanElement>) => {
-    e.stopPropagation();
-    const name = prompt('Enter new name', adventurer.name);
-    if (name && name !== adventurer.name) {
-      dispatch(renameAdventurer(adventurer.id, name));
+    e.stopPropagation()
+    const name = prompt('Enter new name', adventurer.name)
+    if (name !== null && name !== adventurer.name) {
+      dispatch(renameAdventurer(adventurer.id, name))
     }
-  };
+  }
 
   return (
     <>
       <div
         className={`room ${expanded ? 'expanded' : ''}`}
-        onClick={() => onClick(adventurer)}
+        onClick={() => { onClick(adventurer) }}
       >
         <DraggableAdventurerAvatar
           disabled={assigned || onQuest}
@@ -70,7 +71,7 @@ const RoomWithAdventurer = (props: Props) => {
       { expanded && (
         <div className="adventurer-details tavern-adventurer-details">
           <AdventurerPanel adventurerId={adventurer.id} name={false} />
-          { (!onQuest && selectedQuestName) && (
+          { (!onQuest && selectedQuestName !== undefined) && (
             <AdventurerButton
               adventurer={adventurer}
               assignedAventurers={assignedAventurers}
@@ -82,7 +83,7 @@ const RoomWithAdventurer = (props: Props) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default RoomWithAdventurer;
+export default RoomWithAdventurer

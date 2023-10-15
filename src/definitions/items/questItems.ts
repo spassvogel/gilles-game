@@ -1,126 +1,124 @@
-import { ItemType, ItemDefinition, ItemCategory } from './types';
+import { type ItemType, type ItemDefinition, ItemCategory } from './types'
 
-type Prefix = 'questItem/';
-const PREFIX = 'questItem/';
-const itemCategory = ItemCategory.questItem;
-const basePath = '/img/items/quest-items/';
-
+type Prefix = 'questItem/'
+const PREFIX = 'questItem/'
+const itemCategory = ItemCategory.questItem
+const basePath = '/img/items/quest-items/'
 
 const questItems = {
   blueprints: {
     itemCategory,
-    iconImg: `${basePath}blueprints.png`,
+    iconImg: `${basePath}blueprints.png`
   },
   crate: {
     itemCategory,
-    iconImg: `${basePath}crate.png`,
+    iconImg: `${basePath}crate.png`
   },
   dynamite: {
     itemCategory,
-    iconImg: `${basePath}dynamite.png`,
+    iconImg: `${basePath}dynamite.png`
   },
   dragonEye: {
     itemCategory,
-    iconImg: `${basePath}dragon-eye.png`,
+    iconImg: `${basePath}dragon-eye.png`
   },
   eye: {
     itemCategory,
-    iconImg: `${basePath}eye.png`,
+    iconImg: `${basePath}eye.png`
   },
   feather: {
     itemCategory,
-    iconImg: `${basePath}feather.png`,
+    iconImg: `${basePath}feather.png`
   },
   food: {
     itemCategory,
-    iconImg: `${basePath}food.png`,
+    iconImg: `${basePath}food.png`
   },
   heart: {
     itemCategory,
-    iconImg: `${basePath}heart.png`,
+    iconImg: `${basePath}heart.png`
   },
   horn: {
     itemCategory,
-    iconImg: `${basePath}horn.png`,
+    iconImg: `${basePath}horn.png`
   },
   key: {
     itemCategory,
-    iconImg: `${basePath}key.png`,
+    iconImg: `${basePath}key.png`
   },
   letters: {
     itemCategory,
-    iconImg: `${basePath}letters.png`,
+    iconImg: `${basePath}letters.png`
   },
   lockPicks: {
     itemCategory,
-    iconImg: `${basePath}lock-picks.png`,
+    iconImg: `${basePath}lock-picks.png`
   },
   oil: {
     itemCategory,
-    iconImg: `${basePath}oil.png`,
+    iconImg: `${basePath}oil.png`
   },
   orcFinger: {
     itemCategory,
-    iconImg: `${basePath}orc-finger.png`,
+    iconImg: `${basePath}orc-finger.png`
   },
   plans: {
     itemCategory,
-    iconImg: `${basePath}plans.png`,
+    iconImg: `${basePath}plans.png`
   },
   purpleGems: {
     itemCategory,
-    iconImg: `${basePath}purple-gems.png`,
+    iconImg: `${basePath}purple-gems.png`
   },
   runestone: {
     itemCategory,
-    iconImg: `${basePath}runestone.png`,
+    iconImg: `${basePath}runestone.png`
   },
   sandwich: {
     itemCategory,
-    iconImg: `${basePath}sandwich.png`,
+    iconImg: `${basePath}sandwich.png`
   },
   teeth: {
     itemCategory,
-    iconImg: `${basePath}teeth.png`,
+    iconImg: `${basePath}teeth.png`
   },
   tooth: {
     itemCategory,
-    iconImg: `${basePath}tooth.png`,
+    iconImg: `${basePath}tooth.png`
   },
   torch: {
     itemCategory,
-    iconImg: `${basePath}torch.png`,
+    iconImg: `${basePath}torch.png`
   },
   tusk: {
     itemCategory,
-    iconImg: `${basePath}tusk.png`,
+    iconImg: `${basePath}tusk.png`
   },
   vase: {
     itemCategory,
-    iconImg: `${basePath}vase.png`,
+    iconImg: `${basePath}vase.png`
   },
   vial: {
     itemCategory,
-    iconImg: `${basePath}vial.png`,
+    iconImg: `${basePath}vial.png`
   },
   weeds: {
     itemCategory,
-    iconImg: `${basePath}weeds.png`,
-  },
-};
+    iconImg: `${basePath}weeds.png`
+  }
+}
 
+export type QuestItem = `${Prefix}${keyof typeof questItems}`
+const all = Object.entries(questItems).reduce<Record<string, ItemDefinition>>((acc, [key, value]) => {
+  acc[`${PREFIX}${key}`] = value
+  return acc
+}, {}) as Record<QuestItem, ItemDefinition>
+export default all
 
-export type QuestItem = `${Prefix}${keyof typeof questItems}`;
-const all = Object.entries(questItems).reduce<{ [key: string]: ItemDefinition }>((acc, [key, value]) => {
-  acc[`${PREFIX}${key}`] = value;
-  return acc;
-}, {}) as Record<QuestItem, ItemDefinition>;
-export default all;
-
-export function getDefinition(questItem: QuestItem): ItemDefinition {
-  return all[questItem];
+export function getDefinition (questItem: QuestItem): ItemDefinition {
+  return all[questItem]
 }
 
 export const isQuestItem = (item: ItemType): item is QuestItem => {
-  return !!all[item as QuestItem];
-};
+  return all[item as QuestItem] !== undefined
+}

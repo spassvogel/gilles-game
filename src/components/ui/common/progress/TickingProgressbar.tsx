@@ -1,40 +1,40 @@
-import { useDelta } from 'hooks/store/engine';
-import { useEffect, useState } from 'react';
-import PlainProgressbar from './PlainProgressbar';
-import usePrevious from 'hooks/usePrevious';
+import { useDelta } from 'hooks/store/engine'
+import { useEffect, useState } from 'react'
+import PlainProgressbar from './PlainProgressbar'
+import usePrevious from 'hooks/usePrevious'
 
 export enum Direction {
   increasing,
   decreasing,
 }
 
-export interface Props {
-  progress: number;   // between 0 and 1
-  label?: string;
-  className?: string;
-  direction?: Direction; // only used to prevent the bar from animating back to the start state
-  animate?: boolean;
+export type Props = {
+  progress: number // between 0 and 1
+  label?: string
+  className?: string
+  direction?: Direction // only used to prevent the bar from animating back to the start state
+  animate?: boolean
 }
 
 const TickingProgressbar = (props: Props) => {
-  const { className = '', label, direction, progress = 0 } = props;
-  const previousProgress = usePrevious(progress) || 0;
+  const { className = '', label, direction, progress = 0 } = props
+  const previousProgress = usePrevious(progress) ?? 0
   // We use the delta time since last tick to animate
-  const delta = useDelta();
+  const delta = useDelta()
 
   // If we have a direction defined and we're going the other direction, dont animate
   // because we've basically reset the progress bar and we just want to animate in one direction
-  const [animate, setAnimate] = useState(false);
+  const [animate, setAnimate] = useState(false)
 
   useEffect(() => {
     setAnimate(
       direction === undefined ||
       (direction === Direction.increasing && progress > previousProgress) ||
-      (direction === Direction.decreasing && progress < previousProgress),
-    );
-  }, [direction, previousProgress, progress]);
+      (direction === Direction.decreasing && progress < previousProgress)
+    )
+  }, [direction, previousProgress, progress])
 
-  // previousProgress.current = progress;
+  // previousProgress.current = progress
   return (
     <PlainProgressbar
       progress={progress}
@@ -42,7 +42,7 @@ const TickingProgressbar = (props: Props) => {
       className={className}
       animationTime={animate ? delta : 0}
     />
-  );
-};
+  )
+}
 
-export default TickingProgressbar;
+export default TickingProgressbar

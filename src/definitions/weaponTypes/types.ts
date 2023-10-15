@@ -1,12 +1,12 @@
-import { WeaponAbility } from 'definitions/abilities/types';
+import { type WeaponAbility } from 'definitions/abilities/types'
 
 export enum WeaponClassification {
-  oneHanded,  // Can be used in main hand or off hand
-  mainHand,   // Can only be used in main hand
-  offHand,    // Can only be used in the off hand
-  twoHanded,  // Can be used in the main hand and will disable off hand from being used
-  shield,     // ?
-  ranged,      // requires ammunition
+  oneHanded, // Can be used in main hand or off hand
+  mainHand, // Can only be used in main hand
+  offHand, // Can only be used in the off hand
+  twoHanded, // Can be used in the main hand and will disable off hand from being used
+  shield, // ?
+  ranged, // requires ammunition
 }
 
 export enum WeaponType {
@@ -25,14 +25,14 @@ export enum WeaponType {
 }
 
 export type WeaponTypeDefinition = {
-  classification: WeaponClassification;
-  abilities: WeaponAbility[];
-};
+  classification: WeaponClassification
+  abilities: WeaponAbility[]
+}
 
 export enum DamageType {
   kinetic = 'kinetic',
 }
 
-export interface DamageDefinition {
-  [DamageType.kinetic]: number | undefined;
+export type DamageDefinition = {
+  [DamageType.kinetic]: number | undefined
 }

@@ -1,16 +1,23 @@
-import * as React from 'react';
-import { Item } from 'definitions/items/types';
-import { TextManager } from 'global/TextManager';
+import { type Item } from 'definitions/items/types'
+import { TextManager } from 'global/TextManager'
 
-interface Props {
-  item: Item;
+type Props = {
+  item: Item
 }
 
-const ItemText = ({ item }: Props) => (
-  <div className="text">
-    <p className="name">{TextManager.getItemName(item.type)}</p>
-    <p className="subtext">{TextManager.getItemSubtext(item.type)}</p>
-  </div>
-);
+const ItemText = (props: Props) => {
+  const { item } = props
+  if (!item) {
+    console.log('empty item.. wtf')
+    return null
+  }
 
-export default ItemText;
+  return (
+    <div className="text">
+      <p className="name">{TextManager.getItemName(item.type)}</p>
+      <p className="subtext">{TextManager.getItemSubtext(item.type)}</p>
+    </div>
+  )
+}
+
+export default ItemText

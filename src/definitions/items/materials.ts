@@ -1,114 +1,112 @@
-import { ItemType, ItemDefinition, ItemCategory } from './types';
+import { type ItemType, type ItemDefinition, ItemCategory } from './types'
 
-type Prefix = 'material/';
-const PREFIX = 'material/';
-const itemCategory = ItemCategory.material;
-const basePath = '/img/items/materials/';
-
+type Prefix = 'material/'
+const PREFIX = 'material/'
+const itemCategory = ItemCategory.material
+const basePath = '/img/items/materials/'
 
 const materials = {
   arrowheads: {
     itemCategory,
-    iconImg: `${basePath}arrowheads.png`,
+    iconImg: `${basePath}arrowheads.png`
   },
   beam: {
     itemCategory,
-    iconImg: `${basePath}beam.png`,
+    iconImg: `${basePath}beam.png`
   },
   bolts: {
     itemCategory,
-    iconImg: `${basePath}bolts.png`,
+    iconImg: `${basePath}bolts.png`
   },
   buckle: {
     itemCategory,
-    iconImg: `${basePath}buckle.png`,
+    iconImg: `${basePath}buckle.png`
   },
   chain: {
     itemCategory,
-    iconImg: `${basePath}chain.png`,
+    iconImg: `${basePath}chain.png`
   },
   cogs: {
     itemCategory,
-    iconImg: `${basePath}cogs.png`,
+    iconImg: `${basePath}cogs.png`
   },
   gunpowder: {
     itemCategory,
-    iconImg: `${basePath}gunpowder.png`,
+    iconImg: `${basePath}gunpowder.png`
   },
   ingot: {
     itemCategory,
-    iconImg: `${basePath}ingot.png`,
+    iconImg: `${basePath}ingot.png`
   },
   nails: {
     itemCategory,
-    iconImg: `${basePath}nails.png`,
+    iconImg: `${basePath}nails.png`
   },
   pile: {
     itemCategory,
-    iconImg: `${basePath}pile.png`,
+    iconImg: `${basePath}pile.png`
   },
   planks: {
     itemCategory,
-    iconImg: `${basePath}planks.png`,
+    iconImg: `${basePath}planks.png`
   },
   poisonVial: {
     itemCategory,
-    iconImg: `${basePath}poison-vial.png`,
+    iconImg: `${basePath}poison-vial.png`
   },
   pulley: {
     itemCategory,
-    iconImg: `${basePath}pulley.png`,
+    iconImg: `${basePath}pulley.png`
   },
   ribbon: {
     itemCategory,
-    iconImg: `${basePath}ribbon.png`,
+    iconImg: `${basePath}ribbon.png`
   },
   rope: {
     itemCategory,
-    iconImg: `${basePath}rope.png`,
+    iconImg: `${basePath}rope.png`
   },
   runeCarvedPlank: {
     itemCategory,
-    iconImg: `${basePath}rune-carved-plank.png`,
+    iconImg: `${basePath}rune-carved-plank.png`
   },
   scales: {
     itemCategory,
-    iconImg: `${basePath}scales.png`,
+    iconImg: `${basePath}scales.png`
   },
   spring: {
     itemCategory,
-    iconImg: `${basePath}spring.png`,
+    iconImg: `${basePath}spring.png`
   },
   stake: {
     itemCategory,
-    iconImg: `${basePath}stake.png`,
+    iconImg: `${basePath}stake.png`
   },
   stick: {
     itemCategory,
-    iconImg: `${basePath}stick.png`,
+    iconImg: `${basePath}stick.png`
   },
   thread: {
     itemCategory,
-    iconImg: `${basePath}thread.png`,
+    iconImg: `${basePath}thread.png`
   },
   woodenMask: {
     itemCategory,
-    iconImg: `${basePath}wooden-mask.png`,
-  },
-};
+    iconImg: `${basePath}wooden-mask.png`
+  }
+}
 
+export type Material = `${Prefix}${keyof typeof materials}`
+const all = Object.entries(materials).reduce<Record<string, ItemDefinition>>((acc, [key, value]) => {
+  acc[`${PREFIX}${key}`] = value
+  return acc
+}, {}) as Record<Material, ItemDefinition>
+export default all
 
-export type Material = `${Prefix}${keyof typeof materials}`;
-const all = Object.entries(materials).reduce<{ [key: string]: ItemDefinition }>((acc, [key, value]) => {
-  acc[`${PREFIX}${key}`] = value;
-  return acc;
-}, {}) as Record<Material, ItemDefinition>;
-export default all;
-
-export function getDefinition(material: Material): ItemDefinition {
-  return all[material];
+export function getDefinition (material: Material): ItemDefinition {
+  return all[material]
 }
 
 export const isMaterial = (item: ItemType): item is Material => {
-  return !!all[item as Material];
-};
+  return all[item as Material] !== undefined
+}

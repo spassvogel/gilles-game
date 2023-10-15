@@ -1,22 +1,23 @@
-import { DragSourceType, DragType } from 'constants/dragging';
-import { useDrag } from 'react-dnd';
-import { AdventurerStoreState } from 'store/types/adventurer';
-import AdventurerAvatar, { Props as AdventurerAvatarProps } from '../AdventurerAvatar';
-import './styles/draggableadventureravatar.scss';
+import { DragSourceType, DragType } from 'constants/dragging'
+import { useDrag } from 'react-dnd'
+import { type AdventurerStoreState } from 'store/types/adventurer'
+import AdventurerAvatar, { type Props as AdventurerAvatarProps } from '../AdventurerAvatar'
 
-export interface Props {
-  sourceId?: string;
-  onClick?: () => void;
-  disabled?: boolean;
+import './styles/draggableadventureravatar.scss'
+
+export type Props = {
+  sourceId?: string
+  onClick?: () => void
+  disabled?: boolean
 }
 
-interface CollectedProps {
-  isDragging: boolean;
+type CollectedProps = {
+  isDragging: boolean
 }
 
-export interface AdventurerAvatarDragInfo {
-  adventurer: AdventurerStoreState;
-  sourceId?: string;
+export type AdventurerAvatarDragInfo = {
+  adventurer: AdventurerStoreState
+  sourceId?: string
 }
 
 const DraggableAdventurerAvatar = (props: Props & AdventurerAvatarProps) => {
@@ -25,23 +26,23 @@ const DraggableAdventurerAvatar = (props: Props & AdventurerAvatarProps) => {
     item: {
       adventurer: props.adventurer,
       sourceId: props.sourceId,
-      sourceType: DragSourceType.adventurerInventory,
-    },
-  }), []);
+      sourceType: DragSourceType.adventurerInventory
+    }
+  }), [])
 
-  const { disabled } = props;
-  let className = 'draggable-adventurer-avatar';
-  if (disabled) {
-    className += ' disabled';
+  const { disabled } = props
+  let className = 'draggable-adventurer-avatar'
+  if (disabled === true) {
+    className += ' disabled'
   }
   if (collected.isDragging) {
-    className += ' dragging';
+    className += ' dragging'
   }
 
-  /*if (isDragging) {
+  /* if (isDragging) {
     // TODO: can show some sort of empty state?
-    return null;
-  }*/
+    return null
+  } */
   return (
     <div className={className} ref={dragRef}>
       <AdventurerAvatar
@@ -49,7 +50,7 @@ const DraggableAdventurerAvatar = (props: Props & AdventurerAvatarProps) => {
         { ...props }
       />
     </div>
-  );
-};
+  )
+}
 
-export default DraggableAdventurerAvatar;
+export default DraggableAdventurerAvatar

@@ -1,8 +1,8 @@
-import { WeaponAbility } from './types';
+import { WeaponAbility } from './types'
 
 export type WeaponAbilityDefinition = {
-  passive?: boolean;
-};
+  passive?: boolean
+}
 
 const all = {
   [WeaponAbility.aimedShot]: {
@@ -12,7 +12,7 @@ const all = {
 
   },
   [WeaponAbility.block]: {
-    passive: true,
+    passive: true
   },
   [WeaponAbility.cut]: {
 
@@ -27,15 +27,14 @@ const all = {
 
   },
   [WeaponAbility.parry]: {
-    passive: true,
+    passive: true
   },
   [WeaponAbility.riposte]: {
-    passive: true,
-  },
-};
+    passive: true
+  }
+}
 
-export default all;
+export default all
 export const getDefinition = (weaponAbility: WeaponAbility): WeaponAbilityDefinition => {
-  return all[weaponAbility];
-};
-
+  return all[weaponAbility]
+}

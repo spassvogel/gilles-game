@@ -1,1 +1,1 @@
-export { default } from './SkillsListItems';
+export { default } from './SkillsListItems'

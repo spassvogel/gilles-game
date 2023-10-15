@@ -1,14 +1,14 @@
-import { Item } from 'definitions/items/types';
+import { type Item } from 'definitions/items/types'
 
-export interface StockpileStoreState {
-  'ammunition': (Item | null)[],
-  'apparel': (Item | null)[],
-  'deed': (Item | null)[],
-  'herb': (Item | null)[],
-  'material': (Item | null)[],
-  'mineral': (Item | null)[],
-  'consumable': (Item | null)[],
-  'questItem': (Item | null)[],
-  'trinket': (Item | null)[],
-  'weapon': (Item | null)[],
+export type StockpileStoreState = {
+  'ammunition': Array<Item | null>
+  'apparel': Array<Item | null>
+  'deed': Array<Item | null>
+  'herb': Array<Item | null>
+  'material': Array<Item | null>
+  'mineral': Array<Item | null>
+  'consumable': Array<Item | null>
+  'questItem': Array<Item | null>
+  'trinket': Array<Item | null>
+  'weapon': Array<Item | null>
 }

@@ -1,28 +1,27 @@
-import { EnemyObject } from 'store/types/scene';
-import { getDefinition } from 'definitions/enemies';
-import { EnemyType } from 'definitions/enemies/types';
-import { TextManager } from 'global/TextManager';
-import Attributes from 'components/ui/attributes/AttributeList';
-import CombatAttributes from './CombatAttributes';
-import { generateBaseAttributes } from 'mechanics/adventurers/attributes';
-import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints';
-import { formatNumber } from 'utils/format/number';
+import { type EnemyObject } from 'store/types/scene'
+import { getDefinition } from 'definitions/enemies'
+import { TextManager } from 'global/TextManager'
+import Attributes from 'components/ui/attributes/AttributeList'
+import CombatAttributes from './CombatAttributes'
+import { generateBaseAttributes } from 'mechanics/adventurers/attributes'
+import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints'
+import { formatNumber } from 'utils/format/number'
 
-interface Props {
+type Props = {
   actorObject: EnemyObject
 }
 
 const EnemyContext = (props: Props) => {
-  const { actorObject } = props;
-  const definition = getDefinition(actorObject.enemyType as EnemyType);
-  const level = actorObject.level ?? 1;
-  const attributesExtended = generateBaseAttributes(definition.attributes);
+  const { actorObject } = props
+  const definition = getDefinition(actorObject.enemyType)
+  const level = actorObject.level ?? 1
+  const attributesExtended = generateBaseAttributes(definition.attributes)
 
   return (
     <div>
       <div className="name-and-level">
         <div className="name">
-          {TextManager.getEnemyName(actorObject.enemyType as EnemyType)}
+          {TextManager.getEnemyName(actorObject.enemyType)}
         </div>
         <div className="level">
           {TextManager.get('ui-tooltip-actor-level', { level })}
@@ -40,7 +39,7 @@ const EnemyContext = (props: Props) => {
       <Attributes attributes={attributesExtended} small />
       <CombatAttributes attributes={definition.attributes} level={level} />
     </div>
-  );
-};
+  )
+}
 
-export default EnemyContext;
+export default EnemyContext

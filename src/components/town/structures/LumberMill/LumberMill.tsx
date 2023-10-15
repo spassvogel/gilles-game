@@ -1,51 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import { Structure } from 'definitions/structures';
-import { Sprite, useApp, useTick } from '@inlet/react-pixi';
-import HitAreaShapes from 'utils/pixiJs/hitAreaShapes';
-import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView';
-import { loadResource } from 'utils/pixiJs';
-import { Point, Texture } from 'pixi.js';
-import { sprites } from 'manifests/sprites';
+import { useState, useEffect } from 'react'
+import { type Structure } from 'definitions/structures'
+import { Sprite, useApp, useTick } from '@pixi/react'
+import type HitAreaShapes from 'utils/pixiJs/hitAreaShapes'
+import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView'
+import { Point, type Texture } from 'pixi.js'
+import { sprites } from 'bundles/sprites'
 
-const BLADE_ROTATION_SPEED = 0.01;
+const BLADE_ROTATION_SPEED = 0.01
 
-export interface Props {
-  onStructureClick: (structure: Structure | null) => void;
-  position: Point;
-  selected?: boolean;
-  hitAreaShapes: HitAreaShapes;
+export type Props = {
+  onStructureClick: (structure: Structure | null) => void
+  position: Point
+  selected?: boolean
+  hitAreaShapes: HitAreaShapes
 }
 
 const LumberMill = (props: Props) => {
-  const { hitAreaShapes } = props;
-  const structure: Structure = 'lumberMill';
-  const atlas = sprites.TOWN_STRUCTURE_LUMBERMILL;
-  const [textures, setTextures] = useState<{ [name: string]: Texture }>();
-  const filters = props.selected ? [STRUCTURE_HIGHLIGHT_FILTER] : [];
+  const { hitAreaShapes } = props
+  const structure: Structure = 'lumberMill'
+  const atlas = sprites.TOWN_STRUCTURE_LUMBERMILL
+  const [textures, setTextures] = useState<Record<string, Texture>>()
+  const filters = props.selected === true ? [STRUCTURE_HIGHLIGHT_FILTER] : []
 
-  const app = useApp();
+  const app = useApp()
 
   useEffect(() => {
-    loadResource(atlas, (resource) => {
-      if (resource) {
-        setTextures(resource.textures);
-      }
-    });
-  }, [app, app.loader, atlas]);
+    // loadResource(atlas, (resource) => {
+    //   if (resource) {
+    //     setTextures(resource.textures)
+    //   }
+    // })
+  }, [app, atlas])
 
-  const [rotation, setRotation] = useState(0);
-  useTick((delta:number | undefined) => setRotation(r => r + (BLADE_ROTATION_SPEED * (delta ?? 0))));
+  const [rotation, setRotation] = useState(0)
+  useTick((delta: number | undefined) => { setRotation(r => r + (BLADE_ROTATION_SPEED * (delta ?? 0))) })
 
-
-  if (!textures) return null;
+  if (textures == null) return null
   return (
     <Sprite
       name={structure}
       position={props.position}
-      interactive={true}
-      buttonMode={true}
+      eventMode='static'
       pointertap={() => {
-        props.onStructureClick(structure);
+        props.onStructureClick(structure)
       }}
       hitArea={hitAreaShapes}
       filters={filters}
@@ -60,7 +57,7 @@ const LumberMill = (props: Props) => {
         rotation={rotation}
       />
     </Sprite>
-  );
-};
+  )
+}
 
-export default LumberMill;
+export default LumberMill

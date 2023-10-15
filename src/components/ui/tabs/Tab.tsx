@@ -1,25 +1,24 @@
-import * as React from 'react';
+import * as React from 'react'
 
-export interface Props<T extends string>  {
-  id: T;
-  className?: string;
-  onClick?: React.MouseEventHandler<Element>;
-  active?: boolean;
+export type Props<T extends string> = {
+  id: T
+  className?: string
+  onClick?: React.MouseEventHandler<Element>
+  active?: boolean
 }
-
 
 const Tab = <T extends string> (props: React.PropsWithChildren<Props<T>>) => {
   const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
-    if (props.onClick) {
-      props.onClick(e);
+    if (props.onClick != null) {
+      props.onClick(e)
     }
-  };
-  const className = ((props.active) ? 'active' : '') + (props.className || '');
+  }
+  const className = ((props.active) ? 'active' : '') + (props.className ?? '')
   return (
     <li className={`tabstrip-tab ${className}`} onClick={handleClick}>
       {props.children}
     </li>
-  );
-};
+  )
+}
 
-export default Tab;
+export default Tab

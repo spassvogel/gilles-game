@@ -1,7 +1,6 @@
-import { Reducer } from 'redux';
-import { SettingsAction } from 'store/actions/settings';
-import { SettingsState } from 'store/types/settings';
-
+import { type Reducer } from 'redux'
+import { type SettingsAction } from 'store/actions/settings'
+import { type SettingsState } from 'store/types/settings'
 
 export const initialSettingsState: SettingsState = {
   verboseCombatLog: false,
@@ -9,8 +8,8 @@ export const initialSettingsState: SettingsState = {
   debugSceneShowPathable: false,
   debugSceneShowCellLocations: true,
   debugSceneShowActionQueue: false,
-  debugMapShowGrid: false,
-};
+  debugMapShowGrid: false
+}
 
 /**
  * reducer
@@ -23,9 +22,9 @@ export const settings: Reducer<SettingsState, SettingsAction> = (state = initial
     case 'setSetting': {
       return {
         ...state,
-        [action.setting]: action.value,
-      };
+        [action.setting]: action.value
+      }
     }
   }
-  return state;
-};
+  return state
+}

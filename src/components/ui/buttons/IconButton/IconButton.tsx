@@ -1,21 +1,21 @@
-import Icon, { IconSize, IconSizeType } from 'components/ui/common/Icon';
-import { ComponentProps, PropsWithChildren } from 'react';
-import './styles/iconButton.scss';
+import Icon, { IconSize, type IconSizeType } from 'components/ui/common/Icon'
+import { type ComponentProps, type PropsWithChildren } from 'react'
+
+import './styles/iconButton.scss'
 
 export type Props = PropsWithChildren<{
-  iconImg: string;
-  size?: IconSizeType; // Can use enum or string
-}>;
-
+  iconImg: string
+  size?: IconSizeType // Can use enum or string
+}>
 
 const IconButton = (props: ComponentProps<'button'> & Props) => {
-  const { iconImg, children, ...otherProps } = props;
+  const { iconImg, children, ...otherProps } = props
 
   const className = [
     'icon-button',
     (props.className ?? ''),
-    `size-${typeof props.size === 'string' ? props.size : IconSize[props.size ?? IconSize.medium]}`,
-  ];
+    `size-${typeof props.size === 'string' ? props.size : IconSize[props.size ?? IconSize.medium]}`
+  ]
 
   return (
     <button
@@ -26,13 +26,11 @@ const IconButton = (props: ComponentProps<'button'> & Props) => {
         image={iconImg}
         size={props.size}
       />
-      { children && (
-        <div className="text">
-          {children}
-        </div>
-      )}
+      <div className="text">
+        {children}
+      </div>
     </button>
-  );
-};
+  )
+}
 
-export default IconButton;
+export default IconButton

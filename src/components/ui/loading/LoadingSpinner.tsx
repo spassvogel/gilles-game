@@ -1,7 +1,7 @@
-import './styles/loadingSpinner.scss';
+import './styles/loadingSpinner.scss'
 
 const LoadingSpinner = () => {
-  const rings = 5;
+  const rings = 5
   return (
     <div className="loading-spinner">
       {[...Array(rings)].map((e, i) => (
@@ -10,6 +10,6 @@ const LoadingSpinner = () => {
         </div>
       ))}
     </div>
-  );
-};
-export default LoadingSpinner;
+  )
+}
+export default LoadingSpinner

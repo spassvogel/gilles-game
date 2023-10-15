@@ -1,37 +1,37 @@
-import { useEffect, useRef } from 'react';
-import debounce from 'debounce';
-import { TextManager } from 'global/TextManager';
-import { HashLink } from 'react-router-hash-link';
-import iconPerson from './styles/images/icon-person.png';
-import iconHelmet from './styles/images/icon-helmet.png';
-import iconCrosshair from './styles/images/icon-crosshair.png';
-import iconSword from './styles/images/icon-sword.png';
-import './styles/adventurerSectionSelection.scss';
+import { useEffect, useRef } from 'react'
+import debounce from 'debounce'
+import { TextManager } from 'global/TextManager'
+import { HashLink } from 'react-router-hash-link'
+import iconPerson from './styles/images/icon-person.png'
+import iconHelmet from './styles/images/icon-helmet.png'
+import iconCrosshair from './styles/images/icon-crosshair.png'
+import iconSword from './styles/images/icon-sword.png'
+import './styles/adventurerSectionSelection.scss'
 
 const AdventurerSectionSelection = () => {
-  const ref = useRef<HTMLUListElement>(null);
+  const ref = useRef<HTMLUListElement>(null)
 
   useEffect(() => {
-    const sectionParent = ref?.current?.parentNode as HTMLElement;
+    const sectionParent = ref?.current?.parentNode as HTMLElement
 
     const onScroll = debounce(() => {
-      const fromTop = sectionParent.scrollTop;
+      const fromTop = sectionParent.scrollTop
       ref.current?.querySelectorAll('a')?.forEach(link => {
-        const hash = link.hash.substring(link.hash.lastIndexOf('#'));
-        const section = document.querySelector(hash) as HTMLElement;
+        const hash = link.hash.substring(link.hash.lastIndexOf('#'))
+        const section = document.querySelector(hash) as HTMLElement
 
         if (section && section.offsetTop <= fromTop && section.offsetTop + section.clientHeight > fromTop) {
-          link.classList.add('active');
+          link.classList.add('active')
         } else {
-          link.classList.remove('active');
+          link.classList.remove('active')
         }
-      });
-    }, 50);
-    sectionParent?.addEventListener('scroll', onScroll);
+      })
+    }, 50)
+    sectionParent?.addEventListener('scroll', onScroll)
     return () => {
-      sectionParent?.removeEventListener('scroll', onScroll);
-    };
-  }, []);
+      sectionParent?.removeEventListener('scroll', onScroll)
+    }
+  }, [])
 
   return (
     <ul className="adventurer-section-selection" ref={ref}>
@@ -56,7 +56,7 @@ const AdventurerSectionSelection = () => {
         </HashLink>
       </li>
     </ul>
-  );
-};
+  )
+}
 
-export default AdventurerSectionSelection;
+export default AdventurerSectionSelection

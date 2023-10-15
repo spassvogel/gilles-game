@@ -1,22 +1,22 @@
-import { Container, Sprite, Text } from '@inlet/react-pixi';
-import { Structure } from 'definitions/structures';
-import { useStructureState } from 'hooks/store/structures';
-import { StructureState } from 'store/types/structure';
-import { TextManager } from 'global/TextManager';
-import { BlurFilter } from '@pixi/filter-blur';
-import StructureIconSprite from './StructureIconSprite';
-import { TextStyle, TextMetrics } from 'pixi.js';
-import { sprites } from 'manifests/sprites';
+import { Container, Sprite, Text } from '@pixi/react'
+import { type Structure } from 'definitions/structures'
+import { useStructureState } from 'hooks/store/structures'
+import { StructureState } from 'store/types/structure'
+import { TextManager } from 'global/TextManager'
+import { BlurFilter } from '@pixi/filter-blur'
+import StructureIconSprite from './StructureIconSprite'
+import { TextStyle, TextMetrics } from 'pixi.js'
+import { sprites } from 'bundles/sprites'
 
-interface Props {
-  structure: Structure;
-  x: number;
-  y: number;
-  onStructureClick: (structure: Structure | null) => void;
+type Props = {
+  structure: Structure
+  x: number
+  y: number
+  onStructureClick: (structure: Structure | null) => void
 }
 
 const style = new TextStyle({
-  fontFamily : 'Gabriela',
+  fontFamily: 'Gabriela',
   fontSize: 25,
   fill: 0xffffff,
   wordWrap: true,
@@ -24,25 +24,25 @@ const style = new TextStyle({
   dropShadow: true,
   dropShadowAngle: 0.9,
   dropShadowBlur: 10,
-  dropShadowDistance: 0,
-});
+  dropShadowDistance: 0
+})
 
-const blurFilter = new BlurFilter(2, 2);
-const borderWidth = 985; // width of original border image
+const blurFilter = new BlurFilter(2, 2)
+const borderWidth = 985 // width of original border image
 
 const StructureLabel = (props: Props) => {
-  const { x, y, onStructureClick } = props;
-  const structure = useStructureState(props.structure);
-  // const mask = useRef<PIXI.Graphics>(null);
-  if (structure.state !== StructureState.Built){
-    return null;
+  const { x, y, onStructureClick } = props
+  const structure = useStructureState(props.structure)
+  // const mask = useRef<PIXI.Graphics>(null)
+  if (structure.state !== StructureState.Built) {
+    return null
   }
-  const structureName = TextManager.getStructureName(props.structure) ?? '';
-  const metrics = TextMetrics.measureText(`${structureName}`, style);
+  const structureName = TextManager.getStructureName(props.structure) ?? ''
+  const metrics = TextMetrics.measureText(`${structureName}`, style)
 
   const handleClick = () => {
-    onStructureClick(props.structure);
-  };
+    onStructureClick(props.structure)
+  }
 
   return (
     <Container
@@ -50,7 +50,7 @@ const StructureLabel = (props: Props) => {
       y={y}
       name={props.structure}
       click={handleClick}
-      interactive
+      eventMode='static'
     >
       <Sprite
         name="background"
@@ -85,8 +85,8 @@ const StructureLabel = (props: Props) => {
         ref={mask}
         draw={graphics => {
             graphics.beginFill(0xff0000)
-            graphics.drawRect(-32, 6, metrics.width + 60, 32-6);
-            graphics.endFill();
+            graphics.drawRect(-32, 6, metrics.width + 60, 32-6)
+            graphics.endFill()
         }}
       /> */}
       <Text
@@ -95,7 +95,7 @@ const StructureLabel = (props: Props) => {
         style={style}
       />
     </Container>
-  );
-};
+  )
+}
 
-export default StructureLabel;
+export default StructureLabel

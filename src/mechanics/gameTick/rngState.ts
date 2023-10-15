@@ -1,11 +1,11 @@
-import { State as seedrandomStateType } from 'seedrandom';
-import * as Random from 'utils/random';
+import { type SeedRandomState } from 'store/types/seedRandom'
+import * as random from 'utils/random'
 
-const getRngState = (): seedrandomStateType | null => {
-  if (Random.dirty) {
-    return Random.state();
+const getRngState = (): SeedRandomState | null => {
+  if (random.dirty) {
+    return random.state()
   }
-  return null;
-};
+  return null
+}
 
-export default getRngState;
+export default getRngState

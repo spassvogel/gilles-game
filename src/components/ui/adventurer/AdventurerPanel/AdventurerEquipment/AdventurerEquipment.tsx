@@ -1,37 +1,37 @@
-import EquipmentSlot, { EquipmentSlotType, rangedWeaponInHand } from 'components/ui/adventurer/EquipmentSlot';
-import { Item } from 'definitions/items/types';
-import DraggableItemIcon, { InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon';
-import { DragSourceType } from 'constants/dragging';
-import { TextManager } from 'global/TextManager';
-import { IconSize } from 'components/ui/common/Icon';
-import Guy from './Guy';
-import { useAdventurer } from 'hooks/store/adventurers';
-import './styles/adventurerEquipment.scss';
+import EquipmentSlot, { EquipmentSlotType, rangedWeaponInHand } from 'components/ui/adventurer/EquipmentSlot'
+import { type Item } from 'definitions/items/types'
+import DraggableItemIcon, { type InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon'
+import { DragSourceType } from 'constants/dragging'
+import { TextManager } from 'global/TextManager'
+import { IconSize } from 'components/ui/common/Icon'
+import Guy from './Guy'
+import { useAdventurer } from 'hooks/store/adventurers'
+import './styles/adventurerEquipment.scss'
 
-export interface Props {
+export type Props = {
   adventurerId: string
-  onDropItemEquipment: (dragInfo: InventoryItemDragInfo, slotType: EquipmentSlotType) => void;
+  onDropItemEquipment: (dragInfo: InventoryItemDragInfo, slotType: EquipmentSlotType) => void
 }
 
 // Shows the gear an adventurer is wearing
 const AdventurerEquipment = (props: Props) => {
-  const { adventurerId, onDropItemEquipment } = props;
-  const adventurer = useAdventurer(adventurerId);
+  const { adventurerId, onDropItemEquipment } = props
+  const adventurer = useAdventurer(adventurerId)
 
   const getEquipmentSlot = (slotType: EquipmentSlotType) => {
     // returns EquipmentSlot
-    const item: Item | undefined = adventurer.equipment[slotType];
-    let text = TextManager.getEquipmentSlot(slotType);
+    const item: Item | undefined = adventurer.equipment[slotType]
+    let text = TextManager.getEquipmentSlot(slotType)
 
     if (slotType === EquipmentSlotType.offHand) {
       // If there a ranged weapon in the main hand the offHand is for ammo
       if (rangedWeaponInHand(adventurer.equipment)) {
-        text = TextManager.get('ui-equipmentslot-ammunition');
+        text = TextManager.get('ui-equipmentslot-ammunition')
       }
     }
     const handleDrop = (dragInfo: InventoryItemDragInfo) => {
-      onDropItemEquipment(dragInfo, slotType);
-    };
+      onDropItemEquipment(dragInfo, slotType)
+    }
 
     return (
       <li className={EquipmentSlotType[slotType]}>
@@ -40,7 +40,7 @@ const AdventurerEquipment = (props: Props) => {
           adventurerId={adventurerId}
           type={slotType}
         >
-          {item && (
+          {(item != null) && (
             <DraggableItemIcon
               index={slotType}
               sourceId={adventurer.id}
@@ -54,8 +54,8 @@ const AdventurerEquipment = (props: Props) => {
           {text}
         </span>
       </li>
-    );
-  };
+    )
+  }
 
   return (
     <ul className="adventurer-equipment">
@@ -69,9 +69,7 @@ const AdventurerEquipment = (props: Props) => {
       {getEquipmentSlot(EquipmentSlotType.offHand)}
       <Guy adventurerId={adventurer.id} />
     </ul>
-  );
-};
+  )
+}
 
-export default AdventurerEquipment;
-
-
+export default AdventurerEquipment

@@ -1,1 +1,1 @@
-export { default } from './Tilemap';
+export { default } from './Tilemap'

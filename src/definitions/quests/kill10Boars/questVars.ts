@@ -1,16 +1,16 @@
-import { LootCache } from 'store/types/scene';
+import { type LootCache } from 'store/types/scene'
 
-export interface Kill10BoarsQuestVars {
+export type Kill10BoarsQuestVars = {
   dungeon: {
-    entered: boolean,
+    entered: boolean
     entrance: {
-      chestOpen: boolean,
-      chest: LootCache,
+      chestOpen: boolean
+      chest: LootCache
     }
     hallway: {
-      doorOpen: boolean,
-      chestOpen: boolean,
-      chest: LootCache,
+      doorOpen: boolean
+      chestOpen: boolean
+      chest: LootCache
     }
     // situations: {
     //   altar: {
@@ -31,10 +31,10 @@ export const initialQuestVars: Kill10BoarsQuestVars = {
           { type: 'apparel/nomadHelmet' },
           { type: 'questItem/teeth' },
           { type: 'material/poisonVial' },
-          { type: 'apparel/fedora' },
+          { type: 'apparel/fedora' }
         ],
-        gold: 100,
-      },
+        gold: 100
+      }
       // altar: {
       //   title: "quest-kill10-boars-dungeonentrance-altar",
       //   items: [
@@ -46,10 +46,10 @@ export const initialQuestVars: Kill10BoarsQuestVars = {
     hallway: {
       chest: {
         title: 'encounter-dungeon-caches-chest',
-        items: [ { type: 'questItem/key' }],
+        items: [{ type: 'questItem/key' }]
       },
       chestOpen: false,
-      doorOpen: false,
-    },
-  },
-};
+      doorOpen: false
+    }
+  }
+}

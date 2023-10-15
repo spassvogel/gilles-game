@@ -1,17 +1,17 @@
-import alchemist from './alchemist';
-import armoursmith from './armoursmith';
-import garden from './garden';
-import lumberMill from './lumberMill';
-import mine from './mine';
-import quarry from './quarry';
-import tannery from './tannery';
-import tavern from './tavern';
-import { StructureDefinition } from './types';
-import warehouse from './warehouse';
-import weaponsmith from './weaponsmith';
-import weaver from './weaver';
-import workshop from './workshop';
-import { Resource } from 'definitions/resources';
+import alchemist from './alchemist'
+import armoursmith from './armoursmith'
+import garden from './garden'
+import lumberMill from './lumberMill'
+import mine from './mine'
+import quarry from './quarry'
+import tannery from './tannery'
+import tavern from './tavern'
+import { type StructureDefinition } from './types'
+import warehouse from './warehouse'
+import weaponsmith from './weaponsmith'
+import weaver from './weaver'
+import workshop from './workshop'
+import { Resource } from 'definitions/resources'
 
 export type Structure =
   'alchemist' |
@@ -25,19 +25,18 @@ export type Structure =
   'warehouse' |
   'weaponsmith' |
   'weaver' |
-  'workshop';
+  'workshop'
 
-
-export type ProductionStructure = 'alchemist' | 'armoursmith' | 'weaponsmith' | 'workshop';
-export type ResourceStructure = 'garden' | 'lumberMill' | 'mine' | 'quarry' | 'tannery' | 'weaver';
+export type ProductionStructure = 'alchemist' | 'armoursmith' | 'weaponsmith' | 'workshop'
+export type ResourceStructure = 'garden' | 'lumberMill' | 'mine' | 'quarry' | 'tannery' | 'weaver'
 
 // Type guard
 export const isProductionStructure = (structure: Structure): structure is ProductionStructure => {
   return structure === 'alchemist' ||
     structure === 'armoursmith' ||
     structure === 'weaponsmith' ||
-    structure === 'workshop';
-};
+    structure === 'workshop'
+}
 // Type guard
 export const isResourceStructure = (structure: Structure): structure is ResourceStructure => {
   return structure === 'garden' ||
@@ -45,8 +44,8 @@ export const isResourceStructure = (structure: Structure): structure is Resource
     structure === 'mine' ||
     structure === 'quarry' ||
     structure === 'tannery' ||
-    structure === 'weaver';
-};
+    structure === 'weaver'
+}
 const all = {
   alchemist,
   armoursmith,
@@ -59,30 +58,28 @@ const all = {
   warehouse,
   weaponsmith,
   weaver,
-  workshop,
-};
-
-export default all;
-
-export function getDefinition<T extends StructureDefinition>(structure: Structure): T {
-  return all[structure] as unknown as T;
+  workshop
 }
 
+export default all
 
+export function getDefinition<T extends StructureDefinition> (structure: Structure): T {
+  return all[structure] as unknown as T
+}
 
-export function getStructureByResource(resource: Resource) : Structure {
+export function getStructureByResource (resource: Resource): Structure {
   switch (resource) {
     case Resource.fabric:
-      return 'weaver';
+      return 'weaver'
     case Resource.food:
-      return 'garden';
+      return 'garden'
     case Resource.iron:
-      return 'mine';
+      return 'mine'
     case Resource.leather:
-      return 'tannery';
+      return 'tannery'
     case Resource.stone:
-      return 'quarry';
+      return 'quarry'
     case Resource.wood:
-      return 'lumberMill';
+      return 'lumberMill'
   }
 }

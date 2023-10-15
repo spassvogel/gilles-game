@@ -1,12 +1,13 @@
-import { ComponentProps, CSSProperties, PropsWithChildren } from 'react';
-import { sizeClassName, borderClassName, IconSizeType, Border, IconSize } from './utils';
-import './styles/icon.scss';
+import { type ComponentProps, type CSSProperties, type PropsWithChildren } from 'react'
+import { sizeClassName, borderClassName, type IconSizeType, Border, IconSize } from './utils'
 
-export interface Props {
-  image: string;
-  size?: IconSizeType;
-  className?: string;
-  border?: Border | keyof typeof Border;
+import './styles/icon.scss'
+
+export type Props = {
+  image: string
+  size?: IconSizeType
+  className?: string
+  border?: Border | keyof typeof Border
 }
 
 const Icon = (props: PropsWithChildren<Props> & ComponentProps<'div'>) => {
@@ -17,22 +18,23 @@ const Icon = (props: PropsWithChildren<Props> & ComponentProps<'div'>) => {
     className = '',
     border = 'none',
     ...restProps
-  } = props;
+  } = props
 
-  const style = { '--img': `url("${process.env.PUBLIC_URL}${image}")` } as CSSProperties;
+  // const style: CSSProperties = { '--img': `url("${process.env.PUBLIC_URL}${image}")` }
+  const style = { '--img': `url("${image}")` }
 
   return (
     <div
       className={`icon ${sizeClassName((typeof size === 'string') ? IconSize[size] : size)} ${className}`}
       {...restProps}
-      style={style}
+      style={style as CSSProperties}
     >
       {children}
-      { border !== 'none' && border && (
+      { border !== 'none' && border !== undefined && (
         <div className={`border ${borderClassName((typeof border === 'string') ? Border[border] : border)} `}/>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Icon;
+export default Icon

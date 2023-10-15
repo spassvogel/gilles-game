@@ -1,112 +1,112 @@
-import { useRef, useEffect, useContext, useState } from 'react';
-import { Container } from '@inlet/react-pixi';
-import { useQuestScene } from 'hooks/store/quests';
-import { Location } from 'utils/tilemap';
-import Tilemap from './Tilemap';
-import BridgedStage from 'components/pixi/util/BridgedStage';
-import useTilesetsLoader from 'hooks/useTilesetsLoader';
-import { SceneControllerContext } from '../../context/SceneControllerContext';
-import SceneUI, { ActionIntent } from './ui/SceneUI';
-import ActionPreview from './ActionPreview';
-import { getUniqueName, isAdventurer, isEnemy, SceneObject } from 'store/types/scene';
-import SceneLog from './SceneLog';
-import { CombatController } from 'mechanics/scenes/CombatController';
-import { Rectangle } from 'pixi.js';
-import { useSettings } from 'hooks/store/settings';
-import SceneDebug from './SceneDebug';
-import { AdventurerStoreState } from 'store/types/adventurer';
-import { useAdventurers } from 'hooks/store/adventurers';
-import './styles/scene.scss';
+import { useRef, useEffect, useContext, useState } from 'react'
+import { Container } from '@pixi/react'
+import { useQuestScene } from 'hooks/store/quests'
+import { type Location } from 'utils/tilemap'
+import Tilemap from './Tilemap'
+import BridgedStage from 'components/pixi/util/BridgedStage'
+import useTilesetsLoader from 'hooks/scene/useTilesetsLoader'
+import { SceneControllerContext } from '../../context/SceneControllerContext'
+import SceneUI, { type ActionIntent } from './ui/SceneUI'
+import ActionPreview from './ActionPreview'
+import { getUniqueName, isAdventurer, isEnemy, type SceneObject } from 'store/types/scene'
+import SceneLog from './SceneLog'
+import { CombatController } from 'mechanics/scenes/CombatController'
+import { Rectangle } from 'pixi.js'
+import { useSettings } from 'hooks/store/settings'
+import SceneDebug from './SceneDebug'
+import { type AdventurerStoreState } from 'store/types/adventurer'
+import { useAdventurers } from 'hooks/store/adventurers'
+
+import './styles/scene.scss'
 
 export type Props = {
-  selectedActorId: string;
-  setSelectedActor: (id: string) => void;
-};
-
+  selectedActorId: string
+  setSelectedActor: (id: string) => void
+}
 
 /**
  * There is an order of precedence with regards to clicking on objects on the scene.
  * Live adventurers get precedence, then enemies, then dead adventurers. then the rest
- * @param objects 
+ * @param objects
  */
- 
+
 const determineActorToClick = (objects: SceneObject[] = [], adventurers: AdventurerStoreState[] = []) => {
-  const sortIndex = (object:SceneObject) => {
+  const sortIndex = (object: SceneObject) => {
     if (isAdventurer(object)) {
-      const adventurer = adventurers.find(a => a.id === getUniqueName(object));
-      if (adventurer && adventurer.health > 0) {
-        return 100;
+      const adventurer = adventurers.find(a => a.id === getUniqueName(object))
+      if ((adventurer != null) && adventurer.health > 0) {
+        return 100
       }
-      return 80;
+      return 80
     }
     if (isEnemy(object)) {
-      return 90;
+      return 90
     }
-    return 80;
-  };
-  const order = objects.sort((o1, o2) => (sortIndex(o2) - sortIndex(o1)));
-  console.log('order', order);
-  return order[0];
-};
+    return 80
+  }
+  const order = objects.sort((o1, o2) => (sortIndex(o2) - sortIndex(o1)))
+  console.log('order', order)
+  return order[0]
+}
 
 const Scene = (props: Props) => {
-  const settings = useSettings();
-  const { selectedActorId, setSelectedActor } = props;
-  const controller = useContext(SceneControllerContext);
-  if (!controller) throw new Error('No controller found');
-  const mapData = controller.mapData;
-  const basePath = controller.basePath;
-  if (!basePath) throw new Error('No basePath found');
-  const adventurers = useAdventurers();
+  const settings = useSettings()
+  const { selectedActorId, setSelectedActor } = props
+  const controller = useContext(SceneControllerContext)
+  if (controller == null) throw new Error('No controller found')
+  const mapData = controller.mapData
+  const basePath = controller.basePath
+  const adventurers = useAdventurers()
+  if (basePath === null) throw new Error('No basePath found')
 
   const {
     loadComplete,
     loadTilesets,
-    tileSpritesheets,
-  } = useTilesetsLoader(basePath);
+    tileSpritesheets
+  } = useTilesetsLoader(basePath)
 
-  const ref = useRef<HTMLDivElement>(null);
-  const scene = useQuestScene(controller.questName);
-  const combat = scene?.combat === true;
-  const { tileWidth, tileHeight } = controller.getTileDimensions();
-  const [currentActionIntent, setCurrentActionIntent] = useState<ActionIntent>();
+  const ref = useRef<HTMLDivElement>(null)
+  const scene = useQuestScene(controller.questName)
+  const combat = scene?.combat === true
+  const { tileWidth, tileHeight } = controller.getTileDimensions()
+  const [currentActionIntent, setCurrentActionIntent] = useState<ActionIntent>()
 
   useEffect(() => {
     if (combat) {
-      CombatController.initialize(controller);
+      CombatController.initialize(controller)
     }
     return () => {
-      CombatController.destroy();
-    };
-  }, [combat, controller]);
+      CombatController.destroy()
+    }
+  }, [combat, controller])
 
   useEffect(() => {
-    if (!mapData) return;
-    loadTilesets(mapData.tilesets);
-  }, [loadTilesets, mapData]);
+    if (mapData == null) return
+    loadTilesets(mapData.tilesets)
+  }, [loadTilesets, mapData])
 
   const handleUIMouseDown = (location: Location) => {
-    const objects = controller.getObjectsAtLocation(location);
+    const objects = controller.getObjectsAtLocation(location)
     console.log('objects', objects)
-    const actor = determineActorToClick(objects, adventurers);
+    const actor = determineActorToClick(objects, adventurers)
     console.log('actor', actor)
-    if (actor) {
+    if (actor !== undefined) {
       // We can click on adventurers or enemies
-      props.setSelectedActor(getUniqueName(actor));
+      props.setSelectedActor(getUniqueName(actor))
     }
-  };
-
-  if (!loadComplete || !mapData || !scene) {
-    return <div>loading scene...</div>;
   }
 
-  const sceneWidth = mapData.width * mapData.tilewidth;
-  const sceneHeight = mapData.height * mapData.tileheight;
+  if (!loadComplete || (mapData == null) || (scene == null)) {
+    return <div>loading scene...</div>
+  }
+
+  const sceneWidth = mapData.width * mapData.tilewidth
+  const sceneHeight = mapData.height * mapData.tileheight
   return (
     <div className="scene" ref={ref}>
       <BridgedStage width={sceneWidth} height={sceneHeight}>
         <Container
-          interactive={true}
+          eventMode='static'
           hitArea={new Rectangle(0, 0, sceneWidth, sceneHeight)}
         >
           <Tilemap
@@ -118,7 +118,7 @@ const Scene = (props: Props) => {
             selectedActorId={selectedActorId}
             setSelectedActor={setSelectedActor}
           />
-          { currentActionIntent && (<ActionPreview actionIntent={currentActionIntent} tileWidth={tileWidth} tileHeight={tileHeight}/>)}
+          { (currentActionIntent != null) && (<ActionPreview actionIntent={currentActionIntent} tileWidth={tileWidth} tileHeight={tileHeight}/>)}
           <SceneDebug controller={controller} />
         </Container>
       </BridgedStage>
@@ -126,7 +126,7 @@ const Scene = (props: Props) => {
         <div style={{ position: 'absolute', bottom: 0 }}>
           <h2>ActionQueue</h2>
           <ul>
-            {scene.actionQueue && scene.actionQueue.map((action) => (
+            {scene.actionQueue?.map((action) => (
               <li key={JSON.stringify(action)}>{JSON.stringify(action)}</li>
             ))}
           </ul>
@@ -142,7 +142,7 @@ const Scene = (props: Props) => {
       />
       <SceneLog questId={controller.questName} />
     </div>
-  );
-};
+  )
+}
 
-export default Scene;
+export default Scene

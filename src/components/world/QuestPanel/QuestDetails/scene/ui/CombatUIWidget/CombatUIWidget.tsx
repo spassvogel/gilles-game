@@ -1,33 +1,32 @@
-import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext';
-import { Location } from 'utils/tilemap';
-import { useContext } from 'react';
-import { isEnemy } from 'store/types/scene';
-import { ActionIntent } from '../SceneUI';
-import './styles/combatUIWidget.scss';
+import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext'
+import { type Location } from 'utils/tilemap'
+import { useContext } from 'react'
+import { isEnemy } from 'store/types/scene'
+import { type ActionIntent } from '../SceneUI'
+import './styles/combatUIWidget.scss'
 
-interface Props {
-  location: Location;
-  selectedActorId: string;
-  intents: ActionIntent[];
+type Props = {
+  location: Location
+  selectedActorId: string
+  intents: ActionIntent[]
 }
 
 // CombatUIWidget shows a circle
 const CombatUIWidget = (props: Props) => {
-  const { location, intents } = props;
-  const controller = useContext(SceneControllerContext);
-  if (!controller) throw Error('No scene controller');
-  const { tileWidth, tileHeight } = controller.getTileDimensions();
-  const transform = `translate(${tileWidth * location[0]}px, ${tileHeight * location[1]}px)`;
+  const { location, intents } = props
+  const controller = useContext(SceneControllerContext)
+  if (controller == null) throw Error('No scene controller')
+  const { tileWidth, tileHeight } = controller.getTileDimensions()
+  const transform = `translate(${tileWidth * location[0]}px, ${tileHeight * location[1]}px)`
 
-  const onEnemy = (controller?.getObjectsAtLocation(location, isEnemy) ?? []).length > 1;
-
-  const invalid = intents.every(i => !i.isValid);
+  const onEnemy = (controller?.getObjectsAtLocation(location, isEnemy) ?? []).length > 1
+  const invalid = intents.every(i => !i.isValid)
 
   const classNames = [
     'combat-ui-widget',
     ...(invalid ? ['invalid'] : []),
-    ...(onEnemy ? ['on-enemy'] : []),
-  ];
+    ...(onEnemy ? ['on-enemy'] : [])
+  ]
 
   return (
     <div
@@ -35,9 +34,7 @@ const CombatUIWidget = (props: Props) => {
       style={{ transform }}
     >
     </div>
-  );
-};
+  )
+}
 
-export default CombatUIWidget;
-
-
+export default CombatUIWidget

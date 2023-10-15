@@ -1,15 +1,15 @@
-import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
-import { TooltipManager } from 'global/TooltipManager';
-import { InfoWindow } from 'components/ui/modals/InfoWindow';
-import './styles/tooltip.scss';
+import { type PropsWithChildren, useEffect, useRef, useState } from 'react'
+import { TooltipManager } from 'global/TooltipManager'
+import { InfoWindow } from 'components/ui/modals/InfoWindow/InfoWindow'
+import './styles/tooltip.scss'
 
-const ARROW_SIZE = 8; // warning: sync to tooltip.css var
-const PADDING = 8;
+const ARROW_SIZE = 8 // warning: sync to tooltip.css var
+const PADDING = 8
 
-export interface Props {
-  referenceRect: DOMRect;  // place tooltip in reference to this rect
-  placement?: Placement;
-  className?: string;
+export type Props = {
+  referenceRect: DOMRect // place tooltip in reference to this rect
+  placement?: Placement
+  className?: string
 }
 
 export enum Placement {
@@ -20,83 +20,81 @@ export enum Placement {
 }
 
 export const Tooltip = (props: PropsWithChildren<Props>) => {
-  const { children, referenceRect } = props;
-  let { className = '' } = props;
-  const ref = useRef<HTMLDivElement>(null);
-  const [placement, setPlacement] = useState<Placement>(props.placement || Placement.bottom);
+  const { children, referenceRect } = props
+  let { className = '' } = props
+  const ref = useRef<HTMLDivElement>(null)
+  const [placement, setPlacement] = useState<Placement>(props.placement || Placement.bottom)
 
-  const [containerRect, setContainerRect] = useState<DOMRect>(); // This is the
+  const [containerRect, setContainerRect] = useState<DOMRect>() // This is the
 
   useEffect(() => {
     // Reposition if needed
-    const tooltipElement = ref.current;
-    if (!tooltipElement) return;
-    if (!containerRect || !containerRect) return;
-    const tooltipRect = tooltipElement.getBoundingClientRect();
+    const tooltipElement = ref.current
+    if (tooltipElement == null) return
+    if ((containerRect == null) || !containerRect) return
+    const tooltipRect = tooltipElement.getBoundingClientRect()
 
     // Flip vertically
     switch (placement) {
       case Placement.top:
         if (tooltipRect.top - tooltipRect.height - ARROW_SIZE - PADDING < containerRect.top) {
           // Too high, place underneath
-          setPlacement(Placement.bottom);
-          return;
+          setPlacement(Placement.bottom)
+          return
         }
-        break;
+        break
       case Placement.bottom:
         if (tooltipRect.top + tooltipRect.height + ARROW_SIZE + PADDING > containerRect.height) {
           // Too low, place top
-          setPlacement(Placement.top);
-          return;
+          setPlacement(Placement.top)
+          return
         }
-        break;
+        break
     }
-    tooltipElement.style.opacity = '1'; // animated through css
+    tooltipElement.style.opacity = '1' // animated through css
 
-    const contentElement = tooltipElement.querySelector('.tooltip-content') as HTMLElement;
+    const contentElement = tooltipElement.querySelector('.tooltip-content') as HTMLElement
     if (tooltipRect.left < containerRect.left + PADDING) {
       // Check left bounding edge
-      const offset = containerRect.left - tooltipRect.left + PADDING;
-      contentElement.style.transform = `translateX(${offset}px)`;
+      const offset = containerRect.left - tooltipRect.left + PADDING
+      contentElement.style.transform = `translateX(${offset}px)`
     } else if (tooltipRect.right > containerRect.right - PADDING) {
       // Check right bounding edge
-      const offset = tooltipRect.right - containerRect.right + PADDING;
-      contentElement.style.transform = `translateX(${-offset}px)`;
+      const offset = tooltipRect.right - containerRect.right + PADDING
+      contentElement.style.transform = `translateX(${-offset}px)`
     } else {
-      contentElement.style.transform = '';
+      contentElement.style.transform = ''
     }
-
-  }, [setPlacement, containerRect, placement, referenceRect]);
+  }, [setPlacement, containerRect, placement, referenceRect])
 
   const resize = () => {
-    TooltipManager.clear();
-  };
+    TooltipManager.clear()
+  }
 
   useEffect(() => {
-    setContainerRect(ref.current?.closest('.app')?.getBoundingClientRect());
+    setContainerRect(ref.current?.closest('.app')?.getBoundingClientRect())
 
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', resize)
     return () => {
-      window.removeEventListener('resize', resize);
-    };
-  }, []);
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
 
+  let x = 0
+  let y = 0
 
-  let x = 0;
-  let y = 0;
-
-  if (containerRect) {
+  if (containerRect != null) {
     switch (placement) {
       case Placement.bottom:
-        x = referenceRect.left - containerRect.left + referenceRect.width / 2;
-        y = referenceRect.top - containerRect.top + referenceRect.height;
-        className += ' tooltip-bottom';
-        break;
+        x = referenceRect.left - containerRect.left + referenceRect.width / 2
+        y = referenceRect.top - containerRect.top + referenceRect.height
+        className += ' tooltip-bottom'
+        break
       case Placement.top:
-        x = referenceRect.left - containerRect.left + referenceRect.width / 2;
-        y = referenceRect.top - containerRect.top;
-        className += ' tooltip-top';
-        break;
+        x = referenceRect.left - containerRect.left + referenceRect.width / 2
+        y = referenceRect.top - containerRect.top
+        className += ' tooltip-top'
+        break
     }
   }
 
@@ -105,7 +103,7 @@ export const Tooltip = (props: PropsWithChildren<Props>) => {
       style={{
         left: x,
         opacity: 0,
-        top: y,
+        top: y
       }}
       ref={ref}
     >
@@ -114,7 +112,7 @@ export const Tooltip = (props: PropsWithChildren<Props>) => {
         {children}
       </InfoWindow>
     </div>
-  );
-};
+  )
+}
 
-export default Tooltip;
+export default Tooltip

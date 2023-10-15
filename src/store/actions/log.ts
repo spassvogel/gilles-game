@@ -1,26 +1,25 @@
-import { LogChannel } from 'store/types/logEntry';
-import { TextEntry } from 'constants/text';
+import { LogChannel } from 'store/types/logEntry'
+import { type TextEntry } from 'constants/text'
 
 export type LogAction =
-  { type: 'addLogEntry', entry: TextEntry, channel: LogChannel, channelContext?: string };
-
+  { type: 'addLogEntry', entry: TextEntry, channel: LogChannel, channelContext?: string }
 
 export const addLogText = (key: string, context?: unknown, channel: LogChannel = LogChannel.common, channelContext?: string): LogAction => {
   const entry: TextEntry = {
     key,
-    context,
-  };
+    context
+  }
   return {
     type: 'addLogEntry',
     entry,
     channel,
-    channelContext,
-  };
-};
+    channelContext
+  }
+}
 
 export const addLogEntry = (entry: TextEntry, channel: LogChannel = LogChannel.common, channelContext?: string): LogAction => ({
   type: 'addLogEntry',
   entry,
   channel,
-  channelContext,
-});
+  channelContext
+})

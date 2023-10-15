@@ -1,73 +1,71 @@
-import * as React from 'react';
-import { SoundManager } from 'global/SoundManager';
-import Button from '../buttons/Button';
-import { PropsWithChildren, useEffect } from 'react';
+import * as React from 'react'
+import { SoundManager } from 'global/SoundManager'
+import Button from '../buttons/Button'
+import { type PropsWithChildren, useEffect } from 'react'
+import { appContext } from 'components/App/context'
 
-// todo: refactor using WindowManager [30/03/2020]
-export interface Props {
-  title: string;
-  backEnabled?: boolean;
-  closeEnabled?: boolean;
-  onClose?: () => void;
-  onBack?: () => void;
+import './styles/window.scss'
+
+export type Props = {
+  title: string
+  closeEnabled?: boolean
 }
 
 /**
  *
  */
 const Window = (props: PropsWithChildren<Props>) => {
+  const app = React.useContext(appContext)
+  const backEnabled = (app?.windowCount ?? 0) > 1
 
   const handleClose = (_e: React.MouseEvent) => {
-    if (props.onClose) {
-      props?.onClose();
-
-      SoundManager.playSound('UI_BUTTON_CLICK');
-    }
-  };
+    app?.onCloseWindow()
+    void SoundManager.playSound('UI_BUTTON_CLICK')
+  }
 
   const handleBack = (_e: React.MouseEvent) => {
-    if (props.onBack) {
-      props?.onBack();
+    app?.onBackWindow()
 
-      SoundManager.playSound('UI_BUTTON_CLICK');
-    }
-  };
+    void SoundManager.playSound('UI_BUTTON_CLICK')
+  }
 
   useEffect(() => {
-    SoundManager.musicFiltered = true;
+    SoundManager.musicFiltered = true
     return () => {
-      SoundManager.musicFiltered = false;
-    };
-  });
+      SoundManager.musicFiltered = false
+    }
+  })
 
   return (
-        <div className="window">
-            <div className="header">
-                { props.backEnabled !== false && (
-                    <Button
-                        className="back-button"
-                        onClick={handleBack}
-                        square={true}
-                        size={'medium'}
-                        color="purple"
-                        text="<"
-                    />
-                )}
-                <h3>{ props.title }</h3>
-                { props.closeEnabled !== false && (
-                    <Button
-                        className="close-button"
-                        onClick={handleClose}
-                        square={true}
-                        size={'medium'}
-                        color="purple"
-                        text="x"
-                    />
-                )}
-            </div>
-            { props.children }
-        </div>
-  );
-};
+    <div className="window">
+      <div className="header">
+        { backEnabled && (
+          <Button
+            className="back-button"
+            onClick={handleBack}
+            square={true}
+            size={'medium'}
+            color="purple"
+          >
+            {'<'}
+          </Button>
+        )}
+        <h3>{ props.title }</h3>
+        { props.closeEnabled !== false && (
+          <Button
+            className="close-button"
+            onClick={handleClose}
+            square={true}
+            size={'medium'}
+            color="purple"
+            >
+          x
+          </Button>
+        )}
+      </div>
+      { props.children }
+    </div>
+  )
+}
 
-export default Window;
+export default Window

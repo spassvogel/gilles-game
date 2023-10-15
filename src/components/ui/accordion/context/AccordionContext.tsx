@@ -1,7 +1,7 @@
-import { createContext } from 'react';
+import { createContext } from "react"
 
 export interface AccordionContextProps {
   itemsExpanded: string[]
   toggleItem: (item: string) => void
 }
-export const AccordionContext = createContext<AccordionContextProps | null>(null);
+export const AccordionContext = createContext<AccordionContextProps | null>(null)

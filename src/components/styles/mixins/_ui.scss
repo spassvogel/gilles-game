@@ -1,5 +1,5 @@
 @mixin border($color, $size) {
-  border-image-source: url("./../assets/img/border-#{$color}-64.png");
+  border-image-source: url("./../img/ui/border/border-#{$color}-64.png");
   border-image-slice: $size $size $size $size;
   border-image-repeat: stretch;
   border-width: #{$size}px;

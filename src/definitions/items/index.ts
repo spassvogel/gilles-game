@@ -1,14 +1,14 @@
-import ammunition, { Ammunition } from './ammunition';
-import apparel, { Apparel, isApparel, getDefinition as getApparelDefinition, ApparelDefinition } from './apparel';
-import deeds, { Deed } from './deeds';
-import herbs, { Herb } from './herbs';
-import materials, { Material } from './materials';
-import minerals, { Mineral } from './minerals';
-import consumables, { Consumable } from './consumables';
-import questItems, { QuestItem } from './questItems';
-import trinkets, { Trinket } from './trinkets';
-import weapons, { Weapon, WeaponDefinition, isWeapon, getDefinition as getWeaponDefinition  } from './weapons';
-import { ItemType, ItemDefinition, ItemCategory } from './types';
+import ammunition, { type Ammunition } from './ammunition'
+import apparel, { type Apparel, isApparel, getDefinition as getApparelDefinition, type ApparelDefinition } from './apparel'
+import deeds, { type Deed } from './deeds'
+import herbs, { type Herb } from './herbs'
+import materials, { type Material } from './materials'
+import minerals, { type Mineral } from './minerals'
+import consumables, { type Consumable } from './consumables'
+import questItems, { type QuestItem } from './questItems'
+import trinkets, { type Trinket } from './trinkets'
+import weapons, { type Weapon, type WeaponDefinition, isWeapon, getDefinition as getWeaponDefinition } from './weapons'
+import { type ItemType, type ItemDefinition, ItemCategory } from './types'
 
 const all = {
   ...ammunition,
@@ -20,51 +20,51 @@ const all = {
   ...minerals,
   ...questItems,
   ...trinkets,
-  ...weapons,
-};
+  ...weapons
+}
 
-export default all;
+export default all
 
 export const getDefinition = (itemType: ItemType): ItemDefinition => {
-  return all[itemType];
-};
+  return all[itemType]
+}
 
 export const getWeaponOrApparelDefinition = (itemType: ItemType): WeaponDefinition | ApparelDefinition => {
   if (isApparel(itemType)) {
-    return getApparelDefinition(itemType);
+    return getApparelDefinition(itemType)
   }
   if (isWeapon(itemType)) {
-    return getWeaponDefinition(itemType);
+    return getWeaponDefinition(itemType)
   }
 
-  throw new Error(`${itemType} is neither a weapon nor apparel`);
-};
+  throw new Error(`${itemType} is neither a weapon nor apparel`)
+}
 
 export const getAllItemsByCategory = (category: ItemCategory): ItemType[] => {
   switch (category) {
     case ItemCategory.ammunition:
-      return Object.keys(ammunition) as Ammunition[];
+      return Object.keys(ammunition) as Ammunition[]
     case ItemCategory.apparel:
-      return Object.keys(apparel) as Apparel[];
+      return Object.keys(apparel) as Apparel[]
     case ItemCategory.deed:
-      return Object.keys(deeds) as Deed[];
+      return Object.keys(deeds) as Deed[]
     case ItemCategory.herb:
-      return Object.keys(herbs) as Herb[];
+      return Object.keys(herbs) as Herb[]
     case ItemCategory.material:
-      return Object.keys(materials) as Material[];
+      return Object.keys(materials) as Material[]
     case ItemCategory.mineral:
-      return Object.keys(minerals) as Mineral[];
+      return Object.keys(minerals) as Mineral[]
     case ItemCategory.consumable:
-      return Object.keys(consumables) as Consumable[];
+      return Object.keys(consumables) as Consumable[]
     case ItemCategory.questItem:
-      return Object.keys(questItems) as QuestItem[];
+      return Object.keys(questItems) as QuestItem[]
     case ItemCategory.trinket:
-      return Object.keys(trinkets) as Trinket[];
+      return Object.keys(trinkets) as Trinket[]
     case ItemCategory.weapon:
-      return Object.keys(weapons) as Weapon[];
+      return Object.keys(weapons) as Weapon[]
   }
-};
+}
 
 export const canStackItem = (category: ItemCategory): boolean => {
-  return category === ItemCategory.ammunition;
-};
+  return category === ItemCategory.ammunition
+}

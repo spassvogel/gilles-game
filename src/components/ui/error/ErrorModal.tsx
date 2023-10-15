@@ -1,47 +1,50 @@
-import localforage from 'localforage';
-import { useEffect, useState } from 'react';
-import { FallbackProps } from 'react-error-boundary';
-import { getStoredState } from 'redux-persist';
-import { persistConfig } from 'utils/configureStore';
-import { InfoWindow } from '../modals/InfoWindow';
-import Tab from '../tabs/Tab';
-import Tabstrip from '../tabs/Tabstrip';
-import './styles/errorModal.scss';
+/* eslint-disable @typescript-eslint/no-misused-promises */
+import localforage from 'localforage'
+import { useContext, useEffect, useState } from 'react'
+import { type FallbackProps } from 'react-error-boundary'
+import { getStoredState } from 'redux-persist'
+import { persistConfig } from 'utils/configureStore'
+import { InfoWindow } from '../modals/InfoWindow/InfoWindow'
+import Tab from '../tabs/Tab'
+import Tabstrip from '../tabs/Tabstrip'
+import { GameActionsContext } from 'components/Game/context'
+
+import './styles/errorModal.scss'
 
 const ErrorModal = (props: FallbackProps) => {
-  const { error } = props;
-  const [selectedTabId, setSelectedTabId] = useState<'stack' | 'store'>('stack');
-  const [state, setState] = useState<string>('(no store state found)');
+  const { error } = props
+  const [selectedTabId, setSelectedTabId] = useState<'stack' | 'store'>('stack')
+  const [state, setState] = useState<string>('(no store state found)')
+  const { restartGame } = useContext(GameActionsContext)
 
   useEffect(() => {
     (async () => {
-      const initState = await getStoredState(persistConfig);
-      setState(JSON.stringify(initState, undefined, 2));
-    })();
-  });
+      const initState = await getStoredState(persistConfig)
+      setState(JSON.stringify(initState, undefined, 2))
+    })()
+  })
 
   // if (process.env.NODE_ENV !== "production") {
-  //   resetErrorBoundary();
-  //   return null;
+  //   resetErrorBoundary()
+  //   return null
   // }
 
   const handleTabSelected = (tabId: typeof selectedTabId) => {
-    setSelectedTabId(tabId);
-  };
+    setSelectedTabId(tabId)
+  }
 
-  const handleReset = () => {
-    localforage.clear();
-    window.location.reload();
-    // restartGame();
-  };
-
+  const handleReset = async () => {
+    await localforage.clear()
+    window.location.reload()
+    restartGame()
+  }
 
   return (
     <div className="error">
       <InfoWindow className="error-modal" title="">
         <h2 className="title" >
           Something went horribly wrong
-          <a href={`${process.env.PUBLIC_URL}`} className="close">x</a>
+          <a href={'/'} className="close">x</a>
         </h2>
         <div className="content">
           <pre>{error.message}</pre>
@@ -66,7 +69,7 @@ const ErrorModal = (props: FallbackProps) => {
       </div>
       </InfoWindow>
     </div>
-  );
-};
+  )
+}
 
-export default ErrorModal;
+export default ErrorModal

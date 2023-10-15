@@ -328,7 +328,7 @@
     "app": "https://github.com/piskelapp/piskel/",
     "speed": 0.25,
     "version": "1.0",
-    "image": "blood_2-blood2.png",
+    "image": "blood_2.png",
     "format": "RGBA8888",
     "size": {
       "w": 256,

@@ -1,4 +1,4 @@
-import { ProductionDefinition } from './types';
+import { type ProductionDefinition } from './types'
 
-const alchemistProduction: { [key: string]: ProductionDefinition } = {};
-export default alchemistProduction;
+const alchemistProduction: Record<string, ProductionDefinition> = {}
+export default alchemistProduction

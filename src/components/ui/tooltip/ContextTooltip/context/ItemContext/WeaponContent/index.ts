@@ -1,1 +1,1 @@
-export { default } from './WeaponContent';
+export { default } from './WeaponContent'

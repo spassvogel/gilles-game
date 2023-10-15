@@ -1,27 +1,26 @@
-import { useRef, useEffect, PropsWithChildren, forwardRef, useImperativeHandle } from 'react';
-import { Sprite } from '@inlet/react-pixi';
-import { Viewport as PixiViewport } from 'pixi-viewport';
-import Viewport from 'components/pixi/Viewport';
-import { gsap } from 'gsap';
-import { GodrayFilter } from '@pixi/filter-godray';
-import BridgedStage from 'components/pixi/util/BridgedStage';
-import { sprites } from 'manifests/sprites';
+import { useRef, useEffect, type PropsWithChildren, forwardRef, useImperativeHandle } from 'react'
+import { Sprite } from '@pixi/react'
+import { type Viewport as PixiViewport } from 'pixi-viewport'
+import Viewport from 'components/pixi/Viewport'
+import { gsap } from 'gsap'
+import { GodrayFilter } from '@pixi/filter-godray'
+import BridgedStage from 'components/pixi/util/BridgedStage'
+import { sprites } from 'bundles/sprites'
 
-export interface Props {
-  screenWidth: number;
-  screenHeight: number;
-  worldWidth: number;
-  worldHeight: number;
-  blockScroll: boolean;
+export type Props = {
+  screenWidth: number
+  screenHeight: number
+  worldWidth: number
+  worldHeight: number
+  blockScroll: boolean
 }
 
-export const godray = new GodrayFilter();
+export const godray = new GodrayFilter()
 
 const options = {
   autoDensity: true,
-  sharedLoader: true,
-};
-
+  sharedLoader: true
+}
 
 const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref: React.Ref<PixiViewport>) => {
   const {
@@ -30,45 +29,43 @@ const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref
     screenHeight,
     worldWidth,
     worldHeight,
-    blockScroll,
-  } = props;
+    blockScroll
+  } = props
 
-  const innerRef = useRef<PixiViewport>(null);
+  const innerRef = useRef<PixiViewport>(null)
 
   useImperativeHandle(ref, () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return innerRef.current!;
-  });
-
+    return innerRef.current
+  })
 
   useEffect(() => {
-    godray.enabled = false;
-    if (innerRef.current) {
+    godray.enabled = false
+    if (innerRef.current !== undefined) {
+      const viewport = innerRef.current
+      // viewport.on('moved', () => {
+      //   const horizontalFactor = gsap.utils.normalize(viewport.screenWidth, worldWidth, viewport.right)
+      //   const verticalFactor = gsap.utils.normalize(worldHeight, viewport.screenHeight, viewport.bottom)
+      //   const factor = Math.max(horizontalFactor * verticalFactor - 0.4, 0)
 
-      const viewport = innerRef.current;
-      viewport.on('moved', () => {
-        const horizontalFactor = gsap.utils.normalize(viewport.screenWidth, worldWidth, viewport.right);
-        const verticalFactor = gsap.utils.normalize(worldHeight, viewport.screenHeight, viewport.bottom);
-        const factor = Math.max(horizontalFactor * verticalFactor - .4, 0);
-
-        godray.gain =  factor;
-        godray.lacunarity = 2.4;
-        godray.enabled = godray.gain > 0;
-      });
+      //   godray.gain = factor
+      //   godray.lacunarity = 2.4
+      //   godray.enabled = godray.gain > 0
+      // })
     }
 
     const onScroll = (e: WheelEvent) => {
       // Scrolling the mouse is just used for zoom, not for actual scrolling
-      e.preventDefault();
-    };
+      e.preventDefault()
+    }
 
     if (blockScroll) {
-      window.addEventListener('wheel', onScroll, { passive: false });
+      window.addEventListener('wheel', onScroll, { passive: false })
     }
     return () => {
-      window.removeEventListener('wheel', onScroll);
-    };
-  }, [blockScroll, worldHeight, worldWidth]);
+      window.removeEventListener('wheel', onScroll)
+    }
+  }, [blockScroll, worldHeight, worldWidth])
 
   return (
     <BridgedStage width={screenWidth} height={screenHeight} options={options} >
@@ -84,12 +81,12 @@ const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref
           filters={[godray]}
         >
           {children}
-        </Sprite>
+          </Sprite>
       </Viewport>
     </BridgedStage>
 
-  );
-});
-TownStage.displayName = 'TownStage';
+  )
+})
+TownStage.displayName = 'TownStage'
 
-export default TownStage;
+export default TownStage

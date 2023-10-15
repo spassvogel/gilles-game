@@ -1,14 +1,14 @@
-import { calculateDodge, calculateInitialAP } from 'mechanics/combat';
-import { AttributesStoreState } from 'store/types/adventurer';
-import { roundIfNeeded } from 'utils/format/number';
+import { calculateDodge, calculateInitialAP } from 'mechanics/combat'
+import { type AttributesStoreState } from 'store/types/adventurer'
+import { roundIfNeeded } from 'utils/format/number'
 
 type Props = {
-  attributes: AttributesStoreState;
-  level: number;
-};
+  attributes: AttributesStoreState
+  level: number
+}
 
 const CombatAttributes = (props: Props) => {
-  const { attributes, level } = props;
+  const { attributes, level } = props
   return (
     <>
       <div>
@@ -18,7 +18,7 @@ const CombatAttributes = (props: Props) => {
         Dodge: {roundIfNeeded(calculateDodge(attributes))}%
       </div>
     </>
-  );
-};
+  )
+}
 
-export default CombatAttributes;
+export default CombatAttributes

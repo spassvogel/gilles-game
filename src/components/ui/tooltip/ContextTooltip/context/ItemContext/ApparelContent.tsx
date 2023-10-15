@@ -1,21 +1,21 @@
-import { TextManager } from 'global/TextManager';
-import { Apparel, getDefinition as getApparelDefinition } from 'definitions/items/apparel';
-import ProduceOrStudy from './common/ProduceOrStudy';
-import { Item } from 'definitions/items/types';
-import Effects from './Effects';
+import { TextManager } from 'global/TextManager'
+import { type Apparel, getDefinition as getApparelDefinition } from 'definitions/items/apparel'
+import ProduceOrStudy from './common/ProduceOrStudy'
+import { type Item } from 'definitions/items/types'
+import Effects from './Effects'
 
-interface Props {
-  item: Item<Apparel>;
+type Props = {
+  item: Item<Apparel>
 }
 
 const ApparelContent = (props: Props) => {
-  const { item } = props;
-  const definition = getApparelDefinition(item.type);
+  const { item } = props
+  const definition = getApparelDefinition(item.type)
 
-  const { damageReduction } = definition;
-  const subtext = TextManager.getItemSubtext(item.type);
-  const equipmentSlot = TextManager.getEquipmentSlot(definition.equipmentType);
-  const { durability = 1 } = item;
+  const { damageReduction } = definition
+  const subtext = TextManager.getItemSubtext(item.type)
+  const equipmentSlot = TextManager.getEquipmentSlot(definition.equipmentType)
+  const { durability = 1 } = item
 
   return (
     <>
@@ -32,7 +32,7 @@ const ApparelContent = (props: Props) => {
       </dl>
       <ProduceOrStudy item={item.type} />
     </>
-  );
-};
+  )
+}
 
-export default ApparelContent;
+export default ApparelContent

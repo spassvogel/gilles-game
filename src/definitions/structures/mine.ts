@@ -1,10 +1,10 @@
-import { ONE_MINUTE, TWO_MINUTES } from 'utils/format/time';
-import { ResourceStructureDefinition, StructureType } from './types';
+import { ONE_MINUTE, TWO_MINUTES } from 'utils/format/time'
+import { type ResourceStructureDefinition, StructureType } from './types'
 
 const mine: ResourceStructureDefinition = {
   cost: {
     gold: 40,
-    time: 4000,
+    time: 4000
   },
   type: StructureType.resource,
   levels: [{
@@ -12,16 +12,16 @@ const mine: ResourceStructureDefinition = {
     // level 0:
     workerCapacity: 2,
     cost: {
-      gold: 0,
+      gold: 0
     },
-    generates: { iron: 2 },   
+    generates: { iron: 2 },
     harvest: {
       amount: 3,
       lootTable: {
         'mineral/roseQuartz': 2,
-        'mineral/topaz': 1,
-      },
-    },
+        'mineral/topaz': 1
+      }
+    }
   }, {
     displayName: 'structure-mine-name',
     // level 1:
@@ -31,9 +31,9 @@ const mine: ResourceStructureDefinition = {
       resources: {
         wood: 100,
         iron: 100,
-        stone: 100,
+        stone: 100
       },
-      time: ONE_MINUTE,
+      time: ONE_MINUTE
     },
     generates: { iron: 2 },
     harvest: {
@@ -42,16 +42,16 @@ const mine: ResourceStructureDefinition = {
         'mineral/roseQuartz': 2,
         'mineral/topaz': 2,
         'mineral/jasper': 1,
-        'mineral/greenOpal': 1,
-      },
-    },
+        'mineral/greenOpal': 1
+      }
+    }
   }, {
     displayName: 'structure-mine-name',
     // level 2:
     workerCapacity: 10,
     cost: {
       gold: 50,
-      time: TWO_MINUTES,
+      time: TWO_MINUTES
     },
     generates: { iron: 2 },
     harvest: {
@@ -62,9 +62,9 @@ const mine: ResourceStructureDefinition = {
         'mineral/jasper': 1,
         'mineral/greenOpal': 1,
         'mineral/malachite': 1,
-        'mineral/tigersEye': 1,
-      },
-    },
-  }],
-};
-export default mine;
+        'mineral/tigersEye': 1
+      }
+    }
+  }]
+}
+export default mine

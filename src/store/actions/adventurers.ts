@@ -1,8 +1,8 @@
-import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot';
-import { Effect } from 'definitions/effects/types';
-import { Item } from 'definitions/items/types';
-import { TempEffect } from 'definitions/tempEffects/types';
-import { AttributesStoreState } from 'store/types/adventurer';
+import { type EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot'
+import { type Effect } from 'definitions/effects/types'
+import { type Item } from 'definitions/items/types'
+import { type TempEffect } from 'definitions/tempEffects/types'
+import { type AttributesStoreState } from 'store/types/adventurer'
 
 export type AdventurerAction =
   { type: 'modifyHealth', adventurerId: string, amount: number }
@@ -20,26 +20,26 @@ export type AdventurerAction =
   | { type: 'decreaseEffectCharge', adventurerId: string, effect: Omit<Effect, 'lastTick'> }
   | { type: 'setBasicAttributes', adventurerId: string, basicAttributes: AttributesStoreState }
   | { type: 'renameAdventurer', adventurerId: string, name: string }
-  | { type: 'addXp', adventurerId: string, xp: number; };
+  | { type: 'addXp', adventurerId: string, xp: number }
 
 export const modifyHealth = (adventurerId: string, amount: number): AdventurerAction => ({
   type: 'modifyHealth',
   adventurerId,
-  amount,
-});
+  amount
+})
 
 export const consumeItem = (adventurerId: string, fromSlot: number): AdventurerAction => ({
   type: 'consumeItem',
   adventurerId,
-  fromSlot,
-});
+  fromSlot
+})
 
 export const moveItemInInventory = (adventurerId: string, fromSlot: number, toSlot: number): AdventurerAction => ({
   type: 'moveItemInInventory',
   adventurerId,
   fromSlot,
-  toSlot,
-});
+  toSlot
+})
 
 /**
  * Moves the an item from one adventurers' inventory to another
@@ -52,78 +52,78 @@ export const moveItemToOtherAdventurer = (fromAdventurerId: string, fromSlot: nu
   adventurerId: fromAdventurerId,
   fromSlot,
   toAdventurerId,
-  toSlot,
-});
+  toSlot
+})
 
 // If slot is not provided, will take the first empty slot
 export const addItemToInventory = (adventurerId: string, item: Item, toSlot?: number): AdventurerAction => ({
   type: 'addItemToInventory',
   adventurerId,
   item,
-  toSlot,
-});
+  toSlot
+})
 
 export const removeItemFromInventory = (adventurerId: string, fromSlot: number): AdventurerAction => ({
   type: 'removeItemFromInventory',
   adventurerId,
-  fromSlot,
-});
+  fromSlot
+})
 
 export const assignEquipment = (adventurerId: string, equipmentSlot: EquipmentSlotType, item: Item): AdventurerAction => ({
   type: 'assignEquipment',
   adventurerId,
   item,
-  equipmentSlot,
-});
+  equipmentSlot
+})
 
 export const removeEquipment = (adventurerId: string, equipmentSlot: EquipmentSlotType): AdventurerAction => ({
   type: 'removeEquipment',
   adventurerId,
-  equipmentSlot,
-});
+  equipmentSlot
+})
 
 export const changeEquipmentQuantity = (adventurerId: string, equipmentSlot: EquipmentSlotType, quantity: number): AdventurerAction => ({
   type: 'changeEquipmentQuantity',
   adventurerId,
   equipmentSlot,
-  quantity,
-});
+  quantity
+})
 
 export const apparelTakeDamage = (adventurerId: string, damage: number, bodyPart: EquipmentSlotType): AdventurerAction => ({
   type: 'apparelTakeDamage',
   adventurerId,
   damage,
-  bodyPart,
-});
+  bodyPart
+})
 
 // Adds temporary effect to adventurernpm
 export const addTempEffect = <T extends TempEffect> (adventurerId: string, tempEffect: T): AdventurerAction => ({
   type: 'addTempEffect',
   adventurerId,
-  tempEffect,
-});
+  tempEffect
+})
 
 export const decreaseEffectCharge = <T extends Effect> (adventurerId: string, effect: Omit<T, 'lastTick'>): AdventurerAction => ({
   type: 'decreaseEffectCharge',
   adventurerId,
-  effect,
-});
+  effect
+})
 
 // Only used for debugging
 export const setBasicAttributes = (adventurerId: string, basicAttributes: AttributesStoreState): AdventurerAction => ({
   type: 'setBasicAttributes',
   adventurerId,
-  basicAttributes,
-});
+  basicAttributes
+})
 
 export const renameAdventurer = (adventurerId: string, name: string): AdventurerAction => ({
   type: 'renameAdventurer',
   adventurerId,
-  name,
-});
+  name
+})
 
 export const addXp = (adventurerId: string, xp: number): AdventurerAction => ({
   type: 'addXp',
   adventurerId,
-  xp,
-});
+  xp
+})

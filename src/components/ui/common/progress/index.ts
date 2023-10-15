@@ -1,3 +1,3 @@
 
-export { default as PlainProgressbar } from './PlainProgressbar';
-export { default as TickingProgressbar } from './TickingProgressbar';
+export { default as PlainProgressbar } from './PlainProgressbar'
+export { default as TickingProgressbar } from './TickingProgressbar'

@@ -1,17 +1,17 @@
-import { useDispatch } from 'react-redux';
-import './styles/debugContextTown.scss';
-import { setSetting, SettingsKey } from 'store/actions/settings';
-import { useSettings } from 'hooks/store/settings';
+import { useDispatch } from 'react-redux'
+import './styles/debugContextTown.scss'
+import { setSetting, type SettingsKey } from 'store/actions/settings'
+import { useSettings } from 'hooks/store/settings'
 
 const DebugContextWorld = () => {
-  const settings = useSettings();
-  const dispatch = useDispatch();
+  const settings = useSettings()
+  const dispatch = useDispatch()
 
   const handleBooleanChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const setting = e.currentTarget.getAttribute('setting-name');
-    if (setting === null) throw new Error('No setting');
-    dispatch(setSetting(setting as SettingsKey, e.currentTarget.checked));
-  };
+    const setting = e.currentTarget.getAttribute('setting-name')
+    if (setting === null) throw new Error('No setting')
+    dispatch(setSetting(setting as SettingsKey, e.currentTarget.checked))
+  }
 
   return (
     <div className="debug-context-world">
@@ -62,7 +62,7 @@ const DebugContextWorld = () => {
         </p>
       </section>
     </div>
-  );
-};
+  )
+}
 
-export default DebugContextWorld;
+export default DebugContextWorld
