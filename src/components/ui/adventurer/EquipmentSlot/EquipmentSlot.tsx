@@ -33,7 +33,6 @@ const EquipmentSlot = (props: PropsWithChildren<Props>) => {
     collect: (monitor) => {
       const item = monitor.getItem<InventoryItemDragInfo>()?.item
       const validDrop = item !== undefined && itemAndEquipmentSlotMatch(item.type, props.type) && monitor.canDrop()
-      console.log('valid', validDrop)
       return {
         canDrop: validDrop,
         isOver: monitor.isOver()

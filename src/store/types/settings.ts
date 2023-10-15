@@ -1,4 +1,4 @@
-export interface SettingsState {
+export type SettingsState = {
   verboseCombatLog: boolean
   debugEnableDebugDrawer: boolean
   debugSceneShowPathable: boolean

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useQuest } from 'hooks/store/quests'
 import { getDefinition } from 'definitions/quests'
 import { type QuestDefinition } from 'definitions/quests/types'
@@ -16,7 +15,7 @@ const OnTheRoad = (props: Props) => {
   let progress: number = Math.floor(quest.progress)
   do {
     const log = questDefinition.nodes[progress].log
-    if (log) {
+    if (log !== undefined) {
       return (
         <div>
           <p>{`${TextManager.get(log)}`}</p>

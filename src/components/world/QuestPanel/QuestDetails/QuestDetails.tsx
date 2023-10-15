@@ -11,7 +11,7 @@ export type Props = {
 const QuestDetails = (props: Props) => {
   const quest = useQuest(props.questName)
 
-  if (!quest.sceneName) {
+  if (quest.sceneName === undefined) {
     return <OnTheRoad questName={props.questName} />
   }
   return (
