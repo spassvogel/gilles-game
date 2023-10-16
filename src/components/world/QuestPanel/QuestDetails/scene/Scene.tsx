@@ -45,7 +45,6 @@ const determineActorToClick = (objects: SceneObject[] = [], adventurers: Adventu
     return 80
   }
   const order = objects.sort((o1, o2) => (sortIndex(o2) - sortIndex(o1)))
-  console.log('order', order)
   return order[0]
 }
 
@@ -87,9 +86,7 @@ const Scene = (props: Props) => {
 
   const handleUIMouseDown = (location: Location) => {
     const objects = controller.getObjectsAtLocation(location)
-    console.log('objects', objects)
     const actor = determineActorToClick(objects, adventurers)
-    console.log('actor', actor)
     if (actor !== undefined) {
       // We can click on adventurers or enemies
       props.setSelectedActor(getUniqueName(actor))

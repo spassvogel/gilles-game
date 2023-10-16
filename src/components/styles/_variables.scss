@@ -4,9 +4,3 @@
 @import 'variables/misc.scss';
 @import 'variables/responsive';
 @import 'variables/z-index';
-
-:export {
-  colorPrimary: $color-primary;
-  colorSecondary: $color-secondary;
-  colorTextLighter: $color-text-lighter;
-}

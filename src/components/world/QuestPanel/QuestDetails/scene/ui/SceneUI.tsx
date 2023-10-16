@@ -133,10 +133,13 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
   // const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
   //   const location = findLocation(e)
-  //   if (!controller || !location || !(e.target instanceof Element)) return
-  //   const object = controller.getObjectAtLocation(location)
-  //   if (!object || object.type !== 'actor') return
-
+  //   if (controller === undefined || location === undefined || !(e.target instanceof Element)) {
+  //     return
+  //   }
+  //   const [object] = controller?.getObjectsAtLocation(cursorLocation) ?? []
+  //   if (object?.type !== 'actor') {
+  //     return
+  //   }
   //   // Show context tooltip
   //   const { tileWidth, tileHeight } = controller.getTileDimensions()
   //   const width = tileWidth * scaler.scale
@@ -151,11 +154,16 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
   // }
 
   const handleMouseDown = (e: MouseOrTouchEvent) => {
-    if (adventurerCombatRef.current?.actionMenuOpen) return
-    if (actionQueue.length === 0) return // dont allow new actions to be created
-
+    if ((adventurerCombatRef.current?.actionMenuOpen) ?? false) {
+      return
+    }
+    if (actionQueue.length > 0) {
+      return // dont allow new actions to be created
+    }
     const location = findLocation(e)
-    if (location != null) onMouseDown?.(location)
+    if (location != null) {
+      onMouseDown?.(location)
+    }
     mouseDownOnCanvas.current = true
     e.preventDefault()
   }
@@ -291,10 +299,10 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       onTouchEnd={handleTouchEnd}
     >
       {children}
-      {!scene?.combat && (cursorLocation != null) && (
+      {!((scene?.combat) ?? false) && (cursorLocation != null) && (
         <NormalUICursor location={cursorLocation} />
       )}
-      {scene?.combat && (cursorLocation != null) && !(selectedAdventurer == null) && (
+      {((scene?.combat) ?? false) && (cursorLocation != null) && !(selectedAdventurer == null) && (
         <AdventurerCombatSceneUI
           ref={adventurerCombatRef}
           cursorLocation={cursorLocation}

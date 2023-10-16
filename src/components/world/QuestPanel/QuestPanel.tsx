@@ -46,7 +46,7 @@ const QuestPanel = (props: Props) => {
   const handleActorSelected = (actorId: string) => {
     // can only select enemies when in combat
     // in fact, only time enemies are visible is in combat, but still ...
-    if ((!quest?.scene?.combat && isEnemySelected(quest.scene?.objects ?? [], actorId))) {
+    if ((!((quest?.scene?.combat) ?? false) && isEnemySelected(quest.scene?.objects ?? [], actorId))) {
       return
     }
     setSelectedActorId(actorId)

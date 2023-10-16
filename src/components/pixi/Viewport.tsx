@@ -70,7 +70,7 @@ const Viewport = forwardRef(
     const app = useApp()
     // Perhaps this is better moved somewhere else
     const cursor = `url('${gauntlet}'), auto`
-    app.renderer.plugins.interaction.cursorStyles.pointer = cursor
+    app.renderer.events.cursorStyles.pointer = cursor
 
     return <PixiComponentViewport ref={ref} app={app} {...props} />
   }
