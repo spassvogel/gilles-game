@@ -1,6 +1,6 @@
 import { BaseSceneController } from 'mechanics/scenes/BaseSceneController'
 import { registerSceneController } from 'global/SceneControllerManager'
-import { type SceneObject, type LootCache, type AdventurerObject } from 'store/types/scene'
+import { type SceneObject, type LootCache, type AdventurerObject, getUniqueName } from 'store/types/scene'
 import { setActiveSceneInteractionModal } from 'store/actions/quests'
 import { type Kill10BoarsQuestVars } from '../questVars'
 import { Channel, type GameSound, MixMode, SoundManager } from 'global/SoundManager'
@@ -89,7 +89,7 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
       // todo: I want to share this common stuff with other SceneControllers
       case 'chest':
         if (!this.questVars.dungeon.entrance.chestOpen) {
-          const textEntry = { key: 'quest-common-adventurer-opened-chest', context: { adventurer: object } }
+          const textEntry = { key: 'quest-common-adventurer-opened-chest', context: { adventurer: getUniqueName(object) } }
           this.questUpdate(textEntry, '/img/items/misc/chest-02.png')
 
           this.updateQuestVars({
