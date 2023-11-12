@@ -36,7 +36,7 @@ export const CraftingDetails = (props: Props) => {
   const [workersAssigned, setWorkersAssigned] = useState<number>(0)
 
   const produces = getProductionDefinition(item)
-  const costResources = (produces.cost.resources != null) || {}
+  const costResources = produces.cost.resources ?? {}
   const missingAtLeastOneResource = Object.keys(costResources)
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     .some((key) => {
