@@ -21,6 +21,8 @@
 
   cursor: var(--app-cursor-default);
   font-family: $font-normal;
+  display: flex;
+  flex-direction: column;
 
   button {
     cursor: var(--app-cursor-pointer);

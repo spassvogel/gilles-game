@@ -39,7 +39,7 @@ const ResourceStructureView = (props: Props) => {
 
   // Fetch needed values from store
   const { level, workers } = useStructureState(structure)
-  const workersFree = useSelector<StoreState, number>((store) => selectFreeWorkers(store))
+  const workersFree = 3 // useSelector<StoreState, number>((store) => selectFreeWorkers(store))
   const harvest = useSelector<StoreState, Item[]>((store) => selectHarvest(store, structure as ResourceStructure))
   const levelDefinition = useStructureLevel<ResourceStructureLevelDefinition>(structure)
 

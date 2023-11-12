@@ -114,7 +114,7 @@ const TownView = () => {
   }
 
   useEffect(() => {
-    if (selectedStructure && viewportRef.current) {
+    if (selectedStructure != null && viewportRef.current != null) {
       const viewport = viewportRef.current
       viewport.zoomPercent(0)
       const position = getStructurePosition(selectedStructure as Structure)
@@ -124,7 +124,7 @@ const TownView = () => {
 
   const [canvasWidth, setCanvasWidth] = useState(MAX_WIDTH)
   const [canvasHeight, setCanvasHeight] = useState(HEIGHT)
-
+console.log(canvasHeight)
   useEffect(() => {
     // This will set the dimensions of the canvas tot that of the townview
     const resize = () => {
