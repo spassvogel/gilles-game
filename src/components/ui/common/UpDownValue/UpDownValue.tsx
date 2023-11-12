@@ -1,11 +1,13 @@
 // Todo: come up with a less stupid name
 import * as React from 'react'
+
 import './styles/updownvalue.scss'
 
 export type DispatchProps = {
   onUp?: (e: React.MouseEvent) => void
   onDown?: (e: React.MouseEvent) => void
 }
+
 export type Props = {
   label?: string
   value?: number
@@ -28,7 +30,7 @@ const UpDownValue = (props: Props) => {
     displayValue = props.value
   } else {
     displayValue = (
-      <span>
+      <span className="value">
         {props.value} / <span className="max">{ props.max }</span>
       </span>
     )
@@ -37,11 +39,13 @@ const UpDownValue = (props: Props) => {
     <div className="updownvalue">
         <label> { props.label }</label>
         { displayValue }
-        <i className={ 'arrow up' + (props.upDisabled === true ? ' disabled' : '')}
-        onClick={handleUp}
+        <i
+          className={`arrow up ${(props.upDisabled === true ? ' disabled' : '')}`}
+          onClick={handleUp}
         />
-        <i className={'arrow down' + (props.downDisabled === true ? ' disabled' : '')}
-        onClick={handleDown}
+        <i
+          className={`arrow down ${(props.downDisabled === true ? ' disabled' : '')}`}
+          onClick={handleDown}
         />
     </div>
   )
