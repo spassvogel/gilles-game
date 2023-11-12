@@ -22,8 +22,8 @@ import warehouseIcon from 'components/structures/styles/images/warehouse/icon.pn
 import { addItemToWarehouse } from 'store/actions/stockpile'
 import UpgradeHelpModal from '../UpgradeHelpModal'
 import UpgradeHelpModalContent from './UpgradeHelpModalContent'
-import './styles/resourceStructureView.scss'
 import { ContextType } from 'constants/context'
+import './styles/resourceStructureView.scss'
 
 export type Props = {
   structure: Structure

@@ -43,7 +43,6 @@ const SceneActor = (props: PropsWithChildren<Props> & ComponentProps<typeof Cont
   const { tileWidth, tileHeight } = controller.getTileDimensions()
 
   const { x, y } = useMemo(() => {
-    // console.log('prev', prevLocation, 'location', location);
     return {
       x: location[0] * tileWidth,
       y: location[1] * tileHeight
