@@ -19,9 +19,14 @@ details.structureview {
 .production-structure-view {
   padding: 16px;
 
+  .crafting-list-title {
+    margin-top: 1rem;
+  }
+
   .crafting-area {
     display: flex;
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
 
     .vertical-tab-bar {
       list-style: none;
@@ -66,6 +71,11 @@ details.structureview {
         margin-top: 16px;
       }
     }
+  }
+
+  .crafting-log {
+    padding-top: 2rem;
+    @include border-grey-sm;
   }
 }
 

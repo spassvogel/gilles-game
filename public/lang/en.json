@@ -551,6 +551,7 @@
     "ui-structure-production-craft": "Craft",
     "ui-structure-production-craft-a": "Craft {{item:name item \"aA\"}}",
     "ui-structure-production-crafting": "Currently crafting:",
+    "ui-structure-production-crafting-list": "Crafting list",
     "ui-structure-production-crafting-time": " Crafting time: {{time}}",
     "ui-structure-production-studying": "Currently studying:",
     "ui-structure-production-workers": "Workers: ",

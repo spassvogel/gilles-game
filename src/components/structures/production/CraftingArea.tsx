@@ -13,16 +13,16 @@ export type Props = {
 
 const CraftingArea = (props: Props) => {
   const { structure } = props
-  const [selectedItem, setSelectedItem] = useState<ProducableItem>()
 
   const storeState = useStructureState<ProductionStructureStoreState>(structure)
+  const [selectedItem, setSelectedItem] = useState<ProducableItem>(storeState.produces[0])
   const handleSelectCraftingItem = (item: ProducableItem) => {
     setSelectedItem(item)
   }
 
   return (
     <>
-      <div> { TextManager.get('ui-structure-production-craft') }</div>
+      <div className="crafting-list-title"> { TextManager.get('ui-structure-production-crafting-list') }</div>
       <div className="crafting-area">
         <ul className="vertical-tab-bar">
           {storeState.produces.map((type) => (

@@ -67,14 +67,14 @@ const ProductionStructureView = (props: Props) => {
     // TODO: abstract some stuff to generic StructureView
     <>
       <StructureViewHeader structure={props.structure} />
-      <div className = "production-structure-view">
+      <div className="production-structure-view">
         <section>
           <StructureLevel
             structure={structure}
             onHelpClicked={handleHelpClicked}
           />
           <CraftingArea structure={structure} />
-          <fieldset>
+          <fieldset className="crafting-log">
             <legend>{TextManager.get('ui-structure-production-crafting')}</legend>
             {craftingTasks.map((t) => (
               <TickingProgressbar
