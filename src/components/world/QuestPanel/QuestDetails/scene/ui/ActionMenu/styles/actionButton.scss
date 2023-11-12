@@ -3,7 +3,7 @@
 .action-button {
   white-space: nowrap;
   display: inline-flex;
-  cursor: var(--app-cursor-pointer);
+  cursor: $cursor-pointer;
   font-size: 1.25rem;
   padding: 0 0.5rem;
 }

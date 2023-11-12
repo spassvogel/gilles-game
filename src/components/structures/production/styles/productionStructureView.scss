@@ -34,7 +34,7 @@ details.structureview {
         margin: 0;
         padding: 2px;
         // line-height: $item-size-small;
-        cursor: var(--app-cursor-pointer);
+        cursor: $cursor-pointer;
 
         &.selected {
           background: $color-secondary;

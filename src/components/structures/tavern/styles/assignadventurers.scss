@@ -1,19 +1,21 @@
+@import '@/components/styles/import.scss';
+
 .assign-adventurers {
   margin: 20px;
   padding: 0;
   justify-content: center;
-    display: flex;
-    
+  display: flex;
+
   li {
     display: inline-block;
     width: 32px;
     height: 32px;
     border: 1px solid gray;
     margin: 2px;
-    
-    
-        &.has-adventurer {
-        cursor: var(--app-cursor-pointer);
-        }
+
+
+      &.has-adventurer {
+        cursor: $cursor-pointer;
+      }
     }
 }

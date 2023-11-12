@@ -15,17 +15,13 @@
   min-height: 100vh;
 
   // todo: 08/05/2020  Use variables for cursor
-  --app-cursor-default: url("./img/cursors/dwarven_gauntlet_extra_4.png"), auto;
-  --app-cursor-pointer: url("./img/cursors/dwarven_gauntlet_extra_6.png"), auto;
-  --app-cursor-down: url("./img/cursors/dwarven_gauntlet_extra_3.png"), auto;
-
-  cursor: var(--app-cursor-default);
+  cursor: $cursor-default;
   font-family: $font-normal;
   display: flex;
   flex-direction: column;
 
   button {
-    cursor: var(--app-cursor-pointer);
+    cursor: $cursor-pointer;
   }
 
   .control-bar {
@@ -34,6 +30,7 @@
 
   a {
     color: $color-link;
+    cursor: $cursor-pointer;
   }
 
   /** Small resolutions */

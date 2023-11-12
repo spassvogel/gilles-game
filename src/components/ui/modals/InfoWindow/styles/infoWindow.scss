@@ -23,7 +23,7 @@
     justify-content: space-between;
 
     .close {
-		  cursor: var(--app-cursor-pointer);
+		  cursor: $cursor-pointer;
     }
   }
 }
