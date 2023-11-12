@@ -68,7 +68,7 @@ const Viewport = forwardRef(
   (props: ViewportProps, ref: React.Ref<PixiViewport>) => {
     const app = useApp()
     // Perhaps this is better moved somewhere else
-    const cursor = 'var(--cursor-pointer);'
+    const cursor = 'url("img/cursors/dwarven_gauntlet_extra_6.png"), auto;'
     app.renderer.events.cursorStyles.pointer = cursor
 
     return <PixiComponentViewport ref={ref} app={app} {...props} />

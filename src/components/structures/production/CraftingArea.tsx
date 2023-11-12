@@ -24,7 +24,7 @@ const CraftingArea = (props: Props) => {
     <>
       <div className="crafting-list-title"> { TextManager.get('ui-structure-production-crafting-list') }</div>
       <div className="crafting-area">
-        <ul className="vertical-tab-bar">
+        <ul className="crafting-items-list">
           {storeState.produces.map((type) => (
             <li
               key={`craft${type}`}

@@ -28,11 +28,12 @@ details.structureview {
     margin-bottom: 1rem;
     margin-top: 0.5rem;
 
-    .vertical-tab-bar {
+    .crafting-items-list {
       list-style: none;
       margin: 0;
       padding: 0;
       width: 200px;
+      text-transform: capitalize;
 
       li {
         display: flex;
@@ -56,6 +57,14 @@ details.structureview {
       flex: 1;
       border: 3px solid $color-secondary;
       padding: 10px;
+
+      .crafting-item {
+        margin-bottom: 0.25rem;
+      }
+
+      fieldset {
+        @include border-grey-sm;
+      }
 
       .crafting-costs {
         display: flex;

@@ -98,7 +98,9 @@ export const CraftingDetails = (props: Props) => {
 
   return (
     <div className="crafting-details">
-      {TextManager.get('ui-structure-production-craft-a', { item })}
+      <div className="crafting-item">
+        {TextManager.get('ui-structure-production-craft-a', { item })}
+      </div>
       <div className="crafting-costs">
         <fieldset>
           <ResourcesCost resources={costResources} />

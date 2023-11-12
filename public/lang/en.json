@@ -51,7 +51,7 @@
     "common-cheat-resources-added": "Added {{amount}} of each resource.",
     "common-cheat-workers-added": "Added {{amount}} workers.",
 
-    "common-item-crafted": "You have crafted {{item:trigger item \"aA\"}}",
+    "common-item-crafted": "You have crafted {{item:name item \"aA\"}}",
 
     "common-time-d": "d",
     "common-time-day": " day",
