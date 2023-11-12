@@ -1,12 +1,6 @@
-// Todo: come up with a less stupid name
 import * as React from 'react'
 
-import './styles/updownvalue.scss'
-
-export type DispatchProps = {
-  onUp?: (e: React.MouseEvent) => void
-  onDown?: (e: React.MouseEvent) => void
-}
+import './styles/numberdial.scss'
 
 export type Props = {
   label?: string
@@ -14,7 +8,9 @@ export type Props = {
   max?: number
   upDisabled?: boolean
   downDisabled?: boolean
-} & DispatchProps
+  onUp?: (e: React.MouseEvent) => void
+  onDown?: (e: React.MouseEvent) => void
+}
 
 const UpDownValue = (props: Props) => {
   const handleUp = (e: React.MouseEvent) => {
@@ -36,7 +32,7 @@ const UpDownValue = (props: Props) => {
     )
   }
   return (
-    <div className="updownvalue">
+    <div className="number-dial">
         <label> { props.label }</label>
         { displayValue }
         <i

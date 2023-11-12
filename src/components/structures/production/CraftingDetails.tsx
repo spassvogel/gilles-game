@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Button from 'components/ui/buttons/Button'
-import UpDownValue from 'components/ui/common/UpDownValue'
+import UpDownValue from 'components/ui/common/NumberDial'
 import ItemsBox from 'components/ui/items/ItemsBox'
 import ResourcesCost from 'components/structures/production/ResourcesCost'
 import { type ItemType } from 'definitions/items/types'

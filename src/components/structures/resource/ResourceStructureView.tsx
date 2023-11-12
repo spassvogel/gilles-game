@@ -1,6 +1,6 @@
 import { type ResourceStructure, type Structure } from 'definitions/structures'
 import { type ResourceStructureLevelDefinition } from 'definitions/structures/types'
-import UpDownValue from 'components/ui/common/UpDownValue'
+import UpDownValue from 'components/ui/common/NumberDial'
 import { useSelector, useDispatch } from 'react-redux'
 import ReactMarkdown from 'react-markdown'
 import { type StoreState } from 'store/types'
