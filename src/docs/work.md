@@ -825,8 +825,9 @@ https://interfaceingame.com/games/league-of-legends/
 
 ### 2022-04-18 Scenecontrollers as hooks
 
-- [ ] Investigate if we can have scenecontroller as hooks
-- [ ] Everything needs to be put in state / memo
+- [-] Investigate if we can have scenecontroller as hooks
+- [-] Everything needs to be put in state / memo
+      update: this is a total shit show. do not attempt this again
 
 ### 2022-05-05 Tick into middleware
 - [x] refactor gametick logic into middleware
@@ -835,13 +836,13 @@ https://interfaceingame.com/games/league-of-legends/
 - [] Implement a serviceworker for caching
 
 ### 2022-12-03 Inventory
-- [ ] Fix Inventory. Let css grid figure out how many rows/columns
+- [x] Fix Inventory. Let css grid figure out how many rows/columns
 
 
 ### 2022-06-23 Remove long press
 - [x] Remove long press to see actor stats. It's hella annoying
-- [ ] Cannot shoot dead enemies
-- [ ] When a live actor and a dead one share the same tile, live actor takes precedence for selecting 
+- [x] Cannot shoot dead enemies
+- [x] When a live actor and a dead one share the same tile, live actor takes precedence for selecting 
 
 ### 2023-09-20 Managers
 - [ ] Dump this weird Managers stuff. Use hooks

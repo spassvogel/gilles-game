@@ -62,7 +62,6 @@ const Stockpile = () => {
       </Tabstrip>
       <Inventory
         sourceType={WAREHOUSE}
-        className="inventory-large"
         items={items}
         onDropItem={handleDropItemWarehouse}
         // onStartDrag={handleStartDrag}

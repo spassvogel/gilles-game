@@ -136,9 +136,14 @@
       .adventurer-panel {
         overflow: hidden;
         position: relative;
-        margin-right: 40px;
+        // maked the SectionSelection sticky again?
+        // margin-right: 40px;
 
         section {
+          &#common {
+            margin-right: 40px;
+          }
+
           padding: 8px;
           margin-bottom: 3rem;
 

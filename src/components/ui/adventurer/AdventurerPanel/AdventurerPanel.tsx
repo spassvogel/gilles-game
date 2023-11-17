@@ -121,7 +121,6 @@ const AdventurerPanel = (props: Props) => {
           sourceId={adventurerId}
           disabledIndex={consumeItemIndex}
           items={adventurer.inventory}
-          className="inventory-medium"
           onDropItem={handleDropItemInventory}
           onStartDrag={onStartInventoryItemDrag}
         />

@@ -20,7 +20,7 @@ const AdventurerSectionSelection = () => {
         const hash = link.hash.substring(link.hash.lastIndexOf('#'))
         const section = document.querySelector(hash) as HTMLElement
 
-        if (section && section.offsetTop <= fromTop && section.offsetTop + section.clientHeight > fromTop) {
+        if (section.offsetTop <= fromTop && section.offsetTop + section.clientHeight > fromTop) {
           link.classList.add('active')
         } else {
           link.classList.remove('active')
