@@ -53,7 +53,7 @@ const UpgradeHelpModal = (props: PropsWithChildren<Props>) => {
     dispatch(subtractGold(goldCost))
     dispatch(removeResources(costResources))
     const callbacks = [
-      ...(((addUpgradeCallbacks?.(level + 1)) != null) ?? []),
+      ...(((addUpgradeCallbacks?.(level + 1))) ?? []),
       upgradeStructure(structure),
       addLogText('log-town-upgrade-structure-complete', {
         level: level + 1,
