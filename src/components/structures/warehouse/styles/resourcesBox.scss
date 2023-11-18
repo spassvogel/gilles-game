@@ -7,12 +7,26 @@
   .row {
     grid-template-columns: 32px minmax(0, 1fr) 1fr 1fr 5fr;
     display: grid;
+
+    .name {
+      // flex: .2;
+      margin-left: 4px;
+    }
+
+    .source {
+      margin-right: 0.25rem;
+    }
+
+    @include xs-max {
+      grid-template-columns: 32px minmax(0, 1fr) 1fr 1fr 2fr;
+
+      .source {
+        display: none;
+      }
+    }
+
   }
 
-	.name {
-		// flex: .2;
-		margin-left: 4px;
-	}
 
 	.amount {
 		// width: 40px;
@@ -45,10 +59,11 @@
 			overflow: hidden;
 			white-space: nowrap;
       padding-right: 0.25rem;
+      display: inline;
 
       @include sm {
         // on high res, the 'unbuilt' line is to the right of the text
-        float: left;
+        // float: left;
       }
 		}
     .unbuilt {

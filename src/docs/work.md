@@ -846,3 +846,12 @@ https://interfaceingame.com/games/league-of-legends/
 
 ### 2023-09-20 Managers
 - [ ] Dump this weird Managers stuff. Use hooks
+
+### 2023-11-17 Scene Effects
+- [ ] Use descriminated union to describe effects. 
+- [ ] Allow for more types than just a spritesheet (particles, screen shake?)
+- [ ] Shaking https://gist.github.com/jrod-disco/8a595ce842d17567168b81e02414b9ad
+
+### 2023-11-17 Lightning effects
+- [ ] Implement
+- [ ] Add electroshock weapons

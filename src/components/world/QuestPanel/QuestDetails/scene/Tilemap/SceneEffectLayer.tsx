@@ -3,7 +3,6 @@ import { type BaseSceneController, EVENT_SCENE_EFFECT } from 'mechanics/scenes/B
 import { useEffect, useRef } from 'react'
 import { AnimatedSprite, Assets, type Container as PixiContainer, type Point } from 'pixi.js'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 type Props = {
   controller: BaseSceneController<unknown>
 }
