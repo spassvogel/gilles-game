@@ -38,7 +38,7 @@ const ProductionStructureView = (props: Props) => {
     if (structure === 'alchemist') {
       void SoundManager.playSound('AMBIENT_STRUCTURE_ALCHEMIST', Channel.ambient, true)
     }
-    // return () => SoundManager.fadeOutSound(Channel.ambient)
+    return () => { SoundManager.fadeOutSound(Channel.ambient) }
   }, [structure])
 
   const handleUpgradeCallbacks = (nextLevel: number) => {
