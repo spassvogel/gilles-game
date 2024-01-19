@@ -44,7 +44,7 @@ const ErrorModal = (props: FallbackProps) => {
       <InfoWindow className="error-modal" title="">
         <h2 className="title" >
           Something went horribly wrong
-          <a href={'/'} className="close">x</a>
+          <a href={'/'} className="close">╳</a>
         </h2>
         <div className="content">
           <pre>{error.message}</pre>

@@ -15,7 +15,7 @@ const DebugDrawer = () => {
   if (!open) return null
   return (
     <div className="debug-drawer">
-      <div className="close" onClick={() => { setOpen(false) }}>x</div>
+      <div className="close" onClick={() => { setOpen(false) }}>╳</div>
       <DebugView />
     </div>
   )
