@@ -1,6 +1,6 @@
 import { type ContextInfo, type ContextType } from 'constants/context'
 import { type ItemSource } from 'constants/items'
-// import deepEquals from 'deep-equal'
+import deepEquals from 'deep-equal'
 import EventEmitter from 'events'
 import type TypedEmitter from 'typed-emitter'
 
@@ -26,13 +26,12 @@ export class TooltipManager extends (EventEmitter as unknown as new () => TypedE
   // Note you probably want to call event.stopPropagation() after calling this
   static showContextTooltip (type: ContextType, info: ContextInfo, originRect: DOMRect, className?: string, source?: ItemSource) {
     const context = { type, info, referenceRect: originRect, className, source }
-    // todo: install deepEquals
-    // if (deepEquals(context, this.lastContext)) {
-    //   this.clear()
-    // } else {
+    if (deepEquals(context, this.lastContext)) {
+      this.clear()
+    } else {
       this.instance.emit(EVENT_CONTEXT_UPDATED, context)
       this.lastContext = context
-    // }
+    }
   }
 
   static clear () {
