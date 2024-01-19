@@ -93,7 +93,7 @@ const LootCache = (props: Props) => {
           </div>
         </div>
       )}
-      { !!cache.gold && (
+      { ((cache.gold ?? 0) > 0) && (
         <div className="content">
           <div className="gold">
             <Icon

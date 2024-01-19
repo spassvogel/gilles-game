@@ -19,7 +19,7 @@ export const resources: Reducer<ResourceStoreState, ResourcesAction | GameTickAc
     // todo: Check if warehouse can hold it
     return Object.keys(state).reduce<ResourceStoreState>((acc, value) => {
       const resource = value as Resource
-      acc[resource] = (state[resource] ?? 0) + (resourcesToAdd[resource] || 0)
+      acc[resource] = (state[resource] ?? 0) + (resourcesToAdd[resource] ?? 0)
       return acc
     }, {})
   }
@@ -33,7 +33,7 @@ export const resources: Reducer<ResourceStoreState, ResourcesAction | GameTickAc
       const resourcesToRemove = action.resources
       return Object.keys(state).reduce<ResourceStoreState>((acc, value) => {
         const resource = value as Resource
-        acc[resource] = (state[resource] ?? 0) - (resourcesToRemove[resource] || 0)
+        acc[resource] = (state[resource] ?? 0) - (resourcesToRemove[resource] ?? 0)
         return acc
       }, {})
     }

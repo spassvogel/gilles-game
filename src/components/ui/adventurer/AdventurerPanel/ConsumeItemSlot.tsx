@@ -3,6 +3,7 @@ import { DragType } from 'constants/dragging'
 import { type InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon'
 import { isConsumable } from 'definitions/items/consumables'
 import { type PropsWithChildren } from 'react'
+
 import './styles/consumeItemSlot.scss'
 
 export type Props = {
@@ -19,7 +20,7 @@ export type CollectedProps = {
  */
 const ConsumeItemSlot = (props: PropsWithChildren<Props>) => {
   const { onDrop } = props
-  const [{ canDrop, isOver }, dropRef] = useDrop<InventoryItemDragInfo, void, CollectedProps>(() => ({
+  const [{ canDrop, isOver }, dropRef] = useDrop<InventoryItemDragInfo, unknown, CollectedProps>(() => ({
     // The type (or types) to accept - strings or symbols
     accept: DragType.ITEM,
     canDrop: ({ item }: InventoryItemDragInfo) => {

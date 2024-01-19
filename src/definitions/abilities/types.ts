@@ -7,5 +7,5 @@ export enum WeaponAbility {
   shoot,
   slash,
   parry,
-  riposte,    // When held in off hand, will counterattack melee attacks
+  riposte, // When held in off hand, will counterattack melee attacks
 }

@@ -36,7 +36,7 @@ const getProducedResources = (lastProducedUpdate: number, store: StoreState): Re
         const resource = key as Resource
 
         const amount: number = levelDefinition.generates[resource]! * structures[structure as Structure].workers * factor
-        accumulator[resource] = (accumulator[resource] || 0) + amount
+        accumulator[resource] = (accumulator[resource] ?? 0) + amount
         return accumulator
       }, result)
     }
@@ -51,7 +51,7 @@ const getProducedResources = (lastProducedUpdate: number, store: StoreState): Re
   // Check if the warehouse can actually hold it
   Object.keys(result).forEach((key: string) => {
     const resource = key as Resource
-    if (result[resource]) {
+    if (result[resource] != null) {
       if (store.resources[resource]! + result[resource]! >= maxResources[resource]!) {
         result[resource] = maxResources[resource]! - (store.resources[resource]!)
       }

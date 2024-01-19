@@ -57,7 +57,7 @@ const ConsumeItem = (props: Props) => {
       throw new Error(`No potion found at index ${fromSlot} `)
     }
     if (combat) {
-      if (!questName) return
+      if (questName == null) return
       // Deduct AP from adventurer if in combat
       dispatch(deductActorAp(questName, adventurerId, AP_COST_CONSUME))
     }

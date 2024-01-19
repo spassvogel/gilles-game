@@ -408,14 +408,14 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
   // Should be overridden
   getLootCache (_name: string): LootCache | undefined {
     // Override this to retrieve LootCache from questvars
-
+    return undefined
   }
 
   takeGoldFromCache (name: string) {
     // Override this to remove gold from questvars
     const lootCache = this.getLootCache(name)
     if (lootCache != null) {
-      this.dispatch(addGold(lootCache.gold || 0))
+      this.dispatch(addGold(lootCache.gold ?? 0))
     }
   }
 
@@ -573,7 +573,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     } = actor
     if (isAdventurer(actor)) {
       const adventurer = this.getAdventurerByActor(actor)
-      if ((adventurer?.health || 0) <= 0) {
+      if ((adventurer?.health ?? 0) <= 0) {
         return undefined
       }
     }
@@ -720,8 +720,8 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         // reduce the props array into an object with key/values
         const properties = parseProperties(value.properties)
         const location: Location = [
-          value.x / (this.mapData?.tilewidth || 1),
-          (value.y - (value.gid ? value.height : 0)) / (this.mapData?.tileheight || 1)
+          value.x / (this.mapData?.tilewidth ?? 1),
+          (value.y - (value.gid ? value.height : 0)) / (this.mapData?.tileheight ?? 1)
         ]
 
         const object: SceneObject | null = {
@@ -819,7 +819,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
   }
 
   public get sceneEnemies(): EnemyObject[] {
-    return this.sceneObjects.filter<EnemyObject>(isEnemy);
+    return this.sceneObjects.filter<EnemyObject>(isEnemy)
   }
 
   // Quest
@@ -834,7 +834,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     return this.quest.questVars as TQuestVars
   }
 
-  protected get actorSpritesheetPaths(): string[] {
+  protected get actorSpritesheetPaths (): string[] {
     const adventurers = this.getAdventurers()
     return [
       ...adventurers.map(a => sprites[a.spritesheet]),

@@ -4,7 +4,7 @@ export type MouseOrTouchEvent<T = HTMLElement> = React.MouseEvent<T> | React.Tou
 
 // Normalizes `clientX` and `clientY` props from either a mouse or a touch event
 export const convertMouseOrTouchCoords = (e: MouseOrTouchEvent) => {
-  if ((e as React.MouseEvent).clientX && (e as React.MouseEvent).clientY) {
+  if (((e as React.MouseEvent).clientX !== 0) && ((e as React.MouseEvent).clientY !== 0)) {
     return {
       x: (e as React.MouseEvent).clientX,
       y: (e as React.MouseEvent).clientY

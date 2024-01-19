@@ -13,7 +13,7 @@ const Tab = <T extends string> (props: React.PropsWithChildren<Props<T>>) => {
       props.onClick(e)
     }
   }
-  const className = ((props.active) ? 'active' : '') + (props.className ?? '')
+  const className = ((props.active === true) ? 'active' : '') + (props.className ?? '')
   return (
     <li className={`tabstrip-tab ${className}`} onClick={handleClick}>
       {props.children}

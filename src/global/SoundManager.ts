@@ -37,6 +37,7 @@ const DEFAULT_SCENE_VOLUME = 1
 const DEFAULT_AMBIENT_VOLUME = 0.2
 const STORAGE_KEY_VOLUME = 'channelVolume'
 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class SoundManager {
   private static _currentSound: Record<number, SoundInfo> = {} // per channel
 
@@ -74,13 +75,13 @@ export class SoundManager {
 
     try {
       const pixiSound = this.getSound(gameSound)
-      if (!pixiSound) {
+      if (pixiSound == null) {
         console.warn(`Can't find sound ${gameSound}`)
       }
       pixiSound.volume = this._channelVolume[channel]
       pixiSound.loop = loop
 
-      if (this._currentSound[channel]?.storePosition) {
+      if (this._currentSound[channel]?.storePosition === true) {
         // Did we have to store the position of the current sound?
         const oldSoundInfo = this._currentSound[channel]
         oldSoundInfo.instance.once('progress', (progress: number, duration: number) => {
@@ -91,7 +92,7 @@ export class SoundManager {
 
       const instance = await pixiSound.play({ start })
 
-      if (this._currentSound[channel]) {
+      if (this._currentSound[channel] != null) {
         if (mixMode === MixMode.fade) {
         // Fade out current sound on this channel and fade in new sound
           SoundManager.fadeOutSound(channel)
@@ -112,7 +113,7 @@ export class SoundManager {
   }
 
   protected static getSound (sound: GameSound): Sound {
-    if (!sounds[sound]) {
+    if (sounds[sound] == null) {
       console.error(`No sound found for ${sound}`)
     }
     if (Array.isArray(sounds[sound])) {
@@ -136,7 +137,7 @@ export class SoundManager {
 
   public static fadeOutSound (channel: Channel, duration = 0.75) {
     const soundInfo = this._currentSound[channel]
-    if (!soundInfo) return
+    if (soundInfo == null) return
     gsap.to(soundInfo.instance, {
       volume: 0,
       duration,
@@ -151,7 +152,7 @@ export class SoundManager {
   }
 
   public static set musicFiltered (value: boolean) {
-    if (this._currentSound[Channel.music]) {
+    if (this._currentSound[Channel.music] != null) {
       this._currentSound[Channel.music].pixiSound.filters = value ? [this._filter] : []
     }
   }

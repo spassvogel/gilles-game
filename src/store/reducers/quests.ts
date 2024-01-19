@@ -168,7 +168,7 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
             case SceneActionType.melee:
             case SceneActionType.interact: {
               scene.objects = scene.objects.map((a) => {
-                if (getUniqueName(a) === action.actorName && sceneAction.intent.path?.[sceneAction.intent.path.length - 1]) {
+                if (getUniqueName(a) === action.actorName && ((sceneAction.intent.path?.[sceneAction.intent.path.length - 1]) != null)) {
                   return {
                     ...a,
                     location: sceneAction.intent.path[sceneAction.intent.path.length - 1]

@@ -78,7 +78,7 @@ const AdventurerPanel = (props: Props) => {
     setConsumeItemIndex(undefined)
   }
 
-  if (!adventurer) return null
+  if (adventurer == null) return null
 
   return (
     <div className={`adventurer-panel${(horizontalMode === true ? ' horizontal' : '')}`}>

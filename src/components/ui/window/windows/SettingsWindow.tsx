@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useDispatch } from 'react-redux'
 import { type ChangeEvent } from 'react'
 import gsap from 'gsap'
-// import { Channel, SoundManager } from 'global/SoundManager'
+import { Channel, SoundManager } from 'global/SoundManager'
 import { setSetting, type SettingsKey } from 'store/actions/settings'
 import { useSettings } from 'hooks/store/settings'
 import Window from '../Window'
@@ -14,11 +14,11 @@ const SettingsWindow = () => {
   const settings = useSettings()
   const dispatch = useDispatch()
 
-  const getChannelControls = (channel /*: Channel*/) => {
+  const getChannelControls = (channel: Channel) => {
     const handleVolumeChange = (e: ChangeEvent<HTMLInputElement>) => {
-      // const linear = parseFloat(e.target.value)
-      // const log = Math.pow(linear, 2)
-      // SoundManager.setChannelVolume(channel, log)
+      const linear = parseFloat(e.target.value)
+      const log = Math.pow(linear, 2)
+      SoundManager.setChannelVolume(channel, log)
     }
 
     const handleMuteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -28,7 +28,7 @@ const SettingsWindow = () => {
           duration: 0.5,
           value: 0,
           onComplete: () => {
-            // SoundManager.setChannelVolume(channel, 0)
+            SoundManager.setChannelVolume(channel, 0)
           }
         })
       }
@@ -64,10 +64,10 @@ const SettingsWindow = () => {
         <details open className="settings-section sound" >
           <summary>Sound volume</summary>
           <section>
-            {/* {getChannelControls(Channel.ui)}
+            {getChannelControls(Channel.ui)}
             {getChannelControls(Channel.scene)}
             {getChannelControls(Channel.music)}
-            {getChannelControls(Channel.ambient)} */}
+            {getChannelControls(Channel.ambient)}
           </section>
         </details>
         <details open className="settings-section combat" >

@@ -41,7 +41,7 @@ const ActionButton = (props: Props) => {
 
   const handleMouseUp = () => {
     const selectedActorLocation = controller?.getSceneActor(adventurer.id)?.location
-    if ((selectedActorLocation != null) && location && !locationEquals(selectedActorLocation, location) && intent) {
+    if ((selectedActorLocation != null) && location != null && !locationEquals(selectedActorLocation, location) && intent != null) {
       controller?.actorAttemptAction(intent)
       onCloseMenu()
     }

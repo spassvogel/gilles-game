@@ -72,8 +72,7 @@ const useTilesetsLoader = (basePath: string) => {
       }
       setTilesets(newTilesets)
     }
-    loadSpritesheet().then(() => {
-    })
+    loadSpritesheet()
   }, [basePath, data, tileSpritesheets])
 
   const loadComplete = !(data == null) && nextTilesetToload(data, tileSpritesheets) === undefined

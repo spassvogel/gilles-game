@@ -16,6 +16,7 @@ const effectTick = (storeApi: AppMiddlewareAPI, effect: Effect, adventurerId: st
   }
 }
 
+// character effect
 export const effectsMiddleware: Middleware<unknown, StoreState> = (storeApi: AppMiddlewareAPI) => next => (action: Action) => {
   const state = storeApi.getState()
 

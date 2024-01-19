@@ -28,7 +28,7 @@ const ProducedAtStructure = (props: Props) => {
   const studyTasks = useStudyingTasksStateByStructure(structure)
   const dispatch = useDispatch()
 
-  if (!structure) {
+  if (structure == null) {
     return null
   }
 
@@ -59,10 +59,10 @@ const ProducedAtStructure = (props: Props) => {
 
   // Cant study because the structure is not high lvl enough
   const productionDefinition = getProductionDefinition(props.item)
-  if (structureStore.level < (productionDefinition.levelRequired || 0) || structureStore.state !== StructureState.Built) {
+  if (structureStore.level < (productionDefinition.levelRequired ?? 0) || structureStore.state !== StructureState.Built) {
     return (
       <p className="invalid">
-        {TextManager.get('ui-tooltip-study-requires-structure-level', { structure, level: (productionDefinition.levelRequired || 0) + 1 })}
+        {TextManager.get('ui-tooltip-study-requires-structure-level', { structure, level: (productionDefinition.levelRequired ?? 0) + 1 })}
       </p>
     )
   }

@@ -18,7 +18,15 @@ import { useActiveQuests } from 'hooks/store/quests'
 import { useNavigate } from 'react-router-dom'
 import { getWorldLink } from 'utils/routing'
 import { DebugToggleCombat } from './DebugToggleCombat'
-import { FULL_HEIGHT, SMALL_HEIGHT, nodeLocationToPoint, getPreviousPositions, getQuestWorldLocation, WORLD_WIDTH, WORLD_HEIGHT } from './utils'
+import {
+  FULL_HEIGHT,
+  SMALL_HEIGHT,
+  nodeLocationToPoint,
+  getPreviousPositions,
+  getQuestWorldLocation,
+  WORLD_WIDTH,
+  WORLD_HEIGHT
+} from './utils'
 import { type IApplicationOptions } from 'pixi.js'
 import { sprites } from 'bundles/sprites'
 import { useSettings } from 'hooks/store/settings'
@@ -101,7 +109,7 @@ const WorldMap = (props: Props) => {
       }
 
       const viewport = viewportRef.current
-      if (viewport) {
+      if (viewport != null) {
         viewport.resize(canvasWidth, canvasHeight)
       }
     }
@@ -170,7 +178,7 @@ const WorldMap = (props: Props) => {
     // }
   }
 
-  const options: IApplicationOptions = {
+  const options: Partial<IApplicationOptions> = {
     backgroundColor: 0xa09b92,
     autoDensity: true,
     width: canvasWidth,
@@ -198,9 +206,9 @@ const WorldMap = (props: Props) => {
             <DebugToggleCombat questName={props.selectedQuestName} />
             {TextManager.getQuestTitle(props.selectedQuestName)}
             {' | '}
-            {selectedQuest?.sceneName ? TextManager.getQuestSceneTitle(selectedQuest) : '...'}
+            {selectedQuest?.sceneName != null ? TextManager.getQuestSceneTitle(selectedQuest) : '...'}
           </span>
-          <span onClick={handleClose} className="close">x</span>
+          <span onClick={handleClose} className="close">╳</span>
         </div>
       )}
     </div>

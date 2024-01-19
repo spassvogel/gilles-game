@@ -18,7 +18,7 @@ export default class HitAreaShapes implements IHitArea {
    * @param {number} y
    */
   contains (x = 0, y = 0) {
-    return (!this.shapes || this.shapes.length === 0)
+    return (this.shapes == null || this.shapes.length === 0)
       ? false
       : this.shapes.some(shape => shape.contains(x, y))
   }

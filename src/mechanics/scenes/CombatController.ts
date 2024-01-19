@@ -5,7 +5,7 @@ import { type ActorObject, Allegiance, type EnemyObject, getUniqueName, isAdvent
 import { type BaseSceneController, movementDuration } from './BaseSceneController'
 import { Channel, MixMode, SoundManager } from 'global/SoundManager'
 import { getDefinition as getWeaponDefinition, type Weapon } from 'definitions/items/weapons'
-import { AP_COST_MELEE, AP_COST_SHOOT, decreaseDurability, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat'
+import { AP_COST_MELEE, AP_COST_SHOOT, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat'
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot'
 import { type TextEntry } from 'constants/text'
 import { apparelTakeDamage, changeEquipmentQuantity, modifyHealth } from 'store/actions/adventurers'
@@ -38,12 +38,12 @@ export class CombatController {
   }
 
   static handleStoreChange () {
-    if (!this.sceneController) return
+    if (this.sceneController == null) return
     // const questState = this.getQuestStoreState()
     const adventurers = this.sceneController.sceneAdventurers
     const enemies = this.sceneController.sceneEnemies
     const quest = this.sceneController.quest
-    if (adventurers && enemies && quest && (quest.scene != null) && !quest.scene.actionQueue?.length) {
+    if (adventurers != null && enemies != null && quest != null && (quest.scene != null) && !quest.scene.actionQueue?.length) {
       const totalAdventurerAp = adventurers.reduce((acc, value) => acc + value.ap, 0)
       const { scene } = quest
       const { turn } = scene
@@ -388,7 +388,7 @@ export class CombatController {
         }
       })
     } else {
-      const decreasedDurability = decreaseDurability(damage, armor)
+      // const decreasedDurability = decreaseDurability(damage, armor)
       // bodyPart
     }
   }

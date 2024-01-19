@@ -3,7 +3,7 @@ import { type StoreState } from 'store/types'
 import { type BaseSceneController } from 'mechanics/scenes/BaseSceneController'
 
 // todo: refactor this weird class/ manager stuff
-const store: Record<string, BaseSceneController<unknown>> = {}
+const stores = new Map<string, BaseSceneController<unknown>>()
 const controllerTypes: Record<string, typeof BaseSceneController> = {}
 
 export const registerSceneController = (questName: string, sceneName: string, controllerType: any) => {
@@ -14,15 +14,17 @@ export const registerSceneController = (questName: string, sceneName: string, co
  * Gets the scenecontroller for scene. Creates it if it doesnt exist
  */
 export const getSceneController = (questName: string, sceneName: string, store: Store<StoreState, AnyAction>): BaseSceneController<unknown> => {
-  if (!store[`${questName}.${sceneName}`]) {
-    if (!controllerTypes[`${questName}.${sceneName}`]) {
+  if (!stores.has(`${questName}.${sceneName}`)) {
+    if (controllerTypes[`${questName}.${sceneName}`] == null) {
       throw new Error(`No controller registered for ${questName}.${sceneName}`)
     }
-    store[`${questName}.${sceneName}`] = new controllerTypes[`${questName}.${sceneName}`](store, questName)
+    stores.set(`${questName}.${sceneName}`, new controllerTypes[`${questName}.${sceneName}`](store, questName))
   }
-  return store[`${questName}.${sceneName}`]
+  // we already asserted it's not null
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return stores.get(`${questName}.${sceneName}`)!
 }
 
 const destroySceneConroller = (questName: string, sceneName: string) => {
-  delete store[`${questName}.${sceneName}`]
+  stores.delete(`${questName}.${sceneName}`)
 }

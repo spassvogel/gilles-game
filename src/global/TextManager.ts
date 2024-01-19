@@ -19,6 +19,7 @@ import { Rarity } from 'constants/items'
 import { WeaponClassification, WeaponType } from 'definitions/weaponTypes/types'
 import { WeaponAbility } from 'definitions/abilities/types'
 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export abstract class TextManager {
   public static init (texts: Record<string, string>, precompile = true) {
     this.texts = texts
@@ -51,7 +52,7 @@ export abstract class TextManager {
       throw new Error(`Error ${this} not initialized!`)
     }
     const template = this.getTemplate(key)
-    if (!template) {
+    if (template == null) {
       return null
     }
     return template(context)
@@ -63,7 +64,7 @@ export abstract class TextManager {
 
   public static getTemplate (key: string) {
     let template = this.templates[key]
-    if (!template && this.texts[key]) {
+    if (template == null && this.texts[key] == null) {
       // Template not found but key is defined. Needs to be compiled
       this.compile(key, this.texts[key])
       template = this.templates[key]

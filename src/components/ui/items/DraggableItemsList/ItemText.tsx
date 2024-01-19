@@ -7,7 +7,7 @@ type Props = {
 
 const ItemText = (props: Props) => {
   const { item } = props
-  if (!item) {
+  if (item == null) {
     console.log('empty item.. wtf')
     return null
   }

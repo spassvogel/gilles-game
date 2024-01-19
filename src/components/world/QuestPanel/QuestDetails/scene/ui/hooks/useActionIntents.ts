@@ -34,7 +34,7 @@ const useActionIntents = (adventurerId: string, location?: Location) => {
       const { classification } = weaponType
       weaponType.abilities.forEach((ability) => {
         const abilityDefinition = getAbilityDefinition(ability)
-        if (abilityDefinition.passive) return
+        if (abilityDefinition.passive === true) return
         const weaponWithAbility = { weapon, ability }
 
         // Ranged weapons trigger a 'shoot' action, others a melee

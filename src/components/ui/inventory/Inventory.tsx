@@ -3,6 +3,7 @@ import { type Item } from 'definitions/items/types'
 import InventorySlot from './InventorySlot'
 import DraggableItemIcon, { type InventoryItemDragInfo } from '../items/DraggableItemIcon'
 import { type IconSize } from '../common/Icon'
+
 import './styles/inventory.scss'
 
 export type Props = {

@@ -36,7 +36,7 @@ const WeaponContent = (props: Props) => {
       <AbilitiesList weaponType={definition.weaponType} />
       <hr />
       <ProduceOrStudy item={item.type} />
-      { subtext && (
+      { subtext != null && (
         <>
           <hr />
           <p className="secondary">{`"${subtext}"`}</p>

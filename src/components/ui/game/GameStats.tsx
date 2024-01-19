@@ -10,6 +10,7 @@ import { StructureState } from 'store/types/structure'
 import { formatDateTime, formatDuration } from 'utils/format/time'
 import { convertIntToSemVer } from 'utils/version'
 import * as Version from 'constants/version'
+
 import './styles/gameStats.scss'
 
 type Props = {

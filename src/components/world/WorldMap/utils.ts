@@ -15,7 +15,7 @@ export const getQuestWorldLocation = (quest: QuestStoreState): Coords => {
   const lastNode = questDefinition.nodes[roundedProgress]
 
   const nextNode = questDefinition.nodes[roundedProgress + 1]
-  if (!nextNode) {
+  if (nextNode == null) {
     // We've reached the last node
     return lastNode
   }

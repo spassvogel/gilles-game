@@ -1,5 +1,5 @@
 import { type Reducer } from 'redux'
-import { isProductionStructure, isResourceStructure, type ResourceStructure, type Structure } from 'definitions/structures'
+import { isProductionStructure, isResourceStructure, type Structure } from 'definitions/structures'
 import { type ProductionStructureStoreState, StructureState, type StructureStoreState } from 'store/types/structure'
 import { type StructuresStoreState } from 'store/types/structures'
 import { type StructuresAction } from 'store/actions/structures'
@@ -132,13 +132,13 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameTi
     }
 
     case 'gameTick': {
-      if ((action.harvest == null) || !Object.keys(action.harvest)?.length) {
+      if ((action.harvest == null) || ((Object.keys(action.harvest)?.length) === 0)) {
         return state
       }
       // Copies harvest from harvest into structure
       return Object.keys(state).reduce<StructuresStoreState>((acc, structureAsString) => {
         const structure = structureAsString as Structure
-        if (isResourceStructure(structure) && action.harvest?.[structure]?.length) {
+        if (isResourceStructure(structure) && ((action.harvest?.[structure]?.length) != null)) {
           const harvest: Item[] = (action.harvest[structure] ?? []).map(type => ({ type }))
           acc[structure].harvest = [
             ...(acc[structure].harvest ?? []),
