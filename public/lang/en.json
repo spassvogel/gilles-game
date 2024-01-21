@@ -621,12 +621,12 @@
   "ui-view-button-town": "Town",
   "ui-view-button-world": "World",
 
-  "ui-weapon-class-one-handed": "One Handed",
-  "ui-weapon-class-main-hand": "Main Hand",
-  "ui-weapon-class-off-hand": "Off Hand",
-  "ui-weapon-class-two-handed": "Two Handed",
-  "ui-weapon-class-ranged": "Ranged",
-  "ui-weapon-class-shield": "Shield",
+  "weapon-class-one-handed": "One Handed",
+  "weapon-class-main-hand": "Main Hand",
+  "weapon-class-off-hand": "Off Hand",
+  "weapon-class-two-handed": "Two Handed",
+  "weapon-class-ranged": "Ranged",
+  "weapon-class-shield": "Shield",
 
   "weapon-type-axe": "Axe",
   "weapon-type-bow": "Bow",

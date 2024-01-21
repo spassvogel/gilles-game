@@ -199,7 +199,7 @@ export abstract class TextManager {
   }
 
   public static getWeaponClassification (weaponClass: WeaponClassification) {
-    return this.get(`ui-weapon-class-${toKebab(WeaponClassification[weaponClass])}`)
+    return this.get(`weapon-class-${toKebab(WeaponClassification[weaponClass])}`)
   }
 
   // will print all unfound text strings to the console
