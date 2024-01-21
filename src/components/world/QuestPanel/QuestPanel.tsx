@@ -78,10 +78,6 @@ const QuestPanel = (props: Props) => {
               selectedActorId={selectedActorId}
               setSelectedActor={handleActorSelected}
             />
-            <SceneModal
-              questName={questName}
-              selectedActorId={selectedActorId}
-            />
           </div>
           <div className="party-area">
           { !((quest?.scene?.combat) ?? false) && (

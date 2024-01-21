@@ -3,7 +3,6 @@ import { TextManager } from 'global/TextManager'
 import { SceneControllerContext } from '../../context/SceneControllerContext'
 import Button from 'components/ui/buttons/Button'
 import '../styles/situation.scss'
-import '../styles/modal.scss'
 
 type Props = {
   situation: string
@@ -30,7 +29,7 @@ const Situation = (props: Props) => {
     e.stopPropagation()
   }
   return (
-    <div className='interaction-modal situation' ref={ref}>
+    <div className='scene-modal situation' ref={ref}>
       <div className="header">
         <div className="title">
           {TextManager.get(title)}

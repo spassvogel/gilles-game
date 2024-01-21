@@ -20,6 +20,7 @@ import { useAdventurers } from 'hooks/store/adventurers'
 // import { newShaker } from 'pixi/shakeFactory'
 
 import './styles/scene.scss'
+import SceneModal from '../../modals/SceneModal'
 
 export type Props = {
   selectedActorId: string
@@ -155,6 +156,11 @@ const Scene = (props: Props) => {
         onMouseDown={handleUIMouseDown}
         onSetActionIntent={setCurrentActionIntent}
       />
+      <SceneModal
+        questName={controller.questName}
+        selectedActorId={selectedActorId}
+      />
+
       <SceneLog questId={controller.questName} />
     </div>
   )

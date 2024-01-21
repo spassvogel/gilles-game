@@ -7,6 +7,8 @@ import { useAdventurersOnQuest } from 'hooks/store/adventurers'
 import { useMemo } from 'react'
 import QuestFailed from '../QuestFailed/QuestFailed'
 
+import '../styles/sceneModal.scss'
+
 type Props = {
   questName: string
   selectedActorId: string
@@ -28,7 +30,7 @@ const SceneModal = (props: Props) => {
   }
   if (questFailed) {
     return (
-      <div className="modal" onClick={handleCloseInteractionModal}>
+      <div className="modal-backdrop" onClick={handleCloseInteractionModal}>
         <QuestFailed questName={questName} />
       </div>
     )
@@ -37,7 +39,7 @@ const SceneModal = (props: Props) => {
   return (
     <>
     {(activeInteractionModal != null) && activeInteractionModal.type === 'lootCache' && (
-      <div className="modal" onClick={handleCloseInteractionModal}>
+      <div className="modal-backdrop" onClick={handleCloseInteractionModal}>
         <LootCache
           cacheName={activeInteractionModal.lootCache}
           adventurerId={selectedActorId}
@@ -46,7 +48,7 @@ const SceneModal = (props: Props) => {
       </div>
     )}
     { (activeInteractionModal != null) && activeInteractionModal.type === 'situation' && (
-      <div className="modal" onClick={handleCloseInteractionModal}>
+      <div className="modal-backdrop" onClick={handleCloseInteractionModal}>
         <Situation
           situation={activeInteractionModal.situation}
           adventurerId={selectedActorId}

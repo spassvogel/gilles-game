@@ -1,0 +1,48 @@
+@import '@/components/styles/import.scss';
+
+.modal-backdrop {
+  background: rgba(0, 0, 0, 0.75);
+  position: absolute;
+  inset: -2px;
+  bottom: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+
+  &>div {
+    margin-top: 50%;
+  }
+}
+
+.scene-modal {
+  color: white;
+  width: 384px;
+  @include border-grey-sm;
+
+  background-color: $color-background-overlay;
+}
+
+.scene-modal .header {
+  display: flex;
+  justify-content: space-between;
+  @include border-grey-sm;
+  border-width: 0;
+  border-bottom-width: 1px;
+  padding: 8px;
+}
+
+.scene-modal .header .title {
+  padding-left: 4px;
+}
+
+.scene-modal .header .close {
+  padding-right: 4px;
+}
+
+.scene-modal .header .close::before {
+  content: "x"
+}
+
+.scene-modal .content {
+  display: flex;
+}

@@ -11,7 +11,6 @@ import Icon from 'components/ui/common/Icon'
 import { type InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon'
 import DroppableAdventurerAvatar from 'components/ui/adventurer/DroppableAdventurerAvatar'
 
-import '../styles/modal.scss'
 import '../styles/lootCache.scss'
 
 type Props = {
@@ -69,7 +68,7 @@ const LootCache = (props: Props) => {
   }
 
   return (
-    <div className={'interaction-modal loot-cache'} ref={ref}>
+    <div className={'scene-modal loot-cache'} ref={ref}>
       <div className="header">
         <div className="title">
           {TextManager.get(cache.title, { adventurer: adventurer.name })}

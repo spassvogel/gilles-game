@@ -5,7 +5,6 @@ import Button from 'components/ui/buttons/Button'
 import { dismissQuest } from 'store/actions/quests'
 import { getWorldLink } from 'utils/routing'
 
-import '../styles/modal.scss'
 import '../styles/questFailed.scss'
 
 type Props = {
@@ -24,7 +23,7 @@ const QuestFailed = (props: Props) => {
   }
 
   return (
-    <div className={'interaction-modal quest-failed'}>
+    <div className={'scene-modal quest-failed'}>
       <div className="header">
         <div className="title">
           {TextManager.get('quest-panel-modal-quest-failed-title')}
