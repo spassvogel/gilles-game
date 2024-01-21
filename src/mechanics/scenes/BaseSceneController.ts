@@ -81,9 +81,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     this.questName = questName
   }
 
-  get basePath (): string | null {
-    return `scenes`
-  }
+  readonly basePath = 'scenes'
 
   // Loads tiles from json, loads all scene assets
   async loadData (callback: () => void) {
@@ -244,6 +242,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     }
   }
 
+  // todo: is this the same as createActionIntent?
   actorAttemptAction (intent: ActionIntent) {
     // Tries to perform action on given actor
     const { actor, action, to } = intent
@@ -311,26 +310,6 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         break
       }
       case SceneActionType.melee: {
-        // // Find path to move towards the target
-        // const path = this.findPath(location, to)
-        // const target = path?.pop()
-        // if (!path || !target) {
-        //   // No path possible.. cant do anything now
-        //   return
-        // }
-
-        // // Walk towards the target
-        // path?.forEach((l, index) => {
-        //   const moveAction: SceneAction = {
-        //     // actionType: SceneActionType.move,
-        //     // actor: getUniqueName(actor),
-        //     // target: l as Location,
-        //     endsAt: movementDuration * (index + 1) + performance.now(),
-        //     intent,
-        //   }
-        //   this.dispatch(enqueueSceneAction(this.questName, moveAction))
-        // })
-
         // bump off the last location from the path
         const path = ((intent.path != null) && intent.path?.length > 0) ? intent.path.slice(0, -1) : []
         const meleeAction: SceneAction = {
@@ -396,6 +375,22 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     return blockedByObjects && this.getObjectsAtLocation(location).length > 0
   }
 
+  /**
+   * Returns true if the location is not inside the scene
+   * @param location location
+   */
+  isLocationOutOfBounds (location: Location) {
+    if (
+      location[0] < 0 ||
+      location[1] < 0 ||
+      location[0] >= (this.mapData?.width ?? 0) ||
+      location[1] >= (this.mapData?.height ?? 0)
+    ) {
+      return true
+    }
+    return false
+  }
+
   // Returns true if outsie of the bounds of the map
   locationIsOutOfBounds (location: Location) {
     if (this.mapData == null) return true
@@ -459,6 +454,9 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
    * @param target
    */
   findPath (origin: Location, target: Location) {
+    if (this.isLocationOutOfBounds(origin) || this.isLocationOutOfBounds(target)) {
+      return []
+    }
     return this
       .aStar?.findPath(convertIn(origin), convertIn(target))
       .map(convertOut)
@@ -566,6 +564,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
   /**
    *
    */
+  // figure out if we need this *and* actorAttemptAction?
   createActionIntent (action: SceneActionType, actor: ActorObject, location: Location, weaponWithAbility?: WeaponWithAbility, ammo?: Item<Ammunition>): ActionIntent | undefined {
     const {
       location: from = [0, 0],
@@ -605,8 +604,8 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         // todo properly calculate AP
         // const lastStep = path?.length > 1 ? path[path.length - 2] : path[path.length - 1]
         // const apCost = this.calculateWalkApCosts(from, lastStep) + AP_COST_MELEE
-        const [enemy] = this.getObjectsAtLocation(location, isEnemy)
-        const isValid = !(enemy == null) && (apCost ?? 0) <= (actorAP ?? 0)
+        const [target] = this.getObjectsAtLocation(location, isActorObject)
+        const isValid = (target != null) && (apCost ?? 0) <= (actorAP ?? 0)
         if (weaponWithAbility == null) return undefined
 
         return ({
