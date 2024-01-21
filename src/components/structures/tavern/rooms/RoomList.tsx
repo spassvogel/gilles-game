@@ -45,7 +45,7 @@ const RoomList = (props: Props) => {
 
   const roomContent: JSX.Element[] = []
   for (let i = 0; i < roomCount; i++) {
-    const adventurer = adventurers.find((a) => a.room === i)
+    const adventurer = adventurers.find((a) => a.room === i && a.health > 0)
     if (adventurer == null) {
       roomContent.push((
         <RoomEmpty key={`room${i}`} />

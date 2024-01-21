@@ -88,7 +88,7 @@ const Scene = (props: Props) => {
   }, [loadTilesets, mapData])
 
   useEffect(() => {
-    if (containerRef.current === null) return
+    // if (containerRef.current === null) return
     // const shaker = newShaker({
     //   target: containerRef.current,
     //   isBidirectional: true,
