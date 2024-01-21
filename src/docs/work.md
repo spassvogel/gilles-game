@@ -291,7 +291,7 @@ https://www.youtube.com/watch?v=LO8BHmnIrVU
 
 - [ ] If dodge fails can try to block with shield or parry with weapon. IF succesful will deflect all dmg but cause shield/weapon integrity to go down.
 
-- [ ] If not blocked or parried, part of damage is absorbed by armour (if the actor is wearing any).
+- [ ] If not blocked or parried, part of damage is mitigated by armour (if the actor is wearing any).
    A helmet with armour rating 20 absorbs 20 dmg of each hit.
 - [ ] Armours integrity goes down. In general more than if would be blocked or parried.
 
@@ -862,7 +862,7 @@ Especially with the combat texts there is a lot of repetition. Eg:
 ```
     "scene-combat-attack-shoot-dodged": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}}. {{actor:name target}} dodged!",
     "scene-combat-attack-shoot-hit": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} and hits {{actor:name target}} in the {{bodyPart}} for {{damage}} damage!",
-    "scene-combat-attack-shoot-hit-absorbed": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} and hits {{actor:name target}} in the {{bodyPart}} for {{damage}} damage ({{absorbed}} absorbed)!",
+    "scene-combat-attack-shoot-hit-mitigated": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} and hits {{actor:name target}} in the {{bodyPart}} for {{damage}} damage ({{mitigated}} mitigated)!",
     "scene-combat-attack-shoot-missed": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} but missed!",
     "scene-combat-attack-shoot-missed-verbose": "{{actor:name attacker}} shoots with {{item:trigger weapon \"aA\"}} but missed!",
 ```

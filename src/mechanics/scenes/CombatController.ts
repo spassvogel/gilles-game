@@ -285,21 +285,21 @@ export class CombatController {
     const bodyPart = rollBodyPart()
     const armor = this.getArmor(target, bodyPart)
     const damage = rawDamage - armor
-    const absorbed = rawDamage - damage
+    const mitigated = rawDamage - damage
 
     this.sceneController.bubbleAtLocation(`${damage}`, location)
     this.sceneController.effectAtLocation('blood_1/blood_1.json', location)
     void SoundManager.playSound('SCENE_SWORD_HIT_FLESH', Channel.scene)
 
     this.log({
-      key: absorbed > 0 ? 'scene-combat-attack-slash-hit-absorbed' : 'scene-combat-attack-slash-hit',
+      key: mitigated > 0 ? 'scene-combat-attack-slash-hit-mitigated' : 'scene-combat-attack-slash-hit',
       context: {
         attacker: getUniqueName(actor),
         weapon,
         bodyPart: TextManager.getEquipmentSlot(bodyPart),
         target: getUniqueName(target),
         damage,
-        absorbed
+        mitigated
       }
     })
     this.takeDamage(target, damage, armor, bodyPart)
@@ -345,20 +345,20 @@ export class CombatController {
     const bodyPart = rollBodyPart()
     const armor = this.getArmor(target, bodyPart)
     const damage = rawDamage - armor
-    const absorbed = rawDamage - damage
+    const mitigated = rawDamage - damage
 
     this.sceneController.bubbleAtLocation(`${damage}`, location)
     this.sceneController.effectAtLocation('blood_2/blood_2.json', location)
 
     this.log({
-      key: absorbed > 0 ? 'scene-combat-attack-shoot-hit-absorbed' : 'scene-combat-attack-shoot-hit',
+      key: mitigated > 0 ? 'scene-combat-attack-shoot-hit-mitigated' : 'scene-combat-attack-shoot-hit',
       context: {
         attacker: getUniqueName(actor),
         weapon,
         bodyPart: TextManager.getEquipmentSlot(bodyPart),
         target: getUniqueName(target),
         damage,
-        absorbed
+        mitigated
       }
     })
     this.takeDamage(target, damage, armor, bodyPart)
