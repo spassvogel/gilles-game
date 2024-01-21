@@ -249,6 +249,11 @@ const itemArticleAuto = (item: ItemType) => {
   return itemArticleUndefined(item)
 }
 
+Handlebars.registerHelper('template', (template: string, context?: unknown) => {
+  const text = TextManager.get(template, context)
+  return new Handlebars.SafeString(text)
+})
+
 Handlebars.registerHelper('item:name', (itemOrItemType: Item | ItemType, article?: string) => {
   let itemType: ItemType
   if (isItemType(itemOrItemType)) {
