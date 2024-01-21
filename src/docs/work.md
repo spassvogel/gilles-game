@@ -855,3 +855,16 @@ https://interfaceingame.com/games/league-of-legends/
 ### 2023-11-17 Lightning effects
 - [ ] Implement
 - [ ] Add electroshock weapons
+
+### 2024-01-21 Nested handlebars template
+Especially with the combat texts there is a lot of repetition. Eg:
+
+```
+    "scene-combat-attack-shoot-dodged": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}}. {{actor:name target}} dodged!",
+    "scene-combat-attack-shoot-hit": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} and hits {{actor:name target}} in the {{bodyPart}} for {{damage}} damage!",
+    "scene-combat-attack-shoot-hit-absorbed": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} and hits {{actor:name target}} in the {{bodyPart}} for {{damage}} damage ({{absorbed}} absorbed)!",
+    "scene-combat-attack-shoot-missed": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} but missed!",
+    "scene-combat-attack-shoot-missed-verbose": "{{actor:name attacker}} shoots with {{item:trigger weapon \"aA\"}} but missed!",
+```
+
+I would like to re-use earlier defined templates in other templates

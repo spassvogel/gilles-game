@@ -48,7 +48,7 @@ const ActionPreview = (props: Props) => {
         convert(actionIntent.from),
         ...actionIntent.path.map(p => convert(p))
       ]
-      const valid = (!actionIntent.apCost) || actionIntent.apCost <= (actionIntent.actorAP ?? 0)
+      const valid = (actionIntent.apCost == null) || actionIntent.apCost <= (actionIntent.actorAP ?? 0)
 
       return (
         <DashedLine

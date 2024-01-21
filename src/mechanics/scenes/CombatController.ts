@@ -1,8 +1,8 @@
-import { deductActorAp, enqueueSceneAction, modifyEnemyHealth, startTurn } from 'store/actions/quests'
+import { deductActorAp, modifyEnemyHealth, startTurn } from 'store/actions/quests'
 import { type AnyAction } from 'redux'
 import { type Location, locationEquals } from 'utils/tilemap'
 import { type ActorObject, Allegiance, type EnemyObject, getUniqueName, isAdventurer, type SceneAction, SceneActionType, isActorObject } from 'store/types/scene'
-import { type BaseSceneController, movementDuration } from './BaseSceneController'
+import { type BaseSceneController } from './BaseSceneController'
 import { Channel, MixMode, SoundManager } from 'global/SoundManager'
 import { getDefinition as getWeaponDefinition, type Weapon } from 'definitions/items/weapons'
 import { getDefinition as getEnemyTypeDefinition } from 'definitions/enemies'
@@ -76,8 +76,10 @@ export class CombatController {
     }
 
     const enemy = this.findEnemyWithAp()
+
     if (enemy?.location != null) {
-      const target = this.findNearestActor(enemy.location, Allegiance.player)
+      const isAlive = (actor: ActorObject) => isAdventurer(actor) && (this.sceneController?.getAdventurerByActor(actor)?.health ?? 0) > 0
+      const target = this.findNearestActor(enemy.location, Allegiance.player, isAlive)
       if ((target == null) || (target.location == null)) return // no target? did everyone die?
 
       // todo: different types of weapons
@@ -89,14 +91,11 @@ export class CombatController {
       const intent = this.sceneController.createActionIntent(SceneActionType.melee, enemy, target.location, weaponWithAbility)
       if ((intent == null) || intent.action !== SceneActionType.melee) return
 
-      const sceneAction: SceneAction = {
-        endsAt: performance.now() + ((intent.path?.length ?? 0) + 1) * movementDuration,
-        intent
-      }
-      this.dispatch(enqueueSceneAction(quest.name, sceneAction))
-      if (intent.apCost != null) {
-        this.dispatch(deductActorAp(this.questName, getUniqueName(enemy), intent.apCost))
-      }
+      this.sceneController.actorAttemptAction(intent)
+      // this.dispatch(enqueueSceneAction(quest.name, sceneAction))
+      // if (intent.apCost != null) {
+      //   this.dispatch(deductActorAp(this.questName, getUniqueName(enemy), intent.apCost))
+      // }
     }
   }
 
@@ -216,8 +215,8 @@ export class CombatController {
     return this.sceneController?.store.getState().quests.find(q => q.name === this.sceneController?.questName)
   }
 
-  /** Finds the actor nearest to `from`, but not ON from */
-  private static findNearestActor (from: Location, allegiance?: Allegiance) {
+  /** Finds the actor nearest to `from`, but not ON `from` */
+  private static findNearestActor (from: Location, allegiance?: Allegiance, additionalFilter?: (actor: ActorObject) => boolean) {
     if (this.sceneController === undefined) return undefined
     const actors = this.sceneController.sceneActors
     let distance = Number.MAX_VALUE
@@ -226,7 +225,7 @@ export class CombatController {
       if ((a.location == null) || locationEquals(a.location, from)) return
       const steps = this.sceneController.findPath(from, a.location)?.length
       if (steps !== undefined && steps < distance) {
-        if (allegiance === undefined || a.allegiance === allegiance) {
+        if ((allegiance === undefined || a.allegiance === allegiance) && additionalFilter?.(a) !== false) {
           distance = steps
           actor = a
         }

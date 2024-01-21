@@ -120,7 +120,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     if (mouseDownOnCanvas.current) {
       const location = findLocation(e) ?? [0, 0]
 
-      if (controller?.locationIsOutOfBounds(location)) {
+      if (controller?.locationIsOutOfBounds(location) === true) {
         setCursorLocation(undefined)
         onSetActionIntent(undefined)
         return
@@ -284,6 +284,10 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       sceneRef.removeEventListener('mousemove', mouseOver)
     }
   }, [combat, findLocation, selectedActorId])
+
+  useEffect(() => {
+    setCursorLocation(undefined)
+  }, [combat])
 
   return (
     <div
