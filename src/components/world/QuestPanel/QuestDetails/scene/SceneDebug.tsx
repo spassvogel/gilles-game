@@ -30,7 +30,7 @@ const SceneDebug = (props: Props) => {
 
   const app = useApp()
   // Perhaps this is better moved somewhere else
-  globalThis.__PIXI_APP__ = app
+  window.__PIXI_APP__ = app
 
   const allLocations = useMemo<Location[]>(() => {
     if (mapData == null) return []

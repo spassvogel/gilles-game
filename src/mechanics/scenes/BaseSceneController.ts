@@ -737,7 +737,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
           location
         }
         if (object.type === TiledObjectType.portal) {
-          if ((object.properties.to === 0 && this.quest.sceneNamePrev == null) || object.properties.to === this.quest.sceneNamePrev) {
+          if ((object.properties.to === '' && this.quest.sceneNamePrev == null) || object.properties.to === this.quest.sceneNamePrev) {
             const adventurers = this.getAdventurers()
             const locations = [
               location,

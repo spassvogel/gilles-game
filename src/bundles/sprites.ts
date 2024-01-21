@@ -1,4 +1,4 @@
-export const sprites = {
+export const sprites: Record<string, string> = {
   SCENE_ACTOR_ELF_BOW: '/img/scene/actors/elf-bow.json',
   SCENE_ACTOR_KNIGHT_SWORD: '/img/scene/actors/knight-sword.json',
   SCENE_ACTOR_ORC_AXE: '/img/scene/actors/orc-axe.json',

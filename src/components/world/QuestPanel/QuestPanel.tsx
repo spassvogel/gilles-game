@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react'
 import { createSelectAdventurersOnQuest } from 'store/selectors/adventurers'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import QuestDetails from './QuestDetails'
 import { useNavigate } from 'react-router-dom'
 import { getWorldLink } from 'utils/routing'
-import LootCache from './modals/LootCache'
 import { useQuest } from 'hooks/store/quests'
-import { setActiveSceneInteractionModal } from 'store/actions/quests'
-import Situation from './modals/Situation'
 import SceneControllerContextProvider from './context/SceneControllerContext'
 import CombatBar from './CombatBar'
 import AdventurersPanel from './AdventurersPanel'
@@ -15,6 +12,7 @@ import ActorsAccordion from './ActorsAccordion'
 import { getSceneObjectWithName } from 'store/helpers/storeHelpers'
 import { isEnemy, type SceneObject } from 'store/types/scene'
 import './styles/questPanel.scss'
+import SceneModal from './modals/SceneModal'
 
 enum Layout {
   auto, // horizontal on large screens, vertical on small screens
@@ -34,7 +32,6 @@ const isEnemySelected = (objects: SceneObject[], name: string): boolean => {
 
 const QuestPanel = (props: Props) => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const { layout = Layout.auto, questName } = props
   const adventurers = useSelector(createSelectAdventurersOnQuest(questName))
   const leader = adventurers[0]
@@ -52,10 +49,6 @@ const QuestPanel = (props: Props) => {
     setSelectedActorId(actorId)
   }
 
-  const handleCloseLootCacheModal = () => {
-    dispatch(setActiveSceneInteractionModal(questName))
-  }
-
   useEffect(() => {
     if (adventurers.length === 0) {
       // no adventurers, something went wrong, perhaps invalid url
@@ -66,7 +59,7 @@ const QuestPanel = (props: Props) => {
 
   useEffect(() => {
     // When returning from combat and an enemy is still selected, select the leader instead
-    if (!quest?.scene?.combat && selectedActorId) {
+    if (!((quest?.scene?.combat) ?? false) && (selectedActorId.length > 0)) {
       const enemySelected = isEnemySelected(quest.scene?.objects ?? [], selectedActorId)
       if (enemySelected) {
         setSelectedActorId(leader?.id)
@@ -84,27 +77,13 @@ const QuestPanel = (props: Props) => {
               selectedActorId={selectedActorId}
               setSelectedActor={handleActorSelected}
             />
-            { (activeInteractionModal != null) && activeInteractionModal.type === 'lootCache' && (
-              <div className="modal" onClick={handleCloseLootCacheModal}>
-                <LootCache
-                  cacheName={activeInteractionModal.lootCache}
-                  adventurerId={selectedActorId}
-                  onClose={handleCloseLootCacheModal}
-                />
-              </div>
-            )}
-            { (activeInteractionModal != null) && activeInteractionModal.type === 'situation' && (
-              <div className="modal" onClick={handleCloseLootCacheModal}>
-                <Situation
-                  situation={activeInteractionModal.situation}
-                  adventurerId={selectedActorId}
-                  onClose={handleCloseLootCacheModal}
-                />
-              </div>
-            )}
+            <SceneModal
+              questName={questName}
+              selectedActorId={selectedActorId}
+            />
           </div>
           <div className="party-area">
-          { !quest?.scene?.combat && (
+          { !((quest?.scene?.combat) ?? false) && (
             <AdventurersPanel
               adventurers={adventurers}
               adventurerId={selectedActorId}
@@ -113,7 +92,7 @@ const QuestPanel = (props: Props) => {
               questName={questName}
             />
           )}
-          { quest?.scene?.combat && (
+          { ((quest?.scene?.combat) ?? false) && (
             <>
               <CombatBar questName={questName} selectedAdventurerId={selectedActorId}/>
               <ActorsAccordion
