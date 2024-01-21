@@ -126,6 +126,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         return
       }
       if ((cursorLocation == null) || !locationEquals(location, cursorLocation)) {
+        console.log('setting cursor')
         setCursorLocation(location)
       }
     }
@@ -264,26 +265,26 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     ref.current?.addEventListener('mouseleave', onLeave)
   }, [onSetActionIntent])
 
-  useEffect(() => {
-    const mouseOver = (e: MouseEvent) => {
-      if (!combat) {
-        return
-      }
-      if ((adventurerCombatRef.current == null) || !adventurerCombatRef.current.actionMenuOpen) {
-        // dont move cursor when combat dialog is open
-        setCursorLocation(findLocation(e) ?? [0, 0])
-      }
-    }
-    const sceneRef = ref.current
-    if (sceneRef == null) return
+  // useEffect(() => {
+  //   const mouseOver = (e: MouseEvent) => {
+  //     if (!combat) {
+  //       return
+  //     }
+  //     if ((adventurerCombatRef.current == null) || !adventurerCombatRef.current.actionMenuOpen) {
+  //       // dont move cursor when combat dialog is open
+  //       setCursorLocation(findLocation(e) ?? [0, 0])
+  //     }
+  //   }
+  //   const sceneRef = ref.current
+  //   if (sceneRef == null) return
 
-    if (!checkIfEnemy(selectedActorId)) {
-      sceneRef.addEventListener('mousemove', mouseOver)
-    }
-    return () => {
-      sceneRef.removeEventListener('mousemove', mouseOver)
-    }
-  }, [combat, findLocation, selectedActorId])
+  //   if (!checkIfEnemy(selectedActorId)) {
+  //     sceneRef.addEventListener('mousemove', mouseOver)
+  //   }
+  //   return () => {
+  //     sceneRef.removeEventListener('mousemove', mouseOver)
+  //   }
+  // }, [combat, findLocation, selectedActorId])
 
   useEffect(() => {
     setCursorLocation(undefined)
