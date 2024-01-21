@@ -336,7 +336,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
   findClosestPath (from: Location, locations: Location[]) {
     return locations.reduce<Location[] | undefined>((acc, value) => {
       const path = this.findPath(from, value)
-      if (acc === undefined || (path && path?.length < acc.length)) {
+      if (acc === undefined || ((path != null) && path?.length < acc.length)) {
         acc = path
       }
       return acc
@@ -357,7 +357,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
 
   // returns the pixel coordinate of the top left corner of the given location
   public sceneLocationToPoint (location: Location): Point {
-    if (!this.mapData?.tilewidth || !this.mapData?.tileheight) {
+    if (((this.mapData?.tilewidth) == null) || ((this.mapData?.tileheight) === 0)) {
       return new Point()
     }
     return new Point(location[0] * this.mapData.tilewidth, location[1] * this.mapData.tileheight)
@@ -605,6 +605,10 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         // const lastStep = path?.length > 1 ? path[path.length - 2] : path[path.length - 1]
         // const apCost = this.calculateWalkApCosts(from, lastStep) + AP_COST_MELEE
         const [target] = this.getObjectsAtLocation(location, isActorObject)
+
+        // todo: from the ActionMenu we can only target enemies, but the AI should be able to target player adventurers!
+        // const onEnemy = this.getObjectsAtLocation(location, isEnemy).length > 0
+        // const isValid = onEnemy && (apCost ?? 0) <= (actorAP ?? 0)
         const isValid = (target != null) && (apCost ?? 0) <= (actorAP ?? 0)
         if (weaponWithAbility == null) return undefined
 
@@ -706,7 +710,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     })
   }
 
-  // Create SceneObject from this.mapData
+  // Create SceneObject list from this.mapData
   protected createObjects (): SceneObject[] {
     if (this.mapData == null) {
       throw new Error('No mapData')
@@ -714,6 +718,9 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
 
     const objectLayers = this.mapData.layers.filter(layer => layer.type === TiledLayerType.objectgroup)
     const objects: SceneObject[] = []
+    const adventurerLocations: Location[] = [] // we will look for spawn points (portal) on the map and populate this array with locations around it
+    const adventurers = this.getAdventurers()
+
     objectLayers.forEach(objectLayer => {
       objectLayer.objects.reduce((acc: SceneObject[], value: TiledObjectData) => {
         // reduce the props array into an object with key/values
@@ -729,47 +736,14 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
           properties,
           location
         }
-
         if (object.type === TiledObjectType.portal) {
-          if ((!object.properties.to && !this.quest.sceneNamePrev) || object.properties.to === this.quest.sceneNamePrev) {
-            // todo: instead store location in var and spawn adventurers at the end
+          if ((object.properties.to === 0 && this.quest.sceneNamePrev == null) || object.properties.to === this.quest.sceneNamePrev) {
             const adventurers = this.getAdventurers()
-            const { width, height, layerId } = object
             const locations = [
               location,
               ...this.findEmptyLocationsAround(location, adventurers.length - 1)
             ]
-
-            adventurers.forEach((adventurer, i) => {
-              if (!object) throw new Error()
-              if (adventurer.health <= 0) {
-                return
-              }
-
-              const x = Math.round(object.x)
-              const y = Math.round(object.y)
-              const level = xpToLevel(adventurer.xp)
-              const adventurerObject: AdventurerObject = {
-                id: 0,
-                adventurerId: adventurer.id,
-                x,
-                y,
-                location: locations[i],
-                width,
-                height,
-                layerId,
-                visible: true,
-                type: TiledObjectType.actor,
-                ap: calculateInitialAP(adventurer.basicAttributes, level),
-                allegiance: Allegiance.player,
-                properties: {
-                  adventurerId: adventurer.id,
-                  isSprite: true,
-                  spritesheet: adventurer.spritesheet
-                }
-              }
-              acc.push(adventurerObject)
-            })
+            adventurerLocations.push(...locations)
           }
         } else if (object.type === TiledObjectType.enemySpawn) {
           object.type = TiledObjectType.actor
@@ -797,11 +771,44 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         return acc
       }, objects)
     })
+
+    // Now spawn the adventurers!
+    const actorLayer = objectLayers.find(oL => oL.name === 'actor')
+    if (actorLayer == null) {
+      throw new Error("No layer with name 'actor' found in the map!")
+    }
+    const layerId = actorLayer.id
+
+    adventurerLocations.forEach((location, i) => {
+      const adventurer = adventurers[i]
+      if (adventurer.health <= 0) {
+        return
+      }
+
+      const level = xpToLevel(adventurer.xp)
+      const adventurerObject: AdventurerObject = {
+        id: 0,
+        adventurerId: adventurer.id,
+        location,
+        layerId,
+        visible: true,
+        type: TiledObjectType.actor,
+        ap: calculateInitialAP(adventurer.basicAttributes, level),
+        allegiance: Allegiance.player,
+        properties: {
+          adventurerId: adventurer.id,
+          isSprite: true,
+          spritesheet: adventurer.spritesheet
+        }
+      }
+      objects.push(adventurerObject)
+    })
+
     return objects
   }
 
   // Scene
-  protected get combat () {
+  public get combat () {
     return this.quest.scene?.combat === true
   }
 
@@ -817,7 +824,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     return this.sceneObjects.filter<ActorObject>(isAdventurer) as AdventurerObject[]
   }
 
-  public get sceneEnemies(): EnemyObject[] {
+  public get sceneEnemies (): EnemyObject[] {
     return this.sceneObjects.filter<EnemyObject>(isEnemy)
   }
 

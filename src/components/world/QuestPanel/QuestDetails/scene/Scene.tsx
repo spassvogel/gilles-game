@@ -1,6 +1,6 @@
 import { useRef, useEffect, useContext, useState } from 'react'
 import { Container } from '@pixi/react'
-import { Container as PixiContainer } from '@pixi/display'
+import { type Container as PixiContainer } from '@pixi/display'
 import { useQuestScene } from 'hooks/store/quests'
 import { type Location } from 'utils/tilemap'
 import Tilemap from './Tilemap'
@@ -134,7 +134,7 @@ const Scene = (props: Props) => {
             setSelectedActor={setSelectedActor}
           />
           { (currentActionIntent != null) && (<ActionPreview actionIntent={currentActionIntent} tileWidth={tileWidth} tileHeight={tileHeight}/>)}
-          <SceneDebug controller={controller} />
+          { process.env.NODE_ENV === 'development' && <SceneDebug controller={controller} />}
         </Container>
       </BridgedStage>
       {settings.debugSceneShowActionQueue && (

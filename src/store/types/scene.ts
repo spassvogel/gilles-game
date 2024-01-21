@@ -18,11 +18,11 @@ export enum Allegiance {
   enemy,
 }
 
-export type SceneObject = Merge<TiledObjectData, {
+export type SceneObject = Omit<Merge<TiledObjectData, {
   layerId: number
   properties: Record<string, string | boolean | number>
   location?: Location
-}>
+}>, 'x' | 'y' | 'width' | 'height'>
 
 export type AdventurerObject = SceneObject & {
   id?: number

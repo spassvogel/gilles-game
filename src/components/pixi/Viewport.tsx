@@ -68,6 +68,8 @@ const Viewport = forwardRef(
   (props: ViewportProps, ref: React.Ref<PixiViewport>) => {
     const app = useApp()
     // Perhaps this is better moved somewhere else
+    globalThis.__PIXI_APP__ = app
+
     const cursor = 'var(--cursor-pointer);'
     app.renderer.events.cursorStyles.pointer = cursor
 
