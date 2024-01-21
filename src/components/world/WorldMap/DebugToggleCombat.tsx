@@ -16,15 +16,15 @@ export const DebugToggleCombat = ({ questName }: { questName: string }) => {
     dispatch(setCombat(questName, true))
   }
 
-  if (quest.scene?.combat && quest.scene.turn !== undefined) {
+  if (quest.scene?.combat === true && quest.scene.turn !== undefined) {
     return (
-      <button onClick={() => dispatch(setCombat(questName, false))}>
+      <button onClick={() => dispatch(setCombat(questName, false))} title="For debug only!">
         combat: on ({Allegiance[quest.scene.turn]})
       </button>
     )
   }
   return (
-    <button onClick={startCombat}>
+    <button onClick={startCombat} title="For debug only!">
       combat: off
     </button>
   )
