@@ -187,7 +187,7 @@ export abstract class TextManager {
   }
 
   public static getWeaponType (type: WeaponType) {
-    return this.get(`ui-weapon-type-${toKebab(WeaponType[type])}`)
+    return this.get(`weapon-type-${toKebab(WeaponType[type])}`)
   }
 
   public static getSkillName (type: WeaponType) {
