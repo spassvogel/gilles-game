@@ -18,6 +18,7 @@ export const log: Reducer<LogEntry[], GameTickActionExt | LogAction> = (state: L
       const { entry, channel, channelContext } = action
       const { key, context } = entry
       const time = Date.now()
+
       return [
         ...state, {
           channel,

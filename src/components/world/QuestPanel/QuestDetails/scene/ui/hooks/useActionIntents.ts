@@ -6,7 +6,7 @@ import { SceneControllerContext } from 'components/world/QuestPanel/context/Scen
 import { adventurerAmmo, adventurerWeapons } from 'store/helpers/storeHelpers'
 import { getDefinition as getWeaponDefinition } from 'definitions/items/weapons'
 import { SceneActionType } from 'store/types/scene'
-import { type ActionIntent } from '../SceneUI'
+import { type WeaponWithAbility, type ActionIntent } from '../SceneUI'
 import { getDefinition as getWeaponTypeDefinition } from 'definitions/weaponTypes'
 import { WeaponClassification } from 'definitions/weaponTypes/types'
 import { getDefinition as getAbilityDefinition } from 'definitions/abilities'
@@ -35,7 +35,7 @@ const useActionIntents = (adventurerId: string, location?: Location) => {
       weaponType.abilities.forEach((ability) => {
         const abilityDefinition = getAbilityDefinition(ability)
         if (abilityDefinition.passive === true) return
-        const weaponWithAbility = { weapon, ability }
+        const weaponWithAbility: WeaponWithAbility = { weapon, ability }
 
         // Ranged weapons trigger a 'shoot' action, others a melee
         const action = classification === WeaponClassification.ranged ? SceneActionType.shoot : SceneActionType.melee

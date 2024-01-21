@@ -582,7 +582,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
       case SceneActionType.move: {
         const path = this.findPath(from, to)
         const apCost = this.combat ? this.calculateWalkApCosts(from, to) : undefined
-        const isValid = !!path?.length && (!this.combat || (apCost ?? 0) <= (actorAP ?? 0))
+        const isValid = !((path?.length) == null) && (!this.combat || (apCost ?? 0) <= (actorAP ?? 0))
 
         return ({
           action,
@@ -598,7 +598,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
 
       case SceneActionType.melee: {
         const path = this.findPath(from, to)
-        if (!path) throw new Error('No path found')
+        if (path == null) throw new Error('No path found')
         // const lastStep = path?.length > 1 ? path[path.length - 2] : path[path.length - 1]
         const apCost = this.calculateWalkApCosts(from, to)
         // if (!path) throw new Error("No path found")

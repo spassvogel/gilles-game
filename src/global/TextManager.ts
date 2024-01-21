@@ -225,6 +225,9 @@ export abstract class TextManager {
   }
 
   private static compile (key: string, value: string) {
+    if (value == null) {
+      return ''
+    }
     const template = Handlebars.compile(value)
     this.templates[key] = template
   }

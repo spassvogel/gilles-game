@@ -22,7 +22,7 @@ type ChannelDefinition = {
   label: string
   tabType: ChannelType
   tabId: string
-  channelContext?: string
+  channelContext?: string // in case of ChannelType.quest, this is the quest name
 }
 
 const SimpleLog = () => {

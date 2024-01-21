@@ -5,15 +5,17 @@ import { type ActorObject, Allegiance, type EnemyObject, getUniqueName, isAdvent
 import { type BaseSceneController, movementDuration } from './BaseSceneController'
 import { Channel, MixMode, SoundManager } from 'global/SoundManager'
 import { getDefinition as getWeaponDefinition, type Weapon } from 'definitions/items/weapons'
+import { getDefinition as getEnemyTypeDefinition } from 'definitions/enemies'
 import { AP_COST_MELEE, AP_COST_SHOOT, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat'
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot'
 import { type TextEntry } from 'constants/text'
 import { apparelTakeDamage, changeEquipmentQuantity, modifyHealth } from 'store/actions/adventurers'
-import { type ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI'
+import { type WeaponWithAbility, type ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI'
 import { getDefinition, isApparel } from 'definitions/items/apparel'
 import { TextManager } from 'global/TextManager'
 import { DamageType, WeaponType } from 'definitions/weaponTypes/types'
 import { type Item } from 'definitions/items/types'
+import { WeaponAbility } from 'definitions/abilities/types'
 
 // todo: dont use a class anymore
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -37,13 +39,14 @@ export class CombatController {
     this.unsubscriber?.()
   }
 
+  // Fires when the store changes
   static handleStoreChange () {
     if (this.sceneController == null) return
     // const questState = this.getQuestStoreState()
     const adventurers = this.sceneController.sceneAdventurers
     const enemies = this.sceneController.sceneEnemies
     const quest = this.sceneController.quest
-    if (adventurers != null && enemies != null && quest != null && (quest.scene != null) && !quest.scene.actionQueue?.length) {
+    if (adventurers != null && enemies != null && quest != null && quest.scene != null && ((quest.scene.actionQueue?.length ?? 0) === 0)) {
       const totalAdventurerAp = adventurers.reduce((acc, value) => acc + value.ap, 0)
       const { scene } = quest
       const { turn } = scene
@@ -54,37 +57,50 @@ export class CombatController {
         return
       }
 
-      if (turn === Allegiance.enemy && scene.actionQueue?.length === 0) {
-        const totalEnemiesAp = enemies.reduce((acc, value) => acc + value.ap, 0)
-
-        if (totalEnemiesAp === 0) {
-          // No more AP left for the enemy, player turn
-          this.dispatch(startTurn(quest.name, Allegiance.player, this.sceneController.getAdventurers()))
-          return
-        }
-
-        const enemy = this.findEnemyWithAp()
-        if (enemy?.location != null) {
-          const target = this.findNearestActor(enemy.location, Allegiance.player)
-          if ((target == null) || (target.location == null)) return // no target? did everyone die?
-          const path = this.sceneController.findPath(enemy.location, target.location)
-          const intent = this.sceneController.createActionIntent(SceneActionType.move, enemy, target.location)
-          if ((intent == null) || intent.action !== SceneActionType.move) return
-
-          path?.forEach((l, index) => {
-            if (index >= enemy.ap - 1) return
-            const sceneAction: SceneAction = {
-              endsAt: movementDuration * (index + 1) + performance.now(),
-              intent
-            }
-            this.dispatch(enqueueSceneAction(quest.name, sceneAction))
-          })
-        }
+      if (turn === Allegiance.enemy) {
+        this.enemyAI()
       }
     }
   }
 
-  // Call when actor melee animation starts
+  static enemyAI () {
+    const enemies = this.sceneController.sceneEnemies
+    const quest = this.sceneController.quest
+
+    const totalEnemiesAp = enemies.reduce((acc, value) => acc + value.ap, 0)
+
+    if (totalEnemiesAp === 0) {
+      // No more AP left for the enemy, player turn
+      this.dispatch(startTurn(quest.name, Allegiance.player, this.sceneController.getAdventurers()))
+      return
+    }
+
+    const enemy = this.findEnemyWithAp()
+    if (enemy?.location != null) {
+      const target = this.findNearestActor(enemy.location, Allegiance.player)
+      if ((target == null) || (target.location == null)) return // no target? did everyone die?
+
+      // todo: different types of weapons
+      const enemyTypeDefinition = getEnemyTypeDefinition(enemy.enemyType)
+      const weapon = enemyTypeDefinition.mainHand
+      const ability = WeaponAbility.swing
+      const weaponWithAbility: WeaponWithAbility = { weapon, ability }
+
+      const intent = this.sceneController.createActionIntent(SceneActionType.melee, enemy, target.location, weaponWithAbility)
+      if ((intent == null) || intent.action !== SceneActionType.melee) return
+
+      const sceneAction: SceneAction = {
+        endsAt: performance.now() + ((intent.path?.length ?? 0) + 1) * movementDuration,
+        intent
+      }
+      this.dispatch(enqueueSceneAction(quest.name, sceneAction))
+      if (intent.apCost != null) {
+        this.dispatch(deductActorAp(this.questName, getUniqueName(enemy), intent.apCost))
+      }
+    }
+  }
+
+  // Called when actor melee animation starts
   public static actorMeleeStart (actorId: string, _intent: ActionIntent) {
     if (this.sceneController === undefined) return
 
@@ -109,11 +125,15 @@ export class CombatController {
 
   public static actorMeleeEnd (actorId: string, intent: ActionIntent) {
     const location = intent.to
+
+    // todo: this AP probably has to be paid up front!
     const ap = AP_COST_MELEE
     this.dispatch(deductActorAp(this.questName, actorId, ap))
+
     const actor = this.sceneController.getSceneActor(actorId)
     if (actor == null) throw new Error('No actor found')
     if (intent.action !== SceneActionType.melee) throw new Error('Wrong action type')
+
     const { weapon } = intent.weaponWithAbility
     if (weapon === undefined) throw new Error('No weapon found')
     const weaponDefinition = getWeaponDefinition(weapon.type)

@@ -51,7 +51,7 @@ export type WeaponWithAbility = {
 }
 
 export type ActionIntent = BaseActionIntent & {
-  // Non combat action
+  // Non combat actions
   action: SceneActionType.interact
 } | BaseActionIntent & {
   //
