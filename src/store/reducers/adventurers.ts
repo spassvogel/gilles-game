@@ -540,7 +540,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
             }
           }
         }
-        return adventurer
+        return a
       })
     }
 
