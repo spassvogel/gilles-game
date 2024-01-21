@@ -2,7 +2,7 @@ import Tab from 'components/ui/tabs/Tab'
 import Tabstrip from 'components/ui/tabs/Tabstrip'
 import { LogChannel, type LogEntry } from 'store/types/logEntry'
 import { TextManager } from 'global/TextManager'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import Button from 'components/ui/buttons/Button'
 import { useLog } from 'hooks/store/useLog'
 import { useActiveQuestNames } from 'hooks/store/quests'
@@ -33,6 +33,7 @@ const SimpleLog = () => {
   const activeQuestNames = useActiveQuestNames()
   const location = useLocation()
   const scrollDownRef = useRef<HTMLDivElement>(null)
+  const entriesRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (location.pathname === getTownLink()) {
@@ -91,10 +92,9 @@ const SimpleLog = () => {
     return []
   }, [currentTab?.channelContext, currentTab?.tabType, logEntries])
 
-  useEffect(() => {
-    if (scrollDownRef.current != null) {
-      scrollDownRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' })
-    }
+  useLayoutEffect(() => {
+    const element = entriesRef.current as HTMLElement
+    element.scrollTop = element.scrollHeight
   }, [displayEntries])
 
   const getLogEntryRow = (logEntry: LogEntry) => {
@@ -124,7 +124,7 @@ const SimpleLog = () => {
           {expanded ? '▼' : '▲'}
         </Button>
       </div>
-      <div className="log-entries">
+      <div className="log-entries" ref={entriesRef}>
         {displayEntries.map((entry) => getLogEntryRow(entry))}
         <div ref={scrollDownRef}></div>
       </div>
