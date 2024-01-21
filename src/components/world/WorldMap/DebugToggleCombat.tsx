@@ -11,6 +11,10 @@ export const DebugToggleCombat = ({ questName }: { questName: string }) => {
   const adventurers = useAdventurers()
   const dispatch = useDispatch()
 
+  if (quest == null) {
+    return null
+  }
+
   const startCombat = () => {
     dispatch(startTurn(quest.name, Allegiance.player, adventurers))
     dispatch(setCombat(questName, true))

@@ -69,6 +69,11 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
       })
     }
 
+    // After the quest has failed user can dismiss this quest so it disappears from the quest map
+    case 'dismissQuest': {
+      return state.filter(q => q.name !== action.questName)
+    }
+
     case 'exitEncounter': {
       return state.map((qss) => {
         if (qss.name === action.questName) {

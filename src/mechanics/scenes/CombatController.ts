@@ -1,7 +1,15 @@
 import { deductActorAp, modifyEnemyHealth, setCombat, startTurn } from 'store/actions/quests'
 import { type AnyAction } from 'redux'
 import { type Location, locationEquals } from 'utils/tilemap'
-import { type ActorObject, Allegiance, type EnemyObject, getUniqueName, isAdventurer, type SceneAction, SceneActionType, isActorObject } from 'store/types/scene'
+import {
+  type ActorObject,
+  type EnemyObject,
+  Allegiance,
+  getUniqueName,
+  isAdventurer,
+  SceneActionType,
+  isActorObject
+} from 'store/types/scene'
 import { type BaseSceneController } from './BaseSceneController'
 import { Channel, MixMode, SoundManager } from 'global/SoundManager'
 import { getDefinition as getWeaponDefinition, type Weapon } from 'definitions/items/weapons'
@@ -60,7 +68,6 @@ export class CombatController {
         const questTitle = TextManager.getQuestTitle(quest.name)
         const leader = this.sceneController.getAdventurers()[0]
         ToastManager.addToast(questTitle, Type.questFailed, leader?.avatarImg)
-        console.log("BOOM")
         this.dispatch(setCombat(quest.name, false))
         return
       }

@@ -373,10 +373,7 @@
 
   "quest-common-adventurer-opened-chest": "{{actor:name adventurer}} has opened a chest",
   "quest-common-adventurer-opened-door": "{{adventurer}} has opened a door",
-  "quest-common-loot-cache-gold": "{{gold}} gold pieces",
-  "quest-common-loot-cache-take-all": "take all",
-  "quest-common-loot-cache-take": "take",
-  "quest-common-scenerio-door-open": "Open door",
+  "quest-common-scenario-door-open": "Open door",
 
   "quest-kill10-boars-description": "A horde of rampaging boars have been a pestilence upon the farmers. Kill no less than 10 of the beasts and return for your just reward.",
   "quest-kill10-boars-dungeonentrance-altar-lightcandle": "Light the candle",
@@ -394,6 +391,13 @@
   "quest-kill10-boars-scene-dungeon-entrance-title": "Dungeon entrance",
   "quest-kill10-boars-scene-dungeon-hub1-title": "Dungeon",
   "quest-kill10-boars-title": "The boar hunt",
+
+  "quest-panel-modal-loot-cache-gold": "{{gold}} gold pieces",
+  "quest-panel-modal-loot-cache-take": "take",
+  "quest-panel-modal-loot-cache-take-all": "take all",
+  "quest-panel-modal-quest-failed-body": "You have failed this quest",
+  "quest-panel-modal-quest-failed-dismiss": "Dismiss",
+  "quest-panel-modal-quest-failed-title": "Quest failed",
 
   "quest-retrieve-magic-amulet-description": "Some air headed princess left her magic amulet when she took it off to make some pics for her insta. Find and retrieve.",
   "quest-retrieve-magic-amulet-title": "The quest for the magic amulet",

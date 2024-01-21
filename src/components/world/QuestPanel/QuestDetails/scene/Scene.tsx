@@ -17,7 +17,7 @@ import { useSettings } from 'hooks/store/settings'
 import SceneDebug from './SceneDebug'
 import { type AdventurerStoreState } from 'store/types/adventurer'
 import { useAdventurers } from 'hooks/store/adventurers'
-import { newShaker } from 'pixi/shakeFactory'
+// import { newShaker } from 'pixi/shakeFactory'
 
 import './styles/scene.scss'
 
@@ -89,16 +89,16 @@ const Scene = (props: Props) => {
 
   useEffect(() => {
     if (containerRef.current === null) return
-    const shaker = newShaker({
-      target: containerRef.current,
-      isBidirectional: true,
-      shakeCountMax: 5000,
-      shakeAmount: 60,
-      shakeDelay: 25
-    })
+    // const shaker = newShaker({
+    //   target: containerRef.current,
+    //   isBidirectional: true,
+    //   shakeCountMax: 5000,
+    //   shakeAmount: 60,
+    //   shakeDelay: 25
+    // })
     // shaker.setTarget(containerRef.current)
     // shaker.shake()
-    console.log('shake it up!')
+    // console.log('shake it up!')
   }, [])
 
   const handleUIMouseDown = (location: Location) => {

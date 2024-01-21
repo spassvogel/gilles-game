@@ -88,7 +88,7 @@ const LootCache = (props: Props) => {
           <div className="adventurer">
             <DroppableAdventurerAvatar adventurer={adventurer} onDrop={handleDrop} />
             <Button onClick={handleTakeAllItems} disabled={freeSlots === 0} size="small">
-              {TextManager.get('quest-common-loot-cache-take-all')}
+              {TextManager.get('quest-panel-modal-loot-cache-take-all')}
             </Button>
           </div>
         </div>
@@ -100,11 +100,11 @@ const LootCache = (props: Props) => {
               image="img/resources/gold.png"
               size="medium"
             />
-            {TextManager.get('quest-common-loot-cache-gold', { gold: cache.gold })}
+            {TextManager.get('quest-panel-modal-loot-cache-gold', { gold: cache.gold })}
           </div>
           <div className="take-gold">
             <Button onClick={handleTakeGold} size="small">
-              {TextManager.get('quest-common-loot-cache-take')}
+              {TextManager.get('quest-panel-modal-loot-cache-take')}
             </Button>
           </div>
         </div>

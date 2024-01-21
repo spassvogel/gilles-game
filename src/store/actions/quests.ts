@@ -4,7 +4,8 @@ import { type PartialDeep } from 'type-fest'
 import { type Location } from 'utils/tilemap'
 
 export type QuestAction =
-  { type: 'launchQuest', questName: string, assignedAventurers: AdventurerStoreState[] }
+  | { type: 'launchQuest', questName: string, assignedAventurers: AdventurerStoreState[] }
+  | { type: 'dismissQuest', questName: string }
   | { type: 'exitEncounter', questName: string }
   | { type: 'updateQuestVars', questName: string, vars: PartialDeep<unknown> }
   | { type: 'setSceneName', questName: string, sceneName: string }
@@ -21,12 +22,23 @@ export type QuestAction =
   //  |  { type: "updateEncounterResult", questName: string, nodeIndex: number, result: string }
   | { type: 'setActiveSceneInteractionModal', questName: string, sceneInteractionModal?: SceneInteractionModal }
 
+/** A Quest has one or more Encounters. The Encounters are the interactive parts where you see the adventurers
+ * in a location. Each Encounter has one or more Scenes, the adventurers can move between then.
+ */
+
 /**
  * Embark upon a new quest */
 export const launchQuest = (questName: string, assignedAventurers: AdventurerStoreState[]): QuestAction => ({
   type: 'launchQuest',
   questName,
   assignedAventurers
+})
+
+/**
+ * After the quest has failed user can dismiss this quest so it disappears from the quest map */
+export const dismissQuest = (questName: string): QuestAction => ({
+  type: 'dismissQuest',
+  questName
 })
 
 /**
