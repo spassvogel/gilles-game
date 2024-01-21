@@ -412,7 +412,6 @@
   "resource-workers-name": "workers",
 
   "scene-combat-attack-dodge": "DODGE",
-  "scene-combat-attack-hit": "HIT",
   "scene-combat-attack-miss": "MISS",
   "scene-combat-attack-shoot": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}}",
   "scene-combat-attack-shoot-dodged": "{{template 'scene-combat-attack-shoot' this}}.\n\n{{actor:name target}} dodged!",

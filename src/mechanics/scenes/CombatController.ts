@@ -280,17 +280,16 @@ export class CombatController {
   protected static meleeHit (actor: ActorObject, target: ActorObject, weapon: Item<Weapon>, location: Location) {
     const weaponDefinition = getWeaponDefinition(weapon.type)
     // todo: calculate damage types?
-    this.sceneController.bubbleAtLocation(TextManager.get('scene-combat-attack-hit'), location)
-    this.sceneController.effectAtLocation('blood_1/blood_1.json', location)
-    void SoundManager.playSound('SCENE_SWORD_HIT_FLESH', Channel.scene)
-
+    // todo: CRIT
     const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0
     const bodyPart = rollBodyPart()
     const armor = this.getArmor(target, bodyPart)
     const damage = rawDamage - armor
     const absorbed = rawDamage - damage
 
-    this.sceneController.effectAtLocation('blood_2/blood_2.json', location)
+    this.sceneController.bubbleAtLocation(`${damage}`, location)
+    this.sceneController.effectAtLocation('blood_1/blood_1.json', location)
+    void SoundManager.playSound('SCENE_SWORD_HIT_FLESH', Channel.scene)
 
     this.log({
       key: absorbed > 0 ? 'scene-combat-attack-slash-hit-absorbed' : 'scene-combat-attack-slash-hit',
@@ -341,13 +340,14 @@ export class CombatController {
   protected static shootHit (actor: ActorObject, target: ActorObject, weapon: Item<Weapon>, location: Location) {
     const weaponDefinition = getWeaponDefinition(weapon.type)
     // todo: calculate damage types?
+    // todo: CRIT
     const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0
     const bodyPart = rollBodyPart()
     const armor = this.getArmor(target, bodyPart)
     const damage = rawDamage - armor
     const absorbed = rawDamage - damage
 
-    this.sceneController.bubbleAtLocation('HIT', location)
+    this.sceneController.bubbleAtLocation(`${damage}`, location)
     this.sceneController.effectAtLocation('blood_2/blood_2.json', location)
 
     this.log({

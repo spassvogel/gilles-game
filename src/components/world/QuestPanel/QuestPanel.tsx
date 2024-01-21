@@ -11,8 +11,9 @@ import AdventurersPanel from './AdventurersPanel'
 import ActorsAccordion from './ActorsAccordion'
 import { getSceneObjectWithName } from 'store/helpers/storeHelpers'
 import { isEnemy, type SceneObject } from 'store/types/scene'
-import './styles/questPanel.scss'
 import SceneModal from './modals/SceneModal'
+
+import './styles/questPanel.scss'
 
 enum Layout {
   auto, // horizontal on large screens, vertical on small screens
