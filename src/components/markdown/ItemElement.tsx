@@ -50,11 +50,9 @@ const ItemElement = (props: Props) => {
 
   return (
     <>
-      [
       <span className={`trigger ${getRarityClassName(definition?.rarity)}`} onClick={handleClick}>
         {TextManager.getItemName(item)}
       </span>
-      ]
     </>
   )
 }

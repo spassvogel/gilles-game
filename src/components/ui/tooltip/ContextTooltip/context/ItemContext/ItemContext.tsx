@@ -31,6 +31,9 @@ const ItemContext = (props: Props) => {
     return <ConsumableContent item={item as Item<Consumable>} source={source} />
   }
   const subtext = TextManager.getItemSubtext(item.type)
-  return (subtext !== null && (<p className="subtext">{`"${subtext}"`}</p>)) || null
+  if (subtext == null) {
+    return null
+  }
+  return <p className="subtext">{`"${subtext}"`}</p>
 }
 export default ItemContext

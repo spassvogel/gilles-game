@@ -42,6 +42,11 @@
     background: $color-background-overlay;
     color: $color-text-lighter;
     padding: 8px;
+
+    .entry {
+      margin-bottom: 0.25rem;
+      line-height: 1.5;
+    }
   }
 
   &.expanded {
