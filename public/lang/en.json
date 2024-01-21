@@ -594,6 +594,7 @@
   "ui-toast-type-item-crafted": "Item crafted!",
   "ui-toast-type-quest-completed": "Quest completed!",
   "ui-toast-type-quest-encounter": "Encounter started!",
+  "ui-toast-type-quest-failed": "Quest failed!",
   "ui-toast-type-quest-launched": "Quest started!",
   "ui-toast-type-quest-update": "Quest update!",
 

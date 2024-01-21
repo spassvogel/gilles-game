@@ -1,7 +1,7 @@
 import { TextManager } from 'global/TextManager'
 import { type ToastConfig } from 'global/ToastManager'
 import { useNavigate } from 'react-router'
-// import Icon from 'components/ui/common/Icon'
+import Icon from 'components/ui/common/Icon'
 
 type Props = ToastConfig
 
@@ -12,6 +12,7 @@ export enum Type {
   itemCrafted,
   questCompleted,
   questEncounter,
+  questFailed,
   questLaunched,
   questUpdate,
 }
@@ -36,7 +37,7 @@ const Toast = (props: Props) => {
     <div className={`toast ${link !== undefined ? 'withlink' : ''}`} onClick={handleClick}>
       <div className="label type">{typeText}</div>
       <div className="label title">{title}</div>
-      {/* <Icon size="big" image={icon} className="toast-icon" border="gold" /> */}
+      <Icon size="big" image={icon} className="toast-icon" border="gold" />
       <div className="banner"/>
     </div>
   )

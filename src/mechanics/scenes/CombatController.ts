@@ -1,4 +1,4 @@
-import { deductActorAp, modifyEnemyHealth, startTurn } from 'store/actions/quests'
+import { deductActorAp, modifyEnemyHealth, setCombat, startTurn } from 'store/actions/quests'
 import { type AnyAction } from 'redux'
 import { type Location, locationEquals } from 'utils/tilemap'
 import { type ActorObject, Allegiance, type EnemyObject, getUniqueName, isAdventurer, type SceneAction, SceneActionType, isActorObject } from 'store/types/scene'
@@ -16,6 +16,8 @@ import { TextManager } from 'global/TextManager'
 import { DamageType, WeaponType } from 'definitions/weaponTypes/types'
 import { type Item } from 'definitions/items/types'
 import { WeaponAbility } from 'definitions/abilities/types'
+import { ToastManager } from 'global/ToastManager'
+import { Type } from 'components/ui/toasts/Toast'
 
 // todo: dont use a class anymore
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -42,6 +44,8 @@ export class CombatController {
   // Fires when the store changes
   static handleStoreChange () {
     if (this.sceneController == null) return
+    if (!this.sceneController.combat) return
+
     // const questState = this.getQuestStoreState()
     const adventurers = this.sceneController.sceneAdventurers
     const enemies = this.sceneController.sceneEnemies
@@ -51,9 +55,26 @@ export class CombatController {
       const { scene } = quest
       const { turn } = scene
 
+      if (this.sceneController.getAdventurers().every(a => a.health <= 0)) {
+        // All adventurers are dead T_T quest failed!
+        const questTitle = TextManager.getQuestTitle(quest.name)
+        const leader = this.sceneController.getAdventurers()[0]
+        ToastManager.addToast(questTitle, Type.questFailed, leader?.avatarImg)
+        console.log("BOOM")
+        this.dispatch(setCombat(quest.name, false))
+        return
+      }
+
       // No AP for the player left, switch to enemy turn
       if (totalAdventurerAp === 0 && turn === Allegiance.player) {
         this.dispatch(startTurn(quest.name, Allegiance.enemy))
+        return
+      }
+
+      const totalEnemiesAp = enemies.reduce((acc, e) => acc + Math.max(e.ap, 0), 0)
+      if (totalEnemiesAp === 0 && turn === Allegiance.enemy) {
+        // No more AP left for the enemy, player turn
+        this.dispatch(startTurn(quest.name, Allegiance.player, this.sceneController.getAdventurers()))
         return
       }
 
@@ -63,18 +84,8 @@ export class CombatController {
     }
   }
 
+  // Moves the enemy AI does
   static enemyAI () {
-    const enemies = this.sceneController.sceneEnemies
-    const quest = this.sceneController.quest
-
-    const totalEnemiesAp = enemies.reduce((acc, value) => acc + value.ap, 0)
-
-    if (totalEnemiesAp === 0) {
-      // No more AP left for the enemy, player turn
-      this.dispatch(startTurn(quest.name, Allegiance.player, this.sceneController.getAdventurers()))
-      return
-    }
-
     const enemy = this.findEnemyWithAp()
 
     if (enemy?.location != null) {
