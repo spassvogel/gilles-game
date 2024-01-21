@@ -101,7 +101,7 @@ const SimpleLog = () => {
     const text = TextManager.get(logEntry.key, logEntry.context)
 
     return (
-      <div className="entry" key={logEntry.time}>
+      <div className="entry" key={`${logEntry.key}${logEntry.time}`}>
         <Markdown>{text}</Markdown>
       </div>
     )
