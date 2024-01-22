@@ -3,7 +3,7 @@ import resourceDescriptions, { type Resource } from 'definitions/resources'
 import * as React from 'react'
 import { type ResourceStoreState } from 'store/types/resources'
 import { formatNumber } from 'utils/format/number'
-import { TooltipManager } from 'global/TooltipManager'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import useGoldState from 'hooks/store/useGoldState'
 import { useMaxResourcesState, useResourcesState } from 'hooks/store/resources'
 import { useWorkersFreeState } from 'hooks/store/useWorkersState'
@@ -31,7 +31,7 @@ const Resourcebar = () => {
     const handleClick = (event: React.MouseEvent) => {
       const origin = (event.currentTarget as HTMLElement)
       const originRect = origin.getBoundingClientRect()
-      TooltipManager.showContextTooltip(ContextType.resource, type, originRect)
+      TooltipEmitter.showContextTooltip(ContextType.resource, type, originRect)
       event.stopPropagation()
     }
 

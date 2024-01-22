@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { type StoreState } from 'store/types'
 import * as Version from 'constants/version'
 import { useContext, useState } from 'react'
-import { ToastManager } from 'global/ToastManager'
+import { ToastEmitter } from 'emitters/ToastEmitter'
 import { Type } from 'components/ui/toasts/Toast'
 import * as TextManager from 'global/TextManager'
 import Button from 'components/ui/buttons/Button'
@@ -44,7 +44,7 @@ const SaveAndLoadWindow = () => {
     setLoadedStore(undefined)
 
     dispatch(loadGame(loadedStore))
-    ToastManager.addToast(TextManager.get('ui-game-loaded'), Type.game, '/img/items/misc/magic-eye.png')
+    ToastEmitter.addToast(TextManager.get('ui-game-loaded'), Type.game, '/img/items/misc/magic-eye.png')
     app?.onCloseWindow()
   }
 

@@ -2,8 +2,8 @@ import { type TavernStructureDefinition, type TavernStructureLevelDefinition } f
 import { type AdventurerStoreState } from 'store/types/adventurer'
 import { QuestStatus, type QuestStoreState } from 'store/types/quest'
 import * as TextManager from 'global/TextManager'
-import { ToastManager } from 'global/ToastManager'
-import { TooltipManager } from 'global/TooltipManager'
+import { ToastEmitter } from 'emitters/ToastEmitter'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import { Type } from 'components/ui/toasts/Toast'
 import { getQuestLink } from 'utils/routing'
 import RoomList from './rooms/RoomList'
@@ -81,7 +81,7 @@ const TavernStructureView = () => {
 
     const questTitle = TextManager.getQuestTitle(selectedQuest)
     const leader = assignedAventurers[0]
-    ToastManager.addToast(questTitle, Type.questLaunched, leader?.avatarImg, getQuestLink(selectedQuest))
+    ToastEmitter.addToast(questTitle, Type.questLaunched, leader?.avatarImg, getQuestLink(selectedQuest))
     onLaunchQuest(selectedQuest)
   }
 
@@ -93,7 +93,7 @@ const TavernStructureView = () => {
         <UpgradeHelpModalContent level={level} />
       </UpgradeHelpModal>
     )
-    TooltipManager.showContextTooltip(ContextType.component, content, originRect, 'upgrade-structure-tooltip')
+    TooltipEmitter.showContextTooltip(ContextType.component, content, originRect, 'upgrade-structure-tooltip')
 
     event.stopPropagation()
   }

@@ -14,8 +14,8 @@ type BubbleEvents = {
   [EVENT_BUBBLE_ADDED]: (text: string, point: Point, bubbleType?: BubbleType, layer?: BubbleLayer) => void
 }
 
-export class BubbleManager extends (EventEmitter as unknown as new () => TypedEmitter<BubbleEvents>) {
-  private static readonly _instance = new BubbleManager()
+export class BubbleEmitter extends (EventEmitter as unknown as new () => TypedEmitter<BubbleEvents>) {
+  private static readonly _instance = new BubbleEmitter()
 
   static addBubble (text: string, point: Point, bubbleType: BubbleType = BubbleType.combat, layer: BubbleLayer = BubbleLayer.general) {
     this.instance.emit(EVENT_BUBBLE_ADDED, text, point, bubbleType, layer)

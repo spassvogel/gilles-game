@@ -21,7 +21,7 @@ import {
   type AdventurerObject,
   getUniqueName
 } from 'store/types/scene'
-import { ToastManager } from 'global/ToastManager'
+import { ToastEmitter } from 'emitters/ToastEmitter'
 import { Type } from 'components/ui/toasts/Toast'
 import { getQuestLink } from 'utils/routing'
 import { type TextEntry, isTextEntry } from 'constants/text'
@@ -38,7 +38,7 @@ import { Assets, Point, utils } from 'pixi.js'
 import { AP_COST_MOVE, AP_COST_SHOOT, calculateInitialAP } from 'mechanics/combat'
 import { xpToLevel } from 'mechanics/adventurers/levels'
 import { type EnemyType } from 'definitions/enemies/types'
-import { BubbleLayer, BubbleManager, type BubbleType } from 'global/BubbleManager'
+import { BubbleLayer, BubbleEmitter, type BubbleType } from 'emitters/BubbleEmitter'
 import { convertIn, convertOut } from 'utils/aStar'
 import { type ActionIntent, type WeaponWithAbility } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI'
 import { type Ammunition } from 'definitions/items/ammunition'
@@ -908,7 +908,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     const textEntry: TextEntry = isTextEntry(input) ? input : { key: input }
     const title = TextManager.getTextEntry(textEntry)
     if (toast) {
-      ToastManager.addToast(title, Type.questUpdate, icon, getQuestLink(this.questName))
+      ToastEmitter.addToast(title, Type.questUpdate, icon, getQuestLink(this.questName))
     }
     this.log(textEntry)
   }
@@ -921,7 +921,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
   public bubbleAtLocation (text: string, location: Location, bubbleType?: BubbleType) {
     const point = this.sceneLocationToPoint(location)
     point.set(point.x + (this.mapData?.tilewidth ?? 2) / 2, point.y)
-    BubbleManager.addBubble(text, point, bubbleType, BubbleLayer.scene)
+    BubbleEmitter.addBubble(text, point, bubbleType, BubbleLayer.scene)
   }
 
   // Store

@@ -1,5 +1,5 @@
 import * as TextManager from 'global/TextManager'
-import { type ToastConfig } from 'global/ToastManager'
+import { type ToastConfig } from 'emitters/ToastEmitter'
 import { useNavigate } from 'react-router'
 import Icon from 'components/ui/common/Icon'
 

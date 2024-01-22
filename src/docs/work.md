@@ -847,6 +847,8 @@ https://interfaceingame.com/games/league-of-legends/
 ### 2023-09-20 Managers
 - [ ] Dump this weird Managers stuff. Use hooks
 - [x] Fix for TextManager
+- [ ] Fix for SoundManager
+- [x] Fix for the emitters
 
 ### 2023-11-17 Scene Effects
 - [ ] Use descriminated union to describe effects. 

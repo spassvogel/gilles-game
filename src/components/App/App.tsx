@@ -14,8 +14,8 @@ import Topbar from 'components/ui/topbar'
 import SimpleLog from 'components/ui/log/SimpleLog'
 import Toasts from 'components/ui/toasts/Toasts'
 import Bubbles from 'components/ui/bubbles/Bubbles'
-import { BubbleLayer } from 'global/BubbleManager'
-import { TooltipManager } from 'global/TooltipManager'
+import { BubbleLayer } from 'emitters/BubbleEmitter'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import ContextTooltip from 'components/ui/tooltip/ContextTooltip'
 import WorldView from 'components/world/WorldView'
 import { GameActionsContext } from 'components/Game/context'
@@ -71,7 +71,7 @@ const App = () => {
   }, [])
 
   const handleAppClick = () => {
-    TooltipManager.clear()
+    TooltipEmitter.clear()
   }
 
   return (

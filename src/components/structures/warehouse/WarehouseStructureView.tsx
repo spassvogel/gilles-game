@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { empty, type ResourceStoreState } from 'store/types/resources'
 import { type StructuresStoreState } from 'store/types/structures'
 import * as TextManager from 'global/TextManager'
-import { TooltipManager } from 'global/TooltipManager'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import AdventurerTabstrip from 'components/ui/adventurer/AdventurerTabstrip/AdventurerTabstrip'
 import { useStructureLevel, useStructureState } from 'hooks/store/structures'
 import { useResourcesState } from 'hooks/store/resources'
@@ -66,7 +66,7 @@ const WarehouseStructureView = () => {
         <UpgradeHelpModalContent level={level} />
       </UpgradeHelpModal>
     )
-    TooltipManager.showContextTooltip(ContextType.component, content, originRect, 'upgrade-structure-tooltip')
+    TooltipEmitter.showContextTooltip(ContextType.component, content, originRect, 'upgrade-structure-tooltip')
 
     event.stopPropagation()
   }

@@ -2,7 +2,7 @@ import { getDefinition as getStructureDefinition, type Structure } from 'definit
 import { StructureState, type StructureStoreState } from 'store/types/structure'
 import { type StructuresStoreState } from 'store/types/structures'
 import * as TextManager from 'global/TextManager'
-import { ToastManager } from 'global/ToastManager'
+import { ToastEmitter } from 'emitters/ToastEmitter'
 import { Type } from 'components/ui/toasts/Toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { setStructureState } from 'store/actions/structures'
@@ -20,9 +20,9 @@ const DebugContextTown = () => {
   const handleChangeStructureState = (structure: Structure, checked: boolean) => {
     onCheatStructureState(structure, checked ? StructureState.Built : StructureState.NotBuilt)
     if (checked) {
-      ToastManager.addToast(`The ${TextManager.getStructureName(structure)} is constructed`, Type.cheat)
+      ToastEmitter.addToast(`The ${TextManager.getStructureName(structure)} is constructed`, Type.cheat)
     } else {
-      ToastManager.addToast(`The ${TextManager.getStructureName(structure)} is not constructed`, Type.cheat)
+      ToastEmitter.addToast(`The ${TextManager.getStructureName(structure)} is not constructed`, Type.cheat)
     }
   }
 

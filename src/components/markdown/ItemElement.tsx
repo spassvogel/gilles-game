@@ -1,6 +1,6 @@
 import { type ReactNode, useMemo } from 'react'
 import * as TextManager from 'global/TextManager'
-import { TooltipManager } from 'global/TooltipManager'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import { getDefinition } from 'definitions/items'
 import { Rarity } from 'constants/items'
 import { ContextType } from 'constants/context'
@@ -44,7 +44,7 @@ const ItemElement = (props: Props) => {
     const origin = (event.currentTarget as HTMLElement)
     const originRect = origin.getBoundingClientRect()
 
-    TooltipManager.showContextTooltip(ContextType.item, item, originRect)
+    TooltipEmitter.showContextTooltip(ContextType.item, item, originRect)
     event.stopPropagation()
   }
 

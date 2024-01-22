@@ -5,7 +5,7 @@ import * as TextManager from 'global/TextManager'
 import { useMemo } from 'react'
 import { useResourcesState } from 'hooks/store/resources'
 import Icon from 'components/ui/common/Icon'
-import { TooltipManager } from 'global/TooltipManager'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import useGoldState from 'hooks/store/useGoldState'
 import './styles/resourcesCost.scss'
 import { ContextType } from 'constants/context'
@@ -53,7 +53,7 @@ const ResourcesCost = (props: Props) => {
     const handleClick = (event: React.MouseEvent) => {
       const origin = (event.currentTarget as HTMLElement)
       const originRect = origin.getBoundingClientRect()
-      TooltipManager.showContextTooltip(ContextType.resource, resource, originRect)
+      TooltipEmitter.showContextTooltip(ContextType.resource, resource, originRect)
       event.stopPropagation()
     }
 

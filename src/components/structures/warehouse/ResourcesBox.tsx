@@ -10,7 +10,7 @@ import { type StoreState } from 'store/types'
 import { StructureState } from 'store/types/structure'
 import { formatNumber } from 'utils/format/number'
 import Icon from '../../ui/common/Icon'
-import { BubbleLayer, BubbleManager, BubbleType } from 'global/BubbleManager'
+import { BubbleLayer, BubbleEmitter, BubbleType } from 'emitters/BubbleEmitter'
 import { Point } from 'pixi.js'
 import './styles/resourcesBox.scss'
 
@@ -51,7 +51,7 @@ const ResourcesBox = (props: Props) => {
             const rect = el?.getBoundingClientRect()
             const point = new Point(rect?.right, rect?.top)
 
-            BubbleManager.addBubble(`+ ${deltaResources[resource]?.toFixed(2)}`, point, BubbleType.resource, BubbleLayer.general)
+            BubbleEmitter.addBubble(`+ ${deltaResources[resource]?.toFixed(2)}`, point, BubbleType.resource, BubbleLayer.general)
           }
 
           const structure = getStructureByResource(Resource[resource])

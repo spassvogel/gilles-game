@@ -5,7 +5,7 @@ import { getDefinition as getStructureDefinition, type Structure } from 'definit
 import { StructureState, type StructureStoreState } from 'store/types/structure'
 import { type StructuresStoreState } from 'store/types/structures'
 import * as TextManager from 'global/TextManager'
-import { ToastManager } from 'global/ToastManager'
+import { ToastEmitter } from 'emitters/ToastEmitter'
 import { Type } from 'components/ui/toasts/Toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { addLogText } from 'store/actions/log'
@@ -79,9 +79,9 @@ const CheatWindow = () => {
   const handleChangeStructureState = (structure: Structure, checked: boolean) => {
     onCheatStructureState(structure, checked ? StructureState.Built : StructureState.NotBuilt)
     if (checked) {
-      ToastManager.addToast(`The ${TextManager.getStructureName(structure)} is constructed`, Type.cheat)
+      ToastEmitter.addToast(`The ${TextManager.getStructureName(structure)} is constructed`, Type.cheat)
     } else {
-      ToastManager.addToast(`The ${TextManager.getStructureName(structure)} is not constructed`, Type.cheat)
+      ToastEmitter.addToast(`The ${TextManager.getStructureName(structure)} is not constructed`, Type.cheat)
     }
   }
 
@@ -116,7 +116,7 @@ const CheatWindow = () => {
 
     const text = TextManager.get('common-cheat-gold-added', { amount })
     const icon = '/img/resources/gold.png'
-    ToastManager.addToast(text, Type.cheat, icon)
+    ToastEmitter.addToast(text, Type.cheat, icon)
   }
 
   const handleCheatWorkers = (_evt: React.MouseEvent<HTMLButtonElement>) => {
@@ -124,13 +124,13 @@ const CheatWindow = () => {
     onCheatWorkers(amount)
     const text = TextManager.get('common-cheat-workers-added', { amount })
     const icon = '/img/resources/worker.png'
-    ToastManager.addToast(text, Type.cheat, icon)
+    ToastEmitter.addToast(text, Type.cheat, icon)
   }
 
   const handleCheatResources = (_evt: React.MouseEvent<HTMLButtonElement>) => {
     onCheatResources(cheats.resources)
     const text = TextManager.get('common-cheat-resources-added', { amount: cheats.resources })
-    ToastManager.addToast(text, Type.cheat)
+    ToastEmitter.addToast(text, Type.cheat)
   }
 
   const handleCheatItem = (_evt: React.MouseEvent<HTMLButtonElement>) => {
@@ -139,7 +139,7 @@ const CheatWindow = () => {
 
     const text = TextManager.get('common-cheat-item-added', { item })
     const icon = getDefinition(item).iconImg
-    ToastManager.addToast(text, Type.cheat, icon)
+    ToastEmitter.addToast(text, Type.cheat, icon)
   }
 
   const handleChangeGold = (event: React.ChangeEvent<HTMLInputElement>) => {

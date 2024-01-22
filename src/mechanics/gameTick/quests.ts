@@ -6,7 +6,7 @@ import { type Store } from 'redux'
 import { type StoreState } from 'store/types'
 import { LogChannel } from 'store/types/logEntry'
 import { QuestStatus, type QuestStoreState } from 'store/types/quest'
-import { ToastManager } from 'global/ToastManager'
+import { ToastEmitter } from 'emitters/ToastEmitter'
 import * as TextManager from 'global/TextManager'
 import { Type } from 'components/ui/toasts/Toast'
 import { getQuestLink } from 'utils/routing'
@@ -45,7 +45,7 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
 
     const questTitle = TextManager.getQuestTitle(quest.name)
     const leader = getQuestLeader(state.adventurers, quest)
-    ToastManager.addToast(questTitle, Type.questEncounter, leader?.avatarImg, getQuestLink(quest.name))
+    ToastEmitter.addToast(questTitle, Type.questEncounter, leader?.avatarImg, getQuestLink(quest.name))
   }
 
   // Moves the quest line progress. Only if currently at a 'nothing' node

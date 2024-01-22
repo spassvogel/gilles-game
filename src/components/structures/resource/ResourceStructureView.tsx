@@ -9,7 +9,7 @@ import { decreaseWorkers, increaseWorkers, removeItemFromHarvest } from 'store/a
 import StructureViewHeader from '../StructureViewHeader'
 import * as TextManager from 'global/TextManager'
 import StructureLevel from '../StructureLevel'
-import { TooltipManager } from 'global/TooltipManager'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import { useStructureLevel, useStructureState } from 'hooks/store/structures'
 import ResourceGenerationRow from './ResourceGenerationRow'
 import { type Resource } from 'definitions/resources'
@@ -64,7 +64,7 @@ const ResourceStructureView = (props: Props) => {
         <UpgradeHelpModalContent level={level} structure={structure}/>
       </UpgradeHelpModal>
     )
-    TooltipManager.showContextTooltip(ContextType.component, content, originRect, 'upgrade-structure-tooltip')
+    TooltipEmitter.showContextTooltip(ContextType.component, content, originRect, 'upgrade-structure-tooltip')
 
     event.stopPropagation()
   }

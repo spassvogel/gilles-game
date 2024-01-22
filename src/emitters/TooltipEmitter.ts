@@ -18,8 +18,8 @@ type TooltipEvents = {
   [EVENT_CONTEXT_UPDATED]: (context: Context | undefined) => void
 }
 
-export class TooltipManager extends (EventEmitter as unknown as new () => TypedEmitter<TooltipEvents>) {
-  private static readonly _instance = new TooltipManager()
+export class TooltipEmitter extends (EventEmitter as unknown as new () => TypedEmitter<TooltipEvents>) {
+  private static readonly _instance = new TooltipEmitter()
 
   private static lastContext: Context | undefined
 

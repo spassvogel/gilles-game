@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react'
 import {
   type BubbleLayer,
-  BubbleManager,
+  BubbleEmitter,
   BubbleType,
   EVENT_BUBBLE_ADDED
-} from 'global/BubbleManager'
+} from 'emitters/BubbleEmitter'
 import { type Point } from 'pixi.js'
 
 import './styles/bubbles.scss'
@@ -41,9 +41,9 @@ const Bubbles = (props: Props) => {
       }
     }
 
-    BubbleManager.instance.addListener(EVENT_BUBBLE_ADDED, bubbleAdded)
+    BubbleEmitter.instance.addListener(EVENT_BUBBLE_ADDED, bubbleAdded)
     return () => {
-      BubbleManager.instance.removeListener(EVENT_BUBBLE_ADDED, bubbleAdded)
+      BubbleEmitter.instance.removeListener(EVENT_BUBBLE_ADDED, bubbleAdded)
     }
   }, [props.layer])
 

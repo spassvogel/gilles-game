@@ -25,10 +25,10 @@ import * as TextManager from 'global/TextManager'
 import { DamageType, WeaponType } from 'definitions/weaponTypes/types'
 import { type Item } from 'definitions/items/types'
 import { WeaponAbility } from 'definitions/abilities/types'
-import { ToastManager } from 'global/ToastManager'
+import { ToastEmitter } from 'emitters/ToastEmitter'
 import { Type } from 'components/ui/toasts/Toast'
 import { random } from 'utils/random'
-import { BubbleType } from 'global/BubbleManager'
+import { BubbleType } from 'emitters/BubbleEmitter'
 
 // todo: dont use a class anymore
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -70,7 +70,7 @@ export class CombatController {
         // All adventurers are dead T_T quest failed!
         const questTitle = TextManager.getQuestTitle(quest.name)
         const leader = this.sceneController.getAdventurers()[0]
-        ToastManager.addToast(questTitle, Type.questFailed, leader?.avatarImg)
+        ToastEmitter.addToast(questTitle, Type.questFailed, leader?.avatarImg)
         this.dispatch(setCombat(quest.name, false))
         return
       }

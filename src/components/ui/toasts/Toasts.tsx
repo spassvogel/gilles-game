@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ToastManager, type ToastConfig, EVENT_TOASTS_UPDATED } from 'global/ToastManager'
+import { ToastEmitter, type ToastConfig, EVENT_TOASTS_UPDATED } from 'emitters/ToastEmitter'
 import Toast from './Toast'
 import './styles/toasts.scss'
 
@@ -14,9 +14,9 @@ const Toasts = () => {
   }
 
   useEffect(() => {
-    ToastManager.instance.addListener(EVENT_TOASTS_UPDATED, toastsUpdated)
+    ToastEmitter.instance.addListener(EVENT_TOASTS_UPDATED, toastsUpdated)
     return () => {
-      ToastManager.instance.removeListener(EVENT_TOASTS_UPDATED, toastsUpdated)
+      ToastEmitter.instance.removeListener(EVENT_TOASTS_UPDATED, toastsUpdated)
     }
   }, [])
 

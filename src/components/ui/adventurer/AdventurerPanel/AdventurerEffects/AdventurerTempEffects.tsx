@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { useAdventurer } from 'hooks/store/adventurers'
 import * as TextManager from 'global/TextManager'
-import { TooltipManager } from 'global/TooltipManager'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import EffectIcon from './EffectIcon'
 import { type TempEffect } from 'definitions/tempEffects/types'
 import './styles/adventurerEffects.scss'
@@ -24,7 +24,7 @@ const AdventurerTempEffects = (props: Props) => {
       if (origin == null) return
       const originRect = origin.getBoundingClientRect()
 
-      TooltipManager.showContextTooltip(ContextType.tempEffect, effect, originRect)
+      TooltipEmitter.showContextTooltip(ContextType.tempEffect, effect, originRect)
       event.stopPropagation()
     }
     return (
