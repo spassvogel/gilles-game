@@ -22,6 +22,11 @@
 			margin-left: 6px;
       opacity: 1;
     }
+
+    &.type-crit {
+      color: $color-highlighted;
+      font-size: 1.5rem;
+    }
   }
 
   @keyframes bubbleUp {

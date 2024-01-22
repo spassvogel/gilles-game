@@ -41,11 +41,10 @@
 
     background: $color-background-overlay;
     color: $color-text-lighter;
-    padding: 0.5rem 0.5rem 0 0.5rem;
+    padding: 0.5rem;
     scroll-behavior: smooth;
 
     .entry {
-      margin-bottom: 0.25rem;
       line-height: 1.5;
     }
   }

@@ -3,7 +3,11 @@ import { type Point } from 'pixi.js'
 import type TypedEmitter from 'typed-emitter'
 
 export const EVENT_BUBBLE_ADDED = 'bubbleAdded'
-export enum BubbleType { combat, resource }
+export enum BubbleType {
+  combat,
+  crit,
+  resource,
+}
 export enum BubbleLayer { general, scene }
 
 type BubbleEvents = {

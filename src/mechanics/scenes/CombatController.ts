@@ -14,6 +14,7 @@ import { type BaseSceneController } from './BaseSceneController'
 import { Channel, MixMode, SoundManager } from 'global/SoundManager'
 import { getDefinition as getWeaponDefinition, type Weapon } from 'definitions/items/weapons'
 import { getDefinition as getEnemyTypeDefinition } from 'definitions/enemies'
+import { getDefinition as getWeaponTypeDefinition } from 'definitions/weaponTypes'
 import { AP_COST_MELEE, AP_COST_SHOOT, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat'
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot'
 import { type TextEntry } from 'constants/text'
@@ -26,6 +27,8 @@ import { type Item } from 'definitions/items/types'
 import { WeaponAbility } from 'definitions/abilities/types'
 import { ToastManager } from 'global/ToastManager'
 import { Type } from 'components/ui/toasts/Toast'
+import { random } from 'utils/random'
+import { BubbleType } from 'global/BubbleManager'
 
 // todo: dont use a class anymore
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -286,20 +289,35 @@ export class CombatController {
 
   protected static meleeHit (actor: ActorObject, target: ActorObject, weapon: Item<Weapon>, location: Location) {
     const weaponDefinition = getWeaponDefinition(weapon.type)
+    const weaponTypeDefinition = getWeaponTypeDefinition(weaponDefinition.weaponType)
+    if (weaponTypeDefinition == null) {
+      throw new Error(`No definition found for weapon ${weapon.type}`)
+    }
+
     // todo: calculate damage types?
-    // todo: CRIT
-    const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0
+    const crit = random() < (weaponTypeDefinition.crit ?? 0)
+    const critModifier = +crit + 1
+
+    const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0 * critModifier
     const bodyPart = rollBodyPart()
     const armor = this.getArmor(target, bodyPart)
     const damage = rawDamage - armor
     const mitigated = rawDamage - damage
 
-    this.sceneController.bubbleAtLocation(`${damage}`, location)
+    this.sceneController.bubbleAtLocation(`${damage}`, location, crit ? BubbleType.crit : BubbleType.combat)
     this.sceneController.effectAtLocation('blood_1/blood_1.json', location)
     void SoundManager.playSound('SCENE_SWORD_HIT_FLESH', Channel.scene)
 
+    let key = 'scene-combat-attack-slash-hit'
+    if (crit) {
+      key += '-crit'
+    }
+    if (mitigated > 0) {
+      key += '-mitigated'
+    }
+
     this.log({
-      key: mitigated > 0 ? 'scene-combat-attack-slash-hit-mitigated' : 'scene-combat-attack-slash-hit',
+      key,
       context: {
         attacker: getUniqueName(actor),
         weapon,
@@ -346,19 +364,33 @@ export class CombatController {
 
   protected static shootHit (actor: ActorObject, target: ActorObject, weapon: Item<Weapon>, location: Location) {
     const weaponDefinition = getWeaponDefinition(weapon.type)
+    const weaponTypeDefinition = getWeaponTypeDefinition(weaponDefinition.weaponType)
+    if (weaponTypeDefinition == null) {
+      throw new Error(`No definition found for weapon ${weapon.type}`)
+    }
     // todo: calculate damage types?
-    // todo: CRIT
-    const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0
+    const crit = random() < (weaponTypeDefinition.crit ?? 0)
+    const critModifier = +crit + 1
+
+    const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0 * critModifier
     const bodyPart = rollBodyPart()
     const armor = this.getArmor(target, bodyPart)
     const damage = rawDamage - armor
     const mitigated = rawDamage - damage
 
-    this.sceneController.bubbleAtLocation(`${damage}`, location)
+    this.sceneController.bubbleAtLocation(`${damage}`, location, crit ? BubbleType.crit : BubbleType.combat)
     this.sceneController.effectAtLocation('blood_2/blood_2.json', location)
 
+    let key = 'scene-combat-attack-shoot-hit'
+    if (crit) {
+      key += '-crit'
+    }
+    if (mitigated > 0) {
+      key += '-mitigated'
+    }
+
     this.log({
-      key: mitigated > 0 ? 'scene-combat-attack-shoot-hit-mitigated' : 'scene-combat-attack-shoot-hit',
+      key,
       context: {
         attacker: getUniqueName(actor),
         weapon,

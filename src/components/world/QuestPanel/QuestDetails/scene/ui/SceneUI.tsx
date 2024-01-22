@@ -126,7 +126,6 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         return
       }
       if ((cursorLocation == null) || !locationEquals(location, cursorLocation)) {
-        console.log('setting cursor')
         setCursorLocation(location)
       }
     }

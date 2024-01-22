@@ -2,6 +2,8 @@ import ReactMarkdown from 'react-markdown'
 import directive from 'remark-directive'
 import { reactMarkdownRemarkDirective } from '../../utils/markdown'
 import ItemElement from './ItemElement'
+import CritDmgElement from './CritDmgElement'
+
 import './styles/markdown.scss'
 
 type Props = {
@@ -14,7 +16,10 @@ const Markdown = (props: Props) => {
     <ReactMarkdown
       className="markdown"
       remarkPlugins={[directive, reactMarkdownRemarkDirective]}
-      components={{ item: ItemElement }}
+      components={{
+        item: ItemElement,
+        crit: CritDmgElement
+      }}
     >{children}</ReactMarkdown>
   )
 }
