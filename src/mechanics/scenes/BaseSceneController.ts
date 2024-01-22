@@ -76,6 +76,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
   protected tileTypes: Record<string, number> = {} // map tiletype to gid
 
   constructor (store: Store<StoreState, AnyAction>, questName: string) {
+    // eslint-disable-next-line constructor-super
     super()
     this.store = store
     this.questName = questName
@@ -261,7 +262,6 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
 
         if (this.combat) {
           // Take away AP for moving
-          console.log(`taking away ${AP_COST_MOVE * (intent.path?.length ?? 1)} MOVE AP`)
           this.dispatch(deductActorAp(this.questName, getUniqueName(actor), AP_COST_MOVE * (intent.path?.length ?? 1)))
         } else {
           // Follow behaviour. Other adventurers follow this adventurer

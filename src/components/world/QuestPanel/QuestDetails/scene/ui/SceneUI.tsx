@@ -8,9 +8,7 @@ import React, {
 } from 'react'
 import { Point } from 'pixi.js'
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext'
-import { ContextType } from 'constants/context'
 import { type Location, locationEquals } from 'utils/tilemap'
-import { TooltipManager } from 'global/TooltipManager'
 import { useAdventurerActorObject, useQuest } from 'hooks/store/quests'
 import { type ActorObject, SceneActionType } from 'store/types/scene'
 import { convertMouseOrTouchCoords, type MouseOrTouchEvent } from 'utils/interaction'
@@ -23,7 +21,7 @@ import NormalUICursor from './NormalUICursor'
 import { type Ammunition } from 'definitions/items/ammunition'
 import { type WeaponAbility } from 'definitions/abilities/types'
 import AdventurerCombatSceneUI, { type Refs } from './AdventurerCombatSceneUI'
-import { checkIfEnemy } from 'definitions/enemies/types'
+
 import './styles/sceneUI.scss'
 
 export type Props = {

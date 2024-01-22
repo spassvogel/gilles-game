@@ -11,7 +11,6 @@ import AdventurersPanel from './AdventurersPanel'
 import ActorsAccordion from './ActorsAccordion'
 import { getSceneObjectWithName } from 'store/helpers/storeHelpers'
 import { isEnemy, type SceneObject } from 'store/types/scene'
-import SceneModal from './modals/SceneModal'
 
 import './styles/questPanel.scss'
 

@@ -15,6 +15,7 @@ import { formatDuration } from 'utils/format/time'
 import { STUDY_TIME } from 'mechanics/studying'
 import Button from 'components/ui/buttons/Button'
 import ReactMarkdown from 'react-markdown'
+import Markdown from 'components/markdown/Markdown'
 
 type Props = {
   item: ProducableItem
@@ -36,11 +37,9 @@ const ProducedAtStructure = (props: Props) => {
   // Can already be produced
   if (structureStore.produces.some((item: ItemType) => item === props.item)) {
     return (
-      <p>Constructed at:
-        <Link to={getStructureLink(structure)} >
-          { TextManager.getStructureName(structure) }
-        </Link>
-      </p>
+      <Markdown>
+        {TextManager.get('ui-tooltip-crafted-at', { structure })}
+      </Markdown>
     )
   }
 
