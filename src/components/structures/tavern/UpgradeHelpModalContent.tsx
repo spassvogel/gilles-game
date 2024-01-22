@@ -1,7 +1,7 @@
 import { getDefinition } from 'definitions/structures'
 import { type TavernStructureDefinition } from 'definitions/structures/types'
 import Icon from 'components/ui/common/Icon'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import './styles/upgradeHelpModalContent.scss'
 
 export type Props = {

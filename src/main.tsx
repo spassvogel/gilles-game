@@ -1,6 +1,6 @@
 import { Assets } from 'pixi.js'
 import { createRoot } from 'react-dom/client'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import Game from 'components/Game'
 import * as random from './utils/random'
 import './index.css'

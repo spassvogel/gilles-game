@@ -1,7 +1,7 @@
 import { getDefinition as getStructureDefinition, type Structure } from 'definitions/structures'
 import { StructureState, type StructureStoreState } from 'store/types/structure'
 import { type StructuresStoreState } from 'store/types/structures'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { ToastManager } from 'global/ToastManager'
 import { Type } from 'components/ui/toasts/Toast'
 import { useDispatch, useSelector } from 'react-redux'

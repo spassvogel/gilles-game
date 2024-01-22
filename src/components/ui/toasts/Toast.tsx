@@ -1,4 +1,4 @@
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { type ToastConfig } from 'global/ToastManager'
 import { useNavigate } from 'react-router'
 import Icon from 'components/ui/common/Icon'

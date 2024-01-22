@@ -1,7 +1,7 @@
 import { TickingProgressbar } from 'components/ui/common/progress'
 import { Direction } from 'components/ui/common/progress/TickingProgressbar'
 import { type Structure } from 'definitions/structures'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useEngine } from 'hooks/store/engine'
 import { HARVEST_INTERVAL } from 'mechanics/gameTick/harvest'
 import { formatDuration } from 'utils/format/time'

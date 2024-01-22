@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import Button from 'components/ui/buttons/Button'
 import { dismissQuest } from 'store/actions/quests'
 import { getWorldLink } from 'utils/routing'

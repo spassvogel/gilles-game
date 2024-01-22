@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect, useState } from 'react'
 import { ContextType } from 'constants/context'
 import { TooltipManager, type Context, EVENT_CONTEXT_UPDATED } from 'global/TooltipManager'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import ItemContext from './context/ItemContext'
 import { type Item } from 'definitions/items/types'
 import { type Resource } from 'definitions/resources'

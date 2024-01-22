@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { useAdventurer } from 'hooks/store/adventurers'
 import { type Trait } from 'definitions/traits/types'
 import { getDefinition } from 'definitions/traits'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { TooltipManager } from 'global/TooltipManager'
 
 import './styles/adventurerTraits.scss'

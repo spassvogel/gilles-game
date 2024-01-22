@@ -1,7 +1,7 @@
 import { type TavernStructureDefinition, type TavernStructureLevelDefinition } from 'definitions/structures/types'
 import { type AdventurerStoreState } from 'store/types/adventurer'
 import { QuestStatus, type QuestStoreState } from 'store/types/quest'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { ToastManager } from 'global/ToastManager'
 import { TooltipManager } from 'global/TooltipManager'
 import { Type } from 'components/ui/toasts/Toast'

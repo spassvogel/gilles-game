@@ -1,7 +1,7 @@
 import resourceDescriptions, { type Resource } from 'definitions/resources'
 import * as React from 'react'
 import { type ResourceStoreState } from 'store/types/resources'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useMemo } from 'react'
 import { useResourcesState } from 'hooks/store/resources'
 import Icon from 'components/ui/common/Icon'

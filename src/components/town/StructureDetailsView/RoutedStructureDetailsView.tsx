@@ -1,6 +1,6 @@
 import { type Structure } from 'definitions/structures'
 import { Link, useParams } from 'react-router-dom'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import Button from 'components/ui/buttons/Button'
 import { getStructureLink } from 'utils/routing'
 import StructureDetailsView from './StructureDetailsView'

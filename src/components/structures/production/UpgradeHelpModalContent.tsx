@@ -4,7 +4,7 @@ import { IconSize } from 'components/ui/common/Icon'
 import ItemIcon from 'components/ui/items/ItemIcon'
 import { type ItemType } from 'definitions/items/types'
 import { useStructureDefinition } from 'hooks/store/structures'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 
 import './styles/upgradeHelpModalContent.scss'
 

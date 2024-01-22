@@ -1,6 +1,6 @@
 import { getDefinition } from 'definitions/items'
 import { type ItemType } from 'definitions/items/types'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useMemo } from 'react'
 import Icon from 'components/ui/common/Icon'
 import { useStockpileStateFlat } from 'hooks/store/stockpile'

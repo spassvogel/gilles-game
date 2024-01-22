@@ -3,7 +3,7 @@ import { type AdventurerStoreState } from 'store/types/adventurer'
 import { type QuestStoreState } from 'store/types/quest'
 import RoomWithAdventurer from './RoomWithAdventurer'
 import RoomEmpty from './RoomEmpty'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 
 import './styles/roomList.scss'
 

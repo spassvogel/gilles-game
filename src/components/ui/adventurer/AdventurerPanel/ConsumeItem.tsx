@@ -1,5 +1,5 @@
 import { useAdventurer } from 'hooks/store/adventurers'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import DraggableItemIcon, { type InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon'
 import { useMemo } from 'react'
 import ConsumeItemSlot from './ConsumeItemSlot'

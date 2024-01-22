@@ -1,5 +1,5 @@
 import { type Merge } from 'type-fest'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import AccordionItem, { type Props as AccordionItemProps } from 'components/ui/accordion/AccordionItem'
 import { useEnemyActorObject, useQuest } from 'hooks/store/quests'
 import { getDefinition } from 'definitions/enemies'

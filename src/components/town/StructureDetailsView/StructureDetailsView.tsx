@@ -11,7 +11,7 @@ import ProductionStructureView from 'components/structures/production/Production
 import WarehouseStructureView from 'components/structures/warehouse/WarehouseStructureView'
 import TavernStructureView from 'components/structures/tavern/TavernStructureView'
 import ResourceStructureView from 'components/structures/resource/ResourceStructureView'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 
 import './styles/structuredetailsview.scss'
 

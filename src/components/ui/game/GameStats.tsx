@@ -1,7 +1,7 @@
 // Displays various game stats
 import { type Resource } from 'definitions/resources'
 import { type Structure } from 'definitions/structures'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { Fragment, useMemo } from 'react'
 import { groupAdventurersByQuest } from 'store/selectors/adventurers'
 import { type StoreState } from 'store/types'

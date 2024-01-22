@@ -1,6 +1,6 @@
 import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar'
 import { IconSize } from 'components/ui/common/Icon'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useAdventurers } from 'hooks/store/adventurers'
 import './styles/adventurersOverview.scss'
 

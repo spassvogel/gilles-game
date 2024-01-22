@@ -1,7 +1,7 @@
 import { type AdventurerStoreState } from 'store/types/adventurer'
 import { SOURCE_ID } from '../TavernStructureView'
 import AdventurerButton from './AdventurerButton'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import DraggableAdventurerAvatar from 'components/ui/adventurer/DraggableAdventurerAvatar'
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel'
 import { renameAdventurer } from 'store/actions/adventurers'

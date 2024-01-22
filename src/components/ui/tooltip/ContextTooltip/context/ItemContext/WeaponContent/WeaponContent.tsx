@@ -1,5 +1,5 @@
 import { getDefinition as getWeaponDefinition, type Weapon } from 'definitions/items/weapons'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import ProduceOrStudy from '../common/ProduceOrStudy'
 import { type Item } from 'definitions/items/types'
 import DamageList from './DamageList'

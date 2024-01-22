@@ -1,5 +1,5 @@
 import { type Item } from 'definitions/items/types'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 
 type Props = {
   item: Item

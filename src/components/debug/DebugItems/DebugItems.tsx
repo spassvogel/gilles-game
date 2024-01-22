@@ -1,7 +1,7 @@
 import Tab from 'components/ui/tabs/Tab'
 import Tabstrip from 'components/ui/tabs/Tabstrip'
 import { ItemCategory } from 'definitions/items/types'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useState } from 'react'
 import { listEnum } from 'utils/typescript'
 import ammunition from 'definitions/items/ammunition'

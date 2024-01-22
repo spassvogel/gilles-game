@@ -177,7 +177,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         return
       }
       const selectedActorLocation = controller?.getSceneAdventurer(selectedActorId)?.location
-      if ((selectedActorLocation != null) && (cursorLocation != null) && !locationEquals(selectedActorLocation, cursorLocation) && actionIntent) {
+      if ((selectedActorLocation != null) && (cursorLocation != null) && !locationEquals(selectedActorLocation, cursorLocation) && actionIntent != null) {
         controller?.actorAttemptAction(actionIntent)
         onSetActionIntent(undefined)
       }
@@ -192,7 +192,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         return
       }
       const selectedActorLocation = controller?.getSceneAdventurer(selectedActorId)?.location
-      if ((selectedActorLocation != null) && (cursorLocation != null) && !locationEquals(selectedActorLocation, cursorLocation) && actionIntent) {
+      if ((selectedActorLocation != null) && (cursorLocation != null) && !locationEquals(selectedActorLocation, cursorLocation) && actionIntent != null) {
         controller?.actorAttemptAction(actionIntent)
         onSetActionIntent(undefined)
       }
@@ -221,12 +221,12 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       // Handle change of cursor when not in combat
       let action = SceneActionType.move
       const [object] = controller?.getObjectsAtLocation(cursorLocation) ?? []
-      if (object?.properties.interactive) {
+      if (object?.properties.interactive === true) {
         // We're at an interactive object
         action = SceneActionType.interact
       }
       const actor = controller?.getSceneAdventurer(selectedActorId)
-      if (!action || (actor == null) || !cursorLocation) {
+      if (action == null || (actor == null) || cursorLocation == null) {
         onSetActionIntent(undefined)
       } else {
         const intent = controller?.createActionIntent(action, actor, cursorLocation)

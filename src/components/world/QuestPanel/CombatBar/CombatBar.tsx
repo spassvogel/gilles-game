@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { SceneControllerContext } from '../context/SceneControllerContext'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import Button from 'components/ui/buttons/Button'
 import { useQuest } from 'hooks/store/quests'
 import { Allegiance } from 'store/types/scene'

@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { AttributeSourceType, type ExtendedAttribute } from 'mechanics/adventurers/attributes'
 import { roundIfNeeded } from 'utils/format/number'
 import { renderOrigin } from './utils'

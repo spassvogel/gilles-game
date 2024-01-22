@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { useAdventurer } from 'hooks/store/adventurers'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { TooltipManager } from 'global/TooltipManager'
 import EffectIcon from './EffectIcon'
 import { type TempEffect } from 'definitions/tempEffects/types'

@@ -1,5 +1,5 @@
 import { type ReactNode, useMemo } from 'react'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { TooltipManager } from 'global/TooltipManager'
 import { getDefinition } from 'definitions/items'
 import { Rarity } from 'constants/items'

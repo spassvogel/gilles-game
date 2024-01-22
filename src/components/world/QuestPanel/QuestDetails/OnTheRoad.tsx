@@ -1,7 +1,7 @@
 import { useQuest } from 'hooks/store/quests'
 import { getDefinition } from 'definitions/quests'
 import { type QuestDefinition } from 'definitions/quests/types'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import './styles/onTheRoad.scss'
 
 export type Props = {

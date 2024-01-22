@@ -1,4 +1,4 @@
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { type Structure } from 'definitions/structures'
 import { useStructureDefinition, useStructureState } from 'hooks/store/structures'
 import Button from 'components/ui/buttons/Button'

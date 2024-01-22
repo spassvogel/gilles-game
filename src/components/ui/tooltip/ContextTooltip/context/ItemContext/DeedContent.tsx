@@ -8,7 +8,7 @@ import { type Deed, getDefinition as getDeedDefinition } from 'definitions/items
 import useGoldState from 'hooks/store/useGoldState'
 import { useStructureDefinition, useStructureState } from 'hooks/store/structures'
 import { StructureState } from 'store/types/structure'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import Button from 'components/ui/buttons/Button'
 import { type Item } from 'definitions/items/types'
 

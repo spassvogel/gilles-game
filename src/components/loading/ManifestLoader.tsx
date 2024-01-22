@@ -1,5 +1,5 @@
 import LoadingPage from 'components/ui/loading/LoadingPage'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { sprites } from 'manifests/sprites'
 import { sounds } from 'manifests/sounds'
 import { Assets, Loader } from 'pixi.js'

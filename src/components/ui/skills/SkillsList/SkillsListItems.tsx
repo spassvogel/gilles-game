@@ -1,4 +1,4 @@
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { TooltipManager } from 'global/TooltipManager'
 import { ContextType } from 'constants/context'
 import { roundIfNeeded } from 'utils/format/number'

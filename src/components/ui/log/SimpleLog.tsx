@@ -1,7 +1,7 @@
 import Tab from 'components/ui/tabs/Tab'
 import Tabstrip from 'components/ui/tabs/Tabstrip'
 import { LogChannel, type LogEntry } from 'store/types/logEntry'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import Button from 'components/ui/buttons/Button'
 import { useLog } from 'hooks/store/useLog'

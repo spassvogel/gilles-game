@@ -4,7 +4,7 @@ import ItemIcon from 'components/ui/items/ItemIcon'
 import { type Structure } from 'definitions/structures'
 import { type ProducableItem, type ProductionStructureStoreState } from 'store/types/structure'
 import { useStructureState } from 'hooks/store/structures'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { CraftingDetails } from './CraftingDetails'
 
 export type Props = {

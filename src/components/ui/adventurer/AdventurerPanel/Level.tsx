@@ -1,6 +1,6 @@
 import { levelToXp, MAX_XP, xpToLevel } from 'mechanics/adventurers/levels'
 import PlainProgressbar from 'components/ui/common/progress/PlainProgressbar'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useEffect, useMemo, useState } from 'react'
 import usePrevious from 'hooks/usePrevious'
 import { useAdventurer } from 'hooks/store/adventurers'

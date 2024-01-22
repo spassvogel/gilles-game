@@ -1,5 +1,5 @@
 import { type MouseEvent, useRef, useContext } from 'react'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { SceneControllerContext } from '../../context/SceneControllerContext'
 import Button from 'components/ui/buttons/Button'
 import '../styles/situation.scss'

@@ -6,7 +6,7 @@ import { Channel, SoundManager } from 'global/SoundManager'
 import { setSetting, type SettingsKey } from 'store/actions/settings'
 import { useSettings } from 'hooks/store/settings'
 import Window from '../Window'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 
 import './styles/settings.scss'
 

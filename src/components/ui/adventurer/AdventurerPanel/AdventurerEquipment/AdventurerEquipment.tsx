@@ -2,7 +2,7 @@ import EquipmentSlot, { EquipmentSlotType, rangedWeaponInHand } from 'components
 import { type Item } from 'definitions/items/types'
 import DraggableItemIcon, { type InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon'
 import { DragSourceType } from 'constants/dragging'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { IconSize } from 'components/ui/common/Icon'
 import Guy from './Guy'
 import { useAdventurer } from 'hooks/store/adventurers'

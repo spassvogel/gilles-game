@@ -846,6 +846,7 @@ https://interfaceingame.com/games/league-of-legends/
 
 ### 2023-09-20 Managers
 - [ ] Dump this weird Managers stuff. Use hooks
+- [x] Fix for TextManager
 
 ### 2023-11-17 Scene Effects
 - [ ] Use descriminated union to describe effects. 
@@ -868,3 +869,10 @@ Especially with the combat texts there is a lot of repetition. Eg:
 ```
 
 I would like to re-use earlier defined templates in other templates
+- [x] Done, using `{{template }} `helper
+
+### 2024-01-22 Shoot arrows
+
+- [ ] Shooting should not be possible when no arrows in off hand
+- [ ] Shooting should actually take away arrows from the off hand
+- [ ] When last arrow disappears, the arrows should be removed from off hand

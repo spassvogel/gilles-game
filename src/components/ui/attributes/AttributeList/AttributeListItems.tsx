@@ -1,5 +1,5 @@
 import { type Attribute, attributeList } from 'store/types/adventurer'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { TooltipManager } from 'global/TooltipManager'
 import { type AttributesExtended, AttributeSourceType, type ExtendedAttribute } from 'mechanics/adventurers/attributes'
 import { roundIfNeeded } from 'utils/format/number'

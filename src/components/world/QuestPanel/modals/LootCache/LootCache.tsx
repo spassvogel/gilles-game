@@ -1,7 +1,7 @@
 import React, { useRef, useContext } from 'react'
 import gsap from 'gsap'
 import DraggableItemsList from 'components/ui/items/DraggableItemsList'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { DragSourceType } from 'constants/dragging'
 import { SceneControllerContext } from '../../context/SceneControllerContext'
 import { useAdventurer } from 'hooks/store/adventurers'

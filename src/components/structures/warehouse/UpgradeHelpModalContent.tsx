@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import resourceDescriptions, { type Resource } from 'definitions/resources'
 import { type WarehouseStructureDefinition } from 'definitions/structures/types'
 import Icon from 'components/ui/common/Icon'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useStructureDefinition } from 'hooks/store/structures'
 import './styles/upgradeHelpModalContent.scss'
 

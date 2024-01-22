@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import debounce from 'debounce'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { HashLink } from 'react-router-hash-link'
 import iconPerson from './styles/images/icon-person.png'
 import iconHelmet from './styles/images/icon-helmet.png'

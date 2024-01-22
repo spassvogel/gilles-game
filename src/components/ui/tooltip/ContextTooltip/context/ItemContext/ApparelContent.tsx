@@ -1,4 +1,4 @@
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { type Apparel, getDefinition as getApparelDefinition } from 'definitions/items/apparel'
 import ProduceOrStudy from './common/ProduceOrStudy'
 import { type Item } from 'definitions/items/types'
