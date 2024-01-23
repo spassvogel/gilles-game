@@ -4,21 +4,19 @@
 .tavern-structure-view {
   padding: 16px;
 
-  .room-list {
-    overflow: auto;
-    flex: 1;
-    margin: 8px;
-  }
-
-  .quest-board {
-    flex: 1;
-  }
-
   /** medium and large resolutions */
-  @include sm-max {
-    section {
+  @include md {
+    .content {
       display: flex;
       width: 100%;
+
+      .room-list {
+        flex: 1;
+      }
+
+      .quest-board {
+        flex: 1;
+      }
     }
   }
 }
