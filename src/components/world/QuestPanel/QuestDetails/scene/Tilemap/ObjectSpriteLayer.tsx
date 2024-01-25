@@ -18,7 +18,7 @@ const ObjectSpriteLayer = (props: Props) => {
   const ref = useRef<PixiContainer>(null)
 
   return (
-    <Container sortableChildren ref={ref}>
+    <Container sortableChildren ref={ref} name="ObjectSpriteLayer">
       {objects.map((object) => {
         const { location } = object
         const { adventurerId } = object.properties as Record<string, string>

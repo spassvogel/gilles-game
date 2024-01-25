@@ -5,7 +5,7 @@ import { isWeapon, type Weapon } from 'definitions/items/weapons'
 import DeedContent from './DeedContent'
 import WeaponContent from './WeaponContent'
 import ApparelContent from './ApparelContent'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { type Consumable, isConsumable } from 'definitions/items/consumables'
 import ConsumableContent from './ConsumableContent'
 import { type ItemSource } from 'constants/items'
@@ -31,6 +31,9 @@ const ItemContext = (props: Props) => {
     return <ConsumableContent item={item as Item<Consumable>} source={source} />
   }
   const subtext = TextManager.getItemSubtext(item.type)
-  return (subtext !== null && (<p className="subtext">{`"${subtext}"`}</p>)) || null
+  if (subtext == null) {
+    return null
+  }
+  return <p className="subtext">{`"${subtext}"`}</p>
 }
 export default ItemContext

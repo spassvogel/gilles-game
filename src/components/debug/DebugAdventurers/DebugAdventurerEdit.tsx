@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { useDispatch } from 'react-redux'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { MAX_VALUE, MIN_VALUE } from 'mechanics/adventurers/attributes'
 import { type Attribute, attributeList } from 'store/types/adventurer'
 import { addXp, modifyHealth, renameAdventurer, setBasicAttributes } from 'store/actions/adventurers'

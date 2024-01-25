@@ -1,6 +1,6 @@
 import { type EnemyObject } from 'store/types/scene'
 import { getDefinition } from 'definitions/enemies'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import Attributes from 'components/ui/attributes/AttributeList'
 import CombatAttributes from './CombatAttributes'
 import { generateBaseAttributes } from 'mechanics/adventurers/attributes'

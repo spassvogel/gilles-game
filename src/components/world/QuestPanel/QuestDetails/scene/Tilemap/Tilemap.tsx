@@ -24,7 +24,7 @@ const Tilemap = (props: PropsWithChildren<Props>) => {
   const { data, objects, controller, spritesheets, selectedActorId } = props
 
   return (
-    <Container >
+    <Container name="Tilemap">
       {data.layers
         .filter(l => l.visible)
         .map(layer => {
@@ -45,7 +45,7 @@ const Tilemap = (props: PropsWithChildren<Props>) => {
                     objects={spriteObjects ?? []}
                     controller={controller}
                     selectedActorId={selectedActorId}
-                  />
+                    />
                 )}
               </Fragment>
             )

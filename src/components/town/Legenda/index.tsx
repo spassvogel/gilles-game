@@ -3,7 +3,7 @@ import { type Structure } from 'definitions/structures'
 import { type StructureStoreState, StructureState } from 'store/types/structure'
 import { Link } from 'react-router-dom'
 import { getStructureLink, getTownLink } from 'utils/routing'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useMatch } from 'react-router'
 import './styles/legenda.scss'
 

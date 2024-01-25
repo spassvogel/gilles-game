@@ -4,7 +4,6 @@ import { PixiComponent, useApp } from '@pixi/react'
 import { Viewport as PixiViewport } from 'pixi-viewport'
 import { EventSystem } from '@pixi/events'
 import { type Container as PixiContainer } from '@pixi/display'
-import gauntlet from 'components/App/styles/img/cursors/dwarven_gauntlet_extra_6.png'
 
 export type ViewportProps = PropsWithChildren<{
   screenWidth: number
@@ -69,7 +68,9 @@ const Viewport = forwardRef(
   (props: ViewportProps, ref: React.Ref<PixiViewport>) => {
     const app = useApp()
     // Perhaps this is better moved somewhere else
-    const cursor = `url('${gauntlet}'), auto`
+    window.__PIXI_APP__ = app
+
+    const cursor = 'var(--cursor-pointer);'
     app.renderer.events.cursorStyles.pointer = cursor
 
     return <PixiComponentViewport ref={ref} app={app} {...props} />

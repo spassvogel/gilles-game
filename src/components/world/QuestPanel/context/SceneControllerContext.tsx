@@ -23,7 +23,7 @@ const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
   const previousQuestVars = usePrevious(questVars)
 
   const controller = useMemo(() => {
-    if (!sceneName) {
+    if (sceneName == null) {
       return null
     }
     return getSceneController(questName, sceneName, store)
@@ -31,12 +31,12 @@ const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
 
   useEffect(() => {
     setLoaded(false)
-    if (sceneName && controller && !controller.dataLoading) {
+    if (sceneName != null && controller != null && !controller.dataLoading) {
       const loadingComplete = () => {
         setLoaded(true)
 
         // If the store has no scene for this quest yet, create and store it!
-        if ((scene == null) && controller) {
+        if ((scene == null) && controller != null) {
           controller.createScene()
         }
         controller.sceneEntered()
@@ -54,7 +54,7 @@ const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
     }
   }, [controller, previousQuestVars, questVars])
 
-  if (controller && (controller.dataLoading || !loaded)) {
+  if (controller != null && (controller.dataLoading || !loaded)) {
     return (
       <LoadingSpinner />
     )

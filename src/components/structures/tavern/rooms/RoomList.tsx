@@ -3,7 +3,7 @@ import { type AdventurerStoreState } from 'store/types/adventurer'
 import { type QuestStoreState } from 'store/types/quest'
 import RoomWithAdventurer from './RoomWithAdventurer'
 import RoomEmpty from './RoomEmpty'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 
 import './styles/roomList.scss'
 
@@ -45,7 +45,7 @@ const RoomList = (props: Props) => {
 
   const roomContent: JSX.Element[] = []
   for (let i = 0; i < roomCount; i++) {
-    const adventurer = adventurers.find((a) => a.room === i)
+    const adventurer = adventurers.find((a) => a.room === i && a.health > 0)
     if (adventurer == null) {
       roomContent.push((
         <RoomEmpty key={`room${i}`} />

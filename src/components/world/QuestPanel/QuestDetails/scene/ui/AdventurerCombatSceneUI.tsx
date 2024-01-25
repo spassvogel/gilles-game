@@ -33,7 +33,7 @@ const AdventurerCombatSceneUI = forwardRef<Refs, Props>((props: Props, ref) => {
   const onMouseUp = useCallback(() => {
     // open action
     const hasValidIntents = !(combatIntents.length === 0) && combatIntents.some(i => i.isValid)
-    if (cursorLocation && hasValidIntents) {
+    if (cursorLocation != null && hasValidIntents) {
       setActionMenuOpen(true)
     } else {
       setCursorLocation(undefined)
@@ -57,7 +57,7 @@ const AdventurerCombatSceneUI = forwardRef<Refs, Props>((props: Props, ref) => {
         intents={combatIntents}
         selectedActorId={selectedAdventurerId}
       />}
-      { (actionMenuOpen && cursorLocation && combatIntents) && (
+      { (actionMenuOpen && cursorLocation != null && combatIntents != null) && (
         <ActionMenu
           adventurerId={selectedAdventurerId}
           location={cursorLocation}

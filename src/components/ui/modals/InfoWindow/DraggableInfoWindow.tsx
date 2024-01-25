@@ -32,12 +32,12 @@ export const DraggableInfoWindow = (props: Props & ComponentProps<'div'>) => {
   }, [])
 
   return ReactDOM.createPortal(
-    <div {...otherProps} ref={ref} className={`info-window info-window-draggable ${className || ''}`} >
+    <div {...otherProps} ref={ref} className={`info-window info-window-draggable ${className ?? ''}`} >
       <h2 className="title" ref={handle}>
         <div>
           {title}
         </div>
-        <div onClick={onClose} className="close">x</div>
+        <div onClick={onClose} className="close">╳</div>
       </h2>
       {children}
     </div>,

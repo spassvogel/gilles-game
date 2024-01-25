@@ -1,5 +1,5 @@
 import { type Effect, EffectType } from 'definitions/effects/types'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 
 // todo: move somewhere else
 const getEffectDescription = (effect: Effect) => {

@@ -44,7 +44,7 @@
     .rename {
       margin-left: auto;
       color: $color-link;
-		  cursor: var(--app-cursor-pointer);
+		  cursor: $cursor-pointer;
 
       &:hover {
         text-decoration: underline;

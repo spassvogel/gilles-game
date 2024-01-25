@@ -3,7 +3,7 @@ import { getDefinition, type Structure } from 'definitions/structures'
 import resourceDescriptions, { type Resource } from 'definitions/resources'
 import { type ResourceStructureDefinition } from 'definitions/structures/types'
 import Icon from 'components/ui/common/Icon'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 
 import './styles/upgradeHelpModalContent.scss'
 

@@ -56,7 +56,7 @@ export const useAdventurerDamageReduction = (adventurerId: string): Record<strin
   const adventurer = useAdventurer(adventurerId)
   const findDR = (type: EquipmentSlotType) => {
     const item: Item<Apparel> | undefined = adventurer.equipment[type] as Item<Apparel>
-    if (item === undefined) return 0
+    if (item == null) return 0
     return getDefinition(item.type).damageReduction ?? 0
   }
   return {

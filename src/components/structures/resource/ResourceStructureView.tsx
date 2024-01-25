@@ -1,15 +1,15 @@
 import { type ResourceStructure, type Structure } from 'definitions/structures'
 import { type ResourceStructureLevelDefinition } from 'definitions/structures/types'
-import UpDownValue from 'components/ui/common/UpDownValue'
+import UpDownValue from 'components/ui/common/NumberDial'
 import { useSelector, useDispatch } from 'react-redux'
 import ReactMarkdown from 'react-markdown'
 import { type StoreState } from 'store/types'
 import { selectFreeWorkers } from 'store/selectors/workers'
 import { decreaseWorkers, increaseWorkers, removeItemFromHarvest } from 'store/actions/structures'
 import StructureViewHeader from '../StructureViewHeader'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import StructureLevel from '../StructureLevel'
-import { TooltipManager } from 'global/TooltipManager'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import { useStructureLevel, useStructureState } from 'hooks/store/structures'
 import ResourceGenerationRow from './ResourceGenerationRow'
 import { type Resource } from 'definitions/resources'
@@ -22,15 +22,15 @@ import warehouseIcon from 'components/structures/styles/images/warehouse/icon.pn
 import { addItemToWarehouse } from 'store/actions/stockpile'
 import UpgradeHelpModal from '../UpgradeHelpModal'
 import UpgradeHelpModalContent from './UpgradeHelpModalContent'
-import './styles/resourceStructureView.scss'
 import { ContextType } from 'constants/context'
+import './styles/resourceStructureView.scss'
 
 export type Props = {
   structure: Structure
 }
 
-const selectHarvest = (store: StoreState, structure: ResourceStructure): Item[] => {
-  return store.structures[structure].harvest ?? []
+const selectHarvest = (store: StoreState, structure: ResourceStructure) => {
+  return store.structures[structure].harvest
 }
 
 // todo: 02/12/2019 [ ] Can show progress bar in resource screen
@@ -40,7 +40,7 @@ const ResourceStructureView = (props: Props) => {
   // Fetch needed values from store
   const { level, workers } = useStructureState(structure)
   const workersFree = useSelector<StoreState, number>((store) => selectFreeWorkers(store))
-  const harvest = useSelector<StoreState, Item[]>((store) => selectHarvest(store, structure as ResourceStructure))
+  const harvest = useSelector<StoreState, Item[] | undefined>((store) => selectHarvest(store, structure as ResourceStructure)) ?? []
   const levelDefinition = useStructureLevel<ResourceStructureLevelDefinition>(structure)
 
   // Reducer dispatch
@@ -64,7 +64,7 @@ const ResourceStructureView = (props: Props) => {
         <UpgradeHelpModalContent level={level} structure={structure}/>
       </UpgradeHelpModal>
     )
-    TooltipManager.showContextTooltip(ContextType.component, content, originRect, 'upgrade-structure-tooltip')
+    TooltipEmitter.showContextTooltip(ContextType.component, content, originRect, 'upgrade-structure-tooltip')
 
     event.stopPropagation()
   }

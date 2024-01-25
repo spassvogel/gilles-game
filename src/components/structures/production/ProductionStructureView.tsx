@@ -2,14 +2,14 @@ import { useEffect } from 'react'
 import { type ItemType } from 'definitions/items/types'
 import { type Structure } from 'definitions/structures'
 import { type ProductionStructureDefinition } from 'definitions/structures/types'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { formatDuration } from 'utils/format/time'
 import { TickingProgressbar } from 'components/ui/common/progress'
 import { useStructureDefinition, useStructureState } from 'hooks/store/structures'
 import { useCraftingTasksStateByStructure, useStudyingTasksStateByStructure } from 'hooks/store/useTasksState'
 import StructureViewHeader from '../StructureViewHeader'
 import StructureLevel from '../StructureLevel'
-import { TooltipManager } from 'global/TooltipManager'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import CraftingArea from './CraftingArea'
 import { addItemToToProduces } from 'store/actions/structures'
 import UpgradeHelpModal from '../UpgradeHelpModal'
@@ -38,7 +38,7 @@ const ProductionStructureView = (props: Props) => {
     if (structure === 'alchemist') {
       void SoundManager.playSound('AMBIENT_STRUCTURE_ALCHEMIST', Channel.ambient, true)
     }
-    // return () => SoundManager.fadeOutSound(Channel.ambient)
+    return () => { SoundManager.fadeOutSound(Channel.ambient) }
   }, [structure])
 
   const handleUpgradeCallbacks = (nextLevel: number) => {
@@ -58,7 +58,7 @@ const ProductionStructureView = (props: Props) => {
         <UpgradeHelpModalContent level={level} structure={structure}/>
       </UpgradeHelpModal>
     )
-    TooltipManager.showContextTooltip(ContextType.component, content, originRect, 'upgrade-structure-tooltip')
+    TooltipEmitter.showContextTooltip(ContextType.component, content, originRect, 'upgrade-structure-tooltip')
 
     event.stopPropagation()
   }
@@ -67,14 +67,14 @@ const ProductionStructureView = (props: Props) => {
     // TODO: abstract some stuff to generic StructureView
     <>
       <StructureViewHeader structure={props.structure} />
-      <div className = "production-structure-view">
+      <div className="production-structure-view">
         <section>
           <StructureLevel
             structure={structure}
             onHelpClicked={handleHelpClicked}
           />
           <CraftingArea structure={structure} />
-          <fieldset>
+          <fieldset className="crafting-log">
             <legend>{TextManager.get('ui-structure-production-crafting')}</legend>
             {craftingTasks.map((t) => (
               <TickingProgressbar

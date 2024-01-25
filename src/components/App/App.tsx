@@ -7,15 +7,15 @@ import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { HashRouter, Link, Navigate, Route, Routes } from 'react-router-dom'
 import { getTownLink, getWorldLink } from 'utils/routing'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import Button, { ButtonColor } from 'components/ui/buttons/Button'
 import TownView from 'components/town/TownView'
 import Topbar from 'components/ui/topbar'
 import SimpleLog from 'components/ui/log/SimpleLog'
 import Toasts from 'components/ui/toasts/Toasts'
 import Bubbles from 'components/ui/bubbles/Bubbles'
-import { BubbleLayer } from 'global/BubbleManager'
-import { TooltipManager } from 'global/TooltipManager'
+import { BubbleLayer } from 'emitters/BubbleEmitter'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import ContextTooltip from 'components/ui/tooltip/ContextTooltip'
 import WorldView from 'components/world/WorldView'
 import { GameActionsContext } from 'components/Game/context'
@@ -71,7 +71,7 @@ const App = () => {
   }, [])
 
   const handleAppClick = () => {
-    TooltipManager.clear()
+    TooltipEmitter.clear()
   }
 
   return (

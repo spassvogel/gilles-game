@@ -1,5 +1,5 @@
 import { type TempEffect, TempEffectType } from 'definitions/tempEffects/types'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 
 const getTempEffectDescription = (effect: TempEffect) => {
   switch (effect.type) {

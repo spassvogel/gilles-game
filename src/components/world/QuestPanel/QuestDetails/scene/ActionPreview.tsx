@@ -48,7 +48,7 @@ const ActionPreview = (props: Props) => {
         convert(actionIntent.from),
         ...actionIntent.path.map(p => convert(p))
       ]
-      const valid = (!actionIntent.apCost) || actionIntent.apCost <= (actionIntent.actorAP || 0)
+      const valid = (actionIntent.apCost == null) || actionIntent.apCost <= (actionIntent.actorAP ?? 0)
 
       return (
         <DashedLine
@@ -67,7 +67,7 @@ const ActionPreview = (props: Props) => {
     }
     case SceneActionType.shoot: {
       // draw arrow: https://math.stackexchange.com/questions/1314006/drawing-an-arrow
-      const valid = (!actionIntent.apCost) || actionIntent.apCost <= (actionIntent.actorAP || 0)
+      const valid = (actionIntent.apCost == null) || actionIntent.apCost <= (actionIntent.actorAP ?? 0)
       const from = convert(actionIntent.from)
       const to = convert(actionIntent.to)
       return (

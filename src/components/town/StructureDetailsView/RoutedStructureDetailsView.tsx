@@ -1,9 +1,10 @@
 import { type Structure } from 'definitions/structures'
 import { Link, useParams } from 'react-router-dom'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import Button from 'components/ui/buttons/Button'
 import { getStructureLink } from 'utils/routing'
 import StructureDetailsView from './StructureDetailsView'
+
 import './styles/structuredetailsview.scss'
 
 const RoutedStructureDetailsView = () => {
@@ -21,7 +22,7 @@ const RoutedStructureDetailsView = () => {
             square={true}
             size={'medium'}
             color="purple"
-          >x</Button>
+          >╳</Button>
         </Link>
       </div>
       <StructureDetailsView structure={structure} />

@@ -34,7 +34,7 @@ const InventorySlot = (props: PropsWithChildren<Props>) => {
     onDrop
   } = props
 
-  const [{ isOver, canDrop }, dropRef] = useDrop<InventoryItemDragInfo, void, CollectedProps>(() => ({
+  const [{ isOver, canDrop }, dropRef] = useDrop<InventoryItemDragInfo, unknown, CollectedProps>(() => ({
     accept: DragType.ITEM,
     collect: (monitor) => ({
       canDrop: monitor.canDrop(),

@@ -1,6 +1,6 @@
 import { AttributeListItems } from 'components/ui/attributes/AttributeList'
 import SkillsListItems from 'components/ui/skills/SkillsList'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useAdventurer } from 'hooks/store/adventurers'
 import { AttributeSourceType, calculateEffectiveAttributesExtended, MAX_VALUE } from 'mechanics/adventurers/attributes'
 import { type CSSProperties, useMemo } from 'react'

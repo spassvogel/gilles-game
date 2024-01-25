@@ -1,19 +1,34 @@
-import { deductActorAp, enqueueSceneAction, modifyEnemyHealth, startTurn } from 'store/actions/quests'
+import { deductActorAp, modifyEnemyHealth, setCombat, startTurn } from 'store/actions/quests'
 import { type AnyAction } from 'redux'
 import { type Location, locationEquals } from 'utils/tilemap'
-import { type ActorObject, Allegiance, type EnemyObject, getUniqueName, isAdventurer, type SceneAction, SceneActionType, isActorObject } from 'store/types/scene'
-import { type BaseSceneController, movementDuration } from './BaseSceneController'
+import {
+  type ActorObject,
+  type EnemyObject,
+  Allegiance,
+  getUniqueName,
+  isAdventurer,
+  SceneActionType,
+  isActorObject
+} from 'store/types/scene'
+import { type BaseSceneController } from './BaseSceneController'
 import { Channel, MixMode, SoundManager } from 'global/SoundManager'
 import { getDefinition as getWeaponDefinition, type Weapon } from 'definitions/items/weapons'
-import { AP_COST_MELEE, AP_COST_SHOOT, decreaseDurability, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat'
+import { getDefinition as getEnemyTypeDefinition } from 'definitions/enemies'
+import { getDefinition as getWeaponTypeDefinition } from 'definitions/weaponTypes'
+import { AP_COST_MELEE, AP_COST_SHOOT, rollBodyPart, rollToDodge, rollToHit } from 'mechanics/combat'
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot'
 import { type TextEntry } from 'constants/text'
 import { apparelTakeDamage, changeEquipmentQuantity, modifyHealth } from 'store/actions/adventurers'
-import { type ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI'
+import { type WeaponWithAbility, type ActionIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI'
 import { getDefinition, isApparel } from 'definitions/items/apparel'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { DamageType, WeaponType } from 'definitions/weaponTypes/types'
 import { type Item } from 'definitions/items/types'
+import { WeaponAbility } from 'definitions/abilities/types'
+import { ToastEmitter } from 'emitters/ToastEmitter'
+import { Type } from 'components/ui/toasts/Toast'
+import { random } from 'utils/random'
+import { BubbleType } from 'emitters/BubbleEmitter'
 
 // todo: dont use a class anymore
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -37,16 +52,28 @@ export class CombatController {
     this.unsubscriber?.()
   }
 
+  // Fires when the store changes
   static handleStoreChange () {
-    if (!this.sceneController) return
+    if (this.sceneController == null) return
+    if (!this.sceneController.combat) return
+
     // const questState = this.getQuestStoreState()
     const adventurers = this.sceneController.sceneAdventurers
     const enemies = this.sceneController.sceneEnemies
     const quest = this.sceneController.quest
-    if (adventurers && enemies && quest && (quest.scene != null) && !quest.scene.actionQueue?.length) {
+    if (adventurers != null && enemies != null && quest != null && quest.scene != null && ((quest.scene.actionQueue?.length ?? 0) === 0)) {
       const totalAdventurerAp = adventurers.reduce((acc, value) => acc + value.ap, 0)
       const { scene } = quest
       const { turn } = scene
+
+      if (this.sceneController.getAdventurers().every(a => a.health <= 0)) {
+        // All adventurers are dead T_T quest failed!
+        const questTitle = TextManager.getQuestTitle(quest.name)
+        const leader = this.sceneController.getAdventurers()[0]
+        ToastEmitter.addToast(questTitle, Type.questFailed, leader?.avatarImg)
+        this.dispatch(setCombat(quest.name, false))
+        return
+      }
 
       // No AP for the player left, switch to enemy turn
       if (totalAdventurerAp === 0 && turn === Allegiance.player) {
@@ -54,37 +81,46 @@ export class CombatController {
         return
       }
 
-      if (turn === Allegiance.enemy && scene.actionQueue?.length === 0) {
-        const totalEnemiesAp = enemies.reduce((acc, value) => acc + value.ap, 0)
+      const totalEnemiesAp = enemies.reduce((acc, e) => acc + Math.max(e.ap, 0), 0)
+      if (totalEnemiesAp === 0 && turn === Allegiance.enemy) {
+        // No more AP left for the enemy, player turn
+        this.dispatch(startTurn(quest.name, Allegiance.player, this.sceneController.getAdventurers()))
+        return
+      }
 
-        if (totalEnemiesAp === 0) {
-          // No more AP left for the enemy, player turn
-          this.dispatch(startTurn(quest.name, Allegiance.player, this.sceneController.getAdventurers()))
-          return
-        }
-
-        const enemy = this.findEnemyWithAp()
-        if (enemy?.location != null) {
-          const target = this.findNearestActor(enemy.location, Allegiance.player)
-          if ((target == null) || (target.location == null)) return // no target? did everyone die?
-          const path = this.sceneController.findPath(enemy.location, target.location)
-          const intent = this.sceneController.createActionIntent(SceneActionType.move, enemy, target.location)
-          if ((intent == null) || intent.action !== SceneActionType.move) return
-
-          path?.forEach((l, index) => {
-            if (index >= enemy.ap - 1) return
-            const sceneAction: SceneAction = {
-              endsAt: movementDuration * (index + 1) + performance.now(),
-              intent
-            }
-            this.dispatch(enqueueSceneAction(quest.name, sceneAction))
-          })
-        }
+      if (turn === Allegiance.enemy) {
+        this.enemyAI()
       }
     }
   }
 
-  // Call when actor melee animation starts
+  // Moves the enemy AI does
+  static enemyAI () {
+    const enemy = this.findEnemyWithAp()
+
+    if (enemy?.location != null) {
+      const isAlive = (actor: ActorObject) => isAdventurer(actor) && (this.sceneController?.getAdventurerByActor(actor)?.health ?? 0) > 0
+      const target = this.findNearestActor(enemy.location, Allegiance.player, isAlive)
+      if ((target == null) || (target.location == null)) return // no target? did everyone die?
+
+      // todo: different types of weapons
+      const enemyTypeDefinition = getEnemyTypeDefinition(enemy.enemyType)
+      const weapon = enemyTypeDefinition.mainHand
+      const ability = WeaponAbility.swing
+      const weaponWithAbility: WeaponWithAbility = { weapon, ability }
+
+      const intent = this.sceneController.createActionIntent(SceneActionType.melee, enemy, target.location, weaponWithAbility)
+      if ((intent == null) || intent.action !== SceneActionType.melee) return
+
+      this.sceneController.actorAttemptAction(intent)
+      // this.dispatch(enqueueSceneAction(quest.name, sceneAction))
+      // if (intent.apCost != null) {
+      //   this.dispatch(deductActorAp(this.questName, getUniqueName(enemy), intent.apCost))
+      // }
+    }
+  }
+
+  // Called when actor melee animation starts
   public static actorMeleeStart (actorId: string, _intent: ActionIntent) {
     if (this.sceneController === undefined) return
 
@@ -109,11 +145,15 @@ export class CombatController {
 
   public static actorMeleeEnd (actorId: string, intent: ActionIntent) {
     const location = intent.to
+
+    // todo: this AP probably has to be paid up front!
     const ap = AP_COST_MELEE
     this.dispatch(deductActorAp(this.questName, actorId, ap))
+
     const actor = this.sceneController.getSceneActor(actorId)
     if (actor == null) throw new Error('No actor found')
     if (intent.action !== SceneActionType.melee) throw new Error('Wrong action type')
+
     const { weapon } = intent.weaponWithAbility
     if (weapon === undefined) throw new Error('No weapon found')
     const weaponDefinition = getWeaponDefinition(weapon.type)
@@ -196,8 +236,8 @@ export class CombatController {
     return this.sceneController?.store.getState().quests.find(q => q.name === this.sceneController?.questName)
   }
 
-  /** Finds the actor nearest to `from`, but not ON from */
-  private static findNearestActor (from: Location, allegiance?: Allegiance) {
+  /** Finds the actor nearest to `from`, but not ON `from` */
+  private static findNearestActor (from: Location, allegiance?: Allegiance, additionalFilter?: (actor: ActorObject) => boolean) {
     if (this.sceneController === undefined) return undefined
     const actors = this.sceneController.sceneActors
     let distance = Number.MAX_VALUE
@@ -206,7 +246,7 @@ export class CombatController {
       if ((a.location == null) || locationEquals(a.location, from)) return
       const steps = this.sceneController.findPath(from, a.location)?.length
       if (steps !== undefined && steps < distance) {
-        if (allegiance === undefined || a.allegiance === allegiance) {
+        if ((allegiance === undefined || a.allegiance === allegiance) && additionalFilter?.(a) !== false) {
           distance = steps
           actor = a
         }
@@ -249,28 +289,42 @@ export class CombatController {
 
   protected static meleeHit (actor: ActorObject, target: ActorObject, weapon: Item<Weapon>, location: Location) {
     const weaponDefinition = getWeaponDefinition(weapon.type)
-    // todo: calculate damage types?
-    this.sceneController.bubbleAtLocation(TextManager.get('scene-combat-attack-hit'), location)
-    this.sceneController.effectAtLocation('blood_1/blood_1.json', location)
-    void SoundManager.playSound('SCENE_SWORD_HIT_FLESH', Channel.scene)
+    const weaponTypeDefinition = getWeaponTypeDefinition(weaponDefinition.weaponType)
+    if (weaponTypeDefinition == null) {
+      throw new Error(`No definition found for weapon ${weapon.type}`)
+    }
 
-    const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0
+    // todo: calculate damage types?
+    const crit = random() < (weaponTypeDefinition.crit ?? 0)
+    const critModifier = +crit + 1
+
+    const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0 * critModifier
     const bodyPart = rollBodyPart()
     const armor = this.getArmor(target, bodyPart)
     const damage = rawDamage - armor
-    const absorbed = rawDamage - damage
+    const mitigated = rawDamage - damage
 
-    this.sceneController.effectAtLocation('blood_2/blood_2.json', location)
+    this.sceneController.bubbleAtLocation(`${damage}`, location, crit ? BubbleType.crit : BubbleType.combat)
+    this.sceneController.effectAtLocation('blood_1/blood_1.json', location)
+    void SoundManager.playSound('SCENE_SWORD_HIT_FLESH', Channel.scene)
+
+    let key = 'scene-combat-attack-slash-hit'
+    if (crit) {
+      key += '-crit'
+    }
+    if (mitigated > 0) {
+      key += '-mitigated'
+    }
 
     this.log({
-      key: absorbed > 0 ? 'scene-combat-attack-slash-hit-absorbed' : 'scene-combat-attack-slash-hit',
+      key,
       context: {
         attacker: getUniqueName(actor),
         weapon,
         bodyPart: TextManager.getEquipmentSlot(bodyPart),
         target: getUniqueName(target),
         damage,
-        absorbed
+        mitigated
       }
     })
     this.takeDamage(target, damage, armor, bodyPart)
@@ -310,25 +364,40 @@ export class CombatController {
 
   protected static shootHit (actor: ActorObject, target: ActorObject, weapon: Item<Weapon>, location: Location) {
     const weaponDefinition = getWeaponDefinition(weapon.type)
+    const weaponTypeDefinition = getWeaponTypeDefinition(weaponDefinition.weaponType)
+    if (weaponTypeDefinition == null) {
+      throw new Error(`No definition found for weapon ${weapon.type}`)
+    }
     // todo: calculate damage types?
-    const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0
+    const crit = random() < (weaponTypeDefinition.crit ?? 0)
+    const critModifier = +crit + 1
+
+    const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0 * critModifier
     const bodyPart = rollBodyPart()
     const armor = this.getArmor(target, bodyPart)
     const damage = rawDamage - armor
-    const absorbed = rawDamage - damage
+    const mitigated = rawDamage - damage
 
-    this.sceneController.bubbleAtLocation('HIT', location)
+    this.sceneController.bubbleAtLocation(`${damage}`, location, crit ? BubbleType.crit : BubbleType.combat)
     this.sceneController.effectAtLocation('blood_2/blood_2.json', location)
 
+    let key = 'scene-combat-attack-shoot-hit'
+    if (crit) {
+      key += '-crit'
+    }
+    if (mitigated > 0) {
+      key += '-mitigated'
+    }
+
     this.log({
-      key: absorbed > 0 ? 'scene-combat-attack-shoot-hit-absorbed' : 'scene-combat-attack-shoot-hit',
+      key,
       context: {
         attacker: getUniqueName(actor),
         weapon,
         bodyPart: TextManager.getEquipmentSlot(bodyPart),
         target: getUniqueName(target),
         damage,
-        absorbed
+        mitigated
       }
     })
     this.takeDamage(target, damage, armor, bodyPart)
@@ -388,7 +457,7 @@ export class CombatController {
         }
       })
     } else {
-      const decreasedDurability = decreaseDurability(damage, armor)
+      // const decreasedDurability = decreaseDurability(damage, armor)
       // bodyPart
     }
   }

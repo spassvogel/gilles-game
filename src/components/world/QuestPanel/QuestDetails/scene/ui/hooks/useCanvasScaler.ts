@@ -8,7 +8,7 @@ const useCanvasScaler = (ref: React.RefObject<HTMLDivElement>, sceneWidth: numbe
   const handleResize = useCallback(() => {
     if (ref.current == null) return 1
     const canvas = ref.current.parentNode?.querySelector('canvas')
-    if (canvas == null) throw Error(`No canvas found as sibling of ${ref.current}`)
+    if (canvas == null) throw Error(`No canvas found as sibling of ${ref.current.tagName}`)
 
     const currentWidth = canvas?.clientWidth
     scale.current = currentWidth / sceneWidth

@@ -1,4 +1,4 @@
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 
 const RoomEmpty = () => {
   return (

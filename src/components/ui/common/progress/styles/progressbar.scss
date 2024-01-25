@@ -55,5 +55,9 @@
     text-align: center;
     color: $color-text-lighter;
     text-shadow: 0 0 2px black;
+
+    &:first-letter {
+      text-transform: uppercase;
+    }
   }
 }

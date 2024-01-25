@@ -1,4 +1,4 @@
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { type Consumable } from 'definitions/items/consumables'
 import { type ItemSource } from 'constants/items'
 import { type Item } from 'definitions/items/types'

@@ -1,5 +1,6 @@
 import { useRef, useEffect, useContext, useState } from 'react'
 import { Container } from '@pixi/react'
+import { type Container as PixiContainer } from '@pixi/display'
 import { useQuestScene } from 'hooks/store/quests'
 import { type Location } from 'utils/tilemap'
 import Tilemap from './Tilemap'
@@ -16,8 +17,10 @@ import { useSettings } from 'hooks/store/settings'
 import SceneDebug from './SceneDebug'
 import { type AdventurerStoreState } from 'store/types/adventurer'
 import { useAdventurers } from 'hooks/store/adventurers'
+// import { newShaker } from 'pixi/shakeFactory'
 
 import './styles/scene.scss'
+import SceneModal from '../../modals/SceneModal'
 
 export type Props = {
   selectedActorId: string
@@ -65,6 +68,7 @@ const Scene = (props: Props) => {
   } = useTilesetsLoader(basePath)
 
   const ref = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<PixiContainer>(null)
   const scene = useQuestScene(controller.questName)
   const combat = scene?.combat === true
   const { tileWidth, tileHeight } = controller.getTileDimensions()
@@ -83,6 +87,20 @@ const Scene = (props: Props) => {
     if (mapData == null) return
     loadTilesets(mapData.tilesets)
   }, [loadTilesets, mapData])
+
+  useEffect(() => {
+    // if (containerRef.current === null) return
+    // const shaker = newShaker({
+    //   target: containerRef.current,
+    //   isBidirectional: true,
+    //   shakeCountMax: 5000,
+    //   shakeAmount: 60,
+    //   shakeDelay: 25
+    // })
+    // shaker.setTarget(containerRef.current)
+    // shaker.shake()
+    // console.log('shake it up!')
+  }, [])
 
   const handleUIMouseDown = (location: Location) => {
     const objects = controller.getObjectsAtLocation(location)
@@ -105,6 +123,7 @@ const Scene = (props: Props) => {
         <Container
           eventMode='static'
           hitArea={new Rectangle(0, 0, sceneWidth, sceneHeight)}
+          ref={containerRef}
         >
           <Tilemap
             basePath={basePath}
@@ -116,7 +135,7 @@ const Scene = (props: Props) => {
             setSelectedActor={setSelectedActor}
           />
           { (currentActionIntent != null) && (<ActionPreview actionIntent={currentActionIntent} tileWidth={tileWidth} tileHeight={tileHeight}/>)}
-          <SceneDebug controller={controller} />
+          { process.env.NODE_ENV === 'development' && <SceneDebug controller={controller} />}
         </Container>
       </BridgedStage>
       {settings.debugSceneShowActionQueue && (
@@ -137,6 +156,11 @@ const Scene = (props: Props) => {
         onMouseDown={handleUIMouseDown}
         onSetActionIntent={setCurrentActionIntent}
       />
+      <SceneModal
+        questName={controller.questName}
+        selectedActorId={selectedActorId}
+      />
+
       <SceneLog questId={controller.questName} />
     </div>
   )

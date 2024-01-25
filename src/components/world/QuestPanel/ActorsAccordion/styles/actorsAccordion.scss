@@ -9,6 +9,8 @@
 
       .name {
         flex: 0.7;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         &.dead {
           text-decoration-line: line-through;

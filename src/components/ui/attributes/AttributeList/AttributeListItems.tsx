@@ -1,6 +1,6 @@
 import { type Attribute, attributeList } from 'store/types/adventurer'
-import { TextManager } from 'global/TextManager'
-import { TooltipManager } from 'global/TooltipManager'
+import * as TextManager from 'global/TextManager'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import { type AttributesExtended, AttributeSourceType, type ExtendedAttribute } from 'mechanics/adventurers/attributes'
 import { roundIfNeeded } from 'utils/format/number'
 import AttributeIndicator from 'components/ui/attributes/AttributeIndicator'
@@ -25,7 +25,7 @@ const AttributeListItems = (props: Props) => {
       const origin = (event.currentTarget as HTMLElement)
       const originRect = origin.getBoundingClientRect()
 
-      TooltipManager.showContextTooltip(ContextType.attribute, extendedAttribute, originRect)
+      TooltipEmitter.showContextTooltip(ContextType.attribute, extendedAttribute, originRect)
       event.stopPropagation()
     }
 

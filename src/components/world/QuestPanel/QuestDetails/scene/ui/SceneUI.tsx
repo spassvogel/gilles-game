@@ -8,14 +8,12 @@ import React, {
 } from 'react'
 import { Point } from 'pixi.js'
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext'
-import { ContextType } from 'constants/context'
 import { type Location, locationEquals } from 'utils/tilemap'
-import { TooltipManager } from 'global/TooltipManager'
 import { useAdventurerActorObject, useQuest } from 'hooks/store/quests'
 import { type ActorObject, SceneActionType } from 'store/types/scene'
 import { convertMouseOrTouchCoords, type MouseOrTouchEvent } from 'utils/interaction'
 import Bubbles from 'components/ui/bubbles/Bubbles'
-import { BubbleLayer } from 'global/BubbleManager'
+import { BubbleLayer } from 'emitters/BubbleEmitter'
 import { type Item } from 'definitions/items/types'
 import { type Weapon } from 'definitions/items/weapons'
 import useCanvasScaler from './hooks/useCanvasScaler'
@@ -23,7 +21,7 @@ import NormalUICursor from './NormalUICursor'
 import { type Ammunition } from 'definitions/items/ammunition'
 import { type WeaponAbility } from 'definitions/abilities/types'
 import AdventurerCombatSceneUI, { type Refs } from './AdventurerCombatSceneUI'
-import { checkIfEnemy } from 'definitions/enemies/types'
+
 import './styles/sceneUI.scss'
 
 export type Props = {
@@ -51,7 +49,7 @@ export type WeaponWithAbility = {
 }
 
 export type ActionIntent = BaseActionIntent & {
-  // Non combat action
+  // Non combat actions
   action: SceneActionType.interact
 } | BaseActionIntent & {
   //
@@ -120,7 +118,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     if (mouseDownOnCanvas.current) {
       const location = findLocation(e) ?? [0, 0]
 
-      if (controller?.locationIsOutOfBounds(location)) {
+      if (controller?.locationIsOutOfBounds(location) === true) {
         setCursorLocation(undefined)
         onSetActionIntent(undefined)
         return
@@ -179,7 +177,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         return
       }
       const selectedActorLocation = controller?.getSceneAdventurer(selectedActorId)?.location
-      if ((selectedActorLocation != null) && (cursorLocation != null) && !locationEquals(selectedActorLocation, cursorLocation) && actionIntent) {
+      if ((selectedActorLocation != null) && (cursorLocation != null) && !locationEquals(selectedActorLocation, cursorLocation) && actionIntent != null) {
         controller?.actorAttemptAction(actionIntent)
         onSetActionIntent(undefined)
       }
@@ -194,7 +192,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
         return
       }
       const selectedActorLocation = controller?.getSceneAdventurer(selectedActorId)?.location
-      if ((selectedActorLocation != null) && (cursorLocation != null) && !locationEquals(selectedActorLocation, cursorLocation) && actionIntent) {
+      if ((selectedActorLocation != null) && (cursorLocation != null) && !locationEquals(selectedActorLocation, cursorLocation) && actionIntent != null) {
         controller?.actorAttemptAction(actionIntent)
         onSetActionIntent(undefined)
       }
@@ -223,12 +221,12 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
       // Handle change of cursor when not in combat
       let action = SceneActionType.move
       const [object] = controller?.getObjectsAtLocation(cursorLocation) ?? []
-      if (object?.properties.interactive) {
+      if (object?.properties.interactive === true) {
         // We're at an interactive object
         action = SceneActionType.interact
       }
       const actor = controller?.getSceneAdventurer(selectedActorId)
-      if (!action || (actor == null) || !cursorLocation) {
+      if (action == null || (actor == null) || cursorLocation == null) {
         onSetActionIntent(undefined)
       } else {
         const intent = controller?.createActionIntent(action, actor, cursorLocation)
@@ -264,26 +262,30 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
     ref.current?.addEventListener('mouseleave', onLeave)
   }, [onSetActionIntent])
 
-  useEffect(() => {
-    const mouseOver = (e: MouseEvent) => {
-      if (!combat) {
-        return
-      }
-      if ((adventurerCombatRef.current == null) || !adventurerCombatRef.current.actionMenuOpen) {
-        // dont move cursor when combat dialog is open
-        setCursorLocation(findLocation(e) ?? [0, 0])
-      }
-    }
-    const sceneRef = ref.current
-    if (sceneRef == null) return
+  // useEffect(() => {
+  //   const mouseOver = (e: MouseEvent) => {
+  //     if (!combat) {
+  //       return
+  //     }
+  //     if ((adventurerCombatRef.current == null) || !adventurerCombatRef.current.actionMenuOpen) {
+  //       // dont move cursor when combat dialog is open
+  //       setCursorLocation(findLocation(e) ?? [0, 0])
+  //     }
+  //   }
+  //   const sceneRef = ref.current
+  //   if (sceneRef == null) return
 
-    if (!checkIfEnemy(selectedActorId)) {
-      sceneRef.addEventListener('mousemove', mouseOver)
-    }
-    return () => {
-      sceneRef.removeEventListener('mousemove', mouseOver)
-    }
-  }, [combat, findLocation, selectedActorId])
+  //   if (!checkIfEnemy(selectedActorId)) {
+  //     sceneRef.addEventListener('mousemove', mouseOver)
+  //   }
+  //   return () => {
+  //     sceneRef.removeEventListener('mousemove', mouseOver)
+  //   }
+  // }, [combat, findLocation, selectedActorId])
+
+  useEffect(() => {
+    setCursorLocation(undefined)
+  }, [combat])
 
   return (
     <div

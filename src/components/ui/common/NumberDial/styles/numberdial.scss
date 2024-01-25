@@ -1,0 +1,37 @@
+@import '@/components/styles/import.scss';
+
+.number-dial {
+	.max {
+		color: #777777;
+		margin-right: 3px;
+	}
+
+  .value {
+    min-width: 3rem;
+    display: inline-block;
+  }
+
+  i.arrow {
+		border: solid $color-highlighted;
+		border-width: 0 3px 3px 0;
+		display: inline-block;
+		padding: 3px;
+		margin: 2px;
+		cursor: $cursor-pointer;
+
+    &.disabled {
+      border-color: #777777;
+      cursor: default;
+    }
+
+    &.up {
+      transform: translate(2px, 2px) rotate(-135deg);
+      -webkit-transform: translate(2px, 2px) rotate(-135deg);
+    }
+
+    &.down {
+      transform: translate(2px, -2px) rotate(45deg);
+      -webkit-transform: translate(2px, -2px) rotate(45deg);
+    }
+  }
+}

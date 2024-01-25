@@ -10,7 +10,7 @@ import Level from 'components/ui/adventurer/AdventurerPanel/Level'
 import ApIndicator from './ApIndicator'
 import AdventurerTraits from './AdventurerTraits'
 import AdventurerEquipment from './AdventurerEquipment'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import ReactMarkdown from 'react-markdown'
 import Health from './Health'
 import ConsumeItem from './ConsumeItem'
@@ -78,7 +78,7 @@ const AdventurerPanel = (props: Props) => {
     setConsumeItemIndex(undefined)
   }
 
-  if (!adventurer) return null
+  if (adventurer == null) return null
 
   return (
     <div className={`adventurer-panel${(horizontalMode === true ? ' horizontal' : '')}`}>
@@ -121,7 +121,6 @@ const AdventurerPanel = (props: Props) => {
           sourceId={adventurerId}
           disabledIndex={consumeItemIndex}
           items={adventurer.inventory}
-          className="inventory-medium"
           onDropItem={handleDropItemInventory}
           onStartDrag={onStartInventoryItemDrag}
         />

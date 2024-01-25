@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Button from 'components/ui/buttons/Button'
-import UpDownValue from 'components/ui/common/UpDownValue'
+import UpDownValue from 'components/ui/common/NumberDial'
 import ItemsBox from 'components/ui/items/ItemsBox'
 import ResourcesCost from 'components/structures/production/ResourcesCost'
 import { type ItemType } from 'definitions/items/types'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useResourcesState } from 'hooks/store/resources'
 import { useWorkersFreeState } from 'hooks/store/useWorkersState'
 import { calculateProductionTime, MAX_WORKERS_CRAFTING } from 'mechanics/crafting'
@@ -36,7 +36,7 @@ export const CraftingDetails = (props: Props) => {
   const [workersAssigned, setWorkersAssigned] = useState<number>(0)
 
   const produces = getProductionDefinition(item)
-  const costResources = (produces.cost.resources != null) || {}
+  const costResources = produces.cost.resources ?? {}
   const missingAtLeastOneResource = Object.keys(costResources)
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     .some((key) => {
@@ -98,7 +98,9 @@ export const CraftingDetails = (props: Props) => {
 
   return (
     <div className="crafting-details">
-      {TextManager.get('ui-structure-production-craft-a', { item })}
+      <div className="crafting-item">
+        {TextManager.get('ui-structure-production-craft-a', { item })}
+      </div>
       <div className="crafting-costs">
         <fieldset>
           <ResourcesCost resources={costResources} />

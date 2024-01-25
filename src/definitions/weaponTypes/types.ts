@@ -27,6 +27,7 @@ export enum WeaponType {
 export type WeaponTypeDefinition = {
   classification: WeaponClassification
   abilities: WeaponAbility[]
+  crit?: number // number between 0 and 1, chance that an attack will result in a critical hit
 }
 
 export enum DamageType {

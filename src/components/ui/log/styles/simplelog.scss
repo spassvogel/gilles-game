@@ -41,11 +41,16 @@
 
     background: $color-background-overlay;
     color: $color-text-lighter;
-    padding: 8px;
+    padding: 0.5rem;
+    scroll-behavior: smooth;
+
+    .entry {
+      line-height: 1.5;
+    }
   }
 
   &.expanded {
-    height: calc(100vh - #{$misc-topbar-height + 12px});
+    height: calc(100% - #{$misc-topbar-height + 12px});
 
     .log-entries{
       height: 100%;

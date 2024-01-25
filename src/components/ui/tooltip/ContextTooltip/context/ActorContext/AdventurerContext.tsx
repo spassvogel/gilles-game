@@ -3,7 +3,7 @@ import { useAdventurer } from 'hooks/store/adventurers'
 import { type AdventurerObject } from 'store/types/scene'
 import Attributes from 'components/ui/attributes/AttributeList'
 import { xpToLevel } from 'mechanics/adventurers/levels'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import CombatAttributes from './CombatAttributes'
 import { calculateEffectiveAttributes, calculateEffectiveAttributesExtended } from 'mechanics/adventurers/attributes'
 

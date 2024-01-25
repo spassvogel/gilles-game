@@ -1,5 +1,5 @@
 import { type Item } from 'definitions/items/types'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 
 type Props = {
   item: Item
@@ -7,7 +7,7 @@ type Props = {
 
 const ItemText = (props: Props) => {
   const { item } = props
-  if (!item) {
+  if (item == null) {
     console.log('empty item.. wtf')
     return null
   }

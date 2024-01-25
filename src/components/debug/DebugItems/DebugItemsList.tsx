@@ -2,7 +2,7 @@ import { IconSize } from 'components/ui/common/Icon'
 import ItemIcon from 'components/ui/items/ItemIcon'
 import { type ApparelDefinition } from 'definitions/items/apparel'
 import { type ItemDefinition, type ItemType } from 'definitions/items/types'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { entries } from 'utils/typescript'
 import './styles/debugItemsList.scss'
 

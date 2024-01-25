@@ -1,4 +1,4 @@
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useActorObject, useQuest } from 'hooks/store/quests'
 import { type AdventurerStoreState } from 'store/types/adventurer'
 

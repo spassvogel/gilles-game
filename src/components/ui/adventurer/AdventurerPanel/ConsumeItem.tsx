@@ -1,5 +1,5 @@
 import { useAdventurer } from 'hooks/store/adventurers'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import DraggableItemIcon, { type InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon'
 import { useMemo } from 'react'
 import ConsumeItemSlot from './ConsumeItemSlot'
@@ -32,7 +32,7 @@ const ConsumeItem = (props: Props) => {
   const adventurer = useAdventurer(adventurerId)
   const quest = useQuest(questName ?? '')
   const dispatch = useDispatch()
-  const combat = !!quest?.scene?.combat // if in combat mode, you have to pay AP to consume an item
+  const combat = ((quest?.scene?.combat) ?? false) // if in combat mode, you have to pay AP to consume an item
   const ap = useMemo(() => {
     return getAdventurer(quest?.scene?.objects ?? [], adventurerId)?.ap ?? 0
   }, [quest, adventurerId])
@@ -51,13 +51,13 @@ const ConsumeItem = (props: Props) => {
   }, [adventurer, fromSlot])
 
   const handleConsumeItem = () => {
-    if (!adventurerId || !fromSlot) return
+    if (adventurerId == null || fromSlot == null) return
     const consumable = adventurer.inventory[fromSlot]
     if ((consumable == null) || !isConsumable(consumable.type)) {
       throw new Error(`No potion found at index ${fromSlot} `)
     }
     if (combat) {
-      if (!questName) return
+      if (questName == null) return
       // Deduct AP from adventurer if in combat
       dispatch(deductActorAp(questName, adventurerId, AP_COST_CONSUME))
     }

@@ -1,4 +1,4 @@
-import { Graphics, Text } from '@pixi/react'
+import { Graphics, Text, useApp } from '@pixi/react'
 import { useSettings } from 'hooks/store/settings'
 import { type BaseSceneController } from 'mechanics/scenes/BaseSceneController'
 import { TextStyle } from 'pixi.js'
@@ -27,6 +27,10 @@ const SceneDebug = (props: Props) => {
   const { controller } = props
   const mapData = controller.mapData
   const { tileWidth, tileHeight } = controller.getTileDimensions()
+
+  const app = useApp()
+  // Perhaps this is better moved somewhere else
+  window.__PIXI_APP__ = app
 
   const allLocations = useMemo<Location[]>(() => {
     if (mapData == null) return []

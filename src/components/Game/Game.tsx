@@ -15,7 +15,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import App from 'components/App'
 import { GameActionsContext } from './context'
 import LoadingPage from 'components/ui/loading/LoadingPage'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import ManifestLoader from 'components/loading/ManifestLoader'
 
 const TICK_INTERVAL = 2500 // main game tick

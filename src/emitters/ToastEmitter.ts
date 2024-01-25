@@ -2,8 +2,7 @@ import { FIVE_SECONDS } from 'utils/format/time'
 import { type Type } from 'components/ui/toasts/Toast'
 import EventEmitter from 'events'
 import type TypedEmitter from 'typed-emitter'
-import { SoundManager } from './SoundManager'
-// import { SoundManager } from './SoundManager'
+import { SoundManager } from '../global/SoundManager'
 
 export type ToastConfig = {
   time: number
@@ -18,8 +17,8 @@ type ToastEvents = {
   [EVENT_TOASTS_UPDATED]: (context: ToastConfig[] | undefined) => void
 }
 
-export class ToastManager extends (EventEmitter as unknown as new () => TypedEmitter<ToastEvents>) {
-  private static readonly _instance = new ToastManager()
+export class ToastEmitter extends (EventEmitter as unknown as new () => TypedEmitter<ToastEvents>) {
+  private static readonly _instance = new ToastEmitter()
 
   private static stack: ToastConfig[] = []
 

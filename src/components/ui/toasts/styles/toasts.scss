@@ -2,7 +2,7 @@
 
 .toasts {
   z-index: zIndex(toasts);
-	position: absolute;
+	position: sticky;
 	bottom: 105px;
 	left: 0;
 	width: 100%;

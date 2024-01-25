@@ -1,8 +1,9 @@
+import { type ReactNode } from 'react'
 import { type Item } from 'definitions/items/types'
 import { type DragSourceType } from 'constants/dragging'
 import DraggableItemIcon from '../DraggableItemIcon'
 import ItemText from './ItemText'
-import { type ReactNode } from 'react'
+
 import './styles/itemsList.scss'
 
 export type Props = {

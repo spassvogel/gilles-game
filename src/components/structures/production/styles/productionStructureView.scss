@@ -19,22 +19,28 @@ details.structureview {
 .production-structure-view {
   padding: 16px;
 
+  .crafting-list-title {
+    margin-top: 1rem;
+  }
+
   .crafting-area {
     display: flex;
-    margin-bottom: 16px;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
 
-    .vertical-tab-bar {
+    .crafting-items-list {
       list-style: none;
       margin: 0;
       padding: 0;
       width: 200px;
+      text-transform: capitalize;
 
       li {
         display: flex;
         margin: 0;
         padding: 2px;
         // line-height: $item-size-small;
-        cursor: var(--app-cursor-pointer);
+        cursor: $cursor-pointer;
 
         &.selected {
           background: $color-secondary;
@@ -52,6 +58,14 @@ details.structureview {
       border: 3px solid $color-secondary;
       padding: 10px;
 
+      .crafting-item {
+        margin-bottom: 0.25rem;
+      }
+
+      fieldset {
+        @include border-grey-sm;
+      }
+
       .crafting-costs {
         display: flex;
 
@@ -66,6 +80,11 @@ details.structureview {
         margin-top: 16px;
       }
     }
+  }
+
+  .crafting-log {
+    padding-top: 2rem;
+    @include border-grey-sm;
   }
 }
 

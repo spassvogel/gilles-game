@@ -2,8 +2,8 @@ import React, { Fragment } from 'react'
 import { useAdventurer } from 'hooks/store/adventurers'
 import { type Trait } from 'definitions/traits/types'
 import { getDefinition } from 'definitions/traits'
-import { TextManager } from 'global/TextManager'
-import { TooltipManager } from 'global/TooltipManager'
+import * as TextManager from 'global/TextManager'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 
 import './styles/adventurerTraits.scss'
 import { ContextType } from 'constants/context'
@@ -21,7 +21,7 @@ const AdventurerTraits = (props: Props) => {
       const origin = (event.currentTarget as HTMLElement)
       const originRect = origin.getBoundingClientRect()
 
-      TooltipManager.showContextTooltip(ContextType.trait, traitDefinition, originRect)
+      TooltipEmitter.showContextTooltip(ContextType.trait, traitDefinition, originRect)
       event.stopPropagation()
     }
     return (

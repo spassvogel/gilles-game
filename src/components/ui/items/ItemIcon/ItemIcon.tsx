@@ -1,7 +1,7 @@
 import { type ItemSource } from 'constants/items'
 import { getDefinition } from 'definitions/items'
 import { type Item } from 'definitions/items/types'
-import { TooltipManager } from 'global/TooltipManager'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import Icon, { type IconSize } from 'components/ui/common/Icon'
 import { getIconClassName, sizeClassName } from './utils'
 import './styles/itemIcon.scss'
@@ -31,7 +31,7 @@ const ItemIcon = (props: Props) => {
     if (props.showContext !== false) {
       const origin = (event.currentTarget as HTMLElement)
       const originRect = origin.getBoundingClientRect()
-      TooltipManager.showContextTooltip(ContextType.item, item, originRect, undefined, source)
+      TooltipEmitter.showContextTooltip(ContextType.item, item, originRect, undefined, source)
       event.stopPropagation()
     }
 

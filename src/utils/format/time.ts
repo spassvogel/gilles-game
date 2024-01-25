@@ -1,4 +1,4 @@
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 
 export const ONE_SECOND = 1000
 export const TWO_SECONDS = 2000

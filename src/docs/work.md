@@ -291,7 +291,7 @@ https://www.youtube.com/watch?v=LO8BHmnIrVU
 
 - [ ] If dodge fails can try to block with shield or parry with weapon. IF succesful will deflect all dmg but cause shield/weapon integrity to go down.
 
-- [ ] If not blocked or parried, part of damage is absorbed by armour (if the actor is wearing any).
+- [ ] If not blocked or parried, part of damage is mitigated by armour (if the actor is wearing any).
    A helmet with armour rating 20 absorbs 20 dmg of each hit.
 - [ ] Armours integrity goes down. In general more than if would be blocked or parried.
 
@@ -825,8 +825,9 @@ https://interfaceingame.com/games/league-of-legends/
 
 ### 2022-04-18 Scenecontrollers as hooks
 
-- [ ] Investigate if we can have scenecontroller as hooks
-- [ ] Everything needs to be put in state / memo
+- [-] Investigate if we can have scenecontroller as hooks
+- [-] Everything needs to be put in state / memo
+      update: this is a total shit show. do not attempt this again
 
 ### 2022-05-05 Tick into middleware
 - [x] refactor gametick logic into middleware
@@ -835,13 +836,45 @@ https://interfaceingame.com/games/league-of-legends/
 - [] Implement a serviceworker for caching
 
 ### 2022-12-03 Inventory
-- [ ] Fix Inventory. Let css grid figure out how many rows/columns
+- [x] Fix Inventory. Let css grid figure out how many rows/columns
 
 
 ### 2022-06-23 Remove long press
 - [x] Remove long press to see actor stats. It's hella annoying
-- [ ] Cannot shoot dead enemies
-- [ ] When a live actor and a dead one share the same tile, live actor takes precedence for selecting 
+- [x] Cannot shoot dead enemies
+- [x] When a live actor and a dead one share the same tile, live actor takes precedence for selecting 
 
 ### 2023-09-20 Managers
 - [ ] Dump this weird Managers stuff. Use hooks
+- [x] Fix for TextManager
+- [ ] Fix for SoundManager
+- [x] Fix for the emitters
+
+### 2023-11-17 Scene Effects
+- [ ] Use descriminated union to describe effects. 
+- [ ] Allow for more types than just a spritesheet (particles, screen shake?)
+- [ ] Shaking https://gist.github.com/jrod-disco/8a595ce842d17567168b81e02414b9ad
+
+### 2023-11-17 Lightning effects
+- [ ] Implement
+- [ ] Add electroshock weapons
+
+### 2024-01-21 Nested handlebars template
+Especially with the combat texts there is a lot of repetition. Eg:
+
+```
+    "scene-combat-attack-shoot-dodged": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}}. {{actor:name target}} dodged!",
+    "scene-combat-attack-shoot-hit": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} and hits {{actor:name target}} in the {{bodyPart}} for {{damage}} damage!",
+    "scene-combat-attack-shoot-hit-mitigated": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} and hits {{actor:name target}} in the {{bodyPart}} for {{damage}} damage ({{mitigated}} mitigated)!",
+    "scene-combat-attack-shoot-missed": "{{actor:name attacker}} shoots {{item:trigger weapon \"aA\"}} but missed!",
+    "scene-combat-attack-shoot-missed-verbose": "{{actor:name attacker}} shoots with {{item:trigger weapon \"aA\"}} but missed!",
+```
+
+I would like to re-use earlier defined templates in other templates
+- [x] Done, using `{{template }} `helper
+
+### 2024-01-22 Shoot arrows
+
+- [ ] Shooting should not be possible when no arrows in off hand
+- [ ] Shooting should actually take away arrows from the off hand
+- [ ] When last arrow disappears, the arrows should be removed from off hand

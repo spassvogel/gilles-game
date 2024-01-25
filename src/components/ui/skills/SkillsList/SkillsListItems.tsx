@@ -1,5 +1,5 @@
-import { TextManager } from 'global/TextManager'
-import { TooltipManager } from 'global/TooltipManager'
+import * as TextManager from 'global/TextManager'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import { ContextType } from 'constants/context'
 import { roundIfNeeded } from 'utils/format/number'
 import AttributeIndicator from 'components/ui/attributes/AttributeIndicator'
@@ -20,7 +20,7 @@ const SkillsListItems = (props: Props) => {
       const origin = (event.currentTarget as HTMLElement)
       const originRect = origin.getBoundingClientRect()
 
-      TooltipManager.showContextTooltip(ContextType.skill, skill, originRect)
+      TooltipEmitter.showContextTooltip(ContextType.skill, skill, originRect)
       event.stopPropagation()
     }
 

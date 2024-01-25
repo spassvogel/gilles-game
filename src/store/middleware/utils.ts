@@ -15,7 +15,7 @@ export const lastAdventurerAction = (adventurer: AdventurerStoreState, action: A
     const state = storeApi.getState()
     const quest = findQuestByAdventurer(adventurer, state.quests)
     const sceneAction = quest?.scene?.actionQueue?.[0]
-    if (sceneAction?.intent.actor && getUniqueName(sceneAction.intent.actor) === adventurer.id) {
+    if (((sceneAction?.intent.actor) != null) && getUniqueName(sceneAction.intent.actor) === adventurer.id) {
       return quest?.scene?.actionQueue?.[0].intent.action
     }
   }

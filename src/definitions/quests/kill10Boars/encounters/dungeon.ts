@@ -240,7 +240,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
           return {
             title: 'quest-kill10-boars-dungeonentrance-door',
             choices: [
-              'quest-common-scenerio-door-open'
+              'quest-common-scenario-door-open'
             ]
           }
         }

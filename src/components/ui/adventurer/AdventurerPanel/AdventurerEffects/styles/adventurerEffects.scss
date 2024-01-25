@@ -6,7 +6,8 @@
 
   li {
     @include popupText();
-    cursor: var(--app-cursor-pointer);
+    cursor: $cursor-pointer;
+
     .name {
       display: inline-block;
       margin-bottom: 2px;

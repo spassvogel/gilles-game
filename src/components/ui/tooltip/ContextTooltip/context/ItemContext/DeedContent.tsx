@@ -8,7 +8,7 @@ import { type Deed, getDefinition as getDeedDefinition } from 'definitions/items
 import useGoldState from 'hooks/store/useGoldState'
 import { useStructureDefinition, useStructureState } from 'hooks/store/structures'
 import { StructureState } from 'store/types/structure'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import Button from 'components/ui/buttons/Button'
 import { type Item } from 'definitions/items/types'
 
@@ -23,14 +23,14 @@ const DeedContent = (props: Props) => {
 
   const gold = useGoldState()
   const structureDefinition = useStructureDefinition(definition.structure)
-  const enoughGold = structureDefinition.cost.gold || gold >= 0
+  const enoughGold = structureDefinition.cost.gold ?? gold >= 0
   const structureStoreState = useStructureState(definition.structure)
   const canBeBuilt = structureStoreState.state === StructureState.NotBuilt
   const disabled = !canBeBuilt || !enoughGold
   const subtext = TextManager.getItemSubtext(item.type)
 
   const handleStartConstruction = (structure: Structure) => {
-    dispatch(subtractGold(structureDefinition.cost.gold || 0))
+    dispatch(subtractGold(structureDefinition.cost.gold ?? 0))
     dispatch(startBuildingStructure(structure))
 
     const callbacks = [finishBuildingStructure(structure)]

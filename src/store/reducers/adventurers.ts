@@ -519,7 +519,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
     case 'apparelTakeDamage': {
       const adventurer = state.find((a) => a.id === action.adventurerId)
       const equipment = adventurer?.equipment[action.bodyPart]
-      if ((equipment == null) || !isApparel(equipment.type)) {
+      if ((equipment == null) || adventurer == null || !isApparel(equipment.type)) {
         return state
       }
       const definition = getApparelDefinition(equipment.type)
@@ -540,7 +540,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
             }
           }
         }
-        return adventurer
+        return a
       })
     }
 

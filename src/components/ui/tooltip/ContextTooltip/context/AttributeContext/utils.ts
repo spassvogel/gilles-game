@@ -1,4 +1,4 @@
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { type AttributeSource, AttributeSourceType } from 'mechanics/adventurers/attributes'
 import { type Attribute } from 'store/types/adventurer'
 

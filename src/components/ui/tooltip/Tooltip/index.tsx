@@ -1,5 +1,5 @@
 import { type PropsWithChildren, useEffect, useRef, useState } from 'react'
-import { TooltipManager } from 'global/TooltipManager'
+import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import { InfoWindow } from 'components/ui/modals/InfoWindow/InfoWindow'
 import './styles/tooltip.scss'
 
@@ -68,7 +68,7 @@ export const Tooltip = (props: PropsWithChildren<Props>) => {
   }, [setPlacement, containerRect, placement, referenceRect])
 
   const resize = () => {
-    TooltipManager.clear()
+    TooltipEmitter.clear()
   }
 
   useEffect(() => {

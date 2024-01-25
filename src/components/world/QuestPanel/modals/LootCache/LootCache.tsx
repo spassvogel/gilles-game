@@ -1,7 +1,7 @@
 import React, { useRef, useContext } from 'react'
 import gsap from 'gsap'
 import DraggableItemsList from 'components/ui/items/DraggableItemsList'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { DragSourceType } from 'constants/dragging'
 import { SceneControllerContext } from '../../context/SceneControllerContext'
 import { useAdventurer } from 'hooks/store/adventurers'
@@ -11,7 +11,6 @@ import Icon from 'components/ui/common/Icon'
 import { type InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon'
 import DroppableAdventurerAvatar from 'components/ui/adventurer/DroppableAdventurerAvatar'
 
-import '../styles/modal.scss'
 import '../styles/lootCache.scss'
 
 type Props = {
@@ -69,7 +68,7 @@ const LootCache = (props: Props) => {
   }
 
   return (
-    <div className={'interaction-modal loot-cache'} ref={ref}>
+    <div className={'scene-modal loot-cache'} ref={ref}>
       <div className="header">
         <div className="title">
           {TextManager.get(cache.title, { adventurer: adventurer.name })}
@@ -88,23 +87,23 @@ const LootCache = (props: Props) => {
           <div className="adventurer">
             <DroppableAdventurerAvatar adventurer={adventurer} onDrop={handleDrop} />
             <Button onClick={handleTakeAllItems} disabled={freeSlots === 0} size="small">
-              {TextManager.get('quest-common-loot-cache-take-all')}
+              {TextManager.get('quest-panel-modal-loot-cache-take-all')}
             </Button>
           </div>
         </div>
       )}
-      { !!cache.gold && (
+      { ((cache.gold ?? 0) > 0) && (
         <div className="content">
           <div className="gold">
             <Icon
               image="img/resources/gold.png"
               size="medium"
             />
-            {TextManager.get('quest-common-loot-cache-gold', { gold: cache.gold })}
+            {TextManager.get('quest-panel-modal-loot-cache-gold', { gold: cache.gold })}
           </div>
           <div className="take-gold">
             <Button onClick={handleTakeGold} size="small">
-              {TextManager.get('quest-common-loot-cache-take')}
+              {TextManager.get('quest-panel-modal-loot-cache-take')}
             </Button>
           </div>
         </div>

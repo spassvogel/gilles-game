@@ -1,5 +1,5 @@
 import { type PropsWithChildren } from 'react'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import useGoldState from 'hooks/store/useGoldState'
 import { type Structure } from 'definitions/structures'
 import ResourcesCost from './production/ResourcesCost'
@@ -53,7 +53,7 @@ const UpgradeHelpModal = (props: PropsWithChildren<Props>) => {
     dispatch(subtractGold(goldCost))
     dispatch(removeResources(costResources))
     const callbacks = [
-      ...(((addUpgradeCallbacks?.(level + 1)) != null) ?? []),
+      ...(((addUpgradeCallbacks?.(level + 1))) ?? []),
       upgradeStructure(structure),
       addLogText('log-town-upgrade-structure-complete', {
         level: level + 1,

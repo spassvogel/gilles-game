@@ -5,7 +5,7 @@ import { type Structure } from 'definitions/structures'
 import { type ProducableItem, type ProductionStructureStoreState, StructureState } from 'store/types/structure'
 import { Link } from 'react-router-dom'
 import { getStructureLink } from 'utils/routing'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useStudyingTasksStateByStructure } from 'hooks/store/useTasksState'
 import { startTask } from 'store/actions/tasks'
 import { TaskType } from 'store/types/task'
@@ -15,6 +15,7 @@ import { formatDuration } from 'utils/format/time'
 import { STUDY_TIME } from 'mechanics/studying'
 import Button from 'components/ui/buttons/Button'
 import ReactMarkdown from 'react-markdown'
+import Markdown from 'components/markdown/Markdown'
 
 type Props = {
   item: ProducableItem
@@ -28,7 +29,7 @@ const ProducedAtStructure = (props: Props) => {
   const studyTasks = useStudyingTasksStateByStructure(structure)
   const dispatch = useDispatch()
 
-  if (!structure) {
+  if (structure == null) {
     return null
   }
 
@@ -36,11 +37,9 @@ const ProducedAtStructure = (props: Props) => {
   // Can already be produced
   if (structureStore.produces.some((item: ItemType) => item === props.item)) {
     return (
-      <p>Constructed at:
-        <Link to={getStructureLink(structure)} >
-          { TextManager.getStructureName(structure) }
-        </Link>
-      </p>
+      <Markdown>
+        {TextManager.get('ui-tooltip-crafted-at', { structure })}
+      </Markdown>
     )
   }
 
@@ -59,10 +58,10 @@ const ProducedAtStructure = (props: Props) => {
 
   // Cant study because the structure is not high lvl enough
   const productionDefinition = getProductionDefinition(props.item)
-  if (structureStore.level < (productionDefinition.levelRequired || 0) || structureStore.state !== StructureState.Built) {
+  if (structureStore.level < (productionDefinition.levelRequired ?? 0) || structureStore.state !== StructureState.Built) {
     return (
       <p className="invalid">
-        {TextManager.get('ui-tooltip-study-requires-structure-level', { structure, level: (productionDefinition.levelRequired || 0) + 1 })}
+        {TextManager.get('ui-tooltip-study-requires-structure-level', { structure, level: (productionDefinition.levelRequired ?? 0) + 1 })}
       </p>
     )
   }

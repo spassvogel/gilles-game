@@ -3,10 +3,8 @@
 $border: 2px;
 
 .inventory {
-  display: grid;
-
-// todo: this 2022-12-03 Inventory
-//  grid-template-columns: repeat(auto-fit, 50px);
+  display: flex;
+  flex-wrap: wrap;
 
   padding-top: $border;
   padding-left: $border;
@@ -41,78 +39,6 @@ $border: 2px;
 
     .item-icon {
       background-color: $color-primary;
-    }
-  }
-
-
-  /* size: small,
-  on large screens: 8 colums
-  on medium screens: 4 columns
-  on small screens: 2 columns
-  */
-  &.inventory-small {
-    /** large screen */
-    grid-template-columns: repeat(6, $item-size-medium + 4px);
-  }
-
-  @include md-max {
-    /** medium screen */
-    &.inventory-small {
-      grid-template-columns: repeat(4, $item-size-medium + 4px);
-    }
-  }
-
-  @include sm-max {
-    /** small screen */
-    &.inventory-small {
-      grid-template-columns: repeat(2, $item-size-medium + 4px);
-    }
-  }
-
-  // size: medium,
-  // on large screens: 8 colums
-  // on medium screens: 6 columns
-  // on small screens: 4 columns
-  &.inventory-medium {
-    /** large screen */
-    grid-template-columns: repeat(8, $item-size-medium + 4px);
-  }
-
-  @include md-max {
-    /** medium screen */
-    &.inventory-medium {
-      grid-template-columns: repeat(6, $item-size-medium + 4px);
-    }
-  }
-
-  @include sm-max {
-    /** small screen */
-    &.inventory-medium {
-      grid-template-columns: repeat(4, $item-size-medium + 4px);
-    }
-  }
-
-  /* size: large, basically as wide as the uiå
-  on large screens: 16 colums
-  on medium screens: 12 columns
-  on small screens: 6 columns
-  */
-  &.inventory-large {
-    /** large screen */
-    grid-template-columns: repeat(18, $item-size-medium + 4px);
-  }
-
-  @include md-max {
-    /** medium screen */
-    &.inventory-large {
-      grid-template-columns: repeat(12, $item-size-medium + 4px);
-    }
-  }
-
-  @include sm-max {
-    /** small screen */
-    &.inventory-large {
-      grid-template-columns: repeat(6, $item-size-medium + 4px);
     }
   }
 }

@@ -24,14 +24,14 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		cursor: var(--app-cursor-pointer);
+		cursor: $cursor-pointer;
 		align-self: flex-end;
-	}
 
-	.tabstrip-tab.active {
-		background: white;
-		border-color: $color-highlighted;
-	}
+    &.active {
+      background: white;
+      border-color: $color-highlighted;
+    }
+  }
 
   &.auto-collapse {
     /** Auto collapses into a dropdown list on small screens */
@@ -63,14 +63,16 @@
       }
     }
   }
-}
 
-.tabstrip.disabled {
-	.tabstrip-tab {
-		opacity: .2;
+  &.disabled {
+    .tabstrip-tab {
+      opacity: .2;
+
+      &.active {
+        opacity: initial;
+      }
+    }
   }
 
-	.tabstrip-tab.active {
-		opacity: initial;
-	}
 }
+

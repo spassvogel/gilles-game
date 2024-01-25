@@ -45,7 +45,7 @@ const ActionMenu = (props: Props) => {
       }
       case SceneActionType.melee:
       case SceneActionType.shoot: {
-        if (!intent.weaponWithAbility) {
+        if (intent.weaponWithAbility == null) {
           return undefined
         }
         return (

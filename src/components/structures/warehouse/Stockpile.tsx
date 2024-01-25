@@ -8,7 +8,7 @@ import { type Item, ItemCategory } from 'definitions/items/types'
 import Tabstrip from 'components/ui/tabs/Tabstrip'
 import Tab from 'components/ui/tabs/Tab'
 import { type StockpileStoreState } from 'store/types/stockpile'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { getDefinition } from 'definitions/items'
 import { type InventoryItemDragInfo } from 'components/ui/items/DraggableItemIcon'
 import './styles/stockpile.scss'
@@ -62,7 +62,6 @@ const Stockpile = () => {
       </Tabstrip>
       <Inventory
         sourceType={WAREHOUSE}
-        className="inventory-large"
         items={items}
         onDropItem={handleDropItemWarehouse}
         // onStartDrag={handleStartDrag}

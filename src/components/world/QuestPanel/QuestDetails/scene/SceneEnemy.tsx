@@ -28,8 +28,9 @@ const SceneEnemy = (props: Props & Omit<SceneActorProps, 'children' | 'name' | '
     console.warn(`No spritesheet found for ${actor.enemyType}`)
     return null
   }
+
   return (
-    <Container zIndex={health}>
+    <Container zIndex={health} name={`${actor.enemyId}`}>
       <SceneActor
         actor={actor}
         health={actor.health}

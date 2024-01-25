@@ -1,4 +1,4 @@
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useSelector } from 'react-redux'
 import { type StoreState } from 'store/types'
 import { type StructuresStoreState } from 'store/types/structures'

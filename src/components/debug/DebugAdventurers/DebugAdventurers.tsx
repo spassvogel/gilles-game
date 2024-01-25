@@ -1,7 +1,7 @@
 import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar'
 import { IconSize } from 'components/ui/common/Icon'
 import Select from 'components/ui/common/Select'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useAdventurers } from 'hooks/store/adventurers'
 import { useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'

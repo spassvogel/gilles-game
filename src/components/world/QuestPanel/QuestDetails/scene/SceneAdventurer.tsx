@@ -27,7 +27,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children' | 'name
   if (spritesheet === undefined) return null
 
   return (
-    <Container ref={ref} zIndex={health}>
+    <Container ref={ref} zIndex={health} name={actor.adventurerId}>
       <SceneActor
         actor={actor}
         health={adventurer.health}

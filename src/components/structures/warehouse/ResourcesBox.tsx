@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { useSelector } from 'react-redux'
 import resourceDescriptions, { Resource } from 'definitions/resources'
 import { type ResourceStoreState } from 'store/types/resources'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import ReactMarkdown from 'react-markdown'
 import { type StructuresStoreState } from 'store/types/structures'
 import { getStructureByResource } from 'definitions/structures'
@@ -10,7 +10,7 @@ import { type StoreState } from 'store/types'
 import { StructureState } from 'store/types/structure'
 import { formatNumber } from 'utils/format/number'
 import Icon from '../../ui/common/Icon'
-import { BubbleLayer, BubbleManager, BubbleType } from 'global/BubbleManager'
+import { BubbleLayer, BubbleEmitter, BubbleType } from 'emitters/BubbleEmitter'
 import { Point } from 'pixi.js'
 import './styles/resourcesBox.scss'
 
@@ -31,7 +31,7 @@ const ResourcesBox = (props: Props) => {
     deltaResources
   } = props
   const structures = useSelector<StoreState, StructuresStoreState>(store => store.structures)
-  const className = `resources-box ${(props.className ?? '')}`
+  const className = ['resources-box', props.className].join(' ')
   const ref = useRef<HTMLDivElement>(null)
 
   return (
@@ -40,18 +40,18 @@ const ResourcesBox = (props: Props) => {
         Object.keys(resources).map((value: string) => {
           const resource = value as Resource
           const resourceDescription = resourceDescriptions[resource]
-          const amount = props.resources[resource] || 0
-          if (!resourceDescription) {
+          const amount = props.resources[resource] ?? 0
+          if (resourceDescription === undefined) {
             throw new Error(`No resource description found for ${resource}`)
           }
 
-          if (deltaResources[resource]) {
+          if ((deltaResources[resource] ?? 0) > 0) {
             // Show bubble
             const el = ref.current?.querySelector(`[data-resource="${resource}"] .amount`)
             const rect = el?.getBoundingClientRect()
             const point = new Point(rect?.right, rect?.top)
 
-            BubbleManager.addBubble(`+ ${deltaResources[resource]?.toFixed(2)}`, point, BubbleType.resource, BubbleLayer.general)
+            BubbleEmitter.addBubble(`+ ${deltaResources[resource]?.toFixed(2)}`, point, BubbleType.resource, BubbleLayer.general)
           }
 
           const structure = getStructureByResource(Resource[resource])
@@ -72,15 +72,23 @@ const ResourcesBox = (props: Props) => {
               <div className="structure">
                 {structures[structure].state === StructureState.Built
                   ? (
-                  <ReactMarkdown>{TextManager.get('ui-structure-warehouse-resources-source-link', { structure })}</ReactMarkdown>
+                    <>
+                      <span className="source">
+                        {TextManager.get('ui-structure-warehouse-resources-source')}
+                      </span>
+                      <ReactMarkdown>{TextManager.get('ui-structure-warehouse-resources-source-structure-link', { structure })}</ReactMarkdown>
+                    </>
                     )
                   : (
-                  <>
-                    <ReactMarkdown>{TextManager.get('ui-structure-warehouse-resources-source', { structure })}</ReactMarkdown>
-                    <span className="unbuilt">
-                      {TextManager.get('ui-structure-warehouse-resources-source-unbuilt')}
-                    </span>
-                  </>
+                    <>
+                      <span className="source">
+                      {TextManager.get('ui-structure-warehouse-resources-source')}
+                      </span>
+                      <ReactMarkdown>{TextManager.get('ui-structure-warehouse-resources-source-structure', { structure })}</ReactMarkdown>
+                      <span className="unbuilt">
+                        {TextManager.get('ui-structure-warehouse-resources-source-unbuilt')}
+                      </span>
+                    </>
                     )}
               </div>
             </div>

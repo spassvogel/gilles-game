@@ -1,6 +1,6 @@
 import ReactMarkdown from 'react-markdown'
 import { type Structure } from 'definitions/structures'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { useEngine } from 'hooks/store/engine'
 import { formatDuration } from 'utils/format/time'
 import { RESOURCE_INTERVAL } from 'mechanics/resources'

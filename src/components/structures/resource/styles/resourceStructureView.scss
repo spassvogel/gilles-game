@@ -9,8 +9,16 @@
     margin-top: 2rem;
 
     .error-full {
+      background-color: $color-primary;
+      padding: 0.5rem 0.75rem;
       color: $color-invalid;
+      border-radius: 6px;
+
+      p {
+        margin: 0;
+      }
     }
+
     .info {
       flex: .4;
       display: flex;

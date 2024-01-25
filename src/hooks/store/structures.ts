@@ -16,7 +16,7 @@ export const useStructureState = <T extends StructureStoreState>(structure: Stru
 
 export const useStructureDefinition = <T extends StructureDefinition>(structure: Structure): T => {
   const structureDefinition = getDefinition<T>(structure)
-  if (!structureDefinition) {
+  if (structureDefinition == null) {
     throw new Error(`No definition found for structure ${structure}.`)
   }
   return structureDefinition

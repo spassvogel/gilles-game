@@ -1,6 +1,6 @@
 import PlainProgressbar from 'components/ui/common/progress/PlainProgressbar'
 import { useAdventurer } from 'hooks/store/adventurers'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { xpToLevel } from 'mechanics/adventurers/levels'
 import { calculateBaseHitpoints } from 'mechanics/adventurers/hitpoints'
 import { roundIfNeeded } from 'utils/format/number'

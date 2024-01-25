@@ -1,18 +1,16 @@
-// Todo: come up with a less stupid name
 import * as React from 'react'
-import './styles/updownvalue.scss'
 
-export type DispatchProps = {
-  onUp?: (e: React.MouseEvent) => void
-  onDown?: (e: React.MouseEvent) => void
-}
+import './styles/numberdial.scss'
+
 export type Props = {
   label?: string
   value?: number
   max?: number
   upDisabled?: boolean
   downDisabled?: boolean
-} & DispatchProps
+  onUp?: (e: React.MouseEvent) => void
+  onDown?: (e: React.MouseEvent) => void
+}
 
 const UpDownValue = (props: Props) => {
   const handleUp = (e: React.MouseEvent) => {
@@ -28,20 +26,22 @@ const UpDownValue = (props: Props) => {
     displayValue = props.value
   } else {
     displayValue = (
-      <span>
+      <span className="value">
         {props.value} / <span className="max">{ props.max }</span>
       </span>
     )
   }
   return (
-    <div className="updownvalue">
+    <div className="number-dial">
         <label> { props.label }</label>
         { displayValue }
-        <i className={ 'arrow up' + (props.upDisabled === true ? ' disabled' : '')}
-        onClick={handleUp}
+        <i
+          className={`arrow up ${(props.upDisabled === true ? ' disabled' : '')}`}
+          onClick={handleUp}
         />
-        <i className={'arrow down' + (props.downDisabled === true ? ' disabled' : '')}
-        onClick={handleDown}
+        <i
+          className={`arrow down ${(props.downDisabled === true ? ' disabled' : '')}`}
+          onClick={handleDown}
         />
     </div>
   )

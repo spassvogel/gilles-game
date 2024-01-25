@@ -1,6 +1,6 @@
 import { getDefinition } from 'definitions/weaponTypes'
 import { type WeaponType } from 'definitions/weaponTypes/types'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { getDefinition as getAbilityDefinition } from 'definitions/abilities/index'
 
 type Props = {

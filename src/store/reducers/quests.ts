@@ -69,6 +69,11 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
       })
     }
 
+    // After the quest has failed user can dismiss this quest so it disappears from the quest map
+    case 'dismissQuest': {
+      return state.filter(q => q.name !== action.questName)
+    }
+
     case 'exitEncounter': {
       return state.map((qss) => {
         if (qss.name === action.questName) {
@@ -168,7 +173,7 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
             case SceneActionType.melee:
             case SceneActionType.interact: {
               scene.objects = scene.objects.map((a) => {
-                if (getUniqueName(a) === action.actorName && sceneAction.intent.path?.[sceneAction.intent.path.length - 1]) {
+                if (getUniqueName(a) === action.actorName && ((sceneAction.intent.path?.[sceneAction.intent.path.length - 1]) != null)) {
                   return {
                     ...a,
                     location: sceneAction.intent.path[sceneAction.intent.path.length - 1]

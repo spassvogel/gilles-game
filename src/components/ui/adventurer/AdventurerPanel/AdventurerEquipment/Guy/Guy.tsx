@@ -13,7 +13,7 @@ const Guy = (props: Props) => {
   const damageReduction = useAdventurerDamageReduction(adventurerId)
   const renderDamageReduction = (equipmentType: EquipmentSlotType) => {
     const dR = damageReduction[EquipmentSlotType[equipmentType]]
-    if (!dR) {
+    if (dR == null) {
       return null
     }
     return (

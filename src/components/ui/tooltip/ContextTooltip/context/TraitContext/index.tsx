@@ -1,4 +1,4 @@
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { type TraitDefinition } from 'definitions/traits/types'
 import './styles/traitContext.scss'
 

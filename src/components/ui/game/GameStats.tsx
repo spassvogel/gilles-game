@@ -1,7 +1,7 @@
 // Displays various game stats
 import { type Resource } from 'definitions/resources'
 import { type Structure } from 'definitions/structures'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { Fragment, useMemo } from 'react'
 import { groupAdventurersByQuest } from 'store/selectors/adventurers'
 import { type StoreState } from 'store/types'
@@ -10,6 +10,7 @@ import { StructureState } from 'store/types/structure'
 import { formatDateTime, formatDuration } from 'utils/format/time'
 import { convertIntToSemVer } from 'utils/version'
 import * as Version from 'constants/version'
+
 import './styles/gameStats.scss'
 
 type Props = {

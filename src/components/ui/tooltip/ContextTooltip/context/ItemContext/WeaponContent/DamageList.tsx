@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { type DamageDefinition } from 'definitions/weaponTypes/types'
 
 type Props = {

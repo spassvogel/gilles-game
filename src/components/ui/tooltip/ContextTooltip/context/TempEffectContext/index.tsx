@@ -1,4 +1,4 @@
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import getTempEffectDescription from './getTempEffectDescription'
 import { type TempEffect } from 'definitions/tempEffects/types'
 import './styles/effectContext.scss'

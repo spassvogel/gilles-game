@@ -4,7 +4,7 @@ import ItemIcon from 'components/ui/items/ItemIcon'
 import { type Structure } from 'definitions/structures'
 import { type ProducableItem, type ProductionStructureStoreState } from 'store/types/structure'
 import { useStructureState } from 'hooks/store/structures'
-import { TextManager } from 'global/TextManager'
+import * as TextManager from 'global/TextManager'
 import { CraftingDetails } from './CraftingDetails'
 
 export type Props = {
@@ -13,18 +13,18 @@ export type Props = {
 
 const CraftingArea = (props: Props) => {
   const { structure } = props
-  const [selectedItem, setSelectedItem] = useState<ProducableItem>()
 
   const storeState = useStructureState<ProductionStructureStoreState>(structure)
+  const [selectedItem, setSelectedItem] = useState<ProducableItem>(storeState.produces[0])
   const handleSelectCraftingItem = (item: ProducableItem) => {
     setSelectedItem(item)
   }
 
   return (
     <>
-      <div> { TextManager.get('ui-structure-production-craft') }</div>
+      <div className="crafting-list-title"> { TextManager.get('ui-structure-production-crafting-list') }</div>
       <div className="crafting-area">
-        <ul className="vertical-tab-bar">
+        <ul className="crafting-items-list">
           {storeState.produces.map((type) => (
             <li
               key={`craft${type}`}

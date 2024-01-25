@@ -9,7 +9,7 @@
 
 		.quest {
 			display: flex;
-			cursor: var(--app-cursor-pointer);
+			cursor: $cursor-pointer;
 
 			.icon {
 				height: 32px;
