@@ -103,7 +103,7 @@ const TavernStructureView = () => {
       <StructureViewHeader structure={'tavern'} />
       <div className="tavern-structure-view">
         <StructureLevel structure={'tavern'} onHelpClicked={handleHelpClicked}/>
-        <section>
+        <section className='content'>
           <RoomList
             roomCount={levelDefinition.rooms}
             adventurers={adventurers}

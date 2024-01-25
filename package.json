@@ -16,7 +16,7 @@
     "@pixi/particle-emitter": "^5.0.8",
     "@pixi/react": "^7.1.0",
     "@pixi/sound": "^5.2.1",
-    "@pixi/tilemap": "github:spassvogel/pixi-tilemap#master",
+    "@pixi/tilemap": "^4.0.0",
     "@redux-devtools/extension": "^3.2.5",
     "@rooks/use-key": "^4.11.2",
     "astar-typescript": "^1.2.7",
@@ -74,7 +74,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
     "typescript": "^5.1.3",
-    "vite": "^4.4.7",
+    "vite": "^4.5.2",
     "vite-tsconfig-paths": "^4.2.0"
   }
 }
