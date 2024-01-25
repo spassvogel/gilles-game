@@ -1,3 +1,16 @@
 .debug-sprites {
   padding: 1rem;
+
+  .current-frame {
+    width: 2rem;
+  }
+
+  label {
+    position: relative;
+    top: 0.25rem;
+  }
+
+  .bg-color {
+    float: right;
+  }
 }

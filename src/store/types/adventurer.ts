@@ -7,13 +7,14 @@ import { type Trait } from 'definitions/traits/types'
 import { type TempEffect } from 'definitions/tempEffects/types'
 import { type WeaponType } from 'definitions/weaponTypes/types'
 import { type Race } from 'constants/race'
+import { sprites } from 'bundles/sprites'
 
 export type AdventurerStoreState = {
   id: string
   name?: string
   flavor?: boolean // Has lore text, language key: `adventurer-{id}-flavor
   avatarImg: string
-  spritesheet: string // Path to JSON of spritesheet to use in scenes
+  spritesheet: keyof typeof sprites //
   color?: AdventurerColor
   race: Race
   traits?: Trait[]

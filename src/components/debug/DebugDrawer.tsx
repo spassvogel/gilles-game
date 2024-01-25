@@ -11,6 +11,9 @@ const DebugDrawer = () => {
   useKey('~', () => {
     setOpen(!open && settings.debugEnableDebugDrawer)
   })
+  useKey('1', () => {
+    setOpen(!open && settings.debugEnableDebugDrawer)
+  })
 
   if (!open) return null
   return (

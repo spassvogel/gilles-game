@@ -1,0 +1,407 @@
+{
+    "frames": {
+        "knight-spear-stand-n": {
+            "frame": {
+                "x": 0,
+                "y": 0,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-stand-ne": {
+            "frame": {
+                "x": 142,
+                "y": 0,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-stand-e": {
+            "frame": {
+                "x": 284,
+                "y": 0,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-stand-se": {
+            "frame": {
+                "x": 426,
+                "y": 0,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-stand-s": {
+            "frame": {
+                "x": 568,
+                "y": 0,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk0-n": {
+            "frame": {
+                "x": 0,
+                "y": 142,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk0-ne": {
+            "frame": {
+                "x": 142,
+                "y": 142,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk0-e": {
+            "frame": {
+                "x": 284,
+                "y": 142,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk0-se": {
+            "frame": {
+                "x": 426,
+                "y": 142,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk0-s": {
+            "frame": {
+                "x": 568,
+                "y": 142,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk1-n": {
+            "frame": {
+                "x": 0,
+                "y": 284,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk1-ne": {
+            "frame": {
+                "x": 142,
+                "y": 284,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk1-e": {
+            "frame": {
+                "x": 284,
+                "y": 284,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk1-se": {
+            "frame": {
+                "x": 426,
+                "y": 284,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk1-s": {
+            "frame": {
+                "x": 568,
+                "y": 284,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk2-n": {
+            "frame": {
+                "x": 0,
+                "y": 426,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk2-ne": {
+            "frame": {
+                "x": 142,
+                "y": 426,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk2-e": {
+            "frame": {
+                "x": 284,
+                "y": 426,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk2-se": {
+            "frame": {
+                "x": 426,
+                "y": 426,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk2-s": {
+            "frame": {
+                "x": 568,
+                "y": 426,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk3-n": {
+            "frame": {
+                "x": 0,
+                "y": 568,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk3-ne": {
+            "frame": {
+                "x": 142,
+                "y": 568,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk3-e": {
+            "frame": {
+                "x": 284,
+                "y": 568,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk3-se": {
+            "frame": {
+                "x": 426,
+                "y": 568,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-walk3-s": {
+            "frame": {
+                "x": 568,
+                "y": 568,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack0-n": {
+            "frame": {
+                "x": 0,
+                "y": 710,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack0-ne": {
+            "frame": {
+                "x": 142,
+                "y": 710,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack0-e": {
+            "frame": {
+                "x": 284,
+                "y": 710,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack0-se": {
+            "frame": {
+                "x": 426,
+                "y": 710,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack0-s": {
+            "frame": {
+                "x": 568,
+                "y": 710,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack1-n": {
+            "frame": {
+                "x": 0,
+                "y": 852,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack1-ne": {
+            "frame": {
+                "x": 142,
+                "y": 852,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack1-e": {
+            "frame": {
+                "x": 284,
+                "y": 852,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack1-se": {
+            "frame": {
+                "x": 426,
+                "y": 852,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack1-s": {
+            "frame": {
+                "x": 568,
+                "y": 852,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack2-n": {
+            "frame": {
+                "x": 0,
+                "y": 994,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack2-ne": {
+            "frame": {
+                "x": 142,
+                "y": 994,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack2-e": {
+            "frame": {
+                "x": 284,
+                "y": 994,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack2-se": {
+            "frame": {
+                "x": 426,
+                "y": 994,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack2-s": {
+            "frame": {
+                "x": 568,
+                "y": 994,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack3-n": {
+            "frame": {
+                "x": 0,
+                "y": 1136,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack3-ne": {
+            "frame": {
+                "x": 142,
+                "y": 1136,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack3-e": {
+            "frame": {
+                "x": 284,
+                "y": 1136,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack3-se": {
+            "frame": {
+                "x": 426,
+                "y": 1136,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-attack3-s": {
+            "frame": {
+                "x": 568,
+                "y": 1136,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-die1-n": {
+            "frame": {
+                "x": 0,
+                "y": 1278,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-die1-ne": {
+            "frame": {
+                "x": 142,
+                "y": 1278,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-die1-e": {
+            "frame": {
+                "x": 284,
+                "y": 1278,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-die1-se": {
+            "frame": {
+                "x": 426,
+                "y": 1278,
+                "w": 142,
+                "h": 142
+            }
+        },
+        "knight-spear-die1-s": {
+            "frame": {
+                "x": 568,
+                "y": 1278,
+                "w": 142,
+                "h": 142
+            }
+        }
+    },
+    "meta": {
+        "image": "knight-spear.png"
+    }
+}

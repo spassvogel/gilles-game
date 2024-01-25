@@ -145,7 +145,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 
   room: 4,
   avatarImg: `${avatarImgBasePath}male/m_19.png`,
-  spritesheet: 'SCENE_ACTOR_KNIGHT_SWORD',
+  spritesheet: 'SCENE_ACTOR_KNIGHT_SPEAR',
   traits: [Trait.arrowFinder],
   race: Race.human,
   skills: {

@@ -19,7 +19,8 @@ export const godray = new GodrayFilter()
 
 const options = {
   autoDensity: true,
-  sharedLoader: true
+  sharedLoader: true,
+  backgroundColor: 0x99e5f5,
 }
 
 const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref: React.Ref<PixiViewport>) => {

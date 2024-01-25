@@ -114,7 +114,7 @@ const TownView = () => {
   }
 
   useEffect(() => {
-    if (selectedStructure && viewportRef.current) {
+    if (selectedStructure != null && viewportRef.current != null) {
       const viewport = viewportRef.current
       viewport.zoomPercent(0)
       const position = getStructurePosition(selectedStructure as Structure)
