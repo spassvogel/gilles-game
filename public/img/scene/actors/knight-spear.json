@@ -320,50 +320,10 @@
                 "h": 142
             }
         },
-        "knight-spear-attack3-n": {
-            "frame": {
-                "x": 0,
-                "y": 1136,
-                "w": 142,
-                "h": 142
-            }
-        },
-        "knight-spear-attack3-ne": {
-            "frame": {
-                "x": 142,
-                "y": 1136,
-                "w": 142,
-                "h": 142
-            }
-        },
-        "knight-spear-attack3-e": {
-            "frame": {
-                "x": 284,
-                "y": 1136,
-                "w": 142,
-                "h": 142
-            }
-        },
-        "knight-spear-attack3-se": {
-            "frame": {
-                "x": 426,
-                "y": 1136,
-                "w": 142,
-                "h": 142
-            }
-        },
-        "knight-spear-attack3-s": {
-            "frame": {
-                "x": 568,
-                "y": 1136,
-                "w": 142,
-                "h": 142
-            }
-        },
         "knight-spear-die1-n": {
             "frame": {
                 "x": 0,
-                "y": 1278,
+                "y": 1136,
                 "w": 142,
                 "h": 142
             }
@@ -371,7 +331,7 @@
         "knight-spear-die1-ne": {
             "frame": {
                 "x": 142,
-                "y": 1278,
+                "y": 1136,
                 "w": 142,
                 "h": 142
             }
@@ -379,7 +339,7 @@
         "knight-spear-die1-e": {
             "frame": {
                 "x": 284,
-                "y": 1278,
+                "y": 1136,
                 "w": 142,
                 "h": 142
             }
@@ -387,7 +347,7 @@
         "knight-spear-die1-se": {
             "frame": {
                 "x": 426,
-                "y": 1278,
+                "y": 1136,
                 "w": 142,
                 "h": 142
             }
@@ -395,7 +355,7 @@
         "knight-spear-die1-s": {
             "frame": {
                 "x": 568,
-                "y": 1278,
+                "y": 1136,
                 "w": 142,
                 "h": 142
             }
