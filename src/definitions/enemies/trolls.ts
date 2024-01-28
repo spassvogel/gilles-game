@@ -67,7 +67,7 @@ const trolls: TrollDefinition = {
       [EquipmentSlotType.head]: 2,
       [EquipmentSlotType.shoulders]: 2
     },
-    spritesheet: 'SCENE_ACTOR_TROLL_AXE',
+    spritesheet: 'SCENE_ACTOR_ORC_AXE',
     avatarImg: `${avatarImgBasePath}orc_03.png`,
     race: Race.troll
   }
