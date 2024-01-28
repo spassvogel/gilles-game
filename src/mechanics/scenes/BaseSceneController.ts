@@ -58,21 +58,14 @@ type SceneEffectsEvents = {
  */
 export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as new () => TypedEmitter<SceneEffectsEvents>) {
   public questName: string
-
   public mapData?: TiledMapData
-
   public aStar?: AStarFinder
-
   public dataLoading = false
-
   public dataLoadComplete = false
-
   public store: Store<StoreState, AnyAction>
 
   protected jsonPath?: string
-
   protected blockedTiles: Location[] = []
-
   protected tileTypes: Record<string, number> = {} // map tiletype to gid
 
   constructor (store: Store<StoreState, AnyAction>, questName: string) {
@@ -127,6 +120,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     utils.clearTextureCache()
 
     for (const path of this.actorSpritesheetPaths) {
+      console.log(`(wouter left this in) path`, path);
       await Assets.load(path)
     }
     for (const path of this.effectSpritesheetPaths) {
@@ -844,6 +838,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     const adventurers = this.getAdventurers()
     return [
       ...adventurers.map(a => sprites[a.spritesheet]),
+      sprites.SCENE_ACTOR_ORC_AXE,
       sprites.SCENE_ACTOR_TROLL_SWORD, // todo: only load enemy sprites that are actually needed
       sprites.SCENE_ACTOR_TROLL_AXE // todo: only load enemy sprites that are actually needed
     ]

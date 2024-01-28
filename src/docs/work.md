@@ -873,8 +873,12 @@ Especially with the combat texts there is a lot of repetition. Eg:
 I would like to re-use earlier defined templates in other templates
 - [x] Done, using `{{template }} `helper
 
-### 2024-01-22 Shoot arrows
+### 2024-01-22 Consume arrows
 
 - [ ] Shooting should not be possible when no arrows in off hand
 - [ ] Shooting should actually take away arrows from the off hand
 - [ ] When last arrow disappears, the arrows should be removed from off hand
+
+### 2024-01-25 Sort order of actors
+
+- [ ] formula: y * (dead ? -1 * 1)

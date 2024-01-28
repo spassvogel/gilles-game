@@ -38,6 +38,8 @@ const ActionMenu = (props: Props) => {
     return object as EnemyObject
   }, [controller, location])
 
+  console.log(`enemyTargetted`, enemyTargetted)
+
   const renderButtonText = useCallback((intent: ActionIntent) => {
     switch (intent.action) {
       case SceneActionType.move: {
@@ -71,7 +73,7 @@ const ActionMenu = (props: Props) => {
           <DiamondFrame className="adventurer-frame gold">
             <AdventurerAvatar adventurer={adventurer} size={IconSize.big}/>
           </DiamondFrame>
-          {enemyTargetted?.name !== undefined && (
+          {enemyTargetted?.enemyType !== undefined && (
             <DiamondFrame className="enemy-frame gold">
               <EnemyAvatar actorObject={enemyTargetted} size={IconSize.big}/>
             </DiamondFrame>

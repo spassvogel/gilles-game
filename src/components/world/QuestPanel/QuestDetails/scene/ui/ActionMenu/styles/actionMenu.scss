@@ -40,8 +40,9 @@
 
     .enemy-frame {
       position: absolute;
+      transform: rotate(-45deg);
       top: -8px;
-      left: 50px;
+      left: 83px;
     }
   }
 

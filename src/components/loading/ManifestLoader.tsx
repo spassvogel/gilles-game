@@ -1,6 +1,6 @@
 import LoadingPage from 'components/ui/loading/LoadingPage'
 import * as TextManager from 'global/TextManager'
-import { sprites } from 'manifests/sprites'
+import { sprites } from 'bundles/sprites'
 import { sounds } from 'manifests/sounds'
 import { Assets, Loader } from 'pixi.js'
 import { type PropsWithChildren, useEffect, useRef, useState } from 'react'

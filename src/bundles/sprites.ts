@@ -1,4 +1,4 @@
-export const sprites: Record<string, string> = {
+export const sprites = {
   SCENE_ACTOR_ELF_BOW: '/img/scene/actors/elf-bow.json',
   SCENE_ACTOR_KNIGHT_SPEAR: '/img/scene/actors/knight-spear.json',
   SCENE_ACTOR_KNIGHT_SWORD: '/img/scene/actors/knight-sword.json',
@@ -30,3 +30,5 @@ export const sprites: Record<string, string> = {
   WORLD_MAP_MARKER_SELECTED: '/img/world/map-marker-selected.png',
   WORLD_MAP_QUEST_ALERT: '/img/world/quest-alert.png'
 }
+
+export type SceneSprite = keyof typeof sprites
