@@ -138,7 +138,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   id: `${ADVENTURER_PREFIX}d299f98a`,
   ...generateAttributesHealthAndXp(),
   equipment: {
-    [EquipmentSlotType.mainHand]: { type: 'weapon/steelSword' }
+    [EquipmentSlotType.mainHand]: { type: 'weapon/spear' }
   },
   name: 'Mike Keith',
   flavor: true,
@@ -149,7 +149,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   traits: [Trait.arrowFinder],
   race: Race.human,
   skills: {
-    [WeaponType.sword]: 13
+    [WeaponType.poleArm]: 13
   },
   tempEffects: [],
   inventory: [null, null, null, null, { type: 'weapon/khopesh' }, { type: 'apparel/hornedHelmet' }, { type: 'weapon/woodenBulwark' }]
