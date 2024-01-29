@@ -8,8 +8,7 @@ type Props = {
 const ItemText = (props: Props) => {
   const { item } = props
   if (item == null) {
-    console.log('empty item.. wtf')
-    return null
+    throw new Error('empty item.. wtf')
   }
 
   return (

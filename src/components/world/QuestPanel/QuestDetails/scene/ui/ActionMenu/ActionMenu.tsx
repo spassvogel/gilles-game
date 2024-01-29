@@ -22,7 +22,9 @@ type Props = {
   onClose: () => void
   onSetActionIntent: (intent?: ActionIntent) => void
 }
+// This component is replaced by ActionBar.
 
+/** @obsolete */
 const ActionMenu = (props: Props) => {
   const { adventurerId, location, intents, onClose, onSetActionIntent } = props
   const adventurer: AdventurerStoreState = useAdventurer(adventurerId)
@@ -37,8 +39,6 @@ const ActionMenu = (props: Props) => {
     const [object] = controller?.getObjectsAtLocation(location, isEnemy) ?? []
     return object as EnemyObject
   }, [controller, location])
-
-  console.log(`enemyTargetted`, enemyTargetted)
 
   const renderButtonText = useCallback((intent: ActionIntent) => {
     switch (intent.action) {

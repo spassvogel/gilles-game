@@ -75,7 +75,7 @@ const useDraggable = (element: RefObject<HTMLElement>, handle?: RefObject<HTMLEl
       }
     }
 
-    const dragEnd = () => {
+    const dragEnd = (evt: MouseEvent | TouchEvent) => {
       if (initial.current == null) return
 
       initial.current = current.current

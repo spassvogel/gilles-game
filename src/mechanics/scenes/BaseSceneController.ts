@@ -120,7 +120,6 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     utils.clearTextureCache()
 
     for (const path of this.actorSpritesheetPaths) {
-      console.log(`(wouter left this in) path`, path);
       await Assets.load(path)
     }
     for (const path of this.effectSpritesheetPaths) {
@@ -575,7 +574,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
       case SceneActionType.move: {
         const path = this.findPath(from, to)
         const apCost = this.combat ? this.calculateWalkApCosts(from, to) : undefined
-        const isValid = !((path?.length) == null) && (!this.combat || (apCost ?? 0) <= (actorAP ?? 0))
+        const isValid = path !== undefined && path.length > 0 && (!this.combat || (apCost ?? 0) <= (actorAP ?? 0))
 
         return ({
           action,

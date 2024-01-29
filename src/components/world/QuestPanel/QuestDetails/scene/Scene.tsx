@@ -160,7 +160,6 @@ const Scene = (props: Props) => {
         questName={controller.questName}
         selectedActorId={selectedActorId}
       />
-
       <SceneLog questId={controller.questName} />
     </div>
   )

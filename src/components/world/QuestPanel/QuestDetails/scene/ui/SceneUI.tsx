@@ -311,6 +311,7 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
           selectedAdventurerId={selectedActorId}
           visible={mouseDownOnCanvas.current}
           setCursorLocation={setCursorLocation}
+          actionIntent={actionIntent}
           onSetActionIntent={onSetActionIntent}
         />
       )}
