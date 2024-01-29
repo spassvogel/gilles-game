@@ -30,8 +30,8 @@ const ItemElement = (props: Props) => {
   const { children } = props
 
   const item = useMemo(() => {
-    if (typeof children[0] === 'string') {
-      return JSON.parse(children[0])
+    if (typeof children === 'string') {
+      return JSON.parse(children)
     }
   }, [children])
 

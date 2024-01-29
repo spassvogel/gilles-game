@@ -1,7 +1,7 @@
-import { createSelectorCreator, defaultMemoize } from 'reselect'
+import { createSelectorCreator, lruMemoize } from 'reselect'
 import stringArrayEqual from 'string-arrays-equal'
 
 export const createStringArraySelector = createSelectorCreator(
-  defaultMemoize,
+  lruMemoize,
   stringArrayEqual
 )
