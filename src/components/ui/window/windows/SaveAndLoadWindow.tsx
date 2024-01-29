@@ -50,9 +50,9 @@ const SaveAndLoadWindow = () => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const fileReader = new FileReader()
-    fileReader.onload = () => {
+    fileReader.onload = async () => {
       const encrypted = fileReader.result as string
-      const state = decryptSavedGame(encrypted)
+      const state = await decryptSavedGame(encrypted)
 
       setLoadedStore(state)
     }

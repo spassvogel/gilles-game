@@ -46,7 +46,6 @@
     "reselect": "^5.1.0",
     "sass": "^1.70.0",
     "seedrandom": "^3.0.5",
-    "simple-crypto-js": "^3.0.1",
     "string-arrays-equal": "^0.2.5",
     "text-param-case": "^1.0.2",
     "typed-emitter": "^2.1.0",
