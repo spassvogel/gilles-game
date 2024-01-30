@@ -59,7 +59,7 @@ const SettingsWindow = () => {
   }
 
   return (
-    <Window title={TextManager.get('ui-window-title-save-and-load')}>
+    <Window title={TextManager.get('ui-window-title-settings')}>
       <div className="settings-window">
         <details open className="settings-section sound" >
           <summary>Sound volume</summary>

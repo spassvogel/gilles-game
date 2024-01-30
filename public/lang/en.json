@@ -638,6 +638,11 @@
   "ui-view-button-town": "Town",
   "ui-view-button-world": "World",
 
+  "ui-window-title-cheats": "Cheats",
+  "ui-window-title-menu": "Menu",
+  "ui-window-title-settings": "Settings",
+  "ui-window-title-save-and-load": "Save and load",
+
   "weapon-class-main-hand": "Main Hand",
   "weapon-class-off-hand": "Off Hand",
   "weapon-class-one-handed": "One Handed",
