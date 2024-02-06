@@ -1,10 +1,12 @@
 import * as PIXI from 'pixi.js'
 import { PixiPlugin } from 'gsap/all'
 import { gsap } from 'gsap'
+import isMobile from 'ismobilejs'
 import { AppContextProvider } from './context'
 import { type ReactElement, useCallback, useState, useRef, useContext } from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import { TouchBackend } from 'react-dnd-touch-backend'
 import { HashRouter, Link, Navigate, Route, Routes } from 'react-router-dom'
 import { getTownLink, getWorldLink } from 'utils/routing'
 import * as TextManager from 'global/TextManager'
@@ -29,6 +31,8 @@ import { SoundManager } from 'global/SoundManager'
 
 PixiPlugin.registerPIXI(PIXI)
 gsap.registerPlugin(PixiPlugin)
+
+const backend = (isMobile(window.navigator).any ? TouchBackend : HTML5Backend);
 
 export const MAX_WIDTH = 960
 
@@ -73,7 +77,6 @@ const App = () => {
   const handleAppClick = () => {
     TooltipEmitter.clear()
   }
-
   return (
     <AppContextProvider value={{
       windowCount: activeWindows.length,
@@ -89,7 +92,7 @@ const App = () => {
         }}
         onClick={handleAppClick}
       >
-        <DndProvider backend={HTML5Backend}>
+        <DndProvider backend={backend}>
           <HashRouter>
             <Topbar />
             <div className="control-bar">
