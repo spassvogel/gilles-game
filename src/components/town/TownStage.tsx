@@ -2,7 +2,6 @@ import { useRef, useEffect, type PropsWithChildren, forwardRef, useImperativeHan
 import { Sprite } from '@pixi/react'
 import { type Viewport as PixiViewport } from 'pixi-viewport'
 import Viewport from 'components/pixi/Viewport'
-import { gsap } from 'gsap'
 import { GodrayFilter } from '@pixi/filter-godray'
 import BridgedStage from 'components/pixi/util/BridgedStage'
 import { sprites } from 'bundles/sprites'
@@ -20,7 +19,7 @@ export const godray = new GodrayFilter()
 const options = {
   autoDensity: true,
   sharedLoader: true,
-  backgroundColor: 0x99e5f5,
+  backgroundColor: 0x99e5f5
 }
 
 const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref: React.Ref<PixiViewport>) => {
@@ -82,7 +81,7 @@ const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref
           filters={[godray]}
         >
           {children}
-          </Sprite>
+        </Sprite>
       </Viewport>
     </BridgedStage>
 

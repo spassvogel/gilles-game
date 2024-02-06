@@ -41,7 +41,7 @@ const LumberMill = (props: Props) => {
       name={structure}
       position={props.position}
       eventMode='static'
-      pointertap={() => {
+      pointerdown={() => {
         props.onStructureClick(structure)
       }}
       hitArea={hitAreaShapes}

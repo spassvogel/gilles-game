@@ -58,7 +58,7 @@ const Generic = (props: Props) => {
       name={structure}
       position={position}
       eventMode='static'
-      pointertap={handlePointerTap}
+      pointerdown={handlePointerTap}
       hitArea={hitAreaShapes}
       filters={filters}
       image={getImagePath(structure)}

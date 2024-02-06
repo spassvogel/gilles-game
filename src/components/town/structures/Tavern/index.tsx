@@ -24,7 +24,7 @@ const Tavern = (props: Props) => {
       <Sprite
         name={structure}
         eventMode='static'
-        pointertap={() => { props.onStructureClick(structure) }}
+        pointerdown={() => { props.onStructureClick(structure) }}
         filters={filters}
         hitArea={hitAreaShapes}
         image={sprites.TOWN_STRUCTURE_TAVERN}
