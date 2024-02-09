@@ -4,16 +4,77 @@
   width: 100%;
   height: 100%;
   background-color: $color-background-overlay-lighter;
+
+
+  .dropzone-top, .dropzone-bottom {
+    border: 2px solid white;
+    position: absolute;
+    height: 48px;
+    left: 1rem;
+    width: calc(100% - 2rem);
+    display: none;
+
+    &:hover {
+      border-color: $color-highlighted;
+    }
+  }
+
+  .dropzone-top {
+    top: 1rem;
+  }
+
+  .dropzone-bottom {
+    bottom: 1rem;
+  }
+
+  &.dragging {
+    .dropzone-top, .dropzone-bottom {
+      display: block;
+    }
+  }
+  // &.dragging::before,
+  // &.dragging::after {
+  //   content: "";
+  //   border: 2px solid white;
+  //   position: absolute;
+  //   height: 48px;
+  //   left: 1rem;
+  //   width: calc(100% - 2rem);
+
+  //   :hover {
+  //     border: 2px solid $color-highlighted;
+  //   }
+  // }
+
+  // &.dragging::before:hover {
+  //   border: 4px solid $color-highlighted;
+
+  // }
+
+
+  // &.dragging::before {
+  //   top: 1rem;
+  // }
+
+  // &.dragging::after {
+  //   bottom: 1rem;
+  // }
 }
 
 .action-bar {
   position: absolute;
   background-color: $color-secondary;
-  top: 1rem;
   left: 1rem;
   width: calc(100% - 2rem);
   @include no-select;
 
+  &.attached-top {
+    top: 1rem;
+  }
+
+  &.attached-bottom {
+    bottom: 1rem;
+  }
 
   .button {
     .item-icon {

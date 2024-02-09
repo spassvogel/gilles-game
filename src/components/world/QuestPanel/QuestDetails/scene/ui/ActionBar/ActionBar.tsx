@@ -41,7 +41,7 @@ const ActionMenu = (props: Props) => {
 
   const ref = useRef<HTMLDivElement>(null)
   const handle = useRef<HTMLDivElement>(null)
-  // useDraggable(ref, handle)
+  const bgRef = useRef<HTMLDivElement>(null)
 
   const enemyTargetted = useMemo(() => {
     const [object] = controller?.getObjectsAtLocation(location, isEnemy) ?? []
@@ -107,9 +107,53 @@ const ActionMenu = (props: Props) => {
     openTooltip(e, object as ActorObject)
   }
 
+  // todo: fix up
+  useEffect(() => {
+    document.addEventListener("dragstart", function(event) {
+      // event.dataTransfer.setData("text/plain", event.target.style.cursor = "move");
+      event.target.style.transform = document.querySelector('.scene-ui').style.transform
+      bgRef.current.classList.add('dragging')
+    });
+
+    ref.current!.addEventListener("drag", (e)=>{
+      e.target.style.display = 'none'
+    });
+    ref.current!.addEventListener("dragend", (event)=>{
+      event.target.style.display = 'block'
+      event.target.style.transform = ''
+      bgRef.current.classList.remove('dragging')
+    });
+
+    // By default, data/elements cannot be dropped in other elements. To allow a drop, we must prevent the default handling of the element
+    bgRef.current?.querySelectorAll('[data-drop-area]').forEach((el) => {
+      el.addEventListener("dragover", (event) => {
+        event.dataTransfer.dropEffect = "move";
+        event.dataTransfer.effectAllowed = "move";
+        event.preventDefault()
+      })
+    })
+
+    document.addEventListener("drop", function(event) {
+      event.preventDefault();
+
+      if (event.target == null) return
+      const area = (event.target as HTMLElement).dataset.dropArea
+      if (area != null) {
+        ref.current!.classList.remove('attached-top', 'attached-bottom')
+        ref.current!.classList.add(`attached-${area}`)
+      }
+
+      ref.current!.style.display = 'block'
+      ref.current!.style.transform = ''
+      bgRef.current.classList.remove('dragging')
+    });
+  })
+
   return (
-    <div className="action-bar-background" >
-      <div className="action-bar" ref={ref}>
+    <div className="action-bar-background" ref={bgRef}>
+      <div className="dropzone-top" data-drop-area="top"></div>
+      <div className="dropzone-bottom" data-drop-area="bottom"></div>
+      <div className="action-bar attached-top" ref={ref} draggable>
         <div className="background" ref={handle}>
           <div className="actors">
             <div onClick={handleAdventurerPortraitClick}>
