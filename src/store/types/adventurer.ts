@@ -7,7 +7,7 @@ import { type Trait } from 'definitions/traits/types'
 import { type TempEffect } from 'definitions/tempEffects/types'
 import { type WeaponType } from 'definitions/weaponTypes/types'
 import { type Race } from 'constants/race'
-import { sprites } from 'bundles/sprites'
+import { type sprites } from 'bundles/sprites'
 
 export type AdventurerStoreState = {
   id: string

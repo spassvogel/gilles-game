@@ -4,8 +4,9 @@ import { type Item } from 'definitions/items/types'
 import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import Icon, { type IconSize } from 'components/ui/common/Icon'
 import { getIconClassName, sizeClassName } from './utils'
-import './styles/itemIcon.scss'
 import { ContextType } from 'constants/context'
+
+import './styles/itemIcon.scss'
 
 export type Props = {
   item: Item
@@ -17,13 +18,13 @@ export type Props = {
 
 const ItemIcon = (props: Props) => {
   const { item, size, source } = props
-  if (!item) {
+  if (item == null) {
     console.log('empty item.. wtf')
     return null
   }
   const itemDefinition = getDefinition(item.type)
 
-  if (!itemDefinition) {
+  if (itemDefinition == null) {
     throw new Error(`could not find definition for ${item.type}`)
   }
 

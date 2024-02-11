@@ -1,6 +1,6 @@
 import { forwardRef, useCallback, useImperativeHandle, useState } from 'react'
 import CombatUIWidget from './CombatUIWidget'
-import useActionIntents from './hooks/useActionIntents'
+import useSceneActionIntents from './hooks/useActionIntents'
 import { type Location } from 'utils/tilemap'
 import { type ActionIntent } from './SceneUI'
 import ActionBar from './ActionBar/ActionBar'
@@ -30,7 +30,7 @@ const AdventurerCombatSceneUI = forwardRef<Refs, Props>((props: Props, ref) => {
     actionIntent
   } = props
   const [actionMenuOpen, setActionMenuOpen] = useState(false)
-  const combatIntents = useActionIntents(selectedAdventurerId, cursorLocation)
+  const combatIntents = useSceneActionIntents(selectedAdventurerId, cursorLocation)
 
   const handleCloseActionMenu = () => {
     setActionMenuOpen(false)

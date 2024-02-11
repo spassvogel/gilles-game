@@ -11,7 +11,7 @@ import { getDefinition as getWeaponTypeDefinition } from 'definitions/weaponType
 import { WeaponClassification } from 'definitions/weaponTypes/types'
 import { getDefinition as getAbilityDefinition } from 'definitions/abilities'
 
-const useActionIntents = (adventurerId: string, location?: Location) => {
+const useSceneActionIntents = (adventurerId: string, location?: Location) => {
   const adventurer: AdventurerStoreState = useAdventurer(adventurerId)
   const weapons = adventurerWeapons(adventurer)
   const controller = useContext(SceneControllerContext)
@@ -70,4 +70,4 @@ const useActionIntents = (adventurerId: string, location?: Location) => {
   }, [moveIntent, weaponIntents])
 }
 
-export default useActionIntents
+export default useSceneActionIntents

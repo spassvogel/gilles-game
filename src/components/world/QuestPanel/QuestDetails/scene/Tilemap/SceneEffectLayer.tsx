@@ -1,6 +1,6 @@
+import { useEffect, useRef } from 'react'
 import { Container } from '@pixi/react'
 import { type BaseSceneController, EVENT_SCENE_EFFECT } from 'mechanics/scenes/BaseSceneController'
-import { useEffect, useRef } from 'react'
 import { AnimatedSprite, Assets, type Container as PixiContainer, type Point } from 'pixi.js'
 
 type Props = {

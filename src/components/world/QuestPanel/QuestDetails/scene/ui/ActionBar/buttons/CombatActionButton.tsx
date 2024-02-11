@@ -1,25 +1,24 @@
-import { useContext } from 'react'
+import { type ComponentProps, useContext } from 'react'
 import { type Location } from 'utils/tilemap'
 import { type AdventurerStoreState } from 'store/types/adventurer'
 import { SceneControllerContext } from 'components/world/QuestPanel/context/SceneControllerContext'
-import { type ActionIntent } from '../SceneUI'
+import { type ActionIntent } from '../../SceneUI'
 import { SceneActionType } from 'store/types/scene'
 import Icon, { IconSize } from 'components/ui/common/Icon'
 import { getDefinition as getWeaponDefinition } from 'definitions/items/weapons'
+import ActionButton from './ActionButton'
 
-type Props = {
+type Props = ComponentProps<typeof ActionButton> & {
   adventurer: AdventurerStoreState
   location: Location
   intent: ActionIntent
-  onSetActionIntent: (intent?: ActionIntent) => void
-  active?: boolean
 }
 
-const ActionButton = (props: Props) => {
+const CombatActionButton = (props: Props) => {
   const {
     intent,
-    onSetActionIntent,
-    active = false
+    active = false,
+    onClick
   } = props
   const controller = useContext(SceneControllerContext)
   if (controller == null) throw new Error('No controller')
@@ -45,13 +44,10 @@ const ActionButton = (props: Props) => {
   }
 
   return (
-    <div
-      className={`action-button ${active ? 'active' : ''}`}
-      onClick={() => { onSetActionIntent(intent) }}
-    >
+    <ActionButton active={active} onClick={onClick}>
       {renderIcon()}
-    </div>
+    </ActionButton>
   )
 }
 
-export default ActionButton
+export default CombatActionButton

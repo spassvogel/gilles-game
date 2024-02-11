@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react'
-import { type ItemType } from 'definitions/items/types'
+import { type Item } from 'definitions/items/types'
 import { type TraitDefinition } from 'definitions/traits/types'
 import { type ActorObject } from 'store/types/scene'
 import { type Effect } from 'definitions/effects/types'
@@ -18,4 +18,4 @@ export enum ContextType {
   trait,
 }
 
-export type ContextInfo = ItemType | TraitDefinition | WeaponType | string | ReactNode | ExtendedAttribute | ActorObject | Effect
+export type ContextInfo = Item | TraitDefinition | WeaponType | string | ReactNode | ExtendedAttribute | ActorObject | Effect

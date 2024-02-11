@@ -1,0 +1,11 @@
+@import '@/components/styles/import.scss';
+
+.secondary-action-bar {
+  &.potions {
+    .potion {
+      &.active {
+        border: 2px solid $color-link;
+      }
+    }
+  }
+}

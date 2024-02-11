@@ -21,6 +21,7 @@ import NormalUICursor from './NormalUICursor'
 import { type Ammunition } from 'definitions/items/ammunition'
 import { type WeaponAbility } from 'definitions/abilities/types'
 import AdventurerCombatSceneUI, { type Refs } from './AdventurerCombatSceneUI'
+import { type Consumable } from 'definitions/items/consumables'
 
 import './styles/sceneUI.scss'
 
@@ -36,11 +37,14 @@ export type Props = {
 
 type BaseActionIntent = {
   action: SceneActionType
+  actor: ActorObject
+  isValid: boolean
+}
+
+type BaseLocalizedActionIntent = BaseActionIntent & {
   from: Location
   to: Location
-  actor: ActorObject
   path?: Location[] // is undefined when path is invalid
-  isValid: boolean
 }
 
 export type WeaponWithAbility = {
@@ -48,26 +52,29 @@ export type WeaponWithAbility = {
   ability: WeaponAbility
 }
 
-export type ActionIntent = BaseActionIntent & {
+export type ActionIntent = BaseLocalizedActionIntent & {
   // Non combat actions
   action: SceneActionType.interact
-} | BaseActionIntent & {
+} | BaseLocalizedActionIntent & {
   //
   action: SceneActionType.move
   apCost?: number
   actorAP?: number
-} | BaseActionIntent & {
+} | BaseLocalizedActionIntent & {
   //
   action: SceneActionType.melee
   apCost?: number
   actorAP?: number
   weaponWithAbility: WeaponWithAbility
-} | BaseActionIntent & {
+} | BaseLocalizedActionIntent & {
   action: SceneActionType.shoot
   apCost?: number
   actorAP?: number
   weaponWithAbility: WeaponWithAbility
   ammo: Item<Ammunition>
+} | BaseActionIntent & {
+  action: SceneActionType.consume
+  item: Item<Consumable>
 }
 
 // This thing scales itself based on the canvas which should be a sibling of this component

@@ -26,12 +26,12 @@ import { Type } from 'components/ui/toasts/Toast'
 import { getQuestLink } from 'utils/routing'
 import { type TextEntry, isTextEntry } from 'constants/text'
 import * as TextManager from 'global/TextManager'
-import { addLogEntry } from 'store/actions/log'
+import { addLogEntry, addLogText } from 'store/actions/log'
 import { getDefinition } from 'definitions/quests'
 import { getDefinition as getEnemyDefinition } from 'definitions/enemies'
 import { LogChannel } from 'store/types/logEntry'
 import { addGold } from 'store/actions/gold'
-import { addItemToInventory, removeItemFromInventory } from 'store/actions/adventurers'
+import { addItemToInventory, consumeItem, removeItemFromInventory } from 'store/actions/adventurers'
 import { adventurersOnQuest, getSceneObjectsAtLocation, getSceneObjectWithName } from 'store/helpers/storeHelpers'
 import { type Item, type ItemType } from 'definitions/items/types'
 import { Assets, Point, utils } from 'pixi.js'
@@ -44,6 +44,7 @@ import { type ActionIntent, type WeaponWithAbility } from 'components/world/Ques
 import { type Ammunition } from 'definitions/items/ammunition'
 import { calculateEffectiveAttributes } from 'mechanics/adventurers/attributes'
 import { sprites } from 'bundles/sprites'
+import { Channel, SoundManager } from 'global/SoundManager'
 
 const effectSpritesheetBasePath = '/img/scene/effects/'
 export const movementDuration = 500 // time every tile movement takes
@@ -216,7 +217,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
           this.log(node.log)
         }
         this.dispatch(exitEncounter(this.questName))
-      } else if (destination.properties.to) {
+      } else if (destination.properties.to != null) {
         // Load another scene
         this.dispatch(setSceneName(this.questName, destination.properties.to as string))
       }
@@ -239,7 +240,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
   // todo: is this the same as createActionIntent?
   actorAttemptAction (intent: ActionIntent) {
     // Tries to perform action on given actor
-    const { actor, action, to } = intent
+    const { actor, action } = intent
     if (actor === undefined) return
     const { location } = actor
     if (location == null) throw new Error('No location found!')
@@ -247,7 +248,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     switch (action) {
       case SceneActionType.move: {
         // Find path to move using aStar
-
+        const { to } = intent
         this.dispatch(enqueueSceneAction(this.questName, {
           endsAt: performance.now() + (intent.path?.length ?? 0 + 1) * movementDuration,
           intent
@@ -322,6 +323,25 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
           intent
         }
         this.dispatch(enqueueSceneAction(this.questName, shootAction))
+        break
+      }
+      case SceneActionType.consume: {
+        if (!isAdventurer(intent.actor)) {
+          throw new Error('Only adventurers can drink potions!')
+        }
+        const adventurer = this.getAdventurerByActor(intent.actor)
+        if (adventurer == null) {
+          throw new Error('No Adventurer found')
+        }
+        const fromSlot = adventurer.inventory.findIndex((i) => (intent.item === i))
+        this.dispatch(consumeItem(adventurer.id, fromSlot))
+        void SoundManager.playSound('SCENE_DRINKING', Channel.scene)
+
+        // Add log entry
+        this.dispatch(addLogText('adventurer-drink-potion', {
+          item: intent.item,
+          adventurer: adventurer.id
+        }, LogChannel.common))
       }
     }
   }

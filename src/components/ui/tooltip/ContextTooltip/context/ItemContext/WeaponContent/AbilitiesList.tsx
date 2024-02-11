@@ -19,7 +19,7 @@ const AbilitiesList = (props: Props) => {
             {TextManager.getAbilityName(ability)}
             {' '}
             <span className="passive">
-              {!!definition.passive && '(passive)'}
+              {definition.passive === true && '(passive)'}
             </span>
           </li>
         )

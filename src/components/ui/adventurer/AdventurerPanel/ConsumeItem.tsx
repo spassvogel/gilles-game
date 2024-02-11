@@ -33,11 +33,13 @@ const ConsumeItem = (props: Props) => {
   const quest = useQuest(questName ?? '')
   const dispatch = useDispatch()
   const combat = ((quest?.scene?.combat) ?? false) // if in combat mode, you have to pay AP to consume an item
-  const ap = useMemo(() => {
-    return getAdventurer(quest?.scene?.objects ?? [], adventurerId)?.ap ?? 0
-  }, [quest, adventurerId])
 
-  const enoughAp = ap >= AP_COST_CONSUME
+  // this component is not used in combat
+  // const ap = useMemo(() => {
+  //   return getAdventurer(quest?.scene?.objects ?? [], adventurerId)?.ap ?? 0
+  // }, [quest, adventurerId])
+
+  // const enoughAp = ap >= AP_COST_CONSUME
 
   const handleDrop = (dragInfo: InventoryItemDragInfo) => {
     if (dragInfo.inventorySlot !== undefined) {
@@ -56,11 +58,11 @@ const ConsumeItem = (props: Props) => {
     if ((consumable == null) || !isConsumable(consumable.type)) {
       throw new Error(`No potion found at index ${fromSlot} `)
     }
-    if (combat) {
-      if (questName == null) return
-      // Deduct AP from adventurer if in combat
-      dispatch(deductActorAp(questName, adventurerId, AP_COST_CONSUME))
-    }
+    // if (combat) {
+    //   if (questName == null) return
+    //   // Deduct AP from adventurer if in combat
+    //   dispatch(deductActorAp(questName, adventurerId, AP_COST_CONSUME))
+    // }
 
     dispatch(consumeItem(adventurerId, fromSlot))
     void SoundManager.playSound('SCENE_DRINKING', Channel.scene)
@@ -71,6 +73,7 @@ const ConsumeItem = (props: Props) => {
       dispatch(addLogText('adventurer-drink-potion', { item, adventurer: adventurerId }, LogChannel.common))
     }
   }
+
   return (
     <fieldset className="consume-item">
       <legend>{TextManager.get('ui-adventurer-info-use-item')}</legend>
