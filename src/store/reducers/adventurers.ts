@@ -65,7 +65,27 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [WeaponType.bow]: 10
   },
   tempEffects: [],
-  inventory: [{ type: 'deed/lumbermill' }, null, { type: 'weapon/simpleCrossbow' }, { type: 'weapon/dagger' }, { type: 'weapon/khopesh' }, null, { type: 'weapon/steelSword' }, null, { type: 'consumable/lesserSoma' }, { type: 'consumable/minorSoma' }, { type: 'consumable/greaterManaPotion' }, { type: 'consumable/majorHealthPotion' }, null, { type: 'weapon/steelShield' }, null, null, null, null]
+  inventory: [
+    { type: 'deed/lumbermill' },
+    null,
+    { type: 'weapon/simpleCrossbow' },
+    { type: 'weapon/dagger' },
+    { type: 'weapon/khopesh' },
+    null,
+    { type: 'weapon/steelSword' },
+    null,
+    { type: 'consumable/lesserSoma' },
+    { type: 'consumable/minorSoma' },
+    { type: 'consumable/majorRagePotion' },
+    { type: 'consumable/greaterManaPotion' },
+    { type: 'consumable/majorHealthPotion' },
+    null,
+    { type: 'weapon/steelShield' },
+    null,
+    null,
+    null,
+    null
+  ]
 }, {
   id: `${ADVENTURER_PREFIX}2e655832`,
   equipment: {
@@ -88,7 +108,33 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [WeaponType.staff]: 13
   },
   tempEffects: [],
-  inventory: [{ type: 'weapon/simpleCrossbow' }, null, { type: 'consumable/greaterSoma' }, null, null, null, { type: 'apparel/boots1' }, { type: 'apparel/chainmailHood' }, { type: 'apparel/nomadHelmet' }, { type: 'apparel/plateChest4' }, null, { type: 'weapon/buckler' }, null, null, null, null, null, null, null, null, null, null, null, { type: 'apparel/plateHelmet' }, { type: 'apparel/cowl' }]
+  inventory: [
+    { type: 'weapon/simpleCrossbow' },
+    null,
+    { type: 'consumable/greaterSoma' },
+    null,
+    null,
+    null,
+    { type: 'apparel/boots1' },
+    { type: 'apparel/chainmailHood' },
+    { type: 'apparel/nomadHelmet' },
+    { type: 'apparel/plateChest4' },
+    null,
+    { type: 'weapon/buckler' },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    { type: 'consumable/minorRagePotion' },
+    { type: 'apparel/plateHelmet' },
+    { type: 'apparel/cowl' }]
 }, {
   id: `${ADVENTURER_PREFIX}ec6f1050`,
   equipment: {
@@ -133,7 +179,17 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   //   damage: 4,
   //   interval: 5000
   // }],
-  inventory: [{ type: 'weapon/greatswordOfGwai' }, { type: 'consumable/greaterSoma' }, { type: 'consumable/greaterSoma' }, null, null, null, { type: 'weapon/berserkerShield' }, { type: 'weapon/warhammer' }]
+  inventory: [
+    { type: 'consumable/minorRagePotion' },
+    { type: 'weapon/greatswordOfGwai' },
+    { type: 'consumable/greaterSoma' },
+    { type: 'consumable/greaterSoma' },
+    null,
+    null,
+    null,
+    { type: 'weapon/berserkerShield' },
+    { type: 'weapon/warhammer' }
+  ]
 }, {
   id: `${ADVENTURER_PREFIX}d299f98a`,
   ...generateAttributesHealthAndXp(),
@@ -152,7 +208,15 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [WeaponType.poleArm]: 13
   },
   tempEffects: [],
-  inventory: [null, null, null, null, { type: 'weapon/khopesh' }, { type: 'apparel/hornedHelmet' }, { type: 'weapon/woodenBulwark' }]
+  inventory: [
+    { type: 'consumable/lesserRagePotion' },
+    null,
+    null,
+    null,
+    null,
+    { type: 'weapon/khopesh' },
+    { type: 'apparel/hornedHelmet' },
+    { type: 'weapon/woodenBulwark' }]
 }, {
   id: `${ADVENTURER_PREFIX}96c686c3`,
   equipment: {},

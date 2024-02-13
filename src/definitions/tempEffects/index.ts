@@ -22,6 +22,12 @@ export const getEffects = <T extends TempEffect> (tempEffect: Omit<T, 'effects'>
         damage: t.damage
       }]
     }
+    case TempEffectType.rage: {
+      return [{
+        type: EffectType.damageMultiplier,
+        factor: t.factor
+      }]
+    }
     case TempEffectType.soma: {
       return attributeList.map((attribute: Attribute) => ({
         type: EffectType.attributeIncrease,
@@ -41,23 +47,3 @@ export const createTempEffect = <T extends TempEffect> (tempEffect: Omit<T, 'eff
     effects: getEffects(tempEffect)
   }
 }
-
-// const all = {
-//   [EffectType.attributeIncrease]: {
-//     harmful: false
-//   },
-//   [EffectType.brokenLegs]: {
-//     harmful: true
-//   },
-//   [EffectType.burning]: {
-//     harmful: true
-//   },
-//   [EffectType.soma]: {
-//     harmful: false
-//   }
-// }
-
-// export default all
-// export function getDefinition(effectType: EffectType): EffectDefinition {
-//   return all[effectType] as unknown as EffectDefinition
-// }

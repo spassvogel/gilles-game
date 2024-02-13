@@ -18,7 +18,7 @@ const EffectContext = (props: Props) => {
          { getTempEffectDescription(effect)}
       </div>
       { /* show time remaining */ }
-      { charges && (
+      { charges !== 0 && charges != null && (
         <div>
           {TextManager.get(charges === 1 ? 'ui-tooltip-effect-one-charge-remains' : 'ui-tooltip-effect-n-charges-remain', { charges }) }
         </div>

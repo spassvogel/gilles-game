@@ -4,6 +4,7 @@ import { type Attribute } from 'store/types/adventurer'
 
 export enum EffectType {
   attributeIncrease,
+  damageMultiplier,
   healthDecreaseOnMove, // every step decreases health
   healthDecreaseOverTime,
 }
@@ -20,6 +21,11 @@ export type EffectAttibuteIncrease = BaseEffect & {
   factor: number // multiply base attribute by this
 }
 
+export type EffectDamageMultiplier = BaseEffect & {
+  type: EffectType.damageMultiplier
+  factor: number // multiply all damage done by this
+}
+
 export type EffectHealthDecreaseOnMove = BaseEffect & {
   type: EffectType.healthDecreaseOnMove
   damage: number
@@ -32,6 +38,7 @@ export type EffectHealthDecreaseOverTime = BaseEffect & {
 }
 
 export type Effect = EffectAttibuteIncrease
+| EffectDamageMultiplier
 | EffectHealthDecreaseOnMove
 | EffectHealthDecreaseOverTime
 

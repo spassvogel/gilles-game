@@ -5,10 +5,11 @@ const PREFIX = 'consumable/'
 const itemCategory = ItemCategory.consumable
 const basePath = '/img/items/consumables/'
 
-export type ConsumableCategory = 'health' | 'soma' | 'mana'
+export type ConsumableCategory = 'health' | 'rage' | 'soma' | 'mana'
 export type ConsumableDefinition = {
   category: ConsumableCategory
   effect?: number
+  charges?: number
 } & ItemDefinition
 
 const consumables = {
@@ -22,6 +23,13 @@ const consumables = {
     category: 'mana',
     itemCategory,
     iconImg: `${basePath}minor-mana-potion.png`
+  },
+  minorRagePotion: {
+    category: 'rage',
+    itemCategory,
+    iconImg: `${basePath}minor-rage-potion.png`,
+    effect: 1.5,
+    charges: 2
   },
   minorSoma: {
     category: 'soma',
@@ -40,6 +48,13 @@ const consumables = {
     itemCategory,
     iconImg: `${basePath}lesser-mana-potion.png`
   },
+  lesserRagePotion: {
+    category: 'rage',
+    itemCategory,
+    iconImg: `${basePath}lesser-rage-potion.png`,
+    effect: 2,
+    charges: 2
+  },
   lesserSoma: {
     category: 'soma',
     itemCategory,
@@ -57,6 +72,13 @@ const consumables = {
     itemCategory,
     iconImg: `${basePath}major-mana-potion.png`
   },
+  majorRagePotion: {
+    category: 'rage',
+    itemCategory,
+    iconImg: `${basePath}major-rage-potion.png`,
+    effect: 3,
+    charges: 3
+  },
   majorSoma: {
     category: 'soma',
     itemCategory,
@@ -73,6 +95,13 @@ const consumables = {
     category: 'mana',
     itemCategory,
     iconImg: `${basePath}greater-mana-potion.png`
+  },
+  greaterRagePotion: {
+    category: 'rage',
+    itemCategory,
+    iconImg: `${basePath}greater-rage-potion.png`,
+    effect: 4,
+    charges: 3
   },
   greaterSoma: {
     category: 'soma',

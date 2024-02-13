@@ -7,6 +7,7 @@ import { type Effect } from 'definitions/effects/types'
 export enum TempEffectType {
   brokenLegs, // every step decreases health
   burning,
+  rage,
   soma,
 }
 
@@ -28,6 +29,11 @@ export type TempEffectBurning = BaseTempEffect & {
   damage: number
 }
 
+export type TempEffectRage = BaseTempEffect & {
+  type: TempEffectType.rage
+  factor: number
+}
+
 export type TempEffectSoma = BaseTempEffect & {
   type: TempEffectType.soma
   factor: number
@@ -35,4 +41,5 @@ export type TempEffectSoma = BaseTempEffect & {
 
 export type TempEffect = TempEffectBrokenLegs
 | TempEffectBurning
+| TempEffectRage
 | TempEffectSoma

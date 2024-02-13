@@ -12,6 +12,9 @@ const all = {
   [EffectType.attributeIncrease]: {
     harmful: false
   },
+  [EffectType.damageMultiplier]: {
+    harmful: false
+  },
   [EffectType.healthDecreaseOnMove]: {
     harmful: true
   },

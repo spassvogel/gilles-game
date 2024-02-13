@@ -3,7 +3,11 @@ import { collectEffects } from 'definitions/effects'
 import { type Effect, EffectType } from 'definitions/effects/types'
 import { getDefinition, isConsumable } from 'definitions/items/consumables'
 import { createTempEffect } from 'definitions/tempEffects'
-import { type TempEffectSoma, TempEffectType } from 'definitions/tempEffects/types'
+import {
+  type TempEffectSoma,
+  TempEffectType,
+  type TempEffectRage
+} from 'definitions/tempEffects/types'
 import { type Action } from 'store/actions'
 import { addTempEffect, decreaseEffectCharge, modifyHealth } from 'store/actions/adventurers'
 import { type StoreState } from 'store/types'
@@ -17,7 +21,7 @@ const effectTick = (storeApi: AppMiddlewareAPI, effect: Effect, adventurerId: st
 }
 
 // character effect
-export const effectsMiddleware: Middleware<unknown, StoreState> = (storeApi: AppMiddlewareAPI) => next => (action: Action) => {
+export const effectsMiddleware: Middleware<Action, StoreState> = (storeApi: AppMiddlewareAPI) => next => (action: Action) => {
   const state = storeApi.getState()
 
   for (const adventurer of state.adventurers) {
@@ -51,6 +55,15 @@ export const effectsMiddleware: Middleware<unknown, StoreState> = (storeApi: App
       }
       const definition = getDefinition(consumable.type)
       switch (definition.category) {
+        case 'rage': {
+          const tempEffect = createTempEffect<TempEffectRage>({
+            type: TempEffectType.rage,
+            factor: definition.effect ?? 1,
+            charges: definition.charges ?? 1
+          })
+          storeApi.dispatch(addTempEffect(adventurerId, tempEffect))
+          break
+        }
         case 'soma': {
           const tempEffect = createTempEffect<TempEffectSoma>({
             type: TempEffectType.soma,

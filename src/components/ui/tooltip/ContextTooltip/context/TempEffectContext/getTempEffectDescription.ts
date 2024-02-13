@@ -8,13 +8,14 @@ const getTempEffectDescription = (effect: TempEffect) => {
       return TextManager.getTempEffectDescription(effect, { interval })
     }
 
-    case TempEffectType.brokenLegs:
-      return TextManager.getTempEffectDescription(effect)
-
+    case TempEffectType.rage:
     case TempEffectType.soma: {
       const percentage = (effect.factor * 100 - 100).toFixed()
       return TextManager.getTempEffectDescription(effect, { percentage })
     }
+
+    default:
+      return TextManager.getTempEffectDescription(effect)
   }
 }
 export default getTempEffectDescription

@@ -10,6 +10,11 @@ const getEffectDescription = (effect: Effect) => {
 
       return TextManager.getEffectDescription(effect, { attribute, percentage })
     }
+    case EffectType.damageMultiplier: {
+      const percentage = (effect.factor * 100 - 100).toFixed()
+
+      return TextManager.getEffectDescription(effect, { percentage })
+    }
     case EffectType.healthDecreaseOverTime: {
       const interval = (effect.interval / 1000).toFixed()
       return TextManager.getEffectDescription(effect, { interval })

@@ -44,10 +44,10 @@ const PotionSecondaryActionBar = (props: Props) => {
   return (
     <div className="secondary-action-bar potions">
       {consumables.map((item, i) => (
-        <div className={`potion ${activeIntent?.action === SceneActionType.consume && activeIntent.item === item ? 'active' : ''}`}>
+        <div className={`potion ${activeIntent?.action === SceneActionType.consume && activeIntent.item === item ? 'active' : ''}`} key={i + item.type}>
           <ItemIcon
             size={IconSize.medium}
-            item={item} key={i + item.type}
+            item={item}
             onClick={() => { handleClick(item) }}
           />
         </div>

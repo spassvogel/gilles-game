@@ -10,6 +10,8 @@ const getIconImage = (effectType: TempEffectType) => {
       return 'knee-bandage.svg'
     case TempEffectType.burning:
       return 'flaming-claw.svg'
+    case TempEffectType.rage:
+      return 'pyromaniac.svg'
     case TempEffectType.soma:
       return 'embrassed-energy.svg'
   }

@@ -29,6 +29,8 @@ import { ToastEmitter } from 'emitters/ToastEmitter'
 import { Type } from 'components/ui/toasts/Toast'
 import { random } from 'utils/random'
 import { BubbleType } from 'emitters/BubbleEmitter'
+import { collectEffects } from 'definitions/effects'
+import { EffectType } from 'definitions/effects/types'
 
 // todo: dont use a class anymore
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -301,7 +303,9 @@ export class CombatController {
     const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0 * critModifier
     const bodyPart = rollBodyPart()
     const armor = this.getArmor(target, bodyPart)
-    const damage = rawDamage - armor
+
+    const dmgMultiplier = CombatController.getDmgMultiplier(actor)
+    const damage = (rawDamage - armor) * dmgMultiplier
     const mitigated = rawDamage - damage
 
     this.sceneController.bubbleAtLocation(`${damage}`, location, crit ? BubbleType.crit : BubbleType.combat)
@@ -375,7 +379,9 @@ export class CombatController {
     const rawDamage = weaponDefinition.damage?.[DamageType.kinetic] ?? 0 * critModifier
     const bodyPart = rollBodyPart()
     const armor = this.getArmor(target, bodyPart)
-    const damage = rawDamage - armor
+
+    const dmgMultiplier = CombatController.getDmgMultiplier(actor)
+    const damage = (rawDamage - armor) * dmgMultiplier
     const mitigated = rawDamage - damage
 
     this.sceneController.bubbleAtLocation(`${damage}`, location, crit ? BubbleType.crit : BubbleType.combat)
@@ -460,6 +466,23 @@ export class CombatController {
       // const decreasedDurability = decreaseDurability(damage, armor)
       // bodyPart
     }
+  }
+
+  protected static getDmgMultiplier (actor: ActorObject) {
+    if (!isAdventurer(actor)) {
+      return 1
+    }
+    const adventurer = this.sceneController.getAdventurerByActor(actor)
+    if (adventurer == null) {
+      return 1
+    }
+    const effects = collectEffects(adventurer)
+    return effects.reduce((acc, effect) => {
+      if (effect.type === EffectType.damageMultiplier) {
+        return acc + effect.factor
+      }
+      return acc
+    }, 1)
   }
 
   // protected static getActorOffhandItem(actor: ActorObject) {
