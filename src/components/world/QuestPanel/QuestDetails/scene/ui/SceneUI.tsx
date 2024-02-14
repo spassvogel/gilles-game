@@ -292,7 +292,8 @@ const SceneUI = (props: PropsWithChildren<Props>) => {
 
   useEffect(() => {
     setCursorLocation(undefined)
-  }, [combat])
+    onSetActionIntent(undefined)
+  }, [combat, onSetActionIntent])
 
   return (
     <div

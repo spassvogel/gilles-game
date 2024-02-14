@@ -45,7 +45,6 @@ export const effectsMiddleware: Middleware<Action, StoreState> = (storeApi: AppM
     tempEffects.forEach((tmpEffect) => {
       if (depletesChargesOnAttack(tmpEffect)) {
         if (lastAction === SceneActionType.melee || lastAction === SceneActionType.shoot) {
-          console.log('deplete one charge', tmpEffect)
           storeApi.dispatch(decreaseTempEffectCharge(adventurer.id, tmpEffect))
         }
       }
