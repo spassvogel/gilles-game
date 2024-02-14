@@ -6,10 +6,11 @@ import { createTempEffect } from 'definitions/tempEffects'
 import {
   type TempEffectSoma,
   TempEffectType,
-  type TempEffectRage
+  type TempEffectRage,
+  depletesChargesOnAttack
 } from 'definitions/tempEffects/types'
 import { type Action } from 'store/actions'
-import { addTempEffect, decreaseEffectCharge, modifyHealth } from 'store/actions/adventurers'
+import { addTempEffect, decreaseEffectCharge, decreaseTempEffectCharge, modifyHealth } from 'store/actions/adventurers'
 import { type StoreState } from 'store/types'
 import { SceneActionType } from 'store/types/scene'
 import { lastAdventurerAction, type AppMiddlewareAPI } from './utils'
@@ -36,6 +37,16 @@ export const effectsMiddleware: Middleware<Action, StoreState> = (storeApi: AppM
 
             effectTick(storeApi, effect, adventurer.id)
           }
+        }
+      }
+    })
+
+    const { tempEffects } = adventurer
+    tempEffects.forEach((tmpEffect) => {
+      if (depletesChargesOnAttack(tmpEffect)) {
+        if (lastAction === SceneActionType.melee || lastAction === SceneActionType.shoot) {
+          console.log('deplete one charge', tmpEffect)
+          storeApi.dispatch(decreaseTempEffectCharge(adventurer.id, tmpEffect))
         }
       }
     })

@@ -18,6 +18,7 @@ export type AdventurerAction =
   | { type: 'apparelTakeDamage', adventurerId: string, damage: number, bodyPart: EquipmentSlotType }
   | { type: 'addTempEffect', adventurerId: string, tempEffect: TempEffect }
   | { type: 'decreaseEffectCharge', adventurerId: string, effect: Omit<Effect, 'lastTick'> }
+  | { type: 'decreaseTempEffectCharge', adventurerId: string, effect: TempEffect }
   | { type: 'setBasicAttributes', adventurerId: string, basicAttributes: AttributesStoreState }
   | { type: 'renameAdventurer', adventurerId: string, name: string }
   | { type: 'addXp', adventurerId: string, xp: number }
@@ -105,6 +106,12 @@ export const addTempEffect = <T extends TempEffect> (adventurerId: string, tempE
 
 export const decreaseEffectCharge = <T extends Effect> (adventurerId: string, effect: Omit<T, 'lastTick'>): AdventurerAction => ({
   type: 'decreaseEffectCharge',
+  adventurerId,
+  effect
+})
+
+export const decreaseTempEffectCharge = (adventurerId: string, effect: TempEffect): AdventurerAction => ({
+  type: 'decreaseTempEffectCharge',
   adventurerId,
   effect
 })

@@ -654,6 +654,40 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       })
     }
 
+    case 'decreaseTempEffectCharge': {
+      // decreases charges of given temp effect by 1
+      return state.map((adventurer: AdventurerStoreState) => {
+        if (adventurer.id === action.adventurerId) {
+          let shouldCleanup = false
+          let tempEffects = adventurer.tempEffects.map((tE) => {
+            if (tE === action.effect) {
+              const charges = (tE.charges ?? 1) - 1
+
+              if (charges === 0) {
+                // marked for cleanup
+                shouldCleanup = true
+              }
+              return {
+                ...tE,
+                charges
+              }
+            }
+            return tE
+          })
+
+          if (shouldCleanup) {
+            tempEffects = tempEffects.filter((tE) => (tE.charges ?? 0) > 0)
+          }
+
+          return {
+            ...adventurer,
+            tempEffects
+          }
+        }
+        return adventurer
+      })
+    }
+
     case 'renameAdventurer': {
       // Rename adventurer
       const { name } = action

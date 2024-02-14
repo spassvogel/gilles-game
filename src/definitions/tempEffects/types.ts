@@ -32,6 +32,7 @@ export type TempEffectBurning = BaseTempEffect & {
 export type TempEffectRage = BaseTempEffect & {
   type: TempEffectType.rage
   factor: number
+  charges: number
 }
 
 export type TempEffectSoma = BaseTempEffect & {
@@ -43,3 +44,7 @@ export type TempEffect = TempEffectBrokenLegs
 | TempEffectBurning
 | TempEffectRage
 | TempEffectSoma
+
+export const depletesChargesOnAttack = (tmpEffect: TempEffect): tmpEffect is TempEffectRage => {
+  return tmpEffect.type === TempEffectType.rage
+}
