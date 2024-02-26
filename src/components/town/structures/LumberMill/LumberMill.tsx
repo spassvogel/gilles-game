@@ -3,7 +3,7 @@ import { type Structure } from 'definitions/structures'
 import { Sprite, useApp, useTick } from '@pixi/react'
 import type HitAreaShapes from 'utils/pixiJs/hitAreaShapes'
 import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView'
-import { Point, type Texture } from 'pixi.js'
+import { Assets, Point, type Spritesheet, type Texture } from 'pixi.js'
 import { sprites } from 'bundles/sprites'
 
 const BLADE_ROTATION_SPEED = 0.01
@@ -25,11 +25,9 @@ const LumberMill = (props: Props) => {
   const app = useApp()
 
   useEffect(() => {
-    // loadResource(atlas, (resource) => {
-    //   if (resource) {
-    //     setTextures(resource.textures)
-    //   }
-    // })
+    void Assets.load<Spritesheet>(atlas).then((resource) => {
+      setTextures(resource.textures)
+    })
   }, [app, atlas])
 
   const [rotation, setRotation] = useState(0)
