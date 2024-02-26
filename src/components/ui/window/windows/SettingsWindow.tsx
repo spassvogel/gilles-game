@@ -36,7 +36,7 @@ const SettingsWindow = () => {
 
     return (
       <p>
-        {/* <label>{Channel[channel]}</label> */}
+        <label>{Channel[channel]}</label>
         <button onClick={handleMuteClick}>
           <span role="img" aria-label="Mute">🔇</span>
         </button>
@@ -46,7 +46,7 @@ const SettingsWindow = () => {
           max="1"
           step="0.05"
           onChange={handleVolumeChange}
-          // defaultValue={`${Math.sqrt(SoundManager.getChannelVolume(channel))}`}
+          defaultValue={`${Math.sqrt(SoundManager.getChannelVolume(channel))}`}
         />
       </p>
     )
