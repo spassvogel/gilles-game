@@ -10,7 +10,7 @@ const Topbar = () => {
   const app = useContext(appContext)
 
   const handleClick = (_e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const window = <Menu />
+    const window = <Menu key="menu" />
     app?.onOpenWindow(window)
   }
 

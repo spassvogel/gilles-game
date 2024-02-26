@@ -18,17 +18,17 @@ const Menu = () => {
   const storeState = useSelector<StoreState, StoreState>(state => state)
 
   const handleClickCheats = () => {
-    const window = <CheatWindow />
+    const window = <CheatWindow key="cheat"/>
     app?.onOpenWindow(window)
   }
 
   const handleClickSettings = () => {
-    const window = <SettingsWindow />
+    const window = <SettingsWindow key="settings"/>
     app?.onOpenWindow(window)
   }
 
   const handleClickSaveAndLoad = () => {
-    const window = <SaveAndLoadWindow />
+    const window = <SaveAndLoadWindow key="saveandload"/>
     app?.onOpenWindow(window)
   }
 
