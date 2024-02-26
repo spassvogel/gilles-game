@@ -1,6 +1,14 @@
 import { type Reducer } from 'redux'
 import { QuestStatus, type QuestStoreState } from 'store/types/quest'
-import { Allegiance, getUniqueName, isActorObject, isAdventurer, isEnemy, SceneActionType } from 'store/types/scene'
+import {
+  Allegiance,
+  getUniqueName,
+  isActorObject,
+  isAdventurer,
+  isEnemy,
+  SceneActionType,
+  type SceneObject
+} from 'store/types/scene'
 import { type QuestDefinition } from 'definitions/quests/types'
 import { getDefinition } from 'definitions/quests'
 import { initialQuestVars } from 'definitions/quests/kill10Boars/questVars'
@@ -145,14 +153,17 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
         if (qss.name === action.questName) {
           const scene = qss.scene
           if (scene == null) throw new Error('Something broke. No scene')
-          scene.actionQueue = [
+          const actionQueue = [
             ...scene.actionQueue ?? [],
             action.sceneAction
           ]
 
           return {
             ...qss,
-            scene
+            scene: {
+              ...scene,
+              actionQueue
+            }
           }
         }
         return qss
@@ -164,7 +175,8 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
       return state.map((qss) => {
         if (qss.name === action.questName) {
           const scene = qss.scene
-          if ((scene == null) || (scene.actionQueue == null)) return qss
+          let objects = scene?.objects ?? []
+          if ((scene?.actionQueue == null)) return qss
           const sceneAction = scene.actionQueue.find(aq => getUniqueName(aq.intent.actor) === action.actorName)
           if (sceneAction == null) return qss
 
@@ -172,7 +184,7 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
             case SceneActionType.move:
             case SceneActionType.melee:
             case SceneActionType.interact: {
-              scene.objects = scene.objects.map((a) => {
+              objects = scene.objects.map((a) => {
                 if (getUniqueName(a) === action.actorName && ((sceneAction.intent.path?.[sceneAction.intent.path.length - 1]) != null)) {
                   return {
                     ...a,
@@ -185,11 +197,15 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
           }
 
           const index = scene.actionQueue.findIndex(aQ => (getUniqueName(aQ.intent.actor) === action.actorName))
-          scene.actionQueue = scene.actionQueue.filter((_, i) => i !== index)
+          const actionQueue = scene.actionQueue.filter((_, i) => i !== index)
 
           return {
             ...qss,
-            scene
+            scene: {
+              ...scene,
+              actionQueue,
+              objects
+            }
           }
         }
         return qss
@@ -220,7 +236,7 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
           const scene = qss.scene
           if (scene == null) throw new Error('Something broke. No scene')
 
-          scene.objects = scene.objects.map(o => {
+          const objects = scene.objects.map(o => {
             if (isActorObject(o)) {
               const ap = 0
               return {
@@ -233,7 +249,10 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
 
           return {
             ...qss,
-            scene
+            scene: {
+              ...scene,
+              objects
+            }
           }
         }
         return qss
@@ -247,9 +266,10 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
           if (qss.scene == null) throw new Error('Something broke. No scene')
           const { turn } = action
           const scene = qss.scene
+          let objects: SceneObject[] = []
 
           if (turn === Allegiance.player) {
-            scene.objects = scene.objects.map(o => {
+            objects = scene.objects.map(o => {
               if (isAdventurer(o)) {
                 const adventurerInStore = action.adventurers?.find(a => a.id === getUniqueName(o))
                 if (adventurerInStore != null) {
@@ -265,7 +285,7 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
               return o
             })
           } else if (turn === Allegiance.enemy) {
-            scene.objects = scene.objects.map(o => {
+            objects = scene.objects.map(o => {
               if (isEnemy(o)) {
                 const ap = o.health > 0 ? ENEMY_BASE_AP : 0
                 return {
@@ -281,6 +301,7 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
             ...qss,
             scene: {
               ...scene,
+              objects,
               turn
             }
           }
@@ -295,7 +316,7 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
           const scene = qss.scene
           if (scene == null) throw new Error('Something broke. No scene')
 
-          scene.objects = scene.objects.map(o => {
+          const objects = scene.objects.map(o => {
             if (getUniqueName(o) === action.actor && isActorObject(o)) {
               const ap = action.ap
               return {
@@ -308,7 +329,10 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
 
           return {
             ...qss,
-            scene
+            scene: {
+              ...scene,
+              objects
+            }
           }
         }
         return qss
@@ -321,7 +345,7 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
           const scene = qss.scene
           if (scene == null) throw new Error('Something broke. No scene')
 
-          scene.objects = scene.objects.map(o => {
+          const objects = scene.objects.map(o => {
             if ((isAdventurer(o) && o.adventurerId === action.actor) || (isEnemy(o) && o.enemyId === action.actor)) {
               const ap = o.ap - action.ap
               return {
@@ -334,7 +358,10 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
 
           return {
             ...qss,
-            scene
+            scene: {
+              ...scene,
+              objects
+            }
           }
         }
         return qss
@@ -400,7 +427,7 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
           const scene = qss.scene
           if (scene == null) throw new Error('Something broke. No scene')
 
-          scene.objects = scene.objects.map(o => {
+          const objects = scene.objects.map(o => {
             if (getUniqueName(o) === action.actor) {
               const location = action.location
               return {
@@ -413,7 +440,10 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
 
           return {
             ...qss,
-            scene
+            scene: {
+              ...scene,
+              objects
+            }
           }
         }
         return qss
