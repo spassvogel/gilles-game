@@ -1,6 +1,11 @@
 import { type Reducer } from 'redux'
 import { isProductionStructure, isResourceStructure, type Structure } from 'definitions/structures'
-import { type ProductionStructureStoreState, StructureState, type StructureStoreState } from 'store/types/structure'
+import {
+  type ProductionStructureStoreState,
+  StructureState,
+  type StructureStoreState,
+  type ResourceStructureState
+} from 'store/types/structure'
 import { type StructuresStoreState } from 'store/types/structures'
 import { type StructuresAction } from 'store/actions/structures'
 import { type Item } from 'definitions/items/types'
@@ -39,7 +44,7 @@ export const initialStructuresState: StructuresStoreState = {
 }
 
 /**
- * reducer
+ * Structures reducer
  * @param state
  * @param action
  */
@@ -135,18 +140,23 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameTi
       if ((action.harvest == null) || ((Object.keys(action.harvest)?.length) === 0)) {
         return state
       }
-      // Copies harvest from harvest into structure
-      return Object.keys(state).reduce<StructuresStoreState>((acc, structureAsString) => {
-        const structure = structureAsString as Structure
-        if (isResourceStructure(structure) && ((action.harvest?.[structure]?.length) != null)) {
-          const harvest: Item[] = (action.harvest[structure] ?? []).map(type => ({ type }))
-          acc[structure].harvest = [
-            ...(acc[structure].harvest ?? []),
-            ...harvest
-          ]
+      const createHarvestItems = (structure: Structure): ResourceStructureState => {
+        const harvest: Item[] = (action.harvest?.[structure] ?? []).map(type => ({ type }))
+        return {
+          ...state[structure],
+          harvest
         }
-        return acc
-      }, state)
+      }
+
+      // Copies items from harvest into structure
+      return {
+        ...state,
+        garden: createHarvestItems('garden'),
+        lumberMill: createHarvestItems('lumberMill'),
+        mine: createHarvestItems('mine'),
+        quarry: createHarvestItems('quarry'),
+        tannery: createHarvestItems('tannery')
+      }
     }
   }
   return state
