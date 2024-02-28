@@ -104,7 +104,7 @@ const DebugAdventurers = (props: Props) => {
                 min={0}
                 max={baseHP}
                 value={health}
-                onChange={(e) => { handleChangeHealth(Number(e.currentTarget.value) - health) }}
+                onChange={(e) => { handleChangeHealth(+(e.currentTarget.value) - health) }}
                 />
               <span className="info value">
                 ({formatNumber(health, 2)}/{formatNumber(baseHP, 2)})
