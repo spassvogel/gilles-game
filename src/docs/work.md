@@ -888,4 +888,11 @@ I would like to re-use earlier defined templates in other templates
 
 ### 2024-01-25 Sort order of actors
 
-- [ ] formula: y * (dead ? -1 * 1)
+Actors on the scene should be sorted on value of y, such that actors with a higher y value (=lower on the screen) appear 'on top'
+of those with a lower y value (=higher on the screen). However, when dead they should be underneath all else
+
+- [x] formula: y * (dead ? -1 * 1)
+
+### 2024-03-23 Can not start actions from dead adventurers
+
+There is a bug that allows the user to drag an action out of a dead adventurer

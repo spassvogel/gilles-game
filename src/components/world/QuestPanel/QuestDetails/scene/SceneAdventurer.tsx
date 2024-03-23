@@ -5,6 +5,7 @@ import SceneActor, { type Props as SceneActorProps } from './SceneActor'
 import { Assets, type Container as PixiContainer } from 'pixi.js'
 import { useAdventurer } from 'hooks/store/adventurers'
 import { sprites } from 'bundles/sprites'
+import determineActorZ from './utils/determineActorZ'
 
 type Props = {
   actor: AdventurerObject
@@ -27,7 +28,7 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children' | 'name
   if (spritesheet === undefined) return null
 
   return (
-    <Container ref={ref} zIndex={health} name={actor.adventurerId}>
+    <Container ref={ref} zIndex={determineActorZ(location, health)} name={actor.adventurerId}>
       <SceneActor
         actor={actor}
         health={adventurer.health}

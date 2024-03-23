@@ -5,6 +5,7 @@ import SceneActor, { type Props as SceneActorProps } from './SceneActor'
 import { getDefinition as getEnemyDefinition } from 'definitions/enemies'
 import { type EnemyType } from 'definitions/enemies/types'
 import { sprites } from 'bundles/sprites'
+import determineActorZ from './utils/determineActorZ'
 
 type Props = {
   actor: EnemyObject
@@ -19,7 +20,6 @@ const SceneEnemy = (props: Props & Omit<SceneActorProps, 'children' | 'name' | '
     actor,
     selected
   } = props
-  const { health } = actor
   const definition = getEnemyDefinition(actor.properties.enemyType as EnemyType)
   const key = definition.spritesheet
   const spritesheet = Assets.get(sprites[key])
@@ -30,7 +30,7 @@ const SceneEnemy = (props: Props & Omit<SceneActorProps, 'children' | 'name' | '
   }
 
   return (
-    <Container zIndex={health} name={`${actor.enemyId}`}>
+    <Container zIndex={determineActorZ(location, actor.health)} name={`${actor.enemyId}`}>
       <SceneActor
         actor={actor}
         health={actor.health}
