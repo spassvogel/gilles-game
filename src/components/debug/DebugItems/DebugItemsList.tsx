@@ -63,10 +63,10 @@ const DebugItemsList = (props: Props) => {
     <div className="debug-items-list">
       {entries(items).map(([key, value]) => {
         return (
-          <div className="item" key={key}>
+          <div className="item" key={key} title={key} >
             <ItemIcon item={{ type: key as ItemType }} size={IconSize.big} />
             <div className="info">
-              <h4>{TextManager.getItemName(key as ItemType)}</h4>
+              <h4 >{TextManager.getItemName(key as ItemType)}</h4>
               <pre>
                 {prepareText(value)}
               </pre>

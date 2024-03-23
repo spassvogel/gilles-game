@@ -45,7 +45,6 @@ const DebugSprites = () => {
         allLoading.push(Assets.load(path))
       }
       await Promise.all(allLoading)
-      console.log('done!')
       setLoading(false)
     }
     void loadAllSprites()
