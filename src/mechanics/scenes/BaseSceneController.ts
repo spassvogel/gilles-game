@@ -794,7 +794,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
 
     adventurerLocations.forEach((location, i) => {
       const adventurer = adventurers[i]
-      if (adventurer.health <= 0) {
+      if (adventurer == null || adventurer.health <= 0) {
         return
       }
 
@@ -855,8 +855,10 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
 
   protected get actorSpritesheetPaths (): string[] {
     const adventurers = this.getAdventurers()
+
+    const uniqueAdventurerSpritesheets = new Set(adventurers.map(a => sprites[a.spritesheet]))
     return [
-      ...adventurers.map(a => sprites[a.spritesheet]),
+      ...uniqueAdventurerSpritesheets,
       sprites.SCENE_ACTOR_ORC_AXE,
       sprites.SCENE_ACTOR_TROLL_SWORD, // todo: only load enemy sprites that are actually needed
       sprites.SCENE_ACTOR_TROLL_AXE // todo: only load enemy sprites that are actually needed

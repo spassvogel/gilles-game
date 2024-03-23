@@ -29,8 +29,10 @@ const SceneEnemy = (props: Props & Omit<SceneActorProps, 'children' | 'name' | '
     return null
   }
 
+  const name = `${actor.enemyId} ${actor.health <= 0 ? ' (✝)' : ''}`
+
   return (
-    <Container zIndex={determineActorZ(location, actor.health)} name={`${actor.enemyId}`}>
+    <Container zIndex={determineActorZ(location, actor.health)} name={name} sortableChildren={true}>
       <SceneActor
         actor={actor}
         health={actor.health}

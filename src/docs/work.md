@@ -896,3 +896,8 @@ of those with a lower y value (=higher on the screen). However, when dead they s
 ### 2024-03-23 Can not start actions from dead adventurers
 
 There is a bug that allows the user to drag an action out of a dead adventurer
+
+### 2024-03-23 Save position of enemies when leaving scene
+
+Or might not be needed, as we should probably prevent leaving a scene whilst in combat.
+

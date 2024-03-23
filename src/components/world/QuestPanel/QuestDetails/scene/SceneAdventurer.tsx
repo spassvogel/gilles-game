@@ -27,8 +27,9 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children' | 'name
   const spritesheet = Assets.get(sprites[key])
   if (spritesheet === undefined) return null
 
+  const name = `${actor.adventurerId} - ${adventurer.name}${health <= 0 ? ' (✝)' : ''}`
   return (
-    <Container ref={ref} zIndex={determineActorZ(location, health)} name={actor.adventurerId}>
+    <Container ref={ref} zIndex={determineActorZ(location, health)} name={name} sortableChildren={true}>
       <SceneActor
         actor={actor}
         health={adventurer.health}
