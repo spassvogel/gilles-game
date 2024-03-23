@@ -24,11 +24,11 @@ export const reduceTime = (percentage: number, time: Time, what?: string): GameA
   what
 })
 
-export const ignoreVersionDiff = () => ({
+export const ignoreVersionDiff = (): GameAction => ({
   type: 'ignoreVersionDiff'
 })
 
-export const loadGame = (state: StoreState) => ({
+export const loadGame = (state: StoreState): GameAction => ({
   type: 'loadGame',
   state
 })
