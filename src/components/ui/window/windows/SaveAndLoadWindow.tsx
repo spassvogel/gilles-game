@@ -66,7 +66,7 @@ const SaveAndLoadWindow = () => {
       <div className="save-and-load">
         <section>
           Save game to disk:
-          <Button onClick={handleClickSave}>Save</Button>
+          <Button onClick={handleClickSave} className="save-button">Save</Button>
         </section>
         <section>
           Load game from disk:
