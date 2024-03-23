@@ -4,6 +4,9 @@ import { Channel, MixMode, SoundManager } from 'global/SoundManager'
 import QuestPanel from './QuestPanel'
 import { useMatch, useNavigate } from 'react-router'
 import { getWorldLink } from 'utils/routing'
+import LoadingPage from 'components/ui/loading/LoadingPage'
+import useQuestExists from './hooks/useQuestExists'
+
 import './styles/worldView.scss'
 
 /**
@@ -15,6 +18,16 @@ const WorldView = () => {
   const match = useMatch(`${getWorldLink()}/:questname`)
   const selectedQuestName = match?.params.questname
   const navigate = useNavigate()
+
+  // we need to verify if the quest in the url actually exists
+  const questExists = useQuestExists(selectedQuestName)
+
+  useEffect(() => {
+    // requesting a quest that doesnt actually exist redirects to world
+    if (questExists === false) {
+      navigate(getWorldLink())
+    }
+  }, [navigate, questExists])
 
   useEffect(() => {
     void SoundManager.playSound('MUSIC_WORLD', Channel.music, true, MixMode.fade, true)
@@ -36,16 +49,18 @@ const WorldView = () => {
   // }
 
   const handlePartyClick = (questName: string) => {
-    // if (questName === selectedQuestName) {
-    //   history.push(getWorldLink())
-    // } else {
     navigate(questName)
-    // }
     void SoundManager.playSound('UI_BUTTON_CLICK')
   }
 
   const handleRetrieveWorldViewRef = () => {
     return worldViewRef
+  }
+
+  if (selectedQuestName != null && questExists !== true) {
+    return (
+      <LoadingPage/>
+    )
   }
 
   return (

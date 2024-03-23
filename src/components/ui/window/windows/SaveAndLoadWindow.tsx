@@ -24,8 +24,8 @@ const SaveAndLoadWindow = () => {
 
   const dispatch = useDispatch()
 
-  const handleClickSave = () => {
-    saveGame(storeState)
+  const handleClickSave = async () => {
+    void saveGame(storeState)
   }
 
   const handleClickLoad = () => {
