@@ -788,7 +788,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     // Now spawn the adventurers!
     const actorLayer = objectLayers.find(oL => oL.name === 'actor')
     if (actorLayer == null) {
-      throw new Error("No layer with name 'actor' found in the map!")
+      throw new Error(`No layer with name 'actor' found in the map! "${this.jsonPath}"`)
     }
     const layerId = actorLayer.id
 

@@ -115,7 +115,7 @@
 0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="9" name="actors">
+ <objectgroup id="9" name="actor">
   <object id="3" name="portal to ?" type="portal" x="320" y="960" width="64" height="64">
    <properties>
     <property name="to" value=""/>

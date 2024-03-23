@@ -28,7 +28,7 @@
          "width":11,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -55,7 +55,7 @@
          "width":11,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 93, 111, 95, 0,
@@ -88,7 +88,7 @@
          "width":11,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "data":[397, 397, 397, 397, 301, 0, 350, 278, 279, 280, 281,
             272, 272, 272, 272, 330, 0, 368, 0, 0, 0, 293,
@@ -121,7 +121,7 @@
          "width":11,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 395, 0, 348, 0, 0, 0, 0,
@@ -148,11 +148,11 @@
          "width":11,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "draworder":"topdown",
          "id":9,
-         "name":"actors",
+         "name":"actor",
          "objects":[
                 {
                  "height":64,
@@ -170,7 +170,7 @@
                  "width":64,
                  "x":320,
                  "y":960
-                }, 
+                },
                 {
                  "height":64,
                  "id":4,
@@ -193,7 +193,7 @@
          "visible":true,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "draworder":"topdown",
          "id":6,
@@ -209,12 +209,12 @@
                          "name":"blocksMovement",
                          "type":"bool",
                          "value":true
-                        }, 
+                        },
                         {
                          "name":"interactive",
                          "type":"bool",
                          "value":true
-                        }, 
+                        },
                         {
                          "name":"part",
                          "type":"string",
@@ -226,7 +226,7 @@
                  "width":64,
                  "x":320,
                  "y":192
-                }, 
+                },
                 {
                  "gid":396,
                  "height":64,
@@ -237,7 +237,7 @@
                          "name":"blocksMovement",
                          "type":"bool",
                          "value":true
-                        }, 
+                        },
                         {
                          "name":"part",
                          "type":"string",
@@ -255,7 +255,7 @@
          "visible":true,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "draworder":"topdown",
          "id":10,
@@ -271,7 +271,7 @@
                          "name":"blocksMovement",
                          "type":"bool",
                          "value":true
-                        }, 
+                        },
                         {
                          "name":"interactive",
                          "type":"bool",
@@ -289,7 +289,7 @@
          "visible":true,
          "x":0,
          "y":0
-        }, 
+        },
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -351,7 +351,7 @@
                          "value":true
                         }],
                  "type":"chest.closed"
-                }, 
+                },
                 {
                  "id":33,
                  "properties":[
@@ -363,7 +363,7 @@
                  "type":"chest.open"
                 }],
          "tilewidth":64
-        }, 
+        },
         {
          "columns":12,
          "firstgid":121,
@@ -376,7 +376,7 @@
          "tilecount":144,
          "tileheight":100,
          "tilewidth":100
-        }, 
+        },
         {
          "columns":12,
          "firstgid":265,
