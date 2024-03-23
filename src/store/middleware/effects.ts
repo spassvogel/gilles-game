@@ -1,4 +1,4 @@
-import { type Middleware } from 'redux'
+import { type Middleware } from '@reduxjs/toolkit'
 import { collectEffects } from 'definitions/effects'
 import { type Effect, EffectType } from 'definitions/effects/types'
 import { getDefinition, isConsumable } from 'definitions/items/consumables'
@@ -22,7 +22,7 @@ const effectTick = (storeApi: AppMiddlewareAPI, effect: Effect, adventurerId: st
 }
 
 // character effect
-export const effectsMiddleware: Middleware<Action, StoreState> = (storeApi: AppMiddlewareAPI) => next => (action: Action) => {
+export const effectsMiddleware: Middleware<Action, StoreState> = (storeApi: AppMiddlewareAPI) => (next: (action: Action) => Action) => (action: Action) => {
   const state = storeApi.getState()
 
   for (const adventurer of state.adventurers) {

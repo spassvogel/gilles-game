@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Provider as StoreProvider } from 'react-redux'
-import { type Store, type AnyAction, type DeepPartial } from 'redux'
+import { type Store } from 'redux'
 import { type Persistor } from 'redux-persist'
-import { type PersistPartial } from 'redux-persist/es/persistReducer'
 import { gameTick, ignoreVersionDiff, startGame, loadGame } from 'store/actions/game'
 import { addLogText } from 'store/actions/log'
 import * as Version from 'constants/version'
-import configureStore from 'utils/configureStore'
+import createStore from 'utils/configureStore'
 import { processCompletedTasks } from 'mechanics/gameTick/tasks'
 import { type StoreState } from 'store/types'
 import { createInitialStore } from 'store/reducers'
@@ -17,12 +16,13 @@ import { GameActionsContext } from './context'
 import LoadingPage from 'components/ui/loading/LoadingPage'
 import * as TextManager from 'global/TextManager'
 import ManifestLoader from 'components/loading/ManifestLoader'
+import { type Action } from 'store/actions'
 
 const TICK_INTERVAL = 2500 // main game tick
 
 const Game = () => {
   const paused = useRef(false)
-  const [store, setStore] = useState<Store<StoreState & PersistPartial, AnyAction>>()
+  const [store, setStore] = useState<Store<StoreState, Action>>()
   const [persistor, setPersistor] = useState<Persistor>()
 
   /**
@@ -39,14 +39,14 @@ const Game = () => {
 
   /**
    * Attemps to read persisted store state. Sets `store` state when done */
-  const setupStore = useCallback(async (initial: DeepPartial<StoreState> = {}) => {
-    const configuration = await configureStore(initial)
+  const setupStore = useCallback(async () => {
+    const { isHydrated, store, persistor } = await createStore()
 
-    if (!configuration.isHydrated) {
+    if (!isHydrated) {
       startNewGame()
     }
-    setStore(configuration.store)
-    setPersistor(configuration.persistor)
+    setStore(store)
+    setPersistor(persistor)
   }, [startNewGame])
 
   /**
@@ -116,6 +116,7 @@ const Game = () => {
       </LoadingPage>
     )
   }
+
   return (
     <GameActionsContext.Provider value={{
       pauseGame,

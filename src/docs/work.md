@@ -225,6 +225,7 @@ Because I'm not an artist and I want to use unity3d assets
 #### 08/08/2019  Combat [+design] [+tech]
 Still haven't figured out a combat game system. But can implement some ground work. 
 Want to store the combat state in the store as such:
+
 ```
 combat: {
     actors: [{
@@ -335,7 +336,10 @@ IMPLEMENTATION
 - [x] Use combatcontroller 
 
 - [ ] When player actors have no APs left and there are *no* running secene actions 
-    the AI selects one of their actors to make a move on. AI has different behaviour types,
+    the AI selects one of their actors to make a move on. 
+
+- [ ] AI Actions cost AP
+- [ ] AI has different behaviour types,
     'berzeker', 'sniper', etc
 - [ ] In combat, the adventurertabstrip is replaced by another component that shows *all* actors in the scene, their health and ap.
     The adventurers are on the left, the monsters on the right. It also shows whose turn it is (those icons are larger)
@@ -377,6 +381,8 @@ base and (secondary stats) are:
 todo: figure out a cool theme,
 research fantasy concept art
 
+Could be: Aztec, Steampunk
+
 
 #### 24/08/2019 NAMING
 - [x] come up with a better name for worn equipment, (perhaps 'apparel')
@@ -386,9 +392,10 @@ research fantasy concept art
 
 #### 17/11/2019 STORE WORLD POS
 (obsolete)
-- [x] store world pos in redux, pass to WorldMap.scrollToPosition
-- [x] read: Three.js projecting mouse clicks to a 3D scene - how to do it and how it works
-          https://barkofthebyte.azurewebsites.net/post/2014/05/05/three-js-projecting-mouse-clicks-to-a-3d-scene-how-to-do-it-and-how-it-works
+- ~~[x] store world pos in redux, pass to WorldMap.scrollToPosition~~
+- ~~[x] read: Three.js projecting mouse clicks to a 3D scene - how to do it and how it works~~
+          ~~https://barkofthebyte.azurewebsites.net/post/2014/05/05/~~ 
+          ~~three-js-projecting-mouse-clicks-to-a-3d-scene-how-to-do-it-and-how-it-works~~
 
 
 #### THREEJS examples
@@ -490,7 +497,7 @@ research fantasy concept art
     https://www.youtube.com/watch?v=KwVszq2RjX4
 
 
-#### 03/04/2020 Make Inventory Responsive Again (MIRA [+tech]
+#### 03/04/2020 Make Inventory Responsive Again (MIRA) [+tech]
 nr of columns is determined by screen size (media queries)
 - [ ] medium width
 
@@ -630,7 +637,7 @@ https://wow.gamepedia.com/Quality
 - fire pit with particlesƒcom
 - mobile: height of small world map + close button
 - [x] mobile: width of town
-- [ ] mobile: dragdrop 
+- [x] mobile: dragdrop 
     use touch backend: https://react-dnd.github.io/react-dnd/docs/backends/touch 
     https://louisbrunner.github.io/dnd-multi-backend/packages/react-dnd-multi-backend/
 - [x] bug: tooltip 

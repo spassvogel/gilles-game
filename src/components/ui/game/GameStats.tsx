@@ -23,7 +23,7 @@ const GameStats = (props: Props) => {
   const timePlaying = formatDuration(state.engine.lastTick - (state.engine.gameStarted ?? 0), true)
   const groupedAdventurers = groupAdventurersByQuest(state.adventurers, state.quests)
   const version = useMemo(() => {
-    if (!state.game?.version) return 'unknown'
+    if (state.game?.version == null) return 'unknown'
     if (state.game.version === Version.asInt) {
       return convertIntToSemVer(state.game.version)
     }

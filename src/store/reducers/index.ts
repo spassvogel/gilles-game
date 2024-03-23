@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from '@reduxjs/toolkit'
 import { type StoreState } from 'store/types'
 import { adventurers, initialAdventurers } from './adventurers'
 import { engine, getInitialEngineState } from './engine'
@@ -15,7 +15,7 @@ import { initialTasksState, tasks } from './tasks'
 import { initialWorkersState, workers } from './workers'
 import { type Action } from 'store/actions'
 
-export const combinedReducer = combineReducers<StoreState>({
+export const combinedReducer = combineReducers({
   adventurers,
   engine,
   game,

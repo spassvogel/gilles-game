@@ -1,17 +1,25 @@
-import { createStore, type DeepPartial, applyMiddleware, type Middleware, type Store } from 'redux'
-import { type Persistor, persistReducer, persistStore } from 'redux-persist'
-import { composeWithDevTools } from '@redux-devtools/extension'
+import { type Store } from 'redux'
+import {
+  type Persistor,
+  persistReducer,
+  persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER
+} from 'redux-persist'
 import localForage from 'localforage'
-import * as Version from 'constants/version'
+import version, * as Version from 'constants/version'
 import rootReducer from 'store/reducers'
 import { storeIsRehydrated } from 'store/helpers/storeHelpers'
-import { type StoreState } from 'store/types'
 import { effectsMiddleware } from 'store/middleware/effects'
 import { traitsMiddleware } from 'store/middleware/traits'
-import { convertIntToSemVer } from './version'
 import { type Action } from 'store/actions'
-import { type PersistPartial } from 'redux-persist/es/persistReducer'
 import { gameTickMiddleware } from 'store/middleware/gameTick'
+import { configureStore } from '@reduxjs/toolkit'
+import { type StoreState } from 'store/types'
 
 export const PERSIST_KEY = 'root'
 
@@ -24,36 +32,40 @@ export const persistConfig = {
 const persistedReducer = persistReducer<StoreState, Action>(persistConfig, rootReducer)
 
 type ConfigureStoreResult = {
-  store: Store
+  store: Store<StoreState, Action>
   persistor: Persistor
   isHydrated: boolean
 }
 
-// all middlewares
-const middlewares: Middleware[] = [
-  gameTickMiddleware,
-  effectsMiddleware,
-  traitsMiddleware
-]
-const middlewareEnhancer = applyMiddleware(...middlewares)
-
 /**
  * Configures the redux store
  */
-const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<ConfigureStoreResult> => {
+let devTools: boolean | { name: string } = false
+if (process.env.NODE_ENV === 'development') {
+  devTools = {
+    name: `Gilles game ${version}`
+  }
+}
+
+const store = configureStore({
+  reducer: persistedReducer,
+  devTools,
+  middleware: (getDefaultMiddleware) => (
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+      }
+    }).concat(
+      gameTickMiddleware,
+      effectsMiddleware,
+      traitsMiddleware
+    )
+  )
+})
+
+const configureStoreAndPersistor = async (): Promise<ConfigureStoreResult> => {
   return await new Promise((resolve, reject) => {
     try {
-      const version = initial?.game?.version !== undefined ? convertIntToSemVer(initial.game.version) : Version.default
-      const composeEnhancers = composeWithDevTools({
-        name: `Gidletown (${version})`,
-        actionsDenylist: ['gameTick']
-      })(middlewareEnhancer)
-
-      const store = createStore(
-        persistedReducer,
-        (initial as StoreState & PersistPartial),
-        composeEnhancers
-      )
       const persistor = persistStore(store, undefined, () => {
         const isHydrated = storeIsRehydrated(store.getState())
         resolve({ store, persistor, isHydrated })
@@ -65,4 +77,6 @@ const configureStore = async (initial: DeepPartial<StoreState> = {}): Promise<Co
   })
 }
 
-export default configureStore
+export type AppDispatch = typeof store['dispatch']
+
+export default configureStoreAndPersistor
