@@ -41,6 +41,7 @@ type BaseActionIntent = {
   isValid: boolean
 }
 
+/** An intent that has a location on the map (e.g) move, attack  */
 type BaseLocalizedActionIntent = BaseActionIntent & {
   from: Location
   to: Location
@@ -58,23 +59,24 @@ export type ActionIntent = BaseLocalizedActionIntent & {
 } | BaseLocalizedActionIntent & {
   //
   action: SceneActionType.move
-  apCost?: number
-  actorAP?: number
+  apCost: number
+  actorAP: number
 } | BaseLocalizedActionIntent & {
   //
   action: SceneActionType.melee
-  apCost?: number
-  actorAP?: number
+  apCost: number
+  actorAP: number
   weaponWithAbility: WeaponWithAbility
 } | BaseLocalizedActionIntent & {
   action: SceneActionType.shoot
-  apCost?: number
-  actorAP?: number
+  apCost: number
+  actorAP: number
   weaponWithAbility: WeaponWithAbility
   ammo: Item<Ammunition>
 } | BaseActionIntent & {
   action: SceneActionType.consume
   item: Item<Consumable>
+  actorAP: number
 }
 
 // This thing scales itself based on the canvas which should be a sibling of this component

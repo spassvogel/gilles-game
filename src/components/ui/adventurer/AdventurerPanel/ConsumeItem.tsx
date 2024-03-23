@@ -11,9 +11,7 @@ import { useDispatch } from 'react-redux'
 import { addLogText } from 'store/actions/log'
 import { LogChannel } from 'store/types/logEntry'
 import { useQuest } from 'hooks/store/quests'
-import { getAdventurer } from 'store/types/scene'
 import { AP_COST_CONSUME } from 'mechanics/combat'
-import { deductActorAp } from 'store/actions/quests'
 import { Channel, SoundManager } from 'global/SoundManager'
 import { isConsumable } from 'definitions/items/consumables'
 import './styles/consumeItem.scss'
@@ -27,6 +25,7 @@ export type Props = {
   onConsumed?: () => void
 }
 
+// not sure if this is even used
 const ConsumeItem = (props: Props) => {
   const { adventurerId, questName, fromSlot, onDrop, onConsumed } = props
   const adventurer = useAdventurer(adventurerId)
@@ -57,12 +56,7 @@ const ConsumeItem = (props: Props) => {
     const consumable = adventurer.inventory[fromSlot]
     if ((consumable == null) || !isConsumable(consumable.type)) {
       throw new Error(`No potion found at index ${fromSlot} `)
-    }
-    // if (combat) {
-    //   if (questName == null) return
-    //   // Deduct AP from adventurer if in combat
-    //   dispatch(deductActorAp(questName, adventurerId, AP_COST_CONSUME))
-    // }
+    }s
 
     dispatch(consumeItem(adventurerId, fromSlot))
     void SoundManager.playSound('SCENE_DRINKING', Channel.scene)

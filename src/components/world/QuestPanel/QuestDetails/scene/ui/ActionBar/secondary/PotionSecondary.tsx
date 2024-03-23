@@ -22,11 +22,9 @@ const isNotNullAndAConsumable = (item: Item | null): item is Item<Consumable> =>
 }
 
 const PotionSecondaryActionBar = (props: Props) => {
-  const { adventurer, onSetActionIntent, activeIntent, ...restProps } = props
+  const { adventurer, onSetActionIntent, activeIntent } = props
   const consumables = adventurer.inventory.filter(isNotNullAndAConsumable)
   const controller = useContext(SceneControllerContext)
-
-  console.log('consumables', consumables)
 
   const handleClick = (item: Item<Consumable>) => {
     const actor = controller?.getSceneActor(adventurer.id)
@@ -36,6 +34,7 @@ const PotionSecondaryActionBar = (props: Props) => {
     onSetActionIntent({
       action: SceneActionType.consume,
       actor,
+      actorAP: actor.ap,
       isValid: true,
       item
     })

@@ -7,6 +7,9 @@ type Props = ComponentProps<typeof ActionButton> & {
   adventurer: AdventurerStoreState
 }
 
+/**
+ * This button will open the potion secondary bar
+ */
 const PotionActionButton = (props: Props) => {
   const { adventurer, ...restProps } = props
 

@@ -372,7 +372,7 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
       })
     }
 
-    // Moves an item from one inventory slot to another
+    // Consumes a potion
     case 'consumeItem': {
       const { adventurerId, fromSlot } = action
       const adventurer = state.find((a) => a.id === adventurerId)
@@ -385,7 +385,6 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
         throw new Error(`No potion found at index ${fromSlot} `)
       }
       const definition = getDefinition(consumable.type)
-      // todo: 2021-09-02 Drink potions
       switch (definition.category) {
         case 'health':
           health = Math.min((definition.effect ?? 0) + health, 100)
@@ -401,15 +400,15 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
 
       // take item from the inventory
       const inventory = adventurer.inventory.map((element, index) => index !== fromSlot ? element : null)
-      return state.map((element: AdventurerStoreState) => {
-        if (element === adventurer) {
+      return state.map((a: AdventurerStoreState) => {
+        if (a === adventurer) {
           return {
-            ...element,
+            ...a,
             health,
             inventory
           }
         }
-        return element
+        return a
       })
     }
 

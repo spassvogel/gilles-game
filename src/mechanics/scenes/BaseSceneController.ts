@@ -1,4 +1,4 @@
-import { type Store, type AnyAction, type DeepPartial } from 'redux'
+import { type Store } from 'redux'
 import EventEmitter from 'events'
 import type TypedEmitter from 'typed-emitter'
 import { type Location, addAllTilesInLayerToList, locationEquals, TiledObjectType, parseProperties } from 'utils/tilemap'
@@ -22,6 +22,7 @@ import {
   getUniqueName
 } from 'store/types/scene'
 import { ToastEmitter } from 'emitters/ToastEmitter'
+import { type Action } from 'store/actions'
 import { Type } from 'components/ui/toasts/Toast'
 import { getQuestLink } from 'utils/routing'
 import { type TextEntry, isTextEntry } from 'constants/text'
@@ -35,7 +36,7 @@ import { addItemToInventory, consumeItem, removeItemFromInventory } from 'store/
 import { adventurersOnQuest, getSceneObjectsAtLocation, getSceneObjectWithName } from 'store/helpers/storeHelpers'
 import { type Item, type ItemType } from 'definitions/items/types'
 import { Assets, Point, utils } from 'pixi.js'
-import { AP_COST_MOVE, AP_COST_SHOOT, calculateInitialAP } from 'mechanics/combat'
+import { AP_COST_CONSUME, AP_COST_MOVE, AP_COST_SHOOT, calculateInitialAP } from 'mechanics/combat'
 import { xpToLevel } from 'mechanics/adventurers/levels'
 import { type EnemyType } from 'definitions/enemies/types'
 import { BubbleLayer, BubbleEmitter, type BubbleType } from 'emitters/BubbleEmitter'
@@ -63,13 +64,13 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
   public aStar?: AStarFinder
   public dataLoading = false
   public dataLoadComplete = false
-  public store: Store<StoreState, AnyAction>
+  public store: Store<StoreState, Action>
 
   protected jsonPath?: string
   protected blockedTiles: Location[] = []
   protected tileTypes: Record<string, number> = {} // map tiletype to gid
 
-  constructor (store: Store<StoreState, AnyAction>, questName: string) {
+  constructor (store: Store<StoreState, Action>, questName: string) {
     // eslint-disable-next-line constructor-super
     super()
     this.store = store
@@ -335,6 +336,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         }
         const fromSlot = adventurer.inventory.findIndex((i) => (intent.item === i))
         this.dispatch(consumeItem(adventurer.id, fromSlot))
+        this.dispatch(deductActorAp(this.questName, getUniqueName(actor), AP_COST_CONSUME))
         void SoundManager.playSound('SCENE_DRINKING', Channel.scene)
 
         // Add log entry
@@ -596,8 +598,8 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     switch (action) {
       case SceneActionType.move: {
         const path = this.findPath(from, to)
-        const apCost = this.combat ? this.calculateWalkApCosts(from, to) : undefined
-        const isValid = path !== undefined && path.length > 0 && (!this.combat || (apCost ?? 0) <= (actorAP ?? 0))
+        const apCost = this.combat ? this.calculateWalkApCosts(from, to) : 0
+        const isValid = path !== undefined && path.length > 0
 
         return ({
           action,
@@ -625,7 +627,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         // todo: from the ActionMenu we can only target enemies, but the AI should be able to target player adventurers!
         // const onEnemy = this.getObjectsAtLocation(location, isEnemy).length > 0
         // const isValid = onEnemy && (apCost ?? 0) <= (actorAP ?? 0)
-        const isValid = (target != null) && (apCost ?? 0) <= (actorAP ?? 0)
+        const isValid = (target != null)
         if (weaponWithAbility == null) return undefined
 
         return ({
@@ -657,7 +659,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
       case SceneActionType.shoot: {
         const apCost = AP_COST_SHOOT
         const onEnemy = this.getObjectsAtLocation(location, isEnemy).length > 0
-        const isValid = onEnemy && (apCost ?? 0) <= (actorAP ?? 0)
+        const isValid = onEnemy
         if (weaponWithAbility == null) return undefined
         if (ammo == null) return undefined
 

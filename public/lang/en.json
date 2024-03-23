@@ -523,6 +523,9 @@
   "ui-actor-info-ap": "AP {{ap}}",
   "ui-actor-info-health": "Health",
 
+  "ui-adventurer-action-bar-consume": "Consume",
+  "ui-adventurer-action-bar-move": "Move",
+
   "ui-adventurer-info-ap-remaining": " ({{ap}} AP remaining)",
   "ui-adventurer-info-attributes-title": "Attributes",
   "ui-adventurer-info-dead": "Dead ✝",

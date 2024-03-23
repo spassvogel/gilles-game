@@ -41,6 +41,8 @@ const ActionBar = (props: Props) => {
   const controller = useContext(SceneControllerContext)
   const {
     secondary,
+    buttonVisible,
+    buttonDisabled,
     buttonText,
     doAction,
     selectPrimaryCombatAction,
@@ -164,9 +166,11 @@ const ActionBar = (props: Props) => {
             />
           </div>
 
-          <Button size="medium" onClick={doAction}>
-            {buttonText}
-          </Button>
+          { buttonVisible && (
+            <Button size="medium" onClick={doAction} disabled={buttonDisabled}>
+              {buttonText}
+            </Button>
+          )}
           <div className="button-close" onClick={onClose}>x</div>
         </div>
         { secondary === 'potion' && (
