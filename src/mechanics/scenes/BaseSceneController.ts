@@ -46,6 +46,7 @@ import { type Ammunition } from 'definitions/items/ammunition'
 import { calculateEffectiveAttributes } from 'mechanics/adventurers/attributes'
 import { sprites } from 'bundles/sprites'
 import { Channel, SoundManager } from 'global/SoundManager'
+import { DeepPartial } from 'utils/typescript'
 
 const effectSpritesheetBasePath = '/img/scene/effects/'
 export const movementDuration = 500 // time every tile movement takes
@@ -213,7 +214,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         const index = Math.floor(this.quest.progress) + 1
         const definition = getDefinition(this.questName)
         const node = definition.nodes[index]
-        if (node.log) {
+        if (node.log != null) {
           // If the next node has a log entry, add it
           this.log(node.log)
         }

@@ -18,3 +18,7 @@ export function entries<T> (obj: T): Entries<T> {
 export const listEnum = <T extends Record<string, number | string>>(enumeration: T) => {
   return Object.keys(enumeration).filter(v => !isNaN(Number(v))).map(v => Number(v))
 }
+
+export type DeepPartial<T> = T extends object ? {
+  [P in keyof T]?: DeepPartial<T[P]>;
+} : T
