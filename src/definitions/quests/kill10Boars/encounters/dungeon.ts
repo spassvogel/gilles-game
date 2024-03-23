@@ -99,7 +99,7 @@ export class DungeonEntranceSceneController extends DungeonEncounterSceneControl
         // display loot modal
         this.store.dispatch(setActiveSceneInteractionModal(this.questName, {
           type: 'lootCache',
-          lootCache: object.name
+          lootCache: 'chest'
         }))
         break
 
@@ -212,7 +212,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
         // display loot modal
         this.store.dispatch(setActiveSceneInteractionModal(this.questName, {
           type: 'lootCache',
-          lootCache: object.name
+          lootCache: 'chest'
         }))
         break
       case 'door1':

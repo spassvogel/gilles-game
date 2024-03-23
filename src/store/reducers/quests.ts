@@ -453,7 +453,13 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
     case 'setActiveSceneInteractionModal': {
       return state.map((qss: QuestStoreState) => {
         if (qss.name === action.questName && (qss.scene != null)) {
-          qss.scene.activeInteractionModal = action.sceneInteractionModal
+          return {
+            ...qss,
+            scene: {
+              ...qss.scene,
+              activeInteractionModal: action.sceneInteractionModal
+            }
+          }
         }
         return qss
       })

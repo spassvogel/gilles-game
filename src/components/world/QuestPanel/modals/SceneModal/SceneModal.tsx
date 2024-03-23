@@ -28,6 +28,7 @@ const SceneModal = (props: Props) => {
   const handleCloseInteractionModal = () => {
     dispatch(setActiveSceneInteractionModal(questName))
   }
+
   if (questFailed) {
     return (
       <div className="modal-backdrop" onClick={handleCloseInteractionModal}>
@@ -36,9 +37,12 @@ const SceneModal = (props: Props) => {
     )
   }
 
-  return (
-    <>
-    {(activeInteractionModal != null) && activeInteractionModal.type === 'lootCache' && (
+  if (activeInteractionModal == null) {
+    return null
+  }
+
+  if (activeInteractionModal.type === 'lootCache') {
+    return (
       <div className="modal-backdrop" onClick={handleCloseInteractionModal}>
         <LootCache
           cacheName={activeInteractionModal.lootCache}
@@ -46,8 +50,11 @@ const SceneModal = (props: Props) => {
           onClose={handleCloseInteractionModal}
         />
       </div>
-    )}
-    { (activeInteractionModal != null) && activeInteractionModal.type === 'situation' && (
+    )
+  }
+
+  if (activeInteractionModal.type === 'situation') {
+    return (
       <div className="modal-backdrop" onClick={handleCloseInteractionModal}>
         <Situation
           situation={activeInteractionModal.situation}
@@ -55,9 +62,8 @@ const SceneModal = (props: Props) => {
           onClose={handleCloseInteractionModal}
           />
       </div>
-    )}
-    </>
-  )
+    )
+  }
 }
 
 export default SceneModal
