@@ -26,10 +26,12 @@
 		white-space: nowrap;
 		cursor: $cursor-pointer;
 		align-self: flex-end;
+    padding: 0 0.25rem;
 
     &.active {
       background: white;
       border-color: $color-highlighted;
+      z-index: 1;
     }
   }
 
