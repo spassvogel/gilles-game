@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useId, useState } from 'react'
 import { type Props as TabProps } from './Tab'
 import { SoundManager } from 'global/SoundManager'
 import './styles/tabstrip.scss'
@@ -16,7 +16,7 @@ const Tabstrip = <T extends string> (props: Props<T>) => {
   const { activeTab = null, onClick, disabled = false } = props
   // used in autocollapse
   const [open, setOpen] = useState(false)
-
+  const id = useId()
   const className = `${props.className ?? ''}${(disabled ? ' disabled' : '')}`
 
   const handleTabClick = (tabId: T) => {
@@ -42,7 +42,7 @@ const Tabstrip = <T extends string> (props: Props<T>) => {
   return (
     <>
       <ul className={`tabstrip ${className ?? ''}`} onClick={handleClick}>
-        <input type="checkbox" className="open" id="open" checked={open} onChange={() => { setOpen(!open) }} />
+        <input type="checkbox" className="open" id={id} checked={open} onChange={() => { setOpen(!open) }} />
         {children}
       </ul>
     </>
