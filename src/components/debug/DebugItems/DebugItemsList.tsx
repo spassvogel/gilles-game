@@ -39,7 +39,10 @@ const parsers = [
 
 const prepareText = (definition: ItemDefinition) => {
   const text = parsers.reduce<unknown>((acc, value) => {
-    return value(acc)
+    const props = value(acc) as Partial<ItemDefinition>
+
+    delete props.itemCategory
+    return props
   }, definition)
 
   const asString = JSON.stringify(text, undefined, 2)

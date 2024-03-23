@@ -67,7 +67,13 @@ const DebugSprites = () => {
         <select value={orientation} onChange={(e) => { setOrientation(e.currentTarget.value as Orientation) }}>
           {allOrientations.map(o => <option key={o}>{o}</option>)}
         </select>
-        <input className= "current-frame" type="number" value={currentFrame} onChange={(e) => { setCurrentFrame(e.currentTarget.value as unknown as number) }} />
+        <input
+          className="current-frame"
+          type="number"
+          value={currentFrame}
+          onChange={(e) => { setCurrentFrame(e.currentTarget.value as unknown as number) }}
+          min={0}
+        />
       </div>
         {(spritesheet !== undefined && (
           <DebugSpriteDemo
