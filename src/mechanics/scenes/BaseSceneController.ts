@@ -947,7 +947,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
   }
 
   // Store
-  protected dispatch (action: AnyAction) {
+  protected dispatch (action: Action) {
     this.store.dispatch(action)
   }
 

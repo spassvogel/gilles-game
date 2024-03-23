@@ -8,7 +8,6 @@ import { useStructureDefinition } from 'hooks/store/structures'
 import { type Resource } from 'definitions/resources'
 import { useResourcesState } from 'hooks/store/resources'
 import { useDispatch } from 'react-redux'
-import { type AnyAction } from 'redux'
 import { subtractGold } from 'store/actions/gold'
 import { addLogText } from 'store/actions/log'
 import { upgradeStructure } from 'store/actions/structures'
@@ -18,13 +17,15 @@ import { TaskType } from 'store/types/task'
 import Button from 'components/ui/buttons/Button'
 import { removeResources } from 'store/actions/resources'
 import { formatDuration } from 'utils/format/time'
+import { type Action } from 'store/actions'
+
 import './styles/upgradeHelpModal.scss'
 
 export type Props = {
   structure: Structure
   level: number
 
-  addUpgradeCallbacks?: (level: number) => AnyAction[] // add custom actions after upgrade is done
+  addUpgradeCallbacks?: (level: number) => Action[] // add custom actions after upgrade is done
 }
 
 const UpgradeHelpModal = (props: PropsWithChildren<Props>) => {
@@ -40,7 +41,7 @@ const UpgradeHelpModal = (props: PropsWithChildren<Props>) => {
   const missingGold = goldCost > gold
 
   const resourcesState = useResourcesState()
-  const costResources = (nextLevel.cost.resources != null) || {}
+  const costResources = ((nextLevel.cost.resources != null) || {}) as { [key in Resource]: number }
   const missingAtLeastOneResource = Object.keys(costResources)
     .some((key) => {
       const resource = key as Resource

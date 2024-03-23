@@ -1,4 +1,4 @@
-import { type AnyAction } from 'redux'
+import { type Action } from 'store/actions'
 
 export enum TaskType {
   buildStructure,
@@ -15,5 +15,5 @@ export type TaskStoreState = {
   lastTick: number // time of last tick
   timeRemaining: number
   progress: number // value between 0 and 1 indicating progress
-  callbacks: AnyAction[] // actions to dispatch on complete
+  callbacks: Action[] // actions to dispatch on complete
 }
