@@ -901,3 +901,9 @@ There is a bug that allows the user to drag an action out of a dead adventurer
 
 Or might not be needed, as we should probably prevent leaving a scene whilst in combat.
 
+### 2024-03-23 Loading scene after re-entering doesn't load certain textures
+
+```
+TypeError: Cannot read properties of undefined (reading 'textures')
+    at Z.applyProps (RectTileLayer.tsx:38:26)
+```

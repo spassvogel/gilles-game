@@ -421,8 +421,11 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
 
   takeGoldFromCache (name: string) {
     // Override this to remove gold from questvars
+
     const lootCache = this.getLootCache(name)
     if (lootCache != null) {
+      void SoundManager.playSound('UI_GOLD', Channel.ui)
+
       this.dispatch(addGold(lootCache.gold ?? 0))
     }
   }

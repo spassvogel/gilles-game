@@ -8,6 +8,11 @@ export const sounds = {
   MUSIC_VIOLETTES: '/sound/music/ViolettesElficSongForLamentandHope.ogg',
   MUSIC_WORLD: '/sound/music/TheLoomingBattle.ogg',
   UI_BUTTON_CLICK: '/sound/ui/button-click.ogg',
+  UI_GOLD: [
+    'sound/ui/gold-01.ogg',
+    'sound/ui/gold-02.ogg',
+    'sound/ui/gold-03.ogg'
+  ],
   UI_EQUIP: '/sound/ui/equip.ogg',
   UI_ERROR: '/sound/ui/error.ogg',
   UI_LEVEL_UP: '/sound/ui/level-up.ogg',
