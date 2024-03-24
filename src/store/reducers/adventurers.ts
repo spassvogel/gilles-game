@@ -193,7 +193,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 }, {
   id: `${ADVENTURER_PREFIX}d299f98a`,
   ...generateAttributesHealthAndXp(),
-  health: 3000,
+  // health: 3000,
   equipment: {
     [EquipmentSlotType.mainHand]: { type: 'weapon/spear' }
   },

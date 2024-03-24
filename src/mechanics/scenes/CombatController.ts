@@ -30,7 +30,7 @@ import { random } from 'utils/random'
 import { BubbleType } from 'emitters/BubbleEmitter'
 import { collectEffects } from 'definitions/effects'
 import { EffectType } from 'definitions/effects/types'
-import { Action } from 'store/actions'
+import { type Action } from 'store/actions'
 
 // todo: dont use a class anymore
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class

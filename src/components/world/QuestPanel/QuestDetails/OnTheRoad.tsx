@@ -13,6 +13,7 @@ const OnTheRoad = (props: Props) => {
   const quest = useQuest(props.questName)
   const questDefinition: QuestDefinition = getDefinition(quest.name)
   let progress: number = Math.floor(quest.progress)
+
   do {
     const log = questDefinition.nodes[progress].log
     if (log !== undefined) {

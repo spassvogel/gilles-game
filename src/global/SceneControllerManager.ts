@@ -26,6 +26,6 @@ export const getSceneController = (questName: string, sceneName: string, store: 
   return stores.get(`${questName}.${sceneName}`)!
 }
 
-const destroySceneConroller = (questName: string, sceneName: string) => {
-  stores.delete(`${questName}.${sceneName}`)
+export const destroySceneController = (questName: string, sceneName: string) => {
+  console.log(stores.delete(`${questName}.${sceneName}`))
 }

@@ -5,6 +5,7 @@ import { type StoreState } from 'store/types'
 import LoadingSpinner from 'components/ui/loading/LoadingSpinner'
 import usePrevious from 'hooks/usePrevious'
 import { getSceneController } from 'global/SceneControllerManager'
+import { type Action } from 'store/actions'
 
 export const SceneControllerContext = createContext<BaseSceneController<unknown> | null>(null)
 
@@ -14,7 +15,7 @@ export type Props = {
 
 const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
   const { questName, children } = props
-  const store = useStore<StoreState>()
+  const store = useStore<StoreState, Action>()
   const [loaded, setLoaded] = useState<boolean>(false)
   const storeState = store.getState()
   const quest = storeState.quests.find(q => q.name === questName)
@@ -41,7 +42,7 @@ const SceneControllerContextProvider = (props: PropsWithChildren<Props>) => {
         }
         controller.sceneEntered()
       }
-      controller.loadData(loadingComplete)
+      void controller.loadData(loadingComplete)
     }
     return () => {
       controller?.sceneExited()
