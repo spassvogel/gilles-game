@@ -32,7 +32,8 @@ export const initialQuestState: QuestStoreState[] = [{
   progress: 0,
   questVars: initialQuestVars,
   encounterResults: [],
-  icon: 'sigil1.png'
+  icon: 'sigil1.png',
+  objectsPrev: {}
 // }, {
 //   name: "retrieveMagicAmulet",
 //   party: [],
@@ -119,15 +120,27 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
     // case "startEncounter":
     //   return startEncounter(state, action as StartEncounterAction)
 
-    // To change scene, set scene name. The scenecontroller will load the scene data and art assets
-    // and call setScene reducer
+    // To change scene, set scene name. Store the current objects in `objectsPrev`
+    // The scenecontroller will load the scene data and art assets and call setScene reducer
     case 'setSceneName': {
       return state.map((qss) => {
         if (qss.name === action.questName) {
+          let { objectsPrev } = qss
+
+          if (qss.sceneName != null) {
+            // Store the non-adventurer objects such that we can put them back into place when player returns to this scene
+            const nonAdventurerObjects = (qss.scene?.objects ?? []).filter((sO) => !isAdventurer(sO))
+            objectsPrev = {
+              ...qss.objectsPrev,
+              [qss.sceneName]: nonAdventurerObjects
+            }
+          }
+
           return {
             ...qss,
             sceneName: action.sceneName,
             sceneNamePrev: qss.sceneName,
+            objectsPrev,
             scene: undefined
           }
         }

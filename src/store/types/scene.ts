@@ -18,6 +18,8 @@ export enum Allegiance {
   enemy,
 }
 
+// todo: strip of unneeded stuff
+// ### 2024-03-25 Strip down objects
 export type SceneObject = Omit<Merge<TiledObjectData, {
   layerId: number
   properties: Record<string, string | boolean | number>

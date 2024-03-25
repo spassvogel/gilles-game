@@ -1,5 +1,5 @@
 import { type ItemType } from 'definitions/items/types'
-import { type SceneStoreState } from './scene'
+import { type SceneObject, type SceneStoreState } from './scene'
 
 export enum QuestStatus {
   unavailable,
@@ -27,4 +27,5 @@ export type QuestStoreState = {
   scene?: SceneStoreState
   sceneName?: string
   sceneNamePrev?: string
+  objectsPrev: Record<string, SceneObject[]> // previously loaded scene objects
 }

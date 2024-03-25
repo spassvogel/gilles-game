@@ -3,7 +3,7 @@ import EventEmitter from 'events'
 import type TypedEmitter from 'typed-emitter'
 import { type Location, addAllTilesInLayerToList, locationEquals, TiledObjectType, parseProperties } from 'utils/tilemap'
 import { type StoreState } from 'store/types'
-import { TiledLayerType, type TiledMapData, type TiledObjectData } from 'constants/tiledMapData'
+import { LAYER_ACTOR, TiledLayerType, type TiledMapData, type TiledObjectData } from 'constants/tiledMapData'
 import { AStarFinder } from 'astar-typescript'
 import { type AdventurerStoreState } from 'store/types/adventurer'
 import { setScene, setSceneName, exitEncounter, enqueueSceneAction, updateQuestVars, deductActorAp, endPlayerTurn } from 'store/actions/quests'
@@ -46,7 +46,7 @@ import { type Ammunition } from 'definitions/items/ammunition'
 import { calculateEffectiveAttributes } from 'mechanics/adventurers/attributes'
 import { sprites } from 'bundles/sprites'
 import { Channel, SoundManager } from 'global/SoundManager'
-import { DeepPartial } from 'utils/typescript'
+import { type DeepPartial } from 'utils/typescript'
 
 const effectSpritesheetBasePath = '/img/scene/effects/'
 export const movementDuration = 500 // time every tile movement takes
@@ -365,7 +365,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
 
   // Converts pixel coordinate (where 0,0 is top left of the canvas) to scene location
   pointToSceneLocation (point: Point): Location {
-    if (!this.mapData?.tilewidth || !this.mapData?.tileheight) {
+    if (this.mapData?.tilewidth == null || this.mapData?.tileheight == null) {
       return [0, 0]
     }
     return [Math.floor(point.x / this.mapData.tilewidth), Math.floor(point.y / this.mapData.tilewidth)]
@@ -735,8 +735,16 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
       throw new Error('No mapData')
     }
 
-    const objectLayers = this.mapData.layers.filter(layer => layer.type === TiledLayerType.objectgroup)
     const objects: SceneObject[] = []
+    let spawnNewObjects = true
+    if (this.quest.sceneName != null && this.quest.objectsPrev[this.quest.sceneName] != null) {
+      // We have already spawned the objects to this scene when the adventurers visited earlier
+      // So only the adventurers need to be spawned
+      objects.push(...this.quest.objectsPrev[this.quest.sceneName])
+      spawnNewObjects = false
+    }
+
+    const objectLayers = this.mapData.layers.filter(layer => layer.type === TiledLayerType.objectgroup)
     const adventurerLocations: Location[] = [] // we will look for spawn points (portal) on the map and populate this array with locations around it
     const adventurers = this.getAdventurers()
 
@@ -746,7 +754,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         const properties = parseProperties(value.properties)
         const location: Location = [
           value.x / (this.mapData?.tilewidth ?? 1),
-          (value.y - (value.gid ? value.height : 0)) / (this.mapData?.tileheight ?? 1)
+          (value.y - (value.gid != null ? value.height : 0)) / (this.mapData?.tileheight ?? 1)
         ]
 
         const object: SceneObject | null = {
@@ -784,7 +792,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
           }
         }
 
-        if (object !== undefined) {
+        if (object != null && spawnNewObjects) {
           acc.push(object)
         }
         return acc
@@ -792,12 +800,15 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     })
 
     // Now spawn the adventurers!
-    const actorLayer = objectLayers.find(oL => oL.name === 'actor')
+    const actorLayer = objectLayers.find(oL => oL.name === LAYER_ACTOR)
     if (actorLayer == null) {
-      throw new Error(`No layer with name 'actor' found in the map! "${this.jsonPath}"`)
+      throw new Error(`No layer with name ${LAYER_ACTOR} found in the map! "${this.jsonPath}"`)
     }
     const layerId = actorLayer.id
 
+    if (adventurerLocations.length < adventurers.length) {
+      console.warn(`Not enough spawn locations for adventurers found in ${this.jsonPath}`)
+    }
     adventurerLocations.forEach((location, i) => {
       const adventurer = adventurers[i]
       if (adventurer == null || adventurer.health <= 0) {
@@ -805,6 +816,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
       }
 
       const level = xpToLevel(adventurer.xp)
+      // todo: 2024-03-25 Strip down objects => cut down the chaff from this
       const adventurerObject: AdventurerObject = {
         id: 0,
         adventurerId: adventurer.id,

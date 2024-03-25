@@ -900,6 +900,9 @@ There is a bug that allows the user to drag an action out of a dead adventurer
 ### 2024-03-23 Save position of enemies when leaving scene
 
 Or might not be needed, as we should probably prevent leaving a scene whilst in combat.
+Is actually needed. `  protected createObjects (): SceneObject[] {` should take a copy of objects from store in `objectsPrev`
+
+- [x] Implemented in basescenecontroller and quests redux state
 
 ### 2024-03-23 Loading scene after re-entering doesn't load certain textures
 
@@ -907,3 +910,9 @@ Or might not be needed, as we should probably prevent leaving a scene whilst in 
 TypeError: Cannot read properties of undefined (reading 'textures')
     at Z.applyProps (RectTileLayer.tsx:38:26)
 ```
+
+### 2024-03-25 Strip down objects
+
+Objects now inherit a lot of stuff from tiled and have a lot of unused properties.
+- [ ] Lets get rid of this.
+- [ ] Also, to ensure objects properly overlap in the scene (and to simplify) lets put all objects in a layer called 'objects'

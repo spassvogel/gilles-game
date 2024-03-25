@@ -87,3 +87,6 @@ enum RenderOrder {
   leftUp = 'left-up',
   leftDown = 'left-down',
 }
+
+// todo: 2024-03-25 Strip down objects => rename to 'objects'
+export const LAYER_ACTOR = 'actor'
