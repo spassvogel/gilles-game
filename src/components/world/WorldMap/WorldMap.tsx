@@ -208,7 +208,7 @@ const WorldMap = (props: Props) => {
             {' | '}
             {selectedQuest?.sceneName != null ? TextManager.getQuestSceneTitle(selectedQuest) : '...'}
           </span>
-          <span onClick={handleClose} className="close">╳</span>
+          <span onClick={handleClose} className="close">×</span>
         </div>
       )}
     </div>

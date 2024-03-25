@@ -1,27 +1,37 @@
 @import '@/components/styles/import.scss';
 
 .world-map {
-    margin-bottom: -32px;
+  margin-bottom: -32px;
 
-    .title {
-        background: $color-background-overlay;
-        color: $color-text-lighter;
-        height: 32px;
-        top: -36px;
-        position: relative;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        padding: 0 8px;
-        justify-content: space-between;
-        box-sizing: border-box;
+  .title {
+    background: $color-background-overlay;
+    color: $color-text-lighter;
+    height: 32px;
+    top: -36px;
+    position: relative;
 
-        button { margin-right: 8px; }
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    justify-content: space-between;
+    box-sizing: border-box;
 
-        .close {
-            display: inline-block;
-            text-align: center;
-            width: 16px;
-        }
+    button {
+      margin-right: 8px;
     }
+
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .close {
+      display: inline-block;
+      text-align: center;
+      width: 16px;
+      font-size: 1.5rem;
+    }
+  }
 }
