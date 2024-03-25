@@ -48,7 +48,7 @@ const trolls: TrollDefinition = {
     avatarImg: `${avatarImgBasePath}orc_02.png`,
     race: Race.troll
   },
-  'troll-accountant': {
+  'orc-accountant': {
     attributes: {
       str: 8,
       for: 7,

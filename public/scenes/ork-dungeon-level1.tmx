@@ -106,7 +106,7 @@
   <object id="17" name="enemy1" type="enemySpawn" x="300" y="200" width="100" height="100">
    <properties>
     <property name="level" type="int" value="4"/>
-    <property name="name" value="troll-accountant"/>
+    <property name="name" value="orc-accountant"/>
    </properties>
   </object>
   <object id="18" name="enemy2" type="enemySpawn" x="400" y="200" width="100" height="100">

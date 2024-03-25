@@ -1,8 +1,10 @@
 import { type EnemyDefinition, type EnemyType } from './types'
 import trolls from './trolls'
+import orcs from './orcs'
 
 const all = {
-  ...trolls
+  ...trolls,
+  ...orcs
 }
 
 export default all

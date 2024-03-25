@@ -26,7 +26,7 @@ const ObjectTileLayer = PixiComponent<Props, any>('ObjectTileLayer', {
     instance.clear()
 
     objects.forEach((object) => {
-      if (!object.gid) return // todo!
+      if (object.gid == null) return
       const tileset = findTileset(object.gid, tilesets)
       if (tileset == null) return
 

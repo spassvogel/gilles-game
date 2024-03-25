@@ -79,9 +79,9 @@
   "encounter-goblin-house-outside-description": "As the party makes their way along the forest they notice a small house just of the road, smoke rises from the chimney",
   "encounter-thebigtree-description": "A huge tree blocks the way",
 
-  "enemy-troll-accountant-name": "Troll accountant",
   "enemy-troll-developer-name": "Troll developer",
   "enemy-troll-manager-name": "Troll manager",
+  "enemy-orc-accountant-name": "Orc accountant",
 
   "item-ammunition-armor-piercing-arrows-name": "Armor piercing arrows",
   "item-ammunition-basic-arrows-name": "Basic arrows",
@@ -542,6 +542,7 @@
   "ui-adventurer-info-xp-level-up": "Level up!",
   "ui-adventurer-info-xp-progress": "{{xp}}/{{next}} xp to next level",
 
+  "ui-combat-bar-end-turn": "End turn",
   "ui-combat-bar-enemy-turn": "Enemy turn",
   "ui-combat-bar-player-turn": "Your turn",
 
