@@ -18,7 +18,7 @@ import { effectsMiddleware } from 'store/middleware/effects'
 import { traitsMiddleware } from 'store/middleware/traits'
 import { type Action } from 'store/actions'
 import { gameTickMiddleware } from 'store/middleware/gameTick'
-import { configureStore } from '@reduxjs/toolkit'
+import { type DevToolsEnhancerOptions, configureStore } from '@reduxjs/toolkit'
 import { type StoreState } from 'store/types'
 
 export const PERSIST_KEY = 'root'
@@ -40,10 +40,12 @@ type ConfigureStoreResult = {
 /**
  * Configures the redux store
  */
-let devTools: boolean | { name: string } = false
+
+let devTools: DevToolsEnhancerOptions | false = false
 if (process.env.NODE_ENV === 'development') {
   devTools = {
-    name: `Gilles game ${version}`
+    name: `Gilles game ${version}`,
+    actionsDenylist: 'gameTick'
   }
 }
 
@@ -53,7 +55,14 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => (
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+        ignoredActions: [
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER
+        ]
       }
     }).concat(
       gameTickMiddleware,
