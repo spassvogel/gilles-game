@@ -74,13 +74,6 @@ export const getUniqueName = (object: SceneObject) => {
   return 'UNKNOWN'
 }
 
-// export type Actor = SceneObject & {
-//   type: "actor"
-//   //allegiance: Allegiance
-//   health: number
-//   //remainingAP: number
-// }
-
 export type SceneInteractionModal =
 | { type: 'lootCache', lootCache: string }
 | { type: 'situation', situation: string }

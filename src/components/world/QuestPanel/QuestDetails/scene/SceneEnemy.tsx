@@ -3,7 +3,6 @@ import { Assets } from 'pixi.js'
 import { type EnemyObject } from 'store/types/scene'
 import SceneActor, { type Props as SceneActorProps } from './SceneActor'
 import { getDefinition as getEnemyDefinition } from 'definitions/enemies'
-import { type EnemyType } from 'definitions/enemies/types'
 import { sprites } from 'bundles/sprites'
 import determineActorZ from './utils/determineActorZ'
 
@@ -20,7 +19,7 @@ const SceneEnemy = (props: Props & Omit<SceneActorProps, 'children' | 'name' | '
     actor,
     selected
   } = props
-  const definition = getEnemyDefinition(actor.properties.enemyType as EnemyType)
+  const definition = getEnemyDefinition(actor.enemyType)
   const key = definition.spritesheet
   const spritesheet = Assets.get(sprites[key])
 

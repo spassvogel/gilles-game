@@ -24,7 +24,6 @@ const ObjectTileLayer = PixiComponent<Props, any>('ObjectTileLayer', {
       return
     }
     instance.clear()
-    if (!objects) return
 
     objects.forEach((object) => {
       if (!object.gid) return // todo!
