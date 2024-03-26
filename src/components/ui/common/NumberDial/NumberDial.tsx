@@ -12,7 +12,7 @@ export type Props = {
   onDown?: (e: React.MouseEvent) => void
 }
 
-const UpDownValue = (props: Props) => {
+const NumberDial = (props: Props) => {
   const handleUp = (e: React.MouseEvent) => {
     if ((props.onUp != null) && props.upDisabled !== true) { props.onUp(e) }
   }
@@ -47,4 +47,4 @@ const UpDownValue = (props: Props) => {
   )
 }
 
-export default UpDownValue
+export default NumberDial

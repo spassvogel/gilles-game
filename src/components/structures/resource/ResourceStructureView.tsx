@@ -1,6 +1,6 @@
 import { type ResourceStructure, type Structure } from 'definitions/structures'
 import { type ResourceStructureLevelDefinition } from 'definitions/structures/types'
-import UpDownValue from 'components/ui/common/NumberDial'
+import NumberDial from 'components/ui/common/NumberDial'
 import { useSelector, useDispatch } from 'react-redux'
 import ReactMarkdown from 'react-markdown'
 import { type StoreState } from 'store/types'
@@ -80,7 +80,7 @@ const ResourceStructureView = (props: Props) => {
       <div className="resource-structure-view">
         <section>
           <StructureLevel structure={structure} onHelpClicked={handleHelpClicked}/>
-          <UpDownValue
+          <NumberDial
             label={TextManager.get('ui-structure-production-workers')}
             value={workers}
             max={levelDefinition.workerCapacity}

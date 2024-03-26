@@ -7,7 +7,7 @@ export type Props = {
 }
 
 // An InfoModal is a semi transparant modal.
-export const InfoModal = (props: PropsWithChildren<Props>) => {
+const InfoModal = (props: PropsWithChildren<Props>) => {
   const { className, children } = props
 
   return (
@@ -16,3 +16,5 @@ export const InfoModal = (props: PropsWithChildren<Props>) => {
     </InfoWindow>
   )
 }
+
+export default InfoModal
