@@ -126,8 +126,6 @@
     <property name="to" value="dungeon.entrance"/>
    </properties>
   </object>
- </objectgroup>
- <objectgroup id="6" name="door">
   <object id="1" type="door" gid="408" x="320" y="192" width="64" height="64">
    <properties>
     <property name="blocksMovement" type="bool" value="true"/>
