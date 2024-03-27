@@ -28,6 +28,7 @@ import 'definitions/quests/kill10Boars/encounters/dungeon'
 import './styles/app.scss'
 import DebugDrawer from 'components/debug/DebugDrawer'
 import { SoundManager } from 'global/SoundManager'
+import Tutorial from 'components/tutorial'
 
 PixiPlugin.registerPIXI(PIXI)
 gsap.registerPlugin(PixiPlugin)
@@ -115,6 +116,7 @@ const App = () => {
               {' | '}
               <Button onClick={handleRestartClick} color={ButtonColor.purple} > Restart! </Button>
             </div>
+            <Tutorial />
             <Routes>
               <Route path={`${getTownLink()}/*`} element={(<TownView />)} />
               <Route path={`${getWorldLink()}/*`} element={(<WorldView />)} />

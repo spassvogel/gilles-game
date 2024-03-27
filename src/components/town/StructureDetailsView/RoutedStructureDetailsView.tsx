@@ -22,7 +22,7 @@ const RoutedStructureDetailsView = () => {
             square={true}
             size={'medium'}
             color="purple"
-          >╳</Button>
+          >×</Button>
         </Link>
       </div>
       <StructureDetailsView structure={structure} />

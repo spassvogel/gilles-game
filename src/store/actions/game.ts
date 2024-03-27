@@ -5,6 +5,8 @@ export type GameAction =
   { type: 'gameTick', delta: number }
   | { type: 'startGame' }
   | { type: 'loadGame', state: StoreState }
+  | { type: 'skipTutorial' }
+  | { type: 'nextTutorialStep' }
   | { type: 'ignoreVersionDiff' }
   | { type: 'reduceTime', percentage: number, time: Time, what?: string }
 
@@ -31,4 +33,12 @@ export const ignoreVersionDiff = (): GameAction => ({
 export const loadGame = (state: StoreState): GameAction => ({
   type: 'loadGame',
   state
+})
+
+export const skipTutorial = (): GameAction => ({
+  type: 'skipTutorial'
+})
+
+export const nextTutorialStep = (): GameAction => ({
+  type: 'nextTutorialStep'
 })

@@ -1,0 +1,43 @@
+@import '@/components/styles/import.scss';
+
+.tutorial-step {
+  padding: 0.5rem 1rem;
+
+  .content {
+    display: grid;
+
+    .portrait {
+      text-align: center;
+
+      .image {
+        border-radius: 50%;
+        width: 50%;
+        max-width: 10rem;
+      }
+    }
+
+    .flavor {
+      font-style: italic;
+    }
+
+    .tutorial-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    @include md {
+      grid-template-columns: 12rem 1fr;
+      .portrait {
+        text-align: left;
+
+        .image {
+          width: auto;
+        }
+      }
+    }
+  }
+
+  .assignment {
+    color: $color-highlighted;
+  }
+}

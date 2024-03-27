@@ -4,7 +4,8 @@ import { type GameStoreState } from 'store/types/game'
 import * as Version from 'constants/version'
 
 export const initialGameState: GameStoreState = {
-  version: Version.asInt
+  version: Version.asInt,
+  tutorial: 0
 }
 /**
  * reducer
@@ -19,6 +20,20 @@ export const game: Reducer<GameStoreState, GameAction> = (state = initialGameSta
       return {
         ...state,
         ignoreVersionDiff: Version.asInt
+      }
+    }
+
+    case 'skipTutorial': {
+      return {
+        ...state,
+        tutorial: -1
+      }
+    }
+
+    case 'nextTutorialStep': {
+      return {
+        ...state,
+        tutorial: state.tutorial + 1
       }
     }
   }

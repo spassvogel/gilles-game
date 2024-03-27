@@ -1,0 +1,69 @@
+@import '@/components/styles/import.scss';
+
+.tutorial {
+  background-color: $color-background-dark;
+  color: $color-text-lighter;
+
+  .content {
+    max-height: 100vh;
+    transition: all 0.5s;
+    padding-bottom: 1rem;
+  }
+
+  .control {
+    position: relative;
+    width: 100%;
+
+    .assignment {
+      padding-right: 2rem;
+    }
+
+    .close {
+      position: absolute;
+      width: 2rem;
+      right: -0.25rem;
+      top: 0.25rem;
+      cursor: $cursor-pointer;
+      display: flex;
+      justify-content: center;
+
+      .arrow {
+        border: solid $color-text-lighter;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+        margin: 2px;
+
+        transform: translate(2px, 2px) rotate(-135deg);
+        -webkit-transform: translate(2px, 2px) rotate(-135deg);
+
+        &.disabled {
+          border-color: #777777;
+          cursor: default;
+        }
+      }
+    }
+
+  }
+
+  &.collapsed {
+    .content {
+      max-height: 0;
+      opacity: 0;
+      padding-bottom: 0;
+    }
+
+    .control {
+      .assignment {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      .arrow {
+        transform: translate(2px, -2px) rotate(45deg);
+        -webkit-transform: translate(2px, -2px) rotate(45deg);
+      }
+    }
+  }
+}

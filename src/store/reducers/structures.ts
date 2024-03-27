@@ -31,11 +31,11 @@ const structureInitialState: StructureStoreState = {
 export const initialStructuresState: StructuresStoreState = {
   alchemist: { ...structureInitialState, produces: [] },
   armoursmith: { ...structureInitialState, produces: ['apparel/boots1'] },
-  garden: { level: 0, workers: 0, state: StructureState.Built }, // TODO: change back to NotBuilt
+  garden: structureInitialState,
   lumberMill: structureInitialState,
   mine: { level: 0, workers: 0, state: StructureState.NotBuilt },
   quarry: structureInitialState,
-  tavern: { level: 2, workers: 0, state: StructureState.Built },
+  tavern: { level: 0, workers: 0, state: StructureState.NotBuilt },
   tannery: structureInitialState,
   warehouse: { level: 0, workers: 0, state: StructureState.Built },
   weaponsmith: { ...structureInitialState, produces: ['weapon/simpleCrossbow', 'weapon/dagger'] },

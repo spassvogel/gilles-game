@@ -916,3 +916,21 @@ TypeError: Cannot read properties of undefined (reading 'textures')
 Objects now inherit a lot of stuff from tiled and have a lot of unused properties.
 - [ ] Lets get rid of this.
 - [ ] Also, to ensure objects properly overlap in the scene (and to simplify) lets put all objects in a layer called 'objects'
+
+### 2024-03-25 Tutorial
+
+Make a tutorial component that can collapse and expand.
+
+When expanded it shows portrait of a questgiver, fluff text and the assignment text. Should it have a technical explanation about which buttons to click? It also has a button to skip tutorial.
+
+When collapsed it shows the assignment text.
+
+~~To determine at which step we are we check the store if we completed each step, ascending. For the skip tutorial there is also a boolean in redux. The current step is stored in useMemo~~ 
+
+For every step there is a component. It checks the store to see whether player has completed the assignment. If so, it advances the currentStepIndex to the next value.
+
+There is a template component that they all use to ensure the steps look the same. The first step can be an introduction step.
+
+By way of usePrevious we store the previous step. This way we know if a step was just completed and we can show a celebration message per step.
+
+There exists in the parent a mapping between step index and step component.

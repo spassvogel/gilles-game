@@ -1,4 +1,3 @@
-
 import { type StockpileAction } from 'store/actions/stockpile'
 import { type Reducer } from 'redux'
 import { type ItemType, ItemCategory, type Item } from 'definitions/items/types'
@@ -19,7 +18,7 @@ export const getInitialStockpile = (): StockpileStoreState => {
   const result: StockpileStoreState = {
     ammunition: [],
     apparel: [],
-    deed: [],
+    deed: [{ type: 'deed/tavern' }],
     herb: [],
     material: [],
     mineral: [],
@@ -29,22 +28,23 @@ export const getInitialStockpile = (): StockpileStoreState => {
     weapon: []
   }
 
-  const { maxStockpile } = getDefinition<WarehouseStructureDefinition>('warehouse').levels[0]
-  Object.keys(result).forEach((itemCategoryName: string) => {
-    const itemCategory = ItemCategory[itemCategoryName as keyof typeof ItemCategory]
-    for (let i = 0; i < maxStockpile; i++) {
-      if (Math.random() < 0.5) {
-        result[itemCategoryName as keyof typeof result].push(null)
-      } else {
-        const randomItem: Item = { type: getRandomItemTypeByCategory(itemCategory) }
-        if (canStackItem(itemCategory)) {
-          randomItem.quantity = Math.floor(Math.random() * 100)
-        }
-        const category = result[itemCategoryName as keyof typeof result] as Item[]
-        category.push(randomItem)
-      }
-    }
-  })
+  // uncomment to generate some random stuff to be added
+  // const { maxStockpile } = getDefinition<WarehouseStructureDefinition>('warehouse').levels[0]
+  // Object.keys(result).forEach((itemCategoryName: string) => {
+  //   const itemCategory = ItemCategory[itemCategoryName as keyof typeof ItemCategory]
+  //   for (let i = 0; i < maxStockpile; i++) {
+  //     if (Math.random() < 0.5) {
+  //       result[itemCategoryName as keyof typeof result].push(null)
+  //     } else {
+  //       const randomItem: Item = { type: getRandomItemTypeByCategory(itemCategory) }
+  //       if (canStackItem(itemCategory)) {
+  //         randomItem.quantity = Math.floor(Math.random() * 100)
+  //       }
+  //       const category = result[itemCategoryName as keyof typeof result] as Item[]
+  //       category.push(randomItem)
+  //     }
+  //   }
+  // })
   return result
 }
 

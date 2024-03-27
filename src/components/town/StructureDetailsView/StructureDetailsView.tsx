@@ -28,7 +28,7 @@ const StructureDetailsView = (props: Props) => {
 
   const renderContent = () => {
     if (structureState.state === StructureState.Building) {
-      if (buildTask === null) return null
+      if (buildTask == null) return null
       return (
         <div className="building">
           <TickingProgressbar

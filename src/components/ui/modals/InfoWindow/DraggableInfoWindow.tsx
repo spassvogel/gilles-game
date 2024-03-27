@@ -37,7 +37,7 @@ export const DraggableInfoWindow = (props: Props & ComponentProps<'div'>) => {
         <div>
           {title}
         </div>
-        <div onClick={onClose} className="close">╳</div>
+        <div onClick={onClose} className="close">×</div>
       </h2>
       {children}
     </div>,
