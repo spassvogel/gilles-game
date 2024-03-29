@@ -42,11 +42,11 @@ const ResourcesCost = (props: Props) => {
   const listItems = Object.keys(props.resources).map((key: string) => {
     const resource = key as Resource
     let listItemClass = 'resource'
-    if (sufficientResources && !sufficientResources[resource]) {
+    if (!sufficientResources[resource]) {
       listItemClass += ' insufficient'
     }
     const resourceDescription = resourceDescriptions[resource]
-    if (!resourceDescription) {
+    if (resourceDescription == null) {
       throw new Error(`No resource description found for ${resource}`)
     }
 

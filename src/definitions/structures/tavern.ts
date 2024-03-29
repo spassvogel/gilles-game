@@ -4,7 +4,10 @@ import { StructureType, type TavernStructureDefinition } from './types'
 const tavern: TavernStructureDefinition = {
   cost: {
     gold: 40,
-    time: 4000
+    time: 4000,
+    resources: {
+      wood: 50
+    }
   },
   type: StructureType.tavern,
   levels: [{

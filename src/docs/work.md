@@ -925,7 +925,7 @@ When expanded it shows portrait of a questgiver, fluff text and the assignment t
 
 When collapsed it shows the assignment text.
 
-~~To determine at which step we are we check the store if we completed each step, ascending. For the skip tutorial there is also a boolean in redux. The current step is stored in useMemo~~ 
+~~To determine at which step we are we check the store if we completed each step, ascending. For the skip tutorial there is also a boolean in redux. The current step is stored in useMemo~~ ta
 
 For every step there is a component. It checks the store to see whether player has completed the assignment. If so, it advances the currentStepIndex to the next value.
 
@@ -934,3 +934,7 @@ There is a template component that they all use to ensure the steps look the sam
 By way of usePrevious we store the previous step. This way we know if a step was just completed and we can show a celebration message per step.
 
 There exists in the parent a mapping between step index and step component.
+
+### 2023-03-28 Structures can cost resources
+
+- [ ] Structures can have a cost in resources, in addition to gold and time

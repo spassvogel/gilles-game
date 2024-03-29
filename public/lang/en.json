@@ -591,6 +591,8 @@
   "ui-structure-resource-no-workers": "No workers assigned to this building",
   "ui-structure-resource-warehouse-full": "The {{structure:link 'warehouse'}} is full of {{resource:name resource}}, the {{ structure:name structure }} cannot produce more at this moment. Upgrade the warehouse to store more.",
 
+  "ui-structure-start-construction": "Start construction",
+
   "ui-structure-tavern-button-join-quest-full-party": "Party full",
   "ui-structure-tavern-button-join-quest": "Join {{quest}}",
   "ui-structure-tavern-button-launch-quest": "Start quest",
