@@ -225,20 +225,34 @@ const getTemplate = (key: string) => {
   return template
 }
 
-const itemArticleUndefined = (item: ItemType) => {
-  const name = getItemName(item)
+const articleUndefined = (noun: string) => {
   const articleTemplate = getTemplate('common-article-undefined')
-  return new Handlebars.SafeString(`${articleTemplate({ noun: name })}`)
+  return new Handlebars.SafeString(`${articleTemplate({ noun })}`)
 }
 
-const itemArticleDefined = (item: ItemType) => {
-  const name = getItemName(item)
+const articleDefined = (noun: string) => {
   const articleTemplate = getTemplate('common-article-defined')
-  return new Handlebars.SafeString(`${articleTemplate({ noun: name })}`)
+  return new Handlebars.SafeString(`${articleTemplate({ noun })}`)
 }
 
-const itemArticleAuto = (item: ItemType) => {
-  return itemArticleUndefined(item)
+const articleAuto = (noun: string) => {
+  return articleUndefined(noun)
+}
+
+type ArticleType = 'aA' | 'aD' | 'aU'
+
+const articalize = (input: string, article?: ArticleType) => {
+  switch (article) {
+    case 'aA': // article Auto
+      return articleAuto(input)
+    case 'aD': // article undefined "a sword"
+      return articleDefined(input)
+    case 'aU': // article Defined "the sword"
+      return articleUndefined(input)
+    default:
+      // No article
+      return new Handlebars.SafeString(input)
+  }
 }
 
 Handlebars.registerHelper('template', (template: string, context?: unknown) => {
@@ -246,7 +260,7 @@ Handlebars.registerHelper('template', (template: string, context?: unknown) => {
   return new Handlebars.SafeString(text)
 })
 
-Handlebars.registerHelper('item:name', (itemOrItemType: Item | ItemType, article?: string) => {
+Handlebars.registerHelper('item:name', (itemOrItemType: Item | ItemType, article?: ArticleType) => {
   let itemType: ItemType
   if (isItemType(itemOrItemType)) {
     itemType = itemOrItemType
@@ -256,26 +270,20 @@ Handlebars.registerHelper('item:name', (itemOrItemType: Item | ItemType, article
   if (getDefinition(itemType) === undefined) {
     return new Handlebars.SafeString(`<<ITEM DEFINITION NOT FOUND: ${itemType}>>`)
   }
-  switch (article) {
-    case 'aA': // article Auto
-      return itemArticleAuto(itemType)
-    case 'aD': // article Defined "a sword"
-      return itemArticleDefined(itemType)
-    case 'aU': // article Defined "the sword"
-      return itemArticleDefined(itemType)
-    default:
-      // No article
-      return new Handlebars.SafeString(itemType)
-  }
+
+  const name = getItemName(itemType)
+
+  return articalize(name, article)
 })
 
 Handlebars.registerHelper('item:trigger', (item: Item) => {
   return new Handlebars.SafeString(`:item[${JSON.stringify(item)}]`)
 })
 
-Handlebars.registerHelper('structure:name', (structure: Structure) => {
+Handlebars.registerHelper('structure:name', (structure: Structure, article?: ArticleType) => {
   const name = get(`structure-${toKebab(structure)}-name`)
-  return new Handlebars.SafeString(name)
+
+  return articalize(name, article)
 })
 
 Handlebars.registerHelper('structure:link', (structure: Structure) => {

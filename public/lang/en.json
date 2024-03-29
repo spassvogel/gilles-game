@@ -210,10 +210,9 @@
   "item-deed-alchemist-name": "deed for an alchemist",
   "item-deed-armoursmith-name": "deed for an armoursmith",
   "item-deed-lumbermill-name": "deed for a lumber mill",
-  "item-deed-lumbermill-subtext": "It allows for the construction of a lumber mill",
   "item-deed-tavern-name": "deed for a tavern",
+  "item-deed-subtext": "It allows for the construction of {{structure:name structure \"aU\"}}",
   "item-deed-weaponsmith-name": "deed for a weapon smith",
-  "item-deed-weaponsmith-subtext": "It allows for the construction of a weaponsmith",
   "item-deed-workshop-name": "deed for a workshop",
 
   "item-herb-angelicas-sorrow-name": "Angelica's sorrow",
