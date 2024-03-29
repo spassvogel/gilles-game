@@ -6,7 +6,7 @@ import ResourcesCost from './production/ResourcesCost'
 import { type ResourceStructureDefinition } from 'definitions/structures/types'
 import { useStructureDefinition } from 'hooks/store/structures'
 import { type Resource } from 'definitions/resources'
-import { useResourcesState } from 'hooks/store/resources'
+import { useEnoughResources } from 'hooks/store/resources'
 import { useDispatch } from 'react-redux'
 import { subtractGold } from 'store/actions/gold'
 import { addLogText } from 'store/actions/log'
@@ -40,14 +40,8 @@ const UpgradeHelpModal = (props: PropsWithChildren<Props>) => {
   const goldCost = (nextLevel != null ? nextLevel.cost.gold ?? 0 : -1)
   const missingGold = goldCost > gold
 
-  const resourcesState = useResourcesState()
   const costResources = ((nextLevel.cost.resources != null) || {}) as { [key in Resource]: number }
-  const missingAtLeastOneResource = Object.keys(costResources)
-    .some((key) => {
-      const resource = key as Resource
-      return (costResources[resource] ?? 0) > (resourcesState?.[resource] ?? 0)
-    })
-
+  const missingAtLeastOneResource = !useEnoughResources(costResources)
   const canUpgrade = nextLevel != null && !missingGold && !missingAtLeastOneResource
 
   const handleUpgrade = () => {

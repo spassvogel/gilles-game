@@ -6,7 +6,7 @@ import ItemsBox from 'components/ui/items/ItemsBox'
 import ResourcesCost from 'components/structures/production/ResourcesCost'
 import { type ItemType } from 'definitions/items/types'
 import * as TextManager from 'global/TextManager'
-import { useResourcesState } from 'hooks/store/resources'
+import { useEnoughResources, useResourcesState } from 'hooks/store/resources'
 import { useWorkersFreeState } from 'hooks/store/useWorkersState'
 import { calculateProductionTime, MAX_WORKERS_CRAFTING } from 'mechanics/crafting'
 import { formatDuration } from 'utils/format/time'
@@ -30,19 +30,13 @@ export type Props = {
 export const CraftingDetails = (props: Props) => {
   const { item, structure } = props
   const dispatch = useDispatch()
-  const resourcesState = useResourcesState()
   const stockpileState = useStockpileStateFlat()
   const workersFree = useWorkersFreeState()
   const [workersAssigned, setWorkersAssigned] = useState<number>(0)
 
   const produces = getProductionDefinition(item)
   const costResources = produces.cost.resources ?? {}
-  const missingAtLeastOneResource = Object.keys(costResources)
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    .some((key) => {
-      const resource: Resource = key as Resource
-      return costResources[resource]! > resourcesState[resource]!
-    })
+  const missingAtLeastOneResource = !useEnoughResources(costResources)
 
   let missingAtLeastOneItem = false
   const costMaterials = produces.cost.materials
