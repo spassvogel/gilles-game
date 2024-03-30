@@ -565,6 +565,8 @@
   "ui-log-tab-all": "all",
   "ui-log-tab-town": "town",
 
+  "ui-structure-building": "Building...",
+
   "ui-structure-help-upgrade-cost-gold": "{{gold}} {{resource:name 'gold'}}",
   "ui-structure-help-upgrade-header-level": "Level {{level}}",
   "ui-structure-help-upgrade-improvements": "Improvements",

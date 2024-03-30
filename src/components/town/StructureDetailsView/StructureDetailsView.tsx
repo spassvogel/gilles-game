@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { getDefinition, type Structure } from 'definitions/structures'
-import { type StructureDefinition, StructureType } from 'definitions/structures/types'
+import { StructureType } from 'definitions/structures/types'
 import { StructureState } from 'store/types/structure'
 import { type StoreState } from 'store/types'
 import { type TasksStoreState } from 'store/types/tasks'
@@ -38,7 +38,7 @@ const StructureDetailsView = (props: Props) => {
         </div>
       )
     } else {
-      const structureDefinition: StructureDefinition = getDefinition(structure)
+      const structureDefinition = getDefinition(structure)
       switch (structureDefinition.type) {
         case StructureType.production: {
           return <ProductionStructureView structure={structure} />
