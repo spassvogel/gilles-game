@@ -10,34 +10,39 @@ export type DeedDefinition = {
   structure: Structure
 } & ItemDefinition
 
-const deeds = {
+const deeds: Record<string, DeedDefinition> = {
   alchemist: {
-    structure: 'alchemist' as const,
+    structure: 'alchemist',
     itemCategory,
     iconImg: `${basePath}deed.png`
   },
   armoursmith: {
-    structure: 'armoursmith' as const,
+    structure: 'armoursmith',
     itemCategory,
     iconImg: `${basePath}deed.png`
   },
   lumbermill: {
-    structure: 'lumberMill' as const,
+    structure: 'lumberMill',
+    itemCategory,
+    iconImg: `${basePath}deed.png`
+  },
+  mine: {
+    structure: 'mine',
     itemCategory,
     iconImg: `${basePath}deed.png`
   },
   tavern: {
-    structure: 'tavern' as const,
+    structure: 'tavern',
     itemCategory,
     iconImg: `${basePath}deed.png`
   },
   weaponsmith: {
-    structure: 'weaponsmith' as const,
+    structure: 'weaponsmith',
     itemCategory,
     iconImg: `${basePath}deed.png`
   },
   workshop: {
-    structure: 'workshop' as const,
+    structure: 'workshop',
     itemCategory,
     iconImg: `${basePath}deed.png`
   }
