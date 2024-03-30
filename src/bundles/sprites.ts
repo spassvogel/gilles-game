@@ -14,7 +14,7 @@ export const sprites = {
   TOWN_STRUCTURE_ALCHEMIST: '/img/town/town-alpha/alchemist.png',
   TOWN_STRUCTURE_ARMOURSMITH: '/img/town/town-alpha/armoursmith.png',
   TOWN_STRUCTURE_GARDEN: '/img/town/town-alpha/garden.png',
-  TOWN_STRUCTURE_LUMBERMILL: '/img/town/town-alpha/lumberMill.json',
+  TOWN_STRUCTURE_LUMBER_MILL: '/img/town/town-alpha/lumberMill.json',
   TOWN_STRUCTURE_MINE: '/img/town/town-alpha/mine.png',
   TOWN_STRUCTURE_QUARRY: '/img/town/town-alpha/quarry.png',
   TOWN_STRUCTURE_TANNERY: '/img/town/town-alpha/tannery.png',

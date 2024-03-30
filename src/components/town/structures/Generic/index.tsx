@@ -38,7 +38,7 @@ const getImagePath = (structure: string): string => {
     case 'weaver':
       return sprites.TOWN_STRUCTURE_WEAVER
     case 'lumberMill':
-      return sprites.TOWN_STRUCTURE_LUMBERMILL
+      return sprites.TOWN_STRUCTURE_LUMBER_MILL
     case 'tavern':
       return sprites.TOWN_STRUCTURE_TAVERN
   }

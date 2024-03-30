@@ -18,7 +18,7 @@ export type Props = {
 const LumberMill = (props: Props) => {
   const { hitAreaShapes } = props
   const structure: Structure = 'lumberMill'
-  const atlas = sprites.TOWN_STRUCTURE_LUMBERMILL
+  const atlas = sprites.TOWN_STRUCTURE_LUMBER_MILL
   const [textures, setTextures] = useState<Record<string, Texture>>()
   const filters = props.selected === true ? [STRUCTURE_HIGHLIGHT_FILTER] : []
 
