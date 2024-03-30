@@ -9,7 +9,7 @@ import { type ResourceStructureLevelDefinition, type ResourceStructureDefinition
 import { useMaxResourcesState, useResourcesState } from 'hooks/store/resources'
 import { formatNumber } from 'utils/format/number'
 import useGoldState from 'hooks/store/useGoldState'
-import { useWorkersFreeState, useWorkersState } from 'hooks/store/useWorkersState'
+import { useWorkersFreeState, useWorkersState } from 'hooks/store/workers'
 import ReactMarkdown from 'react-markdown'
 import './resourceContext.scss'
 
