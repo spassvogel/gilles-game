@@ -25,12 +25,12 @@ const DeedContent = (props: Props) => {
   const definition = getDeedDefinition(item.type)
   const dispatch = useDispatch()
 
-  const gold = useGoldState()
+  const stockpileGold = useGoldState()
   const structureDefinition = useStructureDefinition(definition.structure)
-  const enoughGold = (structureDefinition.cost.gold ?? 0) >= gold
+  const { time, resources = {}, gold = 0 } = structureDefinition.cost
+  const enoughGold = gold <= stockpileGold
   const structureStoreState = useStructureState(definition.structure)
   const notBuiltYet = structureStoreState.state === StructureState.NotBuilt
-  const { time, resources = {} } = structureDefinition.cost
   const sufficientResources = useEnoughResources(resources)
   const disabled = !notBuiltYet || !enoughGold || !sufficientResources
   const subtext = TextManager.get('item-deed-subtext', { structure: definition.structure })
@@ -39,11 +39,10 @@ const DeedContent = (props: Props) => {
   const stockpileIndex = stockpile.deed.findIndex((d) => d === item)
 
   const handleStartConstruction = (structure: Structure) => {
-    dispatch(subtractGold(structureDefinition.cost.gold ?? 0))
+    dispatch(subtractGold(gold))
     dispatch(startBuildingStructure(structure))
     dispatch(removeItemFromWarehouse(ItemCategory.deed, stockpileIndex))
 
-    // todo: show toast
     const callbacks = [finishBuildingStructure(structure)]
     const start = startTask(TaskType.buildStructure,
       `${structure}.build`,

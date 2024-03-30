@@ -53,6 +53,7 @@
   "common-cheat-workers-added": "Added {{amount}} workers.",
 
   "common-item-crafted": "You have crafted {{item:name item \"aA\"}}",
+  "common-structure-built": "You have built {{structure:name structure \"aA\"}}",
   "common-time-d": "d",
   "common-time-day-plural": " days",
   "common-time-day": " day",
@@ -624,6 +625,7 @@
   "ui-toast-type-quest-failed": "Quest failed!",
   "ui-toast-type-quest-launched": "Quest started!",
   "ui-toast-type-quest-update": "Quest update!",
+  "ui-toast-type-structure-built": "Structure built",
 
   "ui-tooltip-actor-level": "Lvl {{level}}",
   "ui-tooltip-attribute": "Attribute",

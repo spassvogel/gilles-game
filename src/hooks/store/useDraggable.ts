@@ -23,7 +23,6 @@ const useDraggable = (element: RefObject<HTMLElement>, handle?: RefObject<HTMLEl
         x: el.getBoundingClientRect().left ?? 0,
         y: el.getBoundingClientRect().top ?? 0
       }
-      console.log(`(wouter left this in) offset.current`, offset.current);
       initial.current = {
         x: evt.touches[0].clientX - offset.current.x,
         y: evt.touches[0].clientY - offset.current.y
@@ -113,7 +112,6 @@ console.log("Drag end")
       // currentHandle.removeEventListener('touchstart', touchStart, false)
       // document.removeEventListener('touchend', dragEnd, false)
       // document.removeEventListener('touchmove', touchMove, false)
-console.log(`(wouter left this in) cleanup`);
       // currentHandle.removeEventListener('mousedown', mouseStart, false)
       // window.removeEventListener('mouseup', mouseEnd, false)
       // document.removeEventListener('mousemove', mouseMove, false)

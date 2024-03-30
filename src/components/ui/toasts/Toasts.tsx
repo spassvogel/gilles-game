@@ -3,7 +3,7 @@ import { ToastEmitter, type ToastConfig, EVENT_TOASTS_UPDATED } from 'emitters/T
 import Toast from './Toast'
 import './styles/toasts.scss'
 
-// Toasts can be added by calling ToastManager.addToast
+// Toasts can be added by calling ToastEmitter.addToast
 // ToastManager will inform whenever the something is added to the list of toasts via EVENT_TOASTS_UPDATED
 // The toasts themselves will fade out via css transition
 const Toasts = () => {

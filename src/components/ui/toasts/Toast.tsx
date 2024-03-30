@@ -15,6 +15,7 @@ export enum Type {
   questFailed,
   questLaunched,
   questUpdate,
+  structureBuilt
 }
 
 const Toast = (props: Props) => {
