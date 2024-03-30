@@ -1,9 +1,6 @@
-import { useSelector } from 'react-redux'
 import { getDefinition, type Structure } from 'definitions/structures'
 import { StructureType } from 'definitions/structures/types'
 import { StructureState } from 'store/types/structure'
-import { type StoreState } from 'store/types'
-import { type TasksStoreState } from 'store/types/tasks'
 import { useStructureState } from 'hooks/store/structures'
 import { formatDuration } from 'utils/format/time'
 import { TickingProgressbar } from 'components/ui/common/progress'
@@ -14,6 +11,7 @@ import ResourceStructureView from 'components/structures/resource/ResourceStruct
 import * as TextManager from 'global/TextManager'
 
 import './styles/structuredetailsview.scss'
+import { useStructureBuildingTaskState } from 'hooks/store/tasks'
 
 type Props = {
   structure: Structure
@@ -21,9 +19,7 @@ type Props = {
 
 const StructureDetailsView = (props: Props) => {
   const { structure } = props
-  const tasks = useSelector<StoreState, TasksStoreState>(store => store.tasks)
-  const buildTask = tasks.running.filter((val) =>
-    val.origin === 'town' && val.name === `${structure}.build`)[0]
+  const buildTask = useStructureBuildingTaskState(structure)
   const structureState = useStructureState(structure)
 
   const renderContent = () => {
@@ -33,7 +29,7 @@ const StructureDetailsView = (props: Props) => {
         <div className="building">
           <TickingProgressbar
             progress={buildTask.progress}
-            label={TextManager.get('ui-structure-bulding', { time: formatDuration(buildTask.timeRemaining) })}
+            label={TextManager.get('ui-structure-building', { time: formatDuration(buildTask.timeRemaining) })}
           />
         </div>
       )

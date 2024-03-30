@@ -2,10 +2,18 @@ import { useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import StepIntroduction from './steps/StepIntroduction'
 import { type StoreState } from 'store/types'
-
-import './style/tutorial.scss'
 import usePrevious from 'hooks/usePrevious'
 import StepBuildATavern from './steps/StepBuildATavern'
+import StepBuildALumberMill from './steps/StepBuildALumberMill'
+
+import './style/tutorial.scss'
+
+// All the tutorial steps in the correct order
+const stepComponents = [
+  StepIntroduction,
+  StepBuildALumberMill,
+  StepBuildATavern
+]
 
 const Tutorial = () => {
   const [collapsed, setCollapsed] = useState(false)
@@ -34,18 +42,9 @@ const Tutorial = () => {
       onToggle: handleToggle,
       onDismissSuccess: handleDismissSuccess
     }
-    switch (dismissed ? tutorial : Math.min(previousStep ?? 0, tutorial)) {
-      case 0: {
-        return (
-          <StepIntroduction {...props} />
-        )
-      }
-      case 1: {
-        return (
-          <StepBuildATavern {...props} />
-        )
-      }
-    }
+    const stepIndex = (dismissed ? tutorial : Math.min(previousStep ?? 0, tutorial))
+    const Component = stepComponents[stepIndex]
+    return <Component {...props} />
   }, [dismissed, previousStep, tutorial])
 
   return (

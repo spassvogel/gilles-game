@@ -23,13 +23,13 @@ const PlainProgressbar = (props: Props) => {
 
   previousProgress.current = progress
   return (
-        <div className={`progressbar progressbar--variation-${variation} ${className}`}>
-            <div className="progressbar-label">{props.label}</div>
-            <div className="progressbar-bar" style={{
-              width: `${progress * 100}%`,
-              ...(animationTime !== undefined && { transition: `width ${animationTime}ms linear` })
-            }}/>
-        </div>
+    <div className={`progressbar progressbar--variation-${variation} ${className}`}>
+      <div className="progressbar-label">{props.label}</div>
+      <div className="progressbar-bar" style={{
+        width: `${progress * 100}%`,
+        ...(animationTime !== undefined && { transition: `width ${animationTime}ms linear` })
+      }}/>
+    </div>
   )
 }
 
