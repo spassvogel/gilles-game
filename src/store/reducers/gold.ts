@@ -1,7 +1,9 @@
 import { type GoldAction } from 'store/actions/gold'
 import { type Reducer } from 'redux'
+import lumberMill from 'definitions/structures/lumberMill'
+import tavern from 'definitions/structures/tavern'
 
-export const initialGoldState = 40
+export const initialGoldState = (lumberMill.cost.gold ?? 0) + (tavern.cost.gold ?? 0)
 /**
  * reducer
  * @param state
