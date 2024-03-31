@@ -9,6 +9,20 @@
     margin: 8px;
   }
 
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding: 0 1rem;
+
+    .button {
+      width: 100%;
+      max-width: 33rem;
+    }
+  }
+
   fieldset {
     color: white;
     display: flex;

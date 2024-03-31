@@ -3,14 +3,14 @@ import { PixiPlugin } from 'gsap/all'
 import { gsap } from 'gsap'
 import isMobile from 'ismobilejs'
 import { AppContextProvider } from './context'
-import { type ReactElement, useCallback, useState, useRef, useContext } from 'react'
+import { type ReactElement, useCallback, useState, useRef } from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { TouchBackend } from 'react-dnd-touch-backend'
 import { HashRouter, Link, Navigate, Route, Routes } from 'react-router-dom'
 import { getTownLink, getWorldLink } from 'utils/routing'
 import * as TextManager from 'global/TextManager'
-import Button, { ButtonColor } from 'components/ui/buttons/Button'
+import Button from 'components/ui/buttons/Button'
 import TownView from 'components/town/TownView'
 import Topbar from 'components/ui/topbar'
 import SimpleLog from 'components/ui/log/SimpleLog'
@@ -20,7 +20,6 @@ import { BubbleLayer } from 'emitters/BubbleEmitter'
 import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import ContextTooltip from 'components/ui/tooltip/ContextTooltip'
 import WorldView from 'components/world/WorldView'
-import { GameActionsContext } from 'components/Game/context'
 
 // todo: actually import these as bundles?
 import 'definitions/quests/kill10Boars/encounters/dungeon'
@@ -39,7 +38,6 @@ export const MAX_WIDTH = 960
 
 const App = () => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { restartGame } = useContext(GameActionsContext)
   const [activeWindows, setActiveWindows] = useState<ReactElement[]>([])
   const handleWindowOpened = useCallback((window: React.ReactElement) => {
     setActiveWindows((aW) => [
@@ -50,10 +48,6 @@ const App = () => {
 
   const handleViewButtonClick = () => {
     void SoundManager.playSound('UI_BUTTON_CLICK')
-  }
-
-  const handleRestartClick = () => {
-    restartGame()
   }
 
   /**
@@ -113,8 +107,6 @@ const App = () => {
                   </Link>)}
                 />
               </Routes>
-              {' | '}
-              <Button onClick={handleRestartClick} color={ButtonColor.purple} > Restart! </Button>
             </div>
             <Tutorial />
             <Routes>
