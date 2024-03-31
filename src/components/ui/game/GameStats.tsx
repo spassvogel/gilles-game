@@ -76,7 +76,7 @@ const GameStats = (props: Props) => {
                 return (
                   <Fragment key={structure}>
                     <dt>{TextManager.getStructureName(structure)}</dt>
-                    <dd>constructing...</dd>
+                    <dd>building...</dd>
                   </Fragment>
                 )
               }
@@ -94,7 +94,7 @@ const GameStats = (props: Props) => {
               return (
                 <Fragment key={resource}>
                   <dt>{TextManager.getResourceName(resource)}</dt>
-                  <dd>{state.resources[resource]}</dd>
+                  <dd>{state.resources[resource]?.toFixed(1)}</dd>
                 </Fragment>
               )
             })}
