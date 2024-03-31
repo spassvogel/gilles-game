@@ -33,7 +33,7 @@ const StepBuildATavern = (props: StepProps) => {
           We used tae hae a tavern here, a guid ane at that! Tankards clinked by adventurers an' luck seekers frae far an' wide. Plans were hatched fer darin' capers an' quests o' grandeur!
         </p>
         <p>
-          The deed should still be in th' warehouse, laddie. Use it tae bring the tavern back tae its former glory!
+          Aye, once the lads at the mill have toiled enough and stacked up a bonnie pile o' wood, it'll be time to dust off that deed and restore the old place to its former glory.
         </p>
       </>}
       assignment="Construct a tavern using the Deed for a Tavern"

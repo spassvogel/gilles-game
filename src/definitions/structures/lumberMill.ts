@@ -4,7 +4,7 @@ import { HALF_HOUR, ONE_MINUTE, TWO_MINUTES } from 'utils/format/time'
 const lumberMill: ResourceStructureDefinition = {
   type: StructureType.resource,
   cost: {
-    gold: 31,
+    gold: 30,
     time: HALF_HOUR
   },
   levels: [{

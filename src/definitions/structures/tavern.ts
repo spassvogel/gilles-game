@@ -1,10 +1,10 @@
-import { ONE_MINUTE, TWO_MINUTES } from 'utils/format/time'
+import { HALF_HOUR, ONE_MINUTE, TWO_MINUTES } from 'utils/format/time'
 import { StructureType, type TavernStructureDefinition } from './types'
 
 const tavern: TavernStructureDefinition = {
   cost: {
     gold: 40,
-    time: 4000,
+    time: HALF_HOUR * 1.5,
     resources: {
       wood: 50
     }

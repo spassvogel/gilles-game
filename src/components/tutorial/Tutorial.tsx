@@ -5,6 +5,7 @@ import { type StoreState } from 'store/types'
 import usePrevious from 'hooks/usePrevious'
 import StepBuildATavern from './steps/StepBuildATavern'
 import StepBuildALumberMill from './steps/StepBuildALumberMill'
+import StepAssignWorkersToLumberMill from './steps/StepAssignWorkersToLumberMill'
 
 import './style/tutorial.scss'
 
@@ -12,6 +13,7 @@ import './style/tutorial.scss'
 const stepComponents = [
   StepIntroduction,
   StepBuildALumberMill,
+  StepAssignWorkersToLumberMill,
   StepBuildATavern
 ]
 
@@ -42,8 +44,11 @@ const Tutorial = () => {
       onToggle: handleToggle,
       onDismissSuccess: handleDismissSuccess
     }
-    const stepIndex = (dismissed ? tutorial : Math.min(previousStep ?? 0, tutorial))
+    const stepIndex = (dismissed || previousStep == null ? tutorial : previousStep)
     const Component = stepComponents[stepIndex]
+    if (Component == null) {
+      return null
+    }
     return <Component {...props} />
   }, [dismissed, previousStep, tutorial])
 
