@@ -8,6 +8,7 @@ import StepBuildALumberMill from './steps/StepBuildALumberMill'
 import StepAssignWorkersToLumberMill from './steps/StepAssignWorkersToLumberMill'
 
 import './style/tutorial.scss'
+import { SoundManager } from 'global/SoundManager'
 
 // All the tutorial steps in the correct order
 const stepComponents = [
@@ -28,10 +29,14 @@ const Tutorial = () => {
   }
 
   const handleDismissSuccess = () => {
+    void SoundManager.playSound('UI_BUTTON_CLICK')
+
     setDismissed(true)
   }
 
   useEffect(() => {
+    void SoundManager.playSound('UI_BUTTON_CLICK')
+
     console.log(`tutorial`, tutorial)
     setDismissed(false)
   }, [tutorial])
