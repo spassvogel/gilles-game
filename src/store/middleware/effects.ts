@@ -1,4 +1,4 @@
-import { type Middleware } from '@reduxjs/toolkit'
+import { Dispatch, type Middleware } from '@reduxjs/toolkit'
 import { collectEffects } from 'definitions/effects'
 import { type Effect, EffectType } from 'definitions/effects/types'
 import { getDefinition, isConsumable } from 'definitions/items/consumables'
@@ -14,6 +14,7 @@ import { addTempEffect, decreaseEffectCharge, decreaseTempEffectCharge, modifyHe
 import { type StoreState } from 'store/types'
 import { SceneActionType } from 'store/types/scene'
 import { lastAdventurerAction, type AppMiddlewareAPI } from './utils'
+import { AppDispatch } from 'utils/configureStore'
 
 const effectTick = (storeApi: AppMiddlewareAPI, effect: Effect, adventurerId: string) => {
   if (effect.charges === undefined || effect.charges === 0) {
@@ -22,7 +23,7 @@ const effectTick = (storeApi: AppMiddlewareAPI, effect: Effect, adventurerId: st
 }
 
 // character effect
-export const effectsMiddleware: Middleware<Action, StoreState> = (storeApi: AppMiddlewareAPI) => (next: (action: Action) => Action) => (action: Action) => {
+export const effectsMiddleware: Middleware<Action, StoreState, Dispatch<Action>> = (storeApi: AppMiddlewareAPI) => (next: (action: Action) => Action) => (action: Action) => {
   const state = storeApi.getState()
 
   for (const adventurer of state.adventurers) {

@@ -254,7 +254,7 @@ export class DungeonHallwaySceneController extends DungeonEncounterSceneControll
     }
   }
 
-  handleSituationOptionClick (situation: string, option: string, adventurerId: string) {
+  handleSituationOptionClick (situation: string, _option: string, adventurerId: string) {
     switch (situation) {
       case 'door': {
         // Only one option, to open

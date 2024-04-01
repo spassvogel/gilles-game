@@ -234,9 +234,9 @@ export class CombatController {
     }
   }
 
-  private static getQuestStoreState () {
-    return this.sceneController?.store.getState().quests.find(q => q.name === this.sceneController?.questName)
-  }
+  // private static getQuestStoreState () {
+  //   return this.sceneController?.store.getState().quests.find(q => q.name === this.sceneController?.questName)
+  // }
 
   /** Finds the actor nearest to `from`, but not ON `from` */
   private static findNearestActor (from: Location, allegiance?: Allegiance, additionalFilter?: (actor: ActorObject) => boolean) {

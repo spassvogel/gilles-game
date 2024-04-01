@@ -1,7 +1,7 @@
 import { type StockpileAction } from 'store/actions/stockpile'
 import { type Reducer } from 'redux'
 import { type ItemType, ItemCategory, type Item } from 'definitions/items/types'
-import allItems, { canStackItem, getAllItemsByCategory, getDefinition as getItemDefinition } from 'definitions/items'
+import { canStackItem, getAllItemsByCategory, getDefinition as getItemDefinition } from 'definitions/items'
 import { type StockpileStoreState } from 'store/types/stockpile'
 import { getDefinition } from 'definitions/structures'
 import { type WarehouseStructureDefinition } from 'definitions/structures/types'
@@ -50,12 +50,11 @@ export const getInitialStockpile = (): StockpileStoreState => {
   return result
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getRandomItem = (): ItemType => {
-  const all = Object.keys(allItems)
-  const randomIndex = Math.floor(Math.random() * all.length)
-  return all[randomIndex] as ItemType
-}
+// const getRandomItem = (): ItemType => {
+//   const all = Object.keys(allItems)
+//   const randomIndex = Math.floor(Math.random() * all.length)
+//   return all[randomIndex] as ItemType
+// }
 
 /**
  * reducer

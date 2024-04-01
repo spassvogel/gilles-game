@@ -36,13 +36,13 @@ const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref
 
   useImperativeHandle(ref, () => {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return innerRef.current
+    return innerRef.current!
   })
 
   useEffect(() => {
     godray.enabled = false
     if (innerRef.current !== undefined) {
-      const viewport = innerRef.current
+      // const viewport = innerRef.current
       // viewport.on('moved', () => {
       //   const horizontalFactor = gsap.utils.normalize(viewport.screenWidth, worldWidth, viewport.right)
       //   const verticalFactor = gsap.utils.normalize(worldHeight, viewport.screenHeight, viewport.bottom)

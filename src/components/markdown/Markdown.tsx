@@ -17,6 +17,7 @@ const Markdown = (props: Props) => {
       className="markdown"
       remarkPlugins={[directive, reactMarkdownRemarkDirective]}
       components={{
+        // @ts-expect-error TS2353 sorry dont know how to fix this
         item: ItemElement,
         crit: CritDmgElement
       }}

@@ -1,4 +1,5 @@
 import { Container, Graphics, Text } from '@pixi/react'
+import { type TextStyle } from 'pixi.js'
 import { type ActorObject } from 'store/types/scene'
 
 type Props = {
@@ -39,7 +40,7 @@ const ActorStats = (props: Props) => {
           dropShadowAngle: 0.9,
           dropShadowBlur: 10,
           dropShadowDistance: 0
-        }}
+        } as unknown as TextStyle}
         // mask={mask.current}
       />
       {/* <Graphics

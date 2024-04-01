@@ -10,13 +10,19 @@ const BridgedStage = (props: React.ComponentProps<typeof Stage>) => {
   const { children, ...restProps } = props
   return (
     <ReactReduxContext.Consumer>
-      {({ store }) => (
+      {(value) => {
+        if (value === null) {
+          return null
+        }
+        const store = value.store
+        return (
         <Stage {...restProps}>
           <Provider store={store}>
             {children}
           </Provider>
         </Stage>
-      )}
+        )
+      }}
     </ReactReduxContext.Consumer>
   )
 }

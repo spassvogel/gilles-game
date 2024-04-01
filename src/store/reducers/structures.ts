@@ -126,7 +126,7 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameTi
     case 'removeItemFromHarvest': {
       // Should always be false but typescript doesnt know that
       if (!isResourceStructure(action.structure)) return state
-      const harvest = state[action.structure].harvest?.filter((h, i) => (i !== action.index))
+      const harvest = state[action.structure].harvest?.filter((_h, i) => (i !== action.index))
       return {
         ...state,
         [action.structure]: {

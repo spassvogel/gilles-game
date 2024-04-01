@@ -14,6 +14,7 @@ import { useQuest } from 'hooks/store/quests'
 import { AP_COST_CONSUME } from 'mechanics/combat'
 import { Channel, SoundManager } from 'global/SoundManager'
 import { isConsumable } from 'definitions/items/consumables'
+
 import './styles/consumeItem.scss'
 
 export type Props = {
@@ -56,7 +57,7 @@ const ConsumeItem = (props: Props) => {
     const consumable = adventurer.inventory[fromSlot]
     if ((consumable == null) || !isConsumable(consumable.type)) {
       throw new Error(`No potion found at index ${fromSlot} `)
-    }s
+    }
 
     dispatch(consumeItem(adventurerId, fromSlot))
     void SoundManager.playSound('SCENE_DRINKING', Channel.scene)
@@ -87,7 +88,7 @@ const ConsumeItem = (props: Props) => {
         <Button
           className="consume-button"
           onClick={handleConsumeItem}
-          disabled={(item == null) || (combat && !enoughAp)}
+          disabled={(item == null) || (combat)}
         >
           {TextManager.get('ui-adventurer-info-use-item')}
           {combat && ' ' + TextManager.get('ui-adventurer-info-use-item-ap-cost', { ap: AP_COST_CONSUME })}

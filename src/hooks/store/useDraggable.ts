@@ -18,20 +18,20 @@ const useDraggable = (element: RefObject<HTMLElement>, handle?: RefObject<HTMLEl
       return
     }
 
-    const touchStart = (evt: TouchEvent) => {
-      offset.current = {
-        x: el.getBoundingClientRect().left ?? 0,
-        y: el.getBoundingClientRect().top ?? 0
-      }
-      initial.current = {
-        x: evt.touches[0].clientX - offset.current.x,
-        y: evt.touches[0].clientY - offset.current.y
-      }
-      // if (evt.target === handle?.current) {
-        active.current = true
-      // }
-      evt.preventDefault()
-    }
+    // const touchStart = (evt: TouchEvent) => {
+    //   offset.current = {
+    //     x: el.getBoundingClientRect().left ?? 0,
+    //     y: el.getBoundingClientRect().top ?? 0
+    //   }
+    //   initial.current = {
+    //     x: evt.touches[0].clientX - offset.current.x,
+    //     y: evt.touches[0].clientY - offset.current.y
+    //   }
+    //   // if (evt.target === handle?.current) {
+    //   active.current = true
+    //   // }
+    //   evt.preventDefault()
+    // }
 
     const mouseStart = (evt: MouseEvent) => {
       console.log('hi')
@@ -85,13 +85,13 @@ const useDraggable = (element: RefObject<HTMLElement>, handle?: RefObject<HTMLEl
       // evt.preventDefault()
     }
 
-    const dragEnd = (evt: TouchEvent) => {
-      // if (initial.current == null) return
-console.log("Drag end")
-      initial.current = current.current
-      active.current = false
-    }
-    const mouseEnd = (evt: MouseEvent) => {
+//     const dragEnd = (evt: TouchEvent) => {
+//       // if (initial.current == null) return
+// console.log("Drag end")
+//       initial.current = current.current
+//       active.current = false
+//     }
+    const mouseEnd = (_evt: MouseEvent) => {
       // if (initial.current == null) return
 console.log("Drag end")
       initial.current = current.current

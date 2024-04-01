@@ -18,9 +18,9 @@ const RectTileLayer = PixiComponent<Props, any>('RectTileLayer', {
     return tileLayer
   },
 
-  applyProps (instance, oldProps: Props, props: Props) {
+  applyProps (instance, _oldProps: Props, props: Props) {
     const { layer, tilesets, horizontalTiles, spritesheets } = props
-    if (!layer.data) {
+    if (layer.data == null) {
       return
     }
     for (let i = 0; i < layer.data.length; i++) {

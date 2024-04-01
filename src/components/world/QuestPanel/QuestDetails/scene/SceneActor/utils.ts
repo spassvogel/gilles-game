@@ -23,7 +23,7 @@ export const calculateBearing = (origin: Location, destination: Location) => {
 }
 
 export const createColorReplaceFilter = (from: number[], to: number[]) => {
-  const replacements: Location[] = from.map((val, index) => {
+  const replacements: Location[] = from.map((_val, index) => {
     return [
       from[index], to[index]
     ]

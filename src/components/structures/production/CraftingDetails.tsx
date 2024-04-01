@@ -20,6 +20,7 @@ import { TaskType } from 'store/types/task'
 import { useStockpileStateFlat } from 'hooks/store/stockpile'
 import { type ProducableItem } from 'store/types/structure'
 import { type Structure } from 'definitions/structures'
+import { type Action } from 'store/actions'
 
 export type Props = {
   item: ProducableItem
@@ -56,10 +57,10 @@ export const CraftingDetails = (props: Props) => {
 
   const handleCraft = (productionDefinition: ProductionDefinition, workers: number) => {
     const craftingTime = calculateProductionTime(productionDefinition.cost.time ?? 0, workers)
-    dispatch(removeResources((productionDefinition.cost.resources != null) || {}))
+    dispatch(removeResources((productionDefinition.cost.resources) ?? {}))
     dispatch(increaseWorkers(structure, workers))
 
-    const callbacks = [
+    const callbacks: Action[] = [
       addItemToWarehouse(productionDefinition.item),
       increaseWorkers(structure, workers)
     ]

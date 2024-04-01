@@ -1,8 +1,7 @@
 import LoadingPage from 'components/ui/loading/LoadingPage'
 import * as TextManager from 'global/TextManager'
-import { sprites } from 'bundles/sprites'
 import { sounds } from 'manifests/sounds'
-import { Assets, Loader } from 'pixi.js'
+import { Assets } from 'pixi.js'
 import { type PropsWithChildren, useEffect, useRef, useState } from 'react'
 
 type Props = PropsWithChildren<unknown>
@@ -14,7 +13,7 @@ const ManifestLoader = (props: Props) => {
   const pctRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    const allSprites = Object.values(sprites)
+    // const allSprites = sObject.values(sprites)
     setText(TextManager.get('ui-game-loading-sprites'))
     // Loader.shared.onProgress.add(() => {
     //   if (pctRef.current != null) {
