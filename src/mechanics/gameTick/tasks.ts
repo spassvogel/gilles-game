@@ -10,6 +10,7 @@ import { type Action } from 'store/actions'
 import { type Structure } from 'definitions/structures'
 import { getStructureIcon } from 'components/town/StructureLabels/utils/getStructureIcon'
 import { addLogText } from 'store/actions/log'
+import { LogChannel } from 'store/types/logEntry'
 
 export const processCompletedTasks = (tasks: TasksStoreState, dispatch: Dispatch<Action>) => {
   const handleCompletedTask = (task: TaskStoreState) => {
@@ -34,7 +35,7 @@ export const processCompletedTasks = (tasks: TasksStoreState, dispatch: Dispatch
         const icon = getStructureIcon(structure)
 
         ToastEmitter.addToast(title, Type.structureBuilt, icon)
-        dispatch(addLogText('common-structure-built', { structure }))
+        dispatch(addLogText('common-structure-built', { structure }), LogChannel.town)
         break
       }
     }
