@@ -5,8 +5,10 @@ import Game from 'components/Game'
 import * as random from './utils/random'
 import './index.css'
 
-const root = createRoot(document.getElementById('root') as HTMLElement)
-const texts = await Assets.load<Record<string, string>>('/lang/en.json')
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const root = createRoot(document.getElementById('root')!)
+console.log(`${import.meta.env.BASE_URL}/lang/en.json`, `${import.meta.env.BASE_URL}/lang/en.json`)
+const texts = await Assets.load<Record<string, string>>(`${import.meta.env.BASE_URL}/lang/en.json`)
 TextManager.init(texts)
 
 random.init('GILLESROX2')
