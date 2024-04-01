@@ -5,6 +5,7 @@ import { type ActorObject } from 'store/types/scene'
 import { type Effect } from 'definitions/effects/types'
 import { type ExtendedAttribute } from 'mechanics/adventurers/attributes'
 import { type WeaponType } from 'definitions/weaponTypes/types'
+import { type TempEffect } from 'definitions/tempEffects/types'
 
 // Things that can be shown on the ContextPopup
 export enum ContextType {
@@ -18,4 +19,4 @@ export enum ContextType {
   trait,
 }
 
-export type ContextInfo = Item | TraitDefinition | WeaponType | string | ReactNode | ExtendedAttribute | ActorObject | Effect
+export type ContextInfo = Item | TraitDefinition | WeaponType | string | ReactNode | ExtendedAttribute | ActorObject | Effect | TempEffect

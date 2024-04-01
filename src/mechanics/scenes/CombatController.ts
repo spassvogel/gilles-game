@@ -63,7 +63,7 @@ export class CombatController {
     const adventurers = this.sceneController.sceneAdventurers
     const enemies = this.sceneController.sceneEnemies
     const quest = this.sceneController.quest
-    if (adventurers != null && enemies != null && quest != null && quest.scene != null && ((quest.scene.actionQueue?.length ?? 0) === 0)) {
+    if (adventurers != null && enemies != null && quest?.scene != null && ((quest.scene.actionQueue?.length ?? 0) === 0)) {
       const totalAdventurerAp = adventurers.reduce((acc, value) => acc + value.ap, 0)
       const { scene } = quest
       const { turn } = scene
@@ -103,7 +103,7 @@ export class CombatController {
     if (enemy?.location != null) {
       const isAlive = (actor: ActorObject) => isAdventurer(actor) && (this.sceneController?.getAdventurerByActor(actor)?.health ?? 0) > 0
       const target = this.findNearestActor(enemy.location, Allegiance.player, isAlive)
-      if ((target == null) || (target.location == null)) return // no target? did everyone die?
+      if ((target?.location == null)) return // no target? did everyone die?
 
       // todo: different types of weapons
       const enemyTypeDefinition = getEnemyTypeDefinition(enemy.enemyType)
@@ -146,6 +146,9 @@ export class CombatController {
   }
 
   public static actorMeleeEnd (actorId: string, intent: ActionIntent) {
+    if (intent.action !== 'melee') {
+      return
+    }
     const location = intent.to
 
     // todo: this AP probably has to be paid up front!
@@ -205,6 +208,10 @@ export class CombatController {
   }
 
   public static actorShootEnd (actorId: string, intent: ActionIntent) {
+    if (intent.action !== 'shoot') {
+      return
+    }
+
     const ap = AP_COST_SHOOT
     const location = intent.to
     // Take away AP for shooting
@@ -442,7 +449,7 @@ export class CombatController {
     return enemy.armor[bodyPart] ?? 0
   }
 
-  protected static takeDamage (actor: ActorObject, damage: number, armor: number, bodyPart: EquipmentSlotType) {
+  protected static takeDamage (actor: ActorObject, damage: number, _armor: number, bodyPart: EquipmentSlotType) {
     let died = false
     if (isAdventurer(actor)) {
       this.dispatch(modifyHealth(actor.adventurerId, -damage))

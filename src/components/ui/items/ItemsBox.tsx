@@ -1,5 +1,5 @@
 import { getDefinition } from 'definitions/items'
-import { type ItemType } from 'definitions/items/types'
+import { type Item, type ItemType } from 'definitions/items/types'
 import * as TextManager from 'global/TextManager'
 import { useMemo } from 'react'
 import Icon from 'components/ui/common/Icon'
@@ -21,7 +21,7 @@ const ItemsBox = (props: Props) => {
   const { items } = props
   const className = (props.className ?? '') + ' items-box'
   const aggregate = items.reduce<Record<string, number>>((acc, value) => {
-    if (!acc[value]) {
+    if (acc[value] == null) {
       acc[value] = 0
     }
     acc[value]++
@@ -29,15 +29,17 @@ const ItemsBox = (props: Props) => {
   }, {})
 
   const stockpile = useStockpileStateFlat()
-  const itemsInInventory: ItemType[] = useMemo(() => {
+
+  const itemsInInventory: Item[] = useMemo(() => {
     const tmpWarehouse = [...stockpile]
-    const tmpItems: ItemType[] = []
-    items.forEach((item: ItemType) => {
-      const found = tmpWarehouse.findIndex((i) => i === item)
+    const tmpItems: Item[] = []
+
+    items.forEach((itemType: ItemType) => {
+      const found = tmpWarehouse.findIndex((i) => i != null && i.type === itemType)
       if (found > -1) {
         // Remove the item from tmpWarehouse and add to itemsInInventory
         const [removed] = tmpWarehouse.splice(found, 1)
-        if (removed) {
+        if (removed != null) {
           tmpItems.push(removed)
         }
       }
@@ -51,7 +53,7 @@ const ItemsBox = (props: Props) => {
     let listItemClass = 'item'
 
     // Check if we have enough
-    const amountInInventory = itemsInInventory ? itemsInInventory.filter((i) => i === item).length : 0
+    const amountInInventory = itemsInInventory.filter((i) => i != null && i.type === item).length
     if (amount > amountInInventory) {
       listItemClass += ' missing'
     }
