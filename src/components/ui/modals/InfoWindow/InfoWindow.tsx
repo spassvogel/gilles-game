@@ -1,4 +1,4 @@
-import React, { type ComponentProps, type PropsWithChildren } from 'react'
+import { type ComponentProps, type PropsWithChildren } from 'react'
 import './styles/infoWindow.scss'
 
 export type Props = {

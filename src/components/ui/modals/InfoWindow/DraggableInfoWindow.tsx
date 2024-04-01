@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom'
-import useDraggable from 'hooks/store/useDraggable'
+// import useDraggable from 'hooks/store/useDraggable'
 import { type ComponentProps, type ReactNode, useEffect, useRef } from 'react'
 
 export type Props = {
@@ -20,7 +20,7 @@ export const DraggableInfoWindow = (props: Props & ComponentProps<'div'>) => {
 
   const ref = useRef<HTMLDivElement>(null)
   const handle = useRef<HTMLHeadingElement>(null)
-  useDraggable(ref, handle)
+  // useDraggable(ref, handle)
   useEffect(() => {
     // center window
     if (ref.current != null) {

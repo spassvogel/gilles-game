@@ -4,7 +4,6 @@ import Button from 'components/ui/buttons/Button'
 import NumberDial from 'components/ui/common/NumberDial'
 import ItemsBox from 'components/ui/items/ItemsBox'
 import ResourcesCost from 'components/structures/production/ResourcesCost'
-import { type ItemType } from 'definitions/items/types'
 import * as TextManager from 'global/TextManager'
 import { useEnoughResources } from 'hooks/store/resources'
 import { useWorkersFreeState } from 'hooks/store/workers'
@@ -17,7 +16,7 @@ import { removeResources } from 'store/actions/resources'
 import { increaseWorkers } from 'store/actions/structures'
 import { startTask } from 'store/actions/tasks'
 import { TaskType } from 'store/types/task'
-import { useStockpileStateFlat } from 'hooks/store/stockpile'
+import { useEnoughMaterials } from 'hooks/store/stockpile'
 import { type ProducableItem } from 'store/types/structure'
 import { type Structure } from 'definitions/structures'
 import { type Action } from 'store/actions'
@@ -30,7 +29,6 @@ export type Props = {
 export const CraftingDetails = (props: Props) => {
   const { item, structure } = props
   const dispatch = useDispatch()
-  const stockpileState = useStockpileStateFlat()
   const workersFree = useWorkersFreeState()
   const [workersAssigned, setWorkersAssigned] = useState<number>(0)
 
@@ -38,11 +36,8 @@ export const CraftingDetails = (props: Props) => {
   const costResources = produces.cost.resources ?? {}
   const missingAtLeastOneResource = !useEnoughResources(costResources)
 
-  let missingAtLeastOneItem = false
   const costMaterials = produces.cost.materials
-  if (costMaterials != null) {
-    missingAtLeastOneItem = costMaterials.some((i: ItemType) => !stockpileState.includes(i))
-  }
+  const missingAtLeastOneItem = !useEnoughMaterials(costMaterials ?? [])
 
   const disabled = missingAtLeastOneResource || missingAtLeastOneItem || workersAssigned < 1
   // TODO: [10/07/2019] Perhaps each item can have a number of minimum workers?

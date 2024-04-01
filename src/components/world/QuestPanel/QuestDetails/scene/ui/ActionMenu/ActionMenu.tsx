@@ -11,7 +11,6 @@ import EnemyAvatar from 'components/ui/enemy/EnemyAvatar'
 import { IconSize } from 'components/ui/common/Icon'
 import { WeaponAbility } from 'definitions/abilities/types'
 import DiamondFrame from './DiamondFrame'
-import useDraggable from 'hooks/store/useDraggable'
 
 import './styles/actionMenu.scss'
 
@@ -33,7 +32,7 @@ const ActionMenu = (props: Props) => {
 
   const ref = useRef<HTMLDivElement>(null)
   const handle = useRef<HTMLDivElement>(null)
-  useDraggable(ref, handle)
+  // useDraggable(ref, handle)
 
   const enemyTargetted = useMemo(() => {
     const [object] = controller?.getObjectsAtLocation(location, isEnemy) ?? []
