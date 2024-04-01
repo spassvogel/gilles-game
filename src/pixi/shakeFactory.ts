@@ -29,15 +29,13 @@ export const newShaker = (
   defaults?: DefaultShakeProps
 ): { shake: () => void, setTarget: (shakeTarger: Target) => void } => {
   // set optional default state
-  const defaultState = (defaults != null)
-    ? defaults
-    : {
-        target: null,
-        isBidirectional: true,
-        shakeCountMax: 10,
-        shakeAmount: 6,
-        shakeDelay: 25
-      }
+  const defaultState = defaults ?? {
+    target: null,
+    isBidirectional: true,
+    shakeCountMax: 10,
+    shakeAmount: 6,
+    shakeDelay: 25
+  }
   // Populate state from default props and fixed defaults
   const state = {
     ...defaultState,
@@ -62,8 +60,8 @@ export const newShaker = (
     target: PIXI.Container,
     pos: { x?: number, y?: number }
   ): void => {
-    target.x = pos.x ? pos.x : target.x
-    target.y = pos.y ? pos.y : target.y
+    target.x = pos.x ?? target.x
+    target.y = pos.y ?? target.y
   }
 
   /**
@@ -76,6 +74,9 @@ export const newShaker = (
       state.shakeCountMax = shakeProps.shakeCountMax
       state.shakeAmount = shakeProps.shakeAmount
       state.shakeDelay = shakeProps.shakeDelay
+    }
+    if (state.target == null) {
+      return
     }
 
     // Shake that thang

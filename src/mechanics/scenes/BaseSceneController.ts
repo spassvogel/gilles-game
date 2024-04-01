@@ -823,6 +823,8 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
         location,
         layerId,
         visible: true,
+        x: 0, // ? 2024-03-25
+        y: 0, // ? 2024-03-25
         type: TiledObjectType.actor,
         ap: calculateInitialAP(adventurer.basicAttributes, level),
         allegiance: Allegiance.player,

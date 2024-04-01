@@ -18,7 +18,7 @@ import { effectsMiddleware } from 'store/middleware/effects'
 import { traitsMiddleware } from 'store/middleware/traits'
 import { type Action } from 'store/actions'
 import { gameTickMiddleware } from 'store/middleware/gameTick'
-import { type DevToolsEnhancerOptions, configureStore } from '@reduxjs/toolkit'
+import { type DevToolsEnhancerOptions, configureStore, type Middleware } from '@reduxjs/toolkit'
 import { type StoreState } from 'store/types'
 
 export const PERSIST_KEY = 'root'
@@ -65,9 +65,9 @@ const store = configureStore({
         ]
       }
     }).concat(
-      gameTickMiddleware,
-      effectsMiddleware,
-      traitsMiddleware
+      gameTickMiddleware as Middleware<Action, StoreState>,
+      effectsMiddleware as Middleware<Action, StoreState>,
+      traitsMiddleware as Middleware<Action, StoreState>
     )
   )
 })
@@ -75,6 +75,7 @@ const store = configureStore({
 const configureStoreAndPersistor = async (): Promise<ConfigureStoreResult> => {
   return await new Promise((resolve, reject) => {
     try {
+      // @ts-expect-error TS2590
       const persistor = persistStore(store, undefined, () => {
         const isHydrated = storeIsRehydrated(store.getState())
         resolve({ store, persistor, isHydrated })
@@ -85,7 +86,5 @@ const configureStoreAndPersistor = async (): Promise<ConfigureStoreResult> => {
     }
   })
 }
-
-export type AppDispatch = typeof store['dispatch']
 
 export default configureStoreAndPersistor

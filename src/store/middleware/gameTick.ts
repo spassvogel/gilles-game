@@ -1,11 +1,11 @@
-import { type Middleware, type Store } from 'redux'
+import { type Store } from 'redux'
 import { type Action } from 'store/actions'
 import { type StoreState } from 'store/types'
 import getProducedResources from 'mechanics/gameTick/producedResources'
 import getQuestUpdates, { type LogUpdate, type QuestUpdate } from 'mechanics/gameTick/quests'
 import getRngState from 'mechanics/gameTick/rngState'
 import getHarvest, { type HarvestUpdate } from 'mechanics/gameTick/harvest'
-import { /* lastAdventurerAction, */ type AppMiddlewareAPI } from './utils'
+import { type AppMiddlewareAPI } from './utils'
 import { type ResourceStoreState } from 'store/types/resources'
 import { type GameAction } from 'store/actions/game'
 
@@ -19,10 +19,7 @@ type ExtendedProps = {
 
 export type GameTickActionExt = Extract<GameAction, { type: 'gameTick' }> & ExtendedProps
 
-export const gameTickMiddleware: Middleware<
-ExtendedProps,
-StoreState
-> = (storeApi: AppMiddlewareAPI) => next => (action: Action) => {
+export const gameTickMiddleware = (storeApi: AppMiddlewareAPI) => (next: (action: GameTickActionExt | Action) => GameAction) => (action: GameAction) => {
   if (action.type === 'gameTick') {
     const state = storeApi.getState()
     const delta = action.delta

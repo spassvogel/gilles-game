@@ -47,7 +47,7 @@ const useDraggable = (element: RefObject<HTMLElement>, handle?: RefObject<HTMLEl
       evt.preventDefault()
 
       // if (evt.target === handle?.current) {
-        active.current = true
+      active.current = true
       // }
     }
 
@@ -58,19 +58,19 @@ const useDraggable = (element: RefObject<HTMLElement>, handle?: RefObject<HTMLEl
       }
     }
 
-    const touchMove = (evt: TouchEvent) => {
-      if (active.current) {
-        evt.preventDefault()
-        current.current = {
-          x: evt.touches[0].clientX - (initial.current?.x ?? 0) ,
-          y: evt.touches[0].clientY - (initial.current?.y ?? 0)
-        }
+    // const touchMove = (evt: TouchEvent) => {
+    //   if (active.current) {
+    //     evt.preventDefault()
+    //     current.current = {
+    //       x: evt.touches[0].clientX - (initial.current?.x ?? 0) ,
+    //       y: evt.touches[0].clientY - (initial.current?.y ?? 0)
+    //     }
 
-        offset.current = current.current
-        setPosition()
-      }
-      evt.preventDefault()
-    }
+    //     offset.current = current.current
+    //     setPosition()
+    //   }
+    //   evt.preventDefault()
+    // }
 
     const mouseMove = (evt: MouseEvent) => {
       if (active.current) {
