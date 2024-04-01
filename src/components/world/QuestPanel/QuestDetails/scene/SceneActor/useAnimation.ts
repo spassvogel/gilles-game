@@ -10,6 +10,7 @@ import { type StoreState } from 'store/types'
 import { getUniqueName, type SceneAction, SceneActionType } from 'store/types/scene'
 import { type Location } from 'utils/tilemap'
 import { Orientation } from '.'
+import { isMovingIntent } from '../ui/SceneUI'
 
 export const allAnimations = ['stand', 'attack', 'walk', 'die'] as const
 export type Animation = typeof allAnimations[number]
@@ -101,60 +102,62 @@ const useAnimation = (
     if ((nextAction != null) && nextAction !== previousAction.current) {
       const { intent } = nextAction
       // console.log(`next action is ${nextAction.intent.to} (${nextAction.actionType}), \ncurrent location is: ${location}\nprev action was ${previousAction?.current?.target} `)
-      switch (nextAction.intent.action) {
-        case SceneActionType.move: {
-          const moveComplete = () => {
-            setAnimation('stand')
-            dispatch(completeSceneAction(quest.name, actorName))
-            controller.actorMoved(actorName, nextAction.intent.to)
-          }
+      if (isMovingIntent(intent)) {
+        switch (nextAction.intent.action) {
+          case SceneActionType.move: {
+            const moveComplete = () => {
+              setAnimation('stand')
+              dispatch(completeSceneAction(quest.name, actorName))
+              controller.actorMoved(actorName, intent.to)
+            }
 
-          const duration = (nextAction.endsAt - performance.now()) / 1000
-          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete)
-          break
-        }
-        case SceneActionType.melee: {
-          const moveComplete = () => {
-            determineOrientation(location, nextAction.intent.to)
+            const duration = (nextAction.endsAt - performance.now()) / 1000
+            moveActor(intent.path ?? [], duration, nextAction.delay, moveComplete)
+            break
+          }
+          case SceneActionType.melee: {
+            const moveComplete = () => {
+              determineOrientation(location, intent.to)
+              setAnimation('attack')
+              CombatController.actorMeleeStart(actorName, intent)
+
+              const attackComplete = () => {
+                setAnimation('stand')
+                dispatch(completeSceneAction(controller.questName, actorName))
+                CombatController.actorMeleeEnd(actorName, intent)
+              }
+              setTimeout(attackComplete, 500)
+            }
+
+            const duration = (nextAction.endsAt - performance.now()) / 1000
+            moveActor(intent.path ?? [], duration, nextAction.delay, moveComplete)
+            break
+          }
+          case SceneActionType.shoot: {
+            determineOrientation(location, intent.to)
             setAnimation('attack')
-            CombatController.actorMeleeStart(actorName, intent)
+            CombatController.actorShootStart(actorName, intent)
 
             const attackComplete = () => {
               setAnimation('stand')
               dispatch(completeSceneAction(controller.questName, actorName))
-              CombatController.actorMeleeEnd(actorName, intent)
+              CombatController.actorShootEnd(actorName, intent)
             }
             setTimeout(attackComplete, 500)
+            break
           }
+          case SceneActionType.interact: {
+            const moveComplete = () => {
+              setAnimation('stand')
+              controller.actorInteract(actorName, intent.to)
+              dispatch(completeSceneAction(controller.questName, actorName))
+            }
 
-          const duration = (nextAction.endsAt - performance.now()) / 1000
-          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete)
-          break
-        }
-        case SceneActionType.shoot: {
-          determineOrientation(location, nextAction.intent.to)
-          setAnimation('attack')
-          CombatController.actorShootStart(actorName, intent)
+            const duration = (nextAction.endsAt - performance.now()) / 1000
+            moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete)
 
-          const attackComplete = () => {
-            setAnimation('stand')
-            dispatch(completeSceneAction(controller.questName, actorName))
-            CombatController.actorShootEnd(actorName, intent)
+            break
           }
-          setTimeout(attackComplete, 500)
-          break
-        }
-        case SceneActionType.interact: {
-          const moveComplete = () => {
-            setAnimation('stand')
-            controller.actorInteract(actorName, nextAction.intent.to)
-            dispatch(completeSceneAction(controller.questName, actorName))
-          }
-
-          const duration = (nextAction.endsAt - performance.now()) / 1000
-          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete)
-
-          break
         }
       }
       previousAction.current = nextAction

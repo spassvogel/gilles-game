@@ -53,30 +53,45 @@ export type WeaponWithAbility = {
   ability: WeaponAbility
 }
 
-export type ActionIntent = BaseLocalizedActionIntent & {
+type InteractActionIntent = BaseLocalizedActionIntent & {
   // Non combat actions
   action: SceneActionType.interact
-} | BaseLocalizedActionIntent & {
+}
+
+type MoveActionIntent = BaseLocalizedActionIntent & {
   //
   action: SceneActionType.move
   apCost: number
   actorAP: number
-} | BaseLocalizedActionIntent & {
+}
+
+type MeleeActionIntent = BaseLocalizedActionIntent & {
   //
   action: SceneActionType.melee
   apCost: number
   actorAP: number
   weaponWithAbility: WeaponWithAbility
-} | BaseLocalizedActionIntent & {
+}
+
+type ShootActionIntent = BaseLocalizedActionIntent & {
   action: SceneActionType.shoot
   apCost: number
   actorAP: number
   weaponWithAbility: WeaponWithAbility
   ammo: Item<Ammunition>
-} | BaseActionIntent & {
+}
+
+type ConsumeActionIntent = BaseActionIntent & {
   action: SceneActionType.consume
   item: Item<Consumable>
   actorAP: number
+}
+
+export type ActionIntent = InteractActionIntent | MoveActionIntent | MeleeActionIntent | ShootActionIntent | ConsumeActionIntent
+
+// Type guard for ActionIntent. Returns true if the intent has the ability to relocate the actor
+export const isMovingIntent = (intent: ActionIntent): intent is InteractActionIntent | MoveActionIntent | MeleeActionIntent | ShootActionIntent => {
+  return ['move', 'melee', 'interact'].includes(intent.action)
 }
 
 // This thing scales itself based on the canvas which should be a sibling of this component

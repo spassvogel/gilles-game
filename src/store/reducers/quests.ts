@@ -6,7 +6,6 @@ import {
   isActorObject,
   isAdventurer,
   isEnemy,
-  SceneActionType,
   type SceneObject
 } from 'store/types/scene'
 import { type QuestDefinition } from 'definitions/quests/types'
@@ -17,6 +16,7 @@ import { calculateInitialAP, ENEMY_BASE_AP } from 'mechanics/combat'
 import { xpToLevel } from 'mechanics/adventurers/levels'
 import { type GameTickActionExt } from 'store/middleware/gameTick'
 import { type QuestAction } from 'store/actions/quests'
+import { isMovingIntent } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI'
 
 const overwriteMerge = (_: [], sourceArray: []) => sourceArray
 
@@ -193,20 +193,17 @@ export const quests: Reducer<QuestStoreState[], QuestAction | GameTickActionExt>
           const sceneAction = scene.actionQueue.find(aq => getUniqueName(aq.intent.actor) === action.actorName)
           if (sceneAction == null) return qss
 
-          switch (sceneAction.intent.action) {
-            case SceneActionType.move:
-            case SceneActionType.melee:
-            case SceneActionType.interact: {
-              objects = scene.objects.map((a) => {
-                if (getUniqueName(a) === action.actorName && ((sceneAction.intent.path?.[sceneAction.intent.path.length - 1]) != null)) {
-                  return {
-                    ...a,
-                    location: sceneAction.intent.path[sceneAction.intent.path.length - 1]
-                  }
+          const intent = sceneAction.intent
+          if (isMovingIntent(intent)) {
+            objects = scene.objects.map((a) => {
+              if (getUniqueName(a) === action.actorName && ((intent.path?.[intent.path.length - 1]) != null)) {
+                return {
+                  ...a,
+                  location: intent.path[intent.path.length - 1]
                 }
-                return a
-              })
-            }
+              }
+              return a
+            })
           }
 
           const index = scene.actionQueue.findIndex(aQ => (getUniqueName(aQ.intent.actor) === action.actorName))
