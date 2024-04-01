@@ -8,7 +8,7 @@ type Props = {
 const TutorialControlBar = ({ assignment, onToggle }: Props) => {
   return (
     <div className="control">
-      <div className="assignment">
+      <div className="assignment" onClick={onToggle}>
         {assignment}
       </div>
       <div className="close" onClick={onToggle}>

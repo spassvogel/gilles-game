@@ -21,7 +21,7 @@ const StepAssignWorkersToLumberMill = (props: StepProps) => {
   if (showSuccess) {
     return (
       <StepTemplateSuccess
-        flavorText={<p></p>}
+        flavorText={" That's how ya get yer goods churnin' out nice and proper in this village"}
         onToggle={onToggle}
         onDismissSuccess={onDismissSuccess}
       />

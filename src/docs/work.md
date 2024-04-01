@@ -745,7 +745,8 @@ https://redux.js.org/api/store#subscribelistener
 - [x] Use hooks useStructureDefinition and useStructureLevel
 
 ### 2021-07-13 TextManager can return JSX
- [x] TexManager should be able to return JSX [x] Links
+ [x] TextManager should be able to return JSX
+[x] Links
  [x] Bulleted lists
 
 ### 2021-07-17 Speedpot
@@ -769,7 +770,6 @@ https://redux.js.org/api/store#subscribelistener
 - [ ] Implement actual beneficial effects
    - [x] Health
    - [x] Soma (adds a percentage to all attributes for a while)
-   - [ ] Mana 
 - [x] Play sound!
 
 ### 2021-09-20 Pixijs inspector
@@ -811,7 +811,6 @@ process events, send out redux actions
 - [x] Items
 - [x] Sprites
 - [x] Adventurers (replace current edit modal)
-- [ ] Map editor
 - [x] Contextual settings
 - [x] Have it as a drawer
 
@@ -919,21 +918,21 @@ Objects now inherit a lot of stuff from tiled and have a lot of unused propertie
 
 ### 2024-03-25 Tutorial
 
-Make a tutorial component that can collapse and expand.
+- [x] Make a tutorial component that can collapse and expand.
 
-When expanded it shows portrait of a questgiver, fluff text and the assignment text. Should it have a technical explanation about which buttons to click? It also has a button to skip tutorial.
+- [x] When expanded it shows portrait of a questgiver, fluff text and the assignment text. Should it have a technical explanation about which buttons to click? It also has a button to skip tutorial.
 
-When collapsed it shows the assignment text.
+- [x] When collapsed it shows the assignment text.
 
 ~~To determine at which step we are we check the store if we completed each step, ascending. For the skip tutorial there is also a boolean in redux. The current step is stored in useMemo~~ ta
 
-For every step there is a component. It checks the store to see whether player has completed the assignment. If so, it advances the currentStepIndex to the next value.
+- [x] For every step there is a component. It checks the store to see whether player has completed the assignment. If so, it advances the currentStepIndex to the next value.
 
-There is a template component that they all use to ensure the steps look the same. The first step can be an introduction step.
+- [x] There is a template component that they all use to ensure the steps look the same. The first step can be an introduction step.
 
-By way of usePrevious we store the previous step. This way we know if a step was just completed and we can show a celebration message per step.
+- [x] By way of usePrevious we store the previous step. This way we know if a step was just completed and we can show a celebration message per step.
 
-There exists in the parent a mapping between step index and step component.
+- [x] There exists in the parent a mapping between step index and step component.
 
 ### 2023-03-28 Structures can cost resources
 
