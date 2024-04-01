@@ -19,9 +19,7 @@ const Icon = (props: PropsWithChildren<Props> & ComponentProps<'div'>) => {
     border = 'none',
     ...restProps
   } = props
-
-  // const style: CSSProperties = { '--img': `url("${process.env.PUBLIC_URL}${image}")` }
-  const style = { '--img': `url("${image}")` }
+  const style = { '--img': `url("${import.meta.env.BASE_URL}${image}")` }
 
   return (
     <div
