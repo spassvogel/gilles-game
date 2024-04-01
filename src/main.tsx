@@ -7,8 +7,7 @@ import './index.css'
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = createRoot(document.getElementById('root')!)
-console.log(`${import.meta.env.BASE_URL}/lang/en.json`, `${import.meta.env.BASE_URL}/lang/en.json`)
-const texts = await Assets.load<Record<string, string>>(`${import.meta.env.BASE_URL}/lang/en.json`)
+const texts = await Assets.load<Record<string, string>>(`${import.meta.env.BASE_URL}lang/en.json`)
 TextManager.init(texts)
 
 random.init('GILLESROX2')

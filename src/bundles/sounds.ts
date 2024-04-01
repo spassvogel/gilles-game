@@ -1,4 +1,4 @@
-// not used. see sounds.ts
+// not used. see manifets/sounds.ts
 export const sounds = {
   AMBIENT_STRUCTURE_ALCHEMIST: `sound/structures/alchemist.ogg`,
   AMBIENT_STRUCTURE_SMITH: `sound/structures/smith.ogg`,

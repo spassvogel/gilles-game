@@ -117,7 +117,7 @@ export class SoundManager {
       console.error(`No sound found for ${sound}`)
     }
     if (Array.isArray(sounds[sound])) {
-      const path = sounds[sound][Math.floor(Math.random() * sounds[sound].length)]
+      const path = `${import.meta.env.BASE_URL}${sounds[sound][Math.floor(Math.random() * sounds[sound].length)]}`
       if (Assets.get(path) === undefined) {
         throw new Error(`No sound: ${sound}`)
       }
