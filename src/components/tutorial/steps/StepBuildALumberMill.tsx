@@ -53,7 +53,7 @@ const StepBuildALumberMill = (props: StepProps) => {
               progress={buildTask.progress}
               label={TextManager.get('ui-structure-building', { time: formatDuration(buildTask.timeRemaining) })}
             />
-            <IconButton iconImg="/img/ui/misc/clock.png" size="smallest" onClick={handleReduceTime50}> 50%</IconButton>
+            <IconButton iconImg="/img/ui/misc/clock.png" size="smallest" onClick={handleReduceTime50}></IconButton>
 
           </div>
 

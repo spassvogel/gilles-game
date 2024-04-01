@@ -937,4 +937,11 @@ There exists in the parent a mapping between step index and step component.
 
 ### 2023-03-28 Structures can cost resources
 
-- [ ] Structures can have a cost in resources, in addition to gold and time
+- [x] Structures can have a cost in resources, in addition to gold and time
+
+### 2023-03-31 Chronomatic accelerator
+
+- [ ] Make a special button component
+- [ ] Opens a dialog to confirm
+- [ ] Only a limited amount of charges
+- [ ] Store charges in redux

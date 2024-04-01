@@ -9,6 +9,7 @@ import { type ItemType } from 'definitions/items/types'
 import { type Action } from 'store/actions'
 import { type Structure } from 'definitions/structures'
 import { getStructureIcon } from 'components/town/StructureLabels/utils/getStructureIcon'
+import { addLogText } from 'store/actions/log'
 
 export const processCompletedTasks = (tasks: TasksStoreState, dispatch: Dispatch<Action>) => {
   const handleCompletedTask = (task: TaskStoreState) => {
@@ -23,16 +24,17 @@ export const processCompletedTasks = (tasks: TasksStoreState, dispatch: Dispatch
         const definition = getDefinition(type)
 
         ToastEmitter.addToast(title, Type.itemCrafted, definition.iconImg)
+        dispatch(addLogText('common-item-crafted', { item }))
         break
       }
 
       case TaskType.buildStructure: {
         const structure = task.name.replace('.build', '') as Structure
         const title = TextManager.get('common-structure-built', { structure })
-        // const definition = getDefinition(type)
         const icon = getStructureIcon(structure)
 
         ToastEmitter.addToast(title, Type.structureBuilt, icon)
+        dispatch(addLogText('common-structure-built', { structure }))
         break
       }
     }

@@ -44,7 +44,7 @@ const Tutorial = () => {
       onToggle: handleToggle,
       onDismissSuccess: handleDismissSuccess
     }
-    const stepIndex = (dismissed || previousStep == null ? tutorial : previousStep)
+    const stepIndex = (dismissed || previousStep == null ? tutorial : (previousStep ?? tutorial))
     const Component = stepComponents[stepIndex]
     if (Component == null) {
       return null

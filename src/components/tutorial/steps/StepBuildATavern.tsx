@@ -20,7 +20,7 @@ const StepBuildATavern = (props: StepProps) => {
   if (showSuccess) {
     return (
       <StepTemplateSuccess
-        flavorText={<p>"Ah, it's grand tae hae the tavern back, isn't it? I'll be scurrying doon there meself tae have a wee dram or two. Can't resist a good drink and a blether with the lads!"</p>}
+        flavorText={"Ah, it's grand tae hae the tavern back, isn't it? I'll be scurrying doon there meself tae have a wee dram or two. Can't resist a good drink and a blether with the lads!"}
         onToggle={onToggle}
         onDismissSuccess={onDismissSuccess}
       />
