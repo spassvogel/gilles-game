@@ -113,17 +113,22 @@ const TownView = () => {
     })
   }
 
+  const [canvasWidth, setCanvasWidth] = useState(MAX_WIDTH)
+  const [canvasHeight, setCanvasHeight] = useState(HEIGHT)
+
   useEffect(() => {
-    if (selectedStructure != null && viewportRef.current != null) {
-      const viewport = viewportRef.current
+    const viewport = viewportRef.current
+    if (viewport == null) {
+      return
+    }
+    if (selectedStructure != null) {
       viewport.zoomPercent(0)
       const position = getStructurePosition(selectedStructure as Structure)
       viewport.moveCenter(position)
+    } else {
+      viewport.moveCenter(WORLD_WIDTH / 2, WORLD_HEIGHT / 2)
     }
-  }, [selectedStructure])
-
-  const [canvasWidth, setCanvasWidth] = useState(MAX_WIDTH)
-  const [canvasHeight, setCanvasHeight] = useState(HEIGHT)
+  }, [canvasHeight, canvasWidth, selectedStructure])
 
   useEffect(() => {
     // This will set the dimensions of the canvas tot that of the townview

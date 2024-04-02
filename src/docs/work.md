@@ -188,7 +188,7 @@ for (var i = 0; i < 30; i++) {
     https://pixijs.io/examples/#/interaction/custom-mouse-icon.js
     Fixed! Path needed {process.env.PUBLIC_URL} 
 
-#### 29/07/2019 EQUIP GEAR
+#### 2019-07-29 EQUIP GEAR
 - [x] Can equip gear from the players inventory
 - [x] Can equip gear from the warehouse
 
@@ -197,7 +197,7 @@ for (var i = 0; i < 30; i++) {
   chest                feet
   mainhand  offhand sidearm
 
-#### 31/07/2019 THREE.js
+#### 2019-07-31 THREE.js
 ~~
 Because I'm not an artist and I want to use unity3d assets
 - [x] First check if components dont get remounted too much. If yes, find out why and resolve issue!     
@@ -518,15 +518,15 @@ An editor that could help in designing quests on the world map. Draws a list of 
 Map marker needs to show there is an encounter going on. 
 - [x] Maybe exclamation mark? 
 
-#### 10/10/2020 Make structureviews responsive 
+#### 2020-10-10 Make structureviews responsive 
 - [x] Tavern
 - [x] Warehouse
 
-#### 10/10/2020 Make legenda for town 
+#### 2020-10-10 Make legenda for town 
 - [x] Clicking on it will scroll the structure into view and after brief delay, open window
 - [x] Make outline pulse for better UX
 
-#### 10/04/2020 Oracle, Encounters? [+tech]
+#### 2020-04-10 Oracle, Encounters? [+tech]
 Should think about what to do with the oracle. Maybe refactor the whole thing
 In any case I have decided to change the way encounters work. I'm going to leave the idea of text-adventure based stuff
 and do everything in the 'combat map'. However when out of combat, In addition, every encounter has one ore more multiple scenes (they are like rooms). 
@@ -552,7 +552,7 @@ https://gamedev.stackexchange.com/questions/115982/industry-standard-json-format
 
 The static part of the scene is not stored in store. The dynamic part is created by Oracle.createSceneState() and stored in redux. After that, any changes (actors moving, stuff getting added/removed) are also persisted to redux.
 
-#### 11/10/2020 QuestPanel vertical [+art]
+#### 2020-10-11 QuestPanel vertical [+art]
 Because the QuestPanel will be showing the sceneview it makes more sense to have a vertical layout where everything is stacked underneath each other.
 ![](img/questpanel-vertical.png)
 _(left = vertical, right = horizontal)_
@@ -560,7 +560,7 @@ _(left = vertical, right = horizontal)_
 
 In general we should design in such a way that if content doesnt fit on the screen there is vertical scroll.
 
-#### 12/10/2020 Interaction in scenes [+tech]
+#### 2020-10-12 Interaction in scenes [+tech]
 For interaction in the scene I want to develop a sort of system where you first click an adventurer to select it. Then underneath one to three buttons appear, [move, attack, interact], move is selected by default. 
 
 Then there are two options:
@@ -572,13 +572,13 @@ Currently favouring dragging, because we can use it in combat and show the AP co
 #### animations
 https://github.com/DragonBones/DragonBonesJS
 
-#### 29/04/2020 Font [+art]
+#### 2020-04-29 Font [+art]
 - [x] Implement 'gabriela' font
 
-#### 29/04/2020 Route to quest [+tech]
+#### 2020-04-29 Route to quest [+tech]
 - [x] So we can open a quest from anywhere, e.g toasts
 
-#### 08/05/2020 Sass
+#### 2020-05-08 Sass
 - [x] Try to implement sass again (https://www.google.com/search?q=sass+create+react+app)
 - [ ] Use variables for cursor
 - [x] Convert existing css to sass: http://beautifytools.com/css-to-scss-converter.php
@@ -625,10 +625,10 @@ https://wow.gamepedia.com/Quality
 ### Localforage [+tech]
 - [x] https://github.com/localForage/localForage
 
-### Item descriptions [+ref]
+### 2021-09-14 Item descriptions [+ref]
 - [x] Refactor to use translations file
 
-### 28/06/2020 various 
+### 2020-06-28 various 
 - [x] show amount of RSS generation in tooltip
 - [x] abstract itemInteraction into hook
 - toast on scene enter, check scene vars
@@ -643,11 +643,11 @@ https://wow.gamepedia.com/Quality
 - [x] bug: tooltip 
 
 
-### 27/07/2020 character UI
+### 2020-07-27 character UI
 - [x] Style character UI
 ![](https://assetstorev1-prd-cdn.unity3d.com/package-screenshot/bf8d4897-4d76-4246-8bb4-8537aa7732cf.webp)
 
-### 9/8/2020 Study Items
+### 2020-08-09 Study Items
 Non unique items can be studied at a structure to be able to craft them. 
 Every production structure needs a list of potentitally craftable items
 and in the store a list of items that have been studied and can be crafted.
@@ -668,20 +668,20 @@ Studies are tasks like `{structure_name}.study` with a callback that adds the it
 
 - [ ] Figure out a way to calculate damage and armour effects.    
 
-### 10/8/2020 Save and load
+### 2020-08-10 Save and load
 - [x] Save gamestate into file 
 - [x] Load gamestate from file
 - [ ] Save metadata into file. Like: current route, timestamp, game version
 - [ ] Load current router path from file
 - [ ] Show time, game version when loading game
 
-### 30/8/2020 Quest / Adventurer definitions
+### 2020-08-30 Quest / Adventurer definitions
 Quests and adventurers dont need to be stored in the store when not active
 - [ ] Adventurers need to have a definition file
 - [x] Adventurers take name from translation file. Can be renamed afterwards
 - [ ] Then when an adventurer is added to the game (how?) it gets saved in the redux store
 
-### 31/8/2020 Skills
+### 2020-08-31 Skills
 - [x] Implement list of skills of adventurers
 - [ ] We just need weapon combat skills for the time being
       https://gurps.fandom.com/wiki/List_of_Skills
@@ -819,7 +819,6 @@ Can build forward outposts (small versions of town) anywhere on the map, with le
 
 ### bugs
 - [x] cant drag items from adventurer to warehouse
-- [ ] adventurer panel on warehouse is a hot mess
 - [x] prevent wrong apparel to be placed 
 
 ### 2022-03-11 General UI inspiration
@@ -894,7 +893,7 @@ of those with a lower y value (=higher on the screen). However, when dead they s
 
 ### 2024-03-23 Can not start actions from dead adventurers
 
-There is a bug that allows the user to drag an action out of a dead adventurer
+- [ ] There is a bug that allows the user to drag an action out of a dead adventurer
 
 ### 2024-03-23 Save position of enemies when leaving scene
 
@@ -933,6 +932,8 @@ Objects now inherit a lot of stuff from tiled and have a lot of unused propertie
 - [x] By way of usePrevious we store the previous step. This way we know if a step was just completed and we can show a celebration message per step.
 
 - [x] There exists in the parent a mapping between step index and step component.
+
+- [ ] Refactor to use translations file
 
 ### 2023-03-28 Structures can cost resources
 
