@@ -44,7 +44,7 @@ const SaveAndLoadWindow = () => {
     setLoadedStore(undefined)
 
     dispatch(loadGame(loadedStore))
-    ToastEmitter.addToast(TextManager.get('ui-game-loaded'), Type.game, '/img/items/misc/magic-eye.png')
+    ToastEmitter.addToast(TextManager.get('ui-game-loaded'), Type.game, 'img/items/misc/magic-eye.png')
     app?.onCloseWindow()
   }
 

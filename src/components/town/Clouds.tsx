@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Sprite, useTick } from '@pixi/react'
 import { sprites } from 'bundles/sprites'
+import { defineAssetPath } from 'utils/assets'
 
 type Props = {
   worldWidth: number
@@ -18,7 +19,8 @@ const randomY = () => Math.random() * -300 - 200
 const Clouds = (props: Props) => {
   const { speed = 1 } = props
   const [cloud, setCloud] = useState(randomCloud())
-  const image = CLOUD_IMAGES[cloud]
+  const image = defineAssetPath(CLOUD_IMAGES[cloud])
+
   const [x, setX] = useState(-2000)
   const [y, setY] = useState(randomY())
 

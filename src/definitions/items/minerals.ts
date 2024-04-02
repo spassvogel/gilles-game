@@ -3,7 +3,7 @@ import { type ItemType, type ItemDefinition, ItemCategory } from './types'
 type Prefix = 'mineral/'
 const PREFIX = 'mineral/'
 const itemCategory = ItemCategory.mineral
-const basePath = '/img/items/minerals/'
+const basePath = 'img/items/minerals/'
 
 // Minerals can be used to imbue magical powers to weapons and armor
 const minerals = {

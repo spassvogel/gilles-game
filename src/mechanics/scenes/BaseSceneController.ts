@@ -47,8 +47,9 @@ import { calculateEffectiveAttributes } from 'mechanics/adventurers/attributes'
 import { sprites } from 'bundles/sprites'
 import { Channel, SoundManager } from 'global/SoundManager'
 import { type DeepPartial } from 'utils/typescript'
+import { defineAssetPath } from 'utils/assets'
 
-const effectSpritesheetBasePath = '/img/scene/effects/'
+const effectSpritesheetBasePath = 'img/scene/effects/'
 export const movementDuration = 500 // time every tile movement takes
 
 export const EVENT_SCENE_EFFECT = 'eventSceneEffect'
@@ -123,10 +124,10 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     utils.clearTextureCache()
 
     for (const path of this.actorSpritesheetPaths) {
-      await Assets.load(path)
+      await Assets.load(defineAssetPath(path))
     }
     for (const path of this.effectSpritesheetPaths) {
-      await Assets.load(`${effectSpritesheetBasePath}${path}`)
+      await Assets.load(defineAssetPath(`${effectSpritesheetBasePath}${path}`))
     }
 
     this.dataLoadComplete = true
@@ -210,6 +211,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     if (destination.type === TiledObjectType.portal) {
       // We've hit a portal
       if (destination.properties.exit) {
+        console.log(`(wouter left this in) destination.properties.exit`, destination.properties.exit);
         // Exit the encounter
         const index = Math.floor(this.quest.progress) + 1
         const definition = getDefinition(this.questName)

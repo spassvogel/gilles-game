@@ -32,7 +32,7 @@ import Tutorial from 'components/tutorial'
 PixiPlugin.registerPIXI(PIXI)
 gsap.registerPlugin(PixiPlugin)
 
-const backend = (isMobile(window.navigator).any ? TouchBackend : HTML5Backend);
+const backend = (isMobile(window.navigator).any ? TouchBackend : HTML5Backend)
 
 export const MAX_WIDTH = 960
 

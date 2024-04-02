@@ -3,7 +3,7 @@ import { type ItemType, type ItemDefinition, ItemCategory } from './types'
 type Prefix = 'trinket/'
 const PREFIX = 'trinket/'
 const itemCategory = ItemCategory.trinket
-const basePath = '/img/items/trinkets/'
+const basePath = 'img/items/trinkets/'
 
 const trinkets = {
   magicAmulet: {

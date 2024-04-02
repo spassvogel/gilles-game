@@ -2,6 +2,7 @@ import { type ComponentProps } from 'react'
 import ActionButton from './ActionButton'
 import { type AdventurerStoreState } from 'store/types/adventurer'
 import { isConsumable } from 'definitions/items/consumables'
+import { defineAssetPath } from 'utils/assets'
 
 type Props = ComponentProps<typeof ActionButton> & {
   adventurer: AdventurerStoreState
@@ -19,7 +20,7 @@ const PotionActionButton = (props: Props) => {
   }
   return (
     <ActionButton { ...restProps}>
-      <img className="action-icon" src="/img/ui/icons/round-potion.svg"></img>
+      <img className="action-icon" src={defineAssetPath('img/ui/icons/round-potion.svg')}></img>
     </ActionButton>
   )
 }

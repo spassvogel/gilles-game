@@ -3,7 +3,7 @@ import { type ItemType, type ItemDefinition, ItemCategory } from './types'
 type Prefix = 'consumable/'
 const PREFIX = 'consumable/'
 const itemCategory = ItemCategory.consumable
-const basePath = '/img/items/consumables/'
+const basePath = 'img/items/consumables/'
 
 export type ConsumableCategory = 'health' | 'rage' | 'soma' | 'mana'
 export type ConsumableDefinition = {

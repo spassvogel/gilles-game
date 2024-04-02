@@ -3,6 +3,7 @@ import * as TextManager from 'global/TextManager'
 import { sounds } from 'manifests/sounds'
 import { Assets } from 'pixi.js'
 import { type PropsWithChildren, useEffect, useRef, useState } from 'react'
+import { defineAssetPath } from 'utils/assets'
 
 type Props = PropsWithChildren<unknown>
 
@@ -25,9 +26,9 @@ const ManifestLoader = (props: Props) => {
     // Flatten!
     const allSounds = Object.values(sounds).reduce<string[]>((acc, value) => {
       if (Array.isArray(value)) {
-        acc.push(...value)
+        acc.push(...(value.map(defineAssetPath)))
       } else {
-        acc.push(value)
+        acc.push(defineAssetPath(value))
       }
       return acc
     }, [])

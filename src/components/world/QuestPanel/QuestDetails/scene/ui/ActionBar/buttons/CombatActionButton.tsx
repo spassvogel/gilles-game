@@ -7,6 +7,7 @@ import { SceneActionType } from 'store/types/scene'
 import Icon, { IconSize } from 'components/ui/common/Icon'
 import { getDefinition as getWeaponDefinition } from 'definitions/items/weapons'
 import ActionButton from './ActionButton'
+import { defineAssetPath } from 'utils/assets'
 
 type Props = ComponentProps<typeof ActionButton> & {
   adventurer: AdventurerStoreState
@@ -27,7 +28,7 @@ const CombatActionButton = (props: Props) => {
     switch (intent.action) {
       case SceneActionType.move: {
         return (
-          <img className="action-icon" src="/img/ui/icons/walking-boot.svg"></img>
+          <img className="action-icon" src={defineAssetPath('img/ui/icons/walking-boot.svg')}></img>
         )
       }
       case SceneActionType.shoot:

@@ -3,7 +3,7 @@ import { type ItemType, type ItemDefinition, ItemCategory } from './types'
 type Prefix = 'questItem/'
 const PREFIX = 'questItem/'
 const itemCategory = ItemCategory.questItem
-const basePath = '/img/items/quest-items/'
+const basePath = 'img/items/quest-items/'
 
 const questItems = {
   blueprints: {

@@ -22,7 +22,7 @@ const Toast = (props: Props) => {
   const {
     title,
     type = Type.achievementUnlocked,
-    icon = '/img/items/quest-items/dragon-eye.png',
+    icon = 'img/items/quest-items/dragon-eye.png',
     link
   } = props
   const navigate = useNavigate()

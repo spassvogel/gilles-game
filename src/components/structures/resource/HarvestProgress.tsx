@@ -34,7 +34,8 @@ const HarvestProgress = (props: Props) => {
          })}`}
          progress={delta / HARVEST_INTERVAL}
       />
-      <IconButton iconImg="/img/ui/misc/clock.png" size="smallest" onClick={handleReduceTime50}> 50%</IconButton>
+      {/* // todo: make into component */}
+      <IconButton iconImg="img/ui/misc/clock.png" size="smallest" onClick={handleReduceTime50}> 50%</IconButton>
     </div>
   )
 }

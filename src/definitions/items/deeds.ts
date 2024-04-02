@@ -4,7 +4,7 @@ import { type ItemType, type ItemDefinition, ItemCategory } from './types'
 type Prefix = 'deed/'
 const PREFIX = 'deed/'
 const itemCategory = ItemCategory.deed
-const basePath = '/img/items/deeds/'
+const basePath = 'img/items/deeds/'
 
 export type DeedDefinition = {
   structure: Structure

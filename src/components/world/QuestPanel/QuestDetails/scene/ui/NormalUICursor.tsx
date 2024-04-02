@@ -9,8 +9,8 @@ type Props = {
 }
 
 const images = {
-  [SceneActionType.move]: 'url(/img/ui/icons/walking-boot.svg)',
-  [SceneActionType.interact]: 'url(/img/ui/icons/sunken-eye.svg)'
+  [SceneActionType.move]: 'url(img/ui/icons/walking-boot.svg)',
+  [SceneActionType.interact]: 'url(img/ui/icons/sunken-eye.svg)'
 }
 
 const NormalUICursor = (props: Props) => {

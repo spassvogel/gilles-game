@@ -6,7 +6,7 @@ import { WeaponType, type DamageDefinition, DamageType } from 'definitions/weapo
 type Prefix = 'weapon/'
 const PREFIX = 'weapon/'
 const itemCategory = ItemCategory.weapon
-const basePath = '/img/items/weapons/'
+const basePath = 'img/items/weapons/'
 
 export type WeaponDefinition = {
   weaponType: WeaponType

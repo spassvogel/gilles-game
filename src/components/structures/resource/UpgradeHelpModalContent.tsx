@@ -53,7 +53,7 @@ const UpgradeHelpModalContent = (props: Props) => {
           level: level + 2
         })}
         </div>
-        <div><Icon image={'/img/resources/worker.png'} size="smallest"/></div>
+        <div><Icon image={'img/resources/worker.png'} size="smallest"/></div>
         <div>{TextManager.get('ui-structure-help-upgrade-worker-capacity')}</div>
         <div className="number">{currentLevel.workerCapacity}</div>
         <div className="arrow">»</div>

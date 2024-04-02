@@ -115,7 +115,7 @@ const CheatWindow = () => {
     onCheatGold(amount)
 
     const text = TextManager.get('common-cheat-gold-added', { amount })
-    const icon = '/img/resources/gold.png'
+    const icon = 'img/resources/gold.png'
     ToastEmitter.addToast(text, Type.cheat, icon)
   }
 
@@ -123,7 +123,7 @@ const CheatWindow = () => {
     const amount = cheats.workers
     onCheatWorkers(amount)
     const text = TextManager.get('common-cheat-workers-added', { amount })
-    const icon = '/img/resources/worker.png'
+    const icon = 'img/resources/worker.png'
     ToastEmitter.addToast(text, Type.cheat, icon)
   }
 

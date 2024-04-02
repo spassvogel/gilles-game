@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { type TiledTilesetData } from 'constants/tiledMapData'
 import { type SpritesheetData, type SpriteData } from 'constants/spritesheetData'
-import { Assets, Spritesheet } from 'pixi.js'
+import { Assets, Spritesheet, type Texture } from 'pixi.js'
+import { defineAssetPath } from 'utils/assets'
 
 // Returns a TiledTilesetData that has not been loaded into tilesetsTextures yet
 const nextTilesetToload = (tilesets: TiledTilesetData[], tilesetsTextures: Record<string, Spritesheet>) => {
@@ -28,7 +29,7 @@ const parseSpritesheetData = (tileset: TiledTilesetData): SpritesheetData => {
       sourceSize: { w, h }
     }
   }
-  const image = tileset.image
+  const image = defineAssetPath(tileset.image)
   const size = { w: tileset.imagewidth, h: tileset.imageheight }
   return {
     frames,
@@ -61,7 +62,7 @@ const useTilesetsLoader = (basePath: string) => {
     const image = nextTileset.image.substring(nextTileset.image.indexOf('/'))
 
     const loadSpritesheet = async () => {
-      const resource = await Assets.load(`${basePath}/${image}`)
+      const resource: Texture = await Assets.load(`${basePath}/${image}`)
       const spritesheetData = parseSpritesheetData(nextTileset)
       const spritesheet = new Spritesheet(resource, spritesheetData)
       await spritesheet.parse()
@@ -72,7 +73,7 @@ const useTilesetsLoader = (basePath: string) => {
       }
       setTilesets(newTilesets)
     }
-    loadSpritesheet()
+    void loadSpritesheet()
   }, [basePath, data, tileSpritesheets])
 
   const loadComplete = !(data == null) && nextTilesetToload(data, tileSpritesheets) === undefined

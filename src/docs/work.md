@@ -186,7 +186,7 @@ for (var i = 0; i < 30; i++) {
 - [ ] We need cursors for move inventory item and not-allowed
 - [x] Need cursors in pixi context. Why isn't it working? (https://codesandbox.io/s/autumn-waterfall-ng6gb)
     https://pixijs.io/examples/#/interaction/custom-mouse-icon.js
-    Fixed! Path needed {process.env.PUBLIC_URL}npm 
+    Fixed! Path needed {process.env.PUBLIC_URL} 
 
 #### 29/07/2019 EQUIP GEAR
 - [x] Can equip gear from the players inventory

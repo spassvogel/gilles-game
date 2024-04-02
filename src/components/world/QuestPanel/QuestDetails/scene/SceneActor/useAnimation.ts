@@ -102,62 +102,67 @@ const useAnimation = (
     if ((nextAction != null) && nextAction !== previousAction.current) {
       const { intent } = nextAction
       // console.log(`next action is ${nextAction.intent.to} (${nextAction.actionType}), \ncurrent location is: ${location}\nprev action was ${previousAction?.current?.target} `)
-      if (isMovingIntent(intent)) {
-        switch (nextAction.intent.action) {
-          case SceneActionType.move: {
-            const moveComplete = () => {
-              setAnimation('stand')
-              dispatch(completeSceneAction(quest.name, actorName))
-              controller.actorMoved(actorName, intent.to)
+      switch (nextAction.intent.action) {
+        case SceneActionType.move: {
+          const moveComplete = () => {
+            setAnimation('stand')
+            dispatch(completeSceneAction(quest.name, actorName))
+
+            if (isMovingIntent(nextAction.intent)) { // this if-statement is mostly for typescript
+              controller.actorMoved(actorName, nextAction.intent.to)
             }
-
-            const duration = (nextAction.endsAt - performance.now()) / 1000
-            moveActor(intent.path ?? [], duration, nextAction.delay, moveComplete)
-            break
           }
-          case SceneActionType.melee: {
-            const moveComplete = () => {
-              determineOrientation(location, intent.to)
-              setAnimation('attack')
-              CombatController.actorMeleeStart(actorName, intent)
 
-              const attackComplete = () => {
-                setAnimation('stand')
-                dispatch(completeSceneAction(controller.questName, actorName))
-                CombatController.actorMeleeEnd(actorName, intent)
-              }
-              setTimeout(attackComplete, 500)
+          const duration = (nextAction.endsAt - performance.now()) / 1000
+          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete)
+          break
+        }
+        case SceneActionType.melee: {
+          const moveComplete = () => {
+            if (isMovingIntent(nextAction.intent)) { // this if-statement is mostly for typescript
+              determineOrientation(location, nextAction.intent.to)
             }
-
-            const duration = (nextAction.endsAt - performance.now()) / 1000
-            moveActor(intent.path ?? [], duration, nextAction.delay, moveComplete)
-            break
-          }
-          case SceneActionType.shoot: {
-            determineOrientation(location, intent.to)
             setAnimation('attack')
-            CombatController.actorShootStart(actorName, intent)
+            CombatController.actorMeleeStart(actorName, intent)
 
             const attackComplete = () => {
               setAnimation('stand')
               dispatch(completeSceneAction(controller.questName, actorName))
-              CombatController.actorShootEnd(actorName, intent)
+              CombatController.actorMeleeEnd(actorName, intent)
             }
             setTimeout(attackComplete, 500)
-            break
           }
-          case SceneActionType.interact: {
-            const moveComplete = () => {
-              setAnimation('stand')
-              controller.actorInteract(actorName, intent.to)
-              dispatch(completeSceneAction(controller.questName, actorName))
+
+          const duration = (nextAction.endsAt - performance.now()) / 1000
+          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete)
+          break
+        }
+        case SceneActionType.shoot: {
+          determineOrientation(location, nextAction.intent.to)
+          setAnimation('attack')
+          CombatController.actorShootStart(actorName, intent)
+
+          const attackComplete = () => {
+            setAnimation('stand')
+            dispatch(completeSceneAction(controller.questName, actorName))
+            CombatController.actorShootEnd(actorName, intent)
+          }
+          setTimeout(attackComplete, 500)
+          break
+        }
+        case SceneActionType.interact: {
+          const moveComplete = () => {
+            setAnimation('stand')
+            if (isMovingIntent(nextAction.intent)) { // this if-statement is mostly for typescript
+              controller.actorInteract(actorName, nextAction.intent.to)
             }
-
-            const duration = (nextAction.endsAt - performance.now()) / 1000
-            moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete)
-
-            break
+            dispatch(completeSceneAction(controller.questName, actorName))
           }
+
+          const duration = (nextAction.endsAt - performance.now()) / 1000
+          moveActor(nextAction.intent.path ?? [], duration, nextAction.delay, moveComplete)
+
+          break
         }
       }
       previousAction.current = nextAction

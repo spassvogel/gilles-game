@@ -3,7 +3,7 @@ import { type ItemType, type ItemDefinition, ItemCategory } from './types'
 type Prefix = 'herb/'
 const PREFIX = 'herb/'
 const itemCategory = ItemCategory.herb
-const basePath = '/img/items/herbs/'
+const basePath = 'img/items/herbs/'
 
 const herbs = {
   angelicasSorrow: {

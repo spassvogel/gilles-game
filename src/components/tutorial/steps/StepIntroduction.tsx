@@ -19,7 +19,7 @@ const StepIntroduction = (props: StepProps) => {
   if (showSuccess) {
     return (
       <StepTemplateSuccess
-        flavorText={<p>Aye, nae shame in that, laddie! Let's get oor paws movin' on this!</p>}
+        flavorText={"Aye, nae shame in that, laddie! Let's get oor paws movin' on this!"}
         onToggle={onToggle}
         onDismissSuccess={onDismissSuccess}
       />

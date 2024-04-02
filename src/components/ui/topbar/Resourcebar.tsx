@@ -54,8 +54,8 @@ const Resourcebar = () => {
   })
 
   resources.push(
-    createItem('/img/resources/worker.png', workersFree, 'workers'),
-    createItem('/img/resources/gold.png', goldState, 'gold')
+    createItem('img/resources/worker.png', workersFree, 'workers'),
+    createItem('img/resources/gold.png', goldState, 'gold')
   )
 
   return (

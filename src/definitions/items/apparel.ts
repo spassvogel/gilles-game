@@ -6,7 +6,7 @@ import { Rarity } from 'constants/items'
 type Prefix = 'apparel/'
 const PREFIX = 'apparel/'
 const itemCategory = ItemCategory.apparel
-const basePath = '/img/items/apparel/'
+const basePath = 'img/items/apparel/'
 
 const crimsonRogueEffect: EffectAttibuteIncrease = {
   type: EffectType.attributeIncrease,

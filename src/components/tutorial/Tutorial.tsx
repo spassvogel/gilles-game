@@ -6,9 +6,9 @@ import usePrevious from 'hooks/usePrevious'
 import StepBuildATavern from './steps/StepBuildATavern'
 import StepBuildALumberMill from './steps/StepBuildALumberMill'
 import StepAssignWorkersToLumberMill from './steps/StepAssignWorkersToLumberMill'
-
-import './style/tutorial.scss'
 import { SoundManager } from 'global/SoundManager'
+
+import './styles/tutorial.scss'
 
 // All the tutorial steps in the correct order
 const stepComponents = [
@@ -22,7 +22,7 @@ const Tutorial = () => {
   const [collapsed, setCollapsed] = useState(false)
   const tutorial = useSelector((state: StoreState) => state.game.tutorial)
   const [dismissed, setDismissed] = useState(false)
-  const previousStep = usePrevious(tutorial ?? 0)
+  const previousStep = usePrevious(tutorial)
 
   const handleToggle = () => {
     setCollapsed((o) => !o)
@@ -36,16 +36,12 @@ const Tutorial = () => {
 
   useEffect(() => {
     void SoundManager.playSound('UI_BUTTON_CLICK')
-
-    console.log(`tutorial`, tutorial)
     setDismissed(false)
-  }, [tutorial])
+  }, [previousStep, tutorial])
 
   const step = useMemo(() => {
-    console.log(`previousStep`, previousStep)
-    console.log(`tutorial`, tutorial)
     const props = {
-      showSuccess: tutorial !== previousStep && !dismissed,
+      showSuccess: tutorial !== previousStep && !dismissed && previousStep != null,
       onToggle: handleToggle,
       onDismissSuccess: handleDismissSuccess
     }

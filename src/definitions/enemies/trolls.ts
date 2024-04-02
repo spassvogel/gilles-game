@@ -2,7 +2,7 @@ import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot'
 import { Race } from 'constants/race'
 import { WeaponType } from 'definitions/weaponTypes/types'
 import { type EnemyDefinition } from './types'
-const avatarImgBasePath = '/img/avatars/monster/'
+const avatarImgBasePath = 'img/avatars/monster/'
 
 type TrollDefinition = Record<string, EnemyDefinition>
 

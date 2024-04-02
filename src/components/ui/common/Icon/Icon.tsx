@@ -2,6 +2,7 @@ import { type ComponentProps, type CSSProperties, type PropsWithChildren } from 
 import { sizeClassName, borderClassName, type IconSizeType, Border, IconSize } from './utils'
 
 import './styles/icon.scss'
+import { defineAssetPath } from 'utils/assets'
 
 export type Props = {
   image: string
@@ -19,7 +20,7 @@ const Icon = (props: PropsWithChildren<Props> & ComponentProps<'div'>) => {
     border = 'none',
     ...restProps
   } = props
-  const style = { '--img': `url("${import.meta.env.BASE_URL}${image}")` }
+  const style = { '--img': `url("${defineAssetPath(image)}")` }
 
   return (
     <div

@@ -2,7 +2,7 @@ import { type ReactNode } from 'react'
 import tutorialPortrait from '../CromwellScurryfur.png' // or should I say: portRAT ...
 import TutorialControlBar from '../TutorialControlBar'
 
-import '../style/tutorial-step.scss'
+import '../styles/tutorial-step.scss'
 
 export type StepProps = {
   showSuccess: boolean

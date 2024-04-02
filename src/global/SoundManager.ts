@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-dynamic-delete */
 import localforage from 'localforage'
 import { type Sound, type IMediaInstance, filters } from '@pixi/sound'
 import { gsap } from 'gsap'
 import { Assets } from 'pixi.js'
 import { sounds } from 'manifests/sounds'
+import { defineAssetPath } from 'utils/assets'
 
 export enum Channel {
   music,
@@ -117,14 +119,14 @@ export class SoundManager {
       console.error(`No sound found for ${sound}`)
     }
     if (Array.isArray(sounds[sound])) {
-      const path = `${import.meta.env.BASE_URL}${sounds[sound][Math.floor(Math.random() * sounds[sound].length)]}`
+      const path = defineAssetPath(sounds[sound][Math.floor(Math.random() * sounds[sound].length)])
       if (Assets.get(path) === undefined) {
         throw new Error(`No sound: ${sound}`)
       }
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       return Assets.get(path)
     } else {
-      const path = sounds[sound] as string
+      const path = defineAssetPath(sounds[sound] as string)
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       return Assets.get(path)
     }

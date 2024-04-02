@@ -1,4 +1,5 @@
 import { TempEffectType } from 'definitions/tempEffects/types'
+import { defineAssetPath } from 'utils/assets'
 
 type Props = {
   effectType: TempEffectType
@@ -24,7 +25,7 @@ const EffectIcon = (props: Props) => {
     <div
       className={`effect-icon ${harmful ? 'harmful' : 'not-harmful'}`}
       style={{
-        backgroundImage: `url(/img/ui/icons/${getIconImage(effectType)})`
+        backgroundImage: `url(${defineAssetPath(`img/ui/icons/${getIconImage(effectType)}`)})`
       }}
     />
   )

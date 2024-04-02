@@ -4,7 +4,7 @@ import { type ItemType, type ItemDefinition, ItemCategory } from './types'
 type Prefix = 'ammunition/'
 const PREFIX = 'ammunition/'
 const itemCategory = ItemCategory.ammunition
-const basePath = '/img/items/ammunition/'
+const basePath = 'img/items/ammunition/'
 
 export type AmmunitionDefinition = {
   weaponType: WeaponType

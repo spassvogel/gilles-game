@@ -1,4 +1,3 @@
-
 export type SpritesheetData = {
   frames: Record<string, SpriteData>
   meta: {

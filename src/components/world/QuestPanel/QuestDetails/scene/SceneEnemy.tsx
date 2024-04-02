@@ -5,6 +5,7 @@ import SceneActor, { type Props as SceneActorProps } from './SceneActor'
 import { getDefinition as getEnemyDefinition } from 'definitions/enemies'
 import { sprites } from 'bundles/sprites'
 import determineActorZ from './utils/determineActorZ'
+import { defineAssetPath } from 'utils/assets'
 
 type Props = {
   actor: EnemyObject
@@ -21,7 +22,7 @@ const SceneEnemy = (props: Props & Omit<SceneActorProps, 'children' | 'name' | '
   } = props
   const definition = getEnemyDefinition(actor.enemyType)
   const key = definition.spritesheet
-  const spritesheet = Assets.get(sprites[key])
+  const spritesheet = Assets.get(defineAssetPath(sprites[key]))
 
   if (spritesheet === undefined) {
     console.warn(`No spritesheet found for ${actor.enemyType}`)

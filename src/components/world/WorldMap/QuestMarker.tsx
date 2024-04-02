@@ -5,6 +5,7 @@ import { type QuestStoreState } from 'store/types/quest'
 import { type AdventurerStoreState } from 'store/types/adventurer'
 import { Point } from 'pixi.js'
 import { sprites } from 'bundles/sprites'
+import { defineAssetPath } from 'utils/assets'
 
 type Props = {
   quest: QuestStoreState
@@ -23,8 +24,10 @@ const QuestMarker = (props: Props) => {
   const avatar = useRef<PIXI.Sprite>(null)
   // Mask has to be a child of the avatar in order to move with it
   useEffect(() => {
-    const sprite = avatar.current as PIXI.Sprite
-
+    const sprite = avatar.current
+    if (sprite == null) {
+      return
+    }
     const maskGraphics = new PIXI.Graphics()
     maskGraphics.beginFill(0xBADA55)
     maskGraphics.drawCircle(0, 0, CIRCLE_DIAMETER * 1)
@@ -51,7 +54,7 @@ const QuestMarker = (props: Props) => {
     >
       {(
       <Sprite
-        image={`${leader.avatarImg}`}
+        image={defineAssetPath(leader.avatarImg)}
         name="avatar"
         anchor={new Point(0.5, 0.5)}
         x={0}

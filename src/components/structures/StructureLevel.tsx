@@ -45,7 +45,7 @@ const StructureLevel = (props: Props) => {
           label={`${TextManager.get('structure-upgrade-button-upgrading')} (${formatDuration(t.timeRemaining)})`}
           progress={t.progress}
         />
-        <IconButton iconImg="/img/ui/misc/clock.png" size="smallest" onClick={handleReduceTime50}>50%</IconButton>
+        <IconButton iconImg="img/ui/misc/clock.png" size="smallest" onClick={handleReduceTime50}>50%</IconButton>
       </div>
     )
   }

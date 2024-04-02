@@ -16,6 +16,8 @@ import Health from './Health'
 import ConsumeItem from './ConsumeItem'
 import AdventurerEffects from './AdventurerEffects'
 import AdventurerAttributesAndSkills from './AdventurerAttributesAndSkills'
+import { defineAssetPath } from 'utils/assets'
+
 import './styles/adventurerPanel.scss'
 
 export type Props = {
@@ -93,7 +95,7 @@ const AdventurerPanel = (props: Props) => {
         { levelBar && adventurer.health > 0 && <Level adventurerId={adventurer.id}/> }
         { adventurer.flavor === true && (
           <span className="flavor">
-            <img className="portrait" src={`${adventurer.avatarImg}`} alt={adventurer.name} />
+            <img className="portrait" src={defineAssetPath(adventurer.avatarImg)} alt={adventurer.name} />
             <ReactMarkdown>
               {TextManager.getAdventurerFlavor(adventurer.id, adventurer.name)}
             </ReactMarkdown>

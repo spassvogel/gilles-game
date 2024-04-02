@@ -17,8 +17,6 @@ const AdventurerTempEffects = (props: Props) => {
   const adventurer = useAdventurer(props.adventurerId)
 
   const renderEffect = (effect: TempEffect) => {
-    // const effectDefinition = getDefinition(effect.type)
-
     const handleClick = (event: React.MouseEvent) => {
       const origin = (event.currentTarget as HTMLElement).querySelector('.name')
       if (origin == null) return
