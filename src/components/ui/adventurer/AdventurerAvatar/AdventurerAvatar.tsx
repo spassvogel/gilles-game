@@ -2,6 +2,7 @@ import Icon, { type IconSize } from 'components/ui/common/Icon'
 import { type AdventurerStoreState } from 'store/types/adventurer'
 
 import './styles/adventurerAvatar.scss'
+import { AVATAR_IMAGE_BASE_PATH } from 'constants/paths'
 
 export type Props = {
   adventurer: AdventurerStoreState
@@ -27,10 +28,12 @@ const AdventurerAvatar = (props: Props) => {
       props.onClick(props.adventurer.id)
     }
   }
+
+  const imgPath = AVATAR_IMAGE_BASE_PATH + adventurer.avatarImg
   return (
     <Icon
       className={className}
-      image={adventurer.avatarImg}
+      image={imgPath}
       size={size}
       onClick={handleClick}
     />

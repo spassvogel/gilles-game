@@ -6,6 +6,7 @@ import { type AdventurerStoreState } from 'store/types/adventurer'
 import { Point } from 'pixi.js'
 import { sprites } from 'bundles/sprites'
 import { defineAssetPath } from 'utils/assets'
+import { AVATAR_IMAGE_BASE_PATH } from 'constants/paths'
 
 type Props = {
   quest: QuestStoreState
@@ -54,7 +55,7 @@ const QuestMarker = (props: Props) => {
     >
       {(
       <Sprite
-        image={defineAssetPath(leader.avatarImg)}
+        image={defineAssetPath(AVATAR_IMAGE_BASE_PATH + leader.avatarImg)}
         name="avatar"
         anchor={new Point(0.5, 0.5)}
         x={0}
