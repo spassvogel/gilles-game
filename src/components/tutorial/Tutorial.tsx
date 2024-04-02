@@ -9,6 +9,8 @@ import StepAssignWorkersToLumberMill from './steps/StepAssignWorkersToLumberMill
 import { SoundManager } from 'global/SoundManager'
 
 import './styles/tutorial.scss'
+import localforage from 'localforage'
+import { STORAGE_KEY_TUTORIAL_COLLAPSED } from 'constants/storage'
 
 // All the tutorial steps in the correct order
 const stepComponents = [
@@ -19,14 +21,22 @@ const stepComponents = [
 ]
 
 const Tutorial = () => {
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(true)
   const tutorial = useSelector((state: StoreState) => state.game.tutorial)
   const [dismissed, setDismissed] = useState(false)
   const previousStep = usePrevious(tutorial)
 
   const handleToggle = () => {
     setCollapsed((o) => !o)
+    void localforage.setItem(STORAGE_KEY_TUTORIAL_COLLAPSED, !collapsed)
   }
+
+  useEffect(() => {
+    const update = async () => {
+      setCollapsed(await localforage.getItem(STORAGE_KEY_TUTORIAL_COLLAPSED) === true)
+    }
+    void update()
+  }, [])
 
   const handleDismissSuccess = () => {
     void SoundManager.playSound('UI_BUTTON_CLICK')
