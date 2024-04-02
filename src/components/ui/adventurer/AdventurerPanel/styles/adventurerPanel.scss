@@ -2,12 +2,11 @@
 
 .adventurer-panel {
   padding-right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 
   .info {
-    .title {
-      margin: .5rem 0;
-    }
-
     .flavor {
       font-size: smaller;
       font-style: italic;
@@ -26,29 +25,11 @@
   }
 
   .right {
-    padding-top: 16px;
+    padding-top: 1rem;
   }
 
-  &.horizontal {
-    display: flex;
-
-    .right {
-      padding: 16px;
-    }
+  @include md {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
-
-  @include sm-max {
-    &.horizontal {
-      /** small screen horizontal layout */
-
-      .left {
-        padding-right: 16px;
-      }
-    }
-
-    .right {
-      padding-left: 16px;
-    }
-  }
-
 }

@@ -945,3 +945,20 @@ Objects now inherit a lot of stuff from tiled and have a lot of unused propertie
 - [ ] Opens a dialog to confirm
 - [ ] Only a limited amount of charges
 - [ ] Store charges in redux
+
+### 2023-04-02 Touchups before delivery
+
+- [ ] crash when returning to town
+- [ ] cant scroll structure
+- [ ] systeem bedenken en implementeren waar adventurers zich aandienen in de town
+- [ ] more adventurers 
+- [ ] combat systeem verder uitwerken
+  - [ ] combat automatisch aan/uit
+  - [ ] ap deducted from AI actors
+  - [ ] shooting AI
+- [ ] blocking doors and other objects in the scene. Can be opened/cleared
+- [ ] more quests, more encounters, more scenes
+- [ ] devise a system where quests appear periodically in the quest board
+- [ ] size of adventurer inventory is based on strength + level
+- [ ] size of warehouse inventory is based on level
+- [x] adventurer panel on warehouse is a hot mess

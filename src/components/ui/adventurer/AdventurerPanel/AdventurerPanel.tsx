@@ -19,11 +19,11 @@ import AdventurerAttributesAndSkills from './AdventurerAttributesAndSkills'
 import { defineAssetPath } from 'utils/assets'
 
 import './styles/adventurerPanel.scss'
+import { AVATAR_IMAGE_BASE_PATH } from 'constants/paths'
 
 export type Props = {
   adventurerId: string
   questName?: string
-  horizontalMode?: boolean
 
   name?: boolean // whether to show the adventurer name
   levelBar?: boolean // whether to show the level bar
@@ -40,7 +40,6 @@ const AdventurerPanel = (props: Props) => {
   const {
     adventurerId,
     questName,
-    horizontalMode,
     name = true,
     levelBar = true,
     effects = true,
@@ -83,7 +82,7 @@ const AdventurerPanel = (props: Props) => {
   if (adventurer == null) return null
 
   return (
-    <div className={`adventurer-panel${(horizontalMode === true ? ' horizontal' : '')}`}>
+    <div className={'adventurer-panel'}>
        <section id="common">
          <div className="info">
          { name && (
@@ -95,7 +94,7 @@ const AdventurerPanel = (props: Props) => {
         { levelBar && adventurer.health > 0 && <Level adventurerId={adventurer.id}/> }
         { adventurer.flavor === true && (
           <span className="flavor">
-            <img className="portrait" src={defineAssetPath(adventurer.avatarImg)} alt={adventurer.name} />
+            <img className="portrait" src={defineAssetPath(AVATAR_IMAGE_BASE_PATH + adventurer.avatarImg)} alt={adventurer.name} />
             <ReactMarkdown>
               {TextManager.getAdventurerFlavor(adventurer.id, adventurer.name)}
             </ReactMarkdown>

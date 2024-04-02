@@ -19,8 +19,9 @@ import UpgradeHelpModal from '../UpgradeHelpModal'
 import UpgradeHelpModalContent from './UpgradeHelpModalContent'
 import Stockpile from './Stockpile'
 import { Channel, SoundManager } from 'global/SoundManager'
-import './styles/warehouseStructureView.scss'
 import { ContextType } from 'constants/context'
+
+import './styles/warehouseStructureView.scss'
 
 const WarehouseStructureView = () => {
   const adventurersInTown = useAdventurersInTown()
@@ -96,7 +97,6 @@ const WarehouseStructureView = () => {
           { (selectedAdventurer.length > 0) && (
             <AdventurerPanel
               adventurerId={selectedAdventurer}
-              horizontalMode={true}
               traits={false}
               skills={false}
             />
