@@ -20,11 +20,10 @@ import { type Action } from 'store/actions'
 import { gameTickMiddleware } from 'store/middleware/gameTick'
 import { type DevToolsEnhancerOptions, configureStore, type Middleware } from '@reduxjs/toolkit'
 import { type StoreState } from 'store/types'
-
-export const PERSIST_KEY = 'root'
+import { STORAGE_PERSIST_KEY } from 'constants/storage'
 
 export const persistConfig = {
-  key: PERSIST_KEY,
+  key: STORAGE_PERSIST_KEY,
   storage: localForage,
   version: Version.asInt
 }

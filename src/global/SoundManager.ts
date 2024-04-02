@@ -5,6 +5,7 @@ import { gsap } from 'gsap'
 import { Assets } from 'pixi.js'
 import { sounds } from 'manifests/sounds'
 import { defineAssetPath } from 'utils/assets'
+import { STORAGE_KEY_VOLUME } from 'constants/storage'
 
 export enum Channel {
   music,
@@ -37,7 +38,6 @@ const DEFAULT_MUSIC_VOLUME = 0
 const DEFAULT_UI_VOLUME = 1
 const DEFAULT_SCENE_VOLUME = 1
 const DEFAULT_AMBIENT_VOLUME = 0.2
-const STORAGE_KEY_VOLUME = 'channelVolume'
 
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class SoundManager {

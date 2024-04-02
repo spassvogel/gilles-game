@@ -18,6 +18,9 @@ import Clouds from '../Clouds'
 import RoutedStructureDetailsView from '../StructureDetailsView'
 import StructureLabels from '../StructureLabels'
 import { getStructure, getStructurePosition } from './utils'
+import localforage from 'localforage'
+import { STORAGE_KEY_SHOW_TOWN_LABELS } from 'constants/storage'
+import ShowLabels from './ShowLabels'
 
 import './styles/townView.scss'
 
@@ -147,6 +150,21 @@ const TownView = () => {
     }
   }, [])
 
+  const [showLabels, setShowLabels] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    const update = async () => {
+      setShowLabels(await localforage.getItem(STORAGE_KEY_SHOW_TOWN_LABELS) !== false)
+    }
+    void update()
+  }, [])
+
+  useEffect(() => {
+    if (showLabels !== null) {
+      void localforage.setItem(STORAGE_KEY_SHOW_TOWN_LABELS, showLabels)
+    }
+  }, [showLabels])
+
   return (
     <div className="town-view" ref={ref}>
       {/* <Legenda structures={structures} /> */}
@@ -162,13 +180,16 @@ const TownView = () => {
           <Clouds worldWidth={canvasWidth} />
           {renderStructures()}
           <Clouds worldWidth={canvasWidth} />
-          <StructureLabels
-            onStructureClick={handleStructureClick}
-          />
+          { showLabels !== false && (
+            <StructureLabels
+              onStructureClick={handleStructureClick}
+            />
+          )}
         </TownStage>
       )}
       <Routes>
         <Route path=":structure/view" element={<RoutedStructureDetailsView />} />
+        <Route path="*" element={ <ShowLabels showLabels={showLabels !== false} onChange={setShowLabels} /> } />
       </Routes>
     </div>
   )
