@@ -573,7 +573,7 @@ Currently favouring dragging, because we can use it in combat and show the AP co
 https://github.com/DragonBones/DragonBonesJS
 
 #### 29/04/2020 Font [+art]
-- [x] Implement 'gabriella' font
+- [x] Implement 'gabriela' font
 
 #### 29/04/2020 Route to quest [+tech]
 - [x] So we can open a quest from anywhere, e.g toasts
