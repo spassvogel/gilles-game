@@ -32,7 +32,7 @@ export const processCompletedTasks = (tasks: TasksStoreState, dispatch: Dispatch
       case TaskType.buildStructure: {
         const structure = task.name.replace('.build', '') as Structure
         const title = TextManager.get('common-structure-built', { structure })
-        const icon = getStructureIcon(structure)
+        const icon = getStructureIcon(structure).replace('/', '')
 
         ToastEmitter.addToast(title, Type.structureBuilt, icon)
         dispatch(addLogText('common-structure-built', { structure }), LogChannel.town)
