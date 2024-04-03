@@ -4,12 +4,12 @@ import * as TextManager from 'global/TextManager'
 import { TooltipEmitter } from 'emitters/TooltipEmitter'
 import EffectIcon from './EffectIcon'
 import { type TempEffect } from 'definitions/tempEffects/types'
-import './styles/adventurerEffects.scss'
 import { ContextType } from 'constants/context'
+
+import './styles/adventurerEffects.scss'
 
 type Props = {
   adventurerId: string
-
 }
 
 // Shows temp effects
@@ -37,9 +37,10 @@ const AdventurerTempEffects = (props: Props) => {
     )
   }
 
-  if (adventurer?.tempEffects === undefined) {
+  if (adventurer?.tempEffects == null || adventurer?.tempEffects.length === 0) {
     return null
   }
+
   return (
     <>
       <p>{TextManager.get('ui-adventurer-info-effects-title')}</p>

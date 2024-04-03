@@ -6,10 +6,10 @@
 
   .row {
     grid-template-columns: 32px minmax(0, 1fr) 1fr 1fr 5fr;
+
     display: grid;
 
     .name {
-      // flex: .2;
       margin-left: 4px;
     }
 
@@ -29,7 +29,6 @@
 
 
 	.amount {
-		// width: 40px;
 		text-align: right;
 
 		&.full {
