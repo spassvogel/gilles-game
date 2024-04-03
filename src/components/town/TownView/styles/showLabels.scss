@@ -1,5 +1,10 @@
 .show-labels {
-  position: fixed;
-  top: calc(100vh - 2rem);
-  left: 1rem;
+  position: sticky;
+  bottom: 1rem;
+  margin-left: 1rem;
+
+  .content {
+    position: absolute;
+    margin-top: -2rem;
+  }
 }

@@ -9,12 +9,14 @@ const ShowLabels = (props: Props) => {
   const { showLabels, onChange } = props
   return (
     <div className="show-labels">
-      <input
-        type="checkbox"
-        checked={showLabels}
-        onChange={(e) => { onChange(e.currentTarget.checked) }}
-      />
-      Show building labels
+      <div className="content">
+        <input
+          type="checkbox"
+          checked={showLabels}
+          onChange={(e) => { onChange(e.currentTarget.checked) }}
+        />
+        Show building labels
+      </div>
     </div>
   )
 }
