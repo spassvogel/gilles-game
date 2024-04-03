@@ -14,7 +14,7 @@
     "@pixi/filter-multi-color-replace": "^5.1.1",
     "@pixi/filter-outline": "^5.2.0",
     "@pixi/particle-emitter": "^5.0.8",
-    "@pixi/react": "^7.1.1",
+    "@pixi/react": "^7.1.2",
     "@pixi/sound": "^5.2.2",
     "@pixi/tilemap": "^4.1.0",
     "@redux-devtools/extension": "^3.3.0",
