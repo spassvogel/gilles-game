@@ -59,7 +59,7 @@ const Window = (props: PropsWithChildren<Props>) => {
             size={'medium'}
             color="purple"
             >
-          x
+          ×
           </Button>
         )}
       </div>

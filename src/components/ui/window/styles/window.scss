@@ -13,15 +13,21 @@
 
     background: black;
 		display: flex;
-		height: 32px;
+		height: 2rem;
+
+    .button.close-button {
+      span {
+        font-size: 1.5rem;
+      }
+    }
 
 		h3 {
-      height: 32px;
+      height: 2rem;
       color: white;
 			flex: 1;
 			margin: 0;
-			line-height: 32px;
-			padding-left: 6px;
+			line-height: 2;
+			padding-left: 0.5rem;
 			text-transform: capitalize;
 		}
 	}
