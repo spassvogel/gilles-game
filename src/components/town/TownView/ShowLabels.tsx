@@ -13,9 +13,12 @@ const ShowLabels = (props: Props) => {
         <input
           type="checkbox"
           checked={showLabels}
+          id="showLabels"
           onChange={(e) => { onChange(e.currentTarget.checked) }}
         />
-        Show building labels
+        <label htmlFor="showLabels">
+          Show building labels
+        </label>
       </div>
     </div>
   )
