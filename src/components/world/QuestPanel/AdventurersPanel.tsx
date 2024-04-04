@@ -23,10 +23,11 @@ const AdventurersPanel = (props: Props) => {
       />
       <div className="adventurer-details">
         <AdventurerSectionSelection />
-        { adventurerId && (
+        { adventurerId != null && (
           <AdventurerPanel
             adventurerId={adventurerId}
             questName={questName}
+            forceVerticalMode
           />
         )}
       </div>

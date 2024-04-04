@@ -29,7 +29,9 @@
   }
 
   @include md {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    &:not(.force-vertical) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
   }
 }

@@ -24,6 +24,7 @@ import { AVATAR_IMAGE_BASE_PATH } from 'constants/paths'
 export type Props = {
   adventurerId: string
   questName?: string
+  forceVerticalMode?: boolean
 
   name?: boolean // whether to show the adventurer name
   levelBar?: boolean // whether to show the level bar
@@ -40,6 +41,7 @@ const AdventurerPanel = (props: Props) => {
   const {
     adventurerId,
     questName,
+    forceVerticalMode = false,
     name = true,
     levelBar = true,
     effects = true,
@@ -82,7 +84,7 @@ const AdventurerPanel = (props: Props) => {
   if (adventurer == null) return null
 
   return (
-    <div className={'adventurer-panel'}>
+    <div className={`adventurer-panel${(forceVerticalMode ? ' force-vertical' : '')}`}>
        <section id="common">
          <div className="info">
          { name && (
