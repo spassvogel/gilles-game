@@ -7,7 +7,7 @@ const srcPath: string = path.resolve(__dirname, 'src')
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? '/gilles-game/' : '/toet/',
+  base: process.env.NODE_ENV === 'production' ? '/gilles-game/' : '/',
   build: {
     target: 'esnext'
   },
