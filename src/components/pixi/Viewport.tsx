@@ -60,7 +60,8 @@ const PixiComponentViewport = PixiComponent('Viewport', {
   willUnmount: (instance: PixiViewport, _parent: PixiContainer) => {
     // workaround because the ticker is already destroyed by this point by the stage
     instance.options.noTicker = true
-    instance.destroy({ children: true, texture: true, baseTexture: true })
+
+    instance.destroy({ children: true, texture: false, baseTexture: false })
   }
 })
 
