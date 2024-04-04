@@ -31,6 +31,7 @@ import { BubbleType } from 'emitters/BubbleEmitter'
 import { collectEffects } from 'definitions/effects'
 import { EffectType } from 'definitions/effects/types'
 import { type Action } from 'store/actions'
+import { AVATAR_IMAGE_BASE_PATH } from 'constants/paths'
 
 // todo: dont use a class anymore
 // eslint-disable-next-line @typescript-eslint/no-extraneous-class
@@ -72,7 +73,7 @@ export class CombatController {
         // All adventurers are dead T_T quest failed!
         const questTitle = TextManager.getQuestTitle(quest.name)
         const leader = this.sceneController.getAdventurers()[0]
-        ToastEmitter.addToast(questTitle, Type.questFailed, leader?.avatarImg)
+        ToastEmitter.addToast(questTitle, Type.questFailed, `${AVATAR_IMAGE_BASE_PATH}${leader?.avatarImg}`)
         this.dispatch(setCombat(quest.name, false))
         return
       }

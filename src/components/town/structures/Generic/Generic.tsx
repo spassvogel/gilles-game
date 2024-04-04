@@ -6,6 +6,7 @@ import { type Point } from 'pixi.js'
 import { sprites } from 'bundles/sprites'
 import ParticleEmitter from 'components/pixi/ParticleEmitter'
 import smoke from './smoke.json'
+import { defineAssetPath } from 'utils/assets'
 
 export type Props = {
   onStructureClick: (structure: Structure | null) => void
@@ -61,7 +62,7 @@ const Generic = (props: Props) => {
       pointerdown={handlePointerTap}
       hitArea={hitAreaShapes}
       filters={filters}
-      image={getImagePath(structure)}
+      image={defineAssetPath(getImagePath(structure))}
     >
       {/* <Graphics
         name="hitarea"
@@ -76,7 +77,7 @@ const Generic = (props: Props) => {
         name="smoke"
         x={66}
         y={-2}
-        image={sprites.TOWN_EFFECT_SMOKEPARTICLE}
+        image={defineAssetPath(sprites.town.EFFECT_SMOKEPARTICLE)}
         config={smoke}
       />)}
     </Sprite>

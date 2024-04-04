@@ -44,7 +44,6 @@ import { convertIn, convertOut } from 'utils/aStar'
 import { type ActionIntent, type WeaponWithAbility } from 'components/world/QuestPanel/QuestDetails/scene/ui/SceneUI'
 import { type Ammunition } from 'definitions/items/ammunition'
 import { calculateEffectiveAttributes } from 'mechanics/adventurers/attributes'
-import { sprites } from 'bundles/sprites'
 import { Channel, SoundManager } from 'global/SoundManager'
 import { type DeepPartial } from 'utils/typescript'
 

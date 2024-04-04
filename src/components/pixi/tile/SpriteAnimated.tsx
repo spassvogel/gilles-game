@@ -2,8 +2,8 @@ import { PixiComponent, applyDefaultProps, type AnimatedSprite } from '@pixi/rea
 import * as PIXI from 'pixi.js'
 
 const scaleChanged = (oldScale: [number, number], newScale: [number, number]) => {
-  if (!oldScale || !newScale) return true
-  return oldScale[0] != newScale[0] || oldScale[1] !== newScale[1]
+  if (oldScale === null || newScale === null) return true
+  return oldScale[0] !== newScale[0] || oldScale[1] !== newScale[1]
 }
 
 const SpriteAnimated = PixiComponent<React.ComponentProps<typeof AnimatedSprite>, PIXI.AnimatedSprite>('SpriteAnimated', {

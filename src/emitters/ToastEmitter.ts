@@ -35,7 +35,6 @@ export class ToastEmitter extends (EventEmitter as unknown as new () => TypedEmi
     }]
 
     this.instance.emit(EVENT_TOASTS_UPDATED, this.stack)
-
     void SoundManager.playSound('UI_TOAST')
 
     setTimeout(() => {

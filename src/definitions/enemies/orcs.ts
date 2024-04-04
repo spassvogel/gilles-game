@@ -2,7 +2,8 @@ import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot'
 import { Race } from 'constants/race'
 import { WeaponType } from 'definitions/weaponTypes/types'
 import { type EnemyDefinition } from './types'
-const avatarImgBasePath = 'img/avatars/monster/'
+import { AVATAR_IMAGE_BASE_PATH } from 'constants/paths'
+const avatarImgBasePath = `${AVATAR_IMAGE_BASE_PATH}/monster/`
 
 type OrcDefinition = Record<string, EnemyDefinition>
 

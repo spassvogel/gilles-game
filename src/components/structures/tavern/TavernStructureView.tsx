@@ -21,6 +21,7 @@ import UpgradeHelpModalContent from './UpgradeHelpModalContent'
 import { Channel, SoundManager } from 'global/SoundManager'
 import './styles/tavernStructureView.scss'
 import { ContextType } from 'constants/context'
+import { AVATAR_IMAGE_BASE_PATH } from 'constants/paths'
 
 export const SOURCE_ID = 'tavern'
 
@@ -81,7 +82,7 @@ const TavernStructureView = () => {
 
     const questTitle = TextManager.getQuestTitle(selectedQuest)
     const leader = assignedAventurers[0]
-    ToastEmitter.addToast(questTitle, Type.questLaunched, leader?.avatarImg, getQuestLink(selectedQuest))
+    ToastEmitter.addToast(questTitle, Type.questLaunched, `${AVATAR_IMAGE_BASE_PATH}${leader?.avatarImg}`, getQuestLink(selectedQuest))
     onLaunchQuest(selectedQuest)
   }
 

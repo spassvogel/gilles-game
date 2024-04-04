@@ -13,6 +13,7 @@ import { getQuestLink } from 'utils/routing'
 import { setSceneName } from 'store/actions/quests'
 import { getQuestLeader } from 'store/helpers/storeHelpers'
 import { getTimeMultiplier, TimeType } from 'mechanics/time'
+import { AVATAR_IMAGE_BASE_PATH } from 'constants/paths'
 
 export type QuestUpdate = {
   name: string
@@ -45,7 +46,7 @@ const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTick
 
     const questTitle = TextManager.getQuestTitle(quest.name)
     const leader = getQuestLeader(state.adventurers, quest)
-    ToastEmitter.addToast(questTitle, Type.questEncounter, leader?.avatarImg, getQuestLink(quest.name))
+    ToastEmitter.addToast(questTitle, Type.questEncounter, `${AVATAR_IMAGE_BASE_PATH}${leader?.avatarImg}`, getQuestLink(quest.name))
   }
 
   // Moves the quest line progress. Only if currently at a 'nothing' node

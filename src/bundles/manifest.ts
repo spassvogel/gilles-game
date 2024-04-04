@@ -40,5 +40,3 @@ export const manifest: AssetsManifest = {
     assets: addAssetsPath(sprites.actors)
   }]
 }
-
-console.log(manifest.bundles[0])
