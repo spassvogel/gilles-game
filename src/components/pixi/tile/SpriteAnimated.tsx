@@ -14,7 +14,7 @@ const SpriteAnimated = PixiComponent<React.ComponentProps<typeof AnimatedSprite>
     const animatedSprite = new PIXI.AnimatedSprite(textures ?? [], true)
     return animatedSprite
   },
-  applyProps: (instance, oldProps, newProps) => {
+  applyProps: (instance, oldProps: React.ComponentProps<typeof AnimatedSprite>, newProps) => {
     if (oldProps.textures !== newProps.textures ||
       scaleChanged(oldProps.scale as [number, number], newProps.scale as [number, number])) {
       applyDefaultProps(instance, oldProps, newProps)
