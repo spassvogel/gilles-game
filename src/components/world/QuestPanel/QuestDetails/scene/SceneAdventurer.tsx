@@ -4,9 +4,9 @@ import { type AdventurerObject } from 'store/types/scene'
 import SceneActor, { type Props as SceneActorProps } from './SceneActor'
 import { Assets, type Container as PixiContainer } from 'pixi.js'
 import { useAdventurer } from 'hooks/store/adventurers'
-import { sprites } from 'bundles/sprites'
 import determineActorZ from './utils/determineActorZ'
 import { defineAssetPath } from 'utils/assets'
+import { sprites } from 'bundles/sprites'
 
 type Props = {
   actor: AdventurerObject
@@ -25,7 +25,8 @@ const SceneAdventurer = (props: Props & Omit<SceneActorProps, 'children' | 'name
   const ref = useRef<PixiContainer>(null)
   const adventurer = useAdventurer(actor.adventurerId)
   const { health, spritesheet: key } = adventurer
-  const spritesheet = Assets.get(defineAssetPath(sprites[key]))
+  const path = defineAssetPath(sprites.actors[key])
+  const spritesheet = Assets.get(path)
   if (spritesheet === undefined) return null
 
   const name = `${actor.adventurerId} - ${adventurer.name}${health <= 0 ? ' (✝)' : ''}`

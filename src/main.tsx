@@ -14,7 +14,6 @@ const root = createRoot(document.getElementById('root')!)
 // Assets.init({
 //   basePath: `${import.meta.env.BASE_URL}`
 // })
-// console.log(`${import.meta.env.BASE_URL}`)
 const texts = await Assets.load<Record<string, string>>(defineAssetPath('lang/en.json'))
 TextManager.init(texts)
 

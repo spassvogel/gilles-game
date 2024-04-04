@@ -15,7 +15,7 @@ import App from 'components/App'
 import { GameActionsContext } from './context'
 import LoadingPage from 'components/ui/loading/LoadingPage'
 import * as TextManager from 'global/TextManager'
-import ManifestLoader from 'components/loading/ManifestLoader'
+import AssetLoader from 'components/loading/AssetLoader'
 import { type Action } from 'store/actions'
 
 const TICK_INTERVAL = 2500 // main game tick
@@ -126,9 +126,9 @@ const Game = () => {
 
       <StoreProvider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <ManifestLoader>
+          <AssetLoader>
             <App />
-          </ManifestLoader>
+          </AssetLoader>
         </PersistGate>
       </StoreProvider>
     </GameActionsContext.Provider>

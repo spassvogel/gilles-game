@@ -14,7 +14,7 @@ export type AdventurerStoreState = {
   name?: string
   flavor?: boolean // Has lore text, language key: `adventurer-{id}-flavor
   avatarImg: string
-  spritesheet: keyof typeof sprites //
+  spritesheet: keyof typeof sprites.actors
   color?: AdventurerColor
   race: Race
   traits?: Trait[]

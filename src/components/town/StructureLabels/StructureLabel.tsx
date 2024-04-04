@@ -54,7 +54,7 @@ const StructureLabel = (props: Props) => {
     >
       <Sprite
         name="background"
-        image={sprites.TOWN_STRUCTURELABEL_BACKGROUND}
+        image={sprites.town.STRUCTURELABEL_BACKGROUND}
         scale={[(metrics.width + 16) / 190, 25.5]}
         alpha={0.5}
         filters={[blurFilter]}
@@ -63,13 +63,13 @@ const StructureLabel = (props: Props) => {
       />
       <Sprite
         name="border-top"
-        image={sprites.TOWN_STRUCTURELABEL_BORDER}
+        image={sprites.town.STRUCTURELABEL_BORDER}
         scale={[(metrics.width + 30) / borderWidth, 0.2]}
         y={2}
       />
        <Sprite
           name="border-bottom"
-          image={sprites.TOWN_STRUCTURELABEL_BORDER}
+          image={sprites.town.STRUCTURELABEL_BORDER}
           y={28}
           scale={[(metrics.width + 30) / borderWidth, 0.2]}
        />

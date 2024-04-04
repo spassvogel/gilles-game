@@ -1,21 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import DebugSpriteDemo from './DebugSpriteDemo'
 import { allAnimations, type Animation } from 'components/world/QuestPanel/QuestDetails/scene/SceneActor/useAnimation'
 import { Orientation } from 'components/world/QuestPanel/QuestDetails/scene/SceneActor'
 import { Assets } from 'pixi.js'
 import { sprites } from 'bundles/sprites'
-import './styles/debugSprites.scss'
 import { SPRITE_WIDTH } from 'components/world/QuestPanel/QuestDetails/scene/SceneActor/utils'
+import { entries } from 'utils/typescript'
+import { defineAssetPath } from 'utils/assets'
 
-const allSpritesheets: Array<keyof typeof sprites> = [
-  'SCENE_ACTOR_ELF_BOW',
-  'SCENE_ACTOR_KNIGHT_SPEAR',
-  'SCENE_ACTOR_KNIGHT_SWORD',
-  'SCENE_ACTOR_ORC_AXE',
-  'SCENE_ACTOR_SKELETON',
-  'SCENE_ACTOR_TROLL_AXE',
-  'SCENE_ACTOR_TROLL_SWORD'
-]
+import './styles/debugSprites.scss'
 
 const allOrientations = [
   Orientation.north,
@@ -28,37 +21,21 @@ const allOrientations = [
   Orientation.northWest
 ]
 
+const allSpritesheets = entries(sprites.actors).map(([k]) => k)
+
 const DebugSprites = () => {
-  const [sprite, setSelectedSprite] = useState<keyof typeof sprites>(allSpritesheets[0])
+  const [name, setName] = useState<keyof typeof sprites.actors>(allSpritesheets[0])
   const [animation, setAnimation] = useState<Animation>('stand')
   const [orientation, setOrientation] = useState<Orientation>(Orientation.north)
   const [currentFrame, setCurrentFrame] = useState<number>(0)
-  const spritesheet = Assets.get(sprites[sprite])
-  const [loading, setLoading] = useState<boolean>(true)
+  const spritesheet = Assets.get(defineAssetPath(sprites.actors[name]))
   const [bgColor, setBgColor] = useState<string>('#000000')
-
-  useEffect(() => {
-    const loadAllSprites = async () => {
-      const allLoading: Array<Promise<void>> = []
-      for (const sprite of allSpritesheets) {
-        const path = sprites[sprite]
-        allLoading.push(Assets.load(path))
-      }
-      await Promise.all(allLoading)
-      setLoading(false)
-    }
-    void loadAllSprites()
-  }, [])
-
-  if (loading) {
-    return <div className="debug-sprites">Loading...</div>
-  }
 
   return (
     <div className="debug-sprites" style={{ width: SPRITE_WIDTH * 2 }}>
       <div>
-        <select value={sprite} onChange={(e) => { setSelectedSprite(e.currentTarget.value as keyof typeof sprites) }}>
-          {allSpritesheets.map(s => <option key={s} value={s}>{s.substring('SCENE_ACTOR_'.length)}</option>)}
+        <select value={name} onChange={(e) => { setName(e.currentTarget.value as keyof typeof sprites.actors) }}>
+          {allSpritesheets.map(s => <option key={s} value={s}>{s}</option>)}
         </select>
         <select value={animation} onChange={(e) => { setAnimation(e.currentTarget.value as Animation) }}>
           {allAnimations.map(a => <option key={a}>{a}</option>)}

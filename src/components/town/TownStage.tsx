@@ -77,7 +77,7 @@ const TownStage = forwardRef<PixiViewport, PropsWithChildren<Props>>((props, ref
         ref={innerRef}>
         <Sprite
           name="background"
-          image={sprites.TOWN_BACKGROUND}
+          image={sprites.town.BACKGROUND}
           filters={[godray]}
         >
           {children}

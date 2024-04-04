@@ -27,13 +27,13 @@ const Tavern = (props: Props) => {
         pointerdown={() => { props.onStructureClick(structure) }}
         filters={filters}
         hitArea={hitAreaShapes}
-        image={sprites.TOWN_STRUCTURE_TAVERN}
+        image={sprites.town.STRUCTURE_TAVERN}
       />
       <ParticleEmitter
         name="smoke"
         x={107}
         y={-2}
-        image={sprites.TOWN_EFFECT_SMOKEPARTICLE}
+        image={sprites.town.EFFECT_SMOKEPARTICLE}
         config={smoke}
       />
     </Container>

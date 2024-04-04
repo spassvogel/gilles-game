@@ -20,7 +20,7 @@ const CIRCLE_DIAMETER = 256 // = avatar size / 2
 
 const QuestMarker = (props: Props) => {
   const { quest, leader, encounterActive, position, onClick, selected } = props
-  const image = selected === true ? sprites.WORLD_MAP_MARKER_SELECTED : sprites.WORLD_MAP_MARKER
+  const image = selected === true ? sprites.world.MAP_MARKER_SELECTED : sprites.world.MAP_MARKER
 
   const avatar = useRef<PIXI.Sprite>(null)
   // Mask has to be a child of the avatar in order to move with it
@@ -65,7 +65,7 @@ const QuestMarker = (props: Props) => {
       />)}
       {encounterActive === true && (
       <Sprite
-        image={sprites.WORLD_MAP_QUEST_ALERT}
+        image={sprites.world.QUEST_ALERT}
         name="quest-alert"
         anchor={new Point(0.5, 1)}
         x={180}

@@ -3,10 +3,10 @@ import { type Race } from 'constants/race'
 import { type Ammunition } from 'definitions/items/ammunition'
 import { type Item } from 'definitions/items/types'
 import { type Weapon } from 'definitions/items/weapons'
-import { type SceneSprite } from 'bundles/sprites'
 import { ADVENTURER_PREFIX } from 'store/reducers/adventurers'
 import { type AttributesStoreState, type SkillsStoreState } from 'store/types/adventurer'
 import { type Troll } from './trolls'
+import { type sprites } from 'bundles/sprites'
 
 export type EnemyDefinition = {
   attributes: AttributesStoreState
@@ -14,7 +14,7 @@ export type EnemyDefinition = {
   mainHand: Item<Weapon>
   offHand?: Item<Weapon> | Item<Ammunition>
   armor: Partial<{ [key in EquipmentSlotType]: number }>
-  spritesheet: SceneSprite
+  spritesheet: keyof typeof sprites.actors
   avatarImg: string
   race: Race
 }

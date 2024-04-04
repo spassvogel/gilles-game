@@ -47,7 +47,6 @@ import { calculateEffectiveAttributes } from 'mechanics/adventurers/attributes'
 import { sprites } from 'bundles/sprites'
 import { Channel, SoundManager } from 'global/SoundManager'
 import { type DeepPartial } from 'utils/typescript'
-import { defineAssetPath } from 'utils/assets'
 
 const effectSpritesheetBasePath = 'img/scene/effects/'
 export const movementDuration = 500 // time every tile movement takes
@@ -123,12 +122,13 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     this.aStar = this.createAStar()
     utils.clearTextureCache()
 
-    for (const path of this.actorSpritesheetPaths) {
-      await Assets.load(defineAssetPath(path))
-    }
-    for (const path of this.effectSpritesheetPaths) {
-      await Assets.load(defineAssetPath(`${effectSpritesheetBasePath}${path}`))
-    }
+    // all assets are pre-loaded for now
+    // for (const path of this.actorSpritesheetPaths) {
+    //   await Assets.load(defineAssetPath(path))
+    // }
+    // for (const path of this.effectSpritesheetPaths) {
+    //   await Assets.load(defineAssetPath(`${effectSpritesheetBasePath}${path}`))
+    // }
 
     this.dataLoadComplete = true
     this.dataLoading = false
@@ -875,17 +875,17 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     return this.quest.questVars as TQuestVars
   }
 
-  protected get actorSpritesheetPaths (): string[] {
-    const adventurers = this.getAdventurers()
+  // protected get actorSpritesheetPaths (): string[] {
+  //   const adventurers = this.getAdventurers()
+  //   const uniqueAdventurerSpritesheets = new Set<string>(adventurers.map(a => a.spritesheet))
 
-    const uniqueAdventurerSpritesheets = new Set(adventurers.map(a => sprites[a.spritesheet]))
-    return [
-      ...uniqueAdventurerSpritesheets,
-      sprites.SCENE_ACTOR_ORC_AXE,
-      sprites.SCENE_ACTOR_TROLL_SWORD, // todo: only load enemy sprites that are actually needed
-      sprites.SCENE_ACTOR_TROLL_AXE // todo: only load enemy sprites that are actually needed
-    ]
-  }
+  //   return [
+  //     ...uniqueAdventurerSpritesheets,
+  //     sprites.actors.ORC_AXE,
+  //     sprites.actors.TROLL_SWORD, // todo: only load enemy sprites that are actually needed
+  //     sprites.actors.TROLL_AXE // todo: only load enemy sprites that are actually needed
+  //   ]
+  // }
 
   protected get effectSpritesheetPaths (): string[] {
     return [

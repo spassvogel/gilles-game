@@ -3,7 +3,7 @@ import localforage from 'localforage'
 import { type Sound, type IMediaInstance, filters } from '@pixi/sound'
 import { gsap } from 'gsap'
 import { Assets } from 'pixi.js'
-import { sounds } from 'manifests/sounds'
+import { sounds } from 'bundles/sounds'
 import { defineAssetPath } from 'utils/assets'
 import { STORAGE_KEY_VOLUME } from 'constants/storage'
 
@@ -159,15 +159,19 @@ export class SoundManager {
     }
   }
 
+  public static get musicFiltered () {
+    return this._currentSound[Channel.music].pixiSound.filters.includes(this._filter)
+  }
+
   static getChannelVolume (channel: Channel): number {
     return this._channelVolume[channel]
   }
 
   static setChannelVolume (channel: Channel, volume: number) {
     this._channelVolume[channel] = volume
-    if (this._currentSound[channel]?.instance) {
+    if (this._currentSound[channel]?.instance != null) {
       this._currentSound[channel].instance.volume = volume
     }
-    localforage.setItem(`${STORAGE_KEY_VOLUME}-${channel}`, volume)
+    void localforage.setItem(`${STORAGE_KEY_VOLUME}-${channel}`, volume)
   }
 }

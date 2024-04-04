@@ -190,7 +190,7 @@ const WorldMap = (props: Props) => {
       <Stage width={canvasWidth} height={canvasHeight} options={options}>
         <Viewport screenWidth={canvasWidth} screenHeight={canvasHeight} worldWidth={WORLD_WIDTH} worldHeight={WORLD_HEIGHT} ref={viewportRef} >
           <Sprite
-            image={sprites.WORLD_MAP_DEFAULT}
+            image={sprites.world.MAP_DEFAULT}
             eventMode='static'
             pointerdown={handleMapClick}
           >

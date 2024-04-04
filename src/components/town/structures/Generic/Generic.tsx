@@ -18,29 +18,29 @@ export type Props = {
 const getImagePath = (structure: string): string => {
   switch (structure) {
     case 'workshop':
-      return sprites.TOWN_STRUCTURE_WORKSHOP
+      return sprites.town.STRUCTURE_WORKSHOP
     case 'quarry':
-      return sprites.TOWN_STRUCTURE_QUARRY
+      return sprites.town.STRUCTURE_QUARRY
     case 'tannery':
-      return sprites.TOWN_STRUCTURE_TANNERY
+      return sprites.town.STRUCTURE_TANNERY
     case 'alchemist':
-      return sprites.TOWN_STRUCTURE_ALCHEMIST
+      return sprites.town.STRUCTURE_ALCHEMIST
     case 'garden':
-      return sprites.TOWN_STRUCTURE_GARDEN
+      return sprites.town.STRUCTURE_GARDEN
     case 'weaponsmith':
-      return sprites.TOWN_STRUCTURE_WEAPONSMITH
+      return sprites.town.STRUCTURE_WEAPONSMITH
     case 'armoursmith':
-      return sprites.TOWN_STRUCTURE_ARMOURSMITH
+      return sprites.town.STRUCTURE_ARMOURSMITH
     case 'warehouse':
-      return sprites.TOWN_STRUCTURE_WAREHOUSE
+      return sprites.town.STRUCTURE_WAREHOUSE
     case 'mine':
-      return sprites.TOWN_STRUCTURE_MINE
+      return sprites.town.STRUCTURE_MINE
     case 'weaver':
-      return sprites.TOWN_STRUCTURE_WEAVER
+      return sprites.town.STRUCTURE_WEAVER
     case 'lumberMill':
-      return sprites.TOWN_STRUCTURE_LUMBER_MILL
+      return sprites.town.STRUCTURE_LUMBER_MILL
     case 'tavern':
-      return sprites.TOWN_STRUCTURE_TAVERN
+      return sprites.town.STRUCTURE_TAVERN
   }
   throw new Error()
 }
