@@ -5,6 +5,7 @@ import type HitAreaShapes from 'utils/pixiJs/hitAreaShapes'
 import { STRUCTURE_HIGHLIGHT_FILTER } from 'components/town/TownView'
 import { Assets, Point, type Spritesheet } from 'pixi.js'
 import { sprites } from 'bundles/sprites'
+import { defineAssetPath } from 'utils/assets'
 
 const BLADE_ROTATION_SPEED = 0.01
 
@@ -18,14 +19,13 @@ export type Props = {
 const LumberMill = (props: Props) => {
   const { hitAreaShapes } = props
   const structure: Structure = 'lumberMill'
-  const atlas = sprites.town.STRUCTURE_LUMBER_MILL
+  const atlas = defineAssetPath(sprites.town.STRUCTURE_LUMBER_MILL)
   const filters = props.selected === true ? [STRUCTURE_HIGHLIGHT_FILTER] : []
 
-  const textures = Assets.get<Spritesheet>(atlas).textures
+  const textures = Assets.get<Spritesheet>(atlas)?.textures
 
   const [rotation, setRotation] = useState(0)
   useTick((delta: number | undefined) => { setRotation(r => r + (BLADE_ROTATION_SPEED * (delta ?? 0))) })
-
   if (textures == null) return null
   return (
     <Sprite
