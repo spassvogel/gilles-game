@@ -179,7 +179,7 @@ const TownView = () => {
         >
           <Clouds worldWidth={canvasWidth} />
           {renderStructures()}
-          <Clouds worldWidth={canvasWidth} />
+          {/* <Clouds worldWidth={canvasWidth} /> theres a bug with pixi or react/pixi the clouds block clicking */}
           { showLabels !== false && (
             <StructureLabels
               onStructureClick={handleStructureClick}

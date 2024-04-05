@@ -20,7 +20,7 @@ const Tavern = (props: Props) => {
   const filters = props.selected === true ? [STRUCTURE_HIGHLIGHT_FILTER] : []
 
   return (
-    <Container position={position}>
+    <Container position={position} name="tavern">
       <Sprite
         name={structure}
         eventMode='static'
@@ -31,6 +31,8 @@ const Tavern = (props: Props) => {
       />
       <ParticleEmitter
         name="smoke"
+        interactive={false}
+        eventMode='none'
         x={107}
         y={-2}
         image={sprites.town.EFFECT_SMOKEPARTICLE}

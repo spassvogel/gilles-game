@@ -33,11 +33,14 @@ const Clouds = (props: Props) => {
       setX(x + speed * (delta ?? 1))
     }
   })
-
   return (
     <Sprite
+      name="clouds"
       image={image}
       alpha={0.8}
+      eventMode='none'
+      interactiveChildren={false}
+      interactive={false}
       x={x}
       y={y}
     />
