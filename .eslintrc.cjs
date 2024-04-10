@@ -4,7 +4,7 @@ module.exports = {
     es2021: true
   },
   extends: [
-    'standard-with-typescript',
+    'love',
     'plugin:react-hooks/recommended'
   ],
   overrides: [
@@ -22,6 +22,5 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 0,
     '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     '@typescript-eslint/strict-boolean-expressions":': 0
-
   }
 }
