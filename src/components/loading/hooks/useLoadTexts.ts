@@ -9,8 +9,6 @@ export const useLoadTexts = (onComplete: (v: boolean) => void) => {
 
   useEffect(() => {
     void (async () => {
-      console.log(`(wouter left this in) language`, language)
-
       onComplete(false)
       const texts = await Assets.load<Record<string, string>>(defineAssetPath(`lang/${language}.common.json`))
       TextManager.init(texts)

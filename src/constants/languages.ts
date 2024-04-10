@@ -1,1 +1,1 @@
-export const languages = ['en', 'fr'] as const
+export const languages = ['en'/*, 'fr' */] as const

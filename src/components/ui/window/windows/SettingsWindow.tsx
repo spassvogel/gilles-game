@@ -9,6 +9,7 @@ import Window from '../Window'
 import * as TextManager from 'global/TextManager'
 
 import './styles/settings.scss'
+import { languages } from 'constants/languages'
 
 const SettingsWindow = () => {
   const settings = useSettings()
@@ -66,6 +67,12 @@ const SettingsWindow = () => {
     }
   }
 
+  const handleStringChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const setting = e.currentTarget.getAttribute('setting-name')
+    if (setting === null) throw new Error('No setting')
+
+    dispatch(setSetting(setting as SettingsKey, e.currentTarget.value))
+  }
   return (
     <Window title={TextManager.get('ui-window-title-settings')}>
       <div className="settings-window">
@@ -103,6 +110,22 @@ const SettingsWindow = () => {
               setting-name="debug.enableDebugDrawer"
               onChange={handleBooleanChange}
             />
+          </p>
+          </section>
+
+        </details>
+        <details open className="settings-section language" >
+          <summary>Language</summary>
+          <section>
+            <p>
+            <label>Language</label>
+            <select
+              value={settings.language}
+              onChange={handleStringChange}
+              setting-name="language"
+>
+              {languages.map((l) => (<option>{l}</option>))}
+            </select>
           </p>
           </section>
 
