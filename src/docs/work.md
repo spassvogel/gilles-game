@@ -947,11 +947,26 @@ Objects now inherit a lot of stuff from tiled and have a lot of unused propertie
 - [ ] Store charges in redux
 
 ### 2023-04-02 Touchups before delivery
-
-- [ ] crash when returning to town
-- [ ] cant scroll structure
+- [x] crash when returning to town
+  - [x] use manifest loader to load sprites at pageload
+  - [x] one manifest with a bunch of bundles?
+  - [x] load all bundles or on-demand?
+- [x] cant scroll structure (only devtools apparently)
 - [ ] systeem bedenken en implementeren waar adventurers zich aandienen in de town
+  - [ ] Start with 2 slots
+  - [ ] Ontvang 3 gratis adventurers als de Tavern gebouwd is
+  - [ ] Adventurers join every 24 hours (can use temporal accelerator)
+- [ ] rooms in Tavern have a gold cost
+  - [ ] higher level Tavern is more expensive
+  - [ ] cost is per day. But paying is a manual action.
+  - [ ] you can pay in advance
+  - [ ] what happens if adventurers overstay, during absence of player
+  - [ ] do questing adventures pay?
+        Yes: best to pay in advance, before embarking on a quest 
+        Adventurers have 5 days to pay for the room + the advance. 
+        If not paid after that they are dismissed. (Or jailed?)
 - [ ] more adventurers 
+  - [ ] adventurer spawn mechanic
 - [ ] combat systeem verder uitwerken
   - [ ] combat automatisch aan/uit
   - [ ] ap deducted from AI actors
@@ -959,6 +974,16 @@ Objects now inherit a lot of stuff from tiled and have a lot of unused propertie
 - [ ] blocking doors and other objects in the scene. Can be opened/cleared
 - [ ] more quests, more encounters, more scenes
 - [ ] devise a system where quests appear periodically in the quest board
-- [ ] size of adventurer inventory is based on strength + level
-- [ ] size of warehouse inventory is based on level
 - [x] adventurer panel on warehouse is a hot mess
+
+
+### nice to have: pixi 8
+
+- https://github.com/pixijs/pixi-react/issues/476
+- https://github.com/davidfig/pixi-viewport/pull/480
+
+### nice to have:trading Post
+
+New structure where goods are exchanged for money.
+
+Generates periodically demands for shipments of resources and goods. If fulfilled will pay out an amount in gold.
