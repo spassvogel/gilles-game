@@ -18,7 +18,7 @@
     "@pixi/sound": "^5.2.2",
     "@pixi/tilemap": "^4.1.0",
     "@redux-devtools/extension": "^3.3.0",
-    "@reduxjs/toolkit": "^2.2.1",
+    "@reduxjs/toolkit": "^2.2.3",
     "@rooks/use-key": "^4.11.2",
     "astar-typescript": "^1.2.7",
     "debounce": "^2.0.0",
