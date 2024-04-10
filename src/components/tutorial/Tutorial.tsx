@@ -7,10 +7,10 @@ import StepBuildATavern from './steps/StepBuildATavern'
 import StepBuildALumberMill from './steps/StepBuildALumberMill'
 import StepAssignWorkersToLumberMill from './steps/StepAssignWorkersToLumberMill'
 import { SoundManager } from 'global/SoundManager'
-
-import './styles/tutorial.scss'
 import localforage from 'localforage'
 import { STORAGE_KEY_TUTORIAL_COLLAPSED } from 'constants/storage'
+
+import './styles/tutorial.scss'
 
 // All the tutorial steps in the correct order
 const stepComponents = [

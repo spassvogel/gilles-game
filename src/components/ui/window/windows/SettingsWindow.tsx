@@ -55,7 +55,15 @@ const SettingsWindow = () => {
   const handleBooleanChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const setting = e.currentTarget.getAttribute('setting-name')
     if (setting === null) throw new Error('No setting')
-    dispatch(setSetting(setting as SettingsKey, e.currentTarget.checked))
+    if (setting.includes('debug.')) {
+      const newSettings = {
+        ...settings.debug,
+        [setting.replace('debug.', '')]: e.currentTarget.checked
+      }
+      dispatch(setSetting('debug', newSettings))
+    } else {
+      dispatch(setSetting(setting as SettingsKey, e.currentTarget.checked))
+    }
   }
 
   return (
@@ -91,8 +99,8 @@ const SettingsWindow = () => {
             <label>Enable debug drawer (~ key)</label>
             <input
               type="checkbox"
-              checked={settings.debugEnableDebugDrawer}
-              setting-name="debugEnableDebugDrawer"
+              checked={settings.debug.enableDebugDrawer}
+              setting-name="debug.enableDebugDrawer"
               onChange={handleBooleanChange}
             />
           </p>

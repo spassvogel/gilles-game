@@ -9,10 +9,10 @@ const DebugDrawer = () => {
   const settings = useSettings()
 
   useKey('~', () => {
-    setOpen(!open && settings.debugEnableDebugDrawer)
+    setOpen(!open && settings.debug.enableDebugDrawer)
   })
   useKey('1', () => {
-    setOpen(!open && settings.debugEnableDebugDrawer)
+    setOpen(!open && settings.debug.enableDebugDrawer)
   })
 
   if (!open) return null

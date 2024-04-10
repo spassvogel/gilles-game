@@ -3,12 +3,15 @@ import { type SettingsAction } from 'store/actions/settings'
 import { type SettingsState } from 'store/types/settings'
 
 export const initialSettingsState: SettingsState = {
-  verboseCombatLog: false,
-  debugEnableDebugDrawer: true,
-  debugSceneShowPathable: false,
-  debugSceneShowCellLocations: false,
-  debugSceneShowActionQueue: false,
-  debugMapShowGrid: false
+  debug: {
+    enableDebugDrawer: true,
+    sceneShowPathable: false,
+    sceneShowCellLocations: false,
+    sceneShowActionQueue: false,
+    mapShowGrid: false
+  },
+  language: 'en',
+  verboseCombatLog: false
 }
 
 /**
