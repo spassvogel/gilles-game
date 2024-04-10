@@ -1,8 +1,8 @@
 import LoadingPage from 'components/ui/loading/LoadingPage'
-import * as TextManager from 'global/TextManager'
 import { manifest } from 'bundles/manifest'
 import { Assets } from 'pixi.js'
 import { type PropsWithChildren, useEffect, useRef, useState } from 'react'
+import { useLoadTexts } from './hooks/useLoadTexts'
 
 type Props = PropsWithChildren<unknown>
 
@@ -10,13 +10,13 @@ void Assets.init({ manifest })
 
 const AssetLoader = (props: Props) => {
   const { children } = props
-  const [loading, setLoading] = useState(true)
-  const [text, setText] = useState<string>('')
+  const [assetsLoaded, setAssetLoaded] = useState(false)
+  const [textLoaded, setTextLoaded] = useState(false)
   const pctRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     void (async () => {
-      setText(TextManager.get('ui-game-loading-sprites'))
+      setAssetLoaded(false)
 
       await Assets.loadBundle([
         'sounds',
@@ -24,15 +24,18 @@ const AssetLoader = (props: Props) => {
         'sprites.actors'
       ])
 
-      setLoading(false)
-      setText(TextManager.get('ui-game-loading-sounds'))
+      setAssetLoaded(true)
     })()
   }, [])
+
+  useLoadTexts(setTextLoaded)
+
+  const loading = !textLoaded || !assetsLoaded
 
   if (loading) {
     return (
       <LoadingPage>
-        {text} <span ref={pctRef}></span>...
+        <span ref={pctRef}></span>
       </LoadingPage>
     )
   }

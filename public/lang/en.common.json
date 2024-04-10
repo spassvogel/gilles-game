@@ -558,9 +558,6 @@
   "ui-equipmentslot-shoulders": "shoulders",
 
   "ui-game-loaded": "Game loaded",
-  "ui-game-loading-data": "Loading data...",
-  "ui-game-loading-sounds": "Loading sounds",
-  "ui-game-loading-sprites": "Loading sprites",
 
   "ui-log-tab-all": "all",
   "ui-log-tab-town": "town",

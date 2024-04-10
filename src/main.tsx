@@ -1,9 +1,7 @@
-import { Assets } from 'pixi.js'
 import { createRoot } from 'react-dom/client'
 import * as TextManager from 'global/TextManager'
 import Game from 'components/Game'
 import * as random from './utils/random'
-import { defineAssetPath } from 'utils/assets'
 
 import './index.css'
 
@@ -14,9 +12,9 @@ const root = createRoot(document.getElementById('root')!)
 // Assets.init({
 //   basePath: `${import.meta.env.BASE_URL}`
 // })
-const texts = await Assets.load<Record<string, string>>(defineAssetPath('lang/en.json'))
-TextManager.init(texts)
 
+// not sure why this is needed
+TextManager.init({})
 random.init('GILLESROX2')
 
 root.render(

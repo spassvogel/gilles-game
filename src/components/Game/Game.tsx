@@ -14,7 +14,6 @@ import { PersistGate } from 'redux-persist/integration/react'
 import App from 'components/App'
 import { GameActionsContext } from './context'
 import LoadingPage from 'components/ui/loading/LoadingPage'
-import * as TextManager from 'global/TextManager'
 import AssetLoader from 'components/loading/AssetLoader'
 import { type Action } from 'store/actions'
 
@@ -32,7 +31,6 @@ const Game = () => {
   const startNewGame = useCallback(() => {
     store?.dispatch(startGame())
     store?.dispatch(addLogText('test-game-welcome'))
-    // todo: here is a good place to launch a tutorial or something
 
     console.log(`Starting new GAME (version ${Version.default})`)
   }, [store])
@@ -111,9 +109,7 @@ const Game = () => {
 
   if ((store === undefined) || (persistor === undefined)) {
     return (
-      <LoadingPage>
-        {TextManager.get('ui-game-loading-data')}
-      </LoadingPage>
+      <LoadingPage />
     )
   }
 
