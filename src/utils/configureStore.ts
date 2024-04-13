@@ -11,7 +11,8 @@ import {
   REGISTER
 } from 'redux-persist'
 import localForage from 'localforage'
-import version, * as Version from 'constants/version'
+import version from 'constants/version'
+import { asInt } from 'utils/version'
 import rootReducer from 'store/reducers'
 import { storeIsRehydrated } from 'store/helpers/storeHelpers'
 import { effectsMiddleware } from 'store/middleware/effects'
@@ -25,7 +26,7 @@ import { STORAGE_KEY_PERSIST } from 'constants/storage'
 export const persistConfig = {
   key: STORAGE_KEY_PERSIST,
   storage: localForage,
-  version: Version.asInt
+  version: asInt
 }
 
 const persistedReducer = persistReducer<StoreState, Action>(persistConfig, rootReducer)

@@ -1,3 +1,5 @@
+import version from 'constants/version'
+
 /**
  * Convert a sematic versioning string into an 32-bit integer.
  *
@@ -40,3 +42,5 @@ export const convertIntToSemVer = (version: number): string => {
   // eslint-disable-next-line no-mixed-operators
   return `${version & 1023}.${version >> 10 & 1023}.${version >> 20 & 1023}`
 }
+
+export const asInt: number = convertSemVerToInt(version)

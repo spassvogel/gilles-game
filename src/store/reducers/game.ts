@@ -1,10 +1,10 @@
 import { type Reducer } from 'redux'
 import { type GameAction } from 'store/actions/game'
 import { type GameStoreState } from 'store/types/game'
-import * as Version from 'constants/version'
+import { asInt } from 'utils/version'
 
 export const initialGameState: GameStoreState = {
-  version: Version.asInt,
+  version: asInt,
   tutorial: 0
 }
 /**
@@ -19,7 +19,7 @@ export const game: Reducer<GameStoreState, GameAction> = (state = initialGameSta
     case 'ignoreVersionDiff': {
       return {
         ...state,
-        ignoreVersionDiff: Version.asInt
+        ignoreVersionDiff: asInt
       }
     }
 

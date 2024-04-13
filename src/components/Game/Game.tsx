@@ -4,12 +4,12 @@ import { type Store } from 'redux'
 import { type Persistor } from 'redux-persist'
 import { gameTick, ignoreVersionDiff, startGame, loadGame } from 'store/actions/game'
 import { addLogText } from 'store/actions/log'
-import * as Version from 'constants/version'
+import version from 'constants/version'
+import { asInt, convertIntToSemVer } from 'utils/version'
 import createStore from 'utils/configureStore'
 import { processCompletedTasks } from 'mechanics/gameTick/tasks'
 import { type StoreState } from 'store/types'
 import { createInitialStore } from 'store/reducers'
-import { convertIntToSemVer } from 'utils/version'
 import { PersistGate } from 'redux-persist/integration/react'
 import App from 'components/App'
 import { GameActionsContext } from './context'
@@ -32,7 +32,7 @@ const Game = () => {
     store?.dispatch(startGame())
     store?.dispatch(addLogText('test-game-welcome'))
 
-    console.log(`Starting new GAME (version ${Version.default})`)
+    console.log(`Starting new GAME (version ${version})`)
   }, [store])
 
   /**
@@ -65,8 +65,8 @@ const Game = () => {
     if (store == null) return
     try {
       const gameVersion = store.getState().game?.version
-      if (gameVersion < Version.asInt && store.getState().game?.ignoreVersionDiff !== Version.asInt) {
-        if (!window.confirm(`This game was initialized with version ${convertIntToSemVer(gameVersion)} which is older than the current client (${Version.default}). This might cause problems. Continue anyway? \n\n(pressing cancel will reset progress) `)) {
+      if (gameVersion < asInt && store.getState().game?.ignoreVersionDiff !== asInt) {
+        if (!window.confirm(`This game was initialized with version ${convertIntToSemVer(gameVersion)} which is older than the current version (${version}). This might cause problems. Continue anyway? \n\n(pressing cancel will reset progress) `)) {
           restartGame()
           return
         }

@@ -8,8 +8,7 @@ import { type StoreState } from 'store/types'
 import { QuestStatus } from 'store/types/quest'
 import { StructureState } from 'store/types/structure'
 import { formatDateTime, formatDuration } from 'utils/format/time'
-import { convertIntToSemVer } from 'utils/version'
-import * as Version from 'constants/version'
+import { asInt, convertIntToSemVer } from 'utils/version'
 
 import './styles/gameStats.scss'
 
@@ -24,14 +23,14 @@ const GameStats = (props: Props) => {
   const groupedAdventurers = groupAdventurersByQuest(state.adventurers, state.quests)
   const version = useMemo(() => {
     if (state.game?.version == null) return 'unknown'
-    if (state.game.version === Version.asInt) {
+    if (state.game.version === asInt) {
       return convertIntToSemVer(state.game.version)
     }
     return (
       <>
         <span className="invalid">{convertIntToSemVer(state.game.version)}</span>
         <span className="prop"> (current: </span>
-        <span>{convertIntToSemVer(Version.asInt)}</span>
+        <span>{convertIntToSemVer(asInt)}</span>
         <span className="prop">) </span>
       </>
     )

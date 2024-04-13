@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { type StoreState } from 'store/types'
-import * as Version from 'constants/version'
+import version from 'constants/version'
 import { useContext, useState } from 'react'
 import { ToastEmitter } from 'emitters/ToastEmitter'
 import { Type } from 'components/ui/toasts/Toast'
@@ -10,7 +10,7 @@ import { decryptSavedGame, saveGame } from 'utils/game'
 import GameStats from 'components/ui/game/GameStats'
 import LoadingSpinner from 'components/ui/loading/LoadingSpinner'
 import { loadGame } from 'store/actions/game'
-import { convertIntToSemVer } from 'utils/version'
+import { asInt, convertIntToSemVer } from 'utils/version'
 import { appContext } from 'components/App/context'
 import Window from '../Window'
 
@@ -33,11 +33,11 @@ const SaveAndLoadWindow = () => {
 
     // If we're loading a game made with an older version, inform the user
     const gameVersion = loadedStore.game?.version
-    if (gameVersion < Version.asInt && loadedStore.game?.ignoreVersionDiff !== Version.asInt) {
-      if (!window.confirm(`This game was initialized with version ${convertIntToSemVer(gameVersion)} which is older than the current client (${Version.default}). This might cause problems. Continue anyway? \n\n `)) {
+    if (gameVersion < asInt && loadedStore.game?.ignoreVersionDiff !== asInt) {
+      if (!window.confirm(`This game was initialized with version ${convertIntToSemVer(gameVersion)} which is older than the current client (${version}). This might cause problems. Continue anyway? \n\n `)) {
         return
       }
-      loadedStore.game.ignoreVersionDiff = Version.asInt
+      loadedStore.game.ignoreVersionDiff = asInt
     }
 
     setLoading(true)
