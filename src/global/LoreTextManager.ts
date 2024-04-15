@@ -1,4 +1,5 @@
 import { Race } from 'constants/race'
+import { randomInt } from 'utils/random'
 
 export type LoreTexts = {
   characters: CharacterLoreTexts
@@ -28,7 +29,7 @@ export const generateRandomName = (race: Race, isFemale = false) => {
   const lastNames = names.last
 
   return [
-    firstNames.at(Math.floor(Math.random() * firstNames.length)),
-    lastNames.at(Math.floor(Math.random() * lastNames.length))
+    firstNames.at(randomInt(0, firstNames.length - 1)),
+    lastNames.at(randomInt(0, lastNames.length - 1))
   ].join(' ').trim()
 }
