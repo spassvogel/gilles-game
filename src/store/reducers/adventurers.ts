@@ -16,6 +16,7 @@ import { WeaponType } from 'definitions/weaponTypes/types'
 import { decreaseDurability } from 'mechanics/combat'
 import { Race } from 'constants/race'
 import { generateRandomName } from 'global/LoreTextManager'
+import { ADVENTURER_PREFIX } from '../../mechanics/adventurers/generator'
 
 const generateRandomAttributes = (): AttributesStoreState => {
   return {
@@ -35,8 +36,6 @@ const generateAttributesHealthAndXp = (level = 1) => {
     health
   }
 }
-export const ADVENTURER_PREFIX = 'adv_'
-
 // Create a bunch of guys for debugging
 export const initialAdventurers: AdventurerStoreState[] = [{
   id: `${ADVENTURER_PREFIX}c4a5d270`,
