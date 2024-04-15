@@ -7,6 +7,7 @@ import { ADVENTURER_PREFIX } from 'store/reducers/adventurers'
 import { type AttributesStoreState, type SkillsStoreState } from 'store/types/adventurer'
 import { type Troll } from './trolls'
 import { type sprites } from 'bundles/sprites'
+import { type Orc } from './orcs'
 
 export type EnemyDefinition = {
   attributes: AttributesStoreState
@@ -19,7 +20,7 @@ export type EnemyDefinition = {
   race: Race
 }
 
-export type EnemyType = Troll
+export type EnemyType = Troll | Orc
 
 // Given the id of an adventurer or enemyType, check if its an enemy or adventurer
 export const checkIfEnemy = (name: string) => {

@@ -1,6 +1,5 @@
 import AdventurerAvatar from 'components/ui/adventurer/AdventurerAvatar'
 import { IconSize } from 'components/ui/common/Icon'
-import * as TextManager from 'global/TextManager'
 import { useAdventurers } from 'hooks/store/adventurers'
 import './styles/adventurersOverview.scss'
 
@@ -18,7 +17,7 @@ const AdventurersOverview = (props: Props) => {
         <div className="adventurer" key={a.id} onClick={() => { onSetSelectedId(a.id) }}>
           <AdventurerAvatar adventurer={a} size={IconSize.biggest} />
           <div className="name">
-            {TextManager.getAdventurerName(a.id)}
+            {a.name}
           </div>
         </div>
       ))}

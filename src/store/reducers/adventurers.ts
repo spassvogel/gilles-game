@@ -15,6 +15,7 @@ import { createTempEffect } from 'definitions/tempEffects'
 import { WeaponType } from 'definitions/weaponTypes/types'
 import { decreaseDurability } from 'mechanics/combat'
 import { Race } from 'constants/race'
+import { generateRandomName } from 'global/LoreTextManager'
 
 const generateRandomAttributes = (): AttributesStoreState => {
   return {
@@ -52,7 +53,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   },
   ...generateAttributesHealthAndXp(),
   room: 0,
-  name: 'Sasha Falcon',
+  // name: 'Sasha Falcon',
+  name: generateRandomName(Race.elf, true),
   flavor: true,
   traits: [Trait.houseMaddox, Trait.gloomy],
   avatarImg: 'female/f_14.png',
@@ -93,7 +95,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     [EquipmentSlotType.offHand]: { type: 'ammunition/crossbowBolts', quantity: 150 }
   },
   ...generateAttributesHealthAndXp(),
-  name: 'Addison Chilson',
+  // name: 'Addison Chilson',
+  name: generateRandomName(Race.elf),
   flavor: true,
 
   room: 1,
@@ -142,7 +145,9 @@ export const initialAdventurers: AdventurerStoreState[] = [{
     // offHand: Item.aegisOfValor
   },
   ...generateAttributesHealthAndXp(),
-  name: "Zackary 'bone bag' Morris",
+  // name: "Zackary 'bone bag' Morris",
+  name: generateRandomName(Race.undead),
+
   flavor: true,
 
   room: 2,
@@ -196,7 +201,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   equipment: {
     [EquipmentSlotType.mainHand]: { type: 'weapon/spear' }
   },
-  name: 'Mike Keith',
+  // name: 'Mike Keith',
+  name: generateRandomName(Race.human),
   flavor: true,
 
   room: 4,
@@ -237,7 +243,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 }, {
   id: `${ADVENTURER_PREFIX}250d1a9d`,
   ...generateAttributesHealthAndXp(),
-  name: 'Alexis Ortiz ',
+  // name: 'Alexis Ortiz ',
+  name: generateRandomName(Race.human, true),
   flavor: true,
 
   room: 9,
@@ -256,7 +263,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 }, {
   id: `${ADVENTURER_PREFIX}169384ef`,
   ...generateAttributesHealthAndXp(),
-  name: 'Karlee Nolan',
+  // name: 'Karlee Nolan',
+  name: generateRandomName(Race.troll),
   flavor: true,
 
   room: 3,
@@ -306,7 +314,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   id: `${ADVENTURER_PREFIX}12c613d4`,
   equipment: {},
   ...generateAttributesHealthAndXp(),
-  name: 'Tedric the Bold',
+  // name: 'Tedric the Bold',
+  name: generateRandomName(Race.human, true),
 
   room: 7,
   avatarImg: 'male/m_33.png',
@@ -337,7 +346,8 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   },
   ...generateAttributesHealthAndXp(),
   room: 11,
-  name: 'Allynna Nerilar',
+  // name: 'Allynna Nerilar',
+  name: generateRandomName(Race.elf),
   flavor: true,
   traits: [Trait.houseMaddox, Trait.gloomy],
   avatarImg: 'female/f_21.png',

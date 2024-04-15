@@ -46,6 +46,9 @@ import { type Ammunition } from 'definitions/items/ammunition'
 import { calculateEffectiveAttributes } from 'mechanics/adventurers/attributes'
 import { Channel, SoundManager } from 'global/SoundManager'
 import { type DeepPartial } from 'utils/typescript'
+import { defineAssetPath } from 'utils/assets'
+import { generateRandomName } from 'global/LoreTextManager'
+import { Race } from 'constants/race'
 
 const effectSpritesheetBasePath = 'img/scene/effects/'
 export const movementDuration = 500 // time every tile movement takes
@@ -125,9 +128,9 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
     // for (const path of this.actorSpritesheetPaths) {
     //   await Assets.load(defineAssetPath(path))
     // }
-    // for (const path of this.effectSpritesheetPaths) {
-    //   await Assets.load(defineAssetPath(`${effectSpritesheetBasePath}${path}`))
-    // }
+    for (const path of this.effectSpritesheetPaths) {
+      await Assets.load(defineAssetPath(`${effectSpritesheetBasePath}${path}`))
+    }
 
     this.dataLoadComplete = true
     this.dataLoading = false
@@ -785,7 +788,7 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
             object.enemyType = object.properties.enemyType as string
             object.health = Math.random() * 20 // todo
             object.ap = calculateInitialAP(definition.attributes, level)
-            object.name = object.properties.name as string
+            object.name = generateRandomName(definition.race)
             object.level = level
             object.allegiance = Allegiance.enemy
             object.properties.isSprite = true
@@ -818,9 +821,11 @@ export class BaseSceneController<TQuestVars> extends (EventEmitter as unknown as
 
       const level = xpToLevel(adventurer.xp)
       // todo: 2024-03-25 Strip down objects => cut down the chaff from this
+
       const adventurerObject: AdventurerObject = {
         id: 0,
         adventurerId: adventurer.id,
+        name: adventurer.name,
         location,
         layerId,
         visible: true,

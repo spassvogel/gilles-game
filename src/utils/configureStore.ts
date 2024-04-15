@@ -75,14 +75,13 @@ const store = configureStore({
 const configureStoreAndPersistor = async (): Promise<ConfigureStoreResult> => {
   return await new Promise((resolve, reject) => {
     try {
-      // @ts-expect-error TS2590
       const persistor = persistStore(store, undefined, () => {
         const isHydrated = storeIsRehydrated(store.getState())
         resolve({ store, persistor, isHydrated })
       })
     } catch (e) {
       console.error('An error has occurred', e)
-      reject(e)
+      reject(e as Error)
     }
   })
 }

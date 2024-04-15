@@ -124,7 +124,7 @@ const SettingsWindow = () => {
               onChange={handleStringChange}
               setting-name="language"
 >
-              {languages.map((l) => (<option>{l}</option>))}
+              {languages.map((l) => (<option key={l}>{l}</option>))}
             </select>
           </p>
           </section>

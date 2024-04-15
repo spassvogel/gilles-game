@@ -7,7 +7,7 @@ const avatarImgBasePath = `${AVATAR_IMAGE_BASE_PATH}/monster/`
 
 type OrcDefinition = Record<string, EnemyDefinition>
 
-const trolls: OrcDefinition = {
+const orcs: OrcDefinition = {
   'orc-accountant': {
     attributes: {
       str: 8,
@@ -33,5 +33,5 @@ const trolls: OrcDefinition = {
   }
 }
 
-export default trolls
-export type Troll = `${keyof typeof trolls}`
+export default orcs
+export type Orc = `${keyof typeof orcs}`

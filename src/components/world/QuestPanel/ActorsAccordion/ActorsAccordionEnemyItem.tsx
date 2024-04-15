@@ -52,7 +52,7 @@ const ActorsAccordionEnemyItem = (props: Props) => {
       { ...rest}
       id={enemyId}
       title={(<>
-        <div className={`name ${health > 0 ? '' : 'dead'}`}>{TextManager.getEnemyName(actorObject.enemyType)}</div>
+        <div className={`name ${health > 0 ? '' : 'dead'}`}>{actorObject.name}</div>
         <div className={`ap ${apActive ? 'active' : ''}`}>{apDisplay}</div>
       </>)}
     >

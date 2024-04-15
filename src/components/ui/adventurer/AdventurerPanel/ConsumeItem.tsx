@@ -65,7 +65,7 @@ const ConsumeItem = (props: Props) => {
 
     // Add log entry
     if (adventurer !== undefined) {
-      dispatch(addLogText('adventurer-drink-potion', { item, adventurer: adventurerId }, LogChannel.common))
+      dispatch(addLogText('adventurer-drink-potion', { item, adventurer }, LogChannel.common))
     }
   }
 

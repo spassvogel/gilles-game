@@ -10,8 +10,8 @@ import { type Trait } from 'definitions/traits/types'
 import { Type } from 'components/ui/toasts/Toast'
 import { EquipmentSlotType } from 'components/ui/adventurer/EquipmentSlot'
 import { getStructureLink } from 'utils/routing'
-import { type Attribute } from 'store/types/adventurer'
-import { checkIfEnemy, type EnemyType } from 'definitions/enemies/types'
+import { type AdventurerStoreState, type Attribute } from 'store/types/adventurer'
+import { type EnemyType } from 'definitions/enemies/types'
 import { type QuestStoreState } from 'store/types/quest'
 import { type Effect, EffectType } from 'definitions/effects/types'
 import { type TempEffect, TempEffectType } from 'definitions/tempEffects/types'
@@ -67,10 +67,6 @@ export const getAbilityName = (ability: WeaponAbility) => {
   return get(`ability-${WeaponAbility[ability]}-name`)
 }
 
-export const getAdventurerName = (adventurerId: string) => {
-  return get(`adventurer-${adventurerId}-name`)
-}
-
 export const getAdventurerFlavor = (adventurerId: string, adventurerName?: string) => {
   return get(`adventurer-${adventurerId}-flavor`, { name: adventurerName })
 }
@@ -87,6 +83,7 @@ export const getAttributeMechanics = (attribute: Attribute) => {
   return get(`common-attribute-${attribute}-mechanics`)
 }
 
+// todo: unused?
 export const getEnemyName = (enemyType: EnemyType) => {
   return get(`enemy-${enemyType}-name`)
 }
@@ -297,16 +294,10 @@ Handlebars.registerHelper('resource:name', (resource: string) => {
   return new Handlebars.SafeString(name)
 })
 
-Handlebars.registerHelper('adventurer:name', (adventurerId: string) => {
-  const name = getAdventurerName(adventurerId)
-  return new Handlebars.SafeString(name)
+Handlebars.registerHelper('adventurer:name', (adventurer: AdventurerStoreState) => {
+  return new Handlebars.SafeString(adventurer.name ?? '')
 })
 
 Handlebars.registerHelper('actor:name', (actor: string) => {
-  if (checkIfEnemy(actor)) {
-    const name = getEnemyName(actor?.substring(0, actor.indexOf('_')))
-    return new Handlebars.SafeString(name)
-  }
-  const name = getAdventurerName(actor)
-  return new Handlebars.SafeString(name)
+  return new Handlebars.SafeString(actor)
 })

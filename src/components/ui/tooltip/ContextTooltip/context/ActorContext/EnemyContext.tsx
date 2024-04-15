@@ -21,7 +21,7 @@ const EnemyContext = (props: Props) => {
     <div>
       <div className="name-and-level">
         <div className="name">
-          {TextManager.getEnemyName(actorObject.enemyType)}
+          {actorObject.name}
         </div>
         <div className="level">
           {TextManager.get('ui-tooltip-actor-level', { level })}

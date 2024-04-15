@@ -4,7 +4,6 @@ import {
   type ActorObject,
   type EnemyObject,
   Allegiance,
-  getUniqueName,
   isAdventurer,
   SceneActionType,
   isActorObject
@@ -274,7 +273,7 @@ export class CombatController {
     this.log({
       key: this.settings.verboseCombatLog ? 'scene-combat-attack-slash-missed-verbose' : 'scene-combat-attack-slash-missed',
       context: {
-        attacker: getUniqueName(actor),
+        attacker: actor.name,
         weapon,
         ap,
         weaponType: weaponDefinition.weaponType,
@@ -290,9 +289,9 @@ export class CombatController {
     this.log({
       key: 'scene-combat-attack-slash-dodged',
       context: {
-        attacker: getUniqueName(actor),
+        attacker: actor.name,
         weapon,
-        target: getUniqueName(target)
+        target: target.name
       }
     })
   }
@@ -331,10 +330,10 @@ export class CombatController {
     this.log({
       key,
       context: {
-        attacker: getUniqueName(actor),
+        attacker: actor.name,
         weapon,
         bodyPart: TextManager.getEquipmentSlot(bodyPart),
-        target: getUniqueName(target),
+        target: target.name,
         damage,
         mitigated
       }
@@ -351,7 +350,7 @@ export class CombatController {
     this.log({
       key: this.settings.verboseCombatLog ? 'scene-combat-attack-shoot-missed-verbose' : 'scene-combat-attack-shoot-missed',
       context: {
-        attacker: getUniqueName(actor),
+        attacker: actor.name,
         weapon,
         ap,
         weaponType: weaponDefinition.weaponType,
@@ -367,9 +366,9 @@ export class CombatController {
     this.log({
       key: 'scene-combat-attack-shoot-dodged',
       context: {
-        attacker: getUniqueName(actor),
+        attacker: actor.name,
         weapon,
-        target: getUniqueName(target)
+        target: target.name
       }
     })
   }
@@ -406,10 +405,10 @@ export class CombatController {
     this.log({
       key,
       context: {
-        attacker: getUniqueName(actor),
+        attacker: actor.name,
         weapon,
         bodyPart: TextManager.getEquipmentSlot(bodyPart),
-        target: getUniqueName(target),
+        target: target.name,
         damage,
         mitigated
       }
@@ -467,7 +466,7 @@ export class CombatController {
       this.log({
         key: 'scene-combat-dies',
         context: {
-          actor: getUniqueName(actor)
+          actor: actor.name
         }
       })
     } else {

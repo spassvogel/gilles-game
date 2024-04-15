@@ -50,7 +50,7 @@ const trolls: TrollDefinition = {
     avatarImg: `${avatarImgBasePath}orc_02.png`,
     race: Race.troll
   },
-  'orc-accountant': {
+  'troll-accountant': {
     attributes: {
       str: 8,
       for: 7,
@@ -69,7 +69,7 @@ const trolls: TrollDefinition = {
       [EquipmentSlotType.head]: 2,
       [EquipmentSlotType.shoulders]: 2
     },
-    spritesheet: 'ORC_AXE',
+    spritesheet: 'TROLL_AXE',
     avatarImg: `${avatarImgBasePath}orc_03.png`,
     race: Race.troll
   }
