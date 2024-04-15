@@ -3,9 +3,10 @@ import { Assets } from 'pixi.js'
 import { useEffect } from 'react'
 import { defineAssetPath } from 'utils/assets'
 import * as TextManager from 'global/TextManager'
+import { languages } from 'constants/languages'
 
 export const useLoadTexts = (onComplete: (v: boolean) => void) => {
-  const { language } = useSettings()
+  const { language } = useSettings() ?? languages[0]
 
   useEffect(() => {
     void (async () => {
