@@ -1,2 +1,3 @@
 // <MAJOR>.<MINOR>.<RELEASE>
-export default import.meta.env.VITE_VERSION
+const version: string = import.meta.env.VITE_VERSION
+export default version
