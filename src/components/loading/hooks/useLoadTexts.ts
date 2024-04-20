@@ -8,7 +8,7 @@ import { type LoreTexts } from 'global/LoreTextManager'
 import { languages } from 'constants/languages'
 
 export const useLoadTexts = (onComplete: (v: boolean) => void) => {
-  const { language } = useSettings() ?? languages[0]
+  const { language = languages[0] } = useSettings()
 
   useEffect(() => {
     void (async () => {
