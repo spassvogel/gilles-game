@@ -48,7 +48,6 @@ import { Channel, SoundManager } from 'global/SoundManager'
 import { type DeepPartial } from 'utils/typescript'
 import { defineAssetPath } from 'utils/assets'
 import { generateRandomName } from 'global/LoreTextManager'
-import { Race } from 'constants/race'
 
 const effectSpritesheetBasePath = 'img/scene/effects/'
 export const movementDuration = 500 // time every tile movement takes

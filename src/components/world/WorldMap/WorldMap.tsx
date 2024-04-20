@@ -197,7 +197,7 @@ const WorldMap = (props: Props) => {
             {renderQuestlines()}
             {renderMarkers()}
           </Sprite>
-          { settings.debugMapShowGrid && <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} /> }
+          { settings.debug.mapShowGrid && <MapGrid width={WORLD_WIDTH} height={WORLD_HEIGHT} gridWidth={GRID_WIDTH} /> }
         </Viewport>
       </Stage>
       {props.selectedQuestName !== undefined && (
