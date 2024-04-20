@@ -138,7 +138,7 @@ const Scene = (props: Props) => {
           { process.env.NODE_ENV === 'development' && <SceneDebug controller={controller} />}
         </Container>
       </BridgedStage>
-      {settings.debugSceneShowActionQueue && (
+      {settings.debug.sceneShowActionQueue && (
         <div style={{ position: 'absolute', bottom: 0 }}>
           <h2>ActionQueue</h2>
           <ul>
