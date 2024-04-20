@@ -46,7 +46,7 @@ const SceneDebug = (props: Props) => {
 
   return (
   <>
-    {settings.debugSceneShowPathable && (
+    {settings.debug.sceneShowPathable && (
       <Graphics
         name="blocked-tiles"
         draw={graphics => {
@@ -67,7 +67,7 @@ const SceneDebug = (props: Props) => {
         }}
       />
     )}
-    {settings.debugSceneShowCellLocations && (
+    {settings.debug.sceneShowCellLocations && (
       allLocations.map(([x, y]) => (
         <Text
           anchor={0.5}
