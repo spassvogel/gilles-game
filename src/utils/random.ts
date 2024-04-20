@@ -39,6 +39,11 @@ export const roll3D6 = (): number => {
   return randomInt(1, 6) + randomInt(1, 6) + randomInt(1, 6)
 }
 
+/** Selects random item from array */
+export const randomItem = <T>(array: T[]) => {
+  return array[randomInt(0, array.length - 1)]
+}
+
 /**
  * Returns a weighed random key of `probabilities`
  * Provide an object with keys T and probability as a number (fraction of 1)
