@@ -21,7 +21,7 @@ const DebugContextWorld = () => {
           <label>Show grid</label>
           <input
             type="checkbox"
-            checked={settings.debugMapShowGrid}
+            checked={settings.debug.mapShowGrid}
             setting-name="debugMapShowGrid"
             onChange={handleBooleanChange}
           />
@@ -33,7 +33,7 @@ const DebugContextWorld = () => {
           <label>Show pathable tiles</label>
           <input
             type="checkbox"
-            checked={settings.debugSceneShowPathable}
+            checked={settings.debug.sceneShowPathable}
             setting-name="debugSceneShowPathable"
             onChange={handleBooleanChange}
           />
@@ -44,7 +44,7 @@ const DebugContextWorld = () => {
           <label>Show action queue tiles</label>
           <input
             type="checkbox"
-            checked={settings.debugSceneShowActionQueue}
+            checked={settings.debug.sceneShowActionQueue}
             setting-name="debugSceneShowActionQueue"
             onChange={handleBooleanChange}
           />
@@ -55,7 +55,7 @@ const DebugContextWorld = () => {
           <label>Show cell locations</label>
           <input
             type="checkbox"
-            checked={settings.debugSceneShowCellLocations}
+            checked={settings.debug.sceneShowCellLocations}
             setting-name="debugSceneShowCellLocations"
             onChange={handleBooleanChange}
           />
