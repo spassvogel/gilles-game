@@ -1,6 +1,4 @@
-import { type Store } from 'redux'
 import {
-  type Persistor,
   persistReducer,
   persistStore,
   FLUSH,
@@ -30,12 +28,6 @@ export const persistConfig = {
 }
 
 const persistedReducer = persistReducer<StoreState, Action>(persistConfig, rootReducer)
-
-type ConfigureStoreResult = {
-  store: Store<StoreState, Action>
-  persistor: Persistor
-  isHydrated: boolean
-}
 
 /**
  * Configures the redux store
@@ -72,7 +64,7 @@ const store = configureStore({
   )
 })
 
-const configureStoreAndPersistor = async (): Promise<ConfigureStoreResult> => {
+const configureStoreAndPersistor = async () => {
   return await new Promise((resolve, reject) => {
     try {
       const persistor = persistStore(store, undefined, () => {
