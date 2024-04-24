@@ -12,6 +12,7 @@ export enum ButtonSize {
 
 export enum ButtonColor {
   blue = 'blue',
+  empty = 'empty',
   green = 'green',
   purple = 'purple',
   red = 'red'

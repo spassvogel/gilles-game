@@ -206,9 +206,10 @@ $small-margin: 10px;
     }
   }
 
-  @include button-color('purple');
   @include button-color('blue');
-  @include button-color('red');
+  @include button-color('empty');
   @include button-color('green');
+  @include button-color('purple');
+  @include button-color('red');
 }
 
