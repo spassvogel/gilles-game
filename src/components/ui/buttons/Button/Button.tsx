@@ -12,8 +12,9 @@ export enum ButtonSize {
 
 export enum ButtonColor {
   blue = 'blue',
-  purple = 'purple',
   green = 'green',
+  purple = 'purple',
+  red = 'red'
 }
 
 export type Props = PropsWithChildren<{

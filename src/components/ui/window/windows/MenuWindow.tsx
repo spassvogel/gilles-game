@@ -45,7 +45,7 @@ const Menu = () => {
           <Button onClick={handleClickSaveAndLoad} size="medium">Save and load</Button>
           <Button onClick={handleClickCheats} size="medium">Cheats!</Button>
           <Button onClick={handleClickSettings} size="medium">Settings</Button>
-          <Button onClick={handleRestartClick} size="medium" color={ButtonColor.purple} > Restart! </Button>
+          <Button onClick={handleRestartClick} size="medium" color={ButtonColor.red} > Restart! </Button>
         </div>
 
         <div>

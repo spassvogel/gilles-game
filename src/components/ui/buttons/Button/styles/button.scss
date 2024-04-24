@@ -9,6 +9,38 @@ $medium-margin: 19px;
 $small-height: 16px;
 $small-margin: 10px;
 
+@mixin button-color ($color) {
+  &.button-#{$color}.button-large span,
+  &.button-#{$color}.button-large:before,
+  &.button-#{$color}.button-large:after {
+    background-image: url('./images/button-large-#{$color}.png');
+  }
+
+  &.button-#{$color}.button-medium span,
+  &.button-#{$color}.button-medium:before,
+  &.button-#{$color}.button-medium:after,
+  &.button-#{$color}.button-auto span,
+  &.button-#{$color}.button-auto:before,
+  &.button-#{$color}.button-auto:after {
+    background-image: url('./images/button-medium-#{$color}.png');
+  }
+
+  &.button-#{$color}.button-small span,
+  &.button-#{$color}.button-small:before,
+  &.button-#{$color}.button-small:after {
+    background-image: url('./images/button-small-#{$color}.png');
+  }
+
+  @include sm-max {
+    &.button-#{$color}.button-auto span,
+    &.button-#{$color}.button-auto:before,
+    &.button-#{$color}.button-auto:after {
+      background-image: url('./images/button-small-#{$color}.png');
+    }
+  }
+}
+
+
 .button {
   padding: 0;
   background: none;
@@ -174,85 +206,9 @@ $small-margin: 10px;
     }
   }
 
-  &.button-purple.button-large span,
-  &.button-purple.button-large:before,
-  &.button-purple.button-large:after {
-    background-image: url('./images/button-large-purple.png');
-  }
-
-  &.button-blue.button-large span,
-  &.button-blue.button-large:before,
-  &.button-blue.button-large:after {
-    background-image: url('./images/button-large-blue.png');
-  }
-
-  &.button-green.button-large span,
-  &.button-green.button-large:before,
-  &.button-green.button-large:after {
-    background-image: url('./images/button-large-green.png');
-  }
-
-  &.button-purple.button-medium span,
-  &.button-purple.button-medium:before,
-  &.button-purple.button-medium:after,
-  &.button-purple.button-auto span,
-  &.button-purple.button-auto:before,
-  &.button-purple.button-auto:after {
-    background-image: url('./images/button-medium-purple.png');
-  }
-  &.button-blue.button-medium span,
-  &.button-blue.button-medium:before,
-  &.button-blue.button-medium:after,
-  &.button-blue.button-auto span,
-  &.button-blue.button-auto:before,
-  &.button-blue.button-auto:after {
-    background-image: url('./images/button-medium-blue.png');
-  }
-
-  &.button-green.button-medium span,
-  &.button-green.button-medium:before,
-  &.button-green.button-medium:after,
-  &.button-green.button-auto span,
-  &.button-green.button-auto:before,
-  &.button-green.button-auto:after {
-    background-image: url('./images/button-medium-green.png');
-  }
-
-  &.button-purple.button-small span,
-  &.button-purple.button-small:before,
-  &.button-purple.button-small:after {
-    background-image: url('./images/button-small-purple.png');
-  }
-
-  &.button-blue.button-small span,
-  &.button-blue.button-small:before,
-  &.button-blue.button-small:after {
-    background-image: url('./images/button-small-blue.png');
-  }
-
-  &.button-green.button-small span,
-  &.button-green.button-small:before,
-  &.button-green.button-small:after {
-    background-image: url('./images/button-small-green.png');
-  }
-
-  @include sm-max {
-    &.button-purple.button-auto span,
-    &.button-purple.button-auto:before,
-    &.button-purple.button-auto:after {
-      background-image: url('./images/button-small-purple.png');
-    }
-
-    &.button-blue.button-auto span,
-    &.button-blue.button-auto:before,
-    &.button-blue.button-auto:after {
-      background-image: url('./images/button-small-blue.png');
-    }
-
-    &.button-green.button-auto span,
-    &.button-green.button-auto:before,
-    &.button-green.button-auto:after {
-      background-image: url('./images/button-small-green.png');
-    }
-  }
+  @include button-color('purple');
+  @include button-color('blue');
+  @include button-color('red');
+  @include button-color('green');
 }
+
