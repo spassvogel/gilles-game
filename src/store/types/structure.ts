@@ -24,3 +24,9 @@ export type ProductionStructureStoreState = {
 export type ResourceStructureState = {
   harvest?: Item[] // Items currently available for harvest at this structure
 } & StructureStoreState
+
+export type TavernStructureState = {
+  lodging: Array<string | null> // contains adventurer ids
+  waiting: string[] // contains adventurer ids
+  nextAdventurersArrive: number
+} & StructureStoreState

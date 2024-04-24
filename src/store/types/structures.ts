@@ -1,5 +1,10 @@
 import { type Structure } from 'definitions/structures'
-import { type ProductionStructureStoreState, type ResourceStructureState, type StructureStoreState } from './structure'
+import {
+  type TavernStructureState,
+  type ProductionStructureStoreState,
+  type ResourceStructureState,
+  type StructureStoreState
+} from './structure'
 
 // See: https://stackoverflow.com/questions/51829842/how-to-force-interface-to-implement-keys-of-enum-in-typescript-3-0
 class Temp implements Record<Structure, ResourceStructureState> {
@@ -9,7 +14,7 @@ class Temp implements Record<Structure, ResourceStructureState> {
   'lumberMill': ResourceStructureState
   'mine': ResourceStructureState
   'quarry': ResourceStructureState
-  'tavern': StructureStoreState
+  'tavern': TavernStructureState
   'tannery': ResourceStructureState
   'warehouse': StructureStoreState
   'weaponsmith': ProductionStructureStoreState

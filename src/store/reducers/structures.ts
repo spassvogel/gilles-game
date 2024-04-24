@@ -10,6 +10,7 @@ import { type StructuresStoreState } from 'store/types/structures'
 import { type StructuresAction } from 'store/actions/structures'
 import { type Item } from 'definitions/items/types'
 import { type GameTickActionExt } from 'store/middleware/gameTick'
+import { ADVENTURER_PREFIX } from 'mechanics/adventurers/generator'
 
 const updateStructureState = (state: StructuresStoreState, structure: Structure, structureState: StructureState) => {
   const structureStore: StructureStoreState = {
@@ -28,6 +29,26 @@ const structureInitialState: StructureStoreState = {
   workers: 0
 }
 
+const tavernInitialState = {
+  level: 0,
+  workers: 0,
+  lodging: [
+    `${ADVENTURER_PREFIX}c4a5d270`,
+    `${ADVENTURER_PREFIX}2e655832`,
+    `${ADVENTURER_PREFIX}ec6f1050`,
+    `${ADVENTURER_PREFIX}d299f98a`,
+    `${ADVENTURER_PREFIX}96c686c3`,
+    null,
+    `${ADVENTURER_PREFIX}250d1a9d`,
+    `${ADVENTURER_PREFIX}169384ef`,
+    `${ADVENTURER_PREFIX}f22d66cb`,
+    `${ADVENTURER_PREFIX}36c686c1`
+  ],
+  waiting: [],
+  nextAdventurersArrive: 0,
+  state: StructureState.NotBuilt
+}
+
 export const initialStructuresState: StructuresStoreState = {
   alchemist: { ...structureInitialState, produces: [] },
   armoursmith: { ...structureInitialState, produces: ['apparel/boots1'] },
@@ -35,7 +56,7 @@ export const initialStructuresState: StructuresStoreState = {
   lumberMill: structureInitialState,
   mine: { level: 0, workers: 0, state: StructureState.NotBuilt },
   quarry: structureInitialState,
-  tavern: { level: 0, workers: 0, state: StructureState.NotBuilt },
+  tavern: tavernInitialState,
   tannery: structureInitialState,
   warehouse: { level: 0, workers: 0, state: StructureState.Built },
   weaponsmith: { ...structureInitialState, produces: ['weapon/simpleCrossbow', 'weapon/dagger'] },

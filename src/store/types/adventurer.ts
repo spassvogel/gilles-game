@@ -26,7 +26,6 @@ export type AdventurerStoreState = {
   inventory: Array<null | Item>
   basicAttributes: AttributesStoreState
   skills: SkillsStoreState //
-  room: number // Adventurer is lodged in this room in the tavern
 }
 
 export enum AdventurerColor {

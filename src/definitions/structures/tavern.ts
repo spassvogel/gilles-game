@@ -17,6 +17,7 @@ const tavern: TavernStructureDefinition = {
     cost: {
       gold: 0
     },
+    waitingAdventurers: 3,
     rooms: 10
   }, {
     // level 2:
@@ -31,6 +32,7 @@ const tavern: TavernStructureDefinition = {
       },
       time: ONE_MINUTE
     },
+    waitingAdventurers: 3,
     rooms: 12
   }, {
     // level 3:
@@ -40,6 +42,7 @@ const tavern: TavernStructureDefinition = {
       gold: 50,
       time: TWO_MINUTES
     },
+    waitingAdventurers: 4,
     rooms: 15
   }]
 }

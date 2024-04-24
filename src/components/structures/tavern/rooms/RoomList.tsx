@@ -1,9 +1,12 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import * as TextManager from 'global/TextManager'
 import { type AdventurerStoreState } from 'store/types/adventurer'
 import { type QuestStoreState } from 'store/types/quest'
+import { type StoreState } from 'store/types'
+import { type TavernStructureState } from 'store/types/structure'
 import RoomWithAdventurer from './RoomWithAdventurer'
 import RoomEmpty from './RoomEmpty'
-import * as TextManager from 'global/TextManager'
 
 import './styles/roomList.scss'
 
@@ -28,6 +31,7 @@ const RoomList = (props: Props) => {
     onRemoveAdventurer
   } = props
   const [selectedAdventurer, setSelectedAdventurer] = useState<string>()
+  const { lodging } = useSelector<StoreState, TavernStructureState>(store => store.structures.tavern)
 
   const getQuestByAdventurer = (adventurerId: string): QuestStoreState | undefined => {
     return Object.values(props.quests).find((quest) => {
@@ -45,13 +49,15 @@ const RoomList = (props: Props) => {
 
   const roomContent: JSX.Element[] = []
   for (let i = 0; i < roomCount; i++) {
-    const adventurer = adventurers.find((a) => a.room === i && a.health > 0)
+    const adventurer = adventurers.find((a) => a.id === lodging[i])
+
     if (adventurer == null) {
       roomContent.push((
         <RoomEmpty key={`room${i}`} />
       ))
       continue
     }
+
     const onQuest = !(getQuestByAdventurer(adventurer.id) == null)
 
     roomContent.push((

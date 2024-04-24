@@ -1,6 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit'
 import { type StoreState } from 'store/types'
-import { adventurers, initialAdventurers } from './adventurers'
+import { adventurers } from './adventurers'
 import { engine, getInitialEngineState } from './engine'
 import { game, initialGameState } from './game'
 import { gold, initialGoldState } from './gold'
@@ -14,6 +14,7 @@ import { initialStructuresState, structures } from './structures'
 import { initialTasksState, tasks } from './tasks'
 import { initialWorkersState, workers } from './workers'
 import { type Action } from 'store/actions'
+import { initialAdventurers } from 'mechanics/adventurers/generator'
 
 export const combinedReducer = combineReducers({
   adventurers,

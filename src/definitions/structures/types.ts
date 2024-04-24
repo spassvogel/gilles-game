@@ -59,5 +59,6 @@ export type TavernStructureDefinition = {
 } & StructureDefinition
 
 export type TavernStructureLevelDefinition = {
+  waitingAdventurers: number
   rooms: number
 } & StructureLevelDefinition
