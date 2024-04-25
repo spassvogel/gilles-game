@@ -18,6 +18,7 @@ import { type TempEffect, TempEffectType } from 'definitions/tempEffects/types'
 import { Rarity } from 'constants/items'
 import { WeaponClassification, WeaponType } from 'definitions/weaponTypes/types'
 import { WeaponAbility } from 'definitions/abilities/types'
+import { Gender } from 'constants/gender'
 
 let initialized = false
 let texts: Record<string, string>
@@ -296,6 +297,24 @@ Handlebars.registerHelper('resource:name', (resource: string) => {
 
 Handlebars.registerHelper('adventurer:name', (adventurer: AdventurerStoreState) => {
   return new Handlebars.SafeString(adventurer.name ?? '')
+})
+
+Handlebars.registerHelper('adventurer:pronoun-reflexive', (adventurer: AdventurerStoreState) => {
+  // himself / herself
+  const pronoun = get(`common-pronoun-reflexive-${Gender[adventurer.gender]}`)
+  return new Handlebars.SafeString(pronoun)
+})
+
+Handlebars.registerHelper('adventurer:pronoun-personal', (adventurer: AdventurerStoreState) => {
+  // he / she
+  const pronoun = get(`common-pronoun-personal-${Gender[adventurer.gender]}`)
+  return new Handlebars.SafeString(pronoun)
+})
+
+Handlebars.registerHelper('adventurer:pronoun-possesive', (adventurer: AdventurerStoreState) => {
+  // his / her
+  const pronoun = get(`common-pronoun-possesive-${Gender[adventurer.gender]}`)
+  return new Handlebars.SafeString(pronoun)
 })
 
 Handlebars.registerHelper('actor:name', (actor: string) => {

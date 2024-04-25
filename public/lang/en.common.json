@@ -52,6 +52,13 @@
   "common-cheat-resources-added": "Added {{amount}} of each resource.",
   "common-cheat-workers-added": "Added {{amount}} workers.",
 
+  "common-pronoun-reflexive-female": "herself",
+  "common-pronoun-reflexive-male": "himself",
+  "common-pronoun-personal-female": "she",
+  "common-pronoun-personal-male": "he",
+  "common-pronoun-possesive-female": "her",
+  "common-pronoun-possesive-male": "his",
+
   "common-item-crafted": "You have crafted {{item:name item \"aA\"}}",
   "common-structure-built": "You have built {{structure:name structure \"aA\"}}",
   "common-time-d": "d",
@@ -598,11 +605,13 @@
   "ui-structure-tavern-button-join-quest": "Join {{quest}}",
   "ui-structure-tavern-button-launch-quest": "Start quest",
   "ui-structure-tavern-button-leave-quest": "Leave quest",
+  "ui-structure-tavern-confirm-dismiss-adventurer": "Are you sure you wish to send {{ adventurer:name adventurer }} on {{ adventurer:pronoun-possesive adventurer }} way?",
   "ui-structure-tavern-on-a-quest": " (on a quest)",
   "ui-structure-tavern-quest-launched": "Quest started!",
   "ui-structure-tavern-room-empty": "Empty",
   "ui-structure-tavern-rooms": "Rooms",
   "ui-structure-tavern-title-quest-board": "Quest board",
+  "ui-structure-tavern-waiting-area": "New arrivals",
 
   "ui-structure-upgrade-max": "Upgraded to max level",
   "ui-structure-upgrade": "Upgrade to level {{level}}",
