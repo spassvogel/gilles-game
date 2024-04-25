@@ -1,0 +1,60 @@
+@import '@/components/styles/import.scss';
+
+.waiting-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .slot {
+    @include border-primary-sm;
+    height: $item-size-medium + 20px;
+    background-color: $color-background-lighter;
+    padding: 0.25rem;
+
+    .content {
+      &.with-adventurer {
+        display: grid;
+        gap: 0.25rem;
+
+        grid-template-columns: 4fr 1fr;
+        grid-template-rows: 1fr 1fr;
+
+        .advenventurer {
+          grid-row: 1 / 3;
+          gap: 0.5rem;
+          display: grid;
+          grid-template-columns: auto 1fr;
+          grid-template-rows: 1fr 1fr;
+
+          .avatar {
+            grid-row: 1 / 3;
+          }
+
+          .name {
+            margin-top: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .level {
+            color: $color-text-medium;
+          }
+        }
+
+        .button-dismiss {
+          span {
+            color: $color-invalid-lighter;
+
+            &:active {
+              color: $color-invalid;
+            }
+          }
+        }
+        .button-accept {
+          grid-column: 2 / 3;
+        }
+      }
+    }
+  }
+}

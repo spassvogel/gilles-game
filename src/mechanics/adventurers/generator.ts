@@ -270,7 +270,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 }, {
   id: `${ADVENTURER_PREFIX}250d1a9d`,
   ...generateAttributesHealthAndXp(),
-  name: 'Alexis Ortiz ',
+  name: 'Alexis Ortiz',
   // name: generateRandomName(Race.human, true),
   flavor: true,
 

@@ -7,7 +7,6 @@ import { AVATAR_IMAGE_BASE_PATH } from 'constants/paths'
 export type Props = {
   adventurer: AdventurerStoreState
   className?: string
-  displayName?: boolean
   onClick?: (adventurerId: string) => void
   size?: IconSize
 }

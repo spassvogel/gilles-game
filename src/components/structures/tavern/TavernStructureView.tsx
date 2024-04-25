@@ -8,7 +8,7 @@ import { Type } from 'components/ui/toasts/Toast'
 import { getQuestLink } from 'utils/routing'
 import RoomList from './rooms/RoomList'
 import { useEffect, useState } from 'react'
-import QuestBoard from './QuestBoard'
+import QuestBoard from './quests/QuestBoard'
 import { useStructureDefinition, useStructureState } from 'hooks/store/structures'
 import { useSelector, useDispatch } from 'react-redux'
 import { type StoreState } from 'store/types'
@@ -19,10 +19,11 @@ import StructureViewHeader from '../StructureViewHeader'
 import UpgradeHelpModal from '../UpgradeHelpModal'
 import UpgradeHelpModalContent from './UpgradeHelpModalContent'
 import { Channel, SoundManager } from 'global/SoundManager'
-import './styles/tavernStructureView.scss'
 import { ContextType } from 'constants/context'
 import { AVATAR_IMAGE_BASE_PATH } from 'constants/paths'
+import WaitingArea from './waiting/WaitingArea'
 
+import './styles/tavernStructureView.scss'
 export const SOURCE_ID = 'tavern'
 
 // The UI for the tavern
@@ -50,7 +51,7 @@ const TavernStructureView = () => {
 
   const getAvailableQuests = quests.filter((q) => q.status === QuestStatus.available)
 
-  const handleQuestClick = (name: string): void => {
+  const handleQuestClick = (name: string) => {
     if (selectedQuest === name) {
       setSelectedQuest(undefined)
     } else {
@@ -73,11 +74,11 @@ const TavernStructureView = () => {
     }
   }
 
-  const handleRemoveAdventurer = (adventurer: AdventurerStoreState): void => {
+  const handleRemoveAdventurer = (adventurer: AdventurerStoreState) => {
     setAassignedAdventurers(assignedAventurers.filter(a => (a !== adventurer)))
   }
 
-  const handleLaunchQuest = (): void => {
+  const handleLaunchQuest = () => {
     if (selectedQuest === undefined) return
 
     const questTitle = TextManager.getQuestTitle(selectedQuest)
@@ -105,6 +106,7 @@ const TavernStructureView = () => {
       <div className="tavern-structure-view">
         <StructureLevel structure={'tavern'} onHelpClicked={handleHelpClicked}/>
         <section className='content'>
+          <WaitingArea slotCount={levelDefinition.waitingAdventurers}/>
           <RoomList
             roomCount={levelDefinition.rooms}
             adventurers={adventurers}

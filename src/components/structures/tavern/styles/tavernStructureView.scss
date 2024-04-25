@@ -2,20 +2,19 @@
 
 
 .tavern-structure-view {
-  padding: 16px;
+  padding: 1rem;
 
-  /** medium and large resolutions */
-  @include md {
-    .content {
-      display: flex;
+  .content {
+    display: grid;
+    gap: 1rem;
+
+    /** medium and large resolutions */
+    @include md {
+      grid-template-columns: 1fr 1fr;
       width: 100%;
 
-      .room-list {
-        flex: 1;
-      }
-
-      .quest-board {
-        flex: 1;
+      .waiting-area {
+        grid-column: 1 / 3;
       }
     }
   }

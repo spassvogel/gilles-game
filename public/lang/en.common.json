@@ -601,6 +601,7 @@
 
   "ui-structure-start-construction": "Start construction",
 
+  "ui-structure-tavern-adventurer-lodged": "{{ adventurer:name adventurer }} has taken lodging in the tavern",
   "ui-structure-tavern-button-join-quest-full-party": "Party full",
   "ui-structure-tavern-button-join-quest": "Join {{quest}}",
   "ui-structure-tavern-button-launch-quest": "Start quest",
