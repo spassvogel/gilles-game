@@ -1,5 +1,5 @@
 import { type AdventurerStoreState } from 'store/types/adventurer'
-import { AVAILABLE_SLOTS } from '../QuestBoard'
+import { AVAILABLE_SLOTS } from '../quests/QuestBoard'
 import Button from 'components/ui/buttons/Button'
 import * as TextManager from 'global/TextManager'
 import './styles/adventurerButton.scss'
@@ -16,7 +16,7 @@ export type Props = {
 // Finds the first array index with a falsey value
 const getEmptySlot = (assignedAventurers: AdventurerStoreState[]) => {
   for (let i = 0; i < AVAILABLE_SLOTS; i++) {
-    if (!assignedAventurers[i]) {
+    if (assignedAventurers[i] == null) {
       return i
     }
   }

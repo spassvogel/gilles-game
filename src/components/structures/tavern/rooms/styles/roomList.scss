@@ -3,7 +3,6 @@
 .room-list {
   overflow: auto;
   flex: 1;
-  margin: 8px;
 
   .adventurer-details {
     border: 1px solid grey;
@@ -19,6 +18,10 @@
     height: $item-size-medium + 10px;
     box-sizing: border-box;
     display: flex;
+
+    &.empty {
+      padding-left: $item-size-medium + 6px + 4px;
+    }
 
     &.expanded {
       background-color: $color-secondary;
