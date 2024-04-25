@@ -39,14 +39,18 @@ const tavernInitialState = {
     `${ADVENTURER_PREFIX}d299f98a`,
     `${ADVENTURER_PREFIX}96c686c3`,
     null,
-    `${ADVENTURER_PREFIX}250d1a9d`,
-    `${ADVENTURER_PREFIX}169384ef`,
+    // `${ADVENTURER_PREFIX}250d1a9d`,
+    `${ADVENTURER_PREFIX}169384ef`
+    // `${ADVENTURER_PREFIX}f22d66cb`,
+  ],
+  waiting: [
     `${ADVENTURER_PREFIX}f22d66cb`,
+    `${ADVENTURER_PREFIX}250d1a9d`,
     `${ADVENTURER_PREFIX}36c686c1`
   ],
-  waiting: [],
   nextAdventurersArrive: 0,
-  state: StructureState.NotBuilt
+  // state: StructureState.NotBuilt
+  state: StructureState.Built
 }
 
 export const initialStructuresState: StructuresStoreState = {
@@ -153,6 +157,21 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameTi
         [action.structure]: {
           ...state[action.structure],
           harvest
+        }
+      }
+    }
+
+    case 'dismissWaitingAdventurer': {
+      return {
+        ...state,
+        tavern: {
+          ...state.tavern,
+          waiting: state.tavern.waiting.map((a, i) => {
+            if (i === action.slot) {
+              return null
+            }
+            return a
+          })
         }
       }
     }

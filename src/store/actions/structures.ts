@@ -10,6 +10,7 @@ export type StructuresAction =
   | { type: 'setStructureState', structure: Structure, state: StructureState }
   | { type: 'addItemToToProduces', structure: Structure, item: ProducableItem }
   | { type: 'removeItemFromHarvest', structure: Structure, index: number }
+  | { type: 'dismissWaitingAdventurer', slot: number }
 
 export const startBuildingStructure = (structure: Structure): StructuresAction => ({
   type: 'startBuildingStructure',
@@ -59,4 +60,9 @@ export const removeItemFromHarvest = (structure: Structure, index: number): Stru
   type: 'removeItemFromHarvest',
   structure,
   index
+})
+
+export const dismissWaitingAdventurer = (slot: number): StructuresAction => ({
+  type: 'dismissWaitingAdventurer',
+  slot
 })

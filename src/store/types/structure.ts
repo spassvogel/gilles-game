@@ -27,6 +27,6 @@ export type ResourceStructureState = {
 
 export type TavernStructureState = {
   lodging: Array<string | null> // contains adventurer ids
-  waiting: string[] // contains adventurer ids
+  waiting: Array<string | null> // contains adventurer ids
   nextAdventurersArrive: number
 } & StructureStoreState
