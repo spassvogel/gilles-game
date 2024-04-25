@@ -7,6 +7,9 @@ import { type AdventurerStoreState } from 'store/types/adventurer'
 import { type QuestStoreState } from 'store/types/quest'
 import { isAdventurer, isEnemy, type SceneObject } from 'store/types/scene'
 import { type Ammunition, isAmmunition } from 'definitions/items/ammunition'
+import { type TavernStructureState } from 'store/types/structure'
+import { getDefinition } from 'definitions/structures'
+import { type TavernStructureDefinition } from 'definitions/structures/types'
 
 // export const adventurersInParty = (store: StoreState, partyId: string): AdventurerStoreState[] => {
 //   const party: PartyStoreState = store.parties[partyId]
@@ -58,6 +61,21 @@ export const adventurerWeapons = (adventurer: AdventurerStoreState): [Item<Weapo
 export const adventurerAmmo = (adventurer: AdventurerStoreState): Item<Ammunition> | undefined => {
   const item = adventurer.equipment[EquipmentSlotType.offHand]
   return ((item != null) && isAmmunition(item.type)) ? adventurer.equipment[EquipmentSlotType.offHand] as Item<Ammunition> : undefined
+}
+
+/**
+ * Returns the index of the first free room in the tavern, or -1 if all rooms are occupied
+*/
+export const getFreeRoom = (tavern: TavernStructureState) => {
+  const structureDefinition = getDefinition<TavernStructureDefinition>('tavern')
+  const levelDefinition = structureDefinition.levels[tavern.level]
+  const roomCount = levelDefinition.rooms
+  for (let i = 0; i < roomCount; i++) {
+    if (tavern.lodging[i] == null) {
+      return i
+    }
+  }
+  return -1
 }
 
 // Searches `objects` list and returns the object at `location` (if any)

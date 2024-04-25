@@ -11,6 +11,7 @@ import { type StructuresAction } from 'store/actions/structures'
 import { type Item } from 'definitions/items/types'
 import { type GameTickActionExt } from 'store/middleware/gameTick'
 import { ADVENTURER_PREFIX } from 'mechanics/adventurers/generator'
+import { getFreeRoom } from 'store/helpers/storeHelpers'
 
 const updateStructureState = (state: StructuresStoreState, structure: Structure, structureState: StructureState) => {
   const structureStore: StructureStoreState = {
@@ -157,6 +158,44 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameTi
         [action.structure]: {
           ...state[action.structure],
           harvest
+        }
+      }
+    }
+
+    case 'lodgeWaitingAdventurer': {
+      const adventurerId = state.tavern.waiting[action.slot]
+      if (adventurerId == null) {
+        // Not sure what happened here
+        return state
+      }
+      const { tavern } = state
+      const room = getFreeRoom(tavern)
+      if (room === -1) {
+        // This shouldnt be happening either
+        return state
+      }
+
+      const lodging = tavern.lodging.map((a, i) => {
+        if (i === room) {
+          return adventurerId
+        }
+        return a
+      })
+      if (room >= lodging.length) {
+        lodging.push(adventurerId)
+      }
+
+      return {
+        ...state,
+        tavern: {
+          ...tavern,
+          waiting: tavern.waiting.map((a, i) => {
+            if (i === action.slot) {
+              return null
+            }
+            return a
+          }),
+          lodging
         }
       }
     }

@@ -14,7 +14,4 @@ const maxResources = (level: number) => {
 }
 
 // Selects a ResourceStoreState with maximum stockpile of each resource the warehouse supports
-export const selectMaxResources = createSelector([
-  getWarehouseLevel],
-maxResources
-)
+export const selectMaxResources = createSelector([getWarehouseLevel], maxResources)

@@ -1,4 +1,4 @@
-import { UnresolvedAsset, type AssetsManifest } from 'pixi.js'
+import { type UnresolvedAsset, type AssetsManifest } from 'pixi.js'
 import { sprites } from './sprites'
 import { entries } from 'utils/typescript'
 import { defineAssetPath } from 'utils/assets'

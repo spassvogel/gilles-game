@@ -11,6 +11,7 @@ export type StructuresAction =
   | { type: 'addItemToToProduces', structure: Structure, item: ProducableItem }
   | { type: 'removeItemFromHarvest', structure: Structure, index: number }
   | { type: 'dismissWaitingAdventurer', slot: number }
+  | { type: 'lodgeWaitingAdventurer', slot: number }
 
 export const startBuildingStructure = (structure: Structure): StructuresAction => ({
   type: 'startBuildingStructure',
@@ -64,5 +65,11 @@ export const removeItemFromHarvest = (structure: Structure, index: number): Stru
 
 export const dismissWaitingAdventurer = (slot: number): StructuresAction => ({
   type: 'dismissWaitingAdventurer',
+  slot
+})
+
+// Lodges the waiting adventurer at @param slot in the first available room in the tavern
+export const lodgeWaitingAdventurer = (slot: number): StructuresAction => ({
+  type: 'lodgeWaitingAdventurer',
   slot
 })
