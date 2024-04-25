@@ -8,6 +8,7 @@ import { type TempEffect } from 'definitions/tempEffects/types'
 import { type WeaponType } from 'definitions/weaponTypes/types'
 import { type Race } from 'constants/race'
 import { type sprites } from 'bundles/sprites'
+import { type Gender } from 'constants/gender'
 
 export type AdventurerStoreState = {
   id: string
@@ -17,6 +18,7 @@ export type AdventurerStoreState = {
   spritesheet: keyof typeof sprites.actors
   color?: AdventurerColor
   race: Race
+  gender: Gender
   traits?: Trait[]
   health: number // When this reaches zero, the adventurer is dead
   xp: number

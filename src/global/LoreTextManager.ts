@@ -1,3 +1,4 @@
+import { Gender } from 'constants/gender'
 import { Race } from 'constants/race'
 import { randomInt } from 'utils/random'
 
@@ -23,9 +24,9 @@ export const init = (_loreTexts: LoreTexts) => {
   loreTexts = _loreTexts
 }
 
-export const generateRandomName = (race: Race, isFemale = false) => {
+export const generateRandomName = (race: Race, gender: Gender) => {
   const names = loreTexts.characters.names[Race[race] as RaceType]
-  const firstNames = isFemale ? names.female : names.male
+  const firstNames = gender === Gender.female ? names.female : names.male
   const lastNames = names.last
 
   return [

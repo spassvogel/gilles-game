@@ -10,23 +10,25 @@ import { createTempEffect } from 'definitions/tempEffects'
 import { type TempEffectBrokenLegs, TempEffectType, type TempEffectBurning } from 'definitions/tempEffects/types'
 import { Trait } from 'definitions/traits/types'
 import { type sprites } from 'bundles/sprites'
+import { Gender } from 'constants/gender'
 
 export const ADVENTURER_PREFIX = 'adv_'
 
 export const generateRandomAdventurer = (level = 1) => {
   const race = Race.human
-  const isFemale = randomInt(0, 1) === 0
+  const gender = randomItem([Gender.male, Gender.female])
   const { health, basicAttributes, xp } = generateAttributesHealthAndXp(level)
-  const avatarImg = generateAvatarImage(race, isFemale)
+  const avatarImg = generateAvatarImage(race, gender)
   const spritesheet = defineSpritesheet(race)
   const adventurer: AdventurerStoreState = {
     id: `${ADVENTURER_PREFIX}${Math.random().toString(36).substring(2)}`,
-    name: generateRandomName(race, isFemale),
+    name: generateRandomName(race, gender),
     avatarImg,
     spritesheet,
     flavor: false, // todo: generate flavor
     health,
     race,
+    gender,
     basicAttributes,
     xp,
     traits: [],
@@ -85,6 +87,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   spritesheet: 'ELF_BOW',
   color: AdventurerColor.purple,
   race: Race.elf,
+  gender: Gender.female,
   skills: {
     [WeaponType.crossbow]: 10,
     [WeaponType.bow]: 10
@@ -128,6 +131,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   color: AdventurerColor.teal,
   traits: [Trait.houseHouston],
   race: Race.human,
+  gender: Gender.female,
   skills: {
     [WeaponType.crossbow]: 12,
     [WeaponType.staff]: 13
@@ -175,6 +179,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
 
   traits: [Trait.gloomy],
   race: Race.undead,
+  gender: Gender.male,
   skills: {
     [WeaponType.sword]: 12,
     [WeaponType.hammer]: 6
@@ -231,6 +236,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   spritesheet: 'KNIGHT_SPEAR',
   traits: [Trait.arrowFinder],
   race: Race.human,
+  gender: Gender.male,
   skills: {
     [WeaponType.poleArm]: 13
   },
@@ -255,6 +261,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   spritesheet: 'TROLL_AXE',
   traits: [Trait.houseMonroe, Trait.arrowFinder],
   race: Race.troll,
+  gender: Gender.male,
   skills: {
     [WeaponType.axe]: 12
   },
@@ -271,6 +278,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   spritesheet: 'KNIGHT_SWORD',
   inventory: [null, null, null, null, null],
   race: Race.human,
+  gender: Gender.male,
   skills: {
     [WeaponType.axe]: 10
   },
@@ -290,6 +298,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   spritesheet: 'TROLL_SWORD',
   inventory: [{ type: 'weapon/greatswordOfGwai' }, null, null, null],
   race: Race.troll,
+  gender: Gender.male,
   skills: {
     [WeaponType.axe]: 10
   },
@@ -308,6 +317,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   spritesheet: 'KNIGHT_SWORD',
   inventory: [null, null, null, null, null],
   race: Race.human,
+  gender: Gender.male,
   skills: {
     [WeaponType.axe]: 13
   },
@@ -322,6 +332,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   spritesheet: 'KNIGHT_SWORD',
   inventory: [{ type: 'weapon/greatswordOfGwai' }, null, null, null, { type: 'apparel/shoulders1' }, { type: 'apparel/fedora' }, { type: 'apparel/greaves2' }],
   race: Race.human,
+  gender: Gender.male,
   skills: {
     [WeaponType.axe]: 3
   },
@@ -337,6 +348,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   spritesheet: 'KNIGHT_SWORD',
   inventory: [{ type: 'weapon/greatswordOfGwai' }, null, null, null],
   race: Race.human,
+  gender: Gender.male,
   skills: {
     [WeaponType.axe]: 10
   },
@@ -367,6 +379,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   avatarImg: 'human/female/f_21.png',
   spritesheet: 'ELF_BOW',
   race: Race.elf,
+  gender: Gender.male,
   color: AdventurerColor.purple,
   skills: {
     [WeaponType.knife]: 15,
@@ -376,14 +389,14 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   inventory: [{ type: 'deed/lumbermill' }, null, { type: 'weapon/simpleCrossbow' }, { type: 'weapon/dagger' }, { type: 'weapon/khopesh' }, null, { type: 'weapon/steelSword' }, null, { type: 'consumable/lesserSoma' }, { type: 'consumable/minorSoma' }, { type: 'consumable/greaterManaPotion' }, { type: 'consumable/majorHealthPotion' }, null, { type: 'weapon/steelShield' }, null, null, null, null]
 }]
 
-function generateAvatarImage (race: Race, isFemale: boolean) {
-  return randomItem(getAvatarImages(race, isFemale))
+function generateAvatarImage (race: Race, gender: Gender) {
+  return randomItem(getAvatarImages(race, gender))
 }
 
-function getAvatarImages (race: Race, isFemale: boolean) {
+function getAvatarImages (race: Race, gender: Gender) {
   switch (race) {
     case Race.elf: {
-      if (isFemale) {
+      if (gender === Gender.female) {
         return [
           'elf/female/elf_female_bg.png',
           'elf/female/elf_female_druid_bg.png'
@@ -395,7 +408,7 @@ function getAvatarImages (race: Race, isFemale: boolean) {
       ]
     }
     case Race.human: {
-      if (isFemale) {
+      if (gender === Gender.female) {
         return [
           'human/female/f_01.png',
           'human/female/f_02.png',
