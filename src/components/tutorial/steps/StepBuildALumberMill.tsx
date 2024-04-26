@@ -72,7 +72,7 @@ const StepBuildALumberMill = (props: StepProps) => {
       <p>
         I reckon we still have the deed tucked away in our warehouse. Time tae dust it off and put it tae good use!        </p>
       </>}
-      assignment="Construct a lumber mill using the Deed for a Lumber mill (found in the warehouse)"
+      assignment="Construct a lumber mill using the Deed for a Lumber mill (found in the stockpile in the warehouse in town)"
       onToggle={props.onToggle}
     />
   )

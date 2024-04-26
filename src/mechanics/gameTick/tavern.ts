@@ -34,10 +34,9 @@ const getTavernUpdates = (store: StoreState): TavernGameTickUpdate => {
   const levelDefinition = structureDefinition.levels[level]
   const slots = levelDefinition.waitingAdventurers
 
-  if (nextAdventurersArrive === 0 || Date.now() > nextAdventurersArrive) {
+  if (Date.now() > nextAdventurersArrive) {
     // we're on a new cycle
     result.nextAdventurersArrive = Date.now() + ADVENTURER_ARRIVAL_INTERVAL
-    console.log(new Date(result.nextAdventurersArrive), result.nextAdventurersArrive)
 
     // check how much empty spaces we have
     const amount = slots - structures.tavern.waiting.filter((a => a != null)).length

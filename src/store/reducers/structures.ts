@@ -45,13 +45,12 @@ const tavernInitialState = {
     // `${ADVENTURER_PREFIX}f22d66cb`,
   ],
   waiting: [
-    `${ADVENTURER_PREFIX}f22d66cb`,
+    // `${ADVENTURER_PREFIX}f22d66cb`,
     // `${ADVENTURER_PREFIX}250d1a9d`,
-    `${ADVENTURER_PREFIX}36c686c1`
+    // `${ADVENTURER_PREFIX}36c686c1`
   ],
-  nextAdventurersArrive: 0,
-  // state: StructureState.NotBuilt
-  state: StructureState.Built
+  nextAdventurersArrive: Date.now(),
+  state: StructureState.NotBuilt
 }
 
 export const initialStructuresState: StructuresStoreState = {
