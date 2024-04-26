@@ -43,7 +43,7 @@ const Game = () => {
     if (!isHydrated) {
       startNewGame()
     }
-    setStore(store)
+    setStore(store as Store<StoreState, Action>)
     setPersistor(persistor)
   }, [startNewGame])
 

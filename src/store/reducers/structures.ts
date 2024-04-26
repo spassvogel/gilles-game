@@ -254,7 +254,7 @@ const tavernReducer: Reducer<StructuresStoreState, GameTickActionExt> = (state =
   const adventurers = [...action.tavern.adventurers ?? []]
 
   if (adventurers.length > 0) {
-    waiting = state.tavern.waiting.map((a, i) => {
+    waiting = state.tavern.waiting.map((a) => {
       if (a === null) {
         const adventurer = adventurers.shift()
         if (adventurer == null) {

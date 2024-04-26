@@ -30,7 +30,6 @@ const AssignAdventurers = (props: Props & DispatchProps) => {
         content = (
           <AdventurerAvatar
             adventurer={adventurer}
-            displayName={false}
             size={IconSize.small}
             onClick={() => { props.onAdventurerClicked(adventurer) } }
           />

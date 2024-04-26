@@ -24,7 +24,7 @@ export const init = (_loreTexts: LoreTexts) => {
   loreTexts = _loreTexts
 }
 
-export const generateRandomName = (race: Race, gender: Gender) => {
+export const generateRandomName = (race: Race, gender = Gender.male) => {
   const names = loreTexts.characters.names[Race[race] as RaceType]
   const firstNames = gender === Gender.female ? names.female : names.male
   const lastNames = names.last

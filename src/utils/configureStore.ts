@@ -1,4 +1,6 @@
+import { type Store } from 'redux'
 import {
+  type Persistor,
   persistReducer,
   persistStore,
   FLUSH,
@@ -28,6 +30,12 @@ export const persistConfig = {
 }
 
 const persistedReducer = persistReducer<StoreState, Action>(persistConfig, rootReducer)
+
+type ConfigureStoreResult = {
+  store: Store
+  persistor: Persistor
+  isHydrated: boolean
+}
 
 /**
  * Configures the redux store
@@ -64,9 +72,10 @@ const store = configureStore({
   )
 })
 
-const configureStoreAndPersistor = async () => {
+const configureStoreAndPersistor = async (): Promise<ConfigureStoreResult> => {
   return await new Promise((resolve, reject) => {
     try {
+      // @ts-expect-error annoying error with redux-persist typing...
       const persistor = persistStore(store, undefined, () => {
         const isHydrated = storeIsRehydrated(store.getState())
         resolve({ store, persistor, isHydrated })
