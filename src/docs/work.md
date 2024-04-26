@@ -952,8 +952,8 @@ Objects now inherit a lot of stuff from tiled and have a lot of unused propertie
   - [x] one manifest with a bunch of bundles?
   - [x] load all bundles or on-demand?
 - [x] cant scroll structure (only devtools apparently)
-- [ ] systeem bedenken en implementeren waar adventurers zich aandienen in de town
-  - [ ] Start with 2 slots
+- [x] systeem bedenken en implementeren waar adventurers zich aandienen in de town
+  - [x] Start with 2 slots
   - [ ] Ontvang 3 gratis adventurers als de Tavern gebouwd is
   - [ ] Adventurers join every 24 hours (can use temporal accelerator)
 - [ ] rooms in Tavern have a gold cost
@@ -965,8 +965,8 @@ Objects now inherit a lot of stuff from tiled and have a lot of unused propertie
         Yes: best to pay in advance, before embarking on a quest 
         Adventurers have 5 days to pay for the room + the advance. 
         If not paid after that they are dismissed. (Or jailed?)
-- [ ] more adventurers 
-  - [ ] adventurer spawn mechanic
+- [x] more adventurers 
+  - [x] adventurer spawn mechanic
 - [ ] combat systeem verder uitwerken
   - [ ] combat automatisch aan/uit
   - [ ] ap deducted from AI actors

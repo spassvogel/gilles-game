@@ -40,13 +40,13 @@ const tavernInitialState = {
     `${ADVENTURER_PREFIX}d299f98a`,
     `${ADVENTURER_PREFIX}96c686c3`,
     null,
-    // `${ADVENTURER_PREFIX}250d1a9d`,
+    `${ADVENTURER_PREFIX}250d1a9d`,
     `${ADVENTURER_PREFIX}169384ef`
     // `${ADVENTURER_PREFIX}f22d66cb`,
   ],
   waiting: [
     `${ADVENTURER_PREFIX}f22d66cb`,
-    `${ADVENTURER_PREFIX}250d1a9d`,
+    // `${ADVENTURER_PREFIX}250d1a9d`,
     `${ADVENTURER_PREFIX}36c686c1`
   ],
   nextAdventurersArrive: 0,
@@ -216,27 +216,65 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameTi
     }
 
     case 'gameTick': {
-      if ((action.harvest == null) || ((Object.keys(action.harvest)?.length) === 0)) {
-        return state
-      }
-      const createHarvestItems = (structure: Structure): ResourceStructureState => {
-        const harvest: Item[] = (action.harvest?.[structure] ?? []).map(type => ({ type }))
-        return {
-          ...state[structure],
-          harvest
-        }
-      }
-
-      // Copies items from harvest into structure
-      return {
-        ...state,
-        garden: createHarvestItems('garden'),
-        lumberMill: createHarvestItems('lumberMill'),
-        mine: createHarvestItems('mine'),
-        quarry: createHarvestItems('quarry'),
-        tannery: createHarvestItems('tannery')
-      }
+      return tavernReducer(harvestReducer(state, action), action)
     }
   }
   return state
+}
+
+const harvestReducer: Reducer<StructuresStoreState, GameTickActionExt> = (state = initialStructuresState, action) => {
+  if ((action.harvest == null) || ((Object.keys(action.harvest)?.length) === 0)) {
+    return state
+  }
+  const createHarvestItems = (structure: Structure): ResourceStructureState => {
+    const harvest: Item[] = (action.harvest?.[structure] ?? []).map(type => ({ type }))
+    return {
+      ...state[structure],
+      harvest
+    }
+  }
+
+  // Copies items from harvest into structure
+  return {
+    ...state,
+    garden: createHarvestItems('garden'),
+    lumberMill: createHarvestItems('lumberMill'),
+    mine: createHarvestItems('mine'),
+    quarry: createHarvestItems('quarry'),
+    tannery: createHarvestItems('tannery')
+  }
+}
+
+const tavernReducer: Reducer<StructuresStoreState, GameTickActionExt> = (state = initialStructuresState, action) => {
+  if (action.tavern.nextAdventurersArrive == null) {
+    return state
+  }
+
+  let waiting = state.tavern.waiting
+  const adventurers = [...action.tavern.adventurers ?? []]
+
+  if (adventurers.length > 0) {
+    waiting = state.tavern.waiting.map((a, i) => {
+      if (a === null) {
+        const adventurer = adventurers.shift()
+        if (adventurer == null) {
+          return a
+        }
+        return adventurer.id
+      }
+      return a
+    })
+
+    if (adventurers.length > 0) {
+      waiting.push(...adventurers.map((a) => a.id))
+    }
+  }
+  return {
+    ...state,
+    tavern: {
+      ...state.tavern,
+      waiting,
+      nextAdventurersArrive: action.tavern.nextAdventurersArrive
+    }
+  }
 }

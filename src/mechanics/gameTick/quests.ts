@@ -31,6 +31,7 @@ type QuestGameTickResponse = {
   logUpdates: LogUpdate[]
 }
 
+// Updates on the entire quest line
 const getQuestUpdates = (delta: number, store: Store<StoreState>): QuestGameTickResponse => {
   const speed = 4 // in nodes per minute
   const timeMultiplier = getTimeMultiplier(TimeType.questProgress)

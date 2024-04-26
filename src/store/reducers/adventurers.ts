@@ -2,7 +2,7 @@ import { type AdventurerAction } from 'store/actions/adventurers'
 import { type Reducer } from 'redux'
 import { type AdventurerStoreState } from 'store/types/adventurer'
 import { MAX_XP, xpToLevel } from 'mechanics/adventurers/levels'
-import { type Action } from 'store/actions'
+import { type ReducerAction } from 'store/actions'
 import { getDefinition, isConsumable } from 'definitions/items/consumables'
 import { type Item } from 'definitions/items/types'
 import { getDefinition as getApparelDefinition, isApparel } from 'definitions/items/apparel'
@@ -12,7 +12,7 @@ import { decreaseDurability } from 'mechanics/combat'
 import { initialAdventurers } from 'mechanics/adventurers/generator'
 
 // eslint-disable-next-line @typescript-eslint/default-param-last
-export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (state: AdventurerStoreState[] = initialAdventurers, action: Action) => {
+export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (state: AdventurerStoreState[] = initialAdventurers, action: ReducerAction) => {
   switch (action.type) {
     // Changes adventurers health
     case 'modifyHealth': {
@@ -393,13 +393,16 @@ export const adventurers: Reducer<AdventurerStoreState[], AdventurerAction> = (s
         return adventurer
       })
     }
+
+    case 'gameTick': {
+      if (action.tavern.adventurers == null || action.tavern.adventurers.length === 0) {
+        return state
+      }
+      return [
+        ...state,
+        ...action.tavern.adventurers.filter((a) => a != null)
+      ]
+    }
   }
   return state
-  // debug: this will auto-increase the levels of every adventurer at every tick
-  // return state.map((adventurer: AdventurerStoreState) => {
-  //   return {
-  //     ...adventurer,
-  //     xp: adventurer.xp + 1
-  //   }
-  // })
 }

@@ -22,3 +22,6 @@ export const listEnum = <T extends Record<string, number | string>>(enumeration:
 export type DeepPartial<T> = T extends object ? {
   [P in keyof T]?: DeepPartial<T[P]>;
 } : T
+
+// Can use this to merge types that are discriminated by the property 'type'
+export type ReplaceInDiscriminatedUnion<TUnion, TMember extends { type: unknown }> = Exclude<TUnion, Pick<TMember, 'type'> > | TMember
