@@ -11,6 +11,8 @@ import { formatDuration } from 'utils/format/time'
 import * as TextManager from 'global/TextManager'
 import IconButton from 'components/ui/buttons/IconButton'
 import { type Structure } from 'definitions/structures'
+import Button from 'components/ui/buttons/Button'
+import { setStructureState } from 'store/actions/structures'
 
 const structure: Structure = 'lumberMill'
 const StepBuildALumberMill = (props: StepProps) => {
@@ -28,6 +30,10 @@ const StepBuildALumberMill = (props: StepProps) => {
 
   const handleReduceTime50 = () => {
     dispatch(reduceTime(50, 'task', `${structure}.build`))
+  }
+
+  const handleCheat = () => {
+    dispatch(setStructureState(structure, StructureState.Built))
   }
 
   if (showSuccess || structureState.state === StructureState.Built) {
@@ -54,9 +60,7 @@ const StepBuildALumberMill = (props: StepProps) => {
               label={TextManager.get('ui-structure-building', { time: formatDuration(buildTask.timeRemaining) })}
             />
             <IconButton iconImg="img/ui/misc/clock.png" size="smallest" onClick={handleReduceTime50}></IconButton>
-
           </div>
-
         </>}
         assignment="Wait for lumber mill to be built"
         onToggle={props.onToggle}
@@ -70,7 +74,9 @@ const StepBuildALumberMill = (props: StepProps) => {
           Aye, laddie, the first order o' business is tae get our stockpiles o' wood back in order. We'll need tae rebuild the lumber mill, nae doubt about it.
       </p>
       <p>
-        I reckon we still have the deed tucked away in our warehouse. Time tae dust it off and put it tae good use!        </p>
+        I reckon we still have the deed tucked away in our warehouse. Time tae dust it off and put it tae good use!
+        <Button color='red' onClick={handleCheat}>Cheat!</Button>
+      </p>
       </>}
       assignment="Construct a lumber mill using the Deed for a Lumber mill (found in the stockpile in the warehouse in town)"
       onToggle={props.onToggle}

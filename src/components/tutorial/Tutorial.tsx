@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import StepIntroduction from './steps/StepIntroduction'
 import { type StoreState } from 'store/types'
@@ -6,6 +6,7 @@ import usePrevious from 'hooks/usePrevious'
 import StepBuildATavern from './steps/StepBuildATavern'
 import StepBuildALumberMill from './steps/StepBuildALumberMill'
 import StepAssignWorkersToLumberMill from './steps/StepAssignWorkersToLumberMill'
+import StepLodge5Adventurers from './steps/StepLodge5Adventurers'
 import { SoundManager } from 'global/SoundManager'
 import localforage from 'localforage'
 import { STORAGE_KEY_TUTORIAL_COLLAPSED } from 'constants/storage'
@@ -17,7 +18,8 @@ const stepComponents = [
   StepIntroduction,
   StepBuildALumberMill,
   StepAssignWorkersToLumberMill,
-  StepBuildATavern
+  StepBuildATavern,
+  StepLodge5Adventurers
 ]
 
 const Tutorial = () => {
@@ -26,10 +28,10 @@ const Tutorial = () => {
   const [dismissed, setDismissed] = useState(false)
   const previousStep = usePrevious(tutorial)
 
-  const handleToggle = () => {
+  const handleToggle = useCallback(() => {
     setCollapsed((o) => !o)
     void localforage.setItem(STORAGE_KEY_TUTORIAL_COLLAPSED, !collapsed)
-  }
+  }, [collapsed])
 
   useEffect(() => {
     const update = async () => {
@@ -61,7 +63,7 @@ const Tutorial = () => {
       return null
     }
     return <Component {...props} />
-  }, [dismissed, previousStep, tutorial])
+  }, [dismissed, handleToggle, previousStep, tutorial])
 
   return (
     <div className={`tutorial ${collapsed ? 'collapsed' : ''}`}>

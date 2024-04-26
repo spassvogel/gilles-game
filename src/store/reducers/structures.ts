@@ -36,12 +36,12 @@ const tavernInitialState = {
   lodging: [
     `${ADVENTURER_PREFIX}c4a5d270`,
     `${ADVENTURER_PREFIX}2e655832`,
-    `${ADVENTURER_PREFIX}ec6f1050`,
-    `${ADVENTURER_PREFIX}d299f98a`,
-    `${ADVENTURER_PREFIX}96c686c3`,
-    null,
-    `${ADVENTURER_PREFIX}250d1a9d`,
-    `${ADVENTURER_PREFIX}169384ef`
+    `${ADVENTURER_PREFIX}ec6f1050`
+    // `${ADVENTURER_PREFIX}d299f98a`,
+    // `${ADVENTURER_PREFIX}96c686c3`,
+    // null
+    // `${ADVENTURER_PREFIX}250d1a9d`,
+    // `${ADVENTURER_PREFIX}169384ef`
     // `${ADVENTURER_PREFIX}f22d66cb`,
   ],
   waiting: [

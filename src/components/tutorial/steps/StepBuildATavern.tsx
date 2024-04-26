@@ -11,6 +11,8 @@ import { TickingProgressbar } from 'components/ui/common/progress'
 import * as TextManager from 'global/TextManager'
 import { formatDuration } from 'utils/format/time'
 import IconButton from 'components/ui/buttons/IconButton'
+import Button from 'components/ui/buttons/Button'
+import { setStructureState } from 'store/actions/structures'
 
 const structure: Structure = 'tavern'
 const StepBuildATavern = (props: StepProps) => {
@@ -28,6 +30,10 @@ const StepBuildATavern = (props: StepProps) => {
 
   const handleReduceTime50 = () => {
     dispatch(reduceTime(50, 'task', `${structure}.build`))
+  }
+
+  const handleCheat = () => {
+    dispatch(setStructureState(structure, StructureState.Built))
   }
 
   if (showSuccess) {
@@ -71,6 +77,7 @@ const StepBuildATavern = (props: StepProps) => {
         </p>
         <p>
           Aye, once the lads at the mill have toiled enough and stacked up a bonnie pile o' wood, it'll be time to dust off that deed and restore the old place to its former glory.
+          <Button color='red' onClick={handleCheat}>Cheat!</Button>
         </p>
       </>}
       assignment="Construct a tavern using the Deed for a Tavern"

@@ -5,6 +5,8 @@ import { nextTutorialStep } from 'store/actions/game'
 import { useDispatch } from 'react-redux'
 import { type Structure } from 'definitions/structures'
 import { useWorkersAtStructureState } from 'hooks/store/workers'
+import Button from 'components/ui/buttons/Button'
+import { increaseWorkers } from 'store/actions/structures'
 
 const structure: Structure = 'lumberMill'
 const StepAssignWorkersToLumberMill = (props: StepProps) => {
@@ -28,6 +30,10 @@ const StepAssignWorkersToLumberMill = (props: StepProps) => {
     )
   }
 
+  const handleCheat = () => {
+    dispatch(increaseWorkers(structure, 2))
+  }
+
   return (
     <StepTemplate
       flavor={<>
@@ -36,6 +42,7 @@ const StepAssignWorkersToLumberMill = (props: StepProps) => {
         </p>
         <p>
           It's about time we put our shoulders tae the wheel and made things happen!
+          <Button color='red' onClick={handleCheat}>Cheat!</Button>
         </p>
       </>}
       assignment="Assign 2 workers to work at the lumber mill"
