@@ -83,7 +83,7 @@ export const initialAdventurers: AdventurerStoreState[] = [{
   // name: generateRandomName(Race.elf, true),
   flavor: true,
   traits: [Trait.houseMaddox, Trait.gloomy],
-  avatarImg: 'human/female/f_14.png',
+  avatarImg: 'human/female/f_17.png',
   spritesheet: 'ELF_BOW',
   color: AdventurerColor.purple,
   race: Race.elf,
