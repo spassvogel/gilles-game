@@ -1,6 +1,6 @@
 import { Gender } from 'constants/gender'
 import { Race } from 'constants/race'
-import { randomInt, randomItem } from 'utils/random'
+import { randomItem } from 'utils/random'
 
 export type LoreTexts = {
   characters: CharacterLoreTexts

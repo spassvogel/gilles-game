@@ -14,7 +14,7 @@ export type TavernGameTickUpdate = {
   adventurers?: AdventurerStoreState[]
 }
 
-const ADVENTURER_ARRIVAL_INTERVAL = ONE_HOUR * 3
+export const ADVENTURER_ARRIVAL_INTERVAL = ONE_HOUR * 3
 const LEVEL = 1 // level to generate. todo: make dynamic based on player progress
 
 // Game tick logic for the tavern. Periodically it spawns new adventurers, that will end up in the waiting area
@@ -37,6 +37,7 @@ const getTavernUpdates = (store: StoreState): TavernGameTickUpdate => {
   if (nextAdventurersArrive === 0 || Date.now() > nextAdventurersArrive) {
     // we're on a new cycle
     result.nextAdventurersArrive = Date.now() + ADVENTURER_ARRIVAL_INTERVAL
+    console.log(new Date(result.nextAdventurersArrive), result.nextAdventurersArrive)
 
     // check how much empty spaces we have
     const amount = slots - structures.tavern.waiting.filter((a => a != null)).length

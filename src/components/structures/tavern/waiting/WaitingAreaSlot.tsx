@@ -7,6 +7,7 @@ import { SoundManager } from 'global/SoundManager'
 import { type AdventurerStoreState } from 'store/types/adventurer'
 import * as TextManager from 'global/TextManager'
 import { addLogText } from 'store/actions/log'
+import SlotContentEmpty from './SlotContentEmpty'
 
 type Props = {
   slot: number
@@ -44,8 +45,10 @@ const WaitingAreaSlot = (props: Props) => {
       </div>
     )
   }
+
   return (
     <div className="slot">
+      <SlotContentEmpty />
     </div>
   )
 }

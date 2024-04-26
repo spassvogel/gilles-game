@@ -22,7 +22,7 @@ const SlotContentAdventurer = (props: Props) => {
   const canLodge = getFreeRoom(tavern) !== -1
 
   return (
-    <div className="content with-adventurer">
+    <div className="slot-content with-adventurer">
       <div className="advenventurer">
         <AdventurerAvatar
           adventurer={adventurer}

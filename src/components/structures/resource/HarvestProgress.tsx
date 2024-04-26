@@ -1,5 +1,5 @@
 import { TickingProgressbar } from 'components/ui/common/progress'
-import { Direction } from 'components/ui/common/progress/TickingProgressbar'
+import { Direction } from 'components/ui/common/progress/PlainProgressbar'
 import { type Structure } from 'definitions/structures'
 import * as TextManager from 'global/TextManager'
 import { useEngine } from 'hooks/store/engine'

@@ -1,12 +1,7 @@
 import { useDelta } from 'hooks/store/engine'
 import { useEffect, useState } from 'react'
-import PlainProgressbar from './PlainProgressbar'
+import PlainProgressbar, { Direction } from './PlainProgressbar'
 import usePrevious from 'hooks/usePrevious'
-
-export enum Direction {
-  increasing,
-  decreasing,
-}
 
 export type Props = {
   progress: number // between 0 and 1

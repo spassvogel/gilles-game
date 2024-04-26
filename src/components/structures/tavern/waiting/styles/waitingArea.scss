@@ -11,7 +11,7 @@
     background-color: $color-background-lighter;
     padding: 0.25rem;
 
-    .content {
+    .slot-content {
       &.with-adventurer {
         display: grid;
         gap: 0.25rem;
@@ -53,6 +53,17 @@
         }
         .button-accept {
           grid-column: 2 / 3;
+        }
+      }
+
+      &.empty {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        height: 100%;
+
+        .progressbar {
+          margin-bottom: 0;
         }
       }
     }
