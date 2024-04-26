@@ -85,6 +85,8 @@ const TavernStructureView = () => {
     const leader = assignedAventurers[0]
     ToastEmitter.addToast(questTitle, Type.questLaunched, `${AVATAR_IMAGE_BASE_PATH}${leader?.avatarImg}`, getQuestLink(selectedQuest))
     onLaunchQuest(selectedQuest)
+
+    setSelectedQuest(undefined)
   }
 
   const handleHelpClicked = (event: React.MouseEvent) => {

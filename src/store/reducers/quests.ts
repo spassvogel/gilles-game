@@ -22,12 +22,12 @@ const overwriteMerge = (_: [], sourceArray: []) => sourceArray
 
 export const initialQuestState: QuestStoreState[] = [{
   name: 'kill10Boars',
-  status: QuestStatus.active,
+  status: QuestStatus.available,
   party: [
-    'adv_c4a5d270',
-    'adv_2e655832',
-    'adv_ec6f1050',
-    'adv_d299f98a'
+    // 'adv_c4a5d270',
+    // 'adv_2e655832',
+    // 'adv_ec6f1050',
+    // 'adv_d299f98a'
   ],
   progress: 0,
   questVars: initialQuestVars,
