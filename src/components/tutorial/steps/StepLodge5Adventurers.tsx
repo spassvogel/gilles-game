@@ -6,6 +6,8 @@ import StepTemplateSuccess from '../templates/StepTemplateSuccess'
 import { nextTutorialStep } from 'store/actions/game'
 import { type TavernStructureState } from 'store/types/structure'
 import { type Structure } from 'definitions/structures'
+import { lodgeWaitingAdventurer } from 'store/actions/structures'
+import Button from 'components/ui/buttons/Button'
 
 const structure: Structure = 'tavern'
 const target = 5
@@ -15,6 +17,13 @@ const StepLodge5Adventurers = (props: StepProps) => {
 
   const structureState = useStructureState<TavernStructureState>(structure)
   const amount = structureState.lodging.filter((a) => a != null).length
+
+  const handleCheat = () => {
+    dispatch(lodgeWaitingAdventurer(0))
+    dispatch(lodgeWaitingAdventurer(1))
+    dispatch(lodgeWaitingAdventurer(2))
+  }
+
   useEffect(() => {
     if (amount >= target) {
       dispatch(nextTutorialStep())
@@ -37,6 +46,7 @@ const StepLodge5Adventurers = (props: StepProps) => {
           [Lodge 5 adventurers in the tavern ({amount}/{target})]
         </p>
         <p>
+          <Button color='red' onClick={handleCheat}>Cheat!</Button>
         </p>
       </>}
       assignment="Lodge 5 adventurers in the tavern"

@@ -34,18 +34,19 @@ export const initialQuestState: QuestStoreState[] = [{
   encounterResults: [],
   icon: 'sigil1.png',
   objectsPrev: {}
-// }, {
-//   name: "retrieveMagicAmulet",
-//   party: [],
-//   status: QuestStatus.available,
-//   progress: 0,
-//   questVars: {},
-//   encounterResults: [],
-//   icon: "sigil2.png",
-//   reward: {
-//     gold: 4,
-//     items: [ Item.deedForWeaponsmith ],
-//   },
+}, {
+  name: 'retrieveMagicAmulet',
+  party: [],
+  status: QuestStatus.available,
+  progress: 0,
+  questVars: {},
+  encounterResults: [],
+  icon: 'sigil2.png',
+  reward: {
+    gold: 4,
+    items: []
+  },
+  objectsPrev: {}
 }]
 
 /**
