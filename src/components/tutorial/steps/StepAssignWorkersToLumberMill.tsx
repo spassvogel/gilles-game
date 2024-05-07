@@ -42,7 +42,7 @@ const StepAssignWorkersToLumberMill = (props: StepProps) => {
         </p>
         <p>
           It's about time we put our shoulders tae the wheel and made things happen!
-          <Button color='red' onClick={handleCheat}>Cheat!</Button>
+          <Button color='red' onClick={handleCheat} className="button-cheat">Cheat!</Button>
         </p>
       </>}
       assignment="Assign 2 workers to work at the lumber mill"

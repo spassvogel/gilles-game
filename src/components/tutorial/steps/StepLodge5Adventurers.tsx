@@ -46,7 +46,7 @@ const StepLodge5Adventurers = (props: StepProps) => {
           [Lodge 5 adventurers in the tavern ({amount}/{target})]
         </p>
         <p>
-          <Button color='red' onClick={handleCheat}>Cheat!</Button>
+          <Button color='red' onClick={handleCheat} className="button-cheat">Cheat!</Button>
         </p>
       </>}
       assignment="Lodge 5 adventurers in the tavern"

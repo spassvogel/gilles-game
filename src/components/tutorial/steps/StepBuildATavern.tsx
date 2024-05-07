@@ -77,7 +77,7 @@ const StepBuildATavern = (props: StepProps) => {
         </p>
         <p>
           Aye, once the lads at the mill have toiled enough and stacked up a bonnie pile o' wood, it'll be time to dust off that deed and restore the old place to its former glory.
-          <Button color='red' onClick={handleCheat}>Cheat!</Button>
+          <Button color='red' onClick={handleCheat} className="button-cheat">Cheat!</Button>
         </p>
       </>}
       assignment="Construct a tavern using the Deed for a Tavern"
