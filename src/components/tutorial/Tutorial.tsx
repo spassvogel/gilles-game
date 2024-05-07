@@ -10,6 +10,7 @@ import StepLodge5Adventurers from './steps/StepLodge5Adventurers'
 import { SoundManager } from 'global/SoundManager'
 import localforage from 'localforage'
 import { STORAGE_KEY_TUTORIAL_COLLAPSED } from 'constants/storage'
+import StepLaunchQuest from './steps/StepLaunchQuest'
 
 import './styles/tutorial.scss'
 
@@ -19,7 +20,8 @@ const stepComponents = [
   StepBuildALumberMill,
   StepAssignWorkersToLumberMill,
   StepBuildATavern,
-  StepLodge5Adventurers
+  StepLodge5Adventurers,
+  StepLaunchQuest
 ]
 
 const Tutorial = () => {
