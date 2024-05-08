@@ -4,9 +4,9 @@ import * as TextManager from 'global/TextManager'
 import { useEffect, useMemo, useState } from 'react'
 import usePrevious from 'hooks/usePrevious'
 import { useAdventurer } from 'hooks/store/adventurers'
-// import { SoundManager } from 'global/SoundManager'
-import './styles/level.scss'
 import { SoundManager } from 'global/SoundManager'
+
+import './styles/level.scss'
 
 export type Props = {
   adventurerId: string
@@ -14,7 +14,7 @@ export type Props = {
 
 const Level = (props: Props) => {
   const { adventurerId } = props
-  const { xp } = useAdventurer(adventurerId)
+  const { xp, race } = useAdventurer(adventurerId)
   const currentLevel = xpToLevel(xp)
   const currentLevelXp = levelToXp(currentLevel) // start
   const nextLevel = currentLevel + 1
@@ -59,7 +59,12 @@ const Level = (props: Props) => {
   return (
     <div className="level">
       <div className="text">
-        {TextManager.get('ui-adventurer-info-level', { level: currentLevel })}
+        <div className="race">
+          {TextManager.getRace(race)}
+        </div>
+        <div className="current-level">
+          {TextManager.get('ui-adventurer-info-level', { level: currentLevel })}
+        </div>
       </div>
       <PlainProgressbar
         progress={progress}

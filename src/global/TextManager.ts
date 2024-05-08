@@ -19,6 +19,7 @@ import { Rarity } from 'constants/items'
 import { WeaponClassification, WeaponType } from 'definitions/weaponTypes/types'
 import { WeaponAbility } from 'definitions/abilities/types'
 import { Gender } from 'constants/gender'
+import { Race } from 'constants/race'
 
 let initialized = false
 let texts: Record<string, string>
@@ -173,6 +174,10 @@ export const getTraitEffect = (trait: Trait) => {
 
 export const getToastType = (type: Type) => {
   return get(`ui-toast-type-${toKebab(Type[type])}`)
+}
+
+export const getRace = (race: Race) => {
+  return get(`common-race-${Race[race]}`)
 }
 
 export const getWeaponType = (type: WeaponType) => {

@@ -2,7 +2,15 @@
 
 .level {
   .text {
-    text-align: right;
-    color: $color-secondary;
+    display: flex;
+    justify-content: space-between;
+
+    .race {
+      text-transform: capitalize;
+    }
+
+    .current-level {
+      color: $color-secondary;
+    }
   }
 }

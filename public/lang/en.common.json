@@ -52,6 +52,8 @@
   "common-cheat-resources-added": "Added {{amount}} of each resource.",
   "common-cheat-workers-added": "Added {{amount}} workers.",
 
+  "common-item-crafted": "You have crafted {{item:name item \"aA\"}}",
+
   "common-pronoun-reflexive-female": "herself",
   "common-pronoun-reflexive-male": "himself",
   "common-pronoun-personal-female": "she",
@@ -59,8 +61,14 @@
   "common-pronoun-possesive-female": "her",
   "common-pronoun-possesive-male": "his",
 
-  "common-item-crafted": "You have crafted {{item:name item \"aA\"}}",
+  "common-race-elf": "elf",
+  "common-race-human": "human",
+  "common-race-orc": "orc",
+  "common-race-troll": "troll",
+  "common-race-undead": "undead",
+
   "common-structure-built": "You have built {{structure:name structure \"aA\"}}",
+
   "common-time-d": "d",
   "common-time-day-plural": " days",
   "common-time-day": " day",
