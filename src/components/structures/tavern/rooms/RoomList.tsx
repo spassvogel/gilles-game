@@ -49,7 +49,7 @@ const RoomList = (props: Props) => {
 
   const roomContent: JSX.Element[] = []
   for (let i = 0; i < roomCount; i++) {
-    const adventurer = adventurers.find((a) => a.id === lodging[i])
+    const adventurer = adventurers.find((a) => a.id === lodging[i]?.adventurer)
 
     if (adventurer == null) {
       roomContent.push((

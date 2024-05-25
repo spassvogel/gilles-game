@@ -954,8 +954,9 @@ Objects now inherit a lot of stuff from tiled and have a lot of unused propertie
 - [x] cant scroll structure (only devtools apparently)
 - [x] systeem bedenken en implementeren waar adventurers zich aandienen in de town
   - [x] Start with 2 slots
-  - [ ] Ontvang 3 gratis adventurers als de Tavern gebouwd is
-  - [ ] Adventurers join every 24 hours (can use temporal accelerator)
+  - [x] Ontvang 3 gratis adventurers als de Tavern gebouwd is
+  - [x] Adventurers join every 24 hours 
+    - [ ] (can use temporal accelerator)
 - [ ] rooms in Tavern have a gold cost
   - [ ] higher level Tavern is more expensive
   - [ ] cost is per day. But paying is a manual action.

@@ -8,7 +8,7 @@ import { Type } from 'components/ui/toasts/Toast'
 import { getQuestLink } from 'utils/routing'
 import RoomList from './rooms/RoomList'
 import { useEffect, useState } from 'react'
-import QuestBoard from './quests/QuestBoard'
+import QuestBoard, { AVAILABLE_SLOTS } from './quests/QuestBoard'
 import { useStructureDefinition, useStructureState } from 'hooks/store/structures'
 import { useSelector, useDispatch } from 'react-redux'
 import { type StoreState } from 'store/types'
@@ -59,13 +59,21 @@ const TavernStructureView = () => {
     }
 
     // Unassign all adventurers
-    setAassignedAdventurers([])
+    // setAassignedAdventurers([])
   }
+  console.log(`assignedAventurers`, assignedAventurers)
 
   const handleAddAdventurer = (adventurer: AdventurerStoreState, index: number): void => {
     const copy = [...assignedAventurers]
     copy[index] = adventurer
     setAassignedAdventurers(copy)
+    // const copy = Array(AVAILABLE_SLOTS).fill(null).map((_a, i) => {
+    //   if (i === index) {
+    //     return adventurer
+    //   }
+    //   return assignedAventurers[i]
+    // })
+    // setAassignedAdventurers(copy)
   }
 
   const handleAdventurerDropped = (item: AdventurerAvatarDragInfo, index: number) => {
@@ -76,6 +84,7 @@ const TavernStructureView = () => {
 
   const handleRemoveAdventurer = (adventurer: AdventurerStoreState) => {
     setAassignedAdventurers(assignedAventurers.filter(a => (a !== adventurer)))
+    console.log(assignedAventurers.filter(a => (a !== adventurer)))
   }
 
   const handleLaunchQuest = () => {

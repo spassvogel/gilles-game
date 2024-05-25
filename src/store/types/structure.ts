@@ -25,8 +25,13 @@ export type ResourceStructureState = {
   harvest?: Item[] // Items currently available for harvest at this structure
 } & StructureStoreState
 
+export type TavernLodging = {
+  adventurer: string
+  paidUntil: number
+}
+
 export type TavernStructureState = {
-  lodging: Array<string | null> // contains adventurer ids
+  lodging: Array<TavernLodging | null>
   waiting: Array<string | null> // contains adventurer ids
   nextAdventurersArrive: number
 } & StructureStoreState

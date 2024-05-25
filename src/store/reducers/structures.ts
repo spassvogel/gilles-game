@@ -1,10 +1,12 @@
 import { type Reducer } from 'redux'
 import { isProductionStructure, isResourceStructure, type Structure } from 'definitions/structures'
 import {
-  type ProductionStructureStoreState,
   StructureState,
+  type ProductionStructureStoreState,
   type StructureStoreState,
-  type ResourceStructureState
+  type ResourceStructureState,
+  type TavernStructureState,
+  type TavernLodging
 } from 'store/types/structure'
 import { type StructuresStoreState } from 'store/types/structures'
 import { type StructuresAction } from 'store/actions/structures'
@@ -12,6 +14,7 @@ import { type Item } from 'definitions/items/types'
 import { type GameTickActionExt } from 'store/middleware/gameTick'
 import { ADVENTURER_PREFIX } from 'mechanics/adventurers/generator'
 import { getFreeRoom } from 'store/helpers/storeHelpers'
+import { ONE_DAY } from 'utils/format/time'
 
 const updateStructureState = (state: StructuresStoreState, structure: Structure, structureState: StructureState) => {
   const structureStore: StructureStoreState = {
@@ -30,20 +33,25 @@ const structureInitialState: StructureStoreState = {
   workers: 0
 }
 
-const tavernInitialState = {
+const tavernInitialState: TavernStructureState = {
   level: 0,
   workers: 0,
-  lodging: [
-    `${ADVENTURER_PREFIX}c4a5d270`,
-    `${ADVENTURER_PREFIX}2e655832`,
-    `${ADVENTURER_PREFIX}ec6f1050`
-    // `${ADVENTURER_PREFIX}d299f98a`,
-    // `${ADVENTURER_PREFIX}96c686c3`,
-    // null
-    // `${ADVENTURER_PREFIX}250d1a9d`,
-    // `${ADVENTURER_PREFIX}169384ef`
-    // `${ADVENTURER_PREFIX}f22d66cb`,
-  ],
+  lodging: [{
+    adventurer: `${ADVENTURER_PREFIX}c4a5d270`,
+    paidUntil: Date.now()
+  }, {
+    adventurer: `${ADVENTURER_PREFIX}2e655832`,
+    paidUntil: Date.now()
+  }, {
+    adventurer: `${ADVENTURER_PREFIX}ec6f1050`,
+    paidUntil: Date.now()
+  }],
+  // `${ADVENTURER_PREFIX}d299f98a`,
+  // `${ADVENTURER_PREFIX}96c686c3`,
+  // null
+  // `${ADVENTURER_PREFIX}250d1a9d`,
+  // `${ADVENTURER_PREFIX}169384ef`
+  // `${ADVENTURER_PREFIX}f22d66cb`,
   waiting: [
     // `${ADVENTURER_PREFIX}f22d66cb`,
     // `${ADVENTURER_PREFIX}250d1a9d`,
@@ -174,14 +182,20 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameTi
         return state
       }
 
-      const lodging = tavern.lodging.map((a, i) => {
+      const lodging: Array<TavernLodging | null> = tavern.lodging.map((a, i) => {
         if (i === room) {
-          return adventurerId
+          return {
+            adventurer: adventurerId,
+            paidUntil: Date.now() + ONE_DAY
+          }
         }
         return a
       })
       if (room >= lodging.length) {
-        lodging.push(adventurerId)
+        lodging.push({
+          adventurer: adventurerId,
+          paidUntil: Date.now() + ONE_DAY
+        })
       }
 
       return {
