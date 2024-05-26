@@ -8,7 +8,8 @@ import { getFreeRoom } from 'store/helpers/storeHelpers'
 import { type AdventurerStoreState } from 'store/types/adventurer'
 import { type TavernStructureState } from 'store/types/structure'
 import * as TextManager from 'global/TextManager'
-import { defineAssetPath } from 'utils/assets'
+import GoldAmount from 'components/ui/gold'
+import { LODGE_COST } from 'mechanics/tavern'
 
 type Props = {
   adventurerId: string
@@ -43,8 +44,12 @@ const SlotContentAdventurer = (props: Props) => {
         disabled={!canLodge}
         onClick={() => { onLodge(adventurer) }}
       >
-        {TextManager.get('ui-structure-tavern-lodge')}
-        <img src={defineAssetPath('img/ui/misc/coin-single.png')} />
+        <div className="wrapper">
+          <div>
+            {TextManager.get('ui-structure-tavern-lodge')}
+          </div>
+          <GoldAmount amount={LODGE_COST} />
+        </div>
       </Button>
       <Button
         className="button-dismiss"

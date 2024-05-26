@@ -53,6 +53,15 @@
         }
         .button-accept {
           grid-column: 2 / 3;
+
+          .wrapper {
+            display: flex;
+            gap: 0.5rem;
+
+            .gold-amount {
+              align-items: center;
+            }
+          }
         }
       }
 
