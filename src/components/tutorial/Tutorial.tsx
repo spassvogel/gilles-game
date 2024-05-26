@@ -61,7 +61,7 @@ const Tutorial = () => {
     }
     const stepIndex = (dismissed || previousStep == null ? tutorial : (previousStep ?? tutorial))
     const Component = stepComponents[stepIndex]
-    if (Component == null) {
+    if (Component == null || tutorial === -1) {
       return null
     }
     return <Component {...props} />
