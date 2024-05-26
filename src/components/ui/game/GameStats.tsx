@@ -7,7 +7,7 @@ import { groupAdventurersByQuest } from 'store/selectors/adventurers'
 import { type StoreState } from 'store/types'
 import { QuestStatus } from 'store/types/quest'
 import { StructureState } from 'store/types/structure'
-import { formatDateTime, formatDuration } from 'utils/format/time'
+import { formatTime, formatDuration } from 'utils/format/time'
 import { asInt, convertIntToSemVer } from 'utils/version'
 
 import './styles/gameStats.scss'
@@ -47,7 +47,7 @@ const GameStats = (props: Props) => {
             { loadGameMode === true && (
               <>
                 <dt>Time saved</dt>
-                <dd>{formatDateTime(state.engine.lastTick)}</dd>
+                <dd>{formatTime(state.engine.lastTick)}</dd>
               </>
             )}
             <dt>Version</dt>

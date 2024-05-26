@@ -89,6 +89,25 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameTi
     }
 
     case 'finishBuildingStructure': {
+      if (action.structure === 'tavern') {
+        // When we've just constructed the tavern, all lodged adventurers get a free day
+        return {
+          ...state,
+          tavern: {
+            ...state.tavern,
+            state: StructureState.Built,
+            lodging: state.tavern.lodging.map((room) => {
+              if (room == null) {
+                return null
+              }
+              return {
+                ...room,
+                paidUntil: Date.now() + ONE_DAY
+              }
+            })
+          }
+        }
+      }
       return updateStructureState(state, action.structure, StructureState.Built)
     }
 

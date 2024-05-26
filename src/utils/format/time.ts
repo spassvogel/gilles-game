@@ -41,6 +41,10 @@ export const formatDuration = (ms: number, short = false): string => {
   return output.join(' ')
 }
 
-export const formatDateTime = (ms: number): string => {
+export const formatTime = (ms: number): string => {
   return new Date(ms).toLocaleTimeString()
+}
+
+export const formatDateTime = (ms: number): string => {
+  return new Date(ms).toLocaleDateString()
 }
