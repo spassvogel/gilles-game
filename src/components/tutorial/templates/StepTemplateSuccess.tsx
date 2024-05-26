@@ -13,20 +13,20 @@ const StepTemplateSuccess = (props: Props) => {
   const { flavor, flavorText, onDismissSuccess, onToggle } = props
 
   return (
-      <StepTemplate
-        flavor={flavor ?? <>
-          <p>
-            {flavorText}
-          </p>
-          <div className="tutorial-buttons">
-            <Button color="green" onClick={onDismissSuccess}>
-              Continue
-            </Button>
-          </div>
-        </>}
-        assignment="Continue your quest"
-        onToggle={onToggle}
-      />
+    <StepTemplate
+      flavor={flavor ?? <>
+        <p>
+          {flavorText}
+        </p>
+        <div className="tutorial-buttons">
+          <Button color="green" onClick={onDismissSuccess}>
+            Continue
+          </Button>
+        </div>
+      </>}
+      assignment="Continue your quest"
+      onToggle={onToggle}
+    />
   )
 }
 

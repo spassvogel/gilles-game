@@ -18,8 +18,13 @@ export const gold: Reducer<number, GoldAction | StructuresAction> = (state = ini
       // Adds (or subtract, if negative) gold from the players gold supply
       return state + action.amount
     }
+
     case 'lodgeWaitingAdventurer': {
       return state - LODGE_COST
+    }
+
+    case 'extendAdventurerLodging': {
+      return state - LODGE_COST * action.days
     }
   }
   return state

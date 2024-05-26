@@ -33,16 +33,16 @@ const NumberDial = (props: Props) => {
   }
   return (
     <div className="number-dial">
-        <label> { props.label }</label>
-        { displayValue }
-        <i
-          className={`arrow up ${(props.upDisabled === true ? ' disabled' : '')}`}
-          onClick={handleUp}
-        />
-        <i
-          className={`arrow down ${(props.downDisabled === true ? ' disabled' : '')}`}
-          onClick={handleDown}
-        />
+      <label> { props.label }</label>
+      { displayValue }
+      <i
+        className={`arrow up ${(props.upDisabled === true ? ' disabled' : '')}`}
+        onClick={handleUp}
+      />
+      <i
+        className={`arrow down ${(props.downDisabled === true ? ' disabled' : '')}`}
+        onClick={handleDown}
+      />
     </div>
   )
 }

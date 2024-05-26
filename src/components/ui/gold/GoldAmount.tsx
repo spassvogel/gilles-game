@@ -3,12 +3,18 @@ import Icon from '../common/Icon'
 
 type Props = {
   amount: number
+  disabled?: boolean
 }
 
 const GoldAmount = (props: Props) => {
-  const { amount } = props
+  const { amount, disabled } = props
+  const className = [
+    'gold-amount',
+    ...(disabled === true ? ['disabled'] : [])
+  ].join(' ')
+
   return (
-    <div className='gold-amount'>
+    <div className={className}>
       <div>(</div>
       <Icon
         size="smallest"

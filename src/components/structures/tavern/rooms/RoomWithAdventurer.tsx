@@ -4,14 +4,14 @@ import AdventurerButton from './AdventurerButton'
 import * as TextManager from 'global/TextManager'
 import DraggableAdventurerAvatar from 'components/ui/adventurer/DraggableAdventurerAvatar'
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel'
-import { renameAdventurer } from 'store/actions/adventurers'
-import { useDispatch } from 'react-redux'
-import { type TavernLodging as TavernRoomLodging } from 'store/types/structure'
+import { type TavernRoomLodging } from 'store/types/structure'
 import { useAdventurer } from 'hooks/store/adventurers'
 import { useActiveQuests } from 'hooks/store/quests'
 import { formatDateTime } from 'utils/format/time'
+import ExtendLodgingButton from './ExtendLodgingButton'
 
 import './styles/tavernAdventurerDetails.scss'
+import './styles/roomWithAdventurer.scss'
 
 export type Props = {
   assignedAventurers: AdventurerStoreState[]
@@ -43,20 +43,19 @@ const RoomWithAdventurer = (props: Props) => {
     })
   }
 
-
-  const dispatch = useDispatch()
   const adventurer = useAdventurer(roomLodging.adventurer)
   const assigned = assignedAventurers.includes(adventurer) // assigned to a quest in the QuestBoard
   const onQuest = getQuestByAdventurer(adventurer.id) != null
 
   // todo: enable this somewhere else at some point
-  const handleRename = (e: React.MouseEvent<HTMLSpanElement>) => {
-    e.stopPropagation()
-    const name = prompt('Enter new name', adventurer.name)
-    if (name !== null && name !== adventurer.name) {
-      dispatch(renameAdventurer(adventurer.id, name))
-    }
-  }
+  // const dispatch = useDispatch()
+  // const handleRename = (e: React.MouseEvent<HTMLSpanElement>) => {
+  //   e.stopPropagation()
+  //   const name = prompt('Enter new name', adventurer.name)
+  //   if (name !== null && name !== adventurer.name) {
+  //     dispatch(renameAdventurer(adventurer.id, name))
+  //   }
+  // }
 
   return (
     <>
@@ -71,12 +70,15 @@ const RoomWithAdventurer = (props: Props) => {
           sourceId={SOURCE_ID}
           key={`avatar:${adventurer.id}`}
         />
-        <div>
+        <div className="room-content">
           <section>
             {adventurer.name}
           </section>
           <section className="lodged-until">
-            {formatDateTime(roomLodging.paidUntil)}
+            <div className="date">
+              {formatDateTime(roomLodging.paidUntil)}
+            </div>
+            <ExtendLodgingButton roomLodging={roomLodging} />
           </section>
           <section className="on-a-quest">
            {(onQuest) && TextManager.get('ui-structure-tavern-on-a-quest') }
@@ -103,4 +105,3 @@ const RoomWithAdventurer = (props: Props) => {
 }
 
 export default RoomWithAdventurer
-

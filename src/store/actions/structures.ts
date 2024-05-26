@@ -12,6 +12,7 @@ export type StructuresAction =
   | { type: 'removeItemFromHarvest', structure: Structure, index: number }
   | { type: 'dismissWaitingAdventurer', slot: number }
   | { type: 'lodgeWaitingAdventurer', slot: number }
+  | { type: 'extendAdventurerLodging', adventurer: string, days: number }
 
 export const startBuildingStructure = (structure: Structure): StructuresAction => ({
   type: 'startBuildingStructure',
@@ -72,4 +73,11 @@ export const dismissWaitingAdventurer = (slot: number): StructuresAction => ({
 export const lodgeWaitingAdventurer = (slot: number): StructuresAction => ({
   type: 'lodgeWaitingAdventurer',
   slot
+})
+
+// Extends the adventurers' lodging by @param days
+export const extendAdventurerLodging = (adventurer: string, days: number) => ({
+  type: 'extendAdventurerLodging',
+  adventurer,
+  days
 })

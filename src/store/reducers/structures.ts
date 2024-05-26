@@ -6,7 +6,7 @@ import {
   type StructureStoreState,
   type ResourceStructureState,
   type TavernStructureState,
-  type TavernLodging
+  type TavernRoomLodging
 } from 'store/types/structure'
 import { type StructuresStoreState } from 'store/types/structures'
 import { type StructuresAction } from 'store/actions/structures'
@@ -201,7 +201,7 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameTi
         return state
       }
 
-      const lodging: Array<TavernLodging | null> = tavern.lodging.map((a, i) => {
+      const lodging: Array<TavernRoomLodging | null> = tavern.lodging.map((a, i) => {
         if (i === room) {
           return {
             adventurer: adventurerId,
@@ -228,6 +228,24 @@ export const structures: Reducer<StructuresStoreState, StructuresAction | GameTi
             return a
           }),
           lodging
+        }
+      }
+    }
+
+    case 'extendAdventurerLodging': {
+      return {
+        ...state,
+        tavern: {
+          ...state.tavern,
+          lodging: state.tavern.lodging.map((rL) => {
+            if (rL?.adventurer === action.adventurer) {
+              return {
+                ...rL,
+                paidUntil: rL.paidUntil + action.days * ONE_DAY
+              }
+            }
+            return rL
+          })
         }
       }
     }

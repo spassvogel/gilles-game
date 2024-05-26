@@ -1,4 +1,11 @@
 .gold-amount {
   display: inline-flex;
   gap: 0.15rem;
+
+  &.disabled {
+    cursor: not-allowed;
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    opacity: .8;
+  }
 }
