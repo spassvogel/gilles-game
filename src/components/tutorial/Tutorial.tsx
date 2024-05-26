@@ -54,6 +54,10 @@ const Tutorial = () => {
   }, [previousStep, tutorial])
 
   const step = useMemo(() => {
+    if (tutorial === -1) {
+      return null
+    }
+
     const props = {
       showSuccess: tutorial !== previousStep && !dismissed && previousStep != null,
       onToggle: handleToggle,
@@ -61,7 +65,7 @@ const Tutorial = () => {
     }
     const stepIndex = (dismissed || previousStep == null ? tutorial : (previousStep ?? tutorial))
     const Component = stepComponents[stepIndex]
-    if (Component == null || tutorial === -1) {
+    if (Component == null) {
       return null
     }
     return <Component {...props} />
