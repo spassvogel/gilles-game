@@ -6,15 +6,18 @@ import DraggableAdventurerAvatar from 'components/ui/adventurer/DraggableAdventu
 import AdventurerPanel from 'components/ui/adventurer/AdventurerPanel'
 import { renameAdventurer } from 'store/actions/adventurers'
 import { useDispatch } from 'react-redux'
+import { type TavernLodging as TavernRoomLodging } from 'store/types/structure'
+import { useAdventurer } from 'hooks/store/adventurers'
+import { useActiveQuests } from 'hooks/store/quests'
+import { formatDateTime } from 'utils/format/time'
 
 import './styles/tavernAdventurerDetails.scss'
 
 export type Props = {
-  adventurer: AdventurerStoreState
-  onQuest: boolean
   assignedAventurers: AdventurerStoreState[]
   expanded: boolean
   selectedQuestName?: string
+  roomLodging: TavernRoomLodging
 
   onClick: (adventurer: AdventurerStoreState) => void
   onAddAdventurer: (adventurer: AdventurerStoreState, index: number) => void
@@ -24,8 +27,7 @@ export type Props = {
 // Room block that has adventurer
 const RoomWithAdventurer = (props: Props) => {
   const {
-    adventurer,
-    onQuest,
+    roomLodging,
     assignedAventurers,
     expanded,
     selectedQuestName,
@@ -34,9 +36,20 @@ const RoomWithAdventurer = (props: Props) => {
     onRemoveAdventurer
   } = props
 
-  const dispatch = useDispatch()
-  const assigned = assignedAventurers.includes(adventurer) // assigned to a quest in the QuestBoard
+  const quests = useActiveQuests()
+  const getQuestByAdventurer = (adventurerId: string) => {
+    return Object.values(quests).find((quest) => {
+      return quest.party.includes(adventurerId)
+    })
+  }
 
+
+  const dispatch = useDispatch()
+  const adventurer = useAdventurer(roomLodging.adventurer)
+  const assigned = assignedAventurers.includes(adventurer) // assigned to a quest in the QuestBoard
+  const onQuest = getQuestByAdventurer(adventurer.id) != null
+
+  // todo: enable this somewhere else at some point
   const handleRename = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.stopPropagation()
     const name = prompt('Enter new name', adventurer.name)
@@ -62,11 +75,14 @@ const RoomWithAdventurer = (props: Props) => {
           <section>
             {adventurer.name}
           </section>
+          <section className="lodged-until">
+            {formatDateTime(roomLodging.paidUntil)}
+          </section>
           <section className="on-a-quest">
            {(onQuest) && TextManager.get('ui-structure-tavern-on-a-quest') }
           </section>
         </div>
-        <span className="rename" onClick={handleRename}>rename</span>
+        {/* <span className="rename" onClick={handleRename}>rename</span> */}
       </div>
       { expanded && (
         <div className="adventurer-details tavern-adventurer-details">
@@ -87,3 +103,4 @@ const RoomWithAdventurer = (props: Props) => {
 }
 
 export default RoomWithAdventurer
+

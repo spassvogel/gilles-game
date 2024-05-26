@@ -12,7 +12,6 @@ import './styles/roomList.scss'
 
 export type Props = {
   roomCount: number
-  adventurers: AdventurerStoreState[]
   assignedAventurers: AdventurerStoreState[]
   quests: QuestStoreState[]
   selectedQuestName?: string // name of selected quest
@@ -24,7 +23,6 @@ export type Props = {
 const RoomList = (props: Props) => {
   const {
     roomCount,
-    adventurers,
     assignedAventurers,
     selectedQuestName,
     onAddAdventurer,
@@ -32,12 +30,6 @@ const RoomList = (props: Props) => {
   } = props
   const [selectedAdventurer, setSelectedAdventurer] = useState<string>()
   const { lodging } = useSelector<StoreState, TavernStructureState>(store => store.structures.tavern)
-
-  const getQuestByAdventurer = (adventurerId: string): QuestStoreState | undefined => {
-    return Object.values(props.quests).find((quest) => {
-      return quest.party.includes(adventurerId)
-    })
-  }
 
   const handleAdventurerClick = (adventurer: AdventurerStoreState) => {
     if (selectedAdventurer === adventurer.id) {
@@ -47,33 +39,32 @@ const RoomList = (props: Props) => {
     }
   }
 
-  const roomContent: JSX.Element[] = []
-  for (let i = 0; i < roomCount; i++) {
-    const adventurer = adventurers.find((a) => a.id === lodging[i]?.adventurer)
-
-    if (adventurer == null) {
-      roomContent.push((
-        <RoomEmpty key={`room${i}`} />
-      ))
-      continue
+  const getRoomContent = (roomIndex: number) => {
+    const roomLodging = lodging[roomIndex]
+    if (roomLodging == null) {
+      return (
+        <RoomEmpty key={`room${roomIndex}`} />
+      )
     }
 
-    const onQuest = !(getQuestByAdventurer(adventurer.id) == null)
-
-    roomContent.push((
+    return (
       <RoomWithAdventurer
-        key={adventurer.id}
-        adventurer={adventurer}
+        key={`room${roomIndex}`}
+        roomLodging={roomLodging}
         assignedAventurers={assignedAventurers}
         selectedQuestName={selectedQuestName}
-        expanded={selectedAdventurer === adventurer.id}
-        onQuest={onQuest}
+        expanded={selectedAdventurer === roomLodging.adventurer}
 
         onClick={handleAdventurerClick}
         onAddAdventurer={onAddAdventurer}
         onRemoveAdventurer={onRemoveAdventurer}
       />
-    ))
+    )
+  }
+
+  const roomContent: JSX.Element[] = []
+  for (let i = 0; i < roomCount; i++) {
+    roomContent.push(getRoomContent(i))
   }
 
   return (
