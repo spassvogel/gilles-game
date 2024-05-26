@@ -8,6 +8,7 @@ import { getFreeRoom } from 'store/helpers/storeHelpers'
 import { type AdventurerStoreState } from 'store/types/adventurer'
 import { type TavernStructureState } from 'store/types/structure'
 import * as TextManager from 'global/TextManager'
+import { defineAssetPath } from 'utils/assets'
 
 type Props = {
   adventurerId: string
@@ -42,7 +43,8 @@ const SlotContentAdventurer = (props: Props) => {
         disabled={!canLodge}
         onClick={() => { onLodge(adventurer) }}
       >
-          Lodge
+        {TextManager.get('ui-structure-tavern-lodge')}
+        <img src={defineAssetPath('img/ui/misc/coin-single.png')} />
       </Button>
       <Button
         className="button-dismiss"
@@ -50,7 +52,7 @@ const SlotContentAdventurer = (props: Props) => {
         color="empty"
         onClick={() => { onDismiss(adventurer) }}
       >
-          Dismiss
+        {TextManager.get('ui-structure-tavern-dismiss')}
       </Button>
     </div>
   )

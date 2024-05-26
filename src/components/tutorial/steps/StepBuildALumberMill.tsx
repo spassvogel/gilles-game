@@ -72,11 +72,11 @@ const StepBuildALumberMill = (props: StepProps) => {
       flavor={<>
         <p>
           Aye, laddie, the first order o' business is tae get our stockpiles o' wood back in order. We'll need tae rebuild the lumber mill, nae doubt about it.
-      </p>
-      <p>
-        I reckon we still have the deed tucked away in our warehouse. Time tae dust it off and put it tae good use!
-        <Button color='red' onClick={handleCheat} className="button-cheat">Cheat!</Button>
-      </p>
+        </p>
+        <p>
+          I reckon we still have the deed tucked away in our warehouse. Time tae dust it off and put it tae good use!
+          <Button color='red' onClick={handleCheat} className="button-cheat">Cheat!</Button>
+        </p>
       </>}
       assignment="Construct a lumber mill using the Deed for a Lumber mill (found in the stockpile in the warehouse in town)"
       onToggle={props.onToggle}

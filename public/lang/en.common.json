@@ -615,6 +615,8 @@
   "ui-structure-tavern-button-launch-quest": "Start quest",
   "ui-structure-tavern-button-leave-quest": "Leave quest",
   "ui-structure-tavern-confirm-dismiss-adventurer": "Are you sure you wish to send {{ adventurer:name adventurer }} on {{ adventurer:pronoun-possesive adventurer }} way?",
+  "ui-structure-tavern-dismiss": "Dismiss",
+  "ui-structure-tavern-lodge": "Lodge",
   "ui-structure-tavern-next-adventurer": "Next adventurer will arrive in {{time}}",
   "ui-structure-tavern-on-a-quest": " (on a quest)",
   "ui-structure-tavern-quest-launched": "Quest started!",
