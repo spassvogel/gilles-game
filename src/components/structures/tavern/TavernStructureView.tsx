@@ -29,7 +29,6 @@ export const SOURCE_ID = 'tavern'
 // The UI for the tavern
 const TavernStructureView = () => {
   const level = useStructureState('tavern').level
-  const adventurers = useSelector<StoreState, AdventurerStoreState[]>(store => store.adventurers)
   const quests = useSelector<StoreState, QuestStoreState[]>(store => store.quests)
 
   const [assignedAventurers, setAassignedAdventurers] = useState<AdventurerStoreState[]>([])
@@ -119,7 +118,6 @@ const TavernStructureView = () => {
           <WaitingArea slotCount={levelDefinition.waitingAdventurers}/>
           <RoomList
             roomCount={levelDefinition.rooms}
-            adventurers={adventurers}
             assignedAventurers={assignedAventurers}
             quests={quests}
             selectedQuestName={selectedQuest}

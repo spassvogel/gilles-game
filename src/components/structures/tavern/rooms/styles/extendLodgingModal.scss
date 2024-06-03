@@ -1,0 +1,21 @@
+.extend-lodging-modal {
+  .days {
+    display: flex;
+    gap: 0.5rem;
+    margin: 2rem 0 1rem 0;
+
+    input {
+      width: 100%;
+      flex: 1;
+    }
+  }
+
+  .button-extend {
+    width: 100%;
+    span {
+      display: inline-flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+  }
+}

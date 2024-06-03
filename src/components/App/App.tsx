@@ -24,10 +24,11 @@ import WorldView from 'components/world/WorldView'
 // todo: actually import these as bundles?
 import 'definitions/quests/kill10Boars/encounters/dungeon'
 
-import './styles/app.scss'
 import DebugDrawer from 'components/debug/DebugDrawer'
 import { SoundManager } from 'global/SoundManager'
 import Tutorial from 'components/tutorial'
+
+import './styles/app.scss'
 
 PixiPlugin.registerPIXI(PIXI)
 gsap.registerPlugin(PixiPlugin)

@@ -1,5 +1,6 @@
 import { type PropsWithChildren } from 'react'
 import { InfoWindow } from '../InfoWindow/InfoWindow'
+
 import './styles/infoModal.scss'
 
 export type Props = {

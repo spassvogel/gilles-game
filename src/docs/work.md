@@ -957,15 +957,17 @@ Objects now inherit a lot of stuff from tiled and have a lot of unused propertie
   - [x] Ontvang 3 gratis adventurers als de Tavern gebouwd is
   - [x] Adventurers join every 24 hours 
     - [ ] (can use temporal accelerator)
-- [ ] rooms in Tavern have a gold cost
-  - [ ] higher level Tavern is more expensive
-  - [ ] cost is per day. But paying is a manual action.
-  - [ ] you can pay in advance
+- [x] rooms in Tavern have a gold cost
+  - ~~[ ] higher level Tavern is more expensive~~
+  - [x] cost is per day. But paying is a manual action.
+  - [x] you can pay in advance
   - [ ] what happens if adventurers overstay, during absence of player
   - [ ] do questing adventures pay?
         Yes: best to pay in advance, before embarking on a quest 
         Adventurers have 5 days to pay for the room + the advance. 
         If not paid after that they are dismissed. (Or jailed?)
+        alternative:
+        No: they don't pay. but their spot in the tavern is reserved
 - [x] more adventurers 
   - [x] adventurer spawn mechanic
 - [ ] combat systeem verder uitwerken

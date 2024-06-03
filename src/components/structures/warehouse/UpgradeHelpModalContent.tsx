@@ -4,6 +4,7 @@ import { type WarehouseStructureDefinition } from 'definitions/structures/types'
 import Icon from 'components/ui/common/Icon'
 import * as TextManager from 'global/TextManager'
 import { useStructureDefinition } from 'hooks/store/structures'
+
 import './styles/upgradeHelpModalContent.scss'
 
 export type Props = {

@@ -7,6 +7,10 @@
       flex: 1;
     }
 
+    .button {
+      margin-right: 0.5rem;
+    }
+
     .disabled {
       cursor: not-allowed;
       -webkit-filter: grayscale(100%);

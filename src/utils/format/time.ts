@@ -40,6 +40,24 @@ export const formatDuration = (ms: number, short = false): string => {
   })
   return output.join(' ')
 }
+export const formatDays = (ms: number, short = false): string => {
+  const timeUnitsList = [
+    { unit: short ? 'y' : 'year', amount: ONE_YEAR },
+    { unit: short ? 'w' : 'week', amount: ONE_DAY * 7 },
+    { unit: short ? 'd' : 'day', amount: ONE_DAY }
+  ]
+  let time = Math.abs(ms)
+  const output: string[] = []
+  timeUnitsList.forEach((el) => {
+    const tmp = Math.floor(time / el.amount)
+    time -= tmp * el.amount
+    if (tmp !== 0) {
+      const unit = TextManager.get(`common-time-${el.unit}${tmp > 1 && !short ? '-plural' : ''}`)
+      output.push(`${tmp}${unit}`)
+    }
+  })
+  return output.join(' ')
+}
 
 export const formatTime = (ms: number): string => {
   return new Date(ms).toLocaleTimeString()

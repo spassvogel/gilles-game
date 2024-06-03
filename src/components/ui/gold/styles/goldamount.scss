@@ -1,6 +1,7 @@
 .gold-amount {
   display: inline-flex;
   gap: 0.15rem;
+  align-items: center;
 
   &.disabled {
     cursor: not-allowed;
