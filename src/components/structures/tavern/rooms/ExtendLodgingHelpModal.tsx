@@ -77,6 +77,7 @@ const ExtendLodgingHelpModal = ({ roomLodging }: Props) => {
           onUp={handleUp}
           onDown={handleDown}
           downDisabled={days <= 0}
+          upDisabled={days >= 100}
         />
       </div>
       <div>
