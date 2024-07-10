@@ -19,7 +19,7 @@ jobs:
         id: set-tags
         run: |
           TAGS=""
-          INPUTS=$(echo "${{ toJson(github.event.inputs) }}" | jq -r 'keys[]')
+          INPUTS=$(echo "${{ toJson(github.event.inputs) }}" | jq -c 'map_values(. // empty) | keys')
 
           for INPUT in $INPUTS; do
             VALUE=$(echo "${{ toJson(github.event.inputs) }}" | jq -r --arg INPUT "$INPUT" '.[$INPUT]')
