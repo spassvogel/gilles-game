@@ -1,0 +1,37 @@
+name: Run tests manually-2
+
+on:
+  workflow_dispatch:
+    inputs:
+      arrowword:
+        type: boolean
+        required: false
+
+      sudoku:
+        type: boolean
+        required: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set selected tags variable
+        id: set-tags
+        run: |
+          TAGS=""
+          INPUTS=$(echo "${{ toJson(github.event.inputs) }}" | jq -r 'keys[]')
+
+          for INPUT in $INPUTS; do
+            if [ "${{ github.event.inputs[$INPUT] }}" == "true" ]; then
+              if [ -z "$TAGS" ]; then
+                TAGS="$INPUT"
+              else
+                TAGS="$TAGS|$INPUT"
+              fi
+            fi
+          done
+
+          echo "::set-output name=tags::$TAGS"
+
+      - name: Use the selected tags variable
+        run: echo "Selected tags ${{ steps.set-tags.outputs.tags }}"
